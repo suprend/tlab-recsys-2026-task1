@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "status": "provisional_pilot",
+  "timezone": "UTC",
+  "source": {
+    "start": "2019-10-01T00:00:00Z",
+    "end": "2019-11-01T00:00:00Z"
+  },
+  "pilot": {
+    "start": "2019-10-08T00:00:00Z",
+    "end": "2019-10-11T00:00:00Z"
+  },
+  "query": {
+    "kind": "daily_clock",
+    "hour_utc": 0,
+    "eligibility_hours": 168,
+    "eligibility_event_types": [
+      "view",
+      "cart",
+      "purchase"
+    ],
+    "sampling": "sha256_user_day_seed_before_labels",
+    "sample_seed": 2026,
+    "max_users_per_day": 2000
+  },
+  "target": {
+    "event_type": "purchase",
+    "horizon_hours": 24,
+    "include_anchor": true,
+    "include_end": false,
+    "relevance": "distinct_binary_products",
+    "maturity": "full_horizon",
+    "availability_delay_seconds": 0
+  },
+  "candidates": {
+    "catalog": "products_seen_strictly_before_query",
+    "popular_limit": 200,
+    "popular_window_hours": 168,
+    "popular_event_type": "purchase",
+    "popular_unit": "distinct_users",
+    "recent_limit": 20,
+    "recent_window_hours": 168,
+    "recent_event_types": [
+      "view",
+      "cart",
+      "purchase"
+    ],
+    "max_unique": 220,
+    "deduplicate": "product_id"
+  },
+  "history": {
+    "duplicates": "raw",
+    "ties": "global_read_before_update",
+    "metadata": "last_strict_past_ambiguity_preserved"
+  },
+  "budget": {
+    "max_anchors": 6000,
+    "max_candidate_pairs": 1320000
+  }
+}
