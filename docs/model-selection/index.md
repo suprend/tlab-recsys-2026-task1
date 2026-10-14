@@ -1,6 +1,6 @@
 # Model selection — промежуточный исследовательский пакет
 
-15 октября 2026. Сохранены6 из8 independent studies и cross-review01–04; sequential07, hybrid08 и review05–08 ещё в очереди. Эти notes не являются real training results.
+15 октября 2026. Сохранены7 из8 independent studies и cross-review01–04; hybrid08 и review05–08 ещё в очереди. Эти notes не являются real training results.
 
 | Приоритет | Исследование | Решение |
 |---|---|---|
@@ -17,3 +17,5 @@
 [Backlog](../backlog.md) · [Target research](../target-research/index.md) · [Task1](../task1-requirements.md).
 
 [Integration review M06](integration-review-06.md) закрывает sampled-loss population, actual availability и whole-timestamp-bucket cap ambiguities. Это дополнительная проверка одной note, не недостающий grouped review05–08.
+
+[07 Sequential](07-sequential.md): optional SASRec-small против last-bucket и matched pooling. Permutation-invariant timestamp buckets — явная адаптация; cap50bucket отличается от50events. Sampled loss/support и encoder availability общие, legacy code не готовый purchase-pipeline. Только08 и groupedreview05–08 остаются в этой family.
