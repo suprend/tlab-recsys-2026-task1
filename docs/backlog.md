@@ -24,7 +24,7 @@
 | TLAB-014 | P1 | in_progress | permanent research line | постоянная линия, не блокирует ядро |
 | TLAB-015 | P0 | blocked | unassigned | locked protocol + выбранные завершённые ablations |
 | TLAB-016 | P1 | blocked | unassigned | 008,009, accepted/needs-pilot HYP |
-| TLAB-017 | P0 | in_progress | root; runtime code accepted, producers sealed | actual Q/Y/C source review, F/collection acceptance before008fits |
+| TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
 
 Файлы `scripts/temporal_contract.py` и `tests/test_temporal_contract.py` принадлежат только Root до завершения001. Новые исполнители получают непересекающийся scope. Сообщение агента не является доказательством done: нужны actual files/diff/checks и независимый substantive review. Не повторять неизменные проверки после их прохождения; следующий run оправдывается новой правкой, failure либо конкретной неопределённостью.
 
@@ -183,7 +183,7 @@ Runtime collection ещё не реализована/не исполнена. �
 
 ## Актуальная сводка research и дедупликация — 15 октября 2026
 
-Сохранены56 из58 independent studies:16 features,8 target,8 user×item,10 candidate,8 model,6 loss. Готовы12 из13 grouped cross-reviews: features2/target2/useritem2/candidate2/model2/loss2. [User×item synthesis](features/09-user-item/index.md) завершён; остальные family indexes явно промежуточные. Ранние counts в хронологических sections отражают предыдущие срезы. Оставшиеся2 studies и1 review продолжаются отдельной линией; raw notes не удаляются при расхождениях.
+Сохранены58 из58 independent studies:16 features,8 target,8 user×item,12 candidate,8 model,6 loss. Готовы13 из13 grouped cross-reviews: features2/target2/useritem2/candidate3/model2/loss2. [User×item synthesis](features/09-user-item/index.md) завершён; остальные family indexes явно промежуточные. Ранние counts в хронологических sections отражают предыдущие срезы. Исходная очередь58studies/13reviews завершена; постоянные literature/generalization rounds продолжаются отдельной линией; raw notes не удаляются при расхождениях.
 
 Material amendments: historical item×category numerator вместо общего item count в category share; UserKNN N−1[u∈population] вместо безусловного N−1; latest global metadata bucket без older-clean backoff; graph group weights по retained seed mass, endpoint probabilities отдельно от visit counts. Full-Y checkpoint criterion должен реально выбирать модель. BCE all-mature и pairwise informative populations различны; native equal-label semantics не унифицированы. Review ссылки и repro находятся в family indexes.
 
@@ -228,3 +228,15 @@ Loss6+2reviews [завершены](loss-selection/index.md), без новых 
 [Model8+2reviews](model-selection/index.md) завершены, candidate10+2groupreviews опубликованы. Последние candidate11/12 и group09–12 ещё не объявлены опубликованными.085 lexical retrieval needs-pilot как sourceprotocol с matchedidentity/prefix/expansion;086 dense retrieval deferred до lexical residual/resourcegate.079/080/081/082/083/084 reserved без сформулированных новых hypotheses.
 
 Sourceoracle017: train26000Q/619Y/5317058C/496positive/444retrieved, selection4000Q/96Y/817149C/73positive/65retrieved; все Q/Y/C source-rebuilt,6externalshardapprovals выданы. Train F fullrowset=5317058C,78sourcepairs×18=1404formulachecks PASS; finalcollectionacceptance ещё ожидает complete audit/selectionFchecks.008 review обнаружил смену outputroot для повторныхfits и config parse/plan mismatch; Root исправляет, realfitapproval не выдан. Strong-control/016 nextplan остаётся proposal, budget не расширен.
+
+
+### Исходный исследовательский портфель завершён — 15 октября 2026
+
+Врепозитории58independentstudies,13groupedreviews и6familyindexes: [features16+2](features/index.md), [target8+2](target-research/index.md), [user×item8+2](features/09-user-item/index.md), [candidates12+3](candidate-generation/index.md), [models8+2](model-selection/index.md), [loss6+2](loss-selection/index.md). Дополнительныеintegrationaudits/literaturecritics неувеличиваютэтотcount. Разногласия/rawnotes иrejected/duplicateHYP сохранены; исходныеplanningbudgets не сталиаддитивнымиpermissions. Постоянная researchлиния продолжаетround003/004, исполнениенеожидаетновойэнциклопедии.
+
+Следующиеprioritygates: 008revisedcodeacceptance→двухfitSMOKE→singlemetadata-price009design/100Qcost/≤1ablationfit внутриexisting009cap→featuresfreeze→boundedstrongtuning→016. Толькопослеprospectivepositivegap иactualdecisionfreeze однократнаяconfirmation. Никакихrealmodelqualityclaims здесьнет.
+
+
+### TLAB-017 done — 15 октября 2026
+
+[Independentcollectionaudit](backlog-reviews/tlab017-collection-verification.md) принимает обе immutable train/selection collections:26000/4000Q,619/96Y,5317058/817149C=F. Exhaustive Q/Y/C source reconciliation и1620numeric F comparisons, exactrowset/lineage/ranges,82/30externalpins. Production119.131s cumulativewall sum, spill0, RSS within8GiB; enginebuffer>requested2GB неhardcap. ActualCPU secondsнеизмереныотдельно, остаток6CPUh невыдумываем.008datasetgateснят; revisedtrainingcode+atomicfitconsumptionapproval ещёобязательны, realfitsнет.009будетоднимboundedmetadata/priceblock послеsmoke идоstrongtuning;≤1ablationfit внутриexisting009cap, безбесконечногоmanualgrowth.

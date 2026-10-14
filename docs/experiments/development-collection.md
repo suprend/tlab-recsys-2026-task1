@@ -1,6 +1,6 @@
 # Расширение development-данных отдельными фазами
 
-15 октября 2026. TLAB-017: первая итерация контракта и плана принята; вторая добавляет исполнение с независимой приёмкой каждой части. **Runtime code принят после независимого fault review; новые реальные коллекции ещё не приняты.** TLAB-017 ещё не завершён.
+15 октября 2026. TLAB-017: первая итерация контракта и плана принята; вторая добавляет исполнение с независимой приёмкой каждой части. **Runtime code и реальные train/selection collections приняты независимо; TLAB-017 завершён.** Это не обученный boosting и не открытие confirmation.
 
 Принятые temporal/protocol/anchor/candidate модули не изменяются. Вместо одного увеличенного v1-пилота фазовый контракт составляет несколько обычных v1 shards по 1–3 дня. Каждый shard сохраняет те же eligibility, seed, endpoints, candidates и сырой history policy. Это позволяет сохранить исходные ограничения и проверять стоимость каждой части.
 
@@ -60,3 +60,8 @@ Confirmation runtime пока отказывает до fingerprint/чтения
 Coordinator отдельно сверил текущие source/code/config/new-lock pins и выдал14-pin producer approvals: train collection5fdc4dce…8b918 (5shards), selectionc2c6ba09…81b74 (1shard). Разрешён только bounded pass до waiting_for_shard_review. Actual Q/Y/C source reconstruction, затем F numeric spotchecks/complete collection acceptance ещё обязательны. Source DB совпал с предыдущим accepted SHA; старые acceptance pins не перезаписаны. Currentuv.lock4675021…85eab — новая lineage. Approvals/data artifacts ignored.
 
 Confirmation runtime закрыт. Decision-compute gap после selection labels24Oct00 до firstconfirmation24Oct00 не обеспечен; до freeze требуется prospectively reviewed schedule change/actualdecision availability. Producer approval не разрешает confirmation и не выдаёт017done/008fit автоматически.
+
+
+## Реальные collection outputs приняты — 15 октября 2026
+
+[Полный source/formula/provenance audit](../backlog-reviews/tlab017-collection-verification.md): train26000Q/619Y/5317058C=F, selection4000Q/96Y/817149C=F. Все Q/Y/C реконструированы независимо;90sourcepairs×18core=1620numericchecks прошли.82/30-pin externalcollectionapprovals выданы, старыеpins сохранены. Production invocation wall99.363/19.768s, peakRSS2.52/1.97GiB, spill0; enginehighwater вышеrequested2GB, hardcapclaimнет. Confirmation закрыт;008code/fitpermit иtunedB/automation ещёотдельныеgates.
