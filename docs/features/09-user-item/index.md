@@ -1,22 +1,27 @@
 # User × item: совместимость в двух направлениях
 
-15 октября 2026. Промежуточная публикация: готовы5 из8 независимых исследований; два cross-review ещё не завершены. Raw notes сохранены, их предложения не являются принятыми экспериментами.
+15 октября 2026. Завершены8 независимых исследований и2 независимых cross-review. Исходные notes сохранены; material corrections явно отмечены appendix. Это исследовательский синтез, не измеренный прирост и не автоматическое разрешение всех экспериментов.
 
-| Направление | Готовые исследования |
+| Направление | Исследования |
 |---|---|
-| Кандидат относительно прошлых интересов пользователя | [Direct history](01-direct.md), [item neighbors](02-item-neighbors.md), [interest profile](04-interest-profile.md) |
-| Пользователь относительно аудитории кандидата | [User neighbors](03-user-neighbors.md), [item audience](05-item-audience.md) |
+| Кандидат относительно истории пользователя | [01 direct history](01-direct.md), [02 ItemCF](02-item-neighbors.md), [04 interest profile](04-interest-profile.md) |
+| Пользователь относительно аудитории кандидата | [03 UserKNN](03-user-neighbors.md), [05 audience](05-item-audience.md) |
+| Общее пространство и конструирование | [06 learned space](06-learned-space.md), [07 typed crosses](07-cross-construction.md), [08 graphs/multi-interest](08-graphs-multi-interest.md) |
 
 ```mermaid
 flowchart LR
-  H[Past user history] --> P[Interest / item-neighbor profile]
-  I[Candidate item] --> P
-  U[Query user] --> A[Other-user / item audience compatibility]
-  I --> A
-  P --> S[Scalar features on fixed candidates]
-  A --> S
+ H[Past user history] --> P[Interest / item-neighbor profile]
+ I[Candidate item] --> P
+ U[Query user] --> A[Other-user / item audience compatibility]
+ I --> A
+ P --> S[Scalar features on fixed candidates]
+ A --> S
 ```
 
-Текущий compact MVP — direct counts/recency и exact category affinity в manual005. После общего review допустим bounded ItemCF mean/max/support на fixed C (TLAB012), сначала100 queries/cost gate. User-neighbor, audience и dense/profile ветви пока предложения. Similarity не означает complementarity или causal preference; self-exclusion зависит от заявленной семантики. Cold/missing/support сохраняются, параметры snapshots доступны до anchor, full Y/candidates неизменны внутри feature ablation. Learned-space, cross-construction, multi-interest/graph исследования, затем2 reviews и полный синтез остаются в очереди.
+[Review 01–04](review-01-04.md) и [review 05–08](review-05-08.md) согласуют компактный MVP: принятый manual18, затем один bounded ItemCF mean/max/support pilot на fixed C. Direct pair counts/recencies уже реализованы в005; добавлять повторные колонки не нужно. UserKNN, pre-action audience, ALS и graph extensions остаются альтернативными ветвями с собственным cost gate, а не обязательным ансамблем. Общая category share использует historical item×category numerator; категория ID сохраняется и без readable code. Self-exclusion определяется смыслом «другая аудитория», а не универсальным запретом собственной истории.
 
-[Канонический backlog](../../backlog.md) · [Feature synthesis](../index.md).
+Нулевая cooccurrence отличается от отсутствующего top-K edge; missing/OOV, low support и zero norm имеют flags. Latest global metadata bucket<t включает все строки секунды, NULL/conflict без older-clean backoff. Fitted vocabulary/factors/priors доступны до первого downstream anchor, history обновляется отдельно. При изменении цены/metadata item-vector cache требует версии. ALS fold-in сравнивается с pooling на тех же V; HYP051/056 — одно семейство. Graph mixture weights считают retained seed mass; endpoint probabilities не заменяют visit counts. Typed grammar усиливает HYP002/TLAB016, mature target-rate encoders deferred.
+
+Feature ablation сохраняет Q/C/full Y; retrieval меняет C и отдельно измеряет marginal coverage. Full Y вне C остаётся miss, zero-purchase queries сохраняются. Selection22–23 отделён от locked confirmation24–25; новые fits не используют confirmation. Similarity не доказывает complementarity или причинное предпочтение. Следующее решение — какой один P1 mechanism оправдан после tuned boosting и resource pilot; исходные авторские budgets не складываются.
+
+[Backlog](../../backlog.md) · [Feature synthesis](../index.md) · [Embedding protocol](../../embedding-experiments.md).
