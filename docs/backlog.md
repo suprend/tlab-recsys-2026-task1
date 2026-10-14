@@ -240,3 +240,10 @@ Sourceoracle017: train26000Q/619Y/5317058C/496positive/444retrieved, selection40
 ### TLAB-017 done — 15 октября 2026
 
 [Independentcollectionaudit](backlog-reviews/tlab017-collection-verification.md) принимает обе immutable train/selection collections:26000/4000Q,619/96Y,5317058/817149C=F. Exhaustive Q/Y/C source reconciliation и1620numeric F comparisons, exactrowset/lineage/ranges,82/30externalpins. Production119.131s cumulativewall sum, spill0, RSS within8GiB; enginebuffer>requested2GB неhardcap. ActualCPU secondsнеизмереныотдельно, остаток6CPUh невыдумываем.008datasetgateснят; revisedtrainingcode+atomicfitconsumptionapproval ещёобязательны, realfitsнет.009будетоднимboundedmetadata/priceblock послеsmoke идоstrongtuning;≤1ablationfit внутриexisting009cap, безбесконечногоmanualgrowth.
+
+
+### Research/design updates после58-noteportfolio — 15 октября 2026
+
+[Round003+critic](research-lab/round-003.md), [Round004](research-lab/round-004.md), [Round005](research-lab/round-005.md) сохранены.003designaccepted,004/005criticpending; datasetlicenses/metadataavailability неизвестные явноотмечены, никакихdownloads.091–098reserved, refinements002/046 невыдаютсязановыеHYP. Слабыйdomainprior в016 не называетсяобученнымintelligence;2seeds недостаточныдляsuperioritystrategyclaim.
+
+[Rawstrong/016proposal+canonicalamendment](backlog-reviews/strong-control-automation-proposal.md):4arms2I+2R×3ACTUALcols inclflags/support/coverage, onebundleattempt, fullfrozenBdedup (including004buyer-score), nofreereplacements/selector/fits. Execution/calendar/CPUledger approval ещёотдельные. 009DESIGN [original+acceptedsemanticamendment](backlog-reviews/metadata-price-design.md), [independentcritic](backlog-reviews/metadata-price-design-review.md) и [actualsyntheticAPIproof](experiments/metadata-price-api-proof.md) сохранены:3nominal+15numeric, NON-NULLvszero/nonfinite, piecewiseLOO, exactconditionalstates. После008smoke —100Qsource/costgate,≤1ablationfit внутри009, затемfreeze/tuning/016; sourcebaseartifacts не меняются.
