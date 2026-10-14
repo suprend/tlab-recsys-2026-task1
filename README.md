@@ -36,6 +36,8 @@ pyproject.toml, uv.lock    зафиксированное окружение
 
 NLP: [план сравнений](docs/nlp-experiments.md), [BM25 и TF–IDF](docs/nlp-bm25.md), [токенизация категорий и брендов](docs/nlp-tokenization.md).
 
+Исследования событийных признаков: [16 независимых записок, ревью и план отбора](docs/features/index.md).
+
 Поведенческие эмбеддинги: [ARGUS и общая идея](docs/argus.md), [компактные модели истории](docs/sequential-embeddings.md), [протокол сравнения с бустингом](docs/embedding-experiments.md).
 
 ## Границы исследования
