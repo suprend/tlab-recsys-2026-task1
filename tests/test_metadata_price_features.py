@@ -297,4 +297,226 @@ class MetadataPriceTests(unittest.TestCase):
             with self.assertRaises(ValueError):m.validate_spec(value)
 
 
+
+
+class MetadataGateTests(unittest.TestCase):
+    def setUp(self):
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        import json
+        self.temp=TemporaryDirectory();self.addCleanup(self.temp.cleanup)
+        self.root=Path(self.temp.name)
+        self.patch=patch.object(m,'ROOT',self.root);self.patch.start();self.addCleanup(self.patch.stop)
+        for name in [*m.GATE_CODE,'pyproject.toml']:
+            path=self.root/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text('fixture '+name)
+        self.spec_path=self.root/'configs/features/metadata-price.json';self.spec_path.parent.mkdir(parents=True)
+        self.spec_path.write_text(json.dumps(m.SPEC))
+        self.acceptance=self.root/'accepted.json';self.acceptance.write_text('{}')
+        self.approval=self.root/'gate.json'
+        self.source=self.root/'source.duckdb'
+        c=duckdb.connect(str(self.source));c.execute('''CREATE TABLE events(event_time TIMESTAMP,
+            product_id BIGINT,user_id BIGINT,category_id BIGINT,category_code VARCHAR,brand VARCHAR,price DOUBLE)''')
+        c.executemany('INSERT INTO events VALUES (?,?,?,?,?,?,?)',[(S,1,11,10,'code','a',9.),(S,2,12,10,'code','b',99.),
+            (T-timedelta(seconds=1),1,11,10,'code','a',9.),(T-timedelta(seconds=1),2,12,10,'code','b',99.)])
+        c.execute('CREATE TABLE q(query_id VARCHAR,user_id BIGINT,anchor TIMESTAMP)')
+        c.executemany('INSERT INTO q VALUES (?,?,?)',[(f'q{day}-{i}',1000+day*200+i,T+timedelta(days=day)) for day in [0,1] for i in range(70)])
+        c.execute('''CREATE TABLE f AS SELECT query_id,1::BIGINT product_id,10::BIGINT candidate_category_id,
+            false candidate_category_ambiguous,false candidate_category_missing FROM q''')
+        c.execute('COPY q TO ? (FORMAT PARQUET)',[str(self.root/'q.parquet')]);c.execute('COPY f TO ? (FORMAT PARQUET)',[str(self.root/'f.parquet')]);c.close()
+        self.collection=dict(phase=dict(role='train',lock_required=False),pins={},refs=dict(queries=['q.parquet'],features=['f.parquet']),
+            plan=dict(collection_id='c'*64,execution_inputs=dict(source_path='source.duckdb'),
+                identity=dict(shard_protocols=[dict(source=dict(start='2019-10-01T00:00:00Z',end='2019-11-01T00:00:00Z'))])))
+        self.verify=patch('scripts.train_baselines.verify_collection',side_effect=lambda *args,**kwargs:deepcopy(self.collection))
+        self.verify.start();self.addCleanup(self.verify.stop)
+
+    def approve(self):
+        import json
+        plan,_=m.prepare_gate_plan(self.acceptance,self.spec_path)
+        self.approval.write_text(json.dumps(dict(version=1,approved=True,scope=m.GATE_ROLE,
+            run_id=plan['run_id'],fingerprints=plan['identity']['fingerprints'])))
+        return plan
+
+    def run_gate(self):
+        return m.run_gate(self.acceptance,self.spec_path,gate_approval_path=self.approval)
+
+    def reports(self):
+        import json
+        return [json.loads(p.read_text()) for p in (self.root/'artifacts/metadata-price').glob('*/report.json')]
+
+    def test_actual_tiny_gate_exports_keys_reference_schema_and_cpu_no_labels_no_fits(self):
+        plan=self.approve();report=self.run_gate()
+        self.assertEqual(report['status'],'complete_produced_unreviewed')
+        self.assertEqual(report['fit_attempt_count'],0);self.assertFalse(report['labels_loaded'])
+        self.assertEqual(report['query_selection']['queries'],100)
+        self.assertEqual([x['queries'] for x in report['query_selection']['by_day']],[50,50])
+        self.assertEqual(report['matrix']['numeric_shape'],[100,15]);self.assertEqual(report['matrix']['nominal_shape'],[100,3])
+        self.assertGreaterEqual(report['process_cpu_user_system_seconds'],0)
+        self.assertTrue(all('process_cpu_user_system_seconds' in r for r in report['stages']))
+        import json
+        manifest=json.loads((self.root/'artifacts/metadata-price'/plan['run_id']/'run.json').read_text())
+        self.assertEqual(manifest['outputs'],report['artifacts'])
+        self.assertEqual(set(manifest['outputs']),{'queries','features','provenance','reference'})
+        with self.assertRaises(FileExistsError):self.run_gate()
+        self.assertEqual([r['status'] for r in self.reports()].count('complete_produced_unreviewed'),1)
+
+    def test_round_robin_balanced13days_unequal_and_labels_not_loaded(self):
+        c=duckdb.connect(':memory:');self.addCleanup(c.close)
+        c.execute('CREATE TABLE mp_all_queries(query_id VARCHAR,user_id BIGINT,anchor TIMESTAMP)')
+        c.executemany('INSERT INTO mp_all_queries VALUES (?,?,?)',[(f'{day}:{i}',day*100+i,T+timedelta(days=day)) for day in range(13) for i in range(20)])
+        result=m.choose_gate_queries(c)
+        self.assertEqual([r['queries'] for r in result['by_day']],[8]*9+[7]*4)
+        first=result['query_key_sha256']
+        c.execute('CREATE TABLE labels(query_id VARCHAR,target BIGINT)');c.execute("INSERT INTO labels VALUES ('0:1',999)")
+        self.assertEqual(m.choose_gate_queries(c)['query_key_sha256'],first)
+        c.execute('DELETE FROM mp_all_queries');c.executemany('INSERT INTO mp_all_queries VALUES (?,?,?)',[
+            (f'{day}:{i}',day*100+i,T+timedelta(days=day)) for day,size in enumerate([1,3,120]) for i in range(size)])
+        result=m.choose_gate_queries(c)
+        self.assertEqual([r['queries'] for r in result['by_day']],[1,3,96])
+        import hashlib
+        import json
+        ordered=[]
+        for day,size in enumerate([1,3,120]):
+            ids=sorted((f'{day}:{i}' for i in range(size)),key=lambda q:(hashlib.sha256(q.encode()).hexdigest(),q))
+            ordered.extend((rank,day,q) for rank,q in enumerate(ids))
+        expected=sorted(q for _,_,q in sorted(ordered)[:100])
+        actual=[r[0] for r in c.execute('SELECT query_id FROM metadata_queries ORDER BY query_id').fetchall()]
+        self.assertEqual(actual,expected)
+        self.assertEqual(result['query_key_sha256'],hashlib.sha256(m.canonical_json(expected).encode()).hexdigest())
+
+    def test_train_only_exact_approval_schema_and_actual_helper_pins(self):
+        import json
+        self.collection['phase']['role']='selection'
+        with self.assertRaisesRegex(ValueError,'train'):m.prepare_gate_plan(self.acceptance,self.spec_path)
+        self.collection['phase']['role']='train'
+        for mode in ['missing','extra','digest','approved_type','version_type']:
+            self.approve();approval=json.loads(self.approval.read_text())
+            if mode=='missing':approval['fingerprints'].pop('uv.lock')
+            elif mode=='extra':approval['fingerprints']['extra.py']='a'*64
+            elif mode=='digest':approval['fingerprints']['uv.lock']='b'*64
+            elif mode=='approved_type':approval['approved']=1
+            else:approval['version']=True
+            self.approval.write_text(json.dumps(approval))
+            with self.subTest(mode=mode),self.assertRaisesRegex(ValueError,'approval'):self.run_gate()
+            self.assertFalse(any((self.root/'artifacts/metadata-price').glob('*/features.parquet')))
+        self.collection['pins']={'uv.lock':'0'*64}
+        with self.assertRaisesRegex(ValueError,'Accepted'):m.prepare_gate_plan(self.acceptance,self.spec_path)
+
+    def test_spec_snapshot_drift_and_body_change_refused_before_source(self):
+        from unittest.mock import patch
+        import json
+        self.approve()
+        body=deepcopy(m.SPEC);body['reference_hours']=24;self.spec_path.write_text(json.dumps(body))
+        with self.assertRaisesRegex(ValueError,'spec'):self.run_gate()
+        self.spec_path.write_text(json.dumps(m.SPEC))
+        original=m._json_snapshot
+        def changed(path):
+            result=original(path)
+            if path.resolve()==self.spec_path.resolve():path.write_text(json.dumps(m.SPEC)+' ')
+            return result
+        with patch.object(m,'_json_snapshot',side_effect=changed),self.assertRaisesRegex(ValueError,'changed'):m.prepare_gate_plan(self.acceptance,self.spec_path)
+
+    def test_failure_before_open_and_cpu_counter_failure_preserve_audit(self):
+        from unittest.mock import patch
+        self.approve()
+        with patch('duckdb.connect',side_effect=OSError('open fault')),self.assertRaisesRegex(OSError,'open fault'):self.run_gate()
+        self.assertEqual(self.reports()[-1]['status'],'failed')
+        with patch.object(m,'_process_cpu_seconds',side_effect=OSError('CPU counter fault')),self.assertRaisesRegex(OSError,'CPU counter fault'):self.run_gate()
+        failed=[r for r in self.reports() if r.get('cpu_measurement_error')]
+        self.assertEqual(len(failed),1);self.assertEqual(failed[0]['status'],'failed');self.assertIsNone(failed[0]['process_cpu_user_system_seconds'])
+
+    def test_terminal_pin_change_prevents_complete_and_preserves_partial_exports(self):
+        from unittest.mock import patch
+        self.approve();original=m.model_arrays
+        def changed(*args,**kwargs):
+            result=original(*args,**kwargs)
+            (self.root/'uv.lock').write_text('changed during SQL')
+            return result
+        with patch.object(m,'model_arrays',side_effect=changed),self.assertRaisesRegex(ValueError,'changed during'):self.run_gate()
+        report=self.reports()[0];self.assertEqual(report['status'],'failed')
+        self.assertTrue((self.root/report['artifacts']['features']['path']).exists())
+
+    def test_output_schema_reference_provenance_faults_and_pair_cap_before_allocation(self):
+        from unittest.mock import patch
+        self.approve();original=m.create_metadata_price_features
+        def corrupted(con,*args,**kwargs):
+            result=original(con,*args,**kwargs)
+            con.execute('DELETE FROM metadata_price_reference')
+            return result
+        with patch.object(m,'create_metadata_price_features',side_effect=corrupted),self.assertRaisesRegex(ValueError,'membership'):self.run_gate()
+        self.assertFalse(any((self.root/'artifacts/metadata-price').glob('*/features.parquet')))
+
+    def test_pair_cap_before_snapshot_arrays_or_export(self):
+        from unittest.mock import patch
+        c=duckdb.connect(str(self.source))
+        c.execute('''CREATE OR REPLACE TABLE expanded AS SELECT q.query_id,r.product_id::BIGINT product_id,
+            10::BIGINT candidate_category_id,false candidate_category_ambiguous,false candidate_category_missing
+            FROM q CROSS JOIN range(1,222) r(product_id)''')
+        c.execute('COPY expanded TO ? (FORMAT PARQUET)',[str(self.root/'expanded.parquet')]);c.close()
+        self.collection['refs']['features']=['expanded.parquet']
+        self.approve()
+        with patch.object(m,'model_arrays',side_effect=AssertionError('allocation should not run')),self.assertRaisesRegex(ValueError,'budget'):self.run_gate()
+        self.assertFalse(any((self.root/'artifacts/metadata-price').glob('*/features.parquet')))
+
+    def test_missing_provenance_column_rejected_before_model_arrays(self):
+        from unittest.mock import patch
+        self.approve();original=m.create_metadata_price_features
+        def corrupted(con,*args,**kwargs):
+            result=original(con,*args,**kwargs)
+            con.execute('ALTER TABLE metadata_price_provenance DROP COLUMN latest_code')
+            return result
+        with patch.object(m,'create_metadata_price_features',side_effect=corrupted),self.assertRaisesRegex(ValueError,'schema'):self.run_gate()
+        self.assertFalse(any((self.root/'artifacts/metadata-price').glob('*/features.parquet')))
+
+    def test_timeout_before_preparation_persists_attempt_no_export(self):
+        from unittest.mock import patch
+        self.approve()
+        with patch.object(m.RunDeadline,'check',side_effect=TimeoutError('deadline fault')),self.assertRaisesRegex(TimeoutError,'deadline fault'):self.run_gate()
+        report=self.reports()[0]
+        self.assertEqual(report['status'],'failed');self.assertEqual(report['error_type'],'TimeoutError')
+        self.assertFalse(any((self.root/'artifacts/metadata-price').glob('*/features.parquet')))
+
+    def test_close_time_overrun_is_failed_audit_and_raises(self):
+        from unittest.mock import patch
+        self.approve();real_connect=duckdb.connect;real_clock=m.time.monotonic
+        offset=[0.]
+        class Connection:
+            def __init__(self,con):self.con=con
+            def __getattr__(self,name):return getattr(self.con,name)
+            def close(self):
+                self.con.close();offset[0]+=700
+        with patch('duckdb.connect',side_effect=lambda *a,**kw:Connection(real_connect(*a,**kw))),patch.object(m.time,'monotonic',side_effect=lambda:real_clock()+offset[0]):
+            with self.assertRaisesRegex(TimeoutError,'deadline'):self.run_gate()
+        report=self.reports()[0]
+        self.assertEqual(report['status'],'failed');self.assertGreater(report['seconds'],700)
+        self.assertEqual(report['error_type'],'TimeoutError');self.assertTrue(report['terminal_errors'])
+
+    def test_close_rss_overrun_is_failed_audit_and_raises(self):
+        from unittest.mock import patch
+        self.approve();real_connect=duckdb.connect;real_rss=m.peak_rss_bytes
+        closed=[False]
+        class Connection:
+            def __init__(self,con):self.con=con
+            def __getattr__(self,name):return getattr(self.con,name)
+            def close(self):
+                self.con.close();closed[0]=True
+        with patch('duckdb.connect',side_effect=lambda *a,**kw:Connection(real_connect(*a,**kw))),patch.object(m,'peak_rss_bytes',side_effect=lambda:8*2**30+1 if closed[0] else real_rss()):
+            with self.assertRaisesRegex(MemoryError,'RSS'):self.run_gate()
+        report=self.reports()[0]
+        self.assertEqual(report['status'],'failed');self.assertEqual(report['process_peak_rss_bytes'],8*2**30+1)
+        self.assertEqual(report['error_type'],'MemoryError')
+
+    def test_close_error_preserves_failed_audit_and_root_cause(self):
+        from unittest.mock import patch
+        self.approve();real_connect=duckdb.connect
+        class Connection:
+            def __init__(self,con):self.con=con
+            def __getattr__(self,name):return getattr(self.con,name)
+            def close(self):
+                self.con.close();raise OSError('close fault')
+        with patch('duckdb.connect',side_effect=lambda *a,**kw:Connection(real_connect(*a,**kw))),self.assertRaisesRegex(OSError,'close fault'):self.run_gate()
+        report=self.reports()[0]
+        self.assertEqual(report['status'],'failed');self.assertEqual(report['error_type'],'OSError')
+
+
 if __name__=='__main__':unittest.main()

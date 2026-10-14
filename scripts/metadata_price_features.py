@@ -244,3 +244,322 @@ def validate_train_cardinality(nominal, *, maximum=4096):
         if counts[name] > maximum:
             raise ValueError('Encoded train cardinality exceeds one-hot ceiling: '+name)
     return counts
+
+
+# The only executable scope in v1 is this reviewed100-query diagnostic.
+# Full exports and the one ablation fit need separate prospective approval.
+from pathlib import Path
+import hashlib
+import json
+import math
+import resource
+import time
+import uuid
+
+from scripts.protocol_manifest import (canonical_json,sha256_file,_read_json,_unique_object,
+                                      _reject_constant,_relative_path,_utc)
+from scripts.anchor_pilot import RunDeadline,StageLedger,peak_rss_bytes,directory_bytes,naive_utc
+from scripts.development_collection import _atomic_json
+
+ROOT=Path(__file__).resolve().parents[1]
+GATE_ROLE='metadata_price_100q_source_cost_gate'
+GATE_CODE=('uv.lock','scripts/metadata_price_features.py','scripts/train_baselines.py',
+           'scripts/development_collection.py','scripts/protocol_manifest.py',
+           'scripts/anchor_pilot.py','scripts/temporal_contract.py')
+
+
+def _gate_local(name):
+    _relative_path(name)
+    path=(ROOT/name).resolve()
+    path.relative_to(ROOT.resolve())
+    return path
+
+
+def _gate_relative(path):
+    return Path(path).resolve().relative_to(ROOT.resolve()).as_posix()
+
+
+def _json_snapshot(path):
+    raw=Path(path).read_bytes()
+    body=json.loads(raw,object_pairs_hook=_unique_object,parse_constant=_reject_constant)
+    return body,hashlib.sha256(raw).hexdigest()
+
+
+def prepare_gate_plan(acceptance_path,spec_path,*,check=_no_budget_check):
+    """Read-only plan preparation is not approval for source materialization."""
+    from scripts.train_baselines import verify_collection
+    spec_path=Path(spec_path).resolve()
+    spec,digest=_json_snapshot(spec_path)
+    validate_spec(spec)
+    collection=verify_collection(acceptance_path,check=check)
+    if collection['phase']['role']!='train' or collection['phase']['lock_required']:
+        raise ValueError('Metadata100Q gate may open only the accepted train collection')
+    pins=dict(collection['pins'])
+    for name in [*GATE_CODE,_gate_relative(spec_path),'pyproject.toml']:
+        check()
+        actual=sha256_file(_gate_local(name))
+        if name==_gate_relative(spec_path) and actual!=digest:
+            raise ValueError('Metadata spec changed during plan preparation')
+        if name in pins and actual!=pins[name]:
+            raise ValueError('Accepted input/helper changed: '+name)
+        pins[name]=actual
+        check()
+    identity=dict(version=1,role=GATE_ROLE,spec=spec,
+        collection_id=collection['plan']['collection_id'],fingerprints=pins,
+        query_selection='bottom_sha256_query_id_per_day_then_round_robin_day_rank_anchor_query_id_100',
+        label_policy='no_label_table_loaded_or_parsed',
+        outputs='fixed_keys_3nominal_15numeric_separate_provenance_and_full_reference_no_model')
+    return dict(run_id=hashlib.sha256(canonical_json(identity).encode()).hexdigest(),identity=identity),collection
+
+
+def choose_gate_queries(con):
+    """Reads mp_all_queries only; the policy cannot depend on fullY or C."""
+    con.execute('''CREATE OR REPLACE TEMP TABLE metadata_queries AS
+        SELECT * EXCLUDE(day_rank) FROM (
+            SELECT *,row_number() OVER(PARTITION BY anchor ORDER BY sha256(query_id),query_id) day_rank
+            FROM mp_all_queries) ORDER BY day_rank,anchor,query_id LIMIT 100''')
+    n,days=con.execute('SELECT count(*),count(DISTINCT anchor) FROM metadata_queries').fetchone()
+    expected=min(100,con.execute('SELECT count(*) FROM mp_all_queries').fetchone()[0])
+    if n!=expected or n==0 or days<2:
+        raise ValueError('Metadata gate requires nonempty deterministic multi-day sample')
+    by_day=[dict(anchor=t.strftime('%Y-%m-%dT%H:%M:%SZ'),queries=count) for t,count in
+            con.execute('SELECT anchor,count(*) FROM metadata_queries GROUP BY anchor ORDER BY anchor').fetchall()]
+    keys=[r[0] for r in con.execute('SELECT query_id FROM metadata_queries ORDER BY query_id').fetchall()]
+    return dict(queries=n,days=days,by_day=by_day,
+                query_key_sha256=hashlib.sha256(canonical_json(keys).encode()).hexdigest())
+
+
+def _process_cpu_seconds():
+    usage=resource.getrusage(resource.RUSAGE_SELF)
+    value=float(usage.ru_utime+usage.ru_stime)
+    if not math.isfinite(value) or value<0:
+        raise ValueError('CPU user/system measurement unavailable')
+    return value
+
+
+def validate_gate_outputs(con):
+    """Schema and relational output boundary, independent of stage success."""
+    feature_types={'log_price':'DOUBLE','category_peer_log_price_mean':'DOUBLE',
+        'category_peer_product_support':'BIGINT','category_log_price_difference':'DOUBLE'}
+    expected={
+        'metadata_price_features':[('query_id','VARCHAR'),('product_id','BIGINT')]
+            +[(n,'VARCHAR') for n in NOMINAL]+[(n,feature_types.get(n,'BOOLEAN')) for n in NUMERIC],
+        'metadata_price_provenance':[('query_id','VARCHAR'),('product_id','BIGINT'),('anchor','TIMESTAMP'),
+            ('latest_timestamp','TIMESTAMP'),('category_id','BIGINT'),('category_ambiguous','BOOLEAN'),
+            ('latest_code','VARCHAR'),('latest_code_ambiguous','BOOLEAN'),('latest_brand','VARCHAR'),
+            ('latest_brand_ambiguous','BOOLEAN'),('latest_price','DOUBLE'),('latest_price_ambiguous','BOOLEAN'),
+            ('dictionary_code','VARCHAR'),('dictionary_code_count','BIGINT'),('dictionary_first_known','TIMESTAMP'),('in_reference','BOOLEAN')],
+        'metadata_price_reference':[('anchor','TIMESTAMP'),('product_id','BIGINT'),('category_id','BIGINT'),('log_price','DOUBLE')]
+    }
+    for table,schema in expected.items():
+        if [tuple(r[:2]) for r in con.execute('DESCRIBE '+table).fetchall()]!=schema:
+            raise ValueError('Metadata output schema/order mismatch: '+table)
+    for table in ['metadata_price_features','metadata_price_provenance']:
+        n,unique=con.execute('SELECT count(*),count(DISTINCT (query_id,product_id)) FROM '+table).fetchone()
+        pairs=con.execute('SELECT count(*) FROM metadata_pairs').fetchone()[0]
+        mismatch=con.execute('''SELECT count(*) FROM (
+            (SELECT query_id,product_id FROM metadata_pairs EXCEPT SELECT query_id,product_id FROM '''+table+''')
+            UNION ALL (SELECT query_id,product_id FROM '''+table+''' EXCEPT SELECT query_id,product_id FROM metadata_pairs))''').fetchone()[0]
+        if n!=pairs or n!=unique or mismatch:
+            raise ValueError('Metadata output key cover mismatch: '+table)
+    if con.execute('''SELECT count(*) FROM metadata_price_provenance p JOIN metadata_queries q USING(query_id)
+        WHERE p.anchor IS DISTINCT FROM q.anchor OR p.latest_timestamp>=q.anchor OR p.dictionary_first_known>=q.anchor
+        OR p.category_ambiguous IS NULL OR p.latest_code_ambiguous IS NULL OR p.latest_brand_ambiguous IS NULL
+        OR p.latest_price_ambiguous IS NULL OR p.in_reference IS NULL OR p.dictionary_code_count IS NULL
+        OR p.dictionary_code_count<0''').fetchone()[0]:
+        raise ValueError('Provenance strict-past/resolution boundary invalid')
+    n,unique=con.execute('SELECT count(*),count(DISTINCT (anchor,product_id)) FROM metadata_price_reference').fetchone()
+    invalid=con.execute('''SELECT count(*) FROM metadata_price_reference r
+        LEFT JOIN (SELECT DISTINCT anchor FROM metadata_queries) q USING(anchor)
+        WHERE q.anchor IS NULL OR r.product_id IS NULL OR r.category_id IS NULL OR r.log_price IS NULL
+        OR NOT isfinite(r.log_price) OR r.log_price<0''').fetchone()[0]
+    if n!=unique or invalid:
+        raise ValueError('Full reference product key/value boundary invalid')
+    disagreement=con.execute('''SELECT count(*) FROM metadata_price_provenance p
+        LEFT JOIN metadata_price_reference r USING(anchor,product_id)
+        WHERE p.in_reference IS DISTINCT FROM (r.product_id IS NOT NULL)''').fetchone()[0]
+    if disagreement:
+        raise ValueError('Reference membership differs from provenance')
+
+
+def run_gate(acceptance_path,spec_path,*,gate_approval_path):
+    """One immutable diagnostic with no fits, labels or larger-scope flags."""
+    started=time.monotonic()
+    cpu_started=None
+    output_root=ROOT/'artifacts/metadata-price'
+    directory=output_root/('attempt-'+uuid.uuid4().hex)
+    directory.mkdir(parents=True,exist_ok=False)
+    for name in ['profiles','temp']:(directory/name).mkdir()
+    deadline=RunDeadline(600,started_at=started)
+    ledger=StageLedger(directory/'profiles',deadline=deadline)
+    report=dict(version=1,status='running',scope=GATE_ROLE,stages=ledger.rows,
+                labels_loaded=False,fit_attempt_count=0,
+                limits=SPEC['gate'],rss_enforcement='cooperative checks; no OS hard-kill claim')
+    _atomic_json(directory/'report.json',report)
+    manifest=con=timer=None
+    def guard():
+        deadline.check()
+        if peak_rss_bytes()>SPEC['gate']['rss_bytes']:
+            raise MemoryError('Metadata diagnostic cooperative RSS ceiling exceeded8GiB')
+        if directory_bytes(directory/'temp')>SPEC['gate']['max_spill_bytes']:
+            raise MemoryError('Metadata diagnostic temporary disk ceiling exceeded2GiB')
+    def stage(name,operation):
+        before=None
+        index=len(ledger.rows)
+        def checked():
+            nonlocal before
+            before=_process_cpu_seconds()
+            guard()
+            result=operation()
+            guard()
+            return result
+        try:return ledger(name,checked)
+        finally:
+            if before is not None:
+                try:ledger.rows[index]['process_cpu_user_system_seconds']=_process_cpu_seconds()-before
+                except Exception as error:
+                    ledger.rows[index].update(status='failed',cpu_measurement_error=str(error))
+                    raise
+    try:
+        cpu_started=_process_cpu_seconds()
+        manifest,collection=stage('verify_accepted_train_and_prepare_plan',
+            lambda:prepare_gate_plan(acceptance_path,spec_path,check=guard))
+        approval,approval_sha=_json_snapshot(gate_approval_path)
+        expected=dict(version=1,approved=True,scope=GATE_ROLE,run_id=manifest['run_id'],
+                      fingerprints=manifest['identity']['fingerprints'])
+        if (not isinstance(approval,dict) or approval.keys()!=expected.keys()
+                or type(approval['version']) is not int or approval['approved'] is not True or approval!=expected):
+            raise ValueError('External reviewed100Q source/cost approval differs from actual plan')
+        manifest['gate_approval']=dict(path=_gate_relative(gate_approval_path),sha256=approval_sha)
+        identified=output_root/manifest['run_id']
+        if identified.exists():
+            raise FileExistsError('Existing metadata diagnostic preserved; recovery requires review')
+        directory.rename(identified)
+        directory=identified
+        ledger.directory=directory/'profiles'
+        report['run_id']=manifest['run_id']
+        report['spec']=manifest['identity']['spec']
+        report['collection_id']=manifest['identity']['collection_id']
+        db=_gate_local(collection['plan']['execution_inputs']['source_path'])
+        from scripts.train_baselines import environment_snapshot
+        report['environment']=stage('verify_loaded_versions_against_lock',environment_snapshot)
+        import duckdb
+        con=stage('open_source_read_only',lambda:duckdb.connect(str(db),read_only=True))
+        timer=deadline.interrupt_timer(con)
+        ledger.connection=con
+        con.execute('SET threads=2')
+        con.execute("SET memory_limit='2GB'")
+        con.execute("SET max_temp_directory_size='2GB'")
+        con.execute('SET temp_directory=?',[str(directory/'temp')])
+        con.execute('SET preserve_insertion_order=false')
+        stage('load_accepted_query_table',lambda:con.execute(
+            'CREATE TEMP TABLE mp_all_queries AS SELECT * FROM read_parquet(?)',
+            [[str(_gate_local(p)) for p in collection['refs']['queries']]]))
+        report['query_selection']=stage('select_queries_without_labels',lambda:choose_gate_queries(con))
+        stage('fixed_base_pairs',lambda:con.execute('''CREATE TEMP TABLE metadata_pairs AS
+            SELECT f.query_id,f.product_id,f.candidate_category_id,
+                f.candidate_category_ambiguous,f.candidate_category_missing
+            FROM read_parquet(?) f SEMI JOIN metadata_queries q USING(query_id)''',
+            [[str(_gate_local(p)) for p in collection['refs']['features']]]))
+        source=collection['plan']['identity']['shard_protocols'][0]['source']
+        core=stage('materialize_separate_metadata',lambda:create_metadata_price_features(con,
+            manifest['identity']['spec'],source_start=naive_utc(_utc(source['start'])),
+            source_end=naive_utc(_utc(source['end'])),stage=stage,budget_check=guard,max_pairs=22000))
+        # StageLedger rows are appended by nested SQL stages; record own CPU on
+        # the parent by identity, not the last child (see stage implementation).
+        core['batches']=[{**b,'anchor':b['anchor'].strftime('%Y-%m-%dT%H:%M:%SZ')} for b in core['batches']]
+        report['materialization']=core
+        stage('validate_exact_schema_key_provenance_reference_boundary',lambda:validate_gate_outputs(con))
+        numeric,nominal=stage('validate_model_arrays_without_pool_or_fit',lambda:model_arrays(con))
+        report['matrix']=dict(numeric_shape=list(numeric.shape),nominal_shape=list(nominal.shape),
+            numeric_dtype=str(numeric.dtype),nominal_dtype=str(nominal.dtype),
+            numeric_bytes=numeric.nbytes,nominal_pointer_bytes=nominal.nbytes,
+            diagnostic_cardinality=validate_train_cardinality(nominal),
+            cardinality_scope='100Q diagnostics; not full encoded training-cardinality proof')
+        del numeric,nominal
+        artifacts={}
+        for name,table,order in [('queries','metadata_queries','query_id'),
+            ('features','metadata_price_features','query_id,product_id'),
+            ('provenance','metadata_price_provenance','query_id,product_id'),
+            ('reference','metadata_price_reference','anchor,product_id')]:
+            path=directory/(name+'.parquet')
+            stage('export_'+name,lambda table=table,order=order,path=path:con.execute(
+                'COPY (SELECT * FROM '+table+' ORDER BY '+order+') TO ? (FORMAT PARQUET,COMPRESSION ZSTD)',[str(path)]))
+            artifacts[name]=dict(path=_gate_relative(path),sha256=sha256_file(path),bytes=path.stat().st_size,
+                rows=con.execute('SELECT count(*) FROM '+table).fetchone()[0],
+                schema=[list(r[:2]) for r in con.execute('DESCRIBE '+table).fetchall()])
+        report['artifacts']=artifacts
+        manifest['outputs']=artifacts
+        def reverify():
+            pins={**manifest['identity']['fingerprints'],manifest['gate_approval']['path']:approval_sha}
+            for name,digest in pins.items():
+                guard()
+                if sha256_file(_gate_local(name))!=digest:
+                    raise ValueError('Reviewed input changed during metadata diagnostic: '+name)
+            guard()
+        stage('reverify_all_reviewed_inputs',reverify)
+        report['status']='complete_produced_unreviewed'
+    except Exception as error:
+        report.update(status='failed',error_type=type(error).__name__,error=str(error))
+        raise
+    finally:
+        had_failure=report.get('status')=='failed'
+        terminal_errors=[]
+        terminal_error=None
+        def terminal_failure(error):
+            nonlocal terminal_error
+            terminal_error=terminal_error or error
+            terminal_errors.append(dict(error_type=type(error).__name__,error=str(error)))
+            report['status']='failed'
+            if 'error_type' not in report:
+                report.update(error_type=type(error).__name__,error=str(error))
+        try:
+            if timer is not None:timer.cancel()
+            if con is not None:con.close()
+        except Exception as error:terminal_failure(error)
+        try:
+            total_cpu=_process_cpu_seconds()-cpu_started if cpu_started is not None else None
+            if total_cpu is None or total_cpu<0:
+                raise ValueError('CPU measurement unavailable or nonmonotonic')
+        except Exception as error:
+            total_cpu=None
+            report['cpu_measurement_error']=str(error)
+            terminal_failure(error)
+        if manifest is not None and report.get('run_id') is not None:
+            try:_atomic_json(directory/'run.json',manifest)
+            except Exception as error:terminal_failure(error)
+        # Cleanup, close, final CPU reads and manifest serialization can cross
+        # the limits too. An earlier successful SQL stage is not a final seal.
+        try:guard()
+        except Exception as error:terminal_failure(error)
+        report.update(seconds=time.monotonic()-started,
+            process_cpu_user_system_seconds=total_cpu,
+            process_peak_rss_bytes=peak_rss_bytes(),temp_disk_bytes_after_close=directory_bytes(directory/'temp'))
+        if terminal_errors:report['terminal_errors']=terminal_errors
+        _atomic_json(directory/'report.json',report)
+        # Check the audit write itself before returning success. If it crossed
+        # a resource boundary, preserve the failure rather than a falsecomplete.
+        if report['status']=='complete_produced_unreviewed':
+            try:guard()
+            except Exception as error:
+                terminal_failure(error)
+                report.update(terminal_errors=terminal_errors,seconds=time.monotonic()-started,
+                    process_peak_rss_bytes=peak_rss_bytes())
+                _atomic_json(directory/'report.json',report)
+        print(json.dumps(dict(status=report['status'],run_id=report.get('run_id'),seconds=report['seconds'],
+            process_cpu_user_system_seconds=report['process_cpu_user_system_seconds'])),flush=True)
+        if terminal_error is not None and not had_failure:raise terminal_error
+    return report
+
+
+def main():
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--collection-acceptance',type=Path,required=True)
+    parser.add_argument('--spec',type=Path,default=ROOT/'configs/features/metadata-price.json')
+    parser.add_argument('--gate-approval',type=Path,required=True)
+    args=parser.parse_args()
+    run_gate(args.collection_acceptance,args.spec,gate_approval_path=args.gate_approval)
+
+
+if __name__=='__main__':main()

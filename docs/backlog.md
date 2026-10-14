@@ -294,3 +294,10 @@ TLAB018auxworkerowns scripts/verify_development.py,tests/test_verify_development
 [100Qrunnerproposal](backlog-reviews/tlab009-runner-proposal.md) и [coordinatordesignreview](backlog-reviews/tlab009-runner-proposal-review.md) разрешаюттолькоimplementationunderRootownership. Доactual100Qнужнынезависимыйrunnercodegate+exactexternalexecutionapproval;fullR/allselectedpairs sourceoracle,cost/RSS/CPU/selectionprovenanceнеподменяютсяsyntheticcoreacceptance. Fulltraincardinality≤4096/mixed59/noCTR иsingleLoglossfitещёнеприняты.
 
 018syntheticproducerfixtureвыявилupstream017all-emptyrawsourceboundary:daily_outcomesотсутствуетиaggregationfails. Pinned017/actualnonemptytrainselectionнеизменены.018mustfailclosedнаincompletebundle,сохраняяerror/regression;zero-purchaseQиemptyCотдельны. Этоfutureproduceredgefix,нетпричиныобъявлятьrealoutputsневерными.
+
+
+### TLAB-009 runner code accepted; actual gate pending — 15 октября 2026
+
+[OriginalrunnerP1](backlog-reviews/tlab009-runner-review.md) и [targetedACCEPT](backlog-reviews/tlab009-runner-rereview.md) сохранены вместе сindependentfaultscripts/results. Aftercleanup fake+700wall/RSS8GiB+1 раньшедавалиcomplete; новый596f137e…52b4 проверяетterminalclose/CPU/serialization/auditwrite иприoverrunсохраняетfailed+rethrow.28scopedtestsPASS, own10cases (healthy+9faults) приняты. Exactsourceexecutionapproval100Qещёотдельныйgate; producercompleteнеравенsourceacceptance.
+
+README/experimentplan обновлены: рабочийpurchaseprotocol/accepted017+008smoke,009pendingactual100,019/016неисполнены. СтарыеEDAутверждения«модели не запускались» больше невводятreviewerвзаблуждение. FullmonthEDAраскрыт,held-outtargets/metricsдляmodelselectionнеиспользованы.
