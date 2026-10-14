@@ -48,3 +48,8 @@ In-batch negatives дешевы благодаря повторному испо
 - **P1 / HYP058:** при том же K сравнить uniform с 50/50 in-batch+uniform; correction on/off только при проверенной law. P2 — новая logQ formulation, hard negatives, temperature search.
 
 Предлагаемый бюджет: максимум четыре основных конфигурации, один seed, до трех epochs и двух GPU-часов каждая; два лучших повторить вторым seed. Сравнить качество, peak memory, wall time и конечный прирост над тем же сильным CatBoost. Оценивать полный C и полный Y, без sampled-eval shortcuts; их несопоставимость показана [Krichene & Rendle](https://research.google/pubs/on-sampled-metrics-for-item-recommendation/). Проверить разницу основной метрики bootstrap по пользователям и по дням; заранее задать практически значимый порог. Остановить ветку без устойчивого прироста. Главная развилка — набор покупок зрелого горизонта либо следующий товар; loss ее не решает.
+
+
+## Coordinator review appendix — 15 октября 2026
+
+[Review04–06](review-04-06.md) уточняет full-C CE: all-positive группа не обязательно имеет нулевой gradient (scores log3/0, uniform target дают0.25/−0.25). Sampler skip не определяет loss mask. Draw-with-replacement estimator сохраняет multiplicity; uniform without-replacement m из N использует N/m на selected sum; dedup draws требует inclusion probability1−(1−π)^K. Actual in-batch/mixture conditional rejection и API expected-count convention сверяются tiny enumeration. Unbiased denominator не означает unbiased finite-K log/gradient. При C≤220 K256/1024 не гарантирует экономии. Авторские GPU configurations/repeats — не принятый текущий budget;057/058 deferred.

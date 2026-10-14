@@ -40,3 +40,6 @@ Encoder обучается на зрелых исходах warm-up W и зам�
 ## Coordinator protocol appendix — 15 октября 2026
 
 Для accepted provisional clock labels задаются [t,t+H), а не предложенным выше (t,t+H]. При availability<c right-open maturity t+H+delay≤c; right-closed требует строгого <c. Endpoint policy хранится в protocol ID. Multihead training counts/overlap и purchase-only controls versioned, auxiliary budget не бесплатен. HYP066 отклонена как duplicate frozen protocol; HYP065 остаётся proposal, без training/quality evidence. GPU-hours из других loss notes не расширяют текущий CPU ledger.
+
+
+[Review04–06](review-04-06.md) уточняет head sampling: α_e/ρ_e верно для согласованного estimator conditional head mean, не произвольного common-stream skip. Нужны actual valid samples/weighted denominators/updates по голове. Any/purchase/cart/view — до4heads; cost «3heads» относится к конкретному3headварианту, initialpurchase+any —2. Matched purchase updates и matched wall budget могут конфликтовать: primary budget-policy заранее объявляется, actualcounts/time показываются. После review вся loss family завершена как исследования, но trained winner отсутствует.
