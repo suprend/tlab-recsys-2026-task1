@@ -54,3 +54,5 @@ NLP: [план сравнений](docs/nlp-experiments.md), [BM25 и TF–IDF](
 
 
 Промежуточные исследования: [user × item](docs/features/09-user-item/index.md), [candidate generation](docs/candidate-generation/index.md), [model selection](docs/model-selection/index.md), [loss selection](docs/loss-selection/index.md). Статус полноты и ожидаемые reviews указан в каждом index.
+
+Постоянная линия новых гипотез и первоисточников: [research lab и независимая критика](docs/research-lab/index.md).

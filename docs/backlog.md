@@ -2,7 +2,7 @@
 
 Обновлено 15 октября 2026. Это первый исполняемый срез по уже завершённым исследованиям, а не ожидание всего портфеля. Пользователь разрешил ночное исполнение, meaningful tests и ограниченные pilots параллельно с постоянной research-линией. Target purchase-ranking — главный кандидат; конкретные protocol variants ещё проверяются, не объявлены финальным выбором.
 
-Координатор единолично ведёт этот файл и Git-публикацию в research-ветке/draft PR; Root исполняет зарезервированный TLAB-001. Основная ветка не изменяется. Данные, локальные модели и run artifacts ignored; в Git — код, документация и агрегированные отчёты. Платный cloud не подключается.
+Координатор единолично ведёт этот файл и Git-публикацию в research-ветке/draft PR; Root исполняет текущие TLAB-008/017 в зарезервированных файлах. Основная ветка не изменяется. Данные, локальные модели и run artifacts ignored; в Git — код, документация и агрегированные отчёты. Платный cloud не подключается.
 
 ## Текущий статус и первый цикл
 
@@ -15,11 +15,11 @@
 | TLAB-005 | P0 | done | root; accepted B2/coordinator | — |
 | TLAB-006 | P0 | done | metrics worker; accepted B3/coordinator | — |
 | TLAB-007 | P0 | done | heuristic worker; accepted B2/coordinator | — |
-| TLAB-008 | P0 | blocked | root; dependency preparation | 017 runtime dataset + accepted CPU dependency/tuning plan |
+| TLAB-008 | P0 | in_progress contract/synthetic; real fits blocked | root; CPU dependency accepted | accepted017 train/selection collection + tuning plan |
 | TLAB-009 | P1 | blocked | unassigned | 008 |
 | TLAB-010 | P1 | blocked | unassigned | 008 |
 | TLAB-011 | P1 | blocked | unassigned | 008 |
-| TLAB-012 | P1 | blocked | unassigned | 008, review user-item series, measured resource gate |
+| TLAB-012 | P1 | blocked | unassigned | 008, measured resource gate; user-item review completed |
 | TLAB-013 | P1 | blocked | unassigned | 008, одна выбранная sensitivity |
 | TLAB-014 | P1 | in_progress | permanent research line | постоянная линия, не блокирует ядро |
 | TLAB-015 | P0 | blocked | unassigned | locked protocol + выбранные завершённые ablations |
@@ -179,3 +179,39 @@ Runtime collection ещё не реализована/не исполнена. �
 ### TLAB-008 dependency accepted, baseline fits pending — 15 октября 2026
 
 [CPU environment](experiments/cpu-environment.md) и [independent dependency verification](backlog-reviews/tlab-008-dependency-verification.md) приняты:CatBoost1.2.10 officialwheel,51existingpinsunchanged,7newlockentries/1directdep. Root tinyCPU API checks1iteration/8syntheticrows не являются realbaselinefits. Coordinatoractualimports+PyPI/lockhashcheck и103accepted-coretestsPASS1.726s подnewenv; B2 plan0179PASSотдельно. Currentlock4675021…85eab — новаяlineage, oldacceptedartifactpins не переписываются.017runtime/externalshardreview/collectionacceptance и full-Y checkpointselection/tunedB/automation gates ещё открыты. Nativecandidate-onlymetric/implicitbestmodel не выбирают checkpoint.
+
+
+## Актуальная сводка research и дедупликация — 15 октября 2026
+
+Сохранены50 из58 independent studies:16 features,8 target,8 user×item,7 candidate,6 model,5 loss. Готовы9 из13 grouped cross-reviews: features2/target2/useritem2/candidate1/model1/loss1. [User×item synthesis](features/09-user-item/index.md) завершён; остальные family indexes явно промежуточные. Ранние counts в хронологических sections отражают предыдущие срезы. Оставшиеся8 studies и4 reviews продолжаются отдельной линией; raw notes не удаляются при расхождениях.
+
+Material amendments: historical item×category numerator вместо общего item count в category share; UserKNN N−1[u∈population] вместо безусловного N−1; latest global metadata bucket без older-clean backoff; graph group weights по retained seed mass, endpoint probabilities отдельно от visit counts. Full-Y checkpoint criterion должен реально выбирать модель. BCE all-mature и pairwise informative populations различны; native equal-label semantics не унифицированы. Review ссылки и repro находятся в family indexes.
+
+| HYP | Статус и связь | Ограничение |
+|---|---|---|
+|045|needs-pilot, refinement002/011/016|Category-bound nested reference,8T/U+3supports=11columns внутри existing cap |
+|046|needs-pilot, execution gate045|Exact shared DAG equality; symmetric20min timing, no extra fits |
+|051/056|needs-pilot, одна ALS family|Fold-in против pooling на тех же V; encoder/downstream costs отдельный заранее bounded ledger |
+|052/055/059/066|rejected duplicate|SASRec protocol/ItemCF001/grammar002/warm-up freeze соответственно |
+|053|needs-pilot, category retrieval|Category-quota вариант032 объединён сюда; normalization-only032 rejected |
+|054|needs-pilot, retrieval price|Не fixed-C feature029; median cancellation и reference weighting проверяются |
+|057/058|deferred до neural support gate|Full vs sampled CE; uniform vs actual mixed law; авторские GPU budgets не приняты |
+|060|deferred|Mature target-rate encoder, отдельная availability/cost policy |
+|061/062|needs-pilot, ItemCF retrieval|Не feature001; новый equal-budget/refill protocol до запуска |
+|063|deferred до tuned B/resource gate|Candidate-conditioned vs mean pooling, matched architecture/loss budget |
+|064|deferred|Cross layers после полезного compact MLP, не дополнительная обязательная family |
+|065|deferred до encoder gate|Purchase+any с purchase-only/any-only/reweighted-single-head controls |
+|067/068|deferred до graph cost gate|Walk4 vs matched walk2; max vs mean, retained mass/versioned sampling |
+|069/070|deferred до source gates|UserCF/audience marginal retrieval с одинаковым actual C-size; квоты400+100 не приняты |
+|071/072|reserved|M06 base frozen ladder уже есть в embedding protocol; integration review до новой HYP |
+
+[Round002](research-lab/round-002.md) и [critic](research-lab/round-002-review.md) уточняют016: primary confirmation against frozen tuned B; выигрыш только над ухудшенным B+S не promotion. Сохраняются shared≤12columns/4fits/2CPUh; scoring B входит в time ledger без нового fit. HYP046 symmetric setup/cache/AB–BA timing; если evidence недостаточно, equality accepted, speedup inconclusive. RelBench/OneBM/F-IVM поддерживают механизм, не доказывают REES46 quality. Другой dataset остаётся compatibility matrix, без downloads.
+
+008 dependency принята, real fits blocked до017 runtime/shard semantic reviews/collection acceptance; source/current-lock approval не равен fresh-hash autoaccept.017 Root runtime in_progress в owned файлах, другие workers их не редактируют. Старые acceptance pins сохраняются, новая lock требует новой producer lineage. Исследовательская линия и substantive review исполнения работают параллельно.
+
+
+### Prospective decision gap, не принятая новая reservation — 15 октября 2026
+
+Selection anchors22–23 с H24h дают последние доступные labels24Oct00; first confirmation24Oct00 оставляет нулевой интервал для выбора/compute. Confirmation не читался и runtime017 его не открывает. До freeze008/confirmation prospectively выбрать положительный gap: например firstconfirmation25Oct00 либо сократить selection до22Oct. Нужны actual metric/selectedwinner availability≤frozen_before<firstconfirmation, bounded compute ledger и отдельная reviewed config change; никакой post-hoc замены уже использованного holdout. Сейчас это open decision gate, не approved schedule.
+
+Root008 owns scripts/train_baselines.py, tests/test_train_baselines.py, configs/models/cpu-smoke.json, docs/experiments/boosting-baselines.md; contract/synthetic разрешены, real fits только после017 acceptance. HYP073 needs-pilot ALS retrieval отдельно от existing fixed-C ALS051/056;074 rejected duplicate. HYP075/076 reserved для independent L06, не автоматически зарегистрированы. [M06 integration review](model-selection/integration-review-06.md) — дополнительный single-note audit, не один из13 grouped reviews.
