@@ -8,7 +8,7 @@
 
 | ID | Приоритет | Статус | Владелец | Обязательные зависимости |
 |---|---|---|---|---|
-| TLAB-001 | P0 | review | root; verifier B2 | — |
+| TLAB-001 | P0 | done | root; accepted B2/coordinator | — |
 | TLAB-002 | P0 | in_progress | root | —; integration contract проверяется после001 |
 | TLAB-003 | P0 | blocked | unassigned | 002; production integration также001 |
 | TLAB-004 | P0 | blocked | unassigned | 003 |
@@ -100,8 +100,13 @@ HYP-005…010 зарезервированы координатору для у�
 ## Actual results и audit
 
 - 15 октября: опубликованы16 feature studies и2reviews; target8+2 сохранены отдельным коммитом. Первый paper round завершён; raw note и HYP будут сохранены следующей traceability-публикацией. Это завершённая документация, не обучение моделей.
-- 15 октября: Root реализовал001 и передал наreview, B1/B2 planning завершены; B3 полный report завершён. Root сообщил12 passing unittest для001; B2 независимо проверил actual diff/tests и далaccept. До публикации code/evidence001 остаётся review. TLAB-002 Root начал в четырёх отдельно зарезервированных файлах; TLAB-006 назначен отдельному metrics worker.
+- 15 октября: Root реализовал001 и передал наreview, B1/B2 planning завершены; B3 полный report завершён. Root сообщил12 passing unittest для001; B2 независимо проверил actual diff/tests и далaccept. Actual code/evidence001 проверены и публикуются в этом обновлении;001 принят. TLAB-002 Root начал в четырёх отдельно зарезервированных файлах; TLAB-006 назначен отдельному metrics worker.
 - Новых measured model scores, pilot coverage/RAM/runtime пока нет. Run manifests после исполнения сохраняются в ignored artifacts; принятые агрегаты и commit references добавляются сюда без затирания отрицательных результатов.
 
 
 Файловый ownership текущего цикла: Root002 — `scripts/protocol_manifest.py`, `tests/test_protocol_manifest.py`, `configs/protocols/clock-7d.json`, `configs/protocols/clock-48h.json`; worker006 — `scripts/ranking_metrics.py`, `tests/test_ranking_metrics.py`. Все прочие исполнители эти файлы не редактируют.
+
+
+### Принятый результат TLAB-001 — 15 октября2026
+
+[Temporal contract](../scripts/temporal_contract.py) и [12 meaningful tests](../tests/test_temporal_contract.py) приняты после [независимой verification B2](backlog-reviews/tlab-001-verification.md). Coordinator прочитал actual files и выполнил scoped suite:12testsPASS, exit0,0.028s. Handgolden и independent in-memory DuckDB oracle не читают реальные логи. Приёмка относится к primitives; production read-before-update, distinct/metadata/candidates/fitted-state остаются gates следующих задач. Новых dependencies и raw-data изменений нет.
