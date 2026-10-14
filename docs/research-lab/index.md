@@ -23,3 +23,8 @@ Primary confirmation control — frozen tuned B, а не только B+support.
 - [Round009: typedgrammar proof obligations](round-009.md):198schema-onlytemplatesдоdedup/closure, noactualmaterialization/speedupclaim;independentcriticpending.103/104reserved.
 
 - [Round010: objective-specific bounded tuning alternatives](round-010.md):3alternative4fitallocations, no chosenexecutiongrid yet; actualCPUaccounting/12checkpointlooks proposed.105/106reserved.
+
+- [Round011: schema inference и explicit adapter contracts](round-011.md): declarednumericFK exclusion вFeaturetools признан;unknownsemantics/availability не угадываются, independentcriticpending.
+- [Round012: честный calculation benchmark](round-012.md): unchanged005sharedplan primaryphysicalcontrol,fullcommonsink/processCPU/symmetricABBA, noexecution; independentcriticpending. Main016 — automaticGENERATION/selection+correctcalculation; speedexperimentoptionalwithinexistingbudget.107–110reserved.
+
+[Independentcritic012/019](round-012-review.md) принятсexplicitcanonicalappendix: strongsharedphysicalcontrol/profilecoverage/processCPU/survivorship иstrict009retention. Executionbudgetнерасширен.

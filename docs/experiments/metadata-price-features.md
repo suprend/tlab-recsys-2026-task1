@@ -58,3 +58,8 @@ Persistentwall deadline и SQLinterrupt работают вместе с coopera
 ```
 
 `complete_produced_unreviewed` означает только завершение executor. Source/cost acceptance выдаётся после отдельного direct-list oracle по всем selectedpairs и полномуR, а full exports и один ablation fit получают последующие отдельные разрешения.
+
+
+## Принятый реальный100Q diagnostic
+
+[Independent source/cost acceptance](../backlog-reviews/tlab009-100q-source-verification.md) принимаетrun2f144cb…fd54:100queries/20586pairs/20modelcolumns,all370548values/provenance/full1603114reference rows reconciled. Producer22.1533wall/33.1295actualCPU seconds/RSS1490386944; independentaudit18.4017wall/26.5238CPU/RSS955006976. Nominal100Qcardinalities200/49/124diagnosticonly; no fits/labels/qualityclaims. Metadata100module596f137e…52b4 иspecнеизменны; fullproducer выполняетсятольковновыхmodulesпослеотдельногоревью.

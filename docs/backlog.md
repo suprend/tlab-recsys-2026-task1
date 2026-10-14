@@ -16,7 +16,7 @@
 | TLAB-006 | P0 | done | metrics worker; accepted B3/coordinator | — |
 | TLAB-007 | P0 | done | heuristic worker; accepted B2/coordinator | — |
 | TLAB-008 | P0 | done: two-fit smoke; strong tuning tracked019 | root; independent code/output accept | —;017 accepted |
-| TLAB-009 | P1 | in_progress pure core; real gate pending | root; independent direct-list reviewer | 008 smoke accepted; core→runner→100Q review gates |
+| TLAB-009 | P1 | 100Q source/cost accepted; full runtime in_progress | root; independent direct-list reviewer | 008 smoke accepted; core→runner→100Q review gates |
 | TLAB-010 | P1 | blocked | unassigned | 008 |
 | TLAB-011 | P1 | blocked | unassigned | 008 |
 | TLAB-012 | P1 | blocked | unassigned | 008, measured resource gate; user-item review completed |
@@ -25,7 +25,7 @@
 | TLAB-015 | P0 | blocked | unassigned | locked protocol + выбранные завершённые ablations |
 | TLAB-016 | P1 | blocked | unassigned | 008,009, accepted/needs-pilot HYP |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
-| TLAB-018 | P0 | in_progress synthetic/read-only | verification worker | 008 smoke accepted; no real rescans/acceptance writes |
+| TLAB-018 | P0 | review: mandatory lineage fix | verification worker | 008 smoke accepted; no real rescans/acceptance writes |
 | TLAB-019 | P0 | blocked: prospective tuning plan review | unassigned | 009 feature decision/freeze; CPU ledger; exact 4-fit plan review |
 
 Файлы `scripts/temporal_contract.py` и `tests/test_temporal_contract.py` принадлежат только Root до завершения001. Новые исполнители получают непересекающийся scope. Сообщение агента не является доказательством done: нужны actual files/diff/checks и независимый substantive review. Не повторять неизменные проверки после их прохождения; следующий run оправдывается новой правкой, failure либо конкретной неопределённостью.
@@ -301,3 +301,16 @@ TLAB018auxworkerowns scripts/verify_development.py,tests/test_verify_development
 [OriginalrunnerP1](backlog-reviews/tlab009-runner-review.md) и [targetedACCEPT](backlog-reviews/tlab009-runner-rereview.md) сохранены вместе сindependentfaultscripts/results. Aftercleanup fake+700wall/RSS8GiB+1 раньшедавалиcomplete; новый596f137e…52b4 проверяетterminalclose/CPU/serialization/auditwrite иприoverrunсохраняетfailed+rethrow.28scopedtestsPASS, own10cases (healthy+9faults) приняты. Exactsourceexecutionapproval100Qещёотдельныйgate; producercompleteнеравенsourceacceptance.
 
 README/experimentplan обновлены: рабочийpurchaseprotocol/accepted017+008smoke,009pendingactual100,019/016неисполнены. СтарыеEDAутверждения«модели не запускались» больше невводятreviewerвзаблуждение. FullmonthEDAраскрыт,held-outtargets/metricsдляmodelselectionнеиспользованы.
+
+
+### TLAB-009100Q source accepted; full/newmodel gates — 15 октября 2026
+
+[Exactsourceaudit](backlog-reviews/tlab009-100q-source-verification.md) и [aggregate](backlog-reviews/tlab009-100q-aggregate.json) приняты:20586pairs×18=370548comparisons,20586provenance,full1603114Rrows/13anchors,93externalacceptancepins. Producer22.1533wall/33.1295CPU/RSS1.49GB; oracle18.4017wall/26.5238CPU/RSS955MB. No fits/labels; singletonNULLmeanverified. Newfull009Rootowns scripts/metadata_price_collection.py,tests/test_metadata_price_collection.py,docs/experiments/metadata-price-collection.md;[boundedproposal](backlog-reviews/tlab009-full-export-proposal.md) directionacceptedforimplementation, actualfullneedsnewcode/runtime/sourceacceptance. Frozen100module/spec не меняются.
+
+Доablationmetrics009retentionpredicateзафиксирован: ALLsource/cost/encoded6000traincardinality≤4096/noCTR/effectiveparam/keygatesPASS, Recall20≥.5792133072407045 иNDCG20>.41444755081727774+1e−12→retainwholeblock. Иначеbase41; semantic/integrity/APIfaultSTOP, failedonefitconsumed/no replacement. Tolerance tieprefersbase. Это point-estimate screeningfeatureselection, неtrueeffect/practicalΔ≥.002/CIpromotionclaim. Full26000cardinality позднеесамостоятельный019gate.
+
+019prospectiveGridCзаморожендодо009modelmetrics:4Loglossattempts depth{4,6}×L2{3,30},LR.05,max300trees/checkpoints50/150/300,CPU2,actualNewton10/AnyImprovement/random_strength1/boost_from_averageFalse/Plain/bootstrapNo. [Originalcritic](backlog-reviews/tlab019-prospective-plan-review.md) и [incumbentamendment](backlog-reviews/tlab019-incumbent-policy-review.md): ресурсный26000matrix/PoolgatePASS→все4newfits26000, resource/cardinalityFAIL→предъявленный6000fallback; integrity/APIfaultSTOP. GateнеобещаетfitRSSбезопасность,allstopgatesremain. Executioncode/exact4fitapprovalещёнеприняты.
+
+EligibleincumbentнаFINALschema: existing008Logloss50/6000еслиblockrejected, accepted009Logloss50/6000еслиretained;никакогоincumbentrefit. PrimarymaxexternalfullYNDCG средиincumbent+feasiblecompletednewcheckpoints,общийRecallguard. Stabletie-setscore≥globalmax−1e−12,thenfewertrees/smallerdepth/incumbentifotherwiseequal/configID. NonefeasibleSTOP/no refill. Winnerpipeline6000or26000задаётТОЧНЫЕодинаковыеtrainQ/C/Y/weights/features/settings/trees длявсех016I/Rarms; pipeline/populationselectionнеприписываетсяintelligence.12newcheckpointlooks+priorincumbent/009/007historyявны. Proposed60actualCPUmin019includesgate/prep/failures/oracles/scoring,неwall×threads/невыдуманныйостаток6CPUh.
+
+[Workingreadablereport](progress-report.md) отражаеттекущиеacceptedresults; финальныйtask1outcomeещёоткрыт. [Rounds011/012](research-lab/index.md) сохранены. Main016automaticGENERATION/selectiontypedAST+correctcalculation, неDAGspeedpromise;005ужеsharedplan. OptionalcomputeexperimentonlysameAST/optimizerON/fullcommonsinkvs005insideexisting2CPUh. Никакихнеизмеренныхhuman-hours/победынаднамереннонаивнымSQL.
