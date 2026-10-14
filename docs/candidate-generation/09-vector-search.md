@@ -37,3 +37,8 @@ Manifest хранит checkpoint hash/fit cutoff, snapshot/build/available_at, i
 Фильтр применяется **до выбора** top-L: exact mask либо snapshot только V. ANN oversampling→filter может недобрать; нужен явный cap/shortfall, а не скрытый refill. hnswlib имеет label filter, но Python multithread filter документирован как медленный. [API](https://github.com/nmslib/hnswlib).
 
 Отдельно измерять `ANNRecall@L=|A_ANN∩A_exact|/L` и purchase candidate Recall по полному Y, включая cold/out-of-support misses. Предлагаемая retrieval-абляция: `popular100+vector100+recent20` против текущего `popular200+recent20`, одинаковые Q/U/Y, no-refill и дополнительное size-matched сравнение; fixed-C embedding-feature опыт идёт отдельно. Текущий TLAB-004 не меняется. HYP-081/082 остаются не сформулированными: exact→ANN проверяет вычислительный компромисс, а новая самостоятельная purchase-механика пока не обоснована.
+
+
+## Coordinator final-review appendix — 15 октября 2026
+
+[Review09–12](review-09-12.md): zero norm invalidates cosine, но finite zero vector математически допустим для raw IP. Исключение zero vectors — declaredmodel-supportpolicy для exact/ANN, не свойствоIP. ANNRecall denominator |A_exact|=min(L,|V|), empty support undefined. Boundary ties acrossblocks разрешаются scoreDESC/IDASC; argpartition толькопоscore можетпотерятьнужныеtiedIDs. Eligibilityfilter не устраняет поздноfittedweights. ANNservingпока deferred до measuredexactbottleneck.

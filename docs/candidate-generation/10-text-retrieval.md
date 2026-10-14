@@ -42,3 +42,6 @@ Dense оправдан лишь проверкой переноса между �
 ## Coordinator integration appendix — 15 октября 2026
 
 Metadata latest global bucket<t включает все строки: known+NULL/conflicting ambiguous, all-NULL missing, без older-clean backoff. Historical distinct-product channel разрешает latest user-view bucket по той же ambiguity policy, не произвольную строку. Group lex score не различает items внутри одной code/brand пары; expansion purchase-popularity contribution нужно изолировать matched identity/prefix controls. HYP085 lexical retrieval needs-pilot отдельногоsourceprotocol,086 dense retrieval deferred до lexical residual/support/cost. Они не автоматически расширяют fixed-C textfeature003 budget. Totalcandidate quotas/refill/actualsize заранее versioned.
+
+
+[Finalreview09–12](review-09-12.md): один brandtoken после L2TFIDF становитсяbrandonehot — IDFсокращается. Brandchannel — identityaffinity; lexicaltransfer085 должендаватьостаточныйcategoryprefixsignal сверхexactcode/brand с темижеhistory/decay/group-expansion/quotas. Сжатиеgroups сохраняетproductmultiplicities вDF/N. Dense086deferred, noNLPqualityclaimизmassiveties.

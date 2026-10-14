@@ -1,26 +1,30 @@
-# Candidate generation — промежуточный исследовательский пакет
+# Candidate generation — согласованный исследовательский пакет
 
-15 октября 2026. Сохранены10 из12 независимых исследований и reviews групп01–04/05–08; оставшиеся2 studies и1 review продолжаются. Source proposals не меняют baseline автоматически.
+15 октября 2026. Завершены12 независимых studies и3 grouped cross-reviews. Исходные proposals сохранены; material corrections явно отмечены. Новые источники не реализованы автоматически и не объявлены quality wins.
 
-| Тема | Записка |
-|---|---|
-| Full known-catalog reference | [01 exact reference](01-exact-reference.md) |
-| Popularity/trends | [02 popularity](02-popularity.md) |
-| Direct recent/repeat | [03 recent/repeat](03-recent-repeat.md) |
-| Category/brand/price quotas | [04 metadata sources](04-category-brand-price.md) |
-| Item-neighbor retrieval | [05 ItemCF](05-itemcf.md) |
-| Similar-user/audience retrieval | [06 UserCF/audience](06-usercf-audience.md) |
-| Factor retrieval | [07 ALS/BPR](07-als-bpr.md) |
-| Neural retrieval | [08 pooling/sequence](08-two-tower-sequence.md) |
-| Exact/ANN serving | [09 vector search](09-vector-search.md) |
-| Metadata lexical/dense | [10 text retrieval](10-text-retrieval.md) |
+| Направление | Исследование | Решение |
+|---|---|---|
+| Exhaustive reference | [01 exact catalog](01-exact-reference.md) | Observed U(t), dot scoring отличается от полного CatBoost |
+| Popularity | [02 trends/quotas](02-popularity.md) | Accepted004 purchase-distinct-users7d |
+| Repeat interest | [03 recent/history](03-recent-repeat.md) | Acceptedrecent20, retainbought |
+| Metadata | [04 category/brand/price](04-category-brand-price.md) | Одна возможная P1source, newprotocol |
+| ItemCF | [05 item neighbors](05-itemcf.md) | Альтернативная P1source, buildcostgate |
+| UserCF/audience | [06 user/audience](06-usercf-audience.md) | Deferred после discovery/cost/actualsizechecks |
+| Factor retrieval | [07 ALS/BPR](07-als-bpr.md) | ALSfold-in first; snapshotnegative semantics explicit |
+| Neural retrieval | [08 pooling/sequence](08-two-tower-sequence.md) | Optionalfit, cold/OOV support, featurepurposeотдельно |
+| Serving | [09 exact/ANN](09-vector-search.md) | Exactblockdot прежде measuredANNneed |
+| Text | [10 lexical/dense](10-text-retrieval.md) | Identity/prefix/expansioncontrols;dense deferred |
+| Fusion | [11 quota/RRF](11-fusion.md) | Oneprefusionpool дляrule-onlyclaim |
+| Evaluation | [12 coverage/budget](12-evaluation-budget.md) | FullY, actualsize, costledger, gained/lost |
 
-[Review 01–04](review-01-04.md) оставляет P0 принятый004: top200 purchase-distinct-users7d +recent20 distinct all-event items7d, union/dedup без refill. U(t) — prior-observed proxy, не stock; full Y сохраняется. Уже купленное не исключается. Exact dot/ANN audit отделён от full CatBoost catalog scoring. HYP004 pop220 требует новой версии validator, не обхода существующего cap200.
+[Review01–04](review-01-04.md), [review05–08](review-05-08.md), [review09–12](review-09-12.md) покрывают всю серию.
 
-Первая возможная новая source family — category quota053 либо ItemCF061, по одному ограниченному опыту. Category mapping использует последний global timestamp bucket<t без backoff на старое чистое значение; ID не заменяется readable code. Normalization-only constant не меняет source order, а category-median в абсолютном log-gap сокращается. ItemCF graph build может стоить Σm² независимо от малого числа requested pairs; missing top-K edge не measured zero. UserCF capped postings — approximation, не полный exact nearest search. Audience event-time и current-cohort rehash — разные допустимые states.
+P0 остаётся accepted004: P200 по distinct purchase-users7d +R20 distinct all-event pastitems7d, union/dedup безrefill, max220, boughtitemsсохраняются. U(t) — proxyknowncatalog, неstock и неfullOctoberinventory раннегоanchor. Истории всехпользователей/metadata исключаютglobaltimestamppeers; fittedparameters/index/statistics availablebeforequery. Zero/empty/OOV/ambiguity/low-support раздельны. Latestglobalmetadatabucket безolder-cleanbackoff; historicaleventcategory не currentreclassification.
 
-Fair retrieval comparison фиксирует максимальный и фактический |C|, refill/underfill и source-overlap policy; контроль получает то же число уникальных additions. Предложения220/refill или400+100 не утверждены текущим baseline. Feature ablation использует один fixed C, новые retrieval sources оцениваются отдельно по full-Y Recall и downstream NDCG/cost. Ни один source не получает future-positive insertion. [Backlog](../backlog.md) · [Target research](../target-research/index.md).
+Первое возможное sourceextension — один cheapcategory/lexical либо boundedItemCF, выбранный prospectively после strongB/costgate. Refilling220 иpop220 требуют reviewednewconfig; v1cap200необходится. Output100/220 неограничивает graphΣm²/postings/fit/indexcost. Sources ALS/neural требуютотдельногоrepresentationfit, frozenlateweights нельзяисправитьcatalogfilter. Textcode/brandимеютмалоеmetadata space иmassiveties, single-tokenbrandTFIDF=identity. ExactIP/cosineгеометрииразличны, ANNRecallagainstexact неpurchaseRecall.
 
-ALS поддерживает frozen-V fold-in; BPR default confidence/sampler/fold-in отличаются. Versioned implicit0.7.3 wheels проверены для CPU Mac/Windows; Windows CUDA/MPS не обещаются. HYP073 retrieval отдельно,074 generic fixed-C score duplicate051/056.
+Retrievaleffect: fullYRecall + gainedtargets −losttargets послеreplacement/cap; nativepolicy иmatchedactualsize показываютсярядом. Equalmaximumquota неравноequalactualC, refill/supportexhaustion заранееversioned. Fusion-only сравнение удерживаетprefusionpool/depth. Featureautomation/rankerablation сохраняет fixedQ/C/fullY ивнешний006criterion. Evalfuturepositives никогданевставляются; текущий017/008Cнетронут. Pooledsupportcoverage×in-supportRecall=pooledall-targetRecall, непроизведениемacroсредних. MaturezeroYqueriesсохраняются, censoredненулевыелэйблы.
 
-[Review05–08](review-05-08.md) уточняет equalactualsize/refill controls, replacementlosthits, conditional cohort denominators, daily ALS grain и neural support/availability. Exactdot прежде ANN при166k — предложение costpilot, не benchmark. ANNRecall against exact reference отличается от purchaseRecall; eligiblefilter не исправляет поздноfittedvectors. Textsource работает на небольшом metadata space, ties/expansionpopularity отделяются от semantics. Only11fusion/12evaluation-budget и finalgroupreview09–12 ещё ожидаются.
+Следующийpilot100labelblindqueries включает независимыеtiny/source/topK/tie/peer/OOV/overlaporacles, actualbuild/scan/state/search/exportcost, RSS/spill/deadline/errorledger. Авторскиеbudgets не складываются. Новыеsourcefits не вытесняютtask1: tunedmanualboosting и boundedfeatureautomation016 наfixedC. Confirmation закрыт доpositive decisiongap иfrozenclaim/control; expandedselection96targets ограничиваетprecision.
+
+[Backlog](../backlog.md) · [Target research](../target-research/index.md) · [Task1](../task1-requirements.md).
