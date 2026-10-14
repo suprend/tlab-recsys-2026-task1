@@ -38,6 +38,10 @@ NLP: [план сравнений](docs/nlp-experiments.md), [BM25 и TF–IDF](
 
 Исследования событийных признаков: [16 независимых записок, ревью и план отбора](docs/features/index.md).
 
+Цель модели и протокол: [8 независимых исследований purchase ranking, два ревью и матрица решений](docs/target-research/index.md).
+
+Исполняемая очередь: [единый backlog, владельцы, проверки и бюджеты](docs/backlog.md).
+
 Поведенческие эмбеддинги: [ARGUS и общая идея](docs/argus.md), [компактные модели истории](docs/sequential-embeddings.md), [протокол сравнения с бустингом](docs/embedding-experiments.md).
 
 ## Границы исследования
