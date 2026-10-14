@@ -37,3 +37,8 @@
 **HYP-069 — proposed:** UserCF даёт marginal Recall поверх recent/popular/category/ItemCF. Сравнить B и B∪UserCF; контроль добавляет к B столько уникальных популярных товаров, сколько UserCF фактически добавил этому query, обеспечивая одинаковое |C|; затем raw cosine против IUF/activity normalization. **HYP-070 — conditional:** audience retrieval доставляет дополнительные покупки относительно тех же источников; сравнить event-time/rehash только после положительного малого пилота. Audience заменяет ту же квоту 100, а не увеличивает бюджет. Признаки ranker проверять отдельно на одном фиксированном C.
 
 Одинаковые Q, полный Y, H и actual-C; показывать Recall, marginal hits, downstream top-K, head/tail/cold-срезы, query без покупок отдельной политикой. Бюджет: один snapshot, 10 000 queries, 8 GiB RSS, два часа подготовки — лимиты, не benchmark. Остановить канал при превышении лимита или отсутствии положительной нижней границы user-block bootstrap прироста Recall на validation; test после фиксации. Нулевой marginal gain означает отказ от усложнения, даже если соседей находить удаётся.
+
+
+## Coordinator grouped-review appendix — 15 октября 2026
+
+[Review05–08](review-05-08.md): одинаковый actual C-size требует достаточного refill support; при exhaustion ограничить обе ветви predeclared common size, без oracle fill. Neighbor denominator sum(a) query-constant и сам не меняет retrieval order; activity weight1/b_v меняет. Cohort prior uses N−1[u∈population], не безусловноеN−1. Capped postings определяют discovery, нормы/intersections — по declared capped profiles. Вложенные audience7d/profile7d требуют почти14dsource; self-subtracted ANN shortlist не гарантирует correctedtopK.

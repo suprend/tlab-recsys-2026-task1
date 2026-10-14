@@ -41,3 +41,8 @@ P1 purchase-user граф использует binary purchase-presence, отд�
 **HYP-062:** activity weighting повышает marginal new-pair coverage при одинаковых K/квотах; counterhypothesis — лишь удаляет head-support. Не дублирует fixed-C feature task. Абляции выполнять по одной: graph grain, нормировка, weighting, K, self-policy. Feature ablations используют один frozen C.
 
 P0 gate: один snapshot и 100 past-selected queries, ≤30 минут/6 GiB RSS, ledger scan/state/pairs/spill; частичный результат не объявлять полной метрикой. Проверить пять случаев: единственный общий пользователь — u; редкая lift-пара; timestamp boundary; cold item после snapshot; overlap всех источников/пустая история. Stop при нарушении past-availability/ресурсов; без устойчивого marginal Recall и downstream выигрыша на нескольких временных срезах при сопоставимой стоимости оставить recent+popular. Test не использовать для подбора вариантов.
+
+
+## Coordinator grouped-review appendix — 15 октября 2026
+
+[Review05–08](review-05-08.md) требует определить исключение из original200+20 union либо treatment150+20 union: это разные retrieval pools. Refill220 сравнивается с новым refill-control; старый no-refill004 показывается отдельно. TopK adjacency после truncation направленная, missing edge unknown. Other-user contribution вычитается до норм/topK; capped output не ограничивает Σm² graphbuild. Gained hits считаются относительно полного baseline, lost baseline hits после replacement/cap — отдельно.
