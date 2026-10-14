@@ -1,0 +1,53 @@
+{
+  "cases": [
+    {
+      "case": "close_wall",
+      "raised": "TimeoutError: Wall deadline exhausted",
+      "status": "failed",
+      "CPU": 0.0,
+      "wall": 1300.000543958
+    },
+    {
+      "case": "close_CPU",
+      "raised": "TimeoutError: Execution processCPU ceiling exceeded",
+      "status": "failed",
+      "CPU": 901.0,
+      "wall": 0.00043108399950142484
+    },
+    {
+      "case": "close_RSS",
+      "raised": "MemoryError: Execution cooperative RSS ceiling exceeded8GiB",
+      "status": "failed",
+      "CPU": 0.0,
+      "wall": 0.00036054200063517783
+    },
+    {
+      "case": "close_error",
+      "raised": "OSError: INDEPENDENT close failure",
+      "status": "failed",
+      "CPU": 0.0,
+      "wall": 0.00047770899982424453
+    },
+    {
+      "case": "manifest_write_error",
+      "raised": "OSError: INDEPENDENT manifest failure",
+      "status": "failed",
+      "CPU": 0.0,
+      "wall": 0.0004180830001132563
+    },
+    {
+      "case": "report_write_overrun",
+      "raised": "TimeoutError: Wall deadline exhausted",
+      "status": "failed",
+      "CPU": 0.0,
+      "wall": 1300.0005231670002
+    }
+  ],
+  "actual_resources": {
+    "wall_seconds": 0.008333958001458086,
+    "process_cpu_seconds": 0.00801600000000001,
+    "peak_rss_bytes": 49889280
+  },
+  "fits": 0,
+  "real_source_reads": 0
+}

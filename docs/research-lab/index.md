@@ -30,3 +30,8 @@ Primary confirmation control — frozen tuned B, а не только B+support.
 [Independentcritic012/019](round-012-review.md) принятсexplicitcanonicalappendix: strongsharedphysicalcontrol/profilecoverage/processCPU/survivorship иstrict009retention. Executionbudgetнерасширен.
 
 - [Round013: join multiplicity/fanout contracts](round-013.md): five hand-computed fixtures, typed keys/FK/time/membership proof obligations; ASOF cardinality не удостоверяет correct latest bucket. HYP111/112 reserved refinements, no execution; independentcriticpending.
+
+- [Independentcritic011/013](round-011-013-review.md): declaredFK vs inferredtype, explicit user population и frozen-context temporal uniqueness; accepted with appendix.
+- [Round014: portable decision lock и две шкалы времени](round-014.md): simulated2019 readiness и actual2026 seal-before-heldout-access, positive selection-to-decision compute gap; no25-only approval.
+- [Round015: factorised exhaustive verification](round-015.md): source-derived typed domains и EVERY physical Frow comparison; future018/016 proposal, not current sampled018 proof.
+- [Round016: semantic aliases vs quantization](round-016.md): conservative pre-pool dedup, float32/NULL/border counterexamples; no model invariance or newoperator approval.

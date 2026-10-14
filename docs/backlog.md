@@ -323,3 +323,14 @@ EligibleincumbentнаFINALschema: existing008Logloss50/6000еслиblockrejected
 [Full009 proposal critic](backlog-reviews/tlab009-full-export-proposal-review.md) принимает daily/exhaustive направление с обязательными уточнениями: expected unique-item domain из acceptedQ/C, comparison EVERY physical keyed row и fullR/provenance, exact14+accepted10093pins, combined1800actualCPU-second gate.26000-population cardinality diagnostic не отменяет6000-ablation criterion. Root drafting only; code/fault review и exact execution approval ещё впереди.
 
 [Round013](research-lab/round-013.md) уточняет typed key/cardinality/multiplicity obligations через пять counterexamples; это исследовательский проект synthetic adapter test, не новый бюджет или исполнение. HYP-111/112 reserved refinements existing HYP-002/046, не самостоятельные подтверждённые quality hypotheses.
+
+
+### Full009 initial code review: changes requested — 15 октября 2026
+
+[Independent original review](backlog-reviews/tlab009-full-export-code-review.md) наf60b639f freeze воспроизвёл4P1: physical schema/key/count consumer gate, primary exception при secondary counter/write failures, terminalCPU accounting, narrowed self-declared100inputscope. P2: daily cardinality не равна phase union.24ownsyntheticcases и11author tests не являются realfull acceptance. Frozen100/actual93source record unaffected; Root исправляет только новый full module. Actual full execution/approval ещё отсутствуют.
+
+[Mixedloader/one-ablation proposal](backlog-reviews/model-data-and-ablation-proposal.md) принят только как направление новых files: execute once/fetch_df_chunk32, preallocated56numeric+3categorical, exactold008base6000arrayequivalence, actual6000cardinality4096, ONELogloss50claim и fixedretention. До realfeatures/Pool/fit — independently accepted fullsource outputs и новый code/fit approval. Никаких dependencies/uv/pinned008 изменений. Уточнение: fetch_df_chunk32 даёт максимум65536rows/chunk; bounded resource failure→base/no replacement отличается от integrity/semantic/API failure→STOP.
+
+Future independent fulloracle transport проверен только tiny:280rows/5040values+allprovenance/fullR passed, единственная испорченная broadcastcopy rejected.0actualsource/modelreads/fits; author tiny proposal transport mocked явно. Initial harnessimportpath failure исправлен до тестов. Эти tinychecks не объявляются actualfullsourceacceptance.
+
+Rounds014–016 сохраняют дальнейшие obligations: actual2026 seal before reserved-target access отдельно от simulated2019 availability; expectedgrain-domain cover перед everyphysicalrow broadcast; conservative semantic aliases и floating/quantization nonaliases до common2I2Rpool. HYP113–118 reserved refinements, не новые quality claims/бюджеты. [Critic011/013](research-lab/round-011-013-review.md) принят с explicitpopulation/context appendix. Main016generation/selection остаётся центральным, новые заметки не откладывают ready execution.

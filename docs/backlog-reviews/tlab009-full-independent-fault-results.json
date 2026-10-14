@@ -1,0 +1,142 @@
+{
+  "cases": [
+    {
+      "case": "baseline",
+      "raised": null,
+      "actual_mock_CPU": 0.0,
+      "report": {
+        "fit_attempt_count": 0,
+        "labels_loaded": false,
+        "process_cpu_user_system_seconds": 0.0,
+        "process_peak_rss_bytes": 0,
+        "scope": "independent",
+        "seconds": 0.0009278750003431924,
+        "stages": [],
+        "status": "complete_produced_unreviewed",
+        "temp_disk_bytes_after_close": 0,
+        "version": 1
+      }
+    },
+    {
+      "case": "stage_primary_cpu_secondary",
+      "raised": "OSError: INDEPENDENT stage CPU secondary",
+      "actual_mock_CPU": 0.0,
+      "report": {
+        "cpu_measurement_error": "INDEPENDENT stage CPU secondary",
+        "error": "INDEPENDENT stage CPU secondary",
+        "error_type": "OSError",
+        "fit_attempt_count": 0,
+        "labels_loaded": false,
+        "process_cpu_user_system_seconds": null,
+        "process_peak_rss_bytes": 0,
+        "scope": "independent",
+        "seconds": 0.00044129200068709906,
+        "stages": [
+          {
+            "cpu_measurement_error": "INDEPENDENT stage CPU secondary",
+            "error": "INDEPENDENT PRIMARY",
+            "error_type": "ValueError",
+            "process_peak_rss_bytes": 59555840,
+            "seconds": 7.054200068523642e-05,
+            "stage": "independent_operation",
+            "status": "failed",
+            "temp_disk_bytes_at_stage_end": 0
+          }
+        ],
+        "status": "failed",
+        "temp_disk_bytes_after_close": 0,
+        "terminal_errors": [
+          {
+            "error": "INDEPENDENT stage CPU secondary",
+            "error_type": "OSError"
+          },
+          {
+            "error": "INDEPENDENT stage CPU secondary",
+            "error_type": "OSError"
+          }
+        ],
+        "version": 1
+      }
+    },
+    {
+      "case": "terminal_CPU_ledger",
+      "raised": null,
+      "actual_mock_CPU": 10.0,
+      "report": {
+        "fit_attempt_count": 0,
+        "labels_loaded": false,
+        "process_cpu_user_system_seconds": 0.0,
+        "process_peak_rss_bytes": 0,
+        "scope": "independent",
+        "seconds": 0.0004444579990376951,
+        "stages": [],
+        "status": "complete_produced_unreviewed",
+        "temp_disk_bytes_after_close": 0,
+        "version": 1
+      }
+    },
+    {
+      "case": "terminal_RSS_counter_primary",
+      "raised": "OSError: INDEPENDENT RSS secondary",
+      "actual_mock_CPU": 0.0,
+      "report": {
+        "fit_attempt_count": 0,
+        "labels_loaded": false,
+        "scope": "independent",
+        "stages": [],
+        "status": "running",
+        "version": 1
+      }
+    },
+    {
+      "case": "report_write_primary",
+      "raised": "OSError: INDEPENDENT report write secondary",
+      "actual_mock_CPU": 0.0,
+      "report": {
+        "error": "INDEPENDENT PRIMARY",
+        "error_type": "ValueError",
+        "fit_attempt_count": 0,
+        "labels_loaded": false,
+        "process_cpu_user_system_seconds": 0.0,
+        "process_peak_rss_bytes": 0,
+        "scope": "independent",
+        "seconds": 0.0003313330016680993,
+        "stages": [],
+        "status": "failed",
+        "temp_disk_bytes_after_close": 0,
+        "version": 1
+      }
+    },
+    {
+      "case": "full_export_baseline",
+      "status": "accepted",
+      "error": null,
+      "transport_scope": "author tiny fixture/mock prepare; physical Parquet modified and independently resealed"
+    },
+    {
+      "case": "fresh_resealed_wrong_physical_key",
+      "status": "accepted",
+      "error": null,
+      "transport_scope": "author tiny fixture/mock prepare; physical Parquet modified and independently resealed"
+    },
+    {
+      "case": "fresh_resealed_wrong_schema",
+      "status": "accepted",
+      "error": null,
+      "transport_scope": "author tiny fixture/mock prepare; physical Parquet modified and independently resealed"
+    },
+    {
+      "case": "fresh_resealed_missing_output_row",
+      "status": "accepted",
+      "error": null,
+      "transport_scope": "author tiny fixture/mock prepare; physical Parquet modified and independently resealed"
+    }
+  ],
+  "actual_resources": {
+    "wall_seconds": 1.5339746249992459,
+    "process_cpu_seconds": 1.7388620000000001,
+    "peak_rss_bytes": 177700864
+  },
+  "fits": 0,
+  "real_source_reads": 0
+}

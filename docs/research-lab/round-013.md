@@ -41,3 +41,8 @@ SQL INNER JOIN возвращает каждый matching pair. Поэтому �
 Metamorphic checks: перестановка peers/физических rows и future suffix сохраняют past values; duplicate event увеличивает raw counts, но не distinct entities; duplicate right-side membership либо отвергается, либо canonicalizes согласно explicit set policy, сохраняя event multiplicity. Candidate reorder не меняет keyed outputs; удаление off-C category events обязано изменить полный denominator, демонстрируя чувствительность oracle. Numeric-ID→string bijection сохраняет equality-based результаты. Удаление последней активной копии меняет distinct, предыдущей — только count.
 
 Prospective cap:≤5CPUминут/≤5wallминут,2threads,RSS≤512MiB,0fits, включая preparation/faults/cleanup; часть будущего согласованного adapter/oracle ledger, не автоматически новый бюджет. Semantic mismatch/непроверенная cardinality→failed/unsupported, без sample-based «proof» и free retry. Реализация и independent review нужны отдельно. Main016 по-прежнему generation/selection typedAST+correct calculation против frozen tuned B; новый framework, speedup и quality gain этим раундом не заявлены.
+
+
+## Independent critic appendix — 15 октября 2026
+
+[Critic011/013](round-011-013-review.md) принимает пять counterexamples с уточнениями. В global metadata примере user_view=3 предполагает одного пользователя для всех трёх событий; если известныеA/B принадлежатu1, аNULL-peer —u2, user counts2/1 при той же global ambiguity. Key `(anchor,product)` достаточен только внутри frozen source/adapter/availability/multiplicity context; overlapping versions требуют explicit conflict resolution. Запрет unintended fanout не запрещает declared taxonomy membership expansion. Исходный текст сохранён.
