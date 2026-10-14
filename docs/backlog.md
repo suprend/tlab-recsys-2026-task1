@@ -183,7 +183,7 @@ Runtime collection ещё не реализована/не исполнена. �
 
 ## Актуальная сводка research и дедупликация — 15 октября 2026
 
-Сохранены52 из58 independent studies:16 features,8 target,8 user×item,7 candidate,7 model,6 loss. Готовы10 из13 grouped cross-reviews: features2/target2/useritem2/candidate1/model1/loss2. [User×item synthesis](features/09-user-item/index.md) завершён; остальные family indexes явно промежуточные. Ранние counts в хронологических sections отражают предыдущие срезы. Оставшиеся6 studies и3 reviews продолжаются отдельной линией; raw notes не удаляются при расхождениях.
+Сохранены56 из58 independent studies:16 features,8 target,8 user×item,10 candidate,8 model,6 loss. Готовы12 из13 grouped cross-reviews: features2/target2/useritem2/candidate2/model2/loss2. [User×item synthesis](features/09-user-item/index.md) завершён; остальные family indexes явно промежуточные. Ранние counts в хронологических sections отражают предыдущие срезы. Оставшиеся2 studies и1 review продолжаются отдельной линией; raw notes не удаляются при расхождениях.
 
 Material amendments: historical item×category numerator вместо общего item count в category share; UserKNN N−1[u∈population] вместо безусловного N−1; latest global metadata bucket без older-clean backoff; graph group weights по retained seed mass, endpoint probabilities отдельно от visit counts. Full-Y checkpoint criterion должен реально выбирать модель. BCE all-mature и pairwise informative populations различны; native equal-label semantics не унифицированы. Review ссылки и repro находятся в family indexes.
 
@@ -223,3 +223,8 @@ Loss6+2reviews [завершены](loss-selection/index.md), без новых 
 ### TLAB-017 runtime code accepted, реальная collection ещё не принята — 15 октября 2026
 
 [Initial fault review](backlog-reviews/tlab017-runtime-review.md) и [independent re-review](backlog-reviews/tlab017-runtime-rereview.md) сохранены. Retry namespaces исправлены для каждого unsealed producer; scoped20PASS B2/coordinator и independent before-parent-seal faults подтвердили обычный resume/cache/artifact preservation/cumulative costs. Producer train5fdc4dce…8b918 и selectionc2c6ba09…81b74 approvals выданы на14actualpins каждый, sourceDB/newlock/currentcode сверены; confirmation не approved. Root выполняет первый bounded pass только до waiting_for_shard_review. Далее independent fullQ/Y/C source oracle→externalshardapprovals→Fresume→numericspotchecks/collectionacceptance;017notdone/008realfitblocked до этого gate. Coordinator oracle tiny2shardfixture Q4/Y2/C8 прошёл; это не actualtrain/selection result.
+
+
+[Model8+2reviews](model-selection/index.md) завершены, candidate10+2groupreviews опубликованы. Последние candidate11/12 и group09–12 ещё не объявлены опубликованными.085 lexical retrieval needs-pilot как sourceprotocol с matchedidentity/prefix/expansion;086 dense retrieval deferred до lexical residual/resourcegate.079/080/081/082/083/084 reserved без сформулированных новых hypotheses.
+
+Sourceoracle017: train26000Q/619Y/5317058C/496positive/444retrieved, selection4000Q/96Y/817149C/73positive/65retrieved; все Q/Y/C source-rebuilt,6externalshardapprovals выданы. Train F fullrowset=5317058C,78sourcepairs×18=1404formulachecks PASS; finalcollectionacceptance ещё ожидает complete audit/selectionFchecks.008 review обнаружил смену outputroot для повторныхfits и config parse/plan mismatch; Root исправляет, realfitapproval не выдан. Strong-control/016 nextplan остаётся proposal, budget не расширен.
