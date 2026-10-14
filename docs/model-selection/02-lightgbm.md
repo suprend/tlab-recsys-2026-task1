@@ -1,0 +1,39 @@
+# M02 — LightGBM как второй сильный boosting-контроль
+
+Дата: 15 октября 2026. Независимое исследование; записки коллег не использованы. Факты документации проверены через browsing: stable показывает 4.7.0, latest — 4.7.0.99; существенные крайние случаи сверены с исходниками тега v4.7.0. Установленная версия проекта не проверялась. Обучение, измерения RAM/скорости и experimental evidence отсутствуют: ниже предлагается эксперимент, а не результат.
+
+## Рекомендация и единица обучения
+
+**P0:** сначала довести ручной boosting pipeline до сильного контроля, затем сравнить CatBoost и CPU `LGBMRanker(objective="lambdarank")`. Два начальных fit — smoke, не доказательство настройки контроля. LightGBM интересен как альтернативная индуктивная предвзятость деревьев и инженерный контроль; исходная статья описывает GOSS/EFB, но её ускорения на других данных не прогнозируют скорость REES46. [Ke et al., NeurIPS 2017](https://papers.nips.cc/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html).
+
+Предлагаемый provisional score: `s(q,i)=Σ_m η f_m(x(q,i,t))`, где строка — кандидат товара i для query q=(user,t), x — общие ручные strict-past признаки пользователя, товара и взаимодействия. Q/Y/C, H, признаки, sampling, split и версии фиксируются manifest; положительные товары не вставляются в evaluation candidates из будущего. Для бинарного set-purchase Y: 1 означает distinct purchased item в зрелом горизонте, 0 — отсутствие целевой покупки, а не dislike. Каталог и метаданные доступны as-of; одинаковые секунды не упорядочиваются по ID. Learned encoders/priors требуют прошлого fit, не только прошлого history.
+
+`group` содержит размеры последовательных блоков query, сумма равна числу строк; разбиение выполняется целыми query и хронологически. Обязательны проверки соответствия строк/group после сортировки и фильтрации. [LGBMRanker API](https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.LGBMRanker.html).
+
+## Loss и пустые группы
+
+**Проверенные факты:** `lambdarank` использует NDCG-взвешенные парные обновления; `rank_xendcg` — отдельный XE_NDCG_MART objective, не другое имя LambdaRank. Целые relevance labels обязательны; для бинарной задачи предлагается явный gain [0,1]. `lambdarank_truncation_level` относится только к LambdaRank: стартовая инженерная настройка K+3, а не универсальное оптимальное значение. Настройка `label_gain` не меняет формулу XE_NDCG. [Parameters](https://lightgbm.readthedocs.io/en/stable/Parameters.html). Статья Bruch обосновывает альтернативный cross-entropy surrogate; её результаты не устанавливают превосходство на наших sampled candidates. [Bruch, WWW 2021](https://arxiv.org/abs/1911.09798).
+
+**Существенный крайний случай:** LambdaRank пропускает пары с равными labels, поэтому all-zero/all-one query дают нулевой ranking gradient. XE_NDCG пропускает только группы размера ≤1; при равных labels использует `Phi=2^label−random`, то есть all-zero query не гарантируют нулевые обновления. Это вывод непосредственно из реализации, а не утверждение о полезности такого сигнала. [Objective v4.7.0](https://raw.githubusercontent.com/lightgbm-org/LightGBM/v4.7.0/src/objective/rank_objective.hpp). Для чистой loss-ablation предлагаю общую маску train-query с минимум одним позитивом и негативом; отдельно сохранить число исключённых query. Это условный ranking training, не право ограничить evaluation будущими покупателями.
+
+Native NDCG LightGBM ставит all-zero candidate query **1**. Поэтому единый внешний evaluator должен различать zero-purchase query и query с покупкой вне C: во втором случае нужен retrieval miss, даже если внутри C все labels нулевые. Общая политика знаменателя и NDCG определяется до сравнения. [Metric v4.7.0](https://raw.githubusercontent.com/lightgbm-org/LightGBM/v4.7.0/src/metric/rank_metric.hpp).
+
+**P1:** `LGBMClassifier(objective="binary")` с сортировкой score внутри q — полезная альтернатива, сохраняющая all-zero training-query. Она меняет loss/взвешивание и считается отдельной веткой; sampled negatives не дают автоматически calibrated purchase probability. При class weights документация предупреждает об ухудшении индивидуальных probabilities. [Parameters](https://lightgbm.readthedocs.io/en/stable/Parameters.html).
+
+## Категории и переобучение
+
+Native categories задаются явно и кодируются компактными nonnegative int32; отрицательное значение — missing. Редкие категории регуляризуются `cat_smooth`/`min_data_per_group`; numeric NaN и настоящий count=0 сохраняются раздельно. [Advanced Topics](https://lightgbm.readthedocs.io/en/latest/Advanced-Topics.html). P0: category_id, code levels, brand — categorical; user_id исключить, product_id проверить отдельной ablation. Сырые BIGINT category IDs нельзя безусловно кастовать в int32. Совет документации попробовать numeric high-cardinality не обосновывает порядок произвольных ID: предпочтительнее удаление ID либо допустимое прошлое числовое представление. Codebook фиксируется, unseen category имеет явную missing/unknown policy.
+
+Leaf-wise рост способен дать глубокие ветви и переобучение; `max_depth` сам по себе не заменяет `num_leaves` и `min_data_in_leaf`. [Tuning](https://lightgbm.readthedocs.io/en/latest/Parameters-Tuning.html). Предложенный небольшой search: leaves {31,63}, min_data {200,1000}, learning_rate {0.03,0.07}, затем L2/feature_fraction при выявленном overfit. Это предложения, не defaults. Early stopping — на одной заранее выбранной внешней validation-метрике с patience 100, `first_metric_only=True`; test закрыт. Callback сохраняет best_iteration, но не действует для DART, поэтому P0 — GBDT. [Callback](https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.early_stopping.html).
+
+## Ресурсы, бюджет, критерии остановки
+
+CPU — переносимый старт. На Windows `device_type=gpu` использует OpenCL; CUDA-реализация поддерживается на Linux, не Windows; GPU/CUDA не поддерживаются на macOS. OpenCL ускоряет histogram building, остальные части работают на CPU. Следовательно RTX3070 не означает готовый CUDA fit. [Installation Guide](https://lightgbm.readthedocs.io/en/stable/Installation-Guide.html). `force_row_wise` удваивает память Dataset; `force_col_wise` и ограничение histogram pool — кандидаты экономии. [Parameters](https://lightgbm.readthedocs.io/en/latest/Parameters.html).
+
+**Оценка, не замер:** N=5 млн × F=100 float32 — 2 GB только плотной матрицы; bins, копии, labels, gradients, validation увеличат RSS. Предлагаемый предел одного процесса — 22 GB на 32-GB ПК; GPU пробовать только после CPU pilot с измеренным peak RAM/VRAM. Время fit заранее неизвестно.
+
+Честный бюджет: одинаковые данные/признаки, машина, лимит ресурсов и 12 завершённых tuning trials **на семейство**, дополнительно общий wall-clock cap, например 8 часов на семейство; публиковать actual trials, construction/fit/inference time и peak RSS. При разном числе завершённых trials сравнивать также best-score-versus-time. Совпадение depth/tree count между библиотеками не означает одинаковую сложность.
+
+Сильный контраргумент: второе семейство расходует бюджет, который мог улучшить признаки первого. Поэтому LightGBM остаётся контролем, а не самостоятельной заявкой на новизну. Для task1 далее нужна автоматизация вычисления признаков либо метод, обыгрывающий хорошо настроенный boosting, с experimental evidence; текущая записка этого доказательства не предоставляет.
+
+**HYP-033:** настроенный LightGBM улучшит NDCG@K относительно сильного CatBoost при общем бюджете. **HYP-034:** XE_NDCG сохранит качество LambdaRank при меньшем fit-time на общей train-маске. Обе непроверены. Stop: после бюджета нет устойчивого practically meaningful выигрыша по paired user-cluster bootstrap и временным срезам — оставить одну модель; нарушение manifest/метрик/RAM останавливает сравнение до исправления. P2 ensemble/GPU-перенос откладываются. Главная развилка — нужен ли условный ranking или также вероятность покупки; выбор меняет допустимый training loss и обработку пустых query.
