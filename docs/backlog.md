@@ -2,7 +2,7 @@
 
 Обновлено 15 октября 2026. Это первый исполняемый срез по уже завершённым исследованиям, а не ожидание всего портфеля. Пользователь разрешил ночное исполнение, meaningful tests и ограниченные pilots параллельно с постоянной research-линией. Target purchase-ranking — главный кандидат; конкретные protocol variants ещё проверяются, не объявлены финальным выбором.
 
-Координатор единолично ведёт этот файл и Git-публикацию в research-ветке/draft PR; Root исполняет TLAB-009, auxiliary worker — TLAB-018; TLAB-008 smoke и017 приняты. Основная ветка не изменяется. Данные, локальные модели и run artifacts ignored; в Git — код, документация и агрегированные отчёты. Платный cloud не подключается.
+Координатор единолично ведёт этот файл и Git-публикацию в research-ветке/draft PR; Root исполняет TLAB-009, auxiliary worker — независимый review009; TLAB-008 smoke и017 приняты. Основная ветка не изменяется. Данные, локальные модели и run artifacts ignored; в Git — код, документация и агрегированные отчёты. Платный cloud не подключается.
 
 ## Текущий статус и первый цикл
 
@@ -25,7 +25,7 @@
 | TLAB-015 | P0 | blocked | unassigned | locked protocol + выбранные завершённые ablations |
 | TLAB-016 | P1 | blocked | unassigned | 008,009, accepted/needs-pilot HYP |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
-| TLAB-018 | P0 | review: mandatory lineage fix | verification worker | 008 smoke accepted; no real rescans/acceptance writes |
+| TLAB-018 | P0 | phase1 code accepted; regeneration pending | verification worker; C11 accepted | existing-sealed readonly/manual18 only; no real scans/writes |
 | TLAB-019 | P0 | blocked: prospective tuning plan review | unassigned | 009 feature decision/freeze; CPU ledger; exact 4-fit plan review |
 
 Файлы `scripts/temporal_contract.py` и `tests/test_temporal_contract.py` принадлежат только Root до завершения001. Новые исполнители получают непересекающийся scope. Сообщение агента не является доказательством done: нужны actual files/diff/checks и независимый substantive review. Не повторять неизменные проверки после их прохождения; следующий run оправдывается новой правкой, failure либо конкретной неопределённостью.
@@ -314,3 +314,12 @@ README/experimentplan обновлены: рабочийpurchaseprotocol/accepte
 EligibleincumbentнаFINALschema: existing008Logloss50/6000еслиblockrejected, accepted009Logloss50/6000еслиretained;никакогоincumbentrefit. PrimarymaxexternalfullYNDCG средиincumbent+feasiblecompletednewcheckpoints,общийRecallguard. Stabletie-setscore≥globalmax−1e−12,thenfewertrees/smallerdepth/incumbentifotherwiseequal/configID. NonefeasibleSTOP/no refill. Winnerpipeline6000or26000задаётТОЧНЫЕодинаковыеtrainQ/C/Y/weights/features/settings/trees длявсех016I/Rarms; pipeline/populationselectionнеприписываетсяintelligence.12newcheckpointlooks+priorincumbent/009/007historyявны. Proposed60actualCPUmin019includesgate/prep/failures/oracles/scoring,неwall×threads/невыдуманныйостаток6CPUh.
 
 [Workingreadablereport](progress-report.md) отражаеттекущиеacceptedresults; финальныйtask1outcomeещёоткрыт. [Rounds011/012](research-lab/index.md) сохранены. Main016automaticGENERATION/selectiontypedAST+correctcalculation, неDAGspeedpromise;005ужеsharedplan. OptionalcomputeexperimentonlysameAST/optimizerON/fullcommonsinkvs005insideexisting2CPUh. Никакихнеизмеренныхhuman-hours/победынаднамереннонаивнымSQL.
+
+
+### TLAB-018 phase1 code accepted; full009 proposal critic — 15 октября 2026
+
+[Portable readonly workflow](experiments/verification-workflow.md) принят по [targeted independent review](backlog-reviews/tlab018-independent-rereview.md), original [changes requested](backlog-reviews/tlab018-independent-review.md) не переписан. Exact14 mandatory shard map выводится независимо от approval; fresh resealing missing Q/C не получает pass.29scoped synthetic tests и independent18cases закрывают lineage/report-ID/cleanup. Никаких actual018 rescans/fits/acceptance writes. Phase1 НЕ завершает clean-clone regeneration; pre-acceptance verification, explicit externally bound acceptance-writing и real-resource plan остаются отдельным pending scope.
+
+[Full009 proposal critic](backlog-reviews/tlab009-full-export-proposal-review.md) принимает daily/exhaustive направление с обязательными уточнениями: expected unique-item domain из acceptedQ/C, comparison EVERY physical keyed row и fullR/provenance, exact14+accepted10093pins, combined1800actualCPU-second gate.26000-population cardinality diagnostic не отменяет6000-ablation criterion. Root drafting only; code/fault review и exact execution approval ещё впереди.
+
+[Round013](research-lab/round-013.md) уточняет typed key/cardinality/multiplicity obligations через пять counterexamples; это исследовательский проект synthetic adapter test, не новый бюджет или исполнение. HYP-111/112 reserved refinements existing HYP-002/046, не самостоятельные подтверждённые quality hypotheses.

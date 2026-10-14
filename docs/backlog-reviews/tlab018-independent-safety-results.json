@@ -1,0 +1,30 @@
+{
+  "cases": [
+    {
+      "case": "default_readonly_CLI",
+      "exit": 0,
+      "status": "verified",
+      "file_bytes_and_membership_unchanged": true
+    },
+    {
+      "case": "traversal",
+      "status": "failed"
+    },
+    {
+      "case": "symlink",
+      "status": "failed"
+    },
+    {
+      "case": "source_attachment_rejects_write",
+      "status": "verified",
+      "readonly_engine_error": true
+    }
+  ],
+  "actual_resources": {
+    "wall_seconds": 0.6645000839998829,
+    "cpu_seconds": 0.724726,
+    "peak_rss_bytes": 135856128
+  },
+  "fits": 0,
+  "real_source_reads": 0
+}

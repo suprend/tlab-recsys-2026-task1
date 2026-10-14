@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "case": "healthy",
+      "status": "verified",
+      "gate": null
+    },
+    {
+      "case": "omit_actual_Q_C",
+      "status": "failed",
+      "gate": "lineage.shard_approval_scope"
+    },
+    {
+      "case": "candidate_wrong_anchor",
+      "status": "failed",
+      "gate": "lineage.candidate_report_ids"
+    },
+    {
+      "case": "feature_wrong_anchor",
+      "status": "failed",
+      "gate": "lineage.feature_report_ids"
+    },
+    {
+      "case": "feature_wrong_candidate",
+      "status": "failed",
+      "gate": "lineage.feature_report_ids"
+    }
+  ],
+  "actual_resources": {
+    "wall_seconds": 1.6985204579996207,
+    "cpu_seconds": 1.856857,
+    "peak_rss_bytes": 135806976
+  },
+  "fits": 0,
+  "real_source_reads": 0
+}

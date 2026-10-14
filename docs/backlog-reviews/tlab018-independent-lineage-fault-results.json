@@ -1,0 +1,27 @@
+{
+  "cases": [
+    {
+      "case": "approval_and_feature_inputs_omit_actual_Q_C",
+      "omitted_labels": [
+        "queries",
+        "candidates"
+      ],
+      "status": "verified",
+      "gate": null,
+      "completed": [
+        "lineage",
+        "shard_0_QYC",
+        "shard_0_F",
+        "shard_1_QYC",
+        "shard_1_F"
+      ]
+    }
+  ],
+  "actual_resources": {
+    "wall_seconds": 0.5417004589999124,
+    "cpu_seconds": 0.583807,
+    "peak_rss_bytes": 135348224
+  },
+  "fits": 0,
+  "real_source_reads": 0
+}

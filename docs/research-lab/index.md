@@ -28,3 +28,5 @@ Primary confirmation control — frozen tuned B, а не только B+support.
 - [Round012: честный calculation benchmark](round-012.md): unchanged005sharedplan primaryphysicalcontrol,fullcommonsink/processCPU/symmetricABBA, noexecution; independentcriticpending. Main016 — automaticGENERATION/selection+correctcalculation; speedexperimentoptionalwithinexistingbudget.107–110reserved.
 
 [Independentcritic012/019](round-012-review.md) принятсexplicitcanonicalappendix: strongsharedphysicalcontrol/profilecoverage/processCPU/survivorship иstrict009retention. Executionbudgetнерасширен.
+
+- [Round013: join multiplicity/fanout contracts](round-013.md): five hand-computed fixtures, typed keys/FK/time/membership proof obligations; ASOF cardinality не удостоверяет correct latest bucket. HYP111/112 reserved refinements, no execution; independentcriticpending.
