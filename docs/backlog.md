@@ -16,7 +16,7 @@
 | TLAB-006 | P0 | done | metrics worker; accepted B3/coordinator | — |
 | TLAB-007 | P0 | done | heuristic worker; accepted B2/coordinator | — |
 | TLAB-008 | P0 | done: two-fit smoke; strong tuning tracked019 | root; independent code/output accept | —;017 accepted |
-| TLAB-009 | P1 | 100Q source/cost accepted; full runtime in_progress | root; independent direct-list reviewer | 008 smoke accepted; core→runner→100Q review gates |
+| TLAB-009 | P1 | 100Q source/cost accepted; full code accepted, execution pending | root; independent direct-list reviewer | 008 smoke accepted; core→runner→100Q review gates |
 | TLAB-010 | P1 | blocked | unassigned | 008 |
 | TLAB-011 | P1 | blocked | unassigned | 008 |
 | TLAB-012 | P1 | blocked | unassigned | 008, measured resource gate; user-item review completed |
@@ -334,3 +334,12 @@ EligibleincumbentнаFINALschema: existing008Logloss50/6000еслиblockrejected
 Future independent fulloracle transport проверен только tiny:280rows/5040values+allprovenance/fullR passed, единственная испорченная broadcastcopy rejected.0actualsource/modelreads/fits; author tiny proposal transport mocked явно. Initial harnessimportpath failure исправлен до тестов. Эти tinychecks не объявляются actualfullsourceacceptance.
 
 Rounds014–016 сохраняют дальнейшие obligations: actual2026 seal before reserved-target access отдельно от simulated2019 availability; expectedgrain-domain cover перед everyphysicalrow broadcast; conservative semantic aliases и floating/quantization nonaliases до common2I2Rpool. HYP113–118 reserved refinements, не новые quality claims/бюджеты. [Critic011/013](research-lab/round-011-013-review.md) принят с explicitpopulation/context appendix. Main016generation/selection остаётся центральным, новые заметки не откладывают ready execution.
+
+
+### Full009 producer/observer code accepted — 15 октября 2026
+
+[Final code acceptance](backlog-reviews/tlab009-full-export-final-rereview.md) закрыла original4P1/P2 и failed-receipt boundary: initialsummaryfinalizing, finalreceiptcomplete, knownfailedmarker отвергается до input/source work. Actualfull exports/qualityfits ещё отсутствуют. Current published code59565643f58a…77afa, [AST-identical EOF correction](backlog-reviews/tlab009-full-publication-note.md); frozen100 unchanged; nextexactexternalproducerapproval→boundedexport→900CPUindependentsourceaudit→externalseal→reviewedmixedloader/ONEablation.
+
+Independent sourceobserver [nullableBIGINT P1](backlog-reviews/tlab009-full-source-oracle-review.md) воспроизведён как correctIDfalse-reject/wrongroundedIDfalse-accept; explicittypedSeriesBEFOREDataFrame fixed it. [12typed cases](backlog-reviews/tlab009-full-source-oracle-rereview.md) и [marker/setup gate](backlog-reviews/tlab009-full-source-oracle-marker-rereview.md) приняты. Currentpublicsourceoracle supports exactmetadata009 context, не объявляет complete018manual18regeneration или actualfullsourceproof. Originald76/typed577 versions preserved.
+
+Rounds017–019 сохраняют proposerinformation/typedfuzzing/cluster-bootstrap limits; no extra fits/materializedcolumns/selectionlooks authorized. Root model_data остаётся отдельным uncommitted review scope.

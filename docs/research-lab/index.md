@@ -35,3 +35,7 @@ Primary confirmation control — frozen tuned B, а не только B+support.
 - [Round014: portable decision lock и две шкалы времени](round-014.md): simulated2019 readiness и actual2026 seal-before-heldout-access, positive selection-to-decision compute gap; no25-only approval.
 - [Round015: factorised exhaustive verification](round-015.md): source-derived typed domains и EVERY physical Frow comparison; future018/016 proposal, not current sampled018 proof.
 - [Round016: semantic aliases vs quantization](round-016.md): conservative pre-pool dedup, float32/NULL/border counterexamples; no model invariance or newoperator approval.
+
+- [Round017: proposer information boundary](round-017.md): static enumeration versus learned screening, all looks/costs and retrospective019→016development chronology.
+- [Round018: typed property/fault tests](round-018.md): exactnullableBIGINT and rawbag/globalpeer invariants, literal oracles remain necessary.
+- [Round019: bootstrap interpretation](round-019.md): user-cluster uncertainty conditional on observed dates/models;200draws and adaptive selection do not establish confirmation/generalisation.
