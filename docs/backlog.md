@@ -24,7 +24,7 @@
 | TLAB-014 | P1 | in_progress | permanent research line | постоянная линия, не блокирует ядро |
 | TLAB-015 | P0 | blocked | unassigned | locked protocol + выбранные завершённые ablations |
 | TLAB-016 | P1 | blocked | unassigned | 008,009, accepted/needs-pilot HYP |
-| TLAB-017 | P0 | in_progress | root; plan accepted, runtime pending | 005 accepted; new dependency lineage/code review before execution |
+| TLAB-017 | P0 | in_progress | root; runtime code accepted, producers sealed | actual Q/Y/C source review, F/collection acceptance before008fits |
 
 Файлы `scripts/temporal_contract.py` и `tests/test_temporal_contract.py` принадлежат только Root до завершения001. Новые исполнители получают непересекающийся scope. Сообщение агента не является доказательством done: нужны actual files/diff/checks и независимый substantive review. Не повторять неизменные проверки после их прохождения; следующий run оправдывается новой правкой, failure либо конкретной неопределённостью.
 
@@ -183,7 +183,7 @@ Runtime collection ещё не реализована/не исполнена. �
 
 ## Актуальная сводка research и дедупликация — 15 октября 2026
 
-Сохранены50 из58 independent studies:16 features,8 target,8 user×item,7 candidate,6 model,5 loss. Готовы9 из13 grouped cross-reviews: features2/target2/useritem2/candidate1/model1/loss1. [User×item synthesis](features/09-user-item/index.md) завершён; остальные family indexes явно промежуточные. Ранние counts в хронологических sections отражают предыдущие срезы. Оставшиеся8 studies и4 reviews продолжаются отдельной линией; raw notes не удаляются при расхождениях.
+Сохранены52 из58 independent studies:16 features,8 target,8 user×item,7 candidate,7 model,6 loss. Готовы10 из13 grouped cross-reviews: features2/target2/useritem2/candidate1/model1/loss2. [User×item synthesis](features/09-user-item/index.md) завершён; остальные family indexes явно промежуточные. Ранние counts в хронологических sections отражают предыдущие срезы. Оставшиеся6 studies и3 reviews продолжаются отдельной линией; raw notes не удаляются при расхождениях.
 
 Material amendments: historical item×category numerator вместо общего item count в category share; UserKNN N−1[u∈population] вместо безусловного N−1; latest global metadata bucket без older-clean backoff; graph group weights по retained seed mass, endpoint probabilities отдельно от visit counts. Full-Y checkpoint criterion должен реально выбирать модель. BCE all-mature и pairwise informative populations различны; native equal-label semantics не унифицированы. Review ссылки и repro находятся в family indexes.
 
@@ -215,3 +215,11 @@ Material amendments: historical item×category numerator вместо общег
 Selection anchors22–23 с H24h дают последние доступные labels24Oct00; first confirmation24Oct00 оставляет нулевой интервал для выбора/compute. Confirmation не читался и runtime017 его не открывает. До freeze008/confirmation prospectively выбрать положительный gap: например firstconfirmation25Oct00 либо сократить selection до22Oct. Нужны actual metric/selectedwinner availability≤frozen_before<firstconfirmation, bounded compute ledger и отдельная reviewed config change; никакой post-hoc замены уже использованного holdout. Сейчас это open decision gate, не approved schedule.
 
 Root008 owns scripts/train_baselines.py, tests/test_train_baselines.py, configs/models/cpu-smoke.json, docs/experiments/boosting-baselines.md; contract/synthetic разрешены, real fits только после017 acceptance. HYP073 needs-pilot ALS retrieval отдельно от existing fixed-C ALS051/056;074 rejected duplicate. HYP075/076 reserved для independent L06, не автоматически зарегистрированы. [M06 integration review](model-selection/integration-review-06.md) — дополнительный single-note audit, не один из13 grouped reviews.
+
+
+Loss6+2reviews [завершены](loss-selection/index.md), без новых train/quality claims. M07 [sequence proposal](model-selection/07-sequential.md) archived;077/078 reserved, новая hypothesis не сформулирована. L06 validation075/076 тоже reserved. Runtime017 firstreview нашёл generic unsealed-child retry blocker; Root fresh output attempt namespace сохраняет partials и costs,20scopedtestsPASS, independent re-review pending. Producer approval не выдан до acceptance; root008 выполняет только contract/synthetic.
+
+
+### TLAB-017 runtime code accepted, реальная collection ещё не принята — 15 октября 2026
+
+[Initial fault review](backlog-reviews/tlab017-runtime-review.md) и [independent re-review](backlog-reviews/tlab017-runtime-rereview.md) сохранены. Retry namespaces исправлены для каждого unsealed producer; scoped20PASS B2/coordinator и independent before-parent-seal faults подтвердили обычный resume/cache/artifact preservation/cumulative costs. Producer train5fdc4dce…8b918 и selectionc2c6ba09…81b74 approvals выданы на14actualpins каждый, sourceDB/newlock/currentcode сверены; confirmation не approved. Root выполняет первый bounded pass только до waiting_for_shard_review. Далее independent fullQ/Y/C source oracle→externalshardapprovals→Fresume→numericspotchecks/collectionacceptance;017notdone/008realfitblocked до этого gate. Coordinator oracle tiny2shardfixture Q4/Y2/C8 прошёл; это не actualtrain/selection result.

@@ -103,4 +103,249 @@ class DevelopmentCollectionTests(unittest.TestCase):
         self.assertNotIn('measured_queries',first)
 
 
+class DevelopmentRuntimeTests(unittest.TestCase):
+    """Actual tiny Q/Y/C/F producers and simulated independent approvals."""
+    def setUp(self):
+        import contextlib
+        import tempfile
+        import shutil
+        import duckdb
+        from unittest.mock import patch
+        from scripts import development_collection as d, anchor_pilot as a, candidate_pilot as c
+        from scripts import manual_features as m, heuristic_baselines as h
+        self.d, self.a, self.c = d, a, c
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.root = Path(temporary.name).resolve()
+        for name in [*d.PRODUCER_CODE, 'pyproject.toml', 'configs/features/manual-18.json']:
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / name, path)
+        self.stack = contextlib.ExitStack()
+        self.addCleanup(self.stack.close)
+        for module in [d, a, c, m, h]:
+            self.stack.enter_context(patch.object(module, 'ROOT', self.root))
+        base = load_protocol(ROOT / 'configs/protocols/clock-48h.json')
+        base['query']['max_users_per_day'] = 2
+        base['candidates'].update(popular_limit=3, recent_limit=3, max_unique=6)
+        base['budget'] = dict(max_anchors=6, max_candidate_pairs=36)
+        self.base = base
+        self.phase = load_phase(ROOT / 'configs/development/train.json', load_protocol(ROOT / 'configs/protocols/clock-48h.json'))
+        self.phase.update(range=dict(start='2019-10-08T00:00:00Z', end='2019-10-10T00:00:00Z'),
+                          label_available_before='2019-10-10T00:00:00Z', shard_days=1,
+                          model_timing=dict(fit_data_cutoff='2019-10-10T00:00:00Z', available_at='2019-10-11T00:00:00Z'),
+                          budget=dict(max_queries=4, max_candidate_pairs=24, wall_seconds=60))
+        self.phase_path = self.root / 'configs/development/train.json'
+        self.phase_path.parent.mkdir(parents=True)
+        d._atomic_json(self.phase_path, self.phase)
+        basepath = self.root / self.phase['base_protocol']
+        basepath.parent.mkdir(parents=True, exist_ok=True)
+        d._atomic_json(basepath, base)
+        self.db = self.root / 'data/tiny.duckdb'
+        self.db.parent.mkdir()
+        con = duckdb.connect(str(self.db))
+        try:
+            con.execute('CREATE TABLE ingest_metadata(note VARCHAR)')
+            con.execute("INSERT INTO ingest_metadata VALUES ('tiny synthetic source')")
+            con.execute('''CREATE TABLE events(event_time TIMESTAMP,event_type VARCHAR,product_id BIGINT,
+                          user_id BIGINT,category_id BIGINT,category_code VARCHAR)''')
+            con.executemany('INSERT INTO events VALUES (?,?,?,?,?,?)', [
+                ('2019-10-07 18:00:00', 'view', 10, 1, 100, 'a'),
+                ('2019-10-07 20:00:00', 'purchase', 20, 2, 200, 'b'),
+                ('2019-10-08 00:00:00', 'purchase', 10, 1, 100, 'a'),
+                ('2019-10-08 12:00:00', 'view', 30, 2, 300, None),
+                ('2019-10-09 00:00:00', 'purchase', 30, 2, 300, None)])
+        finally:
+            con.close()
+        self.plan = d.prepare_execution_plan(self.phase_path, self.db)
+        self.producer = self.root / 'artifacts/acceptance/producer.json'
+        self.producer.parent.mkdir(parents=True)
+        d._atomic_json(self.producer, dict(version=1, approved=True, scope='reviewed_producers_and_phase_plan',
+            collection_id=self.plan['collection_id'], fingerprints=self.plan['execution_inputs']['fingerprints']))
+        self.output = self.root / 'artifacts/development'
+        self.acceptances = self.root / 'artifacts/acceptance/shards'
+        self.directory = self.output / self.plan['collection_id']
+
+    def execute(self):
+        import contextlib
+        import io
+        with contextlib.redirect_stdout(io.StringIO()):
+            return self.d.run_phase(self.phase_path, self.db, self.output,
+                producer_approval_path=self.producer, shard_acceptance_dir=self.acceptances)
+
+    def read_state(self):
+        return self.d._read_json(self.directory / 'state.json')
+
+    def approve_shards(self):
+        """Test fixture simulates an external reviewer, never production logic."""
+        from scripts.protocol_manifest import load_run_manifest, sha256_file
+        self.acceptances.mkdir(parents=True, exist_ok=True)
+        for entry in self.read_state()['shards']:
+            pins = {}
+            for kind in ['anchor', 'candidate']:
+                seal = entry[kind]
+                manifest = load_run_manifest(self.root / seal['directory'] / 'run.json')
+                pins.update(seal['fingerprints'])
+                pins.update(manifest['identity']['code_hashes'])
+                pins.update(manifest['identity']['input_hashes'])
+            self.d._atomic_json(self.acceptances / (entry['candidate']['run_id'] + '.json'),
+                dict(version=1, approved=True, anchor_run_id=entry['anchor']['run_id'],
+                     candidate_run_id=entry['candidate']['run_id'], fingerprints=pins))
+
+    def test_actual_producers_wait_for_external_review_then_resume_full_features_and_cache(self):
+        first = self.execute()
+        self.assertEqual(first['status'], 'waiting_for_shard_review')
+        self.assertEqual(len(first['pending']), 2)
+        self.assertTrue(all('features' not in e for e in self.read_state()['shards']))
+        first_cost = self.read_state()['compute_seconds']
+        self.approve_shards()
+        complete = self.execute()
+        self.assertEqual(complete['status'], 'complete_produced_unreviewed')
+        counts = complete['collection']['counts']
+        self.assertEqual(counts['queries'], 4)
+        self.assertEqual(counts['labels'], 2)
+        self.assertEqual(counts['candidates'], counts['features'])
+        self.assertEqual(complete['prior_compute_seconds'], first_cost)
+        self.assertAlmostEqual(self.read_state()['compute_seconds'], first_cost + complete['seconds'])
+        state = self.read_state()
+        cached = self.execute()
+        self.assertEqual(cached['collection'], complete['collection'])
+        self.assertEqual(self.read_state()['shards'], state['shards'])
+        self.assertEqual(len(self.read_state()['attempts']), 3)
+        self.assertGreater(self.read_state()['compute_seconds'], state['compute_seconds'])
+
+    def test_approval_is_not_inferred_from_fresh_current_hashes_or_scope(self):
+        approval = self.d._read_json(self.producer)
+        approval['approved'] = False
+        self.d._atomic_json(self.producer, approval)
+        with self.assertRaisesRegex(ValueError, 'approval'):
+            self.execute()
+        self.assertFalse((self.directory / 'state.json').exists())
+        reports = list(self.output.glob('attempt-*/report.json'))
+        self.assertEqual(self.d._read_json(reports[0])['status'], 'failed')
+        approval.update(approved=True, scope='output_acceptance')
+        self.d._atomic_json(self.producer, approval)
+        with self.assertRaisesRegex(ValueError, 'masquerade'):
+            self.execute()
+
+    def test_modified_source_code_or_phase_cannot_reuse_reviewed_producer_bundle(self):
+        for path in [self.db, self.root / 'scripts/candidate_pilot.py', self.phase_path]:
+            with self.subTest(path=path):
+                original = path.read_bytes()
+                path.write_bytes(original + b'\n')
+                try:
+                    with self.assertRaisesRegex(ValueError, 'fingerprint changed'):
+                        self.execute()
+                finally:
+                    path.write_bytes(original)
+
+    def test_cached_complete_output_tamper_fails_before_features_even_with_shard_approval(self):
+        self.execute()
+        self.approve_shards()
+        entry = self.read_state()['shards'][0]
+        report = self.root / entry['candidate']['directory'] / 'report.json'
+        report.write_bytes(report.read_bytes() + b'\n')
+        with self.assertRaisesRegex(ValueError, 'Cached output changed'):
+            self.execute()
+        self.assertEqual(self.read_state()['status'], 'failed')
+        self.assertTrue(all('features' not in e for e in self.read_state()['shards']))
+
+    def test_failed_child_preserves_partial_cost_and_never_claims_collection_complete(self):
+        from unittest.mock import patch
+        with patch.object(self.c, 'run', side_effect=TimeoutError('synthetic candidate timeout')):
+            with self.assertRaisesRegex(TimeoutError, 'synthetic candidate timeout'):
+                self.execute()
+        state = self.read_state()
+        self.assertEqual(state['status'], 'failed')
+        self.assertGreater(state['compute_seconds'], 0)
+        self.assertIn('anchor', state['shards'][0])
+        self.assertNotIn('candidate', state['shards'][0])
+        audit = self.d._read_json(self.root / state['attempts'][0])
+        self.assertEqual(audit['error_type'], 'TimeoutError')
+        self.assertTrue(any(s['status'] == 'failed' for s in audit['stages']))
+
+    def test_exhausted_cumulative_budget_and_crash_lock_are_not_silently_reset(self):
+        self.execute()
+        state = self.read_state()
+        state['compute_seconds'] = self.phase['budget']['wall_seconds']
+        self.d._atomic_json(self.directory / 'state.json', state)
+        with self.assertRaisesRegex(TimeoutError, 'Cumulative'):
+            self.execute()
+        self.assertEqual(self.read_state(), state)
+        lock = self.directory / '.runtime.lock'
+        lock.touch()
+        with self.assertRaises(FileExistsError):
+            self.execute()
+        self.assertTrue(lock.exists())
+
+    def test_identified_feature_failure_is_preserved_and_normal_resume_completes(self):
+        from unittest.mock import patch
+        from scripts import manual_features
+        self.execute()
+        self.approve_shards()
+        with patch.object(manual_features, 'create_manual_features', side_effect=TimeoutError('identified F failure')):
+            with self.assertRaisesRegex(TimeoutError, 'identified F failure'):
+                self.execute()
+        state = self.read_state()
+        attempt = [a for a in state['shards'][0]['producer_attempts'] if a['kind'] == 'features'][0]
+        partial_reports = list((self.root / attempt['output_root']).glob('*/report.json'))
+        self.assertEqual(len(partial_reports), 1)
+        self.assertEqual(self.d._read_json(partial_reports[0])['status'], 'failed')
+        original = partial_reports[0].read_bytes()
+        failed_cost = state['compute_seconds']
+        complete = self.execute()
+        self.assertEqual(complete['status'], 'complete_produced_unreviewed')
+        self.assertGreater(self.read_state()['compute_seconds'], failed_cost)
+        self.assertEqual(partial_reports[0].read_bytes(), original)
+        roots = [a['output_root'] for a in self.read_state()['shards'][0]['producer_attempts'] if a['kind'] == 'features']
+        self.assertEqual(len(roots), 2)
+        self.assertEqual(len(set(roots)), 2)
+
+    def test_identified_candidate_failure_is_preserved_and_normal_resume_reaches_review(self):
+        from unittest.mock import patch
+        with patch.object(self.c, 'build_candidates', side_effect=TimeoutError('identified C failure')):
+            with self.assertRaisesRegex(TimeoutError, 'identified C failure'):
+                self.execute()
+        state = self.read_state()
+        attempt = [a for a in state['shards'][0]['producer_attempts'] if a['kind'] == 'candidate'][0]
+        reports = list((self.root / attempt['output_root']).glob('*/report.json'))
+        self.assertEqual(self.d._read_json(reports[0])['status'], 'failed')
+        original = reports[0].read_bytes()
+        self.assertEqual(self.execute()['status'], 'waiting_for_shard_review')
+        self.assertEqual(reports[0].read_bytes(), original)
+
+    def test_identified_anchor_failure_is_preserved_and_normal_resume_reaches_review(self):
+        from unittest.mock import patch
+        with patch.object(self.a, 'build_pilot', side_effect=TimeoutError('identified QY failure')):
+            with self.assertRaisesRegex(TimeoutError, 'identified QY failure'):
+                self.execute()
+        state = self.read_state()
+        attempt = state['shards'][0]['producer_attempts'][0]
+        self.assertEqual(attempt['kind'], 'anchor')
+        reports = list((self.root / attempt['output_root']).glob('*/report.json'))
+        self.assertEqual(self.d._read_json(reports[0])['status'], 'failed')
+        original = reports[0].read_bytes()
+        self.assertEqual(self.execute()['status'], 'waiting_for_shard_review')
+        self.assertEqual(reports[0].read_bytes(), original)
+
+    def test_incomplete_or_duplicated_shards_never_aggregate_as_complete(self):
+        self.execute()
+        self.approve_shards()
+        self.execute()
+        state = self.read_state()
+        for shards in [state['shards'][:1], [state['shards'][0], state['shards'][0]]]:
+            with self.subTest(shards=len(shards)), self.assertRaisesRegex(ValueError, 'shard cover'):
+                self.d.aggregate_collection(self.plan, {**state, 'shards': shards})
+
+    def test_confirmation_runtime_refuses_even_valid_schema_lock_before_source_read(self):
+        from unittest.mock import patch
+        phase = deepcopy(self.phase)
+        phase.update(role='confirmation', lock_required=True,
+                     model_timing=dict(fit_data_cutoff='2019-10-06T00:00:00Z', available_at='2019-10-07T00:00:00Z'))
+        self.d._atomic_json(self.phase_path, phase)
+        with patch.object(self.d, '_digest', side_effect=AssertionError('source must stay unread')):
+            with self.assertRaisesRegex(ValueError, 'Confirmation runtime'):
+                self.execute()
+
+
 if __name__=='__main__':unittest.main()
