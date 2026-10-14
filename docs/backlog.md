@@ -14,7 +14,7 @@
 | TLAB-004 | P0 | in_progress | root; synthetic stage | production pilot blocked until003 accept |
 | TLAB-005 | P0 | in_progress | root; synthetic registry stage | production blocked until004 accept |
 | TLAB-006 | P0 | done | metrics worker; accepted B3/coordinator | — |
-| TLAB-007 | P0 | blocked | unassigned | 004,006 |
+| TLAB-007 | P0 | in_progress | heuristic worker; synthetic stage | production blocked until004 accept |
 | TLAB-008 | P0 | blocked | unassigned | 005,007, проверенная CPU CatBoost dependency |
 | TLAB-009 | P1 | blocked | unassigned | 008 |
 | TLAB-010 | P1 | blocked | unassigned | 008 |
@@ -54,7 +54,7 @@ Execution statuses: `ready` — нет невыполненных обязате
 
 **TLAB-006 — независимый ranking evaluator. P0, done, accepted B3/coordinator.** Outputs: evaluator и hand-computed fixtures. Полный Y задаёт Recall и IDCG, недоступные targets остаются misses; короткий список не заполняется отсутствующими positives с score −∞. Публиковать p(nonempty), conditional macro-query NDCG/Recall@20, отдельно all-query zero-convention и user-macro. Acceptance: при трёх targets и одном найденном первым Recall=1/3, NDCG≈0,469 при K≥3; пустое Y не смешивается с censoring. Парный user-cluster bootstrap пересчитывает исходный estimand, использует одни multiplicities для разности моделей. Проверки: ties, duplicate ranked items, C=∅, zero-positive bootstrap draw. Бюджет: tiny fixtures; до 1 000 bootstrap repeats на агрегатах. Источники: [evaluation](target-research/05-evaluation.md), review 05–08.
 
-**TLAB-007 — baseline и измеренный cost ledger. P0, blocked до 004/006.** Outputs: popularity, last-view и recent-distinct rankers на том же C; агрегаты по history/support/repeat/cold/day; wall time, peak RSS, disk spill, row/feature counts. Acceptance: одинаковые query/candidate manifests и tie-break; pooled outcome не скрывает retrieval loss. Проверки: tiny end-to-end replay, metamorphic будущие события и peers. Бюджет: ≤30 минут; никаких установок или GPU для этих эвристик. Источники: target 01/05/08.
+**TLAB-007 — baseline и измеренный cost ledger. P0, in_progress synthetic stage, owner heuristic worker; production blocked до004 accept.** Outputs: popularity, last-view и recent-distinct rankers на том же C; агрегаты по history/support/repeat/cold/day; wall time, peak RSS, disk spill, row/feature counts. Acceptance: одинаковые query/candidate manifests и tie-break; pooled outcome не скрывает retrieval loss. Проверки: tiny end-to-end replay, metamorphic будущие события и peers. Бюджет: ≤30 минут; никаких установок или GPU для этих эвристик. Источники: target 01/05/08.
 
 **TLAB-008 — сильный CPU boosting baseline. P0, blocked до 005/007 и проверенной доступности CatBoost.** Outputs: pinned minimal dependency change при необходимости, воспроизводимый training runner, model manifest и validation report. Сначала один PairLogit и один query-weighted BCE на одинаковом C/features; pair mass и sampling probabilities явные. Нулевые покупки остаются в evaluation, отсутствие ranking signal измеряется. Proposed calendar: warmup 1–8, train anchors 8–21, fit 22, validation 22–25, maturity 26 октября; test anchors 26–31 не читаются для выбора. Для выбранного `[t,t+H)` labels зрелы при `t+H≤cutoff`. Acceptance: trained-model cutoff, histories refresh и encoder freeze разделены; нет случайного CV, future negative cleaning или target insertion. Проверки: группы contiguous, вес пары/запроса, полностью отрицательная и полностью положительная группа, independent substantive review. Бюджет: CPU Mac, 2 threads, ≤60 минут на smoke/первый fit, ≤2 fit-конфигурации; расширение только после измерения. RTX 3070 не считать доступной. Источники: [training negatives](target-research/04-training-negatives.md), temporal protocol, [alignment](target-research/07-tlab-alignment.md).
 
@@ -138,3 +138,16 @@ Online Retail/UCI рассматривается только как schema/lice
 ### Принятый результат TLAB-003 — 15 октября 2026
 
 [Bounded anchor/label pilot](experiments/anchor-pilot.md), [actual runner](../scripts/anchor_pilot.py) и13 synthetic tests приняты после [независимого source/code review, deadline finding/fix и новой provenance сверки](backlog-reviews/tlab-003-verification.md). A/B сохраняют по 6000 mature Q, 43/104 positive Q, 51/121 targets, cold1/0. Новыйexecutor после persistent deadline fix дал10.16/9.70s,RSS712.1/710.5MiB,engine peak spill0. Старые artifacts не перезаписаны; новые Q/Y полностью совпали по bidirectional EXCEPT ALL. B48h выбран только как provisional более плотный smoke для004; это не окончательный выбор target/population. Support слишком мал для уверенных тонких ablations; будущий development expansion должен оставаться label-independent.
+
+
+## Incremental research archive — 15 октября 2026
+
+Теперь сохранены36 из58 независимых исследований:16 features,8 target,5 user×item,3 candidate,2 model,2 loss. Original4 research cross-reviews готовы; остальные9 reviews выполняются после соответствующих групп. Family indexes явно промежуточные: [user×item](features/09-user-item/index.md), [candidate generation](candidate-generation/index.md), [models](model-selection/index.md), [losses](loss-selection/index.md). Предложения и авторские budgets не принимаются автоматически.
+
+Проверенное liveусловие [task1](task1-requirements.md) требует сильный ручной boosting pipeline и experimental evidence для автоматизации features либо превосходящего tunedboosting метода; architecture/target/loss не предписаны. В interface deadline25октября23:59, timezone не установлен. Source-note — парафраз authorized readonly чтения Root, answer/submit не менялись.
+
+[Независимый prereview005](backlog-reviews/tlab-005-design.md) принял18-grainMVP с gates: category denominator включает товары внеC; exactanchor сохраняется; historical event-attached categories не переклассифицируются currentmetadata; latestbucket known+NULL — ambiguity. Root owns scripts/manual_features.py, tests/test_manual_features.py, configs/features/manual-18.json, docs/experiments/manual-features.md. Synthetic разрешён, production после004accept.
+
+007 worker owns scripts/heuristic_baselines.py, tests/test_heuristic_baselines.py, docs/experiments/heuristic-baselines.md. Three fixedC rankers: purchase-distinct-user popularity; recent-source-first поexistingrecent20; last-view7d по всемfixedCпарам. Это разныеdeclaredscorers, одинаковыеQ/Y/C иfullY evaluator006. Production после004accept исобственного code/provenance gate,≤30min/6GiB. Не менятьRoot005 илиupstreamмодули.
+
+LightGBMresearch выявило nativeNDCG all-zeroquery=1 иразнуюzero-grouptrainingсемантику LambdaRank/XE_NDCG. External006fullY evaluator иявныйtrainmask обязательны; nativecandidate-onlymetric не подменяет end-to-endcriterion. Model02proposed12trials/8h насемейство не принято: действуетsharedbudget, reservationgate ипредварительныйtuningplan.
