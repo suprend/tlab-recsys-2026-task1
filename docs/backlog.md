@@ -15,7 +15,7 @@
 | TLAB-005 | P0 | done | root; accepted B2/coordinator | — |
 | TLAB-006 | P0 | done | metrics worker; accepted B3/coordinator | — |
 | TLAB-007 | P0 | done | heuristic worker; accepted B2/coordinator | — |
-| TLAB-008 | P0 | blocked | unassigned | 005,007, проверенная CPU CatBoost dependency |
+| TLAB-008 | P0 | blocked | root; dependency preparation | 017 runtime dataset + accepted CPU dependency/tuning plan |
 | TLAB-009 | P1 | blocked | unassigned | 008 |
 | TLAB-010 | P1 | blocked | unassigned | 008 |
 | TLAB-011 | P1 | blocked | unassigned | 008 |
@@ -24,6 +24,7 @@
 | TLAB-014 | P1 | in_progress | permanent research line | постоянная линия, не блокирует ядро |
 | TLAB-015 | P0 | blocked | unassigned | locked protocol + выбранные завершённые ablations |
 | TLAB-016 | P1 | blocked | unassigned | 008,009, accepted/needs-pilot HYP |
+| TLAB-017 | P0 | in_progress | root; plan accepted, runtime pending | 005 accepted; new dependency lineage/code review before execution |
 
 Файлы `scripts/temporal_contract.py` и `tests/test_temporal_contract.py` принадлежат только Root до завершения001. Новые исполнители получают непересекающийся scope. Сообщение агента не является доказательством done: нужны actual files/diff/checks и независимый substantive review. Не повторять неизменные проверки после их прохождения; следующий run оправдывается новой правкой, failure либо конкретной неопределённостью.
 
@@ -166,3 +167,10 @@ LightGBMresearch выявило nativeNDCG all-zeroquery=1 иразнуюzero-gr
 ### Принятый результат TLAB-005 — 15 октября 2026
 
 [Typed manual18](experiments/manual-features.md),18 meaningful tests и [независимый review/fix +final source/provenance audit](backlog-reviews/tlab-005-verification.md) приняты.100Q/20477pairs→full6000Q/1 226268pairs,18core/45output columns. Full5.128s/RSS2.01GiB,spill0,Parquet3.87MB. Exact fixed-C/retrieval columns, labelblindsubset и324 independent source feature comparisons совпали. Engine buffer high-water≈2.95GiB выше requested2GB; причина не установлена, hardcapclaim отсутствует. SeparateRSS8GiB gate пройден; scale017partitioned/resource gates остаются.008 infrastructure prerequisites005/007 сняты, но phase/dependency/tunedmodel/automation gates ещё открыты.
+
+
+### TLAB-017 plan accepted, runtime pending — 15 октября 2026
+
+[Additive development plan](experiments/development-collection.md) и [independent finding/fix review](backlog-reviews/tlab-017-plan-verification.md) приняты только как validator/shardplan/plannedidentity:9testsPASS0.016s. Root owns scripts/development_collection.py, tests/test_development_collection.py, configs/development/train.json, selection.json, confirmation.json, docs/experiments/development-collection.md. Train8–20 из5 неизменённыхv1shards≤3days/≤6000Q, outer≤26000Q/≤5.72mC; cutoff21/available22. Selection22–23, confirmation24–25locked, final26closed.
+
+Runtime collection ещё не реализована/не исполнена. До017done нужны acceptedproducer/source/config/output lineage, exactQ/C/Y/features/count completeness, nooverlap/gaps, partitionedexports, source spotchecks, resource/errorledger. Planned counts не measured counts. Confirmationlock требует available_at≤frozen_before≤firstquery; actualselectedwinner chronology/metricsavailability доказываютсяruntime, неphase-onlyschema.008Rootdependency preparation получает только pyproject.toml/uv.lock +dependencyreport; старыеartifactpins не переписываются, новаяlock требуетновой reviewed lineage. StrongtunedB/automationfits ещё не выполнены.
