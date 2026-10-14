@@ -37,3 +37,8 @@ CPU — переносимый старт. На Windows `device_type=gpu` исп
 Сильный контраргумент: второе семейство расходует бюджет, который мог улучшить признаки первого. Поэтому LightGBM остаётся контролем, а не самостоятельной заявкой на новизну. Для task1 далее нужна автоматизация вычисления признаков либо метод, обыгрывающий хорошо настроенный boosting, с experimental evidence; текущая записка этого доказательства не предоставляет.
 
 **HYP-033:** настроенный LightGBM улучшит NDCG@K относительно сильного CatBoost при общем бюджете. **HYP-034:** XE_NDCG сохранит качество LambdaRank при меньшем fit-time на общей train-маске. Обе непроверены. Stop: после бюджета нет устойчивого practically meaningful выигрыша по paired user-cluster bootstrap и временным срезам — оставить одну модель; нарушение manifest/метрик/RAM останавливает сравнение до исправления. P2 ensemble/GPU-перенос откладываются. Главная развилка — нужен ли условный ranking или также вероятность покупки; выбор меняет допустимый training loss и обработку пустых query.
+
+
+## Coordinator review appendix — 15 октября 2026
+
+[Review 01–04](review-01-04.md): first_metric_only не отключает native default NDCG. Для внешнего full-Y checkpoint criterion нужен metric="None" как строка и единственная custom metric с higher-is-better, либо явный независимый selection loop. Monitored name проверяется golden fixture. Отчёт006 после native-selected checkpoint не исправляет selection mismatch. BCE default all-mature groups и pairwise informative-only — различающиеся training populations; same-informative BCE отдельная ablation. Авторский tuning budget не расширяет shared cap автоматически.

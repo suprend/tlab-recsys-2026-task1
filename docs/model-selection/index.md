@@ -1,13 +1,19 @@
 # Model selection — промежуточный исследовательский пакет
 
-15 октября 2026. Готовы3 из8 независимых model studies; два cross-review и окончательная decision matrix ожидаются. Ни installs, ни fits эти notes не выполняли.
+15 октября 2026. Сохранены6 из8 independent studies и cross-review01–04; sequential07, hybrid08 и review05–08 ещё в очереди. Эти notes не являются real training results.
 
-- [01 CatBoost](01-catboost.md): PairLogit с explicit query-normalized pairs против query-weighted BCE; raw IDs исключены из initial P0, categorical handling и native CTR требуют явной политики.
-- [02 LightGBM](02-lightgbm.md): CPU LambdaRank как потенциальный второй tuned control; rank_xendcg — отдельный loss, all-zero training semantics различаются.
+| Приоритет | Исследование | Решение |
+|---|---|---|
+| P0 | [01 CatBoost](01-catboost.md) | Required tuned manual boosting, BCE/PairLogit smoke перед tuning |
+| P1 optional | [02 LightGBM](02-lightgbm.md), [03 XGBoost](03-xgboost.md) | Один дополнительный learner только при явном вопросе и budget |
+| P0/P1 | [04 cheap behavior](04-cheap-behavior.md) | Accepted heuristics007; bounded ItemKNN/ALS отдельно |
+| P1 | [05 candidate-conditioned MLP](05-tabular-neural.md) | Один компактный reranker вместо user-ID table |
+| P1 | [06 pooled two-tower](06-two-tower.md) | Frozen shared-space scalars на fixed C; retrieval отдельно |
 
-Встроенная metric видит только переданные candidate labels; LightGBM native NDCG присваивает all-zero query1. Выбор/early stopping должны использовать объявленный full-Y evaluator006, сохраняя estimand. Initial008≤2 fits — smoke, не доказательство well-tuned control. Большой tuning budget M02 не принят автоматически: общий budget и selection reservation фиксируются заранее. Для task1 центральны automation features либо method, обгоняющий tuned boosting с experimental evidence. Максимальное число boosters само по себе задачу не закрывает. Hardware/GPU и package availability проверяются отдельно.
+[Review 01–04](review-01-04.md) требует фактического checkpoint selection по full-Y evaluator006. LightGBM default native metric отключается явно; XGBoost callback фиксирует dataset/metric/direction; CatBoost native overfitting/use_best_model не подменяют full-Y criterion. Native candidate IDCG и all-zero conventions не равны конечной метрике. BCE сохраняет все mature C-groups, PairLogit — informative pairs; это сравнение packages/populations, не чистый loss-only эффект. Pair/query/object weights имеют разные API.
 
-[Backlog](../backlog.md) · [Target research](../target-research/index.md). Пять других model тем и2 reviews остаются в очереди.
+[CPU dependency принята](../experiments/cpu-environment.md), но tiny API fit не real baseline, 2 smoke fits не tuned B. Development collection017 и её semantic/lineage gates предшествуют model experiments. Brand/code metadata extractor не появляется автоматически в numeric manual18; raw IDs не numeric semantics. ALS051/056 — одна family; neural coordinates/checkpoints требуют frozen version/availability. MLP candidate-conditioning исключает single cached user vector; two-tower допускает dot retrieval, но это отдельный C experiment. Авторские model budgets не складываются, Windows/GPU доступность не считается измеренной.
 
+[Backlog](../backlog.md) · [Target research](../target-research/index.md) · [Task1](../task1-requirements.md).
 
-[03 XGBoost](03-xgboost.md) оставлен P1 optional: screening оправдан вопросом переносимости automation effect либо выгодой cost, а не обязательным третьим booster. Native NDCG/MAP all-zero semantics и candidate-only IDCG требуют внешнего evaluator. Windows GPU/external-memory ограничения проверяются по pinned версии до запуска; дополнительные fits автоматически не разрешены.
+[Integration review M06](integration-review-06.md) закрывает sampled-loss population, actual availability и whole-timestamp-bucket cap ambiguities. Это дополнительная проверка одной note, не недостающий grouped review05–08.
