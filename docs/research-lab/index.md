@@ -12,3 +12,9 @@ Primary confirmation control — frozen tuned B, а не только B+support.
 - [Round005: sparse-support/adaptivevalidation evidence](round-005.md): aggregate-onlyprecision sensitivity, reviewpending; noquality/powerguarantee.
 
 [Strong-control/automation rawproposal+amendment](../backlog-reviews/strong-control-automation-proposal.md) и [metadata-price design+amendment](../backlog-reviews/metadata-price-design.md) сохраняютnextdecisions. Новые091–098IDs зарезервированы, новыеmechanisms невыдумываютсярадиquota.
+
+- [Round006: temporal snapshot physical plans](round-006.md): latestglobalbucket/max+rejoin, strictASOFafterbucketaggregation, LNvsLOG; proposals безspeedupclaim.
+- [Round007: query weights иL2 units](round-007.md), [partial actualcheck](round-007-partial-result.json), [failedcheck source](round-007-check-source.md): BCEtoy2savedmodels equal;Paironlysourceinference,3consumedfits/APIfailure/no retry.
+- [Round008: portable independent verification](round-008.md): readonlydefault/manual18scope, exactschema andsemantic source checks, explicitreviewdecision beforewriteacceptance. No implementationapproval byfreshhash.
+
+004–008independentcritic pending; pipelineexecution продолжаетсяотдельно.099–102reserved, source findings невыдаютсязановыеqualityhypotheses.

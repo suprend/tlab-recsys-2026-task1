@@ -52,3 +52,8 @@ Failure tests проверяют early invalid acceptance, RSS failure и поз
 Независимый read-only source oracle заново вычислил35143 last-view pairs; Python comparators проверили все18000 exported all-C списков/3 678804 позиций. Независимые literal formulas Recall/NDCG/AP/RR по полномуY и четыре query/user estimands совпали. Recent/last-view aggregate equality не объявляется идентичностью rankings: один positive query имеет другой top20 без metric change. [Aggregate report](../experiments/heuristic-baselines.md) сохраняет counts, CI direction, target slices и стоимость.
 
 **TLAB007 accepted**, включая measured execution evidence. Model training/quality generalization не заявлены; report exploratory,104positivequeries и три development дня не являются lockedconfirmation. Root005 code review/resource gate остаётся отдельным prerequisite сильного boosting.
+
+
+## Coordinator independent selection acceptance — 15 октября 2026
+
+Новая неизменная017selection collection проверена отдельноотстарогоBpilot. Canonicalrunidentity/input/code/outputpins иcomplete stages PASS; все12000all-Crecords/2451447positions rebuilt независимыми comparators;22804strictpastsourceviewpairs reconciled. Literal full-YRecall/NDCG/AP/RR поquery/userconditional/all-zeroestimands совпали. [Measured selection report](../experiments/heuristic-baselines.md) и [aggregate JSON](tlab007-selection-aggregate.json) приняты. No learnedfits,3fixedscreens/200bootstrapdraws; CIвычисленaccepted006, sourceoracle невыдаётсязаотдельныйbootstrap-replay. CLIguard/wrapperKeyError исправленыбезповтораproduction.

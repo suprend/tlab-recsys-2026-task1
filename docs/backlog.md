@@ -256,3 +256,12 @@ Sourceoracle017: train26000Q/619Y/5317058C/496positive/444retrieved, selection40
 [100Q read-only loader gate](backlog-reviews/tlab008-loader-gate.json):20560rows×41float32,3,371,840matrixbytes,0.839s/RSS134,643,712bytes,1informative/99all-negativegroups, query weight mass100. Никакихfit/predict/claims; это data-preparation cost, неmodelquality. Следующий шаг — coordinator exact current fit identity approval, ровно2fixed50treeCPU smoke fits и независимый replay exported models/scores/full-Y metrics. Tuning/009/016 budgets этим acceptance не открываются.
 
 Методологическая граница: ingestion/hash/source coverage и месячный EDA уже читали полный исходный файл. Confirmation/final query-level targets и metrics не использовались для model selection; нельзя утверждать, что future raw bytes никогда не читались. Features используют толькоdata<t, held-out outcomes остаются закрыты для выбора моделей. Историческая симуляция availability и фактическое время вычислений различаются.
+
+
+### Selection references иследующиеengineering gates — 15 октября 2026
+
+[007selection source audit](backlog-reviews/tlab-007-verification.md) принят:4000Q/96Y/817149C, recent/last-viewconditionalNDCG20=.388390 противpop.105936, fullYRecall20=.571429/.233855.3fixedlooks,0fits,7.3595s/RSS749092864;all2451447rankedpositions и4estimands source-rebuilt. Oldpilotpopulationотличается. [Actualaggregate](backlog-reviews/tlab007-selection-aggregate.json) сохраняет200bootstrapdraws иslices; bootstrapнеустраняетdevelopmentadaptivity. ПодготовительныйCLIguardfailure ипоследующийwrapperKeyError невызвалиproductionrerun; неучтённоеwalltimeневыдумываем.
+
+[Round006](research-lab/round-006.md), [007](research-lab/round-007.md), [008](research-lab/round-008.md) сохранены; independentcritic004–008inprogress. PairweightL2conclusion — sourceinference, toy0073fitsconsumed/2saved/APIfailure, noPaircomparison/free retry. Frozen008неизменён; prospectiveL2gridwithinexistingbudgetотдельноревьюится.
+
+Следующая воспроизводимостьзадачаTLAB-018(proposed,ownershippending): portableindependentsourceverifier Q/Y/C/F дляacceptedmanual18/protocolv1, readonlyCLIdefault иexplicitwriteacceptance послеsemanticchecks/externalreviewdecision. Freshclone synthetic gate, schema/type/NULL/coverage/missing/supportchecks, freshlyresealedwrongvaluesfault; oldpinsнепереписывать. Первыйscopeнеподдерживает009/grammarавтоматически. Исполнение018после008smoke, безновыхfits/framework. Ignored data/approvalнеобязанынаходитьсявGit, ноregenerationне должензависетьотчата/temporaryscripts.

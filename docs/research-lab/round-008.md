@@ -1,0 +1,49 @@
+# Research round 008: переносимая независимая проверка Q/Y/C/F
+
+Статус: предложение минимального P0 verifier/regeneration flow. В этом раунде прочитаны код и документы, проверены первичные технические источники; data scans, fits, регенерация и acceptance writes не выполнялись. Приёмка017 и frozen008 не меняются. HYP101/102 остаются зарезервированными: новый исследовательский механизм качества здесь не заявляется.
+
+## Уже существующие гарантии
+
+[Приёмка017](../backlog-reviews/tlab017-collection-verification.md) фиксирует train26000Q/619Y/5317058C=F и selection4000Q/96Y/817149C=F. Q/Y/C независимо реконструированы из source полностью; F имеет exhaustive rowset/lineage checks и1620numeric comparisons на90парах. Это разные объёмы доказательства: spotchecks формул не становятся exhaustive numeric verification.
+
+[development_collection.py](../../scripts/development_collection.py) уже отделяет producer approval от output acceptance. `prepare_execution_plan` вычисляет предложения hashes; `verify_producer_approval` требует внешний scope и exact fingerprints. `_verify_run`/`aggregate_collection` проверяют зависимости, complete outputs, exact shard/day cover, ключи, диапазон Q, зрелость, C=F и неизменные retrieval columns. Результат производства остаётся `complete_produced_unreviewed`. Возобновление оплачивается суммарно и сверяет старые seals.
+
+Временные QYC oracle (temporary coordinator helper) и F oracle (temporary coordinator helper) содержат прямые source SQL/Python формулы без production materializer helpers. Они полезны для воспроизведения проверки, но ещё не составляют переносимый продукт: используют позиционные аргументы/default machine root, множество `assert`, автоматически записывают evidence в temporary directories, а проверки распределены между скриптами и coordinator audit. Например, QYC-loop использует `zip`; переносимый verifier должен сначала отдельно проверять длины, индексы и exact cover, как делает production aggregate. Это требования к упаковке существующей проверки, не отмена принятого результата017.
+
+## Минимальная граница ответственности
+
+Предлагается один небольшой CLI, один модуль независимых oracle-формул, tiny fixtures и короткая инструкция. Никакого scheduler, плагинного framework, универсального DSL или нового storage. Поддержка P0 ограничена существующим protocolv1/manual18. Unknown role, registry version/operator/grain/window/missing policy должны завершать проверку как `unsupported`, а не получать молчаливую аппроксимацию. Metadata009 и новые автоматические признаки требуют отдельного расширения verifier.
+
+Три явно различающихся действия: проверка existing bundle; регенерация в новом namespace; запись внешнего acceptance. Default читает sourceDB read-only, открывает outputs только для чтения, использует собственные временные tables и печатает агрегированный evidence в stdout. Указанный `--evidence-out` разрешает отдельный новый отчёт; временный spill — только в явно выделенном scratch. Нельзя переписывать state/report/seals существующего collection, продолжать producer автоматически или исправлять обнаруженные значения.
+
+## Pins не заменяют источник истины
+
+Verifier получает **заранее принятые ожидания**: scope, collection identity, конкретный complete attempt, plan/state, source/config/lock/code/registry/selection-definition pins и внешние approvals. Он сравнивает текущие байты с ними, а не строит fresh fingerprint map и немедленно объявляет её approved. Все объявленные dependencies проверяются, неожиданные/пропущенные поля отклоняются. Корень доверия — отдельный review и сохранённый approval, а не файл, который producer сам может переписать вместе с output.
+
+Это локальное применение принципа SLSA: digest subject сверяется вместе с независимыми ожиданиями происхождения и параметров. SLSA не доказывает наши feature-формулы; вводить подписи, инфраструктуру attestations или заявлять SLSA level для P0 не предлагается. [SLSA: verifying artifacts](https://slsa.dev/spec/v1.2/verifying-artifacts).
+
+Source semantic oracle должен вычислять eligibility/bottom-SHA/QIDs, full distinct Y, candidate ranks/ties/no-refill и18формул прямо из принятого source. Общими могут быть чтение JSON и hashing; selection helpers, category resolver, rolling counters и feature compiler из producer нельзя использовать для вычисления ожидаемых значений. Независимость ограничена: оба пути доверяют принятому sourceDB и движку, поэтому не удостоверяют полноту исходного логирования или ingestion.
+
+## Обязательные gates
+
+**Структура и support.** Exact shard/day cover, допустимые UTCanchors/maturity, unique Q и пары, отсутствие orphan keys, полное C=F, восемь retrieval columns, query user/anchor, все mature zero-purchase Q, Y вне C как misses. QYC проверяется bidirectionally с source relation, включая duplicates через `EXCEPT ALL`. F numeric sample фиксируется отдельной verification policy: deterministic pairs плюс заранее определённые positive-support/conditional strata. Выборка не меняет training population; пустая strata записывается как отсутствующая проверка, не как pass. Evidence хранит размер sample, actual comparisons и uncovered cases.
+
+**Registry и физическая схема.** Недостаточно условий «18features/45columns». Сверяются exact names/order/types, header policies, grain/operator/event/window/unit/support/missing definitions, hash registry и version oracle. Между shards нельзя принимать разные типы или семантику под одинаковыми именами. В P0 ожидаемые определения manual18 reviewed отдельно; интерпретировать произвольную новую registry через production compiler означало бы потерять независимость.
+
+**Coverage и NULL.** Coverage окна определяется длиной его пересечения с наблюдаемым source interval, отдельно от user/item observed age. Известный ключ с нулём событий имеет count0; неизвестная conditional category — NULL; отсутствующая recency и нулевой ratio denominator — NULL с согласованной missing flag. Последний глобальный past timestamp bucket проверяется целиком: known+NULL ambiguous, older-backoff запрещён; category numerator остаётся event-time historical. Все source_coverage/age/history/category flags и missing aggregates сверяются с данными, не только с producer report. Проверки диапазонов дополняются явной nullability/finite policy: обычное SQL-сравнение с NULL не даёт TRUE и легко пропускает дефект. Используются `IS NULL`/`IS DISTINCT FROM`. [DuckDB NULL semantics](https://duckdb.org/docs/current/sql/data_types/nulls).
+
+**Ошибка завершает scope.** Нельзя заполнять acceptance после timeout, unsupported registry, skipped stage или ошибки oracle. В переносимом коде обязательные проверки должны использовать явные exceptions: Python удаляет `assert` при `-O`. [Python language reference](https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement). Partial evidence сохраняет завершённые этапы и стоимость, но не наследует complete status.
+
+## Tiny fault fixtures перед реальными сканами
+
+Предлагается hand-computed fixture максимум100events/8Q/32C, два shards, полный manual18 oracle. Нужны намеренные faults с ожидаемым именем gate: пропущенный/повторный shard; orphan/duplicate F key; изменённый retrieval rank; потерянный Y вне C; удалённый zero-purchase Q; inclusive upper boundary; distinct expiry с повтором; mixed-NULL latest bucket; неправильный historical-category numerator; NULL→0 и неверный missing flag; registry version/type swap; несовпадающий source/code pin; незавершённый attempt; выход пути за разрешённый root.
+
+Отдельный содержательный тест: испортить feature, **пересчитать все внутренние hashes**, затем убедиться, что semantic oracle всё равно отклоняет результат. Старый external approval также обязан отвергнуть новые pins. Перестановка секундных peers и future suffix сохраняют past Q/C/F при неизменном контексте; Y вправе измениться в своём будущем окне. Это metamorphic contract, не требование неизменности labels.
+
+## Воспроизведение и acceptance
+
+Fresh-clone gate сначала работает только на синтетике: новый путь с пробелами, чистое окружение по lock, отсутствие локальных temporary directories dependencies и machine paths. Setup окружения — отдельный явный шаг; verifier ничего не устанавливает. В будущей инструкции `uv run --locked` предотвращает изменение устаревшего lock, тогда как `--frozen` пропускает проверку его актуальности; запуск может синхронизировать окружение, поэтому проверка не должна скрывать setup внутри read-only команды. После setup используется уже подготовленный interpreter с проверкой actual runtime versions. [uv locking/syncing](https://docs.astral.sh/uv/concepts/projects/sync/).
+
+Реальная регенерация требует отдельно предоставленного matching sourceDB и согласованного бюджета; clone не содержит ignored данных/approvals и не скачивает их автоматически. Новые execution paths/timings могут отличаться. Existing bundle проверяется по exact physical pins; regenerated bundle сначала сравнивается по типизированным relations/canonical key order и declared numeric tolerance. Semantic equivalence нельзя называть побитовой воспроизводимостью Parquet: последнее требует отдельного byte-equality proof. [Определение reproducible builds](https://reproducible-builds.org/docs/definition/).
+
+`--write-acceptance` — необходимый явный режим, но сам флаг не является авторизацией review. Он требует принятого verifier/policy, полного evidence и отдельного coordinator decision, повторно сверяет pins перед созданием нового immutable approval и не заменяет старый. Scope перечисляет exhaustive QYC/structural F и sampled numeric F отдельно; regen не наследует acceptance автоматически. P0 implementation можно предложить без real scans: tiny verification ≤5минут/2threads/512MiB RSS, 0fits. Это новый предложенный инженерный cap, не выданное разрешение и не прибавка к общему бюджету. Реальные source checks сохраняют отдельный cost ledger; engine memory setting не объявляется hard RSS limit.

@@ -45,3 +45,20 @@ Run identity:12e8f035f62ffb3fe01dcb3b8fe633c56837d866562182b70f43acbb491b97a8. E
 17 scoped synthetic tests приняли independent code review. Coordinator source oracle заново вычислил last-view для всех C и сравнил каждый элемент всех18000 exported lists:3 678804 ordered pairs совпали с тремя независимыми comparator правилами. Hand-formula oracle заново посчитал Recall/NDCG/AP/RR и четыре query/user estimands; все совпали. Actual canonical run identity, upstream/current code/input hashes, output SHA и complete status всех stages проверены. Labels не использовались при ranking; идентификаторы/списки остались в ignored artifacts.
 
 Следующий этап —100-query cost gate ручных features, versioned label-independent expansion train/selection population и сильный настроенный boosting контроль. Эти эвристики дают необходимый sanity baseline, но не закрывают требование task1 об automation либо превосходящем tuned boosting методе.
+
+
+## Fixed reference на принятой selection collection — 15 октября 2026
+
+Те же три заранее определённых scorer выполнены без новых learned fits на017selection22–23:4000matureQ,3995users,73positiveQ,96fullYtargets,817149fixedCrows. C содержит65/96targets; candidate microRecall=.677083, positive-query macro ceiling=.684932. Catalogproxyпокрывает96/96. [Aggregate artifact иbootstrap](../backlog-reviews/tlab007-selection-aggregate.json) сохраняет все четыреestimands, slices и200user-cluster draws.
+
+| Scorer | Conditional query NDCG20 | Conditional query Recall20 | All-query zero NDCG20 | All-query zero Recall20 |
+|---|---:|---:|---:|---:|
+| Popularity |0.105936|0.233855|0.001933|0.004268|
+| Recent-source-first |0.388390|0.571429|0.007088|0.010429|
+| Last-view7d |0.388390|0.571429|0.007088|0.010429|
+
+Recent/last-view одинаковы наpositive top20 этого sample; это неуниверсальнаяэквивалентность. Target-micro hits:pop24/96 (repeat18/58,new6/38),recent/last53/96 (repeat50/58,new3/38). Conditional query Recall учитываетполныйY поquery и неравенtarget-micro53/96.73positiveusers имеютпоодномуpositivequery; conditionaluser/query metrics здесьсовпадают.
+
+Run c6e7cedb100aa1650e3ab7ce06f6c225d7b69b954d246f27d157d5382368be9f complete:7.359517s/RSS749092864bytes, engine spill0. Независимый sourceoracle проверил22804last-viewpairs, все12000rankingrecords/2451447positions иliteralRecall/NDCG/AP/RR во всех4estimands. Canonicalidentity/currentacceptedinputs/code/outputSHA иcomplete stages сверены. Это3fixeddevelopmentlooks/0learnedfits;200bootstrapdraws неустраняютadaptiveselectionbias. Значение0.388selection нельзясравниватьс0.489старого6000Qpilotкакmodeldrift:querydays/populationразличны.
+
+Audit: первыйCLIoutputroot отклонёнexisting-pathguard доattempt/computation; исправленлишьCLI. Послеsuccessfulimmutableexecution summarywrapper получилKeyError дляневерного report['evaluations']; underlyingcomplete report не менялся/неперезапускался, wrapperпрочиталactual nestedmetrics. Двеошибкиподготовки/чтения сохранены, ихнеизмеренное времянеприравниваетсянулю и нечислитсяновымvalidationlook.
