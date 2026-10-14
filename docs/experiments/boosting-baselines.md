@@ -43,3 +43,23 @@ Native `eval_set`, overfitting detector и best-model selection не испол�
 Перед реальными fits root self-review дополнительно обнаружил, что Pool и predict имеют thread_count=-1 по умолчанию, несмотря на thread_count=2 в fit params. Теперь оба Pool constructor и обе native predict ветви явно получают2. Реальные tiny fits с перехватом Pool kwargs и отдельные predict call-argument assertions проверяют бюджет на этих стадиях; output shape/finite/fixed-tree checks сохранены. Это уточнение resource enforcement, а не новый fit или tuning budget.
 
 Дополнительный независимый финальный reviewer нашёл P1 в повторённой child-lineage проверке008: freshly resealed child мог исключить registry dependency, обязательный manual_features code hash или accepted Q/Y/C approval input. Теперь008 вызывает неизменённые строгие017 _check_cached и candidate/feature lineage gates, сохраняя проверку полного внешнего pin scope и actual plan bindings. Три fault-подслучая полностью перепаковывают child manifests/report/state/approval hashes и отвергаются; физические production artifacts не затрагивались. Исправление направлено на targeted independent re-review, реальные модели пока не обучены.
+
+
+## Принятый measured smoke — 15 октября 2026
+
+Позднейшая [независимая codeприёмка](../backlog-reviews/tlab008-final-independent-rereview.md) закрыла все findings выше;017train/selection приняты отдельно. [Independent model/output audit](../backlog-reviews/tlab008-smoke-output-verification.md) принял ровно2actualCPU50treefits. [AggregateJSON](../backlog-reviews/tlab008-smoke-aggregate.json) содержит полный ledger/effectiveparams/metrics/200bootstrapdraws.
+
+| Fixed scorer/model | Conditional query NDCG20 | Conditional query Recall20 | All-query zero NDCG20 | All-query zero Recall20 |
+|---|---:|---:|---:|---:|
+| Popularity007 |0.105936|0.233855|0.001933|0.004268|
+| Recent-source-first007 |0.388390|0.571429|0.007088|0.010429|
+| Logloss50trees |0.414448|0.581213|0.007564|0.010607|
+| PairLogit50trees |0.375197|0.571429|0.006847|0.010429|
+
+Все строки относятся к темже4000selectionQ/73positiveQ/96fullYtargets/817149C; последнийview007 совпал сrecentaggregate. Loglossвышеrecentна.026058NDCG в этом screening, но отдельный uncertaintycontrast противэвристики невычислялся и превосходство неутверждается. PairminusLogloss Δ=-.039250,95%CI[-.085000,-.000891],200userdraws; developmentCI неconfirmation.
+
+Trainbottomhash6000Q даёт1227213rows/114fullYpositiveQ,92informativegroups/101retrievedpositive rows. BCE обучилвсе6000nonemptyCgroups (5908allnegative); Pair18989rows/20741pairs,querymass92. Это loss+supportpolicycomparison. Всего41numericfloat32feature, matrix201262932bytes, rawIDsисключены. FullYoutsideC остаётсяmisses.
+
+Run195c89b9a8500b7977d1840d2ef3a6c7acb8f9cf043e1ca407ac718b22f846b6:22.663335swall/RSS1788100608bytes,2completedattempts/50treesкаждая. Independentreplay всехrawscores/4estimands/bootstrap PASS;1.961741s/2.307942actualCPU s/RSS987611136. ProductionCPUотдельнонеизмерен, его нельзяподменятьwall×2. NativePool/predict/fit explicitly2threads, resourcecheckscooperative.
+
+Для009 единственныйablationobjective=Logloss по заранее выбранномуexternalfullYNDCG rule; сохраняютсяparams/C/Y, изменяетсяодинreviewedmetadata/priceblock. Это рабочийscreeningвыбор, нетunedBclaim. Перед016обязателенотдельныйboundedstrongtuning среальнымfullYcheckpointselection, prospectivecalendar/CPUledger иfreeze. Modelartifacts/NPZ/per-userrows некоммитятся.

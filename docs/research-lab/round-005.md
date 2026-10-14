@@ -57,3 +57,8 @@ Selection содержит мало дней; confirmation25 — один prospe
 Если же результат confirmation25 определяет новую модель, refit, новую ветвь/claim или checkpoint для final26, это **новое решение**. Нужны actual metric availability→decision→compute→available_at строго до first final query; нулевого промежутка26Oct00 недостаточно. Нельзя выдать задним числом этот путь за frozen-model evaluation. Конкретное исправление chronology требует отдельного prospective reviewed config; эта записка не назначает принятую дату final и не читает его labels.
 
 HYP-095/096 остаются reserved/unformulated. Ledger, freeze, power sensitivity и честное inconclusive reporting — уточнения исполнения существующих hypotheses, не новый feature-search механизм или академическая новизна. Для task1 полезный результат сейчас — воспроизводимый ограниченный search относительно tuned B с точно сформулированной силой доказательств.
+
+
+## Coordinator critic amendment — 15 октября 2026
+
+[Independentcritic004–008](round-004-008-review.md) уточняет сохранённый promotiongate: crossing0→signinconclusive; pointΔ<.002→practicalgatefailed; pointΔ≥.002 иlower>0→declaredgatepassed, **бездоказательства trueΔ≥.002**. CI[.001,.003] приpoint.002 пересекаетpracticalthreshold, ноэтотgateпроходит. Дляутвержденияlower≥.002нужендругойprospectivecriterion; текущийнеподменяем. ВсеdevelopmentCI остаютсяscreening-only.

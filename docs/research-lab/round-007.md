@@ -49,3 +49,10 @@ Audit сохранён в [archived failed-check source](round-007-check-source.
 До будущего freeze полезно зафиксировать раздельно: objective, формулу веса, число всех/ informative queries, N объектов/пар, сумму object weights, сумму pair weights, λ, learning rate, bias и effective leaf parameters. В BCE `W/N=|QB|/N`, тогда как для рассматриваемого PairLogit без object weights `W/N=1`; одинаковая цифра λ не означает одинаковой силы регуляризации между objectives.
 
 Предлагается сохранить query-mass policy и учитывать её при заранее объявленной objective-specific сетке L2. Нельзя добавлять global weight scale как бесплатную новую ось поиска: при необходимости соответствующий вариант заменяет точку внутри будущего согласованного бюджета. Prospective strong tuning 4 fits×3 checkpoints остаётся предложением, а frozen 008 не меняется. Нового механизма качества и новых labels здесь нет; это уточнение существующих loss notes. HYP099/100 остаются зарезервированными без выдуманной новизны.
+
+
+## Coordinator critic amendment — 15 октября 2026
+
+[Independentcritic004–008](round-004-008-review.md) подтвердилsourceL2chain иread-only2BCEmodel equality, ноисправляет API attribution: current [officialpredictpage](https://catboost.ai/docs/en/concepts/python-reference_catboostranker_predict) показывает generic prediction_type и расходится с [taggedv1.2.10Ranker source](https://github.com/catboost/catboost/blob/v1.2.10/catboost/python-package/catboost/core.py#L6038-L6065)/installedsignature. Именноversionedcode+actualTypeError подтверждают отсутствиеэтогоаргументависпользованнойверсии; фраза вышеoprovedofficialAPI считаетсяисправленной.
+
+Toyfitparams threads2неограничивалиPool/predictdefaults−1. All-stage2corecapдляround007недоказан; after-fitelapsed/RSSchecks иCPUhardlimit55остаютсясвоимиеvidence, точныесчётчикиunknown. [Archive](round-007-check-source.md) сохраняетdefect иlimitations, бесплатныхretries нет. Принятый008отдельнопроверилявные2threadsвобоихPool/predict. Этоdocumentamendment, неновыйfit/codechange.

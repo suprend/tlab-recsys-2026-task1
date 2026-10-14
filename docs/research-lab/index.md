@@ -18,3 +18,8 @@ Primary confirmation control — frozen tuned B, а не только B+support.
 - [Round008: portable independent verification](round-008.md): readonlydefault/manual18scope, exactschema andsemantic source checks, explicitreviewdecision beforewriteacceptance. No implementationapproval byfreshhash.
 
 004–008independentcritic pending; pipelineexecution продолжаетсяотдельно.099–102reserved, source findings невыдаютсязановыеqualityhypotheses.
+
+- [Independentcritic004–008](round-004-008-review.md) принят сmaterialappendices005/007: promotiongatevsproofofpracticaltrueeffect;currentdocsdrift;toyfitthreadscope. Researchaccepted, неexecutionbudget.
+- [Round009: typedgrammar proof obligations](round-009.md):198schema-onlytemplatesдоdedup/closure, noactualmaterialization/speedupclaim;independentcriticpending.103/104reserved.
+
+- [Round010: objective-specific bounded tuning alternatives](round-010.md):3alternative4fitallocations, no chosenexecutiongrid yet; actualCPUaccounting/12checkpointlooks proposed.105/106reserved.

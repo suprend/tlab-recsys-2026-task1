@@ -2,7 +2,7 @@
 
 Обновлено 15 октября 2026. Это первый исполняемый срез по уже завершённым исследованиям, а не ожидание всего портфеля. Пользователь разрешил ночное исполнение, meaningful tests и ограниченные pilots параллельно с постоянной research-линией. Target purchase-ranking — главный кандидат; конкретные protocol variants ещё проверяются, не объявлены финальным выбором.
 
-Координатор единолично ведёт этот файл и Git-публикацию в research-ветке/draft PR; Root исполняет текущие TLAB-008/017 в зарезервированных файлах. Основная ветка не изменяется. Данные, локальные модели и run artifacts ignored; в Git — код, документация и агрегированные отчёты. Платный cloud не подключается.
+Координатор единолично ведёт этот файл и Git-публикацию в research-ветке/draft PR; Root исполняет TLAB-009, auxiliary worker — TLAB-018; TLAB-008 smoke и017 приняты. Основная ветка не изменяется. Данные, локальные модели и run artifacts ignored; в Git — код, документация и агрегированные отчёты. Платный cloud не подключается.
 
 ## Текущий статус и первый цикл
 
@@ -15,8 +15,8 @@
 | TLAB-005 | P0 | done | root; accepted B2/coordinator | — |
 | TLAB-006 | P0 | done | metrics worker; accepted B3/coordinator | — |
 | TLAB-007 | P0 | done | heuristic worker; accepted B2/coordinator | — |
-| TLAB-008 | P0 | in_progress contract/synthetic; real fits blocked | root; CPU dependency accepted | accepted017 train/selection collection + tuning plan |
-| TLAB-009 | P1 | blocked | unassigned | 008 |
+| TLAB-008 | P0 | done: two-fit smoke; strong tuning tracked019 | root; independent code/output accept | —;017 accepted |
+| TLAB-009 | P1 | in_progress pure core; real gate pending | root; independent direct-list reviewer | 008 smoke accepted; core→runner→100Q review gates |
 | TLAB-010 | P1 | blocked | unassigned | 008 |
 | TLAB-011 | P1 | blocked | unassigned | 008 |
 | TLAB-012 | P1 | blocked | unassigned | 008, measured resource gate; user-item review completed |
@@ -25,12 +25,14 @@
 | TLAB-015 | P0 | blocked | unassigned | locked protocol + выбранные завершённые ablations |
 | TLAB-016 | P1 | blocked | unassigned | 008,009, accepted/needs-pilot HYP |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
+| TLAB-018 | P0 | in_progress synthetic/read-only | verification worker | 008 smoke accepted; no real rescans/acceptance writes |
+| TLAB-019 | P0 | blocked: prospective tuning plan review | unassigned | 009 feature decision/freeze; CPU ledger; exact 4-fit plan review |
 
 Файлы `scripts/temporal_contract.py` и `tests/test_temporal_contract.py` принадлежат только Root до завершения001. Новые исполнители получают непересекающийся scope. Сообщение агента не является доказательством done: нужны actual files/diff/checks и независимый substantive review. Не повторять неизменные проверки после их прохождения; следующий run оправдывается новой правкой, failure либо конкретной неопределённостью.
 
 Источники первой версии: [архитектура B1](backlog-reviews/architecture.md), [независимая верификация B2](backlog-reviews/verification.md), [синтез16 feature studies](features/index.md), [target research](target-research/index.md). B3 завершил [независимый скептический review](backlog-reviews/skeptical-review.md): first-five допустимы как provisional slice с отдельным scan/state resource gate. Это проверка плана, не подтверждение реализации или экспериментального выигрыша.
 
-Готовы16 feature studies+2reviews,8 target studies+2reviews и первые2 user-item notes. Остальные6 user-item,12 candidate,8 model,6 loss studies и соответствующие reviews продолжаются; это не completed reports. Один worker-slot сохраняется за research/paper rounds, второй — planning/test/review/implementation. Canonical hypotheses и execution statuses ведутся здесь, не в расходящихся списках.
+Исходный портфель завершён:58studies/13groupedreviews/6indexes. Ранние counts ниже — хронологические срезы. Постоянные primarysource rounds продолжаются; новые budgets не складываются автоматически. Один worker-slot сохраняется за research/paper rounds, второй — planning/test/review/implementation. Canonical hypotheses и execution statuses ведутся здесь, не в расходящихся списках.
 
 ## Правила и подробные задачи
 
@@ -265,3 +267,21 @@ Sourceoracle017: train26000Q/619Y/5317058C/496positive/444retrieved, selection40
 [Round006](research-lab/round-006.md), [007](research-lab/round-007.md), [008](research-lab/round-008.md) сохранены; independentcritic004–008inprogress. PairweightL2conclusion — sourceinference, toy0073fitsconsumed/2saved/APIfailure, noPaircomparison/free retry. Frozen008неизменён; prospectiveL2gridwithinexistingbudgetотдельноревьюится.
 
 Следующая воспроизводимостьзадачаTLAB-018(proposed,ownershippending): portableindependentsourceverifier Q/Y/C/F дляacceptedmanual18/protocolv1, readonlyCLIdefault иexplicitwriteacceptance послеsemanticchecks/externalreviewdecision. Freshclone synthetic gate, schema/type/NULL/coverage/missing/supportchecks, freshlyresealedwrongvaluesfault; oldpinsнепереписывать. Первыйscopeнеподдерживает009/grammarавтоматически. Исполнение018после008smoke, безновыхfits/framework. Ignored data/approvalнеобязанынаходитьсявGit, ноregenerationне должензависетьотчата/temporaryscripts.
+
+
+### TLAB-008 smoke done;009/018 in progress — 15 октября 2026
+
+[Independentactualmodelaudit](backlog-reviews/tlab008-smoke-output-verification.md) принимаетrun195c89…846b6:2attempts/50trees, все817149scoresreplayed, 4fullYestimands и200paireduserdraws recomputed. Train6000Q/1227213rows/92informative/20741pairs; selection4000Q/73positive/96Y. LoglossconditionalNDCG20=.414448/Recall=.581213,Pair=.375197/.571429, recent007=.388390/.571429. Screeningobjectiveдляодного009ablation=Logloss, unchangedcontrolparams/C/Y;нетsuperiority/tunedB/promotionclaim. Runtime22.663335swall/RSS1.665GiB; productionCPUнеизмерен. Independentverification1.961741swall/2.307942CPUseconds,0additionalfits. [Aggregate](backlog-reviews/tlab008-smoke-aggregate.json) и [oraclearchive](backlog-reviews/tlab008-output-oracle.md) сохранены.
+
+TLAB009rootowns scripts/metadata_price_features.py,tests/test_metadata_price_features.py,configs/features/metadata-price.json,docs/experiments/metadata-price-features.md. Purecore+testsreview→separaterunnerreview→100Qdirect-list-source/costgate→полныйexport→≤1Loglossablationfit внутри009budget. Accepted005/008/017immutable; no directsourcepriceSQLreuseinindependentoracle.
+
+TLAB018auxworkerowns scripts/verify_development.py,tests/test_verify_development.py,docs/experiments/verification-workflow.md, перваяsynthetic/read-onlyiteration. Matchingmanual18/protocolv1 only; noactualacceptancewrites/realrescans/fits доindependentreview. Root009reviewpriorityперед018continuation; researchslotсохранён.
+
+[Groupedcritic004–008](research-lab/round-004-008-review.md) acceptedсexplicit005/007appendices; nofreefits. [Round009](research-lab/round-009.md) отдельный198templateenumeration,нетmaterializedfeature/costqualityproof. BroadmonthlyEDAнеравноheldoutmodelselection;confirmation/finalquerymetricsдлявыборамоделейнеиспользовались.
+
+
+### TLAB-019 — bounded tuning остатка strong-control requirement
+
+Отделено от принятого двух-fit smoke008: первоначальная цель сильногоCPUbaseline ещё не выполнена. Ownerпокаunassigned; статусblocked до009featuresfreeze иindependentreview exactplan. [Rawproposal](backlog-reviews/strong-control-automation-proposal.md) и [Round010 alternatives](research-lab/round-010.md) предлагаютодну4fitgrid×3externalcheckpoints(50/150/300), не12fits. Перспективный≤60CPUmin/RSS8GiB иactualuser+systemledger требуютявногопринятия; это неавтоматическоерасширение двухsmokefits. Previousdevelopmentlooks отдельноучтены:007selection3fixedscorers+0082models,009≤1futureablation. Confirmation/finaltargets неиспользуютсядляподбора.
+
+Послеacceptedtuning честныйclaim — manualcontrolselectedbyboundedsearch сраскрытымиограничениями, неглобальныйoptimum. Толькоегоfrozenfeature/model/checkpointmanifest задаётBдля016primarycomparison. Metadata009и018sourceverificationнеоткладываютцентральнуюавтоматизациюрадибесконечногоспискаручныхfeatures.
