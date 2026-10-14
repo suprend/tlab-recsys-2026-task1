@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "name": "metadata-price-v1",
+  "reference_hours": 168,
+  "snapshot": "latest_global_strict_past_bucket_all_rows",
+  "code_dictionary": "unique_nonnull_code_per_clean_id_strict_past",
+  "reference": "distinct_active_products_current_clean_category_valid_price",
+  "price_unit": "unchanged_source_price_unit_not_assumed_currency",
+  "nonfinite_source": "reject_relevant_latest_bucket_before_positive_filter",
+  "nominal_namespace": "value:|state:missing|state:ambiguous",
+  "missing_flags": "brand_price_no_clean_scalar_include_ambiguity_code_missing_dictionary_zero_or_unusable_id",
+  "one_hot_max_size": 4096,
+  "nominal_columns": [
+    "category_id_nominal",
+    "category_code_by_id",
+    "brand"
+  ],
+  "numeric_columns": [
+    "brand_missing",
+    "brand_ambiguous",
+    "code_missing",
+    "code_ambiguous",
+    "code_recovered",
+    "log_price",
+    "price_missing",
+    "price_ambiguous",
+    "price_zero",
+    "price_negative",
+    "category_peer_log_price_mean",
+    "category_peer_product_support",
+    "category_log_price_difference",
+    "category_peer_mean_missing",
+    "category_price_difference_missing"
+  ],
+  "gate": {
+    "max_queries": 100,
+    "max_pairs": 22000,
+    "wall_seconds": 600,
+    "threads": 2,
+    "rss_bytes": 8589934592,
+    "max_spill_bytes": 2147483648
+  }
+}
