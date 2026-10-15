@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026, 14:16:14UTC / 17:16:14МСК.015принят/13of19;026 A FIRSTverified/Bauthorrunning,025Rootresearchaccepted0IDs/grants, reportindepreview/018TMPonly. Следующиймаксимум15:00UTC anchored14:15.
+Обновлён15 октября2026, 14:29:47UTC / 17:29:47МСК.015accepted/13of19+finalreportreviewDONE;018literalCODEinstalled/Root37979RUNNINGoutputpending.026bothFIRSTverified/distinctskepticactive,025researchaccepted0IDs/grants. next15:00UTC anchored14:15.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -9,6 +9,10 @@
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 15:00 UTC / 18:00 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## MAINreport review done /026 separatecritic started — 2026-10-15T14:29:47.608152+00:00
+
+[FinalreportRootaccepted](../backlog-reviews/experimental-report-heldout-v2.md), [one018pininstalled](../backlog-reviews/018-recovery-literal-code.md); noactualruntimegrants/newfitsY orgoalcompletion. Both026authorFIRST actual4SHAverified (A5790bc/ba0d, Bfb2528/0ace5); retrieval_a distinctskeptic awakened ONLYafterboth andidle/no-duplicate check.026proposals notadmitted/Rootreviewpending; next027 planned aftercritique/nextcadence, notclaimedactive.15:00UTC anchored14:15 unchanged; main018futureRootdecision separatefromoptionalresearch.
 
 ## Wave025 Root research-only acceptance — 2026-10-15T14:19:12.047572+00:00
 
@@ -582,3 +586,7 @@ Both independent FIRST pairs and their separate critiques are complete; Root res
 ### Post-diagnosis V2 review handoff
 
 Same reviewer reported narrow aliasV2 CODE/captured green after originalV1P2; Root adoption/new callerpins remain separate. No publisherinstall/native call and no promotion of original018. WrapperV1 twoP2s remain pendingrepair.
+
+## Actual018 recovery submission overlay — 2026-10-15T14:31:37.795697+00:00
+
+[Root отдельно issued/submitted37979](../backlog-reviews/018-recovery-launch.md), RUNNING по Root14:28metadata; fulloutput/parity/lifetime не приняты. Новый600CPU900wall8GiB отдельнооплачен; old600900declareddebit/source720010800nonfungible/oldunknownimmutable, noaggregate018balance.2predmax/0fitY439/no015reexecution/noautomaticretry. Rootalonepolls, publisher0poll/largehash/data/model/jobs; complete018partial и freshtraining не заявлены. MAINreportreviewDONE/015done13of19/next15:00UTC anchored14:15 unchanged.

@@ -1,6 +1,6 @@
 # Автоматизация признаков для ранжирования покупок
 
-По состоянию на 15 октября 2026, 14:11:04 UTC, TLAB-015 полностью принят: final26–31 NDCG@20 B=0,459825 → W=0,464947, Δ=+0,005122; парный user-bootstrap95% интервал [−0,010433;+0,018561] включает ноль. Шесть ролей, all7 prediction seals до fullY и полный lifetime независимо проверены; новых fits/адаптации нет, убедительное превосходство или польза guided search не установлены. Дальше — complete018/source-to-model воспроизводимость и финальное review отчёта; originalV3/018 FAILED/unknown сохранены, все runtime sessions закрыты, nextmax14:15UTC прежний.
+По состоянию на 15 октября 2026, 14:29:47 UTC, TLAB-015 полностью принят и финальный экспериментальный отчёт прошёл независимое review/Root приёмку. На final26–31 NDCG@20 B=0,459825 → W=0,464947, Δ=+0,005122;95% парный user-bootstrap интервал [−0,010433;+0,018561] включает ноль, убедительное превосходство не установлено. Остаётся complete018/source-to-model воспроизводимость: один reviewed code pin обновлён и отдельная Root37979operation RUNNING/outputpending; oldV3/018FAILED/unknown сохранены, новые fits/адаптация открытого final не разрешены.
 
 Рабочий отчёт по первой задаче T-Lab. Ручной контроль настроен в пределах заранее заданного бюджета и независимо проверен. Четыре ветви автоматизации и неизменённое отложенное сравнение выполнены и независимо приняты; финальная разность положительна, её интервал включает ноль.
 
@@ -157,3 +157,13 @@ Original98791/e2f5ba EXIT1,1Bmodel load/0predict/0fit/0Y; Native effective param
 Root фактически прочитал clean HEAD85660b1 и опубликованные accepted015 результаты. Wave026 реально назначена двум независимым FIRST авторам features_a/models_b по Root14:14observations; A FIRST уже получен/триSHA проверены, B ещё работает, peerтексты доFIRST не смешиваются. Отдельный существующий retrieval_a skeptic может быть вызван только после обоих exactFIRST;025skepticcomplete/Rootfullreadbackpending. Reportproposal7be5123 frozen у независимого source_harness_review,018 только TMPconstanttransport уexecution_scope_audit без runtimegrant. Текущие science/limits/11fits19looks не меняются; никаких повторных оценок открытого final.
 
 Actual cadence write опоздал на 74.976108s к исходному14:15UTC; своевременная публикация результата14:11:04 сохранена отдельно. Следующий максимум15:00UTC/18:00МСК строго от исходного14:15, либо раньше после двух completed research rounds. Следующаяwave027 planned по тому же контракту после текущих FIRST+отдельногоreview; назначение/active status не выдумываются, Root остаётся владельцемdispatch. Единственный backlog/координатор/goal/17slots и разрешения прежние.
+
+## Принятый final-report и018 CODE-only transport — 2026-10-15T14:29:47.608152+00:00
+
+[Финальный отчёт и отдельная текстовая приёмка](backlog-reviews/experimental-report-heldout-v2.md) установлены byte-exact; MAINreportreviewDONE,13/19 unchanged. Historical numerical-source ledger остаётся snapshot прежней редакции, новые heldout aggregate/Root источники вынесены отдельно. [018 literal transport](backlog-reviews/018-recovery-literal-code.md) меняет только один code pin, не алгоритм или модель; source-only compile/pin checks,0runtime/tests/стейджинг. Complete018partial, separatelyissuedRoot37979 RUNNING/outputpending, Rootonlypoll; closedsource7200/10800 не общий баланс018.
+
+Wave026обаFIRST actualSHAverified, existingretrieval_a separatecritic activated afterboth/idlecheck; no peerread beforefreeze.026research ещё неRootaccepted, noIDs/grants;027 assignment невыдумывается. next_due15:00UTC anchored14:15, priorlate74.976108s retained.
+
+## Actual018 recovery submission overlay — 2026-10-15T14:31:37.795697+00:00
+
+[Root отдельно issued/submitted37979](backlog-reviews/018-recovery-launch.md), RUNNING по Root14:28metadata; fulloutput/parity/lifetime не приняты. Новый600CPU900wall8GiB отдельнооплачен; old600900declareddebit/source720010800nonfungible/oldunknownimmutable, noaggregate018balance.2predmax/0fitY439/no015reexecution/noautomaticretry. Rootalonepolls, publisher0poll/largehash/data/model/jobs; complete018partial и freshtraining не заявлены. MAINreportreviewDONE/015done13of19/next15:00UTC anchored14:15 unchanged.

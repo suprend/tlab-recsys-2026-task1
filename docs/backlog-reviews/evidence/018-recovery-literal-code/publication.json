@@ -81,5 +81,12 @@
   },
   "scope": "Code-only literal installation; rawrequest/privatehandoff/model/data excluded",
   "all_source_refs_are_metadata_not_opened_payloads": true,
-  "prior_Root_checker_error_retained_in_acceptance": true
+  "prior_Root_checker_error_retained_in_acceptance": true,
+  "publisher_checker_failure_preserved": {
+    "scope": "staged whitespace check of exact archived unifieddiff",
+    "output": "docs/backlog-reviews/evidence/018-recovery-literal-code/originals/tlab-018-recovery-constant-transport-v1.diff:16: trailing whitespace; +blank context line",
+    "sequencing": "Shell continued to localcommit4e91fb2 despite checker exit; no push occurred before investigation",
+    "correction": "All implementation/docs whitespace PASS excluding only authenticated original unifieddiff; originalSHA/bytes checked separately, not modified; future command groups fail-fast",
+    "runtime_or_accepted_code_changed_by_correction": false
+  }
 }

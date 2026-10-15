@@ -6,6 +6,8 @@
 
 ## Текущий статус
 
+Current reviewed-report/CODE checkpoint 14:29:47UTC: [MAIN reportreviewDONE](backlog-reviews/experimental-report-heldout-v2.md); [018singlepinCODEinstalled](backlog-reviews/018-recovery-literal-code.md), actualrecoveryRoot37979RUNNING/outputpending/source-to-modelpartial.015done/13of19unchanged, noadditionalY/fit/currentretune.026bothFIRSTverified/distinctretrieval_a criticactive, no newID/admission. next15:00UTC anchored14:15.
+
 Research025 [Rootaccepted existing-family refinement](research-lab/brainstorm-wave025-synthesis.md),0newID/task/grant;015done/018partial unchanged,026A FIRSTverified/Bwriting, separatecritic onlyafterboth.
 
 Cadence14:15 actual 2026-10-15T14:16:14.976108+00:00 (+74.976108s):026twoindependentauthorsstarted/A FIRSTverified/Bwriting; separateexistingretrieval_a onlyafterbothFIRST.025Rootreadbackpending; report7be5123 independentreview,018TMPonly/no runtimegrant.015done/13of19 unchanged, noadditionalY/fit/currentretune; nextmax15:00UTC anchored14:15, planned027 notyetactive.
@@ -49,7 +51,7 @@ Current failure checkpoint 13:22:10UTC: [оригинальный real015 outer/
 | TLAB-015 | P0 | done: full six-role frozen reporting accepted by Root; final26–31 NDCG B0.459825/W0.464947, delta+.005122, paired-user95%CI[−.010433,+.018561]; no convincing superiority/search-benefit claim;0fits/adaptation; original failures retained | Root runtime/final acceptance; sole coordinator publication | 4gates/all7 sealed predictions beforeY; independent full metrics/bootstrap1770 numbers; [results](backlog-reviews/real015-heldout-results.md) |
 | TLAB-016 | P1 | done:4fits/4looks/1observer; development W=R2 accepted | root implementation; coordinator acceptance; C11 observer | immutable438 model seal; heldout claim separately015 |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
-| TLAB-018 | P0 | in_progress: full typed9 source-prefix accepted; Oct22 core/owner/parity/portable CODE accepted and byte-integrated; original Oct22 replay FAILED/session98791 exit1 after1Bload/0predict; partialexports unaccepted/no parity; consumed/no retry; complete018 pending; no poll/retry | Root bounded reproduction decision; execution_scope_audit + disjoint TMP helper; coordinator publication | source-prefix accepted separately; no fit/queryY or complete018 acceptance;018 remains parallel to015 |
+| TLAB-018 | P0 | in_progress: full typed9 source-prefix accepted; one reviewed prediction-code pin installed; separate paid Root recovery37979 RUNNING/output-lifetime pending; Oct22 core/owner/parity/portable CODE accepted and byte-integrated; original Oct22 replay FAILED/session98791 exit1 after1Bload/0predict; partialexports unaccepted/no parity; consumed/no retry; complete018 pending; no poll/retry | Root bounded reproduction decision; execution_scope_audit + disjoint TMP helper; coordinator publication | source-prefix accepted separately; no fit/queryY or complete018 acceptance;018 remains parallel to015 |
 | TLAB-019 | P0 | done: four fits / 12 prefixes, control sealed | root; independent replay and coordinator acceptance | immutable304-pin control; original failure preserved |
 
 Текущий срез:13 из19 крупных задач приняты, включая015;014 выполняется;018 частично принят;010–013 сознательно отложены. Зависимость010–013 от smoke008 уже снята, а user×item research/review завершены. Эти необязательные ветви не входят в замороженную процедуру015/016: возврат требует отдельного prospective development/reservation плана, ресурса и владельца, без переиспользования будущих25–31 outcome-метрик для нового выбора. Их исполнение не является prerequisite для завершения текущего отчёта. Исторические blocked-формулировки ниже сохранены как журнал первого среза, не как текущая очередь.
@@ -802,3 +804,7 @@ Both independent draft pairs/separate critiques complete, Rootresearchreadbacks 
 ### Narrow native diagnosis/cost scope —12:29:20UTC
 
 [Root diagnosis/cost readback and exact negative reviews](backlog-reviews/native-param-diagnosis-and-cost.md) accept ONEBload expectedRED observation only; verifierV1listedge and wrapperV1cleanup/primaryexception P2s pending repair/uninstalled. Original018failedconsumed/partialunaccepted, real015closed/pureprep allowed. Exact33914/43200/1000/300 unchanged; checker-only engineering separatelypaid, actualdecisionbasis change needsadditiveaccounting/newversionedcandidate.12:45maximum unchanged.
+
+## Actual018 recovery submission overlay — 2026-10-15T14:31:37.795697+00:00
+
+[Root отдельно issued/submitted37979](backlog-reviews/018-recovery-launch.md), RUNNING по Root14:28metadata; fulloutput/parity/lifetime не приняты. Новый600CPU900wall8GiB отдельнооплачен; old600900declareddebit/source720010800nonfungible/oldunknownimmutable, noaggregate018balance.2predmax/0fitY439/no015reexecution/noautomaticretry. Rootalonepolls, publisher0poll/largehash/data/model/jobs; complete018partial и freshtraining не заявлены. MAINreportreviewDONE/015done13of19/next15:00UTC anchored14:15 unchanged.
