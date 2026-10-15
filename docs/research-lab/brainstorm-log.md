@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 17:25:10 UTC. TLAB015/отчёт завершены; producer79330 CLOSED/reaped EXIT0, процесс принят, независимые численные выходы pending. TLAB018 partial, 13 из 19; волны032–034 Root accepted, новых ID/grants нет. Следующий максимум 18:00 UTC от17:15.
+Обновлён15 октября2026,17:32:54UTC. Producer79330 CLOSED0/processaccepted; verifier5316 CLOSED1/read_onlyAPI доmodels, sourcecount проверен, numericoutputs unaccepted. SourceV3/APIcanary proposal,018partial13/19; next18:00UTC от17:15.035обаFIRSTverified, criticRoot-only.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -707,3 +707,8 @@ RootsetupHEADrelease после закрытия68538 подтверждён; cl
 
 
 035: к 2026-10-15T17:27:01.721046+00:00 получены оба независимых FIRST ModelsA и RetrievalA, шесть фактических SHA совпали. Тексты не смешивались до авторских freezes; отдельный скептик назначается только Root, исследовательская приёмка пока pending. Новых задач/исполнительных допусков нет; это не задерживает основной независимый output review018 и не сдвигает18:00.
+
+
+## Проверяющий018: исходная попытка завершилась ошибкой — 2026-10-15T17:32:54.975045+00:00
+
+Обновление 17:32:54 UTC: [независимый verifier5316 завершился EXIT1 до моделей](../backlog-reviews/public018-independent-verifier-failure.md): DuckDB read_only source connection отверг create_view. Native source count проверен, но Q/C/fullY/матрицы/метрики не приняты;0model loads/predicts/fits/heldout. Producer79330 CLOSED0 и новое чистое окружение остаются приняты в своём scope; TLAB018 partial,13 из19. SourceV3 repair и один invented API canary пока proposal, новых запусков/повторов/grants нет; rawunknowntrue первой попытки сохранён. Следующий максимум18:00UTC от исходного17:15, финальное качество и отчёт015 неизменны.

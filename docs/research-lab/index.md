@@ -2,7 +2,7 @@
 
 15 октября 2026. Primary-source rounds дополняют canonical backlog; rejected/duplicate идеи сохраняются, budgets не складываются. [Фактический TLAB-015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0;финальное review отчёта завершено;018 остаётся partial, новые optional идеи не становятся gates.
 
-Текущая навигация (17:25:10 UTC): [heldout](../backlog-reviews/real015-heldout-results.md), [публичная команда](../experiments/reproduce-frozen-comparison.md), [чистое окружение и завершённый producer](../backlog-reviews/public018-fresh-environment-and-producer.md). Волны032–034 приняты и архивированы; producer79330 CLOSED/reaped EXIT0, независимые численные выходы pending, TLAB018 partial, 13 из19. Следующий максимум 18:00 UTC от17:15.
+Текущая навигация (17:32:54 UTC): [heldout](../backlog-reviews/real015-heldout-results.md), [cleanenv/producer](../backlog-reviews/public018-fresh-environment-and-producer.md), [verifier failure](../backlog-reviews/public018-independent-verifier-failure.md). Producer79330 CLOSED0/processaccepted, verifier5316 CLOSED1 доmodels; repair/APIcanary proposal,018partial13/19.032–034accepted,035обаFIRST/Rootcritic;next18:00UTC от17:15.
 
 [Wave034 приоритет существующей воспроизводимости](brainstorm-wave034-synthesis.md): нет новых ID/тестов/grants, не добавляет gates.
 [Wave032 approximate cosine/Jaccard](brainstorm-wave032-synthesis.md): exactsupport/degree/masks/expiry retained, no exactequality046 claim,0IDs/grants.

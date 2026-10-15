@@ -1,6 +1,6 @@
 # Чистое окружение принято, полный producer завершился
 
-Root принял завершение исходного producer79330: CLOSED/reaped b777d2 EXIT0, две новые fixed-fit модели и comparison произведены. [Точная terminal receipt](evidence/public018-producer-terminal/publication.json) подтверждает процесс и provenance; независимая проверка численных выходов ещё не выдана/не выполнена, TLAB018 partial. 109 выходных файлов не открывались и не копировались публикатором.
+Root принял завершение исходного producer79330: CLOSED/reaped b777d2 EXIT0, две новые fixed-fit модели и comparison произведены. [Точная terminal receipt](evidence/public018-producer-terminal/publication.json) подтверждает процесс и provenance; [первая независимая проверка остановилась на read_only API до загрузки моделей](public018-independent-verifier-failure.md), численная приёмка отсутствует, TLAB018 partial. 109 выходных файлов не открывались и не копировались публикатором.
 
 Внешнее время 966,83 wall / 1356,54 CPU секунд, консервативный upper 966,85 / 1356,56; отдельный V6 upper 971,818695 wall / 1358,549572 CPU не прибавляется к inclusive external. Sampled job RSS 7121993728 B; raw actual_total_cpu_seconds=null остаётся исходным значением, V6 normal/unknownfalse/errors[]/survivors[] не переписаны. Пределы 4200CPU/3600wall/12GiB сохранены; 2 engineering fits учитываются отдельно от прежних 11 fits/19 selection looks. Final25–31 не открывался, нового выбора не было.
 
