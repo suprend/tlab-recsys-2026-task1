@@ -1,0 +1,44 @@
+{"python": "3.12.14", "isolated": 1, "dont_write_bytecode": 1}
+test_duplicate_metadata_key_is_rejected (__main__.IntendedSafety.test_duplicate_metadata_key_is_rejected) ... FAIL
+test_failed_owner_marker_blocks_consumption_and_import (__main__.IntendedSafety.test_failed_owner_marker_blocks_consumption_and_import) ... FAIL
+test_pinned_source_is_the_code_executed (__main__.IntendedSafety.test_pinned_source_is_the_code_executed) ... FAIL
+
+======================================================================
+FAIL: test_duplicate_metadata_key_is_rejected (__main__.IntendedSafety.test_duplicate_metadata_key_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tlab-source-owner-authority-probes/test_intended_safety_v2.py", line 44, in test_duplicate_metadata_key_is_rejected
+    with self.assertRaises(ValueError):m.read_json('duplicate.json',hashlib.sha256(raw).hexdigest())
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_failed_owner_marker_blocks_consumption_and_import (__main__.IntendedSafety.test_failed_owner_marker_blocks_consumption_and_import)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tlab-source-owner-authority-probes/test_intended_safety_v2.py", line 63, in test_failed_owner_marker_blocks_consumption_and_import
+    self.assertEqual(((directory/'worker.consumed.json').exists(),kernel.import_archive.call_count),(False,0))
+AssertionError: Tuples differ: (True, 1) != (False, 0)
+
+First differing element 0:
+True
+False
+
+- (True, 1)
++ (False, 0)
+
+======================================================================
+FAIL: test_pinned_source_is_the_code_executed (__main__.IntendedSafety.test_pinned_source_is_the_code_executed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tlab-source-owner-authority-probes/test_intended_safety_v2.py", line 40, in test_pinned_source_is_the_code_executed
+    self.assertEqual(m.load_kernel(lambda:None).marker,'PINNED')
+AssertionError: 'OTHER!' != 'PINNED'
+- OTHER!
++ PINNED
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.012s
+
+FAILED (failures=3)

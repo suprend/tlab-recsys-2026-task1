@@ -1,0 +1,111 @@
+{
+  "scope": "frozen named files;no Git baseline",
+  "owner_freeze": {
+    "version": 1,
+    "scope": "typed9_source_import_owner_TMP_draft_pending_independent_review",
+    "draft_root": "unpublished-owner-v1",
+    "files": {
+      "scripts/run_source_import.py": {
+        "sha256": "9b2859db8d3679aa3a030be7c6c1708ba53e6bee376d93d15c79949774a86a77",
+        "bytes": 29966
+      },
+      "tests/test_run_source_import.py": {
+        "sha256": "854e822861ec1793a0a70652847104144ccd5efde5818a9ab9d68fbd9b6ce15c",
+        "bytes": 18867
+      },
+      "docs/experiments/run-source-import.md": {
+        "sha256": "c86b401679b3a757c05c49d00c33b8a830f915ca57010de564e21628de0d9290",
+        "bytes": 6283
+      }
+    },
+    "author_methods": 31,
+    "author_log": "tlab-source-import-owner-portable-unit-v2.log",
+    "actual_archive_hashes": 0,
+    "actual_archive_imports": 0,
+    "fresh_process_harness_executions": 0,
+    "actual_native_SQL": 0,
+    "source_acceptance_issued": false
+  },
+  "kernel_freeze": {
+    "version": 2,
+    "scope": "typed9_source_import_kernel_only_pending_independent_rereview",
+    "files": {
+      "scripts/source_import.py": {
+        "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+        "bytes": 14444
+      },
+      "tests/test_source_import.py": {
+        "sha256": "97cf28b827a8dc1f56ab128320993b27ad29f7e2ec82777e3ac6e81b8da7b073",
+        "bytes": 13098
+      },
+      "docs/experiments/source-import.md": {
+        "sha256": "98466edae086ac3f5ac0e14b0a71a093306b7a618c0789fc50f7cd9a233265dc",
+        "bytes": 8397
+      }
+    },
+    "author_methods": 26,
+    "author_log": "tlab-source-import-author-v3.log",
+    "preserved_original": "tlab-source-import-independent-v1-original",
+    "actual_source_imports": 0,
+    "actual_source_hash_streams": 0,
+    "actual_fits": 0,
+    "execution_owner_or_cli_implemented": false,
+    "source_acceptance_issued": false
+  },
+  "entries": [
+    {
+      "original": "unpublished-owner-v1/scripts/run_source_import.py",
+      "snapshot": "preserved-owner-v1/owner/scripts/run_source_import.py",
+      "sha256": "9b2859db8d3679aa3a030be7c6c1708ba53e6bee376d93d15c79949774a86a77",
+      "bytes": 29966
+    },
+    {
+      "original": "unpublished-owner-v1/tests/test_run_source_import.py",
+      "snapshot": "preserved-owner-v1/owner/tests/test_run_source_import.py",
+      "sha256": "854e822861ec1793a0a70652847104144ccd5efde5818a9ab9d68fbd9b6ce15c",
+      "bytes": 18867
+    },
+    {
+      "original": "unpublished-owner-v1/docs/experiments/run-source-import.md",
+      "snapshot": "preserved-owner-v1/owner/docs/experiments/run-source-import.md",
+      "sha256": "c86b401679b3a757c05c49d00c33b8a830f915ca57010de564e21628de0d9290",
+      "bytes": 6283
+    },
+    {
+      "original": "PROJECT_ROOT/scripts/source_import.py",
+      "snapshot": "preserved-owner-v1/kernel/scripts/source_import.py",
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+      "bytes": 14444
+    },
+    {
+      "original": "PROJECT_ROOT/tests/test_source_import.py",
+      "snapshot": "preserved-owner-v1/kernel/tests/test_source_import.py",
+      "sha256": "97cf28b827a8dc1f56ab128320993b27ad29f7e2ec82777e3ac6e81b8da7b073",
+      "bytes": 13098
+    },
+    {
+      "original": "PROJECT_ROOT/docs/experiments/source-import.md",
+      "snapshot": "preserved-owner-v1/kernel/docs/experiments/source-import.md",
+      "sha256": "98466edae086ac3f5ac0e14b0a71a093306b7a618c0789fc50f7cd9a233265dc",
+      "bytes": 8397
+    },
+    {
+      "original": "PROJECT_ROOT/uv.lock",
+      "snapshot": "preserved-owner-v1/context/uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "bytes": 300283
+    },
+    {
+      "original": "PROJECT_ROOT/pyproject.toml",
+      "snapshot": "preserved-owner-v1/context/pyproject.toml",
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+      "bytes": 367
+    }
+  ],
+  "excluded": "realdata,archive,DB,models,runartifacts;no CLI child launch",
+  "requirements": "original request SHA and exclusive once claim,fixed code/profile/entry/resources,pins/failure evidence;root user AGENTS/current task",
+  "skill_reference_gaps": [
+    "docs/agents/coordination.md missing",
+    "docs/agents/verification.md missing"
+  ]
+}

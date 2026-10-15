@@ -1,0 +1,7 @@
+{"probe": "exited_leader_surviving_group_final_guard_failure", "group_gone_after_cleanup": true, "descendants_marker_exists": false, "reported_unknown_owned_process_usage": false}
+{"probe": "accepted_minimum_cpu_allocation", "own_cpu": 0.1, "cpu_seconds": 20, "error": "No remaining bounded worker CPU allowance"}
+Traceback (most recent call last):
+  File "tlab-source-owner-resource-independent-probe.py", line 77, in <module>
+    assert observed_unknown_usage is True, 'Surviving descendant usage must remain unknown after terminal guard failure'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Surviving descendant usage must remain unknown after terminal guard failure
