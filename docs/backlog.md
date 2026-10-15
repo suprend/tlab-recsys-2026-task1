@@ -484,3 +484,8 @@ Actual recovered-source acceptance remains HOLD until one exact external policy,
 ### Model016 repaired code accepted; actual four-fit gate pending
 
 [Runner v2](backlog-reviews/tlab016-model-runner-code-rereview-v2.md) and [independent zero-fit observer](backlog-reviews/tlab016-model-observer-independent-rereview.md) passed scoped independent review. [Evidence](backlog-reviews/tlab016-model-v2-review-evidence.md) preserves the original failures, narrow test-only fixture repair and full 440-test green integration check. Exactly four fixed-procedure fits and one observer remain gated by a fresh measured owner and approval of its actual complete proposal; no actual016 fit or heldout access has occurred. Remote publication remains pending direct destination consent; local commits preserve the work.
+
+
+### Pure reserved-period contract accepted; source/inference still gated
+
+The additive [contract](experiments/heldout-contract.md) passed [independent repaired-code review](backlog-reviews/heldout-contract-independent-rereview.md):16 author plus4 independent cases, including original duplicate-day and calendar-maturity faults. It checks only authenticated snapshots,25 reporting-only/26–31 frozen calendar,12-hour positive simulated decision allowance, B/W closure and all-day prediction-before-target intent. It opens no actual data or model and provides no heldout execution approval. New source/inference/evaluator owners, budgets, semantic proof, native replay and exit-tail seals remain mandatory.
