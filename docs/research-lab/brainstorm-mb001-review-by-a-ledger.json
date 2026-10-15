@@ -1,0 +1,107 @@
+{
+  "review_id": "models-b-cross-review-by-a",
+  "date": "2026-10-15",
+  "reviewer": "/root/brainstorm_models_a",
+  "author": "/root/brainstorm_models_b",
+  "author_report": "brainstorm-mb001.md",
+  "author_ledger": "brainstorm-mb001-ledger.json",
+  "review_report": "brainstorm-mb001-review-by-a.md",
+  "literal_evidence": "brainstorm-mb001-review-literal.json",
+  "author_files_modified": false,
+  "execution_authority": false,
+  "canonical_hyp_ids_assigned": false,
+  "actual_scope": {
+    "project_data_source_Y_model_heldout_reads": 0,
+    "fits_optimizer_steps_native_model_API_jobs": 0,
+    "downloads_installs_large_hashes": 0,
+    "primary_paper_and_author_code_browser_reads": true,
+    "tiny_stdlib_scalar_checks": true,
+    "interpreter": ".venv/bin/python"
+  },
+  "decisions": [
+    {
+      "id": "MB01",
+      "decision": "refine_then_needs_pilot",
+      "novelty": "distinct pair-gap activation and gradient allocation within pair/list family, not constant temperature or ordinary gradient clipping",
+      "primary_sources": [
+        "https://arxiv.org/html/2411.00163v1",
+        "https://github.com/Tiny-Snow/IR-Benchmark/blob/main/src/itemrec/optimizer/optim_PSL.py"
+      ],
+      "material_findings": [
+        "Current author code uses negative-only sampled gaps and distinct score tau / robustness tau_star; MB self-positive denominator is explicit adaptation",
+        "MB .2 maps to robustness tau_star; emitted .5tanh scores bound gaps in(-1,1), not raw f",
+        "Derived derivative wj*(1-tanh(dj))/tau distinguishes nonlinear gap shape from constant-temperature softmax",
+        "Self gap0 has zero derivative, other positives excluded target-wise; singleton matches ordinary fullC exponential denominator but multi-positive objective differs",
+        "Translation invariance only in emittedscore space, not adding constants before tanh; chain derivative can saturate"
+      ],
+      "negative_law": "exact all Nq=Cq minus full matureY, no sampler or logQ, p+self denominator explicitly declared",
+      "controls": ["same bounded MLP exponential loss", "strongB replay or paid refit only if training domain changes"],
+      "broader_claim_controls_not_free": ["matched pairlogistic", "fixed clipping", "predeclared alternate temperature"],
+      "cheapest_falsifier": "stable loga identity, five finite differences, correct self/multi-positive masks and emittedscore versus rawscore translation fixtures",
+      "literal_result": {"five_finite_differences_max_error": 1.7859735912395536e-10, "tau": 0.2, "gap1_PSL_gradient": 1.1256728116738988, "gap1_exponential_gradient": 4.966535745378576},
+      "pilot_blockers": ["pin exact source/code version", "freeze objective denominator and normalization", "separately accepted reservation and paid attempt/resource ledger"]
+    },
+    {
+      "id": "MB02",
+      "decision": "reject_as_new_candidate_merge",
+      "novelty": "exact duplicate M001-C3 and MA01; k4 versus k8 does not create novelty",
+      "primary_sources": ["https://arxiv.org/html/2410.24210v2", "https://github.com/yandex-research/tabm"],
+      "material_findings": [
+        "Same width does not match parameters/compute; same epochs does not match CPU, choose budget policy and report updates",
+        "Tied adapters alone do not eliminate diverse heads; full identical-member null must tie every asymmetric source",
+        "Numeric .812GiB matrix arithmetic correct but excludes keys/masks/copies/model buffers",
+        "Dummy-label forward/backward is paid0optimizer-fit resource work, not free hidden compute"
+      ],
+      "controls": ["singleMLP", "optional paid parameter-matched wideMLP or fully tied-member null"],
+      "cheapest_falsifier": "one consolidated k1/meanprobability/headloss/diversity fixture and resource gate",
+      "fit_budget_disposition": "merge all three proposed budgets into one chosen protocol; no additive grant"
+    },
+    {
+      "id": "MB03",
+      "decision": "refine_defer_until_support_chronology",
+      "novelty": "distinct within-KD routing contrast; M001-C1 teacher-prefix timing and MA04 subset closure are other questions",
+      "primary_sources": ["https://arxiv.org/html/2408.14678v1"],
+      "material_findings": [
+        "Separate hard/soft logits source-supported; proprietary multiobjective video evidence not purchase bias-removal theorem",
+        "Teacher loss has zero direct derivative on disjoint purchase-head parameters but generally nonzero shared-trunk derivative",
+        "Fix common student rows, teacher scores/coverage/masks, query weights, purchase updates and head/trunk accounting",
+        "Teacher completed after mature prefix and before common later student rows; actual available_at distinct from fitcutoff",
+        "Full-trainingB has more labels than later-only students; valid strongpackage reference but not matched-data effect"
+      ],
+      "controls": ["purchase-only identical student", "same-logit directKD", "separate-headKD", "strongB"],
+      "cheapest_falsifier": "literal shifted-teacher derivative routing plus honest chronological purchase support and inference bottleneck gate",
+      "fit_budget_disposition": "five prospective attempts visible, not approved; preparation/teacher scoring/failures paid; added shuffledteacher control needs paid slot"
+    },
+    {
+      "id": "MB04",
+      "decision": "defer",
+      "novelty": "genuinely distinct joint tokenizer/conditional-decoder learning mechanism, not generic sequence architecture",
+      "primary_sources": [
+        "https://arxiv.org/html/2409.05546v3",
+        "https://github.com/RUCAIBox/ETEGRec",
+        "https://github.com/RUCAIBox/ETEGRec/blob/main/trainer.py"
+      ],
+      "material_findings": [
+        "Collaborative SASRec item embeddings supported; no title/image prerequisite inferred",
+        "Rendered Eq15 has negative symmetricKL sign while code returns positiveKL and minimizes added two directions; do not copy rendered sign",
+        "Author code deduplicates targetIDs before in-batch CE; full dailyset/co-positive/query/user negative law still requires adaptation",
+        "get_code regenerates suffixes and raises if collision size exceeds code_num",
+        "Five jobs insufficiently bounds optimizer stages: declare finite encoder/tokenizer epochs, alternations, code regeneration and suffix rebuild costs",
+        "FixedC complete equal-length code scoring is valid adaptation, not purchase probability or beam-retrieval claim",
+        "Twenty complete timestampbuckets do not cap raw item/event count; peer-symmetric aggregation and cost necessary"
+      ],
+      "controls": ["same decoder/history/targets/initialization with fixed tokenizer", "joint tokenizer with declared update-or-CPU matching", "strongB"],
+      "cheapest_falsifier": "hand trie with collision pair,257sameprefix items under256suffix symbols,OOV,code swap,peer permutation and positiveKL direction",
+      "pilot_blockers": ["strict-past warmup and artifactavailability", "exact inbatch negative law", "coupled tokenizer/code map/decoder identity", "CPU-only cost admission", "new reservation/attempt ledger"]
+    }
+  ],
+  "additional_BSL_finding": {
+    "decision": "retain_positive_side_defer",
+    "singleton": "-tauPlus*log(exp(sp/tauPlus))=-sp exactly",
+    "multi_positive": "positive logmeanexp derivative emphasizes higher scoring positives",
+    "limit": "does not prove entire BSL equals baseline; negative aggregation and temperature remain, overlapping known softmax axes"
+  },
+  "current_pipeline_and_heldout": "immutable and untouched",
+  "recommended_consolidation": ["mergeTabM", "onePSLorSL20 objective contrast after literal design", "separateHeadKD deferred withinKD family", "jointCodes deferred"],
+  "claims": "Source mechanisms only; scalar algebra is not native engine or data evidence; no promised REES46 gains"
+}

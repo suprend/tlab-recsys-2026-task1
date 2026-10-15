@@ -171,3 +171,6 @@ Further focused report/reproduction refinements (no new experiments):
 
 
 Независимые [ModelA](brainstorm-ma001.md) и [ModelB](brainstorm-mb001.md) добавляют8 локальных proposals до crossed review. [Freeze](brainstorm-ma001-mb001-freeze.json) заранее отмечает TabM/SL/KD overlaps: независимое повторное открытие не создаёт новый HYP автоматически.
+
+
+Crossed critique первой волны: [FA](brainstorm-fa001-review-by-b.md), [FB](brainstorm-fb001-review-by-a.md), [RA](brainstorm-ra001-review-by-b.md), [RB](brainstorm-rb001-review-by-a.md), [MA](brainstorm-ma001-review-by-b.md), [MB](brainstorm-mb001-review-by-a.md). [Freeze](brainstorm-wave001-crossreview-freeze.json) сохраняет оригиналы, literal negatives и явные duplicate merges.

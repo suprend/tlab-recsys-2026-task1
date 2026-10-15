@@ -1,0 +1,44 @@
+{
+  "scope": "source-free stdlib scalar algebra only, no model packages/data",
+  "tau": 0.2,
+  "singleton_negative_with_self": [
+    {
+      "d": -1.0,
+      "PSL_grad": 0.006778381378323845,
+      "exp_self_grad": 0.03346425462142427,
+      "finite_difference_error": 4.912207793306145e-13,
+      "identity_error": 0.0
+    },
+    {
+      "d": -0.5,
+      "PSL_grad": 0.31496667997441424,
+      "exp_self_grad": 0.3792909001062177,
+      "finite_difference_error": 7.914613409099047e-12,
+      "identity_error": 2.220446049250313e-16
+    },
+    {
+      "d": 0.0,
+      "PSL_grad": 2.5,
+      "exp_self_grad": 2.5,
+      "finite_difference_error": 3.913314117198752e-11,
+      "identity_error": 0.0
+    },
+    {
+      "d": 0.5,
+      "PSL_grad": 2.339324323452983,
+      "exp_self_grad": 4.620709099893783,
+      "finite_difference_error": 8.917133698105317e-11,
+      "identity_error": 5.551115123125783e-17
+    },
+    {
+      "d": 1.0,
+      "PSL_grad": 1.1256728116738988,
+      "exp_self_grad": 4.966535745378576,
+      "finite_difference_error": 1.7859735912395536e-10,
+      "identity_error": 1.1102230246251565e-16
+    }
+  ],
+  "all_positive_loss": 0.0,
+  "BSL_singleton": "-tau*log(exp(sp/tau)) = -sp; literal algebra",
+  "teacher_head_direct_derivative": "0 if head parameters are disjoint; trunk derivative generally nonzero"
+}

@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 05:45 UTC / 08:45 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
+Обновлён 15 октября 2026, 05:59 UTC / 08:59 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
 
 ## Три независимые линии
 
@@ -105,6 +105,19 @@ Root дополнительно назначил `/root/brainstorm_transfer_a` �
 Независимо rediscovered TabM в M001-C3/MA-01/MB02 — одна mechanism family, а не три новых HYP. MA-03 пересекается с M001-C2; negative-gradient counterexample уже передан на crossed review после first freeze. Три distillation направления могут иметь разные contrasts, но общий teacher/chronology contract ещё требует совместной дедупликации. ModernNCA labelled-memory prediction не автоматически тождественен frozen foundation ICL: это отдельный вопрос review.
 
 Теперь в восьми реально сданных drafts32 local IDs;9 прошли первые F001/M001 reviews. Количество canonical new hypotheses пока0. Это прозрачный счёт предложений, не выполненных экспериментов. Root назначает modelA↔B cross-review после их freeze; transferA/B ещё исследуются. Следующая строго blind wave использует фиксированный prior-context commit `ec3dabc`, до новых summaries, а не live journal.
+
+## Crossed feature/retrieval/model reviews завершены
+
+| Проверенный draft | Независимый reviewer | Решения и найденные ограничения |
+|---|---|---|
+| [FA001 review](brainstorm-fa001-review-by-b.md) | FeaturesB | FA01 accept-needs-pilot; FA02 defer; FA03 refine; FA04 defer. MI не различает invertible sign reversal, поэтому первоначальный negative-transfer fixture FA03 не годится |
+| [FB001 review](brainstorm-fb001-review-by-a.md) | FeaturesA | FB01 accept-needs-pilot; FB02/03 refine; FB04 defer. Denominator/missing closure, reset peer/window boundary и router chronology требуют exact contracts |
+| [RA001 review](brainstorm-ra001-review-by-b.md) | RetrievalB | RA01 accept-needs-pilot research; RA02 merged withRB2; RA03 defer. При12-item session до220triples/660rules, outputquota не ограничивает build |
+| [RB001 review](brainstorm-rb001-review-by-a.md) | RetrievalA | RB1 existingHYP053 refinement; RB2 merged needs-pilot family; RB3/4 refine. Greedy exact overlap нельзя выбирать по скрытым retrieval outputs и одновременно заявлять equal calls без prepaid cache |
+| [MA001 review](brainstorm-ma001-review-by-b.md) | ModelsB | MA01 TabM duplicate; MA02 refine/defer; MA03 blocking update contract; MA04 distinct KD closure contrast, defer without compression need |
+| [MB001 review](brainstorm-mb001-review-by-a.md) | ModelsA | MB01 refine→needs-pilot; MB02 TabM duplicate; MB03 narrow KD-head contrast deferred; MB04 distinct joint-code mechanism deferred. Теорема bias isolation и paper/code token-loss sign не переносятся автоматически |
+
+[Freeze](brainstorm-wave001-crossreview-freeze.json) связывает14 original/public review/evidence files; первые авторские drafts неизменны.32 local candidates восьми drafts теперь покрыты first independent reviews; это не32 новых HYP и не32 реализованных улучшения. TransferA/B first drafts и их crossed critique ещё должны завершить общую novelty map перед окончательным присвоением139+.
 
 ## Следующие решения
 
