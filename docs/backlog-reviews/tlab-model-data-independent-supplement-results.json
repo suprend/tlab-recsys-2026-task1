@@ -1,0 +1,52 @@
+{
+  "scope": "supplement synthetic-only; no Pool/fit/source",
+  "before": {
+    "scripts/model_data.py": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+    "tests/test_model_data.py": "69d05ed5dcd9fafdbc72448aa4c6c3c0df6199d5e949e5f538445a13519a8427",
+    "docs/experiments/model-data.md": "f4751cc996c9d4c3cc6672d643dd2423b960a1f5f3b736c52866605813ecb4cd"
+  },
+  "after": {
+    "scripts/model_data.py": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+    "tests/test_model_data.py": "69d05ed5dcd9fafdbc72448aa4c6c3c0df6199d5e949e5f538445a13519a8427",
+    "docs/experiments/model-data.md": "f4751cc996c9d4c3cc6672d643dd2423b960a1f5f3b736c52866605813ecb4cd"
+  },
+  "cases": [
+    {
+      "case": "connection_execute_once_fetch_chunk32",
+      "status": "PASS",
+      "detail": {
+        "chunk_vectors": 32,
+        "execute_count": 1,
+        "fetch_calls": 2,
+        "max_allowed": 65536
+      }
+    },
+    {
+      "case": "nonnullable_BIGINT_min_max_exact",
+      "status": "PASS",
+      "detail": {
+        "rows": 22,
+        "minimum": -9223372036854775808,
+        "maximum": 9223372036854775807
+      }
+    },
+    {
+      "case": "selection_unseen_no_encoder_fit",
+      "status": "PASS",
+      "detail": {
+        "accepted": true,
+        "encoder_fit_count": 0
+      }
+    },
+    {
+      "case": "external_schema_trust_boundary_observation",
+      "status": "PASS",
+      "detail": {
+        "observation": "loader accepts safe extra numeric name from supplied collection; external accepted005 registry/column binding is essential, not standalone grammar acceptance"
+      }
+    }
+  ],
+  "wall_seconds": 0.2493647499995859,
+  "cpu_seconds": 0.275835,
+  "maxrss_bytes": 140525568
+}

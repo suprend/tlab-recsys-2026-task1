@@ -1,0 +1,203 @@
+{
+  "before": {
+    "scripts/metadata_ablation.py": "380288844d7a2b5133acf9b1c29a92a33814d2a0e67a53826a6df73ed423372f",
+    "tests/test_metadata_ablation.py": "d3a4a6a83c69acbb228733ea85acd8dcd2355cf664863d575bf76b8086d452d8",
+    "docs/experiments/metadata-ablation.md": "6316e73ba72c931bc81a82fc4fd39b98c236833404f3125326a96f38bef24125"
+  },
+  "after": {
+    "scripts/metadata_ablation.py": "380288844d7a2b5133acf9b1c29a92a33814d2a0e67a53826a6df73ed423372f",
+    "tests/test_metadata_ablation.py": "d3a4a6a83c69acbb228733ea85acd8dcd2355cf664863d575bf76b8086d452d8",
+    "docs/experiments/metadata-ablation.md": "6316e73ba72c931bc81a82fc4fd39b98c236833404f3125326a96f38bef24125"
+  },
+  "cases": [
+    {
+      "case": "control_rederive_scope_fresh_omissions",
+      "status": "PASS",
+      "detail": "fresh-resealed source/proof/PairLogit output omissions rejected"
+    },
+    {
+      "case": "control_strict_version_True",
+      "status": "PASS",
+      "detail": "Independent008 control acceptance required"
+    },
+    {
+      "case": "control_strict_version_1.0",
+      "status": "PASS",
+      "detail": "Independent008 control acceptance required"
+    },
+    {
+      "case": "control_strict_approved_1",
+      "status": "PASS",
+      "detail": "Independent008 control acceptance required"
+    },
+    {
+      "case": "fresh_resealed_execution_boolversion",
+      "status": "PASS",
+      "detail": "008control executionapproval differs"
+    },
+    {
+      "case": "runtime_None",
+      "status": "PASS",
+      "detail": {
+        "error": "None",
+        "status": "complete_produced_unreviewed",
+        "decision": {
+          "feature_choice": "base41_plus_metadata18",
+          "interpretation": "development screening; no confirmation or general superiority claim",
+          "ndcg20": 1.0,
+          "ndcg_reference": 0.41444755081727774,
+          "recall20": 1.0,
+          "recall_floor": 0.5792133072407045,
+          "retain_metadata_block": true,
+          "tie_tolerance": 1e-12
+        },
+        "fit_calls": 1,
+        "matrix_calls": 4,
+        "claim_exists": true,
+        "known_failed_marker": false
+      }
+    },
+    {
+      "case": "runtime_matrix_integrity",
+      "status": "PASS",
+      "detail": {
+        "error": "ValueError('PRIMARY matrix integrity')",
+        "status": "failed",
+        "decision": {
+          "feature_choice": "stop_for_integrity_or_API_review_no_replacement"
+        },
+        "fit_calls": 0,
+        "matrix_calls": 1,
+        "claim_exists": true,
+        "known_failed_marker": false
+      }
+    },
+    {
+      "case": "runtime_matrix_memory",
+      "status": "PASS",
+      "detail": {
+        "error": "MemoryError('PRIMARY matrix memory')",
+        "status": "failed",
+        "decision": {
+          "feature_choice": "base41",
+          "reason": "resource_failed_single_attempt_no_replacement",
+          "retain_metadata_block": false
+        },
+        "fit_calls": 0,
+        "matrix_calls": 1,
+        "claim_exists": true,
+        "known_failed_marker": false
+      }
+    },
+    {
+      "case": "runtime_base_difference",
+      "status": "PASS",
+      "detail": {
+        "error": "ValueError('Chunked/base input equivalence failed')",
+        "status": "failed",
+        "decision": {
+          "feature_choice": "stop_for_integrity_or_API_review_no_replacement"
+        },
+        "fit_calls": 0,
+        "matrix_calls": 1,
+        "claim_exists": true,
+        "known_failed_marker": false
+      }
+    },
+    {
+      "case": "runtime_score_keys",
+      "status": "PASS",
+      "detail": {
+        "error": "ValueError('008saved scores do not cover exact same selection keys')",
+        "status": "failed",
+        "decision": {
+          "feature_choice": "stop_for_integrity_or_API_review_no_replacement"
+        },
+        "fit_calls": 0,
+        "matrix_calls": 4,
+        "claim_exists": true,
+        "known_failed_marker": false
+      }
+    },
+    {
+      "case": "runtime_score_metrics",
+      "status": "PASS",
+      "detail": {
+        "error": "ValueError('Saved008fullY metric replay differs from accepted reference')",
+        "status": "failed",
+        "decision": {
+          "feature_choice": "stop_for_integrity_or_API_review_no_replacement"
+        },
+        "fit_calls": 0,
+        "matrix_calls": 4,
+        "claim_exists": true,
+        "known_failed_marker": false
+      }
+    },
+    {
+      "case": "runtime_bad_approval",
+      "status": "PASS",
+      "detail": {
+        "error": "ValueError('External reviewed executionapproval differs from actual proposal')",
+        "status": "failed",
+        "decision": {
+          "feature_choice": "stop_for_integrity_or_API_review_no_replacement"
+        },
+        "fit_calls": 0,
+        "matrix_calls": 0,
+        "claim_exists": false,
+        "known_failed_marker": false
+      }
+    },
+    {
+      "case": "runtime_terminal_resource",
+      "status": "PASS",
+      "detail": {
+        "error": "MemoryError('TERMINAL resource during manifest')",
+        "status": "failed",
+        "decision": {
+          "feature_choice": "base41_plus_metadata18",
+          "interpretation": "development screening; no confirmation or general superiority claim",
+          "ndcg20": 1.0,
+          "ndcg_reference": 0.41444755081727774,
+          "recall20": 1.0,
+          "recall_floor": 0.5792133072407045,
+          "retain_metadata_block": true,
+          "tie_tolerance": 1e-12
+        },
+        "fit_calls": 1,
+        "matrix_calls": 4,
+        "claim_exists": true,
+        "known_failed_marker": false,
+        "contradictory_retention_on_failed_run": true
+      }
+    },
+    {
+      "case": "runtime_terminal_write",
+      "status": "PASS",
+      "detail": {
+        "error": "OSError('TERMINAL final receipt')",
+        "status": "failed",
+        "decision": {
+          "feature_choice": "base41_plus_metadata18",
+          "interpretation": "development screening; no confirmation or general superiority claim",
+          "ndcg20": 1.0,
+          "ndcg_reference": 0.41444755081727774,
+          "recall20": 1.0,
+          "recall_floor": 0.5792133072407045,
+          "retain_metadata_block": true,
+          "tie_tolerance": 1e-12
+        },
+        "fit_calls": 1,
+        "matrix_calls": 4,
+        "claim_exists": true,
+        "known_failed_marker": true,
+        "contradictory_retention_on_failed_run": true
+      }
+    }
+  ],
+  "wall_seconds": 2.0163434160003817,
+  "cpu_seconds": 1.955644,
+  "maxrss_bytes": 135921664,
+  "scope": "synthetic/mocked only; zero real matrices/Pool/native fit/source/approval"
+}

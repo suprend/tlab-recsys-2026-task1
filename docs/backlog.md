@@ -16,7 +16,7 @@
 | TLAB-006 | P0 | done | metrics worker; accepted B3/coordinator | — |
 | TLAB-007 | P0 | done | heuristic worker; accepted B2/coordinator | — |
 | TLAB-008 | P0 | done: two-fit smoke; strong tuning tracked019 | root; independent code/output accept | —;017 accepted |
-| TLAB-009 | P1 | 100Q source/cost accepted; full code accepted, execution pending | root; independent direct-list reviewer | 008 smoke accepted; core→runner→100Q review gates |
+| TLAB-009 | P1 | full source accepted; ONEfit code accepted, execution pending | root; independent direct-list reviewer | 008 smoke accepted; core→runner→100Q review gates |
 | TLAB-010 | P1 | blocked | unassigned | 008 |
 | TLAB-011 | P1 | blocked | unassigned | 008 |
 | TLAB-012 | P1 | blocked | unassigned | 008, measured resource gate; user-item review completed |
@@ -343,3 +343,10 @@ Rounds014–016 сохраняют дальнейшие obligations: actual2026 
 Independent sourceobserver [nullableBIGINT P1](backlog-reviews/tlab009-full-source-oracle-review.md) воспроизведён как correctIDfalse-reject/wrongroundedIDfalse-accept; explicittypedSeriesBEFOREDataFrame fixed it. [12typed cases](backlog-reviews/tlab009-full-source-oracle-rereview.md) и [marker/setup gate](backlog-reviews/tlab009-full-source-oracle-marker-rereview.md) приняты. Currentpublicsourceoracle supports exactmetadata009 context, не объявляет complete018manual18regeneration или actualfullsourceproof. Originald76/typed577 versions preserved.
 
 Rounds017–019 сохраняют proposerinformation/typedfuzzing/cluster-bootstrap limits; no extra fits/materializedcolumns/selectionlooks authorized. Root model_data остаётся отдельным uncommitted review scope.
+
+
+### Full009 data + chunkedloader/single-ablation code accepted — 15 октября 2026
+
+[Actualsource verdict](backlog-reviews/tlab009-full-source-verification.md):all6134207pairs×18metadata values/provenance/full1858481R checked; producer+oracle159.4891actualCPU seconds,176pin seal. Existing [008control114pin seal](backlog-reviews/tlab008-control-seal.md) reusesacceptedmodels/scores/proof,0refits/0newmetrics.
+
+[Chunkedloader review](backlog-reviews/tlab-model-data-independent-review.md) принят26independentcases+10author tests. [Single-ablation initialP1](backlog-reviews/tlab-metadata-ablation-independent-review.md) terminaldecision былисправленlocalAblationAudit без измененияsharedfull5956. [TargetedACCEPT](backlog-reviews/tlab-metadata-ablation-independent-rereview.md) закрываетresourcebase41/APISTOP/primarypreservation/globalnoretry. Current35733…/89766… codeaccepted; exactactual192pinproposalce0e… requiresONEexternalfitapproval, noactualfit/matricesyet. Parentcostledger обязателен.
