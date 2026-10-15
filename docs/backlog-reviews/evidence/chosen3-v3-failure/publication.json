@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "recorded_at_utc": "2026-10-15T08:49:13+00:00",
+  "scope": "bounded failed synthetic chosen3 V3 operation; no whole-output acceptance or retry authority",
+  "files": {
+    "docs/backlog-reviews/evidence/chosen3-v3-failure/original/tlab-root-chosen3-v3-failed-external-receipt.json": {
+      "original_source_name": "tlab-root-chosen3-v3-failed-external-receipt.json",
+      "original_sha256": "d32348f7a3831216aa2efdac8c22da53216cc53f696c7dd349f351ef645ed789",
+      "publication_sha256": "d32348f7a3831216aa2efdac8c22da53216cc53f696c7dd349f351ef645ed789",
+      "bytes": 3295,
+      "adaptation": "none; immutable Root external receipt, host paths diagnostic"
+    },
+    "docs/backlog-reviews/evidence/chosen3-v3-failure/original/tlab-root-chosen3-v3-setup-external-receipt.json": {
+      "original_source_name": "tlab-root-chosen3-v3-setup-external-receipt.json",
+      "original_sha256": "b71b722093361d404b290c6fffe52f77651f642e0c386deb52fc0815a38d258e",
+      "publication_sha256": "b71b722093361d404b290c6fffe52f77651f642e0c386deb52fc0815a38d258e",
+      "bytes": 1909,
+      "adaptation": "none; immutable Root external receipt, host paths diagnostic"
+    }
+  },
+  "small_existing_artifact_pin_checks": [
+    {
+      "artifact_name": "integration-supervision.json",
+      "sha256": "f75f5531ffb6e4baf562c10b39b5732d1b048e6d7eef388a15d07577ce3f2d01",
+      "bytes": 1162,
+      "result": "matches original Root receipt",
+      "copied": false
+    },
+    {
+      "artifact_name": "integration-supervision.failed.json",
+      "sha256": "7f4b0a4ec526bee248befc81bbea74d2ab5aaa52a823147c72d7de49bfbbb1d2",
+      "bytes": 1892,
+      "result": "matches original Root receipt",
+      "copied": false
+    },
+    {
+      "artifact_name": "integration.failed.json",
+      "sha256": "ad3414466c371b445431d4d8b0eef498946706f27cf1187a0c456a999846587b",
+      "bytes": 644,
+      "result": "matches original Root receipt",
+      "copied": false
+    },
+    {
+      "artifact_name": "setup-supervision.json",
+      "sha256": "9d0a7a86f23baa92b64dd786b4c4d6551e55391ba6fd55a3a0f6aee631be801c",
+      "bytes": 1965,
+      "result": "matches original Root receipt",
+      "copied": false
+    },
+    {
+      "artifact_name": "integration-process.log",
+      "sha256": "0e91f9196ec2445068e4a6b64a294f77d338930ee7763c4dd4855f1a3742b045",
+      "bytes": 840,
+      "result": "matches original Root receipt",
+      "copied": false
+    }
+  ],
+  "immutable_failure_flags_preserved": true,
+  "failure_root_consumed": true,
+  "independent_output_review": "pending",
+  "Root_whole_output_acceptance": false,
+  "actual_new_synthetic_W_fits": 1,
+  "actual_new_B_fits": 0,
+  "actual_integration_fits": 0,
+  "actual_study_fits": 0,
+  "publisher_application_reruns": 0,
+  "no_model_DB_raw_copies": true
+}

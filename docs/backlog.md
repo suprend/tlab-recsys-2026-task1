@@ -22,7 +22,7 @@
 | TLAB-012 | P1 | deferred: optional ItemCF compatibility branch | unassigned | research/review complete;100-query postings/degree cost gate, fixedC and separately reserved development/fit budget |
 | TLAB-013 | P1 | deferred: optional protocol sensitivity | unassigned | one predeclared perturbation, explicit query/target/C estimand and separate evaluation reservation/budget |
 | TLAB-014 | P1 | in_progress: multiple independent brainstorm waves and rotating cross-reviews | root assigns disjoint blind drafts; coordinator records reviewed hypotheses | постоянная линия, не блокирует ядро; journal records actual active snapshots |
-| TLAB-015 | P0 | in_progress: actual six-role B=W toy outputs independently accepted; chosen3 P1/P2 repair pending; real heldout closed | root orchestration; six_role_harness repair; separate CODE/output reviews; coordinator publication | accepted016; exact whole-decision/prediction seals and independently accepted historical-cost/resource request; optional chosen3 proposal separately reviewed |
+| TLAB-015 | P0 | in_progress: actual B=W toy accepted; actual chosen3 V3 FAILED/consumed after six worker exits0; V4 pure repair/output review pending; real heldout closed | root orchestration; six_role_harness repair; separate CODE/output reviews; coordinator publication | accepted016; exact whole-decision/prediction seals and independently accepted historical-cost/resource request; optional chosen3 proposal separately reviewed |
 | TLAB-016 | P1 | done:4fits/4looks/1observer; development W=R2 accepted | root implementation; coordinator acceptance; C11 observer | immutable438 model seal; heldout claim separately015 |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
 | TLAB-018 | P0 | phase1/P0A prefix and typed9/import-owner CODE accepted; actual4-row fresh-process synthetic import independently accepted; full-source bootstrap pending | root kernel and orchestration; historical owner/output review evidence; source_import_review cost basis | accepted tiny proof does not establish full-source import, fresh private approvals or source-to-model reproduction |
@@ -686,3 +686,8 @@ Root acceptance receipt at07:30:28 confirms actual sourceV5 tiny output after fu
 ### Checkpoint 08:24:02 UTC: late08:15 publication, no execution admission
 
 [Actual journal checkpoint](research-lab/brainstorm-log.md) records 9m02s delay and current inventory:009 two independent authors running,008 skeptic completed, chosen3 P1/P2 repair plus historical-wall author running. Both accepted tiny proof packs remain published; current38000/12h actual requestCLOSED and no Wfit/newroot/native job. Next maximum09:00UTC is anchored to missed08:15, not the late write; existing015/018/report/BW/heldout scope unchanged.
+
+
+### Chosen3 V3 failure checkpoint 08:49:13 UTC
+
+[Whole chosen3 integration failed exit1](backlog-reviews/chosen3-v3-failure-checkpoint.md): one separate setup W44 syntheticfit, no new B/study/integration fit; six worker exits0 and75 chosen-feature comparisons do not imply whole-output acceptance. Original failure flags/root remain consumed; V4 pure repair and read-only output review pending, no retry/refit/new namespace. Historical36534-core basis remains unaccepted and actual requestCLOSED.09:00UTC hard checkpoint is unchanged.

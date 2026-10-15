@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 08:24:02 UTC / 11:24:02 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
+Обновлён 15 октября 2026, 08:49:13 UTC / 11:49:13 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -10,11 +10,11 @@
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 09:00 UTC / 12:00 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
-## Current snapshot at 08:24:02 UTC
+## Current snapshot at 08:49:13 UTC
 
-- Main: оба actual tiny outputs независимо приняты и опубликованы e92e01e; real reserved requestCLOSED. Sourcecost continuous-wall author running; chosen3 repair author running, no actual Wfit/newroot.
-- Research: author009 ModelsB/RetrievalA running; separate008skeptic ModelsA completed. Старые running snapshots ниже исторические.
-- Checkpoint08:15 пропущен на 9m02s. Следующий максимум09:00UTC /12:00МСК, anchored08:15, либо два следующих completed rounds; clock/budgets не reset.
+- Main: actual chosen3 V3 whole integrationFAILED exit1 after six worker exits0; separate setup1new syntheticW44fit. V4 pure complete-verifier repair and read-only output review running. Both earlier accepted tiny milestones remain accepted. Actual requestCLOSED;36534core wall candidate unaccepted.
+- Inventory observed17known/5running/12completed: Root/coordinator, FeaturesA author010, six_role_harness repair and six_role_output_review running. MB010 firstdraft and009separate skeptic completed. Historical sourcecost author completed; no current real-source/heldout job or automatic retry.
+- Next hard maximum09:00UTC /12:00МСК remains anchored08:15, or two next completed research rounds. Previous08:24 late checkpoint remains explicit; this earlier failure update does not slide the deadline.
 
 ## Три независимые линии
 
@@ -265,3 +265,10 @@ Main accepted source tiny и six-role toy proof packs опубликованы e
 
 
 Wave008 separate skeptic completed: [exact archive v2](archives/waves005-008/publication.json) now preserves27 originals, including final review/freeze/stdlib literal code and results. Both finite point bounds retained as deferred refinements;100-Q train/evaluation scope and single-realization A−S claim need repair. Root007/008 readbacks remain pending, no publisher rerun/HYP/admission. Wave009 both independent first drafts completed afterward; dated08:24 inventory above describes that actual earlier observation, not current live assignments.
+
+
+## Actual chosen3 V3 failed — recorded 08:49:13 UTC / 11:49:13 МСК
+
+[Bounded failure checkpoint](../backlog-reviews/chosen3-v3-failure-checkpoint.md) preserves the two unchanged Root external receipts and five existing artifact pins. Whole operationexit1: duplicate metric_delta_required_nonzero in final constructor, six worker rolesexit0,75chosen scalar checks/20nativecalls; separate setup1syntheticW44fit, newB/study/integrationfits0.4.89s rounded totalwall includes both stages. Failure flags and consumedroot retained; no retry/refit/new namespace/whole acceptance. V4 pure complete-verifier regression and independent existing-output review are current safeNEXT; historical36534wall basis stillunaccepted/requestCLOSED.
+
+Current independent research: FA010authorrunning, MB010firstfreezecompleted,009separateskepticcompleted with0newmechanisms/IDs/admissions. Root owns next assignments; helpers and completed authorlines do not count as live independent authors.09:00hardcheckpoint remains unchanged.

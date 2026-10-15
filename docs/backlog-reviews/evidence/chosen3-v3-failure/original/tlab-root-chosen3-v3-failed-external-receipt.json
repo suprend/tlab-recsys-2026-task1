@@ -1,0 +1,81 @@
+{
+  "op_id": "chosen3-R2-L05-tiny-v3-20261015-once",
+  "state": "failed_consumed_outer_summary_constructor",
+  "explicit_terminal_exec_session": 90535,
+  "explicit_terminal_chunk": "e70f0b",
+  "explicit_terminal_exit_code": 1,
+  "failure": "TypeError dict() got multiple values for metric_delta_required_nonzero at verify_results terminal return",
+  "actual_role_reaps": [
+    {
+      "role": "source",
+      "reaped_exit_code": 0,
+      "fit_attempt_count": 0,
+      "labels_loaded": false,
+      "native_prediction_count": 0
+    },
+    {
+      "role": "source_oracle",
+      "reaped_exit_code": 0,
+      "fit_attempt_count": 0,
+      "labels_loaded": false,
+      "native_prediction_count": 0
+    },
+    {
+      "role": "predictions",
+      "reaped_exit_code": 0,
+      "fit_attempt_count": 0,
+      "labels_loaded": false,
+      "native_prediction_count": 10
+    },
+    {
+      "role": "prediction_oracle",
+      "reaped_exit_code": 0,
+      "fit_attempt_count": 0,
+      "labels_loaded": false,
+      "native_prediction_count": 10
+    },
+    {
+      "role": "targets_evaluation",
+      "reaped_exit_code": 0,
+      "fit_attempt_count": 0,
+      "labels_loaded": true,
+      "native_prediction_count": 0
+    },
+    {
+      "role": "metric_oracle",
+      "reaped_exit_code": 0,
+      "fit_attempt_count": 0,
+      "labels_loaded": true,
+      "native_prediction_count": 0
+    }
+  ],
+  "actual_selected3_scalar_comparisons": 75,
+  "actual_selected3_columns": 3,
+  "actual_worker_mismatches": 0,
+  "actual_setup_W_fits": 1,
+  "actual_integration_fits": 0,
+  "actual_new_B_fits": 0,
+  "actual_study_fits": 0,
+  "external_integration_wall_seconds_rounded": 3.84,
+  "external_integration_user_seconds_rounded": 2.92,
+  "external_integration_system_seconds_rounded": 0.61,
+  "external_integration_cpu_rounding_upper_seconds": 3.55,
+  "supervisor_controller_explicitly_reaped": true,
+  "supervisor_direct_exit_code": 1,
+  "terminal_observed_survivors": [],
+  "original_unknown_active_work_flag_retained": true,
+  "sampled_aggregate_peak_bytes": 298467328,
+  "artifacts": {
+    "/tmp/tlab chosen3 W44 integration 20261015/integration-supervision.json": "f75f5531ffb6e4baf562c10b39b5732d1b048e6d7eef388a15d07577ce3f2d01",
+    "/tmp/tlab chosen3 W44 integration 20261015/integration-supervision.failed.json": "7f4b0a4ec526bee248befc81bbea74d2ab5aaa52a823147c72d7de49bfbbb1d2",
+    "/tmp/tlab chosen3 W44 integration 20261015/integration.failed.json": "ad3414466c371b445431d4d8b0eef498946706f27cf1187a0c456a999846587b",
+    "/tmp/tlab chosen3 W44 integration 20261015/setup-supervision.json": "9d0a7a86f23baa92b64dd786b4c4d6551e55391ba6fd55a3a0f6aee631be801c",
+    "/tmp/tlab chosen3 W44 integration 20261015/integration-process.log": "0e91f9196ec2445068e4a6b64a294f77d338930ee7763c4dd4855f1a3742b045"
+  },
+  "output_directory": "/tmp/tlab chosen3 W44 integration 20261015/artifacts/heldout-invocations/9163ff75a853497bab18766dae723c46",
+  "external_log_sha256": "a19a6fa5d2506fcc96714934343b31d5b1dd5a15db3ee91dd680c0b14532f86f",
+  "whole_harness_accepted": false,
+  "no_automatic_retry_or_refit": true,
+  "next_step": "independent read-only analysis of existing worker outputs and pure repair validation; preserve consumed root and original failure",
+  "real_source_or_heldout_access_granted": false
+}
