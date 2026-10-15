@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "wave": "010",
+  "author": "/root/brainstorm_models_b",
+  "date": "2026-10-15",
+  "report_path": "/tmp/tlab-brainstorm-windows-models-b-wave010.md",
+  "first_freeze": {
+    "independent": true,
+    "fixed_prior": "331b1ae29f3e484516893204a4f990c9372f2c25",
+    "own_prior_reports_permitted": true,
+    "peer010_read": false,
+    "live_journal_read": false,
+    "new009_review_read": false,
+    "helpers": 0,
+    "frozen_at_UTC": "2026-10-15T08:37:20.420451+00:00"
+  },
+  "new_HYP_count": 0,
+  "new_mechanisms_admitted": 0,
+  "concrete_refinements": 1,
+  "refinements": [
+    {
+      "id": "MB10-R01",
+      "title": "Coverage/expanding-prefix baseline before automatic scale claims",
+      "disposition": "existing_window_research_refinement_zero_novelty",
+      "mechanism": "Separate nominal window W, supplied available calendar duration EW and observed count CW; exact prefix control for nominal30d while t<S+30d; count/rate/coverage fixed7d control; HYP046 exact shared state fully charged.",
+      "testable_prediction": "Observed nominal30d and expanding-prefix counts agree before S+30d; stationary literal rate/rank does not change as counts grow with available span; full30-supervised feedback has no later in-file validation interval with31day source/H24h.",
+      "nearest_source_free_experiment": "21literal rows,2anchors,3windows;two identical observed histories with different invisible pre-S events; calendar inequality and logical/physical work counts. Own stdlib arithmetic, not source/native/quality execution.",
+      "benefit_task1": "Avoid alias search looks and false timescale interpretation; strengthen purchase-ranking comparator/resource accounting; no gain claimed.",
+      "nearest_existing_experiment": "Existing windowsA/B/review count/coverage/rates/bands/decay plus HYP046 shared execution; NB-F02 residual survival and FB05 detail energy remain distinct and not reproduced.",
+      "simple_control": "Prespecified fixed7d count/available-rate/available-duration with exact closure review; explicit expanding-prefix identical to observed nominal30d before fullspan; incumbent W=B41+R2 mandatory for quality promotion.",
+      "formula": {
+        "CW": "count[max(S,t-W),t)",
+        "EW": "max(0,t-max(S,t-W))",
+        "rate": "CW/EW ifEW>0 elsemissing",
+        "prefix_alias": "CW=Cexpanding when W>=t-S",
+        "semantics": "Available supplied calendar span, not person exposure or proof of uninterrupted collection"
+      },
+      "counterhypotheses_and_limits": [
+        "Window choice can encode file age/support instead of behavioral scale",
+        "Coverage-only rate normalization cannot reorder a monotone single-count query because EW isqueryconstant",
+        "Different windows can have genuinely different candidate rankings; tree interactions can use coverage",
+        "Before S+30,30d isexpanding-prefix alias; afterS+30 expiration changesoperator",
+        "Firstseen isnotbirth/exposure; unknown prefix/internal outages cannot be reconstructed",
+        "An earlier frozen model mayevaluatefull30 at31Oct00; only aselector learnedfromfull30purchaseoutcomes lacks later in-file validation"
+      ],
+      "maturity_availability": {
+        "source_span": "[2019-10-01 00:00,2019-11-01 00:00)UTC, declared31days from fixedprior",
+        "feature_past": "global strictpast;[t-W,t), lowerinclusive/upperexclusive;providedsourceintersection",
+        "label_horizon": "[t,t+24h)",
+        "full30_mature_anchor_intersection": "singleton2019-10-31T00:00:00UTC ifzero actiondelay",
+        "earliest_full30_supervised_feedback": "2019-11-01T00:00:00UTC; compute pusheslater",
+        "scope": "No later prospective in-file eval of that supervised decision; current heldouts CLOSED",
+        "fitted_state": "Maturefeedback andcompletedcompute beforedownstream anchors; available sourceprefix anddeclaredS/cutoff beforeuse"
+      },
+      "finite_future_source_audit_cost": {
+        "authorization": false,
+        "queries_max": 100,
+        "fixedC_max": 220,
+        "windows": 3,
+        "keyed_window_lookups_max": 66000,
+        "prefix_boundary_searches_max": 132000,
+        "three_float32_output_payload_bytes": 264000,
+        "actual_rawrows_examined_max_including_filter_misses": 1000000,
+        "retainedkeys_max": 100000,
+        "CPU_minutes": 30,
+        "wall_minutes": 45,
+        "threads": 2,
+        "peak_RSS_GiB": 4,
+        "spill_bytes": 0,
+        "selector_fits": 0,
+        "boosting_fits": 0,
+        "quality_feedback_calls": 0,
+        "all_source_setup_sort_build_outputs_masks_oracle_failures_cleanup_paid": true,
+        "cap_failure": "STOP/partialcost only;nofeaturetruncationsuccess;defer ifphysicalboundcannotbeenforced",
+        "not_full_quality_budget": "An automatic learner requires its ownfullyspecifiedfinitefit/scoring/feedbackledger beforeanyqualityexperiment"
+      },
+      "negative_outcomes": [
+        "Any prefix-alias mismatch rejectsdefinition/implementation",
+        "Counts growing onlywithspan cannotestablishlearnedpreference scale",
+        "Window-specificcomplete-onlypopulations invalidatecommoncomparison",
+        "No freshcalendar/support/closure:deferquality",
+        "No newmechanism/HYP admitted",
+        "Literal/source equality doesnotestablishmetricgain/speedup"
+      ],
+      "metric_boundary": "Future purchasefullY querymacroNDCG20 vsincumbentW andmatchedfixedwindow, Recall20/user/day uncertainty guards; nonecomputednow"
+    }
+  ],
+  "dedup": {
+    "confirmed_fixed_prior": [
+      "docs/features/02-windows/research-a.md",
+      "docs/features/02-windows/research-b.md",
+      "docs/features/review-01-04.md",
+      "docs/target-research/06-temporal-protocol.md",
+      "HYP046 inround002",
+      "NB-F02 inF001",
+      "NB-F04 inF001",
+      "FB05 inFB002"
+    ],
+    "FA06": "Exacttext notfound underID in permitted fixed331b1ae;FA001 hasFA01-04;Rootnotified;no livefile read;zero-new disposition doesnotrelyonabsence"
+  },
+  "executed_literals": {
+    "runtime": "Existing .venv/bin/python stdlibonly;noactual/project/author/native imports;noML",
+    "stationary_worlds": [
+      {
+        "anchor_day": 2,
+        "windows": {
+          "1": {
+            "available_days": 1,
+            "counts": {
+              "A": 2,
+              "B": 1
+            },
+            "rates": {
+              "A": 2.0,
+              "B": 1.0
+            }
+          },
+          "7": {
+            "available_days": 2,
+            "counts": {
+              "A": 4,
+              "B": 2
+            },
+            "rates": {
+              "A": 2.0,
+              "B": 1.0
+            }
+          },
+          "30": {
+            "available_days": 2,
+            "counts": {
+              "A": 4,
+              "B": 2
+            },
+            "rates": {
+              "A": 2.0,
+              "B": 1.0
+            }
+          }
+        }
+      },
+      {
+        "anchor_day": 7,
+        "windows": {
+          "1": {
+            "available_days": 1,
+            "counts": {
+              "A": 2,
+              "B": 1
+            },
+            "rates": {
+              "A": 2.0,
+              "B": 1.0
+            }
+          },
+          "7": {
+            "available_days": 7,
+            "counts": {
+              "A": 14,
+              "B": 7
+            },
+            "rates": {
+              "A": 2.0,
+              "B": 1.0
+            }
+          },
+          "30": {
+            "available_days": 7,
+            "counts": {
+              "A": 14,
+              "B": 7
+            },
+            "rates": {
+              "A": 2.0,
+              "B": 1.0
+            }
+          }
+        }
+      }
+    ],
+    "rows_total": 21,
+    "prefix_nonidentifiability": {
+      "t_day": 4,
+      "observed_event_days": [
+        0.5
+      ],
+      "hidden_A": [],
+      "hidden_B": [
+        -10,
+        -9
+      ],
+      "observed30_count_both": 1,
+      "full30_count_A": 1,
+      "full30_count_B": 3
+    },
+    "calendar_days_sinceS": {
+      "firstfull30anchor": 30,
+      "lastmature24hanchor": 30,
+      "intersection_singleton": 30,
+      "earliest_full30feedback": 31,
+      "with_1hcompute": 31.041666666666668
+    },
+    "cost_work_counts": {
+      "scalarreadouts": 12,
+      "logical_eventmemberships": 60,
+      "sixnaive21row_scan_examinations": 126,
+      "single_chronological_source_scan_examinations": 21,
+      "state_readout_work_extra": true,
+      "measuredspeedup": false
+    },
+    "assertions_passed": true,
+    "actual_source_audit_executed": false,
+    "actual_quality_evidence": false
+  },
+  "sources": [
+    {
+      "url": "https://arxiv.org/html/2512.17442v1",
+      "year": 2025,
+      "readscope": "Primarypaperabstract,§5setup,§6conclusions",
+      "facts": "DSPvsresidual limiteddifferences; padding changesrepresentation/results; nextitemposition sequences/50input/A100/multiseed,notcalendarwindow experiment"
+    },
+    {
+      "url": "https://github.com/Janhutter/BSARec/blob/main/src/dataset.py",
+      "version": "mutablemain inspected2026-10-15;connector modified2025-10-03T08:05:39Z",
+      "readscope": "287lines retrieved;apply_padding59-94 inspected",
+      "facts": "zero/cyclic/reflect/mirror paddingbranches;notadoptedforretailmissingpast",
+      "executed": false
+    },
+    {
+      "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html",
+      "version": "3.0.6docs inspected2026-10-15",
+      "facts": "min_periods minimumobservations, offsetdefault1;closedleftlowerinclusiveupperexclusive;notcoveragecertificate",
+      "imported_or_installed": false
+    }
+  ],
+  "source_facts_separated_from_own_adaptation": true,
+  "permissions": {
+    "actual_data_SQL_DB_ML_Y_native_fit_predict_paidAPI_weights_downloads": false,
+    "sharedwrites": false,
+    "current015or016changes": false,
+    "currentheldouts": "CLOSED",
+    "futurecaps_execution_grant": false
+  },
+  "next": "Separate skeptic afterbothFIRSTfreeze;coordinator owns dedup/publication;no new execution request.",
+  "report_words": 1576,
+  "report_sha256": "d459742ee5ddad98b18da5393753260477f16c1404c2148f02668cd39efae660"
+}

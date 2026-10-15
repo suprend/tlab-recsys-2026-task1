@@ -210,3 +210,6 @@ Wave005 independent same-question first drafts: [FeaturesA](brainstorm-fa005.md)
 
 
 [Wave009 synthesis](brainstorm-wave009-synthesis.md) and [eight-file exact archive](archives/wave009/publication.json): separate skeptic and Root007–009 readback accept research refinements only;0newIDs/tasks/admissions.
+
+
+Frozen independent FIRST drafts, proposals only: [wave010 windows/coverage](archives/wave010/publication.json), [wave011 grammar/diversity](archives/wave011/publication.json). Each archive preserves four exact author files; separate critique/Root readback and execution admission remain distinct.
