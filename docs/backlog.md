@@ -6,6 +6,8 @@
 
 ## Текущий статус
 
+Checkpoint 12:45 сохранён фактически в 12:46:21.359409 UTC, с опозданием 81.359409s; следующий максимум 13:30 UTC привязан к исходному 12:45. V2 metadata alias принят только как CODE; переносимый пакет из пяти файлов с 8 PASS прочитан Root, финальный receipt/установка ещё ожидаются. Validation draftV1 и wrapperV2 требуют отдельных узких ремонтов/review; actual native B/W и real015 закрыты. Исходный replay98791 FAILED/consumed/full-tree CPU UNKNOWN, partialexports не приняты; source-prefix принят и33914/43200/1000/300 не изменены. Wave022 FIRST pair и отдельный skeptic complete, Root readback pending,0 новых HYP/исполнительных допусков.
+
 | ID | Приоритет | Статус | Владелец | Обязательные зависимости |
 |---|---|---|---|---|
 | TLAB-001 | P0 | done | root; accepted B2/coordinator | — |
@@ -22,7 +24,7 @@
 | TLAB-012 | P1 | deferred: optional ItemCF compatibility branch | unassigned | research/review complete;100-query postings/degree cost gate, fixedC and separately reserved development/fit budget |
 | TLAB-013 | P1 | deferred: optional protocol sensitivity | unassigned | one predeclared perturbation, explicit query/target/C estimand and separate evaluation reservation/budget |
 | TLAB-014 | P1 | in_progress: multiple independent brainstorm waves and rotating cross-reviews | root assigns disjoint blind drafts; coordinator records reviewed hypotheses | постоянная линия, не блокирует ядро; journal records actual active snapshots |
-| TLAB-015 | P0 | in_progress: actual B=W toy accepted; chosen3 existing workers +V4r1 CODE repair accepted, wholeV3FAILED/consumed retained; conditional33914/43200 active-WALL basis adopted for inert packing; actual015 execution held on verifier diagnostic; heldout closed | Root finitecost/request decision; numeric proposal source_import_review; independent timing_methodology_review; coordinator publication | accepted016; exact whole-decision/prediction seals and independently accepted historical-cost/resource request; optional chosen3 proposal separately reviewed |
+| TLAB-015 | P0 | in_progress: actual B=W toy accepted; chosen3 existing workers +V4r1 CODE repair accepted, wholeV3FAILED/consumed retained; conditional33914/43200 active-WALL basis adopted for inert packing; V2 parameter-alias CODE accepted; portable five-file package8 checks reviewed, final receipt/installation pending; native B/W and real015 closed | Root finitecost/request decision; numeric proposal source_import_review; independent timing_methodology_review; coordinator publication | accepted016; exact whole-decision/prediction seals and independently accepted historical-cost/resource request; optional chosen3 proposal separately reviewed |
 | TLAB-016 | P1 | done:4fits/4looks/1observer; development W=R2 accepted | root implementation; coordinator acceptance; C11 observer | immutable438 model seal; heldout claim separately015 |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
 | TLAB-018 | P0 | in_progress: full typed9 source-prefix accepted; Oct22 core/owner/parity/portable CODE accepted and byte-integrated; original Oct22 replay FAILED/session98791 exit1 after1Bload/0predict; partialexports unaccepted/no parity; consumed/no retry; complete018 pending; no poll/retry | Root bounded reproduction decision; execution_scope_audit + disjoint TMP helper; coordinator publication | source-prefix accepted separately; no fit/queryY or complete018 acceptance;018 remains parallel to015 |
