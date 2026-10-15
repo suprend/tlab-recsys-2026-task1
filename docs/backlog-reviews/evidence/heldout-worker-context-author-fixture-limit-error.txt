@@ -1,0 +1,19 @@
+...............E.
+======================================================================
+ERROR: test_fence_exact_setup_readback_and_inherited_limit (__main__.Budget.test_fence_exact_setup_readback_and_inherited_limit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/tlab-test-heldout_worker_context.py", line 128, in test_fence_exact_setup_readback_and_inherited_limit
+    self.assertEqual(run.install_cpu_fence(),{'soft':19,'hard':20});setter.assert_called_once_with(w.resource.RLIMIT_CPU,(19,20))
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_worker_context.py", line 73, in install_cpu_fence
+    x.need(previous[1]==resource.RLIM_INFINITY or previous[1]>=cap,'Inherited hardCPU below issued role cap')
+  File "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_execution.py", line 36, in need
+    if not condition:raise ValueError(message)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Inherited hardCPU below issued role cap
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.253s
+
+FAILED (errors=1)

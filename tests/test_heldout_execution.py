@@ -130,4 +130,13 @@ class Lifecycle(unittest.TestCase):
   p.write_text('{"nested":[{"x":1e2}]}');body,_=m.read(p);self.assertEqual(body['nested'][0]['x'],100.)
  def test_W_equal_B_output_vocabulary_reuses_only_B(self):
   outputs=m.expected_paths('artifacts/x','predictions','B');self.assertEqual(len(outputs),8);self.assertFalse(any('/W.npz' in name for name in outputs))
+ def test_issued_context_retains_original_authority_snapshot(self):
+  gate=self.gate('initial_execution');issued=self.issue('source')
+  self.assertEqual(issued['context']['authorities'],{'initial_execution':gate})
+  issued['context']['authorities']['initial_execution']['sha256']='0'*64
+  self.assertEqual(self.s.active['context']['authorities']['initial_execution'],gate)
+ def test_target_policy_is_prospective_input_not_fabricated_actual_intent(self):
+  self.assertIn('target_policy',m.INPUT_KEYS['targets_evaluation']);self.assertIn('target_policy',m.INPUT_KEYS['metric_oracle'])
+  self.assertNotIn('target_intent',m.INPUT_KEYS['targets_evaluation'])
+  for role in m.ROLES[:4]:self.assertFalse(any('target' in name or 'label' in name for name in m.INPUT_KEYS[role]))
 if __name__=='__main__':unittest.main(verbosity=2)

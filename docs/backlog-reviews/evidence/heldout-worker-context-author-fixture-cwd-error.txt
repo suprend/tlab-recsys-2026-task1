@@ -1,0 +1,17 @@
+....................F
+======================================================================
+FAIL: test_real_unix_cpu_fence_readback_in_isolated_tiny_child (__main__.Budget.test_real_unix_cpu_fence_readback_in_isolated_tiny_child)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/tlab-test-heldout_worker_context.py", line 172, in test_real_unix_cpu_fence_readback_in_isolated_tiny_child
+    self.assertEqual(child.returncode,0,child.stderr);self.assertEqual(json.loads(child.stdout),{'soft':19,'hard':20})
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ImportError: cannot import name 'heldout_worker_context' from 'scripts' (/Users/mdpospelov/personal-agent-system/scripts/__init__.py)
+
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.294s
+
+FAILED (failures=1)

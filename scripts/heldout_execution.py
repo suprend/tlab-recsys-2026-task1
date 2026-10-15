@@ -28,8 +28,8 @@ INPUT_KEYS=dict(source={'lock','choice','source','pool','registry'},
     source_oracle={'lock','choice','source','pool','registry','source_manifest','source_receipt'},
     predictions={'lock','choice','source_acceptance','source_manifest'},
     prediction_oracle={'lock','choice','source_acceptance','source_manifest','prediction_manifest','prediction_receipt'},
-    targets_evaluation={'lock','choice','source_acceptance','source_manifest','prediction_acceptance','prediction_inventory','target_intent'},
-    metric_oracle={'lock','choice','source_acceptance','source_manifest','prediction_acceptance','prediction_inventory','target_intent','evaluation_manifest','evaluation_receipt'})
+    targets_evaluation={'lock','choice','source_acceptance','source_manifest','prediction_acceptance','prediction_inventory','target_policy'},
+    metric_oracle={'lock','choice','source_acceptance','source_manifest','prediction_acceptance','prediction_inventory','target_policy','evaluation_manifest','evaluation_receipt'})
 
 
 def need(condition,message):
@@ -210,7 +210,7 @@ class Session:
         prefix=self.relative(self.directory)
         context=dict(version=1,scope='issued_reserved_reporting_role',run_id=self.plan['run_id'],role=role,
             request=self.request,owner_claim=self.claim,plan=deepcopy(self.plan),slot=slot_ref,entry=original['entry'],allocation=allocation,
-            issued_at_monotonic=time.monotonic(),inputs=deepcopy(inputs),expected_outputs=expected_paths(prefix,role,self.plan['choice']),
+            issued_at_monotonic=time.monotonic(),inputs=deepcopy(inputs),authorities=deepcopy(self.gates),expected_outputs=expected_paths(prefix,role,self.plan['choice']),
             output_path=self.relative(base/'receipt.json'),failed_path=self.relative(base/'report.failed.json'))
         saved=exclusive(base/'context.json',context);context_ref=dict(path=self.relative(saved['path']),sha256=saved['sha256'])
         argv=[str(self.root/'.venv/bin/python'),str(local(self.root,entry)),'--context',str(saved['path']),'--issued-context-sha256',saved['sha256']]
