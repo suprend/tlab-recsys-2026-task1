@@ -171,3 +171,9 @@ Wave026обаFIRST actualSHAverified, existingretrieval_a separatecritic activat
 ## Accepted018mechanical slice / early two-round checkpoint — 2026-10-15T14:36:14.657414+00:00
 
 [RootacceptedOct22slice](backlog-reviews/018-accepted-oct22-slice.md): original37979 REAPED/CLOSED894474exit0,2000Q/408342C/allB45+chosen3/2nativepred/816684keyedscores/maxerror0/fullranks.0fit/Y/newmetricselection;Originalproducerpendingflags/oldfailedunknownimmutable. Full018partial/publicraw→freshcollections→frozenB/Wtraining→comparisonroute pending; source-to-fixedscores в существующемruntime неfreshtraining/cleanenvironment. MAINreportreviewDONE/015done13of19.026distinctskepticcomplete14:32:34/Rootreadbackpending;025+026critiquescomplete triggers this earlycheckpoint, nextmax15:00UTC anchored14:15 unchanged/no newdeadline. Newpublicrouteimplementation owner назначаетRoot, активныйпуть невыдумывается; noextraY/refits/currentretune.
+
+## Existing018 public route implementation /026 reviewed — 2026-10-15T14:41:57.745344+00:00
+
+[Completion audit/Root acceptance](backlog-reviews/task1-completion-gap-audit.md) clarifies the existing public raw→freshcollections→NEWfrozenB/Wtraining→comparison gap. execution_scope_audit TMPimplementation nowactive, independentseamreview source_harness_review; noactualfreshfits/integration/runtimegrant. ReportV2/fixedscoreslice accepted separately;29auditcodepins historicalnotrehashcurrent.026research-only refinements accepted,027independentpair actualstarted/Afrozen/Bwriting; no mainprerequisites/newIDs/admissions.15:00UTC anchored14:15 unchanged.
+
+Wave027update 2026-10-15T14:44:16.119811+00:00: bothFIRST/currentbytesSHAverified, distinctexistingFeaturesAskepticactive. B originalFIRSTprefixecb6c139 vs append-correctedcurrent8877a138 explicitly preserved; no falseunchangedclaim. Existingpublicroute synthetic<=32eventFakeCatBoost integration only withinRoot60CPU120wall512MiBscope; realfreshfits/Y ungranted.

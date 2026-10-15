@@ -2,6 +2,7 @@
 
 15 октября 2026. Primary-source rounds дополняют canonical backlog; rejected/duplicate идеи сохраняются, budgets не складываются. [Фактический TLAB-015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0;018 и финальное review отчёта остаются, новые optional идеи не становятся gates.
 
+[Wave026 prospective sampling](brainstorm-wave026-synthesis.md): independent pair/distinct skeptic/Root readback, existing TLAB002/013/015 refinements; future ratio/zero-denominator/paid-cost caveats,0 new IDs/grants.
 [Wave025 latest-DISTINCT](brainstorm-wave025-synthesis.md): independent pair + separate skeptic + Root readback, existing HYP046/A005-02 refinement only; one future canary UNRUN/ungranted,0 new IDs/tasks.
 [Журнал новых идей: три независимые линии, кандидаты и отказы](brainstorm-log.md) отделяет текущий новый brainstorm от refinement/audit истории.
 
