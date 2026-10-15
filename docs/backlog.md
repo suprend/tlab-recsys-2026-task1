@@ -6,6 +6,12 @@
 
 ## Текущий статус
 
+Текущее наблюдение 15:47:57 UTC: оба FIRST030 завершены; Root назначил отдельного ModelsB критика после обоих freeze, пять фактических SHA дополнительно проверены публикатором15:46:17. Дубликат dispatch не отправлялся. V2 исправляет исходный автор; новые реальные fits не разрешены. Ранний checkpoint15:42:08 покрывает исходные15:45, следующий максимум16:30UTC от15:45.
+
+Контрольная отметка 15:42:08 UTC (раньше максимума15:45): принято13 из19 задач; TLAB-015 и финальный отчёт завершены,018 остаётся partial. Два независимых CODE review публичной команды V1 подтвердили пять P2; V1 не принят и не установлен. Execution_scope_audit исправляет V2; source_harness_review отдельно оценивает ресурсный план, source_import_review готовит независимый план проверки выходов. Новые реальные fits и runtime не разрешены. Волны028/029 приняты Root только как уточнения существующих исследований,0 новыхID/задач/grants; [архивы028](research-lab/brainstorm-wave028-synthesis.md)/[029](research-lab/brainstorm-wave029-synthesis.md) сохранены. [Пять замечанийCODE](backlog-reviews/public018-code-v1-changes-requested.md) и исходные probes опубликованы без кандидата. Два независимых автора030 FeaturesB/RetrievalA фактически running; отдельный критик только после обоих FIRST и SHA-проверок. Следующая максимальная отметка16:30UTC/19:30МСК привязана к исходным15:45; раньше — после двух следующих завершённых раундов. Цель, исходный дедлайн,17slots,33914/43200 active-WALL и1000/300 не меняются; безопасный NEXT — frozenV2 и адресное независимое review, затем отдельное Root решение, без runtime от публикатора.
+
+## Исторические текущие snapshots до этой отметки
+
 Frozen publiccandidate 15:11:19UTC: b1f5c637… four-file candidate ready; Root assigned two independent read-only wholeCODE reviewers six_role_output_review A(data/training/metrics), six_role_harness B(lifecycle/resources/CLI). No entry/recipe/tests/doc publication/installation or realnewfitgrant yet. Authorproof6unchangedV2PASS+1correctedtargetedV3PASS separately fromBSDwrapper/V2fixtureEXIT1; no full7rerun claim/no refill.018partial13of19/15:45originalanchor.
 
 [027researchRootarchive](research-lab/brainstorm-wave027-synthesis.md) complete0newID/task/grant;028bothFIRSTverified/existingFeaturesBdistinctcriticCOMPLETE/Rootresearchreadbackpending. Mainpubliccandidateunfrozen/fullCODEandactualfitsungranted; next15:45UTC anchoredscheduled15:00.

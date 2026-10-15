@@ -1,7 +1,12 @@
 # Постоянная research-линия
 
-15 октября 2026. Primary-source rounds дополняют canonical backlog; rejected/duplicate идеи сохраняются, budgets не складываются. [Фактический TLAB-015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0;018 и финальное review отчёта остаются, новые optional идеи не становятся gates.
+15 октября 2026. Primary-source rounds дополняют canonical backlog; rejected/duplicate идеи сохраняются, budgets не складываются. [Фактический TLAB-015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0;финальное review отчёта завершено;018 остаётся partial, новые optional идеи не становятся gates.
 
+Текущая навигация (15:47:57UTC): [принятые heldout результаты](../backlog-reviews/real015-heldout-results.md), [принятый Oct22 slice](../backlog-reviews/018-accepted-oct22-slice.md), [финальный отчёт](../experimental-report.md). Волны025–029 опубликованы ниже;028/029 Root research-only accepted, точные архивы сохранены.030 оба FIRST завершены, отдельный ModelsB критик назначен Root; public018 V1 требует пяти исправлений, V2 готовится, новых fits не разрешено. [Датированный checkpoint](brainstorm-log.md).
+
+[Wave029 fixed routing certificate](brainstorm-wave029-synthesis.md): A saturation merged into B underHYP046, exactF/training proof remains required; production/native deferred,0IDs/grants.
+[Wave028 full-Y loss normalization](brainstorm-wave028-synthesis.md): linear fixed-score coefficient identity only, native nonlinear normalization distinct;0IDs/grants.
+[Public018 V1 independent reviews](../backlog-reviews/public018-code-v1-changes-requested.md): fiveP2, V2 repair, no CODE adoption/installation/native training.
 [Wave027 semantics/numeric portability](brainstorm-wave027-synthesis.md): independent pair/distinct skeptic/Root acceptance, original/current B prefix distinct; existing refinements0IDs/tasks/grants.
 [Wave026 prospective sampling](brainstorm-wave026-synthesis.md): independent pair/distinct skeptic/Root readback, existing TLAB002/013/015 refinements; future ratio/zero-denominator/paid-cost caveats,0 new IDs/grants.
 [Wave025 latest-DISTINCT](brainstorm-wave025-synthesis.md): independent pair + separate skeptic + Root readback, existing HYP046/A005-02 refinement only; one future canary UNRUN/ungranted,0 new IDs/tasks.

@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "status": "ROOT_ACCEPTED_OPTIONAL_FULLY_NORMALIZATION_LOSS_REFINEMENT",
+  "created_at_utc": "2026-10-15T15:24:15.954611+00:00",
+  "wave": "028",
+  "pins": [
+    {
+      "path": "/tmp/tlab-brainstorm-fullY-lambda-models-a-wave028.md",
+      "sha256": "f68ecbdd27c4dbe1ba36dc71e9453a3e2c347db19ba9c7976ae45de80481eef0",
+      "bytes": 3579
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-fullY-lambda-models-a-wave028-ledger.json",
+      "sha256": "6464b1d8c0613b3d94a6116c7a16f7229549f859da9a954cb0d3b24efa7448a4",
+      "bytes": 5324
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-fullY-lambda-models-a-wave028-firstfreeze.json",
+      "sha256": "f878ff53ec2afbf11850648dcdfbe0b826400cc4a074d548ce8a547a87fafdd4",
+      "bytes": 689
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-fullY-loss-retrieval-a-wave028.md",
+      "sha256": "88fb813d4d4e81a4b3d5c032a01574f2a196d8f570fef92b9d95e0669a69f97c",
+      "bytes": 3114
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-fullY-loss-retrieval-a-wave028-ledger.json",
+      "sha256": "ee9c48e02dd4e7060aafa3a1c864842f182e3a7d0be4fa6167d4512b2179ba87",
+      "bytes": 2928
+    },
+    {
+      "path": "/tmp/tlab-wave028-skeptic-review.md",
+      "sha256": "638ca07a8f03d3aaeb8039d30d108a23a3e58fcc4b69b28fb4eef5b8204136a4",
+      "bytes": 3763
+    },
+    {
+      "path": "/tmp/tlab-wave028-skeptic-ledger.json",
+      "sha256": "fafadf27ad5398c126272f54bf54a234cc766735643f524d81086ebd44084b1d",
+      "bytes": 8610
+    },
+    {
+      "path": "/tmp/tlab-wave028-skeptic-inputfreeze.json",
+      "sha256": "60189c949a435fc7b38338ebe2aa79c463b2cdd890e5497f73c63e133d57ebf5",
+      "bytes": 17813
+    }
+  ],
+  "full_three_prose_read": true,
+  "all5_current_first_input_bytes_unchanged": true,
+  "authors_independent_before_distinct_skeptic": true,
+  "canonical_ids": [
+    "TLAB-006",
+    "TLAB-008",
+    "loss-selection03/review01–03",
+    "existingwave008"
+  ],
+  "new_hypotheses": 0,
+  "new_executable_tasks": 0,
+  "new_grants": 0,
+  "dispositions": {
+    "A": "retain/refine existing issue",
+    "B": "merge/refine same issue"
+  },
+  "accepted_math": "For identical binary fullY/fixedC/top20 numerator and h>0, NDCGfull=I(h)/I(m)*NDCGC. Same multiplier applies only to declared linear same-pair coefficients at fixedscores, not a hard-ranking gradient or quality guarantee.",
+  "limits": [
+    "h0<m:fullscore0/nooppositebinarypairs; m0 undefinedconditionalmetric; retainoffC/emptyC/zeroY domains",
+    "LightGBM nonlinearquerynorm means directfullIDCG replacement versus postrowweight are generally different; no currentLogloss/PairLogit change",
+    "nativepositive discounts beyond20 and truncatedloop not exacttop20swapnumerator by normalizer alone",
+    "equalqueryweightmass not equalgradient/Hessianmass or regularization",
+    "maturetrainlabels onlyforfuturecoefficientweights, nofuturefeature/queryselection/currentfinalretest",
+    "one deduplicated UNRUNcoefficient/domaincanary,no additivebudgets; realweightprep/fit/score/cleanupremainunmeasured/ungranted"
+  ],
+  "root_primary_source_verification": [
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/LightGBM/v4.6.0/src/objective/rank_objective.hpp",
+      "anchors": "68–75 afterquery rowweights;157–159 candidateIDCG;195–225 pair/truncation;244–248 nonlinear querynorm",
+      "scope": "Pinned native implementation source read, no native execution"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/LightGBM/v4.6.0/src/metric/dcg_calculator.cpp",
+      "anchors": "43–45 positive finiteposition discounts",
+      "scope": "Pinned source read, no native execution"
+    }
+  ],
+  "no_experiment": true,
+  "no_current_BW_018_recipe_loss_tolerance_or_target_change": true,
+  "original_goal_limits_authority_unchanged": true
+}

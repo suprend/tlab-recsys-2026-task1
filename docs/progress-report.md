@@ -1,6 +1,6 @@
 # Автоматизация признаков для ранжирования покупок
 
-По состоянию на 15 октября 2026, 14:36:14 UTC, TLAB-015 и финальный экспериментальный отчёт приняты. Механический Oct22 slice из новой DB воспроизвёл все признаки и816684 fixed-model scores без расхождений,0fit/Y; complete018 остаётся partial. Для завершения018 нужен публичный raw→freshcollections→frozenB/W training→comparison путь без privateCBMs/TMP/историческихclaims; финальный приростΔNDCG+0,005122 с95%CI[−0,010433;+0,018561] по-прежнему не доказывает превосходство.
+По состоянию на15 октября2026,15:42:08UTC, TLAB-015, финальный экспериментальный отчёт и механический Oct22 fixed-model slice приняты; завершены13 из19 задач. Публичный raw→freshcollections→NEW frozenB/W training→comparison путь ещё не принят: независимое review V1 нашло пять P2, сейчас готовится V2; реальные новые fits не разрешены. Финальная разность NDCG+0,005122 с95%CI[−0,010433;+0,018561] не доказывает превосходство; следующий шаг — адресное review исправленной команды и отдельное Root решение.
 
 Рабочий отчёт по первой задаче T-Lab. Ручной контроль настроен в пределах заранее заданного бюджета и независимо проверен. Четыре ветви автоматизации и неизменённое отложенное сравнение выполнены и независимо приняты; финальная разность положительна, её интервал включает ноль.
 
@@ -201,3 +201,14 @@ Actual028Rootdispatch 2026-10-15T14:53:51.228680+00:00: independentModelsA+Retri
 Root фактически назначил двух read-only CODE reviewers после freeze b1f5c637…: six_role_output_review A/data-training-metrics и six_role_harness B/lifecycle-resources-portableCLI. Автор execution_scope_audit завершил candidate и остаётся владельцем адресных fixes; independentdesign accepted отдельно и не заменяет wholeCODEreview. Entry/recipe/tests/doc не установлены и не опубликованы до Root acceptance, realnewfitsUNGRANTED.
 
 Finalauthorproof: шесть unchanged методов PASS вV2 + исправленный empty-C метод targetedPASS/exit0 вV3. Это не заявление о новом полном7methodrun: ранний7BODYpass/outerBSDtime-lEXIT1 и отдельныйV2fixture-errorEXIT1 сохраняются как разные snapshots/расходы. Все исправления/profile внутриSAME60CPU120wall512MiB/no refill, FakeCatBoost0actualML; acceptanceCODE/runtime не выводится изtestbody.015/reportDONE/018partial13of19, next15:45UTC anchored15:00 unchanged.
+
+
+## Ранний checkpoint15:45 — 2026-10-15T15:42:08.235833+00:00
+
+Контрольная отметка 15:42:08 UTC (раньше максимума15:45): принято13 из19 задач; TLAB-015 и финальный отчёт завершены,018 остаётся partial. Два независимых CODE review публичной команды V1 подтвердили пять P2; V1 не принят и не установлен. Execution_scope_audit исправляет V2; source_harness_review отдельно оценивает ресурсный план, source_import_review готовит независимый план проверки выходов. Новые реальные fits и runtime не разрешены. Волны028/029 приняты Root только как уточнения существующих исследований,0 новыхID/задач/grants; архивы готовятся. Два независимых автора030 FeaturesB/RetrievalA фактически running; отдельный критик только после обоих FIRST и SHA-проверок. Следующая максимальная отметка16:30UTC/19:30МСК привязана к исходным15:45; раньше — после двух следующих завершённых раундов. Цель, исходный дедлайн,17slots,33914/43200 active-WALL и1000/300 не меняются; безопасный NEXT — frozenV2 и адресное независимое review, затем отдельное Root решение, без runtime от публикатора.
+
+
+Публикация reviewed evidence 2026-10-15T15:45:57.181565+00:00: [пять CODE замечаний V1](backlog-reviews/public018-code-v1-changes-requested.md), [028 loss normalization](research-lab/brainstorm-wave028-synthesis.md), [029 fixed routing](research-lab/brainstorm-wave029-synthesis.md). Точные исходные evidence сохранены; V2 и resource/output plans в работе, fresh training не разрешено.
+
+
+Текущее наблюдение 15:47:57 UTC: оба FIRST030 завершены; Root назначил отдельного ModelsB критика после обоих freeze, пять фактических SHA дополнительно проверены публикатором15:46:17. Дубликат dispatch не отправлялся. V2 исправляет исходный автор; новые реальные fits не разрешены. Ранний checkpoint15:42:08 покрывает исходные15:45, следующий максимум16:30UTC от15:45.

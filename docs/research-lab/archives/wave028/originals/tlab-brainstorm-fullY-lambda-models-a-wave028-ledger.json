@@ -1,0 +1,123 @@
+{
+  "wave": 28,
+  "role": "independent_FIRST_A_models_a",
+  "author": "/root/brainstorm_models_a",
+  "status": "FIRST_FROZEN",
+  "peer028_read_before_freeze": false,
+  "new_mechanism_count": 0,
+  "new_ids": [],
+  "existing_ids": [
+    "TLAB008",
+    "TLAB006"
+  ],
+  "dedup": [
+    "docs/loss-selection/03-listwise.md",
+    "docs/loss-selection/review-01-03.md listwise section",
+    "docs/target-research/05-evaluation.md review appendix"
+  ],
+  "reserved_ids_not_allocated": [
+    "HYP043",
+    "HYP044",
+    "HYP075",
+    "HYP076"
+  ],
+  "four_fields": {
+    "mechanism": "For binary fixed-C ranking, fullY IDCG multiplies candidate-normalized NDCG and linear lambda/Hessian coefficients by I(c)/I(m).",
+    "prediction": "Unequal covered/full positive counts change relative query coefficients; full coverage or bothcounts>=K gives no correction.",
+    "nearest_experiment": "UNRUN six invented queries,<=32Crows,<=48fulltargetpairs,3scorevectors,<=6000 paircoefficient checks, plus nonlinear-normalization/cutoff counterexamples.",
+    "task1_benefit": "A controlled future interpretation of surrogate query weighting, not new predictive information or guaranteed gain."
+  },
+  "math_contract": {
+    "K": 20,
+    "relevance": "binary distinct purchase set",
+    "I(m)": "sum_{r=1}^{min(20,m)}1/log2(r+1)",
+    "m": "full mature |Yq|",
+    "c": "|Yq intersect Cq|",
+    "ratio": "I(c)/I(m), when m,c>0",
+    "metric_identity": "NDCGfull(Cpermutation)=ratio*NDCGC(Cpermutation)",
+    "lambda_identity": "Same pair numerator and linear normalization: lambda_full=ratio*lambda_C; Hessian coefficient scales too.",
+    "zero_support": "No candidatepositive implies equal labels and no pair gradient; emptyC/zeroY/allpositive/singletons retain manifest/evaluation identity.",
+    "not_claimed": [
+      "Exact hardmetric gradient",
+      "Unreachabletarget recovery",
+      "Exposurecorrection",
+      "Native library NDCG20 equivalence",
+      "XE_NDCG or YetiRank arbitrary equivalence"
+    ]
+  },
+  "normalization_counterexample": {
+    "S": "sum of pre-query-normalization lambda magnitudes >0",
+    "f(S)": "log2(1+S)/S",
+    "direct_full_IDCG": "w*rawlambda*f(w*S)",
+    "post_query_weight": "w*rawlambda*f(S)",
+    "relation": "generally unequal for w!=1; score-distance adjustment does not fix this",
+    "controlled_setting": "norm=false in both conceptual arms; otherwise specify and test the transformed objective"
+  },
+  "cutoff_caveat": "Pinned LightGBM pair loop takes i<truncation and j beyond it, using both native position discounts. This must not be asserted identical to zero-discount beyondK of exact fullY NDCG20; correction addresses denominator only.",
+  "strong_control": "Uniform coefficient matched to total informative-query weight; same learner/Q/C/featurematrix/pairs/capacity/seed/iterations/init/norm. No standalone newlearner-vsCatBoost inference.",
+  "train_availability": "Only full mature train labels known before fit form weights; no labels as features, query choice, sampler/adaptive earlystop or metadata; no current B/W modification.",
+  "counterhypothesis": "Finite model sharing/variance/regularization can make fullY reweighting worse despite coefficient alignment. Primary coverage ceiling remains unreachable.",
+  "future_test": {
+    "status": "UNRUN/ungranted",
+    "queries": 6,
+    "candidate_rows_max": 32,
+    "target_pairs_max": 48,
+    "score_vectors": 3,
+    "pair_coefficient_checks_max": 6000,
+    "cpu_seconds_max": 15,
+    "wall_seconds_max": 30,
+    "rss_bytes_max": 134217728,
+    "includes": [
+      "case construction",
+      "independent fullDCG oracle",
+      "candidate sorting",
+      "pair gradients",
+      "Hessian coefficients",
+      "failures"
+    ],
+    "real_source_scans": 0,
+    "fits": 0,
+    "predictions": 0,
+    "Y_reads": 0,
+    "quality_looks": 0
+  },
+  "primary_sources": [
+    {
+      "url": "https://marc.najork.org/papers/cikm2018.pdf",
+      "title": "The LambdaLoss Framework for Ranking Metric Optimization",
+      "authors": "Wang,Li,Golbandi,Bendersky,Najork",
+      "publication": "CIKM2018",
+      "doi": "10.1145/3269206.3271784",
+      "verified_utc_date": "2026-10-15",
+      "scope": "Metric-weighted pair logistic surrogate and cutoff adaptation; benchmark does not study REES46 missing-from-C purchases."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/LightGBM/v4.6.0/src/objective/rank_objective.hpp",
+      "version": "v4.6.0 source only, not installed runtime claim",
+      "verified_utc_date": "2026-10-15",
+      "line_scopes": [
+        "59-75 post-query rowweights",
+        "150-162 candidate IDCG",
+        "194-248 pairtruncation/numerator/norm"
+      ],
+      "scope": "Candidate-label maxDCG, nonlinear querynorm and later weights; no currentdependencyinstallation."
+    }
+  ],
+  "actual_actions": {
+    "helpers": 0,
+    "new_agents": 0,
+    "experiments": 0,
+    "literal_numeric_runs": 0,
+    "native_imports": 0,
+    "real_data_model_Y_reads": 0,
+    "fits": 0,
+    "predict_calls": 0,
+    "downloads": 0,
+    "project_writes": 0,
+    "Git": 0,
+    "new_grants": 0,
+    "large_hashes": 0
+  },
+  "main_boundary": "Existing publicroute priority; no B/W/018 recipe/CI/tolerance change. Final alreadyopened is not freshvalidation; no new mandatory gate.",
+  "word_count_whitespace": 403
+}

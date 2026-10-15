@@ -1,0 +1,60 @@
+{
+  "wave": "028",
+  "author": "/root/brainstorm_retrieval_a",
+  "stage": "FIRST",
+  "frozen_at_utc": "2026-10-15 14:58:10 UTC",
+  "report_path": "/tmp/tlab-brainstorm-fullY-loss-retrieval-a-wave028.md",
+  "report_sha256": "88fb813d4d4e81a4b3d5c032a01574f2a196d8f570fef92b9d95e0669a69f97c",
+  "word_count_whitespace": 388,
+  "novel_mechanisms": 0,
+  "new_ids": [],
+  "existing_ids": [
+    "TLAB006",
+    "TLAB008"
+  ],
+  "dedup_own_prior": [
+    "wave008 full-Y candidate ceiling"
+  ],
+  "verdict": "refine existing loss/evaluation alignment; future quality deferred",
+  "mechanism": "Only a declared linear DeltaNDCG pair-coefficient surrogate admits the full-IDCG query multiplier; current Logloss and existing PairLogit are different contracts.",
+  "prediction": "For equal h and unequal full m, shortlist-relative pair improvement differs from full-Y oracle by D(h)/D(m); constant ratios with matched global mass give no relative reweighting.",
+  "nearest_experiment": "UNRUN four invented queries, each C={a,b}; full Y sets {a}, {a,z}, {z}, empty; two fixed rank orders and pair coefficient identities.",
+  "task1_benefit": "Separate feature benefit from coverage-dependent surrogate query allocation before any future authorized objective/search comparison.",
+  "strict_chronology": "Full outcome windows and labels mature before a future fit; no label-derived weight enters features or selection.",
+  "matched_control": "Same Q/C/features/full labels/pair masks/seeds/iterations/enumeration and global mass convention; only coefficient multiplier differs.",
+  "negative_outcome": "Identity failure rejects implementation. Prospective no gain/harm defers idea; no current final retuning.",
+  "literal_finite_bounds": {
+    "queries": 4,
+    "candidate_rows": 8,
+    "target_rows": 4,
+    "returned_positions": 16,
+    "eligible_pairs": 2,
+    "fits": 0
+  },
+  "future_cost": "Label membership O(sum(|Y|+|C|)), all existing O(sum h*(|C|-h)) pairs, O(Q) extra weights; complete source/auth/preparation/two fits/checkpoints/scoring/failed attempts, without grant.",
+  "sources": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/boosting-baselines.md",
+      "line": 9,
+      "role": "canonical current loss and support contract"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "line": 113,
+      "role": "primary evaluator full target IDCG and empty-mature-Y semantics"
+    }
+  ],
+  "canonical_read": [
+    "docs/target-research/05-evaluation.md:49",
+    "docs/backlog.md:94,98",
+    "docs/experiments/boosting-baselines.md:9",
+    "docs/research-lab/round-065.md",
+    "docs/research-lab/brainstorm-m001.md:25"
+  ],
+  "peer_wave028_read_before_freeze": false,
+  "actual_data_model_Y_native_fit_predict_experiments": false,
+  "helpers": 0,
+  "shared_writes": false,
+  "current_015_018_recipe_tolerance_ci_heldout_changes": false,
+  "grant": false
+}

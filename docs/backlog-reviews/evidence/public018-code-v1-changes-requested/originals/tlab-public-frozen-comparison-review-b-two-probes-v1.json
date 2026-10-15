@@ -1,0 +1,125 @@
+{
+  "actual_native_raw_DB_models_Y_acceptedcore_children_project_operations": 0,
+  "application_children": 0,
+  "body_timing_not_full_exit": {
+    "cpu_seconds": 0.034837,
+    "peak_rss_bytes": 27082752,
+    "wall_seconds": 0.021871207994990982
+  },
+  "bounds": {
+    "cpu_seconds": 3,
+    "rss_bytes": 134217728,
+    "wall_seconds": 5
+  },
+  "execution_grant": false,
+  "expected_defect_assertions_passed": true,
+  "guard_violations": [],
+  "initial_final_hashes_unchanged": true,
+  "input_count": 50,
+  "input_hashes": {
+    "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+    "/Users/mdpospelov/tlab-recsys-2026/.venv/lib/python3.12/site-packages/catboost/core.py": "9c478404e7e1957181c2bdd5bb67b19dd351de6623ee4f8f2fbe63a45b8eba55",
+    "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_contract.py": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/inference_data.py": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_features.py": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/model_data.py": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/program_model_data.py": "1ee9c2fdbec93984e71f0edd055dbbf9046c2d4805eaa0c80f3f0e29bd5c06b1",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_baseline.py": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+    "/Users/mdpospelov/tlab-recsys-2026/uv.lock": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+    "/tmp/test_reproduce_frozen_comparison_v1.py": "18c14c0d2c6e587d8ef019b26628e3c44014e52bf507cbea43e7e950224c950e",
+    "/tmp/tlab-build-public-recipe-v1.py": "7822011410a0c661c5db8782b51e68a3822cb75d278b443ad7d4ccbfe16a6a28",
+    "/tmp/tlab-frozen-bw-oct2019-v1.json": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+    "/tmp/tlab-public-frozen-comparison-author-report-v1.md": "970bf27af8491fffb61ec14de1322c8d12c7d0fa32573a2ff03ba64dd6404972",
+    "/tmp/tlab-public-frozen-comparison-freeze-v1.json": "b1f5c6378bb64bf62bda3380c85a95e89697a4935699486c9c138a2897fad0b4",
+    "/tmp/tlab-public-frozen-comparison-plan-v1.md": "a622e6c42f1d7907aba84020bd618a7c3b45e15c288844b28a9818d135560be3",
+    "/tmp/tlab-public-reproduction-synthetic-copy-v1/configs/reproduction/frozen-bw-oct2019.json": "4af3a6102ea30108decdb0d0f4ac5eae0d96295c9c059f2e2c5d1e7773fbf53e",
+    "/tmp/tlab-public-reproduction-synthetic-copy-v1/scripts/reproduce_frozen_comparison.py": "f5cbd4e50e950bc49d656ea8d226391db0bec6ec2ebaed833c147c96df80ada4",
+    "/tmp/tlab-public-reproduction-synthetic-copy-v1/tests/test_reproduce_frozen_comparison.py": "0c3d7cb5088f3d8ba844223703ed61bb5c2045364fe162c4f8ff5bbb2c5573cd",
+    "/tmp/tlab-public-reproduction-synthetic-copy-v2/configs/reproduction/frozen-bw-oct2019.json": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+    "/tmp/tlab-public-reproduction-synthetic-copy-v2/scripts/reproduce_frozen_comparison.py": "5409bd4393bcaef2b455bef580e1f6ca9edb8b5e146e7fde617676c975a2c0b7",
+    "/tmp/tlab-public-reproduction-synthetic-copy-v2/tests/test_reproduce_frozen_comparison.py": "9f9bfa3c0da7a096c7906efed2751b5e3e2fda42a23e1b2326c59b56513ff407",
+    "/tmp/tlab-public-reproduction-synthetic-copy-v3/configs/reproduction/frozen-bw-oct2019.json": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+    "/tmp/tlab-public-reproduction-synthetic-copy-v3/scripts/reproduce_frozen_comparison.py": "5409bd4393bcaef2b455bef580e1f6ca9edb8b5e146e7fde617676c975a2c0b7",
+    "/tmp/tlab-public-reproduction-synthetic-copy-v3/tests/test_reproduce_frozen_comparison.py": "18c14c0d2c6e587d8ef019b26628e3c44014e52bf507cbea43e7e950224c950e",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v1.json": "6fb2626f4e885fd2ff22f46da25613b73e0b1f6363001a17b337d151f6450f54",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v1.py": "ba2c07378686aaf8c7f3c04602450ad1e0d8a4e55bc0231237dec345f14f5f37",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v1.stderr": "9af7cb05cd6984fcee8787b57bb40f1ccc91b7f856025cbf89984876ab62501d",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v1.stdout": "afb0eb6a325950997ee0d526e02b78b87b9645dd28c396d95431706b9d98dc9b",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v2.json": "696aa36a69fa9cc4b4135efd5d916bb49f2232ab12de485a78eba92842b5818f",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v2.py": "a2968a1abfeb1f4252eef23667fa1370540d0a61c9b8f7d00d7ce7fc920f109f",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v2.stderr": "223995d4b44a1d25d442a319be3af440669648136ebd46243fee3b60aac695ef",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v2.stdout": "97fb83527513f3d232a1a1d65fdae5a16317573e298e6fb483803f71c9f2b555",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v3.json": "8b0fc30023fe58da4893963737344e5ed2dc2d197cb19e52c0ceef8b427ea3ba",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v3.py": "b6c8cd4f665921d3d583b62b6c5fd540003ae3cd9272e23e1791580ce8bc16f2",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v3.stderr": "36b286294041ddaa9f12b1a6e58c7e7c0f4fb82f3278ffba2faca093fe44bb9b",
+    "/tmp/tlab-public-reproduction-synthetic-validation-v3.stdout": "0f3b7896b60845d208a87dd3f0f2b4799e45e56e628dc290c1e05f49cea25911",
+    "/tmp/tlab-reproduce-frozen-comparison-run-doc-v1.md": "cb8e70f19bdfa2a16626fea36ee9ba5b980aee52e3472f387fccb4e1242fad31",
+    "/tmp/tlab-reproduce-frozen-comparison-v1.py": "5409bd4393bcaef2b455bef580e1f6ca9edb8b5e146e7fde617676c975a2c0b7"
+  },
+  "primary_mask_observations": [
+    {
+      "escaped_is_primary": false,
+      "escaped_is_secondary": true,
+      "escaped_type": "OSError",
+      "primary_type": "KeyboardInterrupt",
+      "secondary_stage": "writer",
+      "secondary_type": "OSError",
+      "synthetic_write_calls": [
+        "mockout/consumed.json",
+        "mockout/failed.json"
+      ]
+    },
+    {
+      "escaped_is_primary": false,
+      "escaped_is_secondary": true,
+      "escaped_type": "OSError",
+      "primary_type": "RuntimeError",
+      "secondary_stage": "writer",
+      "secondary_type": "OSError",
+      "synthetic_write_calls": [
+        "mockout/consumed.json",
+        "mockout/failed.json"
+      ]
+    },
+    {
+      "escaped_is_primary": false,
+      "escaped_is_secondary": true,
+      "escaped_type": "RuntimeError",
+      "primary_type": "SystemExit",
+      "secondary_stage": "telemetry",
+      "secondary_type": "RuntimeError",
+      "synthetic_write_calls": [
+        "mockout/consumed.json"
+      ]
+    }
+  ],
+  "probes": 2,
+  "recipe_hash_parse_observation": {
+    "accepted_changed_k": 1,
+    "actually_parsed_sha256": "cf5ca0a44e9019002a0050b0780009aeeef64472f4b1e0995f294747626eaa7f",
+    "all_dependencies_versions_source_profile_stayed_equal": true,
+    "bytes_in_memory_only": true,
+    "claimed_recipe_sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+    "mutated_input_accepted": true,
+    "original_k": 20,
+    "read_order": [
+      "hash_old_bytes",
+      "parse_changed_bytes"
+    ]
+  },
+  "scope": "TWO_authorized_pure_in_memory_AST_fault_probes",
+  "source_sha256": "5409bd4393bcaef2b455bef580e1f6ca9edb8b5e146e7fde617676c975a2c0b7",
+  "status": "both_source_defects_reproduced"
+}

@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026, 15:11:19UTC.015/reportDONE/018partial; publiccandidateFROZEN/two independentCODEreviews pending/noinstall-newfits;028criticCOMPLETE/Rootreadbackpending. next15:45UTC anchored15:00.
+Обновлён15 октября2026,15:47:57UTC.015/reportDONE,018partial13of19; publicV1 CHANGES_REQUESTED пятьP2/V2author RUNNING,0 новых реальных fits/grants.028/029 Root research accepted,030 оба FIRST завершены, отдельный ModelsB критик назначен Root. nextmax16:30UTC от исходного15:45, ранее после двух следующих завершённых раундов.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,7 +8,7 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 15:45 UTC / 18:45 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 16:30 UTC / 19:30 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
 ## Early15:00 checkpoint / exact current inventory — 2026-10-15T14:49:34.014907+00:00
 
@@ -636,3 +636,22 @@ Beforeoriginal15:00=True.027Rootresearchacceptedonly/8originals+Rootarchivependi
 Root ACTUALLYdispatched ModelsA+RetrievalA FIRST authors: optionalfuturelossalignment fullYIDCG vsinCIDCG/queryreweighting; rotatefrom027pair, nopeer028beforefreeze. ExistingFeaturesB distinctskeptic permitted ONLYafterbothactualFIRST/SHA+idlecheck, notyetdispatched.027Rootfullreadbackpending/no admissionupgrade. No actualexperiments/currentB/W/018changes, no mainprerequisite/goalreset; Rootpublicrouteauthor continues, defaultfirstCLItrainselection2fits/actualnewfitsungranted.15:00originalanchor unchanged.
 
 028critic actualcompletion 2026-10-15T15:06:52.872430+00:00: FeaturesB447words/638ca07a…/fafadf27…/60189c94…, original5inputguardsunchanged. RootfullresearchreadbackPENDING; onlylinear-samesurrogateIDCGidentity retained, nativequerynorm/gradient-Hessianmass/regularization/top20numerator contracts distinct. No currentLogloss/PairLogit/015/018 change/admission; no activeauthorsclaimed by this completion. Next15:45UTC anchored15:00.
+
+
+## Ранний checkpoint15:45 — 2026-10-15T15:42:08.235833+00:00
+
+Контрольная отметка 15:42:08 UTC (раньше максимума15:45): принято13 из19 задач; TLAB-015 и финальный отчёт завершены,018 остаётся partial. Два независимых CODE review публичной команды V1 подтвердили пять P2; V1 не принят и не установлен. Execution_scope_audit исправляет V2; source_harness_review отдельно оценивает ресурсный план, source_import_review готовит независимый план проверки выходов. Новые реальные fits и runtime не разрешены. Волны028/029 приняты Root только как уточнения существующих исследований,0 новыхID/задач/grants; архивы готовятся. Два независимых автора030 FeaturesB/RetrievalA фактически running; отдельный критик только после обоих FIRST и SHA-проверок. Следующая максимальная отметка16:30UTC/19:30МСК привязана к исходным15:45; раньше — после двух следующих завершённых раундов. Цель, исходный дедлайн,17slots,33914/43200 active-WALL и1000/300 не меняются; безопасный NEXT — frozenV2 и адресное независимое review, затем отдельное Root решение, без runtime от публикатора.
+
+Фактический inventory: Root, publisher, execution_scope_audit, source_harness_review, source_import_review и030 FeaturesB/RetrievalA running;029 ModelsA critic и оба V1 CODE reviewers completed. Ранее ошибочный readonly lookup docs/backlog-reviews/index.md завершилсяexit1: такого файла нет; никаких изменений или тестов не было. Правильный существующий навигационный файл — docs/research-lab/index.md;025–027 уже были в его верхних строках, tail024 не описывал полноту индекса. Исправляется текущая навигация, а не научные выводы.
+
+
+## Root-accepted028/029 и rejected public018V1 — 2026-10-15T15:45:57.181565+00:00
+
+[028](brainstorm-wave028-synthesis.md) объединяет fullY coefficient refinement только для linear fixed-score same-numerator surrogate; nonlinear native querynorm/currentLogloss не эквивалентны. [029](brainstorm-wave029-synthesis.md) объединяет A saturation под B sound-support fixed-routing/HYP046; exact F/export/training должны завершиться. Девять и десять точных оригиналов соответственно, авторские bytes сохранены.0new mechanisms/IDs/tasks/grants; альтернативные future canaries UNRUN, budgets не складываются.
+
+[Public018V1 CHANGES_REQUESTED](../backlog-reviews/public018-code-v1-changes-requested.md): пятьP2, отдельные A/B scopes и три defect probes; пятнадцать bounded originals, source170files не скопированы. V2 автор active, resource/output reviewers active; исходные wrapper/fixture failures не превращены в product success.Исторический inventory15:40 показывал030 FeaturesB/RetrievalA active; последующее завершение обоих FIRST и Root dispatch критика отражены в15:47:57 observation ниже. Latest runtime status CLOSED,0freshfits;13/19/018partial/reportDONE.
+
+Checkpoint15:45 фактически записан15:42:08.235833UTC timely; nextmax16:30UTC от исходных15:45, раньше после двух следующих завершённых research rounds. Этот archive не перезапускает часы, цель или лимиты.
+
+
+Текущее наблюдение 15:47:57 UTC: оба FIRST030 завершены; Root назначил отдельного ModelsB критика после обоих freeze, пять фактических SHA дополнительно проверены публикатором15:46:17. Дубликат dispatch не отправлялся. V2 исправляет исходный автор; новые реальные fits не разрешены. Ранний checkpoint15:42:08 покрывает исходные15:45, следующий максимум16:30UTC от15:45.

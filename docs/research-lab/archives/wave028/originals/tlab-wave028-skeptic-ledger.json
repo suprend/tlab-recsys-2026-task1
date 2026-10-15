@@ -1,0 +1,203 @@
+{
+  "wave": "028",
+  "role": "separate_skeptic_features_b",
+  "created_at_utc": "2026-10-15T15:04:27.525962+00:00",
+  "word_count": 447,
+  "inputfreeze": {
+    "path": "/tmp/tlab-wave028-skeptic-inputfreeze.json",
+    "sha256": "60189c949a435fc7b38338ebe2aa79c463b2cdd890e5497f73c63e133d57ebf5",
+    "full_input_bytes_embedded": true,
+    "before_analysis": true
+  },
+  "author_inputs_final_recheck": [
+    {
+      "path": "/tmp/tlab-brainstorm-fullY-lambda-models-a-wave028-firstfreeze.json",
+      "start_sha256": "f878ff53ec2afbf11850648dcdfbe0b826400cc4a074d548ce8a547a87fafdd4",
+      "end_sha256": "f878ff53ec2afbf11850648dcdfbe0b826400cc4a074d548ce8a547a87fafdd4",
+      "unchanged": true,
+      "bytes": 689
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-fullY-lambda-models-a-wave028-ledger.json",
+      "start_sha256": "6464b1d8c0613b3d94a6116c7a16f7229549f859da9a954cb0d3b24efa7448a4",
+      "end_sha256": "6464b1d8c0613b3d94a6116c7a16f7229549f859da9a954cb0d3b24efa7448a4",
+      "unchanged": true,
+      "bytes": 5324
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-fullY-lambda-models-a-wave028.md",
+      "start_sha256": "f68ecbdd27c4dbe1ba36dc71e9453a3e2c347db19ba9c7976ae45de80481eef0",
+      "end_sha256": "f68ecbdd27c4dbe1ba36dc71e9453a3e2c347db19ba9c7976ae45de80481eef0",
+      "unchanged": true,
+      "bytes": 3579
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-fullY-loss-retrieval-a-wave028-ledger.json",
+      "start_sha256": "ee9c48e02dd4e7060aafa3a1c864842f182e3a7d0be4fa6167d4512b2179ba87",
+      "end_sha256": "ee9c48e02dd4e7060aafa3a1c864842f182e3a7d0be4fa6167d4512b2179ba87",
+      "unchanged": true,
+      "bytes": 2928
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-fullY-loss-retrieval-a-wave028.md",
+      "start_sha256": "88fb813d4d4e81a4b3d5c032a01574f2a196d8f570fef92b9d95e0669a69f97c",
+      "end_sha256": "88fb813d4d4e81a4b3d5c032a01574f2a196d8f570fef92b9d95e0669a69f97c",
+      "unchanged": true,
+      "bytes": 3114
+    }
+  ],
+  "verdicts": {
+    "authorA": "retain/refine existing TLAB006/008; linear same-numerator identity accepted as mathematics, no runtime/quality acceptance",
+    "authorB": "merge/refine same mechanism; finite domain counts consistent; no separate new mechanism",
+    "novel_mechanisms": 0,
+    "new_ids": [],
+    "admissions": 0,
+    "new_main_gates": 0
+  },
+  "four_fields_check": {
+    "A": {
+      "mechanism": "fullIDCG/candidateIDCG coefficient ratio",
+      "prediction": "Unequal fullsupport changes relative query coefficients; no signal for h0",
+      "nearest_experiment": "6queries<=32Crows<=48targetpairs3scorevectors<=6000checks UNRUN/ungranted",
+      "task1_benefit": "Interpret a future objective weighting contrast"
+    },
+    "B": {
+      "mechanism": "Same declaredlinear deltaNDCG correction",
+      "prediction": "Same inCpositive support can have unequal fullY normalization",
+      "nearest_experiment": "4queries8Crows4targetrows2rankorders UNRUN/ungranted",
+      "task1_benefit": "Avoid attributing objective allocation to feature discovery"
+    }
+  },
+  "math_review": {
+    "scope": "Binary distinctY, uniqueC, same fulltop20DCG numerator, same pairs/scores; fixedcoefficient rather than hardmetricgradient.",
+    "identity": "w=I(h)/I(m); NDCGfull=w*NDCGC for m>=h>0; linear pairlambda/Hessian coefficients scale.",
+    "zeros": "h0<m fullscore0/no contrastingbinarypairs;m0 conditionalundefined; empty/allpositive/singleton groups preserve evaluationidentity without unsafe nativeinput.",
+    "nonlinear_counterexample": "w*lambda*f(wS) != w*lambda*f(S) generally, f(S)=log2(1+S)/S.",
+    "native_cutoff": "Pairtruncation includes positive discounts beyondK; denomcorrection alone doesnot implement exacttop20 swap numerator.",
+    "mass_refinement": "Equal sum(querycoefficients) doesnot imply equal sum(querycoefficient*gradientmagnitude) or identical regularization.",
+    "rounding": "Algebraic equivalence doesnot establish bitidentical native coefficients/models."
+  },
+  "primary_sources": [
+    {
+      "id": "S1",
+      "url": "https://marc.najork.org/papers/cikm2018.pdf",
+      "accessed": "2026-10-15",
+      "title": "The LambdaLoss Framework for Ranking Metric Optimization",
+      "publication": "CIKM2018",
+      "doi": "10.1145/3269206.3271784",
+      "anchors": "Eq6 textlines270-285;section6.2lines1054-1076",
+      "verified": "Metric-weighted pair surrogate/cutoff treatment; noREES46effectiveness inference."
+    },
+    {
+      "id": "S2",
+      "url": "https://raw.githubusercontent.com/microsoft/LightGBM/v4.6.0/src/objective/rank_objective.hpp",
+      "accessed": "2026-10-15",
+      "version": "v4.6.0 source, no installedruntime claim",
+      "anchors": "lines68-75 rowweights afterquery;150-162candidateIDCG;194-248pairloop and nonlinear norm",
+      "verified": "Candidate maxDCG, per-query nonlinear norm, then per-row gradient/Hessian weights."
+    },
+    {
+      "id": "S3",
+      "url": "https://raw.githubusercontent.com/microsoft/LightGBM/v4.6.0/src/metric/dcg_calculator.cpp",
+      "accessed": "2026-10-15",
+      "version": "v4.6.0",
+      "anchors": "lines38-46discounttable;48-68maxDCG",
+      "verified": "Discounts1/log2(2+i) populated beyond requestedtopK; exactmetric cutoff is separate."
+    }
+  ],
+  "canonical_dedup": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "lines": [
+        98,
+        102
+      ],
+      "scope": "ExistingTLAB006 fullY evaluator/TLAB008objectivecomparison; historical prose notnewgrant."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/loss-selection/03-listwise.md",
+      "lines": [
+        9,
+        13
+      ],
+      "scope": "CandidateIDCG relativequeryweights andLambdaRank alreadycovered."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/loss-selection/review-01-03.md",
+      "lines": [
+        11,
+        17,
+        19,
+        27,
+        29,
+        31
+      ],
+      "scope": "Training populations/pairnormalization/nativequerynorm/selectioncriterion distinct."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/boosting-baselines.md",
+      "lines": [
+        7,
+        9
+      ],
+      "scope": "CurrentLogloss1/|C| versus PairLogit1/(pn), fullYfuturepurchase definition."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/waves005-008/original/tlab-brainstorm-search-budget-retrieval-a-wave008.md",
+      "lines": [
+        18,
+        22,
+        24
+      ],
+      "scope": "EarlierfullYfixedCoracleceiling; freshsupport arithmetic is targetfeedback,65/96not macroceiling."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/waves005-008/original/tlab-wave008-skeptic-review.md",
+      "lines": [
+        25,
+        27,
+        45
+      ],
+      "scope": "Independentoldceiling/domain/labelopening/cost limits."
+    }
+  ],
+  "minimal_future_test": "Retain existingA6Q specification/B4Qdomaincases asdeduplicated alternative envelopes, notaddedcredits; no executionnow. Add/check differingS and20/21swap before futureimplementationclaim.",
+  "cost_review": [
+    "Membershiphashsets/sourceauthentication/fullmaturetrainlabels cost",
+    "O(Q)extra coefficient state",
+    "Fullpair h(n-h) is hypotheticalpairlaw; native ranktruncation loop visits O(min(L,n)*n) positions plus sorting",
+    "Samefeatures/Q/C/labelpopulation/learner/init/capacity/iterations/seeds/pairs/sink and declaredmass convention",
+    "Allfits/checkpoints/scoring/failedattempts/cleanup charged; no grant"
+  ],
+  "actual_actions": {
+    "helpers": 0,
+    "new_agents": 0,
+    "experiments": 0,
+    "literal_numeric_runs": 0,
+    "actualdata": 0,
+    "DB": 0,
+    "SQL": 0,
+    "models": 0,
+    "Y": 0,
+    "native": 0,
+    "fits": 0,
+    "predict": 0,
+    "largehashes": 0,
+    "project_writes": 0,
+    "Git": 0,
+    "new_grants": 0,
+    "currentrecipechanges": 0
+  },
+  "unresolved": [
+    "No nativeadapter/customobjective implemented or executed.",
+    "No actualtrainingcost/rankingeffect measured.",
+    "Future numericaltolerance and exactpair/cutoffimplementation remain unspecified; no current tolerancechange.",
+    "Equalweightmass doesnot fully isolate regularization/gradientmass."
+  ],
+  "main_boundary": "015/report accepted;018partial/newpubliccandidate unfrozen andactualfreshfits ungranted per assignment. No recipe/label/weight/model/018change or newcurrentgate.",
+  "report": {
+    "path": "/tmp/tlab-wave028-skeptic-review.md",
+    "sha256": "638ca07a8f03d3aaeb8039d30d108a23a3e58fcc4b69b28fb4eef5b8204136a4",
+    "bytes": 3763
+  }
+}
