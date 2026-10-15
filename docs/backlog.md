@@ -430,3 +430,10 @@ Implementationdoesnotprovideactualsourceapproval/durableglobalclaim/final019sett
 Producerb3e05d85 and independent source oracle319327b8 are code-accepted. They calculate only the frozen11cores+1mask selected union, preserve all old45physical columns and accepted Q/C, and open no Y relation. The oracle checks every selected value against independent raw-event formulas; physical shape/range checks alone do not authorize formula acceptance. Source900CPU/1200wall plus oracle900CPU/1200wall are paid prefixes of the same7200actualCPU study; their successful full-lifetime receipts must be sealed before any four model fits.
 
 [All4+B selection design](experiments/feature-program-selection.md) and [independent scope/tie critique](backlog-reviews/tlab016-selector-design-review.md) are frozen prospectively. Recall feasibility is inclusive B−.002, then global NDCG band1e−12, fewer added physical columns, lexical candidate ID. Primary W−B may be0 when B wins. Random winner supports mixed typed automation, not superiority of rule-guided allocation. Executable selector/model runner still requires independent review and exact fit approval.
+
+
+### Additive data boundaries accepted — 15 октября 2026
+
+[Inference narrow review](backlog-reviews/tlab-labelblind-inference-code-rereview.md) accepts the Q/F-only loader after fixing an optional-group alias that silently reassociated valid candidates. All queries including emptyC remain; no Y API or fake targets are returned. Source/calendar/feature provenance must still be externally accepted, and all model columns must be caller-frozen. This is physical boundary readiness, not permission to open heldout data or score models.
+
+[Program-model loader review](backlog-reviews/tlab-program-model-data-independent-review.md) accepts base41+one approved3-column arm transport, preserving original Q/C/Y, exactBIGINT keys/order and base arrays. Accepted source/arm/model contexts remain required. No native fit or real matrix was created in these reviews. Full current regression351tests passed with ResourceWarning treated as error; no duplicate suite was run for publication.
