@@ -552,3 +552,8 @@ The [outer owner](experiments/run-heldout-reporting.md) passed37 author+5 unchan
 ### Independent new-idea drafts archived; cross-review pending — 15 октября 2026,05:33UTC
 
 Two independently drafted research lines now have real versioned outputs: [F001](research-lab/brainstorm-f001.md), four feature/automation candidates; [M001](research-lab/brainstorm-m001.md), five model/loss/transfer candidates including one explicit rejection. The [journal](research-lab/brainstorm-log.md), candidate ledgers and byte-exact [first-draft freeze](research-lab/brainstorm-f001-m001-freeze.json) preserve their proposal status. No new HYP IDs, pilots, fits or reserved-data access follow from publication. Independent cross-review must first test mechanism novelty, source support and cheapest falsifiers; an interrupted retrieval line is not counted complete.
+
+
+### Parallel research observation — 15 октября2026,05:35UTC
+
+The authoritative runtime snapshot contains17 running agents including Root: four independent new feature/retrieval brainstorm roots, two independent F001/M001 cross-review roots and their scoped paper helpers, alongside reproduction/integration implementation and review. The [journal](research-lab/brainstorm-log.md) names the actual processes and timestamps this observation; helper count is not independent idea count. Coordinator publication ownership moved to `/root/backlog_coordinator` after the prior runtime disappeared; Git continues exclusively in the existing research branch/draft PR.
