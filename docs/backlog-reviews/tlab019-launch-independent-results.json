@@ -1,0 +1,46 @@
+{
+  "before": {
+    "scripts/strong_baseline.py": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+    "tests/test_strong_baseline.py": "1f9527c9fba10d88999f7984472bd7b820890e9ee9a4bf00db6ac6b456117ee8",
+    "configs/models/strong-grid.json": "d32daac420f447444d987969cdd49ac1cad427bbd7357114d148c02085aed66e",
+    "docs/experiments/strong-baseline.md": "95a7cf972fca056160f5f8b88902c2297edc4f7f56766b16430b3c068602bf10"
+  },
+  "after": {
+    "scripts/strong_baseline.py": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+    "tests/test_strong_baseline.py": "1f9527c9fba10d88999f7984472bd7b820890e9ee9a4bf00db6ac6b456117ee8",
+    "configs/models/strong-grid.json": "d32daac420f447444d987969cdd49ac1cad427bbd7357114d148c02085aed66e",
+    "docs/experiments/strong-baseline.md": "95a7cf972fca056160f5f8b88902c2297edc4f7f56766b16430b3c068602bf10"
+  },
+  "cases": [
+    {
+      "case": "durable_original_issuance_return_binding_parent_seal_and_no_respawn",
+      "status": "PASS",
+      "detail": {
+        "record_before_spawn": true,
+        "returned_exact_pin": true,
+        "parent_seal_contains_launch": true,
+        "duplicate_does_not_spawn": true
+      }
+    },
+    {
+      "case": "launch_write_error_stops_before_worker",
+      "status": "PASS",
+      "detail": {
+        "no_spawn": true,
+        "no_fit": true
+      }
+    },
+    {
+      "case": "durable_payload_retains_original_inputs",
+      "status": "PASS",
+      "detail": {
+        "original_slot_and_argv_retained": true
+      }
+    }
+  ],
+  "wall_seconds": 0.022113457998784725,
+  "self_cpu_seconds": 0.021668000000000007,
+  "peak_rss_bytes": 63012864,
+  "native_fits": 0,
+  "scope": "tiny JSON/mock worker only; no data/Pool/model/predict/actual subprocess"
+}

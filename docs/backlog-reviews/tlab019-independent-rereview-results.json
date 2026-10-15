@@ -1,0 +1,180 @@
+{
+  "before": {
+    "scripts/strong_baseline.py": "53808ef3b98e0175d628b93ffe3cd0c6997940a132732d03490be78964daff14",
+    "tests/test_strong_baseline.py": "1921dcbff87fb2f43e2f3e2662630c77bd4785e86f7e8d95e2ff9d2baf1a3eb7",
+    "configs/models/strong-grid.json": "d32daac420f447444d987969cdd49ac1cad427bbd7357114d148c02085aed66e",
+    "docs/experiments/strong-baseline.md": "aae39f6fcb6a705bb575e9033b7caf179b9dab3ac06f7f0038632ac7ce073560"
+  },
+  "after": {
+    "scripts/strong_baseline.py": "53808ef3b98e0175d628b93ffe3cd0c6997940a132732d03490be78964daff14",
+    "tests/test_strong_baseline.py": "1921dcbff87fb2f43e2f3e2662630c77bd4785e86f7e8d95e2ff9d2baf1a3eb7",
+    "configs/models/strong-grid.json": "d32daac420f447444d987969cdd49ac1cad427bbd7357114d148c02085aed66e",
+    "docs/experiments/strong-baseline.md": "aae39f6fcb6a705bb575e9033b7caf179b9dab3ac06f7f0038632ac7ce073560"
+  },
+  "preserved_original_evidence": {
+    "tlab019-code-review.md": "14f3fa88bafeb287f56a6cbf3145f44b44175593832392d3de0605fa7da13f37",
+    "tlab019-independent-faults.py": "1e3b5ad2e3113589bcf567f746f38efc18cc1f0a5c95768365821c07ae33984d",
+    "tlab019-independent-results.json": "0f97b2987410ebdae8af82f893d27361d7223eafe5038ec63015ce4d807e388f",
+    "tlab-verify019-outputs.py": "27925648ab9017236c66491304181915058af2c92a728903554413b6a5bd64d4"
+  },
+  "cases": [
+    {
+      "case": "original_issued_context_population",
+      "status": "PASS",
+      "detail": {
+        "rejected_before_spawn": true,
+        "reason": "ValueError: Worker context changed from immutable issuer launch digest"
+      }
+    },
+    {
+      "case": "original_issued_context_allowance",
+      "status": "PASS",
+      "detail": {
+        "rejected_before_spawn": true,
+        "reason": "ValueError: Worker context changed from immutable issuer launch digest"
+      }
+    },
+    {
+      "case": "original_issued_context_look_float",
+      "status": "PASS",
+      "detail": {
+        "rejected_before_spawn": true,
+        "reason": "ValueError: Look reservations must be strict integers"
+      }
+    },
+    {
+      "case": "original_normal_leader_live_descendant",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "direct_child_reaped": true,
+        "residual_requires_unknown_usage_marker": false,
+        "primary_preserved": true
+      }
+    },
+    {
+      "case": "parent_error_direct_child_reaped_primary_preserved",
+      "status": "PASS",
+      "detail": {
+        "first_error_preserved": true,
+        "direct_child_reaped": true
+      }
+    },
+    {
+      "case": "receipt_healthy",
+      "status": "PASS",
+      "detail": {
+        "accepted_mechanical_only": true,
+        "required_outputs": 8,
+        "features": 41,
+        "native_fits": 0
+      }
+    },
+    {
+      "case": "receipt_empty_outputs",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "ValueError: Arm requires exact eight model/score outputs"
+      }
+    },
+    {
+      "case": "receipt_forged_scope",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "ValueError: Checkpoint differs from issued grid/population/procedure"
+      }
+    },
+    {
+      "case": "receipt_missing_looks",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "ValueError: Complete arm must contain three consumed/seen looks"
+      }
+    },
+    {
+      "case": "receipt_extra_output",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "ValueError: Arm requires exact eight model/score outputs"
+      }
+    },
+    {
+      "case": "receipt_missing_model",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "FileNotFoundError: [Errno 2] No such file or directory: '/privatetlab019-rereview-receipt-98vs8n69/receipt/prefix150.cbm'"
+      }
+    },
+    {
+      "case": "receipt_empty_model",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "ValueError: Empty required model/score artifact"
+      }
+    },
+    {
+      "case": "receipt_float_checkpoint",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "ValueError: Checkpoint differs from issued grid/population/procedure"
+      }
+    },
+    {
+      "case": "receipt_float_look",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "ValueError: Consumed/seen checkpoint ledger differs"
+      }
+    },
+    {
+      "case": "receipt_native_CTR",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "ValueError: Base41 model contains nonnumeric/CTR split"
+      }
+    },
+    {
+      "case": "receipt_wrong_name",
+      "status": "FAIL",
+      "error": "AssertionError('Mutant accepted')"
+    },
+    {
+      "case": "receipt_bad_parameter",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "ValueError: Actual strong fit parameters drift from frozen control/grid"
+      }
+    },
+    {
+      "case": "receipt_bad_metric",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "ValueError: Consumed/seen checkpoint ledger differs"
+      }
+    },
+    {
+      "case": "receipt_look_unseen",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "reason": "ValueError: Consumed/seen checkpoint ledger differs"
+      }
+    }
+  ],
+  "wall_seconds": 0.17472708300192608,
+  "self_cpu_seconds": 0.081501,
+  "reaped_children_cpu_seconds": 0.021619,
+  "peak_rss_bytes": 63864832,
+  "scope": "Synthetic JSON/nonempty placeholder artifacts and tiny OS processes only; no source/parquet/Pool/nativefit/model load/predict"
+}

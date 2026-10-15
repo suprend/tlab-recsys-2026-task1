@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "role": "strong_baseline_search",
+  "grid": [{"depth":4,"l2_leaf_reg":3},{"depth":4,"l2_leaf_reg":30},{"depth":6,"l2_leaf_reg":3},{"depth":6,"l2_leaf_reg":30}],
+  "checkpoints": [50,150,300],
+  "iterations": 300,
+  "seed": 2026,
+  "limits": {"cpu_seconds":3600,"verification_cpu_reserve":300,"parent_launch_cpu_reserve":60,"wall_seconds":3600,"verification_wall_reserve":360,"cleanup_wall_reserve":20,"gate_wall_seconds":600,"parent_rss_bytes":1073741824,"worker_rss_bytes":7516192768,"term_grace_seconds":5,"kill_reap_seconds":5,"log_bytes":1048576},
+  "population": {"full":26000,"fallback":6000,"selection":4000},
+  "policy": {"no_refill":true,"successful_300_before_scores":true,"late_failure_whole_arm_ineligible":true,"tie":"global_max_minus_1e-12_then_fewer_trees_depth_incumbent_config_id","recall_floor":0.5792133072407045,"schema":"base41"}
+}
