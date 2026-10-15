@@ -657,3 +657,8 @@ The [finished FB002/RA003/MB003 reviews](research-lab/brainstorm-round002003-rev
 ### Independent dataset-transfer004 review: refusal/identity evidence only
 
 [Both author drafts and separate skeptic](research-lab/brainstorm-wave004-publication-freeze.json) retain Amazon purchase/fullY identifiability refusal and conditional RetailRocket event adapter with metadata-clock differences; current-card versus pinned RelBench horizon/task provenance is explicit. Eight original stdlib AST-isolated symbolic cases passed once, without imports/data/SQL/ML or external quality. Reused source-transfer mechanisms stay merged/refined under existing work, no new HYP or actual external experiment is admitted.
+
+
+### Root limited004 evidence and source-free main checkpoint —07:19UTC
+
+[Root receipt](research-lab/brainstorm-wave004-root-literal-review.json) accepts8 original symbolic/literal cases without rerun or external adapter/data-quality proof. [Proposed002 synthesis](research-lab/brainstorm-wave002-synthesis.md) assigns0IDs/grants. Root CODEaccepted supervisorV6; a prelaunch path-alias defect and new sourcefreeze focused reviews remain separate from actual setup/6role/import. Two observed independent006authors plus separate005skeptic keep research active; current execution priority/limits and07:30UTC checkpoint remain unchanged.

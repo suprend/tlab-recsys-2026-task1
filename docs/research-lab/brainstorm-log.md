@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 06:55 UTC / 09:55 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
+Обновлён 15 октября 2026, 07:19 UTC / 10:19 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -185,3 +185,12 @@ Wave006 остаётся planned после следующих двух complete
 [Freeze](brainstorm-wave004-publication-freeze.json) связывает10 report/ledger/inputfreeze/helper/probe/result files. Оба raw author prefixes независимо совпали с first skeptic freeze: MB11522bytes/0d03f97f… иRA12152bytes/b1f23b6d…. Portable public links отличаются bytes и имеют отдельные hashes. Первый publisher checker ошибочно приравнял appendix heading к11522, остановился до записи; реальный offset11523 содержит один внешний separator newline. Исправление использует actual inputfreeze, initial failure сохранён в receipt.
 
 Скептик выполнил один stdlib AST-isolated symbolic gate:8casesPASS,0.01064processCPU-s, без project imports/SQL/nativeML/data. [Original results](brainstorm-wave004-literal-results.json) и [archival portable probe](brainstorm-wave004-literal-gate.py) сохраняют original/publicSHA; publisher его не перезапускал, functions AST не изменены. Это первый выполненный symbolic transfer refusal/identity slice, не внешний adapter/corpus/quality/runtime benchmark. Wave005active и next_due07:30UTC не отодвинут.
+
+
+## Checkpoint: Root limited004 acceptance и фактически начавшаяся006 —07:18:57UTC
+
+[Root readback receipt](brainstorm-wave004-root-literal-review.json) принимает только8 inspected original AST-isolated/hand-literal cases,0reruns/0external adapter or dataset-quality evidence/0admissions. Earlier004publication записывала reviewer evidence; этот последующий receipt отдельно добавляет Root acceptance. Current four source/config pins совпали. [Wave002 synthesis](brainstorm-wave002-synthesis.md)/[four-field ledger](brainstorm-wave002-synthesis.json) остаётся proposed registration recommendation,0canonical IDs/rootapprovalfalse; единственная execution queue —backlog.
+
+Authoritative snapshot получен07:18:57UTC /10:18:57МСК:17known/13running/4completed. Две независимые author006 линии **фактически running** `/root/brainstorm_features_a` и `/root/brainstorm_retrieval_a`: same next-operator typedAST search question, fixedprior331b1ae, no peer006/live journal beforefreeze,0–2mechanisms без квоты. `/root/brainstorm_models_b` running как separate005skeptic; finished004skeptic не выдан за нового автора. Root/coordinator и integration/source-owner/focused reviewers такжеrunning; completed helpers отдельно. Root назначит separate006skeptic после обоихfreeze.
+
+Main execution state по Root handoff: V6 supervisor CODEaccepted после чтения двух independent reviews и проверки3pins; setup/6roles0, intendedintegrationroot absent. Prelaunch builder `/tmp` versus `/private/tmp` alias defect найден до actualjobs; новое sourcefreezeidentity подтверждено, focused reviews ещё должны быть приняты Root. Source-free failures/limited nativeSELF bridge не заменяют full exit/resource/source proof. SafeNEXT — finish focused repair reviews и точный wholefreeze; никакой paid task/HYP/fit/import grant отсюда не следует. Existing unbounded goal, bounded operation stoplimits и B/W/reservations неизменны; nextvisiblecheckpoint07:30UTC /10:30МСК не отодвинут.

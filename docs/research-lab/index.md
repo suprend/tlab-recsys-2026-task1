@@ -198,3 +198,6 @@ Completed follow-up critique: [FB002](brainstorm-fb002-review-by-retrieval-b.md)
 
 
 Reviewed transfer004: [AmazonReviews2023](brainstorm-mb004.md), [RetailRocket](brainstorm-ra004.md), [separate skeptic](brainstorm-wave004-skeptic-review.md), [ten-file/body/probe publication freeze](brainstorm-wave004-publication-freeze.json). One original8-case AST-isolated symbolic gate passed; external corpus/quality/runtime transfer remains unmeasured.
+
+
+[Root-limited004 readback](brainstorm-wave004-root-literal-review.json) accepts original symbolic/literal evidence only; [wave002 synthesis](brainstorm-wave002-synthesis.md) is a proposed conditional-registration normalization with0newIDs. Current006 live author observation and source-free failure gates remain in the journal checkpoint.

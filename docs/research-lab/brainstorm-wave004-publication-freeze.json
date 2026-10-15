@@ -81,6 +81,14 @@
       "publication_sha256": "39a6106d4ecdd3af12dde323f505fae69877a5ceaf4e3d584afaa68b10454fef",
       "publication_bytes": 3697,
       "publication_adaptation": "portable Markdown/JSON diagnostic paths or probe ROOT/OUT only; historical executed bytes remain originalSHA"
+    },
+    "docs/research-lab/brainstorm-wave004-root-literal-review.json": {
+      "original_source_name": "tlab-root-wave004-literal-review.json",
+      "original_sha256": "30acdfb1c65b69ba20334bd04fdc4234adc7857d2a46f36edc7b7a6294d5be71",
+      "original_bytes": 546,
+      "publication_sha256": "30acdfb1c65b69ba20334bd04fdc4234adc7857d2a46f36edc7b7a6294d5be71",
+      "publication_bytes": 546,
+      "publication_adaptation": "none"
     }
   },
   "body_hashguards": {
@@ -136,5 +144,12 @@
     "original_tool_exit_code": 1,
     "original_exception_class": "AssertionError"
   },
-  "no_measured_predictive_or_runtime_transfer": true
+  "no_measured_predictive_or_runtime_transfer": true,
+  "root_limited_readback": {
+    "receipt": "brainstorm-wave004-root-literal-review.json",
+    "accepted_scope": "AST-isolated symbolic contract refusals plus hand-literal witnesses only",
+    "reruns": 0,
+    "external_adapter_dataset_quality_verified": false,
+    "new_execution_admissions": 0
+  }
 }

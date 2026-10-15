@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "scope": "dated_progress_update_only; original substantive report and numerical ledger unchanged",
   "historical_report_source_snapshot": {
     "git_commit": "331b1ae29f3e484516893204a4f990c9372f2c25",
@@ -11,14 +11,22 @@
   },
   "current_progress": {
     "path": "docs/progress-report.md",
-    "sha256": "c95086f67057bbf592c41cce5ad11534dd4680dc31e495d0a8b233e2af47046c"
+    "sha256": "bfa13b254802cb0898f0b8ec22547c3202604eef564a8334f5ae00654d2918c1"
   },
   "changes": [
     "correct CODE-accepted heldout/source owner status while keeping fresh-process/runtime gates pending",
     "append actual first verified executable task1 slice and development limitations",
-    "link continuous research campaign without new queue, execution grant or deadline change"
+    "link continuous research campaign without new queue, execution grant or deadline change",
+    "Append Root-limited wave004 evidence acceptance and current prelaunch failure/review status; no new jobs."
   ],
   "frozen_experimental_report_and_root_review_rewritten": false,
   "historical_all32_current_at_publication_claim_is_not_current_file_equality_after_this_progress_update": true,
-  "actual_jobs_or_tests_run": 0
+  "actual_jobs_or_tests_run": 0,
+  "prior_current_progress_checkpoints": [
+    {
+      "git_commit": "6e9ab8784649cc8e8839c221d867ac0add5e3f9e",
+      "sha256": "c95086f67057bbf592c41cce5ad11534dd4680dc31e495d0a8b233e2af47046c",
+      "superseded_by": "07:19UTC source-free status append"
+    }
+  ]
 }
