@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 09:45:07 UTC / 12:45:07 МСК. Статус ниже отражает фактический запуск018; source acceptance и heldout остаются отдельными gates.
+Обновлён 15 октября 2026, 10:27:29 UTC / 13:27:29 МСК. Текущий source-prefix принят отдельно от complete018 и heldout.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,13 +8,15 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 10:30 UTC / 13:30 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 11:15 UTC / 14:15 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
-## Current snapshot at 09:45:07 UTC
+## Current snapshot at 10:27:29 UTC: full typed9 source-prefix accepted
 
--018 fullsource import actually STARTED once, session65471; source acceptanceFALSE/018notdone. Root polls/reaps; publisher onlysmallmetadata, no largefilehash/read or retry.
-- DriverV3 accepted, actual source-only grant7200CPU/10800wall/8GiBsampled; stagedrequest17edb ignored. CostV237697 independently underreview; heldoutrequestCLOSED.
--013 separate skeptic and014 two independentauthor lanes running per latest Root dispatch. Nextmax10:30UTC anchored09:45; actual09:45checkpoint relative write7s.
+- Original source018 session65471/chunka5ea08 is REAPED exit0. Root accepted the narrow typed9 source-prefix after the separate existing-output review82476/chunk7b56f2 exit0:42,448,764 rows; no fit/queryY. Original pending flags are immutable; complete018 is not done. [Separate Root acceptance](../backlog-reviews/evidence/full-source018-terminal/tlab-root-full-source018-source-prefix-acceptance.json).
+- Conservative source-prefix CPU upper629.91s including review against original7200CPU/10800wall. Import external586.10wall/609.87CPU rounded; sampled aggregate1,944,485,888B distinct from MAXRSS1,915,109,376B. Reviewer hashed five physical large files once; publisher/Root did not rehash them.
+- CostV2 total37697s remains REJECTED. Old4096/128 QA census bounds are UNSUPPORTED, not accepted quantities. Single census owner source_import_review is preparing reviewed finite metadata evidence; no replacement census numbers are published here. Heldout request remains CLOSED.
+- Actual inventory at this checkpoint: wave016 independent authors featuresA/modelsA running; separate wave015 skeptic featuresB running; census author source_import_review running. Other completed authors/reviewers are not reported as active. Root and sole publisher remain running; no publisher native/data job.
+- This10:30 maximum checkpoint is written at 10:27:29UTC, before the original deadline. Next maximum11:15UTC/14:15МСК remains anchored10:30, or after two next completed research rounds earlier. Next safe steps: publish bounded source-prefix proof; Root reviews finite015 census and a separately bounded existing018 reproduction step. No closed-session poll/retry, extra fit, real heldout grant or added research prerequisite.
 
 ## Три независимые линии
 
@@ -321,3 +323,14 @@ Actual write09:45:07UTC was7seconds late versus09:45; this is not a timely-write
 
 
 [012](archives/wave012/publication.json), [013](archives/wave013/publication.json) and [014](archives/wave014/publication.json) preserve18 exact completed author/skeptic artifacts.012support/coverage interpretation and013future R2 controls remain existing-family refinements with separate critiques;014pair-demand/DISTINCT physical specialization remains firstdraft evidence. Root readbacks are not inferred, no new canonicalIDs/fits/admissions or015/018 prerequisites. Source-only originalsession65471 stays exclusively Root-polled; publisher performed only small research/metadata reads. Nextmax10:30 stays anchored09:45.
+
+
+Source018 processsuccess update at 10:10:04 UTC: immutable Rootexternalreceipt6418c995… records originalsession65471 REAPEDexit0/chunka5ea08. Driver success is not sourceacceptance; reviewer six_role_output_review is authorized only existing-output hash/aggregate checks≤180CPU/300wall/1GiB within remaining originalbudget, noSQL/DBopen/decompress/native/fit/relaunch. SourceacceptanceFALSE/018notdone; nextsafeaction independentreview/Roothandoff, NOTpollclosed orretry. Cost37697 remains rejected/unmodified pending finiteQA/allagent census; realheldoutCLOSED,10:30anchoredmax unchanged.
+
+## Source-prefix acceptance /10:30 checkpoint — actual 10:27:29UTC
+
+Root acceptance at10:22:47UTC binds the actual original import and independent byte/metadata review. It establishes strict typed9 source-prefix conformance through accepted kernel validation, native schema/aggregate checks and physical-byte binding; it does not independently compare every DB cell, establish historical-DB equality, fresh-environment bootstrap, source-to-model reproduction or real heldout quality. Complete018 remains in_progress. Original producer pending/source flags remain historical immutable evidence. Old4096/128 QA limits are explicitly unsupported; rejected37697 cost proposal stays rejected pending the sole owner's independently reviewed metadata census. No census replacement is published.
+
+### Bounded source-prefix publication —10:34:34UTC
+
+[Proof pack](../backlog-reviews/full-source018-source-prefix-acceptance.md) сохраняет18 точных малых originals: original external lifetime, immutable owner/kernel aggregate reports, независимые checker/report/ledger/freeze/cache/terminal/resource logs и separate Root acceptance. `.log` меняет только public extension на `.txt`, bytes/SHA сохранены. Ни большие файлы, ни private request payload, ни raw/model/DB не включены; source/process/model jobs publisher0. Текущий progress-report обновлён с отдельным provenance version7; frozen experimental report/source ledger не изменены.
