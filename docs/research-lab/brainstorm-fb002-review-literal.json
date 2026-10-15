@@ -1,0 +1,115 @@
+{
+  "executed": "stdlib exact literal arithmetic/assertions only; no real rows/models",
+  "session": {
+    "mean": "3/5",
+    "inclusive_third_radii": [
+      "0",
+      "0",
+      "0",
+      "1",
+      "1"
+    ],
+    "exclusive_third_radii": [
+      "1",
+      "1",
+      "1",
+      "1",
+      "1"
+    ],
+    "recency_tie_example_inclusive_center": "1",
+    "exclusive_center": "0",
+    "pooled_A_B_counts_both": [
+      15,
+      10
+    ]
+  },
+  "energy": {
+    "stronger_fixed_2d_decay_fixture": {
+      "ages_seconds": [
+        518400,
+        345600,
+        172800,
+        3600
+      ],
+      "bin_indices": [
+        4,
+        13,
+        22,
+        31
+      ],
+      "counts_A": [
+        3,
+        0,
+        2,
+        1
+      ],
+      "counts_B": [
+        1,
+        3,
+        1,
+        1
+      ],
+      "N_both": 6,
+      "C24h_both": 1,
+      "old_2d_decay_both": "11/8",
+      "recent_decay_term": "same 1h event in both",
+      "E1_numerators": [
+        14,
+        12
+      ],
+      "E2_numerators": [
+        14,
+        12
+      ],
+      "normalized": [
+        "7/18",
+        "1/3"
+      ]
+    },
+    "common_replication_by3_invariant": true,
+    "bin_phase_shift_changes_energy": true,
+    "phase_example_numerators": [
+      0,
+      2
+    ]
+  },
+  "endpoints": {
+    "seconds_relative_window_start": [
+      -1,
+      0,
+      18899,
+      18900,
+      604799,
+      604800
+    ],
+    "bins": [
+      null,
+      0,
+      0,
+      1,
+      31,
+      null
+    ]
+  },
+  "surrogate": {
+    "prior_covariance": "I2",
+    "known_noise_variance": 1,
+    "six_zero_probes": "x=(1,0),y=0",
+    "posterior_mean": [
+      "0",
+      "0"
+    ],
+    "posterior_covariance_diag": [
+      "1/7",
+      "1"
+    ],
+    "UCB_positive_fixed_multiplier_chooses": "coordinate2",
+    "synthetic_uncertain_true_proxy_worlds": [
+      "+1",
+      "-1"
+    ],
+    "two_AST_ids_one_encoding_kept_separate": true,
+    "logical_policy_slots": 16,
+    "max_unique_physical_proxy_evaluations_before_retries": 10
+  }
+}

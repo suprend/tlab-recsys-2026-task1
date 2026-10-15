@@ -192,3 +192,6 @@ Crossed critique первой волны: [FA](brainstorm-fa001-review-by-b.md),
 
 
 [Four-field normalization](brainstorm-wave001-normalization-receipt.json) supplements the same six registered research hypotheses; [dated executable progress](../progress-report.md) and its [historical source receipt](../backlog-reviews/evidence/progress-report-checkpoint-20261015.json) keep current status distinct from the frozen report source snapshot.
+
+
+Completed follow-up critique: [FB002](brainstorm-fb002-review-by-retrieval-b.md), [RA003](brainstorm-ra003-review-by-models-a.md), [MB003](brainstorm-mb003-review-by-features-a.md); [fourteen-file evidence freeze](brainstorm-round002003-reviews-freeze.json). All10 local002 proposals now have review; no new canonical ID or fit admission.

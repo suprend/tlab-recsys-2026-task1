@@ -647,3 +647,8 @@ Separately, [native OS preflight failure evidence](backlog-reviews/evidence/root
 ### Current executable slice and continuous research checkpoint —06:55UTC
 
 [Progress report](progress-report.md) now dates the actual independently accepted manual/typed-generator development slice and distinguishes accepted CODE cores/owners from pending tiny fresh-process integration and actual reserved reporting. [Four-field normalization](research-lab/brainstorm-wave001-normalization-receipt.json) adds explicit prediction/nearest-test/task1 benefit to the same six HYP139–144, without new IDs or fit admission. Wave005 has two live independent authors, wave004 a separate skeptic; [checkpoint](research-lab/brainstorm-log.md) records actual handles, current V5 lineage and source-harness V2 failure states, safeNEXT and unchanged07:30UTC research deadline. Research ideas do not become prerequisites015/018/report.
+
+
+### Complete002 critique and existing-family003 refinements
+
+The [finished FB002/RA003/MB003 reviews](research-lab/brainstorm-round002003-reviews-freeze.json) complete critique of all10 second-wave local proposals and four003 entries. Preserve self-inclusive majority radius, physical scan/wall gaps, all-anchor filtering/keyed failed-walk accounting, inspected-source convention differences, hidden KAN coefficient fits and LA-NAM negative admission. These remain research refinements/conditional candidates; no new HYP or fit grant follows, and015/018/report priority is unchanged.

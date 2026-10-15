@@ -1,0 +1,379 @@
+{
+  "review": "features-b-round-002-review-by-retrieval-b",
+  "reviewer": "/root/brainstorm_retrieval_b",
+  "date": "2026-10-15",
+  "report": "brainstorm-fb002-review-by-retrieval-b.md",
+  "snapshot_manifest": "brainstorm-fb002-review-input-freeze.json",
+  "mode": "Independent read-only review of frozen named author report/ledger and canonical context",
+  "overall": "Retain FB-05 and FB-06 after precise literal/specification gates; keep FB-07 deferred. No permanent IDs, canonical promotion, quality or runtime evidence.",
+  "findings": [
+    {
+      "id": "RB-FB002-F01",
+      "priority": "P2",
+      "axis": "correctness/requirements",
+      "file": "brainstorm-fb002.md",
+      "line": 25,
+      "title": "Specify self-inclusive third-neighbor rank",
+      "trigger": "A nearest-neighbor implementation excludes the query/center profile from the five-index distance set",
+      "expected": "Strict majority among all five indices, including self; radii0,0,0,1,1 on profiles1,1,1,0,0; center1",
+      "alternate_actual": "Excluding self gives radii1,1,1,1,1; newest minority can win recency tie and return0",
+      "impact": "The stated literal majority-center contrast can fail under a common ambiguous neighbor convention",
+      "minimal_fix": "Declare inclusive order statistic and add exclusive-self negative fixture; no implemented failure alleged",
+      "evidence": "GROS v1 equations1/7; own exact Fraction assertions passed"
+    },
+    {
+      "id": "RB-FB002-F02",
+      "priority": "P2",
+      "axis": "cost/readiness",
+      "file": "brainstorm-fb002.md",
+      "lines": [
+        19,
+        31
+      ],
+      "title": "Bound physical input reads and wall time",
+      "trigger": "Matched-row cap interpreted as bounding the source scan or replay needed to obtain those matches",
+      "expected": "Explicit physical rows/bytes/wall ceiling with inclusive scan, metadata, coverage, index/sort/cache, replay/spill/export/failure accounting",
+      "gap": "One million matched rows and CPU/RSS do not bound all physical reads or blocked I/O wall time",
+      "impact": "Source feasibility admission lacks a complete physical work envelope",
+      "minimal_fix": "Freeze bounded read plan and explicit scan/wall ceilings before requesting source pilot; abort if complete declared source cannot fit",
+      "evidence": "Static cost analysis independently confirmed by frequency helper; no measured scan or overrun"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "FB-05",
+      "disposition": "accept-needs-literal/spec-refinement; real source/quality pilot not authorized",
+      "mechanism": "Two fixed normalized squared wall-clock count contrasts on32equal7d bins; own adaptation inspired by sequence-frequency work",
+      "source_distinction": "WEARec transforms learned item/position embeddings along event index; no paper-owned count scalar or two-scale activity feature claimed",
+      "novelty": "Specific compact nonlinear roughness beyond matched counts, recency, disjoint trend and one fixed category2d-decay; deterministic function of full histogram",
+      "alias_limits": [
+        "Do not count all32fine counts or arbitrary decay grids as matched unchanged information",
+        "Stronger fixture does not hold all incumbent columns or candidate-item-specific decay fixed",
+        "Orthogonal Haar coefficient energies differ by scale factorsE1/2 andE2/4; retain Haar-like terminology",
+        "No daily/weekly periodicity claim"
+      ],
+      "stronger_falsifier": {
+        "ages": [
+          "6d",
+          "4d",
+          "2d",
+          "1h"
+        ],
+        "bins": [
+          4,
+          13,
+          22,
+          31
+        ],
+        "counts_A": [
+          3,
+          0,
+          2,
+          1
+        ],
+        "counts_B": [
+          1,
+          3,
+          1,
+          1
+        ],
+        "matched": [
+          "N6",
+          "C24h1",
+          "C7d6",
+          "first6d",
+          "last1h",
+          "old2d-decay11/8 plus shared recent2^(-1/48)",
+          "product totalsx3y2z1",
+          "distinct3",
+          "corresponding recent-vs-older count trend"
+        ],
+        "energies_A": [
+          "7/18",
+          "7/18"
+        ],
+        "energies_B": [
+          "1/3",
+          "1/3"
+        ],
+        "candidate": "Unchanged unviewed candidate in common category; no full duplicate rows needed"
+      },
+      "negative_controls": [
+        "N0",
+        "N1 gives1,1",
+        "flat histogram gives0,0",
+        "uniform replication invariant",
+        "uneven logging multiplicity",
+        "one-second phase boundary",
+        "translation of all events and anchor",
+        "incomplete source versus complete silence",
+        "unknown candidate metadata"
+      ],
+      "matched_control": "Same incumbent/Q/C/fullY, equal column closure and exact support/missingness mask; energies versus two prespecified fine-window contrasts; no phase/jitter selection loop",
+      "time": "Half-open18900second anchor-relative bins in[t-604800,t); all peers at t excluded; exact replay cannot silently become calendar approximation",
+      "cost": "Resolve F02;32x100000 packed uint64 counts=25.6MB raw state only, not total RSS or physical feasibility",
+      "measured_gain": false
+    },
+    {
+      "id": "FB-06",
+      "disposition": "accept-needs-self-inclusive/session/null-spec-refinement; pilot not authorized",
+      "mechanism": "Choose complete profile minimizing self-inclusive strict-majority TV radius over exactly five recent observed view-session prefixes before candidate projection",
+      "novelty": "Selected profile differs under same equal-session mean/pooled category counts/support; not a new independent robust learner guarantee",
+      "source_distinction": "GROS independent group estimator concentration does not transfer to dependent shopping sessions; HyPro learned removal/enhancement not implemented",
+      "literal": {
+        "profiles_A": [
+          "1",
+          "1",
+          "1",
+          "0",
+          "0"
+        ],
+        "profiles_B": [
+          "3/5",
+          "3/5",
+          "3/5",
+          "3/5",
+          "3/5"
+        ],
+        "mean_both": "3/5",
+        "pooled_counts_both": [
+          15,
+          10
+        ],
+        "selected_affinities": [
+          "1",
+          "3/5"
+        ]
+      },
+      "session_contract": [
+        "Composite user/session key; missing IDs excluded rather than fictitiously merged",
+        "Rank eligible nonempty in-window view-prefixes by declared last past view timestamp",
+        "Only prefix events<t; no future tails or completion inference",
+        "All tied source peers visible before technical selection; deterministic final session-ID tie or common unavailable state",
+        "Select whole profile, not independent coordinate medians"
+      ],
+      "null_contract": "Historical unknown-category mass bucket may participate in TV; candidate unknown/ambiguous as-of category yields conditionalNULL, never unknown-match affinity",
+      "matched_control": "Same5profiles/eligibility/count/missing closure for equal-session mean; pooled event mean additional diagnostic, not sole matched arm",
+      "negative_controls": [
+        "four sessions",
+        "five one-view sessions",
+        "identical profiles",
+        "recent minority/shifted interest",
+        "unknown historical category",
+        "missing session ID",
+        "same-second recency and radius ties",
+        "row permutation"
+      ],
+      "cost": "Resolve F02;25pairwise distances are not the dominant guaranteed cost; source retrieval and sparse support remain unknown",
+      "measured_gain": false
+    },
+    {
+      "id": "FB-07",
+      "disposition": "defer-proxy-validity/information-contract; no hard arithmetic defect in16logicalslots",
+      "mechanism": "Exact Bayesian linear posterior on frozen local AST descriptors and fit-free development proxy allocates two acquisition opportunities after six probes",
+      "source_distinction": "Original variational BNN, text-embedding-3-small and column usage, downstream utility and optional human feedback; custom BLR/proxy is adaptation, not reproduction",
+      "source_limit": "Paper names embedding model; API protocol/call counts not inspected; official implementation not found in bounded source search",
+      "novelty": "Acquisition uncertainty with fixed grammar/pool rather than feature-pair synergy, transfer topology, shared search or macro induction; no HYP count assigned",
+      "literal": {
+        "prior_covariance": "I2",
+        "known_noise_variance": 1,
+        "probes": "Six y0 at x=(1,0)",
+        "posterior_mean": [
+          "0",
+          "0"
+        ],
+        "posterior_covariance_diag": [
+          "1/7",
+          "1"
+        ],
+        "result": "Positive fixedUCB explores coordinate2; separate+1/-1proxy worlds refute universal benefit"
+      },
+      "cache": "Exact typed AST identity plus source/anchor/label/proxy/bin/closure/NULL/seed provenance; equal encodings do not merge AST results",
+      "information": {
+        "logical_slots": 16,
+        "unique_physical_proxy_calls_max_before_retries": 10,
+        "formula": "2*(6+2)logical versus6shared+2+2physical",
+        "cross_arm_overlap": "Physical reuse possible after requests fixed; reduce unique calls, not logical opportunities",
+        "visibility": "Freeze shared6initialscores; do not reveal armA later scores to armB before its choices or vice versa",
+        "failure": "Cache hit/failure consumes requested opportunity; no refill"
+      },
+      "readiness": [
+        "Frozen proxy and conditioning with mature labels",
+        "fixed prior/noise/descriptor scaling/UCB/ties",
+        "legal pool and canonical AST alias dedup before mining",
+        "closure<=3columns per final arm",
+        "fit count separates selector posterior work from downstream learner refits",
+        "actualNDCGinitial scores require paying all initial/acquisition fits",
+        "inspecteddevelopment screeningonly and selector available before later application"
+      ],
+      "measured_gain": false
+    }
+  ],
+  "shared_contract": {
+    "incumbent": "Strong B41 and frozen acceptedR2/count closure unchanged; beatingB41alone insufficient",
+    "heldout": "Current heldout closed; new development reservation required for any actual source/proxy/model work",
+    "Q_C_Y": "Same Q/C/fullY and row coverage; preserve empty/cold/unknown rows; no Y-based feature/source/phase selection",
+    "metadata": "Full latest global past timestamp bucket; known+NULL/conflict ambiguous, no older backoff; historical event categories remain event-owned",
+    "columns": "Exact<=3column closures with equal supports/masks; no hidden dispersion or parent columns",
+    "cost": "Author100Q/1Mmatchedrows/30CPUmin/4GB and twofits90CPUmin are alternatives/proposals, not grants; add explicit physical scan and wall caps, paid index/materialization/export/failure work",
+    "IDs": "No new canonical IDs or family counts; discard semantic AST aliases before opportunities"
+  },
+  "primary_sources": [
+    {
+      "url": "https://arxiv.org/html/2511.07028v2",
+      "version": "v2,26November2025; AAAI2026 author identification",
+      "supports": "WEARec learned frequency/wavelet sequence mechanism"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xhy963319431/WEARec/master/src/model/wearec.py",
+      "version": "live master read2026-10-15",
+      "supports": "single-level embedding Haar decomposition/rescale/reconstruction, FFT branch"
+    },
+    {
+      "url": "https://arxiv.org/html/2512.17442v1",
+      "version": "v1,19December2025",
+      "supports": "BSARec residual/padding caution in reproduction setting"
+    },
+    {
+      "url": "https://arxiv.org/html/2402.15442v1",
+      "version": "v1,23February2024",
+      "supports": "strict-majority objective and observed-center restriction"
+    },
+    {
+      "url": "https://www3.stat.sinica.edu.tw/statistica/fp/SS-2024-0414.html",
+      "version": "publisher page read2026-10-15; future article listing",
+      "supports": "publisher provenance; no author-code link located"
+    },
+    {
+      "url": "https://link.springer.com/article/10.1007/s41019-025-00301-1",
+      "version": "2025 article read2026-10-15",
+      "supports": "HyPro short-session denoising caution and learned channels"
+    },
+    {
+      "url": "https://github.com/jarviswww/Code4HyPro",
+      "version": "live main read2026-10-15",
+      "supports": "official repository identity; model source fetch failed"
+    },
+    {
+      "url": "https://arxiv.org/html/2601.21060v1",
+      "version": "v1,28January2026",
+      "supports": "BNN/operation encoding/UCB/downstream evaluation and human feedback"
+    },
+    {
+      "url": "https://xfleezy.github.io/zhuoyanli/",
+      "version": "helper primary author page read2026-10-15",
+      "supports": "ICLR2026 publication identification"
+    }
+  ],
+  "source_limits": [
+    "No official GROS or HumanLLMFE implementation found in bounded searches; not an assertion no code exists",
+    "HyPro raw model.py cache miss; no source execution",
+    "Future adapters must pin immutable revisions; no live-code SHA invented"
+  ],
+  "helpers": [
+    {
+      "task": "/root/brainstorm_retrieval_b/fb002_frequency_sources",
+      "report": "brainstorm-fb002-frequency-primary-review.md",
+      "literal_evidence": "brainstorm-fb002-frequency-literal.json",
+      "role": "Primary WEARec/reproduction/code and independent exact decay/energy accounting"
+    },
+    {
+      "task": "/root/brainstorm_retrieval_b/fb002_surrogate_sources",
+      "report": "brainstorm-fb002-surrogate-primary-review.md",
+      "role": "Primary original acquisition source, literal posterior and information-cost accounting"
+    }
+  ],
+  "verification": {
+    "own_literal_evidence": "brainstorm-fb002-review-literal.json",
+    "executed": "stdlib Fraction/literal assertions only",
+    "passed": [
+      "Self-inclusive/exclusive session radii and selected centers",
+      "Equal pooled counts/means",
+      "Exact fixed2dcategory-decay energy nonalias",
+      "Exact32bin endpoints",
+      "Scale/phase examples",
+      "BLR covariance exploration",
+      "Distinct AST IDs despite encoding collision",
+      "16logical versus<=10physical count"
+    ],
+    "not_executed": [
+      "real materializer",
+      "real source scans",
+      "coverage/support estimate",
+      "actual proxy labels",
+      "model or native fits",
+      "physical benchmark",
+      "production cache integration"
+    ]
+  },
+  "execution": {
+    "actual_data": false,
+    "DB_SQL": false,
+    "Y": false,
+    "real_models": false,
+    "native_fits": 0,
+    "paid_API_jobs": false,
+    "weights": false,
+    "download_jobs": false,
+    "author_edits": false,
+    "shared_repo_edits": false,
+    "tiny_stdlib_literals": true
+  },
+  "freshness": {
+    "status": "PASS-author-and-context-inputs-unchanged",
+    "inputs": [
+      {
+        "original": "brainstorm-fb002.md",
+        "snapshot": "preserved-review-inputs/tlab-brainstorm-features-b-round-002.md",
+        "sha256_start": "d6fc8db181277765e7de4384e78273c3dc51aaa117428959e9c67f3bff1c8b16",
+        "sha256_end": "d6fc8db181277765e7de4384e78273c3dc51aaa117428959e9c67f3bff1c8b16",
+        "snapshot_sha256": "d6fc8db181277765e7de4384e78273c3dc51aaa117428959e9c67f3bff1c8b16",
+        "unchanged": true
+      },
+      {
+        "original": "brainstorm-fb002-ledger.json",
+        "snapshot": "preserved-review-inputs/tlab-brainstorm-features-b-round-002-ledger.json",
+        "sha256_start": "a46c05b08809c5ddca737d8b37b59c58b5ee966c8b39882a5c8d6667695b705d",
+        "sha256_end": "a46c05b08809c5ddca737d8b37b59c58b5ee966c8b39882a5c8d6667695b705d",
+        "snapshot_sha256": "a46c05b08809c5ddca737d8b37b59c58b5ee966c8b39882a5c8d6667695b705d",
+        "unchanged": true
+      },
+      {
+        "original": "PROJECT_ROOT/docs/research-lab/round-015.md",
+        "snapshot": "preserved-review-inputs/docs__research-lab__round-015.md",
+        "sha256_start": "2fd1a710f14c2c23e4f712dda1115520858636e29a70396087de3f78a2a0ea39",
+        "role": "canonical context",
+        "sha256_end": "2fd1a710f14c2c23e4f712dda1115520858636e29a70396087de3f78a2a0ea39",
+        "snapshot_sha256": "2fd1a710f14c2c23e4f712dda1115520858636e29a70396087de3f78a2a0ea39",
+        "unchanged": true
+      },
+      {
+        "original": "PROJECT_ROOT/docs/features/09-user-item/04-interest-profile.md",
+        "snapshot": "preserved-review-inputs/docs__features__09-user-item__04-interest-profile.md",
+        "sha256_start": "fdde74c7af537f84afe80052c38418b8dcc687462661f7cd9476f53eb29f92a0",
+        "role": "canonical context",
+        "sha256_end": "fdde74c7af537f84afe80052c38418b8dcc687462661f7cd9476f53eb29f92a0",
+        "snapshot_sha256": "fdde74c7af537f84afe80052c38418b8dcc687462661f7cd9476f53eb29f92a0",
+        "unchanged": true
+      },
+      {
+        "original": "PROJECT_ROOT/docs/features/02-windows/research-a.md",
+        "snapshot": "preserved-review-inputs/docs__features__02-windows__research-a.md",
+        "sha256_start": "6bcd6df9fbee8b84c8de3637e892ecca43c3816c90444f3b833b49d66208f8c8",
+        "role": "canonical context",
+        "sha256_end": "6bcd6df9fbee8b84c8de3637e892ecca43c3816c90444f3b833b49d66208f8c8",
+        "snapshot_sha256": "6bcd6df9fbee8b84c8de3637e892ecca43c3816c90444f3b833b49d66208f8c8",
+        "unchanged": true
+      },
+      {
+        "original": "PROJECT_ROOT/docs/features/02-windows/research-b.md",
+        "snapshot": "preserved-review-inputs/docs__features__02-windows__research-b.md",
+        "sha256_start": "8e0585ade0f39697e01ec4a659f72d34f2c30db2fda5256b7a81ee195b68dc63",
+        "role": "canonical context",
+        "sha256_end": "8e0585ade0f39697e01ec4a659f72d34f2c30db2fda5256b7a81ee195b68dc63",
+        "snapshot_sha256": "8e0585ade0f39697e01ec4a659f72d34f2c30db2fda5256b7a81ee195b68dc63",
+        "unchanged": true
+      }
+    ]
+  }
+}
