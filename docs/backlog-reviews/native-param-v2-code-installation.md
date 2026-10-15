@@ -1,5 +1,7 @@
 # V2 metadata comparison and permanent regression package installed
 
+Historical installed-CODE snapshot at12:53UTC. A later separate [actual B/W native metadata operation is accepted](native-bw-v2-validation.md); the original CODE/install/transport receipts and then-unverified boundary below are retained unchanged. Real015 stays CLOSED.
+
 The exact Root-adopted five-file package is installed. Production and independent oracle admit only the observed direct root-scalar `bayesian_matrix_reg` alias: the expected value must itself be canonical binary32, the actual value must have the same binary32 bits and equal the exact ten-significant-digit decimal representation. The original absolute/learning tolerances, types, schema, fixed settings, tree count and feature-order checks stay intact. Descendants of any list cannot use this new fallback; the original V1 P2 is retained as negative evidence. No general native serialization guarantee is claimed.
 
 [Root implementation adoption](evidence/native-param-v2-install/originals/tlab-root-native-param-alias-v2-code-adoption-v1.json), [Root portable-package adoption](evidence/native-param-v2-install/originals/tlab-root-native-parameter-roundtrip-portable-install-adoption-v1.json), [exact five-file installation receipt](evidence/native-param-v2-install/installation.json), [publication manifest](evidence/native-param-v2-install/publication.json).

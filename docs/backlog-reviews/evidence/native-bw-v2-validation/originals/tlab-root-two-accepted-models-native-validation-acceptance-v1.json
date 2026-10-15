@@ -1,0 +1,144 @@
+{
+  "DB": 0,
+  "Y": 0,
+  "accepted_at_utc": "2026-10-15T13:00:06.009108+00:00",
+  "accepted_models": [
+    {
+      "get_all_params_calls": 2,
+      "independent_oracle": "PASS",
+      "production": "PASS",
+      "role": "B",
+      "tree_count": 300,
+      "width": 41
+    },
+    {
+      "get_all_params_calls": 2,
+      "independent_oracle": "PASS",
+      "production": "PASS",
+      "role": "W",
+      "tree_count": 300,
+      "width": 44
+    }
+  ],
+  "active_wall_33914_basis_unchanged": true,
+  "external_log": {
+    "bytes": 777,
+    "path": "/tmp/tlab-two-accepted-models-validation-external-v1.log",
+    "sha256": "159668aad4e497bb3f2900f6ccf9bacd674595c6608e0b0e40a6b72998c68a39"
+  },
+  "external_resources": {
+    "cpu_seconds_conservative_upper": 1.05,
+    "cpu_seconds_rounded": 1.03,
+    "maximum_resident_set_size_bytes": 112263168,
+    "wall_seconds_conservative_upper": 1.06,
+    "wall_seconds_rounded": 1.05
+  },
+  "external_terminal": {
+    "chunk_id": "21f31b",
+    "exit_code": 0,
+    "session_id": null
+  },
+  "fit": 0,
+  "fresh_small_pins": [
+    {
+      "bytes": 10736,
+      "path": "/tmp/tlab-two-accepted-models-validation-plan-v2.json",
+      "sha256": "a0df022c00bb2cc59878fe7263a0c5d1061f53f17145a83130ffb6216adeb093"
+    },
+    {
+      "bytes": 10919,
+      "path": "/tmp/tlab-two-accepted-models-validation-once-v2.py",
+      "sha256": "697022c6d16f303a35a4f3acc50ed12ab511e2c6dbe668dc6bf81fb22c89302e"
+    },
+    {
+      "bytes": 2714,
+      "path": "/tmp/tlab-two-accepted-models-validation-freeze-v2.json",
+      "sha256": "ae540ff79cfa986cea9dd6708ad2dbdf726aa7a31a8b4199ba690bdcc2e906ba"
+    },
+    {
+      "bytes": 2858,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/native-param-v2-install/installation.json",
+      "sha256": "263bb6d1334eafcd08c7c6479b3ceb875c206c80bc6873337043657879e7339b"
+    },
+    {
+      "bytes": 10946,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py",
+      "sha256": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4"
+    },
+    {
+      "bytes": 17317,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_prediction_audit.py",
+      "sha256": "3b378274041623ba37dcb5a53a115458f02af4f2665f10821875aaf099d3cf75"
+    },
+    {
+      "bytes": 6991,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_native_parameter_roundtrip.py",
+      "sha256": "5e7db11e381623cc8a415190a73e3e0d579de99499875890508c8cfb6635a83e"
+    },
+    {
+      "bytes": 4386,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/fixtures/native_parameter_roundtrip.json",
+      "sha256": "8e12c6bbb1360ec82ef5309d565d356a350c4eeea6428da4825d3e9db1ea2da5"
+    },
+    {
+      "bytes": 10572,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_heldout_prediction_audit.py",
+      "sha256": "04590eef77abfbd755c17b7711a6fd6977970c5f8db780de64a28b655b3094b5"
+    },
+    {
+      "bytes": 14058,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_contract.py",
+      "sha256": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc"
+    },
+    {
+      "bytes": 10946,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py",
+      "sha256": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4"
+    },
+    {
+      "bytes": 17317,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_prediction_audit.py",
+      "sha256": "3b378274041623ba37dcb5a53a115458f02af4f2665f10821875aaf099d3cf75"
+    },
+    {
+      "bytes": 11557,
+      "path": "/tmp/tlab-development-whole018-request-candidate-v1.json",
+      "sha256": "0d7d99a9a8fb2a1f9bfbf9375e57935f49f52ee48685ae92dbb7f66f5dc41ce9"
+    },
+    {
+      "bytes": 16752,
+      "path": "/tmp/tlab-root-development-day-reference-handoff-prepared.json",
+      "sha256": "fd7304383e9c025d205a0b7f9060187f8062daa9baa2f9b0f86ea6a18323e05b"
+    },
+    {
+      "bytes": 556,
+      "path": "/tmp/tlab-two-model-validation-boundary-pure-result-v2.json",
+      "sha256": "19d81132d3d9309a660d1a0a0d97688ae2e0877f73a7c7cc8847391e19d65c1c"
+    }
+  ],
+  "grant": {
+    "bytes": 1763,
+    "path": "/tmp/tlab-two-accepted-models-validation-root-grant-v1.json",
+    "sha256": "9d59508d485cf8c55785933f39ea7b1f10c293073f40d9c3d1e5c9d8ee0d6777"
+  },
+  "model_and_compiled_source_hashes_unchanged": true,
+  "next_step": "Version real015 request for exactly two code pins; finalize existing V6 wrapper bindings before original owner operation",
+  "old315fe_request_unchanged": true,
+  "operation_receipt": {
+    "bytes": 4241,
+    "path": "/tmp/tlab-root-two-accepted-models-validation-issued-v1.json",
+    "sha256": "ae2d92de9c7f78cb229fd1ecf36cd989d923eb4bfb3f9c64d74a48ec11ba37ec"
+  },
+  "original018_failed_episode_unchanged": true,
+  "predict": 0,
+  "real015_execution_granted": false,
+  "result": {
+    "bytes": 763,
+    "path": "/tmp/tlab-two-accepted-models-validation-once-v1/result.json",
+    "sha256": "3c4056ea89e6c0b658582cfbf03c69e2e922c1db60769205d82c467229905d1a"
+  },
+  "scientific_study_fit_and_selection_counts_unchanged": true,
+  "status": "ACCEPTED_NATIVE_METADATA_CHECK_ONLY",
+  "subprocess": 0,
+  "version": 1
+}

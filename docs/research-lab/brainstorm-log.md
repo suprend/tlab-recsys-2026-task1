@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026, 12:53:34UTC / 15:53:34МСК. V2 CODE/test package установлен; native B/W и real015 закрыты. Максимум13:30UTC неизменён.
+Обновлён15 октября2026, 13:07:32UTC / 16:07:32МСК. B/W native metadata accepted; real015 закрыт;023 независимые authors running. Максимум13:30UTC неизменён.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -9,6 +9,20 @@
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 13:30 UTC / 16:30 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Current accepted-native/checkpoint view — 13:07:32UTC
+
+Root принял отдельно завершённую B41/W44 native metadata operation (receipt f7486ab8…): terminal21f31b EXIT0, всего2 loads и по2 getparams на модель, production+independent oracle PASS/300trees;0fit/predict/DB/Y/children. Внешний1.05wall/1.03CPU rounded и MAXRSS112,263,168B отдельно от producer body; original VERIFIED_PENDING_EXTERNAL_ACCEPTANCE не переписан. Доказательства архивированы без повторного native/suite/largehash запуска издателем. Это снимает узкий вопрос двух сохранённых native states, а не полный018 source-to-scores/parity.
+
+Original98791 FAILED/consumed/full-treeCPU UNKNOWN, partialexports не приняты; acceptedtyped9sourceprefix и33914/43200/1000/300 неизменны. Старые0d7d99/315fe сохраняются; real015 CLOSED, safeNEXT — новый точный versioned request и финальный wrapper binding/review перед отдельным RootOP, без новых fits/research prerequisites.
+
+[Wave022](brainstorm-wave022-synthesis.md): два независимых FIRST, отдельный ModelsB skeptic и Root full readback закончены; paired endpoint/per-leaf extent и restricted DFS countercontrol только refinements,0 новых HYP/admissions/gates. Flat/no-last-time qualifier перенесён в additive synthesis, originals неизменны. Inventory observation этой публикации: Root/координатор, wave023 FeaturesA+RetrievalA и отдельный wrapper reviewer six_role_harness running; остальные показанные handles completed.023 авторы не читали peer FIRST по Root assignment, skeptic — только после обоих freeze.
+
+Последующее handoff13:08:06UTC: RetrievalA wave023 FIRST frozen (93b0373d…/66c6b58a…), peer unread; второе FIRST/отдельный critic на момент этого handoff ещё не подтверждены. Это proposal-only, не дополнительная очередь или runtime authority.
+
+Следующий максимум13:30UTC/16:30МСК остаётся от исходного12:45 либо после двух следующих completed research rounds раньше. New acceptance/ideas не reset clocks/budgets. Сохраняются опоздание12:45checkpoint81.359409s,17slots, активная общая цель до результата/команды пользователя, единственный backlog и solepublisher. [Native proof](../backlog-reviews/native-bw-v2-validation.md).
+
+## Historical installed-CODE boundary12:53
 
 ## Current installed-CODE view — 12:53:34UTC
 

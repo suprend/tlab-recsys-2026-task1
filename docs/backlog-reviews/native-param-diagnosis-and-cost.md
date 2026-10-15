@@ -1,6 +1,6 @@
 # Native metadata diagnosis accepted; fixes and runtime remain pending
 
-Historical diagnosis publication at12:29UTC. Later, the [V2 code and permanent regression package were installed](native-param-v2-code-installation.md) under separate Root receipts; native B/W validation and real015 remain ungranted. The original diagnosis/failure/readback artifacts below are unchanged.
+Historical diagnosis publication at12:29UTC. Later, the [V2 code and permanent regression package were installed](native-param-v2-code-installation.md) under separate Root receipts; a later [actual B/W native metadata validation is accepted](native-bw-v2-validation.md), while real015 remains ungranted. The original diagnosis/failure/readback artifacts below are unchanged.
 
 The separate once-only B metadata diagnostic reproduced expectedRED at the existing verifier. Root accepted this particular observed diagnosis and its narrow cost disposition, **not a checker fix, W load, original018 retry or actual015 execution**. [Root scoped readback](evidence/native-param-diagnosis/Root/tlab-root-native-param-diagnosis-and-cost-acceptance-v1.json), [unchanged original diagnostic report](evidence/native-param-diagnosis/originals/tlab-018-native-param-diagnostic-report-v1.md), [exact publication manifest](evidence/native-param-diagnosis/publication.json).
 

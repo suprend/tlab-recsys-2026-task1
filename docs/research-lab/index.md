@@ -4,6 +4,8 @@
 
 [Журнал новых идей: три независимые линии, кандидаты и отказы](brainstorm-log.md) отделяет текущий новый brainstorm от refinement/audit истории.
 
+Последние завершённые независимые пары и отдельные skeptics: [015 portability](archives/wave015/publication.json), [016–017 reproduction/claims](brainstorm-waves016017-synthesis.md), [018–019 diagnostics/transfer](brainstorm-waves018019-synthesis.md), [020–021 claims/multiplicity](brainstorm-waves020021-synthesis.md), [022 temporal adapter/DFS countercontrol](brainstorm-wave022-synthesis.md). Их research-only приёмки не добавляют HYP/допусков или обязательных задач; актуальная фактическая работа — в backlog/journal.
+
 - [Round001: nested primitives, grammar, external dataset compatibility](round-001.md) и [независимый critic](round-001-review.md): HYP011 accepted-for-pilot;012/013 deferred;014 rejected.
 - [Round002: category-bound nested reference и exact shared DAG](round-002.md) и [независимый critic](round-002-review.md): HYP045/046 needs-pilot внутри общего TLAB016 ledger.
 

@@ -1,0 +1,28 @@
+{
+  "SELF_cpu_seconds": 0.037350999999999995,
+  "SELF_peak_RSS_bytes": 25198592,
+  "actual_CBMs_read_hashed_loaded": 0,
+  "actual_native_predict_or_fit": 0,
+  "actual_unique_checks": 14,
+  "checks": [
+    "accepted B/W metadata agreement",
+    "B mock complete verify +independent oracle, exact2 metadata calls",
+    "W mock complete verify +independent oracle, exact2 metadata calls",
+    "unobserved same-bin value independently rejected",
+    "other numeric key independently rejected",
+    "nested Bayesian independently rejected",
+    "boolean float confusion independently rejected",
+    "nonfinite independently rejected",
+    "production list alias rejected",
+    "independent list alias rejected",
+    "oracle has no production numeric helper",
+    "actual grant/once output/cache absent",
+    "no native CatBoost or project module import",
+    "two selected AST closures each contain one params call and no fit/predict/load/DB call"
+  ],
+  "elapsed_wall_seconds": 0.01179995800339384,
+  "execution_authority": false,
+  "native_or_DB_modules_imported": false,
+  "scope": "pure mocks/static AST only; production/oracle drafts remain unadopted",
+  "source_script_sha256": "04dcb64af9e229de28ac67fa454c1e521861a2c5e7113773841090c585c66683"
+}

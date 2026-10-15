@@ -1,0 +1,107 @@
+{
+  "wave": 22,
+  "author": "/root/brainstorm_models_a",
+  "status": "FIRST_FROZEN",
+  "peer022_read_before_freeze": false,
+  "new_mechanism_count": 0,
+  "new_ids": [],
+  "dedup": [
+    "016 typed generation",
+    "018 conformance",
+    "HYP046 physical calculation",
+    "round-026",
+    "round-029",
+    "round-030"
+  ],
+  "disposition": "optional source-backed countercontrol refinement; no admission or prerequisite",
+  "four_fields": {
+    "mechanism": "Information-equivalent restricted DFS-style definition enumeration normalized into existing AST, with complete physical closure and same temporal/data contract.",
+    "prediction": "Overlapping grammar yields same information/values when all contracts match; divergences identify semantics rather than learner/search benefit.",
+    "nearest_experiment": "UNRUN: three supported definitions, <=12 invented events, two anchors, <=16 independent scalar/closure assertions; no Featuretools installation/runtime.",
+    "task1_benefit": "Explain manual assumptions and narrow contribution without altering frozen B/W/final study or confusing aggregation enumeration with ML gain."
+  },
+  "primary_sources": [
+    {
+      "url": "https://docs.featuretools.com/en/stable/generated/featuretools.dfs.html",
+      "type": "official API",
+      "version_served": "1.31.0",
+      "facts": [
+        "relationships and primitive/path/column constraints",
+        "max_depth",
+        "seed_features",
+        "features_only",
+        "max_features default -1",
+        "include_cutoff_time default True",
+        "approximate parameter"
+      ]
+    },
+    {
+      "url": "https://docs.featuretools.com/en/stable/getting_started/handling_time.html",
+      "type": "official guide",
+      "version_served": "1.31.0",
+      "facts": [
+        "time index as information availability",
+        "False cutoff yields left-inclusive right-exclusive event window",
+        "secondary time index",
+        "approximation reuses costly aggregates"
+      ]
+    },
+    {
+      "url": "https://docs.featuretools.com/en/stable/_modules/featuretools/entityset/entityset.html#EntitySet._handle_time",
+      "type": "official published source",
+      "version_served": "1.31.0",
+      "facts": [
+        "primary filter < time_last with False",
+        "window mask >= time_last-training_window with False",
+        "secondary mask >= time_last",
+        "no runtime execution checked"
+      ]
+    }
+  ],
+  "sources_verified_utc_date": "2026-10-15",
+  "source_count_cited": 3,
+  "inferences": [
+    "Filtering/masking cannot reconstruct overwritten historical values without version records.",
+    "Event timestamp alone cannot establish independent record arrival availability.",
+    "max_features counts generated definitions rather than our emitted physical model closure; normalization is an adaptation."
+  ],
+  "strongest_control": "Same annotations, primitives, windows, B41 seeds and semantic dedup; independent hand definitions for the common grammar, identical population/global-peer and physical closure.",
+  "negative_criterion": "Exact equivalence establishes no new information mechanism; mismatch/unsupported clock binding defeats parity claim before any learner comparison.",
+  "proposed_future_cost": {
+    "execution_status": "UNRUN / ungranted",
+    "cpu_seconds_max": 30,
+    "wall_seconds_max": 60,
+    "memory_bytes_max": 134217728,
+    "invented_events_max": 12,
+    "anchors_max": 2,
+    "assertions_max": 16,
+    "real_source_scans": 0,
+    "fits": 0,
+    "predictions": 0,
+    "metric_looks": 0,
+    "includes": [
+      "case design",
+      "reference evaluation",
+      "failures",
+      "review"
+    ],
+    "framework_integration": "unmeasured and deferred"
+  },
+  "actual_actions": {
+    "web_research": true,
+    "helpers": 0,
+    "experiments": 0,
+    "installs": 0,
+    "data_model_Y_reads": 0,
+    "native_imports": 0,
+    "fits": 0,
+    "large_hashes": 0,
+    "project_writes": 0,
+    "paid_api_jobs": 0,
+    "toy_cases_executed": 0
+  },
+  "freshness_limit": "Observed served official stable documentation version1.31.0 on2026-10-15; no installed or latest-release runtime assertion.",
+  "project_prior_read": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/feature-programs.md (existing016 generation, physical closure, signatures, tests and prior DFS reference).",
+  "current_root_observations": "B/W/final frozen;018 verifier rounding failure and tinyV2 independent review are parent-provided status, not verified by this source-only report;015 CLOSED unchanged.",
+  "word_count_whitespace": 551
+}
