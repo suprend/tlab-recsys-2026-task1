@@ -1,0 +1,27 @@
+{
+  "automatic_retry": false,
+  "command": "/usr/bin/time -p /Users/mdpospelov/tlab-recsys-2026/.venv/bin/python -I -S -B /tmp/tlab-duckdb-readonly-view-canary-once/canary.py > /tmp/tlab-duckdb-readonly-view-canary-once/stdout.log 2> /tmp/tlab-duckdb-readonly-view-canary-once/stderr.log",
+  "cost_scope": "Applicationstartupthroughclosedexternalexit and boundedRootreadbackcommands; model/toolqueue time not measured asjobwall",
+  "forbidden": "No realdata/models/Y/ML/children/network/project/Git",
+  "freeze_sha256": "07f53ad631583c0741e78299277fd6695855b97bd1fc5ac8e0c5928aeac71a38",
+  "full_new_verifier_grant": false,
+  "issued_at_utc": "2026-10-15T17:37:05.195710+00:00",
+  "limits": {
+    "CPU_seconds": 3,
+    "RSS_bytes": 268435456,
+    "scratch_bytes": 16777216,
+    "wall_seconds": 5
+  },
+  "old_verifier5316remains_closed_failed": true,
+  "operation_id": "public018-readonly-native-API-canary-once",
+  "owner": "/root",
+  "reason": "Concreteknownnative5316readonlycreate_view failure; newtinyAPIimmutabilitytest requiredfor narrowmemoryATTACHrepair,notexisting14methodrerun",
+  "scope": "4inventedsource rows/3typedfields,originalexpectednativeRED,readonlyattachment/memorycreate_viewandreplacementGREEN,sourceDBbyteidentity/noWAL/INSERTrejected",
+  "source": {
+    "bytes": 7414,
+    "path": "/tmp/tlab-duckdb-readonly-view-canary-once/canary.py",
+    "sha256": "c096a00057990a43d5536eaeece09b8e5275aa4727f4ae937e047f99564da6c2"
+  },
+  "sourceV3CODEreviews_pending": true,
+  "status": "prepared_submit_once"
+}

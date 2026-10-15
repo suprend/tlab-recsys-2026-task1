@@ -1,0 +1,52 @@
+{
+  "actual_ML_operations": 0,
+  "cost": {
+    "cpu_seconds": 0.287617,
+    "peak_rss_bytes": 100073472,
+    "scope": "entry through sample; startup/exit/Root readback external",
+    "scratch_bytes": 544897,
+    "wall_seconds": 0.6649105420074193
+  },
+  "error": null,
+  "evidence": {
+    "attached_path_literal": "'/private/tmp/tlab-duckdb-readonly-view-canary-once/source''quoted.duckdb'",
+    "attached_write_error": {
+      "message": "Invalid Input Error: Cannot execute statement of type \"INSERT\" on database \"immutable_source\" which is attached in read-only mode!",
+      "type": "InvalidInputException"
+    },
+    "attached_write_rejected": true,
+    "config": {
+      "max_temp_directory_size": "0B",
+      "memory_limit": "128MB",
+      "temp_directory": "/private/tmp/tlab-duckdb-readonly-view-canary-once/spill",
+      "threads": "2"
+    },
+    "different_relation_replacement_green": true,
+    "memory_namespace_green": true,
+    "original_readonly_error": {
+      "message": "Invalid Input Error: Failed to create view 'probe_f': Cannot execute statement of type \"RELATION\" on database \"source'quoted\" which is attached in read-only mode!",
+      "type": "InvalidInputException"
+    },
+    "original_readonly_red": true,
+    "source": {
+      "bytes": 536576,
+      "sha256": "9663567499edb0ffa33acd0d284d80ff7a239eab7190b4b23ac1a0a72e23378f"
+    },
+    "source_WAL_absent": true,
+    "source_byte_identity_unchanged": true,
+    "source_rows": 4
+  },
+  "external_full_exit_accepted": false,
+  "guard_violations": [],
+  "limits": {
+    "cpu": 3,
+    "rss": 268435456,
+    "scratch": 16777216,
+    "wall": 5
+  },
+  "real_project_input_reads": 0,
+  "retry": false,
+  "scientific_feature_proof": false,
+  "status": "passed_API_canary_pending_Root_full_exit_readback",
+  "version": 1
+}

@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026,17:32:54UTC. Producer79330 CLOSED0/processaccepted; verifier5316 CLOSED1/read_onlyAPI доmodels, sourcecount проверен, numericoutputs unaccepted. SourceV3/APIcanary proposal,018partial13/19; next18:00UTC от17:15.035обаFIRSTverified, criticRoot-only.
+Обновлён15 октября2026,17:48:29UTC. SourceV3/APIcanary accepted, отдельный recovery50587 RUNNING по Root handoff; producer79330 CLOSED0, failed5316 сохранён. Numericpending/018partial13/19,18:00UTC от17:15;035criticcomplete/Rootreadbackpending.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -712,3 +712,8 @@ RootsetupHEADrelease после закрытия68538 подтверждён; cl
 ## Проверяющий018: исходная попытка завершилась ошибкой — 2026-10-15T17:32:54.975045+00:00
 
 Обновление 17:32:54 UTC: [независимый verifier5316 завершился EXIT1 до моделей](../backlog-reviews/public018-independent-verifier-failure.md): DuckDB read_only source connection отверг create_view. Native source count проверен, но Q/C/fullY/матрицы/метрики не приняты;0model loads/predicts/fits/heldout. Producer79330 CLOSED0 и новое чистое окружение остаются приняты в своём scope; TLAB018 partial,13 из19. SourceV3 repair и один invented API canary пока proposal, новых запусков/повторов/grants нет; rawunknowntrue первой попытки сохранён. Следующий максимум18:00UTC от исходного17:15, финальное качество и отчёт015 неизменны.
+
+
+## SourceV3/API proof и отдельная recovery — 2026-10-15T17:48:29.512245+00:00
+
+Обновление 17:48:29 UTC: [SourceV3/API canary и wrapperV2 binding приняты](../backlog-reviews/public018-adapterV3-API-recovery.md), отдельно выдан recovery50587/83c50c по тем же produceroutputs; Root handoff RUNNING, численная приёмка pending. Новый конечный600CPU/900wall/8GiB/2loads2predict0fits шаг не повторяет producer79330/2fits и не пополняет старую FAILED5316 попытку. TLAB018 partial,13 из19; прежние rawunknown flags и финальное качество015 неизменны. Следующий максимум18:00UTC от исходного17:15, publisher runtime0.

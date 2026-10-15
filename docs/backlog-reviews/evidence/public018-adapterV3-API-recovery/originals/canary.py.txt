@@ -1,0 +1,128 @@
+"""One API/immutability canary; Root issues3CPU/5wall separately. No scientific fit."""
+import time
+START_CPU, START_WALL = time.process_time(), time.monotonic()
+import sys, os, json, hashlib, resource, signal
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+SOURCE = ROOT / "source'quoted.duckdb"
+PARQUET, REPLACEMENT = ROOT / 'four.parquet', ROOT / 'replacement.parquet'
+RESULT, CLAIM = ROOT / 'result.json', ROOT / 'consumed.json'
+SITE = Path('/Users/mdpospelov/tlab-recsys-2026/.venv/lib/python3.12/site-packages')
+LIMITS = dict(cpu=3, wall=5, rss=256 * 2**20, scratch=16 * 2**20)
+CONFIG = dict(threads='2', memory_limit='128MB', max_temp_directory_size='0B', temp_directory=str(ROOT / 'spill'))
+resource.setrlimit(resource.RLIMIT_CPU, (2, 2))
+signal.signal(signal.SIGALRM, lambda *_: (_ for _ in ()).throw(RuntimeError('Canary wall fence')))
+signal.alarm(4)
+assert sys.flags.isolated and sys.flags.no_site and sys.dont_write_bytecode
+assert not any(path.exists() for path in (SOURCE, PARQUET, REPLACEMENT, RESULT, CLAIM))
+with CLAIM.open('x') as stream:
+    json.dump(dict(scope='new_single_native_API_canary', limits=LIMITS, retry=False), stream)
+for key in ('OPENBLAS_NUM_THREADS', 'OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS'):
+    os.environ[key] = '2'
+
+violations = []
+class GuardViolation(BaseException): pass
+
+def deny(event):
+    violations.append(event)
+    raise GuardViolation(event)
+
+def audit(event, args):
+    if event in ('subprocess.Popen', 'os.system', 'os.fork', 'os.forkpty', 'os.posix_spawn', 'os.posix_spawnp', 'os.exec') or event.startswith('socket.'):
+        deny(event)
+    if event == 'import' and (args[0] == 'catboost' or args[0].startswith('catboost.')):
+        deny('native_ML_import')
+    if event == 'open' and not isinstance(args[0], int):
+        path = Path(os.fsdecode(args[0])).resolve()
+        real = Path('/Users/mdpospelov/tlab-recsys-2026')
+        if any(path == real / key or real / key in path.parents for key in ('data', 'artifacts')):
+            deny('real_project_input_open')
+
+sys.addaudithook(audit)
+sys.path.insert(0, str(SITE))
+
+def cost():
+    peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    return dict(cpu_seconds=time.process_time() - START_CPU, wall_seconds=time.monotonic() - START_WALL,
+                peak_rss_bytes=int(peak if sys.platform == 'darwin' else peak * 1024),
+                scratch_bytes=sum(path.stat().st_size for path in ROOT.rglob('*') if path.is_file()),
+                scope='entry through sample; startup/exit/Root readback external')
+
+def check():
+    value = cost()
+    assert value['cpu_seconds'] < 1.8 and value['wall_seconds'] < 3.8, 'Body timing reserve exhausted'
+    assert value['peak_rss_bytes'] <= LIMITS['rss'] and value['scratch_bytes'] <= LIMITS['scratch'], 'RSS/scratch exceeded'
+    assert not violations, 'Forbidden process/network/input attempt'
+
+def fingerprint(path):
+    check(); raw = path.read_bytes(); check()
+    return dict(sha256=hashlib.sha256(raw).hexdigest(), bytes=len(raw))
+
+def quote(path):
+    return "'" + str(path).replace("'", "''") + "'"
+
+status, error, evidence = 'failed', None, {}
+con = None
+try:
+    import duckdb
+    assert duckdb.__version__ == '1.5.6'
+    rows = [(1, 10, 'one'), (2, 20, None), (3, 10, "three'quoted"), (4, 30, 'four')]
+    con = duckdb.connect(str(SOURCE), config=CONFIG)
+    con.execute('CREATE TABLE events(event_id BIGINT,user_id BIGINT,marker VARCHAR)')
+    con.execute("INSERT INTO events VALUES (1,10,'one'),(2,20,NULL),(3,10,'three''quoted'),(4,30,'four')")
+    con.execute('COPY (SELECT event_id,event_id*10 AS amount FROM events) TO ? (FORMAT PARQUET)', [str(PARQUET)])
+    con.execute('CHECKPOINT'); con.close(); con = None
+    baseline = fingerprint(SOURCE)
+    assert not Path(str(SOURCE) + '.wal').exists()
+    con = duckdb.connect(str(SOURCE), read_only=True, config=CONFIG)
+    assert con.execute('SELECT * FROM events ORDER BY event_id').fetchall() == rows
+    try:
+        con.read_parquet(str(PARQUET)).create_view('probe_f')
+    except duckdb.InvalidInputException as original:
+        assert 'read-only' in str(original).lower() and 'create' in str(original).lower(), 'Unexpected original native error'
+        evidence['original_readonly_error'] = dict(type=type(original).__name__, message=str(original))
+    else:
+        raise AssertionError('Original readonly create_view unexpectedly succeeded')
+    con.close(); con = None
+    assert fingerprint(SOURCE) == baseline
+    con = duckdb.connect(':memory:', config=CONFIG)
+    con.execute('ATTACH ' + quote(SOURCE) + ' AS immutable_source (READ_ONLY)')
+    con.execute('CREATE TEMP VIEW events AS SELECT * FROM immutable_source.main.events')
+    con.read_parquet(str(PARQUET)).create_view('probe_f')
+    expected = [(event_id, user, marker, event_id * 10) for event_id, user, marker in rows]
+    assert con.execute('SELECT e.event_id,e.user_id,e.marker,f.amount FROM events e JOIN probe_f f USING(event_id) ORDER BY event_id').fetchall() == expected
+    con.execute('COPY (SELECT event_id,amount+1 AS amount FROM probe_f) TO ? (FORMAT PARQUET)', [str(REPLACEMENT)])
+    con.read_parquet(str(REPLACEMENT)).create_view('probe_f', replace=True)
+    changed = [(event_id, user, marker, event_id * 10 + 1) for event_id, user, marker in rows]
+    assert con.execute('SELECT e.event_id,e.user_id,e.marker,f.amount FROM events e JOIN probe_f f USING(event_id) ORDER BY event_id').fetchall() == changed
+    try:
+        con.execute("INSERT INTO immutable_source.main.events VALUES (5,50,'forbidden')")
+    except duckdb.InvalidInputException as blocked:
+        assert 'read-only' in str(blocked).lower() and 'insert' in str(blocked).lower(), 'Unexpected attached write error'
+        evidence['attached_write_error'] = dict(type=type(blocked).__name__, message=str(blocked))
+    else:
+        raise AssertionError('Attached READ_ONLY source accepted INSERT')
+    assert con.execute('SELECT * FROM immutable_source.main.events ORDER BY event_id').fetchall() == rows
+    con.close(); con = None
+    assert fingerprint(SOURCE) == baseline
+    assert not Path(str(SOURCE) + '.wal').exists()
+    check()
+    evidence.update(source=baseline, source_rows=4, original_readonly_red=True, memory_namespace_green=True,
+                    different_relation_replacement_green=True, attached_write_rejected=True,
+                    source_byte_identity_unchanged=True, source_WAL_absent=True,
+                    config=CONFIG, attached_path_literal=quote(SOURCE))
+    status = 'passed_API_canary_pending_Root_full_exit_readback'
+except BaseException as primary:
+    error = dict(type=type(primary).__name__, message=str(primary))
+finally:
+    if con is not None:
+        try: con.close()
+        except BaseException as secondary:
+            if error is None: error = dict(type=type(secondary).__name__, message='close failed'); status = 'failed'
+    body = dict(version=1, status=status, error=error, evidence=evidence, cost=cost(), limits=LIMITS,
+                guard_violations=violations, external_full_exit_accepted=False, scientific_feature_proof=False,
+                actual_ML_operations=0, real_project_input_reads=0, retry=False)
+    with RESULT.open('x') as stream: json.dump(body, stream, indent=2, sort_keys=True)
+    print(json.dumps(body)); signal.alarm(0)
+raise SystemExit(0 if status.startswith('passed_API_canary') and error is None else 1)

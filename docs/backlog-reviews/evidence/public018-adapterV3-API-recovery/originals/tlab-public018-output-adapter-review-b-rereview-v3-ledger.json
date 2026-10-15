@@ -1,0 +1,32 @@
+{
+  "actual_109_output_reads_or_hashes": 0,
+  "actual_native_data_models_Y_children_project_Git": 0,
+  "canary_run_by_reviewer": false,
+  "checks": [
+    "actual source physical path/inventory binding unchanged",
+    "single-quoted path with apostrophes doubled",
+    "READ_ONLY fixed attachment plus TEMP events alias",
+    "in-memory default catalog for existing create_view seams; API canary pending Root",
+    "same engine memory/scratch/threads/spill config AST",
+    "inverse entire V2 AST identical",
+    "resource guard/lifetime/primary exception handling unchanged"
+  ],
+  "created_at_utc": "2026-10-15T17:38:12.948315+00:00",
+  "findings": [],
+  "freshness": {
+    "V2_failure_and_reviews_preserved": true,
+    "all_match_initial": true,
+    "originals": 17,
+    "snapshots": 17
+  },
+  "future_retry_cost_and_authority": "Root separately accounts original failed attempt plus any canary/retry; mandatory caller guard enforces remaining authority",
+  "new_tests_probes_helper_execution": 0,
+  "old_600_900_allowance_refilled": false,
+  "reviewer": "/root/six_role_harness",
+  "runtime_grant": false,
+  "scope": "same_B_narrow_memory_catalog_readonly_attachment_source_repair",
+  "source_sha256": "cb24a4143c1093c7e07b2dfbb7fa021bc8530ab9448188eb22a696164220c8c4",
+  "verdict": "no_supported_finding_in_narrow_delta",
+  "version": 3,
+  "whole_exit_peak_success_proven": false
+}
