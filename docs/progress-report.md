@@ -151,3 +151,9 @@ Original98791/e2f5ba EXIT1,1Bmodel load/0predict/0fit/0Y; Native effective param
 ## Узкая диагностика и pending repairs —12:29:20UTC
 
 [Observed diagnosis/cost scope](backlog-reviews/native-param-diagnosis-and-cost.md) retains exactly one B-load expectedRED, two captured float differences and Root later literal checks; W not loaded. Diagnosis is not a fix/runtime/source acceptance. VerifierV1 list-origin P2 and wrapperV1 two exception-audit P2s remain pending versioned repair, no protected code installed. Engineering costs are separate under unchanged-model/decision conditions;33914/43200/1000/300 are not refilled. Original018FAILED/unknownflags and real015closed unchanged.
+
+## Cadence checkpoint14:15 — фактическая запись 2026-10-15T14:16:14.976108+00:00
+
+Root фактически прочитал clean HEAD85660b1 и опубликованные accepted015 результаты. Wave026 реально назначена двум независимым FIRST авторам features_a/models_b по Root14:14observations; A FIRST уже получен/триSHA проверены, B ещё работает, peerтексты доFIRST не смешиваются. Отдельный существующий retrieval_a skeptic может быть вызван только после обоих exactFIRST;025skepticcomplete/Rootfullreadbackpending. Reportproposal7be5123 frozen у независимого source_harness_review,018 только TMPconstanttransport уexecution_scope_audit без runtimegrant. Текущие science/limits/11fits19looks не меняются; никаких повторных оценок открытого final.
+
+Actual cadence write опоздал на 74.976108s к исходному14:15UTC; своевременная публикация результата14:11:04 сохранена отдельно. Следующий максимум15:00UTC/18:00МСК строго от исходного14:15, либо раньше после двух completed research rounds. Следующаяwave027 planned по тому же контракту после текущих FIRST+отдельногоreview; назначение/active status не выдумываются, Root остаётся владельцемdispatch. Единственный backlog/координатор/goal/17slots и разрешения прежние.

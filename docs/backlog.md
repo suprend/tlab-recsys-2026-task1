@@ -6,6 +6,8 @@
 
 ## Текущий статус
 
+Cadence14:15 actual 2026-10-15T14:16:14.976108+00:00 (+74.976108s):026twoindependentauthorsstarted/A FIRSTverified/Bwriting; separateexistingretrieval_a onlyafterbothFIRST.025Rootreadbackpending; report7be5123 independentreview,018TMPonly/no runtimegrant.015done/13of19 unchanged, noadditionalY/fit/currentretune; nextmax15:00UTC anchored14:15, planned027 notyetactive.
+
 Current accepted checkpoint 14:11:04UTC: [принятое отложенное сравнение](backlog-reviews/real015-heldout-results.md); final26–31 B0.459825→W0.464947, Δ+.005122/CI[−.010433,+.018561].015done/13of19 accepted,0fits/adaptation; confidenceintervalcrosses0, no superiority/search-benefit claim.018partial/014active/010–013optionaldeferred. Original67253closed0, oldV3/018FAILED/unknown preserved; safeNEXT018+finalreport review, no rerun/newY.14:15anchor unchanged.
 
 ## Исторические phase checkpoints
@@ -48,7 +50,7 @@ Current failure checkpoint 13:22:10UTC: [оригинальный real015 outer/
 | TLAB-018 | P0 | in_progress: full typed9 source-prefix accepted; Oct22 core/owner/parity/portable CODE accepted and byte-integrated; original Oct22 replay FAILED/session98791 exit1 after1Bload/0predict; partialexports unaccepted/no parity; consumed/no retry; complete018 pending; no poll/retry | Root bounded reproduction decision; execution_scope_audit + disjoint TMP helper; coordinator publication | source-prefix accepted separately; no fit/queryY or complete018 acceptance;018 remains parallel to015 |
 | TLAB-019 | P0 | done: four fits / 12 prefixes, control sealed | root; independent replay and coordinator acceptance | immutable304-pin control; original failure preserved |
 
-Текущий срез:12 из19 крупных задач приняты;014/015 выполняются;018 частично принят;010–013 сознательно отложены. Зависимость010–013 от smoke008 уже снята, а user×item research/review завершены. Эти необязательные ветви не входят в замороженную процедуру015/016: возврат требует отдельного prospective development/reservation плана, ресурса и владельца, без переиспользования будущих25–31 outcome-метрик для нового выбора. Их исполнение не является prerequisite для завершения текущего отчёта. Исторические blocked-формулировки ниже сохранены как журнал первого среза, не как текущая очередь.
+Текущий срез:13 из19 крупных задач приняты, включая015;014 выполняется;018 частично принят;010–013 сознательно отложены. Зависимость010–013 от smoke008 уже снята, а user×item research/review завершены. Эти необязательные ветви не входят в замороженную процедуру015/016: возврат требует отдельного prospective development/reservation плана, ресурса и владельца, без переиспользования будущих25–31 outcome-метрик для нового выбора. Их исполнение не является prerequisite для завершения текущего отчёта. Исторические blocked-формулировки ниже сохранены как журнал первого среза, не как текущая очередь.
 
 Принятые core-файлы и их исходные acceptance pins заморожены. Новая реализация использует отдельные модули; их scopes назначаются явно. Новые исполнители получают непересекающийся scope. Сообщение агента не является доказательством done: нужны actual files/diff/checks и независимый substantive review. Не повторять неизменные проверки после их прохождения; следующий run оправдывается новой правкой, failure либо конкретной неопределённостью.
 

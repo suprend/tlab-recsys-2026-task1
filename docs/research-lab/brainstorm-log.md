@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026, 14:11:04UTC / 17:11:04МСК. Actual015 полностью Rootaccepted/13of19, finalΔ+.005122/CIcross0;018partial/финальныйreportreview остаются.025skepticcomplete/Rootreadbackpending. Максимум14:15UTC прежний.
+Обновлён15 октября2026, 14:16:14UTC / 17:16:14МСК.015принят/13of19;026 A FIRSTverified/Bauthorrunning,025Rootreadbackpending, reportindepreview/018TMPonly. Следующиймаксимум15:00UTC anchored14:15.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,7 +8,13 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 14:15 UTC / 17:15 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 15:00 UTC / 18:00 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Wave026 started / cadence14:15 — actual 2026-10-15T14:16:14.976108+00:00
+
+Root14:14trustedinventory confirms TWO independent FIRST authors features_a/models_b: prospective power/rare-positive design, no adaptation of revealed final. A firstfreeze received and three actualSHA verified:5790bc25…/ba0d50de…/386f86d9…; B stillauthoring, drafts not cross-fed. Existing retrieval_a may be separate skeptic only AFTER both actualFIRST+SHA; no newagent/ID/pilot/grant. Root025readback pending, reportproposal7be5123 under independentreview,018TMPconstanttransport only/ungranted. Accepted015 unchanged, noextraY/fits/currentretuning.
+
+Actualwrite delayed 74.976108s after14:15; prior14:11:04resultscheckpoint remains timely separatefact. next_due15:00UTC/18:00MSK anchored ORIGINAL14:15, or next2completedrounds earlier; no backdated deadline/reset. Planned027 AFTER026 separatecritique or originalnextdeadline; notyetassigned/active. SafeNEXT currentmainreportreview/018TMPpreparation, Rootruntimeauthorityonly.
 
 ## Actual015 accepted checkpoint — 14:11:04UTC
 
