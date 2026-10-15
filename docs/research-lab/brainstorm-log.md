@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026,15:47:57UTC.015/reportDONE,018partial13of19; publicV1 CHANGES_REQUESTED пятьP2/V2author RUNNING,0 новых реальных fits/grants.028/029 Root research accepted,030 оба FIRST завершены, отдельный ModelsB критик назначен Root. nextmax16:30UTC от исходного15:45, ранее после двух следующих завершённых раундов.
+Обновлён15 октября2026,16:02:07UTC.015/reportDONE,018partial13of19; publicV2FROZEN/rereviewpending/noinstall-newfits.030 Root research accepted,031 FeaturesA/ModelsB FIRST running. nextmax16:30UTC от исходных15:45 без reset.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -655,3 +655,10 @@ Checkpoint15:45 фактически записан15:42:08.235833UTC timely; ne
 
 
 Текущее наблюдение 15:47:57 UTC: оба FIRST030 завершены; Root назначил отдельного ModelsB критика после обоих freeze, пять фактических SHA дополнительно проверены публикатором15:46:17. Дубликат dispatch не отправлялся. V2 исправляет исходный автор; новые реальные fits не разрешены. Ранний checkpoint15:42:08 покрывает исходные15:45, следующий максимум16:30UTC от15:45.
+
+
+## Wave030 accepted и018 planning-only overlay — 2026-10-15T16:02:07.299980+00:00
+
+Обновление 16:02:07UTC: V2 публичной команды заморожен(d3e7f77e), ожидает адресного независимого rereview и Root CODE adoption; не установлен, реальных новых fits/runtime нет. Приняты только [resource/verifier design](../backlog-reviews/public018-resource-and-verification-plans.md), будущие пределы не grants. [030research](brainstorm-wave030-synthesis.md) accepted existingHYP141 refinement,0 новыхID/задач;031 два независимых FIRST автора FeaturesA/ModelsB фактически running, отдельный ModelsA critic только после обоих freezes.13/19,018partial,015/reportDONE. Nextmax16:30UTC от исходных15:45, часы/цель/33914/43200/1000/300 не сбрасываются.
+
+Actual inventory перед этой публикацией:031 FeaturesA/ModelsB running; оба plan authors и030critic completed. Source-only V2freeze/author hashes проверены, candidate source/config/test/doc не копируются. Source design/full resource corrections сохраняются отдельным overlay; root metadata-cap120000failure/исправление256KiB и preparationfailure исходные.18exact originals (0309/verifier4/resource5),0publisherexperiments/native/data/models/Y. Следующая волна после031review или meaningful main result, без вытеснения обязательного018.

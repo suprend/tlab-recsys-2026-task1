@@ -1,0 +1,74 @@
+{
+  "created_at_utc": "2026-10-15T16:02:07.299980+00:00",
+  "scope": "planning overlay; no executable queue or runtime authority",
+  "verifier_design": {
+    "Root_receipt_sha256": "bbae8cf088ed5fbc4af2faf4a66b1b55611b541dc94787b0b54e1c86ea62a404",
+    "decision": "ACCEPT_design_only_not_CODE_or_runtime",
+    "requirements": "Concrete supervised exact two-fit execution+new outputs+full terminal evidence, independent all-matrix/key/Q/fullY/queryweights/nativeallscores/4metrics/bootstrap; consumedJSON alone cannot prove native training.",
+    "optional_internal_historical_parity": "Canonical allW44train/selection matrix_proof compared with alreadyacceptedR2 report503c4342; own B41-prefix binds baseline. No oldbinary/privateapproval public dependency, no upgrade to exhaustiveformula proof.",
+    "proposal": {
+      "cpu_seconds": 600,
+      "wall_seconds": 900,
+      "rss_bytes": 8589934592,
+      "fits": 0,
+      "loads": 2,
+      "predictions": 2,
+      "status": "UNGRANTED_exact_adapter_cost_unknown"
+    }
+  },
+  "resource_design": {
+    "Root_receipt_sha256": "4ec689a83b7151b258d1b1e4d643eea32bb608619fe58d28dbe4edc6a28aca2d",
+    "decision": "ACCEPT_producer_and_setup_planning_with_explicit_corrections_not_runtime_grant",
+    "producer_stop_proposal": {
+      "whole_cpu_seconds": 4200,
+      "whole_wall_seconds": 3600,
+      "job_rss_bytes": 12884901888,
+      "public_work_cpu_seconds": 4050,
+      "public_work_wall_seconds": 3400,
+      "aggregate_spill_bytes": 17179869184,
+      "minimum_free_scratch_bytes": 85899345920,
+      "threads": 2,
+      "engine_memory": "2GB",
+      "fits_max": 2,
+      "heldout_dates_opened": false,
+      "reuse_prior_budget": false
+    },
+    "setup_proposal": {
+      "cpu_seconds": 300,
+      "wall_seconds": 600,
+      "rss_bytes": 2147483648,
+      "offline_only": true,
+      "cache_availability": "UNTESTED_no_automatic_download_fallback"
+    },
+    "corrections": [
+      "Actual historical training source is model_data/program_model_data through strong_baseline; strong_model_data is not the governing comparator.",
+      "Targets are int8 in the reviewed loader; uint8 wording has identical byte size but is not adopted.",
+      "300CPU/300wall/1GiB zero-predict output-review is at most metadata review, not complete numerical/native output acceptance. Adopt independent verifier-design600CPU/900wall/8GiB/2loads/2predict/0fits as a separate UNGRANTED planning proposal.",
+      "Proposed path alternatives are uncreated advice; exact sole clone/output/driver namespace will be bound by Root before submission."
+    ],
+    "limits": [
+      "Old single-worker peaks do not bound same-process allocator residue.",
+      "Fresh15day collection cost/coldIO/nativecombinedpeak unknown; declared ceilings permit failure, not successful-completion guarantee.",
+      "40GiB recipe floor is not worstcasecapacity; final80GiB admission snapshot required.",
+      "No OS-hard RSS or global aggregate018 remaining budget claimed.",
+      "Original preparation parse failure retained; corrected metadata writer success is not application execution."
+    ],
+    "first_root_metadata_cap_failure": {
+      "chunk_id": "caf693",
+      "exit_code": 1,
+      "error": "AssertionError from locally chosen120000byte cap, known bounded historical feature report is160834bytes. No receipt created/adoption granted.",
+      "correction": "Use explicit256KiB smallmetadata bound; all pins/lengths independently verified in corrected pass, no native/data/model opened."
+    }
+  },
+  "V2_status_only": {
+    "freeze_sha256": "d3e7f77ee78ce91aa1b2db2ee6f9c85eaf043859f405e3836151b7f5ff8e619d",
+    "author_report_sha256": "d5c324dd16adb6633c29d4701f20a86bd7e434881b868c1c1b1a287763b4b383",
+    "CODE_adopted": false,
+    "installed": false,
+    "runtime_grant": false
+  },
+  "old_018_budgets_fungible": false,
+  "complete018": "PARTIAL",
+  "freshfits_granted": 0,
+  "publisher_jobs": 0
+}

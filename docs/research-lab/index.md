@@ -2,8 +2,9 @@
 
 15 октября 2026. Primary-source rounds дополняют canonical backlog; rejected/duplicate идеи сохраняются, budgets не складываются. [Фактический TLAB-015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0;финальное review отчёта завершено;018 остаётся partial, новые optional идеи не становятся gates.
 
-Текущая навигация (15:47:57UTC): [принятые heldout результаты](../backlog-reviews/real015-heldout-results.md), [принятый Oct22 slice](../backlog-reviews/018-accepted-oct22-slice.md), [финальный отчёт](../experimental-report.md). Волны025–029 опубликованы ниже;028/029 Root research-only accepted, точные архивы сохранены.030 оба FIRST завершены, отдельный ModelsB критик назначен Root; public018 V1 требует пяти исправлений, V2 готовится, новых fits не разрешено. [Датированный checkpoint](brainstorm-log.md).
+Текущая навигация(16:02:07UTC): [heldout результаты](../backlog-reviews/real015-heldout-results.md), [Oct22 slice](../backlog-reviews/018-accepted-oct22-slice.md), [финальный отчёт](../experimental-report.md), [resource/verifier design018](../backlog-reviews/public018-resource-and-verification-plans.md).025–030 archived/research-only accepted;031 два независимых FIRST автора active. PublicV2 заморожен для rereview, не установлен/реальные fits не разрешены. [Журнал](brainstorm-log.md).
 
+[Wave030 pair proxy/search allocation](brainstorm-wave030-synthesis.md): HYP141/FA01 refinement, learned tables и conditional user-bound не равны fullY utility;0IDs/grants.
 [Wave029 fixed routing certificate](brainstorm-wave029-synthesis.md): A saturation merged into B underHYP046, exactF/training proof remains required; production/native deferred,0IDs/grants.
 [Wave028 full-Y loss normalization](brainstorm-wave028-synthesis.md): linear fixed-score coefficient identity only, native nonlinear normalization distinct;0IDs/grants.
 [Public018 V1 independent reviews](../backlog-reviews/public018-code-v1-changes-requested.md): fiveP2, V2 repair, no CODE adoption/installation/native training.
