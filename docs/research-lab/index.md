@@ -186,3 +186,6 @@ Crossed critique первой волны: [FA](brainstorm-fa001-review-by-b.md),
 
 
 Следующая reviewed волна: [FA002](brainstorm-fa002.md)/[review](brainstorm-fa002-review-by-models-a.md), [RA002](brainstorm-ra002.md)/[review](brainstorm-ra002-review-by-b.md), [MB002](brainstorm-mb002.md)/[review](brainstorm-mb002-review-by-features-a.md). [Publication freeze](brainstorm-round002-publication-freeze.json) сохраняет witness/hashguard/source files; новые canonical IDs не выданы.
+
+
+Следующие source-only drafts, independent crossed review pending: [MB003](brainstorm-mb003.md), [RA003](brainstorm-ra003.md); [first-draft freeze](brainstorm-round003-drafts-freeze.json). Retrieval записи уточняют существующие HYP061–062/067, LA-NAM сохраняется как negative admission finding.

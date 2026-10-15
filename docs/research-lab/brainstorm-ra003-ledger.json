@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "round": "003",
+  "author": "/root/brainstorm_retrieval_a",
+  "freeze_utc": "2026-10-15 06:35:31 UTC",
+  "note_path": "brainstorm-ra003.md",
+  "note_sha256": "19ed927b0db8ba13c3ee2e6bc0368bcecb809e7d1e0ffcb844a78617b90c6c5c",
+  "note_words": 1813,
+  "historical_boundary": {
+    "repo": "PROJECT_ROOT",
+    "commit": "f842553",
+    "own_prior_reports": [
+      "brainstorm-ra001.md",
+      "brainstorm-ra002.md"
+    ],
+    "other_round003_read_before_freeze": false,
+    "live_journal_read": false,
+    "historical_search": "No Swing/nonbacktracking terms in frozen candidate-generation, features, brainstorm-log; absence is not a proof of mathematical novelty."
+  },
+  "authorization": {
+    "mode": "source-only",
+    "actual_data_read": false,
+    "sql_or_db": false,
+    "Y_read": false,
+    "models_fit": 0,
+    "native_jobs": 0,
+    "weights_downloaded": false,
+    "paid_api_jobs": 0,
+    "shared_repo_edits": false,
+    "proposed_budget_is_grant": false
+  },
+  "review": {
+    "independent_helper": "Unavailable: shared agent thread limit reached",
+    "literal_verification": "Executed exact Fraction arithmetic for the two invented graphs only; no source datasets used",
+    "paper_code_equivalence": "Not established; Swing implementation files and NBA graph preprocessing source were inaccessible through source reader."
+  },
+  "sources": [
+    {
+      "id": "S3-SW",
+      "title": "Efficient Swing Computation for Retrieval in Large-Scale Recommender Systems",
+      "url": "https://arxiv.org/html/2609.16850v1",
+      "type": "author preprint",
+      "date": "2026-09-15",
+      "version": "v1",
+      "code": "https://github.com/HKBU-LAGAS/K-ASC",
+      "code_read": [
+        "repository ownership/arxiv link",
+        "README.md"
+      ],
+      "code_unverified": [
+        "code/main.cpp",
+        "compiled behavior"
+      ],
+      "date_caveat": "SIGMOD2027 is a future template/README claim, not a completed publication; Swing attributed to Yang2020."
+    },
+    {
+      "id": "S3-NB",
+      "title": "Non-backtracking Graph Neural Networks",
+      "url": "https://seonghyun26.github.io/hyun/assets/publications/24TMLR_NBA-GNN.pdf",
+      "type": "author-hosted published paper",
+      "date": "2024-09",
+      "prior_preprint": "2023-10",
+      "code": "https://github.com/seonghyun26/nba-gnn",
+      "ownership": "https://seonghyun26.github.io/hyun/ links paper and code",
+      "code_read": [
+        "README",
+        "node_classification README",
+        "node_classification/model/modules.py"
+      ],
+      "code_unverified": [
+        "nonbacktracking preprocessing/utils implementation",
+        "complete executable behavior"
+      ],
+      "transfer_caveat": "Code is neural benchmark implementation. Own kernel borrows topology only, kills dead ends rather than paper begrudging repair."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "RA3-01",
+      "mechanism": "Swing co-audience redundancy penalty",
+      "disposition": "refine-needs-literal-gate-then-conditional-pilot",
+      "backlog_relationship": [
+        "HYP061 ItemCF source refinement",
+        "HYP062 activity weighting differs because pair-of-users overlap statistic"
+      ],
+      "novelty_claim": "New explicit backlog refinement only; not a 2024-26 invented recommendation principle.",
+      "paper_claim": "ASC/K-ASC compute existing Swing more efficiently; score approximations do not guarantee purchase recall.",
+      "own_adaptation": "Binary strict-past view graph; unordered user pairs, alpha1, three-co-user support floor; whole-user degree<=32 and per-query anchor audience<=32; up to4 fixed R20 anchors; top100 per anchor, sum, source20.",
+      "nonalias_literal": {
+        "profiles": [
+          "3 users each {q,a,z}",
+          "3 users {q,b,w1},{q,b,w2},{q,b,w3}"
+        ],
+        "equal_statistics": [
+          "all user degrees3",
+          "a/b degrees3",
+          "co-counts3",
+          "activity-weighted cosine",
+          "ordinary cosine",
+          "shrinkage",
+          "Jaccard",
+          "lift"
+        ],
+        "swing_unordered": {
+          "a": "3/4",
+          "b": "1"
+        },
+        "tie_rule": "a ID before b"
+      },
+      "matched_controls": [
+        "constant pair weight1: choose(co_users,2), isolates redundancy from superlinear support",
+        "frozen activity-weighted ItemCF on same admitted graph/gates/anchors/support floor/quotas"
+      ],
+      "cheapest_falsifier": "Literal score equality or inclusion of self-user pairs rejects implementation; three-co-user floor and denominator q/j inclusion must hold. Future stop if exact complete graph cannot fit caps or gate leaves source unusable.",
+      "query_bound_per_arm": {
+        "anchor_calls": 4,
+        "unordered_pairs_per_anchor": 496,
+        "merge_comparisons": 126976,
+        "swing_score_updates": 63488,
+        "co_count_edge_visits": 4096,
+        "discovered_unique_ids": 4096,
+        "retained_neighbor_ids": 400,
+        "source_ids": 20
+      },
+      "counterhypotheses": [
+        "cohort overlap encodes valid taste/campaign intent",
+        "three-user pair support remains sparse",
+        "degree gate suppresses useful popular anchors"
+      ],
+      "unsupported_behavior": "No source from gated anchor; no clipping/refill; keep query in denominator."
+    },
+    {
+      "id": "RA3-02",
+      "mechanism": "Strict nonbacktracking four-edge endpoint retrieval",
+      "disposition": "refine-needs-literal-and-deadend-gate-then-conditional-pilot",
+      "backlog_relationship": [
+        "HYP067 refinement with length4 fixed rather than length4-versus2"
+      ],
+      "novelty_claim": "New explicit backlog transition restriction only; classical nonbacktracking topology predates2024.",
+      "paper_claim": "Eq3 message restriction in NBA-GNN; benchmark/model evidence is not recommendation evidence. Access-time theorem for begrudging repair is not applicable to strict termination.",
+      "own_adaptation": "Uniform length4 bipartite views walks, prior node/query user excluded; degree1 dead ends terminate; fixed1024 attempted walks per shared anchor, no retries/restarts.",
+      "nonalias_literal": {
+        "graph": "a-u1-b-u2-c",
+        "start": "a",
+        "ordinary4": {
+          "a": "3/8",
+          "b": "1/2",
+          "c": "1/8"
+        },
+        "strictNB4": {
+          "c": "1"
+        },
+        "shared_anchor_exclusion": "a",
+        "top1_change": "b to c",
+        "counterfixture": "a-u1-b strict walks die before hop4"
+      },
+      "matched_controls": [
+        "ordinary four-edge uniform walks, same graph/anchors/attempts/RNG/endpoint filters",
+        "native and hash-trimmed equal actual C size"
+      ],
+      "cheapest_falsifier": "Literal chain fails, a dead-end walk reverses/restarts, denominator omits failed attempts, or extra successful-walk attempts are bought implicitly.",
+      "query_bound_per_arm": {
+        "anchor_calls": 4,
+        "attempted_walks": 4096,
+        "transitions_max": 16384,
+        "endpoint_entries_max": 4096,
+        "source_ids": 20,
+        "query_user_binary_lookup_comparisons_per_step_max": 19,
+        "line_graph_materialized": false
+      },
+      "counterhypotheses": [
+        "outward travel follows weak noisy bridges",
+        "edge repetition represents valid local affinity",
+        "strict termination destroys useful source coverage"
+      ],
+      "unsupported_behavior": "Dead attempt contributes zero; count attempted walks and dead fraction; no refill/resampling."
+    }
+  ],
+  "shared_temporal_contract": {
+    "bank_interval": "[c-7d,c)",
+    "all_at_c_excluded": true,
+    "counts_type": "observed point-event presence; no future label windows",
+    "artifact_availability": "c < materialized_at <= first fresh anchor t0",
+    "bank_refresh": "new separately charged artifact",
+    "query_anchors": "first4 canonical R20 before source gates; ties productID; no replacement",
+    "query_history": "strictly timestamps<t, no within-second order",
+    "query_user_exclusion": "before counts/gates and every walk transition",
+    "target_maturity": "entire [t,t+24h) mature before metrics",
+    "availability_limitation": "No received_at/stock, so retrospective event-time claim only."
+  },
+  "proposed_future_pilot": {
+    "new_reservation_required": true,
+    "families_max": 1,
+    "fresh_dates_max": 1,
+    "common_queries_max": 100,
+    "query_selection": "canonical eligible past48h bottom-hash beforeY; all common and mature zeroY retained",
+    "bank_decoded_raw_rows_max": 1000000,
+    "bank_users_max": 10000,
+    "admitted_edges_max": 320000,
+    "total_decoded_rows_max_including_Q_PR_Y": 2000000,
+    "total_physical_bytes_max_including_repeated_reads": 2147483648,
+    "rss_bytes_max": 6442450944,
+    "cpu_seconds_max_all_inclusive": 1800,
+    "fits_max": 0,
+    "swing_anchor_calls_max_all3arms": 1200,
+    "walk_anchor_calls_max_botharms": 800,
+    "shared_PR_list_requests_max": 200,
+    "preflight": "Manifest complete relevant file/ranges, rows and bytes; abort if unknown/incomplete/overcap, no row-LIMIT completeness claim.",
+    "index_build": "O(R log R) sorting/dedup plus O(E) adjacency; all parsing/sorting/serialization/reads inside aggregate caps.",
+    "persistent_directed_neighbor_entries_max": 640000,
+    "persistent_user_item_ids_max": 330000
+  },
+  "evaluation": {
+    "canonical_reference": "dedup(P200 union R20), no refill <=220; actual heldout closed",
+    "experimental_envelope": "dedup(P180 union R20 union S20), no refill <=220 for every source/control",
+    "actual_size_control": "m_q=min union size across all compared arms/reference; fixed query/item hash trims each union to m beforeY; report native and matched together",
+    "fullY": "distinct purchases next24h including items outsideC and source/catalog",
+    "gained_lost": "Y intersect (Cnew minus Cold), Y intersect (Cold minus Cnew), native and matched",
+    "report": [
+      "candidate recall/fullY",
+      "micro coverage",
+      "zeroY convention",
+      "seed/catalog coverage",
+      "native/matched size distribution",
+      "source/final hits",
+      "source overlap",
+      "unique contribution",
+      "deadwalk/gatedseed/zerosource rates",
+      "physical scan/index/query cost"
+    ],
+    "stopping": "No cost-cap or completeness bypass; no quota inflation; no second blind parameter search after result."
+  }
+}

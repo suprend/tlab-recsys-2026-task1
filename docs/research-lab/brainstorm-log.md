@@ -149,6 +149,12 @@ TA01 объединён сFA04. TA02 distinct edit-prior остаётся local-
 
 [Freeze](brainstorm-round002-publication-freeze.json) сохраняет18 original/public report/ledger/hashguard/literal/source-note files. Authors использовали fixed historical ec3dabc context, не live journal/peer002 до первого freeze. С ранее опубликованным FB002 это10 local proposals второй волны; FB002 пока без завершённого cross-review. Всего первая и текущая002 волны содержат49 local IDs; canonical registered research hypotheses по-прежнему только6. FA05 и MB2-01 имеют общую candidate-context мотивацию, но фиксированный scalar и совместно обучаемый learner не автоматически один intervention. Новые IDs ждут общего002dedup и Root approval; actual data/model/target jobs не запускались.
 
+## Следующий источник после завершённых раундов: MB003 и RA003 frozen drafts
+
+[MB003](brainstorm-mb003.md) предлагает conditional learned-scaffold→symbolic internal modules и сохраняет negative admission finding LA-NAM: posterior coupling не доказывает functional interaction, а inspected selector имеет sign/eligibility defects. [RA003](brainstorm-ra003.md) уточняет существующие HYP061–062 через Swing denominator и HYP067 через strict nonbacktracking walk4 с dead-end accounting. Эти два retrieval refinements не выданы за новые принципы2024–2026. [Freeze](brainstorm-round003-drafts-freeze.json) сохраняет exact first-draft Markdown и portable ledgers; отдельное crossed review ещё не завершено, HYP/budget не назначены.
+
+Оба автора декларируют historical f842553 +own earlier drafts, без чтения peer003/live journal до freeze. MB автор использовал scoped independent source helper, что не заменяет полный crossed review; RA автор явно сообщил, что helper был недоступен при занятом общем лимите. Эти ограничения сохранены. Поступление новых drafts не меняет next_due07:30 UTC /10:30 МСК и не превращает prospective cost ceilings в разрешённые операции.
+
 ## Следующие решения
 
 Сначала сдача текущих независимых drafts, параллельно критика уже сданных F001/M001; затем ротация cross-review и сравнение novelty/стоимости. Следующие темы выбираются по найденным пробелам, а не ради счётчика HYP. Любой будущий pilot требует отдельной development/label reservation, matched baseline, заранее заданных метрик и предела стоимости. Нынешние015/016, выбранные модели и heldout policy новыми идеями не изменяются.

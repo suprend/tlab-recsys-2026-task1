@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "report_id": "MB-round003",
+  "report_path": "brainstorm-mb003.md",
+  "author_agent": "/root/brainstorm_models_b",
+  "date": "2026-10-15",
+  "freeze": {
+    "status": "independent_first_draft_frozen",
+    "historical_repo_commit": "f84255341b03a1be72b1d66b1b9fb7c3a5e793e2",
+    "own_prior_reports": [
+      "brainstorm-mb001.md",
+      "brainstorm-mb002.md"
+    ],
+    "read_other_round003": false,
+    "read_live_brainstorm_journal": false,
+    "helper": {
+      "agent": "/root/brainstorm_models_b/round002_tabular_synthesis_source",
+      "scope": "Independent primary LA-NAM source checks; messages only, no round003 files."
+    },
+    "no_new_hypothesis_id": true
+  },
+  "scope": {
+    "permitted": "Primary paper/code reading, fixed historical documentation, tiny literal stdlib arithmetic, two /tmp outputs.",
+    "performed_no_actual_data_or_target_reads": true,
+    "performed_no_sql_or_fits_or_model_imports": true,
+    "performed_no_weights_downloads_or_paid_api_calls": true,
+    "shared_repo_edited": false,
+    "heldout_state": "All current heldouts CLOSED; W=R2+3 unchanged.",
+    "supplied_cost_ceilings": {
+      "train_queries": 26000,
+      "train_candidates": 5317000,
+      "train_fullY": 619,
+      "selection_queries": 4000,
+      "selection_candidates": 817149,
+      "selection_fullY": 96,
+      "max_candidates_per_query": 220
+    },
+    "matched_baseline": "Fresh B41 CatBoost300/depth6/L2=30; other effective settings fixed; common later training population."
+  },
+  "candidates": [
+    {
+      "id": "MB3-01",
+      "name": "Learned-edge scaffold followed by symbolic internal-module extraction",
+      "verdict": "conditional_proposer_not_admitted_pilot",
+      "source_facts": [
+        {
+          "url": "https://arxiv.org/html/2408.10205v1",
+          "year": 2024,
+          "facts": "KAN2.0 learns one-dimensional edge functions, adds multiplication nodes, and studies module/symbolic extraction in scientific tasks. No purchase-ranking evidence."
+        },
+        {
+          "url": "https://github.com/KindXiaoming/pykan",
+          "facts": "Author implementation; CPU examples do not establish population-scale throughput."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/KindXiaoming/pykan/master/kan/MultKAN.py",
+          "symbols": [
+            "suggest_symbolic",
+            "auto_symbolic",
+            "symbolic_formula",
+            "fit",
+            "speed",
+            "saveckpt"
+          ],
+          "facts": "Per-edge atom fitting with complexity/fidelity tradeoff; default auto-symbolic threshold zero; default MSE; Adam/LBFGS; activation/input cache can be checkpointed; speed disables symbolic/cache collection."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/KindXiaoming/pykan/master/kan/utils.py",
+          "symbols": [
+            "fit_params"
+          ],
+          "facts": "Fits c*f(a*x+b)+d with a/b grid then c/d linear regression; default grid101, three zooms, N*grid^2 tensor and regularized covariance R2 proxy."
+        }
+      ],
+      "source_version_limit": "Web-inspected mutable master on 2026-10-15; later implementation must pin/recheck author code.",
+      "own_adaptation": {
+        "mechanism": "Learn a continuous spline scaffold on earlier mature labels; locally symbolize and export at most two hidden modules, not final prediction.",
+        "inputs": "Eight predeclared registry parents with explicit units/normalization/missingness; no impressions, titles, images, order IDs or new data.",
+        "generator": {
+          "max_hidden_nodes": 4,
+          "max_binary_multiplication_nodes": 1,
+          "spline_grid": 5,
+          "spline_order": 3,
+          "seeds": 1,
+          "max_Adam_updates": 1024,
+          "max_minibatch_rows": 512,
+          "max_exported_modules": 2,
+          "max_active_edges_combined_backward_cone": 12,
+          "max_expanded_AST_nodes_per_module": 12,
+          "atoms": [
+            "identity",
+            "square",
+            "tanh"
+          ]
+        },
+        "supervision": "Fixed query-macro BCE needs a new bounded indexed-weight/sampling adapter; shipped default MSE is not reused silently.",
+        "novelty_boundary": "Potentially distinct proposer: continuous learned scaffold then local symbolization. Operators/feature family are not new. Grammar aliases, generic upstream scores and renamed model-guided search are not admissions.",
+        "dedup_controls": [
+          "HYP002 typed grammar",
+          "IIFE",
+          "TopoFE",
+          "LILO",
+          "explicitly excluded MPL",
+          "M08 upstream-score feature"
+        ]
+      },
+      "maturity": {
+        "warmup": "One fixed earliest eligible prefix, at most2000 whole queries /440000 rows; no target-based prefix search.",
+        "proposed_support_gate": {
+          "minimum_positive_queries": 32,
+          "minimum_positive_users": 16,
+          "feasibility": "unknown"
+        },
+        "fit_available_at": "All warmup labels, scaler fits, pruning, atom fits and audit decisions mature and complete at a0.",
+        "downstream_rule": "All arm training anchors strictly after a0; identical common training population; no supervised backfill.",
+        "selection_rule": "Only a separately authorized fresh development reservation; current CLOSED heldouts not reopened."
+      },
+      "counterhypothesis": "Strong trees already encode the interaction; benefit may be generic frozen representation or extra search attempts.",
+      "matched_controls": {
+        "learner_fit_attempts": [
+          "generator",
+          "fresh_B41",
+          "B41_plus_raw_modules",
+          "B41_plus_symbolic_modules",
+          "B41_plus_random_grammar_modules"
+        ],
+        "learner_fit_attempt_count": 5,
+        "grammar": {
+          "same_parent_atom_AST_feature_caps": true,
+          "max_ASTs": 32,
+          "max_coefficient_updates_per_AST": 32,
+          "proposer_CPU_hours_cap": 1,
+          "optimization_geometry_identical": false
+        },
+        "interpretation": "Only raw-module gain closes the symbolic claim and routes to representation work."
+      },
+      "tiny_literal_falsifiers": [
+        {
+          "name": "algebraic_alias",
+          "identity": "((x+y)^2-x^2-y^2)/2 = x*y",
+          "checked_literal_integer_pairs": 25,
+          "all_equal_exact_rational": true,
+          "limitation": "Finite check plus algebraic identity; NULL/overflow/float semantics need separate audit."
+        },
+        {
+          "name": "global_fidelity_does_not_preserve_boundary",
+          "numerical": "h(x,z)=x+2e-6*z",
+          "symbolic": "g(x,z)=x+4e-7",
+          "cache_x": [
+            -1,
+            -0.5,
+            0,
+            0.5,
+            1
+          ],
+          "cache_z": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "ordinary_R2": 0.99999999999872,
+          "A": [
+            0,
+            1
+          ],
+          "B": [
+            0.000001,
+            0
+          ],
+          "numerical_pair_values": [
+            0.000002,
+            0.000001
+          ],
+          "symbolic_pair_values": [
+            4e-7,
+            0.0000014
+          ],
+          "ranking_flips": true,
+          "limitation": "Constructed functions, not a trained KAN result or source regularized-R2 score; a driving module can flip positions20/21."
+        }
+      ],
+      "finite_future_cost": {
+        "authorization": false,
+        "bounded_symbolizer": {
+          "cache_rows": 64,
+          "grid": 21,
+          "zooms": 2,
+          "max_edges": 12,
+          "atoms": 3,
+          "max_affine_parameter_fits": 36,
+          "chosen_parameters_reused": true,
+          "max_function_grid_cells": 2032128,
+          "one_float32_grid_buffer_MiB": 0.107666015625,
+          "stock_default_all_train_one_buffer_GiB": 202.0549662411213
+        },
+        "grammar_coefficient_fit_count_cap": 32,
+        "learner_fit_attempt_count": 5,
+        "two_train_feature_columns_MiB": 40.56549072265625,
+        "symbolic_primitive_evaluations_train_plus_selection_ceiling": 147219576,
+        "extra_costs": [
+          "grammar proposal scoring",
+          "raw network scoring",
+          "all feature preparation",
+          "sorting",
+          "paired uncertainty",
+          "four B41 fits",
+          "failed attempts"
+        ],
+        "total_CPU_hours_cap": 6,
+        "wall_hours_cap": 4,
+        "peak_GiB_cap": 8,
+        "threads": 2,
+        "CPU_allocations_hours": {
+          "generator": 1,
+          "grammar": 1,
+          "symbolization_and_audit": 0.25,
+          "four_downstream_fits": 3,
+          "remaining_preparation_and_scoring": 0.75
+        },
+        "feasibility": "Unmeasured; cap breach stops package without expansion; bounded adapter not implemented."
+      },
+      "metric_and_falsification": "Future fullY conditional macro-query NDCG20 with Recall20 and paired user-cluster uncertainty; must beat fresh B41 and matched grammar under a predeclared uncertainty/Recall rule. No gain, aliases only, unacceptable raw-to-symbolic fidelity, failed maturity/support gate or cost overrun closes the branch.",
+      "next_step": "Zero-data alias/fidelity contracts; then concrete temporal/support and bounded-adapter design before any model attempt."
+    },
+    {
+      "id": "MB3-02",
+      "name": "LA-NAM posterior interaction selection — negative admission",
+      "verdict": "reject_inspected_selector_before_pilot",
+      "source_facts": [
+        {
+          "url": "https://proceedings.mlr.press/v235/bouchiat24a.html",
+          "year": 2024,
+          "facts": "ICML2024 paper, initial preprint2023, Bayesian neural additive models with posterior-based pair selection."
+        },
+        {
+          "url": "https://arxiv.org/html/2305.16905v3#S3.SS2.SSS3",
+          "equation": 17,
+          "facts": "Gaussian posterior parameter MI is -0.5*log(1-Corr^2), not feature-label synergy."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/fortuinlab/LA-NAM/main/src/laplace_skorch/callbacks/interaction.py",
+          "symbols": [
+            "_mutual_information",
+            "_marginal_likelihood_slack",
+            "LaplaceAdditive2ndStage.on_train_end",
+            "_curvature_of_last_layer"
+          ],
+          "facts": "MI implementation uses unsquared Corr; slack squares precision. triu zero fills exclusions, pairs appended without filtering. Detached-unary scalar multipliers get FullLaplace; main learned prior precisions not passed. Pair stage trains again."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/fortuinlab/LA-NAM/main/src/laplace_skorch/utils.py",
+          "symbol": "topk_unravel",
+          "facts": "Flattens all entries, including zero-filled diagonal/lower triangle, for topk."
+        }
+      ],
+      "source_version_limit": "Web-inspected mutable main on 2026-10-15; exact fixes in future revisions would need independent recheck.",
+      "own_adaptation": "No source repair or admitted model proposal now. Only matrix-only contract gates and a conditional lifecycle design are suggested.",
+      "novelty_boundary": "Posterior parameter coupling differs from IIFE label synergy but does not prove functional interaction or new feature information. Any repaired selector still needs random-pair/grammar comparisons.",
+      "tiny_literal_falsifiers": [
+        {
+          "name": "sign_invariance_and_pair_eligibility",
+          "rho_values": [
+            -0.8,
+            0.8
+          ],
+          "SPD_eigenvalues": [
+            0.2,
+            1.8
+          ],
+          "paper_MI_both": 0.5108256237659908,
+          "current_code_MI_negative_rho": -0.29389333245105953,
+          "current_code_MI_positive_rho": 0.8047189562170503,
+          "masked_D2_negative_rho_matrix": [
+            [
+              0,
+              -0.29389333245105953
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "top1_must_be_excluded": true,
+          "tie_choice_backend_dependent": true,
+          "identity_covariance_all_zero_tie_survives_square_fix": true
+        },
+        {
+          "name": "coupling_is_not_interaction",
+          "parents": "X1=X2=t",
+          "true_logit": "t",
+          "precision": [
+            [
+              5,
+              4
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "covariance": "(1/9)*[[5,-4],[-4,5]]",
+          "rho": -0.8,
+          "correct_MI": 0.5108256237659908,
+          "precision_slack": 1.0216512475319817,
+          "distinct_feature_interaction_identifiable": false,
+          "interpretation": "Duplicated unary multipliers compensate; no crossed-input support identifies a pair effect."
+        }
+      ],
+      "cheapest_falsifier": "Matrix-only sign-invariance/PSD/finite-score checks, explicit eligible i<j coordinates, distinct deterministic pairs, identity and near-singular tests. Exact/affine alias and crossed-support gates remain necessary after code fixes.",
+      "maturity": "If later repaired and authorized, same fixed warmup/positive-query-user gates and strictly later common B41 population as MB3-01; every posterior/hyperparameter/pair-stage update must be mature and available before downstream anchors.",
+      "finite_conditional_lifecycle": {
+        "authorization": false,
+        "allocation_now": false,
+        "max_generator_parents": 8,
+        "max_warmup_queries": 2000,
+        "max_warmup_rows": 440000,
+        "max_selected_pairs": 2,
+        "learner_fit_attempts": [
+          "shared_unary_fit",
+          "selected_pair_stage",
+          "random_pair_stage",
+          "fresh_B41",
+          "B41_plus_selected_shapes",
+          "B41_plus_random_shapes"
+        ],
+        "learner_fit_attempt_count": 6,
+        "max_minibatch_updates_per_generator_stage": 128,
+        "max_streamed_lastlayer_curvature_passes_total": 2,
+        "max_empirical_Bayes_updates_per_stage": 1,
+        "pair_branches_start_from_same_unary_state": true,
+        "CPU_hours_cap": 6,
+        "wall_hours_cap": 4,
+        "peak_GiB_cap": 8,
+        "threads": 2,
+        "lastlayer_cost": "O(N*D^2) accumulation, O(D^2) storage, O(D^3) inversion; main-network curvature can cost more.",
+        "full_D41_N5317000_outer_product_cells": 8937877000,
+        "full_pairs": 820,
+        "bounded_D8_N440000_outer_product_cells": 28160000,
+        "all_preparation_scoring_and_failed_attempts_charged": true,
+        "feasibility": "Unknown; no runtime/performance claim and no native job authorized."
+      },
+      "metric_and_falsification": "Current source fails literal admission. A separately repaired future selector must earn fullY NDCG20/Recall20 and user-cluster evidence over fresh B41, random-pair and existing learned-selection/grammar controls; posterior score alone cannot admit it.",
+      "next_step": "Keep as negative finding; no fit while implementation contract or alias/support gates fail."
+    }
+  ],
+  "literal_verification": {
+    "runtime": "Existing project .venv/bin/python, standard-library math/json/fractions only; no project/native-model imports.",
+    "source_facts_separated_from_own_adaptation": true,
+    "output_files_only": [
+      "brainstorm-mb003.md",
+      "brainstorm-mb003-ledger.json"
+    ]
+  }
+}
