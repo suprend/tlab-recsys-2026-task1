@@ -467,3 +467,10 @@ Actual recovered-source acceptance remains HOLD until one exact external policy,
 ### Recovered-source consumer accepted
 
 [Independent review](backlog-reviews/tlab-recovered-source-independent-review.md) accepts the additive read-only consumer of the exact166-pin recovered-source attestation. Eleven author and four independent mutation/late-failure/path tests passed. Actual bounded receipts reached a deliberate stop before paid107-input rederivation; this is no second source oracle or full166-stream replay claim. Future model planning must pay all hashes, pin delegates and include the returned source acceptance reference itself. Source modules/attestation/proofs and original failed history remain immutable.
+
+
+### Prospective heldout lock and scientific claims — design only
+
+[Whole-decision/driver proposal](backlog-reviews/heldout-driver-lock-design.md) and [independent adversarial critic](backlog-reviews/heldout-contract-adversarial-review.md) specify reporting-only25 and unchanged26–31, a new prospective calendar version, all B/W predictions sealed before any reserved query-Y unlock, legal raw25 history for26, sampled user-day membership, fullY/censoring and separate clock/budget gates. No heldout data/model/target execution or new fit permission follows from these notes. Exact positive simulated compute allowance, budgets, code/seal reviews remain pending.
+
+[Scientific scope review](backlog-reviews/tlab016-fixed-procedure-scientific-claims-review.md) clarifies that selected-union12 serves four B+3 arms; finalW adds0 or3 physical columns. A valid negative result may support an automation demonstration, without claiming quality/speed/strategy superiority or task completion before model/reproduction/report evidence. No new HYP, task or search budget is added.
