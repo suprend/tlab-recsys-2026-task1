@@ -1,0 +1,14 @@
+test_leader_exits_after_cleanup_poll_before_group_signal (__main__.CleanupGap.test_leader_exits_after_cleanup_poll_before_group_signal) ... FAIL
+
+======================================================================
+FAIL: test_leader_exits_after_cleanup_poll_before_group_signal (__main__.CleanupGap.test_leader_exits_after_cleanup_poll_before_group_signal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tlab-owner-supplemental-v7-cleanup-gap.py", line 31, in test_leader_exits_after_cleanup_poll_before_group_signal
+    self.assertTrue(self.report(caught.exception)['unknown_owned_process_usage'])
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

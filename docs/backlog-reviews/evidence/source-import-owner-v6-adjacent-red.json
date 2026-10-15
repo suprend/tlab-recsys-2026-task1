@@ -1,0 +1,31 @@
+{
+  "scope": "pure_fake_v6_adjacent_failure_accounting",
+  "owner_sha256": "7c8189ed72b88f0d481da8dbeb0ee99c48c4ec7173087635c56d8bc7da69945f",
+  "real_children": 0,
+  "real_signals": 0,
+  "native_calls": 0,
+  "cases": [
+    {
+      "case": "terminal_group_observation_oserror",
+      "original_error_type": "OSError",
+      "original_error": "fake group observation failed",
+      "direct_leader_reaped": true,
+      "surviving_group_gone_after_cleanup": true,
+      "descendant_marker": false,
+      "cleanup_marker": false,
+      "in_memory_unknown": false,
+      "reported_unknown_owned_process_usage": false
+    },
+    {
+      "case": "leader_exits_between_guard_failure_and_cleanup",
+      "original_error_type": "TimeoutError",
+      "original_error": "fake original deadline; leader now exited",
+      "direct_leader_reaped": true,
+      "surviving_group_gone_after_cleanup": true,
+      "descendant_marker": false,
+      "cleanup_marker": false,
+      "in_memory_unknown": false,
+      "reported_unknown_owned_process_usage": false
+    }
+  ]
+}

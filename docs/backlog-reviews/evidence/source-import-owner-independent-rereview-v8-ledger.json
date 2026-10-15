@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "scope": "source_import_owner_v8_narrow_independent_repair_review",
+  "decision": "accepted_code_repairs_only",
+  "freeze": "source-import-owner-freeze-v8.json",
+  "owner_sha256": "5df50bb2577b4515c5d80a5eaf4a6f2bf18abe344039d1cd22a51a872e1c7653",
+  "report": "source-import-owner-independent-rereview-v8.md",
+  "snapshot": "tlab-source-import-owner-rereview-v8-snapshot",
+  "evidence_directory": "tlab-source-import-owner-rereview-v8-probes",
+  "all_freeze_files_match_final": true,
+  "original_red_results_preserved": true,
+  "target_python": "3.12.14 -I -B",
+  "author_methods": 53,
+  "author_methods_passed": 53,
+  "author_seconds": 0.212,
+  "targeted_safety_cases_passed": 9,
+  "source_snapshot_supplemental_cases_passed": 2,
+  "closed_findings": [
+    "P1_unpinned_kernel_pyc_execution",
+    "P2_duplicate_JSON_members",
+    "P2_known_failure_before_worker_consumption",
+    "P2_terminal_guard_unknown_descendant_accounting",
+    "P2_cleanup_and_marker_write_failure_unknown_accounting",
+    "P2_group_observation_and_prior_guard_leader_exit_unknown_accounting",
+    "P2_post_poll_pre_signal_unknown_accounting_race",
+    "P3_unusable_CPU20_public_request_endpoint"
+  ],
+  "explicit_probe_adaptations": [
+    "module paths only for relocated frozen code",
+    "mandatory expected_sha API argument on cached-source safety probe",
+    "failure probe accepts RuntimeError or ValueError while same no-consumption/no-import outcome remains",
+    "external output redirection preserves hardcoded original red JSON destinations",
+    "separate stale-cache semantic fixture allows None or0 at signal while requiring None at original guard;same fixture v6red/v8green"
+  ],
+  "actual_execution": {
+    "real_archive_reads": 0,
+    "real_archive_hash_streams": 0,
+    "real_imports": 0,
+    "native_SQL": 0,
+    "models_or_native_fits": 0,
+    "application_owner_or_worker_children": 0,
+    "real_process_signals": 0,
+    "fresh_process_harness_runs": 0,
+    "shared_or_Git_edits": 0,
+    "source_acceptance_issued": false,
+    "execution_granted": false,
+    "heldout_or_B_W_changed": false
+  },
+  "reviewer_harness_diagnostics": {
+    "preserved_note": "reviewer-wrapper-diagnostics.txt",
+    "zsh_readonly_status_after_expected_v6_red": "diagnosed;actualredlogpreserved",
+    "supplemental_result_initial_inventory_path_mismatch": "locatedandverifiedsuccessfulresult;copiedbyteexact;redirectcorrected",
+    "final_validation": "passed"
+  },
+  "remaining_gates": [
+    "separately reviewed bounded fresh-process harness",
+    "actual original source request and CPU/wall/RSS/disk plan",
+    "real interruption/reap/native behavior and full owner exit accounting",
+    "external source acceptance/handoff",
+    "no broad crash-durability or full-containment proof from mocked checks"
+  ]
+}

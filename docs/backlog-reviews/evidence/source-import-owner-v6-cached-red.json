@@ -1,0 +1,58 @@
+{
+  "scope": "pure_fake_v6_stale_popen_cache",
+  "owner_sha256": "7c8189ed72b88f0d481da8dbeb0ee99c48c4ec7173087635c56d8bc7da69945f",
+  "original_error_type": "TimeoutError",
+  "original_error": "fake original deadline after OS leader exit",
+  "os_leader_exited": true,
+  "final_cached_returncode": 0,
+  "group_gone_after_cleanup": true,
+  "descendant_marker": false,
+  "cleanup_marker": false,
+  "in_memory_unknown": false,
+  "reported_unknown_owned_process_usage": false,
+  "real_children": 0,
+  "real_signals": 0,
+  "native_calls": 0,
+  "events": [
+    {
+      "event": "poll",
+      "os_leader_exited": false,
+      "cached_returncode": null
+    },
+    {
+      "event": "guard_error",
+      "os_leader_exited": true,
+      "cached_returncode": null
+    },
+    {
+      "event": "killpg",
+      "signal": 0,
+      "os_leader_exited": true,
+      "cached_returncode": null,
+      "surviving_group": true
+    },
+    {
+      "event": "killpg",
+      "signal": 15,
+      "os_leader_exited": true,
+      "cached_returncode": null,
+      "surviving_group": true
+    },
+    {
+      "event": "wait_before_cache_update",
+      "os_leader_exited": true,
+      "cached_returncode": null
+    },
+    {
+      "event": "wait_after_cache_update",
+      "cached_returncode": 0
+    },
+    {
+      "event": "killpg",
+      "signal": 0,
+      "os_leader_exited": true,
+      "cached_returncode": 0,
+      "surviving_group": false
+    }
+  ]
+}
