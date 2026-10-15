@@ -1,5 +1,7 @@
 # V4 CODE and minimal actual environment green accepted
 
+Historical13:40 acceptance/accounting snapshot: remaining debit/recovery decision was then pending. A later separately [issued FIRST-owner recovery is submitted](real015-first-owner-recovery-launch.md); original CODE/probe/advisory records below remain unchanged. Output acceptance is pending.
+
 Root accepted the exact V4 environment-only wrapper repair and one separately issued minimal actual probe. On the same observed Darwin service key, old exact dictionary equality was false and the new validated V4 guard true; all curated keys/values were unchanged. Terminal2f9c82 EXIT0 used one V6 backend constructor and one stdlib child, with0supervise/owner/model/DB/Y/fit/predict. This is compatibility evidence for the narrow guard, not a first-owner operation or recommendation/scoring result.
 
 [Root CODE/green acceptance](evidence/real015-v4-green/originals/tlab-root-real015-v4-code-and-environment-green-acceptance-v1.json), [consumed minimal-probe grant](evidence/real015-v4-green/originals/tlab-root-real015-environment-green-grant-v1.json), [actual result](evidence/real015-v4-green/originals/actual-environment-green-result.json), [exact archive](evidence/real015-v4-green/publication.json).

@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026, 13:40:31UTC / 16:40:31МСК. V4CODE/minimalactualgreen accepted; explicitdebit/FIRSTownerdecision pending, alloldopsCLOSED. Максимум14:15UTC неизменён.
+Обновлён15 октября2026, 14:11:04UTC / 17:11:04МСК. Actual015 полностью Rootaccepted/13of19, finalΔ+.005122/CIcross0;018partial/финальныйreportreview остаются.025skepticcomplete/Rootreadbackpending. Максимум14:15UTC прежний.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -9,6 +9,42 @@
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 14:15 UTC / 17:15 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Actual015 accepted checkpoint — 14:11:04UTC
+
+По состоянию на 15 октября 2026, 14:11:04 UTC, TLAB-015 полностью принят: final26–31 NDCG@20 B=0,459825 → W=0,464947, Δ=+0,005122; парный user-bootstrap95% интервал [−0,010433;+0,018561] включает ноль. Шесть ролей, all7 prediction seals до fullY и полный lifetime независимо проверены; новых fits/адаптации нет, убедительное превосходство или польза guided search не установлены. Дальше — complete018/source-to-model воспроизводимость и финальное review отчёта; originalV3/018 FAILED/unknown сохранены, все runtime sessions закрыты, nextmax14:15UTC прежний.
+
+[Итоговая таблица/точные агрегаты](../backlog-reviews/real015-heldout-results.md).1770numeric/bootstrapvalues/307fullYpairs/28000rankingrows independently checked,0fits/adaptation; all4estimands/200fixeddraws/undefined0. Sourcechosen3exhaustive, manualcore18sampled48pairs864comparisons; fullperiods25reportonly/26–31frozen/noadapt. No newresearchadmission/goalreset. SafeNEXT existing018+finalreportreview, closed67253NOTpoll/retry.025separateskepticcompleteawaitRootresearchreadback, noID/admission.
+
+## Historical terminal-pending checkpoint
+
+## Current terminal/all-gates checkpoint — 14:04:54UTC
+
+Root reports SAMEoriginal67253 REAPED/CLOSED terminal0ce0cdEXIT0, no furtherpoll/retry. Все6roles finished/4Rootgates accepted: initial/source then predictionacceptance63b8dbc… at13:54:56.549267 (all7/14kQ/2861322C/fullrawscore-rank parity14production+14indepnative/0fit/noYbeforeseal), then targetexecution977396ae… at13:55:40.480558. Targetroles openedfullYonlyafterthosegates; reporting25/final26_31frozen/noadaptation. Originalgatemetadata targets_opened=false preserved asgate-time state.
+
+Finalwhole015/fullmetric/externalresource Rootreadback PENDING. Издатель не открывает ownerpartialreport/qualityvalues/V6final/log/models/source/Y или gatepayloads, не маркирует015done. Шесть exactRootmetadataorig40698B описываютphaseacceptances; старыеpendingпромежуточныесекции ниже исторические. OldV3/018failures/unknown/33914basis/1000/300 неизменны. SafeNEXT Rootreadaggregates+indepmetriccore+completeexternalreceipt; no newmodel/source/nativejobs, no pollingclosed67253. 025skepticcomplete/readbackpending безnewIDs/admissions/mainprereqs. Максимум14:15UTC/17:15МСК anchored13:30безreset. [Current boundedproof](../backlog-reviews/real015-first-owner-recovery-launch.md).
+
+## Historical initial/source snapshot13:56
+
+## Current FIRST-owner initial/source gates checkpoint — 13:56:44UTC
+
+ConsumedFIRSTclaim f8791cc6…/runc24ba56f…: Rootinitialgate accepted actualcompleteprep185.983844959s≤300/current28closure/fingerprint468/choicefixed; не hard300containment. ПервыйRootwrite sandboxPermissionError доgatecreated(.04CPU/.03wallupper) и последующаяauthorizedsamefreshchecks preserved/noownerrestart. Source+sourceoracle reapedexit0, RootSOURCEgateaccepted a082f9…:14,000Q/2,861,322C/chosen3=8,583,966scalars exhaustive. Manualbasecore18ТОЛЬКО48pairs/864comparisons sampled, не fullbaseproof.
+
+Predictionroles разрешены; targetsclosed/0fitY atsourcegate. All7predictions+independentfullscoreoracle/targetauthority/metrics/wholeoperation ещё pending. RootSAMEsession67253running по последнемуhandoff; publisher0poll/gates/model/source/log/Y jobs. Четыре boundedRootmetadata originals архивированы безactualgatepayloads/binaryfiles. Launchremaining7.323047CPU/4.332559375wall — исходнаяallocation послеcarryforward, subsequentreadbacks дебетуютсяизнеё; currentunspent не пересчитывался издателем. OldV3/018failures/unknownflags и33914/43200/1000/300 сохранены.
+
+025existingModelsAseparatecritiquecompleted511words/4initial-finalguards после explicitRootdelegation; report230ba018…/ledger5567d900…/freeze19a41bf7…. Rootreadbackpending,0IDs/admissions/gates/newagents. Следующиймаксимум14:15UTC/17:15МСК anchored13:30безreset; mainexecutionнеждётoptionalresearch. [Current boundedRootproof](../backlog-reviews/real015-first-owner-recovery-launch.md).
+
+## Historical submitted-only snapshot13:49
+
+## Current explicit FIRST-owner submission/checkpoint — 13:49:39UTC
+
+Root issue0ad85714… и submissionf2a3ac40… отдельно разрешили/отправили FIRST unchangedowner startup recovery: V4c007/de1e, SAMEoriginalsession67253/chunkc9fd65 reportedRUNNING. Publisher не polls/читаетruntime log/models/sourceDB/Y/выдаётgates. Root owns allfourmanualreadbacks; outputclaim/source/all7pred/oracles/targets/metrics acceptance pending, неследуетизsubmission. Новыхstaging/claimreset/extra439preflight/fits/adaptation нет.
+
+Conservativecarryforward2.676953CPU/5.667440625wall оплачены из ОДНОГО исходногоRoot10/10; реальноissuedremaining7.323047CPU/4.332559375wall, V6unchanged4190/7190/8GiB. Предыдущиеadvisoryscenario/pendingstate13:40 исторические; newexplicitdecision не upgrade rawoldunknownfulltreeCPU. Initialgate actualcompleteprep≤300 admissioncondition сохранён безhard300claim. OldV3OUT/018FAILED/unknown/33914basis/reserves неизменны, no automaticretry.
+
+025обаFIRSTфактическисданы/4SHAverified. ПослеliveinventoryModelsAidle/duplicatecheck тот жеexistingModelsA получил explicitRoot-authorizedseparatecritique<=550words/up3primarysources, nohelpers/jobs/projectwrites. Новыхagents/ID/grants/gates не создано; outputs025skepticreview/ledger/inputfreeze ожидаются, Rootreadbackrequired доarchiveacceptance. Rootruntime необусловленoptionalresearch. SafeNEXT RootSAMEsessionpoll/readback, следующаявидимаямаксимум14:15UTC/17:15МСК anchored13:30безreset. [Exact launch metadata](../backlog-reviews/real015-first-owner-recovery-launch.md).
+
+## Historical V4 accepted-only snapshot13:40
 
 ## Current V4 acceptance overlay/checkpoint — 13:40:31UTC
 

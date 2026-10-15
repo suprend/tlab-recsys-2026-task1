@@ -1,6 +1,6 @@
 # Постоянная research-линия
 
-15 октября 2026. Primary-source rounds дополняют canonical backlog; rejected/duplicate идеи сохраняются, budgets не складываются.
+15 октября 2026. Primary-source rounds дополняют canonical backlog; rejected/duplicate идеи сохраняются, budgets не складываются. [Фактический TLAB-015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0;018 и финальное review отчёта остаются, новые optional идеи не становятся gates.
 
 [Журнал новых идей: три независимые линии, кандидаты и отказы](brainstorm-log.md) отделяет текущий новый brainstorm от refinement/audit истории.
 
