@@ -1,6 +1,6 @@
 # Автоматизация признаков для ранжирования покупок
 
-По состоянию на 15 октября 2026, 14:29:47 UTC, TLAB-015 полностью принят и финальный экспериментальный отчёт прошёл независимое review/Root приёмку. На final26–31 NDCG@20 B=0,459825 → W=0,464947, Δ=+0,005122;95% парный user-bootstrap интервал [−0,010433;+0,018561] включает ноль, убедительное превосходство не установлено. Остаётся complete018/source-to-model воспроизводимость: один reviewed code pin обновлён и отдельная Root37979operation RUNNING/outputpending; oldV3/018FAILED/unknown сохранены, новые fits/адаптация открытого final не разрешены.
+По состоянию на 15 октября 2026, 14:36:14 UTC, TLAB-015 и финальный экспериментальный отчёт приняты. Механический Oct22 slice из новой DB воспроизвёл все признаки и816684 fixed-model scores без расхождений,0fit/Y; complete018 остаётся partial. Для завершения018 нужен публичный raw→freshcollections→frozenB/W training→comparison путь без privateCBMs/TMP/историческихclaims; финальный приростΔNDCG+0,005122 с95%CI[−0,010433;+0,018561] по-прежнему не доказывает превосходство.
 
 Рабочий отчёт по первой задаче T-Lab. Ручной контроль настроен в пределах заранее заданного бюджета и независимо проверен. Четыре ветви автоматизации и неизменённое отложенное сравнение выполнены и независимо приняты; финальная разность положительна, её интервал включает ноль.
 
@@ -167,3 +167,7 @@ Wave026обаFIRST actualSHAverified, existingretrieval_a separatecritic activat
 ## Actual018 recovery submission overlay — 2026-10-15T14:31:37.795697+00:00
 
 [Root отдельно issued/submitted37979](backlog-reviews/018-recovery-launch.md), RUNNING по Root14:28metadata; fulloutput/parity/lifetime не приняты. Новый600CPU900wall8GiB отдельнооплачен; old600900declareddebit/source720010800nonfungible/oldunknownimmutable, noaggregate018balance.2predmax/0fitY439/no015reexecution/noautomaticretry. Rootalonepolls, publisher0poll/largehash/data/model/jobs; complete018partial и freshtraining не заявлены. MAINreportreviewDONE/015done13of19/next15:00UTC anchored14:15 unchanged.
+
+## Accepted018mechanical slice / early two-round checkpoint — 2026-10-15T14:36:14.657414+00:00
+
+[RootacceptedOct22slice](backlog-reviews/018-accepted-oct22-slice.md): original37979 REAPED/CLOSED894474exit0,2000Q/408342C/allB45+chosen3/2nativepred/816684keyedscores/maxerror0/fullranks.0fit/Y/newmetricselection;Originalproducerpendingflags/oldfailedunknownimmutable. Full018partial/publicraw→freshcollections→frozenB/Wtraining→comparisonroute pending; source-to-fixedscores в существующемruntime неfreshtraining/cleanenvironment. MAINreportreviewDONE/015done13of19.026distinctskepticcomplete14:32:34/Rootreadbackpending;025+026critiquescomplete triggers this earlycheckpoint, nextmax15:00UTC anchored14:15 unchanged/no newdeadline. Newpublicrouteimplementation owner назначаетRoot, активныйпуть невыдумывается; noextraY/refits/currentretune.

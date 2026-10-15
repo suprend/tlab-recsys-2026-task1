@@ -1,4 +1,6 @@
-# 018: отдельная конечная engineering operation отправлена
+# 018: историческая отправка отдельной engineering operation
+
+**Current overlay:** [Root принял bounded Oct22 fixed-score slice](018-accepted-oct22-slice.md),37979CLOSED/reaped0. Ниже историческая submission; whole018/publictrainingroute остаётся partial, no poll/retry.
 
 Root отдельно выдал и отправил recovery session37979/chunk8824d3 после установки единственного reviewed owner pin. [Issued receipt](evidence/018-recovery-launch/originals/tlab-root-018-recovery-operation-issued-v1.json), [submission](evidence/018-recovery-launch/originals/tlab-root-018-recovery-submitted-v1.json), [2 exact originals/10149B](evidence/018-recovery-launch/publication.json). Это RUNNING по Root14:28handoff; output/parity/lifetime acceptance не выводится из submission. Только Root опрашивает исходную session; publisher не читает growinglogs, модели, DB, privatehandoff или outputs.
 
