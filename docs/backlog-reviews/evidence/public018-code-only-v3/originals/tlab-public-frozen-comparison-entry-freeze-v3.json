@@ -1,0 +1,55 @@
+{
+  "diff": {
+    "bytes": 869,
+    "path": "/tmp/tlab-public-frozen-comparison-v2-v3-entry.diff",
+    "sha256": "c767698b46268b768a6a89935ef223fa3669180ce75f39de1f45654e1fd44472"
+  },
+  "entry": {
+    "bytes": 40847,
+    "path": "/tmp/tlab-reproduce-frozen-comparison-v3.py",
+    "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85"
+  },
+  "provenance_correction": "Earlier children_spawned=0 author receipt fields were not instrumented. Actual child counts remain unknown; no actual child count inferred or failed evidence rewritten.",
+  "runtime": {
+    "actual_native_imports": 0,
+    "actual_source_model_target_reads": 0,
+    "authority": "Root only; sole existing coordinator publisher",
+    "integration_20CPU30wall_unissued": true,
+    "project_writes": 0,
+    "subprocesses_executed": 0
+  },
+  "scope": "entry_only_platform_metadata_zero_child_literal_fix_CODE_only",
+  "static_checks": {
+    "compile_only_no_execution": true,
+    "exact_one_line_diff": true,
+    "inverse_AST_equal": true
+  },
+  "stdlib_platform_source": {
+    "bytes": 43388,
+    "path": "/Users/mdpospelov/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/platform.py",
+    "sha256": "f5ff83f15c841792be42709a6710dc8d7a9f72791c1ae4cad719b1fb0abe0a05"
+  },
+  "unchanged_V2": {
+    "bytes": 11528,
+    "path": "/tmp/tlab-public-frozen-comparison-freeze-v2.json",
+    "sha256": "d3e7f77ee78ce91aa1b2db2ee6f9c85eaf043859f405e3836151b7f5ff8e619d"
+  },
+  "unchanged_public_files": {
+    "configs/reproduction/frozen-bw-oct2019.json": {
+      "bytes": 19412,
+      "path": "/tmp/tlab-frozen-bw-oct2019-v2.json",
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec"
+    },
+    "docs/experiments/reproduce-frozen-comparison.md": {
+      "bytes": 12139,
+      "path": "/tmp/tlab-reproduce-frozen-comparison-run-doc-v2.md",
+      "sha256": "6c098cf326a4da6670278a855d0b4ad502df1f4cbad9e2056667acfde9fbddc5"
+    },
+    "tests/test_reproduce_frozen_comparison.py": {
+      "bytes": 33917,
+      "path": "/tmp/test_reproduce_frozen_comparison_v2.py",
+      "sha256": "f75fc3ba807c3e6345de9fc776f58e27f5ab4a351546b8488f28659256f86f3d"
+    }
+  },
+  "version": 3
+}

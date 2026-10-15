@@ -1,6 +1,6 @@
 # Автоматизация признаков для ранжирования покупок
 
-По состоянию на15 октября2026,16:02:07UTC, TLAB-015, финальный отчёт и Oct22 fixed-model slice приняты; завершены13 из19 задач. Публичный raw→freshcollections→NEW frozenB/W training→comparison путь остаётся partial: V2 заморожен после пяти CODE замечаний и ждёт независимого rereview; resource/verifier планы приняты только как design, реальные новые fits не разрешены. Финальная разность NDCG+0,005122 с95%CI[−0,010433;+0,018561] не доказывает превосходство.
+По состоянию на15 октября2026,16:22:15UTC, TLAB-015, финальный отчёт и Oct22 fixed-model slice приняты; завершены13 из19 задач. CODE новой публичной командыV3 принят после независимого review, но установка ждёт отдельной13core/14method интеграции; public raw→freshcollections→NEW frozenB/W training→comparison ещё не выполнен, реальные новые fits не разрешены. Финальная разность NDCG+0,005122 с95%CI[−0,010433;+0,018561] не доказывает превосходство.
 
 Рабочий отчёт по первой задаче T-Lab. Ручной контроль настроен в пределах заранее заданного бюджета и независимо проверен. Четыре ветви автоматизации и неизменённое отложенное сравнение выполнены и независимо приняты; финальная разность положительна, её интервал включает ноль.
 
@@ -215,3 +215,11 @@ Finalauthorproof: шесть unchanged методов PASS вV2 + исправл
 
 
 Обновление 16:02:07UTC: V2 публичной команды заморожен(d3e7f77e), ожидает адресного независимого rereview и Root CODE adoption; не установлен, реальных новых fits/runtime нет. Приняты только [resource/verifier design](backlog-reviews/public018-resource-and-verification-plans.md), будущие пределы не grants. [030research](research-lab/brainstorm-wave030-synthesis.md) accepted existingHYP141 refinement,0 новыхID/задач;031 два независимых FIRST автора FeaturesA/ModelsB фактически running, отдельный ModelsA critic только после обоих freezes.13/19,018partial,015/reportDONE. Nextmax16:30UTC от исходных15:45, часы/цель/33914/43200/1000/300 не сбрасываются.
+
+
+## Ранний checkpoint16:30 — 2026-10-15T16:22:15.554959+00:00
+
+Ранний checkpoint16:30 фактически 16:22:15UTC:13 из19 принято;015/reportDONE,018partial. Root принял только CODE publicV3(ad27…)/три unchangedV2 файла и thin transportV2; установка/реальные новые fits не разрешены. Пять прежнихP2 закрыты; дополнительный platform.platform() lazy-subprocess риск подтверждён source-only и закрыт one-expressionV3. Прежние author0child claims UNMEASURED/UNKNOWN, не фактический ноль. До установки ожидается отдельная Root-issued20CPU/30wall/512MiB интеграция13realcores+14tiny/FakeMLmethods, сейчас proposal/unissued; старый60/120scope не пополняется. Независимый actual-output adapter пишет source_import_review TMP-only.030accepted/031обаFIRST+отдельныйskepticCOMPLETE, Root031readbackpending;032FeaturesB/RetrievalA реально FIRST-running, отдельныйModelsB только после обоих freeze. SafeNEXT — exactharness и отдельное Root решение, потом integration acceptance; публикатор0runtime/fit/Y. Цель/дедлайн17slots/33914/43200active-WALL/1000/300 неизменны. Следующий максимум17:15UTC/20:15МСК от исходных16:30, раньше после двух следующих завершённых исследовательских раундов; ранняя запись не reset часов/бюджетов.
+
+
+Обновление 16:28:45UTC: [031research](research-lab/brainstorm-wave031-synthesis.md) Root accepted existingHYP046 refinements,0 новыхID/задач/grants. [V3/transport CODE-only reviews](backlog-reviews/public018-code-only-v3.md) сохранены; установка/currentCLIfiles/newfits пока не разрешены.032обаFIRST завершены; Root и publisher одновременно dispatch одному existingModelsB — coordination race, выполняется ОДНО separate review, не две независимые проверки/не новыйslot/allowance. Пять FIRST SHA проверены16:24:48, post-FIRSTA clarification отдельно, originals неизменны. Futurecritic dispatch Root-alone, если он явно не передаст и не подтвердит ownership. Early16:22checkpoint покрывает16:30, next17:15UTC от исходного16:30;13/19/018partial/015reportDONE.

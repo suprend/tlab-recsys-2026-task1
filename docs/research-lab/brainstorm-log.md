@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026,16:02:07UTC.015/reportDONE,018partial13of19; publicV2FROZEN/rereviewpending/noinstall-newfits.030 Root research accepted,031 FeaturesA/ModelsB FIRST running. nextmax16:30UTC от исходных15:45 без reset.
+Обновлён15 октября2026,16:28:45UTC.015/reportDONE,018partial13of19; V3 CODEaccepted/installationpending отдельной интеграции.031Rootaccepted,032bothFIRST/одинModelsBcritic активен. nextmax17:15UTC от16:30.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,7 +8,7 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 16:30 UTC / 19:30 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 17:15 UTC / 20:15 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
 ## Early15:00 checkpoint / exact current inventory — 2026-10-15T14:49:34.014907+00:00
 
@@ -662,3 +662,17 @@ Checkpoint15:45 фактически записан15:42:08.235833UTC timely; ne
 Обновление 16:02:07UTC: V2 публичной команды заморожен(d3e7f77e), ожидает адресного независимого rereview и Root CODE adoption; не установлен, реальных новых fits/runtime нет. Приняты только [resource/verifier design](../backlog-reviews/public018-resource-and-verification-plans.md), будущие пределы не grants. [030research](brainstorm-wave030-synthesis.md) accepted existingHYP141 refinement,0 новыхID/задач;031 два независимых FIRST автора FeaturesA/ModelsB фактически running, отдельный ModelsA critic только после обоих freezes.13/19,018partial,015/reportDONE. Nextmax16:30UTC от исходных15:45, часы/цель/33914/43200/1000/300 не сбрасываются.
 
 Actual inventory перед этой публикацией:031 FeaturesA/ModelsB running; оба plan authors и030critic completed. Source-only V2freeze/author hashes проверены, candidate source/config/test/doc не копируются. Source design/full resource corrections сохраняются отдельным overlay; root metadata-cap120000failure/исправление256KiB и preparationfailure исходные.18exact originals (0309/verifier4/resource5),0publisherexperiments/native/data/models/Y. Следующая волна после031review или meaningful main result, без вытеснения обязательного018.
+
+
+## Ранний checkpoint16:30 после030/031 критик — 2026-10-15T16:22:15.554959+00:00
+
+Ранний checkpoint16:30 фактически 16:22:15UTC:13 из19 принято;015/reportDONE,018partial. Root принял только CODE publicV3(ad27…)/три unchangedV2 файла и thin transportV2; установка/реальные новые fits не разрешены. Пять прежнихP2 закрыты; дополнительный platform.platform() lazy-subprocess риск подтверждён source-only и закрыт one-expressionV3. Прежние author0child claims UNMEASURED/UNKNOWN, не фактический ноль. До установки ожидается отдельная Root-issued20CPU/30wall/512MiB интеграция13realcores+14tiny/FakeMLmethods, сейчас proposal/unissued; старый60/120scope не пополняется. Независимый actual-output adapter пишет source_import_review TMP-only.030accepted/031обаFIRST+отдельныйskepticCOMPLETE, Root031readbackpending;032FeaturesB/RetrievalA реально FIRST-running, отдельныйModelsB только после обоих freeze. SafeNEXT — exactharness и отдельное Root решение, потом integration acceptance; публикатор0runtime/fit/Y. Цель/дедлайн17slots/33914/43200active-WALL/1000/300 неизменны. Следующий максимум17:15UTC/20:15МСК от исходных16:30, раньше после двух следующих завершённых исследовательских раундов; ранняя запись не reset часов/бюджетов.
+
+Фактический inventory непосредственно перед записью: Root,publisher,execution_scope_audit,source_import_review,032FeaturesB/RetrievalA running;031authors/critic,A/B CODEreviewers,transportreviewer/author completed. Приёмка031 не выводится из завершённого critic. Proposed20/30scope отдельный инженерный проход и пока UNISSUED, не повтор старого allowance. Root receipts7e93246f/06b74da1 фактически small-hash проверены; code/request/template не устанавливались.
+
+
+## 031Rootaccepted/CODE-only архив и032 dispatch race — 2026-10-15T16:28:45.036465+00:00
+
+Обновление 16:28:45UTC: [031research](brainstorm-wave031-synthesis.md) Root accepted existingHYP046 refinements,0 новыхID/задач/grants. [V3/transport CODE-only reviews](../backlog-reviews/public018-code-only-v3.md) сохранены; установка/currentCLIfiles/newfits пока не разрешены.032обаFIRST завершены; Root и publisher одновременно dispatch одному existingModelsB — coordination race, выполняется ОДНО separate review, не две независимые проверки/не новыйslot/allowance. Пять FIRST SHA проверены16:24:48, post-FIRSTA clarification отдельно, originals неизменны. Futurecritic dispatch Root-alone, если он явно не передаст и не подтвердит ownership. Early16:22checkpoint покрывает16:30, next17:15UTC от исходного16:30;13/19/018partial/015reportDONE.
+
+Root clarification032A09b1f9cc — subsequent supplement, не FIRST evidence. ModelsB подтвердил single review/freeze всех6inputs16:25:22.219802UTC; оба dispatch после обоих FIRST не затрагивают blind authors, не создают дополнительного review/slot/grant. Никаких author changes или jobs от publisher; следующие critics только Root либо явный подтверждённый handoff.

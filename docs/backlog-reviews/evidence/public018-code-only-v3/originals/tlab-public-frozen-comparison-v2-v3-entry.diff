@@ -1,0 +1,11 @@
+--- V2/scripts/reproduce_frozen_comparison.py
++++ V3/scripts/reproduce_frozen_comparison.py
+@@ -682,7 +682,7 @@
+                       recipe_sha256=RECIPE_SHA256, source=imported['source'],
+                       dependencies=sources.witnesses, command_source=sources.command, recipe=recipe_witness,
+                       data_exports=export_inventory(phases, output),
+-                      environment=dict(python=platform.python_version(), platform=platform.platform(),
++                      environment=dict(python=platform.python_version(), platform=sys.platform + '-' + platform.machine(),
+                                        locked_packages=recipe['environment']['packages']),
+                       comparison=compared, telemetry=budget.telemetry(),
+                       historical_model_equivalence_claimed=False, independent_acceptance_issued=False,
