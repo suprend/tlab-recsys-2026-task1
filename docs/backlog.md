@@ -547,3 +547,8 @@ The [production adapter](experiments/heldout-reporting-worker.md) and three fixe
 ### Outer reporting owner code accepted after original scope fault
 
 The [outer owner](experiments/run-heldout-reporting.md) passed37 author+5 unchanged independent+2 fresh metadata methods. The [initial review](backlog-reviews/heldout-owner-independent-review-v1.md) preserves the original contradictory/omitted prediction verdict, private nested payload and Boolean-counter admission; the [narrow rereview](backlog-reviews/heldout-owner-independent-rereview-v2.md) confirms complete fixed aggregate/daily schema checks before any all-seven inventory persistence. This accepts the code boundary, not actual source/model/queryY, historical439 authentication or resource sufficiency. Complete tiny fresh-process integration, exact reviewed request and separately issued staged gates remain required before any actual reporting invocation.
+
+
+### Independent new-idea drafts archived; cross-review pending — 15 октября 2026,05:33UTC
+
+Two independently drafted research lines now have real versioned outputs: [F001](research-lab/brainstorm-f001.md), four feature/automation candidates; [M001](research-lab/brainstorm-m001.md), five model/loss/transfer candidates including one explicit rejection. The [journal](research-lab/brainstorm-log.md), candidate ledgers and byte-exact [first-draft freeze](research-lab/brainstorm-f001-m001-freeze.json) preserve their proposal status. No new HYP IDs, pilots, fits or reserved-data access follow from publication. Independent cross-review must first test mechanism novelty, source support and cheapest falsifiers; an interrupted retrieval line is not counted complete.

@@ -156,3 +156,6 @@ Further focused report/reproduction refinements (no new experiments):
 - [Round074 — vocabulary, both towers and cached state require joint identity](round-074.md).
 
 [Next-backlog consolidation](../backlog-reviews/next-backlog-brainstorm.md), [automation-claims red team](../backlog-reviews/automation-claims-red-team.md), and [future reservation options](../backlog-reviews/future-label-reservation-options.md) refine existing work without new fits or current heldout changes. November prefixes were already inspected by the published category audit; a future month cannot be called wholly unseen. The notes retain their historical execution snapshot with an explicit publication appendix.
+
+
+[Новый brainstorm F001](brainstorm-f001.md) и [независимый M001](brainstorm-m001.md) сданы как первые drafts:4+5кандидатов, cross-review пока ожидается; [живой журнал](brainstorm-log.md) и [freeze](brainstorm-f001-m001-freeze.json) отделяют новые идеи от прежних refinements. Новые HYP и права pilot пока не назначены.
