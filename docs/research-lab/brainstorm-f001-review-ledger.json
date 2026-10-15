@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "review_id": "feature-f001-independent-cross-review-20261015",
+  "recorded_utc": "2026-10-15T05:39:04Z",
+  "reviewed_round": "new-ideas-brainstorm-001",
+  "reviewed_candidate_ids": ["NB-F01", "NB-F02", "NB-F03", "NB-F04"],
+  "input_report": "brainstorm-f001.md",
+  "input_ledger": "brainstorm-f001-ledger.json",
+  "report": "brainstorm-f001-review.md",
+  "primary_verification_note": "brainstorm-f001-primary-verification.md",
+  "literal_script": "brainstorm-f001-literal-review.py",
+  "literal_results": "brainstorm-f001-literal-results.json",
+  "independence": {
+    "other_current_new_research_reports_read_before_initial_review": false,
+    "initial_judgment_sent_to_root_before_primary_verification_return": true,
+    "prior_canonical_backlog_and_studies_read_for_dedup": true,
+    "new_source_only_verification_delegated": true,
+    "no_shared_or_git_edits": true
+  },
+  "authority": {
+    "execution_granted": false,
+    "canonical_hyp_ids_assigned": false,
+    "current_B_W_modified": false,
+    "current_016_modified": false,
+    "heldout_25_31_opened": false,
+    "new_real_data_experiments": 0,
+    "new_native_fits": 0,
+    "new_metric_looks": 0,
+    "publisher": "/root/backlog_coordinator"
+  },
+  "actual_work": {
+    "project_source_data_rows_read": 0,
+    "database_opens": 0,
+    "project_model_imports": 0,
+    "source_hash_streams": 0,
+    "query_targets_read": 0,
+    "native_fits": 0,
+    "curve_estimation_from_project_data": 0,
+    "api_inference_jobs": 0,
+    "literal_standard_library_script_runs": 1,
+    "literal_event_rows_f01": 20,
+    "literal_event_rows_f03": 8,
+    "literal_f02_kind": "declared monotone curve and risk-fraction arithmetic; no fitted estimator",
+    "literal_f04_kind": "10 invented numeric values plus short histogram vectors",
+    "literal_assertion_failures": 0,
+    "literal_tool_wall_seconds_approx": 0.1,
+    "cpu_seconds_measured": null,
+    "rss_bytes_measured": null,
+    "resource_benchmark_claimed": false,
+    "reviewer_validation": {
+      "initial_inline_checker": "SyntaxError from missing closing brace before execution;preserved diagnostic",
+      "corrected_checker": "passed JSON parse,file presence,decisions and no-execution assertions",
+      "project_tests_run": 0
+    }
+  },
+  "source_checks": [
+    {
+      "id": "TSRec2025",
+      "url": "https://arxiv.org/html/2506.08531v1",
+      "mechanism_claim": "verified in paper",
+      "author_code": "anonymous repository reader empty; implementation unverified",
+      "bibliography": "arXiv v1 2025; HTML conference-template CIKM2023 placeholder is not verified acceptance",
+      "transfer_boundary": "view24h purchase-conditioned Jaccard is our adaptation; next-item sampled-negative result not transferred"
+    },
+    {
+      "id": "Survival2026",
+      "url": "https://arxiv.org/html/2608.28393v1",
+      "mechanism_claim": "censoring, AFT and discrete hazards verified",
+      "protocol": "proprietary grocery rich-order84features;30day outcomes;7/14/28day evaluation;single snapshot/customer heldout",
+      "transfer_boundary": "REES46 category/global residual prior and daily full-Y are our adaptation"
+    },
+    {
+      "id": "HiFIRec2025",
+      "url": "https://arxiv.org/html/2509.25755v1",
+      "mechanism_claim": "graph/multi-behavior/non-sampling/multi-task verified",
+      "material_source_caveat": "section4.5 describes decreases in two Beibei metrics as improvement",
+      "transfer_boundary": "directed category contingency not supplied by paper; numerical gains not relied upon"
+    },
+    {
+      "id": "SCRM_prior",
+      "url": "https://arxiv.org/html/2312.14957v2",
+      "mechanism_claim": "undirected graphs and heuristic noisy click/purchase rules verified",
+      "transfer_boundary": "directed feature is our adaptation; causal substitute/complement labels not available"
+    },
+    {
+      "id": "FAM2025",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2025/file/ddc20f403d0d296c87940393838d5971-Paper-Conference.pdf",
+      "author_repository": "https://github.com/LAMDA-Tabular/Tabular-Temporal-Modulation",
+      "mechanism_claim": "time-conditioned scale/bias/Yeo-Johnson coefficients verified",
+      "protocol_correction": "README100trials/15seeds;AppendixB25trials exceptions for FT-Transformer/TabR",
+      "transfer_boundary": "source-only reliability selector not proposed or validated by paper"
+    },
+    {
+      "id": "REES46",
+      "url": "https://rees46.com/en/datasets",
+      "publisher_provenance": "verified catalogue Multi-category behavior data",
+      "schema_verification": "existing docs/data.md nine-field local schema; no CSV read; Kaggle reader empty"
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "NB-F01",
+      "decision": "accept-needs-pilot",
+      "canonical_hyp_id": null,
+      "priority_after_contract_changes": 1,
+      "novelty": {
+        "kind": "new historical-reference operator",
+        "related": ["HYP045", "HYP051/052", "HYP063", "09-user-item/05-item-audience", "recent-repeat"],
+        "delta": "candidate last-purchase time selects its own prior context; broad candidate-conditioning is already known"
+      },
+      "required_refinements": [
+        "common full coverage/eligibility for current and both reference windows",
+        "distinct no-prior-purchase/empty-union/incomplete-window reasons",
+        "count unequal specific-vs-generic reference times and score deltas",
+        "freeze support threshold without post-probe relaxation",
+        "freeze J/support/missing physical delta and equal learner/Q/C/fullY"
+      ],
+      "known_feasibility_warning": {
+        "source": "docs/experiments/manual-features.md existing smoke summary",
+        "C_rows": 1226268,
+        "missing_pair_purchase_recency": 1225318,
+        "nonmissing_pair_purchase_recency": 950,
+        "queries": 6000,
+        "eligible_query_fraction_upper": 0.15833333333333333,
+        "generalization": "not a new data scan; future warmup may differ; narrower mechanism rarer"
+      },
+      "literal_evidence": {"specific_J": [1, 0], "generic_J": [0, 0], "counts_last_views_equal": true},
+      "cheapest_next_falsification": "literal peer/window/degenerate-ref cases then separately considered100Q support/cost probe",
+      "stop_rule": "support/nonconstant/nondegenerate gate failure -> defer without quality fit",
+      "proposed_budget_not_grant": {"queries_max": 100, "cpu_seconds_max": 1800, "threads_max": 2, "rss_gib_max": 6, "quality_fits_later_max": 2}
+    },
+    {
+      "candidate_id": "NB-F02",
+      "decision": "defer",
+      "canonical_hyp_id": null,
+      "priority_after_contract_changes": 4,
+      "novelty": {
+        "kind": "new censoring-aware repeat-event prior",
+        "related": ["recent-repeat cooldown/TARS", "HYP025", "HYP060"],
+        "delta": "risk-set/censoring and residual horizon rather than raw recency suppression or target-rate encoding"
+      },
+      "blockers_before_source_probe": [
+        "actual warmup dates and fit_cutoff<=available_at<=first downstream anchor",
+        "incident spell entry and all censored terminal spells retained",
+        "category attached at starting purchase bucket with NULL/conflict policy",
+        "event/censor tie convention and operator-only timestamp dedup",
+        "age-band support/backoff/tail semantics and completed/censored/risk receipt",
+        "explicit repeated-spell dependence and censoring/stationarity assumption"
+      ],
+      "literal_evidence": {
+        "same_unconditional_F1": 0.16666666666666666,
+        "conditional_residual_curves": [0.5, 0.3333333333333333],
+        "retain_vs_drop_censor_S2": [0.5, 0.3333333333333333],
+        "retain_vs_drop_censor_residual_1_to_2": [0.3333333333333333, 0.5]
+      },
+      "fair_control": "same group unconditionalF24 plus B age/recency;common cohort/supported-age mask/backoff/columns",
+      "cheapest_next_falsification": "contract and literal risk/tie/category cases;no actual curve estimation authorized",
+      "cost_boundary": "curve estimation counts as paid fitted state even with zero native classifier fits",
+      "stop_rule": "unsupported tail or absent causal warmup -> defer;no distribution search on reused quality feedback",
+      "proposed_budget_not_grant": {"queries_later_max": 100, "cpu_seconds_max": 1800, "threads_max": 2, "rss_gib_max": 6, "quality_fits_later_max": 2}
+    },
+    {
+      "candidate_id": "NB-F03",
+      "decision": "refine",
+      "canonical_hyp_id": null,
+      "priority_after_contract_changes": 2,
+      "novelty": {
+        "kind": "new normalized action-role/category transition scalar",
+        "related": ["HYP001/061", "HYP067", "09-user-item/04-interest-profile"],
+        "delta": "specific ordered action/category contingency;directional context itself already discussed"
+      },
+      "required_refinements": [
+        "matching-role latest-event seed versus latest eligible action fixed before probe",
+        "all observed bucket adjacency;do not bridge across discarded ambiguous middle bucket silently",
+        "prefix-only session overflow outcome/no future-tail-based selection",
+        "charge physical scans needed to find sampled users/admitted rows",
+        "subtract own contribution from cell,row,col and N",
+        "predeclared supported nonconstant-Q gate and fixed one relation",
+        "claim action+direction composite or choose one-axis contrast within same two fit slots"
+      ],
+      "literal_evidence": {
+        "typed_AB": [0.28768207245178085, 0],
+        "pooled_symmetric_AB": [0.47000362924573563, 0.47000362924573563],
+        "support_gate_checked": false,
+        "peer_check_scope": "two predicate ambiguity only;no full materializer acceptance"
+      },
+      "fair_control": "same admitted bag/common typed support mask;pooled symmetric is composite contrast only",
+      "cheapest_next_falsification": "literal ambiguity/own-exclusion/N/category/suffix oracle before any100Q source probe",
+      "stop_rule": "overflow or support gate failure -> defer without refill/quality fits",
+      "proposed_budget_not_grant": {"queries_max": 100, "background_users_max": 10000, "admitted_rows_max": 1000000, "buckets_per_session_max": 20, "other_users_min": 5, "cpu_seconds_max": 1800, "threads_max": 2, "rss_gib_max": 6, "quality_fits_later_max": 2}
+    },
+    {
+      "candidate_id": "NB-F04",
+      "decision": "refine",
+      "canonical_hyp_id": null,
+      "priority_after_contract_changes": 3,
+      "novelty": {
+        "kind": "source-adaptive allocation refinement of grammar002",
+        "related": ["HYP002", "HYP013", "HYP046"],
+        "delta": "temporal reliability selection distinct from static preference/supervised residual/cache;pool itself not new"
+      },
+      "material_counterexample": {
+        "issue": "IQR+1 normalization can change reliability ranking with semantically equivalent unit scaling",
+        "day1": [-2, -1, 0, 1, 2],
+        "day2": [-3.6, -2, 0, 2, 3.6],
+        "bin_rule": "first-block max absolute normalized value separates in-range and overflow",
+        "units1_JS": 0.1638965900335596,
+        "units100_JS": 0,
+        "units1_score": 0.8591828591672102,
+        "units100_score": 1,
+        "scope": "permitted binning counterexample;not all possible binnings or predictive quality"
+      },
+      "required_refinements": [
+        "scale-aware/dimensionless normalization or predeclared unit justification;scaled-alias literal test",
+        "IQR0/constant/outlier/missing/underflow-overflow semantics",
+        "exact bundle coverage/nonconstant predicate/support-only core policy",
+        "histogram edges,JSbase,query/candidate and multicore weighting",
+        "either100Qtotal or explicit400Q exception within same charged cap",
+        "all four days full max-window coverage and selector available before downstream"
+      ],
+      "fair_control_options_no_extra_fits": [
+        "temporal reliability claim: replace random with coverage-only selector",
+        "retain random comparator:claim whole policy versus one draw only;no claim drift superiority"
+      ],
+      "literal_pooled_equal_temporal_JS": [0, 0.19274475702175753],
+      "proposed_workload_arithmetic": {
+        "warmup_queries": 400,
+        "C_per_query_upper_if220": 220,
+        "Q_C_pairs_upper": 88000,
+        "bundles": 8,
+        "bundle_pair_evaluations_upper": 704000,
+        "unique_pool_columns_upper": 24,
+        "scalar_values_upper": 2112000,
+        "feasibility_measured": false,
+        "conflict": "common100Q cap versus candidate400Q requirement unresolved"
+      },
+      "cheapest_next_falsification": "fix/freeze score and literal aliases/day-allocation,then separately considered source-only selector probe",
+      "stop_rule": "coverage-only identical choice -> no incremental mechanism;collision no redraw;resource failure deferred",
+      "proposed_budget_not_grant": {"cpu_seconds_max": 1800, "threads_max": 2, "rss_gib_max": 6, "quality_fits_later_max": 2, "query_cap_unresolved": true}
+    }
+  ],
+  "shared_future_gates": [
+    "one chosen pilot;candidate caps are not additive execution rights",
+    "new prospective development/reservation,not current closed25-31 or reused screening promoted to confirmation",
+    "positive measured compute/decision gap;all state available before downstream rows",
+    "same Q/C/fullY/query weights/train population/learner/scoring prefix and physical columns within contrast",
+    "fullY includes outsideC/new targets;empty mature queries retained",
+    "charge source scans/preparation/estimation/oracle/failures/scoring;throughput remains unmeasured",
+    "any quality-stage proposal limited to two matched fits/7200CPU seconds only after separate approval"
+  ],
+  "claim_limits": [
+    "literal arithmetic shows distinguishability/specification fault,not real-data quality or materializer correctness",
+    "primary-source verification is not reproduction",
+    "stable source distributions need not imply predictive utility",
+    "registered repeats/session transitions do not establish orders/replenishment/causal complements",
+    "no canonical HYP count or current study success claim follows"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "scope": "independent_F001_crossreview_primary_checks_and_literal_arithmetic",
+  "files": {
+    "docs/research-lab/brainstorm-f001-review.md": {
+      "original_source_name": "tlab-feature-new-ideas-independent-cross-review.md",
+      "original_sha256": "e7d9d4adedf8da5bc9577cef6ee198b08dad3da3b7a595b77b214d041d2085e0",
+      "original_bytes": 27952,
+      "publication_sha256": "ead509c0f65461b2053d07a8ce28fa78f390c6be59c515ac8a333a9122ad6469",
+      "publication_bytes": 27869,
+      "publication_adaptation": "portable file references only"
+    },
+    "docs/research-lab/brainstorm-f001-review-ledger.json": {
+      "original_source_name": "tlab-feature-new-ideas-independent-cross-review-ledger.json",
+      "original_sha256": "4ae350a7b58a27f7ee2a560d2080e162e2e32689bdd627afc767266bb267348c",
+      "original_bytes": 14304,
+      "publication_sha256": "d2363b6e9a0856fdd435bdf9a58d7974efff9fdf9dc9a2711ffe509ac058e886",
+      "publication_bytes": 14196,
+      "publication_adaptation": "portable file references only"
+    },
+    "docs/research-lab/brainstorm-f001-primary-verification.md": {
+      "original_source_name": "tlab-feature-f001-primary-verification.md",
+      "original_sha256": "59ef62217b1aeb657881a3dcc24d95ac242b6beb95dd850bb9b7dabb27ef0fce",
+      "original_bytes": 7781,
+      "publication_sha256": "59ef62217b1aeb657881a3dcc24d95ac242b6beb95dd850bb9b7dabb27ef0fce",
+      "publication_bytes": 7781,
+      "publication_adaptation": "none"
+    },
+    "docs/research-lab/brainstorm-f001-literal-review.py": {
+      "original_source_name": "tlab-feature-f001-literal-review.py",
+      "original_sha256": "b9826c3b4650f7d3df35ed2f4a14e276b9f5643242ee66c700c391ee4a5a519b",
+      "original_bytes": 3992,
+      "publication_sha256": "b9826c3b4650f7d3df35ed2f4a14e276b9f5643242ee66c700c391ee4a5a519b",
+      "publication_bytes": 3992,
+      "publication_adaptation": "none"
+    },
+    "docs/research-lab/brainstorm-f001-literal-results.json": {
+      "original_source_name": "tlab-feature-f001-literal-review-results.json",
+      "original_sha256": "7eecfc1a96f0e37b3de2041d8b0a533435eb89e67ba3bca44adec4c18b821976",
+      "original_bytes": 1266,
+      "publication_sha256": "7eecfc1a96f0e37b3de2041d8b0a533435eb89e67ba3bca44adec4c18b821976",
+      "publication_bytes": 1266,
+      "publication_adaptation": "none"
+    }
+  },
+  "candidate_decisions": {
+    "NB-F01": "accept-needs-pilot",
+    "NB-F02": "defer",
+    "NB-F03": "refine",
+    "NB-F04": "refine"
+  },
+  "coordinator_literal_replay": "reviewer stdlib script executed once, stdout JSON exactly equals reviewer result",
+  "reviewer_initial_checker_failure": "SyntaxError before checker execution preserved and disclosed in original review/ledger; corrected validation passed",
+  "project_tests_run": 0,
+  "real_source_data_model_jobs": 0,
+  "canonical_hyp_ids_assigned": false,
+  "execution_authority": false
+}

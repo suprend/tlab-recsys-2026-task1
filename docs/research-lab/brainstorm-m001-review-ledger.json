@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "review": "M001_independent_cross_review",
+  "date": "2026-10-15",
+  "target": "brainstorm-m001.md",
+  "canonical_mirror_same_target": "docs/research-lab/brainstorm-m001.md",
+  "independence": {
+    "other_new_brainstorm_reports_used": false,
+    "primary_tabular_subreview": true,
+    "project_reads": "documents_only",
+    "no_project_git_or_shared_edits": true
+  },
+  "actual_activity": {
+    "db_raw_feature_target_model_reads": 0,
+    "large_file_hashes": 0,
+    "downloads_installs_fits_encoder_api_jobs": 0,
+    "literal_stdlib_math_probes": 2
+  },
+  "execution_authority": false,
+  "new_hyp_ids_assigned": false,
+  "current_B_W_015_016_25_31_changed": false,
+  "candidate_verdicts": [
+    {
+      "id": "M001-C1",
+      "verdict": "refine",
+      "novelty": "specific teacher-prefix supervision contrast, generic KD already mentioned",
+      "gates": [
+        "freeze binary BCE versus categorical CE; query row weights are not target probability mass",
+        "mature teacher labels, teacher_available_at <= every scored student anchor; common later rows",
+        "ordinary random OOF insufficient for time-aligned teacher state",
+        "2 teachers + 3 students =5 attempts only if train cost gate prefix not free fit",
+        "strong B reuse eligibility or extra counted fit"
+      ],
+      "cheapest_falsifier": "32 literal rows + metadata-only chronology/support schedule",
+      "proposed_fit_attempts_not_authorized": 5,
+      "sources": [
+        "https://arxiv.org/abs/2408.14678",
+        "https://arxiv.org/html/2408.14678v1"
+      ]
+    },
+    {
+      "id": "M001-C2",
+      "verdict": "refine",
+      "naive_differentiable_unbounded_adaptation": "falsified_by_literal_counterexample",
+      "novelty": "top20 positive weighting at fixed full-C, refinement softmax/listwise family",
+      "gates": [
+        "fix entire-weight gradient contract, not threshold only",
+        "bound score/weight domain or explicitly name detached reweighted CE update",
+        "ties/ranks19-21/C0-1-20/P0/all-positive/translation checks",
+        "2 matched MLP fits; same-domain strong B separate"
+      ],
+      "cheapest_falsifier": "completed21-item derivative counterexample",
+      "proposed_fit_attempts_not_authorized": 2,
+      "sources": [
+        "https://jiawei-chen.github.io/paper/KDD25-SLK.pdf",
+        "https://raw.githubusercontent.com/Tiny-Snow/IR-Benchmark/main/src/itemrec/optimizer/optim_SLatK.py"
+      ]
+    },
+    {
+      "id": "M001-C3",
+      "verdict": "accept-needs-pilot",
+      "admission": "conditional training contract/dependency/resource/new-reservation gates",
+      "novelty": "shared-weight member-adapter regularization, distinct from attention/cross layers",
+      "gates": [
+        "mean per-head losses; inference mean probabilities",
+        "freeze actual TabM variant, initialization, independent heads, embedding choice",
+        "physical k4 cost/parameters/updates; same width not compute match",
+        "2 fits total30CPU-min implies equal per-arm split within total",
+        "separate strong-B same-domain benchmark"
+      ],
+      "cheapest_falsifier": "shape/parameter accounting and32-row branch/loss fixture",
+      "proposed_fit_attempts_not_authorized": 2,
+      "sources": [
+        "https://arxiv.org/abs/2410.24210",
+        "https://github.com/yandex-research/tabm#training",
+        "https://github.com/yandex-research/tabm/blob/main/LICENSE",
+        "https://github.com/yandex-research/tabm/blob/main/paper/README.md"
+      ]
+    },
+    {
+      "id": "M001-C4",
+      "verdict": "defer",
+      "novelty": "labelled training-row contexts rather than item retrieval",
+      "gates": [
+        "localized code/FT checkpoint provenance or explicit frozen-base adaptation naming",
+        "official CPU/MPS support exists; actual resource fit unverified",
+        "target-aware cache/index uses only mature available labels before anchor",
+        "one-class sparse-context fallback and query/user caps fixed",
+        "fit(X,y) no sample_weight; retrieval contrast separate from B package",
+        "100Q up to22000 candidate rows; caches/search/download physical costs"
+      ],
+      "cheapest_falsifier": "metadata-only implementation/backend/checkpoint/shape/class-support admission",
+      "proposed_gradient_fits_not_authorized": 0,
+      "sources": [
+        "https://arxiv.org/html/2608.16429v1",
+        "https://proceedings.mlr.press/v306/qu26a.html",
+        "https://arxiv.org/html/2602.11139v1",
+        "https://huggingface.co/jingang/TabICL/blob/main/tabicl-classifier-v2-20260212.ckpt",
+        "https://github.com/soda-inria/tabicl/blob/main/src/tabicl/_sklearn/classifier.py",
+        "https://tabicl.readthedocs.io/en/latest/api.html"
+      ]
+    },
+    {
+      "id": "M001-C5",
+      "verdict": "reject-current",
+      "preserve_id": true,
+      "novelty": "distinct positive aggregation but no justified current purchase-denoising hypothesis",
+      "gates": [
+        "singleton identity only positive side, not full BSL equivalence",
+        "actual P support unmeasured; do not assert singleton distribution",
+        "multi user-batch semantics do not equal query-day P",
+        "no score-based declaration true purchase noise"
+      ],
+      "cheapest_falsifier": "completed singleton/two-positive literal algebra; no new scans admitted",
+      "proposed_fit_attempts_not_authorized": 0,
+      "sources": [
+        "https://arxiv.org/abs/2312.12882",
+        "https://jiawei-chen.github.io/paper/ICDE24-BSL.pdf",
+        "https://raw.githubusercontent.com/junkangwu/BSL/master/utils/losses.py"
+      ]
+    }
+  ],
+  "math_evidence": {
+    "C2": {
+      "candidate_count": 21,
+      "positive_score": -1,
+      "negative_count": 20,
+      "negative_scores": 0,
+      "beta20": 0,
+      "tau_w": 1,
+      "tau_d": 1,
+      "loss": 1.079519871797822,
+      "analytic_positive_gradient": 0.5251083930360618,
+      "finite_difference_positive_gradient": 0.5251083929902478,
+      "ordinary_CE_gradient": -0.981938255171139,
+      "detached_entire_weight_gradient": -0.2640838700432991,
+      "loss_at_positive_minus10": 0.0005899786504996789,
+      "loss_at_positive_minus100": 3.831519492635221e-42
+    },
+    "C5": {
+      "singleton_positive_term": "-sp for any tau+ >0",
+      "two_positive_scores": [
+        2,
+        -2
+      ],
+      "tau_plus": 1,
+      "positive_gradients": [
+        -0.9820137900379085,
+        -0.01798620996209156
+      ]
+    }
+  },
+  "paper_dates": {
+    "C1_v1": "2024-08-26",
+    "C1_venue": "RecSys2024",
+    "C2_venue": "KDD2025,2025-08-03..07",
+    "C3_v1": "2024-10-31",
+    "C3_venue": "ICLR2025",
+    "C4_localized_v1": "2026-08-17",
+    "C4_base_venue": "ICML2026",
+    "C5_v1": "2023-12-20",
+    "C5_venue": "ICDE2024"
+  },
+  "shared_requirements": [
+    "new prospective reservation; frozen25-31 unavailable for new selection",
+    "B41 numeric inputs only; no imaginary impressions/text/images",
+    "same Q/C/fullY and four estimands",
+    "strong tuned B relevant comparison; new control fits charged",
+    "attempt/physical CPU/RSS/wall/checkpoint looks account failures/setup/scoring",
+    "support minima and slices frozen; sparse result inconclusive",
+    "candidate ceilings alternative proposals not additive authorization"
+  ],
+  "prospective_priority": [
+    "M001-C3 admission",
+    "M001-C2 mathematical refinement",
+    "M001-C1 chronology/objective refinement",
+    "M001-C4 metadata-only admission"
+  ],
+  "report": "brainstorm-m001-review.md"
+}

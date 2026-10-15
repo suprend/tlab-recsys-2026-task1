@@ -159,3 +159,15 @@ Further focused report/reproduction refinements (no new experiments):
 
 
 [Новый brainstorm F001](brainstorm-f001.md) и [независимый M001](brainstorm-m001.md) сданы как первые drafts:4+5кандидатов, cross-review пока ожидается; [живой журнал](brainstorm-log.md) и [freeze](brainstorm-f001-m001-freeze.json) отделяют новые идеи от прежних refinements. Новые HYP и права pilot пока не назначены.
+
+
+[FA001: четыре новых blind feature-search кандидата](brainstorm-fa001.md) и [независимый review M001](brainstorm-m001-review.md) опубликованы отдельно от исходных drafts. Review сохраняет literal positive-gradient fault top20-loss и допускает TabM только к дальнейшему design/resource gate; [publication freeze](brainstorm-fa001-m001-review-freeze.json) связывает original/public hashes.
+
+
+Первая параллельная волна также сдала [FeaturesB](brainstorm-fb001.md), [RetrievalA](brainstorm-ra001.md) и [RetrievalB](brainstorm-rb001.md). Их11 локальных предложений ждут crossed critique/dedup; [freeze и границы независимости](brainstorm-fb001-ra001-rb001-freeze.json) явно раскрывают чтение зарегистрированных NB summaries.
+
+
+[Независимый F001 cross-review](brainstorm-f001-review.md) завершён с [primary-source проверкой](brainstorm-f001-primary-verification.md), [literal script](brainstorm-f001-literal-review.py), [результатами](brainstorm-f001-literal-results.json) и [freeze](brainstorm-f001-review-freeze.json). NB-F01 условный needs-pilot; NB-F02 defer; NB-F03/04 refine, с явным unit-scaling negative case.
+
+
+Независимые [ModelA](brainstorm-ma001.md) и [ModelB](brainstorm-mb001.md) добавляют8 локальных proposals до crossed review. [Freeze](brainstorm-ma001-mb001-freeze.json) заранее отмечает TabM/SL/KD overlaps: независимое повторное открытие не создаёт новый HYP автоматически.
