@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "outcome": "pass",
+  "case_count": 8,
+  "cases": [
+    {
+      "case": "unchanged_symbolic_control",
+      "outcome": "pass",
+      "bundles": 8,
+      "slots": [
+        "L02",
+        "L06",
+        "L01",
+        "L05"
+      ],
+      "execution_approved": false,
+      "scope": "symbolic declarations only"
+    },
+    {
+      "case": "honest_review_only_capability",
+      "outcome": "expected_rejection",
+      "reason": "All declared actions must be observed capabilities, not invented zeros"
+    },
+    {
+      "case": "raw_RetailRocket_schema_without_typed_mapping",
+      "outcome": "expected_rejection",
+      "reason": "Explicit typed schema adapter is required; semantics cannot be inferred from names"
+    },
+    {
+      "case": "reduced_common12_cannot_inherit_frozen_pool",
+      "outcome": "expected_rejection",
+      "reason": "The final base41/manual18 control must remain explicit",
+      "reduced_core_count": 12,
+      "reduced_physical_model_columns_under_current_builder": 29
+    },
+    {
+      "case": "declaration_cannot_authenticate_business_event_truth",
+      "outcome": "symbolic_pass_without_source_evidence",
+      "interpretation": "Not a generator bug; no source verifier or purchase observability is exercised"
+    },
+    {
+      "case": "RetailRocket_literal_ms_bag_global_peer_fullY",
+      "outcome": "pass",
+      "synthetic_event_rows": 7,
+      "cart_rows": 2,
+      "distinct_cart_users": 1,
+      "view_rows": 2,
+      "view_recency_seconds_exact": "1/1000",
+      "fullY": [
+        "z"
+      ],
+      "off_C_target_retained": true,
+      "scope": "Independent literal arithmetic; no real adapter or dataset rows"
+    },
+    {
+      "case": "RetailRocket_literal_two_category_policies",
+      "outcome": "pass",
+      "synthetic_property_rows": 5,
+      "frozen_last_event_category": "A",
+      "query_current_property_category": "B",
+      "known_plus_NULL_bucket": null,
+      "future_suffix_invariant": true,
+      "scope": "Own literal resolver, not production EventFact adapter"
+    },
+    {
+      "case": "Amazon_review_purchase_nonidentifiability",
+      "outcome": "pass",
+      "same_released_row": true,
+      "true_purchase_Y_world_A": [
+        "i",
+        "j"
+      ],
+      "true_purchase_Y_world_B": [],
+      "scope": "Constructed worlds; proof witness only, no actual Y accessed"
+    }
+  ],
+  "source_pins_before": {
+    "PROJECT_ROOT/scripts/feature_programs.py": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+    "PROJECT_ROOT/scripts/manual_features.py": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+    "PROJECT_ROOT/configs/features/automation-pool.json": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+    "PROJECT_ROOT/configs/features/manual-18.json": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c"
+  },
+  "source_pins_after": {
+    "PROJECT_ROOT/scripts/feature_programs.py": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+    "PROJECT_ROOT/scripts/manual_features.py": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+    "PROJECT_ROOT/configs/features/automation-pool.json": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+    "PROJECT_ROOT/configs/features/manual-18.json": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c"
+  },
+  "source_bytes_unchanged": true,
+  "cpu_seconds": 0.010639999999999997,
+  "scope": "stdlib AST-isolated symbolic gate plus hand literals; no project module imports, actual data, SQL, native ML, fits, weights, API or download",
+  "data_or_model_jobs_admitted": 0,
+  "runtime_adapter_quality_test": false
+}

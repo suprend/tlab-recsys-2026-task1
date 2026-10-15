@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "report_id": "MB-transfer-round004",
+  "date": "2026-10-15",
+  "report_path": "brainstorm-mb004.md",
+  "first_freeze": {
+    "status": "frozen_independent_primary_source_draft",
+    "peer_round004_read": false,
+    "retrieval_A_session_draft_read": false,
+    "main_dataset_count": 1,
+    "appendix_budget": 1,
+    "no_new_HYP": true
+  },
+  "main_dataset": {
+    "name": "Amazon Reviews 2023",
+    "provider": "McAuley Lab, UC San Diego",
+    "official_site": "https://amazon-reviews-2023.github.io/main.html",
+    "official_distribution": "https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023",
+    "author_processing_repo": "https://github.com/hyp1231/AmazonReviews2023",
+    "provider_not_transaction_log_operator": true,
+    "provider_stated_size": {
+      "reviews": 571544897,
+      "users": 54514264,
+      "reviewed_items": 48185153,
+      "metadata_records": 35393189,
+      "domains": 33,
+      "Unknown_dump_extra": true,
+      "source": "https://arxiv.org/html/2403.03952v2#S3",
+      "source_revision": "2026-04-20",
+      "verified_documentation_on": "2026-10-15",
+      "independently_counted": false
+    },
+    "coverage": {
+      "advertised_cutoff": "September2023",
+      "site_start": "May1996",
+      "paper_v2_table1_start": "June1996",
+      "exact_coverage_interval_verified": false,
+      "user_sampling": "Public user identifiers then user review-page collection",
+      "item_coverage_incomplete": true,
+      "recent_reviews_can_be_missing_before_cutoff": true,
+      "source": "https://arxiv.org/html/2403.03952v2#A2"
+    },
+    "license": {
+      "data": "UNRESOLVED; provider cannot assign license; primarily research distribution",
+      "code": "MIT, Copyright2024 Yupeng Hou",
+      "data_license_source": "https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023/discussions/1",
+      "maintainer_reply_date": "2024-03-08",
+      "code_license_source": "https://github.com/hyp1231/AmazonReviews2023/blob/main/LICENSE",
+      "current_data_card_license_declaration_found": false,
+      "paper_CC_BY_not_data_grant": true
+    },
+    "schema_facts": {
+      "clock": "Review Unix timestamp; paper states millisecond precision",
+      "verified_purchase": "Purchase-verification flag, not purchase/order clock",
+      "nominal_keys": [
+        "user_id",
+        "asin",
+        "parent_asin"
+      ],
+      "item_grain": "Parent ASIN groups variants and joins metadata",
+      "rating": "1–5; negative sentiment is not observed no-purchase",
+      "documented_absent": [
+        "purchase timestamp",
+        "orderID",
+        "complete purchase log",
+        "impressions",
+        "view/cart events",
+        "session IDs",
+        "natural query schedule",
+        "observed no-purchase outcome"
+      ],
+      "metadata": "Snapshot category/details/store/price/aggregates; price at crawling; no per-field availability history; some reviewed items lack metadata",
+      "source": "https://amazon-reviews-2023.github.io/main.html#data-fields"
+    },
+    "processed_bag": {
+      "earliest_per_user_item_dedup": true,
+      "optional_iterative_5core": true,
+      "zero_core_is_not_raw_multiplicity": true,
+      "future_5core_membership_risk": true,
+      "source": "https://github.com/hyp1231/AmazonReviews2023/blob/main/benchmark_scripts/README.md",
+      "split_source": "https://amazon-reviews-2023.github.io/data_processing/0core.html",
+      "standard_splits_not_24h_purchase_queries": true
+    }
+  },
+  "disposition": {
+    "faithful_24h_purchase_fullY_transfer": false,
+    "review_event_algebra_transfer": "Conditional on a new explicit review-bag/key/clock/capability contract",
+    "unchanged_B41_and_L01_L08_transfer": false,
+    "whole_program_selector_math_reusable": true,
+    "existing_metric_model_source_population_slots_and_target_reservation_reusable": false,
+    "classification": "Capability boundary and negative identifiability finding, no new model proposal"
+  },
+  "operators": [
+    {
+      "name": "count/count_distinct/recency_seconds",
+      "same_math": true,
+      "domain": "Explicit review-event bag only; user/item/pair projection; [T-window,T), global peer exclusion",
+      "unsupported_channels_are_zero": false
+    },
+    {
+      "name": "nominal keys",
+      "same_math": true,
+      "gate": "Exact strings or collision-free stable surrogate; explicit asin/parent_asin grain; no ID arithmetic"
+    },
+    {
+      "name": "24/168h duration",
+      "same_math": true,
+      "gate": "Explicit millisecond UTC normalization; sparse known-empty windows distinguished from absent channel"
+    },
+    {
+      "name": "historical category",
+      "same_math": "NULL/conditional algebra only",
+      "gate": "Refuse snapshot backfill without past availability/history"
+    },
+    {
+      "name": "metadata aggregates/price/bought_together",
+      "same_math": false,
+      "gate": "No inferred historical state or order edges"
+    },
+    {
+      "name": "sessions/exposure/purchase-fullY",
+      "same_math": false,
+      "gate": "Refuse undocumented capabilities"
+    }
+  ],
+  "falsifiers": [
+    {
+      "id": "MB4-F1",
+      "name": "Purchase-fullY is not identifiable from review rows",
+      "kind": "Own literal identifiability argument, not executed test",
+      "query": "External synthetic T, fixed C={I,J}",
+      "released_row": "Verified review ofI atT+10days",
+      "world_A": "I purchasedT+1hour;J purchasedT+2hours without review",
+      "world_B": "I purchasedT-7days;J never purchased",
+      "released_fields_equal": true,
+      "true_24h_purchase_fullY_A": [
+        "I",
+        "J"
+      ],
+      "true_24h_purchase_fullY_B": [],
+      "expected": "Reject purchase24h/fullY before features/fits/selector; do not fabricate empty targets or zero undefined conditional NDCG",
+      "narrow_alternative": "Separately named observed future-review target; not complete purchases or all reviews"
+    },
+    {
+      "id": "MB4-F2",
+      "name": "Future metadata/vocabulary cannot alter an old decision",
+      "kind": "Own literal specification, not executed test",
+      "past": "u reviewsA atT-1hour; category unknown",
+      "future_mutation": "Undated release snapshot assignsA categoryK/price10/rating aggregate;B first reviewedT+1day",
+      "invariants": {
+        "review_count": 1,
+        "distinct": 1,
+        "recency_seconds": 3600,
+        "category": "unknown/refused",
+        "past_U_and_C_exclude_B": true
+      },
+      "failure": "Snapshot historical backfill or whole-file future catalog changes old decision",
+      "whole_program_obligation": "Original base itself incompatible; STOP rather than silently fall back toB; new review-only B-prime requires separate accepted contract"
+    }
+  ],
+  "selector": {
+    "source_contracts": [
+      "PROJECT_ROOT/configs/features/automation-pool.json",
+      "PROJECT_ROOT/configs/features/manual-18.json",
+      "PROJECT_ROOT/docs/experiments/feature-program-selection.md"
+    ],
+    "reusable_logic": [
+      "whole bundles",
+      "B included",
+      "Recall feasibility",
+      "global NDCG max tolerance",
+      "fewer-column then ID ties",
+      "consumed collision/resource failure",
+      "no refill"
+    ],
+    "cannot_reuse": [
+      "B41 action/category semantics",
+      "baseline metrics",
+      "fullY target",
+      "source acceptance",
+      "Q/C",
+      "registry and retrieval alias",
+      "checkpoint",
+      "slots",
+      "target-opening reservation"
+    ],
+    "failed_source_not_completed_negative_comparison": true
+  },
+  "RelBench_contrast": {
+    "main_dataset": false,
+    "source": "https://huggingface.co/datasets/stanford-star/relbench-v1/blob/main/rel-amazon/README.md",
+    "facts": "Timestamped reviews; two-year user-item horizon; purchase-labelled,5-star,detailed-review variants; review-rating autocomplete",
+    "inference": "Task name does not create missing purchase timestamp; task version/target must be inspected independently",
+    "data_or_label_tables_opened": false,
+    "no_version_mixed_size_claim": true
+  },
+  "provenance": {
+    "helper": "/root/brainstorm_models_b/round002_tabular_synthesis_source; primary checks by messages, no files",
+    "source_facts_separated_from_own_adaptation": true,
+    "no_actual_data_SQL_Y_fits_model_imports_paid_APIs_weights_or_shared_edits": true,
+    "heldouts": "CLOSED; W=R2+3 unchanged",
+    "only_output_files": [
+      "brainstorm-mb004.md",
+      "brainstorm-mb004-ledger.json"
+    ]
+  },
+  "next_gate": {
+    "fits": 0,
+    "corpus_downloads": 0,
+    "work": "Versioned capability manifest + two tiny independent fixtures; source-code portability review as one append-only addendum",
+    "later_execution_authorized": false
+  },
+  "post_freeze_source_code_review": {
+    "date": "2026-10-15",
+    "appendix_count": 1,
+    "mode": "append_only_source_code_review",
+    "frozen_body_preserved": true,
+    "local_HEAD_at_read": "9f78b352cccfcf8a82c8f6dbed1e2ed9cd518cbe",
+    "local_source_working_tree_changes": false,
+    "local_sources": [
+      {
+        "path": "PROJECT_ROOT/scripts/feature_programs.py",
+        "lines": [
+          70,
+          82,
+          98,
+          154
+        ],
+        "finding": "Exact honest review-only declaration rejected. Symbolic generator has no source-relation argument and delegates truth/lineage externally; false declaration passing is not classified as a generator bug."
+      },
+      {
+        "path": "PROJECT_ROOT/scripts/feature_program_experiment.py",
+        "lines": [
+          38,
+          226
+        ],
+        "finding": "Chooser delegates source authority; prepare_plan binds accepted original source/B41/F57/exact slots. Unsupported/integrity states STOP, not resource-failure fallback."
+      },
+      {
+        "path": "PROJECT_ROOT/scripts/program_model_data.py",
+        "lines": [
+          50,
+          149
+        ],
+        "finding": "Exact B41/F57 transport; preserves inherited Q/C/Y and does not recreate missing labels/formulas."
+      }
+    ],
+    "primary_author_code": [
+      {
+        "url": "https://github.com/hyp1231/AmazonReviews2023/blob/main/benchmark_scripts/kcore_filtering.py",
+        "symbol": "load_ratings",
+        "finding": "Direct sortTimestamp key lookup; source documentation names timestamp. A documented-schema-only literal hits KeyError by inspection; actual corpus versions not audited.",
+        "actual_dataset_bug_claim": false
+      },
+      {
+        "url": "https://raw.githubusercontent.com/stanford-star/relbench/v1.1.0/relbench/datasets/amazon.py",
+        "version": "v1.1.0",
+        "finding": "Defaults books/use5core with amazon_v2; unixReviewTime converted seconds; price-missing products dropped; surviving product/review intersection; static product/customer tables; review time temporal.",
+        "Amazon2023_adapter": false
+      }
+    ],
+    "source_fetch_limit": "Several RelBench task-source URLs were inaccessible; no uninspected task implementation claim was made.",
+    "independent_check": "Delegated reviewer corroborated exact feature_programs schema/action/context gate and explicit external-authentication boundary.",
+    "no_modules_tests_SQL_native_jobs_downloads_or_label_computation": true,
+    "conclusion": "Reusable operator/chooser components; unchanged whole-program purchase/fullY portability rejected; no predictive transfer established."
+  }
+}

@@ -652,3 +652,8 @@ Separately, [native OS preflight failure evidence](backlog-reviews/evidence/root
 ### Complete002 critique and existing-family003 refinements
 
 The [finished FB002/RA003/MB003 reviews](research-lab/brainstorm-round002003-reviews-freeze.json) complete critique of all10 second-wave local proposals and four003 entries. Preserve self-inclusive majority radius, physical scan/wall gaps, all-anchor filtering/keyed failed-walk accounting, inspected-source convention differences, hidden KAN coefficient fits and LA-NAM negative admission. These remain research refinements/conditional candidates; no new HYP or fit grant follows, and015/018/report priority is unchanged.
+
+
+### Independent dataset-transfer004 review: refusal/identity evidence only
+
+[Both author drafts and separate skeptic](research-lab/brainstorm-wave004-publication-freeze.json) retain Amazon purchase/fullY identifiability refusal and conditional RetailRocket event adapter with metadata-clock differences; current-card versus pinned RelBench horizon/task provenance is explicit. Eight original stdlib AST-isolated symbolic cases passed once, without imports/data/SQL/ML or external quality. Reused source-transfer mechanisms stay merged/refined under existing work, no new HYP or actual external experiment is admitted.

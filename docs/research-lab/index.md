@@ -195,3 +195,6 @@ Crossed critique первой волны: [FA](brainstorm-fa001-review-by-b.md),
 
 
 Completed follow-up critique: [FB002](brainstorm-fb002-review-by-retrieval-b.md), [RA003](brainstorm-ra003-review-by-models-a.md), [MB003](brainstorm-mb003-review-by-features-a.md); [fourteen-file evidence freeze](brainstorm-round002003-reviews-freeze.json). All10 local002 proposals now have review; no new canonical ID or fit admission.
+
+
+Reviewed transfer004: [AmazonReviews2023](brainstorm-mb004.md), [RetailRocket](brainstorm-ra004.md), [separate skeptic](brainstorm-wave004-skeptic-review.md), [ten-file/body/probe publication freeze](brainstorm-wave004-publication-freeze.json). One original8-case AST-isolated symbolic gate passed; external corpus/quality/runtime transfer remains unmeasured.
