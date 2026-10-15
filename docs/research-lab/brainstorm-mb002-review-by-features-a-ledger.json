@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/brainstorm_features_a",
+  "reviewed_round": "models_b_002",
+  "report_path": "brainstorm-mb002-review-by-features-a.md",
+  "initial_author_SHA256": {
+    "brainstorm-mb002.md": "a8cf317479f533d4ffa69b66d139152ac406af6cd685fbb0f0955b1644ab10d7",
+    "brainstorm-mb002-ledger.json": "22264eb35cb9db41457123ae0364f8866e313e332841ee2ec36bd795a6987fd1"
+  },
+  "final_author_SHA256": {
+    "brainstorm-mb002.md": "a8cf317479f533d4ffa69b66d139152ac406af6cd685fbb0f0955b1644ab10d7",
+    "brainstorm-mb002-ledger.json": "22264eb35cb9db41457123ae0364f8866e313e332841ee2ec36bd795a6987fd1"
+  },
+  "authors_unchanged": true,
+  "FA002_edited": false,
+  "frozen_at_utc": "2026-10-15T06:29:41.535046+00:00",
+  "review_report_SHA256": "d4b41734a5e902615503740694f44fe87e94f2cea369cb8148ae2d1c19183fca",
+  "primary_source_version_note": "Originalpapersplusmutableauthormain sourcesviewed2026-10-15; noimplementationreleasepin/noexecutionclaimed.",
+  "independent_helpers": [
+    "/root/brainstorm_features_a/set_context_sources",
+    "/root/brainstorm_features_a/xrm_review"
+  ],
+  "actual_operations": {
+    "actual_data_SQL_Y_native_model_fit_download_jobs": 0,
+    "actual_literal_jobs": 0,
+    "source_browsing": true,
+    "small_draft_hashes_only": true,
+    "shared_repository_edits": false
+  },
+  "current_B_W_and_heldout_unchanged": true,
+  "canonical_HYP_ids_assigned": false,
+  "budget_or_execution_granted": false,
+  "common_claim_repair": "AllproposedinputsB41; currentR2replacementclaimneedsprospectiveWcomparisonandlookcostorlimitedB41scope. Noimplicitfifthlook/currentreservedoutcomes.",
+  "entries": [
+    {
+      "id": "MB2-01",
+      "disposition": "refine; retainfirstpriority",
+      "primary_support": "verifiedprimarypaperandauthorcode; numericattention/BCEadaptation,noreproducedgains",
+      "sources": [
+        "https://arxiv.org/html/2404.06912v3",
+        "https://arxiv.org/html/2404.06912v5",
+        "https://raw.githubusercontent.com/webis-de/set-encoder/main/set_encoder/module.py",
+        "https://github.com/webis-de/lightning-ir/blob/main/lightning_ir/models/cross_encoders/set_encoder.py"
+      ],
+      "author_literal_verdict": "Correct ±1/6 vs ∓1/6 and unmaskedpad∓1/24; meancontextsolves, noattention-specificproof.",
+      "reviewer_literal": {
+        "executed": false,
+        "C1": [
+          [
+            2,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "C2": [
+          [
+            2,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "same_focal_A_B": true,
+        "same_column_means": [
+          1,
+          1
+        ],
+        "same_column_maxima": [
+          2,
+          2
+        ],
+        "same_univariate_marginals": true,
+        "handset_attention": "q=k=x1-1,v=x2-1,includingself",
+        "A_B_C1": "±0.5*tanh(1)",
+        "A_B_C2": "∓0.5*tanh(1)",
+        "claim_limit": "Separatesrawmean/maxfocalsummary, notlearnednonlinearpooling orREEStrainability."
+      },
+      "material_findings": [
+        {
+          "finding": "Capacitymatchingunderspecified",
+          "repair": "FreezeMLPdepth,parametercounts,fixedmatchingrule,attentionresiduals/normalization,optimizer/updates/tuningallowance; otherwisepackageclaim."
+        },
+        {
+          "finding": "Realfeaturemissingnessandpaddingnotfullybound",
+          "repair": "Commontrainonlytransforms; observedvaluedenominators/allmissingsummaries; paddingexcludedfromkeys/summaries/outputs/BCEandnormalizer; realzerosvalid,emptyCretainsQ."
+        },
+        {
+          "finding": "Sourceorderinvariancedoesnotremovecompositionconfounding",
+          "repair": "SamefullkeyedC,boundsourcecompositionslices; nomodelindependencefromretrieval/exposureclaim."
+        }
+      ],
+      "FA05_relation": "Sharedcandidate-contextfamily; FA05fixedsummaryfeatureintoexistingboostervsMB2-01learnedjointscorer. Neitherautomaticduplicate norautomaticnewHYP.",
+      "cheapest_falsifier": "Plannedhandsetequalmean/maxwitness plusdeterministicfakekeyedpadding/missing/emptyC/reordergates; zero nativefits.",
+      "real_cost": {
+        "attention_cells_per16Q_2heads_220C": 1548800,
+        "attention_logits_only_MiB": 5.908203125,
+        "head_pairs_per26000Q_epoch": 2516800000,
+        "two_epoch_attention_head_pairs_upper": 5033600000,
+        "proposed_attempts": 4,
+        "CPU_cap_hours": 4,
+        "wall_cap_hours": 3,
+        "RSS_GiB": 8,
+        "completion_forecast": false,
+        "include": "all3neuralfits+CatBoost,forward/backward/optimizer/transforms/hash/load/scoring/evaluation/failures"
+      }
+    },
+    {
+      "id": "MB2-02",
+      "disposition": "refine; admissiondeferred",
+      "primary_support": "XRMpaper/sourceandnonidentificationcaveatsverified; staticquerymassbalancingdeclaredadaptation",
+      "sources": [
+        "https://proceedings.mlr.press/v235/pezeshki24a.html",
+        "https://arxiv.org/html/2309.16748v2",
+        "https://raw.githubusercontent.com/facebookresearch/XRM/main/algorithms.py",
+        "https://raw.githubusercontent.com/facebookresearch/XRM/main/main.py",
+        "https://raw.githubusercontent.com/facebookresearch/XRM/main/utils.py",
+        "https://raw.githubusercontent.com/facebookresearch/XRM/main/datasets.py"
+      ],
+      "author_literal_verdict": "Correct16rowfourcells6,2,6,2; P(m1|y,e)=1/4, presencegatepasseswithoutnuisancerecovery. Allnegativetwinsm=yfail.",
+      "material_findings": [
+        {
+          "finding": "CountmatchedshufflefailsbasemassmatchingwithunequalC",
+          "repair": "Shufflewithinoriginalclass×exactCsize strata orlabelweakerpartitionnull. DefineA_g=sum a_i andglobalS; w_i=S*a_i/(4*A_g), classonlyS*a_i/(2*A_y).",
+          "reviewer_literal": "Bases(.5,.5,.25,.25): firsttwo/lasttwogroupsyield.25each; mixedgroupsyieldkeyedweights(1/3,1/3,1/6,1/6),despiteequalcounts."
+        },
+        {
+          "finding": "Discoverysampling/batchdynamic-labelsemanticsandpositivesupportunspecified",
+          "repair": "Wholeusersplit; bothoriginalclassesandsufficientpositiveusersperhalf/env; freeze sampling/batches,missingclassrule,preupdatelogitfliporder; no valannotation/grid."
+        },
+        {
+          "finding": "m(x,y) labelbearing but training-only boundaryvalid",
+          "repair": "Useoriginalmaturelabelsforfinalannotation, neverexportmtoinference; freezefinalmodelbeforelaterquery. Nounnecessarybackdatingrequirementforfit-timeweights."
+        },
+        {
+          "finding": "Currentpositiveuser/date/weightconcentrationadmissionhasnoexactthreshold",
+          "repair": "Beforeaccessfixpositiveusers/datecoverage/maxuserdaymass/userESS; fourpresencecellsinadequate."
+        },
+        {
+          "finding": "Upstreamevaluatebuffers/sortsalllogits",
+          "repair": "Boundedkeyedstreamingannotationadapter, original/dynamic/splitstate+weight+keys accounting."
+        },
+        {
+          "finding": "No no-fliperrorpartitioncontrol",
+          "repair": "Limitclaimtowholeautomatedweightingpackage orreallocateexistingattempts; noaddedboostergrant."
+        }
+      ],
+      "cheapest_falsifier": "Plannedliteralimmutabley/wholeusersplit/keyedreorder/equalgroupmass/unequalCshufflemass/singlepositiveuserrejection.",
+      "real_cost": {
+        "twin_forward_row_visits_twoepochs_annotation_formula": "6*N",
+        "at_N_5317000": 31902000,
+        "additional_costs": "backward+4boosters+transforms/labels/keys/weights/joins/verification/scoring",
+        "proposed_attempts": 6,
+        "CPU_cap_hours": 6,
+        "wall_cap_hours": 4,
+        "RSS_GiB": 8,
+        "one_byte_annotation_not_full_memory": true,
+        "completion_forecast": false
+      }
+    },
+    {
+      "id": "MB2-03",
+      "disposition": "defer",
+      "primary_support": "Mixedtypediffusionandmaskedsamplerverified; documentedexperimenttargetfromfeatures, reversedrarelabelwrapperunverified",
+      "sources": [
+        "https://proceedings.iclr.cc/paper_files/paper/2025/file/5c882988ce5fac487974ee4f415b96a9-Paper-Conference.pdf",
+        "https://github.com/MinkaiXu/TabDiff",
+        "https://raw.githubusercontent.com/MinkaiXu/TabDiff/main/tabdiff/models/unified_ctime_diffusion.py",
+        "https://raw.githubusercontent.com/MinkaiXu/TabDiff/main/tabdiff/trainer.py",
+        "https://raw.githubusercontent.com/MinkaiXu/TabDiff/main/tabdiff/configs/tabdiff_configs.toml"
+      ],
+      "author_literal_verdict": "pair3>user1sameevent/windowcorrectlyinvalid; validtupleorclampedydoesnotproveconditionalrelevance.",
+      "material_findings": [
+        {
+          "finding": "Reverseconditioningnotyetconcrete",
+          "repair": "Mapcategoricaly,fixcontext/generatedindices,x_tvsx_0,maskednumericalinitialization,resample_rounds1,decodedexactrestore. Explicitresamplingvsparentcenteredmechanism."
+        },
+        {
+          "finding": "Zeroguidancecoefficientsdonotdisableguidancebranch",
+          "repair": "y_only_model=None; assertzeroauxiliarycalls/fits; sourcebranchesonmodelpresence."
+        },
+        {
+          "finding": "NaN/quantile/inverseinteger/primitiveclosureunspecified",
+          "repair": "Trainonlytransformstate,exactnull/mask/contextrestoration,completeprimitive-descendantmapandinteger/rangecrossgrainrejection."
+        },
+        {
+          "finding": "2048stepslegacytrainerwouldstillmeanepochs",
+          "repair": "Optimizerupdatecounterwithmax2048,bypassfull-loaderepoch/EMAevaluation/autofits/logging/after4000bestcheckpoint; fixedterminalsave."
+        },
+        {
+          "finding": "Uniformrowtrainingmaybarelypresentrarepositiveclass",
+          "repair": "Freezesamplinglawandminimumdistinctpositiveuserexposurebeforefit; changedbalancingnotfree."
+        },
+        {
+          "finding": "Draw/resamplingNFEandacceptanceallocationnotfullybound",
+          "repair": "50steps,2ndorder=>99NFE/drawrowwithoutguidance/resampling1; <=10000drawrows,perparentquota/order/minimumsupport/zeroacceptfail."
+        },
+        {
+          "finding": "MassmatchingmustuseoriginalrealCdenominator",
+          "repair": "Positiveweighta/(k+1)forparent+children; duplicatesmirrorparentk/order/weights; negativesunchanged. NoaugmentedCrenormalization."
+        }
+      ],
+      "reviewer_literal": {
+        "executed": false,
+        "parent_weight": 0.5,
+        "accepted_children": 2,
+        "each_duplicate_positive_weight": "1/6",
+        "sum_parent_positive_weights": 0.5,
+        "meaning": "Exactduplicatepreservesmathematicalloss/gradient; quantization/bootstrapcanstillchangeactuallearnerpackage."
+      },
+      "cheapest_falsifier": "Plannedfake-denoiser masks/y/contextrestore,update/NFE/auxcallcounters,terminalcheckpoint,invalidclosureandmassconservation; sourcefreemechanicsonly.",
+      "real_cost": {
+        "default_epoch_updates_N_5317k_batch4096_8000epochs": 10392000,
+        "extra_EMA_full_loss_passes_charged": true,
+        "bounded_update_row_presentations_upper": 1048576,
+        "uniformsampling_expected_positive_presentations_upper_619_of_5317k": "about122; conditionalarithmeticnotobserved",
+        "denoiser_NFE_perdraw_50steps_secondorder_guidanceNone_resample1": 99,
+        "draw_rows_upper": 10000,
+        "denoiser_row_evaluations_upper": 990000,
+        "synthetic_output_rows_fullY_upper": 2476,
+        "synthetic_41float32_values_MiB_upper": 0.3872528076171875,
+        "proposed_attempts": 4,
+        "CPU_cap_hours": 6,
+        "wall_cap_hours": 4,
+        "RSS_GiB": 8,
+        "completion_forecast": false
+      }
+    }
+  ]
+}

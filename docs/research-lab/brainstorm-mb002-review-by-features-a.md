@@ -1,0 +1,78 @@
+# Cross-review: Models B round 002 by Features A
+
+15 October 2026. Initial frozen report SHA256: `a8cf317479f533d4ffa69b66d139152ac406af6cd685fbb0f0955b1644ab10d7`; initial ledger SHA256: `22264eb35cb9db41457123ae0364f8866e313e332841ee2ec36bd795a6987fd1`. Author files and FA002 files were not edited. Two helpers independently checked Set-Encoder and XRM; I inspected decisive primary papers/code and the conditional sampler/trainer. All new witnesses below are hand-derived, not executed model/fixture jobs. No actual data, SQL, Y, native/model/fit/download, paid job or shared-repository change occurred.
+
+| Candidate | Disposition | Before admission |
+|---|---|---|
+| MB2-01 fixed-C joint scorer | **refine; retain first priority** | Bind architecture/capacity, real-missing versus padding semantics and source-composition claim scope. |
+| MB2-02 XRM environments | **refine; admission deferred** | Match shuffle base mass, declare absolute weight scale and fix positive-user support/discovery semantics. |
+| MB2-03 TabDiff augmentation | **defer** | Reverse-conditioning wrapper, dependency/transformation contract and truly bounded optimizer/sampler lifecycle remain absent. |
+
+All three are plausible new interventions. Their current falsifiers establish mechanical possibilities or limitations, never ranking gain. This review grants no permanent HYP ID, fit allowance, new data access or current heldout change.
+
+## MB2-01 — set context is a distinct learner intervention, with a stronger cheap test
+
+**Source support.** [Set-Encoder v3](https://arxiv.org/html/2404.06912v3), [updated v5](https://arxiv.org/html/2404.06912v5), the [author module](https://raw.githubusercontent.com/webis-de/set-encoder/main/set_encoder/module.py) and [core implementation](https://github.com/webis-de/lightning-ir/blob/main/lightning_ir/models/cross_encoders/set_encoder.py) support cross-candidate information exchange and permutation symmetry. The report properly acknowledges the paper’s negative ordinary-relevance finding and the different text/novelty setting. Use v5 for current publication provenance; numeric attention+BCE is our adaptation. Author stochastic missing-document padding is not part of it.
+
+**Literal verification.** With c=h/3, the printed score coefficient is1/6 at h1 and−1/6 at h0. Five unmasked pads give c=1/8, coefficient−1/24. The values and keyed permutation claim are correct. As acknowledged, raw mean context solves this toy, so it does not separate attention from the proposed summary control.
+
+A stronger no-fit witness uses two four-row sets:
+
+C1={A=(2,1), B=(0,1), D=(2,2), E=(0,0)};
+C2={A=(2,1), B=(0,1), D=(2,0), E=(0,2)}.
+
+Both have identical column means(1,1), maxima(2,2), cardinality, masks and full univariate marginals. A/B rows remain unchanged. Any deterministic focal-row-plus-those-summaries scorer must preserve their scores. A scalar attention head q=k=x1−1, v=x2−1, including self, gives A/B scores±½tanh(1) in C1 and reverses them in C2. Thus cross-row association can exceed raw mean/max information. A learned nonlinear pooled statistic could also solve it; this proves neither attention necessity nor learnability from REES purchases.
+
+**Minimal contracts.** Freeze full deduplicated keyed C for every arm; no truncation, re-retrieval, candidate-order-dependent batches or synthetic candidates. Specify self inclusion, residual/normalization layers, MLP depth, parameter counts, optimizer, update accounting and fixed initialization law. “Same MLP” plus82 new summary inputs does not by itself match capacity against attention. Either impose one declared capacity rule or limit the conclusion to the whole architecture package beyond raw summaries.
+
+Handle real feature NaNs separately from padded rows: train-only imputers/scalers, original missing indicators, per-column summary denominators and all-missing summaries must be common. Padding must be excluded from keys, means/maxima, outputs, BCE and its query denominator; zero-valued real rows remain valid. Empty C returns no scores/no row loss while Q remains in evaluation. Declare numerical score tolerance for keyed permutation/padding checks with evaluation stochasticity disabled. Changing another **real** candidate may legitimately change a focal score.
+
+Candidate-source order permutation only tests positional sensitivity. Even with identical C, a model can exploit popular/recent composition or actual C size. That is permitted predictive context, but a gain cannot establish preference independent of the generator or observed choice/co-exposure. Freeze source-composition slices before evaluation; adding new sources is a different experiment.
+
+**FA05 relationship.** Both concern candidate context. FA05 emits a fixed, category/cart-derived scalar into the existing boosting learner; MB2-01 learns joint interactions over B41 without adding that scalar. Record the shared family and different intervention. Neither automatic duplicate rejection nor two automatic novelty IDs follows from sharing Set-Encoder motivation. A future scalar-versus-learner comparison would need its own allocation.
+
+**Real cost and cheapest gate.** The1,548,800 attention cells/5.908MiB logits and2.5168b head-specific interactions per26kQ epoch are correct upper arithmetic at220C. Two epochs double that work before backward operations; three neural fits, CatBoost, token transforms, padding overhead, optimizer state and full evaluation all count. Four CPU hours is a stop ceiling, not a completion prediction. First test the stronger witness, exact padding invariance, real-zero/all-missing rows, empty C and keyed reorder using a deterministic fake scorer; no native learner is needed for that first gate.
+
+## MB2-02 — the source and non-identification witness hold; the placebo is not yet mass matched
+
+**Primary support.** [XRM, ICML2024](https://proceedings.mlr.press/v235/pezeshki24a.html), [paper §§4/6](https://arxiv.org/html/2309.16748v2) and [algorithms.py](https://raw.githubusercontent.com/facebookresearch/XRM/main/algorithms.py) confirm held-in twin updates, dynamic-label flips and OR-of-errors annotations against original y. [utils.py](https://raw.githubusercontent.com/facebookresearch/XRM/main/utils.py) checks presence of two environments per class. Non-identifiability and easiest-invariant-feature failure caveats are supported. Static query-mass group balancing is an adaptation, not the author’s full GroupDRO or inverse-count RWG implementation.
+
+**Literal verification.** Always-negative twins yield m=y and fail the presence gate. In the16-row construction, every original class×true-nuisance cell has one error among four rows. Thus P(m1|y,e)=1/4 and m is independent of that nuisance conditional on class; four discovered cells still have counts6,2,6,2. The witness correctly rejects “nondegenerate implies environment recovered,” without disproving XRM.
+
+**Material weight repair.** Let A_g=Σ_{i∈g}a_i, a_i=1/|Cq|, and S be the explicitly preserved original total object-weight mass. Four equal class×environment groups require w_i=S a_i/(4A_g); class-only balancing uses S a_i/(2A_y). Freeze global S and actual supplied object weights, not only a verbal normalized loss; same CatBoost L2/settings do not bind unspecified weights.
+
+Shuffling m within class while preserving counts does not preserve A_g. Within one class, bases(.5,.5,.25,.25), grouped first-two/last-two, give equal normalized weights .25 each. Mixing one of each base into each group preserves counts but yields weights(1/3,1/3,1/6,1/6), keyed by base weights. Require shuffling within class×**exact C-size** strata to preserve group base mass and resulting weight concentration, or explicitly weaken the claim to a random-partition placebo. Identity shuffles in sparse strata are consumed outcomes, not permission for outcome-driven redraw.
+
+**Discovery and availability.** Whole-user splitting is sensible but changes the upstream random-row halves. Bind sampling, batch size, missing-class batches and flip schedule: source discovery balances minibatch **current dynamic labels**, then flips using pre-update held-out logits. The final annotation compares both twins with immutable original labels. Disable upstream train+validation annotation and hyperparameter selection. Both original classes and sufficient independent positive users must exist in each half and each admitted positive environment; four nonempty row cells are insufficient.
+
+Before access, name minimum positive-user support, date coverage, maximum user/day weight share and user effective sample size (ΣW_u)²/ΣW_u². Dates measure coverage, not independent samples. No numeric support threshold is currently supplied. Annotation m(x,y) is label-bearing and remains training-only. Fitting it from mature train outcomes for a later standalone learner is legitimate; it need not have existed at every earlier training anchor. Exporting it as an inference feature would be invalid and is not proposed.
+
+Without a no-flip error-partition control, gains support the **automated weighting package**, not specifically the echo chamber. Reallocating existing attempts or limiting that claim is sufficient; this review adds no fifth booster.
+
+**Real cost and first gate.** Two complete epochs plus final annotation require about6N≈31.902m individual twin forward row-visits, plus backward passes and four boosters. [Upstream evaluation](https://raw.githubusercontent.com/facebookresearch/XRM/main/algorithms.py) accumulates logits and sorts, so a bounded streaming annotation adapter is needed. One byte for m omits original/dynamic labels, split assignments, exact keys, transforms, caches, weights and joins. First use literal original-label immutability, whole-user disjointness, reordered keyed annotation, the unequal-C-size shuffle example and a single-positive-user rejection. Six attempts/6CPUh/8GiB remain proposed ceilings, not established feasibility.
+
+## MB2-03 — reverse conditional generation is plausible code reuse, not a ready augmentation recipe
+
+**Source verification.** [TabDiff, ICLR2025](https://proceedings.iclr.cc/paper_files/paper/2025/file/5c882988ce5fac487974ee4f415b96a9-Paper-Conference.pdf) supports mixed-type diffusion and conditional imputation. The [author README](https://github.com/MinkaiXu/TabDiff) explicitly says its experiments impute the target, while arbitrary-column masking should be supported. The [sampler](https://raw.githubusercontent.com/MinkaiXu/TabDiff/main/tabdiff/models/unified_ctime_diffusion.py) mixes known numeric/categorical states back after reverse updates, making the reverse direction a plausible wrapper; no author-tested rare-purchase feature augmentation follows.
+
+**Conditional-wrapper contract.** Map y to one categorical index, exclude it and all fixed parent context from generated-column masks, and verify decoded y1/context are exact. Freeze x_t versus x_0 conditioning, masked-input initialization and resample_rounds=1. Masking alone does not erase original numerical values: initialization uses the supplied x_num. Make clear whether the intended mechanism is conditional resampling or parent-centered perturbation. No exact conditional density is proven by preserving the label token.
+
+Guidance off requires **y_only_model=None**. The source chooses its CFG branch by model presence; merely setting coefficients to zero still executes the auxiliary model and retains target-only shape assumptions, an avoidable cost/shape trap in the reverse direction.
+
+TabDiff’s paper preprocessing imputes numeric NaNs and fits quantile transformations. Specify train-only transforms, categorical treatment of masks, inverse/count quantization, exact fixed-context restoration and the primitive→derived dependency graph. Recompute supported ratios/flags; reject invalid integer/range/cross-grain constraints. A locally legal row can still be incompatible with a true positive event history. Synthetic rows need parent/synthetic provenance and must never enter source Q/C/Y. Their fit-time generator/transforms may use permitted mature training rows; this is training augmentation, not backdated online features.
+
+**Own rejection and mass falsifiers.** pair_view7d3>user_view7d1 is correctly rejected. Strengthen with a derived-mask mismatch and an unchanged-context requirement. For a real parent of weight a and k accepted children, every positive instance gets a/(k+1); unchanged negatives keep their original weights and real-C denominator. Duplicate control must mirror each parent’s accepted k, ordering and weights. Example a=.5,k2 gives three weights1/6, sum.5: exact duplicates preserve that parent’s mathematical loss and gradient. Normalizing by augmented |C| again would break the intended query/class mass. Quantization/bootstrap effects can remain part of the augmentation package; do not call the duplicate arm additional outcome evidence.
+
+**Cost and support.** [Trainer](https://raw.githubusercontent.com/MinkaiXu/TabDiff/main/tabdiff/trainer.py) and [default config](https://raw.githubusercontent.com/MinkaiXu/TabDiff/main/tabdiff/configs/tabdiff_configs.toml) confirm8000full-loader epochs, about10.392m optimizer updates at this N/batch4096; extra EMA full-loss passes and generation evaluators add work. Best checkpoint conditions require curr_epoch>4000. A2048-**update** adapter must bypass those epoch and best-checkpoint paths, disable online logging/evaluator fits, and save one fixed terminal checkpoint. Do not implement the cap by setting steps=2048 in the original trainer.
+
+The proposed2048×512 bound permits at most1,048,576 training-row presentations. Under uniform sampling over5.317m rows and at most619 covered positives, expected positive presentations are at most about122; actual covered positives are fewer or equal. This is conditional arithmetic, not measured support. Freeze the generator sampling law and minimum distinct positive-user exposure before fitting; class/query rebalancing changes that law and needs explicit accounting.
+
+At50reverse steps with second-order correction, guidance absent and one resampling round, there are99 denoiser calls per draw-row, not50. The10,000-row attempt cap therefore permits up to990,000 denoiser row-evaluations, excluding training and transforms. Fix per-parent attempt allocation, acceptance order/minimum support and zero-acceptance failure before sampling. The2476output/.387MiB arithmetic is a safe full-Y upper bound, not the covered-positive count, generator state or peak memory.
+
+Keep deferred until a source-free fake-denoiser adapter proves masks/context/y restoration, exact update/NFE counters, terminal checkpoint creation, zero auxiliary calls, rejection and mass conservation. This would establish mechanics only. Four fits/6CPUh/8GiB, including generator and failures, remain ungranted proposals.
+
+## Common interpretation and handoff
+
+All current proposed inputs are B41. This can support a carefully scoped comparison against the strong manual B. Claiming replacement of the selected R2 procedure additionally needs a predeclared W comparison and its scoring/quality-look cost, or a narrower conclusion; do not silently add a fifth look or reuse reserved outcomes. No present B/W result is altered.
+
+The next authorized work is the review amendment and prospective contract design. Raw source derivation is not needed if complete accepted X is reused, but hashing/loading, label access, transforms, annotation and scoring are paid work; new raw regeneration would require its own scan/state contract. All proposed attempts and resource caps remain alternative stop rules. Original author drafts, failed/inconclusive evidence and the exact initial hashes stay preserved.

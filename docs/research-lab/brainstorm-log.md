@@ -1,6 +1,14 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 06:19 UTC / 09:19 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
+Обновлён 15 октября 2026, 06:45 UTC / 09:45 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
+
+## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
+
+Пользователь явно поручил выполнять общий backlog качественно, с независимым review, и постоянно вести множество независимых brainstorm-линий до выполнения задания Т-Академии или его команды остановиться. Этот контракт продолжает существующий goal; он не создаёт новый главный backlog, goal или автоматизацию. Root координирует работу; `/root/backlog_coordinator` единолично публикует canonical backlog, журнал и Git в существующую private research-ветку/draft PR.
+
+При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
+
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 07:30 UTC / 10:30 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
 ## Три независимые линии
 
@@ -130,6 +138,16 @@ TA01 объединён сFA04. TA02 distinct edit-prior остаётся local-
 ## Шесть canonical research hypotheses зарегистрированы после dedup
 
 [Единая synthesis](brainstorm-wave001-synthesis.md) и [machine ledger](brainstorm-wave001-hypotheses.json) фиксируют HYP139 historical purchase context;140 shared-weight TabM family;141 pair-synergy-first expansion;142 cross-action path areas;143 mature situation→purchase memory;144 one merged exactconjunction family. Все6 — **needs-pilot research**, ещё без implementation/resource/reservation approval и измеренного качества. Root разрешил регистрацию после полного transfer review. TA02/TB1/TB3 остаются local refinements; три TabM и две conjunction rediscoveries не посчитаны отдельными новыми HYP.
+
+## Следующая независимая волна002: три drafts уже прошли crossed critique
+
+| Draft | Новые local proposals | Независимый review и решения |
+|---|---|---|
+| [FA002](brainstorm-fa002.md) | FA05 fixed-C rival commitment; FA06 cross-entity24h phase alignment | [ModelsA review](brainstorm-fa002-review-by-models-a.md): оба conditional needs-pilot research; composite control, float/coverage and demanded-grain state contracts ещё требуют freeze |
+| [RA002](brainstorm-ra002.md) | RA2-01 identifier-tree decoding; RA2-02 conditional preference-ratio reversal | [RetrievalB review](brainstorm-ra002-review-by-b.md): tree decoding под MB04 generative family, нового HYP нет; reversal refine/defer, нужен asymmetric transpose oracle и честные inner-call costs |
+| [MB002](brainstorm-mb002.md) | MB2-01 candidate-context learner; MB2-02 learned environments; MB2-03 conditional diffusion perturbations | [FeaturesA review](brainstorm-mb002-review-by-features-a.md): refine/defer из-за capacity/masks/query-mass shuffle, effective positive users и reverse-conditioning/auxiliary/NFE contracts |
+
+[Freeze](brainstorm-round002-publication-freeze.json) сохраняет18 original/public report/ledger/hashguard/literal/source-note files. Authors использовали fixed historical ec3dabc context, не live journal/peer002 до первого freeze. С ранее опубликованным FB002 это10 local proposals второй волны; FB002 пока без завершённого cross-review. Всего первая и текущая002 волны содержат49 local IDs; canonical registered research hypotheses по-прежнему только6. FA05 и MB2-01 имеют общую candidate-context мотивацию, но фиксированный scalar и совместно обучаемый learner не автоматически один intervention. Новые IDs ждут общего002dedup и Root approval; actual data/model/target jobs не запускались.
 
 ## Следующие решения
 

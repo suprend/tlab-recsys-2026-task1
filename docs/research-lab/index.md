@@ -183,3 +183,6 @@ Crossed critique первой волны: [FA](brainstorm-fa001-review-by-b.md),
 
 
 [Standalone experimental report — review draft](../experimental-report.md) connects the implemented task1 procedure, measured development comparisons and unresolved reserved/reproduction gates; [source ledger](../experimental-report-source-ledger.json) preserves numerical traceability. It does not claim task completion or a significant winner.
+
+
+Следующая reviewed волна: [FA002](brainstorm-fa002.md)/[review](brainstorm-fa002-review-by-models-a.md), [RA002](brainstorm-ra002.md)/[review](brainstorm-ra002-review-by-b.md), [MB002](brainstorm-mb002.md)/[review](brainstorm-mb002-review-by-features-a.md). [Publication freeze](brainstorm-round002-publication-freeze.json) сохраняет witness/hashguard/source files; новые canonical IDs не выданы.

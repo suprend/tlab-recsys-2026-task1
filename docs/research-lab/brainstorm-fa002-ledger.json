@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "lane": "features_a",
+  "round": 2,
+  "frozen_at_utc": "2026-10-15T06:13:18.339827+00:00",
+  "report_path": "brainstorm-fa002.md",
+  "report_words": 1560,
+  "report_sha256": "852c7b2f52a25f47777b9613a8daf21803f56d07e99f9bf718d3ad1c20d808f3",
+  "other_round002_reports_or_live_journal_read": false,
+  "canonical_HYP_ids_assigned": false,
+  "budgets_additive_or_granted": false,
+  "choose_at_most_one_future_pilot": true,
+  "independent_helper": "/root/brainstorm_features_a/set_context_sources primarysourceandliteralcontractsanityonly",
+  "cross_review_status": "pending",
+  "rejected_source_leads": [
+    {
+      "source": "LiGR2502.03417",
+      "url": "https://arxiv.org/abs/2502.03417",
+      "reason": "Authorwithdrawal2026-02-08 citesclaimdiscrepancies; not empiricalsupport."
+    },
+    {
+      "source": "DeepHalo",
+      "reason": "Authorcodecontentscouldnotbeverified; notrequiredassupport."
+    },
+    {
+      "source": "Exposurecorrectedchoice/cannibalization methods",
+      "reason": "REES46hasno displayedalternatives/impressions; notacausal/exposureclaim."
+    }
+  ],
+  "candidates": [
+    {
+      "temporary_id": "FA05",
+      "title": "Known-subset rival commitment inside fixed C",
+      "mechanism": "QuerySetReduce over resolved same-category OTHER candidates using pair_cart7d max; typed set-context primitive outside pointwise AST.",
+      "definition": {
+        "group": "G_i={j in C\\{i}:category_t(j) resolved and equals resolved category_t(i)}",
+        "pressure": "log1p(max_j_in_G pair_cart7d(u,j)), empty resolvedmatching subset=>0",
+        "support": "number of resolvedmatching rivals",
+        "unknown_fraction": "number unresolvedcategories in uniqueC / |C|, including focal",
+        "null": "focalcategory unresolved=>pressure/supportNULL; exact alias of existing candidate_category_missing required; missing/nonfinite/negative paircount is integrity fault"
+      },
+      "observables": [
+        "fixeddeduplicatedC",
+        "acceptedpair_cart7d forallC",
+        "latestglobalpastcategory_id plus ambiguity/missingmask",
+        "historicaleventattachedcategory carts for pooledcontrol"
+      ],
+      "schema_units": [
+        "pressurelogeventcount:dimensionless",
+        "rivalsupport:productcount",
+        "unknownfraction:[0,1]",
+        "IDsnominalBIGINT groupingkeys",
+        "threephysicaladditions only after sharedBmaskaliasproof"
+      ],
+      "novelty_delta": "Reads otherC rows while scoringi; no historicalQuerySetReduce in count/distinct/recency/ratio AST. Different from ItemCF/HYP001, walk4/HYP067, categoryquota/HYP053, F001directionalcategorytransitions and FA/FBround001 mechanisms.",
+      "nonalias_fixture": {
+        "scope": "operator-level fixedC, not actual retrieval replay",
+        "C": [
+          "i:A",
+          "j:A",
+          "l:B"
+        ],
+        "outsideC": [
+          "k:A",
+          "m:B"
+        ],
+        "H1_at_common_past_tau": {
+          "u_carts": [
+            "j",
+            "m"
+          ],
+          "v_carts": [
+            "k",
+            "l"
+          ]
+        },
+        "H2_at_common_past_tau": {
+          "u_carts": [
+            "k",
+            "l"
+          ],
+          "v_carts": [
+            "j",
+            "m"
+          ]
+        },
+        "invariants": [
+          "focalu,iB41+R2",
+          "usercart/categorycarttotals",
+          "everyitemcarttotal",
+          "candidatecompetitorcartmultiset{1,0}",
+          "globalmaxpaircart1",
+          "allcommonviews/purchases/ages/metadata/coverage"
+        ],
+        "expected_pressure_H1": "log(2)",
+        "expected_pressure_H2": 0
+      },
+      "counterhypothesis": "Category-pooled commitment or sparsecart zeros fully explain signal; C is not observedcoexposure and categoryequality does not validate substitutes.",
+      "cheapest_falsifier": [
+        "printedliteralwitness",
+        "Cpermutationinvariance",
+        "top2tieswithselfexclusion",
+        "singlemembergroup",
+        "unknownrivalversusunknownfocal",
+        "nonnumericparentmustfail"
+      ],
+      "matched_control": "W+pressure/rivalcount/unknownfraction versus W+historicalusercategorycart7d/same rivalcount/unknownfraction; both also against frozenW; sameQ/C/fullY/weights/population/settings/checkpoint.",
+      "primary_metric": "pairedfullYconditionalNDCG20",
+      "guardrail": "Recall20delta>=-0.002; fullYandzero/maturequerysemanticsunchanged",
+      "source_and_state_cap": {
+        "queries": 100,
+        "parent_rows": 22000,
+        "category_top2_states": 22000,
+        "retained_user_event_category_keys": 1000000,
+        "additional_raw_passes_if_accepted_complete_F_context_reused": 0,
+        "fallback_or_pooled_control_max_raw_projection_passes": 1,
+        "raw_projection_range": "[source_start,maxanchor), peranchorcounts[t-168h,t)",
+        "max_examined_raw_rows": 43000000,
+        "source_gate_max_actual_cpu_minutes": 30,
+        "source_gate_max_rss_gib": 4,
+        "hash_and_loading_cost_charged_even_when_raw_passes_zero": true
+      },
+      "discovery_cost": "One fixedpair-cart/knowncategory set operator, no learnedselector/proxyfits, no free placebo fit; prespecifieddiagnostics charged.",
+      "label_blind_future_gate": ">=20/100Q with at leasttwo distinctpressurevalues amongknownfocalrows; fail=>defer, not no-effectproof.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2404.06912v5",
+          "version_date": "v5 2025-04-05; ECIR2025, initialpreprint2024",
+          "supported_claim": "Permutation-invariant inter-passage information; ownpaperfoundinteractions unnecessary inordinary relevance tasks, withusefulness after novelty-orientedtraining.",
+          "author_code_url": "https://github.com/webis-de/set-encoder",
+          "verified_core_code_url": "https://github.com/webis-de/lightning-ir/blob/main/lightning_ir/models/cross_encoders/set_encoder.py",
+          "code_as_of": "main viewed2026-10-15, not downloaded/executed",
+          "our_adaptation_not_reproduction": true
+        }
+      ],
+      "status": "design_only_needs_independent_review",
+      "unit": "fixed(query_id,user_id,product_id) candidate row; full-Y query outcome outside feature calculation",
+      "historical_context_commit": "ec3dabc50742b926e5e1de38d464b98a3ce14b2f",
+      "primary_control": "current frozen W=B41 plus R2 three item-action7d counts; future comparison only",
+      "strict_past": "history timestamps<t, entire global peer bucket excluded; complete point-in-time metadata; raw multiplicity retained",
+      "current_B_W_heldout_changed": false,
+      "execution_authorized": false,
+      "actual_data_SQL_Y_model_weights_predictions_jobs": 0,
+      "actual_fits": 0,
+      "actual_literal_jobs": 0,
+      "whole_study_proposed_cap": {
+        "max_actual_cpu_minutes": 120,
+        "max_wall_minutes": 120,
+        "max_threads": 2,
+        "max_rss_gib": 4,
+        "max_downstream_fits": 2,
+        "proxy_model_fits": 0,
+        "source_gate_included": true,
+        "failures_hashes_loading_source_scoring_oracles_included": true
+      }
+    },
+    {
+      "temporary_id": "FA06",
+      "title": "Fixed daily phase compatibility between user views and candidate purchases",
+      "mechanism": "Firstcircularmoment overtimestampkernel exp(i2pi*s/86400) atuser-view anditem-purchase grains; new weightedaggregate addsphaseinformation beyondcounts/recency.",
+      "definition": {
+        "U": "meanexp(i2pi*s/86400) overuserviewsin[t-168h,t)",
+        "I": "meanexp(i2pi*s/86400) overitempurchasesbyallusersin[t-168h,t)",
+        "alignment": "Re(U*conj(I))",
+        "coherence": "abs(U)*abs(I)",
+        "missing": "Nu=0orNi=0=>bothNULL andone sharedflag; positiveNwithzeroresultant=>validzeros",
+        "clock": "canonicalUTCseconds modulo86400; fixed24hperiod, nooffset/periodsearch"
+      },
+      "observables": [
+        "rawuserviewtimestamps includingoffCproducts",
+        "rawalluserpurchase timestampsforrequesteditems",
+        "existingWuser_view7d andR2item_purchase7d denominators",
+        "global168hcoverage"
+      ],
+      "schema_units": [
+        "alignmentdimensionless[-coherence,coherence]",
+        "coherence[0,1]",
+        "onesharedBooleanmissingflag",
+        "threephysicaladditions; no fittedcycleweights or scaler"
+      ],
+      "novelty_delta": "HistoricalAST lacks sinusoidalweightedaggregate; not a hazard/renewalcurve, orderarea, concentrationoveraudiencecounts, featuresearchmechanism or router. Additionalmean-sine/cosine basiswouldsubsume this, so nonalias scoped tohistoricalW.",
+      "nonalias_fixture": {
+        "anchor": "day8UTC00",
+        "H1_userviews_of_same_offcandidate_a": [
+          "day2h00",
+          "day3h00",
+          "day7h18"
+        ],
+        "H2_userviews_of_same_offcandidate_a": [
+          "day2h00",
+          "day3h18",
+          "day7h18"
+        ],
+        "fixed_item_i_purchases_by_otheruser": [
+          "day2h00",
+          "day3h00",
+          "day7h18"
+        ],
+        "invariants": [
+          "allfocalB41+R2 counts/support/firstseen/latestrecency/metadata",
+          "no24h/168hwindowboundarycrossed",
+          "coherence5/9both"
+        ],
+        "expected_U1": "(2-i)/3",
+        "expected_U2": "(1-2i)/3",
+        "expected_I": "(2-i)/3",
+        "expected_alignment_H1": "5/9",
+        "expected_alignment_H2": "4/9",
+        "common_clock_origin_rotation_invariant": true
+      },
+      "counterhypothesis": "24htargetcoversentirecycle; phaseunhelpful beyondamplitude/support or proxiesgeography/logginghabits. Unknownlocaltime andperiodicitynot inferred.",
+      "cheapest_falsifier": [
+        "equalcoherenceliteralwitness",
+        "commonclockoriginrotation",
+        "positiveNwithcancellingphasors",
+        "exactwindowedges",
+        "globalpeerpermutation",
+        "fixedcontextfuturesuffix"
+      ],
+      "matched_control": "W+coherence/sharedmissing versus W+alignment/coherence/sharedmissing; identicaltrainQ/C/Y/weights/settings/checkpoint; bothagainst frozenW. Control2versustreatment3 columns intentionally isolatesphasefeature.",
+      "primary_metric": "pairedfullYconditionalNDCG20",
+      "guardrail": "Recall20delta>=-0.002; fullYandzero/maturequerysemanticsunchanged",
+      "source_and_state_cap": {
+        "queries": 100,
+        "candidate_rows": 22000,
+        "max_raw_projection_passes": 1,
+        "raw_projection_range": "[minanchor-168h,maxanchor), physicalreadscounted even withoutpruning",
+        "max_examined_raw_rows": 43000000,
+        "sparse_entity_UTC_hour_keys": 1000000,
+        "entity_summaries": 22100,
+        "source_gate_max_actual_cpu_minutes": 30,
+        "source_gate_max_rss_gib": 4,
+        "hour_state": "count,sum(sine(actualtimestamp)),sum(cosine(actualtimestamp)); exactcompletedhoursformidnightanchors",
+        "arbitrary_anchor_support": "requiresnewexactboundarycontract"
+      },
+      "discovery_cost": "Fixedperiod24h only, nolearnedcycle, nofreeperiod/offset/seedsearch, no proxyfits. Optionalphase-scrambleddiagnosticsneedchargeddeclaredlook; extra fitnotfree.",
+      "label_blind_future_gate": ">=20/100Q withtwo defineddistinctalignmentvalues withinquery; fail=>defer, not no-effectproof.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2409.18479v1",
+          "official_proceedings_url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/bfe7998398779dde03cad7a73b1f81b6-Abstract-Conference.html",
+          "version_date": "v1 2024-09-27; NeurIPS2024",
+          "supported_claim": "Explicitlearnedperiodiccyclealignment followedby residualforecasting; no recommendergain established.",
+          "author_code_url": "https://github.com/ACAT-SCUT/CycleNet",
+          "verified_core_code_url": "https://github.com/ACAT-SCUT/CycleNet/blob/main/models/CycleNet.py",
+          "code_as_of": "main viewed2026-10-15, not downloaded/executed",
+          "our_adaptation_not_reproduction": true
+        }
+      ],
+      "status": "design_only_needs_independent_review",
+      "unit": "fixed(query_id,user_id,product_id) candidate row; full-Y query outcome outside feature calculation",
+      "historical_context_commit": "ec3dabc50742b926e5e1de38d464b98a3ce14b2f",
+      "primary_control": "current frozen W=B41 plus R2 three item-action7d counts; future comparison only",
+      "strict_past": "history timestamps<t, entire global peer bucket excluded; complete point-in-time metadata; raw multiplicity retained",
+      "current_B_W_heldout_changed": false,
+      "execution_authorized": false,
+      "actual_data_SQL_Y_model_weights_predictions_jobs": 0,
+      "actual_fits": 0,
+      "actual_literal_jobs": 0,
+      "whole_study_proposed_cap": {
+        "max_actual_cpu_minutes": 120,
+        "max_wall_minutes": 120,
+        "max_threads": 2,
+        "max_rss_gib": 4,
+        "max_downstream_fits": 2,
+        "proxy_model_fits": 0,
+        "source_gate_included": true,
+        "failures_hashes_loading_source_scoring_oracles_included": true
+      }
+    }
+  ]
+}

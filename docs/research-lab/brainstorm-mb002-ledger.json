@@ -1,0 +1,130 @@
+{
+  "ledger_id": "MB-round-002",
+  "date": "2026-10-15",
+  "author": "/root/brainstorm_models_b",
+  "report": "brainstorm-mb002.md",
+  "status": "frozen_independent_source_only_first_draft_pending_cross_review",
+  "historical_context_commit": "ec3dabc50742b926e5e1de38d464b98a3ce14b2f",
+  "historical_context_method": "git show backlog and git grep older model/loss/feature/research-round docs at the supplied commit",
+  "blindness": {"live_brainstorm_journal_read": false, "other_round002_reports_read": false},
+  "excluded_families": ["TabM", "SL@K", "KD", "ModernNCA", "ICL", "generic old loss variations", "generic graph hops"],
+  "source_method": "Original papers and executable author source, inspected 2026-10-15; mutable upstream main URLs are not pinned implementation releases",
+  "delegation": {
+    "independent_helper": "/root/brainstorm_models_b/round002_tabular_synthesis_source",
+    "scope": "TabDiff/TabSyn conditional synthesis primary-source check",
+    "supporting_scratch_note": "brainstorm-mb002-primary-note.md",
+    "note": "Helper wrote this scratch note before clarification to return remaining findings in messages; no shared repository edits",
+    "second_helper_spawn": "Thread-limit refusal; remaining primary checks direct"
+  },
+  "actual_operations": {"real_data_reads": 0, "SQL": 0, "feature_reads": 0, "model_reads": 0, "target_reads": 0, "fits": 0, "native_model_API_jobs": 0, "downloads_or_installs": 0, "paid_calls": 0, "large_hashes": 0, "shared_repository_writes": 0, "literal_math_runtime": "Existing .venv/bin/python; stdlib only"},
+  "provided_context": {"train_queries": 26000, "train_candidate_rows_approx": 5317000, "train_fullY_targets": 619, "selection_queries": 4000, "selection_candidate_rows": 817149, "selection_fullY_targets": 96, "frozen_control": "B41 CatBoost300/depth6/L2=30 plus all other frozen effective parameters", "selected_development_procedure": "R2+3 unchanged", "heldout": "CLOSED and unchanged"},
+  "common_future_contract": {
+    "authorization": "None; future budgets are mutually exclusive proposals, no new HYP IDs",
+    "reservation": "Separate prospective reservation or honestly labelled retrospective study; no reuse of current heldout for selection",
+    "evaluation": "Fixed strict-past Q/C and full purchaseY; conditional query-macro fullY NDCG20 primary, Recall20 guardrail, all-query zero convention, paired user-cluster uncertainty",
+    "counts": "Candidate rows and synthetic rows are not independent purchase observations",
+    "selection": "One fixed setting, seed and final checkpoint per arm; failures count, no refill",
+    "cost": "Preparation/authentication/upstream training/annotation/synthesis/inference/evaluation/failed attempts all charged"
+  },
+  "entries": [
+    {
+      "id": "MB2-01",
+      "title": "Permutation-equivariant candidate-set information exchange",
+      "status": "needs-source-free-contract-gate; first-provisional-priority",
+      "sources": [
+        {"title": "Set-Encoder: Permutation-Invariant Inter-Passage Attention for Listwise Passage Re-Ranking with Cross-Encoders", "first_preprint_year": 2024, "venue": "ECIR2025", "url": "https://arxiv.org/html/2404.06912v3"},
+        {"title": "Author module", "url": "https://raw.githubusercontent.com/webis-de/set-encoder/main/set_encoder/module.py"},
+        {"title": "Author repository", "url": "https://github.com/webis-de/set-encoder"}
+      ],
+      "source_facts": ["Passage interaction tokens share representations without passage-order positions", "Ordinary relevance pointwise model can be similarly effective; clearer benefit for novelty task", "Original text/ELECTRA/A10040GB setup and fine-tuning stages differ", "Inspected author module imports core architecture from lightning-ir"],
+      "our_adaptation": "B41 row embeddings width32; one2head candidate self-attention block without candidate positions, shared score head; same query-weighted BCE as controls; full real C including zeroY queries",
+      "novelty_delta": "Forward information exchange between candidate rows; different from listwise loss and from M05 attention over user history",
+      "information_limit": "Same per-row columns but expanded access to other candidate rows; not literally same information as a pointwise learner",
+      "inputs": ["Existing strict-past B41 numeric/missing values for every actual C row", "No raw text/image/impression/order fields", "Mature training purchase labels"],
+      "counterhypothesis": "B41 already represents useful intent; set context repeats retrieval composition; relational model overfits sparse purchase support",
+      "own_literal_falsifier": {
+        "executed": true,
+        "rows": "A=(1,0,0), B=(0,1,0), D=(0,0,h)",
+        "rule": "c=mean(third coordinate); s=(x1-x2)*(c-1/6)",
+        "h1_AB_scores": [0.16666666666666666, -0.16666666666666666],
+        "h0_AB_scores": [-0.16666666666666666, 0.16666666666666666],
+        "all_six_permutations_preserve_keyed_scores": true,
+        "five_unmasked_zero_pads_h1_AB_scores": [-0.04166666666666666, 0.04166666666666666],
+        "meaning": "Context can change A/B order despite unchanged A/B rows; mean-context control also solves toy. Permutation invariance alone does not establish padding correctness; not evidence REES labels follow this rule"
+      },
+      "matched_controls": ["Fresh frozen-settings B41", "Rowwise MLP", "Same MLP plus per-query mean/max of41columns", "Candidate-attention model"],
+      "gates": ["Empty/shortC and masked padding", "Candidate permutation and source ordering", "Same-second peers and future suffix invariance", "Explicit missing policy and no label-derived query statistics"],
+      "temporal": "Training X strict-past; complete standalone learner/transforms freeze before first future evaluation; no backfilled learned context feature into earlier downstream anchors",
+      "finite_proposal": {"fit_attempts_max": 4, "terminal_quality_looks_max": 4, "epochs": 2, "query_batch_max": 16, "threads": 2, "rss_GiB_max": 8, "total_CPU_hours_max": 4, "total_wall_hours_max": 3, "failures_count": true},
+      "work_arithmetic_only": {"attention_cells_16Q_2heads_220C": 1548800, "float32_logits_MiB": 5.908203125, "head_specific_pairs_upper_per26000Q_epoch": 2516800000, "peak_or_throughput_measurement": false},
+      "promotion": "Incremental ranking benefit over cheap list summaries and strong B with same candidate coverage; otherwise stop",
+      "fit_authority": false
+    },
+    {
+      "id": "MB2-02",
+      "title": "Automatically discovered cross-mistake training environments",
+      "status": "defer-admission-until-support-and-weight-contract",
+      "sources": [
+        {"title": "Discovering Environments with XRM", "venue": "ICML2024", "url": "https://arxiv.org/html/2309.16748v2"},
+        {"title": "Author executable algorithms", "url": "https://raw.githubusercontent.com/facebookresearch/XRM/main/algorithms.py"},
+        {"title": "Author driver", "url": "https://raw.githubusercontent.com/facebookresearch/XRM/main/main.py"},
+        {"title": "Author group-sampling implementation", "url": "https://raw.githubusercontent.com/facebookresearch/XRM/main/datasets.py"},
+        {"title": "Author degeneracy check", "url": "https://raw.githubusercontent.com/facebookresearch/XRM/main/utils.py"}
+      ],
+      "source_facts": ["Twins trained on random halves imitate confident held-out mistakes through dynamic discovery labels", "Class-balanced discovery loss", "Cross-mistakes use either twin prediction error against original y", "Driver annotates train and validation; author pipeline includes GroupDRO/RWG", "Paper explicitly discusses causal/observational non-identifiability and failure cases"],
+      "our_adaptation": "Training-only B41 small twins, whole-user split rather than row split; one fixed discovery setting. Original labels restored for downstream B41 fitting. Compare static class-environment balancing against original/class-balanced/shuffled-environment weights; not a full GroupDRO reproduction",
+      "novelty_delta": "Learn environment assignment before weighting, beyond old fixed user/query weights; weight formula alone not claimed new",
+      "weight_contract": "Base a_qi=1/|Cq|; each class-env loss sum(a*ell)/sum(a), groups equal mass. Empty groups stop. Shuffle m within original class preserving exact class-env counts and same formula",
+      "inputs": ["Strict-past B41 train X", "Mature permitted original purchase labels", "Training-only user identifiers for split/exclusion, not ordinal model features"],
+      "counterhypothesis": "Discovery partitions rare classes, arbitrary noise or support/repeat rather than stable nuisance; easy repeat signal may be invariant and incorrectly downweighted",
+      "own_literal_falsifier": {
+        "executed": true,
+        "rows": 16,
+        "labels": "Eight0, eight1",
+        "true_environment": "Alternating0/1",
+        "both_twin_error_indices": [0, 1, 8, 9],
+        "class_crossmistake_group_counts": {"0": 6, "1": 2, "2": 6, "3": 2},
+        "passes_four_group_presence_gate": true,
+        "crossmistake_rate_true_env0": 0.25,
+        "crossmistake_rate_true_env1": 0.25,
+        "meaning": "Presence/nondegeneracy does not imply recovering the real environment; source trivial all-negative class collapse is correctly rejected"
+      },
+      "matched_controls": ["Ordinary query-weighted B41", "Class-balanced query-weighted B41", "XRM-class-env-balanced B41", "Within-class m-shuffled balanced B41 with same group counts"],
+      "gates": ["Original labels immutable outside discovery", "No validation annotation/search from author driver", "Class-env support by independent users/days and fixed minimum support", "Weight concentration/collapse", "Class-balanced and shuffled controls required"],
+      "temporal": "All discovery/train labels mature by fit cutoff; m never inference feature because it requires y; final B available before future predictions; early FE extension would need separate forward snapshots",
+      "finite_proposal": {"network_training_attempts_max": 6, "explanation": "Two twins conservatively counted separately even with joint optimizer, plus4boosters", "terminal_downstream_quality_looks_max": 4, "twin_width": 32, "twin_layers": 2, "twin_epochs_max": 2, "threads": 2, "rss_GiB_max": 8, "total_CPU_hours_max": 6, "total_wall_hours_max": 4, "failures_count": true},
+      "memory_plan": "Stream X and annotation; approximately one byte per binary row assignment before keys/caches; avoid simultaneous transformed copies",
+      "promotion": "Meaningful future fullY ranking benefit beyond class balancing and matched shuffled environments; no causal/fairness/universal OOD interpretation",
+      "fit_authority": false
+    },
+    {
+      "id": "MB2-03",
+      "title": "Class-clamped diffusion perturbations of training features",
+      "status": "defer-until-conditional-support-and-bounded-adapter",
+      "sources": [
+        {"title": "TabDiff: a Mixed-type Diffusion Model for Tabular Data Generation", "venue": "ICLR2025", "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/5c882988ce5fac487974ee4f415b96a9-Paper-Conference.pdf"},
+        {"title": "Author README", "url": "https://github.com/MinkaiXu/TabDiff"},
+        {"title": "Generic sample_impute primitive", "url": "https://raw.githubusercontent.com/MinkaiXu/TabDiff/main/tabdiff/models/unified_ctime_diffusion.py"},
+        {"title": "Trainer and checkpoint lifecycle", "url": "https://raw.githubusercontent.com/MinkaiXu/TabDiff/main/tabdiff/trainer.py"},
+        {"title": "Default train/sampler configuration", "url": "https://raw.githubusercontent.com/MinkaiXu/TabDiff/main/tabdiff/configs/tabdiff_configs.toml"}
+      ],
+      "source_facts": ["Joint mixed numeric/categorical diffusion with feature-specific schedules", "Documented CLI imputes target from features; generic masks support proposed reversed conditioning wrapper", "Original RTX A4000 16GB; no foundation checkpoint required", "steps8000 traverses full loader per epoch", "Best checkpoint saving after epoch4000", "Built-in generation evaluation may train downstream utility evaluators"],
+      "our_adaptation": "Dataset-specific generator on permitted B41 train X plus mature categorical y. Clamp parent query/user context and encoded y=1, mask fixed candidate-specific primitive subset, guidance off; recompute deterministic feature descendants, reject invalid dependencies. Generate <=4accepted perturbations per original covered positive; no synthetic real Q/C/Y events",
+      "novelty_delta": "Learned conditional training-support smoothing, distinct from loss shaping, representation ensembling or extra observed-task heads",
+      "conditional_support_limit": "Executable masking supports a plausible wrapper, not author-tested rare-purchase augmentation or guaranteed exact conditional density. Output label token preservation does not establish relevance",
+      "inputs": ["Existing B41 numeric/missing fields", "Mature permitted labels", "Predeclared grammar-derived primitive/dependency map and context clamp mask"],
+      "weight_contract": "Original positive mass split among original+accepted perturbations; duplicate control mirrors accepted count and weights per parent. Query/class total mass conserved. No synthetic rows counted as independent purchases or used as evaluation candidates",
+      "counterhypothesis": "Few real positives cause memorization/mode collapse; feasible generated positive tuples cross negative support; rare-label conditioning ignored",
+      "own_literal_falsifier": {"executed": true, "user_view7d": 1, "pair_view7d": 3, "same_event_and_window": true, "pair_le_user_valid": false, "other_gates": ["Same parent query fields unchanged", "Missing masks/count/ratio dependency consistency", "Identical features plus random winners cannot gain ranking information or independent evidence from synthetic copies"]},
+      "matched_controls": ["Original frozen-settings B41", "Mass/count-matched duplicate-positive B41", "Mass/count-matched diffusion-augmented B41"],
+      "gates": ["Exact primitive/context/mask closure specified before fits", "Source-free conditional sampler smoke on legal/illegal toy tuples", "Disable author automatic downstream evaluation fits and online logging", "Bounded final checkpoint path independent of epoch4000 best-checkpoint convention", "Fixed draw cap, no refills", "Invalid-row/duplicate/support diagnostics before utility"],
+      "temporal": "Train-only transforms/generator/checkpoint/synthetic filtering within permitted fit domain; no future/evaluation rows; final downstream learner available before future scoring; no generated source events or early feature snapshots",
+      "finite_proposal": {"fit_attempts_max": 4, "jobs": ["one generator", "original B41", "duplicate-control B41", "diffusion B41"], "terminal_quality_looks_max": 3, "generator_updates_max": 2048, "generator_batch_max": 512, "synthetic_per_real_covered_positive_max": 4, "draw_attempts_total_max": 10000, "reverse_steps": 50, "second_order_calls_charged": true, "generator_CPU_hours_max": 2, "each_booster_CPU_hours_max": 1, "preparation_scoring_CPU_hours_max": 1, "total_CPU_hours_max": 6, "total_wall_hours_max": 4, "threads": 2, "rss_GiB_max": 8, "failures_count": true},
+      "work_arithmetic_only": {"default8000epoch_updates_5317k_batch4096": 10392000, "synthetic_rows_upper_from619fullY": 2476, "float32_41col_synthetic_values_MiB": 0.3872528076171875, "peak_or_throughput_measurement": false},
+      "promotion": "Incremental real chronological fullY ranking benefit over matched duplication, with legal support and actual affordable total cost. Short bounded schedule may simply fail; paper synthesis quality not promised",
+      "fit_authority": false
+    }
+  ],
+  "provisional_priority": ["MB2-01 candidate-set context beyond cheap summaries", "MB2-02 learned environment assignment after support gate", "MB2-03 defer conditional synthesis adapter"],
+  "publication": "Independent cross-review pending; coordinator owns publication; drafts do not change current execution plan"
+}
