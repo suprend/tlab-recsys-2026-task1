@@ -2,6 +2,8 @@
 
 15 октября 2026. Primary-source rounds дополняют canonical backlog; rejected/duplicate идеи сохраняются, budgets не складываются.
 
+[Журнал новых идей: три независимые линии, кандидаты и отказы](brainstorm-log.md) отделяет текущий новый brainstorm от refinement/audit истории.
+
 - [Round001: nested primitives, grammar, external dataset compatibility](round-001.md) и [независимый critic](round-001-review.md): HYP011 accepted-for-pilot;012/013 deferred;014 rejected.
 - [Round002: category-bound nested reference и exact shared DAG](round-002.md) и [независимый critic](round-002-review.md): HYP045/046 needs-pilot внутри общего TLAB016 ledger.
 
