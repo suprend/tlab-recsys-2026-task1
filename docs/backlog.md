@@ -6,6 +6,12 @@
 
 ## Текущий статус
 
+Actual research028 14:53:51UTC: Rootstarted independentModelsA+RetrievalA FIRSTauthors, nopeerreads/experiments/currentmodelchanges.027criticcompleted/Rootreadbackpending; no newID/admission/task, mandatorypublicroutepriority and15:00anchor preserved.
+
+[Public018design/resource review](backlog-reviews/public-reproduction018-design.md) Rootaccepted only;4bounded originals, fullCODE/runtime/newfits notgranted. CurrentauthorRUNNING/designreviewCOMPLETED/wholeCODEreviewafterfreeze.
+
+Early15:00checkpoint 14:49:34UTC: publicrouteimplementation execution_scope_audit RUNNING, source_harness_review designCOMPLETED/Rootaccepted; wholeCODEreview afterfreeze/actualnewfitsUNGRANTED. FirstCLI train/selectiontwofits, optionalfinal excluded untilcomplete7dayseal; no unfrozencodepublication.027authors+distinctcriticCOMPLETE/Rootresearchreadbackpending, no activeauthors claimed.015reportDONE/018partial13of19, max15:00 originalanchor/noreset.
+
 Current ownership 14:41:57UTC: [existing018 publicraw→freshB/Wtraining/comparison gap](backlog-reviews/task1-completion-gap-audit.md) assigned TMPimplementation execution_scope_audit + independentseamreview source_harness_review; actualfreshfits/runtimeUNGRANTED.026Rootresearchaccepted/027bothFIRSTfrozen/existingFeaturesAdistinctskepticactive;0newID/task/grant,15:00originalanchor unchanged.
 
 Current accepted018slice checkpoint 14:36:14UTC: [newDB→Oct22 Q/C/allfeatures→fixedscores parity accepted](backlog-reviews/018-accepted-oct22-slice.md), original37979CLOSED0/no pollretry. Full018partial: publicraw→freshcollections→frozenB/WTRAINING→comparisonroute pending withoutprivateCBMs/TMP/historicalclaims; not a new optionalexperiment/qualitygate.015done+reportreviewDONE/13of19 unchanged.026criticcomplete/Rootreviewpending, early025+026roundcheckpoint; next15:00UTC originalanchor.

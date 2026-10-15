@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026, 14:41:57UTC / 17:41:57МСК.015/reportDONE/018partial;026Rootresearchaccepted0IDs/grants,027bothFIRSTfrozen/distinctFeaturesAskepticactive. PublicrouteTMPowneractive/seamreview,actualfreshfitsungranted. next15:00UTC anchored14:15.
+Обновлён15 октября2026, 14:53:51UTC.015/reportDONE/018partial; publicrouteauthorRUNNING/designreviewRootaccepted;027criticCOMPLETE/Rootreadbackpending;028RootactualindependentModelsA+RetrievalAFIRSTauthorsstarted. max15:00UTC anchored14:15.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -9,6 +9,12 @@
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 15:00 UTC / 18:00 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Early15:00 checkpoint / exact current inventory — 2026-10-15T14:49:34.014907+00:00
+
+Execution_scope_audit actualimplementationRUNNING; source_harness_review COMPLETED designreview/Root1c943c31accepted, futurewholeCODEreview onlyafterfreeze. No unfrozencodeinstall/publication or realnewfits/runtimegrant; currentaccepted015/report/Oct22slice unchanged/whole018partial. FirstCLI train/selectiontwofrozenB/Wfits, optionalfinalreport excluded pendingcomplete7dayseal.
+
+027bothauthorsCOMPLETED, FeaturesA separatecriticCOMPLETE (e2cb8fac/60a93ad7/59cff045), RootfullreadbackPENDING; no backgroundauthorsactive claim. Planned028 onlyRootdispatch afterusefulquestion/readback; mandatoryimplementation priority. Actualearlywrite before14:50, max15:00UTC/18:00MSK anchored14:15 unchanged; no newbudget/goaltime/permissionreset.
 
 ## Wave026 accepted /027 actual author lanes / MAIN018gap — 2026-10-15T14:41:57.745344+00:00
 
@@ -606,3 +612,9 @@ Same reviewer reported narrow aliasV2 CODE/captured green after originalV1P2; Ro
 A currentFIRST e8b7c6…/ledger7d7e72…/freezee86db9… actualSHAverified. B originalFIRST14:39:26 SHAecb6c139… preserved as byteexactprefix; append-only attributioncorrection14:40:13 beforepeerread yields CURRENT8877a138…/ledger582fec67…. Bothcurrentcompletebytes verified before authorized existingFeaturesA distinctskepticdispatch afteridlecheck. Do notclaimB FIRSTbytesunchangedafterappend; reviewer guardsCURRENT8877/ledger and preservesoriginalprefix distinction. Nohelper/experiment/projectwrite/newIDs/grants/mainprereqs;15:00anchorunchanged.
 
 Publicrouteowner/seamreview remainsTMP; Root allowed only<=32inventedevents/FakeCatBoost integration insideexisting60CPU120wall512MiBtestscope. Actualfreshmodels/data/Y/qualityfits remainUNGRANTED; this is not a new resource pool or publisher testjob.
+
+[Rootaccepted Public018design/resource proof](../backlog-reviews/public-reproduction018-design.md) archived4originals, noCODE/runtimegrant/actualfits; onequeue/ownerroles/max15:00 remainunchanged.
+
+## Actual wave028 independent author rotation — 2026-10-15T14:53:51.228680+00:00
+
+Root ACTUALLYdispatched ModelsA+RetrievalA FIRST authors: optionalfuturelossalignment fullYIDCG vsinCIDCG/queryreweighting; rotatefrom027pair, nopeer028beforefreeze. ExistingFeaturesB distinctskeptic permitted ONLYafterbothactualFIRST/SHA+idlecheck, notyetdispatched.027Rootfullreadbackpending/no admissionupgrade. No actualexperiments/currentB/W/018changes, no mainprerequisite/goalreset; Rootpublicrouteauthor continues, defaultfirstCLItrainselection2fits/actualnewfitsungranted.15:00originalanchor unchanged.

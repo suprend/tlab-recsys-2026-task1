@@ -1,0 +1,7 @@
+# Public018 route: design/resource review принято
+
+[Root приёмка](evidence/public-reproduction018-design/originals/tlab-root-public-reproduction018-design-review-acceptance-v1.json) подтверждает [review](evidence/public-reproduction018-design/originals/tlab-public-reproduction018-design-resource-review-v1.md) и инварианты existing018 public raw→freshcollections→NEW fixed-recipe B/W training→comparison. [Четыре exact originals](evidence/public-reproduction018-design/publication.json);21 прочитанный source/snapshot не дублировался и не пересчитывался издателем как current.
+
+Нужна новая ordinary caller-owned events connection без legacyingest_metadata/approvals; globalquery_id/group_index-product_id training order; явныйB45→B41→W44 transport и fullY/off-C/NULL/maturity; все nonempty C группы с rowweight1/Cquery. Ровно два frozen300tree Logloss fit attempts списываются до nativecalls, безevalset/earlystop/search/retry. PublicCLI не зависит от Root/TMP/старыхCBM/claims; fresh exclusive outputs сохраняют failures.
+
+Полная цена включает ingest/collections/matrices/Pool/native/scoring/serialization/cleanup/disk;2GBengine неRSSlimit, kernel8GiBspillfloor раскрывается. CooperativeCLI checks отдельно от внешнего finiteRootruntime/cleanenvironment evidence. Это design-only приёмка, fullCODE/runtime/newfits не разрешены. FirstCLI train/selection scope, optionalfinalreport не допускается при incomplete7dayseal.13/19 и018partial сохраняются.

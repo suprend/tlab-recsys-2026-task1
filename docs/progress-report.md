@@ -177,3 +177,13 @@ Wave026обаFIRST actualSHAverified, existingretrieval_a separatecritic activat
 [Completion audit/Root acceptance](backlog-reviews/task1-completion-gap-audit.md) clarifies the existing public raw→freshcollections→NEWfrozenB/Wtraining→comparison gap. execution_scope_audit TMPimplementation nowactive, independentseamreview source_harness_review; noactualfreshfits/integration/runtimegrant. ReportV2/fixedscoreslice accepted separately;29auditcodepins historicalnotrehashcurrent.026research-only refinements accepted,027independentpair actualstarted/Afrozen/Bwriting; no mainprerequisites/newIDs/admissions.15:00UTC anchored14:15 unchanged.
 
 Wave027update 2026-10-15T14:44:16.119811+00:00: bothFIRST/currentbytesSHAverified, distinctexistingFeaturesAskepticactive. B originalFIRSTprefixecb6c139 vs append-correctedcurrent8877a138 explicitly preserved; no falseunchangedclaim. Existingpublicroute synthetic<=32eventFakeCatBoost integration only withinRoot60CPU120wall512MiBscope; realfreshfits/Y ungranted.
+
+## Early15:00 cadence checkpoint — actual 2026-10-15T14:49:34.014907+00:00
+
+Actualinventory: execution_scope_audit implementationRUNNING; source_harness_review design/resource reviewCOMPLETED и Rootaccepted1c943c31…, wholeCODEreview только после frozen candidate. Ни незамороженный код, ни currenttrainingrecipe в Git не устанавливаются до отдельного Root решения. FirstpublicCLI scope — raw→freshcollections→twoNEW frozenB/W fits→train/selection comparison; optionalfinalreport не включён вfirstCLI, incomplete7dayseal недопустим. Actualnewfits/runtimeUNGRANTED, все прежниеreal sessions CLOSED;015/reportDONE/018partial/13of19 unchanged.
+
+027authorsCOMPLETED, отдельныйFeaturesAskeptic также фактическиCOMPLETE e2cb8fac…/60a93ad7…/59cff045…; Rootfullresearchreadbackpending, новаяauthorwave не active и не приписанафоновойработе. Следующаяplanned028 Rootdispatch afterusefulquestion/review, mandatorycode не вытесняется. Этотearlycheckpoint записан до14:50 и не сдвигаетmax15:00UTC отoriginal14:15; goal/лимиты/ownership/permissions сохранены.
+
+[Public018 design/resource review](backlog-reviews/public-reproduction018-design.md) Rootaccepted/4exactoriginals;21historical source/snapshot notduplicatedorrehashedcurrent. FullCODE/newruntime/fits remainpending separateRootdecision.
+
+Actual028Rootdispatch 2026-10-15T14:53:51.228680+00:00: independentModelsA+RetrievalA FIRST authors onfuturelossalignment, no peerreading/currentrecipechanges/actualexperiments.027Rootreadbackpending. Mainpublicrouteimplementationcontinues, actualnewfitsungranted; early14:49:34cadencerecord andmax15:00originalanchor unchanged.
