@@ -1,0 +1,227 @@
+{
+  "status": "original V1 P2 closed within narrow V2 source/captured-only review; no new supported finding",
+  "production_SHA": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4",
+  "oracle_SHA": "3b378274041623ba37dcb5a53a115458f02af4f2665f10821875aaf099d3cf75",
+  "author_tests_SHA": "3f743b878ca1a780743ed71182da4258278b8582316c57c0e1d7e4723f67c6ab",
+  "author_freeze_SHA": "69e74b7e5f220452a2e02c6db5a352b33366d717be4c80aee3dc597422821649",
+  "focused_processes_used": 1,
+  "author17_PASS": true,
+  "independent_control_cases": 11,
+  "observations": {
+    "direct_scalar": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        true,
+        true
+      ]
+    },
+    "root_scalar_field": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        true,
+        true
+      ]
+    },
+    "one_list": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    },
+    "two_lists": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    },
+    "root_list_field": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    },
+    "list_containing_root_key": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    },
+    "nested_dict_key": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        false,
+        false
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    },
+    "strict_list_absolute_tolerance": {
+      "original": [
+        true,
+        true
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        true,
+        true
+      ]
+    },
+    "learning_list": {
+      "original": [
+        true,
+        true
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        true,
+        true
+      ]
+    },
+    "learning_two_lists": {
+      "original": [
+        true,
+        true
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        true,
+        true
+      ]
+    },
+    "learning_list_corruption": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        false,
+        false
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    }
+  },
+  "transport": {
+    "frozen_path_constants": 7,
+    "author_resource_statements_skipped": [
+      "resource.setrlimit(resource.RLIMIT_CPU, (30, 30))",
+      "signal.alarm(60)"
+    ],
+    "Root_CPU_seconds": 15,
+    "Root_wall_seconds": 20,
+    "implementation_AST_changes": 0
+  },
+  "terminal": {
+    "tool_chunk": "73b916",
+    "exit_code": 0,
+    "SELF_CPU_seconds": 0.10278499999999999,
+    "internal_body_wall_seconds": 0.04091958299977705,
+    "peak_RSS_bytes": 29130752,
+    "complete_external_CPU_receipt": false
+  },
+  "guard_attempts": {
+    "native_import": 0,
+    "children": 0,
+    "network": 0,
+    "model_or_data_read": 0,
+    "project_write": 0
+  },
+  "native_imports_model_bytes_LOAD_predict_fit_SQL_sourceDB_Y_439_children_helpers_project_writes": 0,
+  "runtime_grant": false,
+  "018_or015_source_runtime_acceptance": false,
+  "terminal_original_count": 20,
+  "original_hashes_unchanged": true,
+  "initial_snapshot_CPU_seconds": 0.0014899999999999948,
+  "initial_snapshot_wall_seconds": 0.001492290997703094,
+  "terminal_publication_CPU_seconds": 0.0025069999999999953,
+  "terminal_publication_wall_seconds": 0.002513708001060877,
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-native-param-alias-independent-rereview-v2.md",
+      "sha256": "4bd5df89f92e296429384f102b3859a8f6a2f42fe5f9a44a9203b2bf9fe79bcb",
+      "bytes": 4299
+    },
+    {
+      "path": "/tmp/tlab-native-param-alias-independent-freeze-v2.json",
+      "sha256": "8b7378e09c99cbbc845bc2e97a35023f8279578d14ffba2d536b9b7e01df3419",
+      "bytes": 11410
+    },
+    {
+      "path": "/tmp/tlab-native-param-alias-independent-probe-results-v2.json",
+      "sha256": "1161af4da91854ef4cdf42ec19c02840a3df25138845802b6c06cf92a6e2ffc9",
+      "bytes": 3165
+    },
+    {
+      "path": "/tmp/tlab-native-param-alias-independent-probes-v2.py",
+      "sha256": "293af0bcd40befc4347abffd6de018b7156fd09e531c9a89818cc135ff486da4",
+      "bytes": 7604
+    },
+    {
+      "path": "/tmp/tlab-native-param-alias-independent-author-suite-v2.log",
+      "sha256": "ed8f6ad23f43c09b35147ce49c4fcf10177d52a1cbf9de7942c2ec4f314ebab7",
+      "bytes": 2685
+    }
+  ]
+}

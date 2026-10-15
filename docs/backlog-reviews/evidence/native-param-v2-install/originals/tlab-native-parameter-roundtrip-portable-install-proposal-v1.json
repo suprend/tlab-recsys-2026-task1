@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "scope": "five_file_portable_regression_install_proposal_not_adopted",
+  "files": {
+    "scripts/heldout_predictions.py": {
+      "TMP_source": "/tmp/tlab-heldout-predictions-bayesian-alias-proposal-v2.py",
+      "sha256": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4",
+      "bytes": 10946
+    },
+    "tests/oracles/heldout_prediction_audit.py": {
+      "TMP_source": "/tmp/tlab-heldout-prediction-audit-bayesian-alias-proposal-v2.py",
+      "sha256": "3b378274041623ba37dcb5a53a115458f02af4f2665f10821875aaf099d3cf75",
+      "bytes": 17317
+    },
+    "tests/test_native_parameter_roundtrip.py": {
+      "TMP_source": "/tmp/test_native_parameter_roundtrip_portable_v1.py",
+      "sha256": "5e7db11e381623cc8a415190a73e3e0d579de99499875890508c8cfb6635a83e",
+      "bytes": 6991
+    },
+    "tests/fixtures/native_parameter_roundtrip.json": {
+      "TMP_source": "/tmp/tlab-native-parameter-roundtrip-fixture-v1.json",
+      "sha256": "8e12c6bbb1360ec82ef5309d565d356a350c4eeea6428da4825d3e9db1ea2da5",
+      "bytes": 4386
+    },
+    "tests/test_heldout_prediction_audit.py": {
+      "TMP_source": "/tmp/tlab-test-heldout-prediction-audit-import-whitelist-v1.py",
+      "sha256": "04590eef77abfbd755c17b7711a6fd6977970c5f8db780de64a28b655b3094b5",
+      "bytes": 10572
+    }
+  },
+  "original_project_SHA_still_current": {
+    "scripts/heldout_predictions.py": "e1b06b2aac68c59379d15298c39101ec02b6a176c26b13d4671f8e445de2851b",
+    "tests/oracles/heldout_prediction_audit.py": "c552ab5a99bde1f8aac8cfc72a0bb0ea758829b558ca02d457e6a7c2b2c30438",
+    "scripts/heldout_contract.py": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc",
+    "tests/test_heldout_prediction_audit.py": "72274ced2a744632ac91a7f05ba346667d8c1b7cc75ca1ddcca008244bbde222"
+  },
+  "fixture_derivation": "Exact saved40expected/40loaded parameters+41featureorder/tree/indices; only all private model references,paths and unrelated capture telemetry dropped; source captureSHA retained",
+  "source_capture_sha256": "c5da7fdd527abcbf9b98f43c2bea66774e3fcca285e913efa6025f1618188a8c",
+  "native_operations": 0,
+  "project_writes": false
+}

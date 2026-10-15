@@ -29,17 +29,39 @@ class FrozenScores:
     preparation: dict
 
 
-def _same(expected, actual, path=()):
+def _bayesian_serialized_alias(expected, actual, path):
+    """Only the observed Bayesian float32-to-ten-digit metadata alias.
+
+    This is an observed representation, not a claim about a documented native
+    format. The caller still authenticates the exact fixed model bytes/spec.
+    Other keys, nested occurrences and arbitrary values in the same bin do not
+    receive a wider tolerance.
+    """
+    if (path != ('bayesian_matrix_reg',) or type(expected) is not float
+            or type(actual) is not float or not math.isfinite(expected)
+            or not math.isfinite(actual)):
+        return False
+    try:
+        canonical = struct.unpack('!f', struct.pack('!f', expected))[0]
+        loaded = struct.unpack('!f', struct.pack('!f', actual))[0]
+    except (OverflowError, struct.error):
+        return False
+    return (expected == canonical and loaded == canonical
+            and actual == float(format(expected, '.10g')))
+
+
+def _same(expected, actual, path=(), *, _scalar_alias=True):
     if type(expected) is dict:
         h.keys(actual,expected,'Native parameter schema')
-        for key,value in expected.items():_same(value,actual[key],(*path,key))
+        for key,value in expected.items():_same(value,actual[key],(*path,key),_scalar_alias=_scalar_alias)
     elif type(expected) is list:
         h.need(type(actual) is list and len(actual)==len(expected),'Native parameter sequence differs')
-        for a,b in zip(expected,actual):_same(a,b,path)
+        for a,b in zip(expected,actual):_same(a,b,path,_scalar_alias=False)
     elif type(expected) is float:
         tolerance=max(1e-12,abs(expected)*1e-8) if path==('learning_rate',) else 1e-12
         h.need(type(actual) is float and math.isfinite(expected) and math.isfinite(actual)
-               and abs(expected-actual)<=tolerance,'Native effective parameter differs')
+               and (abs(expected-actual)<=tolerance or (_scalar_alias and _bayesian_serialized_alias(expected,actual,path))),
+               'Native effective parameter differs')
     else:h.need(type(actual) is type(expected) and actual==expected,'Native parameter value/type differs')
 
 

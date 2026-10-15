@@ -1,0 +1,190 @@
+{
+  "scope": "one focused captured-only Bayesian V2 context rereview",
+  "author_suite": {
+    "tests": 17,
+    "passed": true,
+    "failures": 0,
+    "errors": 0
+  },
+  "observations": {
+    "direct_scalar": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        true,
+        true
+      ]
+    },
+    "root_scalar_field": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        true,
+        true
+      ]
+    },
+    "one_list": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    },
+    "two_lists": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    },
+    "root_list_field": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    },
+    "list_containing_root_key": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    },
+    "nested_dict_key": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        false,
+        false
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    },
+    "strict_list_absolute_tolerance": {
+      "original": [
+        true,
+        true
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        true,
+        true
+      ]
+    },
+    "learning_list": {
+      "original": [
+        true,
+        true
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        true,
+        true
+      ]
+    },
+    "learning_two_lists": {
+      "original": [
+        true,
+        true
+      ],
+      "V1": [
+        true,
+        true
+      ],
+      "V2": [
+        true,
+        true
+      ]
+    },
+    "learning_list_corruption": {
+      "original": [
+        false,
+        false
+      ],
+      "V1": [
+        false,
+        false
+      ],
+      "V2": [
+        false,
+        false
+      ]
+    }
+  },
+  "source_SHA": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4",
+  "oracle_SHA": "3b378274041623ba37dcb5a53a115458f02af4f2665f10821875aaf099d3cf75",
+  "transport": {
+    "frozen_path_constants": 7,
+    "author_resource_statements_skipped": [
+      "resource.setrlimit(resource.RLIMIT_CPU, (30, 30))",
+      "signal.alarm(60)"
+    ],
+    "Root_CPU_seconds": 15,
+    "Root_wall_seconds": 20,
+    "implementation_AST_changes": 0
+  },
+  "other_function_ASTs_unchanged": true,
+  "guard_attempts": {
+    "native_import": 0,
+    "children": 0,
+    "network": 0,
+    "model_or_data_read": 0,
+    "project_write": 0
+  },
+  "self_CPU_seconds": 0.10278499999999999,
+  "internal_body_wall_seconds": 0.04091958299977705,
+  "peak_RSS_bytes": 29130752,
+  "native_imports_load_predict_fit_SQL_sourceDB_Y_children_project_writes": 0,
+  "runtime_grant": false
+}

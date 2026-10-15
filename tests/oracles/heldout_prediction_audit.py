@@ -8,6 +8,7 @@ from datetime import datetime
 import hashlib
 import math
 import re
+import struct
 
 import numpy as np
 
@@ -28,16 +29,28 @@ def ref(value):
     need(type(value['sha256']) is str and re.fullmatch('[0-9a-f]{64}',value['sha256']) is not None,'Oracle SHA256 required')
 
 
-def native_equal(actual,expected,path=()):
+def native_equal(actual,expected,path=(),*,_scalar_alias=True):
     if type(expected) is dict:
         keys(actual,expected,'Native parameter')
-        for name,value in expected.items():native_equal(actual[name],value,(*path,name))
+        for name,value in expected.items():native_equal(actual[name],value,(*path,name),_scalar_alias=_scalar_alias)
     elif type(expected) is list:
         need(type(actual) is list and len(actual)==len(expected),'Native parameter list differs')
-        for first,second in zip(actual,expected):native_equal(first,second,path)
+        for first,second in zip(actual,expected):native_equal(first,second,path,_scalar_alias=False)
     elif type(expected) is float:
         tolerance=max(1e-12,abs(expected)*1e-8) if path==('learning_rate',) else 1e-12
-        need(type(actual) is float and math.isfinite(actual) and math.isfinite(expected) and abs(actual-expected)<=tolerance,'Native parameter float differs')
+        strict_float = type(actual) is float and math.isfinite(actual) and math.isfinite(expected)
+        observed_alias = False
+        if strict_float and _scalar_alias and path == ('bayesian_matrix_reg',):
+            try:
+                expected_bits = struct.pack('!f', expected)
+                actual_bits = struct.pack('!f', actual)
+                # Independent encoding check: expected must itself be canonical
+                # float32 and actual the observed ten-significant-digit alias.
+                observed_alias = (struct.unpack('!f', expected_bits)[0] == expected
+                    and actual_bits == expected_bits and float(format(expected, '.10g')) == actual)
+            except (OverflowError, struct.error):
+                observed_alias = False
+        need(strict_float and (abs(actual-expected)<=tolerance or observed_alias),'Native parameter float differs')
     else:need(type(actual) is type(expected) and actual==expected,'Native parameter value/type differs')
 
 

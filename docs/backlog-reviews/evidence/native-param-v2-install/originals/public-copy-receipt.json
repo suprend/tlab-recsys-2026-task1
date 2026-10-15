@@ -1,0 +1,56 @@
+{
+  "accepted_implementation_bytes_unchanged": true,
+  "actual_project_writes": false,
+  "existing_import_whitelist_method": 1,
+  "fits": 0,
+  "full_exit_profile_pending": true,
+  "locked_native_packages_imported": [
+    "duckdb",
+    "numpy",
+    "pandas"
+  ],
+  "native_model_loads": 0,
+  "native_operations": {
+    "CatBoost_import_attempts": 0,
+    "DuckDB_operation_attempts": 0,
+    "protected_artifact_open_attempts": 0
+  },
+  "new_portable_methods": 7,
+  "normal_imports": true,
+  "predictions": 0,
+  "public_copy_sha256s": {
+    "scripts/anchor_pilot.py": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+    "scripts/candidate_pilot.py": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+    "scripts/development_collection.py": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+    "scripts/feature_programs.py": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+    "scripts/heldout_contract.py": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc",
+    "scripts/heldout_predictions.py": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4",
+    "scripts/heldout_source.py": "c864bec3a3aefa946b7759993505bcde9dcd9c9edb7cb9ce03216d6ebddeafbb",
+    "scripts/heuristic_baselines.py": "db00b2375fed1083d4bf9b45ef4535793d36ffeaa537050a07e99c61dad13ee4",
+    "scripts/inference_data.py": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+    "scripts/manual_features.py": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+    "scripts/protocol_manifest.py": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+    "scripts/ranking_metrics.py": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+    "scripts/temporal_contract.py": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+    "scripts/train_baselines.py": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+    "tests/fixtures/native_parameter_roundtrip.json": "8e12c6bbb1360ec82ef5309d565d356a350c4eeea6428da4825d3e9db1ea2da5",
+    "tests/oracles/heldout_prediction_audit.py": "3b378274041623ba37dcb5a53a115458f02af4f2665f10821875aaf099d3cf75",
+    "tests/test_heldout_contract.py": "0d974aec26113db12699a6595e230e7f9786c8c02e30247f129fa77240902e0a",
+    "tests/test_heldout_prediction_audit.py": "04590eef77abfbd755c17b7711a6fd6977970c5f8db780de64a28b655b3094b5",
+    "tests/test_heldout_predictions.py": "4b3579c32a453cb6cf67260222ff3374836f5fe3e85df69b9b261da3232b2bd8",
+    "tests/test_native_parameter_roundtrip.py": "5e7db11e381623cc8a415190a73e3e0d579de99499875890508c8cfb6635a83e"
+  },
+  "scope": "portable_parameter_roundtrip_metadata_validation_only",
+  "source_DB_Y_opens": 0,
+  "source_or_runtime_acceptance_issued": false,
+  "status": "PASS",
+  "telemetry": {
+    "children_CPU_seconds": 0.0,
+    "children_peak_RSS": 0,
+    "original_wall_seconds": 0.7331972920001135,
+    "self_CPU_seconds": 0.722152,
+    "self_peak_RSS_bytes": 116948992
+  },
+  "tests": 8,
+  "version": 1
+}

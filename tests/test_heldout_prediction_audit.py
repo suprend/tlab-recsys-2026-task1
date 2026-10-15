@@ -125,6 +125,6 @@ class PredictionOracleTests(unittest.TestCase):
         with patch('builtins.open',side_effect=AssertionError('No files')),patch('io.open',side_effect=AssertionError('No paths')):self.audit()
         tree=ast.parse(inspect.getsource(a));names=[n.module for n in ast.walk(tree) if isinstance(n,ast.ImportFrom)]
         names += [alias.name for n in ast.walk(tree) if isinstance(n,ast.Import) for alias in n.names]
-        self.assertEqual(set(names),{'copy','datetime','hashlib','math','re','numpy'})
+        self.assertEqual(set(names),{'copy','datetime','hashlib','math','re','struct','numpy'})
 
 if __name__=='__main__':unittest.main()

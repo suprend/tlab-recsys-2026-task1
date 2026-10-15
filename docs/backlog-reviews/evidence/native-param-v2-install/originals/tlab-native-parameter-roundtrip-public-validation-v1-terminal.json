@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "scope": "one_portable_metadata_public_copy_validation",
+  "tool_chunk_id": "49776d",
+  "exit_code": 0,
+  "reaped": true,
+  "tests": 8,
+  "full_external_profile": {
+    "wall_seconds_rounded": 0.77,
+    "user_CPU_seconds_rounded": 0.69,
+    "system_CPU_seconds_rounded": 0.05,
+    "total_CPU_seconds_rounded": 0.74,
+    "conservative_CPU_upper_seconds": 0.76,
+    "conservative_wall_upper_seconds": 0.78
+  },
+  "body_receipt_path": "/tmp/tlab-native-parameter-roundtrip-public-validation-v1/receipt.json",
+  "native_package_imports": [
+    "duckdb",
+    "numpy",
+    "pandas"
+  ],
+  "native_operations": {
+    "CatBoost_import_attempts": 0,
+    "DuckDB_operation_attempts": 0,
+    "protected_artifact_open_attempts": 0
+  },
+  "native_model_loads": 0,
+  "predict": 0,
+  "fit": 0,
+  "SQL": 0,
+  "DB_Y": 0,
+  "project_writes": false,
+  "acceptance_issued": false
+}
