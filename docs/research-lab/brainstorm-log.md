@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 11:53:27 UTC / 14:53:27 МСК. ScopedCODE/conditionalwall accepted; actualruntime CLOSED.
+Обновлён 15 октября 2026, 11:58:33 UTC / 14:58:33 МСК.12:00checkpointwrittenearly; nextmax12:45UTCanchored12:00.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,7 +8,15 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 12:00 UTC / 15:00 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 12:45 UTC / 15:45 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Current12:00 checkpoint —actual 11:58:33UTC, before original maximum
+
+Source-prefix accepted; exact development core/owner/parity/portable code integrated and limitedCODE accepted. Conditional33914/43200 all-declared active-WALL basis adopted for inert packing; actual600CPU/900wall and real015 remain CLOSED/unrun until separate Root operation decision. Latest targeted inventory confirms six_role_harness whole018driverV2 review completed; Root exact readback/operation remains pending, no claim/run/source-to-model success is inferred.
+
+018/019 reviewed original artifacts and Root receipts published;020 independent FIRST pair and separate skeptic complete, Root readback pending,0newmechanisms/gates. Current main safeNEXT is Root full-driver/request decision, then only its exact authorized operation; no staging/claim/retry by publisher. Proof pack completeness supplement retains final parity outputs. Source65471closed/reaped; original failures/unknown flags, goal/deadline17slots/reservations/solequeue/publisher unchanged. Next maximum12:45UTC/15:45МСК remains anchored12:00; this earlywrite/newresearch does not reset the clock.
+
+## Historical scoped11:53 publication snapshot
 
 ## Current view —11:53:27UTC; earlier018/019 checkpoint11:45:42 retained
 
@@ -392,3 +400,7 @@ Recorded after coordinator resume and before the original12:00 maximum. New acce
 ### Terminal parity archive completeness supplement
 
 Post-publication completeness check found final parity report/ledger/probe outputs absent from the input-freeze-driven pack. Exact V1/V2 final artifacts are now added with original pins; previous manifest SHA retained. Root verdict/code/runtime scopes unchanged, no tests or actual jobs rerun.
+
+###12:00 maximum checkpoint —actual 11:58:33UTC
+
+Saved before12:00 while final whole-driver review awaits Root readback/operation decision. Completed independent review is code evidence, not permission or actual runtime. Next maximum12:45UTC anchored12:00; no new gates/grants/budgets.
