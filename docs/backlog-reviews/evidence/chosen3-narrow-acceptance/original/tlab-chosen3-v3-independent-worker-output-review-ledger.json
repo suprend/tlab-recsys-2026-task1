@@ -1,0 +1,234 @@
+{
+  "B_W_query_rankings_different": 2,
+  "B_W_raw_score_pairs_different": 25,
+  "B_raw_score_range": [
+    -1.3060417897008014,
+    1.357059192215085
+  ],
+  "Parquet_decoder": "Flat CompactProtocol/plain/RLE page reader with Python3.14 stdlib compression.zstd only",
+  "W_raw_score_range": [
+    -2.3083318230189054,
+    2.308331823018906
+  ],
+  "W_unique_raw_score_values": 2,
+  "actual_saved_NPZ_files": 14,
+  "actual_saved_Parquet_partitions_decoded": 22,
+  "additional_external_cpu_rounded": 4.08,
+  "additional_external_wall_rounded": 4.89,
+  "all_ranking_rows_checked": 26,
+  "all_scoped_inputs_unchanged": true,
+  "all_six_reaped_exit0": true,
+  "bootstrap": [
+    {
+      "estimand": "conditional_macro_query",
+      "estimate": 0.0,
+      "period": "confirmation25_reporting_only",
+      "undefined_draws": 0
+    },
+    {
+      "estimand": "all_query_zero",
+      "estimate": 0.0,
+      "period": "confirmation25_reporting_only",
+      "undefined_draws": 0
+    },
+    {
+      "estimand": "conditional_user_macro",
+      "estimate": 0.0,
+      "period": "confirmation25_reporting_only",
+      "undefined_draws": 0
+    },
+    {
+      "estimand": "all_user_macro_zero",
+      "estimate": 0.0,
+      "period": "confirmation25_reporting_only",
+      "undefined_draws": 0
+    },
+    {
+      "estimand": "conditional_macro_query",
+      "estimate": 0.0,
+      "period": "final26_31_frozen",
+      "undefined_draws": 67
+    },
+    {
+      "estimand": "all_query_zero",
+      "estimate": 0.0,
+      "period": "final26_31_frozen",
+      "undefined_draws": 0
+    },
+    {
+      "estimand": "conditional_user_macro",
+      "estimate": 0.0,
+      "period": "final26_31_frozen",
+      "undefined_draws": 67
+    },
+    {
+      "estimand": "all_user_macro_zero",
+      "estimate": 0.0,
+      "period": "final26_31_frozen",
+      "undefined_draws": 0
+    }
+  ],
+  "candidate_pairs": 25,
+  "chosen3_scalar_groundtruth_comparisons": 75,
+  "chosen3_value_histograms": {
+    "auto_item_cart_count_distinct_168h_user_id": {
+      "0": 18,
+      "1": 7
+    },
+    "auto_item_purchase_count_distinct_24h_user_id": {
+      "0": 17,
+      "1": 8
+    },
+    "auto_item_view_count_distinct_24h_user_id": {
+      "0": 20,
+      "1": 2,
+      "2": 3
+    }
+  },
+  "distinct_fullY_pairs": 2,
+  "failure_markers_preserved": [
+    "integration.failed.json",
+    "integration-supervision.failed.json"
+  ],
+  "failure_unknown_active_work_retained": true,
+  "finalfreeze_path": "/tmp/tlab-chosen3-v3-worker-output-review-finalfreeze.json",
+  "finalfreeze_sha256": "8f2ef5e238ce1fe5f10cb0a8dbfd468c5e50fbdca0a9fd8c6513231052a5cc47",
+  "fixedroot_files": 189,
+  "frozen_inputs": 239,
+  "gates": [
+    {
+      "fingerprints": 51,
+      "gate": "initial_execution",
+      "sealed_at": null
+    },
+    {
+      "fingerprints": 96,
+      "gate": "source_acceptance",
+      "sealed_at": "2026-10-15T08:34:20Z"
+    },
+    {
+      "fingerprints": 129,
+      "gate": "prediction_acceptance",
+      "sealed_at": "2026-10-15T08:34:21Z"
+    },
+    {
+      "fingerprints": 131,
+      "gate": "target_execution",
+      "sealed_at": "2026-10-15T08:34:21Z"
+    }
+  ],
+  "inputfreeze_path": "/tmp/tlab-chosen3-v3-worker-output-review-inputfreeze.json",
+  "inputfreeze_sha256": "92742e9f3eb5f14a922b0086ed7cf3619e7a3b37a02f5dfdbca4d3a3de5bcb75",
+  "internal_exact_tail_unmeasured_preserved": true,
+  "limitations": [
+    "synthetic_R2_L05_shared_existing_runtime_only",
+    "Historical once-only admission stub and four self-issued gates",
+    "No actual016/history/realdata/quality/capacity/fresh-environment proof",
+    "Native numeric predictions not independently rerun; existing native replay receipt and raw score transports authenticated",
+    "Outer failed operation remains failed; no pure posthoc output may replace failure receipt"
+  ],
+  "metric_scalar_fields_checked": 64,
+  "native_model_deserialization_or_prediction_by_reviewer": false,
+  "native_predictions_each_prediction_role": 10,
+  "new_B_fits": 0,
+  "new_jobs_or_refits_or_promotions": 0,
+  "outer_harness_ledger_absent": true,
+  "outer_integration_result_absent": true,
+  "paired_user_draw_fields_checked": 1600,
+  "partitions": [
+    {
+      "anchor": "2019-10-25T00:00:00Z",
+      "candidates": 0,
+      "chosen_scalar_checks": 0,
+      "queries": 1
+    },
+    {
+      "anchor": "2019-10-26T00:00:00Z",
+      "candidates": 3,
+      "chosen_scalar_checks": 9,
+      "queries": 2
+    },
+    {
+      "anchor": "2019-10-27T00:00:00Z",
+      "candidates": 6,
+      "chosen_scalar_checks": 18,
+      "queries": 3
+    },
+    {
+      "anchor": "2019-10-28T00:00:00Z",
+      "candidates": 4,
+      "chosen_scalar_checks": 12,
+      "queries": 2
+    },
+    {
+      "anchor": "2019-10-29T00:00:00Z",
+      "candidates": 7,
+      "chosen_scalar_checks": 21,
+      "queries": 3
+    },
+    {
+      "anchor": "2019-10-30T00:00:00Z",
+      "candidates": 5,
+      "chosen_scalar_checks": 15,
+      "queries": 2
+    },
+    {
+      "anchor": "2019-10-31T00:00:00Z",
+      "candidates": 0,
+      "chosen_scalar_checks": 0,
+      "queries": 0
+    }
+  ],
+  "python_version": "3.14.4",
+  "query_count": 13,
+  "recursive_hash_map_occurrences": 1063,
+  "recursive_reference_occurrences": 544,
+  "report_path": "/tmp/tlab-chosen3-v3-independent-worker-output-review.md",
+  "report_sha256": "48dc31d2e51864f036536f79337b2532262d454f59333b31e421cf8082d73d17",
+  "resources": {
+    "integration": {
+      "exit_code": 1,
+      "external_MAXRSS_bytes": 160972800,
+      "external_rounded_cpu_seconds": 3.53,
+      "external_wall_seconds": 3.84,
+      "internal_cpu_upper_including_reserve": 5.5326070000000005,
+      "internal_observed_cpu_seconds": 3.532526,
+      "sampled_aggregate_RSS_bytes": 298467328
+    },
+    "setup": {
+      "exit_code": 0,
+      "external_MAXRSS_bytes": 127418368,
+      "external_rounded_cpu_seconds": 0.55,
+      "external_wall_seconds": 1.05,
+      "internal_cpu_upper_including_reserve": 2.545188,
+      "internal_observed_cpu_seconds": 0.545159,
+      "sampled_aggregate_RSS_bytes": 159432704
+    }
+  },
+  "review_cpu_seconds": 0.09829200000000002,
+  "review_wall_seconds": 0.12470137499622069,
+  "reviewer_checker_log_sha256": "02109d1e4889c570ed2fb42198ab554b3226a31931deba1f253ba156818bdd1a",
+  "reviewer_checker_path": "/tmp/tlab-chosen3-v3-independent-worker-output-checker.py",
+  "reviewer_checker_sha256": "1f163f81e0de275df8b410d724b95db7fac6249fdbb04a2148304c1902cf40fe",
+  "reviewer_tooling_development_note": "Bounded decompression API, valid empty-file footer equality, and original-B relative reference namespace assumptions corrected before final pure check; no worker/root evidence was changed.",
+  "roles": [
+    "source",
+    "source_oracle",
+    "predictions",
+    "prediction_oracle",
+    "targets_evaluation",
+    "metric_oracle"
+  ],
+  "scope": "existing_synthetic_chosen3_v3_worker_outputs_only",
+  "setup_W_fits": 1,
+  "source_event_provenance": "Eleven typed literal events independently transcribed and checked against frozen base.toy_events AST; existing DB byte-hashed only, no SQL/deserialize.",
+  "source_free_reconstruction_not_execution": true,
+  "study_fits": 0,
+  "temporary_stdlib_parquet_reader_path": "/tmp/tlab-chosen3-v3-stdlib-parquet.py",
+  "temporary_stdlib_parquet_reader_sha256": "aededcca306957942af644c3e79ac6e4b7a5dd91922e1a58a4ca6d7863ef8fdc",
+  "unique_authentication_pins": 149,
+  "version": 1,
+  "whole_harness_accepted": false,
+  "whole_operation_status": "FAILED_consumed_outer_TypeError_exit1",
+  "worker_output_status": "accepted_existing_six_role_worker_outputs_within_synthetic_scope"
+}

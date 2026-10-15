@@ -1,0 +1,25 @@
+{
+  "scope": "one immutableV4r1 focused pure repair check; original actual V3 stays FAILED",
+  "source_sha256": "4eca34e06847250db06844335d66c28b2fbbb01e685f2c8c798fd9d0d8ea2655",
+  "tests_sha256": "a11464175a70c07fae9b1d75b997bf4d4d6520da41d59ac1bd2c3b3c255704c4",
+  "fixture_sha256": "47476d48fd73ce4e64603703c53e32fb35f17f161c1a799a96741f8b130951af",
+  "originalV3_expected_red": {
+    "expected_error": "dict() got multiple values for keyword argument 'metric_delta_required_nonzero'",
+    "traceback": "Traceback (most recent call last):\n  File \"/tmp/tlab-chosen3-independent-code-rereview-a-v4r1-pure.py\", line 21, in <module>\n    try:case.test_complete_verify_results_returns_summary_from_full_production_JSON_scene()\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/tlab-chosen3-independent-code-rereview-a-v4r1-inputs/tlab-test-chosen3-six-role-candidate-v4r1.py\", line 92, in test_complete_verify_results_returns_summary_from_full_production_JSON_scene\n    summary=c.verify_results(None,root,owner,deepcopy(fixture['report']),1,deepcopy(fixture['gates']),dict(production_files=fixture['production_files']))\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/tlab-chosen3-six-role-candidate-v3.py\", line 266, in verify_results\n    return dict(version=1,**DISCLOSURES,status='chosen3_six_roles_complete_pending_supervisor_exit_tail',\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: dict() got multiple values for keyword argument 'metric_delta_required_nonzero'\n",
+    "reached_original_constructor": true
+  },
+  "tests": 15,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "AST_DISCLOSURES_explicit_keyword_overlaps": [],
+  "cpu_seconds": 0.045485000000000005,
+  "wall_seconds": 0.046033250000618864,
+  "python": "3.12.14",
+  "forbidden_attempts": [],
+  "actual_new_native_process_backend_helper_calls": 0,
+  "actual_model_DB_NPZ_reads_or_hashes": 0,
+  "actual_application_root_writes_or_refills": 0,
+  "actual_failed_operation_promoted": false,
+  "fixture_limits": "positive virtual scene omits actual outer failed markers, four gate placeholders; binary hashes/native/metric import/resources mocked"
+}

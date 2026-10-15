@@ -1,0 +1,65 @@
+test_all_DISCLOSURES_expansions_have_no_duplicate_explicit_keywords (chosen3_bounded_author_tests.Chosen3Contracts.test_all_DISCLOSURES_expansions_have_no_duplicate_explicit_keywords) ... ok
+test_complete_verify_results_returns_summary_from_full_production_JSON_scene (chosen3_bounded_author_tests.Chosen3Contracts.test_complete_verify_results_returns_summary_from_full_production_JSON_scene)
+In-memory positive scene only. The actual V3 outer trial remains FAILED. ... ok
+test_exact_selected44_closure_and_distinct_model_required (chosen3_bounded_author_tests.Chosen3Contracts.test_exact_selected44_closure_and_distinct_model_required) ... ok
+test_failed_snapshot_attempt_cannot_retry_or_replace_failure (chosen3_bounded_author_tests.Chosen3Contracts.test_failed_snapshot_attempt_cannot_retry_or_replace_failure) ... FAIL
+test_issued_freeze_SHA_format_rejects_before_any_read (chosen3_bounded_author_tests.Chosen3Contracts.test_issued_freeze_SHA_format_rejects_before_any_read) ... ok
+test_metric_metadata_matches_actual_production_Evaluation_fields (chosen3_bounded_author_tests.Chosen3Contracts.test_metric_metadata_matches_actual_production_Evaluation_fields) ... ok
+test_missing_fixed_draw_or_invented_undefined_count_rejects (chosen3_bounded_author_tests.Chosen3Contracts.test_missing_fixed_draw_or_invented_undefined_count_rejects) ... ok
+test_raw_helper_executes_same_pinned_read_object (chosen3_bounded_author_tests.Chosen3Contracts.test_raw_helper_executes_same_pinned_read_object) ... ok
+test_result_replacement_during_receipt_write_fails_terminal_repin (chosen3_bounded_author_tests.Chosen3Contracts.test_result_replacement_during_receipt_write_fails_terminal_repin) ... FAIL
+test_setup_supervision_snapshot_replacement_stops_before_integration_launch (chosen3_bounded_author_tests.Chosen3Contracts.test_setup_supervision_snapshot_replacement_stops_before_integration_launch) ... FAIL
+test_source_exhaustiveness_cannot_promote_B18 (chosen3_bounded_author_tests.Chosen3Contracts.test_source_exhaustiveness_cannot_promote_B18) ... ok
+test_source_scalar_total_derived_from_actual_candidate_pairs (chosen3_bounded_author_tests.Chosen3Contracts.test_source_scalar_total_derived_from_actual_candidate_pairs) ... ok
+test_two_models_per_nonempty_date_without_fourteen_literal (chosen3_bounded_author_tests.Chosen3Contracts.test_two_models_per_nonempty_date_without_fourteen_literal) ... ok
+test_validated_setup_result_cannot_adopt_replacement_hash (chosen3_bounded_author_tests.Chosen3Contracts.test_validated_setup_result_cannot_adopt_replacement_hash) ... FAIL
+test_zero_nonzero_negative_and_undefined_metric_differences_allowed (chosen3_bounded_author_tests.Chosen3Contracts.test_zero_nonzero_negative_and_undefined_metric_differences_allowed) ... ok
+
+======================================================================
+FAIL: test_failed_snapshot_attempt_cannot_retry_or_replace_failure (chosen3_bounded_author_tests.Chosen3Contracts.test_failed_snapshot_attempt_cannot_retry_or_replace_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/tlab-test-chosen3-six-role-candidate-v4.py", line 149, in test_failed_snapshot_attempt_cannot_retry_or_replace_failure
+    self._setup_fault('after_read',retry=True)
+  File "/tmp/tlab-test-chosen3-six-role-candidate-v4.py", line 139, in _setup_fault
+    self.assertEqual(len(launches),1);self.assertFalse(c.ROOT.exists())
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_result_replacement_during_receipt_write_fails_terminal_repin (chosen3_bounded_author_tests.Chosen3Contracts.test_result_replacement_during_receipt_write_fails_terminal_repin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/tlab-test-chosen3-six-role-candidate-v4.py", line 145, in test_result_replacement_during_receipt_write_fails_terminal_repin
+    writes,root,original_pin=self._setup_fault('after_receipt')
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tlab-test-chosen3-six-role-candidate-v4.py", line 139, in _setup_fault
+    self.assertEqual(len(launches),1);self.assertFalse(c.ROOT.exists())
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_setup_supervision_snapshot_replacement_stops_before_integration_launch (chosen3_bounded_author_tests.Chosen3Contracts.test_setup_supervision_snapshot_replacement_stops_before_integration_launch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/tlab-test-chosen3-six-role-candidate-v4.py", line 163, in test_setup_supervision_snapshot_replacement_stops_before_integration_launch
+    self.assertEqual(launches,[]);self.assertFalse(c.ROOT.exists())
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_validated_setup_result_cannot_adopt_replacement_hash (chosen3_bounded_author_tests.Chosen3Contracts.test_validated_setup_result_cannot_adopt_replacement_hash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/tlab-test-chosen3-six-role-candidate-v4.py", line 142, in test_validated_setup_result_cannot_adopt_replacement_hash
+    writes,root,_=self._setup_fault('after_read')
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tlab-test-chosen3-six-role-candidate-v4.py", line 139, in _setup_fault
+    self.assertEqual(len(launches),1);self.assertFalse(c.ROOT.exists())
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.316s
+
+FAILED (failures=4)
