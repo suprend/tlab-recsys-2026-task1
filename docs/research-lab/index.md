@@ -213,3 +213,6 @@ Wave005 independent same-question first drafts: [FeaturesA](brainstorm-fa005.md)
 
 
 Frozen independent FIRST drafts, proposals only: [wave010 windows/coverage](archives/wave010/publication.json), [wave011 grammar/diversity](archives/wave011/publication.json). Each archive preserves four exact author files; separate critique/Root readback and execution admission remain distinct.
+
+
+[Completed010–011 synthesis](brainstorm-waves010011-synthesis.md): two independent firstdraft pairs, separate skeptics and Root readbacks; sixteen exact original files, four explicit four-field refinements,0newHYP/admissions.

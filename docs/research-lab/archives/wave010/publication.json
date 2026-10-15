@@ -1,8 +1,8 @@
 {
-  "version": 1,
-  "recorded_at_utc": "2026-10-15T09:08:19.348929+00:00",
+  "version": 2,
+  "recorded_at_utc": "2026-10-15T09:30:55.389791+00:00",
   "wave": "010",
-  "scope": "independent FIRST draft archive only; conclusions remain proposals until separate critique and Root readback",
+  "scope": "unchanged FIRSTdrafts plus independent skeptic and Root research-only readback; no execution queue or admission",
   "files": {
     "docs/research-lab/archives/wave010/original/tlab-brainstorm-windows-features-a-wave010.md": {
       "original_source_name": "tlab-brainstorm-windows-features-a-wave010.md",
@@ -31,14 +31,69 @@
       "publication_sha256": "7414640bd4225c052627911ea65792ebb43e6765ad1ac4b5a55dcb754f0a1371",
       "bytes": 10119,
       "adaptation": "none; frozen independent author bytes; host paths diagnostic"
+    },
+    "docs/research-lab/archives/wave010/original/tlab-wave010-skeptic-review.md": {
+      "original_source_name": "tlab-wave010-skeptic-review.md",
+      "original_sha256": "7eb8dfd6f6e9f8fedc3ce15b93ce0d717133bc96a49ba79d5743a27a315d9c25",
+      "publication_sha256": "7eb8dfd6f6e9f8fedc3ce15b93ce0d717133bc96a49ba79d5743a27a315d9c25",
+      "bytes": 12165,
+      "adaptation": "none; exact independent skeptic/Root bytes, host paths diagnostic"
+    },
+    "docs/research-lab/archives/wave010/original/tlab-wave010-skeptic-review-ledger.json": {
+      "original_source_name": "tlab-wave010-skeptic-review-ledger.json",
+      "original_sha256": "bd3f4a57f3f587858e0af62a03b76242bd0e841c942ef448b49769a7114824c6",
+      "publication_sha256": "bd3f4a57f3f587858e0af62a03b76242bd0e841c942ef448b49769a7114824c6",
+      "bytes": 10534,
+      "adaptation": "none; exact independent skeptic/Root bytes, host paths diagnostic"
+    },
+    "docs/research-lab/archives/wave010/original/tlab-wave010-skeptic-review-inputfreeze.json": {
+      "original_source_name": "tlab-wave010-skeptic-review-inputfreeze.json",
+      "original_sha256": "1f3ad9e2ac6ba5092790a6c1eac8bb0e35afdc384fd93e59c9f93399a6e4a599",
+      "publication_sha256": "1f3ad9e2ac6ba5092790a6c1eac8bb0e35afdc384fd93e59c9f93399a6e4a599",
+      "bytes": 1459,
+      "adaptation": "none; exact independent skeptic/Root bytes, host paths diagnostic"
+    },
+    "docs/research-lab/archives/wave010/original/tlab-root-wave010-readback.json": {
+      "original_source_name": "tlab-root-wave010-readback.json",
+      "original_sha256": "c451779f0905f73d6a51b86886e1889fbe3879ebd02493b1a4cbab0841aabe53",
+      "publication_sha256": "c451779f0905f73d6a51b86886e1889fbe3879ebd02493b1a4cbab0841aabe53",
+      "bytes": 767,
+      "adaptation": "none; exact independent skeptic/Root bytes, host paths diagnostic"
     }
   },
   "first_drafts": 2,
-  "separate_skeptic": "010 ModelsA active;011 separate skeptic pending Root dispatch at archive preparation",
-  "Root_research_acceptance": false,
+  "separate_skeptic": "completed after both first freezes; Root full readback accepted narrow research scope",
+  "Root_research_acceptance": true,
   "new_canonical_HYP": 0,
   "new_mandatory_tasks": 0,
   "new_execution_admissions": 0,
   "publisher_data_native_model_reruns": 0,
-  "author_files_rewritten": false
+  "author_files_rewritten": false,
+  "prior_publication_manifest_sha256": "387900181ec10fe1cd116530f05c2db2340563f3b94e4689c93ba54ab44b84a5",
+  "prior_published_manifest_commit": "9c51ce16595238328951a0b1ab20478051184690",
+  "normalized_entries": [
+    {
+      "id": "A010-01",
+      "mechanism": "Use an exact calendar-admitted1/7/30d ladder and integer support/rate gate to choose a pair-view representation.",
+      "testable_prediction": "The stronger fixed-window plus selector/mask control contains treatment information; reverse reconstruction can fail, so no symmetric equivalence or quality gain follows.",
+      "nearest_experiment": "Complete NULL/physical-closure emitter check against the matched containing control; no actual pilot authorized.",
+      "benefit_towardTask1": "Avoids crediting automatic window selection with information already supplied to a fair fixed control.",
+      "research_disposition": "existing_family_refinement",
+      "new_canonical_HYP": null,
+      "fit_admission": false,
+      "new_execution_authority": false
+    },
+    {
+      "id": "MB10-R01",
+      "mechanism": "Separate nominal window, observed calendar coverage and count; compare30d with expanding prefix before and atS+30.",
+      "testable_prediction": "A full30d window plus mature24h outcome at the sole October boundary cannot provide a later same-month learned validation interval.",
+      "nearest_experiment": "Frozen calendar/count-rate/coverage literal gate and full source-cost accounting.",
+      "benefit_towardTask1": "Rejects infeasible window-search claims and exposes left-censoring rather than misreading it as cold start.",
+      "research_disposition": "existing_family_refinement",
+      "new_canonical_HYP": null,
+      "fit_admission": false,
+      "new_execution_authority": false
+    }
+  ],
+  "Root_receipt_sha256": "c451779f0905f73d6a51b86886e1889fbe3879ebd02493b1a4cbab0841aabe53"
 }
