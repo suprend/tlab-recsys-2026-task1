@@ -766,3 +766,10 @@ Early19:30checkpoint, next20:15UTC anchoredscheduled19:30;037/038distinctcritics
 Обновление 2026-10-15T19:29:13.775042+00:00: [037](brainstorm-wave037-synthesis.md) и[038](brainstorm-wave038-synthesis.md) Rootaccepted как уточнения019/013,0новыхID/tasks/gates/grants. Старый6-prefix intent superseded/unrun; новая native2fit ветвь73792 отдельновыдана, latestRootLIVE7d5858, outputs/lifetime pending. Прежний bounded300study валиден; его parity не новыйgate.039criticcomplete/Rootreadbackpending; next20:15UTC отscheduled19:30 неизменен.
 
 Архив exact24originals inclsharedsourcefreeze/author038Ainputfreeze, без отдельных11sourcecopies.0publisherruntime/native/tests/data/models/polls; code/report/DOC unchanged.
+
+
+## 2026-10-15T19:47:54.706085+00:00 — actualfailure и039/040
+
+Обновление 2026-10-15T19:47:54.706085+00:00: [producer73792 CLOSED0, независимый verifier69903 FAILED](../backlog-reviews/adaptive-tree-producer-terminal-verifier-failure.md) до curves из-за callerargumentorder; selectedcounts/metrics НЕ приняты. Rawunknowntrue/failed_unknown_cleanup сохранены;25conservativeCPU с600→575, originalStudySTART/deadline безreset. V3repair/wrapperV2source-reviewPASS reported, Rootadoption/testpending, новыхfits/retry/install нет.015/018done14/19 unchanged;039/040researchaccepted0newIDs/gates,041обаblindFIRST получены; separatecriticRoot-only послеguard.
+
+039/040дваследующихdistinctcritics complete: early20:15checkpoint сейчас, следующийmax21:00UTC отscheduled20:15; исходнаяcadence19:30→20:15→21:00, studyabsolute88266неизменна. [039](brainstorm-wave039-synthesis.md), [040](brainstorm-wave040-synthesis.md),0researchruntime/admissions.

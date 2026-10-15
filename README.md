@@ -2,7 +2,7 @@
 
 Исследование для первой задачи отбора T-Lab: сильный бустинг с ручными признаками и эксперимент по автоматизации работы с признаками.
 
-Новая [адаптивная ветвь обучения](docs/experiments/adaptive-tree-selection.md) выбирает per-model best validation prefix1…1200;1200 — compute ceiling. V2CODE принят и опубликован, один ограниченный Root producer отправлен; результаты и full-lifetime acceptance pending. Общий selector API и snapshot-bound studyCLI доступны в инструкции; историческая reproduction-команда300 и завершённый final неизменны.
+Новая [адаптивная ветвь обучения](docs/experiments/adaptive-tree-selection.md) выбирает per-model best validation prefix1…1200;1200 — compute ceiling. V2CODE принят и опубликован, producer завершёнexit0; первая independentverification FAILED до curves из-за callerargumentorder, narrowrepair pending. Числа выбранных деревьев/метрики не приняты. Общий selector API и snapshot-bound studyCLI доступны в инструкции; историческая reproduction-команда300 и завершённый final неизменны.
 
 Датасет — **REES46 Multi-category**, октябрь 2019 года. Рабочий протокол: каждый день в 00:00 UTC ранжировать покупки следующих 24 часов для пользователей с наблюдаемой активностью за 48 часов. Кандидаты — до 200 популярных товаров по числу покупателей за 7 дней плюс 20 недавних товаров пользователя, без дополнения после пересечений. Все признаки используют историю строго раньше момента прогноза; метрики учитывают полный набор покупок, включая товары вне кандидатов.
 

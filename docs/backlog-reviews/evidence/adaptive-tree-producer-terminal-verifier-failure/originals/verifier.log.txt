@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/private/tmp/tlab-adaptive-tree-v6-verifier-wrapper-proposal-v1.py", line 170, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/private/tmp/tlab-adaptive-tree-v6-verifier-wrapper-proposal-v1.py", line 150, in main
+    return child(spec, base, started)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/tlab-adaptive-tree-v6-verifier-wrapper-proposal-v1.py", line 131, in child
+    result = adapter.verify(OUTPUT, export_root=EXPORT_ROOT, project_root=CLONE, scratch_directory=scratch, adapter_raw=helper_raw, accepted_matrix_result_raw=matrix_raw, inventory_raw=inv, expected_inventory_sha=inv_sha, observed_raw=observed_raw, expected_observed_sha=observed_sha, check=lambda: check(started, spec))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tlab-adaptive-tree-independent-verifier-v2.py", line 198, in verify
+    if primary is not None: raise primary.with_traceback(primary.__traceback__)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tlab-adaptive-tree-independent-verifier-v2.py", line 153, in verify
+    full = load(arm,'.full-1200.cbm',1200); positive = [i for i,q in enumerate(data.queries) if q[3]]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tlab-adaptive-tree-independent-verifier-v2.py", line 132, in load
+    N['native_equal'](expected_params, model.get_all_params()); return model
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<pinned-independent-native>", line 35, in native_equal
+  File "<pinned-independent-native>", line 53, in native_equal
+  File "<pinned-independent-native>", line 20, in need
+ValueError: Native parameter float differs

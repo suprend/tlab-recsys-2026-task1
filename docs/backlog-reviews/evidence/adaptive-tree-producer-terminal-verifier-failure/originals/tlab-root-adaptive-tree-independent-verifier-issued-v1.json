@@ -1,0 +1,57 @@
+{
+  "Root_administrative_cpu_seconds_this_command_so_far": 0.0032329999999999998,
+  "admission_margin": ">=800verifier+100Roottail before originaldeadline",
+  "at_utc": "2026-10-15T19:36:38.510381+00:00",
+  "conservative_not_measured_cpu_accounting": {
+    "debit_is_not_actual_CPU_claim": true,
+    "producer_allocation_debited": 3500,
+    "remaining_verifier_allocation": 600,
+    "shared_Root_tail_reserve": 100
+  },
+  "external_measured_producer_cpu_seconds": 2592.49,
+  "final_used": false,
+  "native_fits": 0,
+  "no_retry_no_refill": true,
+  "observed_issue_monotonic": 86375.886676833,
+  "original_V6_actual_total_cpu_seconds": null,
+  "original_clock_carryforward": true,
+  "producer_facts": {
+    "bytes": 1489,
+    "path": "/private/tmp/tlab-root-adaptive-tree-producer-observed-facts-v2.json",
+    "sha256": "5fb1cd934908313fa56e0f3d65faecc574fca9ab553d57220831d0a69c552054"
+  },
+  "producer_terminal": {
+    "bytes": 2001,
+    "path": "/private/tmp/tlab-root-adaptive-tree-producer-terminal-v2.json",
+    "sha256": "5c1c801aa8b782cd183b355f962f68929237c3bfad7688b7fad1289835feeac8"
+  },
+  "remaining_shared_wall_at_issue": 1890.9901161250018,
+  "scientific_acceptance": false,
+  "spec": {
+    "bytes": 473,
+    "path": "/private/tmp/tlab-adaptive-tree-root-verifier-spec-v1.json",
+    "sha256": "9e9ca56c3caf4b9a5b702f7aa0b018d50a820b46ffe8bd03e96c68933ea89368"
+  },
+  "status": "Root_issued_one_independent_verifier_zero_fits",
+  "verifier_limits": {
+    "Root_component_tail_cpu_seconds": 10,
+    "Root_component_tail_wall_seconds": 30,
+    "V6_cpu_seconds": 590,
+    "V6_wall_max_seconds": 770,
+    "inclusive_cpu_seconds": 600,
+    "inclusive_wall_seconds": 800,
+    "rss_bytes": 12884901888
+  },
+  "version": 1,
+  "whole_study": {
+    "absolute_monotonic_deadline": 88266.876793083,
+    "cpu_seconds": 4200,
+    "original_started_monotonic": 84666.876793083,
+    "wall_seconds": 3600
+  },
+  "wrapper": {
+    "bytes": 12785,
+    "path": "/private/tmp/tlab-adaptive-tree-v6-verifier-wrapper-proposal-v1.py",
+    "sha256": "42637a681b49edb55c04c9b98fa7f15c68801556dc1a1f1300682243bd829c30"
+  }
+}

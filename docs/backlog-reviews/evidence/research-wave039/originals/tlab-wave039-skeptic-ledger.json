@@ -1,0 +1,200 @@
+{
+  "wave": "039",
+  "role": "distinct independent skeptic",
+  "reviewer": "/root/brainstorm_features_b",
+  "created_utc": "2026-10-15T19:18:49.129490+00:00",
+  "report_path": "/tmp/tlab-wave039-skeptic-review.md",
+  "report_sha256": "1db6044abf2a16c198e6bbd0841e07bf5b4aa5fdddfc1868bb0c4efed7439b5b",
+  "report_word_count_whitespace": 336,
+  "inputfreeze": {
+    "path": "/tmp/tlab-wave039-skeptic-inputfreeze.json",
+    "sha256": "50f2443b4a1827e6e0dad03638cbfa0bce0cb9b7da1c6211c2d7034519d54b5a",
+    "all6_bytes_embedded_before_analysis": true
+  },
+  "input_end_recheck": [
+    {
+      "path": "/tmp/tlab-brainstorm-native-earlystop-models-b-wave039.md",
+      "bytes": 2710,
+      "expected_sha256": "457e6980435fad9a1e3d3faa27220798813e308a398a2f92ede902a3caf3db8b",
+      "end_sha256": "457e6980435fad9a1e3d3faa27220798813e308a398a2f92ede902a3caf3db8b",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-native-earlystop-models-b-wave039-ledger.json",
+      "bytes": 7469,
+      "expected_sha256": "657077fb7f55a91ad221e38b70c2960976abd5ad56a213731aad02ceaa85f980",
+      "end_sha256": "657077fb7f55a91ad221e38b70c2960976abd5ad56a213731aad02ceaa85f980",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-native-earlystop-models-b-wave039-FIRSTfreeze.json",
+      "bytes": 571,
+      "expected_sha256": "9687f841bac8fd2a5f1ac9086ce94ea1129a4126c3edc8b4e87821d3af184665",
+      "end_sha256": "9687f841bac8fd2a5f1ac9086ce94ea1129a4126c3edc8b4e87821d3af184665",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-exact-stopping-features-a-wave039.md",
+      "bytes": 2791,
+      "expected_sha256": "2c530aa6e82b9afac3a69a5a037c47cfa12be2397b28db17a62b5acd9bd88852",
+      "end_sha256": "2c530aa6e82b9afac3a69a5a037c47cfa12be2397b28db17a62b5acd9bd88852",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-exact-stopping-features-a-wave039-ledger.json",
+      "bytes": 5733,
+      "expected_sha256": "9402c7a86659fb10901bc56f3e944cc5aca3e9bb1b91eff3b21ad255adde817c",
+      "end_sha256": "9402c7a86659fb10901bc56f3e944cc5aca3e9bb1b91eff3b21ad255adde817c",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-exact-stopping-features-a-wave039-FIRST.json",
+      "bytes": 670,
+      "expected_sha256": "8bdc594af81d46cdb1c8df735f2dd639414ceb61ced7ce9e43665430f2a513fb",
+      "end_sha256": "8bdc594af81d46cdb1c8df735f2dd639414ceb61ced7ce9e43665430f2a513fb",
+      "unchanged": true
+    }
+  ],
+  "new_mechanisms": 0,
+  "new_ids": [],
+  "admissions": [],
+  "new_gates": [],
+  "grants": [],
+  "dispositions": {
+    "A": {
+      "stock_native_exact_equivalence": "reject",
+      "conditional_fullY_coefficient_algebra": "retain/refine; not a verified native adapter",
+      "finite_falsifier": "retain as UNRUN only"
+    },
+    "B": {
+      "generic_patience_global_argmax": "reject guarantee; retain negative finding",
+      "all_query_retrieval_ceiling_certificate": "retain/refine mathematical sufficiency only",
+      "online_callback_or_chunked_continuation": "defer unverified implementation/performance"
+    }
+  },
+  "four_fields": {
+    "A": {
+      "mechanism": "Fixed candidate-IDCG/fullY-IDCG coefficient cancels candidate normalization only under identical DCG numerators and fixed positive weighted-query normalization.",
+      "prediction": "Documented native tie ordering can strictly reverse the project product-ID argmax even with one query and weight 1.",
+      "nearest_experiment": "Author proposes <=23 candidate rows, four queries, two score vectors including ties/off-C/zeroY/emptyC/zero-total weights; wholly UNRUN and ungranted.",
+      "task1_benefit": "Avoid a cheaper metric adapter changing the ranking estimand; no current quality or speed claim."
+    },
+    "B": {
+      "mechanism": "Exact monitored objective alone cannot bound future rebound; fixed-C retrieval ceiling supplies a sufficient bound only for every required query.",
+      "prediction": "A four-stage abstract rebound defeats finite patience; all-query rank-certified ceiling cannot be exceeded but may never occur.",
+      "nearest_experiment": "Author four-stage 2,3,3,1 target-rank trace with one in-C and one off-C target, plus large-ID ties; wholly UNRUN and ungranted.",
+      "task1_benefit": "Preserve exact declared-range prefix selection while separating a mathematical certificate from unverified online efficiency."
+    }
+  },
+  "independent_math_checks": {
+    "tie_witness": "Valid source-based strict argmax reversal: C=1..21,Y={1}; project tied score A=1,native documented A=0; rank-two B=1/log2(3) for both. One query w=1 makes group aggregation irrelevant. No native evaluation performed.",
+    "coefficient": "With P nonempty,Fq>0,wq=Cq/Fq, identical DCG and fixed sumw>0, native weighted mean=(|P|/sumw)*project macro. Conditional positive factor preserves argmax, not metric values.",
+    "zero_IDCG": "Pinned CalcNdcg returns1 for candidate IDCG<=0. Candidate-free positives remain in project |P|; zeroY excluded; all sumw=0 offers no equivalent normalized native mean. No dummy targets inserted.",
+    "patience": "Abstract late rebound rejects universal finite-patience recovery of full-range argmax; does not claim an executed or observed CatBoost trajectory.",
+    "ceiling": "All fixed positive queries and nonempty P required; binary top20 fullY ceiling is IDCG20(in-C hits)/IDCG20(fullY positives). Rank certificate is sufficient, not partial-query/rounded scalar evidence.",
+    "tie_band_refinement": "Under exact earliest-max ties, first attainment permits selecting an already-seen optimum. If declared policy chooses earliest prefix within a max-relative band, apply that policy to seen prefixes; ceiling attainment alone does not identify its selected prefix."
+  },
+  "sources": [
+    {
+      "url": "https://catboost.ai/docs/en/concepts/loss-functions-ranking#NDCG",
+      "kind": "fresh official current documentation",
+      "accessed_utc": "2026-10-15",
+      "verified": "NDCG lines587-619: tied approximations prefer lower target at top selection (598); Base default606; LogPosition613; use_weights616-619.",
+      "limitation": "Documentation not an installed binary conformance probe."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/libs/metrics/dcg.cpp",
+      "kind": "fresh pinned official author source",
+      "accessed_utc": "2026-10-15",
+      "verified": "GetTopSortedTargets17-52; CalcDcg100-109 passes prediction and target; IDCG116-129; CalcNdcg132-135 returns1 whenIDCG<=0.",
+      "limitation": "Tag source, not immutable-commit or installed-binary identity claim. Comparator header and query-weight aggregation not separately inspected."
+    }
+  ],
+  "local_text_only_sources": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/.venv/lib/python3.12/site-packages/catboost/version.py",
+      "verified": "VERSION1.2.10 text only; no import."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/.venv/lib/python3.12/site-packages/catboost/core.py",
+      "anchors": [
+        "2870-2885",
+        "2900-2912",
+        "3058-3085",
+        "7584-7593"
+      ],
+      "verified": "init_model continuation documentation; fitted check for staged prediction; callback info forwarding and false stop.",
+      "limitations": "No native runtime, complete-query custom metric interface, online keyed scoring, zero-weight Pool acceptance or uninterrupted-prefix continuation equivalence established."
+    }
+  ],
+  "dedup": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave028-synthesis.md",
+      "anchor": "line5",
+      "relationship": "Linear same-numerator fixed-score fullY coefficient identity already covered."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-051.md",
+      "anchors": [
+        "7",
+        "17",
+        "27",
+        "42",
+        "44"
+      ],
+      "relationship": "Project tie/fullY/Q identity and exact ranking versus numerical tolerance and quality already separated."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/waves005-008/original/tlab-wave008-skeptic-review.md",
+      "anchors": [
+        "25-27",
+        "31",
+        "45",
+        "47"
+      ],
+      "relationship": "Fixed-C fullY macro ceiling, late winner/full training cost and paid target-support prepass already covered."
+    },
+    {
+      "existing_ids": [
+        "TLAB019",
+        "TLAB013",
+        "HYP046"
+      ],
+      "relationship": "Existing capacity/protocol/exactness refinements; no new registration."
+    }
+  ],
+  "strong_single_control": "Unchanged full1..1200 per-arm fit, then complete exact fullY conditional macro/product-ID prefix selection under declared tie policy. Correct within1..1200, no claim beyond that range.",
+  "full_cost": [
+    "mature fullY/ID sidecar preparation",
+    "candidate/query metadata incl emptyC",
+    "matrix and validation Pool construction/memory",
+    "every full-query prediction/metric/sort",
+    "callback/serialization overhead",
+    "every native fit segment and restart",
+    "export/shrink/persistence/readback/verification",
+    "startup/tail/cleanup/failures",
+    "all dependent stage feedback"
+  ],
+  "unresolved": [
+    "Installed native tie/weight behavior not executed",
+    "Weighted query aggregation/zero-weight Pool acceptance unproved",
+    "Complete-query online custom metric alignment/fullY sidecars unproved",
+    "Chunk continuation versus uninterrupted prefix equality unproved",
+    "No observed compute saving; certificate may never arrive"
+  ],
+  "current_status_scope": "Latest Root instruction says V2 accepted/two fits submitted, native outputs/quality pending, Root73792live. No process status/output inspection. Author FIRST scheduling language preserved as historical snapshot.",
+  "actual_operations": {
+    "source_text_and_small_TMP_artifact_IO_only": true,
+    "online_primary_pages_read": 2,
+    "experiments_fixtures": 0,
+    "native_import_probes": 0,
+    "data_DB_SQL_Y_models_fit_predict": 0,
+    "process_jobs_or_polls": 0,
+    "helpers_agents": 0,
+    "downloads_installs": 0,
+    "Git_project_writes": 0,
+    "quality_looks": 0,
+    "new_grants_gates": 0
+  },
+  "compute_scope": "Bounded source reading plus small input/artifact hash/JSON IO only. No analytic fixture, training, source-data scan or runtime qualification executed."
+}

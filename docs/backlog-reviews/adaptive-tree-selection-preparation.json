@@ -1,6 +1,6 @@
 {
-  "observed_at_utc": "2026-10-15T19:15:13.062161+00:00",
-  "status": "RootCODEadoptedV2 installedcanonical; Root singleproducerSUBMITTED_RUNNING fromhandoff; output/lifetime/sciencepending",
+  "observed_at_utc": "2026-10-15T19:47:54.706085+00:00",
+  "status": "ProducerCLOSED0; firstindependentverifierFAILED; numericacceptancepending; sourceV3/wrapperV2 source-reviewPASS reported; Rootadoption/testpending",
   "user_requirement": "Choose per-model best validation tree rather than use fixed count as new default",
   "scope": "post-final exploratory development; train8-20/selection22-23 only",
   "models": 2,
@@ -52,15 +52,15 @@
   "Root_only_future_runtime_decision": true,
   "no25_31_reopen_or_independent_quality_claim": true,
   "new_canonical_backlog_file": false,
-  "next_due_utc": "2026-10-15T20:15:00Z",
+  "next_due_utc": "2026-10-15T21:00:00Z",
   "code_reviews": {
     "V1": "oneP2 immutable",
     "V2": "samecorrectness+resourcefocusedP2closed Rootadopted",
     "transport": "Rootsourceaccepted, exactsingleV6 producerissued"
   },
-  "publication": "adaptive-tree-v2-install-and-issued.md",
+  "publication": "adaptive-tree-producer-terminal-verifier-failure.md",
   "install_ownership": "Canonicalprojectsolepublisher; RootownTMPclone/runtimeonly",
-  "next_safe_step": "Root original73792 terminal/native outputs/fullresource review and bounded independentverifier decision fromremainingstudy; no retry/refill/publisherpoll",
+  "next_safe_step": "Root exactV3repairadoption and remaining575/originaldeadline finiteverification decision; no fits or automaticretry/publisherpoll",
   "prior_prelaunch_state": {
     "observed_at_utc": "2026-10-15T18:55:43.587652+00:00",
     "status": "V1 whole reviews complete; one supported output-literal alias P2; V2 narrowrepair and focused rechecks pending; no install/runtime",
@@ -201,6 +201,77 @@
     "publisher_module_execution_tests_native_models_data_jobs": 0
   },
   "Root_operation": {
+    "producer": {
+      "Root_receipt_sha256": "5c1c801aa8b782cd183b355f962f68929237c3bfad7688b7fad1289835feeac8",
+      "session": 73792,
+      "terminal": "303a95",
+      "closed_reaped": true,
+      "exit": 0,
+      "external_profile": {
+        "maximum_resident_set_size_bytes": 6606995456,
+        "peak_memory_footprint_reported": 17498568,
+        "real_seconds": 1317.35,
+        "sys_seconds": 19.26,
+        "user_seconds": 2573.23
+      },
+      "V6raw_flags": {
+        "actual_cpu": 2592.493775,
+        "actual_total_cpu_seconds": null,
+        "arbitrary_descendant_containment": false,
+        "cpu_upper_seconds": 2594.493856,
+        "direct_child_inclusive_cpu": 2582.744557,
+        "elapsed_seconds": 1317.3126960419904,
+        "elapsed_upper_seconds": 1322.3126960419904,
+        "errors": [],
+        "exit_code": 0,
+        "finalization_cpu_reserve_seconds": 2.0,
+        "observed_job_peak_rss_bytes": 6622134272,
+        "observed_process_count": 1,
+        "observed_total_cpu_seconds": 2592.493775,
+        "reaped": true,
+        "rss_is_sampled_not_hard_limit": true,
+        "sampled_cpu_high": 2592.403691875,
+        "sampled_job_rss_high": 6622134272,
+        "samples": 43651,
+        "scope": "synthetic_harness_process_supervision",
+        "signaled_pids": [],
+        "status": "verified_normal_exit",
+        "stop_reason": null,
+        "supervisor_exit_tail_measured": false,
+        "supervisor_finalization_hard_cpu_seconds": 11,
+        "supervisor_self_cpu": 9.749239,
+        "survivors_at_terminal_scan": [],
+        "unknown_active_work": false,
+        "wait4_child_cpu_seconds": 2582.744557,
+        "wall_seconds": 1317.3126077079942,
+        "worker_ledger_verified": false
+      },
+      "regular_outputs": 18,
+      "source_pins_Rootchecked": 23,
+      "selectedcounts_curves_metrics_accepted": false
+    },
+    "first_verifier": {
+      "session": 69903,
+      "terminal": "b79479",
+      "exit": 1,
+      "closed": true,
+      "failure_Root_receipt_sha256": "b605722e8a090ef0fd935b70fb5896119926daa22395f88e157e5f4caea98fae",
+      "raw_unknown_active_work": true,
+      "status": "failed_unknown_cleanup",
+      "remaining_same600_verifierCPU": 575
+    },
+    "original_start": 84666.876793083,
+    "absolute_deadline": 88266.876793083,
+    "numericacceptance": false
+  },
+  "actual_fit_predict_count": "not inferred fromsubmission; Root outputs pending",
+  "verifier_wrapper_CODE": {
+    "Root_receipt_sha256": "3d6b97ae6a3cc4ae0f3b4b0e314b25d58a5384f8490f234cb60329273db32b50",
+    "Root_receipt_path": "/tmp/tlab-root-adaptive-verifier-wrapper-code-acceptance-v1.json",
+    "scope": "OriginalCODEaccepted, actual69903failed; V3repair+wrapperV2focusedreviewpending/noadoption",
+    "independent_source_review_sha256": "9cbb29c6590dcbddf5e883b2f40799a402eef9779f23d9723739d747f336c553"
+  },
+  "prior_execution_snapshot_before_failed_verification": {
     "issued_sha256": "2dbdb327f65c7961a059e6ac0fcb55c3bdb1c2fbdf87eb1a508c8ebf12f5a113",
     "operation_id": "adaptive-tree-per-model-20261015-once",
     "session": 73792,
@@ -227,12 +298,5 @@
       "state": "LIVE fromRootdirectmessage; models/curvesnotaccepted",
       "publisher_poll": false
     }
-  },
-  "actual_fit_predict_count": "not inferred fromsubmission; Root outputs pending",
-  "verifier_wrapper_CODE": {
-    "Root_receipt_sha256": "3d6b97ae6a3cc4ae0f3b4b0e314b25d58a5384f8490f234cb60329273db32b50",
-    "Root_receipt_path": "/tmp/tlab-root-adaptive-verifier-wrapper-code-acceptance-v1.json",
-    "scope": "CODE only, actualverifier reserved/unissued until producerterminal+remainingRootdecision",
-    "independent_source_review_sha256": "9cbb29c6590dcbddf5e883b2f40799a402eef9779f23d9723739d747f336c553"
   }
 }

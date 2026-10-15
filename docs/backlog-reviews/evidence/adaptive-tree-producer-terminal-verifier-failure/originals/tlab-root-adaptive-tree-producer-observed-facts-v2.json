@@ -1,0 +1,32 @@
+{
+  "accepted_input_authority_sha256": "6dfe06d94140e5231574cd76718a61df2b0fd16dfc3e74a0698544a4948d7db6",
+  "driver_sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+  "inventory_sha256": null,
+  "invocation": {
+    "argv": [
+      "/private/tmp/tlab-public018-clean-20261015-once/.venv-locked/bin/python",
+      "-B",
+      "-m",
+      "scripts.adaptive_tree_selection",
+      "--request",
+      "/private/tmp/tlab-public018-clean-20261015-once/configs/studies/adaptive-tree-selection-oct2019-once.json",
+      "--expected-request-sha",
+      "6ffe3c7a82854fca25446faf8a580dce83c03584c7f37a81d63d1684b76049a7",
+      "--output",
+      "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/adaptive-tree-selection-1200-once"
+    ],
+    "closed_native_environment_observed": true,
+    "cwd": "/private/tmp/tlab-public018-clean-20261015-once",
+    "fresh_output_observed": true,
+    "standalone_no_backend_substitution": true
+  },
+  "output_directory": "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/adaptive-tree-selection-1200-once",
+  "request_sha256": "6ffe3c7a82854fca25446faf8a580dce83c03584c7f37a81d63d1684b76049a7",
+  "scope": "observed_adaptive_tree_study_completion",
+  "terminal": {
+    "closed": true,
+    "exit_code": 0,
+    "external_record": "/tmp/tlab-root-adaptive-tree-producer-terminal-v2.json; tool73792 terminal chunk303a95; original time -lp real1317.35 user2573.23 sys19.26"
+  },
+  "version": 1
+}

@@ -1,0 +1,13 @@
+# Wave039 A FIRST — weighted native NDCG is not the exact selector
+
+**Disposition:** reject stock exact-equivalence; zero new IDs. Refine existing wave028 fullY-coefficient reasoning. Current fullmax1200/post-fit selector remains unchanged; peer039 unread.
+
+**Mechanism/algebra:** for positive-fullY queries, let Fq=IDCG(fullY), Cq=IDCG(candidate positives), wq=Cq/Fq. Granting identical DCG numerators and a native weighted group mean, `M=Σwq·NDCG_C/Σwq=(Npositive/Σwq)·fullY_macro`. Fixed nonzero weights therefore preserve argmax, not metric values. This cancellation is conditional, not proof of native behavior.
+
+**Counterexample/prediction:** CatBoost documents lower-target preference for tied top selection. C={1,…,21}, fullY={1}; all scores0 at prefixA. Product-ID tie ordering puts positive1 first: project NDCG=1. Native top20 chooses20 negatives:0. PrefixB strictly ranks2>1>3>…>21: both give1/log2(3). Native prefersB; exact selector prefersA, with w=1. Sorting Pool rows cannot override target-based ties. This is hand reasoning, not an executed probe. [Official NDCG parameters](https://catboost.ai/docs/en/concepts/loss-functions-ranking#NDCG).
+
+**Support/API boundaries:** v1.2.10 source returns1 when candidate IDCG=0; those groups need exact zero contribution/weight, not native defaults. Positive queries with empty C are absent from Pool but remain in Npositive; all-zero weight mass makes normalization unavailable. Zero-fullY queries must be excluded, avoiding0/0. [Official v1.2.10 DCG source](https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/libs/metrics/dcg.cpp). Installed1.2.10 core.py accepts row-length group IDs/group weights: repeat each query coefficient consistently; preserve separate training1/|C| weights, never stack them into validation weighting. Pool compatibility/zero-weight aggregation remain unverified; no native import occurred.
+
+**Nearest UNRUN falsifier/goal benefit:** at most23 candidate rows/four queries/two fixed score vectors: the21-row tie witness, singleton off-C-only and zeroY groups, plus empty-C metadata. Compare exact fullY/product-ID ordering against proposed native values; include zero-total weights. This would reject a misleading optimization before training; no fixture/test/fit/grant now.
+
+Even exact metric equivalence would not make patience stopping recover the global best1..1200 prefix: a later recovery can follow a plateau. Potential training savings remain conditional. Pay coefficient/fullY preparation, validation Pool/grouping, every metric call, stopping-policy feedback, oracle, memory, startup/tail and failures. No callback/harness/current-code change or current capacity/early-stop guarantee.
