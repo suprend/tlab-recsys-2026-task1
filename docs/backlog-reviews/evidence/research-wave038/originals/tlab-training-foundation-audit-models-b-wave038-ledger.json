@@ -1,0 +1,190 @@
+{
+  "wave": "038",
+  "role": "independent_FOUNDATIONAUDIT_A",
+  "author": "/root/brainstorm_models_b",
+  "phase": "blind_FIRST",
+  "created_utc": "2026-10-15T18:27:47.347398Z",
+  "report_path": "/tmp/tlab-training-foundation-audit-models-b-wave038.md",
+  "report_sha256": "0e7b5e92ea7985efd56670acfad7b0051ecc3d27e8d9c31730e3a82ad2caac4c",
+  "word_count_whitespace": 393,
+  "peer038_read_before_first": false,
+  "Root_freeze_path": "/tmp/tlab-training-foundation-audit-20261015-once/freeze.json",
+  "Root_freeze_sha256": "d51e01aaed4904de6d67bee7c10a687f89076b812d74040f31aabd805c3ec1bb",
+  "inputfreeze_path": "/tmp/tlab-foundation-audit-models-b-wave038-inputfreeze.json",
+  "inputfreeze_sha256": "f090998a483125af7f4eb0de32e40a8bd6e6b04085f7c42550ed2cb18da6dfe3",
+  "all_11_final_sha_guards": [
+    {
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/configs/models/strong-grid.json",
+      "bytes": 873,
+      "sha256": "d32daac420f447444d987969cdd49ac1cad427bbd7357114d148c02085aed66e",
+      "unchanged": true
+    },
+    {
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/configs/development/train.json",
+      "bytes": 637,
+      "sha256": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8",
+      "unchanged": true
+    },
+    {
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/configs/development/selection.json",
+      "bytes": 643,
+      "sha256": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36",
+      "unchanged": true
+    },
+    {
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/configs/heldout/reporting-only-v1.json",
+      "bytes": 2232,
+      "sha256": "4d3d1f337d7f65dd41cab0a938073692d03df87b73442590f25e4267f7510f3d",
+      "unchanged": true
+    },
+    {
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/scripts/reproduce_frozen_comparison.py",
+      "bytes": 40847,
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "unchanged": true
+    },
+    {
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/scripts/strong_baseline.py",
+      "bytes": 47986,
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+      "unchanged": true
+    },
+    {
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/scripts/train_baselines.py",
+      "bytes": 35022,
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "unchanged": true
+    },
+    {
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/scripts/ranking_metrics.py",
+      "bytes": 9971,
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "unchanged": true
+    },
+    {
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/docs/task1-requirements.md",
+      "bytes": 3638,
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "unchanged": true
+    },
+    {
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/docs/backlog-reviews/tlab019-strong-output-verification.md",
+      "bytes": 2588,
+      "sha256": "b4a4c6e022f753cce75d27ceff0aef1148c7e20ef0786fa0664315e9cfc8737c",
+      "unchanged": true
+    },
+    {
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/docs/backlog-reviews/real015-heldout-results.md",
+      "bytes": 4865,
+      "sha256": "e74fc832710b8911ff986849d9457bffad88cf2b7f264f19c0f7a7c9f68017c8",
+      "unchanged": true
+    }
+  ],
+  "total_source_bytes": 149302,
+  "requirements_basis": "Root frozen requirements and source only: strong manual control/strictpast/reproducibility; each future model chooses besttree by validation; original300 study preserved; new2fits max1200/<=2400dependentlooks exploratory/unrun/ungranted.",
+  "top_gaps": [
+    {
+      "priority": "P0",
+      "gap": "Fixed300 universal per-arm selection default",
+      "source": "scripts/reproduce_frozen_comparison.py:522,594",
+      "trigger": "Exact300 model verification and prefix300 summaries.",
+      "impact": "Cannot distinguish feature quality from different optimal boosting horizons in future models.",
+      "next_small_check": "Addressed review of existing adaptive-author per-arm fullY argmax, tie and selected-prefix requirements; no duplicate code/harness.",
+      "scope": "Original fixed-budget feature-effect comparison remains legitimate; per-model optimization answers a future extended question."
+    },
+    {
+      "priority": "P0",
+      "gap": "Upper endpoint winner without basic capacity follow-up",
+      "sources": [
+        "configs/models/strong-grid.json:4-6",
+        "docs/backlog-reviews/tlab019-strong-output-verification.md:5"
+      ],
+      "trigger": "Winner300/depth6/L2=30 at maxima of explored values.",
+      "impact": "Capacity convergence not established; boundary itself proves neither underfit nor likely gain.",
+      "next_small_check": "Already proposed2fit <=1200 adaptive extension reports interior/endpoint status; boundary-neighbor setting only separately budgeted later if justified, no automatic refill."
+    },
+    {
+      "priority": "P0",
+      "gap": "Three ranking checkpoints do not diagnose complete learning curves",
+      "sources": [
+        "configs/models/strong-grid.json:5",
+        "scripts/strong_baseline.py:383,392",
+        "scripts/ranking_metrics.py:114-133"
+      ],
+      "trigger": "Only50/150/300 external fullY prefixes previously scored.",
+      "impact": "Interior optimum and overfitting remain unresolved; future dense argmax creates substantial paid selection/scoring work.",
+      "next_small_check": "Existing code author should expose per-model fullY conditionalNDCG20 curve/selectedprefix; at most2400 dependent validation checkpoints fully charged."
+    },
+    {
+      "priority": "P1",
+      "gap": "Only one two-day validation origin",
+      "sources": [
+        "configs/development/train.json:14-17",
+        "configs/development/selection.json:14-17",
+        "scripts/train_baselines.py:177-181"
+      ],
+      "trigger": "Train8–20 and selection22–23; no multiple forward origins in frozen design.",
+      "impact": "Calendar robustness unknown; this does not establish original temporal leakage or require retrospective nestedCV.",
+      "next_small_check": "Source-only earlier forward split/maturity table within development; optional future extra fold needs separate finite fits/cost, not gate now."
+    },
+    {
+      "priority": "P1",
+      "gap": "New dense prefix selection is exploratory after final exposure",
+      "sources": [
+        "docs/backlog-reviews/real015-heldout-results.md:3-12",
+        "configs/heldout/reporting-only-v1.json:77-84"
+      ],
+      "trigger": "Original final opened after frozen decision; new per-model argmax uses reused development validation.",
+      "impact": "Post-selection gains cannot be advertised as new independent confirmation or replace current015 results.",
+      "next_small_check": "Separate extension report; conditional prospective unseen cohort only if later independent confirmation is sought, no download/retune now."
+    }
+  ],
+  "gap_count": 5,
+  "three_most_important_actions": [
+    "Complete existing adaptive-best-tree author implementation with per-arm fullY selector/curves and deterministic chosen-prefix identity.",
+    "Keep already proposed2fit exploration finite and account all preparation, training, up to2400dependent validation predictions/rankings/metrics, verification, memory/failures/startup/tail. No execution grant from audit.",
+    "Publish its exploratory capacity/feature comparison separately from original final; only then consider a narrow boundary neighbor or forward-origin check if it changes decision, not indefinite mandatory gates."
+  ],
+  "priority_failure_explanation": "Novelty/dedup and exact reproduction work crowded out a fundamentals-first response to accepted300/depth/L2 boundary wins. Historical fixed recipe constraints should not silently become future optimization policy. Not an invalidation of original bounded evidence.",
+  "matched_control": "Same frozen feature population/Q/C/fullY/weights/hyperparameters and shared training max/prefix selection law in adaptive B/W extension; retain fixed300 diagnostic anchor without selecting on final. Equal iteration ceilings are declared search constraints, not proof equal CPU or common optimal horizons.",
+  "possible_negative_outcomes": [
+    "B improves more than W, shrinking/reversing original feature delta: support capacity restriction as alternative explanation in exploratory extension.",
+    "Both best prefixes remain near upper ceiling: capacity still unresolved, no automatic furtherfit/refill.",
+    "Earlier selected prefixes or flat/noisy curves show no benefit from more trees.",
+    "Endpoint flags alone do not prove underfit or that deeper/higherL2 configurations help.",
+    "Budget exhaustion/failure is censored; no free retries or new partial eligibility rule.",
+    "No optional forward origin or new unseen cohort executed; no superiority/equivalence confirmation from reused validation."
+  ],
+  "full_cost": [
+    "source and matrix preparation",
+    "exact shared Q/C/fullY/weights and source identity checks",
+    "both max-iteration fits and native Pool/quantization",
+    "all checkpoint prediction/ranking/fullY metric calls and dependent feedback",
+    "selectedprefix persistence/reproduction/independent checks",
+    "curve/report output",
+    "memory and disk/spill",
+    "failed attempts and partial work",
+    "whole interpreter startup/terminal tail"
+  ],
+  "source_read_scope": [
+    "All frozen configs/requirements/019 receipt/015 receipt read with lines",
+    "Frozen strong_baseline grid,choose,prefix scoring and parameter source inspected",
+    "Frozen train_baselines chronology/weight/training source targeted reads",
+    "Frozen public exact300 verification/fit/summary/compare source inspected",
+    "Frozen ranking_metrics fullY score formula inspected"
+  ],
+  "external_primary_pages_read": 0,
+  "new_model_or_feature_theory": false,
+  "new_harness_or_duplicate_implementation": false,
+  "actual_operations": {
+    "native_data_Y_models_fit_predict_jobs_processpools": 0,
+    "experiments_tests_fixtures": 0,
+    "helpers": 0,
+    "Git_project_writes": 0,
+    "runtime_or_allowance_grants": 0,
+    "actual_tiny_math_execution": false,
+    "source_static_read_hash_artifact_checks_only": true
+  },
+  "original_study_status": "Accepted bounded fixed-budget019/016/015 remains immutable; future extended capacity tuning is distinct exploratory research.",
+  "current_owner": "Existing adaptive-besttree code author remains sole implementation owner; Root sole execution/admission coordinator."
+}

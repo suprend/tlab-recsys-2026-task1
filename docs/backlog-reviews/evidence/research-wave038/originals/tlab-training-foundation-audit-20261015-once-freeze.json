@@ -1,0 +1,83 @@
+{
+  "checks_actually_run": "Stdlib snapshot SHA and immediate unchanged-byte guards only; no test/native.",
+  "created_at_utc": "2026-10-15T18:22:27.855373+00:00",
+  "exclusions": "No actual data/DB/Y/models/native jobs; no liveeditingdocs/canonical/Git/helpers.",
+  "inputs": [
+    {
+      "bytes": 873,
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/models/strong-grid.json",
+      "sha256": "d32daac420f447444d987969cdd49ac1cad427bbd7357114d148c02085aed66e",
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/configs/models/strong-grid.json"
+    },
+    {
+      "bytes": 637,
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/development/train.json",
+      "sha256": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8",
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/configs/development/train.json"
+    },
+    {
+      "bytes": 643,
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/development/selection.json",
+      "sha256": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36",
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/configs/development/selection.json"
+    },
+    {
+      "bytes": 2232,
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/heldout/reporting-only-v1.json",
+      "sha256": "4d3d1f337d7f65dd41cab0a938073692d03df87b73442590f25e4267f7510f3d",
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/configs/heldout/reporting-only-v1.json"
+    },
+    {
+      "bytes": 40847,
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py",
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/scripts/reproduce_frozen_comparison.py"
+    },
+    {
+      "bytes": 47986,
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_baseline.py",
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/scripts/strong_baseline.py"
+    },
+    {
+      "bytes": 35022,
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/scripts/train_baselines.py"
+    },
+    {
+      "bytes": 9971,
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/scripts/ranking_metrics.py"
+    },
+    {
+      "bytes": 3638,
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/docs/task1-requirements.md"
+    },
+    {
+      "bytes": 2588,
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-strong-output-verification.md",
+      "sha256": "b4a4c6e022f753cce75d27ceff0aef1148c7e20ef0786fa0664315e9cfc8737c",
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/docs/backlog-reviews/tlab019-strong-output-verification.md"
+    },
+    {
+      "bytes": 4865,
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/real015-heldout-results.md",
+      "sha256": "e74fc832710b8911ff986849d9457bffad88cf2b7f264f19c0f7a7c9f68017c8",
+      "snapshot": "/tmp/tlab-training-foundation-audit-20261015-once/snapshot/docs/backlog-reviews/real015-heldout-results.md"
+    }
+  ],
+  "mode": "read_only_frozen_file_audit",
+  "new_training_plan": "Exactly2newB/Wfits max1200, selectedprefixargmax1..1200/fullYconditionalNDCG20 atvalidation22–23; atmost2400dependentvalidationcheckpoints; no native earlystop orcompute-savingclaim. StillTMP/unrun/ungranted.",
+  "requirements": [
+    "Strong manual baseline, strictpastfeatures, reproducible comparison.",
+    "Originalstudyexplicitfixed300checkpointwinner; no repeatedCV.",
+    "Newuserrequirement: eachfuturemodel chooses besttree count onvalidation, maxiterations resourceceiling; fullY conditionalNDCG20 not nativeC-onlyNDCG.",
+    "Preserve originalfrozen015results; newadaptiveextension is exploratorypostfinaldevelopment, no25-31selection.",
+    "Independent fundamentals-first audits; identify concrete gaps and narrow tests, not open-endednoveltytheory."
+  ],
+  "scope": "Training fundamentals; user questions about missingCV/300ceiling/permodelbesttree"
+}

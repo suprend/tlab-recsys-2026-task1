@@ -221,7 +221,18 @@
       "rss_bytes": 12884901888,
       "wall_seconds": 2700
     },
-    "independent_verifier": "reservednotyetissued"
+    "independent_verifier": "reservednotyetissued",
+    "latest_Root_liveness_handoff": {
+      "chunk": "5ae78b",
+      "state": "LIVE fromRootdirectmessage; models/curvesnotaccepted",
+      "publisher_poll": false
+    }
   },
-  "actual_fit_predict_count": "not inferred fromsubmission; Root outputs pending"
+  "actual_fit_predict_count": "not inferred fromsubmission; Root outputs pending",
+  "verifier_wrapper_CODE": {
+    "Root_receipt_sha256": "3d6b97ae6a3cc4ae0f3b4b0e314b25d58a5384f8490f234cb60329273db32b50",
+    "Root_receipt_path": "/tmp/tlab-root-adaptive-verifier-wrapper-code-acceptance-v1.json",
+    "scope": "CODE only, actualverifier reserved/unissued until producerterminal+remainingRootdecision",
+    "independent_source_review_sha256": "9cbb29c6590dcbddf5e883b2f40799a402eef9779f23d9723739d747f336c553"
+  }
 }

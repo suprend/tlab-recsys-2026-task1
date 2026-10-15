@@ -759,3 +759,10 @@ No newHYP/tasks/gates/grants; next19:30UTC fromscheduled18:45, originalgoal/limi
 Обновление 2026-10-15T19:15:13.062161+00:00: [адаптивная V2 принята как CODE и установлена](../backlog-reviews/adaptive-tree-v2-install-and-issued.md); Root отдельно отправил ОДИН producer73792/88be2a, RUNNING по handoff. Это максимум2новых fits/1200ceiling/до2400зависимых devchecks, selectedtrees/results/terminal/lifetime pending; independentverifier пока reserved/unissued. Нет publisherpoll/retry/nativeработ.015/018done14/19 и old300study/final неизменны;019extensionactive.
 
 Early19:30checkpoint, next20:15UTC anchoredscheduled19:30;037/038distinctcriticscomplete Rootreadbackpending;039bothblindFIRSTcomplete, criticRoot-alone.0newID/mainqueue/grants fromresearch. Goal/deadline17slots/33914basis unchanged.
+
+
+## 2026-10-15T19:29:13.775042+00:00 —037/038 existing-training refinements
+
+Обновление 2026-10-15T19:29:13.775042+00:00: [037](brainstorm-wave037-synthesis.md) и[038](brainstorm-wave038-synthesis.md) Rootaccepted как уточнения019/013,0новыхID/tasks/gates/grants. Старый6-prefix intent superseded/unrun; новая native2fit ветвь73792 отдельновыдана, latestRootLIVE7d5858, outputs/lifetime pending. Прежний bounded300study валиден; его parity не новыйgate.039criticcomplete/Rootreadbackpending; next20:15UTC отscheduled19:30 неизменен.
+
+Архив exact24originals inclsharedsourcefreeze/author038Ainputfreeze, без отдельных11sourcecopies.0publisherruntime/native/tests/data/models/polls; code/report/DOC unchanged.

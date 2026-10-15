@@ -1,0 +1,173 @@
+{
+  "wave": 37,
+  "role": "distinct-skeptic-models-a",
+  "report_words": 349,
+  "new_ids": [],
+  "novel_mechanisms": 0,
+  "inputfreeze": {
+    "path": "/tmp/tlab-wave037-skeptic-inputfreeze.json",
+    "sha256": "e59bed1a2325b99838ce7320bf5812e96d04fea382e7b9c63d5dd6dd4b32064a",
+    "inputs": 6,
+    "bytes": 20010
+  },
+  "FIRST_matching": [
+    {
+      "FIRST": "/tmp/tlab-brainstorm-capacity-interaction-features-a-wave037-FIRST.json",
+      "report_ledger_binding": "PASS"
+    },
+    {
+      "FIRST": "/tmp/tlab-brainstorm-adaptive-trees-retrieval-a-wave037-FIRSTfreeze.json",
+      "report_ledger_binding": "PASS"
+    }
+  ],
+  "initial_guards": "6/6 PASS before analysis",
+  "final_guards": [
+    {
+      "path": "/tmp/tlab-brainstorm-capacity-interaction-features-a-wave037.md",
+      "sha256": "fd842ccf63a0c10b8b8c9ca27c782d0ca7960137adee4a2c0e2f3570c8aa31c4",
+      "final_original_snapshot_guard": "PASS"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-capacity-interaction-features-a-wave037-ledger.json",
+      "sha256": "ae056b557afd496514ef0353b6c6a470c17c9899f8827cff20d35c2ca5ff80f7",
+      "final_original_snapshot_guard": "PASS"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-capacity-interaction-features-a-wave037-FIRST.json",
+      "sha256": "09c24df3eb1486f141a3e16aa38959c73fae6c1f4f7294fd05beb8a279107289",
+      "final_original_snapshot_guard": "PASS"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-adaptive-trees-retrieval-a-wave037.md",
+      "sha256": "cec04abcbb19c4e295cb8a5e72720d61973f0f434e175a8ca58aa1c88ad8cd5f",
+      "final_original_snapshot_guard": "PASS"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-adaptive-trees-retrieval-a-wave037-ledger.json",
+      "sha256": "cbb3d563bd3c76a7cf0ed2d35543cdafa605358e6f9c8929403546f32d237a8d",
+      "final_original_snapshot_guard": "PASS"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-adaptive-trees-retrieval-a-wave037-FIRSTfreeze.json",
+      "sha256": "a7c372ec9546717f861a664194a53d49918ffe68da924d1dcc04458e8917242f",
+      "final_original_snapshot_guard": "PASS"
+    }
+  ],
+  "chronology": {
+    "A_FIRST_utc": "2026-10-15T18:16:22.504703+00:00",
+    "B_FIRST_utc": "2026-10-15T18:25:09.752Z",
+    "requirement_order": "Parent establishes A freeze before new automatic-per-model-tree requirement; B incorporated requirement before FIRST",
+    "old_A_six_fixed_prefix_looks": "superseded/unrun; not added to <=2400 active dependent checks"
+  },
+  "dispositions": {
+    "A": "retain frozen historical fixed-capacity sensitivity; executable old6-look intent superseded",
+    "B": "refine/accept-needs-pilot for prospective adaptive selection; explicit scoring thread scope and finite/full-prefix/domain accounting",
+    "quality_generalization": "unproven; no new independent validation",
+    "implementation": "separate ExecutionScopeAudit owns code; not inspected or duplicated"
+  },
+  "four_fields": {
+    "mechanism": "two fully trained1200-tree models with separate all-prefix selection; equally tuned recipe estimand",
+    "prediction": "selected criterion >= same-fit prefix300-epsilon by construction, not expected unseen improvement",
+    "nearest_falsifier": "UNRUN analytical global-band witness selects2; rejects local epsilon update and fullY-positive off-C/empty-C dropping",
+    "goal_benefit": "automatic bounded capacity selection with strong B comparator and complete feedback ledger"
+  },
+  "strong_control": "same train8-20/selection22-23, Q/C/fullY, B41prefix, weights, all effective parameters/CPU/seed and all1..1200 opportunities on both arms; compare B-best/W-best as tuned recipes and same-k as separate diagnostic",
+  "global_band_reasoning": {
+    "epsilon": "absolute1e-12 on aggregate criterion",
+    "values": "s,s+0.75epsilon,s+1.5epsilon",
+    "global_max": "s+1.5epsilon",
+    "global_threshold": "s+0.5epsilon",
+    "earliest_eligible": 2,
+    "local_replace_if_improvement_gt_epsilon_can_choose": 3,
+    "calculation": "analytic only; no fixture executed",
+    "reject_nonfinite_missing_or_partial": "yes; no silent partial rescue"
+  },
+  "metric_domain": {
+    "primary": "fullY conditional macro-query NDCG@20",
+    "denominator": "all fullY-positive queries, including off-C-only and empty-C cases with score0",
+    "IDCG": "full distinct Y capped by rankingK, not labels restricted to C",
+    "score_ties": "product-ID, distinct from aggregate1e-12 selection band",
+    "positive_query_count": 73,
+    "count_origin": "parent/author released context only; no data read"
+  },
+  "API_refinement": {
+    "explicit_prediction_type": "RawFormulaVal, defaultClass unsuitable",
+    "eval_period": 1,
+    "explicit_scoring_thread_count": 2,
+    "documented_default_thread_count": -1,
+    "constructor_threads_do_not_fix_scoring_call_default": true,
+    "no_inferred_native_runtime_behavior": true
+  },
+  "cost_scope": {
+    "fits_max": 2,
+    "max_trained_trees_each": 1200,
+    "prefix_metrics_max": 2400,
+    "dependent_opportunities": true,
+    "old_fixed6_looks_additional": 0,
+    "no_early_stopping_claim": true,
+    "includes": [
+      "source/input/recipe authentication",
+      "matrices/shared-prefix/weights/Pool/quantization",
+      "both full1200 training attempts and failed attempts",
+      "all staged score vectors/ranking/metrics",
+      "generator/copy/sort resident memory",
+      "curves and serialization",
+      "prefix shrink/save/reload/verification",
+      "startup/cleanup/full exit tail"
+    ],
+    "absolute_CPU_wall_RSS_allowance": "not issued by author notes or this review",
+    "no_automatic_ceiling_extension_retry": true,
+    "streaming_generator_does_not_establish_peak_bound": true
+  },
+  "limitations": [
+    "per-arm selected counts can differ: tuned-recipe contrast not pure same-capacity feature effect",
+    "same1200fit prefix300 not assumed equivalent to old independently trained300",
+    "selector tautology can pass even when metric uses wrong target population",
+    "ordinary postselection CI does not remove criterion-selection optimism",
+    "73 positive queries and repeated users are not2400 independent samples",
+    "opened25-31 final excluded and not fresh validation",
+    "old300 parity diagnostic not new prerequisite"
+  ],
+  "primary_sources": [
+    {
+      "url": "https://catboost.ai/docs/en/concepts/python-reference_catboostclassifier_staged_predict",
+      "verified": "growing prefixes, RawFormulaVal supported, defaultClass/eval_period1/thread_count-1, feature alignment required"
+    },
+    {
+      "url": "https://jmlr.org/papers/v11/cawley10a.html",
+      "verified": "finite-sample selection criterion variance permits optimization overfit and subsequent performance-evaluation selection bias"
+    }
+  ],
+  "bounded_prior_pins": [
+    {
+      "path": "docs/research-lab/round-038.md",
+      "bytes": 12625,
+      "sha256": "ed861cac5057d2530ba4d8f221d5c91e311d00e8ffe1034a234c016dfd9a5770",
+      "scope": "bounded prior source-note bytes; active implementation not inspected"
+    },
+    {
+      "path": "docs/research-lab/round-060.md",
+      "bytes": 11258,
+      "sha256": "e4faafebf2a50e86b35da9229f1bf9a64c93a8757a55146bec0d713a9146307d",
+      "scope": "bounded prior source-note bytes; active implementation not inspected"
+    }
+  ],
+  "actual_operations": {
+    "source_reads": true,
+    "stdlib_SHA_JSON_artifact_checks": true,
+    "fixtures": 0,
+    "data_DB_models_Y": 0,
+    "native_import_load_fit_predict": 0,
+    "runtime_jobs_process_inspection_polls": 0,
+    "helpers_agents": 0,
+    "download_install": 0,
+    "Git_project_writes": 0,
+    "new_runtime_grants": 0,
+    "new_mandatory_gates": 0,
+    "active_implementation_code_inspection": 0
+  },
+  "report": {
+    "path": "/tmp/tlab-wave037-skeptic-review.md",
+    "sha256": "5c6608c43082ef015947a0170a304351a60334bdfc75cb00ece60deb4dee3f68"
+  }
+}

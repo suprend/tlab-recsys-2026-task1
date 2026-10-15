@@ -1,0 +1,13 @@
+{
+  "recorded_at_utc": "2026-10-15T19:29:39.814478+00:00",
+  "failed_chunk": "c254af",
+  "exit_code": 1,
+  "failed_command": "python3 /tmp/tlab-archive-research3738.py",
+  "actual_error_excerpt": "AssertionError at line11 Rootreceipt SHA guard",
+  "cause": "Local expected038SHA incorrectly appended first8 of packed8687B size, giving65hex; correct64hex Rootdigest independently checked and explicitly reconfirmed.",
+  "actual_correct038SHA": "b173018f5477794936323ced2651294aecd39574ae3df38f55b33ad453c0dd5b",
+  "actual038bytes": 8687,
+  "partial_writes_before_stop": "037 archive11originals plusmanifest/twosyntheses only; verified7cd0ca, retainedwithoutrewrite",
+  "correction": "Resume038only aftercompletepreflight and explicitRootcontinue; c6435b EXIT0; no commit/pushbeforecorrection",
+  "native_runtime_tests_data_models": 0
+}
