@@ -145,7 +145,15 @@ class Lifecycle(unittest.TestCase):
     def invoke(self,side_effect=None):
         with patch.object(self.owner.sys,'argv',[str(self.owner_path),'--project-root',str(self.root),'--approval','approval.json']),\
             patch.object(self.owner.time,'monotonic',return_value=100),patch.object(self.s,'run_process',side_effect=side_effect or self.fake_oracle),\
+            patch.object(self.s,'child_cpu',return_value=0.),\
             patch.object(self.owner,'verified_module',side_effect=self.fake_loader):self.owner.main()
+    def test_mock_owner_lifecycle_isolates_prior_suite_children_cpu(self):
+        # Earlier tests may reap real children in this shared unittest process.
+        # This fixture launches a fake oracle and represents a fresh owner.
+        with patch.object(self.s, 'child_cpu', return_value=0.125):
+            self.invoke()
+            self.assertEqual(self.s.child_cpu(), 0.125)
+        self.assertEqual(len(self.calls), 1)
     def test_one_oracle_no_source_calculation_old_failure_preserved_and_no_retry(self):
         before={name:(self.root/name).read_bytes() for name in ['old-run.json','old-report.json','source.claim.json']}
         self.invoke();self.assertEqual(len(self.calls),1)

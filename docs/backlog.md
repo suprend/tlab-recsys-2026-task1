@@ -479,3 +479,8 @@ Actual recovered-source acceptance remains HOLD until one exact external policy,
 ### Model016 review v1: changes requested before any fits
 
 [Full independent runner review](backlog-reviews/tlab016-model-runner-code-review-v1.md) reproduced two terminal-integrity blockers and unknown fit/look-count precision on missing child receipts. Twenty-one author tests passed; three unique independent synthetic regressions failed as expected against frozen61e977. Root is batching repairs; no actual016owner claim or native fit has run. The accepted019model native-parameter API probe passed without Q/Y/predictions or a quality look. Original failure evidence is retained; code acceptance awaits targeted repaired-freeze review and separate independent observer review.
+
+
+### Model016 repaired code accepted; actual four-fit gate pending
+
+[Runner v2](backlog-reviews/tlab016-model-runner-code-rereview-v2.md) and [independent zero-fit observer](backlog-reviews/tlab016-model-observer-independent-rereview.md) passed scoped independent review. [Evidence](backlog-reviews/tlab016-model-v2-review-evidence.md) preserves the original failures, narrow test-only fixture repair and full 440-test green integration check. Exactly four fixed-procedure fits and one observer remain gated by a fresh measured owner and approval of its actual complete proposal; no actual016 fit or heldout access has occurred. Remote publication remains pending direct destination consent; local commits preserve the work.
