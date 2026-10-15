@@ -1,0 +1,477 @@
+{
+  "scope": "same-reviewer seven literal DOC/progress/report replacements only",
+  "verdict": "PASS_NARROW_REPAIR",
+  "V3_P2_stale_current_progress": "closed",
+  "V3_P2_reserved_final_period_label": "closed",
+  "RSS_lifetime_precision": "matches frozen unchanged source",
+  "inputs": [
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/freeze.json",
+      "bytes": 4075,
+      "sha256": "732e014ad6d21de4399c1153296cfd419fd377dd8743c728689cc042ec53f908",
+      "kind": "freeze",
+      "original": "/tmp/tlab-complete018-docs-proposal-v3/freeze.json",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/0-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/docs-v3.diff",
+      "bytes": 37100,
+      "sha256": "a9eede030107563d5f7d426a7fb378101007bc88ce22404e0fde75a51e7e59e5",
+      "kind": "diff",
+      "original": "/tmp/tlab-complete018-docs-proposal-v3/docs-v3.diff",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/1-docs-v3.diff"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "bytes": 18973,
+      "sha256": "e3b18535860418833b839bbcc8fa69a9cb888ad65c48ceb7ac91a97329018d1b",
+      "kind": "current_base",
+      "relative": "README.md",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/2-README.md"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/candidates/README.md",
+      "bytes": 18973,
+      "sha256": "e3b18535860418833b839bbcc8fa69a9cb888ad65c48ceb7ac91a97329018d1b",
+      "kind": "candidate",
+      "relative": "README.md",
+      "original": "/tmp/tlab-complete018-docs-proposal-v3/candidates/README.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/3-README.md"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "bytes": 67688,
+      "sha256": "f4434d1399e4d1b6f5f661fef6d5d33bca555edb881c4f3c338da8d5134c9d12",
+      "kind": "current_base",
+      "relative": "docs/progress-report.md",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/4-progress-report.md"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/progress-report.md",
+      "bytes": 68171,
+      "sha256": "9ed6800782630db4ccaa48111bee1e13c43ef50e1828f653eb2073927f7c67fc",
+      "kind": "candidate",
+      "relative": "docs/progress-report.md",
+      "original": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/progress-report.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/5-progress-report.md"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/reproduce-frozen-comparison.md",
+      "bytes": 12159,
+      "sha256": "9203c02aa502b2d1b1ca7b2fa2bec8ba692bf6cfb5c208738a83249d54dd193e",
+      "kind": "current_base",
+      "relative": "docs/experiments/reproduce-frozen-comparison.md",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/reproduce-frozen-comparison.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/6-reproduce-frozen-comparison.md"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/experiments/reproduce-frozen-comparison.md",
+      "bytes": 15076,
+      "sha256": "0a765a495a9f80b70242f8eba283363dabda443d0def44cea0afdc1038d169f5",
+      "kind": "candidate",
+      "relative": "docs/experiments/reproduce-frozen-comparison.md",
+      "original": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/experiments/reproduce-frozen-comparison.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/7-reproduce-frozen-comparison.md"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "bytes": 41019,
+      "sha256": "f6532cb5b9141bc41ef0c753f50aa15eaa9872d83fbf1f9a8edfcc491725119b",
+      "kind": "current_base",
+      "relative": "docs/experimental-report.md",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/8-experimental-report.md"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/experimental-report.md",
+      "bytes": 46051,
+      "sha256": "7e25edf72fca2805d808175e9e3beabaaf30ec0bd74d475a2af3402f8cd63e07",
+      "kind": "candidate",
+      "relative": "docs/experimental-report.md",
+      "original": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/experimental-report.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/9-experimental-report.md"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "bytes": 182357,
+      "sha256": "c67194dd07bcdb6d296fcef3909ec67e3f7c528193b6d3409654ba66282746cf",
+      "kind": "current_base",
+      "relative": "docs/backlog.md",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/10-backlog.md"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/backlog.md",
+      "bytes": 182743,
+      "sha256": "d7131b4d8d98c46cb7b105f9c77e9d35d7b25fffd003b10c8ffc4dd276584621",
+      "kind": "candidate",
+      "relative": "docs/backlog.md",
+      "original": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/backlog.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/11-backlog.md"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/public018-complete-output-acceptance.md",
+      "bytes": 4018,
+      "sha256": "16669dda3c3c58cc8969cb01ac3f30c545f452456aff501539fc8b68e6cda2d6",
+      "kind": "evidence",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/public018-complete-output-acceptance.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/12-public018-complete-output-acceptance.md"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/public018-complete-output-acceptance.json",
+      "bytes": 2651,
+      "sha256": "73736fbbf3ae7e8019530baa741adb9844dddda3a2e2da1353d86529539e927e",
+      "kind": "evidence",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/public018-complete-output-acceptance.json",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/13-public018-complete-output-acceptance.json"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/public018-complete-output-acceptance/originals/tlab-root-public018-complete-output-acceptance-v1.json",
+      "bytes": 5380,
+      "sha256": "6dfe06d94140e5231574cd76718a61df2b0fd16dfc3e74a0698544a4948d7db6",
+      "kind": "evidence",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/public018-complete-output-acceptance/originals/tlab-root-public018-complete-output-acceptance-v1.json",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/14-tlab-root-public018-complete-output-acceptance-v1.json"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/extra0-reproduce_frozen_comparison.py",
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "bytes": 40847,
+      "kind": "CLI_source_context"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/reproduction/frozen-bw-oct2019.json",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/extra1-frozen-bw-oct2019.json",
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+      "bytes": 19412,
+      "kind": "CLI_source_context"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_replay_ranking_claim.py",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/extra2-test_replay_ranking_claim.py",
+      "sha256": "7295a175a4300e58fb07f4cbbaeb231cda00a2099142465b2efcbf98bb01d8ae",
+      "bytes": 14392,
+      "kind": "CLI_source_context"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_reproduce_frozen_comparison.py",
+      "copy": "/tmp/tlab-complete018-docs-independent-review-v3-inputs/extra3-test_reproduce_frozen_comparison.py",
+      "sha256": "f75fc3ba807c3e6345de9fc776f58e27f5ab4a351546b8488f28659256f86f3d",
+      "bytes": 33917,
+      "kind": "CLI_source_context"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/freeze.json",
+      "sha256": "503a2f9e357412a6873368361b871a0f386b21c78896686e39768882c816c739",
+      "bytes": 7463,
+      "original": "/tmp/tlab-complete018-docs-proposal-v4/freeze.json",
+      "copy": "/tmp/tlab-complete018-docs-independent-rereview-v4-inputs/0-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/docs-v4.diff",
+      "sha256": "702154170661eac4c2de379e9f7fde355d3ea1a9def8b6b8cafb73d8e3a7016b",
+      "bytes": 45471,
+      "original": "/tmp/tlab-complete018-docs-proposal-v4/docs-v4.diff",
+      "copy": "/tmp/tlab-complete018-docs-independent-rereview-v4-inputs/1-docs-v4.diff"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/v3-v4-narrow.diff",
+      "sha256": "e34e60701e452034e8057a2eb034c2b8cac6ef7c61936deef5a759bc9502466c",
+      "bytes": 15228,
+      "original": "/tmp/tlab-complete018-docs-proposal-v4/v3-v4-narrow.diff",
+      "copy": "/tmp/tlab-complete018-docs-independent-rereview-v4-inputs/2-v3-v4-narrow.diff"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/candidates/README.md",
+      "sha256": "e3b18535860418833b839bbcc8fa69a9cb888ad65c48ceb7ac91a97329018d1b",
+      "bytes": 18973,
+      "relative": "README.md",
+      "original": "/tmp/tlab-complete018-docs-proposal-v4/candidates/README.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-rereview-v4-inputs/3-README.md"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/progress-report.md",
+      "sha256": "6be2fd531718dad2e20d4a53d3fc8d7c9ed43c4c077204a0a82e79f752a96aa9",
+      "bytes": 68478,
+      "relative": "docs/progress-report.md",
+      "original": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/progress-report.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-rereview-v4-inputs/4-progress-report.md"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/experiments/reproduce-frozen-comparison.md",
+      "sha256": "d583c37a39b743e41fb8bd528315e8a6102182d4641fe65a5225103542b1c8e7",
+      "bytes": 15308,
+      "relative": "docs/experiments/reproduce-frozen-comparison.md",
+      "original": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/experiments/reproduce-frozen-comparison.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-rereview-v4-inputs/5-reproduce-frozen-comparison.md"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "bytes": 46054,
+      "relative": "docs/experimental-report.md",
+      "original": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/experimental-report.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-rereview-v4-inputs/6-experimental-report.md"
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/backlog.md",
+      "sha256": "d7131b4d8d98c46cb7b105f9c77e9d35d7b25fffd003b10c8ffc4dd276584621",
+      "bytes": 182743,
+      "relative": "docs/backlog.md",
+      "original": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/backlog.md",
+      "copy": "/tmp/tlab-complete018-docs-independent-rereview-v4-inputs/7-backlog.md"
+    }
+  ],
+  "terminal_checks": [
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/freeze.json",
+      "bytes": 4075,
+      "sha256": "732e014ad6d21de4399c1153296cfd419fd377dd8743c728689cc042ec53f908",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/docs-v3.diff",
+      "bytes": 37100,
+      "sha256": "a9eede030107563d5f7d426a7fb378101007bc88ce22404e0fde75a51e7e59e5",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "bytes": 18973,
+      "sha256": "e3b18535860418833b839bbcc8fa69a9cb888ad65c48ceb7ac91a97329018d1b",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/candidates/README.md",
+      "bytes": 18973,
+      "sha256": "e3b18535860418833b839bbcc8fa69a9cb888ad65c48ceb7ac91a97329018d1b",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "bytes": 67688,
+      "sha256": "f4434d1399e4d1b6f5f661fef6d5d33bca555edb881c4f3c338da8d5134c9d12",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/progress-report.md",
+      "bytes": 68171,
+      "sha256": "9ed6800782630db4ccaa48111bee1e13c43ef50e1828f653eb2073927f7c67fc",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/reproduce-frozen-comparison.md",
+      "bytes": 12159,
+      "sha256": "9203c02aa502b2d1b1ca7b2fa2bec8ba692bf6cfb5c208738a83249d54dd193e",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/experiments/reproduce-frozen-comparison.md",
+      "bytes": 15076,
+      "sha256": "0a765a495a9f80b70242f8eba283363dabda443d0def44cea0afdc1038d169f5",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "bytes": 41019,
+      "sha256": "f6532cb5b9141bc41ef0c753f50aa15eaa9872d83fbf1f9a8edfcc491725119b",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/experimental-report.md",
+      "bytes": 46051,
+      "sha256": "7e25edf72fca2805d808175e9e3beabaaf30ec0bd74d475a2af3402f8cd63e07",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "bytes": 182357,
+      "sha256": "c67194dd07bcdb6d296fcef3909ec67e3f7c528193b6d3409654ba66282746cf",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v3/candidates/docs/backlog.md",
+      "bytes": 182743,
+      "sha256": "d7131b4d8d98c46cb7b105f9c77e9d35d7b25fffd003b10c8ffc4dd276584621",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/public018-complete-output-acceptance.md",
+      "bytes": 4018,
+      "sha256": "16669dda3c3c58cc8969cb01ac3f30c545f452456aff501539fc8b68e6cda2d6",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/public018-complete-output-acceptance.json",
+      "bytes": 2651,
+      "sha256": "73736fbbf3ae7e8019530baa741adb9844dddda3a2e2da1353d86529539e927e",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/public018-complete-output-acceptance/originals/tlab-root-public018-complete-output-acceptance-v1.json",
+      "bytes": 5380,
+      "sha256": "6dfe06d94140e5231574cd76718a61df2b0fd16dfc3e74a0698544a4948d7db6",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py",
+      "bytes": 40847,
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/reproduction/frozen-bw-oct2019.json",
+      "bytes": 19412,
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_replay_ranking_claim.py",
+      "bytes": 14392,
+      "sha256": "7295a175a4300e58fb07f4cbbaeb231cda00a2099142465b2efcbf98bb01d8ae",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_reproduce_frozen_comparison.py",
+      "bytes": 33917,
+      "sha256": "f75fc3ba807c3e6345de9fc776f58e27f5ab4a351546b8488f28659256f86f3d",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/freeze.json",
+      "bytes": 7463,
+      "sha256": "503a2f9e357412a6873368361b871a0f386b21c78896686e39768882c816c739",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/docs-v4.diff",
+      "bytes": 45471,
+      "sha256": "702154170661eac4c2de379e9f7fde355d3ea1a9def8b6b8cafb73d8e3a7016b",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/v3-v4-narrow.diff",
+      "bytes": 15228,
+      "sha256": "e34e60701e452034e8057a2eb034c2b8cac6ef7c61936deef5a759bc9502466c",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/candidates/README.md",
+      "bytes": 18973,
+      "sha256": "e3b18535860418833b839bbcc8fa69a9cb888ad65c48ceb7ac91a97329018d1b",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/progress-report.md",
+      "bytes": 68478,
+      "sha256": "6be2fd531718dad2e20d4a53d3fc8d7c9ed43c4c077204a0a82e79f752a96aa9",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/experiments/reproduce-frozen-comparison.md",
+      "bytes": 15308,
+      "sha256": "d583c37a39b743e41fb8bd528315e8a6102182d4641fe65a5225103542b1c8e7",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/experimental-report.md",
+      "bytes": 46054,
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "unchanged": true,
+      "copy_unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-complete018-docs-proposal-v4/candidates/docs/backlog.md",
+      "bytes": 182743,
+      "sha256": "d7131b4d8d98c46cb7b105f9c77e9d35d7b25fffd003b10c8ffc4dd276584621",
+      "unchanged": true,
+      "copy_unchanged": true
+    }
+  ],
+  "all_27_inputs_fresh": true,
+  "V3_original_report": {
+    "path": "/tmp/tlab-complete018-docs-independent-review-v3.md",
+    "sha256": "8f0b7bdde96f91def8712f6d3df0cdf7912822942bef0d8d2a7907455fd0153c",
+    "unchanged": true
+  },
+  "forward_inverse_checks": [
+    {
+      "path": "README.md",
+      "literal_replacements": 0,
+      "forward_exact": true,
+      "inverse_exact": true,
+      "unchanged_from_V3": true
+    },
+    {
+      "path": "docs/progress-report.md",
+      "literal_replacements": 4,
+      "forward_exact": true,
+      "inverse_exact": true,
+      "unchanged_from_V3": false
+    },
+    {
+      "path": "docs/experiments/reproduce-frozen-comparison.md",
+      "literal_replacements": 2,
+      "forward_exact": true,
+      "inverse_exact": true,
+      "unchanged_from_V3": false
+    },
+    {
+      "path": "docs/experimental-report.md",
+      "literal_replacements": 1,
+      "forward_exact": true,
+      "inverse_exact": true,
+      "unchanged_from_V3": false
+    },
+    {
+      "path": "docs/backlog.md",
+      "literal_replacements": 0,
+      "forward_exact": true,
+      "inverse_exact": true,
+      "unchanged_from_V3": true
+    }
+  ],
+  "narrow_diff_exact": true,
+  "full_base_diff_exact": true,
+  "forbidden_actions_executed": 0,
+  "runtime_grant_or_pipeline_reacceptance": false,
+  "new_tree_experiment_excluded": true,
+  "Root_adoption_before_install_still_required": true,
+  "report": {
+    "path": "/tmp/tlab-complete018-docs-independent-rereview-v4.md",
+    "sha256": "e2530fe365c1cdd8e43e0e83fe9b007e1aa450936b5ba6f135445b3d65047375",
+    "bytes": 1605,
+    "words": 205
+  },
+  "metadata_writer_cpu_seconds": 0.003026000000000001,
+  "metadata_writer_wall_seconds": 0.003027749999999999,
+  "accounting_limit": "metadata writer self only; no total external orchestration accounting"
+}

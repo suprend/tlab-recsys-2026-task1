@@ -1,0 +1,15 @@
+# Independent docs-only freshness review: complete018 V3
+
+Do not adopt V3 yet: two localized prose corrections remain. No candidate was changed.
+
+[P2] Update the current reproducibility paragraph before the history boundary. Candidate /tmp/tlab-complete018-docs-proposal-v3/candidates/docs/progress-report.md:100 says full fresh collection reconstruction is not yet performed, and line102 says the unchanged heldout contrast and practical pipeline reproduction remain to be measured. These sentences are under the current reproducibility section, before History at line105. They contradict its updated14/19 summary and accepted015/018 evidence. Update only those stale current claims, or explicitly identify that paragraph as a historical pre-completion state; retain its limitations and original failures. This lead was independently found before Root's matching handoff.
+
+[P2] Keep reporting-only25 distinct from final26-31. New public instruction line11 calls the unopened dates Final25-31; new experimental-report appendix line173 repeats final25-31. The same report's lines110/116/117 define25 as reporting-only and26-31 as frozen final. Use reserved dates25-31 or reporting25 plus final26-31. The absence of reopening is supported; the period label is inaccurate. This Root lead is confirmed from the frozen text.
+
+Resource-boundary clarification (nonblocking): public instruction line55 already restricts Budget delta to CPU/wall and separately calls RSS a process peak. Explicitly say process-lifetime ru_maxrss including startup, to prevent readers extending the CPU/wall boundary to RSS. Frozen source lines226/232-238 subtract CPU/wall starts but never reset RSS. I found no explicit false RSS-delta statement in current V3 and do not classify this as another blocking defect. Source remains unchanged.
+
+The other reviewed additions match published acceptance and original Root6dfe06…: scoped M3/macOS/newlockedenv/raw/15freshdays/twoNEW300-treefits, independent numeric verification and complete external lifetime,14/19 with014research and010-013deferred. Arithmetic matches: two times817149=1634298 scores;124.38+5.83=130.21 verifierCPU;13+2=15days. Body/V6 upper are not added to inclusive external; old failed/setup/canary/recovery costs remain separate. No exhaustive core18/42M-cell oracle, new quality/search/speed/Windows or universal peak-disk/RSS claim is introduced.
+
+Exact frozen diff reproduces all five base/candidate pairs, including unchanged README. CLI flags/recipe/resource floors match frozen public source; discovery targets exist and tests/__init__.py is absent. Local links on changed lines resolve to existing files; no link rendering or tests were executed.
+
+Nineteen bounded text/source/JSON inputs, including bases/candidates/evidence and four command-context sources, were captured and terminal checked. No unrelated historical backlog audit, web, helpers, agents, Git/project writes, runtime/native/SQL/data/model/109output reads or hashes, tests or grants. This review assesses documentary support only; it does not repeat empirical output acceptance.

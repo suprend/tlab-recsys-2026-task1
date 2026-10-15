@@ -1,8 +1,8 @@
 # Постоянная research-линия
 
-15 октября 2026. Primary-source rounds дополняют canonical backlog; rejected/duplicate идеи сохраняются, budgets не складываются. [Фактический TLAB-015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0;финальное review отчёта завершено;018 остаётся partial, новые optional идеи не становятся gates.
+15 октября2026. Primary-source rounds дополняют единственный canonical backlog. [TLAB015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0; [018 публичный повтор принят](../backlog-reviews/public018-complete-output-acceptance.md) в документированном Mac scope. Принято14 из19; optional идеи не становятся gates.
 
-Текущая навигация (18:01:09UTC): [heldout](../backlog-reviews/real015-heldout-results.md), [полный публичный повтор018 принят](../backlog-reviews/public018-complete-output-acceptance.md).14 из19,018done documentedMacscope;015/reportaccepted, appendixfreshnessreview pending.035criticcomplete/Rootreadbackpending,036обаFIRST/Root-onlycritic;next18:45UTC отscheduled18:00.
+Текущая навигация: [heldout](../backlog-reviews/real015-heldout-results.md), [complete018](../backlog-reviews/public018-complete-output-acceptance.md), [принятая docsV4](../backlog-reviews/complete018-docs-v4.md), [current queue](../backlog.md).035/036Rootaccepted, архивирование pending;037/038skeptics complete, Rootreadback pending. Следующий максимум19:30UTC от scheduled18:45; новая адаптивная ветвь отдельно prepared/unrun.
 
 [Wave034 приоритет существующей воспроизводимости](brainstorm-wave034-synthesis.md): нет новых ID/тестов/grants, не добавляет gates.
 [Wave032 approximate cosine/Jaccard](brainstorm-wave032-synthesis.md): exactsupport/degree/masks/expiry retained, no exactequality046 claim,0IDs/grants.
