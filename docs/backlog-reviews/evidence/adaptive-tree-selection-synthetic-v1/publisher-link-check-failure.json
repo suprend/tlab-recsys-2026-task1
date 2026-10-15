@@ -1,0 +1,11 @@
+{
+  "recorded_at_utc": "2026-10-15T18:47:21.249737+00:00",
+  "failed_tool_chunk": "d1aa2a",
+  "exit_code": 1,
+  "actual_error": "AssertionError: ('docs/research-lab/brainstorm-log.md', 'backlog-reviews/adaptive-tree-selection-preparation.md')",
+  "cause": "New derived log copied a progress-relative link without changing its base directory. Scoped source readback also found five prior derived V4 log-summary links using same wrong base.",
+  "repair": "Six navigation links only; archived originals and adopted V4 candidate report/DOC/code remain byte-identical.",
+  "original_checker_outcome": "FAILED; no second-batch commit/push followed before repair",
+  "same_error_not_native_or_model_failure": true,
+  "publisher_runtime_or_tests": 0
+}

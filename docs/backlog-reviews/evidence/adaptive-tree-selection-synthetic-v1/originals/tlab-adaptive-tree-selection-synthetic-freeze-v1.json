@@ -1,0 +1,51 @@
+{
+  "author_validation": "AST parse+compile PASS; compiled code NOT executed",
+  "command_argv": [
+    "/usr/bin/time",
+    "-p",
+    "/tmp/tlab-public018-clean-20261015-once/.venv-locked/bin/python",
+    "-I",
+    "-B",
+    "/tmp/tlab-adaptive-tree-selection-synthetic-v1.py",
+    "--result",
+    "/tmp/tlab-adaptive-tree-selection-synthetic-result-v1.json"
+  ],
+  "cwd": "/tmp",
+  "guard_limits": "Python audit forbids process/network/CatBoost imports and data/artifact file opens. Does not intercept arbitrary native C++ file I/O; exact reviewed source never connects DB or calls native ML. Root must retain full exit/failure and no automatic rerun.",
+  "native_imports_by_author": 0,
+  "producer": {
+    "bytes": 18474,
+    "path": "/tmp/tlab-adaptive-tree-selection-study-v1.py",
+    "sha256": "a7c2a630dc289b50d279553a5079fb92484ce562fbb721f5858e716a9295e261"
+  },
+  "proposed_limits": {
+    "cpu_seconds_inclusive": 10,
+    "inner_RSS_check": "cooperative processpeak512MiB; externalRoot lifetime acceptance required",
+    "inner_absolute_self_cpu_fence": 9,
+    "inner_wall_alarm_from_main": 18,
+    "own_scratch_bytes": 16777216,
+    "rss_bytes": 536870912,
+    "wall_seconds_inclusive": 20
+  },
+  "request": {
+    "bytes": 10102,
+    "path": "/tmp/tlab-adaptive-tree-selection-request-proposal-v1.json",
+    "sha256": "afd032d1f877da5cd5671f00775245b55c1eaaccb9e357576fe32ad644b6bcb7"
+  },
+  "runtime_authorized": false,
+  "scope": "One existingselector/positiveprojection finite fixture; actualexisting13 SourceBinding cores and locked NumPy/DuckDB/pandas imports, no DB connection or actualML; fakeModel only. Exact invented4Q/6C/3positivefullY. Four assertion clusters in onemain, invalid-stage subcases. No extra newframework/test mode. Existing producer/request unchanged.",
+  "test": {
+    "bytes": 7973,
+    "path": "/tmp/tlab-adaptive-tree-selection-synthetic-v1.py",
+    "sha256": "891b224c99820683b5293025060e9fe392701fda7a10379b4f48fd55c06b4313"
+  },
+  "test_coverage": [
+    "HandcomputedDCG/IDCGfullYdenominator andpositivequerydenominator3 withoffC/emptyC; parityfullcohort and wrongsubsetnegativecontrol",
+    "Smallerintegeritem breaks tiedscores; globaltiechain requires tree2",
+    "Missing/excess/nonfinite stages and no-positivefullY reject",
+    "AllpositivequeriesemptyC yieldexactzeros andfirsttree withno fake/nativeapply"
+  ],
+  "test_executions": 0,
+  "test_lines": 138,
+  "version": 1
+}

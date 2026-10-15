@@ -1,0 +1,57 @@
+{
+  "observed_at_utc": "2026-10-15T18:45:45.859159+00:00",
+  "status": "TMP prepared; one synthetic test Root accepted; wholeCODE reviews pending; actual adaptive runtime ungranted",
+  "user_requirement": "Choose per-model best validation tree rather than use fixed count as new default",
+  "scope": "post-final exploratory development; train8-20/selection22-23 only",
+  "models": 2,
+  "maximum_trees_per_fit": 1200,
+  "per_model_choice": "best observed prefix1..1200 by exact conditional query-macro fullY NDCG@20, global tolerance-band earliest tie; shrink selectedmodel",
+  "maximum_dependent_validation_checks": 2400,
+  "old_six_prefix_plan": "superseded before execution; unrun; preparation not asserted zero-cost",
+  "not_plus_six": true,
+  "positive_validation_queries": 73,
+  "all_selected_predictions_verify_queries": 4000,
+  "original015_11scientificfits_19looks_unchanged": true,
+  "018_frozen300_reproduction_contract_unchanged": true,
+  "actual_adaptive_real_fits_predicts_Y": 0,
+  "Root_synthetic_acceptance_sha256": "06f5adc2a1911d85831ac4079e733f5224b161581b39a6ea27bc2cce52782d8e",
+  "synthetic_counts": {
+    "inventedQ": 4,
+    "inventedC": 6,
+    "positiveQ_including_offC_and_emptyC": 3,
+    "assertion_clusters": 4,
+    "real_CatBoost_fit_predict": 0
+  },
+  "synthetic_external_display": {
+    "cpu_sum": 0.74,
+    "sys": 0.09,
+    "user": 0.65,
+    "wall": 0.98
+  },
+  "synthetic_external_upper": {
+    "cpu": 0.76,
+    "wall": 1.0
+  },
+  "synthetic_body": {
+    "accounting": "Process peak and main body only; Root external timer closes startup/exit",
+    "actual_ML_operations": 0,
+    "checks": [
+      "Hand-computed fullY IDCG, all3positive denominator, empty/offC and integer tie; full cohort parity",
+      "Global maximum tie band defeats chained-incumbent tolerance",
+      "Reject missing/excess/nonfinite stages and undefined positive cohort",
+      "All positive emptyC: exactzero curve and earliest tree without native empty call"
+    ],
+    "child_creation_attempts_forbidden": true,
+    "cpu_body": 0.6972550000000001,
+    "databases_opened": 0,
+    "driver_sha256": "a7c2a630dc289b50d279553a5079fb92484ce562fbb721f5858e716a9295e261",
+    "error": null,
+    "passed": true,
+    "peak_rss_bytes": 109756416,
+    "wall_body": 0.9267605830100365
+  },
+  "Root_only_future_runtime_decision": true,
+  "no25_31_reopen_or_independent_quality_claim": true,
+  "new_canonical_backlog_file": false,
+  "next_due_utc": "2026-10-15T19:30:00Z"
+}

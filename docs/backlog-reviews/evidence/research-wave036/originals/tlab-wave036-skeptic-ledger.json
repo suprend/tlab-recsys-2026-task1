@@ -1,0 +1,200 @@
+{
+  "wave": 36,
+  "role": "distinct-skeptic-models-a",
+  "report_words": 385,
+  "new_ids": [],
+  "novel_mechanisms": 0,
+  "inputfreeze": {
+    "path": "/tmp/tlab-wave036-skeptic-inputfreeze.json",
+    "sha256": "ca642162fcbc48b6bf00ecf3ff444af201c58372db717fc89f83364f3c45c875",
+    "snapshot_count": 6,
+    "snapshot_bytes": 22261
+  },
+  "FIRST_matching": [
+    {
+      "path": "/tmp/tlab-brainstorm-wsl-contract-features-a-wave036-FIRST.json",
+      "report_ledger_matching": "PASS"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-wsl-qualification-features-b-wave036-first-freeze.json",
+      "report_ledger_matching": "PASS"
+    }
+  ],
+  "initial_guards": "6/6 PASS before analysis",
+  "final_guards": [
+    {
+      "path": "/tmp/tlab-brainstorm-wsl-contract-features-a-wave036.md",
+      "sha256": "b348167ed195ef2c79cff5d24d0d3b9127321b9e963851df717d8a65becbf25e",
+      "final_original_and_snapshot_guard": "PASS"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-wsl-contract-features-a-wave036-ledger.json",
+      "sha256": "f533b1c367d3e1618ab43a677c7ae76b55692264b37e16cb5dc12e0520680b5c",
+      "final_original_and_snapshot_guard": "PASS"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-wsl-contract-features-a-wave036-FIRST.json",
+      "sha256": "b37e683cddaf6e2c16287fe6d03c2dc18871f7e9c1a2bcff8dc384efb275a45b",
+      "final_original_and_snapshot_guard": "PASS"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-wsl-qualification-features-b-wave036.md",
+      "sha256": "6f96f9ea43253d390d36fce8ce0e49f2cebd4a0eaed30bd480f76a3607981c2d",
+      "final_original_and_snapshot_guard": "PASS"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-wsl-qualification-features-b-wave036-ledger.json",
+      "sha256": "cf34037491b1797c202da33bc7182647833161b3bcd73d94b0afd89e2b516b72",
+      "final_original_and_snapshot_guard": "PASS"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-wsl-qualification-features-b-wave036-first-freeze.json",
+      "sha256": "a6a02e8af2531c63bf009246e6d6bf80537bef718275a9dc0f96008d4072b1d5",
+      "final_original_and_snapshot_guard": "PASS"
+    }
+  ],
+  "dispositions": {
+    "A": "refine: RSS lifetime claim must be corrected; metadata checks not storage/native proof",
+    "B": "refine: name 7 native-data-core+7 stdlib methods; FakeML is not CatBoost ABI/fullfit proof",
+    "shared": "merge existing018 portability and HYP046 accounting; no new IDs/gates",
+    "WSL_actual_execution": "defer: environment/setup/scratch/fullrun envelope unknown and ungranted"
+  },
+  "four_fields": {
+    "mechanism": "immutable scientific CPU recipe vs host qualification, existing-family refinement",
+    "prediction": "wrong versions/bytes/units reject cheaply; passing only narrows interface risk",
+    "nearest_UNRUN_experiment": "one optional A metadata check+B unchanged14-method suite packet on separately prepared WSL, max2 interpreter invocations",
+    "task1_benefit": "cheap failure localization and honest host-specific reproduction scope, no main prerequisite"
+  },
+  "strong_common_control": "independent manual expected recipe-byte/version/unit/fixture/rejection oracle-table; same complete committed fixture/output contract, not Mac throughput baseline",
+  "findings": [
+    {
+      "severity": "material",
+      "candidate": "A",
+      "issue": "RSS is process-lifetime high-water, not since Budget construction; only CPU/wall subtract starts",
+      "source": "scripts/reproduce_frozen_comparison.py:229 and Linux getrusage"
+    },
+    {
+      "severity": "scope",
+      "candidate": "B",
+      "issue": "FakeML integration does not load or prove native CatBoost ABI/fullfit capacity; only actually imported dependencies are covered",
+      "source": "tests/test_reproduce_frozen_comparison.py:15,313"
+    },
+    {
+      "severity": "scope",
+      "candidate": "both",
+      "issue": "tiny metadata/integration does not prove source-import permissions/fsync/physical storage, full source semantics, fresh training or crosshost model-byte equivalence"
+    },
+    {
+      "severity": "byte-contract",
+      "candidate": "A",
+      "issue": "pinned recipe/dependency CRLF mutation rejects by byte identity; absence of .gitattributes does not establish user checkout conversion"
+    },
+    {
+      "severity": "cost",
+      "candidate": "both",
+      "issue": "setup/acquisition and scratch/fullrun budget incomplete; proposed tiny ceilings are not execution grants"
+    },
+    {
+      "severity": "status",
+      "candidate": "both",
+      "issue": "pending recovery statements frozen historical; currentRoot acceptedcomplete01814of19 from parent-only metadata, no poll and no WSL extrapolation"
+    }
+  ],
+  "prospective_packet_only": {
+    "cpu_seconds": 35,
+    "wall_seconds": 60,
+    "peak_process_rss_bytes": 536870912,
+    "interpreter_invocations_max": 2,
+    "committed_test_methods": 14,
+    "lower_core_methods": 7,
+    "stdlib_binding_failure_methods": 7,
+    "native_CatBoost_fit_predict": 0,
+    "raw_source_rows": 0,
+    "scratch_ceiling": "UNSPECIFIED authors; defer execution until separately bounded",
+    "setup_acquisition_cost": "unknown/ungranted",
+    "full_WSL_run_cost": "unknown/ungranted",
+    "complete_runtime_allowance": false,
+    "includes": [
+      "check/oracle preparation",
+      "authentication",
+      "fixture construction",
+      "metadata and complete suite",
+      "failures",
+      "cleanup",
+      "startup",
+      "full exit tail"
+    ],
+    "no_retry": true
+  },
+  "negative_disposition": {
+    "false_acceptance_or_semantics_mismatch": "reject adaptation/refine before any scope claim",
+    "cap_exhaustion": "inconclusive; no retry or new allowance",
+    "narrow_pass": "metadata and committed tiny-case qualification only; full WSL defer"
+  },
+  "primary_sources": [
+    {
+      "url": "https://man7.org/linux/man-pages/man2/getrusage.2.html",
+      "verified": "LinuxSELF allthreads; ru_maxrssKiB largestchild not tree; no RSS reset performed by Budget; POSIX does not specify all fields",
+      "distinct_page": 1
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/windows/wsl/wsl-config",
+      "verified": "WSL2 VM global scope,50%hostRAM default, swap and DrvFs permission metadata settings, Windows PATH interop; no actual user environment inspected",
+      "distinct_page": 2
+    }
+  ],
+  "public_read_pins": [
+    {
+      "path": "scripts/reproduce_frozen_comparison.py",
+      "bytes": 40847,
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "scope": "bounded public source/doc read; not large executable or runtime closure authentication"
+    },
+    {
+      "path": "tests/test_reproduce_frozen_comparison.py",
+      "bytes": 33917,
+      "sha256": "f75fc3ba807c3e6345de9fc776f58e27f5ab4a351546b8488f28659256f86f3d",
+      "scope": "bounded public source/doc read; not large executable or runtime closure authentication"
+    },
+    {
+      "path": "configs/reproduction/frozen-bw-oct2019.json",
+      "bytes": 19412,
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+      "scope": "bounded public source/doc read; not large executable or runtime closure authentication"
+    },
+    {
+      "path": "docs/experiments/reproduce-frozen-comparison.md",
+      "bytes": 12159,
+      "sha256": "9203c02aa502b2d1b1ca7b2fa2bec8ba692bf6cfb5c208738a83249d54dd193e",
+      "scope": "bounded public source/doc read; not large executable or runtime closure authentication"
+    },
+    {
+      "path": "docs/research-lab/round-041.md",
+      "bytes": 11177,
+      "sha256": "0c69a5a419346e76d59854b6020e9bd381cc6cb3a3b2ab2a3f0471345247e801",
+      "scope": "bounded public source/doc read; not large executable or runtime closure authentication"
+    }
+  ],
+  "root_gitattributes_exists": false,
+  "gitattributes_scope": "read-only repository file inventory; no Git settings queried",
+  "parent_current_metadata_only": "79330/50587 CLOSED0, Root accepted complete01814of19; no actual runtime outputs read or polled; original015CI crossing0 unchanged",
+  "actual_actions": {
+    "source_reads": true,
+    "stdlib_SHA_JSON_artifact_checks": true,
+    "experiments": 0,
+    "fixtures_run": 0,
+    "WSL_PC_access": 0,
+    "install_download": 0,
+    "native_imports": 0,
+    "data_DB_Y_model_reads": 0,
+    "fit_predict": 0,
+    "runtime_probes_process_inspection_polls": 0,
+    "helpers_agents": 0,
+    "project_Git_writes": 0,
+    "patches": 0,
+    "runtime_grants": 0,
+    "new_mandatory_gates": 0
+  },
+  "report_path": "/tmp/tlab-wave036-skeptic-review.md",
+  "report_sha256": "dd31bd57d32cdfa2f476c12c94c9a1bcc0a97d253072520e2f9ae0c15eab2dba"
+}

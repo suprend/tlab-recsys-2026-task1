@@ -1,0 +1,17 @@
+# Wave036 — отдельный skeptic
+
+Все6 SHA совпали; полные snapshots сохранены до анализа, оба FIRST связывают именно свои report/ledger. **A: refine; B: refine; объединить в существующую018 portability ветвь/HYP046 accounting,0 новых IDs. Реальный WSL execution — defer.** Root сообщил принятую complete018/14of19; старое «recovery pending» в FIRST — исторический контекст, не текущий статус и не WSL evidence.
+
+**Mechanism.** Разделение immutable CPU recipe и host qualification корректно: Python3.12, pinned distributions/source bytes, CPU/2threads/300iterations, те же Q/C/fullY, B41/W44, weights и complete sink. GPU переключает рецепт. В текущем дереве `.gitattributes` отсутствует; CRLF-перезапись именно pinned recipe/dependencies нарушит byte hash до archive import, хотя output уже может быть consumed. Это риск, не доказательство настройки Windows checkout. Metadata-only проверка не проверяет реальные permissions/fsync/space и source-import storage lifecycle.
+
+**Существенное исправление A.** `Budget.telemetry` вычитает начальное CPU/wall, но `ru_maxrss` не сбрасывает: RSS — process-lifetime high-water, включая startup, до последнего sample. Linux KiB×1024 верно; SELF включает потоки, не children/guest/host. Слова «since Budget construction» нельзя распространять на RSS. [Linux man-pages](https://man7.org/linux/man-pages/man2/getrusage.2.html).
+
+WSL2 memory default50% host относится к общей VM; swap/DrvFs metadata настраиваются отдельно и не дают process fence либо доступность32GB. [Microsoft configuration](https://learn.microsoft.com/en-us/windows/wsl/wsl-config).40GiB — disk floor, не peak; sampled Mac RSS и внутренний high-water также разные наблюдения.
+
+**Prediction.** A может отвергнуть неправильные versions/bytes/units до native/data работы. B tiny tests подтверждают только реально импортированные зависимости и синтетические случаи:7 lower-core methods используют DuckDB/numpy и FakeML, ещё7 — binding/failure regressions. Это не CatBoost ABI-load, полный import, real-size state или capacity proof; fixture protocol отличается от production population. Exact tiny features также не доказывают fresh-training/model-byte equivalence.
+
+**Nearest experiment / общий strong control, UNRUN.** Один optional packet в отдельно подготовленном WSL: A metadata check плюс неизменённый committed14-method suite; максимум2 interpreter invocations. Независимая вручную выписанная oracle-table задаёт recipe bytes/versions, Linux units, expected keys/NULLs и rejection outcomes; тот же fixture/output contract служит контролем, Mac timing не baseline. CRLF copy, wrong interpreter/version и1024× ошибка обязаны отвергаться; первый false acceptance требует исправления, не расширения scope.
+
+Полный prospective combined ceiling35CPU/60wall секунд/512MiB RSS включает check preparation, authentication, fixtures, обе проверки, failures/cleanup и exit tail. Scratch ceiling авторами не задан; setup/install/acquisition и будущий полный rerun остаются unknown/ungranted, поэтому полного execution allowance нет. Cap exhaustion — inconclusive, mismatch — reject adaptation; pass — только narrow qualification.
+
+**Task1 benefit.** Дешёвая локализация portability failure без нового018gate. Host/fullfit feasibility остаётся deferred; никаких speed/quality/GPU/human-hours выводов или текущих patches/grants. Здесь выполнены только source reads и SHA/JSON guards; originalbytes сохранены.

@@ -1,0 +1,9 @@
+# Подготовка адаптивного числа деревьев
+
+Пользователь уточнил требование: каждое новое обучение должно выбирать число деревьев по validation, а не использовать фиксированное300 как будущий default. Existing019 extension готовит общую функцию fit+choose-best и независимый verifier; wholeCODE review ещё идёт. Реальные адаптивные fits/predictions не запускались и не разрешены.
+
+Новый план: две B/W модели обучаются до compute ceiling1200; каждая отдельно выбирает лучший observed prefix1…1200 по conditional query-macro fullY NDCG@20 и сохраняется после shrink. Это до2400 зависимых validation checks, а не независимые подтверждения. Глобальная tolerance band выбирает самое раннее дерево среди близких к global maximum; native early stopping не заявлен. Предложенная оптимизация считает stage curves на73 fullY-positive queries, включая off-C/empty-C; полные выбранные scores/ranks затем проверяются на всех4000 selectionQ.
+
+Старый план300/600/1200 с шестью looks superseded до исполнения; его подготовка не объявляется бесплатной. Публичная команда018 продолжает точно воспроизводить исторический300-tree study. Принятые015 final и11 scientific fits/19 looks не переписываются; новый выбор — post-final exploratory development train8–20/selection22–23, без25–31/final retuning или нового independent quality claim.
+
+Root отдельно принял один invented4Q/6C/FakeModel synthetic test с13publiccores: fullY IDCG/3positive denominator, off-C/empty-C, product tie, global tree tie, malformed stages, no-positive и all-positive-empty-C. Четыре assertion clusters PASS, terminal59cc9dEXIT0; external0.98wall/0.74CPU, upper1.00/0.76, bodyRSS109,756,416B.0CatBoost/DB/realdata/models/nativefit/predict. Этот PASS не подтверждает реальный1200fit или budget readiness. [Точные пять originals](evidence/adaptive-tree-selection-synthetic-v1/publication.json), [state](adaptive-tree-selection-preparation.json).
