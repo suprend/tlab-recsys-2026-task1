@@ -1,0 +1,106 @@
+{
+  "wave": "027",
+  "author": "models_b",
+  "status": "FIRST_FROZEN_WITH_APPEND_ONLY_AUTHOR_WORDING_CORRECTION",
+  "first_freeze_utc": "2026-10-15T14:39:26.758008+00:00",
+  "report": {
+    "path": "/tmp/tlab-brainstorm-numeric-portability-models-b-wave027.md",
+    "sha256": "8877a1380499625201eb8a0bc129a6e42b2749719d09baac7403f92a675c9865",
+    "bytes": 3644,
+    "words": 436
+  },
+  "peer027_read_before_first": false,
+  "new_hyp_ids": [],
+  "new_canonical_hyp_count": 0,
+  "new_mechanism_count": 0,
+  "disposition": "no-new-idea; one existing018/round051 numeric-versus-ranking replay clarification",
+  "four_fields": {
+    "mechanism": "Preserve same-input typed/keyed contract; distinguish declared native-score numerical agreement from exact ordered topK replay; separate model/environment identity",
+    "prediction": "Pairwise margin > sum per-item errors sufficient for strict order; cutoff margin only protects membership",
+    "nearest_experiment": "UNRUN <=12 invented score records, existing four counterexample categories vs direct ordered-ID control; no new test needed now",
+    "task1_benefit": "Scope-correct portable reproduction evidence without changing frozen policy or claiming statistical equivalence"
+  },
+  "dedup": [
+    "TLAB018",
+    "round051 numeric error/ranking replay",
+    "round067 saved-model/retraining modes",
+    "round016/025 physical/model encoding distinctions",
+    "own modelsB wave015 near-tie portability falsifier"
+  ],
+  "strong_simple_control": "Exact ordered topK IDs on complete same keyedC with unchanged raw-desc/exact-product-ID tie policy; no scalar-only or aggregate-only strawman",
+  "hypothetical_falsifier": {
+    "scores_A": [
+      "1",
+      "1+2^-40"
+    ],
+    "scores_B": [
+      "1+2^-40",
+      "1"
+    ],
+    "per_item_error": "2^-40 < 1e-12",
+    "ranking": "reversed",
+    "executed": false
+  },
+  "uncertainty_boundaries": [
+    "score closeness is not ranking identity",
+    "topK membership is not ordered prefix",
+    "score/rank match is not source semantic proof",
+    "same-input replay is not cross-dataset score identity",
+    "same mathematical package metrics is not sampling/selection uncertainty reduction",
+    "sample-calibration error does not certify unseen rows",
+    "same seed does not certify cross-backend byte identity; GPU docs do not prove CPU instability"
+  ],
+  "primary_sources": [
+    {
+      "url": "https://numpy.org/doc/stable/reference/generated/numpy.isclose.html",
+      "observed_version": "2.5 served manual",
+      "facts": "abs+relative reference-asymmetric closeness, defaults not adopted"
+    },
+    {
+      "url": "https://catboost.ai/docs/en/concepts/faq",
+      "facts": "GPU floating-summation nondeterminism and CPU/GPU defaults differ; no CPU cross-OS instability conclusion"
+    }
+  ],
+  "primary_sources_cited": 2,
+  "sources_checked_date": "2026-10-15",
+  "future_UNRUN_cap": {
+    "score_records_max": 12,
+    "CPU_seconds": 15,
+    "wall_seconds": 30,
+    "RSS_MiB": 128,
+    "fits": 0,
+    "predictions": 0,
+    "granted": false
+  },
+  "real_replay_cost": "Unestimated and separately authorized: both environments/preparation/load/source/schema/native scoring/hashes/sorting/failures/full lifetimes, no free setup or changed native tolerance",
+  "current_final": "Opened, CI crossing0; no reevaluation/new independent-test claim",
+  "current_tie_and_tolerance_policy": "unchanged",
+  "main018_dependency": false,
+  "new_pilot_framework_gate_grant": false,
+  "actual_counts": {
+    "datasets": 0,
+    "models": 0,
+    "Y_reads": 0,
+    "native_jobs": 0,
+    "fits": 0,
+    "predictions": 0,
+    "experiments": 0,
+    "helpers": 0,
+    "new_agents": 0,
+    "downloads": 0,
+    "project_writes": 0,
+    "Git_writes": 0
+  },
+  "checkpoint_anchor": "Next15:00UTC anchored14:15 unchanged",
+  "original_FIRST_body": {
+    "sha256": "ecb6c1397e372234a8625ce44634b7ab96a7f6fb31588e0811a20a99e0e85edb",
+    "bytes": 3448,
+    "words": 410,
+    "frozen_at_utc": "2026-10-15T14:39:26.758008+00:00"
+  },
+  "author_append_only_correction": {
+    "at_utc": "2026-10-15T14:40:13.096391+00:00",
+    "reason": "Precise attribution: internal reorder appears in round051 discussion, not its fourth minimal fixture; no mechanism/test/status change",
+    "no_peer027_read": true
+  }
+}

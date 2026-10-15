@@ -187,3 +187,11 @@ Actualinventory: execution_scope_audit implementationRUNNING; source_harness_rev
 [Public018 design/resource review](backlog-reviews/public-reproduction018-design.md) Rootaccepted/4exactoriginals;21historical source/snapshot notduplicatedorrehashedcurrent. FullCODE/newruntime/fits remainpending separateRootdecision.
 
 Actual028Rootdispatch 2026-10-15T14:53:51.228680+00:00: independentModelsA+RetrievalA FIRST authors onfuturelossalignment, no peerreading/currentrecipechanges/actualexperiments.027Rootreadbackpending. Mainpublicrouteimplementationcontinues, actualnewfitsungranted; early14:49:34cadencerecord andmax15:00originalanchor unchanged.
+
+## 15:00 scheduled cadence duecheck actual 2026-10-15T14:58:42.723301+00:00; earlier14:49:34earlycheckpoint met this originaldeadline. Nextmax15:45UTC/18:45MSK anchored SCHEDULED15:00, notactualwrite; no idea/budget/goalreset.
+
+027Rootfullresearchreadback nowaccepted f9b23a28… onlyexistingrefinements0IDs/tasks/grants; archivepending exactoriginals.028independentauthorsstarted/A FIRSTreported/Bwriting, separateFeaturesB onlyafterbothactualSHA. Mainpubliccandidate firstBODY7syntheticmethodsPASS14inventedevents/max6Q64C/FakeCatBoost0actualML; originalBSDtime-louterFAILEDsysctlpermission retained. Root permitsONEtime-p wrappercorrection insideSAME60CPU120wall512MiBscope/no refill; noCODE/fullnewtrainingacceptance beforefreeze/independentreview. ActualrealnewfitsUNGRANTED,015/reportDONE/018partial13of19 unchanged.
+
+[027research-only archive](research-lab/brainstorm-wave027-synthesis.md) exact9originals, Boriginal/currentprefix separate.028bothFIRSTverified/distinctFeaturesBcriticactive, no currentLogloss/recipe change; mainpubliccode remainsunfrozen/CODEandnewfitsungranted. Next15:45UTC anchoredscheduled15:00, notactualpublicationdelay.
+
+028distinctFeaturesBcriticcompleted/Rootreadbackpending;447words0actualexperiments/grants, no currentrecipechanges. Schedulednextmax15:45UTC unchanged.

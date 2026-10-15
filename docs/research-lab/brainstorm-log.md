@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026, 14:53:51UTC.015/reportDONE/018partial; publicrouteauthorRUNNING/designreviewRootaccepted;027criticCOMPLETE/Rootreadbackpending;028RootactualindependentModelsA+RetrievalAFIRSTauthorsstarted. max15:00UTC anchored14:15.
+Обновлён15 октября2026, 15:03:57UTC.015/reportDONE/018partial;027Rootresearcharchived0IDs/grants;028bothFIRSTverified/distinctFeaturesBcriticCOMPLETE/Rootreadbackpending. Mainpubliccandidateunfrozen/CODE/newfitsungranted. next15:45UTC anchored15:00.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,7 +8,7 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 15:00 UTC / 18:00 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 15:45 UTC / 18:45 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
 ## Early15:00 checkpoint / exact current inventory — 2026-10-15T14:49:34.014907+00:00
 
@@ -615,6 +615,18 @@ Publicrouteowner/seamreview remainsTMP; Root allowed only<=32inventedevents/Fake
 
 [Rootaccepted Public018design/resource proof](../backlog-reviews/public-reproduction018-design.md) archived4originals, noCODE/runtimegrant/actualfits; onequeue/ownerroles/max15:00 remainunchanged.
 
+## Wave027 research-only archive /028 distinctcritic — 2026-10-15T15:03:57.016549+00:00
+
+[027Rootfullreadback/archive](brainstorm-wave027-synthesis.md) complete,9originals includingguardedBoriginal3448prefixecb6 vsCURRENT8877; no falseunchangedFIRSTclaim/noBASE64printing. Bothmechanisms mergeexistingfamilies,0IDs/tasks/grants/experiments. Semantics/nonzeroallowlist/NULLclocks andfinitegap/exactprefix/IDtie boundaries preserved.
+
+028bothCURRENT FIRST5SHAverified(Af68ecbdd/6464b1d8/f878ff53,B88fb813d/ee9c48e0), existingFeaturesB distinctskeptic activated ONLYafterboth/idlecheck; nohelpers/jobs/projectwrites/currentrecipechanges. MathematicalfullIDCG querymultiplier onlydeclaredlinearΔNDCG surrogate; native nonlinearquerynorm andcurrentLogloss distinct. Publiccandidateunfrozen, noinstall/reviewstale, correctedONEtime-p profile insideSAME60/120/512scope; newactualfitsungranted. Duecheck14:58:42before15:00/early14:49 retained, next15:45UTC strictlyfromscheduled15:00.
+
+## 15:00 scheduled cadence duecheck actual 2026-10-15T14:58:42.723301+00:00; earlier14:49:34earlycheckpoint met this originaldeadline. Nextmax15:45UTC/18:45MSK anchored SCHEDULED15:00, notactualwrite; no idea/budget/goalreset.
+
+Beforeoriginal15:00=True.027Rootresearchacceptedonly/8originals+Rootarchivepending; BoriginalFIRST3448ecb6 vsCURRENT8877 explicit.028A FIRSTreported f68ecbdd/6464b1d8/f878ff53, Bstillwriting; nopeerread beforefreeze/no skepticdispatch yet. Mandatorypubliccode priority: BODY7syntheticPASS14events/max6Q64C, outerBSDtime-lFAILEDsysctlaccessdenied; correctedONEtime-p SAME60/120/512scope/no refill, no fullCODE/nativeML/trainingacceptance. No activeold027authorsclaim; latestactual28authorsindependent.
+
 ## Actual wave028 independent author rotation — 2026-10-15T14:53:51.228680+00:00
 
 Root ACTUALLYdispatched ModelsA+RetrievalA FIRST authors: optionalfuturelossalignment fullYIDCG vsinCIDCG/queryreweighting; rotatefrom027pair, nopeer028beforefreeze. ExistingFeaturesB distinctskeptic permitted ONLYafterbothactualFIRST/SHA+idlecheck, notyetdispatched.027Rootfullreadbackpending/no admissionupgrade. No actualexperiments/currentB/W/018changes, no mainprerequisite/goalreset; Rootpublicrouteauthor continues, defaultfirstCLItrainselection2fits/actualnewfitsungranted.15:00originalanchor unchanged.
+
+028critic actualcompletion 2026-10-15T15:06:52.872430+00:00: FeaturesB447words/638ca07a…/fafadf27…/60189c94…, original5inputguardsunchanged. RootfullresearchreadbackPENDING; onlylinear-samesurrogateIDCGidentity retained, nativequerynorm/gradient-Hessianmass/regularization/top20numerator contracts distinct. No currentLogloss/PairLogit/015/018 change/admission; no activeauthorsclaimed by this completion. Next15:45UTC anchored15:00.

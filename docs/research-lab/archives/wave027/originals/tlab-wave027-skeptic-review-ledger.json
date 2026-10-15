@@ -1,0 +1,166 @@
+{
+  "wave": "027",
+  "role": "separate skeptic",
+  "reviewer": "/root/brainstorm_features_a",
+  "timestamp_utc": "2026-10-15T14:47:00.867977+00:00",
+  "report_words_whitespace": 486,
+  "inputfreeze": {
+    "path": "/tmp/tlab-wave027-skeptic-review-inputfreeze.json",
+    "sha256": "59cff04565dca4d6b0e79506d17bdb87034b342a8907b17492fa7a0e3277caab",
+    "contains_complete_input_bytes": true,
+    "before_analysis": true
+  },
+  "inputs_final": [
+    {
+      "path": "/tmp/tlab-brainstorm-semantic-portability-features-b-wave027.md",
+      "initial_current_sha256": "e8b7c6e3f4f3678b4e04836cea03694d263547c8be96d367cc5afc98dda096df",
+      "final_current_sha256": "e8b7c6e3f4f3678b4e04836cea03694d263547c8be96d367cc5afc98dda096df",
+      "current_bytes_unchanged_during_review": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-semantic-portability-features-b-wave027-ledger.json",
+      "initial_current_sha256": "7d7e722e482a056aa7e8bc5459c7cc2808da0ed47dd03b5efc55e736dd317cd5",
+      "final_current_sha256": "7d7e722e482a056aa7e8bc5459c7cc2808da0ed47dd03b5efc55e736dd317cd5",
+      "current_bytes_unchanged_during_review": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-numeric-portability-models-b-wave027.md",
+      "initial_current_sha256": "8877a1380499625201eb8a0bc129a6e42b2749719d09baac7403f92a675c9865",
+      "final_current_sha256": "8877a1380499625201eb8a0bc129a6e42b2749719d09baac7403f92a675c9865",
+      "current_bytes_unchanged_during_review": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-numeric-portability-models-b-wave027-ledger.json",
+      "initial_current_sha256": "582fec676b6ccfa440ae35ecc9a820856fd72f318effcbf8f975123789b1f157",
+      "final_current_sha256": "582fec676b6ccfa440ae35ecc9a820856fd72f318effcbf8f975123789b1f157",
+      "current_bytes_unchanged_during_review": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-semantic-portability-features-b-wave027-first-freeze.json",
+      "initial_current_sha256": "e86db971ae22a2c7cb343dc4f6a0fa636550cb8b3af6c7ba96ea6152153e4eb4",
+      "final_current_sha256": "e86db971ae22a2c7cb343dc4f6a0fa636550cb8b3af6c7ba96ea6152153e4eb4",
+      "current_bytes_unchanged_during_review": true
+    }
+  ],
+  "B_version_distinction": {
+    "original_FIRST_at_utc": "2026-10-15T14:39:26.758008+00:00",
+    "original_FIRST_prefix_bytes": 3448,
+    "original_FIRST_prefix_sha256": "ecb6c1397e372234a8625ce44634b7ab96a7f6fb31588e0811a20a99e0e85edb",
+    "verified_current_prefix_sha256": "ecb6c1397e372234a8625ce44634b7ab96a7f6fb31588e0811a20a99e0e85edb",
+    "prefix_matches": true,
+    "current_bytes": 3644,
+    "current_sha256": "8877a1380499625201eb8a0bc129a6e42b2749719d09baac7403f92a675c9865",
+    "current_equals_original_FIRST": false,
+    "append_at_utc": "2026-10-15T14:40:13.096391+00:00",
+    "append_scope": "Attribution correction: internal reorder occurs in round051 discussion, not fourth listed minimal fixture; fourth is fullY outsideC.",
+    "append_pre_peer_read": "Author/coordinator declaration, not independently observable chronology.",
+    "review_guard": "Current8877a138… report plus current582fec… ledger; all current initial/final bytes unchanged during review."
+  },
+  "new_ids": [],
+  "new_mechanisms": 0,
+  "new_admissions_grants_main_gates": false,
+  "reviews": [
+    {
+      "author": "FeaturesB A",
+      "disposition": "accepted as existing HYP002/046 research refinement; no execution admission",
+      "dedup": [
+        "round004",
+        "round040",
+        "round048",
+        "round068",
+        "existing transfer-adapter-conformance"
+      ],
+      "strong_control": "Independent canonical literal values/direct predicates and manual legal-program allowlist; shares no source normalizer/resolver. Rename-only common-mode invariance insufficient.",
+      "minimal_contract": [
+        "Exact nominal key bijections/inverse map; no float transport or ID collisions.",
+        "Exact time units/precision/UTC schedule and explicit event/availability assumption; unsupported schedule/channel rejects.",
+        "Raw bag duplicate counts change; DISTINCT/max recency invariance only when mathematically applicable.",
+        "NULL projected identity skipped only in DISTINCT; raw contribution retained for valid other grains; empty, unknown, unsupported and partial coverage kept distinct.",
+        "Complete supported keys/physical masks/supports/source coverage and source-context identity; global peers/future suffix checked only for old anchors with frozen context.",
+        "Metadata only under identical historical/current resolver; category-free whitelist does not establish fullB41."
+      ],
+      "cheapest_UNRUN_falsifier": "Use existing ≤20-row golden fixture and variants; false all-zero producer passes rename metamorphics but fails nonzero gold. Any false capability acceptance, key/value/mask mismatch, wrong duplicate/peer/clock/null closure rejects implementation.",
+      "limit": "Synthetic nonaligned anchor must be separately supported; no unsupported current schedule silently admitted. Current actual-source clocks/coverage cannot be inferred from docs."
+    },
+    {
+      "author": "ModelsB B CURRENT corrected",
+      "disposition": "accepted as existing018/round051/067 research clarification; no new test/pilot needed now",
+      "dedup": [
+        "round051",
+        "round067",
+        "TLAB018",
+        "own ModelsB wave015"
+      ],
+      "strong_control": "Direct exact ordered topK IDs with unchanged raw-score-desc/canonical-product-ID-asc policy over complete exact keyed C.",
+      "minimal_contract": [
+        "Exact Q/C keyset, same numeric feature order/encoding/NULL masks, model/environment identity, score type and scoring prefix before tolerance.",
+        "Margin proof applies to finite scores with verified bounds for every relevant item; pair gap exceeds sum of item bounds.",
+        "Absolute/relative tolerance reference and per-item bounds fixed; no epsilon tie band/default expansion/calibration-to-unseen guarantee.",
+        "Cutoff gap protects membership only, not internal rank; exact ties require canonical ID ordering.",
+        "Same ordered prefix only implies current mathematical metrics with exact same Q/fullY/relevance/aggregation; no source/CI/quality/model-byte claim."
+      ],
+      "cheapest_UNRUN_falsifier": "Existing stable-margin, near-tie reversal, large exact-ID tie, fullY-outsideC and internal-reorder witnesses against direct prefix control; no execution. Reject numerical-only ranking acceptance.",
+      "limit": "GPU documentation does not demonstrate CPU replay instability; no new backend claim or changed tolerance."
+    }
+  ],
+  "cross_scope_counterexample": {
+    "executed": false,
+    "literal": "Equal-score canonical IDs1,2, bijection1→20 and2→10. New ID ascending produces canonical2,1 after inverse mapping, despite unchanged primitive values.",
+    "implication": "Semantic primitive renaming and ranking tie-key identity are different contracts. A model-free scope is intact; future ranking comparison must retain canonical tie keys."
+  },
+  "sources_fresh_checked": [
+    {
+      "url": "https://docs.featuretools.com/en/stable/getting_started/handling_time.html",
+      "version": "1.31.0 docs",
+      "verified": "Known-at index definition; examples include_cutoff_timeTrue upper-inclusive/lower-exclusive versusFalse lower-inclusive/upper-exclusive. No strictpast proof for our producer."
+    },
+    {
+      "url": "https://duckdb.org/docs/current/sql/data_types/timestamp",
+      "version": "current1.5 docs",
+      "verified": "Timestamp precisions and nanosecond aware conversion loss; configured-zone binning/conversion. No source clock/coverage truth."
+    },
+    {
+      "url": "https://numpy.org/doc/stable/reference/generated/numpy.isclose.html",
+      "version": "2.5 manual served",
+      "verified": "abs(a-b)≤atol+rtol*abs(b), reference asymmetry, default-small-value caveat. No project default/tolerance adopted."
+    }
+  ],
+  "cost_complete": [
+    "Human source-role/clock/multiplicity mapping and review",
+    "Parser/order/unit/nominal-key checks",
+    "Generation and unsupported attempts",
+    "Complete required source/support state and physical closure/projection/readback",
+    "Independent oracle and failed attempts/cleanup",
+    "For any separately authorized real replay: both environments setup/source acquisition/auth/checks, loads/native scoring, sorting/hashes/spill and full process/child lifetimes"
+  ],
+  "future_caps_author_proposals_only": {
+    "A": {
+      "rows_max": 20,
+      "anchors": 2,
+      "C_rows": 4,
+      "cpu_seconds": 15,
+      "wall_seconds": 30,
+      "MiB": 128
+    },
+    "B": {
+      "score_rows_max": 12,
+      "cpu_seconds": 15,
+      "wall_seconds": 30,
+      "MiB": 128
+    },
+    "granted": false,
+    "real_cost_unestimated": true
+  },
+  "actual_actions": {
+    "experiments": 0,
+    "helpers": 0,
+    "actual_data_models_SQL_Y_native_fit_predict": 0,
+    "large_hashes": 0,
+    "project_writes": 0,
+    "author_rewrites": 0,
+    "new_admissions": 0
+  },
+  "current_main_context": "Root accepted main015/report and018 fixed-score slice; public fresh-training route partial. Preserve current algorithm/model/native tolerance/CI and decision; no new main prerequisite.",
+  "report_path": "/tmp/tlab-wave027-skeptic-review.md",
+  "report_sha256": "e2cb8fac4880328938d5abf9a8ffae179b6ee2f14b3de216f51bc5a939ff934f"
+}

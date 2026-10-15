@@ -6,6 +6,10 @@
 
 ## Текущий статус
 
+[027researchRootarchive](research-lab/brainstorm-wave027-synthesis.md) complete0newID/task/grant;028bothFIRSTverified/existingFeaturesBdistinctcriticCOMPLETE/Rootresearchreadbackpending. Mainpubliccandidateunfrozen/fullCODEandactualfitsungranted; next15:45UTC anchoredscheduled15:00.
+
+15:00 scheduled cadence duecheck actual 2026-10-15T14:58:42.723301+00:00; earlier14:49:34earlycheckpoint met this originaldeadline. Nextmax15:45UTC/18:45MSK anchored SCHEDULED15:00, notactualwrite; no idea/budget/goalreset. Currentmaincandidate BODY7syntheticPASS/outerprofilingFAILED retained, narrowwrappercorrection sameallowance; CODE/newfitsUNGRANTED/018partial13of19.027researchRootaccepted0IDs/tasks,028A FIRST/Bwriting; no currentmodelchanges.
+
 Actual research028 14:53:51UTC: Rootstarted independentModelsA+RetrievalA FIRSTauthors, nopeerreads/experiments/currentmodelchanges.027criticcompleted/Rootreadbackpending; no newID/admission/task, mandatorypublicroutepriority and15:00anchor preserved.
 
 [Public018design/resource review](backlog-reviews/public-reproduction018-design.md) Rootaccepted only;4bounded originals, fullCODE/runtime/newfits notgranted. CurrentauthorRUNNING/designreviewCOMPLETED/wholeCODEreviewafterfreeze.
