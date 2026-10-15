@@ -724,3 +724,7 @@ Root reaped originalsession65471/chunka5ea08 exit0; no repoll/retry. External586
 [Accepted source-prefix and bounded evidence](backlog-reviews/full-source018-source-prefix-acceptance.md) accepts actual source018 original65471 exit0 and independent82476 exit0 within strict typed9 source-prefix scope:42,448,764 rows, conservative629.91CPU including review. It does not complete018 or authorize real heldout. Original flags and chosen3 wholeV3FAILED remain unchanged. No poll/retry/refit.
 
 TLAB015 cost37697 remains rejected: earlier4096/128 QA census bounds are unsupported. Single source_import_review owns the finite metadata census, with independent review before any replacement figures/adoption; heldout CLOSED. Optional research012–014 has a scoped Root skeptical readback, zero new HYP/admissions/gates. Next main checkpoint no later11:15UTC/14:15МСК, anchored10:30.
+
+### Research-only refinements012–015 —10:39:20UTC
+
+[Scoped synthesis](research-lab/brainstorm-waves012015-synthesis.md) retains Root skeptical readbacks012–014 and completed015 independent critique and its separate scoped Root readback. ExistingHYP046 physical planning and018 portability remain optional refinements;0newHYP/fitadmissions/main prerequisites. Complete018 reproduction and015 reviewed finite-cost/request remain the executable queue.

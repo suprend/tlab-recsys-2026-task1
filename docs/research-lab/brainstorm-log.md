@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 10:27:29 UTC / 13:27:29 МСК. Текущий source-prefix принят отдельно от complete018 и heldout.
+Обновлён 15 октября 2026, 10:40:14 UTC / 13:40:14 МСК. Текущий source-prefix принят отдельно от complete018 и heldout.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -10,7 +10,13 @@
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 11:15 UTC / 14:15 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
-## Current snapshot at 10:27:29 UTC: full typed9 source-prefix accepted
+## Current view at 10:40:14UTC
+
+Actual full typed9 source-prefix accepted; complete018/source-to-model and real heldout pending. Original65471 is REAPED/closed, no poll/retry. Research012–015 has scoped Root skeptical readbacks, zero new HYP/admissions/main gates.
+
+Root confirms source_harness_review is the separate016 skeptic after both independent FIRST freezes; execution_scope_audit owns only a TMP one-day018 adapter proposal/implementation without native grant. Both017 independent FIRST drafts are now frozen; separate critique awaits Root assignment. timing_methodology_review reviews finite censusV3/erratum while sole author source_import_review performs a bounded remaining-record closure lookup; no census numbers are adopted or published here. Next max11:15UTC/14:15МСК remains anchored10:30; individual operation bounds/heldout CLOSED and one canonical queue are unchanged.
+
+## Timely10:30 checkpoint written10:27:29 UTC: full typed9 source-prefix accepted
 
 - Original source018 session65471/chunka5ea08 is REAPED exit0. Root accepted the narrow typed9 source-prefix after the separate existing-output review82476/chunk7b56f2 exit0:42,448,764 rows; no fit/queryY. Original pending flags are immutable; complete018 is not done. [Separate Root acceptance](../backlog-reviews/evidence/full-source018-terminal/tlab-root-full-source018-source-prefix-acceptance.json).
 - Conservative source-prefix CPU upper629.91s including review against original7200CPU/10800wall. Import external586.10wall/609.87CPU rounded; sampled aggregate1,944,485,888B distinct from MAXRSS1,915,109,376B. Reviewer hashed five physical large files once; publisher/Root did not rehash them.
@@ -334,3 +340,13 @@ Root acceptance at10:22:47UTC binds the actual original import and independent b
 ### Bounded source-prefix publication —10:34:34UTC
 
 [Proof pack](../backlog-reviews/full-source018-source-prefix-acceptance.md) сохраняет18 точных малых originals: original external lifetime, immutable owner/kernel aggregate reports, независимые checker/report/ledger/freeze/cache/terminal/resource logs и separate Root acceptance. `.log` меняет только public extension на `.txt`, bytes/SHA сохранены. Ни большие файлы, ни private request payload, ни raw/model/DB не включены; source/process/model jobs publisher0. Текущий progress-report обновлён с отдельным provenance version7; frozen experimental report/source ledger не изменены.
+
+### Research012–015 acceptance scopes —actual 10:39:20UTC
+
+[Normalized research summary](brainstorm-waves012015-synthesis.md) links the Root accepted012–014 separate skeptic reports and original-byte freshness.014 archive adds the exact completed critique; previous publication manifest SHA is retained.015 has both independent FIRST drafts and a completed separate skeptic, plus own literal/code evidence, but Root readback is still pending. No new HYP/admission/fit/main gate. Windows mkdir0700 ACL qualification is retained; no Windows/WSL lifecycle or native fidelity is claimed.
+
+Wave016 both independent FIRST drafts are frozen, awaiting separately assigned critique; ModelsB017 FIRST is frozen as an existing scientific-claim refinement. These are completed drafts, not active executions or accepted new mechanisms. Source-prefix proof remote32f8b24 is verified private/PR1OPEN-DRAFT; complete018 and cost015/heldout gates remain pending. The next anchored maximum11:15UTC/14:15МСК does not slide.
+
+### Separate015 Root research readback arrived —10:40:14UTC
+
+The previous10:39 entry records coordinator knowledge before this handoff. [Exact015 Root receipt](archives/wave015/original/tlab-root-wave015-skeptic-readback.json) now accepts the faithful portability refinements after full skeptic-report reading and7smallpin checks, including4author originals. Root did not claim all author-prose review, host setup or host verification. Alloriginals remain unchanged;0newIDs/admissions/main gates.
