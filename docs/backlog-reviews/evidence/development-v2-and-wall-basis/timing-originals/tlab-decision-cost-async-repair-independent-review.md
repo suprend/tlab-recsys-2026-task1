@@ -1,0 +1,72 @@
+# Independent disposition: repaired asynchronous wall coverage
+
+**ACCEPT33,914 s as a finite conditional conservative active-wall accounting bound for request packing under the unchanged43,200 s contract.** The targeted repair and exact historical cell125 closure resolve the material async-coverage defect identified in the preceding V3 rejection. This accepts the particular accounting proposal and its explicit assumptions; it neither adopts them for Root nor grants actual execution, source/model acceptance or reserved-outcome access. No further census, calibration, scientific fit or test-suite repetition is methodologically necessary for this timing disposition.
+
+The exact five totals are smoke008292, metadata009733, strong0191,822, automation0161,476 and decision_preparation29,591. Their sum is33,914;9,286 remains unallocated. The remaining amount is not a basis for any new work or replenishment. Original V3, failed attempts, resource limits, unknown flags and my original29,412 rejection remain preserved: the latter is superseded for the combined repaired proposal, not retrospectively relabelled correct.
+
+## Contract and permissible claim
+
+[heldout_contract.py:124–135](/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_contract.py:124) fixes the simulated24October00→12 interval and adds each stage's `measured_active_wall_upper_seconds` and `declared_unmeasured_wall_upper_seconds`, requiring a positive total≤43,200. It does not add CPU. [Contract prose:7](/Users/mdpospelov/tlab-recsys-2026/docs/experiments/heldout-contract.md:7) permits measured plus separately declared conservative/unmeasured bounds, requires failed attempts to remain paid, and distinguishes physical2026 work from simulated2019 availability. [Line11](/Users/mdpospelov/tlab-recsys-2026/docs/experiments/heldout-contract.md:11) expressly leaves authenticity, native admission, full exit tails and actual resource authority outside the structural schema.
+
+Admissible wording after accountable adoption is: **under the frozen procedure, specified cohort and declared conservative lifetime/workload assumptions, the complete decision cost is bounded by33,914 active-wall seconds and fits the fixed12-hour simulated gap.** This is conditional retrospective feasibility. It is not a claim that the original history was measured to finish in33,914 s, that physical files existed in2019, that12h CPU was consumed, or that an execution gate has passed. Aggregate historical CPU remains UNKNOWN and does not itself block this wall contract. Future owner's CPU/wall policy and all other admission obligations remain separate.
+
+## Independent checks
+
+I freshly checked the11 repair proof-shard hashes, the exact repair/report/ledger and cell125 evidence/erratum pins, and the original58 frozen V3 shard hashes. Every7,453 unique command ID appears exactly once in the corrected native lifetime shards, with the same actor, stage, old ceiling, terminal status/time and process handle as the prior frozen census. Every non-precreation origin call ID and its start/response timestamps agree with the prior frozen call records. Each corrected ceiling independently equals `max(old_ceiling, ceil(origin_call_start→managed_terminal))`; there are no discrepancies.
+
+The284 returned-session observations include205 launch yields and79 continued poll yields. All286 numeric polls have actor-local handle/generation links; independent chronological comparison against the captured launch generations found zero mismatches. Numeric handles are not treated as globally unique command IDs. The finite native rows comprise7,242 specific-call containment links,205 explicit returned-session-generation links, four specific closed-cell links and two previously confirmed precreation failures. There are250 intervals extending beyond the initial response; the full envelopes now pay those gaps.
+
+The corrected decoder recurses through serialized output wrappers, requires a provider runtime-result shape, and avoids treating arbitrary stdout receipt `session_id` fields as runtime yields. The offline correction prioritizes explicit captured launch handles and rejects an unrelated open-cell origin. It no longer filters poll identity by a provider start timestamp that can be a late query. These are the concrete defects the previous reviewer asked to fix; current proof shards cover their finite outcomes without reopening raw private logs for this review.
+
+| Addition to corrected V3 baseline | Seconds |
+|---|---:|
+|V3 including14 wait spans |29,412|
+|Positive shortfalls from whole native originating-call envelopes |3,841|
+|Seven whole closed executor-cell envelopes, deliberately paid again |268|
+|Exact historical failed cell125 |93|
+|Separately declared future438 authentication/decision-lock batch |300|
+|**Combined conditional bound** |**33,914**|
+
+Stage async increments are114 smoke008,167 metadata009,168 strong019,136 automation016 and3,524 preparation; the latter includes268 for the original seven cells. The final preparation home adds93 and300 separately. All baseline exec/wait/browser spans remain paid. No old3,142 receipt sum or old005/017 class allowance is added again for the same work. The rg first-call→managed-terminal span315.139 s now rounds316, with its original enclosing response interval retained as deliberate overcount.
+
+## Cell125 and relevant fixtures
+
+The historical origin08:31:08.909 and exact saved last wait response08:32:41.658 give92.749 s, rounded93. The first saved wait is `Script running with cell ID125`; the last is `Script failed`. Both are historical `function_call_output` records. That terminal error closes the executor cell regardless of successful scientific output. The present `exec_cell125_not_found` probe contributes no historical proof. The full cell interval, including any approval/transport wait, is charged; text mentioningCPU/120 in a justification is not presented as an enforced resource guard. No successful fit or descendant reaping follows from the failed-cell status.
+
+The corrected final source65471 row uses call_621b9b98179d4b1a931880745f3df51e,09:41:20.542→09:51:35.715, whole615.173 s, ceil616, delta29. W44 root90535 uses08:34:15.470→08:34:22.831, ceil8 instead of4. The existing small W44 receipt independently retains six worker reaped exit codes0, controller reaped exit1, original_unknown_active_work_flag_retained=true and whole_harness_accepted=false. These properties remain unchanged; benign shell managed-terminal assumptions do not substitute for native owner reaping receipts.
+
+**Packing correction:** `known-fixtures-and-rows.json` contains a stale diagnostic `known_fixtures.source` copied from superseded V1, wrongly associating cell125 with source65471 and showing4827/delta4240. It is not used by the corrected native shard sums, which were independently verified above. Treat that embedded fixture object as superseded diagnostic only; pin the corrected final native row or an additive author correction. Do not pack the stale association as final coverage evidence. This is a bounded provenance correction, not grounds for another history pass or a different numeric total.
+
+## Meaning of the conservative bound and required adoption conditions
+
+The concrete repaired coverage is adequate for a **declared** accounting upper. It relies on the selected root-linked executed-procedure cohort, captured provider lifecycle events, documented call associations and managed-terminal semantics. These are stronger and finite compared with the discarded4,096/128 population guesses. They are not server-attested whole-process measurements or proof of global machine activity. The7,242 fallback associations are specific same-actor call containment assumptions; the explicit yielded generations and eight executor cells now cover the exposed asynchronous cases. A contrary unreported background job or relevant out-of-cohort project computation would invalidate the completeness assumption; it cannot be silently assigned the unused9,286 s.
+
+Root should explicitly adopt these conditions in the packed request basis:
+
+1. **Finite cohort and lifecycle scope.** All decision-producing science, required acquisition/imports, code QA, hashes, failed admissions, seals and persistence in the fixed145-session cohort are paid. Root's known scientific owners/observers retain their existing terminal/reaping evidence; the only separately pending source operation is treated under its own authority. Provider-managed terminal events are accepted as the end of active work for ordinary shell objects under the disclosed managed-runtime assumption. No unidentified relevant background production, retries or detached descendants are silently excluded. Administrative AI/human organization is separately disclosed; actual pipeline computation is not administrative simply because a model was already chosen. Guardian infrastructure/unrelated task sessions are outside this finite decision procedure unless they performed relevant project computation.
+2. **New725 class, not an old measurement.** Independently adopt one monthly HEAD metadata probe plus one web lookup, all startup/transport included, no hidden retries/background production, within725 s. The20 s request timeout alone is not a whole-operation proof. This generous declared fixed workload is acceptable against the bounded disclosed metadata operations and completed582.334 s full-month acquisition comparator; its missing historical completion stays disclosed. It must not be described as the prior five completed acquisition episodes.
+3. **One existing1,000 s metadata batch.** Preserve320 census +370 independent reviewer +310 Root finalization. The320 consists of prior140 conditional finite metadata work plus this repair180; neither allocation is a measured historical140 nor a refill. The successful targeted pass2.13 s, prior failed prerequisite0.40 s, offline correction and exact-record lookups are included. The original finite metadata scope and caps are a stop condition; this review and final receipt/readback packaging consume that same reserve. Executed work beyond the finite batch needs fresh accounting within the unchanged limit, not an automatic renewed reserve. New018 pipeline implementation is separate work, not a metadata-only reserve component.
+4. **Separate future300.** Final438-package authentication/physical decision-lock preparation retains its separately supported300 s class and exact prior two-pass/package/startup scope. It is not hidden in Root's310 small-metadata finalization. No extra fit, feedback adaptation, wide consumer or package-volume expansion is authorized by that class. If the final authentication operation exceeds its frozen scope or actual cost allowance, stop dependent admission and revise evidence without expanding43,200.
+5. **Keep overcount and scientific identity visible.** Shared harness/API overhead, whole cells, optional brainstorm1,119 commands and separately granted018 are conservatively paid as labelled overlap/cross-scope overcount. This does not make those optional/source tasks scientific runs. Preserve008×2+009×1+019×4+016×4=11; research007×3 and synthetic/native QA stay separately paid. All failed attempts and original unknown/history flags remain authentic. No repeated11-fit selection or764-test suite is needed to support this budget.
+
+These are explicit conditions defining the accepted conditional bound, not additional measurements to collect or a request to reconstruct every microsecond. The available metadata and original named-owner evidence provide an adequate finite basis for them. If Root accepts that scope, the repaired numbers may proceed to inert request packing. They do not require a new measured frozen-procedure replication.
+
+## Recommended five-row packing
+
+The cleanest conservative representation is to put the complete adopted stage totals in `declared_unmeasured_wall_upper_seconds` and use0 in `measured_active_wall_upper_seconds`. Lower-level recorded receipts remain preserved and cited as evidence; choosing a declared composite upper does not erase them or claim their values were zero.
+
+| Stage | measured_active_wall_upper_seconds | declared_unmeasured_wall_upper_seconds |
+|---|---:|---:|
+|smoke008|0|292|
+|metadata009|0|733|
+|strong019|0|1822|
+|automation016|0|1476|
+|decision_preparation|0|29591|
+
+Bind each row's receipt to exact immutable combined evidence: the corrected native proof shards, original shared overhead/census mapping, historical cell125 additive evidence, this review and the explicit class/reserve basis. A common combined evidence receipt may name the row homes, or stage-specific derivative receipts may retain the same component references; do not cite the stale V1 fixture. If Root prefers to retain nonzero measured subtotals, use only previously authenticated complete components in their actual stage and reduce that stage's declared remainder correspondingly, preserving these exact combined totals and avoiding duplicated or nested measured receipts. Do not label provider stub timers or the entire conditional composite as measured.
+
+Keep the old request immutable. A versioned inert proposal may carry these reviewed wall rows, exact source/code/model pins and the adopted assumptions. Its actual request/admission still requires Root's independent authenticity/readback checks, module/source/model authority, resource approval and physical lock. Statistical heldout validity and strict-past data availability are distinct: the timing acceptance neither shows reserved-target feedback nor authorizes it. All seven prediction inventories must be accepted before any reserved outcome access, under the fixed policy.25 reporting and26–31 final remain closed until those separate gates pass.
+
+## Scope of this review
+
+Only bounded public source and≤1MiB redacted metadata artifacts were read. The5.57MB/5.70MB raw async artifacts were not opened or hashed; their author hashes are provenance declarations, while the11 compact final proof shards were independently checked. No original private session bodies, machine/process query, network, source/archive/DB/model byte stream or large hash, SQL/native/fit/predict/realY/439consumer, helpers, project edit, owner/Budget/claim/grant/gate operation was performed. Existing originals are preserved. The companion freeze pins exact small inputs and the final five declared rows; the ledger records independent arithmetic and this advisory disposition.

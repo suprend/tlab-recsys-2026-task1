@@ -1,0 +1,233 @@
+{
+  "version": 1,
+  "scope": "portable_collectable_unittest_transport_review_freeze",
+  "author": "/root/execution_scope_audit",
+  "created_at": "2026-10-15T11:16:22.146862+00:00",
+  "proposed_repository_test": "tests/test_reproduce_development_slice.py",
+  "portable_test_sha256": "032687fc5e0ecef6fa3943b7f77dba558c9614af6f12bae1684da5de50e4ae35",
+  "test_names": [
+    "test_empty_C_query_exact_large_IDs_and_all_keyed_score_exports",
+    "test_exact_fixed_two_fake_prediction_calls_and_no_fit",
+    "test_explicit_B45_projection_handles_interleaved_chosen48",
+    "test_full_original_global_groups_must_be_rekeyed_before_day_filter",
+    "test_non_oct22_or_wrong_selected_feature_order_stops_before_query_creation",
+    "test_original_wrapper_metadata_assumption_is_real_consumer_failure",
+    "test_raw48_base_is_rejected_by_actual_inference_loader",
+    "test_reference_transport_rejects_duplicates_nonfinite_and_boolean_keys",
+    "test_typed9_events_only_input_completes_without_ingest_metadata_or_Y"
+  ],
+  "test_intentions_transported_not_new_independent_cases": true,
+  "test_module_import_fences_or_cache_or_path_mutated": false,
+  "test_module_import_native_packages_loaded": false,
+  "original_oneoff_proof_harness_archive_only": true,
+  "first_transport_whole_status": "FAILED_driver_postcondition_lexical_tmp_alias_after_9PASS",
+  "first_transport_terminal_exit": 1,
+  "first_transport_original_success_receipt_preserved_unmodified": true,
+  "first_transport_cost": {
+    "wall_seconds": 0.51,
+    "user_seconds": 0.33,
+    "system_seconds": 0.07,
+    "max_rss_bytes": 143360000
+  },
+  "final_transport_whole_status": "PASS",
+  "final_terminal_exit": 0,
+  "final_terminal_chunk": "6b08f6",
+  "final_transport_cost": {
+    "wall_seconds": 0.36,
+    "user_seconds": 0.31,
+    "system_seconds": 0.06,
+    "max_rss_bytes": 143507456,
+    "children_cpu_seconds": 0,
+    "children_peak_rss": 0
+  },
+  "final_tests": {
+    "cases": 9,
+    "body_seconds": 0.281,
+    "invented_events": 8,
+    "queries": 2,
+    "candidate_rows": 1,
+    "fake_predictions": 2,
+    "native_ML": 0,
+    "fits": 0,
+    "queryY": false,
+    "actual_inputs": false
+  },
+  "root_candidate_runtime_granted": false,
+  "owner_runtime_or_parity_performed": false,
+  "project_writes": false,
+  "independent_portable_transport_review": "pending",
+  "fingerprints": [
+    {
+      "path": "/tmp/test_reproduce_development_slice_portable_v1.py",
+      "sha256": "032687fc5e0ecef6fa3943b7f77dba558c9614af6f12bae1684da5de50e4ae35",
+      "bytes": 12515
+    },
+    {
+      "path": "/tmp/tlab-test-reproduce-development-slice-v1.py",
+      "sha256": "ea5fdd8c6f07744c0e2f8f4e32670f4856f346e29bbf74a70cd2ebfea9c5a43a",
+      "bytes": 13848
+    },
+    {
+      "path": "/tmp/tlab-portable-development-slice-verification-driver-v1.py",
+      "sha256": "8b844f9012b37cd3b3ac4b2d64401800624fcd661a9c16bed91728d5fab27427",
+      "bytes": 3427
+    },
+    {
+      "path": "/tmp/tlab-portable-development-slice-verification-driver-v2.py",
+      "sha256": "bd1e90e0bdf3c389a44706fe20ae19f2078a5d1a0b9bc124096d8b3cb2a947fc",
+      "bytes": 3658
+    },
+    {
+      "path": "/tmp/tlab-portable-development-slice-verification-v1.stdout.txt",
+      "sha256": "5ec957b0979a639ee0c82f3ef7775e016cb91eed221bcb49dc2c228d7ab9ee3b",
+      "bytes": 2897
+    },
+    {
+      "path": "/tmp/tlab-portable-development-slice-verification-v1.stderr-time.txt",
+      "sha256": "140c7a3054ee50c4a3fc85195c97cbebe2809287d3691165c3bbf4a77a9245da",
+      "bytes": 1005
+    },
+    {
+      "path": "/tmp/tlab-portable-development-slice-verification-v1-receipt.json",
+      "sha256": "8ea65ccf5dd8996a3a60c17cbc6df3ac971e56705822a7f38132a479b5a38e2c",
+      "bytes": 1056
+    },
+    {
+      "path": "/tmp/tlab-portable-development-slice-verification-v2.stdout.txt",
+      "sha256": "8473f8bc8acd3ebc08bfbcf14fd94d0211ed1a8ebee8b1dfe09104911d2d7c76",
+      "bytes": 2953
+    },
+    {
+      "path": "/tmp/tlab-portable-development-slice-verification-v2.stderr-time.txt",
+      "sha256": "a8c7166b4cdcfb3344b909981db56767e9dffcd4eff9f6bab9efac06d6550ec2",
+      "bytes": 777
+    },
+    {
+      "path": "/tmp/tlab-portable-development-slice-verification-v2-receipt.json",
+      "sha256": "0db2cf062471d2c47d598a579a0ac8ff0316607c7125f369668117e9e5d4088e",
+      "bytes": 1116
+    },
+    {
+      "path": "/tmp/tlab-development-slice-portable-test-transport-v1.md",
+      "sha256": "bdf12f6a40420d70f6a494e0f977686ce4e9f6ede7b00dac286fb775a18f4654",
+      "bytes": 2754
+    },
+    {
+      "path": "/tmp/tlab-development-slice-owner-v2.py",
+      "sha256": "e4635261b975abb0b51126b658eb33fefcd8dbf9a3639a39b276ce4759e44d31",
+      "bytes": 38647
+    },
+    {
+      "path": "/tmp/tlab-reproduce-development-slice-v1.py",
+      "sha256": "cc5a5779199636c2336b2bc0edcb8b31ff496d2e6edf78ed48bfd5f8f3982e8f",
+      "bytes": 11076
+    },
+    {
+      "path": "/tmp/tlab-development-slice-owner-v2-freeze.json",
+      "sha256": "61f5527ff826abdaff9f68b2796805a37dc79918255a00feb333df231fe4c58b",
+      "bytes": 2258
+    },
+    {
+      "path": "/tmp/tlab-development-source-to-score-core-v1-freeze.json",
+      "sha256": "f2e6e5255e542f9cd60a11aa8b6002922303cda9eb8424bb624d8bb90496fc4d",
+      "bytes": 5861
+    }
+  ],
+  "public_copy_fingerprints": [
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/configs/features/automation-pool.json",
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+      "bytes": 2713
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "bytes": 3631
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "bytes": 18557
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/heldout_contract.py",
+      "sha256": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc",
+      "bytes": 14058
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/heldout_predictions.py",
+      "sha256": "e1b06b2aac68c59379d15298c39101ec02b6a176c26b13d4671f8e445de2851b",
+      "bytes": 9846
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/heldout_source.py",
+      "sha256": "c864bec3a3aefa946b7759993505bcde9dcd9c9edb7cb9ce03216d6ebddeafbb",
+      "bytes": 10757
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/heuristic_baselines.py",
+      "sha256": "db00b2375fed1083d4bf9b45ef4535793d36ffeaa537050a07e99c61dad13ee4",
+      "bytes": 22853
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/inference_data.py",
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+      "bytes": 9074
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/reproduce_development_slice.py",
+      "sha256": "7acd73cc7da976cf62d6fc9f623b7b89d8ed67607c8b57617017ef58620ef39a",
+      "bytes": 49725
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "bytes": 35022
+    },
+    {
+      "path": "/tmp/tlab-reproduction-portable-public-v1/tests/test_reproduce_development_slice.py",
+      "sha256": "032687fc5e0ecef6fa3943b7f77dba558c9614af6f12bae1684da5de50e4ae35",
+      "bytes": 12515
+    }
+  ]
+}

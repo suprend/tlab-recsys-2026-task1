@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "wave": "018",
+  "author": "/root/brainstorm_features_a",
+  "report_path": "/tmp/tlab-brainstorm-diagnostics-features-a-wave018.md",
+  "report_sha256": "8661b2e24c30b7d9c2842ad5477efde7a88e0e260e0b2994c3197905bcdc8aa0",
+  "report_words": 566,
+  "first_draft_status": "frozen_independently",
+  "actual_first_freeze_UTC": "2026-10-15 10:55:41 UTC",
+  "independence": {
+    "peer18_read": false,
+    "helpers_used": 0
+  },
+  "scope": {
+    "new_mechanisms": 0,
+    "new_canonical_HYPs": 0,
+    "optional_refinements": 1,
+    "actualdata_DB_SQL_native_model_Y_fit_largehash_projectwrite": false,
+    "framework_or_main_gate_implemented": false,
+    "main_owner": "execution_scope_audit",
+    "main015_018_unchanged": true
+  },
+  "proposals": [
+    {
+      "id": "A018-R1",
+      "title": "Context-explicit same-failure sub-bag reduction",
+      "newvsrefine": "existing_shrinking_contract_refinement_zero_novelty",
+      "knownoldIDs": [
+        "round018 shrinking/verification",
+        "reserved HYP-121/122",
+        "HYP-002 typing",
+        "HYP-046 calculation"
+      ],
+      "mechanism": "Enumerate subbags of<=12 inventedevents; retain exactIDs/time/NULL/rawmultiplicity and accept only normal-return pinned stage/operator/key/typedstate/discrepancy, with all temporal metadata and denominators recomputed. Distinguish fixedQC conditionalfeature mode from regeneratedQC sampler/retrieval mode.",
+      "prediction": "Stage/state fingerprints may prevent generic-mismatch diagnosis drift at equal search budget; no unique-rootcause or universal minimality guarantee.",
+      "nearest_source_free_experiment": "One completed six-event projected-bag experiment,64 subbags128predicates, exactFraction metadata/share toy. Generic and metadata-fingerprint reducers produce different size2 witnesses, exposing failure substitution.",
+      "task1benefit": "Readable smaller stage-specific semantic counterexamples for existing regression fixtures; no recommendationquality/authority/fullsource proof.",
+      "four_field_aliases": {
+        "testable_prediction": "prediction",
+        "benefit_task1": "task1benefit"
+      },
+      "actual_toy": {
+        "fields": [
+          "time_seconds",
+          "product_id",
+          "category_id_nullable",
+          "user_id",
+          "action"
+        ],
+        "anchor_seconds": 20,
+        "source_lower_inclusive_seconds": 0,
+        "fixed_C": [
+          101
+        ],
+        "events": [
+          [
+            0,
+            101,
+            20,
+            1,
+            "view"
+          ],
+          [
+            10,
+            101,
+            10,
+            1,
+            "view"
+          ],
+          [
+            10,
+            101,
+            null,
+            2,
+            "cart"
+          ],
+          [
+            5,
+            202,
+            10,
+            3,
+            "view"
+          ],
+          [
+            7,
+            303,
+            20,
+            1,
+            "view"
+          ],
+          [
+            5,
+            202,
+            10,
+            3,
+            "view"
+          ]
+        ],
+        "raw_occurrences": 6,
+        "subbags": 64,
+        "predicate_calls": 128,
+        "generic_witness_original_indices": [
+          0,
+          4
+        ],
+        "generic_states": [
+          "clean",
+          "20",
+          "1/2",
+          "1"
+        ],
+        "metadata_fingerprint_witness_original_indices": [
+          1,
+          2
+        ],
+        "metadata_states": [
+          "ambiguous",
+          "10",
+          "None",
+          "1"
+        ],
+        "duplicate_occurrences_preserved": true,
+        "fulltyped9_producer_test": false,
+        "project_producers_imported": false,
+        "actual_response_labels_used": false
+      },
+      "strongest_counterexample": "Deleting selectedusers soleeligibleevent may preserve fixedQ featuremismatch while realbottomhashQchanges/vanishes; cannotclaim samplerfailurepreservation. Genericmismatch also drifts metadatafault into denominatorfault.",
+      "physical_semantics": "Reevaluate strictlower/upper endpoints, completeglobalpeerbucket includingNULL, exactdenominator incloffC, and rawduplicates. No IDrenaming or stalecontext reuse.",
+      "finite_cost": {
+        "invented_events_max": 12,
+        "subbags_max": 4096,
+        "interpreter_executions_max": 8192,
+        "CPU_seconds_max": 15,
+        "wall_seconds_max": 30,
+        "RSS_MiB_max": 128,
+        "all_failed_proposals_checks_serialization_paid": true,
+        "actualSQLorrealoraclework_excluded": true,
+        "new_allocation_granted": false
+      },
+      "cheapest_falsifier": "Same-sized generic witness switches clean-category denominator fault for original mixedNULL metadata fault; context-aware predicate must reject substitution.",
+      "decision_if_negative": "Retain currentliterals if no cheaper/informative diagnosis; drift/silentQCchange/timeout=>originalwitness+incompleteevidence, no minimization/rootcauseclaim, no new mandatorybacklog."
+    }
+  ]
+}

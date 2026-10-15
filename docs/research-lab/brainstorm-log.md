@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 11:15:33 UTC / 14:15:33 МСК; checkpoint11:15, actual lateness33.487s.
+Обновлён 15 октября 2026, 11:53:27 UTC / 14:53:27 МСК. ScopedCODE/conditionalwall accepted; actualruntime CLOSED.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -9,6 +9,14 @@
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 12:00 UTC / 15:00 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Current view —11:53:27UTC; earlier018/019 checkpoint11:45:42 retained
+
+Root receipts accept ownerV2/portable/parityV2 limitedCODE and exact33914/43200 all-declared active-WALL basis for inert packing; actual600CPU/900wall and real015 CLOSED/unrun, complete018 pending. Three absent canonical code/test files are exact-byte installed, compile/bytecheck only; whole driverV2 remains independently reviewed. Source65471closed/reaped, originalfailures/pending flags unchanged.
+
+018/019 both independent author pairs and separate skeptics are Root reviewed,0newHYP/admissions/main gates.020 both independent FIRST drafts nowfrozen; separate ModelsB skeptic assigned afterboth perRoot. No researchquota blocks mainwork. SafeNEXT exact whole-driver/request readback and once-operation decision, no staging/claim/run. Maximum12:00UTC/15MSK stays anchored11:15; original33.487s latewrite retained.
+
+## Historical11:15 checkpoint
 
 ## Current11:15 checkpoint — actual 11:15:33UTC, 33.487s late
 
@@ -372,3 +380,11 @@ Root research readback SHA7d518456… accepts scoped refinements, not execution.
 ### CORE/reference proof publication —11:18:01UTC
 
 [CODE-only proof](../backlog-reviews/development-core-reference-code-acceptance.md) publishes29 exact small originals/193070B plus22 existing Git code/config/publicmetadata SHA references without copying protected modules. OwnerV1/schema and portable-driverV1 failures remain pending historical evidence, no actual source-to-model operation. Both019FIRST drafts are now frozen; a separate FeaturesB critique was assigned after both perRoot.018 critique remains pending Root readback. No census upper adopted, no new grant/fit/largefile hash. Nextmax12:00UTC anchored11:15 despite actual11:15:33.487 latewrite.
+
+### Two completed018/019 rounds —actual checkpoint 11:45:42UTC
+
+Recorded after coordinator resume and before the original12:00 maximum. New accepted scopes are conditional active-WALL packing and narrow code review, not a source-to-model or heldout success. Root final readbacks will be preserved separately from original failed/pending flags; no new native operation, grant, main gate or queue is created by this checkpoint.
+
+### Scoped final publication —11:53:27UTC
+
+[CODE/wall basis](../backlog-reviews/development-v2-and-conditional-wall-acceptance.md) archives51 exact bounded originals plus2Rootreceipts; [018019research](brainstorm-waves018019-synthesis.md) archives14 exact originals plusRootreadback. Raw/privatecohort payloads and large/data/model files excluded. Inertrows33914allDECLARED; assumptions/reserves/no-refill/stalefixture exclusion explicit. No actual source-to-model/heldout success or executiongrant. Core+owner,parity,portabletest exact integrated; protectedmodules/frozenanalysis unchanged.

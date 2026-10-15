@@ -1,0 +1,87 @@
+{
+  "V1_RED": {
+    "consumer_raises": "ValueError: Fresh source must expose the exact accepted events typed9 schema",
+    "core_calls": 0,
+    "expected_schema_mismatch": true
+  },
+  "V2_GREEN": {
+    "consumer_reaches_patched_reviewed_core": true,
+    "core_calls": 1,
+    "exact_accepted_schema_match": true
+  },
+  "actual_native_or_paid_data_work_performed": false,
+  "execution_granted": false,
+  "immutable_core_sha256": "cc5a5779199636c2336b2bc0edcb8b31ff496d2e6edf78ed48bfd5f8f3982e8f",
+  "literal_combined_compile_passed": true,
+  "midfile_future_import": false,
+  "only_owner_change": "('price', 'DOUBLE') -> ('price', 'DECIMAL(12,2)')",
+  "oracle": {
+    "bytes": 2509,
+    "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/source-import-runs/oct2019-full-018-20261015-once/kernel/import-evidence.json",
+    "schema": [
+      [
+        "event_time",
+        "TIMESTAMP"
+      ],
+      [
+        "event_type",
+        "VARCHAR"
+      ],
+      [
+        "product_id",
+        "BIGINT"
+      ],
+      [
+        "category_id",
+        "BIGINT"
+      ],
+      [
+        "category_code",
+        "VARCHAR"
+      ],
+      [
+        "brand",
+        "VARCHAR"
+      ],
+      [
+        "price",
+        "DECIMAL(12,2)"
+      ],
+      [
+        "user_id",
+        "BIGINT"
+      ],
+      [
+        "user_session",
+        "VARCHAR"
+      ]
+    ],
+    "sha256": "08343988dc77c388abc7378ae99fba207b69672c2870bf5759c906f98edc22ff"
+  },
+  "project_writes": 0,
+  "protected_core_global_collisions": [],
+  "pure_mock_tests": {
+    "actual_DB_Parquet_NPZ_opened": 0,
+    "children": 0,
+    "cpu_seconds": 0.033989000000000005,
+    "native_calls": 0,
+    "real_models_opened": 0,
+    "scope": "TMP_only_pure_mock_owner_tests",
+    "success": true,
+    "tests": 21,
+    "wall_seconds": 0.03491729199595284
+  },
+  "scope": "source_only_accepted_kernel_typed9_consumer_regression",
+  "test_log": {
+    "bytes": 2956,
+    "path": "/tmp/tlab-development-slice-owner-v2-tests.log",
+    "sha256": "572109083936a89d6e8a9ce545eac989acedb5f7057e6a60ed4942bf1ac2e2b2"
+  },
+  "v1_files_preserved": {
+    "/tmp/test_tlab_development_slice_owner_v1.py": "900a7ecaa28234f4c0f5d814c0c3ef4a3ce8e72249f8f17d6d813ed94e294f04",
+    "/tmp/tlab-development-slice-owner-v1-freeze.json": "7458bf460949b82dbebdcf3ca6f09dd3e4cd3423717cb061a7f5e11dae931b1b",
+    "/tmp/tlab-development-slice-owner-v1-notes.md": "a03ed07279f23363109ba405007b960b23c1b943987a2895c5ec5d2f0151d905",
+    "/tmp/tlab-development-slice-owner-v1.py": "ef04f70aaf52eec090ae0b2abdfd601b2301bcfedb0770cff257d62d36de25b1"
+  },
+  "version": 2
+}

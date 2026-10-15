@@ -1,0 +1,88 @@
+{
+  "scope": "independent frozen PARITYv1 tiny probes only",
+  "original_source_sha256": "aa5ddc8d033bbd7f51fa4a75ff9162f953a957d8eb379b68277d07125e9e8811",
+  "original_test_sha256": "f3548b322177362f0b29bff4e863ed47078e2bf88ca82801598e83799a17f982",
+  "AST_adaptation": {
+    "path_constants": 1,
+    "implementation_changes": 0
+  },
+  "outcomes": {
+    "frozen_author_suite": {
+      "tests": 17,
+      "success": true,
+      "failures": 0,
+      "errors": 0
+    },
+    "ordinary_corrupt_base_control": {
+      "rejected": true,
+      "error": "All physical values/NULL/finite DOUBLE: parity_day_b/new_b"
+    },
+    "reserved_view_collision": {
+      "accepted": true,
+      "before": [
+        [
+          99
+        ],
+        [
+          99
+        ]
+      ],
+      "after": [
+        [
+          7
+        ],
+        [
+          7
+        ]
+      ],
+      "returned_status": "parity_checks_passed_pending_Root_and_full_exit",
+      "candidate_count": 4
+    },
+    "npz_reopen_after_header_validation": {
+      "eventually_rejected": true,
+      "error": "Exact NPZ array",
+      "validated_rows": 2,
+      "allocated_shapes": [
+        [
+          3
+        ],
+        [
+          3
+        ],
+        [
+          3
+        ]
+      ],
+      "replacement_rows": 3,
+      "checks": 2
+    }
+  },
+  "cpu_seconds": 0.9377249999999999,
+  "wall_seconds": 0.7479817080020439,
+  "peak_rss_bytes": 130383872,
+  "bounds": {
+    "cpu_seconds": 60,
+    "wall_seconds": 120,
+    "rss_bytes": 536870912,
+    "threads": 2
+  },
+  "fixture": {
+    "queries": 4,
+    "candidate_pairs": 8,
+    "event_rows": 0,
+    "largest_NPZ_array_rows": 3,
+    "models": 0,
+    "fits": 0,
+    "Y": 0
+  },
+  "guard_attempts": {
+    "real_data": 0,
+    "children": 0,
+    "network": 0,
+    "models": 0
+  },
+  "actual_data_reads": 0,
+  "project_writes": 0,
+  "children": 0,
+  "runtime_grant": false
+}

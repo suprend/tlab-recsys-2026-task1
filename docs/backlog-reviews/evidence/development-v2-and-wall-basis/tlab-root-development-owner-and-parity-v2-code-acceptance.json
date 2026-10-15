@@ -1,0 +1,566 @@
+{
+  "accepted_tests": {
+    "owner": 27,
+    "parity_author": 20,
+    "parity_independent_attacks": 2,
+    "portable_transported": 9
+  },
+  "actual_execution_granted": false,
+  "counts_are_not_added_as_unique_independent_cases": true,
+  "failures_preserved": [
+    "ownerV1 DOUBLE mismatch",
+    "portableV1 path alias failure after nine passes",
+    "reviewer alias guard failure",
+    "parityV1 reserved table collision and NPZ reopen attacks"
+  ],
+  "fresh_small_pins": [
+    {
+      "bytes": 13617,
+      "path": "/tmp/tlab-development-slice-owner-v2-independent-review-freeze.json",
+      "sha256": "e6fc3ce3ec5710265a04dd911c20934313a31bf911b0efae11b92454dd69689f"
+    },
+    {
+      "bytes": 16124,
+      "path": "/tmp/tlab-development-slice-owner-v2-independent-review-ledger.json",
+      "sha256": "7ff60d55027dd472b51b2747f09becc070b1d38dc3b2caa26e8f57bbcfd65f27"
+    },
+    {
+      "bytes": 16457,
+      "path": "/tmp/tlab-development-slice-owner-v2-independent-inputs/input-freeze.json",
+      "sha256": "a993d9727bd8975eae51ee5a931a09aca609d15a8fe3cac591f6a6a3f0ad9ab7"
+    },
+    {
+      "bytes": 11184,
+      "path": "/tmp/tlab-development-slice-owner-v2-independent-portable-inputs/input-freeze.json",
+      "sha256": "a5802ccb93a39c92a99a32b25e26fc0af457d8c173390e0a541c1b0c9ab7dfe2"
+    },
+    {
+      "bytes": 460,
+      "path": "/tmp/tlab-development-slice-owner-v2-independent-probe-alias-regression.json",
+      "sha256": "5cea79330b49306c05b5200aca9eb59332e7527906c79df907b02dc9107d7b00"
+    },
+    {
+      "bytes": 993,
+      "path": "/tmp/tlab-development-slice-owner-v2-independent-probes-original-failure.json",
+      "sha256": "b187ac2fab6702db67037b87566d648d2647853efb425a52f12c06dc9a41f108"
+    },
+    {
+      "bytes": 13623,
+      "path": "/tmp/tlab-development-slice-owner-v2-independent-probes-v2.json",
+      "sha256": "378ef3a991c6b98cf5314709d9a5487ba6b64d3f061e8c9823a09538f7c971d0"
+    },
+    {
+      "bytes": 4369,
+      "path": "/tmp/tlab-development-slice-owner-v2-independent-probes-v2.log",
+      "sha256": "63f9c5591503e76402e7d5920bf1942ff7e79ed2873c3faf5d7c911c557b814a"
+    },
+    {
+      "bytes": 14642,
+      "path": "/tmp/tlab-development-slice-owner-v2-independent-probes-v2.py",
+      "sha256": "b509c06fb8f768512688662b1722000fb049c56d42834f57add9d39933739bf3"
+    },
+    {
+      "bytes": 14478,
+      "path": "/tmp/tlab-development-slice-owner-v2-independent-probes.py",
+      "sha256": "dd21ec601eaae8009cbbb413108b5a381d59cf4b0e66e1b87789745aed8007ee"
+    },
+    {
+      "bytes": 8173,
+      "path": "/tmp/tlab-development-slice-owner-v2-independent-review.md",
+      "sha256": "885bd22ad1a4a508c9b45689ef7af8d97df00de37b45e8f89dd163719010ef85"
+    },
+    {
+      "bytes": 90426,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/acceptance/tlab016-feature-program-models-verified.json",
+      "sha256": "7e6130ca15f5af8fccdb18849916896bd087ab37e03659afe078abe45bf83cbe"
+    },
+    {
+      "bytes": 5835,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/acceptance/tlab017-selection-collection.json",
+      "sha256": "45af326c2a71bbc0a12ba0753c0701dafc9e75d366150169a90aac164e51de7b"
+    },
+    {
+      "bytes": 6416,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/development/attempt-62ec7057fc3c46dd85dee7da6cf87474/report.json",
+      "sha256": "3c6786f912ebd0512a3c3fa5e85d7240cbf75537edca3745945f150bf99e6858"
+    },
+    {
+      "bytes": 2497,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/development/c2c6ba099b4cffad131638cd33feba14db7232e78ced6c141a7f9c88d4c81b74/shards/0/anchor/invocation-a2235aeff2d0401294a061609f3619d8/f6e8ad7fe4565ff9316935ceeaf8330e5359b09a10e33420035be0b8aaa348d9/run.json",
+      "sha256": "ba51e0c522d5b7acdd502ea8fb6ae9842c239eaf87b0100a5884d05aaf90d6ab"
+    },
+    {
+      "bytes": 1175,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/external-lifetime.json",
+      "sha256": "dd27237c592340307c5d9a6110b9426900ff897fc2eaf320537e7c439452b941"
+    },
+    {
+      "bytes": 113490,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/report.json",
+      "sha256": "0c3febcc51f4cea12000a01746e614e59260af6aab6d4d0e1adf751162f1a2c7"
+    },
+    {
+      "bytes": 103221,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/run.json",
+      "sha256": "f88f066305d6e93e55da77dd2efbd5de8f5f00da6bb674bf952c98a9be4532b8"
+    },
+    {
+      "bytes": 2509,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/source-import-runs/oct2019-full-018-20261015-once/kernel/import-evidence.json",
+      "sha256": "08343988dc77c388abc7378ae99fba207b69672c2870bf5759c906f98edc22ff"
+    },
+    {
+      "bytes": 2713,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/automation-pool.json",
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3"
+    },
+    {
+      "bytes": 3631,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c"
+    },
+    {
+      "bytes": 1403,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9"
+    },
+    {
+      "bytes": 6583,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/full-source018-terminal/tlab-root-full-source018-source-prefix-acceptance.json",
+      "sha256": "3599ad5882356deb9a7252ea8bb69c6395b57b719acae9dca92c04d80431fab8"
+    },
+    {
+      "bytes": 367,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml",
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a"
+    },
+    {
+      "bytes": 20181,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d"
+    },
+    {
+      "bytes": 18557,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70"
+    },
+    {
+      "bytes": 34909,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c"
+    },
+    {
+      "bytes": 14019,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7"
+    },
+    {
+      "bytes": 14058,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_contract.py",
+      "sha256": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc"
+    },
+    {
+      "bytes": 9846,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py",
+      "sha256": "e1b06b2aac68c59379d15298c39101ec02b6a176c26b13d4671f8e445de2851b"
+    },
+    {
+      "bytes": 10757,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_source.py",
+      "sha256": "c864bec3a3aefa946b7759993505bcde9dcd9c9edb7cb9ce03216d6ebddeafbb"
+    },
+    {
+      "bytes": 22853,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heuristic_baselines.py",
+      "sha256": "db00b2375fed1083d4bf9b45ef4535793d36ffeaa537050a07e99c61dad13ee4"
+    },
+    {
+      "bytes": 9074,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/inference_data.py",
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd"
+    },
+    {
+      "bytes": 25160,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103"
+    },
+    {
+      "bytes": 11864,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0"
+    },
+    {
+      "bytes": 9971,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9"
+    },
+    {
+      "bytes": 6184,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66"
+    },
+    {
+      "bytes": 35022,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a"
+    },
+    {
+      "bytes": 300283,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab"
+    },
+    {
+      "bytes": 12515,
+      "path": "/tmp/test_reproduce_development_slice_portable_v1.py",
+      "sha256": "032687fc5e0ecef6fa3943b7f77dba558c9614af6f12bae1684da5de50e4ae35"
+    },
+    {
+      "bytes": 17557,
+      "path": "/tmp/test_tlab_development_slice_owner_v1.py",
+      "sha256": "900a7ecaa28234f4c0f5d814c0c3ef4a3ce8e72249f8f17d6d813ed94e294f04"
+    },
+    {
+      "bytes": 21024,
+      "path": "/tmp/test_tlab_development_slice_owner_v2.py",
+      "sha256": "8fe7c0e941be8f673b0c1cda083ed7068815d2bfe24a6364dad7cb385553d38e"
+    },
+    {
+      "bytes": 1842,
+      "path": "/tmp/tlab-development-slice-owner-v1-freeze.json",
+      "sha256": "7458bf460949b82dbebdcf3ca6f09dd3e4cd3423717cb061a7f5e11dae931b1b"
+    },
+    {
+      "bytes": 5539,
+      "path": "/tmp/tlab-development-slice-owner-v1-notes.md",
+      "sha256": "a03ed07279f23363109ba405007b960b23c1b943987a2895c5ec5d2f0151d905"
+    },
+    {
+      "bytes": 38640,
+      "path": "/tmp/tlab-development-slice-owner-v1.py",
+      "sha256": "ef04f70aaf52eec090ae0b2abdfd601b2301bcfedb0770cff257d62d36de25b1"
+    },
+    {
+      "bytes": 2258,
+      "path": "/tmp/tlab-development-slice-owner-v2-freeze.json",
+      "sha256": "61f5527ff826abdaff9f68b2796805a37dc79918255a00feb333df231fe4c58b"
+    },
+    {
+      "bytes": 1917,
+      "path": "/tmp/tlab-development-slice-owner-v2-notes.md",
+      "sha256": "efc4e4ea77d7448a056c8a9bc6c8c92e1f70fa2f5222b5ce04250ef23afd336e"
+    },
+    {
+      "bytes": 2586,
+      "path": "/tmp/tlab-development-slice-owner-v2-schema-regression.json",
+      "sha256": "ab0cccd182cfa61cfdcbbc95c418626325636ffff18322533cf196816dec6112"
+    },
+    {
+      "bytes": 2956,
+      "path": "/tmp/tlab-development-slice-owner-v2-tests.log",
+      "sha256": "572109083936a89d6e8a9ce545eac989acedb5f7057e6a60ed4942bf1ac2e2b2"
+    },
+    {
+      "bytes": 38647,
+      "path": "/tmp/tlab-development-slice-owner-v2.py",
+      "sha256": "e4635261b975abb0b51126b658eb33fefcd8dbf9a3639a39b276ce4759e44d31"
+    },
+    {
+      "bytes": 9208,
+      "path": "/tmp/tlab-development-slice-portable-test-transport-v1-freeze.json",
+      "sha256": "624439ad969ea28ac1a2ed924a1d6a5d094417648ba040c799b4d159abecc640"
+    },
+    {
+      "bytes": 2754,
+      "path": "/tmp/tlab-development-slice-portable-test-transport-v1.md",
+      "sha256": "bdf12f6a40420d70f6a494e0f977686ce4e9f6ede7b00dac286fb775a18f4654"
+    },
+    {
+      "bytes": 10174,
+      "path": "/tmp/tlab-development-source-to-score-concrete-schema-proposal.json",
+      "sha256": "349197ea213952d44e6bf586eae0d99a260266505c1baadc5c2941a34bfe3b51"
+    },
+    {
+      "bytes": 5861,
+      "path": "/tmp/tlab-development-source-to-score-core-v1-freeze.json",
+      "sha256": "f2e6e5255e542f9cd60a11aa8b6002922303cda9eb8424bb624d8bb90496fc4d"
+    },
+    {
+      "bytes": 2290,
+      "path": "/tmp/tlab-development-source-to-score-import-closure-proposal.json",
+      "sha256": "2e4bb6b5a4d131bec1fe24369947d9613647b0e7d72f394ff17d23fdcab76c19"
+    },
+    {
+      "bytes": 9708,
+      "path": "/tmp/tlab-development-source-to-score-model-source-bindings-proposal.json",
+      "sha256": "ba4056c710951395ceae3f42bf04d54b8d16bdc83c0cf2114ea548a1aa133771"
+    },
+    {
+      "bytes": 8406,
+      "path": "/tmp/tlab-development-source-to-score-proposal.md",
+      "sha256": "b54783899e27f4a88e78f13232e9e8efedc83ecba96301f8f5137fa5d764cb0c"
+    },
+    {
+      "bytes": 2197,
+      "path": "/tmp/tlab-development-source-to-score-scope-addendum.md",
+      "sha256": "aae99988c44dc4331f455239e7be0e4e12ac2c57224d7c5cd787a5785ed4b534"
+    },
+    {
+      "bytes": 3427,
+      "path": "/tmp/tlab-portable-development-slice-verification-driver-v1.py",
+      "sha256": "8b844f9012b37cd3b3ac4b2d64401800624fcd661a9c16bed91728d5fab27427"
+    },
+    {
+      "bytes": 3658,
+      "path": "/tmp/tlab-portable-development-slice-verification-driver-v2.py",
+      "sha256": "bd1e90e0bdf3c389a44706fe20ae19f2078a5d1a0b9bc124096d8b3cb2a947fc"
+    },
+    {
+      "bytes": 1056,
+      "path": "/tmp/tlab-portable-development-slice-verification-v1-receipt.json",
+      "sha256": "8ea65ccf5dd8996a3a60c17cbc6df3ac971e56705822a7f38132a479b5a38e2c"
+    },
+    {
+      "bytes": 1005,
+      "path": "/tmp/tlab-portable-development-slice-verification-v1.stderr-time.txt",
+      "sha256": "140c7a3054ee50c4a3fc85195c97cbebe2809287d3691165c3bbf4a77a9245da"
+    },
+    {
+      "bytes": 2897,
+      "path": "/tmp/tlab-portable-development-slice-verification-v1.stdout.txt",
+      "sha256": "5ec957b0979a639ee0c82f3ef7775e016cb91eed221bcb49dc2c228d7ab9ee3b"
+    },
+    {
+      "bytes": 1116,
+      "path": "/tmp/tlab-portable-development-slice-verification-v2-receipt.json",
+      "sha256": "0db2cf062471d2c47d598a579a0ac8ff0316607c7125f369668117e9e5d4088e"
+    },
+    {
+      "bytes": 777,
+      "path": "/tmp/tlab-portable-development-slice-verification-v2.stderr-time.txt",
+      "sha256": "a8c7166b4cdcfb3344b909981db56767e9dffcd4eff9f6bab9efac06d6550ec2"
+    },
+    {
+      "bytes": 2953,
+      "path": "/tmp/tlab-portable-development-slice-verification-v2.stdout.txt",
+      "sha256": "8473f8bc8acd3ebc08bfbcf14fd94d0211ed1a8ebee8b1dfe09104911d2d7c76"
+    },
+    {
+      "bytes": 845,
+      "path": "/tmp/tlab-reproduce-development-slice-v1-author-tiny-test-receipt.json",
+      "sha256": "932065ffa559fda0a90a70769085e4f3c1740b4d14671abee9b6654dd1ad4344"
+    },
+    {
+      "bytes": 777,
+      "path": "/tmp/tlab-reproduce-development-slice-v1-author-tiny-test.stderr-time.txt",
+      "sha256": "6c829ff8a3481eee54c1e2e12fc7d63adb22353ec8730fa1416126a75f4a0a8b"
+    },
+    {
+      "bytes": 2350,
+      "path": "/tmp/tlab-reproduce-development-slice-v1-author-tiny-test.stdout.txt",
+      "sha256": "6f621ce4ceceeca517379fc61ffb277574eecef5bd392e6bfad3c22af0d82692"
+    },
+    {
+      "bytes": 480,
+      "path": "/tmp/tlab-reproduce-development-slice-v1-tiny-approval-timeout.json",
+      "sha256": "a92fe011972f53a527543ef8716b3034a7b2c4da0ada37093d15b90ecb69e6a6"
+    },
+    {
+      "bytes": 11076,
+      "path": "/tmp/tlab-reproduce-development-slice-v1.py",
+      "sha256": "cc5a5779199636c2336b2bc0edcb8b31ff496d2e6edf78ed48bfd5f8f3982e8f"
+    },
+    {
+      "bytes": 2713,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/configs/features/automation-pool.json",
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3"
+    },
+    {
+      "bytes": 3631,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c"
+    },
+    {
+      "bytes": 1403,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9"
+    },
+    {
+      "bytes": 20181,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d"
+    },
+    {
+      "bytes": 18557,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70"
+    },
+    {
+      "bytes": 34909,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c"
+    },
+    {
+      "bytes": 14019,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7"
+    },
+    {
+      "bytes": 14058,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/heldout_contract.py",
+      "sha256": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc"
+    },
+    {
+      "bytes": 9846,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/heldout_predictions.py",
+      "sha256": "e1b06b2aac68c59379d15298c39101ec02b6a176c26b13d4671f8e445de2851b"
+    },
+    {
+      "bytes": 10757,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/heldout_source.py",
+      "sha256": "c864bec3a3aefa946b7759993505bcde9dcd9c9edb7cb9ce03216d6ebddeafbb"
+    },
+    {
+      "bytes": 22853,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/heuristic_baselines.py",
+      "sha256": "db00b2375fed1083d4bf9b45ef4535793d36ffeaa537050a07e99c61dad13ee4"
+    },
+    {
+      "bytes": 9074,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/inference_data.py",
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd"
+    },
+    {
+      "bytes": 25160,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103"
+    },
+    {
+      "bytes": 11864,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0"
+    },
+    {
+      "bytes": 9971,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9"
+    },
+    {
+      "bytes": 49725,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/reproduce_development_slice.py",
+      "sha256": "7acd73cc7da976cf62d6fc9f623b7b89d8ed67607c8b57617017ef58620ef39a"
+    },
+    {
+      "bytes": 6184,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66"
+    },
+    {
+      "bytes": 35022,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/scripts/train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a"
+    },
+    {
+      "bytes": 12515,
+      "path": "/tmp/tlab-reproduction-portable-public-v1/tests/test_reproduce_development_slice.py",
+      "sha256": "032687fc5e0ecef6fa3943b7f77dba558c9614af6f12bae1684da5de50e4ae35"
+    },
+    {
+      "bytes": 16752,
+      "path": "/tmp/tlab-root-development-day-reference-handoff-prepared.json",
+      "sha256": "fd7304383e9c025d205a0b7f9060187f8062daa9baa2f9b0f86ea6a18323e05b"
+    },
+    {
+      "bytes": 6583,
+      "path": "/tmp/tlab-root-full-source018-source-prefix-acceptance.json",
+      "sha256": "3599ad5882356deb9a7252ea8bb69c6395b57b719acae9dca92c04d80431fab8"
+    },
+    {
+      "bytes": 13848,
+      "path": "/tmp/tlab-test-reproduce-development-slice-v1.py",
+      "sha256": "ea5fdd8c6f07744c0e2f8f4e32670f4856f346e29bbf74a70cd2ebfea9c5a43a"
+    },
+    {
+      "bytes": 18707,
+      "path": "/tmp/tlab-development-day-parity-v2-independent-freeze.json",
+      "sha256": "d93993ddafeb0695706294a5c1b9fd623b1542bf18c3652de61f5dc7fdbe0611"
+    },
+    {
+      "bytes": 35124,
+      "path": "/tmp/tlab-development-day-parity-v2.py",
+      "sha256": "ae133b9f8725ba99883d604609a29a62201f070a6cd7a81ddf9460488e011baa"
+    },
+    {
+      "bytes": 15134,
+      "path": "/tmp/tlab-test-development-day-parity-v2.py",
+      "sha256": "23385a8061ed378cf68fda0e69b593c2598b06393f186473ad79734ab96ef6a7"
+    },
+    {
+      "bytes": 7624,
+      "path": "/tmp/tlab-development-day-parity-freeze-v2.json",
+      "sha256": "d81c52f18c25a9709533e21bdcd0b7c0848bac59df0b438a7ed54d69a30436c9"
+    },
+    {
+      "bytes": 2925,
+      "path": "/tmp/tlab-development-day-parity-v2-notes.md",
+      "sha256": "a6896e3ea2e4bb18abc762c1a9bb42a46ba74358442b7ee8829bb3a5f452b849"
+    },
+    {
+      "bytes": 6082,
+      "path": "/tmp/tlab-development-day-parity-v1-independent-probes.py",
+      "sha256": "516f5641046d90f8423b6c88498b282af49da5f0fa0c2132b0eb966b8860a627"
+    },
+    {
+      "bytes": 1871,
+      "path": "/tmp/tlab-development-day-parity-v1-independent-probe-results.json",
+      "sha256": "a653340f3de0ab14df0cf8b49edb66e6b935a82f0681188660c6291a5a3ddd49"
+    },
+    {
+      "bytes": 17316,
+      "path": "/tmp/tlab-development-day-parity-v1-independent-freeze.json",
+      "sha256": "1d65ae30484462d1dc8ce6d54f0368b5a2a26899256b5432191f7a55489ca26b"
+    },
+    {
+      "bytes": 10057,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_program_control.py",
+      "sha256": "aa7a4b43dd9eb4e2d7e00bc4c42386cdb4c6da142c179e1c5f6fad4a1450e4b7"
+    },
+    {
+      "bytes": 13774,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/model_data.py",
+      "sha256": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f"
+    },
+    {
+      "bytes": 10077,
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43"
+    },
+    {
+      "bytes": 33395,
+      "path": "/tmp/tlab-development-day-parity-v1.py",
+      "sha256": "aa5ddc8d033bbd7f51fa4a75ff9162f953a957d8eb379b68277d07125e9e8811"
+    },
+    {
+      "bytes": 11307,
+      "path": "/tmp/tlab-test-development-day-parity-v1.py",
+      "sha256": "f3548b322177362f0b29bff4e863ed47078e2bf88ca82801598e83799a17f982"
+    },
+    {
+      "bytes": 6061,
+      "path": "/tmp/tlab-development-day-parity-freeze-v1.json",
+      "sha256": "24440c15ff4b7ab0979502da785aed79f511b1786fbf6068fe8b5f1c2371ab74"
+    },
+    {
+      "bytes": 4632,
+      "path": "/tmp/tlab-development-day-parity-v1-notes.md",
+      "sha256": "7c9d767c936be67e67db66219e3f12f40416ee09a3dc04fad75f00329e7d7a6f"
+    }
+  ],
+  "goal_scope_limits_deadline_authority_unchanged": true,
+  "no_data_model_native_SQL_Y_fit_child_or_project_write": true,
+  "read_scope": "full independent reports; owner source sections and parity source excerpt; no claim every full source line independently inspected",
+  "recorded_at_utc": "2026-10-15T11:46:54.428098+00:00",
+  "reviewer": "/root",
+  "scope": "CODE only ownerV2 portable test transport and two-P2 parityV2 repair",
+  "verdict": "ACCEPT limited CODE review, no actual runtime/parity/full018 acceptance",
+  "whole_driver_independent_review_pending": true
+}

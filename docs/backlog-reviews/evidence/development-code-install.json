@@ -1,0 +1,30 @@
+{
+  "at_utc": "2026-10-15T11:49:51.481378+00:00",
+  "scope": "byteexact accepted code integration only",
+  "Root_CODE_receipt_sha256": "6cc377cef899b1c819ded81c2924d3a32eeea776bd29a3f8e12a8c4ceedba917",
+  "candidate_sha256": "0d7d99a9a8fb2a1f9bfbf9375e57935f49f52ee48685ae92dbb7f66f5dc41ce9",
+  "candidate_payload_published": false,
+  "original_targets_all_absent": true,
+  "combined_rule": "coreV1 bytes + b'\\n\\n' + ownerV2 bytes",
+  "files": [
+    {
+      "git_path": "scripts/reproduce_development_slice.py",
+      "bytes": 49725,
+      "sha256": "7acd73cc7da976cf62d6fc9f623b7b89d8ed67607c8b57617017ef58620ef39a"
+    },
+    {
+      "git_path": "scripts/development_day_parity.py",
+      "bytes": 35124,
+      "sha256": "ae133b9f8725ba99883d604609a29a62201f070a6cd7a81ddf9460488e011baa"
+    },
+    {
+      "git_path": "tests/test_reproduce_development_slice.py",
+      "bytes": 12515,
+      "sha256": "032687fc5e0ecef6fa3943b7f77dba558c9614af6f12bae1684da5de50e4ae35"
+    }
+  ],
+  "compile_without_execution": true,
+  "suite_native_data_model_runs": 0,
+  "runtime_granted": false,
+  "protected_existing_files_changed": false
+}

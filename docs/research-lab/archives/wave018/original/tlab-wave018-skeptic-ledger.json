@@ -1,0 +1,110 @@
+{
+  "wave": "018",
+  "reviewer": "models_b",
+  "status": "SKEPTIC_FROZEN",
+  "first_freeze_utc": "2026-10-15T11:05:10.616863+00:00",
+  "report": {
+    "path": "/tmp/tlab-wave018-skeptic-review.md",
+    "sha256": "6e163c1ea3640875873d8dc48f1a564c8cb9650bd8c862c25c477dd731c2321f",
+    "bytes": 5280,
+    "words": 661
+  },
+  "inputfreeze": {
+    "path": "/tmp/tlab-wave018-skeptic-inputfreeze.json",
+    "sha256": "597320e486e04f0ef422841b5b1d7717409a7b00005d3e022a475bf77fae5cf3",
+    "frozen_at_utc": "2026-10-15T10:59:49.324193+00:00",
+    "all_four_supplied_hashes_match": true,
+    "inputs_unchanged_at_review_freeze": true
+  },
+  "supporting_author_artifact_pins_and_snapshots": [
+    {
+      "path": "/tmp/tlab-wave018-diagnostic-literal.py",
+      "bytes": 2498,
+      "sha256": "5fc688a23bfda373ad0b9bd9ecd2021bf7536ace56d455a1576893d7712e8379",
+      "utf8_snapshot": "\"\"\"Four invented worlds,12 event occurrences total; no project/native modules.\"\"\"\nimport json,time,resource\nfrom pathlib import Path\nstarted=time.monotonic();before=resource.getrusage(resource.RUSAGE_SELF)\nworlds=[];events=0;evaluator_calls=0\nfor unknown,other in ((False,False),(True,False),(False,True),(True,True)):\n rows=[(-3,'u','i','view','A'),(-1,'u','i','cart','A')]\n if unknown:rows.append((-1,'u','i','cart',None))\n if other:rows.append((-2,'v','i','view','A'))\n events+=len(rows)\n # Independent hand-frozen expected states follow the constructed four worlds.\n gold=[None if unknown else 'A',('u','i'),1+int(other),(1+int(other),False)]\n evaluator_calls+=1\n last=max(r[0] for r in rows);cats={r[4] for r in rows if r[0]==last}\n category=next(iter(cats)) if len(cats)==1 and None not in cats else None\n count=len({r[1] for r in rows if r[3]=='view' and -24<=r[0]<0})\n defect=category is None and count>1\n actual=[category,('u','i'),count,(None,True) if defect else (count,False)]\n evaluator_calls+=1\n first=next((name for name,a,b in zip(('category','key','itemaggregate','maskprojection'),gold,actual) if a!=b),None)\n worlds.append({'unknown_latest_category':unknown,'other_query_user_view':other,'rows':len(rows),\n                'gold':gold,'actual':actual,'first_exposed_divergence':first})\nassert events==12 and evaluator_calls==8\nassert all(w['first_exposed_divergence'] is None for w in worlds[:3])\nassert worlds[3]['first_exposed_divergence']=='maskprojection'\nafter=resource.getrusage(resource.RUSAGE_SELF)\nresult={'all_pass':True,'worlds':worlds,'invented_event_occurrences_total':events,'unique_event_tokens':4,\n 'evaluator_calls':evaluator_calls,'stage_comparisons':16,'candidate_cases_materialized':4,\n 'selection_after_full_prescreen_saved_oracle_calls':0,'three_singlefactor_cases_detect':0,\n 'full_fourcase_simple_control_detects':1,'mechanism_new':False,\n 'body_CPU_seconds':after.ru_utime+after.ru_stime-before.ru_utime-before.ru_stime,\n 'body_wall_seconds':time.monotonic()-started,'maxrss_platform_units':after.ru_maxrss,\n 'receipt_limit':'before final JSON/print/exit, not full-lifetime receipt','helpers':0,'native':0,'actual_data':0,'models':0}\nassert result['body_CPU_seconds']<15 and result['body_wall_seconds']<30\nPath('/tmp/tlab-wave018-diagnostic-literal-result.json').write_text(json.dumps(result,indent=2)+'\\n')\nprint(json.dumps({k:result[k] for k in ('all_pass','invented_event_occurrences_total','evaluator_calls','body_CPU_seconds','body_wall_seconds')}))\n"
+    },
+    {
+      "path": "/tmp/tlab-wave018-diagnostic-literal-result.json",
+      "bytes": 2436,
+      "sha256": "6168d2da2e5161079f73a799541948c0d4532462908803723d56e043dbe31418",
+      "utf8_snapshot": "{\n  \"all_pass\": true,\n  \"worlds\": [\n    {\n      \"unknown_latest_category\": false,\n      \"other_query_user_view\": false,\n      \"rows\": 2,\n      \"gold\": [\n        \"A\",\n        [\n          \"u\",\n          \"i\"\n        ],\n        1,\n        [\n          1,\n          false\n        ]\n      ],\n      \"actual\": [\n        \"A\",\n        [\n          \"u\",\n          \"i\"\n        ],\n        1,\n        [\n          1,\n          false\n        ]\n      ],\n      \"first_exposed_divergence\": null\n    },\n    {\n      \"unknown_latest_category\": true,\n      \"other_query_user_view\": false,\n      \"rows\": 3,\n      \"gold\": [\n        null,\n        [\n          \"u\",\n          \"i\"\n        ],\n        1,\n        [\n          1,\n          false\n        ]\n      ],\n      \"actual\": [\n        null,\n        [\n          \"u\",\n          \"i\"\n        ],\n        1,\n        [\n          1,\n          false\n        ]\n      ],\n      \"first_exposed_divergence\": null\n    },\n    {\n      \"unknown_latest_category\": false,\n      \"other_query_user_view\": true,\n      \"rows\": 3,\n      \"gold\": [\n        \"A\",\n        [\n          \"u\",\n          \"i\"\n        ],\n        2,\n        [\n          2,\n          false\n        ]\n      ],\n      \"actual\": [\n        \"A\",\n        [\n          \"u\",\n          \"i\"\n        ],\n        2,\n        [\n          2,\n          false\n        ]\n      ],\n      \"first_exposed_divergence\": null\n    },\n    {\n      \"unknown_latest_category\": true,\n      \"other_query_user_view\": true,\n      \"rows\": 4,\n      \"gold\": [\n        null,\n        [\n          \"u\",\n          \"i\"\n        ],\n        2,\n        [\n          2,\n          false\n        ]\n      ],\n      \"actual\": [\n        null,\n        [\n          \"u\",\n          \"i\"\n        ],\n        2,\n        [\n          null,\n          true\n        ]\n      ],\n      \"first_exposed_divergence\": \"maskprojection\"\n    }\n  ],\n  \"invented_event_occurrences_total\": 12,\n  \"unique_event_tokens\": 4,\n  \"evaluator_calls\": 8,\n  \"stage_comparisons\": 16,\n  \"candidate_cases_materialized\": 4,\n  \"selection_after_full_prescreen_saved_oracle_calls\": 0,\n  \"three_singlefactor_cases_detect\": 0,\n  \"full_fourcase_simple_control_detects\": 1,\n  \"mechanism_new\": false,\n  \"body_CPU_seconds\": 2.6000000000001716e-05,\n  \"body_wall_seconds\": 2.9333998099900782e-05,\n  \"maxrss_platform_units\": 18497536,\n  \"receipt_limit\": \"before final JSON/print/exit, not full-lifetime receipt\",\n  \"helpers\": 0,\n  \"native\": 0,\n  \"actual_data\": 0,\n  \"models\": 0\n}\n"
+    }
+  ],
+  "verdicts": {
+    "A": "retain_optional_same_failure_context_refinement; predicate_vs_interpreter_physical_count_unverified",
+    "B": "retain_optional_interaction_observation_refinement; tag_only_shrinking_needs_state/context_fingerprint; no efficiency gain"
+  },
+  "new_mechanisms": 0,
+  "new_hyp_ids": [],
+  "four_fields_present": {
+    "A": true,
+    "B": true
+  },
+  "dedup": [
+    "existing round018 / reserved HYP121/122",
+    "TB1 witness/conformance portfolios",
+    "round025 NULL/population/encoding",
+    "round045 anchored gold/common mode",
+    "wave007 common-mode/callback accounting"
+  ],
+  "arithmetic": {
+    "A_subbags_six_events": 64,
+    "A_predicate_calls_reported": 128,
+    "A_uncached_two_predicates_two_interpreters_possible": 256,
+    "A_shared_output_cache_possible": 128,
+    "A_single_two_interpreter_twelve_event_pass_max": 8192,
+    "A_actual_physical_evaluator_calls": "unverified_without_pinned_implementation",
+    "B_event_occurrences": 12,
+    "B_logical_evaluator_outcomes": 8,
+    "B_stage_comparisons": 16,
+    "B_prescreen_oracle_calls_saved": 0,
+    "B_full_lifetime_receipt": false
+  },
+  "reviewer_literal": {
+    "new_event_tokens": 0,
+    "reused_event_occurrences": 7,
+    "derivations": 2,
+    "production_or_author_execution": false,
+    "joint4": {
+      "latest_state": "ambiguous",
+      "category": null,
+      "distinct_viewers": 2,
+      "defective_projection": [
+        null,
+        true
+      ]
+    },
+    "reduced3": {
+      "latest_state": "all_NULL",
+      "category": null,
+      "distinct_viewers": 2,
+      "defective_projection": [
+        null,
+        true
+      ]
+    },
+    "conclusion": "Equal scalar tag does not preserve typed category state; no minimality claim"
+  },
+  "cost_policy": "Charge generation/prescreen/cache/preparation/all rejected reductions/comparisons/serialization/cleanup; no new allocation",
+  "negative_decisions": [
+    "fixedQC cannot establish regenerated sampler identity",
+    "any mismatch or first exposed tag cannot prove same causal defect",
+    "simple full bank tie rejects efficiency claim",
+    "budget/context/invalid/exception outcomes incomplete rather than minimized witness or production acceptance"
+  ],
+  "actual_counts": {
+    "real_data_Y_models_reads": 0,
+    "SQL_native_jobs": 0,
+    "fits": 0,
+    "predictions": 0,
+    "helpers": 0,
+    "project_writes": 0,
+    "new_external_primary_sources": 0,
+    "author_script_reruns": 0,
+    "reviewer_literal_derivations": 2
+  },
+  "source_limits": "A witness arithmetic independently checked by inspection; no pinned A reducer implementation supplied. B source/result static checks are not fresh process/runtime proof. No new primary literature claim.",
+  "optional_not_prerequisite": true,
+  "execution_grants": 0,
+  "main_adapter_review_duplicated": false
+}

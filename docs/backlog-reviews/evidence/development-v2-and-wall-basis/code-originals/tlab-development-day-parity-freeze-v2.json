@@ -1,0 +1,213 @@
+{
+  "actual_closed_positive_pending": true,
+  "actual_data_reads": 0,
+  "actual_model_calls": 0,
+  "all_runs_cpu_rounding_upper_seconds": 1.24,
+  "all_runs_wall_rounding_upper_seconds": 1.11,
+  "children": 0,
+  "execution_granted": false,
+  "files": {
+    "/tmp/tlab-development-day-parity-tiny-result-v2.json": {
+      "bytes": 715,
+      "sha256": "3b0f8afc8ae13c7cde2cf8bb9f51c680e1fae842cb9be8ea308e2dbcaffed704"
+    },
+    "/tmp/tlab-development-day-parity-tiny-v2.stderr-time.txt": {
+      "bytes": 3000,
+      "sha256": "e3004eae07159f4ad88679667a857bae0ca67f6f8ca38fd55832ee58edc5481f"
+    },
+    "/tmp/tlab-development-day-parity-tiny-v2.stdout.txt": {
+      "bytes": 613,
+      "sha256": "e3b4cf80507b55261acae65562cc7064f736b4fe1520b7c9fb2aa9f79fbbc0c8"
+    },
+    "/tmp/tlab-development-day-parity-v2-input-freeze.json": {
+      "bytes": 1271,
+      "sha256": "9a70445137949ee5aff4d52e561879de21f8518c618d3f7b49c6fc2245e40ae9"
+    },
+    "/tmp/tlab-development-day-parity-v2-notes.md": {
+      "bytes": 2925,
+      "sha256": "a6896e3ea2e4bb18abc762c1a9bb42a46ba74358442b7ee8829bb3a5f452b849"
+    },
+    "/tmp/tlab-development-day-parity-v2-regression-red-result.json": {
+      "bytes": 591,
+      "sha256": "975b6644c217cde6b6bd3826cccf1e29ea6c8d9f4b5c13295a6208d9c670e1b5"
+    },
+    "/tmp/tlab-development-day-parity-v2-regression-red.py": {
+      "bytes": 1884,
+      "sha256": "c44477125c81cbee74e4032c44e0e6da5090cf3f7d49ec0379495dd24d2c16da"
+    },
+    "/tmp/tlab-development-day-parity-v2-regression-red.stderr-time.txt": {
+      "bytes": 2602,
+      "sha256": "181a141e6b7d21727f08fffe9b3f3cc63263ce3bfcd46a466b9c93f501bd05dc"
+    },
+    "/tmp/tlab-development-day-parity-v2-regression-red.stdout.txt": {
+      "bytes": 537,
+      "sha256": "5d47f5e268a490a8bb1cb10b472fd898de73ef4feaf15e77eb32a225c2cdb8a3"
+    },
+    "/tmp/tlab-development-day-parity-v2.py": {
+      "bytes": 35124,
+      "sha256": "ae133b9f8725ba99883d604609a29a62201f070a6cd7a81ddf9460488e011baa"
+    },
+    "/tmp/tlab-test-development-day-parity-v2.py": {
+      "bytes": 15134,
+      "sha256": "23385a8061ed378cf68fda0e69b593c2598b06393f186473ad79734ab96ef6a7"
+    }
+  },
+  "green": {
+    "actual_DB_Parquet_NPZ_reads": 0,
+    "bounds": {
+      "cpu_seconds": 60,
+      "rss_bytes": 536870912,
+      "threads": 2,
+      "wall_seconds": 120
+    },
+    "children": 0,
+    "cpu_seconds": 0.872254,
+    "errors": 0,
+    "execution_granted": false,
+    "failures": 0,
+    "fixture": {
+      "Y": 0,
+      "fits": 0,
+      "invented_candidate_pairs": 8,
+      "invented_event_rows": 0,
+      "invented_queries": 4,
+      "models": 0
+    },
+    "guard_attempts": {
+      "children": 0,
+      "models": 0,
+      "network": 0,
+      "real_data": 0
+    },
+    "peak_rss_bytes": 129761280,
+    "project_writes": 0,
+    "scope": "tiny_invented_parity_only",
+    "source_acceptance_issued": false,
+    "success": true,
+    "tests": 20,
+    "wall_seconds": 0.7142498339962913
+  },
+  "input_hashes_unchanged": true,
+  "preserved_original_current_freshness": {
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_program_experiment.py": {
+      "bytes": 61929,
+      "sha256": "55fb8f483815218908cbdd626fda0a274502e7ac5bbbef20d211882c18e36aad"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/inference_data.py": {
+      "bytes": 9074,
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_baseline.py": {
+      "bytes": 47986,
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py": {
+      "bytes": 35022,
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_source_audit.py": {
+      "bytes": 28790,
+      "sha256": "43e34d4d4d38734e7a01d63f9778726b4714885881cde6573e5431583040cf8f"
+    },
+    "/tmp/tlab-development-day-parity-freeze-v1.json": {
+      "bytes": 6061,
+      "sha256": "24440c15ff4b7ab0979502da785aed79f511b1786fbf6068fe8b5f1c2371ab74"
+    },
+    "/tmp/tlab-development-day-parity-input-freeze-v1.json": {
+      "bytes": 2078,
+      "sha256": "9e9a75957e9f00544d40459e7adf3de787d7e29ce1756119555e93c11bf82753"
+    },
+    "/tmp/tlab-development-day-parity-v1-independent-probe-results.json": {
+      "bytes": 1871,
+      "sha256": "a653340f3de0ab14df0cf8b49edb66e6b935a82f0681188660c6291a5a3ddd49"
+    },
+    "/tmp/tlab-development-day-parity-v1-independent-probes.py": {
+      "bytes": 6082,
+      "sha256": "516f5641046d90f8423b6c88498b282af49da5f0fa0c2132b0eb966b8860a627"
+    },
+    "/tmp/tlab-development-day-parity-v1-independent-review.md": {
+      "bytes": 5449,
+      "sha256": "2cb22f76f3a0908b8692eb2a6fe54b1a2f8ba3dfe4d9665f89226e12df9ea5ca"
+    },
+    "/tmp/tlab-development-day-parity-v1.py": {
+      "bytes": 33395,
+      "sha256": "aa5ddc8d033bbd7f51fa4a75ff9162f953a957d8eb379b68277d07125e9e8811"
+    },
+    "/tmp/tlab-development-slice-owner-v2-freeze.json": {
+      "bytes": 2258,
+      "sha256": "61f5527ff826abdaff9f68b2796805a37dc79918255a00feb333df231fe4c58b"
+    },
+    "/tmp/tlab-development-slice-owner-v2.py": {
+      "bytes": 38647,
+      "sha256": "e4635261b975abb0b51126b658eb33fefcd8dbf9a3639a39b276ce4759e44d31"
+    },
+    "/tmp/tlab-development-source-to-score-concrete-schema-proposal.json": {
+      "bytes": 10174,
+      "sha256": "349197ea213952d44e6bf586eae0d99a260266505c1baadc5c2941a34bfe3b51"
+    },
+    "/tmp/tlab-development-source-to-score-model-source-bindings-proposal.json": {
+      "bytes": 9708,
+      "sha256": "ba4056c710951395ceae3f42bf04d54b8d16bdc83c0cf2114ea548a1aa133771"
+    },
+    "/tmp/tlab-reproduce-development-slice-v1.py": {
+      "bytes": 11076,
+      "sha256": "cc5a5779199636c2336b2bc0edcb8b31ff496d2e6edf78ed48bfd5f8f3982e8f"
+    },
+    "/tmp/tlab-root-development-day-reference-handoff-prepared.json": {
+      "bytes": 16752,
+      "sha256": "fd7304383e9c025d205a0b7f9060187f8062daa9baa2f9b0f86ea6a18323e05b"
+    },
+    "/tmp/tlab-test-development-day-parity-v1.py": {
+      "bytes": 11307,
+      "sha256": "f3548b322177362f0b29bff4e863ed47078e2bf88ca82801598e83799a17f982"
+    }
+  },
+  "project_writes": 0,
+  "red": {
+    "AST_module_path_adaptations": 1,
+    "actual_data_reads": 0,
+    "children": 0,
+    "cpu_seconds": 0.29714199999999996,
+    "errors": 0,
+    "execution_granted": false,
+    "expected_RED": true,
+    "failures": 2,
+    "guard_attempts": {
+      "children": 0,
+      "models": 0,
+      "network": 0,
+      "real_data": 0
+    },
+    "models": 0,
+    "peak_rss_bytes": 121831424,
+    "project_writes": 0,
+    "scope": "two_regression_bodies_against_unchanged_V1_expected_RED",
+    "tests": 2,
+    "unchanged_v1_sha256": "aa5ddc8d033bbd7f51fa4a75ff9162f953a957d8eb379b68277d07125e9e8811",
+    "wall_seconds": 0.25272620800387813
+  },
+  "same_independent_reviewer_pending": true,
+  "scope": "TMP_only_PARITY_two_supported_P2_repairs",
+  "source_acceptance_issued": false,
+  "terminal": {
+    "GREEN": {
+      "chunk": "1ebc10",
+      "exit_code": 0,
+      "external_maxrss_bytes": 129810432,
+      "external_system_cpu_rounded": 0.06,
+      "external_user_cpu_rounded": 0.82,
+      "external_wall_rounded": 0.78
+    },
+    "RED": {
+      "chunk": "e512a4",
+      "exit_code": 1,
+      "expected_red": true,
+      "external_maxrss_bytes": 121880576,
+      "external_system_cpu_rounded": 0.05,
+      "external_user_cpu_rounded": 0.27,
+      "external_wall_rounded": 0.31
+    }
+  },
+  "version": 2,
+  "whole600CPU900wall_stage_ungranted": true
+}

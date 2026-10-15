@@ -1,0 +1,141 @@
+{
+  "actual_api_pages": 0,
+  "actual_tests_or_fits": 0,
+  "author": "/root/source_import_review",
+  "cell125_upper_seconds": null,
+  "five_row_delta": {
+    "automation016": 136,
+    "decision_preparation": 3524,
+    "metadata009": 167,
+    "smoke008": 114,
+    "strong019": 168
+  },
+  "fixed_cutoff_utc": "2026-10-15T10:10:00Z",
+  "independent_review_required": true,
+  "known_candidate_seconds": 33521,
+  "known_plus_future438_seconds": 33821,
+  "metadata_digest_scope": "redacted extracted call/native fields, not original private session bodies",
+  "metadata_stream_digest": "599611a194e69d5a7dd7576a65eb8ede38d1612119ff621ab744c127fedd8439",
+  "no_execution_authority": true,
+  "old_v3_preserved": true,
+  "population": {
+    "async_tail_native_records": 250,
+    "closed_cell_generations": 7,
+    "code_cell_generations": 8,
+    "commands": 7453,
+    "linked_poll_references": 286,
+    "native_launch_yield_records": 205,
+    "native_poll_yield_records": 79,
+    "native_yield_records": 284,
+    "numeric_poll_references": 286,
+    "whole_origin_linked_records": 7453
+  },
+  "proof_shard_pins": [
+    {
+      "bytes": 314696,
+      "path": "/tmp/tlab-decision-cost-async-repair-frozen/native-lifetimes-00.json",
+      "sha256": "2ca0d82bcf1acb568f85c2c9f9eca6bcd7b61560f567f860be866a3923ed5ebc"
+    },
+    {
+      "bytes": 332277,
+      "path": "/tmp/tlab-decision-cost-async-repair-frozen/native-lifetimes-01.json",
+      "sha256": "be07fda26a937aa8f640545542d719f5f6bd520a0a459ffdd5ed307c54fa82a5"
+    },
+    {
+      "bytes": 348632,
+      "path": "/tmp/tlab-decision-cost-async-repair-frozen/native-lifetimes-02.json",
+      "sha256": "44f78954a6f0c7809330df6c10706bf54ed33d051fcfc4c017c326eb200572e5"
+    },
+    {
+      "bytes": 365243,
+      "path": "/tmp/tlab-decision-cost-async-repair-frozen/native-lifetimes-03.json",
+      "sha256": "47ebb9605f645d4f35faf0db79afdc1195b0872e626824418e9f98ccba0dc608"
+    },
+    {
+      "bytes": 353203,
+      "path": "/tmp/tlab-decision-cost-async-repair-frozen/native-lifetimes-04.json",
+      "sha256": "bb1c900309f5dfe79eb89d5608b036aaf427d639714c682eb9b2c15dd6399b77"
+    },
+    {
+      "bytes": 339125,
+      "path": "/tmp/tlab-decision-cost-async-repair-frozen/native-lifetimes-05.json",
+      "sha256": "2f6b00b0b9b4b22c00a385f072e5bfdf23f832d0c4f4e1fb77df5183e43f4fcf"
+    },
+    {
+      "bytes": 349377,
+      "path": "/tmp/tlab-decision-cost-async-repair-frozen/native-lifetimes-06.json",
+      "sha256": "06d6edb0b323d91e3726e3b9afc348c53f7e319c461ea3fe00fc302fe251dd15"
+    },
+    {
+      "bytes": 162228,
+      "path": "/tmp/tlab-decision-cost-async-repair-frozen/native-lifetimes-07.json",
+      "sha256": "9496cd1e2ec9810ec1898c3f40597189295a5cd29b0b36d66e02dee2e9eb1047"
+    },
+    {
+      "bytes": 245270,
+      "path": "/tmp/tlab-decision-cost-async-repair-frozen/handles-cells-unmatched.json",
+      "sha256": "ee96da63ec851c9c07ede87b291a24ba6f7457deaa3d75ae7e41619e13bbc64f"
+    },
+    {
+      "bytes": 4015,
+      "path": "/tmp/tlab-decision-cost-async-repair-frozen/known-fixtures-and-rows.json",
+      "sha256": "a2bdc1d4ebb0207eeabbff2b6a1a43480100cba1595b741e4889707498c93c3a"
+    },
+    {
+      "bytes": 1451,
+      "path": "/tmp/tlab-decision-cost-async-repair-frozen/own-resource-receipt.json",
+      "sha256": "1b4ad4038ec087ce1580aa4c4367100a49bf165de17a21f5b804c6ce0b9fa266"
+    }
+  ],
+  "report_pin": {
+    "bytes": 6236,
+    "path": "/tmp/tlab-decision-cost-async-repair.md",
+    "sha256": "b7b9c607f860de7695d379a51484c0c76f488ee80be4ccda8629e510ffbf263f"
+  },
+  "retention_ceiling_bytes": 16777216,
+  "sole_unmatched": [
+    {
+      "cell_id": "125",
+      "origin_call_id": "call_970cd16a356248dda6b34a8e42280e40",
+      "origin_start_ts": "2026-10-15T08:31:08.909Z",
+      "resume_call_ids": [
+        "call_76865095d70d4ecfb8796b7eb501fca3",
+        "call_d885b9e005554944932cbd6fb9368d3d"
+      ],
+      "thread_id": "01a13b19-73f1-7260-b491-0f610ca81852",
+      "type": "yielded_cell_without_exposed_terminal_resume"
+    }
+  ],
+  "source_files": [
+    {
+      "bytes": 5699705,
+      "path": "/tmp/tlab-decision-cost-async-coverage-v1.json",
+      "sha256": "a80bbeb987d4194b8da336af790b8498e0dadc9466ae5340ec15159188417fa4"
+    },
+    {
+      "bytes": 5568139,
+      "path": "/tmp/tlab-decision-cost-async-coverage-v2.json",
+      "sha256": "d5268f74306bbbd0a1e1a11a5b9cd94b577ed4467b81b1422fc230bd7fbf21c5"
+    },
+    {
+      "bytes": 19752,
+      "path": "/tmp/tlab-decision-cost-async-linkage-pass.py",
+      "sha256": "6d82a2b0d66c3321f21d62c23dfcde1c9b9ac7a0711385d93b5042c3a956dc92"
+    },
+    {
+      "bytes": 19696,
+      "path": "/tmp/tlab-decision-cost-async-linkage-pass-v2.py",
+      "sha256": "726f3c653143eaa22437adbd1f5860dade9e20422d1489d45d068f4292b9f992"
+    },
+    {
+      "bytes": 10237,
+      "path": "/tmp/tlab-decision-cost-async-linkage-offline.py",
+      "sha256": "f8ef0a94f061c94f197500ec438979cb6fd17f640bf618f0efdcc9c7befc1c6c"
+    },
+    {
+      "bytes": 1780,
+      "path": "/tmp/tlab-decision-cost-async-linkage-external.log",
+      "sha256": "bdfb4c75a488da85b8f5362037f694294fe8a33d4dc0b08128c07d660ae89015"
+    }
+  ]
+}
