@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 11:58:33 UTC / 14:58:33 МСК.12:00checkpointwrittenearly; nextmax12:45UTCanchored12:00.
+Обновлён 15 октября 2026, 12:14:21 UTC / 15:14:21 МСК. Original018FAILED/consumed; real015held; max12:45UTC unchanged.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
