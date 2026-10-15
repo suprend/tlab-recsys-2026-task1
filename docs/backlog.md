@@ -662,3 +662,17 @@ The [finished FB002/RA003/MB003 reviews](research-lab/brainstorm-round002003-rev
 ### Root limited004 evidence and source-free main checkpoint —07:19UTC
 
 [Root receipt](research-lab/brainstorm-wave004-root-literal-review.json) accepts8 original symbolic/literal cases without rerun or external adapter/data-quality proof. [Proposed002 synthesis](research-lab/brainstorm-wave002-synthesis.md) assigns0IDs/grants. Root CODEaccepted supervisorV6; a prelaunch path-alias defect and new sourcefreeze focused reviews remain separate from actual setup/6role/import. Two observed independent006authors plus separate005skeptic keep research active; current execution priority/limits and07:30UTC checkpoint remain unchanged.
+
+
+### Actual tiny checkpoint written07:31:26UTC, planned07:30; review states separate
+
+Root sourceV5 tiny run terminalexit0:3ownerCLI0/1/1,2workers,4physical syntheticrows,8declaredattemptrows,0fits/realrows/sourceapproval. Independent output review completed205checks/49freshness and Rootaccepted07:30:28 for syntheticintegration only. Root toysetup1fit8×41/300trees and6real-role integration also terminalexit0,13Q/25C/5nativecalls perpredictionrole;50code/freeze+138artifactpins checked. Independent sixroleoutput/lifetime review running. B=W/historical439stub chosen0 does not establish chosen3, freshbootstrap, realquality or productioncapacity. [Journal checkpoint](research-lab/brainstorm-log.md) records actual handles, rounded inclusive costs and scope limits; reserved scientific execution remainsclosed.
+
+
+Root acceptance receipt at07:30:28 confirms actual sourceV5 tiny output after full independent review and10rootpins/49freshness checks. Original external receipt remains unchanged; two Root metadata checker errors and corrected no-rerun readback are retained. No real-source acceptance/capacity claim; sixroleoutputreview stillpending. The checkpoint write was1m26s late and is timestamped honestly.
+
+
+[Published sourceV5 actual tiny acceptance](backlog-reviews/source-import-tiny-v5-output-verification.md) preserves15 exact original evidence/code files and narrow205-check output acceptance, without raw/model/DB or real-source approval. Sixrole independent output review remainspending; current research author007 lanes and separate006skeptic follow the unchanged08:15UTC cadence. The38000 historical compute upper remainsuncertified and actual reserved request has no execution gate.
+
+
+[Sixrole actual toy outputs now independently Rootaccepted](backlog-reviews/six-role-toy-v2-output-verification.md):1setup syntheticfit,6role exits0,13Q/25C,64metricfields/1600draws replayed; exact5TMPsource/test originals and boundedmetadata archived, noDB/CBM/raw. B=W/439stub/sharedruntime scope does not establish chosen3, freshbootstrap, productioncapacity or realquality. Both tiny integration milestones are accepted; actual reserved execution still lacks accepted historicalcost/request authority.

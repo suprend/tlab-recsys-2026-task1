@@ -1,0 +1,48 @@
+# Independent output review: completed tiny six-role harness v2
+
+**No supported output findings or output-acceptance blocker within the frozen synthetic scope.** The existing bundle supports completion of the one eight-row B41/300-tree setup and the six fixed real worker roles on the isolated toy source. External full-lifetime closure additionally uses the Root-supplied actual terminal records `39b20a` (setup) and `ec7144` (integration), both explicitly reaped exit 0. Raw timing logs and their receipt bindings agree; files alone cannot authenticate tool history.
+
+This accepts only `synthetic_six_role_integration_only`, the existing shared locked runtime and B=W. It grants no real reserved25–31 execution, historical439 authentication, chosen3 native inference, fresh-environment/source bootstrap, production capacity or recommendation-quality claim.
+
+## Frozen material and freshness
+
+The review followed the read-only `code-review` skill and coordination rules. Snapshot mapping: `/tmp/tlab-six-role-v2-independent-output-review-inputfreeze.json`, SHA256 `76ee1f53917bf37a3153f09c48b615ce978f7f377f98434bddc170326037e321`. It captures 236 files / 3,677,608 bytes, including all 173 regular files in `/tmp/tlab heldout six role integration 20261015`, harness/public source, requirements, raw external logs and receipts. The sole fixedroot symlink is `.venv` → `/Users/mdpospelov/tlab-recsys-2026/.venv`; the original `pyvenv.cfg` pin matches.
+
+The original whole freeze remains SHA256 `49a95a26e9ec7a08b28ace4cbb673052b40c49e3043dcc8a243f959655defaf6`. All five harness source/test pins and fourteen supporting-document pins match. The 28 owner CODE files plus three public configs form exactly the 31-file copied closure; frozen project bytes, copy bytes and copy receipts match. No project code or fixedroot file was changed by this review.
+
+Final per-file initial/final hashes and namespace comparison: `/tmp/tlab-six-role-v2-independent-output-review-finalfreeze.json`. All 236 scoped files and the 173-file fixedroot namespace are unchanged. Real project data/model/artifact bytes and real study counters were neither opened nor independently compared; this review makes no global unchanged-data assertion.
+
+## Actual output checks
+
+- All 138 result fingerprints match existing bytes. Recursive JSON verification additionally checked 505 path/hash reference occurrences and 977 fingerprint/output-map occurrences without conflicting references. The original request, claim, proposal identity digest, lock, B/W model references, six contexts/slots/launches/consumptions/receipts, logs and reap boundaries remain bound.
+- Each exact fixed CLI argv uses the copied public entry and original issued context SHA. Slots retain ordinals 0–5, original allocations and identical plan identity. All six reap records report exit 0; child-reported CPU is bounded by reaped CPU. Issued/start/finish/deadline clocks are ordered, role lifetimes do not overlap, and no known failed, scratch or spill file appears.
+- First four receipts have labels=false; target producer and metric oracle have labels=true. All six report fit=0 and descendant CPU=0. Only prediction producer and prediction oracle report native predictions, exactly five each for the five nonempty-candidate dates. Setup is separately consumed once with training_rows=8, fit=1, numeric_features=41, trees/scoring_prefix=300. B and W specifications/artifact references are identical; 26000 remains an explicitly disclosed protocol literal.
+- Four exact gate closures were independently reconstructed from the original plan and accrued immutable outputs: initial 50 pins, source 88, prediction 114, target 116. Their order is initial → source/source_oracle reaped → source acceptance → predictions/prediction_oracle reaped → prediction acceptance → late target grant → target producer → metric oracle. Gate trace records the once-only, self-issued synthetic issuer. The only historical-admission substitution is the disclosed controller-local once-only stub; historical authentication is not exercised.
+- Seven dates retain Q counts `[1,2,3,2,3,2,0]` and C counts `[0,3,6,4,7,5,0]`: 13 Q / 25 C. Day25 retains an eligible positive query with empty C; day31 retains empty Q/C. Source oracle records zero mismatches, complete Q/C domain, sampled B18 proof only (21 pairs / 378 scalar comparisons, exhaustive=false), chosen columns/scalars=0 and no target relation.
+
+The independent stdlib checker decoded seven **existing** NPZ transports using `zipfile`/`struct` without NumPy or any native backend. It checked exact typed query/user/anchor/maturity/group/item/score vectors, finite raw scores, all-Q/all-C domain, B=W artifact reuse and rank order against all 26 existing B/W JSONL ranking rows. Using a separately transcribed eleven-event fixture verified against the frozen controller AST, it independently derived 48-hour eligibility, small-fixture candidate membership and fullY windows. Three raw eligible-window purchase rows become exactly two distinct fullY pairs; the duplicate anchor purchase remains one unretrieved Day25 target, and the final window retains one retrieved target.
+
+Both fixed windows, all four metrics (recall/NDCG/AP/RR) under all four estimands, and all paired-user draws were recalculated from those saved rankings, without importing project functions. All 64 metric scalar fields and 1600 bootstrap draw fields agree with producer, independent metric oracle and final owner aggregates. Every W−B estimate is zero; final conditional query/user estimands retain exactly 67 `null` draws each, with 133 defined zero draws. Other estimands retain 200 defined zero draws. No undefined draw was replaced or redrawn. This arithmetic says nothing about real recommendation quality.
+
+Producer target admission and fullY raw-SQL clocks are 07:26:09Z, strictly after prediction and target seals at 07:26:08Z; producer monotonic admission/fullY clocks are contained in its original receipt lifetime. Metric oracle's separate target/fullY clocks also occur at 07:26:09Z, after both seals and within its original issued lifetime. The unchanged producer's guarded next-second wait is visible in the frozen source; no clock mocking/backdating was used by the harness.
+
+## Resource accounting and actual external exit
+
+| Stage | External rounded CPU | External CPU rounding upper | External wall | External MAXRSS | Sampled aggregate RSS peak | Limits |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Setup | 0.49 s | 0.51 s | 0.60 s | 127,008,768 B | 158,744,576 B | 60 CPU / 120 wall / 1 GiB sampled |
+| Integration | 3.25 s | 3.27 s | 3.92 s | 159,268,864 B | 295,141,376 B | 60 CPU / 120 wall / 2 GiB sampled |
+
+External stage totals sum once to **3.74 rounded CPU seconds / 4.52 rounded wall seconds** (3.78 seconds summed conservative CPU rounding upper). Inclusive external CPU already contains children; six-role CPU and internal controller/supervisor subtotals are cross-checks, not extra charges. Role reaped CPU sums to 2.684751 s; controller's later subtotal is 3.146927 s, external supervisor's inclusive child wait4 is 3.171571 s, and integration internal observed SELF+child total is 3.250008 s. These represent nested observations and are not added together.
+
+Internal observed setup CPU is 0.497422 s; declared CPU upper including the unmeasured-tail reserve is 2.497457 s. Integration declared CPU upper is 5.250048 s; internal declared uppers sum to 7.747505 s. They remain conservative internal bounds, separate from the actual rounded external charge. The external logs cover process completion using the Root-supplied reaped terminal records. Each supervision record remains normal reaped exit 0, with no intervention, error or terminal survivor and unknown_active_work=false.
+
+External MAXRSS is retained as a separate statistic from the sampled sum of live RSS. Neither sampled aggregate value is presented as a hard aggregate-memory fence. Internal `actual_total_cpu_seconds=null`, `supervisor_exit_tail_measured=false`, ledger `exact_supervisor_exit_tail_measured=false`, and Root receipt `internal_supervisor_exact_exit_tail_remains_unmeasured=true` all remain unchanged; external closure does not rewrite those internal flags. Arbitrary never-observed orphan containment is not claimed.
+
+## Executed review and limits
+
+Reviewer execution consisted only of bounded reads, hashes, JSON/AST parsing and independent standard-library receipt/transport/ranking arithmetic on existing synthetic files. There was no harness rerun, model load/predict/fit, source DB connection, SQL, native/backend call, worker launch, target download, network/API call or real-data access. DB, CBM and parquet artifacts were byte-hashed only. A second independent read-only resource reviewer reached no findings: `/tmp/tlab-six-role-v2-resource-output-subreview.md`.
+
+The reviewer's first checker draft incorrectly required exact equality between two separately timed SELF CPU readings. Frozen supervisor source takes ordered independent `getrusage` snapshots, explaining 7/10 μs differences. The checker was corrected to require ordered observed totals and reserve bounds; the final source-free checker passed. This was a checker assumption correction, with no harness/output mutation or repeated integration.
+
+Machine-readable results: `/tmp/tlab-six-role-v2-independent-output-review-ledger.json`. Checker: `/tmp/tlab-six-role-v2-independent-output-checker.py` (SHA256 `49811fed9c1da240f1f836db17e235f1e2fa417f87d849a035dd8c352f58e847`). The frozen requirements and evidence preserve all disclosed synthetic seams and unsupported-claim boundaries.

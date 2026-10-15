@@ -112,3 +112,10 @@ Reproduction018 пока не завершён. Kernel принят на50 uniqu
 Root принял ограниченное доказательство переноса: восемь original symbolic/literal cases, без повторного запуска, реальных внешних данных, ML или качества. Amazon reviews не идентифицируют полный24h purchase target; условный RetailRocket adapter и provenance различия RelBench остаются отдельными contracts. [Scope acceptance](research-lab/brainstorm-wave004-root-literal-review.json).
 
 Исправленный supervisor V6 принят Root на уровне кода. При подготовке запуска найдено отдельное сопоставление путей `/tmp` и `/private/tmp`; оно остановило подготовку до application jobs. Новый source-harness freeze проходит focused review. Фактический tiny setup/шесть ролей и raw import ещё не приняты; очередной source-free repair не выдаётся за успешно выполненное воспроизведение. Две независимые author006 линии уже исследуют следующий typed-AST operator search, а отдельный skeptic проверяет005;07:30UTC checkpoint и priority015/018/report сохранены.
+
+
+## Обе tiny integration независимо приняты — 07:54:55 UTC
+
+Root и независимые проверяющие приняли фактический source-import smoke на четырёх искусственных строках и шестиролевой toy pipeline: одно setup-обучение на восьми строках и шесть завершившихся ролей на13 запросах/25 кандидатах. [Source proof](backlog-reviews/source-import-tiny-v5-output-verification.md) и [six-role proof](backlog-reviews/six-role-toy-v2-output-verification.md) сохраняют исходные receipts, ограниченные проверки и exact tested code; DB, модели и raw artifacts в Git не входят.
+
+Эти проверки закрывают ранее ожидавшиеся tiny lifecycle/output gates в их узком scope. В toy B=W, historical consumer заменён stub; native chosen3, full-source bootstrap, fresh environment, production capacity и качество на реальном отложенном периоде не доказаны. Reserved25–31 остаются закрыты. Для исторического бюджета теперь найден исходный completed ingest21.557s и download582.334s из tool metadata; вложенные20.8s не добавляются. Новый cost ledger и независимая приёмка actual request ещё нужны — автоматического разрешения реального запуска нет.

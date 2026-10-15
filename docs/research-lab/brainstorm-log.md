@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 07:19 UTC / 10:19 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
+Обновлён 15 октября 2026, 07:54 UTC / 10:54 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,7 +8,13 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 07:30 UTC / 10:30 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 08:15 UTC / 11:15 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Current snapshot after accepted tiny outputs
+
+- Main: source tiny independently accepted; six-role toy independently accepted. Real reserved execution remains closed pending cost/request authority.
+- Research: two author008 lanes `/root/brainstorm_features_a` and `/root/brainstorm_retrieval_a` observed running; `/root/brainstorm_features_b` is the separate007 skeptic. Both007 first drafts and006 skeptic are completed; older004/005 activity tables are historical.
+- Current `next_due`: two completed research rounds or08:15 UTC /11:15 МСК,45 minutes from original07:30. The late07:31:26 checkpoint is retained; new ideas do not reset the clock or budgets.
 
 ## Три независимые линии
 
@@ -204,3 +210,34 @@ Main execution state по Root handoff: V6 supervisor CODEaccepted после ч
 
 
 Root read back all10 wave002 normalized entries and accepted the candidate register only. `root_normalization_readback=true` is distinct from `root_registration_approval=false`: five conditional suggestions remain local stable IDs, no145+/fit admission/new mandatory tasks. Main execution remains015/018/report.
+
+
+## Checkpoint фактически записан07:31:26 UTC /10:31:26 МСК; planned07:30, задержка1m26s
+
+Root выполнил original sourceV5 tiny run: explicit terminal session30552/chunk05c64d/exit0;3ownerCLI exits0/1/1,2workers,physical4-row synthetic gzip и8declared attempt rows. External1.10s wall, observed supervisor CPU0.702585s, sampled aggregate RSS196149248bytes; external maxRSS107954176 — другая величина. Real source rows0/fits0/labels0/source acceptancefalse. Independent output review завершён:205bounded checks/49freshness, noSQL/rerun; Root acceptance receipt accepted_at07:30:28 подтверждает narrow syntheticintegration scope.
+
+Root также реально завершил one toy setup fit8rows×41cols/300trees (0.60wall) и шестиролевую integration (3.92wall,6role exits0,13syntheticQ/25C,5native prediction calls per predictionrole). Root проверил50code/freeze и138artifact pins; rounded inclusive CPU setup+integration3.74s, sampled integration aggregate RSS295141376bytes. Independent sixrole output review и resourcehelper running. Это B=W/historical439stub/selfsynthetic gates: chosen3 nativeintegrationfalse, freshsourcebootstrapfalse, realrecommendationqualityfalse и реальные reserved source/fullY закрыты. Actual native execution не превращено в output acceptance до независимого review.
+
+Authoritative inventory на checkpoint:17known/7running/10completed. `/root/brainstorm_retrieval_a` — running independent006author; `/root/brainstorm_features_a` — completed006firstfreeze, separate006skeptic ждёт обе drafts. `/root/brainstorm_models_b` completed005skeptic: A005-01/M5-01 mergeHYP046, A005-02 DISTINCT specialization, SUDAFM5-02defer; physical gainnone, авторские bytes unchanged. `/root/six_role_output_review` и `/root/six_role_output_review/resource_receipt_review` running; Root/coordinator и bounded actual-request metadata reviewers running. Completed helpers не считаются live independent authors.
+
+SafeNEXT — Root readback sourceoutputreview, независимая sixrole output/lifetime приёмка, затем aggregate/code-archival handoff без raw/model/DB. Будущий actual reserved request ещё требует своей принятой authority/resource/lineage; tiny successes не доказывают fullsource capacity/hardaggregateRSS либо missing historical upper bounds. Main015/018/report приоритет сохранён;006/следующие идеи не prerequisites. Deadline07:30 не переносился: фактическая запись опоздала на1m26s; это явно отмечено, новый timer не создан. Sharedgoal непрерывный, отдельные paidops bounded/failclosed.
+
+
+Root receipt accepted_at07:30:28 подтверждает actual sourceV5 tiny outputs: full review/ledger readback,10rootpins и49freshnesschecks прошли, reruns0. Original external receipt сохранён; separate acceptance/final-freshness receipts фиксируют два metadata checker failures (неверный hash key, затем hashing symlink), исправленных без изменения application outputs/перезапуска. Это acceptance только4-row synthetic source integration, real-source acceptance/full capacityfalse; sixroleoutputreview по-прежнемуpending. Aggregate proof publication следует отдельно.
+
+
+## Текущий handoff после late checkpoint
+
+[Actual source tiny accepted proof](../backlog-reviews/source-import-tiny-v5-output-verification.md) опубликован как aggregate narrative плюс15 byte-exact evidence/code files, без gzip/CSV/DB/model. Root accepted_at07:30:28; сообщение о приёмке стало доступно coordinator после late write07:31:26. Original external receipt и metadata checker failures сохранены. Sixrole actual integration прошла, независимый output/lifetime review ещёpending.
+
+Текущие author007 ModelsA/ModelsB genuinelyrunning по Root dispatch;006обаfirstdrafts completed (RA final07:32:11, late completion явно записана), separate006skepticFeaturesB running.005skeptic completed: A005-01/M5-01mergeHYP046, A005-02distinctsuboperator, M5-02defer; source-only mechanics не дают physical speedup. Эти current states supersede исторические004/005running snapshots выше. Current next_due08:15UTC /11:15МСК либо два следующих completed rounds,45min от ORIGINAL07:30; late write и новые идеи timer не сдвигают. Main actual-request metadata всё ещё содержит38000uncertified historical upper assumptions; execution authority отсутствует.
+
+
+## Actual sixrole output acceptance — Root accepted_at07:40:39UTC
+
+[Accepted toy proof](../backlog-reviews/six-role-toy-v2-output-verification.md) сохраняет20 exact original receipt/report/freeze/log/code files, включая5 testedTMP sources/tests, безDB/CBM/raw. Independent64metricfields/1600userdraws,138artifactpins,505refs/977hashoccurrences и236finalfiles+symlink проверены; reruns0. Это actual synthetic sharedruntime B=W сhistorical439stub,1setupfit8rows,6role exits0/13Q25C. Chosen3/freshbootstrap/realquality/capacity остаютсяfalse, realreservedclosed.
+
+Source tiny acceptance отдельно205boundedchecks/49freshness и0fits/realrows/sourceapproval. Обе success receipts не переписывают старые failures или unmeasured-tail flags. Root продолжает historicalcostbasis/actualrequest review; обнаруженные download581.982593 и EDA30.186006 относятся креальным прошлым operations, но EDA —rerunexistingDB, не доказанная initialimport cost. Не все38000upper assumptions сертифицированы. Ни optional chosen3 coverage, ни новые идеи автоматически не prerequisites main015/018/report; any nextpaidop требует собственного value/finite reviewedplan.
+
+
+Root historical metadata breakthrough: completed original ingest tool itemexec-79a59619-2186-46cd-9616-24cbef2c3bb9 has durationMs21557/exit0 and42,448,764 rows; nested stdout20.8s is not additive. Original download itemexec-e2ecce61-ae08-45e5-9993-4f540bfc94c1 has durationMs582334/exit0/resume_offset0. These substantiate previously missing basis, not blanket historical12h approval. New ledger/independent review/Root request acceptance remain pending.
