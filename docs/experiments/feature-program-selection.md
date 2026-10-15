@@ -1,0 +1,17 @@
+# Prospective016 selection rule
+
+This rule was accepted as a design before any016 model score was observed. It does not change019, authorize fits or approve source values. The executable selector and exact fit plan remain to be implemented and independently checked against this configuration.
+
+The candidate family contains the unchanged control **B** and all four predeclared additions **I1, I2, R1, R2**, including random arms. Every new arm uses the same accepted019 population, weights, base41 schema, model settings, **trained iterations and scoring prefix**. An arm adds exactly three physical model columns including automatic masks. B adds zero. There is no extra search over trees, depth, AST complexity or CPU cost.
+
+For each eligible successfully verified candidate, compute conditional query-macro NDCG@20 and Recall@20 using full Y independently of the candidate set. Feasibility requires Recall ≥ frozen B selection Recall −0.002, with an inclusive boundary. B is consequently feasible. Reject missing or nonfinite metrics rather than replacing them by zero.
+
+Find the **global maximum NDCG** among feasible candidates. Keep candidates whose NDCG is at least global maximum −1e−12. Break this band by fewer added physical columns, then lexicographic candidate ID. This is one global band, not a pairwise approximate comparator that can create a non-transitive chain. B wins ties because it adds zero columns. B is excluded only if the feasible global maximum exceeds B by more than the tolerance. The chosen new arm meets the Recall guard and has a positive gain over B, but its own gain can be at most the tolerance: another arm may establish the higher global maximum before the lexicographic tie-break.
+
+The primary future comparison is the sealed selected **W − B**, where W may equal B. Choice and the complete model/program/prediction contract must be frozen before reserved query-level targets or metrics open. Reporting-only confirmation and final evaluation use the same frozen models; they do not select again, refit or adapt. If W=B, report the unchanged choice and zero paired difference honestly. A lack of relevant held-out targets can make a conditional estimand undefined; it must not be fabricated as zero.
+
+Best-of-two-I minus best-of-two-R is descriptive development screening only. If a random arm wins, any measured gain belongs to the mixed typed-automation allocation; it does not demonstrate that the rule-guided proposal strategy is superior. Neither two arms per family nor a development bootstrap establishes generalization of a search policy. The final report must distinguish completed negative comparisons, inconclusive uncertainty, invalid evidence and resource failures.
+
+A recognized resource-failed arm or predeclared allocation collision remains paid, consumed and ineligible. No replacements are drawn. Integrity/API errors or unknown usage cause STOP; they do not silently fall back to B. A resource-limited invocation that leaves B selected is not evidence that four completed alternatives lost. The fit/slot ledger and exact candidate availability must be retained.
+
+The JSON is a prospective contract only. Before016 fits, bind its actual bytes, candidate status schema, the accepted019 control/output proof, exact source acceptance, global four-fit claim, shared remaining budget and both simulated/physical decision clocks. None of these is supplied by the symbolic generator's allocation flags or by this document.
