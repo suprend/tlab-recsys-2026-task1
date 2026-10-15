@@ -39,3 +39,14 @@ Primary confirmation control — frozen tuned B, а не только B+support.
 - [Round017: proposer information boundary](round-017.md): static enumeration versus learned screening, all looks/costs and retrospective019→016development chronology.
 - [Round018: typed property/fault tests](round-018.md): exactnullableBIGINT and rawbag/globalpeer invariants, literal oracles remain necessary.
 - [Round019: bootstrap interpretation](round-019.md): user-cluster uncertainty conditional on observed dates/models;200draws and adaptive selection do not establish confirmation/generalisation.
+
+
+- [Round020: cost-aware search ledger](round-020.md): measuredSELF+reapedCHILDREN, shared/cached costs and failed attempts; no free proxy fits.
+- [Round021: schema-only UCI invoice adapter](round-021.md): four compatible purchase operators, explicit missing capabilities/units/timezone; no dataset obtained. Rejected ZIP lookup is disclosed.
+- [Round022: source values, transforms and fitted-state lifecycle](round-022.md): event-time cutoff versus artifact availability, current Feast semantics and clock provenance.
+- [Independent critic017–022](round-017-022-review.md): accepted research with CPU nonoverlap/created-timestamp provenance clarifications; no execution grant.
+- [Round023: offline ranking versus causal claims](round-023.md): fixedQ/C/Y predictive contrast, logging propensity unknown, fullY is observed purchase set.
+- [Round024: source-faithful method boundary](round-024.md): DFS/ExploreKit/OpenFE/AutoCross mechanisms versus implemented016 scope; no borrowed benchmark claims.
+- [Round025: operator semantics proof obligations](round-025.md): grain/unit/subset/NULL/closure annotations before pool freeze; units are declared, not inferred.
+
+020–025 are research proposals/refinements, not added operators/budgets or replacement actual evidence.023–025 await a separate critic; all rejected/refined ideas remain visible. [Fresh-worker019 design](../backlog-reviews/strong-worker-design.md) retains its [changes-requested review](../backlog-reviews/strong-worker-design-review.md); canonical selection policy is unchanged.

@@ -350,3 +350,12 @@ Rounds017–019 сохраняют proposerinformation/typedfuzzing/cluster-boot
 [Actualsource verdict](backlog-reviews/tlab009-full-source-verification.md):all6134207pairs×18metadata values/provenance/full1858481R checked; producer+oracle159.4891actualCPU seconds,176pin seal. Existing [008control114pin seal](backlog-reviews/tlab008-control-seal.md) reusesacceptedmodels/scores/proof,0refits/0newmetrics.
 
 [Chunkedloader review](backlog-reviews/tlab-model-data-independent-review.md) принят26independentcases+10author tests. [Single-ablation initialP1](backlog-reviews/tlab-metadata-ablation-independent-review.md) terminaldecision былисправленlocalAblationAudit без измененияsharedfull5956. [TargetedACCEPT](backlog-reviews/tlab-metadata-ablation-independent-rereview.md) закрываетresourcebase41/APISTOP/primarypreservation/globalnoretry. Current35733…/89766… codeaccepted; exactactual192pinproposalce0e… requiresONEexternalfitapproval, noactualfit/matricesyet. Parentcostledger обязателен.
+
+
+### Permanent research020–025 and exact009 single-fit gate — 15 октября 2026
+
+Six [new literature rounds](research-lab/index.md) preserve source/capability/lifecycle/cost/causal/typedoperator boundaries. [Critic017–022](research-lab/round-017-022-review.md) confirms mechanisms while clarifying nonoverlapping CPU accounting and actual availability-clock provenance. No new data/fit quota granted by these notes.
+
+[Exact009 execution gate](backlog-reviews/tlab009-single-fit-approval.md) issued for unchanged192pins/runce0e…; Root started ONEattempt with fresh-parent CPU/tail receipt. Actual outputs remain pending independent model/score/fullY/bootstrap audit. No independent heavy source/model job overlaps measured fitting.
+
+[019 worker seam](backlog-reviews/strong-worker-design.md) is changes-requested: canonical tie law remains fewer trees→smaller depth→incumbent→configID within globalmax−1e−12. TERM/grace/KILL/reap/no descendants, live-child CPU and partial-checkpoint eligibility must be fixed prospectively before execution. Fresh processes solve monotonic peakRSS fallback; they do not create extra CPU, fits or looks.
