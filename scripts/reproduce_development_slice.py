@@ -219,7 +219,7 @@ OWNER_MODULES = (
 )
 OWNER_CODE_PATHS = {f'scripts/{name}.py' for name in OWNER_MODULES} | {OWNER_FILE}
 OWNER_EXISTING_CODE = {
-    'scripts/heldout_predictions.py': 'e1b06b2aac68c59379d15298c39101ec02b6a176c26b13d4671f8e445de2851b',
+    'scripts/heldout_predictions.py': '437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4',
     'scripts/inference_data.py': '3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd',
     'scripts/protocol_manifest.py': '0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0',
     'scripts/temporal_contract.py': 'c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66',
