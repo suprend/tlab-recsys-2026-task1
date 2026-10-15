@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 08:58:36 UTC / 11:58:36 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
+Обновлён 15 октября 2026, 09:25:04 UTC / 12:25:04 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -10,12 +10,12 @@
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 09:45 UTC / 12:45 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
-## Current snapshot at 08:58:36 UTC;09:00 maximum checkpoint
+## Current snapshot at 09:25:04 UTC; earlier two-round checkpoint010+011
 
-- Main: chosen3 V3 целикомFAILED/consumed; V4pure complete-verifier repair и независимый разбор существующих выходов running. Ни один component exit0 не превращён в whole success. Ранее принятые source/B=Wtiny milestones сохранены; actual heldout requestCLOSED.
-- Parallel018: `/root/source_harness_review` готовит точный bounded full-source request/disk plan только через stat/small manifests/code; hashstream/import/native grant отсутствует. `/root/timing_methodology_review` проверяет историческую основу;36534 — span до interrupted turn, не доказанный whole-cohort lifetime upper.
-- Research inventory:17known/9running/8completed. Wave011 два independentauthors ModelsB/RetrievalA running; Wave010bothFIRSTdrafts complete, separateModelsA skeptic running. Root/coordinator и четыре main code/review/preparation линии также running; completed helpers не считаются авторами.
-- Checkpoint09:00 записан 08:58:36UTC, за 84s до максимума. Следующий максимум 09:45UTC /12:45МСК, anchored ORIGINAL09:00, либо два следующих completed rounds; новые идеи/поздние старые записи не reset clock/limits.
+- Chosen3 narrow existing-worker and V4r1CODE evidence accepted; original wholeV3 remainsFAILED/consumed/unknowntrue. No success ledger, refit or relaunch synthesized.015 next decision is finitecost/exactrequest; actual reserved requestCLOSED.
+-018 exact request/metadata-disk prereview accepted; actual request file not staged. DriverV1 absolute--request P1 stopped before launch/claim, V2pure owner.local-AST regression and independent review pending. Full-source018 is parallel to015, not a prerequisite; no archivehash/import/nativegrant.
+- Research:010/011 separate critiques complete;010Rootresearch readback accepted,011Rootreadback pending.012bothFIRSTdrafts frozen; ModelsA now confirmed running as separate012skeptic.013two independentauthors ModelsB/RetrievalA running per latest Root dispatch. Last full inventory17known/7running/10completed preceded confirmed ModelsA activation; no helpers counted as authors.
+- Existing anchored maximum09:45UTC /12:45МСК unchanged. This earlier two-completed-round checkpoint is recorded at actual09:25:04, with no timer/budget reset.
 
 ## Три независимые линии
 
@@ -290,3 +290,15 @@ Parallel обязательный018 движется отдельно: `/root/s
 
 
 Wave010 and011 both independent FIRST drafts are now archived byte-exact: [010](archives/wave010/publication.json), [011](archives/wave011/publication.json), four files each.010 covers observation-window/representation constraints;011 covers typed composition and limits of unlabeled diversity as a quality proxy. These are author refinements, not accepted new mechanisms or experiments.010 separateModelsA skeptic is active;011 separate critique awaits Root dispatch at archival preparation. The09:00 dated live snapshot remains historical; Root owns continuing author assignments, no publisher helpers/jobs/IDs.
+
+
+Root accepted the [narrow chosen3 joint evidence](../backlog-reviews/chosen3-narrow-acceptance.md): existing workers at09:13:38UTC and pure constructor repair at09:12:09UTC. WholeV3 remainsFAILED/consumed/unknowntrue; no outer success artifacts synthesized or native rerun/refit/grant.75actualscalars/64metricfields/1600draws close synthetic worker arithmetic, all8deltas0; virtual15-method regression closes the exact constructor only. No additionaltoyfit/relaunch is needed for this narrow question; finitecost/exactrequest015 and parallel018 retain priority, nextmax09:45 unchanged.
+
+
+## Two-round010+011 checkpoint — actual 09:25:04 UTC / 12:25:04 МСК
+
+Both separate critiques010/011 completed, triggering this earlier checkpoint before09:45. Root accepted010 as research refinement only;011Root readback remains pending.012bothindependentFIRSTdrafts frozen; separateModelsA skeptic confirmedrunning after both,013ModelsB/RetrievalA two independent authors continue blind. Last full observedinventory17known/7running/10completed preceded ModelsA activation; the subsequent scoped inventory confirmed itrunning. No false claim that completed authors/skeptics remain active, no newHYP/tasks/admissions.
+
+Main narrow chosen3 joint question is closed: [existing-worker/code acceptance](../backlog-reviews/chosen3-narrow-acceptance.md),75actualscalars/64metricfields/1600draws and the pure full-return constructor regression. WholeV3 remainsFAILED/consumed with original flags; no extra toyfit/relaunch before015. [Full-source018 request prereview](../backlog-reviews/full-source-request-prereview.md) accepts only exact request/metadata/disk scope. DriverV1 P1 absolute--request versus project-relativeowner.local was found BEFORE staging/claim/launch; authorV2pure regression and independent review pending. Actual request17edb remains TMP and unstaged, no archivecontenthash/native/import/grant/sourceacceptance.
+
+SafeNEXT is finite five-stageV2 numerical cost proposal bysource_import_review, separate timing_methodology_review of exact numbers, plus externaldriverV2 scopedcode review. Adopted methodology is distinct from numerical approval; interrupted36534span/20000/38000 not accepted. Actual heldoutrequestCLOSED; B/W/reserved25–31 unchanged. Existinggoal unbounded untiltaskdone/userstop, individualoperations bounded/failclosed,17slotsincludingRoot/helpers; solepublisher/backlog_coordinator and solequeue docs/backlog.md.09:45 anchoredmaximum retained despite this early checkpoint or new research.
