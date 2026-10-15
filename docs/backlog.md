@@ -499,3 +499,8 @@ The additive [contract](experiments/heldout-contract.md) passed [independent rep
 ### Original016 four-fit execution and external model acceptance
 
 [Actual model verification](backlog-reviews/tlab016-feature-program-model-verification.md) accepts all4originalfits/4looks and the sole zero-fit observer after successful explicit reaping, exact authority/output pins, model/matrix/ranking/fullY replay and original-clock/resource checks. R2/L05 is frozen W on development; NDCG0.4647028774 versus B0.4586107284, descriptive postselection interval crosses0. Source+owner+observer upper1694.75CPU; conservative external admission upper10 gives1704.75<7200. No refits/refills or source regeneration. Original source failure remains failed. Whole decision and all25–31 predictions must still precede any reserved queryY; no heldout result exists. Prior007/008/009feedback and019selection are part of design history, not erased by the four016-look cap.
+
+
+### Guarded historical438 B/W consumer accepted
+
+The additive [choice consumer](experiments/feature-program-control.md) passed10 author plus3 independent synthetic cases; [review/evidence](backlog-reviews/model-choice-consumer-independent-review.md) retains a bounded actual metadata gate stopped before large paid input hashes. It returns B/W-only bindings after future caller-paid full438 authentication, not a fresh-source/bootstrap seal. Actual W=R2 and model/source authority remain immutable. New heldout owners must pin this consumer/code and authenticate new-date Q/C/F, all-prediction replay and target intent; no actual heldout operation follows from this code acceptance.
