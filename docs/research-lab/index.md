@@ -88,3 +88,10 @@ The [016 source-collection design](../backlog-reviews/tlab016-feature-collection
 
 
 - [Round042: evidence for feature automation](round-042.md): symbolic generation, source calculation and measured model comparison require distinct evidence; twelve allocated columns are not twelve learned best features.
+
+
+- [043: a concrete future Retailrocket portability pilot](round-043.md).
+- [044: exact aliases, empirical redundancy and outcome-aware pruning](round-044.md).
+- [045: metamorphic properties and their surviving wrong implementations](round-045.md).
+
+These rounds add no current source calculations, features, fits or held-out looks.

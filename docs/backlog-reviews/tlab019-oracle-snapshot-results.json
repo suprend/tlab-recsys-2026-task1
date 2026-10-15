@@ -1,0 +1,20 @@
+{
+  "entry_sha256": "03b9c22fec7a42f136cd0e6017767411fdb856dab1a1220eb613ee6d012ccaab",
+  "reviewed18_sha256": "18d45b266dd7666669dd1948eb926b38e613c0921f70daa18092c25a24924a0e",
+  "cases": [
+    {
+      "case": "same_verified_bytes_parsed_once_no_substituted_allowance",
+      "status": "PASS"
+    },
+    {
+      "case": "wrong_issuer_rejected_before_any_parse",
+      "status": "PASS"
+    },
+    {
+      "case": "shared_duplicate_and_nonfinite_parser_preserved",
+      "status": "PASS"
+    }
+  ],
+  "actual_data_SQL_Pool_model_predict_fits": 0,
+  "scope": "deterministic patched byte snapshots and temporary synthetic context only"
+}

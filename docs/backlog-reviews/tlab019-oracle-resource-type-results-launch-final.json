@@ -1,0 +1,43 @@
+{
+  "entry_sha256": "57d80a51271d30bcc2a76b13aeef8afe981acafb2b29f6da0c6106613054ff10",
+  "cases": [
+    {
+      "case": "valid_checkpoint_int3_int1_and_material_typed_drift",
+      "status": "PASS"
+    },
+    {
+      "case": "recognized_failed_individual_overshoot_charged_under_whole_cap",
+      "status": "PASS"
+    },
+    {
+      "case": "successful_individual_CPU_overshoot_reject",
+      "status": "PASS"
+    },
+    {
+      "case": "whole_cap_or_unknown_actual_total_cpu_seconds",
+      "status": "PASS"
+    },
+    {
+      "case": "whole_cap_or_unknown_parent_peak_rss_bytes",
+      "status": "PASS"
+    },
+    {
+      "case": "whole_cap_or_unknown_actual_reaped_children_cpu_seconds",
+      "status": "PASS"
+    },
+    {
+      "case": "whole_cap_or_unknown_seconds",
+      "status": "PASS"
+    },
+    {
+      "case": "unknown_failed_trial_STOP",
+      "status": "PASS"
+    },
+    {
+      "case": "failed_trial_child_usage_STOP",
+      "status": "PASS"
+    }
+  ],
+  "actual_data_SQL_Pool_model_predict_fits": 0,
+  "scope": "Hand-written parameter/resource dictionaries only"
+}

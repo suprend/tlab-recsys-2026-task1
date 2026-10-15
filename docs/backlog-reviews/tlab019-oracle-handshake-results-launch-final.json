@@ -1,0 +1,82 @@
+{
+  "before": {
+    "tlab-verify019-outputs.py": "57d80a51271d30bcc2a76b13aeef8afe981acafb2b29f6da0c6106613054ff10",
+    "tlab019-controller.py": "3758b9f9c72bfdb94c1b0b4ca7472396c82ddd2f74829915b5b7ed8d69b299de"
+  },
+  "after": {
+    "tlab-verify019-outputs.py": "57d80a51271d30bcc2a76b13aeef8afe981acafb2b29f6da0c6106613054ff10",
+    "tlab019-controller.py": "3758b9f9c72bfdb94c1b0b4ca7472396c82ddd2f74829915b5b7ed8d69b299de"
+  },
+  "cases": [
+    {
+      "case": "mocked_observer_receipt_accepts_exact_controller_validator_AST",
+      "status": "PASS"
+    },
+    {
+      "case": "controller_rejects_context_sha256",
+      "status": "PASS"
+    },
+    {
+      "case": "controller_rejects_request_sha256",
+      "status": "PASS"
+    },
+    {
+      "case": "controller_rejects_fit_attempt_count",
+      "status": "PASS"
+    },
+    {
+      "case": "controller_rejects_process_cpu_seconds",
+      "status": "PASS"
+    },
+    {
+      "case": "controller_rejects_reaped_children_cpu_seconds",
+      "status": "PASS"
+    },
+    {
+      "case": "controller_rejects_process_peak_rss_bytes",
+      "status": "PASS"
+    },
+    {
+      "case": "controller_rejects_started_monotonic",
+      "status": "PASS"
+    },
+    {
+      "case": "controller_rejects_finished_monotonic",
+      "status": "PASS"
+    },
+    {
+      "case": "controller_rejects_evidence",
+      "status": "PASS"
+    },
+    {
+      "case": "controller_rejects_version",
+      "status": "PASS"
+    },
+    {
+      "case": "controller_rejects_changed_producer_pin",
+      "status": "PASS"
+    },
+    {
+      "case": "entry_rejects_wrong_issuer_before_project_or_data",
+      "status": "PASS"
+    },
+    {
+      "case": "close_failure_knownfailed_and_no_success",
+      "status": "PASS"
+    },
+    {
+      "case": "writer_failure_knownfailed_and_no_success",
+      "status": "PASS"
+    },
+    {
+      "case": "postwrite_expiry_invalidates_stale_success",
+      "status": "PASS"
+    },
+    {
+      "case": "exclusive_attempt_blocks_repeat",
+      "status": "PASS"
+    }
+  ],
+  "scope": "AST-exact controller validation with mechanical canonical/key stub; mocked Observer.execute and fake counters; no actual context/source/model data, SQL, Pool, predict, fit or actual controller main",
+  "actual_native_fits": 0
+}
