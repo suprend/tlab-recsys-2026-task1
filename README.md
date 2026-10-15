@@ -16,7 +16,7 @@
 uv run --locked python -m scripts.replay_ranking_claim --package tests/fixtures/reproduction/manual18-small
 ```
 
-[Рабочий отчёт](docs/progress-report.md) связывает исследования, результаты и ограничения. [Reproduction prefix](docs/experiments/fresh-clone-reproduction.md) отдельно описывает supplied-score replay; восстановление реальных коллекций и повторное обучение из чистого clone ещё не завершены.
+[Рабочий отчёт](docs/progress-report.md) связывает исследования, результаты и ограничения. [Reproduction prefix](docs/experiments/fresh-clone-reproduction.md) отдельно описывает supplied-score replay; восстановление реальных коллекций и повторное обучение из чистого clone ещё не завершены. Узкий [typed9 import kernel](docs/experiments/source-import.md) прошёл [независимый code review](docs/backlog-reviews/source-import-independent-rereview-v2.md) на tiny synthetic данных; outer owner, реальный импорт и source-to-model handoff ещё не приняты.
 
 ## Воспроизведение EDA
 
