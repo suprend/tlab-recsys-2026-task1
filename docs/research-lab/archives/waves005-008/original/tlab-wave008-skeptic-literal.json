@@ -1,0 +1,91 @@
+{
+  "kind": "invented stdlib arithmetic only; noDB/SQL/Y/model/native",
+  "A_reproduced": {
+    "sequences": 1092,
+    "known_prefix_checks": 7107,
+    "unknown_completion_checks": 9837,
+    "strict_retirement_certificates": 1287,
+    "all_pass": true
+  },
+  "A_extra_unknown_support_cases": 36402,
+  "A_N73": {
+    "strongharm_first_retire": 37,
+    "zero_first_retire": 73
+  },
+  "estimands": {
+    "query_macro": "-1/3",
+    "user_macro": "0"
+  },
+  "B_oracle_m2_h1": {
+    "oracle_W": 0.6131471927654584,
+    "true_headroom": 0,
+    "wrong_1_minus_W": 0.38685280723454163
+  },
+  "B_nonlinear_CI_counterexample": {
+    "m_q1": 19,
+    "h_q1": 19,
+    "W_positive_ranks_q1": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "q1_headroom": 0.0032777144440884953,
+    "q2_headroom": 0,
+    "finite_conditional_headroom": 0.0016388572220442476,
+    "threshold": 0.002,
+    "four_userbootstrap_headroom_draws": [
+      0.0,
+      0.0016388572220442476,
+      0.0016388572220442476,
+      0.0032777144440884953
+    ],
+    "linear_empirical_percentile97_5": 0.003154800152435176,
+    "finite_point_below_threshold_but_bootstrap_upper_above": true,
+    "claim": "does not contradict authorfinitepointstop; disprovespopulation/CIextension"
+  },
+  "rare_user_undefined_probability": 0.3660323412732295,
+  "feedback_accounting": {
+    "no_shared_receipt": {
+      "fit_credits": 4,
+      "physical_starts": 4,
+      "computed_candidate_payloads": 4,
+      "computed_gate_payloads": 1,
+      "unique_computed_payloads": 5,
+      "policy_recipient_credits": 6
+    },
+    "fit_only_shared": {
+      "fit_credits": 4,
+      "physical_starts": 3,
+      "computed_candidate_payloads": 4,
+      "computed_gate_payloads": 1,
+      "unique_computed_payloads": 5,
+      "policy_recipient_credits": 6
+    },
+    "exact_shared_fit_and_feedback_receipt": {
+      "fit_credits": 4,
+      "physical_starts": 3,
+      "computed_candidate_payloads": 3,
+      "computed_gate_payloads": 1,
+      "unique_computed_payloads": 4,
+      "policy_recipient_credits": 6
+    }
+  },
+  "nested_cost_minutes_sum": 240,
+  "limitations": "exact Fraction proofs for inventedbounded differences; floatingDCGexample is numeric illustration, notoutward-safe productioncertificate"
+}

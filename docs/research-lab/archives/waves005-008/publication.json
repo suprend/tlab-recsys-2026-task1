@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "scope": "exact research archive and additive four-field synthesis only; docs/backlog.md remains onlyexecutionqueue",
   "files": {
     "docs/research-lab/archives/waves005-008/original/tlab-wave005-skeptic-review.md": {
@@ -155,6 +155,41 @@
       "publication_sha256": "44e308ae556d824acdbb345cb20d0e80792fd0b11a7414afed8c2d9f67023eb6",
       "bytes": 6047,
       "adaptation": "none; exact raw author/review bytes, original host paths diagnostic"
+    },
+    "docs/research-lab/archives/waves005-008/original/tlab-wave008-skeptic-review.md": {
+      "original_source_name": "tlab-wave008-skeptic-review.md",
+      "original_sha256": "418d793b75cdc710c71a626bc3f9e5d79524d2b06958f36ae0d00d4e587519d5",
+      "publication_sha256": "418d793b75cdc710c71a626bc3f9e5d79524d2b06958f36ae0d00d4e587519d5",
+      "bytes": 12580,
+      "adaptation": "none; exact reviewer bytes, host paths diagnostic; code archived without execution"
+    },
+    "docs/research-lab/archives/waves005-008/original/tlab-wave008-skeptic-review-ledger.json": {
+      "original_source_name": "tlab-wave008-skeptic-review-ledger.json",
+      "original_sha256": "64c9b4ec0aa50103d0a5d2b46c02f23dd2b5c8269a9e5a8c93f30510cd792736",
+      "publication_sha256": "64c9b4ec0aa50103d0a5d2b46c02f23dd2b5c8269a9e5a8c93f30510cd792736",
+      "bytes": 8638,
+      "adaptation": "none; exact reviewer bytes, host paths diagnostic; code archived without execution"
+    },
+    "docs/research-lab/archives/waves005-008/original/tlab-wave008-skeptic-review-inputfreeze.json": {
+      "original_source_name": "tlab-wave008-skeptic-review-inputfreeze.json",
+      "original_sha256": "16ae460e605140c632269cf801b73560ca2066490794c367497555330115c768",
+      "publication_sha256": "16ae460e605140c632269cf801b73560ca2066490794c367497555330115c768",
+      "bytes": 1536,
+      "adaptation": "none; exact reviewer bytes, host paths diagnostic; code archived without execution"
+    },
+    "docs/research-lab/archives/waves005-008/original/tlab-wave008-skeptic-literal.py": {
+      "original_source_name": "tlab-wave008-skeptic-literal.py",
+      "original_sha256": "5080f99c196bc947c2f36ad124877a9ce66dcfd9c5f469c6e04f7ef5ef600ba8",
+      "publication_sha256": "5080f99c196bc947c2f36ad124877a9ce66dcfd9c5f469c6e04f7ef5ef600ba8",
+      "bytes": 5030,
+      "adaptation": "none; exact reviewer bytes, host paths diagnostic; code archived without execution"
+    },
+    "docs/research-lab/archives/waves005-008/original/tlab-wave008-skeptic-literal.json": {
+      "original_source_name": "tlab-wave008-skeptic-literal.json",
+      "original_sha256": "0068ab8b1dfacce430f5e1e8d707f5bac0e1105b9500f0d1d666945656b11fc1",
+      "publication_sha256": "0068ab8b1dfacce430f5e1e8d707f5bac0e1105b9500f0d1d666945656b11fc1",
+      "bytes": 2383,
+      "adaptation": "none; exact reviewer bytes, host paths diagnostic; code archived without execution"
     }
   },
   "normalized_entries": [
@@ -264,17 +299,24 @@
     "005": "Root read full skeptic; narrow research conclusions only",
     "006": "Root receipt archived; exact rational/NULL and paper-version qualifications preserved",
     "007": "independent skeptic completed; Root readback pending at archive preparation",
-    "008": "two firstdrafts completed; separate skeptic pending at archive preparation"
+    "008": "Separate skeptic completed; Root research/literal readback pending; zero execution admission"
   },
   "no_measured_physical_gain_or_predictive_superiority": true,
   "publication_qa": {
-    "exact_original_pins_and_bytes": 22,
-    "original_json_parsed": 13,
+    "exact_original_pins_and_bytes": 27,
+    "original_json_parsed": 16,
     "four_field_entries_validated": 8,
     "portable_synthesis_links_checked": 1,
     "raw_model_DB_copies": 0,
     "publisher_data_native_model_reruns": 0,
     "git_diff_check": "PASS before staging",
-    "scope": "metadata/readback only"
-  }
+    "scope": "metadata/readback only",
+    "archived_python_AST_parsed": 1
+  },
+  "prior_publication_manifest_sha256": "96509725bae13e36960a688c9f10332025b67fe84a4bbdba25441eaca5bf5c34",
+  "prior_published_manifest_commit": "c3d3c3b974833421037db277c6cf86cce25f61c8",
+  "wave008_readiness_findings": [
+    "P2: distinguish100Q training/evaluation cap and compatible W population",
+    "P2: single realized A-S pipeline comparison does not establish expected policy benefit"
+  ]
 }

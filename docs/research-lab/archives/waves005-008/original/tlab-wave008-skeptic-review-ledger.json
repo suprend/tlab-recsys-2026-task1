@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "review": "wave008separateskeptic",
+  "reviewer": "/root/brainstorm_models_a",
+  "reviewed_utc": "2026-10-15T08:20:08.974541+00:00",
+  "report": "/tmp/tlab-wave008-skeptic-review.md",
+  "report_sha256": "418d793b75cdc710c71a626bc3f9e5d79524d2b06958f36ae0d00d4e587519d5",
+  "report_words": 1613,
+  "inputfreeze": "/tmp/tlab-wave008-skeptic-review-inputfreeze.json",
+  "inputfreeze_sha256": "16ae460e605140c632269cf801b73560ca2066490794c367497555330115c768",
+  "author_guards": [
+    {
+      "path": "/tmp/tlab-brainstorm-search-budget-features-a-wave008.md",
+      "bytes": 12975,
+      "sha256": "70c866ecb003fbd7eb89b51662a7a159c8bddec440ce93740a441c57dc4016b2",
+      "snapshot": "/tmp/tlab-wave008-skeptic-snapshot-bgg3t80s/tlab-brainstorm-search-budget-features-a-wave008.md",
+      "path_final_sha256": "70c866ecb003fbd7eb89b51662a7a159c8bddec440ce93740a441c57dc4016b2",
+      "snapshot_final_sha256": "70c866ecb003fbd7eb89b51662a7a159c8bddec440ce93740a441c57dc4016b2",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-search-budget-features-a-wave008-ledger.json",
+      "bytes": 13588,
+      "sha256": "ccd6f6c299bfe9f14ba2c71f888299c82372a86568655de78e4345cc08b0ba92",
+      "snapshot": "/tmp/tlab-wave008-skeptic-snapshot-bgg3t80s/tlab-brainstorm-search-budget-features-a-wave008-ledger.json",
+      "path_final_sha256": "ccd6f6c299bfe9f14ba2c71f888299c82372a86568655de78e4345cc08b0ba92",
+      "snapshot_final_sha256": "ccd6f6c299bfe9f14ba2c71f888299c82372a86568655de78e4345cc08b0ba92",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-search-budget-retrieval-a-wave008.md",
+      "bytes": 11493,
+      "sha256": "bb0f83e972a676bedaf0f74ce740ea57e6638e811da3f925003fb46cd56d60c0",
+      "snapshot": "/tmp/tlab-wave008-skeptic-snapshot-bgg3t80s/tlab-brainstorm-search-budget-retrieval-a-wave008.md",
+      "path_final_sha256": "bb0f83e972a676bedaf0f74ce740ea57e6638e811da3f925003fb46cd56d60c0",
+      "snapshot_final_sha256": "bb0f83e972a676bedaf0f74ce740ea57e6638e811da3f925003fb46cd56d60c0",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-search-budget-retrieval-a-wave008-ledger.json",
+      "bytes": 6047,
+      "sha256": "44e308ae556d824acdbb345cb20d0e80792fd0b11a7414afed8c2d9f67023eb6",
+      "snapshot": "/tmp/tlab-wave008-skeptic-snapshot-bgg3t80s/tlab-brainstorm-search-budget-retrieval-a-wave008-ledger.json",
+      "path_final_sha256": "44e308ae556d824acdbb345cb20d0e80792fd0b11a7414afed8c2d9f67023eb6",
+      "snapshot_final_sha256": "44e308ae556d824acdbb345cb20d0e80792fd0b11a7414afed8c2d9f67023eb6",
+      "unchanged": true
+    }
+  ],
+  "all4_author_and_snapshot_SHA_match": true,
+  "helpers": 0,
+  "prior_commit": "331b1ae29f3e484516893204a4f990c9372f2c25",
+  "prior_docs_read": [
+    "docs/research-lab/refinement-post-heldout-retrieval-priority.md",
+    "docs/research-lab/round-005.md",
+    "docs/research-lab/round-019.md",
+    "docs/research-lab/round-038.md",
+    "docs/research-lab/brainstorm-fb002.md",
+    "docs/backlog.md scopedHYP002/014/141"
+  ],
+  "findings": [
+    {
+      "id": "W008-P2-1",
+      "priority": "P2",
+      "candidate": "R008-E1",
+      "file": "/tmp/tlab-brainstorm-search-budget-retrieval-a-wave008.md",
+      "lines": [
+        50,
+        52
+      ],
+      "summary": "separatetrain/evaluationQscopeandcompatibleWpopulationbeforecostreservation",
+      "criterion": "pinnamedtrainingpopulation,searchpopulation,coverageof100Qcap;alltrainingpreparationcharged;newWfitrequiresredesignnotweakercontrol",
+      "status": "unresolvedscope;notmathbug"
+    },
+    {
+      "id": "W008-P2-2",
+      "priority": "P2",
+      "candidate": "R008-E1",
+      "file": "/tmp/tlab-brainstorm-search-budget-retrieval-a-wave008.md",
+      "lines": [
+        40,
+        54
+      ],
+      "summary": "singleA-Ssearchrealizationconfirmsresultingpipelinesnotexpectedpolicyadvantage",
+      "criterion": "freezeconditionalrealizedpipelineclaimorpayseparaterepeatedpolicy-leveldesign",
+      "status": "claimscopeneedsclarification"
+    }
+  ],
+  "candidate_dispositions": [
+    {
+      "id": "A008-01",
+      "disposition": "refine_stay_deferred",
+      "algebra": "verifiedknownandunknownN",
+      "fourfields": true,
+      "newmechanism": false,
+      "newHYP": false,
+      "implementation_verified": false,
+      "physicalbenefit_measured": false,
+      "admitted": false,
+      "cheapest_falsifiers": [
+        "late-rescue",
+        "strictthresholdtie",
+        "wholeuserweightedquerymean",
+        "outwardfloatingbound",
+        "prepasspluschecks>savedmetrics"
+      ]
+    },
+    {
+      "id": "R008-E1",
+      "disposition": "refine_existing_evidence_stay_deferred",
+      "algebra": "verifiedbinaryfixedCfullYoracleheadroom",
+      "fourfields": true,
+      "newmechanism": false,
+      "newHYP": false,
+      "existing_headroom_alias": true,
+      "controller_implemented": false,
+      "physicalfeasibility_measured": false,
+      "admitted": false,
+      "cheapest_falsifiers": [
+        "conditionalvsallquerydenominator",
+        "offCtargetnotrerankheadroom",
+        "rarepositiveuserundefinedbootstrap",
+        "latefidelitywinner",
+        "trainpopulationmismatch",
+        "singlepolicyrealizationoverclaim"
+      ]
+    }
+  ],
+  "literal_evidence": {
+    "script": "/tmp/tlab-wave008-skeptic-literal.py",
+    "script_sha256": "5080f99c196bc947c2f36ad124877a9ce66dcfd9c5f469c6e04f7ef5ef600ba8",
+    "results": "/tmp/tlab-wave008-skeptic-literal.json",
+    "results_sha256": "0068ab8b1dfacce430f5e1e8d707f5bac0e1105b9500f0d1d666945656b11fc1",
+    "A_author_counts_reproduced": [
+      1092,
+      7107,
+      9837,
+      1287
+    ],
+    "reviewer_extra_no_positive_checks": 36402,
+    "A_N73_strongharm_first_retire": 37,
+    "A_N73_zero_first_retire": 73,
+    "B_m2_h1_oracle": 0.6131471927654584,
+    "B_undefined_probability": 0.3660323412732295,
+    "binary_NDCG_CI_counterexample": {
+      "m": 19,
+      "h": 19,
+      "W_positive_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "finite_headroom": 0.0016388572220442476,
+      "linear_percentile97_5": 0.003154800152435176,
+      "threshold": 0.002,
+      "author_pointgate_contradicted": false,
+      "population_CI_extension_refuted": true
+    },
+    "sourceonly": true,
+    "outward_safe_float_implementation": false
+  },
+  "feedback_review": {
+    "A_minimal_max_candidate_events": "2Kplussharedsupportdisclosure",
+    "A_control_candidate_events": "K",
+    "known_Nprepass_paid_andlabelderived": true,
+    "R_fitcredits": 4,
+    "R_max_native_starts": 4,
+    "R_max_starts_exactfitreuse": 3,
+    "R_max_computed_payloads": 5,
+    "R_max_payloads_exactfit_andfeedbackreuse": 4,
+    "R_recipient_credits": 6,
+    "R_nested_CPU_minutes_sum": 240,
+    "R_max_newphysicalcolumns": 9,
+    "confirmation_outside_search_envelope": true,
+    "fitting_saved_by_A": false,
+    "sealed_prediction_cost_saved_by_A": false
+  },
+  "primary_sources": [
+    {
+      "title": "Estimatingmeansofboundedrandomvariablesbybetting",
+      "url": "https://arxiv.org/html/2010.09686v7",
+      "version": "v7,2022-08-25",
+      "claim": "boundedconditionalmeanassumptions;WoRuniformrandompermutationfinitepopulation;notarbitrarytemporalclusters/adaptiveAST"
+    },
+    {
+      "url": "https://academic.oup.com/jrsssb/article/86/1/1/7043257",
+      "verified_metadata": "online2023-02-16,issue2024-02",
+      "access": "directredirectfailure;primarysearchrenderingverified"
+    },
+    {
+      "url": "https://github.com/WannaBeSmith/betting-paper-simulations",
+      "verified_scope": "READMEpaperfigurecode",
+      "implementation_run": false
+    }
+  ],
+  "dedup": {
+    "A_vs_B": "differentfiniteoperators,sameoldselectionlifecycle;notduplicatenewmechanisms",
+    "A_existing": [
+      "HYP002",
+      "TLAB016",
+      "round005"
+    ],
+    "B_existing": [
+      "fixedCoracleheadroomretrievalpriority",
+      "HYP002",
+      "TLAB016",
+      "round005",
+      "round019",
+      "round038"
+    ],
+    "HYP014_not_revived": true,
+    "FB07_calibration_not_verified": true,
+    "canonicalID_assignment": "coordinatoronly"
+  },
+  "scope": {
+    "new008proposals_authored": false,
+    "actualSQL_DB_raw_Q_C_Y": false,
+    "actualmodels_fits_predict_native": false,
+    "paidAPI_download_jobs": false,
+    "shared_author_edits": false,
+    "helpers_spawned": 0,
+    "015_016changes": false,
+    "admissions": false,
+    "newbudget_authority": false
+  }
+}
