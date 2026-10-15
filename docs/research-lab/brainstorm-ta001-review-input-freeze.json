@@ -1,0 +1,63 @@
+{
+  "mode": "named files, current frozen contents; no Git baseline",
+  "requirements": "Parent task: primary-source/code review of TA01/02/03, novelty vs FA04/existing HYP, finite controls/falsifiers, no actual data/Y/model/job or author edits",
+  "files": [
+    {
+      "original": "brainstorm-ta001.md",
+      "snapshot": "preserved-review-inputs/tlab-brainstorm-transfer-a-round-001.md",
+      "sha256_start": "8f79d90c6fac66eaa8d0ce142a4cda417a67e0113a367a128f896192835dc9fb"
+    },
+    {
+      "original": "brainstorm-ta001-ledger.json",
+      "snapshot": "preserved-review-inputs/tlab-brainstorm-transfer-a-round-001-ledger.json",
+      "sha256_start": "12b4319fe1a339e4f068b0a944c5554ff4487b89232858873a345e7af9e3ec00"
+    }
+  ],
+  "exclusions": [
+    "actual data",
+    "DB",
+    "query Y",
+    "models",
+    "fits",
+    "downloads",
+    "native/API jobs",
+    "shared repo writes"
+  ],
+  "applicable_skills": [
+    "research",
+    "code-review"
+  ],
+  "independent_helper": "delegation unavailable: agent thread limit reached",
+  "context": [
+    {
+      "original": "brainstorm-fa001.md",
+      "snapshot": "preserved-review-inputs/brainstorm-fa001.md",
+      "sha256_start": "a4a7861295b8d5104c93001e72a7f113642a0d3900e6061f60c5c643e99fde50",
+      "reason": "FA04 mechanism novelty comparison"
+    }
+  ],
+  "final_checks": [
+    {
+      "original": "brainstorm-ta001.md",
+      "snapshot": "preserved-review-inputs/tlab-brainstorm-transfer-a-round-001.md",
+      "sha256_start": "8f79d90c6fac66eaa8d0ce142a4cda417a67e0113a367a128f896192835dc9fb",
+      "sha256_end": "8f79d90c6fac66eaa8d0ce142a4cda417a67e0113a367a128f896192835dc9fb",
+      "unchanged": true
+    },
+    {
+      "original": "brainstorm-ta001-ledger.json",
+      "snapshot": "preserved-review-inputs/tlab-brainstorm-transfer-a-round-001-ledger.json",
+      "sha256_start": "12b4319fe1a339e4f068b0a944c5554ff4487b89232858873a345e7af9e3ec00",
+      "sha256_end": "12b4319fe1a339e4f068b0a944c5554ff4487b89232858873a345e7af9e3ec00",
+      "unchanged": true
+    },
+    {
+      "original": "brainstorm-fa001.md",
+      "snapshot": "preserved-review-inputs/brainstorm-fa001.md",
+      "sha256_start": "a4a7861295b8d5104c93001e72a7f113642a0d3900e6061f60c5c643e99fde50",
+      "reason": "FA04 mechanism novelty comparison",
+      "sha256_end": "a4a7861295b8d5104c93001e72a7f113642a0d3900e6061f60c5c643e99fde50",
+      "unchanged": true
+    }
+  ]
+}

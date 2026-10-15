@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 05:59 UTC / 08:59 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
+Обновлён 15 октября 2026, 06:19 UTC / 09:19 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
 
 ## Три независимые линии
 
@@ -118,6 +118,18 @@ Root дополнительно назначил `/root/brainstorm_transfer_a` �
 | [MB001 review](brainstorm-mb001-review-by-a.md) | ModelsA | MB01 refine→needs-pilot; MB02 TabM duplicate; MB03 narrow KD-head contrast deferred; MB04 distinct joint-code mechanism deferred. Теорема bias isolation и paper/code token-loss sign не переносятся автоматически |
 
 [Freeze](brainstorm-wave001-crossreview-freeze.json) связывает14 original/public review/evidence files; первые авторские drafts неизменны.32 local candidates восьми drafts теперь покрыты first independent reviews; это не32 новых HYP и не32 реализованных улучшения. TransferA/B first drafts и их crossed critique ещё должны завершить общую novelty map перед окончательным присвоением139+.
+
+## Transfer drafts/reviews завершены; следующий FB-раунд уже сдан
+
+[TransferA](brainstorm-ta001.md), [ledger](brainstorm-ta001-ledger.json), и [TransferB](brainstorm-tb001.md), [ledger](brainstorm-tb001-ledger.json), добавляют7 local IDs первой волны. Их исходные authors в текущем runtime уже отсутствуют; независимая критика выполнена живыми RetrievalB→TA и ModelsA→TB: [TA review](brainstorm-ta001-review-by-b.md), [TB review](brainstorm-tb001-review-by-a.md). Exact initial/final author hash guards и [TB literal negatives](brainstorm-tb001-review-literal.json) сохранены в [freeze](brainstorm-transfer-fb002-freeze.json). Авторские Markdown reports byte-exact; в отдельных metadata/review copies меняются лишь portable пути/links.
+
+TA01 объединён сFA04. TA02 distinct edit-prior остаётся local-ID contract refinement; TA03 одинаковый descriptor не делает скрытый механизм наблюдаемым, а3source tasks не превращаются в384 независимых meta examples. TB1 требует новых holdout-mutant families и честного счёта source/followup вызовов; TB2 — actual continuous Gaussian-gate semantics/CDF/context path; TB3 common-average gain может скрыть смену знака в каждом bin; TB4 grid не ограничивает истинный first reversal без monotonicity. Corrections: research rounds018/045 неHYP018/045, sensitivity —TLAB013, тогда какHYP013 —residual selector.
+
+Первая волна теперь10 drafts/39 local candidate IDs, все получили независимые reviews. Это не39 новых механизмов или выполненных pilots. [FB002](brainstorm-fb002.md), [ledger](brainstorm-fb002-ledger.json), отдельно добавляет3 post-rotation draft proposals FB05 clock-bin detail energies, FB06 session-profile majority consensus, FB07 uncertainty-aware AST acquisition. Автор честно указывает знакомство сFA/F001; этот раунд не называется вторым blind draft и ещё ждёт cross-review. Root разрешил зарегистрировать только6 прошедших novelty review canonical research hypotheses139–144, без права real-data исполнения.
+
+## Шесть canonical research hypotheses зарегистрированы после dedup
+
+[Единая synthesis](brainstorm-wave001-synthesis.md) и [machine ledger](brainstorm-wave001-hypotheses.json) фиксируют HYP139 historical purchase context;140 shared-weight TabM family;141 pair-synergy-first expansion;142 cross-action path areas;143 mature situation→purchase memory;144 one merged exactconjunction family. Все6 — **needs-pilot research**, ещё без implementation/resource/reservation approval и измеренного качества. Root разрешил регистрацию после полного transfer review. TA02/TB1/TB3 остаются local refinements; три TabM и две conjunction rediscoveries не посчитаны отдельными новыми HYP.
 
 ## Следующие решения
 

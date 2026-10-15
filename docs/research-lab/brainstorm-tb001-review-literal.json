@@ -1,0 +1,39 @@
+{
+  "scope": "stdlib-only literal arithmetic; no real data/interpreter/model/SQL",
+  "TB1_shares": [
+    "1/2",
+    "2/3",
+    "1/3"
+  ],
+  "TB1_duplicate_distinct_delta": 0,
+  "TB1_new_entity_distinct_delta": 1,
+  "TB2_one_feature_accuracy": 0.75,
+  "TB2_context_choice_accuracy": 1.0,
+  "TB3_raw_gains": [
+    "37/200",
+    "13/200"
+  ],
+  "TB3_common_gains": [
+    "1/8",
+    "1/8"
+  ],
+  "TB3_equal_positive_with_per_bin_sign_flip": [
+    "1/20",
+    "1/20"
+  ],
+  "TB3_bin_refinement": "p1=p2=(1/2,1/2) gives qA=1/2; splitting A into two1/4bins gives total qA=1/3",
+  "TB4_three_query_gain": [
+    "1/3",
+    "-1/3"
+  ],
+  "TB4_nested_nonmonotone_gain": [
+    "1/5",
+    "-1/5",
+    "1/5"
+  ],
+  "TB4_nested_removed_fractions": [
+    "0",
+    "1/5",
+    "2/5"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "round": "transfer-a-001",
+  "draft_state": "frozen_blind_first_draft",
+  "date": "2026-10-15",
+  "author": "/root/brainstorm_transfer_a",
+  "report_path": "brainstorm-ta001.md",
+  "canonical_hyp_ids_assigned": false,
+  "actual015_016_changed": false,
+  "actual_data_db_labels_models_hashes_fits_inference_downloads_jobs": false,
+  "candidates": [
+    {
+      "temporary_id": "TA-01",
+      "name": "Source-induced typed macro search prior",
+      "status": "proposal_needs_blind_cross_review",
+      "mechanism_novelty": "Learn reusable typed AST abstractions from source solutions and alter future proposal probabilities; neither prewritten grammar nor execution DAG equality.",
+      "canonical_neighbors": ["HYP-002", "HYP-011", "HYP-012", "HYP-046"],
+      "primary_sources": ["https://proceedings.iclr.cc/paper_files/paper/2024/hash/819cebb05f993840e8a52d7564c5c282-Abstract-Conference.html", "https://github.com/gabegrand/lilo"],
+      "source_support_scope": "Library compression and program-synthesis search; local no-LLM ablation is our extrapolation, not full LILO reproduction.",
+      "earliest_falsifier": "Two learned macros versus flat and shuffled prior, identical expanded AST ceilings and 512 complete candidates; held-out literal specification solve count.",
+      "future_budget": {"schemas": 3, "source_asts": 24, "macros": 2, "literal_rows": 32, "cpu_minutes_total": 10, "memory_mib": 512, "predictive_fits": 0},
+      "target_metric_non_equivalence": "Literal specification correctness and search CPU do not establish real full-Y purchase NDCG."
+    },
+    {
+      "temporary_id": "TA-02",
+      "name": "Source-learned metaprogram edits",
+      "status": "proposal_needs_blind_cross_review",
+      "mechanism_novelty": "Learn a transition prior over meaning-changing typed edits to complete programs; fixed primitive language, no equivalence claim or external proposer.",
+      "canonical_neighbors": ["HYP-002", "HYP-012", "HYP-117", "HYP-118"],
+      "primary_sources": ["https://www.nature.com/articles/s41467-024-50966-x", "https://colala.berkeley.edu/papers/rule2024symbolic.pdf"],
+      "source_support_scope": "Metaprogram search on list-processing rules; ecommerce feature adaptation is our extrapolation.",
+      "earliest_falsifier": "Learned versus uniform edits from same seeds and scratch enumeration on six held-out one/two/distant-edit specifications.",
+      "future_budget": {"schemas": 4, "edit_rules": 8, "literal_rows": 32, "complete_asts_per_arm": 256, "cpu_minutes_total": 10, "memory_mib": 512, "predictive_fits": 0},
+      "target_metric_non_equivalence": "List-rule acquisition and feature-specification solve counts are not purchase ranking quality."
+    },
+    {
+      "temporary_id": "TA-03",
+      "name": "Label-free destination bundle routing from a tiny source bank",
+      "status": "conditional_proposal_identifiability_first",
+      "mechanism_novelty": "Learn a frozen route/abstain policy from source outcomes and destination prefix descriptors; no destination validation selection.",
+      "canonical_neighbors": ["HYP-002", "HYP-014"],
+      "primary_sources": ["https://arxiv.org/html/2602.22552v1", "https://github.com/amazon-science/Automating-Relational-Machine-Learning", "https://arxiv.org/html/2602.04029v2", "https://github.com/stanford-star/plurel"],
+      "source_support_scope": "Relatron published selector uses destination labels and its bank is not freely supplied by README; proposed label-free ablation and tiny synthetic bank are ours.",
+      "earliest_falsifier": "Indistinguishable unlabelled descriptors with opposed synthetic label mechanisms must trigger abstention; held-out schema regret must beat global source default.",
+      "future_budget": {"schemas": 4, "synthetic_source_tasks": 3, "source_queries_each": 128, "source_events_each_max": 2048, "bundles": 2, "source_fits": 6, "destination_fits": 3, "router_fits": 1, "cpu_minutes_total": 30, "memory_mib": 1024},
+      "target_metric_non_equivalence": "Synthetic query-ranking regret, Relatron AUROC and actual daily full-purchase-Y NDCG are distinct."
+    }
+  ],
+  "rejected_direct_transfer": {
+    "method": "Relational Transformer direct zero-shot REES ranking",
+    "source": "https://arxiv.org/html/2510.06377v2",
+    "reason": "Paper explicitly lists recommendation/link prediction unsupported; past task-table labels contribute to transfer."
+  },
+  "next_action": "Independent mechanism/source/falsifier cross-review; coordinator alone decides publication or canonical HYP registration."
+}

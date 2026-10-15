@@ -602,3 +602,24 @@ One fresh-process `unittest discover` run completed and was explicitly reaped wi
 ### Source-import outer owner and six-role harness remain under repair
 
 The [original independent source-owner review](backlog-reviews/source-import-owner-independent-review-v1.md) preserves one executable-closure P1 and lifecycle/metadata/resource-evidence P2 findings. Python3.12.14 `-I -B` still read a valid stale cache: pinned source said PINNED while executed marker was OTHER. Separate negative probes showed failed-attempt work admission, duplicate JSON members and skipped unknown-descendant accounting. [Frozen failure evidence](backlog-reviews/evidence/source-import-owner-v1-failure-publication.json) preserves exact original8-input identities,31 author passes and4 intended-safety reds; unaccepted application executables remain excluded. A new owner draft is under targeted rereview. Root also confirmed an analogous unpinned cached-controller path in the separate six-role harness; repair is pending before any launch. The accepted typed9 kernel and764-test public suite do not close these new owner/harness gates. No real archive import or six-role reporting process was launched.
+
+
+### Transfer first wave reviewed; subsequent brainstorm continues
+
+[TA/TB drafts and reviews](research-lab/brainstorm-transfer-fb002-freeze.json) complete the first-wave39 local-ID portfolio. TA01 mergesFA04; TA02/TB1/TB3 remain local-ID refinements until exact mechanics freeze. TA03 hidden mechanism is not observable abstention; TB2 continuous stochastic-gate code requires an exact semantics; TB3 common-average agreement does not imply every-bin stability; TB4 reports smallestTESTED reversal, never a true first-radius bracket without monotonicity. Research-round numbers018/045 are not HYP IDs, and sensitivity belongs toTLAB013 rather than residual-selectorHYP013. [FB002](research-lab/brainstorm-fb002.md) keeps the research line moving with3 additional post-rotation drafts, pending independent critique. No source/model/target jobs or allowances follow.
+
+
+### Canonical research hypotheses HYP-139–144 after complete first-wave dedup
+
+Root accepted the [unified synthesis](research-lab/brainstorm-wave001-synthesis.md) after independent reviews of10 first-wave reports/39 local candidate IDs. [Machine ledger](research-lab/brainstorm-wave001-hypotheses.json) registers **six needs-pilot research hypotheses**, with no execution-ready status, current budget extension or new data reservation.
+
+| ID | Mechanism and duplicate mapping | Next required gate |
+|---|---|---|
+| HYP-139 | Candidate-specific historical purchase context; NB-F01 | Same-count/same-recency worlds, common covered windows, nondegenerate reference times; then separately reserved100Q support/cost. |
+| HYP-140 | Parameter-sharing independently supervised tabular ensemble; M001-C3 = MA-01 = MB02 | Mean-per-head loss, exact variant/initialization/aggregation and parameter/activation ledger before dependency/resource admission. |
+| HYP-141 | Contextual pair-synergy-first typed expansion; FA01 | Literal XOR/redundancy and66pair-screen accounting; same legal opportunities/closure versus marginal-first. |
+| HYP-142 | Second-order cross-action path areas; FB-01 | Seven-event nonalias, unordered peers, rolling expiry and legal nonidentity shuffle. |
+| HYP-143 | Mature other-user situation-to-purchase continuation memory; RA-01 | Same last-bucket/different prior-prefix worlds, unavailable suffix, mature bank/build clock and distinct-user support. |
+| HYP-144 | Exact conjunctive two-seed completion; RA-02 = RB2 | Eight-triple equal-pair worlds, peer/duplicate invariance, charged mining/support and actual-C controls. |
+
+Counterhypotheses, temporal/source contracts, strong eligible B/W controls, retrieval-versus-fixed-C comparison and nonadditive cost policy are in the synthesis. TA02/TB1/TB3 remain local-ID refinements until exact mechanics freeze; no additional IDs are assigned to inflate counts. TLAB015/018 remain current implementation priorities. Original drafts/rejections and negative mathematical evidence stay versioned; these research registrations do not change current frozen B/W or reporting-only25–31.

@@ -174,3 +174,9 @@ Further focused report/reproduction refinements (no new experiments):
 
 
 Crossed critique первой волны: [FA](brainstorm-fa001-review-by-b.md), [FB](brainstorm-fb001-review-by-a.md), [RA](brainstorm-ra001-review-by-b.md), [RB](brainstorm-rb001-review-by-a.md), [MA](brainstorm-ma001-review-by-b.md), [MB](brainstorm-mb001-review-by-a.md). [Freeze](brainstorm-wave001-crossreview-freeze.json) сохраняет оригиналы, literal negatives и явные duplicate merges.
+
+
+Первая transfer-пара и crossed critique: [TA draft](brainstorm-ta001.md), [TA review](brainstorm-ta001-review-by-b.md), [TB draft](brainstorm-tb001.md), [TB review](brainstorm-tb001-review-by-a.md). [FB002](brainstorm-fb002.md) — следующий post-rotation draft, cross-review pending. [Freeze](brainstorm-transfer-fb002-freeze.json) сохраняет initial/final author hashes и literal negatives.
+
+
+[First-wave synthesis и canonical HYP139–144](brainstorm-wave001-synthesis.md), [machine ledger](brainstorm-wave001-hypotheses.json):39 local proposals после независимой критики дали6 research needs-pilot registrations; execution permissions и новый label domain не выданы.
