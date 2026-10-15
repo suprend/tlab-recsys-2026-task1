@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 09:25:04 UTC / 12:25:04 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
+Обновлён 15 октября 2026, 09:45:07 UTC / 12:45:07 МСК. Статус ниже отражает фактический запуск018; source acceptance и heldout остаются отдельными gates.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,14 +8,13 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 09:45 UTC / 12:45 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 10:30 UTC / 13:30 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
-## Current snapshot at 09:25:04 UTC; earlier two-round checkpoint010+011
+## Current snapshot at 09:45:07 UTC
 
-- Chosen3 narrow existing-worker and V4r1CODE evidence accepted; original wholeV3 remainsFAILED/consumed/unknowntrue. No success ledger, refit or relaunch synthesized.015 next decision is finitecost/exactrequest; actual reserved requestCLOSED.
--018 exact request/metadata-disk prereview accepted; actual request file not staged. DriverV1 absolute--request P1 stopped before launch/claim, V2pure owner.local-AST regression and independent review pending. Full-source018 is parallel to015, not a prerequisite; no archivehash/import/nativegrant.
-- Research:010/011 separate critiques complete;010Rootresearch readback accepted,011Rootreadback pending.012bothFIRSTdrafts frozen; ModelsA now confirmed running as separate012skeptic.013two independentauthors ModelsB/RetrievalA running per latest Root dispatch. Last full inventory17known/7running/10completed preceded confirmed ModelsA activation; no helpers counted as authors.
-- Existing anchored maximum09:45UTC /12:45МСК unchanged. This earlier two-completed-round checkpoint is recorded at actual09:25:04, with no timer/budget reset.
+-018 fullsource import actually STARTED once, session65471; source acceptanceFALSE/018notdone. Root polls/reaps; publisher onlysmallmetadata, no largefilehash/read or retry.
+- DriverV3 accepted, actual source-only grant7200CPU/10800wall/8GiBsampled; stagedrequest17edb ignored. CostV237697 independently underreview; heldoutrequestCLOSED.
+-013 separate skeptic and014 two independentauthor lanes running per latest Root dispatch. Nextmax10:30UTC anchored09:45; actual09:45checkpoint relative write7s.
 
 ## Три независимые линии
 
@@ -305,3 +304,17 @@ SafeNEXT is finite five-stageV2 numerical cost proposal bysource_import_review, 
 
 
 Root010/011 research readbacks are now both published in [completed synthesis](brainstorm-waves010011-synthesis.md) and eight-file archives perwave. Root011 receipt is timestamped09:25:02; its handoff arrived after coordinator wrote09:25:04 checkpoint, so the earlier pending observation represented coordinator knowledge at write time. Four normalized local refinements each carrymechanism/prediction/nearesttest/task1benefit;0newIDs/tasks/admissions. Current016 already genuine rule-generates3humanfamilies→8bundles; toy rational/NULL identities are not actual floatingcompileridentity or purchase utility.09:45anchored maximum remains unchanged.
+
+
+## 09:45 maximum checkpoint — written 09:45:07 UTC / 12:45:07 МСК
+
+Root submitted ONE actual full-source018 import at09:43:00UTC: session65471/chunkad4e45, original execution_id oct2019-full-018-20261015-once. Exact request17edb is now staged only in ignored artifacts, and original claim/output exist. Source acceptanceFALSE and018notdone; no fit/queryY. Publisher inspected only two small Root receipts, not growing source/DB/output contents. Root owns all polling, terminal reaping and actual-resource acceptance; safeNEXT is poll SAME session, NOTretry/relaunch.
+
+Global limits7200CPU/10800wall/8GiB sampledRSS; outer7190/10790 plus10/10 outside reserve, staging at most5/5, same shell stage→time-l driver. DriverV3 SHA3f28305f33a4cda040504dffbe6fe14ce3dda5206e9662941c8e2d5ab6b71b49 accepted after Root28currentpins. SampledRSS is not hard allocation containment. ExistingV3chosen3 wholeFAILED/consumed flags stay unchanged; its narrow worker/CODE acceptances require no extra toyfit.
+
+Current Root dispatch:013 separateFeaturesB skeptic running after both FIRST freezes;014 two independentauthors FeaturesA/RetrievalA running. CostV2 proposal37697s is under separate timing_methodology_review, NOTaccepted; real heldout requestCLOSED. Research0newIDs/admissions and no additional main gates. Sole queue/backlog and solepublisher unchanged. Existinggoal unbounded until taskdone/userstop, individualoperations bounded/failclosed,17slotsincludingRoot/helpers.
+
+Actual write09:45:07UTC was7seconds late versus09:45; this is not a timely-write claim. Nextmaximum10:30UTC /13:30МСК is anchored ORIGINAL09:45, or two next completed researchrounds, whichever first; no reset from new ideas or early write.
+
+
+[Full-source018 launch publication](../backlog-reviews/full-source018-launch.md) binds30 exact small code/review/grant/submission originals. CodeV1P1/red and V2relativeCLI repair remain historical; V3budget split plus Rootissued operation ce0086… authorizes only this one source import. Source acceptanceFALSE/018notdone, originalsession65471 Root-owned, no fit/queryY/publisherlargefilehash/poll/retry.09:45checkpoint was7s late, nextmax10:30 remains anchored09:45.

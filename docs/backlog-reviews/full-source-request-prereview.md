@@ -1,4 +1,6 @@
-# Full-source018 request: metadata prereview accepted, runtime ungranted
+# Historical09:17 source018 prereview: runtime was ungranted
+
+Current continuation: [one source-only import has since been issued and submitted](full-source018-launch.md); source acceptance is still pending. The following paragraphs retain the earlier prereview scope.
 
 Root accepted the exact request and metadata/disk preflight scope at09:17:17UTC. [Unchanged Root receipt](evidence/full-source-request-prereview/root-acceptance.json) binds request SHA17edb3954caed6cd409765e870ef8ec547bfc407e30f0e47f5d1df92f553219c and the independent ledger;20 small current inputs and4 code pins were checked. Observed free disk372,534,751,232bytes exceeds planning peak114,383,164,272bytes plus the separate200GiB margin. Planning is not measured full-source capacity.
 
