@@ -774,3 +774,7 @@ Both independent draft pairs/separate critiques complete, Rootresearchreadbacks 
 ###020/021 Rootreviewed research —12:17:44UTC
 
 [Exact scoped synthesis/readbacks](research-lab/brainstorm-waves020021-synthesis.md) accepts existingfamily refinements with NULL/coverage/expiry/itemmass controls,0newHYP/tasks/admissions/main gates. Currentmain is sharednativeverifier purefixproposal after separateONCE expectedRED diagnosis; original018failed/consumed unchanged,015executionheld/no grant.12:45maximum unchanged.
+
+### Narrow native diagnosis/cost scope —12:29:20UTC
+
+[Root diagnosis/cost readback and exact negative reviews](backlog-reviews/native-param-diagnosis-and-cost.md) accept ONEBload expectedRED observation only; verifierV1listedge and wrapperV1cleanup/primaryexception P2s pending repair/uninstalled. Original018failedconsumed/partialunaccepted, real015closed/pureprep allowed. Exact33914/43200/1000/300 unchanged; checker-only engineering separatelypaid, actualdecisionbasis change needsadditiveaccounting/newversionedcandidate.12:45maximum unchanged.

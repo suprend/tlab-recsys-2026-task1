@@ -1,0 +1,127 @@
+{
+  "actual_owner_V6_backend_data_model_Y_claim_children_project_work": 0,
+  "author": "/root/six_role_output_review",
+  "driver_sha256": "f1ca72fbb6f36f0447fa0efaa0c3f496c4e339b75e1f5cae8fb3ddb8e88fcf84",
+  "execution_grant": false,
+  "external_receipt": {
+    "path": "/tmp/tlab-real015-existing-v6-driver-v1-independent-external-receipt.json",
+    "sha256": "38925ef3c1604e8324dbd66426d312e9c64b9b42e73bb83540fa2921636ec02f"
+  },
+  "findings": [
+    {
+      "line": 149,
+      "path": "/tmp/tlab-real015-existing-v6-driver-v1.py",
+      "priority": "P2",
+      "status": "unresolved",
+      "title": "Retain original V6 exception cleanup evidence",
+      "witness": "test_V6_original_exception_cleanup_evidence_must_survive_wrapper"
+    },
+    {
+      "also_line": 150,
+      "line": 127,
+      "path": "/tmp/tlab-real015-existing-v6-driver-v1.py",
+      "priority": "P2",
+      "status": "unresolved",
+      "title": "Do not let failure persistence replace primary exceptions",
+      "witness": "test_failure_receipt_write_must_not_replace_original_exception"
+    }
+  ],
+  "input_count": 28,
+  "input_hashes": {
+    "/Users/mdpospelov/tlab-recsys-2026/configs/heldout/reporting-only-v1.json": "4d3d1f337d7f65dd41cab0a938073692d03df87b73442590f25e4267f7510f3d",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_contract.py": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_execution.py": "9eb119850e25ce9c3594cac47c003b75ff5086b9cb071c3ba130f18a0e83aa29",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/run_heldout_reporting.py": "169b92aebf94a40b6ae76243e1821e983d4dc88657d120fe385155768a4d5cac",
+    "/tmp/tlab-chosen3-integration-draft-freeze-v3.json": "fc3a44a40b00b90dc0df7ddff0a5492772d3bfb802533a9523fb439c81737c8e",
+    "/tmp/tlab-chosen3-six-role-candidate-v3.py": "b40060a970546ea749291695bd60585b06ad7f1facdbf2388e6bfb1371f43a6d",
+    "/tmp/tlab-heldout-harness-processes.py": "449d98755ce6ea32e34bad7def7838a3f1d5ccabcbc666fb05dddc5e8c6ac232",
+    "/tmp/tlab-heldout-harness-supervisor-design.md": "ada4a52c7542164009b9ef75811e2632e76ff0eab4fad046207334e69c4b347a",
+    "/tmp/tlab-heldout-harness-supervisor-v6-repair.md": "cd159180eca657d2fc87315e14f249175dfbed8728208f082ae08314de6e3dae",
+    "/tmp/tlab-heldout-six-role-harness-freeze-v2.json": "49a95a26e9ec7a08b28ace4cbb673052b40c49e3043dcc8a243f959655defaf6",
+    "/tmp/tlab-real015-declared-request-v3/compute-evidence.json": "92a1d3003bba003368a0dfd16471b4da44322d8aad5b274d5db6a46fb6a73fca",
+    "/tmp/tlab-real015-declared-request-v3/ledger.json": "a456a845e74fa5dadfd9d8daa7ed71a1de753c3e707eac4df02939f641d238dc",
+    "/tmp/tlab-real015-declared-request-v3/request.json": "315fe0bd55b240f23584943d66f5c0925ef94cf375af8e9c9b9e91592e9f429d",
+    "/tmp/tlab-real015-existing-observer-reuse-handoff.md": "7fb24ec1f2317e411484dcf7b0c1f503ae382dae55f4c0210cf09dc9a5c9ca92",
+    "/tmp/tlab-real015-existing-observer-reuse-ledger.json": "7a9d6dd82a3f2bf92623f893224a3e439c68e95b68badd31b97669469d8d2db9",
+    "/tmp/tlab-real015-existing-v6-driver-v1-10-method-pass.json": "07366aa01315609b46255c5604cd73690535ab2a2cacb51b920e824de311a9c7",
+    "/tmp/tlab-real015-existing-v6-driver-v1-freeze.json": "3e1e957386592a0665f91193c72a1cf3be39330736b1d849fb30458c3fb98ce0",
+    "/tmp/tlab-real015-existing-v6-driver-v1-mock-result.json": "68be44ec9f50773b907da2f3eae26acc0a34cbd65067e17753c7050433894d35",
+    "/tmp/tlab-real015-existing-v6-driver-v1-mock.stderr-time.txt": "31313c6c7d4c8a02fb0710125ee86c7159ac2166e50d32afe4933ece31c48dde",
+    "/tmp/tlab-real015-existing-v6-driver-v1-mock.stdout.txt": "63262169647a22ef18337287eecd5519669e1d4c8b129545bf42223f100f877c",
+    "/tmp/tlab-real015-existing-v6-driver-v1-notes.md": "8a2f6c09e760100e9006b5dda5f5464ac990778d9cd9d8b3b3a9c9783a8eded6",
+    "/tmp/tlab-real015-existing-v6-driver-v1-original-red.json": "a0f8d22196598147443bfec10d6278f103c5a3de90ef7a5f369252870761e965",
+    "/tmp/tlab-real015-existing-v6-driver-v1.py": "f1ca72fbb6f36f0447fa0efaa0c3f496c4e339b75e1f5cae8fb3ddb8e88fcf84",
+    "/tmp/tlab-root-chosen3-v3-failed-external-receipt.json": "d32348f7a3831216aa2efdac8c22da53216cc53f696c7dd349f351ef645ed789",
+    "/tmp/tlab-root-decision-cost-conditional-adoption-v1.json": "65415b5dbc369771760d8cb99639e39e60558a3d624172de13b46cc72de8fa2d",
+    "/tmp/tlab-root-supervisor-v6-promotion.json": "82194ed03e4116c0f61a8c7bc6917124c6c76ab1ddf47bd3bf721f18d9d1ac80",
+    "/tmp/tlab-run-heldout-six-role-toy.py": "52a31321776652d97d0ce417748deb2fa13bb5fdf7a6fb8a8087d4d28e2ee6a8",
+    "/tmp/tlab-test-real015-existing-v6-driver-v1.py": "35fd510ac6be47d6ef92af3043d419f40ac3b0ae80860de2f317199dc724e6c2"
+  },
+  "new_gates_or_framework_or_mandatory_suite": false,
+  "original018failures_preserved": true,
+  "original315fe_request_preserved": true,
+  "probe": {
+    "errors": 0,
+    "existing_pass": 5,
+    "guard_violations": [],
+    "new_red_methods": 2,
+    "new_red_outcomes": 3,
+    "observations": {
+      "cleanup_dropped": {
+        "attached": {
+          "actual_cpu": 1.75,
+          "cleanup_nested_unknown": true,
+          "direct_child_inclusive_cpu": 1.25,
+          "errors": [
+            "primary KeyboardInterrupt: original"
+          ],
+          "exit_code": -9,
+          "ownership_phase": "reaped",
+          "primary_exception_type": "KeyboardInterrupt",
+          "reaped": true,
+          "sampled_job_rss_high": 12345,
+          "scope": "synthetic_harness_process_supervision",
+          "status": "failed",
+          "survivors_at_terminal_scan": []
+        },
+        "persisted": {
+          "error_type": "KeyboardInterrupt",
+          "execution_authority_issued": false,
+          "full_exit_accepted": false,
+          "status": "failed_consumed_no_retry",
+          "unknown_active_work": true
+        },
+        "retained_in_failure": false
+      },
+      "masked_controller": {
+        "escaped_message": "secondary synthetic persistence failure",
+        "escaped_type": "OSError",
+        "primary_context_type": "KeyboardInterrupt"
+      },
+      "masked_outer": {
+        "escaped_message": "secondary synthetic persistence failure",
+        "escaped_type": "OSError",
+        "primary_context_type": "KeyboardInterrupt"
+      }
+    },
+    "safety_ok": true,
+    "tests": 7
+  },
+  "proof_pins": {
+    "/tmp/tlab-real015-existing-v6-driver-v1-independent-inputs/input-freeze.json": "beb968382ea31e9993066f995c59b80327b74071a5e2598ed7b4e1e8155a3024",
+    "/tmp/tlab-real015-existing-v6-driver-v1-independent-red-probes.json": "f9cbf69e65d79818e758ffd02bb2159e91dfda72af32b3a7736fec2072ee5933",
+    "/tmp/tlab-real015-existing-v6-driver-v1-independent-red-probes.log": "d69a06a704cbc2294bf54b10ec8313cda8674ec1a470087975d0abe67198ff65",
+    "/tmp/tlab-real015-existing-v6-driver-v1-independent-red-probes.py": "848d81b5863d69d78f6064606ef856496c6fb47d8fd14c2ab5a45d9e6c8a01fb",
+    "/tmp/tlab-real015-existing-v6-driver-v1-independent-red-probes.stderr-time.txt": "a5f2e4af9492c76b2f11e485be86745f15be714bb867f56815c3f2167a13b522",
+    "/tmp/tlab-real015-existing-v6-driver-v1-independent-red-probes.stdout.txt": "0d2dc939c0f50d49c78de2f00cc5139ca3d28d0d3529b24ddbf084630fbb437d"
+  },
+  "report": {
+    "path": "/tmp/tlab-real015-existing-v6-driver-v1-independent-review.md",
+    "sha256": "218032f17e5010a936783a02682f1e0749f9aa8bcf27d4f4eeaf60b3f097f92e"
+  },
+  "reviewer": "/root/six_role_harness",
+  "runtime_closure_provisional": true,
+  "scope": "real015_fixed_wrapper_SOURCE_ONLY_not_owner_439_recertification",
+  "source018_prerequisite": false,
+  "verdict": "changes_requested"
+}

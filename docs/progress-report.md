@@ -1,6 +1,6 @@
 # Автоматизация признаков для ранжирования покупок
 
-По состоянию на 15 октября 2026, 12:05:15 UTC, actual018 однодневный replay завершился ошибкой при проверке параметров первой B-модели, до предсказаний. Полный typed9 source-prefix остаётся принятым; выгруженные Q/C/признаки пока не приняты, source-to-model и отложенная проверка015 не завершены. Root проверяет причину отдельной ограниченной диагностикой одной B-модели; исходная операция98791 исчерпана и повтор не разрешён.
+По состоянию на 15 октября 2026, 12:29:20 UTC, причина original018 сбоя локализована: проверка отвергает округлённое Bayesian metadata B-модели при совпадающем captured float32 представлении. Диагностика одного B-load принята, но исправления verifier/wrapper ещё не приняты; original018 остаётся FAILED/consumed, выгрузки не приняты и real015 закрыт. Следующий шаг — узкие V2 review/readbacks без повторного source-to-model запуска; source-prefix и33914/43200 условный wall basis сохраняются.
 
 Рабочий отчёт по первой задаче T-Lab. Ручной контроль настроен в пределах заранее заданного бюджета и независимо проверен. Четыре ветви автоматизации также выполнены и независимо проверены; неизменённое сравнение на отложенном периоде ещё впереди.
 
@@ -145,3 +145,7 @@ CostV2 37697 отклонён до конечного independently reviewed QA/
 Original98791/e2f5ba EXIT1,1Bmodel load/0predict/0fit/0Y; Native effective parameter differs in heldout_predictions.verify_model. Partial Q/C/B45/extras are unaccepted, no parity/ownerreturn. Rootexternal5.49wall/8.52CPU, MAXRSS1,952,514,048B distinct from sampledaggregate1,977,745,408B; V6unknowntrue retained. Separate15CPU/30wall Bload diagnosis is not a retry or quality experiment. Source-prefix accepted, real015 execution held on this verifier dependency; pureprep cancontinue/no015grant.
 
 [Original failure receipt and resource limits](backlog-reviews/development-whole018-failure.md) distinguish the measured reaped command from UNKNOWN full-tree actual-totalCPU. Separately accepted inert015 metadata packing is not a runtime grant; its shared verifier dependency remains held.
+
+## Узкая диагностика и pending repairs —12:29:20UTC
+
+[Observed diagnosis/cost scope](backlog-reviews/native-param-diagnosis-and-cost.md) retains exactly one B-load expectedRED, two captured float differences and Root later literal checks; W not loaded. Diagnosis is not a fix/runtime/source acceptance. VerifierV1 list-origin P2 and wrapperV1 two exception-audit P2s remain pending versioned repair, no protected code installed. Engineering costs are separate under unchanged-model/decision conditions;33914/43200/1000/300 are not refilled. Original018FAILED/unknownflags and real015closed unchanged.

@@ -1,0 +1,144 @@
+{
+  "status": "one supported P2 nested/list comparison requirements regression; canonical accepted scalar runtime bypass not claimed",
+  "finding": {
+    "priority": 2,
+    "production_path": "/tmp/tlab-heldout-predictions-bayesian-alias-proposal-v1.py",
+    "production_line": 59,
+    "oracle_path": "/tmp/tlab-heldout-prediction-audit-bayesian-alias-proposal-v1.py",
+    "oracle_line": 38,
+    "trigger": "exact captured float pair wrapped in one/two list levels under root Bayesian path",
+    "original_accepts": [
+      false,
+      false
+    ],
+    "proposal_accepts": [
+      true,
+      true
+    ],
+    "current_authenticated_scalar_spec_reachability_claimed": false
+  },
+  "focused_processes_used": 1,
+  "terminal": {
+    "tool_chunk": "9b730a",
+    "exit_code": 0,
+    "self_CPU_seconds": 0.096191,
+    "internal_body_wall_seconds": 0.03186600000481121,
+    "peak_RSS_bytes": 28884992,
+    "full_external_CPU_receipt": false
+  },
+  "author15_PASS": true,
+  "observations": {
+    "next_float32_lower": {
+      "expected": 0.10000000149011612,
+      "actual": 0.09999999403953552,
+      "all_old_new_reject": true
+    },
+    "alias_next_float64_up": {
+      "expected": 0.10000000149011612,
+      "actual": 0.10000000150000002,
+      "all_old_new_reject": true
+    },
+    "alias_next_float64_down": {
+      "expected": 0.10000000149011612,
+      "actual": 0.10000000149999999,
+      "all_old_new_reject": true
+    },
+    "reversed_noncanonical_expected_pair": {
+      "rejected": true
+    },
+    "one_list": {
+      "expected": [
+        0.10000000149011612
+      ],
+      "actual": [
+        0.1000000015
+      ],
+      "old_accepts": [
+        false,
+        false
+      ],
+      "new_accepts": [
+        true,
+        true
+      ],
+      "canonical_captured_expected_type": "float",
+      "actual_authenticated_runtime_reachability_claimed": false
+    },
+    "two_lists": {
+      "expected": [
+        [
+          0.10000000149011612
+        ]
+      ],
+      "actual": [
+        [
+          0.1000000015
+        ]
+      ],
+      "old_accepts": [
+        false,
+        false
+      ],
+      "new_accepts": [
+        true,
+        true
+      ],
+      "canonical_captured_expected_type": "float",
+      "actual_authenticated_runtime_reachability_claimed": false
+    }
+  },
+  "transport": {
+    "path_constants": 5,
+    "author_resource_statements_skipped": [
+      "resource.setrlimit(resource.RLIMIT_CPU, (30, 30))",
+      "signal.alarm(60)"
+    ],
+    "Root_CPU_seconds": 15,
+    "Root_wall_seconds": 20,
+    "implementation_AST_changes": 0
+  },
+  "guard_attempts": {
+    "native_import": 0,
+    "children": 0,
+    "network": 0,
+    "model_or_data_read": 0,
+    "project_write": 0
+  },
+  "native_load_predict_fit_DB_SQL_Y_439_children_project_writes": 0,
+  "runtime_grant": false,
+  "source_acceptance": false,
+  "original018_acceptance": false,
+  "original_input_count": 13,
+  "terminal_freshness_unchanged": true,
+  "initial_snapshot_CPU_seconds": 0.0010659999999999992,
+  "initial_snapshot_wall_seconds": 0.001068666999344714,
+  "terminal_publication_CPU_seconds": 0.0018410000000000076,
+  "terminal_publication_wall_seconds": 0.001847417006501928,
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-native-param-alias-independent-review-v1.md",
+      "sha256": "413b4e6446682153f0f7bcc34e56de1c814ec6e8f873e8a4fb20fd57ced69d31",
+      "bytes": 5119
+    },
+    {
+      "path": "/tmp/tlab-native-param-alias-independent-freeze-v1.json",
+      "sha256": "1edaaa33067c570df37432f08a99185ee089c720c3a2596e5203dc166cde15ef",
+      "bytes": 9994
+    },
+    {
+      "path": "/tmp/tlab-native-param-alias-independent-probe-results-v1.json",
+      "sha256": "bf7b60d9fe39dca238c1f989f35daaedb06d0dfc8896fc1965e51f66ea330ce4",
+      "bytes": 2246
+    },
+    {
+      "path": "/tmp/tlab-native-param-alias-independent-probes-v1.py",
+      "sha256": "fa574a4176a2b56b7b30b07f844648592a48918b27f48fa3bbffc82f7b053077",
+      "bytes": 7905
+    },
+    {
+      "path": "/tmp/tlab-native-param-alias-independent-author-suite-v1.log",
+      "sha256": "9b25aa3a2c4ea412a3030d19bee267a5a37c9b483da073dbc743d05009aea015",
+      "bytes": 2429
+    }
+  ]
+}

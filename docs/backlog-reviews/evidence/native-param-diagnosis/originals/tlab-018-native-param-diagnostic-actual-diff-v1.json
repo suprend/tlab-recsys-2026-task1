@@ -1,0 +1,30 @@
+{
+  "original_error": {
+    "message": "Native effective parameter differs",
+    "type": "ValueError"
+  },
+  "only_actual_differences": [
+    {
+      "path": [
+        "bayesian_matrix_reg"
+      ],
+      "expected": 0.10000000149011612,
+      "actual": 0.1000000015,
+      "expected_type": "float",
+      "actual_type": "float",
+      "absolute_difference": 9.883885376815726e-12
+    },
+    {
+      "path": [
+        "learning_rate"
+      ],
+      "expected": 0.05000000074505806,
+      "actual": 0.05000000075,
+      "expected_type": "float",
+      "actual_type": "float",
+      "absolute_difference": 4.941942688407863e-12
+    }
+  ],
+  "predictions": 0,
+  "fix_applied": false
+}

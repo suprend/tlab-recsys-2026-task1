@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "scope": "saved_params_pure_minimisation_only_no_fix",
+  "capture_sha256": "c5da7fdd527abcbf9b98f43c2bea66774e3fcca285e913efa6025f1618188a8c",
+  "native_imports": 0,
+  "native_loads": 0,
+  "predictions": 0,
+  "fits": 0,
+  "source_Y_opens": 0,
+  "protected_code_sha256": "e1b06b2aac68c59379d15298c39101ec02b6a176c26b13d4671f8e445de2851b",
+  "original_verify_model": {
+    "type": "ValueError",
+    "message": "Native effective parameter differs",
+    "same_original_symptom": true
+  },
+  "full_parameter_dict": {
+    "type": "ValueError",
+    "message": "Native effective parameter differs",
+    "same_original_symptom": true
+  },
+  "minimal_single_scalar": {
+    "type": "ValueError",
+    "message": "Native effective parameter differs",
+    "same_original_symptom": true
+  },
+  "minimal_input": {
+    "path": [
+      "bayesian_matrix_reg"
+    ],
+    "expected": 0.10000000149011612,
+    "actual": 0.1000000015
+  },
+  "fix_applied": false
+}

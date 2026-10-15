@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 12:17:44 UTC / 15:17:44 МСК.020021researchreviewed; original018FAILED; real015held; max12:45UTC unchanged.
+Обновлён 15 октября2026, 12:29:20 UTC / 15:29:20 МСК. Bmetadata diagnosis accepted; V1repairs/runtime pending; max12:45 unchanged.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -9,6 +9,14 @@
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 12:45 UTC / 15:45 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Current scoped diagnosis —12:29:20UTC
+
+Root accepted ONEBload expectedRED diagnosis and independently checked two captured representation pairs; Wnotloaded,0predict/fit/DB/Y. VerifierV1 scalaralias leaksunderlists and wrapperV1 losescleanupattachment/masksprimaryexception; bothunaccepted/uninstalled pendingtinyV2repair. CurrentauthenticatedBspec bypass notdemonstrated; wrapperfailclosed. Original98791FAILED/consumed1load0predict, partialexports unaccepted, sourceprefix valid/fulltreeactualCPU UNKNOWN.
+
+Postcutoffengineeringseparatelypaid only ifchecker-metadataalias change leaves exactmodels/nativeparams/features/decisionbasis unchanged; otherwiseadditiveaccounting.33914/43200/1000/300 unchanged/norefill. Real015closed/pureprep allowed, no newnative/original018retry. Rootactualexecution/solepublisherrole unchanged. SafeNEXT narrowV2reviews thenRoot exactversionedcandidate decision; max12:45UTC anchored12:00 unchanged.
+
+## Historical12:05 failure snapshot
 
 ## Current actual018 FAILED partial —12:05:15UTC
 
@@ -444,3 +452,11 @@ Both independent FIRST pairs and their separate critiques are complete; Root res
 ## Reviewed020/021 checkpoint —12:17:44UTC
 
 [Scoped normalization](brainstorm-waves020021-synthesis.md) archives14exact author/skeptic originals plusRootV1/V2 receipts. Root fullyread020authors/bothskeptics, notall021authorprose; expected/initialSHA normalization addsnoauthorchanges.0newHYP/tasks/grants/gates. Original98791FAILED/consumed1load0predict/no retry, partialexports unaccepted/sourceprefix unaffected. SeparateONEBload native diagnostic reproduced expectedRED perRoot; purefixproposal ongoing, originalfailure/unknownflags unchanged,015executionCLOSED/pureprep allowed. Nextmaximum12:45UTC anchored12:00, no timer/budget reset.
+
+### Native diagnosis/cost proof —12:29:20UTC
+
+[Scoped pack](../backlog-reviews/native-param-diagnosis-and-cost.md) retains17 exact Root-bound originals plusRootreceipt and6negative-review artifacts. No model/private-request payload, no proposal executable installation, no new tests/native/data/poll/largehash. Original report hypotheses and laterRootchecks separated. Current V1 repairs remain unaccepted; no newmandatorytask/gate/goal.
+
+### Post-diagnosis V2 review handoff
+
+Same reviewer reported narrow aliasV2 CODE/captured green after originalV1P2; Root adoption/new callerpins remain separate. No publisherinstall/native call and no promotion of original018. WrapperV1 twoP2s remain pendingrepair.
