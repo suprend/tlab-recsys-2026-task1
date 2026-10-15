@@ -201,3 +201,6 @@ Reviewed transfer004: [AmazonReviews2023](brainstorm-mb004.md), [RetailRocket](b
 
 
 [Root-limited004 readback](brainstorm-wave004-root-literal-review.json) accepts original symbolic/literal evidence only; [wave002 synthesis](brainstorm-wave002-synthesis.md) is a proposed conditional-registration normalization with0newIDs. Current006 live author observation and source-free failure gates remain in the journal checkpoint.
+
+
+Wave005 independent same-question first drafts: [FeaturesA](brainstorm-fa005.md), [ModelsA](brainstorm-ma005.md), [eight-file publication freeze](brainstorm-wave005-publication-freeze.json). HYP046 refinements only; separate skeptic active, no full-output correctness or speedup proof.

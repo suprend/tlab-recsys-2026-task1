@@ -1,0 +1,436 @@
+{
+  "schema_version": 1,
+  "wave": "005",
+  "author": "/root/brainstorm_features_a",
+  "report_path": "brainstorm-fa005.md",
+  "date": "2026-10-15",
+  "freeze_UTC": "2026-10-15 07:05:35 UTC",
+  "report_sha256": "99ef4ea1901f2ee2a77e93ac7ca52f576626ae8099f35bffb7c9d39f82458d72",
+  "first_draft_independence": {
+    "fixed_prior_commit": "331b1ae29f3e484516893204a4f990c9372f2c25",
+    "read_peer005": false,
+    "read_live_brainstorm_journal": false,
+    "helper_used": false,
+    "helper_limit_reason": "17 live agent slots already occupied at author start",
+    "separate_skeptic": "Assigned later by Root; author cross-review not substituted"
+  },
+  "scope": {
+    "skill": "personal-agent-system:.agents/skills/research-campaign/SKILL.md",
+    "mode": "Bounded source research and tiny invented stdlib probe",
+    "actual_data_or_targets": false,
+    "SQL_executed": false,
+    "native_ML_or_model_fits": false,
+    "native_engine_runs": false,
+    "weight_downloads_or_paid_API": false,
+    "shared_edits": false,
+    "current015_B41_R2_W_changed": false,
+    "new_canonical_HYPs": 0,
+    "current_heldouts": "CLOSED",
+    "future_caps_are_authorization": false
+  },
+  "historical_inputs": [
+    "docs/backlog.md",
+    "docs/research-lab/index.md",
+    "docs/research-lab/round-002.md",
+    "docs/research-lab/round-009.md",
+    "docs/research-lab/round-012.md",
+    "docs/research-lab/round-033.md",
+    "configs/features/manual-18.json",
+    "scripts/manual_features.py",
+    "scripts/feature_programs.py",
+    "docs/experiments/feature-program-experiment.md"
+  ],
+  "source_evidence": [
+    {
+      "id": "S1",
+      "url": "https://link.springer.com/article/10.1007/s00778-025-00922-y",
+      "type": "Primary VLDB Journal publication",
+      "year": 2025,
+      "published": "2025-05-08",
+      "inspected": "Publisher abstract, metadata and references; subscription full text unavailable",
+      "supports": "Compositional incrementalization; author-source linkage",
+      "does_not_establish": "Our boundary or last-occurrence adapter, runtime, exact semantics under false declarations, ranking gain"
+    },
+    {
+      "id": "S2",
+      "url": "https://github.com/feldera/feldera/blob/main/sql-to-dbsp-compiler/using.md",
+      "type": "Author compiler documentation/code",
+      "inspected": "SQL-to-Rust incremental compilation interface; mutable main",
+      "supports": "Declarative views can compile to change-stream maintenance; no engine installation proposed"
+    },
+    {
+      "id": "S3",
+      "url": "https://raw.githubusercontent.com/feldera/feldera/main/crates/dbsp/src/operator/distinct.rs",
+      "type": "Author operator code",
+      "symbols": [
+        "stream_distinct",
+        "distinct",
+        "hash_distinct"
+      ],
+      "inspected": "Mutable main",
+      "supports": "Per-batch positive-weight set differs from incremental accumulated-relation distinct; tuple weights matter"
+    },
+    {
+      "id": "S4",
+      "url": "https://www.feldera.com/blog/time-series",
+      "type": "Primary author engineering article",
+      "year": 2024,
+      "date": "2024-11-01",
+      "author": "Leonid Ryzhyk",
+      "supports": "Retention/lifetime analysis depends on truthful append-only and temporal-order assumptions; full-prefix linear versus non-linear state differs"
+    },
+    {
+      "id": "S5",
+      "url": "https://github.com/feldera/feldera/issues/1768",
+      "type": "Primary author implementation issue",
+      "year": 2024,
+      "date_open": "2024-05-19",
+      "date_closed": "2024-05-30",
+      "supports": "Identical temporal input maps could create separate rolling traces; linked completion1805",
+      "limit": "Linked patch open failed; patch/current implementation behavior not claimed"
+    },
+    {
+      "id": "S6",
+      "url": "https://duckdb.org/2025/02/10/window-catchup",
+      "type": "Primary author engineering article",
+      "year": 2025,
+      "date": "2025-02-10",
+      "supports": "Optimized window DISTINCT and explicit naive/fallback boundary"
+    },
+    {
+      "id": "S7",
+      "url": "https://raw.githubusercontent.com/duckdb/duckdb/main/src/function/window/window_distinct_aggregator.cpp",
+      "type": "Author code",
+      "symbols": [
+        "WindowDistinctAggregator::CanAggregate",
+        "WindowDistinctSortTree",
+        "prev_idcs"
+      ],
+      "inspected": "Mutable main",
+      "supports": "Previous-occurrence/merge-sort-tree machinery and no-exclusion/no-argument-order eligibility",
+      "negative": "Strict-past EXCLUDE GROUP rewrite cannot assume this fast path",
+      "limit": "Not the installed project runtime; must pin/recheck before a native cost test"
+    }
+  ],
+  "proposals": [
+    {
+      "id": "A005-01",
+      "title": "Fixed anchor/window boundary intervals for shared raw-count calculation",
+      "newvsrefine": "refinement",
+      "knownoldIDs": [
+        "HYP-046",
+        "HYP-002",
+        "TLAB-005",
+        "TLAB-016"
+      ],
+      "disposition": "candidate_refinement_awaiting_independent_skeptic",
+      "mechanism": "Compile B={source_start,all anchors,all anchor-window lower bounds}; count raw multiplicities per disjoint boundary interval and typed grain/action signature; form all window counts by prefix differences. Full-prefix recency/first-seen and complete global latest metadata buckets remain separate reducers. Exact conditional NULL/coverage/final ratio semantics preserved.",
+      "testable_prediction": "Repeated-anchor source examination and count aggregation work can decrease versus unchanged005, provided union-key state, ordering/preparation and sink costs do not dominate. Exact output semantics imply no new predictive signal.",
+      "nearest_source_free_experiment": "Direct-list oracle and separate interval interpreter, <=4096 invented rows, <=32 users/items,15 anchors,24/168h including irregular anchors, exact boundaries, duplicates, NULL peer metadata, category movement, off-C denominator, emptyC; compare all keys/cores/masks and count examined rows/state/sink bytes; no SQL or producer imports.",
+      "benefit_task1": "Automatically derive cross-anchor physical reuse from typed programs; test exact calculation and scoped physical efficiency rather than claim better recommendations.",
+      "baseline": "Native phase only after separate authorization: unchanged005 optimizerON, fixed source/Q/C, exact frozen B41+R2 registry and complete matched common sink. Direct-list is correctness oracle, not primary speed baseline.",
+      "counterhypothesis": "Existing optimizer partition pruning/common scan/export or enlarged union support dominates; sparse anchors or sorting make proposed plan worse.",
+      "typing_contract": [
+        "Complete grain/action/window/source/version/availability/multiplicity/NULL/metadata signature",
+        "Finite anchors frozen label-free before replay",
+        "Lower-inclusive upper-exclusive boundaries",
+        "All global anchor peers excluded",
+        "Historical event category for counters; complete latest global timestamp bucket for metadata",
+        "Category denominator includes off-candidate population",
+        "Known empty key0 versus unknown conditional keyNULL",
+        "Full-prefix observed recency/age never truncated to largest count window",
+        "Frozen retrieval/context passthrough; no C regeneration"
+      ],
+      "finite_physical_cost": {
+        "variables": {
+          "E": "raw rows to final anchor",
+          "J": "anchors",
+          "L": "finite window widths",
+          "P": "boundary points",
+          "G": "distinct required grain/action keys",
+          "S": "nonempty interval/key/action cells",
+          "F": "full emitted feature values"
+        },
+        "boundary_count_upper": "P<=J*(L+1)+1",
+        "raw_count_grain_dispatches_upper": "6*E for current six grains",
+        "nonempty_cells_upper": "S<=6*E",
+        "dense_count_payload_upper": "G*(P-1) counters, excluding encoded keys and overhead",
+        "sparse_prefix_build": "O(S) after grouping/sorting; grouping/sorting cost also paid",
+        "readout": "Two prefix lookups per count plus final O(F) sink",
+        "ordering": "Counts alone tolerate unordered rows; combined temporal replay requires verified order or paid O(ElogE) external sort/O(E) spill",
+        "state_warning": "Union support, metadata and distinct state scale with source cardinality; one raw scan is not bounded RSS",
+        "source_scan_vs_state": "Count examined rows and physical bytes/pages separately; existing005 may prune partitions",
+        "other_paid_work": [
+          "Input authentication",
+          "Compile/boundary construction",
+          "Ordering/sort",
+          "Metadata/first-seen",
+          "Exact distinct",
+          "Ratios/masks/coverage",
+          "Joins/broadcast",
+          "All full output columns",
+          "Validation",
+          "Failed/censored attempts",
+          "Cleanup"
+        ]
+      },
+      "result_branches": {
+        "semantic_mismatch": "Reject rewrite",
+        "same_physical_work": "Semantic correctness only; no speed advantage",
+        "lower_end_to_end_cost_within_caps": "Candidate for scoped native design/benchmark",
+        "higher_cost_or_cap_failure": "Close efficiency claim; preserve failure"
+      }
+    },
+    {
+      "id": "A005-02",
+      "title": "Append-only last-occurrence sufficient state for exact multiwindow DISTINCT",
+      "newvsrefine": "refinement_suboperator",
+      "knownoldIDs": [
+        "HYP-046",
+        "TLAB-005",
+        "TLAB-016"
+      ],
+      "disposition": "candidate_refinement_awaiting_independent_skeptic",
+      "mechanism": "At each monotone strict-past snapshot, v belongs to [a-w,a) iff last qualifying occurrence l(v)>=a-w. Share one typed map for windows; move membership between boundary intervals; use rank/prefix count structure. Keep one live expiry membership per value, not stale notices for raw occurrences. Raw count, observed recency and metadata remain separate.",
+      "testable_prediction": "Repeated-value data reduces retained occurrence/expiry state relative to generic multiplicity and separate-window traces; nearly unique data or map/list overhead can remove or reverse benefit.",
+      "nearest_source_free_experiment": "Compare direct sets, generic exact multiplicity+expiry and specialized latest map on <=4096 invented rows, repeated and all-unique controls, same-second duplicates, renewal before old expiry, NULL, peers/future suffix; reject deletion/time-travel contracts explicitly; count live state, moves, expiries and full sink.",
+      "benefit_task1": "Automatically select exact sufficient state from operator and source contracts; make DISTINCT expiry cost and validity explicit without adding predictive information.",
+      "baseline": "Correctness versus independent direct sets and generic multiplicity expiry; native phase only after separate authorization versus unchanged005 and A005-01 generic/specialized distinct, all with identical B/W output sink.",
+      "counterhypothesis": "High distinct cardinality, pointer/hash overhead, ordering/preparation or final sink dominates; memory advantage vanishes on unique streams.",
+      "typing_contract": [
+        "Immutable append-only event prefix",
+        "Monotone anchor replay; snapshot before all global timestamp peers",
+        "Exact same grain/action/projected nominal value/filter/NULL/source policy for sharing",
+        "ProjectionNULL skipped; unavailable candidate category remains conditionalNULL",
+        "Evict only l(v)<largest required lower frontier; equality remains included",
+        "Renewed value survives expiry of older occurrence",
+        "One intrusive live interval-membership entry per retained value",
+        "No arbitrary deletion/correction/time-travel support",
+        "No future-source last occurrence before snapshot"
+      ],
+      "finite_physical_cost": {
+        "D": "Active distinct grain/action/value triples",
+        "map_and_expiry_entries": "D map entries and D live interval-membership entries, plus encoded keys/allocator overhead",
+        "rank_state": "O(P) per nonempty group or sparse equivalent; this factor is explicit",
+        "raw_examination": "Once per relevant raw row; at most two current user/item distinct projections per row",
+        "move_cost": "O(logP) with indexed count structure; same-interval repeats can avoid moves",
+        "expiry_cost": "Each retained value removed once before a possible later reinsertion",
+        "readout": "O(logP) per group/window plus O(F) final broadcast/sink",
+        "memory_warning": "D may grow with E; no cardinality-independent bound",
+        "unsupported_primitive": "Reviewed exact fallback or rejection, never approximation"
+      },
+      "counterexamples": [
+        {
+          "case": "x@0 and x@1, then source retracts x@1",
+          "finding": "Need recover older0; single latest value is insufficient; reject source contract"
+        },
+        {
+          "case": "Old occurrence expires after later renewal",
+          "finding": "Blind expiry deletion removes live value; removal must follow latest membership"
+        },
+        {
+          "case": "Latest occurrence computed from whole future source",
+          "finding": "Leaks later state; monotone snapshots must be prefix based"
+        },
+        {
+          "case": "Sum per-day unique counts",
+          "finding": "Same value across two days counted twice, unlike exact rolling distinct"
+        },
+        {
+          "case": "Stock EXCLUDE GROUP window rewrite",
+          "finding": "Inspected optimized DuckDB distinct eligibility excludes this mode; no free fast-path assumption"
+        }
+      ],
+      "result_branches": {
+        "semantic_mismatch_or_false_append_only": "Reject specialization",
+        "less_state_but_no_full_CPU_gain": "Limited state result only",
+        "all_unique_worse": "Preserve counterexample and choose reviewed generic fallback prospectively",
+        "lower_full_cost": "Candidate for independent physical review; no native grant"
+      }
+    }
+  ],
+  "executed_literal_probe": {
+    "runtime": "System python3 stdlib collections.Counter, bisect, json only; no project imports",
+    "input_columns": [
+      "time_days",
+      "user_id",
+      "product_id",
+      "nullable_category_id",
+      "action"
+    ],
+    "events": [
+      [
+        0,
+        1,
+        1,
+        10,
+        "view"
+      ],
+      [
+        1,
+        1,
+        1,
+        10,
+        "view"
+      ],
+      [
+        1,
+        1,
+        1,
+        10,
+        "view"
+      ],
+      [
+        1,
+        9,
+        99,
+        10,
+        "view"
+      ],
+      [
+        2,
+        2,
+        1,
+        20,
+        "view"
+      ],
+      [
+        2,
+        3,
+        1,
+        null,
+        "cart"
+      ],
+      [
+        3,
+        1,
+        2,
+        10,
+        "view"
+      ],
+      [
+        3,
+        1,
+        2,
+        10,
+        "view"
+      ],
+      [
+        4,
+        2,
+        2,
+        20,
+        "purchase"
+      ],
+      [
+        7,
+        1,
+        1,
+        10,
+        "view"
+      ],
+      [
+        8,
+        2,
+        1,
+        10,
+        "view"
+      ],
+      [
+        9,
+        1,
+        3,
+        null,
+        "purchase"
+      ]
+    ],
+    "anchors_days": [
+      1,
+      2,
+      3,
+      4,
+      8,
+      9,
+      10,
+      16
+    ],
+    "windows_days": [
+      1,
+      7
+    ],
+    "boundary_points": 15,
+    "count_grains": [
+      "user",
+      "pair",
+      "item",
+      "user_category",
+      "item_category",
+      "category"
+    ],
+    "count_dictionary_comparisons": 16,
+    "distinct_grains": [
+      "user",
+      "item"
+    ],
+    "distinct_dictionary_comparisons": 16,
+    "all_dictionaries_equal": true,
+    "latest_metadata_item1_anchor2": [
+      10,
+      false
+    ],
+    "latest_metadata_item1_anchor3": [
+      null,
+      true
+    ],
+    "complete_vs_candidate_only_category10_denominator": [
+      4,
+      3
+    ],
+    "item1_views_before_anchor2": 3,
+    "item1_distinct_viewers_before_anchor2": 1,
+    "sum_day0_day1_distinct_viewers": 2,
+    "raw_duplicate_rows_t1": 2,
+    "latest_map_entries_for_that_value": 1,
+    "limits": [
+      "No full B41/R2 compiler exercised",
+      "No timing/speedup or peak-memory evidence",
+      "No generic-expiry implementation executed yet",
+      "Peer permutations/future suffix and generated shapes are future gates",
+      "Rank/prefix data structure not implemented; literal compares exact sufficient-state identity"
+    ]
+  },
+  "prospective_source_free_gate": {
+    "authorization_now": false,
+    "max_invented_rows": 4096,
+    "max_users_items_each": 32,
+    "max_anchors": 15,
+    "windows_hours": [
+      24,
+      168
+    ],
+    "fits": 0,
+    "SQL": false,
+    "native_engine": false,
+    "proposed_process_CPU_seconds_cap": 60,
+    "proposed_peak_MiB_cap": 128,
+    "charge": [
+      "Preparation",
+      "Oracle",
+      "Interpreter",
+      "All output writes",
+      "Failures",
+      "Cleanup"
+    ],
+    "feasibility": "Not measured; these are stop caps only"
+  },
+  "rejected_newness_claims": [
+    "Generic cache/groupby/CSE",
+    "One SQL statement equals one physical scan",
+    "Shared logical DAG guarantees shared temporal traces",
+    "Daily distinct counts can be added",
+    "Exact output equality proves runtime gain",
+    "Faster toy oracle proves advantage over unchanged005",
+    "Boundary/last-occurrence representations are academic inventions"
+  ],
+  "next_step": "Root-appointed separate skeptic examines both refinements and tiny raw evidence; no author peer005 read before freeze. No implementation/native/source/model run or015 dependency created."
+}

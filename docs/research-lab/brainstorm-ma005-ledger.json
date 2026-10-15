@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "wave": "005",
+  "author": "/root/brainstorm_models_a",
+  "role": "independent authorB",
+  "first_freeze_utc": "2026-10-15T07:09:40.857769+00:00",
+  "report_path": "brainstorm-ma005.md",
+  "report_sha256": "71fa683c3aefdffdd6a4c518f0e0173de3c577f917c7ab1323f5ffd894cb0068",
+  "report_words": 1711,
+  "prior": {
+    "prior_commit": "331b1ae29f3e484516893204a4f990c9372f2c25",
+    "files": [
+      {
+        "path": "scripts/manual_features.py",
+        "bytes": 25160,
+        "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103"
+      },
+      {
+        "path": "configs/features/manual-18.json",
+        "bytes": 3631,
+        "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c"
+      },
+      {
+        "path": "configs/features/automation-pool.json",
+        "bytes": 2713,
+        "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3"
+      },
+      {
+        "path": "docs/experiments/feature-programs.md",
+        "bytes": 7796,
+        "sha256": "ff2353c32b897583a4fb99aa89bf6e77aa479c64a88ead7c52792e537d3c0bcf"
+      },
+      {
+        "path": "docs/experiments/feature-program-control.md",
+        "bytes": 3056,
+        "sha256": "42a8f5fd53231bde7a0eb2c8fefe15bb09f8189338e5ae9a1932456451023a3a"
+      },
+      {
+        "path": "docs/research-lab/round-002.md",
+        "bytes": 19489,
+        "sha256": "d08a13621e1a973dd9e3bd02a332d986bc666e8112e550508eab8e1ddbf9c139"
+      },
+      {
+        "path": "docs/research-lab/round-012.md",
+        "bytes": 14002,
+        "sha256": "a6d860aef06434a494c669becf13aca6944ee3f61e9c7a498f1a5b58fc8dda58"
+      },
+      {
+        "path": "docs/backlog-reviews/heldout-source-cost-critic.md",
+        "bytes": 10015,
+        "sha256": "62e6e1d53be50bd41a55bdd39d3d8c99d4a5c55d062708a63cd35c95bb9c2b14"
+      }
+    ]
+  },
+  "independence": {
+    "peer005_reports_read_before_firstfreeze": false,
+    "live_journal_conclusions_read": false,
+    "fixedprior_only": true,
+    "parallel_helper_on_distinct_source": true,
+    "active_before_helper": 16,
+    "session_limit": 17
+  },
+  "skills": [
+    "research-campaign",
+    "research"
+  ],
+  "new_HYP_count": 0,
+  "candidates": [
+    {
+      "local_id": "M5-01",
+      "disposition": "refine",
+      "canonical_relationship": "HYP046; exact sharedcalculation notnewHYP",
+      "mechanism": "operator-capability-gated temporal range decomposition with paidbuild andvariablepayloadcost",
+      "new_vs_generic_cache": "choosesflat/disjointhierarchy/inverseprefix onlyperprovedalgebra;chargesstate/cardinalityandsetupacrossanchors",
+      "origin": "µWheelDEBS2024;owncost/adaptationexplicit",
+      "prediction": "exactsameB41+R2+3 outputswithlowercompletecostwhenreuseamortizesbuild",
+      "counterhypothesis": "fewanchors/twoviewwindows/largeexactdistinctpayloads makeflat/current005better",
+      "sourcecode_commit": "0ef74900d0facf62928c777dbaa7d9922ea6519f",
+      "sourcecode_date": "2026-02-25",
+      "paper_version_code_distinguished": true,
+      "literal_pass": true,
+      "ready_real_execution": false,
+      "cheapest_falsifier": "hierarchyquery6+build15=21>flat18 atsame16decodedrows;projection/NULL/peer/expiry/supportmismatches rejectexactness"
+    },
+    {
+      "local_id": "M5-02",
+      "disposition": "defer",
+      "canonical_relationship": "HYP046 aggregate-state derivationcontrast;nonewHYP",
+      "origin": "SUDAFTODS2024with2020predecessors",
+      "mechanism": "derive multiple different aggregates fromcanonicalpartialstates",
+      "authorcode_verified": false,
+      "frozenDSL_applicability": "mean/varianceoutsidefrozenoperators;mapcount/distinctpossiblebutcostnotestablished",
+      "cheapest_falsifier": "same n/sum/sumsquaresbutdistinct2vs3;no moments→distinctrewrite",
+      "ready_real_execution": false
+    }
+  ],
+  "sources": [
+    {
+      "title": "µWheel:AggregateManagementforStreamsandQueries",
+      "year": 2024,
+      "url": "https://ri.diva-portal.org/smash/get/diva2%3A1892506/FULLTEXT01.pdf",
+      "publisher": "https://doi.org/10.1145/3629104.3666031",
+      "read_status": "primaryindexedsections/abstract;directPDFretrievalfailed;notfullpaperinspection",
+      "source_assumptions": [
+        "mainonlinebenchunsigned64SUM",
+        "operationcostnotphysicalIO",
+        "timeadvanceO(secondticks)",
+        "watermarkcompleteness"
+      ]
+    },
+    {
+      "title": "uwheelauthorcode",
+      "url": "https://github.com/uwheel/uwheel",
+      "commit": "0ef74900d0facf62928c777dbaa7d9922ea6519f",
+      "date": "2026-02-25T11:39:28Z",
+      "files_read": [
+        "crates/uwheel/src/wheels/read/plan.rs",
+        "crates/uwheel/src/aggregator/mod.rs",
+        "crates/uwheel/src/aggregator/roaring/mod.rs"
+      ],
+      "observed": [
+        "optionalinverse",
+        "rangeplancostcountsaggregateoperations",
+        "exactRoaringunionpayloadvariable"
+      ],
+      "unverified": [
+        "compiled/runtimebehavior",
+        "completewheelboundaryimplementation",
+        "REES46throughput"
+      ]
+    },
+    {
+      "title": "SharingQuerieswithNonequivalentUser-definedAggregateFunctions",
+      "year": 2024,
+      "url": "https://doi.org/10.1145/3649133",
+      "author": "https://chaozhang-cs.github.io/",
+      "read_status": "helperprimaryindexedsections;directpublisherfailed",
+      "code_status": "notverified;historicalreporeferencePDFnotexecutableproof"
+    }
+  ],
+  "executed_literal": {
+    "script": "brainstorm-ma005-literal.py",
+    "script_sha256": "133e9677bb2262cccc4ea1faad69c2b85340dd69e1f891cff2200dd0954f8860",
+    "results": "brainstorm-ma005-literal.json",
+    "results_sha256": "f53655f88aa10ad37570fdd78a45b70d19dd58993d6a4543708c1128315914c4",
+    "invented_rawrows": 10,
+    "anchors": 4,
+    "atomicintervals": 9,
+    "typedpartial_comparisons": 20,
+    "negative_hierarchy_build_count": {
+      "flat": 18,
+      "queryhierarchy": 6,
+      "buildhierarchy": 15,
+      "totalhierarchy": 21,
+      "equaldecodedrows": 16
+    },
+    "exactdistinct_noninvertibility": true,
+    "rawduplicate_expiry": [
+      {
+        "raw": 3,
+        "distinct": 1
+      },
+      {
+        "raw": 1,
+        "distinct": 1
+      },
+      {
+        "raw": 0,
+        "distinct": 0
+      }
+    ],
+    "globalpeer_future_rowpermutation": true,
+    "offCshare": "1/2",
+    "proof_boundary": "selectedsemanticsandalgebraonly;notfull44/actual005execution/timing/physicalIO"
+  },
+  "helper": {
+    "path": "brainstorm-ma005-primary-review.md",
+    "sha256": "18378ea4151ab38944b16bab2fb64db01060d6890b3f2784eed796be45b7501f",
+    "literal": "brainstorm-ma005-primary-literal.json",
+    "literal_sha256": "9451cdd7479c858afe5f60e1c295eaee1db7e4f07b4ba988e276f241186a271f",
+    "completed": true
+  },
+  "proposed_nearest_sourcefree_test": {
+    "fixtures_max": 8,
+    "invented_rawrows_perfixture_max": 256,
+    "anchors_perfixture_max": 16,
+    "keys_max": 8,
+    "required_model_columns": 44,
+    "plans_max": 3,
+    "processCPU_seconds_max": 60,
+    "wall_seconds_max": 120,
+    "rss_bytes_max": 268435456,
+    "SQL": false,
+    "realdata": false,
+    "fits": 0,
+    "executed": false
+  },
+  "prospective_real_cost_test": {
+    "new_explicit_reservation_required": true,
+    "not_granted": true,
+    "not_current015_prerequisite": true,
+    "workload": "sameB41+R2/L05+3closure",
+    "plans": [
+      "unchanged005",
+      "flatcompletepartials",
+      "capabilitygatedplanner"
+    ],
+    "queries_max": 100,
+    "anchors_max": 3,
+    "C_perquery_max": 220,
+    "fresh_invocations_max": 6,
+    "orders": [
+      "005-flat-planner",
+      "planner-flat-005"
+    ],
+    "aggregate_processCPU_seconds_max": 600,
+    "aggregate_wall_seconds_max": 1200,
+    "rss_bytes_max": 6442450944,
+    "spill_bytes_max": 1073741824,
+    "aggregate_physical_read_bytes_max": 2147483648,
+    "aggregate_decoded_rows_max": 2000000,
+    "fits": 0,
+    "Y": false,
+    "all_preparation_failedwork_serialization_reads_count": true,
+    "complete_manifest_or_abort": true,
+    "truncate_history": false,
+    "physicalaffordability_measured": false
+  },
+  "contracts": [
+    "lowerinclusiveupperexclusive",
+    "allglobaltpeersbeforeinsert",
+    "rawduplicatecountpreserved",
+    "exactdistinctnonnullprojection",
+    "lastcopyexpiry",
+    "knownempty0unknownconditionalNULL",
+    "latestglobaltimestampmetadataallpeers",
+    "historicaleventcategorycounts",
+    "fullobservedrecencyfirstseen",
+    "coverageandallmasksunchanged",
+    "eventtimeavailabilityassumptiononly",
+    "noYorlabelmaturitylicenseforfuturemetadata"
+  ],
+  "authorization": {
+    "actual_data_Q_C_Y_read": false,
+    "SQL_DB": false,
+    "actual_models": false,
+    "fits": 0,
+    "nativeML": false,
+    "downloadweights_datasets": false,
+    "paidAPIjobs": false,
+    "shared_repo_edits": false,
+    "currentpipeline_modified": false,
+    "future_budget_granted": false
+  },
+  "next": "Separatepostfreezeindependentskeptic;coordinatorcanonicaldedup;nopeerreportreadbeforefirstfreeze"
+}

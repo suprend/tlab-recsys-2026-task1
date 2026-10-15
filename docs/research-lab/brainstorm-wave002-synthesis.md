@@ -2,7 +2,7 @@
 
 All10 local proposals have independent critique. This document normalizes research; [docs/backlog.md](../backlog.md) remains the only execution queue. No canonical IDs, fit admission, reservation or budget are assigned. [Structured four-field ledger](brainstorm-wave002-synthesis.json) states mechanism, prediction, nearest experiment and task1 benefit for each retained local ID. Original author drafts/reviews are unchanged.
 
-Five concrete interventions —FA05,FA06,FB-05,FB-06,MB2-01— are candidates for **Root-reviewed conditional research registration**, with the recorded specification gates. This recommendation does not declare them admitted. FB-07, RA2-02, MB2-02 and MB2-03 stay local/deferred; RA2-01 merges the existing MB04 generative family. There is no rejected complete002proposal and no admitted fit. Negative witnesses and failed conventions remain visible.
+Five concrete interventions —FA05,FA06,FB-05,FB-06,MB2-01— retain conditional research interest under their local stable IDs and recorded specification gates. Root read all10 entries and accepted this normalization/candidate register only: no145+, fit admission or new mandatory tasks. FB-07, RA2-02, MB2-02 and MB2-03 stay local/deferred; RA2-01 merges the existing MB04 generative family. There is no rejected complete002proposal and no admitted fit. Negative witnesses and failed conventions remain visible.
 
 | Local ID | Disposition / status | Nearest overlap and explicit delta | Independent review |
 |---|---|---|---|
