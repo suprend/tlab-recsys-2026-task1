@@ -386,3 +386,12 @@ Coorowns newfeature_programs script/tests/automation-pool/doc: schema+3humanboun
 Implementationdoesnotprovideactualsourceapproval/durableglobalclaim/final019settings. Futureloader must projectB41first+each3cols (rawSQL interleavesnewcolumns); exactactualbase/source/protocol/QCY/trainediterations/scoringprefix/population/settings/clocks and shared016budget bind externally. [Publication note](backlog-reviews/tlab016-programs-publication-note.md) archives originaldocstatus; codebytesunchanged. Nextcoorscope: selected-union12featurecollection and independent sourceoracle only, neverall8/24materialisation; realcalc/fits waitseparatereview.
 
 [Research032](research-lab/round-032.md)/[033](research-lab/round-033.md) add no rescue fits or speedclaim. Root019newmodule remains independent owner; semantic/source failuresSTOP, no fallbackbyfreshhash.
+
+
+### Исследования и границы следующих этапов — 15 октября 2026
+
+Сохранены [раунды034–041](research-lab/index.md), включая независимый план проверки новых12 признаков, переносимость на другие наборы и различия между идентичностью значений, provenance и оплаченной попыткой обучения. [Дизайн коллекции016](backlog-reviews/tlab016-feature-collection-design.md) принят [ревью дизайна](backlog-reviews/tlab016-feature-collection-design-review.md) только как направление реализации. Реального расчёта016 и новых сравнений пока нет.
+
+Предлагаемая политика отложенной проверки: confirmation25 и final26+ только сообщают качество тех же заранее замороженных моделей и программ; они не выбирают победителя и не вызывают refit. Желательно запечатать все held-out predictions до открытия query-level targets. Использование сырых событий25 как strict-past истории26 отличается от открытия targets/metrics25. Это пока проект нового календарного контракта, а не изменение текущих конфигураций или уже выполненная проверка. [Раунд038](research-lab/round-038.md) и [039](research-lab/round-039.md) фиксируют необходимые границы.
+
+После независимого ревью019 до реальных запусков уточнена ресурсная политика: индивидуальные лимиты обязательны для успешных workers. Известный resource-failure может честно показать выход за индивидуальный порог, остаётся неуспешной оплаченной попыткой; общий CPU, wall и консервативный job RSS обязательны всегда. Неизвестный расход или превышение общего бюджета ведёт к STOP. Это не разрешение скрывать расход или пополнять четыре попытки.

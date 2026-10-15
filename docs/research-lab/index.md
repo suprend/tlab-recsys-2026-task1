@@ -69,3 +69,19 @@ Primary confirmation control — frozen tuned B, а не только B+support.
 - [Round033: physicalcost of selected016bundles](round-033.md): no extended005scanbound/grainbatch but extraaggregate/state/materializationwork, no speedbenchmark claim. Critics pending.
 
 [Symbolic generator code/tiny preflight](../experiments/feature-programs.md) independently accepted; real016collections/fits/quality remain separate gates.
+
+
+### Rounds034–041 — 15 October 2026
+
+These are research and prospective design findings, not additional experiments or approval to run them.
+
+- [034: interpretation of the bounded strong-control search](round-034.md).
+- [035: independent source oracle for the selected12-column union](round-035.md).
+- [036: Retailrocket schema and property-state portability](round-036.md).
+- [037: value, representation, lineage and fit-claim identities](round-037.md).
+- [038: multi-fidelity search and held-out reporting policy](round-038.md).
+- [039: a label-blind held-out inference seam](round-039.md).
+- [040: event facts, property state and as-of cohort semantics](round-040.md).
+- [041: platform capabilities and resource accounting](round-041.md).
+
+The [016 source-collection design](../backlog-reviews/tlab016-feature-collection-design.md) has an [independent design review](../backlog-reviews/tlab016-feature-collection-design-review.md). Implementation, independent source checks and execution approval remain separate.
