@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 10:40:14 UTC / 13:40:14 МСК. Текущий source-prefix принят отдельно от complete018 и heldout.
+Обновлён 15 октября 2026, 10:51:34 UTC / 13:51:34 МСК. Двухраундовый checkpoint016+017; предел11:15UTC сохранён.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -10,11 +10,13 @@
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 11:15 UTC / 14:15 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
-## Current view at 10:40:14UTC
+## Current view / two-round checkpoint016+017 at 10:51:34UTC
 
-Actual full typed9 source-prefix accepted; complete018/source-to-model and real heldout pending. Original65471 is REAPED/closed, no poll/retry. Research012–015 has scoped Root skeptical readbacks, zero new HYP/admissions/main gates.
+Both independent FIRST drafts in each wave and their separate skeptics are complete. Root read both016 author reports, full016/017 skeptic reports and14 small pins; research-only accept/refine, zero new HYP/runtime admissions/main gates.016 retains one existing018 Oct22 no-Y source→Q/C/B45+chosen3→fixed B41/W44 score/rank comparison plan.017 preserves scientific claim limits and merges optional semijoin into HYP046/R014. No data/native reproduction has been granted by those reports.
 
-Root confirms source_harness_review is the separate016 skeptic after both independent FIRST freezes; execution_scope_audit owns only a TMP one-day018 adapter proposal/implementation without native grant. Both017 independent FIRST drafts are now frozen; separate critique awaits Root assignment. timing_methodology_review reviews finite censusV3/erratum while sole author source_import_review performs a bounded remaining-record closure lookup; no census numbers are adopted or published here. Next max11:15UTC/14:15МСК remains anchored10:30; individual operation bounds/heldout CLOSED and one canonical queue are unchanged.
+Actual targeted inventory now: execution_scope_audit and its nonoverlapping development_slice_owner helper are running on TMP minimal adapter/core/tests; timing_methodology_review is running on censusV3/erratum; source_import_review's bounded four-event closure lookup is completed. The lookup does not establish complete asynchronous coverage or adopt a historical upper. Source-only grant ended, original65471 is REAPED/closed; the proposed600CPU/900wall/8GiB/two-thread/2GB-engine/2GiB-spill next018 episode is UNGRANTED. Tiny invented-SQL author checks have their separate60CPU/120wall/512MiB/eight-event allowance, not actual DB/model/Y authority.
+
+Main015 census remains unadopted: active-WALL accounting is distinct from CPU, unresolved interrupted/asynchronous coverage stays visible, old4096/128 bounds unsupported and rejectedV237697 unchanged. Heldout CLOSED. SafeNEXT: freeze minimal adapter/owner/tests, independent code review, exact small model/reference handoff and once-only operation decision before actual native work; finish separate census review. Existing accepted cores are immutable; no new framework, extra fit or015 gate. Sole queue/backlog/publisher and17-slot cap unchanged. Next maximum11:15UTC/14:15МСК remains anchored10:30, or next two completed rounds earlier; this earlier round-triggered write does not slide the clock.
 
 ## Timely10:30 checkpoint written10:27:29 UTC: full typed9 source-prefix accepted
 
@@ -350,3 +352,11 @@ Wave016 both independent FIRST drafts are frozen, awaiting separately assigned c
 ### Separate015 Root research readback arrived —10:40:14UTC
 
 The previous10:39 entry records coordinator knowledge before this handoff. [Exact015 Root receipt](archives/wave015/original/tlab-root-wave015-skeptic-readback.json) now accepts the faithful portability refinements after full skeptic-report reading and7smallpin checks, including4author originals. Root did not claim all author-prose review, host setup or host verification. Alloriginals remain unchanged;0newIDs/admissions/main gates.
+
+## Two completed rounds016+017 —actual checkpoint 10:51:34UTC
+
+Root research readback SHA7d518456… accepts scoped refinements, not execution. Both waves had two independently frozen FIRST authors then a separate skeptic. At this checkpoint source_import_review has completed the four-event closure lookup while the independent timing reviewer remains active; neither costV3 nor heldout is adopted. Existing018 implementation has one owner plus one disjoint TMP helper; actual one-day DB/model execution is still ungranted. Archive publication follows as a bounded separate step; original producer flags and accepted source-prefix remain unchanged. Next hard maximum11:15UTC is retained.
+
+### Frozen016/017 research publication —10:53:27UTC
+
+[Normalized four-field synthesis](brainstorm-waves016017-synthesis.md) links17 exact wave originals and one exact Root readback: all14 Root pins, ModelsA firstfreeze and two owned pure witnesses. Original author drafts/ledgers are unchanged. Root fully read016 authors and016/017 skeptics; no full017-author-prose or native rerun is claimed.0newHYP/runtime admissions/main gates. Optional600/900 next018 episode remains ungranted; source grant ended, censusV3 unadopted and heldoutCLOSED. Checkpoint remains10:51:34UTC with maximum11:15UTC unchanged.

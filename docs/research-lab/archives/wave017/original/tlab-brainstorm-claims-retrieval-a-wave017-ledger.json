@@ -1,0 +1,131 @@
+{
+  "wave": "017",
+  "author": "retrieval-a / author B",
+  "status": "first_draft_frozen",
+  "first_freeze_utc": "2026-10-15 10:38:05 UTC",
+  "checkpoint_utc": "2026-10-15 10:45:00 UTC",
+  "draft_path": "/tmp/tlab-brainstorm-claims-retrieval-a-wave017.md",
+  "draft_sha256": "93694f5af7d129ca7848fceec2c0726fd866b1c2f5c3e29182bffb88e2a1c8c9",
+  "word_count": 583,
+  "word_cap": 700,
+  "fixed_prior": "331b1ae29f3e484516893204a4f990c9372f2c25",
+  "own_frozen_reports_used": [
+    "wave013",
+    "wave014",
+    "wave015"
+  ],
+  "blind_before_freeze": [
+    "peer017 author A FIRST",
+    "current014 skeptic"
+  ],
+  "new_mechanisms": 0,
+  "new_hypotheses": 0,
+  "evidence_refinements": 1,
+  "entries": [
+    {
+      "id": "R017-E1",
+      "type": "existing_family_evidence_refinement",
+      "disposition": "merge_HYP046_TLAB005_not_main_gate",
+      "dedup_ids": [
+        "HYP046",
+        "TLAB005",
+        "round012",
+        "round044",
+        "R014-E1",
+        "R013-E1"
+      ],
+      "mechanism": "Typed branch-local pair-demand restriction with complete independent prerequisites, same full B/W outputs.",
+      "prediction": "Fewer irrelevant pair groups can yield workload-specific whole-plan savings only when savings exceed demand/setup and unchanged source/auth/sink costs.",
+      "nearest_experiment": "Existing HYP046/round012/044 and own R014-E1; strong comparator unchanged batched005, optimizer ON.",
+      "task1_benefit": "Test engineering benefit of automated feature calculation without new models/Y; quality remains unresolved.",
+      "alternative_explanation": "Selected development noise plus human-specified item activity/cart representation; supplied aggregate does not prove automated policy superiority or audience-profile matching.",
+      "literal_falsifier": {
+        "source": "own frozen R014-E1",
+        "invented_rows": 29,
+        "past_rows": 27,
+        "excluded_t_peers": 2,
+        "historical_pair_keys": 22,
+        "requested_pair_keys": 20,
+        "user_category_share": "20/22",
+        "item_category_share": "2/23",
+        "item_distinct_viewers": 2,
+        "purchase_recency_days": 8,
+        "observed_age_days": 9,
+        "actual_execution": false
+      },
+      "matched_control": "Same accepted Q/C/full source prefix, frozen registry/NULL/global peers/full sink vs unchanged005; independent oracle only correctness baseline.",
+      "negative_disposition": {
+        "semantic_mismatch": "reject rewrite",
+        "same_optimizer_plan": "equivalent plan; no added optimization demonstrated",
+        "equal_noisy_source_dominated_cost": "speed inconclusive; retain correctness scope",
+        "whole_sink_speed_gain": "pinned engineering workload only; no ranking/causal/general-search claim"
+      },
+      "future_cost_proposal": {
+        "queries_max": 100,
+        "anchors_max": 1,
+        "decoded_row_visits_all_passes_max": 1000000,
+        "physical_reads_all_passes_gib_max": 2,
+        "CPU_minutes_all_inclusive_max": 20,
+        "threads_max": 2,
+        "parent_child_rss_gib_max": 8,
+        "spill_gib_max": 2,
+        "wall_minutes_with_cleanup_max": 30,
+        "timing_pairs": [
+          "AB",
+          "BA"
+        ],
+        "paid_warmups_per_variant": 1,
+        "fits": 0,
+        "native_model_predictions": 0,
+        "Y_looks": 0,
+        "old016_budget_reuse": false,
+        "authorized": false
+      },
+      "cost_scope": [
+        "authentication and repins",
+        "complete state/backfill",
+        "compile/setup",
+        "independent oracle",
+        "full sink export/re-read",
+        "warmup",
+        "spill",
+        "failed attempts and cleanup"
+      ]
+    }
+  ],
+  "parent_supplied_progress_facts": {
+    "B41_NDCG": 0.4586107,
+    "B41_Recall": 0.5851272,
+    "selected_R2_W44_NDCG": 0.4647029,
+    "selected_R2_W44_Recall": 0.5919765,
+    "dev_positive_Q": 73,
+    "dev_total_Q": 4000,
+    "postselection_NDCG_interval_crosses_zero": true,
+    "C_found_targets": 65,
+    "full_targets": 96,
+    "C_fraction_is_NDCG_ceiling": false,
+    "real_heldout": "CLOSED",
+    "typed9_full_source_prefix": "accepted",
+    "one_day_noY_fixed_model_reproduction": "underway"
+  },
+  "primary_evidence_basis": "Parent supplied accepted progress facts; previously read fixed331b1ae source manual_features.py/feature_programs.py/candidate_pilot.py and round012/044; own frozen R014-E1. No new external source needed for already covered mechanism.",
+  "priority_boundary": {
+    "mandatory015018report_delayed": false,
+    "additional015018_gate": false,
+    "new_framework": false,
+    "current_B_W_or_heldout_changes": false
+  },
+  "actual_operations": {
+    "helpers": 0,
+    "actual_data_or_DB_reads": 0,
+    "native_experiments": 0,
+    "model_reads": 0,
+    "fits": 0,
+    "predict_calls": 0,
+    "Y_openings": 0,
+    "large_hashes": 0,
+    "shared_project_writes": 0,
+    "new_grants": 0
+  },
+  "verification": "Own frozen prior read; report word cap and Markdown/JSON/hash checked; pure literal expectations reused; no actual quality or performance test."
+}

@@ -1,0 +1,176 @@
+{
+  "scope": "public AST/literal skeptical witnesses only",
+  "callables_verified": [
+    {
+      "path": "scripts/anchor_pilot.py",
+      "name": "create_queries",
+      "line": 142,
+      "args": [
+        "con",
+        "config"
+      ],
+      "keyword_only": [
+        "stage",
+        "budget_check"
+      ]
+    },
+    {
+      "path": "scripts/candidate_pilot.py",
+      "name": "create_candidates",
+      "line": 38,
+      "args": [
+        "con",
+        "config"
+      ],
+      "keyword_only": [
+        "stage"
+      ]
+    },
+    {
+      "path": "scripts/candidate_pilot.py",
+      "name": "verify_catalog",
+      "line": 110,
+      "args": [
+        "con",
+        "config"
+      ],
+      "keyword_only": [
+        "stage"
+      ]
+    },
+    {
+      "path": "scripts/manual_features.py",
+      "name": "create_manual_features",
+      "line": 146,
+      "args": [
+        "con",
+        "config",
+        "registry"
+      ],
+      "keyword_only": [
+        "stage",
+        "budget_check"
+      ]
+    },
+    {
+      "path": "scripts/inference_data.py",
+      "name": "load_inference_data",
+      "line": 42,
+      "args": [
+        "query_paths",
+        "base_feature_paths"
+      ],
+      "keyword_only": [
+        "expected_feature_names",
+        "extra_feature_paths",
+        "extra_feature_names",
+        "max_queries",
+        "max_rows",
+        "matrix_byte_cap",
+        "chunk_vectors",
+        "check"
+      ]
+    },
+    {
+      "path": "scripts/heldout_predictions.py",
+      "name": "verify_model",
+      "line": 46,
+      "args": [
+        "model",
+        "spec"
+      ],
+      "keyword_only": []
+    },
+    {
+      "path": "scripts/feature_programs.py",
+      "name": "generate_pool",
+      "line": 98,
+      "args": [
+        "contract",
+        "base_registry"
+      ],
+      "keyword_only": []
+    },
+    {
+      "path": "scripts/feature_programs.py",
+      "name": "allocate_slots",
+      "line": 161,
+      "args": [
+        "pool"
+      ],
+      "keyword_only": []
+    },
+    {
+      "path": "scripts/feature_programs.py",
+      "name": "registry_for_slot",
+      "line": 189,
+      "args": [
+        "pool",
+        "allocation",
+        "slot"
+      ],
+      "keyword_only": []
+    }
+  ],
+  "ingest_metadata_blocker": {
+    "paid_DB_hash_line": 320,
+    "old_runner_missing_table_read_line": 344,
+    "build_pilot_after_line": 347,
+    "kernel_creates_only_events_in_native_schema": true
+  },
+  "calendar_maturity_without_Y": true,
+  "schema_witness": {
+    "B_physical": 45,
+    "combined_physical": 48,
+    "combined_first45_is_B45": false,
+    "named_projection_equals_B45": true,
+    "B_model": 41,
+    "W_model": 44,
+    "raw_combined_numeric_order_is_W44": false,
+    "extra_fields_with2keys": 5
+  },
+  "global_group_mapping_witness": {
+    "global_map": {
+      "0": "a",
+      "1": "b",
+      "2": "c",
+      "3": "d",
+      "4": "e",
+      "5": "f"
+    },
+    "day_local_map": {
+      "0": "b",
+      "1": "d",
+      "2": "e"
+    },
+    "keyed_arrays_match_only_after_query_id_mapping": true,
+    "empty_C_query_retained": "b",
+    "groups_equal": false,
+    "BIGINT_float_collision": true
+  },
+  "ranking_witness": {
+    "all_score_differences_at_most_1e-12": true,
+    "rank_equal": false,
+    "expected_acceptance": "reject rank mismatch"
+  },
+  "matrix_array_payload_only": {
+    "W_float32_bytes": 77440000,
+    "W_loader_declared_array_estimate_bytes": 82722000,
+    "is_RSS_bound": false
+  },
+  "proposal_modules_absent": {
+    "reproduction_plan.py": true,
+    "development_bootstrap.py": true,
+    "replay_saved_model.py": true
+  },
+  "read_only_loader_path_constraint": "inference_data.paths requires project-relative paths under module ROOT; no root argument",
+  "paid_pure_CPU_seconds": 0.022060000000000003,
+  "paid_pure_wall_seconds": 0.022673166000458878,
+  "pure_ceiling_CPU_seconds": 30,
+  "pure_ceiling_wall_seconds": 60,
+  "actual_data_DB_CBM_NPZ_large_hashes": 0,
+  "actual_SQL_native_fit_predict_helper_calls": 0,
+  "claims_gates_project_writes": 0,
+  "new_015_gates_or_HYPs": 0,
+  "execution_authority_issued": false
+}

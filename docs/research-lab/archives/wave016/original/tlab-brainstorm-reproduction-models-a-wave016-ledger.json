@@ -1,0 +1,222 @@
+{
+  "schema": "wave016-independent-authorB-FIRST-v1",
+  "author": "/root/brainstorm_models_a",
+  "first_freeze_UTC": "2026-10-15T10:33:21.356459+00:00",
+  "report": "/tmp/tlab-brainstorm-reproduction-models-a-wave016.md",
+  "report_sha256": "c7acd103ea203e36f329a8f5b47d8e582df5cfd6813ab1743df827c3ca3c6792",
+  "report_bytes": 10266,
+  "report_words": 1258,
+  "first_frozen": true,
+  "independence": {
+    "author16A_read": false,
+    "peer16_findings_read": false,
+    "root_common_question_received": true,
+    "helpers": 0
+  },
+  "scope": {
+    "new_mechanisms": 0,
+    "new_HYPs": 0,
+    "new_framework": false,
+    "mandatory_toy_fits": false,
+    "new_015_prerequisite": false,
+    "actual_DB_archive_model_reads": 0,
+    "ignored_approval_reads": 0,
+    "large_hashes": 0,
+    "native_imports_SQL_fits_predictions": 0,
+    "claims_or_gates_executed": 0,
+    "project_writes": 0,
+    "grants_created": 0
+  },
+  "root_supplied_facts_not_reverified": {
+    "import_original_reaped_exit": 0,
+    "independent_byte_binding_done": true,
+    "typed9_rows": 42448764,
+    "new_DB_path": "artifacts/source-import-runs/oct2019-full-018-20261015-once/kernel/events.duckdb",
+    "new_DB_SHA256": "4168068b05a5f7033876c05427037732322abe77fd2f97eef3ceca59d42ba786",
+    "accepted_source_prefix_CPU_upper_seconds": 629.91,
+    "source_episode_CPU_ceiling": 7200,
+    "source_episode_wall_ceiling": 10800
+  },
+  "mechanism": "existing018 source-to-fixed-model reproduction, not new predictive or optimization mechanism",
+  "prediction": "one existing dev day may reproduce identical Q/C/B45/chosen3 and fixed-model scores despite new physical DB identity; integration/source/schema/layout differences may fail",
+  "nearest_experiment": "ONE22Oct exact2000Q/fullC source regeneration and two accepted B/W300-tree predictions; compare all keyed source values and raw scores/rankings to accepted artifacts; noY/metrics/selection/fits",
+  "task1_benefit": "concrete source-to-model replay increment and honest user entrypoint/hidden identity boundary; not full retraining/clone completion",
+  "primary_findings": [
+    {
+      "id": "W016B-F1",
+      "finding": "typed9 kernel creates only events; old anchor.run requires ingest_metadata after hashing DB",
+      "evidence": [
+        "scripts/source_import.py:148-184",
+        "scripts/anchor_pilot.py:305-347",
+        "tests/test_anchor_pilot.py:229-239",
+        "tests/test_development_collection.py:145-151"
+      ],
+      "action": "additive018 report/provenance-aware wrapper over cores, no acceptedDB mutation or old producer/hash edit"
+    },
+    {
+      "id": "W016B-F2",
+      "finding": "public supplied-score replay not bootstrap; reproduction_plan/development_bootstrap proposal modules absent",
+      "evidence": [
+        "README.md public example",
+        "docs/experiments/fresh-clone-reproduction.md",
+        "docs/backlog-reviews/tlab018-fresh-clone-implementation-plan.md",
+        "scripts file inventory"
+      ],
+      "action": "do not advertise nonexistent commands or self-issued approvals"
+    },
+    {
+      "id": "W016B-F3",
+      "finding": "existing collection runner needs newDB-bound producer/shard approvals and generatesY; verifier expects finalsealed collection",
+      "evidence": [
+        "scripts/development_collection.py:205-237,428-602",
+        "scripts/verify_development.py:164-289"
+      ],
+      "action": "use separate noY one-day request/owner; fresh fullbootstrap remains subsequent existing018 scope"
+    },
+    {
+      "id": "W016B-F4",
+      "finding": "labelblind cores and inference loader exist, but heldout wrappers hard-bound25-31/seven dates",
+      "evidence": [
+        "scripts/heldout_source.py:26-40,87-137",
+        "scripts/heldout_predictions.py:64-77,116-159",
+        "scripts/inference_data.py:42-123"
+      ],
+      "action": "reuse lower-level cores in newdevelopment adapter; no date monkeypatch or forged heldout lock"
+    },
+    {
+      "id": "W016B-F5",
+      "finding": "historical304/438 and selected12 recovery consumers cannot issue new source/model identities",
+      "evidence": [
+        "scripts/strong_control.py:13-25,117-135",
+        "scripts/feature_program_control.py:14-21,73-84",
+        "scripts/feature_program_source_recovery.py:14-38,70-98",
+        "scripts/metadata_ablation.py:67-115",
+        "scripts/strong_baseline.py:77-122"
+      ],
+      "action": "keep supplied historical model authority, separately bind new source/stage; do not regenerate eleven historical fits"
+    }
+  ],
+  "reusable_code_paths": [
+    "feature_programs.generate_pool/allocate_slots/registry_for_slot(R2)",
+    "anchor_pilot.create_queries -> calendar-only label_is_mature",
+    "candidate_pilot.create_candidates/verify_catalog, notbuild_candidates",
+    "manual_features.create_manual_features selectedL05registry",
+    "inference_data.load_inference_data B41/W44",
+    "heldout_predictions.verify_model and fixed predict RawFormulaVal ntree_end300 thread_count2"
+  ],
+  "excluded_shortcuts": [
+    "anchor_pilot.run ingest_metadata assumption",
+    "build_pilot/create_labels",
+    "build_candidates coverage_report",
+    "training model_data/program_model_data targets",
+    "heldoutdatepatch",
+    "oldapprovals copied withnewhashes",
+    "reimport/EDA",
+    "newfit/search"
+  ],
+  "one_proposed_experiment": {
+    "disposition": "needs separate reviewed additional018 stage; not execution-ready current CLI",
+    "anchor": "2019-10-22T00:00:00Z",
+    "Q": 2000,
+    "C_max": 440000,
+    "same_frozenC_B_W": true,
+    "base_physical_fields": 45,
+    "chosen_extra_fields": 3,
+    "chosen_physical_fields": 48,
+    "model_B_inputs": 41,
+    "model_W_inputs": 44,
+    "choice": "R2/L05",
+    "chosen_distinct_users": [
+      {
+        "action": "view",
+        "hours": 24
+      },
+      {
+        "action": "cart",
+        "hours": 168
+      },
+      {
+        "action": "purchase",
+        "hours": 24
+      }
+    ],
+    "fits": 0,
+    "prediction_calls_max": 2,
+    "native_tree_prefix": 300,
+    "selection_calls": 0,
+    "metric_calls": 0,
+    "Y_relations_or_parsed_Yfiles": 0,
+    "proposed_CPU_seconds": 1200,
+    "proposed_wall_seconds": 1800,
+    "threads": 2,
+    "parent_child_RSS_GiB": 8,
+    "engine_memory_GB": 2,
+    "spill_GiB": 2,
+    "attempts": 1,
+    "all_authentication_scans_state_predictions_reference_exports_failures_cleanup_paid": true,
+    "source_bytes_and_scanedges": "must be fully inventoried before new exact grant; unknown scope=>STOP, no truncation",
+    "B_matrix_payload_bytes_at_cap": 72160000,
+    "W_matrix_payload_bytes_at_cap": 77440000,
+    "payload_is_RSS": false,
+    "arithmetic_headroom_CPU_seconds": 6570.09,
+    "prefix_plus_proposed_CPU_seconds": 1829.91,
+    "headroom_is_grant": false,
+    "source_original_operation_ended": true,
+    "new_scope_requires_explicit_decision": true,
+    "remaining_wall_authority": "not inferred; Root must resolve accepted prefix and issue exact stage allocation",
+    "acceptance": [
+      "reaped0/full-lifetime receipt",
+      "newDB unchanged/authenticated",
+      "allQ/C/provenance/B/extra keys schemas NULL and values match",
+      "fixedmodelparams/order/bytes match acceptedmodelhandoff",
+      "all keyed raw scores abs1e-12 and deterministicrankings exact",
+      "NPZgroups mappedthroughacceptedQ, not dayindexguess",
+      "fits0/Y0/metrics0/selection0"
+    ],
+    "negative": "mismatch=>reproductionfailure; resource/unknownscope=>paidincomplete/defer; no retry/model/workload replacement"
+  },
+  "read_only_sources": [
+    "README.md",
+    "docs/experiments/fresh-clone-reproduction.md",
+    "docs/experiments/source-import.md",
+    "docs/backlog-reviews/full-source018-launch.md",
+    "docs/backlog-reviews/tlab018-fresh-clone-implementation-plan.md",
+    "docs/backlog-reviews/tlab-fresh-clone-reproducibility-audit.md",
+    "configs/development/train.json",
+    "configs/development/selection.json",
+    "configs/protocols/clock-48h.json",
+    "scripts/source_import.py",
+    "scripts/anchor_pilot.py",
+    "scripts/candidate_pilot.py",
+    "scripts/development_collection.py",
+    "scripts/manual_features.py",
+    "scripts/verify_development.py",
+    "scripts/feature_programs.py",
+    "scripts/inference_data.py",
+    "scripts/model_data.py",
+    "scripts/program_model_data.py",
+    "scripts/heldout_source.py",
+    "scripts/heldout_predictions.py",
+    "scripts/feature_program_control.py",
+    "scripts/strong_control.py",
+    "scripts/feature_program_source_recovery.py",
+    "scripts/metadata_ablation.py",
+    "scripts/strong_baseline.py",
+    "tests/test_source_import.py",
+    "tests/test_anchor_pilot.py",
+    "tests/test_development_collection.py"
+  ],
+  "repo_code_hashes_computed": false,
+  "pure_literals_executed": 0,
+  "dedup": [
+    "TLAB018 freshclone/reproduction",
+    "existing sourceonly import and noY inference seams",
+    "HYP046 calculation/provenance, no newID"
+  ],
+  "limitations": [
+    "suppliednewDB fact notverifiedbythisauthor",
+    "no actualschema/throughput/data/model/output check",
+    "one-day replay notfulltraining/bootstrap/source-equivalence",
+    "current015heldoutlocks unchanged"
+  ]
+}
