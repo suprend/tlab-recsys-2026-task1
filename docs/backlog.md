@@ -377,3 +377,12 @@ Producer101.181955CPU seconds; failedobserver3.335586+corrected4.585806=7.921392
 Coorowns newfeature_programs script/tests/automation-pool/doc: schema+3humanboundedparameterizedfamilies→8generatedregistries, legality/semanticBalias/3physicalclosure, fixedI2/R2random2026 givesL02/L06/L01/L05. EighttinytestsPASS.646s, ≤25fixtureinputrows/onlyselected12newcols,0realdata/Pool/fits. Independentcode reviewpending; no execution approval. [Research028–030+critic](research-lab/round-028-030-review.md) preserve generation claims and exacthandgold; [031Taobaoschema](research-lab/round-031.md) doesnotgrantdatasetdownload/license/qualityclaim.
 
 [009203pinseal receipt](backlog-reviews/tlab009-model-acceptance-seal.md) fixesbase41/008incumbent, originalproofsimmutable. Moremanualfeatures are not addedaftermetadatarejection; priority019then016comparison remains.
+
+
+### TLAB016 symbolicgenerator ACCEPT — 15 октября 2026
+
+[Independent code review](backlog-reviews/tlab016-programs-code-review.md) accepts immutableafaefd6b…script/config/tests.8authorPASS and21ownPASS/180independentnewscalarchecks(60literal),≤25inputrows/selected12newcols/0realdata/Pool/fits. Schema/templates genuinely instantiateprogramdefinitions; humanbindings remain explicit. FixedI L02/L06 +seededR L01/L05, all4unique/11cores+autoBOOLmask12physical; names/order/schema/digests frozen.
+
+Implementationdoesnotprovideactualsourceapproval/durableglobalclaim/final019settings. Futureloader must projectB41first+each3cols (rawSQL interleavesnewcolumns); exactactualbase/source/protocol/QCY/trainediterations/scoringprefix/population/settings/clocks and shared016budget bind externally. [Publication note](backlog-reviews/tlab016-programs-publication-note.md) archives originaldocstatus; codebytesunchanged. Nextcoorscope: selected-union12featurecollection and independent sourceoracle only, neverall8/24materialisation; realcalc/fits waitseparatereview.
+
+[Research032](research-lab/round-032.md)/[033](research-lab/round-033.md) add no rescue fits or speedclaim. Root019newmodule remains independent owner; semantic/source failuresSTOP, no fallbackbyfreshhash.

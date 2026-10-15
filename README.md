@@ -64,3 +64,6 @@ NLP: [план сравнений](docs/nlp-experiments.md), [BM25 и TF–IDF](
 Воспроизведение pipeline: [development collections](docs/experiments/development-collection.md), [CPU окружение](docs/experiments/cpu-environment.md), [manual18](docs/experiments/manual-features.md), [smoke training](docs/experiments/boosting-baselines.md). Первая версия [переносимой source-verification CLI (018)](docs/experiments/verification-workflow.md) принята на независимых synthetic fault checks для существующих sealed manual18 collections; полное восстановление и выдача новых approvals ещё не реализованы. Ignored данные/модели/approval-файлы не входят в clone, и новые hashes сами по себе не заменяют независимую проверку.
 
 Текущий читаемый результат — [рабочий технический отчёт](docs/progress-report.md). Это версия по принятым smoke/source результатам; сильный контроль и итоговое сравнение автоматизации ещё не завершены.
+
+
+Подготовка автоматизации: [генератор программ признаков](docs/experiments/feature-programs.md) принят независимым code/tiny-data review. Он создаёт определения по объявленной схеме и шаблонам; реальные дополнительные коллекции, четыре сравнения и quality result016 ещё не выполнены.

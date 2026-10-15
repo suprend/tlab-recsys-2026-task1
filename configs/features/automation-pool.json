@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "role": "bounded_typed_feature_programs",
+  "schema": {
+    "fields": {
+      "user_id": {
+        "dtype": "BIGINT",
+        "role": "nominal_user"
+      },
+      "product_id": {
+        "dtype": "BIGINT",
+        "role": "nominal_item"
+      },
+      "event_time": {
+        "dtype": "TIMESTAMP",
+        "role": "event_time"
+      },
+      "event_type": {
+        "dtype": "VARCHAR",
+        "role": "action"
+      },
+      "category_id": {
+        "dtype": "BIGINT",
+        "role": "nullable_nominal_category"
+      }
+    },
+    "observed_actions": [
+      "view",
+      "cart",
+      "purchase"
+    ]
+  },
+  "context": {
+    "history": "strict_past_raw_event_rows",
+    "source_availability": "event_time_assumed",
+    "peer_policy": "exclude_all_global_timestamp_peers",
+    "count_boundary": "lower_inclusive_upper_exclusive",
+    "recency_boundary": "full_observed_prefix",
+    "identity": "nominal_keys_not_numeric_model_features",
+    "retrieval_alias_policy": "v1_purchase_distinct_users_168h_full_join_including_recent_only"
+  },
+  "grammar": {
+    "operators": [
+      "count",
+      "count_distinct",
+      "recency_seconds"
+    ],
+    "windows_hours": [
+      24,
+      168
+    ],
+    "action_count_bindings": [
+      {
+        "grain": "user",
+        "window": 24
+      },
+      {
+        "grain": "pair",
+        "window": 24
+      },
+      {
+        "grain": "item",
+        "window": 168
+      }
+    ],
+    "action_distinct_bindings": [
+      {
+        "grain": "user",
+        "windows_by_action": {
+          "view": 24,
+          "cart": 168,
+          "purchase": 168
+        }
+      },
+      {
+        "grain": "item",
+        "windows_by_action": {
+          "view": 24,
+          "cart": 168,
+          "purchase": 24
+        }
+      }
+    ],
+    "cart_recency_bindings": [
+      {
+        "grain": "pair",
+        "companion_grain": "item",
+        "companion_operator": "count",
+        "companion_action": "cart",
+        "companion_window": 24
+      },
+      {
+        "grain": "user",
+        "companion_grain": "user",
+        "companion_operator": "count_distinct",
+        "companion_action": "purchase",
+        "companion_window": 24
+      },
+      {
+        "grain": "item",
+        "companion_grain": "item",
+        "companion_operator": "count_distinct",
+        "companion_action": "cart",
+        "companion_window": 24
+      }
+    ]
+  },
+  "allocation": {
+    "static_bundle_ids": [
+      "L02",
+      "L06"
+    ],
+    "random_draws": 2,
+    "random_seed": 2026,
+    "random_law": "uniform_independent_with_replacement",
+    "collision_policy": "whole_bundle_across_all_slots_consumed_no_redraw",
+    "max_new_columns": 12,
+    "max_fits": 4
+  }
+}

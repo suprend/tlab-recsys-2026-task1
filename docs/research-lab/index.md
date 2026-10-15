@@ -63,3 +63,9 @@ Primary confirmation control — frozen tuned B, а не только B+support.
 - [Round031: primary-source Taobao compatibility](round-031.md): consumerfive-field schema only; officialdates/actiondictionary/license/access remainunknown, DIEN/DSIN datasets notconflated, nodownloads. Criticpending.
 
 [Prospective019v2 and freezeappendix](../backlog-reviews/strong-worker-design-freeze.md) retain4attempts/12looks/60actualCPUmin while adding outerwallhandoff and conservativeRSSpartition. This is implementation direction, not execution approval.
+
+
+- [Round032: interpretation of negative009metadata experiment](round-032.md): wholeblockfailure≠universalcategoryinferiority, splitoccurrences≠inputcount, failedobservercost and source/model proofs distinguished.
+- [Round033: physicalcost of selected016bundles](round-033.md): no extended005scanbound/grainbatch but extraaggregate/state/materializationwork, no speedbenchmark claim. Critics pending.
+
+[Symbolic generator code/tiny preflight](../experiments/feature-programs.md) independently accepted; real016collections/fits/quality remain separate gates.
