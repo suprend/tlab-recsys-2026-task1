@@ -224,3 +224,6 @@ Exact current research archives: [012 support/coverage](archives/wave012/publica
 
 
 [Wave023 interval-count/anonymous-session synthesis](brainstorm-wave023-synthesis.md) preserves9 unchanged originals plus additive four-field normalization: optional HYP002 family refinements only, no new canonicalID/admission/maingate. Strong manualtyped controls and finite-scope/arrival/paired-cost qualifications are retained.
+
+
+[Wave024 shared panes/rolling-state synthesis](brainstorm-wave024-synthesis.md) and [ten-file exact archive](archives/wave024/publication.json) preserve optional HYP046 refinements with complete-sink/batched005 controls, no physical-speed claim or new admission.

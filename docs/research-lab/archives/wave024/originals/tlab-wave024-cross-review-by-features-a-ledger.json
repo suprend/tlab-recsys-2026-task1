@@ -1,0 +1,139 @@
+{
+  "wave": "024",
+  "reviewer": "/root/brainstorm_features_a",
+  "role": "separate skeptic after both frozen FIRSTs",
+  "timestamp_utc": "2026-10-15T13:30:17.756604+00:00",
+  "report_words_whitespace": 518,
+  "inputfreeze": {
+    "path": "/tmp/tlab-wave024-cross-review-by-features-a-inputfreeze.json",
+    "sha256": "2aa4f58cd95600cf2dcc56b9e31bfb009880b7f3c75dce38bc764364b3a79e8f"
+  },
+  "author_inputs_final": [
+    {
+      "path": "/tmp/tlab-brainstorm-shared-aggregates-features-b-wave024.md",
+      "initial_sha256": "deadfe8416ccb8de625a5ee1d12319ed459e3b1a30987c6fb1b90147b08521c8",
+      "final_sha256": "deadfe8416ccb8de625a5ee1d12319ed459e3b1a30987c6fb1b90147b08521c8",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-shared-aggregates-features-b-wave024-ledger.json",
+      "initial_sha256": "d8cd90384274585eeec6e542e7ad12fbab82a4a99746d71a28c26360c2af3580",
+      "final_sha256": "d8cd90384274585eeec6e542e7ad12fbab82a4a99746d71a28c26360c2af3580",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-incremental-models-a-wave024.md",
+      "initial_sha256": "ba5b33f64ac1b9da5f14a77f8f439f6f0cb978f7213cc808977f76aead79634f",
+      "final_sha256": "ba5b33f64ac1b9da5f14a77f8f439f6f0cb978f7213cc808977f76aead79634f",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-incremental-models-a-wave024-ledger.json",
+      "initial_sha256": "89c22a262707ad8362f6f97c9113e20fa79a3996c45f667662311de061c1c2e4",
+      "final_sha256": "89c22a262707ad8362f6f97c9113e20fa79a3996c45f667662311de061c1c2e4",
+      "unchanged": true
+    }
+  ],
+  "new_ids": [],
+  "new_mechanisms": 0,
+  "dedup": [
+    "HYP046",
+    "round002",
+    "round012",
+    "round033",
+    "round044",
+    "round073",
+    "FeaturesA wave005 boundary counts and exact last-occurrence DISTINCT",
+    "ModelsA own wave005 refcount alternative"
+  ],
+  "reviews": [
+    {
+      "author": "FeaturesB",
+      "disposition": "refine research contract; no pilot admission",
+      "valid_mechanism": "Exact pane multiplicities are sufficient for explicitly whitelisted noncategory user/item/pair raw counts and projected DISTINCT under frozen anchor/window boundaries.",
+      "minimal_contract": [
+        "Pane identity plus action,user,item; all clipped window/anchor boundaries included.",
+        "Raw multiplicities preserved; sum first, coarsen grain/projected key, then positive membership; never add pane DISTINCT scalars.",
+        "Retain NULL bins for valid later raw-count rollup; skip NULL only at DISTINCT projection; final ordinary join/domain semantics unchanged.",
+        "Category-dependent leaves/denominators, metadata and recency remain existing code because triple lacks historical category.",
+        "Original source coverage/unknown/empty/mask rules and complete keyed output closure unchanged.",
+        "Same fixed label-blind Q/C projection opportunity; no narrowing global/off-C denominator contributors."
+      ],
+      "cheapest_falsifier_UNRUN": "Repeated key across panes, duplicate copies expiring separately, allowed NULL projected identity, empty groups, window boundary peer, global timestamp peer, off-C contribution and future suffix; independent literal/direct-list complete outputs. First mismatch rejects implementation.",
+      "real_cost": "Full cold boundary planning and source grouping/sorting, pane cells up to raw-event cardinality, coarsening and per-window membership support, unchanged B/context/metadata and complete sink/readback, CPU/RSS/spill/auth/source checks/failures/cleanup; unknown actual cost.",
+      "cap_author_proposal_only": {
+        "invented_bags": 2,
+        "events_per_bag_max": 16,
+        "anchors": 3,
+        "C_rows_per_bag": 6,
+        "cpu_seconds": 30,
+        "wall_seconds": 60,
+        "MiB": 512,
+        "threads": 2,
+        "granted": false
+      },
+      "negative_evidence": "No current implementation/output/cost evidence; unique cells and fine panes may erase compression. Supported-leaf scope needs explicit whitelist; not proof of a bug."
+    },
+    {
+      "author": "ModelsA",
+      "disposition": "refine measurement contract; no pilot admission",
+      "valid_mechanism": "Paid chronological occurrence/refcount maintenance is exact for fixed three R2/L05 item DISTINCT-user additions, with unchanged B41.",
+      "minimal_contract": [
+        "Immutable globally chronological events or paid sort/order authentication.",
+        "Before every anchor incorporate every partition s<t; exclude every s=t peer; expire only s<t-h, including no-arrival intervals.",
+        "Nonnegative multiplicities; 2-to-1 keeps member, 1-to-0 removes; NULL projected users omitted only from DISTINCT.",
+        "Fixed label-blind requested-item strategy; global item users retained; fixed-union growth and rebuild paid.",
+        "Coverage, supports, masks, keys, physical projection/order and existing B/metadata untouched.",
+        "Cold initialization/retained-state lifecycle charged; no free warmed treatment."
+      ],
+      "cheapest_falsifier_UNRUN": "Within author cap add no-arrival last-copy expiry, renewed membership followed by old-copy expiry, lower-bound equality/global peers and disjoint requested items; independent literal complete output oracle. First mismatch rejects.",
+      "measurement_refinement": "Keep decoded rows, insertion/hash/queue/expiry/output operations separate; a sum of heterogeneous operations is not physical cost. No complete CPU reduction means physical savings unconfirmed.",
+      "real_cost": "Cold decoding/order checks/sorting, state build, timestamped occurrence queues and live map (can approach retained rows), all insertions/expirations including mass expiry, domain growth, output scan, common B/context/sink/readback, restart/rebuild/failures/cleanup; actual CPU/IO/RSS/spill unknown.",
+      "cap_author_proposal_only": {
+        "invented_events_max": 128,
+        "anchors_max": 4,
+        "cpu_seconds": 30,
+        "wall_seconds": 60,
+        "MiB": 256,
+        "granted": false
+      },
+      "negative_evidence": "Few anchors/disjoint C/singletons/mass expiry may lose to batched005; refcounts retain more than sufficient last-occurrence state for append-only DISTINCT. No production speedup evidence."
+    }
+  ],
+  "strongest_primary_control": "Unchanged batched005 with optimizer and current per-grain/per-anchor pruning, same source/Q/C/AST/context/physical B41+chosen3 output sink; allow same projection opportunities, not forced per-leaf scans or free A-only cache.",
+  "primary_sources": [
+    {
+      "url": "https://fdbresearch.github.io/ivm.html",
+      "verified": "Maintained intermediate view trees, rings and factorization; author page last modified April2022. Does not establish pane implementation or task speed."
+    },
+    {
+      "url": "https://duckdb.org/docs/current/sql/functions/aggregates",
+      "verified": "Current1.5 docs: row count versus non-NULL count; DISTINCT considers distinct aggregate values; empty non-count aggregates generally NULL. No rolling/cross-filter state-sharing guarantee."
+    },
+    {
+      "url": "https://www.vldb.org/pvldb/vol16/p1601-budiu.pdf",
+      "verified": "PVLDB2023 Proposition4.7 positive/nonpositive DISTINCT change; section4.4 small-delta assumption, relation-sized state, plan reconstruction; section7.5 logical/physical clock distinction."
+    }
+  ],
+  "code_read_only": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "lines": "110–239",
+      "finding": "Actual count/DISTINCT expressions, by-grain batches, source/window lower bound, semi-joins by Q users/C items or available category, full metadata and user-first-seen statements, ordinary final joins, count coalesce, conditional category masking, source coverage and complete projection."
+    }
+  ],
+  "decision_if_negative": "Reject exact implementation on mismatch; leave physical savings unconfirmed on no complete CPU reduction/censored cost. Preserve zero-novelty refinement and no main gate.",
+  "executed": {
+    "experiments": 0,
+    "helpers": 0,
+    "actual_raw_source": 0,
+    "SQL_native_models_Y_fit_predict": 0,
+    "project_writes": 0,
+    "installs": 0,
+    "large_hashes": 0,
+    "new_grants": 0
+  },
+  "current_scope": "015 original outer startup FAILED preownerclaim/models/Y; V4env CODE review separate; B/W native metadata and typed9 source-prefix accepted; original018 FAILED retained; no status upgrade/retry.",
+  "report_path": "/tmp/tlab-wave024-cross-review-by-features-a.md",
+  "report_sha256": "34994e14073642e981a93bac7bfd0fdfe2c2caa68b4ca5ee918143e215049920"
+}

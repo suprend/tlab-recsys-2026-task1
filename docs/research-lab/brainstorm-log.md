@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026, 13:24:52.265611UTC / 16:24:52МСК. Timely13:30checkpoint; original015FAILED/diagnosisaccepted, V4/recoverypending. Следующий максимум14:15UTC от13:30.
+Обновлён15 октября2026, 13:40:31UTC / 16:40:31МСК. V4CODE/minimalactualgreen accepted; explicitdebit/FIRSTownerdecision pending, alloldopsCLOSED. Максимум14:15UTC неизменён.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -9,6 +9,18 @@
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 14:15 UTC / 17:15 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Current V4 acceptance overlay/checkpoint — 13:40:31UTC
+
+Root accepted V4CODE + separatelyreaped minimalactualenvgreen(a1dbdda7…): terminal2f9c82 EXIT0, один backendconstructor/один stdlibchild,0supervise/owner/models/DB/Y/fit/predict. OldstrictFALSE/newstrictDarwinUIDguardTRUE на одном actualCFkey, curatedvalues unchanged; exactinjectingcomponent не изолирован. OriginalV3/018 failures/unknown/consumedOUT и ownerglobalclaimabsent сохранены; oldoperationsclosed/reaped, никаких ongoingruntime sessions/polls. NativeB/W/sourceprefix/scientificchoice/33914/43200/1000/300 неизменны.
+
+Root fullyread scopedrecoveryadvisoryconditions accepted, НО actualremainingdebit и explicitboundedV4/de1eFIRSTownerrecoveryoperationdecision ещё PENDING. Это подготовка первого не начатого owner, не automaticretry прежнегоOUT/обнулениеfailure. ОДИН исходный Root10CPU/10wall платит все startup/diagnostic/pure/green/profile costs без refill; ledger's preliminaryremaining numbers не текущая spendingauthority, full-treeactualCPUUNKNOWN не нормализуется. Actualcompleteprep≤300 проверяется как admission condition на существующем initialRootgate, не отдельно установленный hard300 guard. SafeNEXT — Root boundeddecision usingremainingreserve, no source/all7pred/fourgates/target advancement untilseparateauthority.
+
+[Wave024](brainstorm-wave024-synthesis.md) два независимых FIRST/отдельный FeaturesA skeptic/Rootfullread complete;10 exact originals, additivefourfields, optionalHYP046panes/rollingonly0IDs/admissions/gates. Panesonlynoncategorywhitelist/fullNULLclosure; rollingrefcounts неminimalstate; fullsink/currentbatched005control, operations≠physicalspeed. Actualinventory этой публикации: Root/solepublisher и025independentauthorsFeaturesB+RetrievalA running, остальныепоказанныеreviewers completed. Root разрешил тому же coordinator вызвать существующего ModelsA на ограниченное review025 только после обоих exactFIRSTfreezes и проверки отсутствия duplicate dispatch; current025skeptic не назначен этимoverlay.
+
+Следующий максимум14:15UTC/17:15МСК от исходного13:30 остаётся либо после двух следующих complete researchrounds раньше. Timely13:30actualwrite13:24:52.265611/old12:45lateness81.359409s сохранены; no idea/budget/deadline/goalreset. Onebacklog/solepublisher/17slots/reserved25–31 неизменны. [Exact V4/accounting proof](../backlog-reviews/real015-v4-environment-green.md).
+
+## Historical timely13:30 snapshot
 
 ## Current timely13:30 checkpoint — actual 13:24:52.265611UTC, before original maximum
 

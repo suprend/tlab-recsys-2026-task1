@@ -1,5 +1,7 @@
 # Original real015 outer startup failed before owner claim
 
+Historical original V3 startup failure remains CLOSED_FAILED/consumed/unknown. Later separate [V4 CODE and minimal actual environment green are accepted](real015-v4-environment-green.md); explicit actual remaining debit and FIRST-owner recovery decision remain pending. No historical failure/consumption flag below is rewritten.
+
 The separately issued original real015 wrapper/controller stopped at its exact inherited-environment guard before `controller.consumed`, owner Popen, owner claim or any of the four authority gates. Root reaped terminal115617 EXIT1. Owner/source/model/target/fit/predict operations were0. The fixed original observer OUT is consumed and its eight ignored staged metadata files remain; absence of an owner claim is not retry authority. No polling, retry or namespace reset follows.
 
 [Root failed external receipt](evidence/real015-original-startup-failure/originals/tlab-root-real015-original-failed-external-receipt-v1.json), [issued original operation](evidence/real015-original-startup-failure/originals/tlab-root-real015-original-operation-issued-v1.json), [submission](evidence/real015-original-startup-failure/originals/tlab-root-real015-original-operation-submitted-v1.json), [raw V6 observation](evidence/real015-original-startup-failure/originals/V6-observation.json), [exact archive](evidence/real015-original-startup-failure/publication.json).

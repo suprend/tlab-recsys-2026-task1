@@ -1,0 +1,40 @@
+{
+  "actual_CF_value_not_read_or_claimed": true,
+  "actual_child_backend_native_owner_439_data_model_Y_claim_gate_project_operations": 0,
+  "author_methods": 9,
+  "body_timing_not_full_exit": true,
+  "elapsed_seconds": 0.04283883300377056,
+  "errors": 0,
+  "execution_grant": false,
+  "failures": 0,
+  "guard_violations": [],
+  "independent_methods": 3,
+  "input_count": 13,
+  "input_hashes": {
+    "/tmp/tlab-real015-environment-diagnostic-once-v1/result.json": "b5362893bb62cf4ba0a8aaa95cb1117032a42163f93d212a4942e8719e2fa87a",
+    "/tmp/tlab-real015-existing-v6-driver-v3-freeze.json": "d35459a0b7a2f86b63cea8c6a285648aeec44f9f381cd7c6a229a2a0142d87f3",
+    "/tmp/tlab-real015-existing-v6-driver-v3.py": "7ba7ffec6654515715b1d30be88eb54819ac31d0d1e9cf94a4388e43dffde7fa",
+    "/tmp/tlab-real015-existing-v6-driver-v4-environment-repair.md": "c8858c832abbbcd5041493dc5d42c1d009ab4ad892c8ebbac630be80ad7fa9ee",
+    "/tmp/tlab-real015-existing-v6-driver-v4-environment-result.json": "62e4f660343254077fc5b869dfba20f46e4210bc141cd5b7da410756f8295abf",
+    "/tmp/tlab-real015-existing-v6-driver-v4-environment.stderr-time.txt": "28384623c4ba5e41658b9ea2662a9c418eea6b1200c86a1723cd16e100d9ac60",
+    "/tmp/tlab-real015-existing-v6-driver-v4-environment.stdout.txt": "15623425c763300b47d1c7ba1d4f2659821810f32fa08fb37ddc66df4fb98d0d",
+    "/tmp/tlab-real015-existing-v6-driver-v4-freeze.json": "aca3ed0f93db6b27a1a2a7531c751206a52021558053890fe17fd5c202fc0c37",
+    "/tmp/tlab-real015-existing-v6-driver-v4-input-freeze.json": "550e2a89bcd87808f9c4b86fc0b782d4658ea4c94352329341a272c1436f17f3",
+    "/tmp/tlab-real015-existing-v6-driver-v4.py": "c00775f4ac0127b565c73b211d1783cde46fd4c357841c788050d2eac0d93428",
+    "/tmp/tlab-root-real015-environment-diagnosis-acceptance-v1.json": "b492778f3cb776be0c442b9de6e252cd5ccb09e3a58f9b83d0fce39bf724cdd7",
+    "/tmp/tlab-root-real015-original-failed-external-receipt-v1.json": "785f04a6d36f1524d706112486e6a925b47fc64ac395d6234d66c73e073bc3ee",
+    "/tmp/tlab-test-real015-existing-v6-driver-v4-environment.py": "b9f6563c85f7d0fad6dbf1f62f7d9c594633485f00e51cf7968f3f1d885fa5a8"
+  },
+  "original_author_method_AST_identity": true,
+  "peak_RSS_bytes": 31834112,
+  "process_cpu_seconds": 0.064509,
+  "scope": "independent_V4_environment_narrow_CODE_rereview",
+  "source_sha256": "c00775f4ac0127b565c73b211d1783cde46fd4c357841c788050d2eac0d93428",
+  "status": "PASS",
+  "transport": [
+    "duplicate fences omitted under existing9/10CPU14wall bounds",
+    "one result path changed to new independent TMP output",
+    "one terminal SystemExit omitted to run3independentmethods in SAME process"
+  ],
+  "unique_methods": 12
+}
