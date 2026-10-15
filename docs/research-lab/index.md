@@ -180,3 +180,6 @@ Crossed critique первой волны: [FA](brainstorm-fa001-review-by-b.md),
 
 
 [First-wave synthesis и canonical HYP139–144](brainstorm-wave001-synthesis.md), [machine ledger](brainstorm-wave001-hypotheses.json):39 local proposals после независимой критики дали6 research needs-pilot registrations; execution permissions и новый label domain не выданы.
+
+
+[Standalone experimental report — review draft](../experimental-report.md) connects the implemented task1 procedure, measured development comparisons and unresolved reserved/reproduction gates; [source ledger](../experimental-report-source-ledger.json) preserves numerical traceability. It does not claim task completion or a significant winner.
