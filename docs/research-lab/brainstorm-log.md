@@ -388,3 +388,7 @@ Recorded after coordinator resume and before the original12:00 maximum. New acce
 ### Scoped final publication —11:53:27UTC
 
 [CODE/wall basis](../backlog-reviews/development-v2-and-conditional-wall-acceptance.md) archives51 exact bounded originals plus2Rootreceipts; [018019research](brainstorm-waves018019-synthesis.md) archives14 exact originals plusRootreadback. Raw/privatecohort payloads and large/data/model files excluded. Inertrows33914allDECLARED; assumptions/reserves/no-refill/stalefixture exclusion explicit. No actual source-to-model/heldout success or executiongrant. Core+owner,parity,portabletest exact integrated; protectedmodules/frozenanalysis unchanged.
+
+### Terminal parity archive completeness supplement
+
+Post-publication completeness check found final parity report/ledger/probe outputs absent from the input-freeze-driven pack. Exact V1/V2 final artifacts are now added with original pins; previous manifest SHA retained. Root verdict/code/runtime scopes unchanged, no tests or actual jobs rerun.

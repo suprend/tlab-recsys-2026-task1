@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "at_utc": "2026-10-15T11:53:27.794595+00:00",
   "scope": "limited owner/parity/portable CODE plus conditional active-WALL adoption only",
   "Root_receipts": [
@@ -428,6 +428,70 @@
       "public_sha256": "c0d2b0870b20e8e3e908cc1cfc396bbbc695470fc29705e52fbaa55752617f4d",
       "bytes": 15853,
       "byte_exact": true
+    },
+    {
+      "original_path": "/tmp/tlab-development-day-parity-v1-independent-ledger.json",
+      "public_path": "docs/backlog-reviews/evidence/development-v2-and-wall-basis/code-originals/tlab-development-day-parity-v1-independent-ledger.json",
+      "original_sha256": "aa5a36822216cd818f8efbb31984b39a32cd00c83ee196baf9fe85d2c6bd414b",
+      "public_sha256": "aa5a36822216cd818f8efbb31984b39a32cd00c83ee196baf9fe85d2c6bd414b",
+      "bytes": 2877,
+      "byte_exact": true
+    },
+    {
+      "original_path": "/tmp/tlab-development-day-parity-v1-independent-review.md",
+      "public_path": "docs/backlog-reviews/evidence/development-v2-and-wall-basis/code-originals/tlab-development-day-parity-v1-independent-review.md",
+      "original_sha256": "2cb22f76f3a0908b8692eb2a6fe54b1a2f8ba3dfe4d9665f89226e12df9ea5ca",
+      "public_sha256": "2cb22f76f3a0908b8692eb2a6fe54b1a2f8ba3dfe4d9665f89226e12df9ea5ca",
+      "bytes": 5449,
+      "byte_exact": true
+    },
+    {
+      "original_path": "/tmp/tlab-development-day-parity-v1-independent-author-suite.log",
+      "public_path": "docs/backlog-reviews/evidence/development-v2-and-wall-basis/code-originals/tlab-development-day-parity-v1-independent-author-suite.txt",
+      "original_sha256": "5e85c9c1a95dfcf0d16d85b0c98b771e03287046d1b7ce90c5317d97661823ac",
+      "public_sha256": "5e85c9c1a95dfcf0d16d85b0c98b771e03287046d1b7ce90c5317d97661823ac",
+      "bytes": 2013,
+      "byte_exact": true
+    },
+    {
+      "original_path": "/tmp/tlab-development-day-parity-v2-independent-ledger.json",
+      "public_path": "docs/backlog-reviews/evidence/development-v2-and-wall-basis/code-originals/tlab-development-day-parity-v2-independent-ledger.json",
+      "original_sha256": "a82fc1fea28e00e8e531ab0ba80223885e740f19b6d73182726e86ba951d5374",
+      "public_sha256": "a82fc1fea28e00e8e531ab0ba80223885e740f19b6d73182726e86ba951d5374",
+      "bytes": 3734,
+      "byte_exact": true
+    },
+    {
+      "original_path": "/tmp/tlab-development-day-parity-v2-independent-rereview.md",
+      "public_path": "docs/backlog-reviews/evidence/development-v2-and-wall-basis/code-originals/tlab-development-day-parity-v2-independent-rereview.md",
+      "original_sha256": "3349ea432074bb6e261c129b7c4372837c88549788852826acb9d9806f58fa67",
+      "public_sha256": "3349ea432074bb6e261c129b7c4372837c88549788852826acb9d9806f58fa67",
+      "bytes": 4310,
+      "byte_exact": true
+    },
+    {
+      "original_path": "/tmp/tlab-development-day-parity-v2-independent-probe-results.json",
+      "public_path": "docs/backlog-reviews/evidence/development-v2-and-wall-basis/code-originals/tlab-development-day-parity-v2-independent-probe-results.json",
+      "original_sha256": "8d351ea0790ac3f58d480f4840223ddd7cf567a73a84feec4d4a2de691b8c904",
+      "public_sha256": "8d351ea0790ac3f58d480f4840223ddd7cf567a73a84feec4d4a2de691b8c904",
+      "bytes": 2536,
+      "byte_exact": true
+    },
+    {
+      "original_path": "/tmp/tlab-development-day-parity-v2-independent-probes.py",
+      "public_path": "docs/backlog-reviews/evidence/development-v2-and-wall-basis/code-originals/tlab-development-day-parity-v2-independent-probes.py",
+      "original_sha256": "e66522741f9d1256fae6cccd64cd93d73b2a141b6af390914c5c383dec112025",
+      "public_sha256": "e66522741f9d1256fae6cccd64cd93d73b2a141b6af390914c5c383dec112025",
+      "bytes": 8573,
+      "byte_exact": true
+    },
+    {
+      "original_path": "/tmp/tlab-development-day-parity-v2-independent-author-suite.log",
+      "public_path": "docs/backlog-reviews/evidence/development-v2-and-wall-basis/code-originals/tlab-development-day-parity-v2-independent-author-suite.txt",
+      "original_sha256": "98b5f9025a297c46a250fea0ee6bda549d713da5039d4988cf566683f3d0f236",
+      "public_sha256": "98b5f9025a297c46a250fea0ee6bda549d713da5039d4988cf566683f3d0f236",
+      "bytes": 2503,
+      "byte_exact": true
     }
   ],
   "runtime_granted": false,
@@ -447,5 +511,7 @@
   "host_specific_original_paths_diagnostic": true,
   "oneoff_harnesses_archive_only": true,
   "publisher_suite_native_data_model_runs": 0,
-  "original_failures_rewritten": false
+  "original_failures_rewritten": false,
+  "prior_publication_sha256": "13ba4f1114168c581a0d272aaa78360cc749dc3a2b1a2bffe53b4fcea1757b56",
+  "supplement_scope": "terminal parity review/probe outputs not part of earlier Root input-freeze list; existing reviewed verdict and runtime scope unchanged"
 }
