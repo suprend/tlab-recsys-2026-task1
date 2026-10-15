@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/tmp/tlab-real015-existing-v6-driver-v3.py", line 179, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/tmp/tlab-real015-existing-v6-driver-v3.py", line 176, in main
+    (controller if args.controller else outer)(args.issued_driver_sha256)
+  File "/tmp/tlab-real015-existing-v6-driver-v3.py", line 112, in controller
+    need(dict(os.environ)==environment() and (OUT/'pristine-pycache').is_dir(), 'Exact inherited pristine child environment')
+  File "/tmp/tlab-real015-existing-v6-driver-v3.py", line 41, in need
+    if not value: raise ValueError(message)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Exact inherited pristine child environment

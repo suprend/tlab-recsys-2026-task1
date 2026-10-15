@@ -1,0 +1,174 @@
+{
+  "wave": "023",
+  "author": "retrieval-a / author B",
+  "status": "first_draft_frozen",
+  "first_freeze_utc": "2026-10-15 13:08:06 UTC",
+  "checkpoint_maximum_utc": "2026-10-15 13:30:00 UTC",
+  "draft_path": "/tmp/tlab-brainstorm-compatibility-retrieval-a-wave023.md",
+  "draft_sha256": "93b0373dd5a2e7bb806e206241ce13d28fa774037a31cd22666b9541ddd85d17",
+  "word_count": 582,
+  "word_cap": 650,
+  "blind_before_freeze": [
+    "peer023 author A FIRST"
+  ],
+  "new_mechanisms": 0,
+  "new_hypotheses": 0,
+  "entries": [
+    {
+      "id": "R023-E1",
+      "type": "dataset_specific_adapter_evidence_refinement",
+      "disposition": "merge_existing_HYP002_TLAB005_portability_no_new_HYP",
+      "dedup_ids": [
+        "HYP002",
+        "TLAB016",
+        "TLAB005",
+        "round013",
+        "round040",
+        "round068",
+        "existing item-audience and UserCF notes"
+      ],
+      "mechanism": "Unit-certified compatibility operator generation binding PersonKey/anonymous SessionKey/EventFact/multivalued TagRelation, with explicit timing and conditioning population capabilities.",
+      "prediction": "Refuse unidentifiable person/cohort longitudinal and exposure-normalized operators; admit only declared session-prefix and supplied-tag operations under a separately defined task.",
+      "nearest_finite_UNRUN_experiment": "Six-record role/fanout witness and six operator admission requests vs a generic column-renaming adapter; current005/016 exact schema must still reject drop-in Dressipi.",
+      "task1_benefit": "Generate meaning-preserving feature families on a second product dataset with explainable unsupported-operator refusals; no recommender transfer or quality claim.",
+      "simple_control": "Map session_id to user_id and feature_category_id to category_id; resulting false person interpretation or countable-event fanout is falsified by literal witness.",
+      "literal": {
+        "view_records": [
+          [
+            "s1",
+            "a",
+            "tau1"
+          ],
+          [
+            "s2",
+            "a",
+            "tau2"
+          ],
+          [
+            "s3",
+            "b",
+            "tau3"
+          ]
+        ],
+        "tag_records": [
+          [
+            "a",
+            "red"
+          ],
+          [
+            "a",
+            "blue"
+          ]
+        ],
+        "query_prefix_descriptors": 1,
+        "total_supplied_records": 6,
+        "hidden_person_maps": [
+          "s1/s2 same person",
+          "s1/s2 different persons"
+        ],
+        "identical_observables_distinct_sessions_for_a": 2,
+        "unidentifiable_distinct_persons_for_a": [
+          1,
+          2
+        ],
+        "view_a_count_before_tag_join": 2,
+        "view_a_count_after_fanout": 4,
+        "actual_execution": false
+      },
+      "operator_requests": {
+        "reject": [
+          "distinct-person item audience",
+          "cross-session person profile",
+          "CTR/exposure propensity normalization"
+        ],
+        "prospective_conditional_admit": [
+          "session-prefix raw count",
+          "session-prefix distinct items",
+          "supplied-snapshot tag-set overlap"
+        ]
+      },
+      "negative_disposition": [
+        "false person/exposure admission rejects adapter",
+        "fanout-corrupted EventFact count rejects adapter",
+        "safe refusal plus legal session/tag operations establishes spec conformance only",
+        "predictive generalization remains untested"
+      ],
+      "future_cost_proposal": {
+        "records": 6,
+        "operator_requests": 6,
+        "expanded_nodes_each_max": 8,
+        "primitive_node_evaluations_max": 288,
+        "join_pair_checks_max": 36,
+        "CPU_minutes_max": 5,
+        "rss_mib_max": 256,
+        "source_scans": 0,
+        "models": 0,
+        "fits": 0,
+        "Y_looks": 0,
+        "includes": [
+          "schema and semantic mapping",
+          "snapshot/clock declaration",
+          "complete support/NULL closure",
+          "independent expected values",
+          "diagnostics",
+          "code/spec authentication"
+        ],
+        "authorized": false
+      }
+    }
+  ],
+  "primary_external_sources": [
+    {
+      "url": "https://www.recsyschallenge.com/2022/dataset.html",
+      "provider": "RecSys Challenge2022 organizers",
+      "accessed_utc_date": "2026-10-15",
+      "claims": [
+        "Anonymous sessions with session/item/timestamp views and no user_id",
+        "Purchasing-session selection; one selected purchase label; target-related prefix truncation",
+        "Candidate set derived from test-month purchased items",
+        "Multivalued feature-category/value item labels"
+      ],
+      "interpretation_limit": "Published schema only; no archive or receipt/timezone/completeness/intent truth inspected."
+    },
+    {
+      "url": "https://dressipi.com/downloads/recsys-datasets/",
+      "provider": "Dressipi",
+      "accessed_utc_date": "2026-10-15",
+      "claims": [
+        "Provider public fashion-session dataset associated with RecSys2022"
+      ],
+      "interpretation_limit": "No download, license grant or current hosting/size claim."
+    }
+  ],
+  "primary_external_sources_used": 2,
+  "primary_external_source_cap": 3,
+  "canonical_context_read": {
+    "backlog": "Bounded matching ownership/task rows only; sole publisher backlog_coordinator and Root runtime authority retained",
+    "index": "First32 lines only; canonical dedup/priority policy",
+    "round068": "First52 lines; existing EventFact/PropertyState/Query and adapter refusal semantics",
+    "assignment": "Direct Root wave023 instruction; no standalone assignment file found in bounded name search"
+  },
+  "authority_boundary": {
+    "sole_publisher": "/root/backlog_coordinator",
+    "Root_native_B_W_metadata": "actually verified per current Root instruction,2loads/0predict/fit; no model operation in this wave",
+    "real015": "CLOSED",
+    "original018": "FAILED unchanged",
+    "new015018_prerequisite": false,
+    "new_grant": false,
+    "current_C_Y_population_or_frozen_study_changes": false
+  },
+  "actual_operations": {
+    "helpers": 0,
+    "installs": 0,
+    "actual_data_or_DB_reads": 0,
+    "native_experiments": 0,
+    "model_reads": 0,
+    "fits": 0,
+    "predict_calls": 0,
+    "Y_openings": 0,
+    "large_hashes": 0,
+    "shared_project_writes": 0,
+    "new_grants": 0
+  },
+  "verification": "Bounded canonical context and two first-party schema/provider pages read; own literal information/fanout counterexample, word cap, Markdown/JSON/hash checked. All prospective adapter tests remain UNRUN."
+}

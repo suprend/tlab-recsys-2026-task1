@@ -221,3 +221,6 @@ Frozen independent FIRST drafts, proposals only: [wave010 windows/coverage](arch
 
 
 Exact current research archives: [012 support/coverage](archives/wave012/publication.json), [013 alternative R2 controls](archives/wave013/publication.json), [014 physical calculation](archives/wave014/publication.json). Eighteen unchanged originals;012/013 separate critiques completed,014 firstdrafts only at archive preparation. Root acceptance/fit admission are not implied; no new main gate.
+
+
+[Wave023 interval-count/anonymous-session synthesis](brainstorm-wave023-synthesis.md) preserves9 unchanged originals plus additive four-field normalization: optional HYP002 family refinements only, no new canonicalID/admission/maingate. Strong manualtyped controls and finite-scope/arrival/paired-cost qualifications are retained.

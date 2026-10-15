@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026, 13:07:32UTC / 16:07:32МСК. B/W native metadata accepted; real015 закрыт;023 независимые authors running. Максимум13:30UTC неизменён.
+Обновлён15 октября2026, 13:24:52.265611UTC / 16:24:52МСК. Timely13:30checkpoint; original015FAILED/diagnosisaccepted, V4/recoverypending. Следующий максимум14:15UTC от13:30.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,7 +8,37 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 13:30 UTC / 16:30 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 14:15 UTC / 17:15 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Current timely13:30 checkpoint — actual 13:24:52.265611UTC, before original maximum
+
+Originalreal015 outer FAILED до controller.consumed/owner Popen/ownerclaim и всех четырёх gates,0owner/source/model/Y/fit/predict. FixedOUTconsumed/8stagedmetadata retained/V6unknowntrue/full-treeCPUUNKNOWN не переписаны; no poll/retry/namespace reset. Отдельная minimalenvdiagnosis принята: один V6constructor/один stdlibchild, только unknownchildkey __CF_USER_TEXT_ENCODING, missing/changedcurated0,parentmappingunchanged, injectingcomponent не изолирован. V4Darwin-only CODE repair/review/отдельный minimalprobe pending; ownerrecovery НЕ granted. NativeB/W/sourceprefix/original018FAILED/33914/43200/1000/300 сохранены.
+
+Wave023 Root full readback теперь accepted research-only,9 originals иfourfields архивированы; provisionalintervalproduction+Dressipi capabilities только optionalrefinements,0canonicalIDs/admissions/gates. Root13:22actualobservation: wave024 independent FIRST FeaturesB+ModelsA active наsharedmaterialization; FeaturesA skeptic будет только после обоих freeze. V4author running по тому же Rootobservation; no actualrecoveryoperation/sessionongoing. Прошлый inventory13:17/023skeptic status ниже исторические.
+
+Следующий максимум14:15UTC/17:15МСК привязан к исходному13:30, либо после двух следующих completed research rounds раньше. Этот timely earlycheckpoint не сдвигает originalanchor, ideas/failure не reset goal/budgets. Actualwrite 13:24:52.265611UTC явно до13:30; original12:45lateness81.359409s сохранён. Main nextsafe — узкое V4review/probe/Rootdecision, безoptionalresearch prerequisite; solepublisher/onebacklog/17slots/reserved25–31 неизменны. [Actual failure+diagnosis](../backlog-reviews/real015-original-startup-failure.md), [reviewed023](brainstorm-wave023-synthesis.md).
+
+## Historical limited diagnosis overlay13:22
+
+## Current limited environment diagnosis overlay — 13:22:10UTC
+
+После исходного startupFAILED Root отдельно принял минимальную diagnosis(b492778f…): terminal540ffe EXIT0, один V6backendconstructor+один stdlibchild,0supervise/owner/native models/DB/Y/fit/predict. Выявлен только unknown child key __CF_USER_TEXT_ENCODING; curated missing/changed0,parentPythonmappingunchanged, unknownvaluesomitted. Компонент и точный момент injection этим probe не изолированы. Внешний0.11wall/0.10CPU rounded/MAXRSS29,016,064B отдельно от originalfailedoperation; publisher не повторял experiment.
+
+V4Darwin-only CODE repair/review и отдельно одобренный minimalgreenprobe ещё pending; owner recovery НЕ granted. OriginalOUTconsumed/unknowntrue/full-treeCPUUNKNOWN/ownerclaimabsent и source/all7pred/fourgates/targets pending сохранены. NativeB/W/sourceprefix/33914/43200/1000/300 неизменны. Wave023 separate skeptic сдан13:18:38UTC, Root readback ещё pending;0 новыхHYP/admissions/gates. Текущий максимум13:30UTC от12:45 не сдвинут. [Точная ошибка и отдельная diagnosis](../backlog-reviews/real015-original-startup-failure.md).
+
+## Historical initial real015 startup failure snapshot13:17
+
+## Current original-real015 failure checkpoint — 13:17:09UTC
+
+Root отдельно выдал и staged8metadata для оригинального real015 outer/controller: exact wrapperV3(7ba7ffec…) и новый protocol requestde1e…; Root issued448b15aa… и failed785f04a6… receipts сохраняются. Terminal115617 EXIT1 на exact inherited environment guard до controller.consumed/owner Popen. Owner.claim,owner.log и четыре authority gates отсутствуют; фактические owner/source/models/Y/fit/predict операции0. Фиксированный originalOUT consumed,8 ignored stagedmetadata сохранены, без poll/retry/resetnamespace.
+
+Внешний reaped command0.16wall/0.14CPU rounded, MAXRSS31,162,368B отдельно от V6 sampled aggregate57,212,928B. V6 reaped exit1/survivors[] не снимают originalunknown_active_work=true/full-treeactualCPU UNKNOWN; flags не переписаны. B/W native metadata acceptance, typed9sourceprefix, original018FAILED/consumed и33914/43200/1000/300 неизменны. Следующий safeNEXT Root — отдельно ограниченная environment-only startup diagnosis, без owner/source/model/Y authority и без автоматического возврата попытки.
+
+Wave023 оба независимых FIRST закончены; отдельный ModelsB skeptic действительно running после обоих freeze. Inventory сейчас показывает Root/координатор/ModelsB running, прочие показанные authors/reviewers completed. Новые независимые author lanes ещё не наблюдались; исторический023 start не выдан за текущую работу.0 новых HYP/допусков/обязательных задач.
+
+Следующий максимум13:30UTC/16:30МСК по исходному12:45 не сдвинут этой ошибкой/новыми идеями; исходное опоздание81.359409s сохранено. Общая цель/17slots/solepublisher/одна очередь/reserved25–31 и predeclared limits не меняются. Издатель выполняет только bounded metadata/archive/docs checks, не runtime.
+
+## Historical accepted-native snapshot13:07
 
 ## Current accepted-native/checkpoint view — 13:07:32UTC
 

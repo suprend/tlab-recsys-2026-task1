@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "/tmp/tlab-real015-existing-v6-driver-v3.py", line 179, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/tmp/tlab-real015-existing-v6-driver-v3.py", line 176, in main
+    (controller if args.controller else outer)(args.issued_driver_sha256)
+  File "/tmp/tlab-real015-existing-v6-driver-v3.py", line 162, in outer
+    need(observation.get('status')=='verified_normal_exit' and observation.get('exit_code')==0
+  File "/tmp/tlab-real015-existing-v6-driver-v3.py", line 41, in need
+    if not value: raise ValueError(message)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: V6 process boundary failed; preserve original attempt
+        0.16 real         0.12 user         0.02 sys
+            31162368  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                6307  page reclaims
+                   0  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   4  voluntary context switches
+                  42  involuntary context switches
+           519914902  instructions retired
+           212912962  cycles elapsed
+            16286152  peak memory footprint

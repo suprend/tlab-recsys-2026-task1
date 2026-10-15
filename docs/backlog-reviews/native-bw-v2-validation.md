@@ -1,5 +1,7 @@
 # Actual B/W native metadata checks accepted
 
+Historical native-metadata acceptance boundary13:00UTC. A later separately issued [original real015 outer failed before ownerclaim](real015-original-startup-failure.md); that startup failure does not change the accepted native metadata result. Original pending/failure/request snapshots below remain historical.
+
 Root accepted one separately issued metadata-only operation on the unchanged saved B41 and W44 models. Each was loaded once; production and independent oracle checks passed for both widths, complete native settings,300 trees, feature order and numeric-only feature indices. Each model supplied two `get_all_params` calls. No fit, prediction, source DB, target,439 gate or child ran. This confirms the narrow installed comparator on both actual saved models; it does not reproduce recommendations or complete018.
 
 [Root acceptance](evidence/native-bw-v2-validation/originals/tlab-root-two-accepted-models-native-validation-acceptance-v1.json), [exact issued operation](evidence/native-bw-v2-validation/originals/tlab-root-two-accepted-models-validation-issued-v1.json), [consumed two-load grant](evidence/native-bw-v2-validation/originals/tlab-two-accepted-models-validation-root-grant-v1.json), [original result](evidence/native-bw-v2-validation/originals/native-validation-result.json), [publication manifest](evidence/native-bw-v2-validation/publication.json).
