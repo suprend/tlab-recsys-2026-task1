@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "wave": "012",
+  "author": "/root/brainstorm_features_a",
+  "date": "2026-10-15",
+  "report_path": "/tmp/tlab-brainstorm-coverage-features-a-wave012.md",
+  "report_sha256": "71491629f28b1a7cd35409e064eac392a98d1170a143ea96b4ac85b71492d3e6",
+  "first_draft_status": "frozen_independently",
+  "actual_first_freeze_UTC": "2026-10-15 09:20:50 UTC",
+  "independence": {
+    "fixed_prior_commit": "331b1ae29f3e484516893204a4f990c9372f2c25",
+    "own_frozen_reports_allowed": true,
+    "peer012_read": false,
+    "live_journal_read": false,
+    "current_unfrozen011_reviews_read": false,
+    "helpers_used": 0
+  },
+  "scope": {
+    "new_predictive_mechanisms": 0,
+    "refinements": 1,
+    "new_canonical_HYPs": 0,
+    "real_data_SQL_Y_native_ML_fit_predict": false,
+    "shared_writes": false,
+    "download_paidAPI": false,
+    "current015_016_B41_R2_W_C_target_limits_changed": false,
+    "heldout": "CLOSED",
+    "prospective_budget_granted": false,
+    "native_pilot_admitted": false
+  },
+  "historical_inputs": [
+    "docs/backlog.md",
+    "docs/features/index.md",
+    "docs/features/03-rates/research-a.md",
+    "docs/features/03-rates/research-b.md",
+    "docs/features/04-categories/research-a.md",
+    "docs/features/05-user-layers/research-a.md",
+    "docs/features/05-user-layers/research-b.md",
+    "docs/features/06-taxonomy-nodes/research-a.md",
+    "docs/research-lab/round-002.md",
+    "docs/research-lab/round-025.md",
+    "docs/experiments/manual-features.md",
+    "configs/features/manual-18.json",
+    "scripts/manual_features.py",
+    "own frozen waves001/002/005/006/008/010"
+  ],
+  "primary_sources": [
+    {
+      "url": "https://icml.cc/Conferences/1998/papers/paper142.html",
+      "title": "Improving Text Classification by Shrinkage in a Hierarchy of Classes",
+      "year": 1998,
+      "verified_scope": "Author conference abstract: sparse class parameters shrink toward ancestors; no equation/performance transfer",
+      "limitation": "CMU PDF text corrupted; screenshot cache failed; detailed PDF algorithm not claimed"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/stan-dev/example-models/master/knitr/pool-binary-trials/pool-no-pool.Rmd",
+      "title": "Hierarchical Partial Pooling for Repeated Binary Trials",
+      "author": "Bob Carpenter",
+      "declared_date": "29 January 2016",
+      "verified_scope": "Binary successes/trials, hierarchical population estimation, explicit Stan MCMC fits",
+      "not_transferred": "Our fixed raw-event interpolation, independent trial assumptions, model calibration or empirical gains",
+      "version_limit": "Mutable master source read; no installation/download/execution"
+    }
+  ],
+  "proposals": [
+    {
+      "id": "A012-R1",
+      "title": "Population-compatible pooling template with explicit support/NULL closure",
+      "newvsrefine": "old_mechanism_contract_refinement",
+      "knownoldIDs": [
+        "HYP-002",
+        "HYP-046",
+        "HYP-003 (related taxonomy only)",
+        "round025 proof obligations",
+        "feature03-B partial pooling",
+        "feature04-A alpha5 user/category affinity",
+        "feature06-A supported backoff",
+        "FB-02 audience shape (distinct support alternative)"
+      ],
+      "disposition": "accept_source_only_contract_refinement_defer_predictive_pilot_no_new_HYP",
+      "mechanism": "Future typed compiler accepts smoothing only between compatible same-outcome raw-event share populations; one old user/category alpha5 template, no generic grain chain or learned router. Current005 lacks the global primitive, so this is not executable015/016.",
+      "prediction": "Could ease fixed-tree representation for rare users, but count mixing is not confidence, may suppress rare useful preference, and contains no new information versus direct-prior parents.",
+      "nearest_source_free_experiment": "At most16384 feasible integer worlds plus32 invented rows/8 anchors; exact fractions, population/subset rejection, peers/bounds/NULL/duplicate and demanded-parent checks;60 CPU seconds128MiB,0fits/0looks.",
+      "task1benefit": "Avoid invalid backoffs and hidden closure/scans; expose reparameterization versus strong simple parent control, without inflating predictive backlog.",
+      "four_field_aliases": {
+        "testable_prediction": "prediction",
+        "benefit_task1": "task1benefit"
+      },
+      "operator": {
+        "window_hours": 168,
+        "action": "view",
+        "multiplicity": "raw_event_rows",
+        "alpha": 5,
+        "x": "user_category_view7d",
+        "N": "user_view7d",
+        "Cc": "global_historical_category_view7d",
+        "G": "all_global_view7d_including_offC_unknown_category",
+        "p": "Cc/G",
+        "q": "(x+5*p)/(N+5)",
+        "weight": "N/(N+5), derivable not emitted",
+        "availability": "Identical declared observed source intersection; global read-before-update seconds; latest whole global past category bucket, no older clean backoff",
+        "NULL": "q,p NULL iff category unknown/ambiguous orG0; N/G unconditional known0, x/Cc NULL if unknown category; complete known-empty local history returns prior q=p withN0",
+        "coverage": "Existing E source duration retained; not user/item exposure or registration; no missing portion imputed"
+      },
+      "physical_closure": {
+        "treatment": [
+          "q",
+          "G",
+          "m=unknown_category OR G0"
+        ],
+        "control": [
+          "p",
+          "G",
+          "same_m"
+        ],
+        "max_additional_actual_columns_each": 3,
+        "existing_parents": [
+          "x",
+          "N",
+          "Cc",
+          "source coverage",
+          "category availability"
+        ],
+        "alias_audit_required": true,
+        "native_float_encoding_checked": false,
+        "fourth_unavoidable_column_policy": "redesign before fit, no free closure expansion"
+      },
+      "matched_control": "Frozen W plus p,G,m, same parents/NULL/source/C/Y/settings; W+G alone is simpler complete information basis. A third fit of it is not included/free.",
+      "adversarial_same_count_worlds": [
+        "Same local numerator0, N0 prior-only vsN5 observed localzero; unknowncategory staysNULL",
+        "Equal10views/first/last/item/category/count supports occupy4vs6UTCdates; mixingweightsame, no independence claim",
+        "Duplicated localbag raises nominal support10to20 andq1/6to2/11 without evidence of independence",
+        "OffC and unknown historical category must remain inG; latest global known+NULL category cannot older-backoff"
+      ],
+      "actual_literals": {
+        "feasible_integer_worlds": 10625,
+        "exact_bounds_convexity_inverse_mismatches": 0,
+        "zero_history_q": "1/10",
+        "observed_zero_q": "1/20",
+        "unknown_category": null,
+        "global_zero": null,
+        "duplicate_base_q": "1/6",
+        "duplicated_local_q": "2/11",
+        "duplicate_weights": [
+          "2/3",
+          "4/5"
+        ],
+        "samecount_active_UTC_days": [
+          4,
+          6
+        ],
+        "boundary_G_Cc_N_x": [
+          6,
+          3,
+          4,
+          2
+        ],
+        "peer_future_invariance": true,
+        "C_only_denominator_detected": true,
+        "latest_global_known_NULL_unknown": true,
+        "actual_response_labels_used": false
+      },
+      "algebraic_negative_evidence": "p=(q*(N+5)-x)/5 exactly includingN0; W+G determines p andq. No new-information claim or fullW nonalias proof.",
+      "physical_cost": "Prior005 _grain_sql category reducer semijoins requested categories, so cannot recoverG. New global pass or redesigned unfiltered shared pass is paid; includes offC and unknown category rows. Existingaccepted parents reusable only if semantically identical; all source visits/state/export charged. No exactdistinct added.",
+      "future_cost_not_grant": {
+        "mechanical": {
+          "count_world_cap": 16384,
+          "event_rows": 32,
+          "anchors": 8,
+          "CPU_seconds": 60,
+          "RSS_MiB": 128,
+          "fits": 0,
+          "looks": 0
+        },
+        "source_gate": {
+          "queries": 100,
+          "candidate_rows": 22000,
+          "anchors": 8,
+          "all_pass_raw_row_visits": 43000000,
+          "retained_entries": 1000000,
+          "actual_CPU_minutes": 30,
+          "wall_hours": 2,
+          "RSS_GiB": 4
+        },
+        "whole_optional_quality_package": {
+          "matched_fits": 2,
+          "validation_looks": 2,
+          "actual_CPU_minutes_including_source": 120,
+          "wall_hours": 4,
+          "RSS_GiB": 8,
+          "threads": 2,
+          "all_failed_attempts_and_incumbent_scoring_paid": true,
+          "replacement_W_fit_policy": "Reprice/redesign before launch if unavailable; no free fit",
+          "alpha_grain_adaptation": "Another recorded paid attempt, no free retry"
+        }
+      },
+      "cheapest_falsifier": "Literal inverse reconstruction proves no additional information over parent basis; reject unknown-category coalesce, G reconstructed from requested categories, support-as-independentconfidence, raw duplicate collapse or incomplete closure.",
+      "decision_if_negative": "Reject semantics defects; completeWalias=>stop no trial; direct-prior matches/beats=>close without threshold retry; sourcecostfailure=>defer. Keep source-only contract evidence, register zero newHYP."
+    }
+  ]
+}

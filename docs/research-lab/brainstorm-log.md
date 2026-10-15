@@ -318,3 +318,6 @@ Actual write09:45:07UTC was7seconds late versus09:45; this is not a timely-write
 
 
 [Full-source018 launch publication](../backlog-reviews/full-source018-launch.md) binds30 exact small code/review/grant/submission originals. CodeV1P1/red and V2relativeCLI repair remain historical; V3budget split plus Rootissued operation ce0086… authorizes only this one source import. Source acceptanceFALSE/018notdone, originalsession65471 Root-owned, no fit/queryY/publisherlargefilehash/poll/retry.09:45checkpoint was7s late, nextmax10:30 remains anchored09:45.
+
+
+[012](archives/wave012/publication.json), [013](archives/wave013/publication.json) and [014](archives/wave014/publication.json) preserve18 exact completed author/skeptic artifacts.012support/coverage interpretation and013future R2 controls remain existing-family refinements with separate critiques;014pair-demand/DISTINCT physical specialization remains firstdraft evidence. Root readbacks are not inferred, no new canonicalIDs/fits/admissions or015/018 prerequisites. Source-only originalsession65471 stays exclusively Root-polled; publisher performed only small research/metadata reads. Nextmax10:30 stays anchored09:45.

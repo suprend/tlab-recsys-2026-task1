@@ -1,0 +1,175 @@
+{
+  "wave": "014",
+  "author": "retrieval-a",
+  "status": "first_draft_frozen",
+  "first_freeze_utc": "2026-10-15 09:44:11 UTC",
+  "draft_path": "/tmp/tlab-brainstorm-calculation-retrieval-a-wave014.md",
+  "draft_sha256": "605ca08e4208ad28a6cad30eedd93ad2049a0f435659260352d565f02887a16c",
+  "word_count": 1831,
+  "fixed_prior": "331b1ae29f3e484516893204a4f990c9372f2c25",
+  "blind_before_freeze": [
+    "peer014",
+    "current013 skeptic",
+    "live journal"
+  ],
+  "new_mechanisms": 0,
+  "new_hypotheses": 0,
+  "current_B_W_changes": false,
+  "additional015_or018_prerequisite": false,
+  "entries": [
+    {
+      "id": "R014-E1",
+      "type": "code_specific_evidence_refinement",
+      "disposition": "merge_existing_no_new_HYP",
+      "dedup_ids": [
+        "HYP046",
+        "TLAB005",
+        "round012",
+        "round044",
+        "parent-described wave005 shared-prerequisite overlap"
+      ],
+      "mechanism": "Exact direct-pair branch semijoin against demanded fixed-C keys, retaining full observed prefix and all independent prerequisite branches.",
+      "prediction": "Reduce off-C historical pair aggregate groups; whole-plan speed only if saved aggregation exceeds unchanged scan/auth/sink and demand-lookup cost.",
+      "nearest_finite_experiment": "HYP046/round012 semantic and cost comparison versus unchanged005 shared compiler with optimizer ON and full common sink.",
+      "task1_benefit": "Auditable typed calculation planning and bounded engineering cost even when predictive gain is unconfirmed.",
+      "observed_code_facts": [
+        "Current item/item-category branches already semijoin demanded items",
+        "Category branch already semijoins known candidate categories",
+        "Pair branch currently semijoins selected users, then groups all their historical pairs",
+        "Recency makes pair branch read full observed prefix",
+        "Metadata is computed before aggregates using latest global past timestamp bucket"
+      ],
+      "matched_control": "Unchanged005 same full registry/input/optimizer/full consuming sink; independent row-list oracle is correctness-only, not speed primary.",
+      "literal_falsifier": {
+        "total_invented_rows": 29,
+        "strict_past_rows": 27,
+        "global_t_peers_excluded": 2,
+        "recent_candidate_items": 20,
+        "historical_selected_user_pair_groups": 22,
+        "requested_pair_groups": 20,
+        "user_7d_raw_views": 22,
+        "user_7d_distinct_items": 21,
+        "user_category_share": "20/22",
+        "item_category_share": "2/23",
+        "item_distinct_viewers24h": 2,
+        "pair_purchase_recency_days": 8,
+        "user_observed_age_days": 9,
+        "no_actual_execution": true
+      },
+      "incorrect_shortcuts_rejected": [
+        "global C-only source loses off-C denominators",
+        "global selected-users source loses item other-user contribution",
+        "new lazy state initialized at zero misses complete backfill",
+        "7d recency truncation",
+        "known+NULL metadata backoff",
+        "distinct expiry after first copy",
+        "pair groups discarded only after full aggregation"
+      ],
+      "negative_or_inconclusive": [
+        "all historical pairs already in C",
+        "source/auth/sink dominate unchanged work",
+        "same physical plan after optimizer",
+        "pair speed but slower whole sink",
+        "order/cache-dependent timings",
+        "full-source scope unknown or overflow",
+        "any value/schema/NULL mismatch"
+      ],
+      "future_cost_proposal": {
+        "new_reservation_required": true,
+        "old016_remainder_reused": false,
+        "quality_or_Y_looks": 0,
+        "fits": 0,
+        "queries_max": 100,
+        "anchors_max": 1,
+        "C_max": 220,
+        "demand_pair_keys_max": 22000,
+        "decoded_row_visits_total_max": 1000000,
+        "physical_reads_total_gib_max": 2,
+        "includes_all_variants_warmups_repeated_passes": true,
+        "cpu_minutes_total_max": 20,
+        "threads_max": 2,
+        "parent_child_rss_gib_max": 8,
+        "spill_gib_max": 2,
+        "wall_minutes_including_cleanup_max": 30,
+        "timed_pairs_max": 2,
+        "timed_order": [
+          "AB",
+          "BA"
+        ],
+        "paid_warmups": {
+          "A": 1,
+          "B": 1
+        },
+        "authorization": false
+      },
+      "whole_cost_scope": [
+        "authentication/hashing and source fingerprint authority",
+        "parse/open/copy",
+        "metadata and user full-prefix state",
+        "rolling multiplicity and complete backfill",
+        "compiler and demand-key setup",
+        "full source/read passes",
+        "independent oracle",
+        "full output export/re-read/hash",
+        "spill I/O",
+        "failures cleanup termination and reaping"
+      ],
+      "conditional_engineering_threshold": "If separately reserved: zero semantic mismatch; CPU <=0.8 baseline and RSS <=1.2 baseline inside absolute caps; small order-sensitive series remains inconclusive."
+    }
+  ],
+  "primary_sources": [
+    {
+      "path": "scripts/manual_features.py",
+      "kind": "frozen author code",
+      "sections": [
+        "_expression",
+        "_grain_sql",
+        "create_manual_features",
+        "run"
+      ],
+      "claim": "Actual existing key semijoins, prefix/window handling, metadata/NULL/output closure, auth and runner cost boundary."
+    },
+    {
+      "path": "configs/features/manual-18.json",
+      "kind": "frozen registry",
+      "claim": "Raw bag, shares/supports, recency and metadata/NULL semantics."
+    },
+    {
+      "path": "scripts/feature_programs.py",
+      "kind": "frozen author code",
+      "claim": "Frozen B/W closure and identity; no unused-feature pruning or new quality fit."
+    },
+    {
+      "path": "docs/research-lab/round-002.md",
+      "stable_id": "HYP046",
+      "kind": "frozen prior",
+      "claim": "Shared DAG equivalence, state/cache cost, symmetric timing and full ledger."
+    },
+    {
+      "path": "docs/research-lab/round-012.md",
+      "kind": "frozen prior",
+      "claim": "Unchanged005 primary comparator, optimizer ON/full sink, paid AB/BA/cache/failure controls."
+    },
+    {
+      "path": "docs/research-lab/round-044.md",
+      "kind": "frozen prior",
+      "claim": "Actual shared aggregate plans, exact closure vs empirical pruning, no C-only denominators."
+    }
+  ],
+  "external_primary_claims_added": false,
+  "upstream_optimizer_speed_or_index_claimed": false,
+  "actual_operations": {
+    "helpers": 0,
+    "actual_data_or_DB_reads": 0,
+    "SQL_execution": 0,
+    "actual_Y_openings": 0,
+    "models": 0,
+    "fits": 0,
+    "predict_calls": 0,
+    "native_experiments": 0,
+    "downloads": 0,
+    "paid_API_jobs": 0,
+    "shared_project_writes": 0
+  },
+  "verification": "Read actual frozen key-demand/window/metadata/auth code; checked invented rows and hand counts, file and JSON/hash. No real cost or quality measurement."
+}

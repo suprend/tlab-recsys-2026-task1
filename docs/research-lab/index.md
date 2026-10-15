@@ -216,3 +216,6 @@ Frozen independent FIRST drafts, proposals only: [wave010 windows/coverage](arch
 
 
 [Completed010–011 synthesis](brainstorm-waves010011-synthesis.md): two independent firstdraft pairs, separate skeptics and Root readbacks; sixteen exact original files, four explicit four-field refinements,0newHYP/admissions.
+
+
+Exact current research archives: [012 support/coverage](archives/wave012/publication.json), [013 alternative R2 controls](archives/wave013/publication.json), [014 physical calculation](archives/wave014/publication.json). Eighteen unchanged originals;012/013 separate critiques completed,014 firstdrafts only at archive preparation. Root acceptance/fit admission are not implied; no new main gate.

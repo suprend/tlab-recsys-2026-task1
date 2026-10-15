@@ -1,0 +1,458 @@
+{
+  "schema_version": 1,
+  "wave": "013",
+  "role": "independent_skeptic",
+  "created_at_utc": "2026-10-15T09:45:15.102272+00:00",
+  "inputfreeze": "/tmp/tlab-wave013-skeptic-inputfreeze.json",
+  "scope": "Primarypaper/projectdefinitiontextandowninventedfinitearithmeticonly",
+  "authorized_current_aggregate_inputs": {
+    "B": ".4586107",
+    "R2": ".4647029",
+    "delta": "0.0060922",
+    "CI": "descriptivepostselectioncrosses0; notrecomputed",
+    "source": "Suppliedauthorallowedaggregates;noactualscoreartifactread"
+  },
+  "helpers": 0,
+  "author_edits": false,
+  "project_writes": false,
+  "new_mechanisms": 0,
+  "new_IDs": 0,
+  "execution_admissions": 0,
+  "additional_main_gates": 0,
+  "actual_jobs": {
+    "data": 0,
+    "DB": 0,
+    "SQL": 0,
+    "Q_C_Y": 0,
+    "model_or_score_read": 0,
+    "native": 0,
+    "ML": 0,
+    "fit": 0,
+    "predict": 0,
+    "paidAPI": 0,
+    "dataset_or_weights_download": 0
+  },
+  "sources": [
+    {
+      "id": "S01",
+      "kind": "primary_paper_foundation",
+      "url": "https://www.jmlr.org/papers/v11/cawley10a.html",
+      "title": "Cawley andTalbot,OnOver-fittinginModelSelectionandSubsequentSelectionBiasinPerformanceEvaluation",
+      "year": 2010,
+      "access": "Independent direct JMLR publication/abstract read",
+      "verified": "Finitecriterionvariancepermitsoverfitandselectedevaluationbias",
+      "boundary": "No actualpvalue,biasestimate,freeCV/nestedfits or REES46 guarantee; olderfoundation alreadyround005"
+    },
+    {
+      "id": "L01",
+      "kind": "canonical_selection_contract",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/feature-program-selection.md",
+      "anchors": [
+        "lines5–17"
+      ],
+      "access": "Literal text read only",
+      "verified": "B/I1/I2/R1/R2 globalRecallfeasiblemaximum,sharedscoringprefix,tieband;selectedW−B frozenbeforetargets;randomwinnernotguidedproposersuperiority"
+    },
+    {
+      "id": "L02",
+      "kind": "primary_generator_code",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "anchors": [
+        "lines110–151"
+      ],
+      "verified": "L05 itemdistinctview24/cart168/purchase24 bindings;B41andexact3delta;frozenallocation"
+    },
+    {
+      "id": "L03",
+      "kind": "primary_registry",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+      "anchors": [
+        "item_view_24h",
+        "item_purchase_24h",
+        "item_distinct_viewers_7d",
+        "pair_cart_7d",
+        "pair_view_recency_seconds",
+        "pair_purchase_recency_seconds"
+      ],
+      "verified": "Existingrawview/purchase24,weeklyviewbreadth,user/pairhistory/fullprefixrecency;rawglobalcart168 absent"
+    },
+    {
+      "id": "L04",
+      "kind": "primary_candidate_code",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "anchors": [
+        "lines61–70",
+        "84–95"
+      ],
+      "access": "Literal SQL source text only; noSQLexecution",
+      "verified": "PurchasecountdistinctnonNULLuser168popularity,topsource/recentunion thenfullLEFTJOIN/coalesce0includingrecent-only"
+    },
+    {
+      "id": "L05",
+      "kind": "dedup_prior",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-026.md",
+      "anchors": [
+        "lines9–21",
+        "25–40"
+      ],
+      "verified": "L05breadthvsrawmultiplicity,cartnewchannel,purchase168retrievalalias excluded,fullBclosure,sharedfiniteattempts"
+    },
+    {
+      "id": "L06",
+      "kind": "dedup_prior",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-029.md",
+      "anchors": [
+        "lines9–17",
+        "claims matrix"
+      ],
+      "verified": "Humanboundedgeneration,mixedprocedure/history disclosure;noaudience/searchsuperiorityfromselectedgain"
+    },
+    {
+      "id": "L07",
+      "kind": "dedup_prior",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-016.md",
+      "anchors": [
+        "threeequivalencerelations",
+        "actualfrozenBduplicates",
+        "unsupportedlogvocabulary"
+      ],
+      "verified": "Semanticidentityvsinformationequivalencevsfinitelearnerbehavior;fullretrievaljoin;logunsupported;finiteprecisionqualification"
+    },
+    {
+      "id": "L08",
+      "kind": "dedup_prior",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-005.md",
+      "anchors": [
+        "lines5–7",
+        "37–51",
+        "59"
+      ],
+      "verified": "Selectionoverfit,multiplelooks,precision/useruncertainty/postselectiondescriptiveCI;HYP095/096reservednotnew"
+    },
+    {
+      "id": "L09",
+      "kind": "canonical_backlog",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "anchors": [
+        "lines70",
+        "98",
+        "135–137"
+      ],
+      "verified": "TLAB009block/popularitycontrols,HYP002typedsearch,HYP013paidselector;existingfamilies"
+    },
+    {
+      "id": "L10",
+      "kind": "primary_validator_code",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "anchors": [
+        "lines68–84"
+      ],
+      "access": "Literal code read only",
+      "verified": "Supportedrawcount/exactdistinct/fullprefixrecency;unsupportedlog/arithmeticnotadmitted"
+    },
+    {
+      "id": "L11",
+      "kind": "declared_source_clock_contract",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/source-import.md",
+      "anchors": [
+        "line11"
+      ],
+      "verified": "DeclaredliteralUTCsecondeventtokens;notactualnewsourceinspection"
+    },
+    {
+      "id": "L12",
+      "kind": "primary_clock_parser_code",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py",
+      "anchors": [
+        "lines67–70"
+      ],
+      "access": "Literal code read only; parsernotimported/executed",
+      "verified": "Exactsecondtimestampregex/strptime inproductionprofile",
+      "boundary": "Doesnotretroactivelyvalidatehistoricalsource; noactualarchiveaccess"
+    },
+    {
+      "id": "L13",
+      "kind": "model_input_contract",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/boosting-baselines.md",
+      "anchors": [
+        "line11"
+      ],
+      "verified": "Float32modelmatrix,NaNnumericNULL,rawIDsnotnumericinputs"
+    },
+    {
+      "id": "L14",
+      "kind": "accepted_public_aggregate_sizes",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab017-collection-verification.md",
+      "anchors": [
+        "lines5–10"
+      ],
+      "verified": "Train5317058candidate rows/26000Q;selection817149rows/4000Q;usedforpayloadarithmeticonly",
+      "boundary": "No actualrows,Y/newscore accessed"
+    },
+    {
+      "id": "A_MB",
+      "kind": "frozen_author_input",
+      "path": "/tmp/tlab-brainstorm-r2-controls-models-b-wave013.md",
+      "sha256": "0b6180a81615a074dc95d8551d201664ca4b5945109141c4f503c8d8b55cb00b",
+      "verified": "Fourfields,MB13-R01nulltoy/fixedCfactorization/narrowconditionalcartcontrol/costs",
+      "boundary": "Optionalresearch,no015gate/realpilot"
+    },
+    {
+      "id": "A_RA",
+      "kind": "frozen_author_input",
+      "path": "/tmp/tlab-brainstorm-r2-controls-retrieval-a-wave013.md",
+      "sha256": "0e31ce2a6942bb6e83de9fab0c44071ee068f091fea13dd3894fe95a55173285",
+      "anchors": [
+        "lines9–14",
+        "21–38",
+        "42–62"
+      ],
+      "verified": "Fourfields,R013-E1backgroundIDwitness/LOOalgebra/equalwidthactivitycontrol/threepayloadledger",
+      "boundary": "Optionalresearch,no015gate/realpilot"
+    }
+  ],
+  "entries": [
+    {
+      "existing_local_id": "MB13-R01",
+      "mechanism": "Selectionoptimismcompatiblewithselecteddevelopmentgain;rawcart168commoncontrol isolatesadditionaldistinctcartbreadthconditionalonvolume.",
+      "testable_prediction": "Nullindependenttoy selectedmaxpositive15of16;futureB+Ncart+DcartmayornotbeatB+Ncartonfreshcommonoutcomes.",
+      "nearest_experiment": "ExistingHYP002/013/round005selectionandround026raw/distinct;ownfinite16worlds,8cartrows,2queryretrievalceiling.",
+      "benefit_toward_task1": "Interpret futuregrammarfeedbacknarrowly,distinguishingnewchannel/breadth/selectedmaxwithoutoverstatingautomation.",
+      "disposition": "retain_refine_existing_optional_control_defer_real_pilot",
+      "new_mechanism": false,
+      "new_ID": false,
+      "execution_admitted": false,
+      "matched_control": "OnefitperprecommittedB+Ncart168 andB+Ncart168+Dcart168 withsameQ/C/fullY/population/settings/prefix. Bdiagnosticreference,threefreshfitsmaxortwoifcompatibleB.",
+      "physical_closure": "Controldelta1,treatmentdelta2,union2BIGINTknown-keycounts;existing168coverageonlywithexactreuse;nocategory/recencynewmask. Separatefutureconsumer,currentexact3unchanged. FullR2conditionalrawneeds4delta.",
+      "feedback_cost": "Atmost3frozenB/N/N+Dscoringmetricpasses,newpanel;failedattempts paid,noalpha/action/seed/checkpointsearch. Historical4R2attempts notbalancedforstrategyclaim.",
+      "counterhypothesis": "Rawglobalcartchannel/activityorselectednoiseexplainsfinitegain;conditionalcartDaddsnoestablishedutility.",
+      "literal_check": "AllownarithmeticPASS;functionalnonaliasandmaxbiaspossibilitynotactualquality/pvalue.",
+      "refinements": [
+        "Two-coretrainpayload42536464,not42536000;editorial464bytes",
+        "PuremechanismdiagnosticdoesnotestablishimprovementoverincumbentWwithoutcompatiblepaidreference",
+        "NegativecartcontrastdoesnotexcludeotherR2components/interactions"
+      ],
+      "minimal_future_falsifier": "Existingboundedtypedraw/distinct literal onlyifseparatelyrequested; no new main gate or admission. Sourceandqualityremainfutureoptionalprotocol.",
+      "sources": [
+        "A_MB",
+        "S01",
+        "L01",
+        "L02",
+        "L03",
+        "L05",
+        "L08",
+        "L09",
+        "L14"
+      ]
+    },
+    {
+      "existing_local_id": "R013-E1",
+      "mechanism": "CommonS=B+rawglobalcart168;compareR2breadthwith3deterministiclograwactivityrepresentationsatequalwidth.",
+      "testable_prediction": "A=S+R2beatsM=S+3logsandcompatibleWlaterunderfullpaid/closurecontrol;limitedtothispredeclaredrepresentation/cohort.",
+      "nearest_experiment": "ExistingTLAB009/HYP002/round016/026/029/030;own16rowbackgroundIDandLOOcounterexamples.",
+      "benefit_toward_task1": "Challengeautomaticfeaturecreditagainstalreadyavailableinformationandrepresentationcontrols,withhonestcostandclaimlimits.",
+      "disposition": "retain_refine_existing_optional_control_defer_real_pilot",
+      "new_mechanism": false,
+      "new_ID": false,
+      "execution_admitted": false,
+      "matched_control": "OnefreshAfit/onefreshMfit,sameQ/C/Y/weights/settings/iterations. Sonlythirdfitnotincluded. SameSrawcart,newactivitylogvsdistinctR2representations.",
+      "physical_closure": "S42inputs,A/M45,union7newcolumns(B41+Ncart+3D+3logs);logunsupportedfutureextension;extraNULL/support/masksinvalidatewidth. Current016exact3unchanged.",
+      "feedback_cost": "3modelpayloadsW/A/M,6scalarNDCG/Recallmetrics,3pairedNDCGcontrasts,1commonfullYopening;Wscoringpaid,newbaselinefitnotin2fitceiling;Bfuturefourthpayloadnotincluded.",
+      "LOO_boundary": "ExacttypedDminus=D-Iu(B),invertiblegivenBindicator;whole-second24hboundarypreservedinfloat32nearcutoff;arbitrarysubsecond/highcountencodedinversionnotclaimedasactualfailure.",
+      "counterhypothesis": "Activityrepresentationorcommoncarthelpsasmuchasbreadth;rarepositive/correlationnoiseleavescontrastinconclusive.",
+      "refinements": [
+        "Strongdeclaredrepresentationcontrol,notprovenstrongestpossibleactivitycontrol",
+        "CIcrossing0doesnotequatearmsorproveactivityexplainsoriginalR2gain",
+        "WithoutSonly,bothA/MbeatingWcannotattributegaintorawcartalone",
+        "Handspecified16rowBprojectionnotexhaustiveeligiblepipelinefixture",
+        "Noactualencodedmatrixreview;typedLOOalgebraandfiniteprecisionstagesseparated"
+      ],
+      "minimal_future_falsifier": "Existingliteralraw/distinct/LOO/closure arithmetic, no new mandatorymainframework. Unsupportedlog/unknownsource/nofreshcohort meansdeferunderseparatefutureauthority.",
+      "sources": [
+        "A_RA",
+        "L01",
+        "L02",
+        "L03",
+        "L04",
+        "L05",
+        "L06",
+        "L07",
+        "L09",
+        "L10",
+        "L11",
+        "L12",
+        "L13",
+        "L14"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding": "Currentdelta0.0060922 anddescriptiveCIcross0cannotidentifycause",
+      "disposition": "retain_boundary",
+      "sources": [
+        "A_MB:authorizedaggregate",
+        "A_RA:authorizedaggregate",
+        "S01",
+        "L08"
+      ],
+      "not_claimed": "Actualnullprobability,variance,biasorlikeliestmechanism"
+    },
+    {
+      "finding": "Maxof4toyplusB gives15of16positive,expected0.0057114375",
+      "disposition": "retain_toy_only",
+      "sources": [
+        "own_literal:selection_toy"
+      ],
+      "not_claimed": "Actualpvalue;actualarms shareerrors/Recallguardsandhistory"
+    },
+    {
+      "finding": "R2newglobalcartchannelconfoundswholebundlebreadthinterpretation",
+      "disposition": "retain_refinement",
+      "sources": [
+        "L02",
+        "L03",
+        "L05",
+        "A_MB",
+        "A_RA"
+      ],
+      "not_claimed": "Rawcartexplainsactualgain"
+    },
+    {
+      "finding": "FixedC iscommonarmconstraint;gainr*Deltaa;offCmissunchanged",
+      "disposition": "retain_math",
+      "sources": [
+        "own_literal:fixedC_literal",
+        "A_MB",
+        "L04"
+      ],
+      "not_claimed": "Retrieverchangedoractualcoverageeffectestimated"
+    },
+    {
+      "finding": "Dp168retrievalaliasfulljoinincludingrecent-only;Dp24notexactalias",
+      "disposition": "retain_source_scope",
+      "sources": [
+        "L04:61–95",
+        "L05:15",
+        "L07"
+      ],
+      "not_claimed": "Newtemporalcountsnecessarilyuseful"
+    },
+    {
+      "finding": "Raw/distinctand16rowbackgroundidentitynonaliaswitnessesreproduce",
+      "disposition": "retain_local_information_scope",
+      "sources": [
+        "own_literal:MB_cart_nonalias",
+        "own_literal:RA_source_witness"
+      ],
+      "not_claimed": "ExhaustiveB41/eligibilityassemblercheckoractualrankquality"
+    },
+    {
+      "finding": "LOOisconditionalinformationequivalencegivenexactmembershipB",
+      "disposition": "retain_with_precision_scope",
+      "sources": [
+        "own_literal:LOO",
+        "L03",
+        "L11",
+        "L12",
+        "L13",
+        "L07"
+      ],
+      "not_claimed": "Allsubsecond/float32/highcountdomainsinvertibleoractualsourcefailure"
+    },
+    {
+      "finding": "MB1vs2colsandRA45vs45aredifferentvalidfuturecontrasts",
+      "disposition": "retain_narrow_estimands",
+      "sources": [
+        "A_MB:closure",
+        "A_RA:44–48",
+        "own_literal:costs"
+      ],
+      "not_claimed": "OriginalR2causaldecompositionorsearchpolicysuperiority"
+    },
+    {
+      "finding": "Activitymatchmustnotmeannonsignificanceproves equivalence;Sonlynotincluded",
+      "disposition": "refine_interpretation",
+      "sources": [
+        "A_RA:48,62",
+        "L08"
+      ],
+      "not_claimed": "Neednewmandatoryfit/equivalenceframework"
+    },
+    {
+      "finding": "MBpayloadeditorialerror464bytes;RA514.8Mcells correct",
+      "disposition": "correct_arithmetic_qualify_cost",
+      "sources": [
+        "own_literal:costs",
+        "L14"
+      ],
+      "not_claimed": "PhysicalRSS/throughputfeasibility"
+    },
+    {
+      "finding": "3modelpayloads6metrics3contrasts1Yopeningdifferentunits",
+      "disposition": "retain_explicit_accounting",
+      "sources": [
+        "A_RA:60",
+        "own_literal:costs"
+      ],
+      "not_claimed": "FreeWscoring,newbaselinefitoradditionalopportunity"
+    },
+    {
+      "finding": "Bothsource/qualitycapsunmeasured/ungranted;015unchanged",
+      "disposition": "defer_real_controls",
+      "sources": [
+        "A_MB:costs",
+        "A_RA:58–62"
+      ],
+      "not_claimed": "Currentadmission/unusedslots/heldoutlaboratory"
+    }
+  ],
+  "own_literal_execution": {
+    "script": "/tmp/tlab-wave013-literal-check.py",
+    "result": "/tmp/tlab-wave013-literal-results.json",
+    "receipt": "exec chunkf005cb exit0",
+    "outcome": "pass",
+    "cpu_seconds": 0.0003140000000000018,
+    "imports": "stdlibjson/itertools/math/struct/time/decimal/pathlibonly",
+    "boundary": "Inventedrows/signs/ranks/typedLOO/encoding/payloadarithmetic; noauthor/projectimports,actualdata/modelsorquality"
+  },
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-wave013-skeptic-review.md",
+      "bytes": 14180,
+      "sha256": "e5e115a058ae89e04411263f7541149c066e61679be28c58127c694c740e5d9e"
+    },
+    {
+      "path": "/tmp/tlab-wave013-literal-check.py",
+      "bytes": 6296,
+      "sha256": "9b9d932fa6786cd19c08303177626a252d837eb2a574fc4bf7247388224fddf8"
+    },
+    {
+      "path": "/tmp/tlab-wave013-literal-results.json",
+      "bytes": 2897,
+      "sha256": "71dd76963ca82152c4177b34737c671726d17149cfa7c3c4f6f80b9c8b46e35d"
+    }
+  ],
+  "reviewed_by_helper": false,
+  "unresolved_future_gaps": [
+    "Untouchedcompatiblecohortoutsidecurrentreservedreporting",
+    "Fullsource/protocol/closureandfutureconsumerfor1/2or4delta",
+    "Reviewedlogsemantics/compiler/oracleforRAfuturecontrol",
+    "CompatibleprepaidB/Worrevisedfitandpayloadcounts",
+    "Measuredinclusivecosts/independentpositiveusers/uncertaintyonlyunderfutureauthority"
+  ],
+  "main_priority": "Current015comparison/reportingproceedsindependently; nonewmandatorygate",
+  "future_caps_are_grants": false,
+  "rejected_overclaims": [
+    "Actual93.75percentnullprobability/pvalue",
+    "CIcross0provesnoeffectoractivityequivalence",
+    "FixedCchangedbetweenB/R2",
+    "R2Dp24exactaliasofretrievalDp168",
+    "Scalarbreadthencodesaudienceprofiles",
+    "LOOremovesconditionalinformationgivenexactB",
+    "NewcartcontrolretrospectivelyidentifieswholeR2gain",
+    "Equalcolumns guaranteeequalefficiency/information",
+    "2fits mean2payloadsorfreeW",
+    "Current015/heldoutmaybereusedformechanismlab"
+  ]
+}
