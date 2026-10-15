@@ -142,3 +142,9 @@ Further focused report/reproduction refinements (no new experiments):
 - [Round070 — MIND: перенос арифметики при другом logging/target contract](round-070.md).
 
 [Refinement существующей HYP-001](../backlog-reviews/itemcf-hyp001-refinement.md) требует matched-support контроля в отдельной будущей ItemCF-фазе; нынешние016/heldout не меняются. [Проверка tagged CatBoost1.2.10 formats](../backlog-reviews/catboost-1.2.10-format-source-check.md) уточняет numeric schema/shrink/parameter evidence без новых native jobs.
+
+
+- [Round071 — structural aliases, empirical equality and consumed search opportunities](round-071.md).
+- [Round072 — query-balanced Logloss and user-macro ranking gain are different quantities](round-072.md).
+
+[Concrete fresh-clone implementation plan](../backlog-reviews/tlab018-fresh-clone-implementation-plan.md) separates source-free mechanics, externally anchored artifact replay, new-source regeneration and retraining. Only the first additive replay implementation is currently under development; the plan supplies no private data, execution permission or new budget. These notes add no current016 pruning, weights, programs, fits or heldout changes.
