@@ -489,3 +489,8 @@ Actual recovered-source acceptance remains HOLD until one exact external policy,
 ### Pure reserved-period contract accepted; source/inference still gated
 
 The additive [contract](experiments/heldout-contract.md) passed [independent repaired-code review](backlog-reviews/heldout-contract-independent-rereview.md):16 author plus4 independent cases, including original duplicate-day and calendar-maturity faults. It checks only authenticated snapshots,25 reporting-only/26–31 frozen calendar,12-hour positive simulated decision allowance, B/W closure and all-day prediction-before-target intent. It opens no actual data or model and provides no heldout execution approval. New source/inference/evaluator owners, budgets, semantic proof, native replay and exit-tail seals remain mandatory.
+
+
+### New-date source core and public score-replay prefix accepted
+
+[Source-only core](experiments/heldout-source.md) passed14 author plus3 independent SQL/no-IO cases; it produces only B45+chosen0/3 and neverY. [P0A supplied-score replay](experiments/fresh-clone-reproduction.md) passed22 author plus2 unchanged terminal-fault regressions and a relocated12-row public CLI smoke without private data/artifacts. [Independent evidence](backlog-reviews/heldout-source-and-replay-independent-evidence.md) preserves original failures and the492-test green integration suite. These are separate limited code/mechanics acceptances: actual heldout source/inference/targets remain gated, while private package replay and fresh-source bootstrap remain distinct work.

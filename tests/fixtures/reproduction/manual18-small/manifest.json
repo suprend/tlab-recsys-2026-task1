@@ -1,0 +1,45 @@
+{
+  "availability_delay_seconds": 0,
+  "claim_metrics": null,
+  "estimands": [
+    "conditional_macro_query",
+    "all_query_zero",
+    "conditional_user_macro",
+    "all_user_macro_zero"
+  ],
+  "files": {
+    "candidates": {
+      "path": "candidates.jsonl",
+      "rows": 3,
+      "sha256": "7b5e2aefcfd03f3de2796d4b8f9de70d0e817b44d1d55773fd52bcb689d229a9"
+    },
+    "queries": {
+      "path": "queries.jsonl",
+      "rows": 3,
+      "sha256": "bb354fc694d389137f29c76502a5d6bf47d8bcfe761712583a6d2337eafed4b6"
+    },
+    "scores": {
+      "path": "scores.jsonl",
+      "rows": 3,
+      "sha256": "1bd1ab07388121b8e5c65dd8720704c7d94c649bed29c67844497564fd7cd9f0"
+    },
+    "targets": {
+      "path": "targets.jsonl",
+      "rows": 3,
+      "sha256": "823c8e2c054a64e857af39906644545e32cfbf896f5d597aa83f5fbaec1688db"
+    }
+  },
+  "horizon_hours": 24,
+  "k": 20,
+  "label_available_before": "2020-01-04T00:00:00Z",
+  "query_range": {
+    "end": "2020-01-03T00:00:00Z",
+    "start": "2020-01-01T00:00:00Z"
+  },
+  "scope": "ranking_claim_replay_package",
+  "source_observed_until": "2020-01-04T00:00:00Z",
+  "stage": "synthetic",
+  "target_policy": "full_distinct_targets_not_intersected_with_C",
+  "tie_policy": "raw_score_desc_product_id_asc",
+  "version": 1
+}
