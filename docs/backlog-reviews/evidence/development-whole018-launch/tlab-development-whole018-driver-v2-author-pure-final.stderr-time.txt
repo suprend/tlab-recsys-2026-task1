@@ -1,0 +1,37 @@
+test_late_owner_stops_before_parity (__main__.BudgetTests.test_late_owner_stops_before_parity) ... ok
+test_original_clock_not_future_reset_or_nonfinite (__main__.BudgetTests.test_original_clock_not_future_reset_or_nonfinite) ... ok
+test_parity_delta_retains_original_whole_baseline (__main__.BudgetTests.test_parity_delta_retains_original_whole_baseline) ... ok
+test_unexpected_reaped_child_never_disappears (__main__.BudgetTests.test_unexpected_reaped_child_never_disappears) ... ok
+test_whole_cpu_wall_and_peak_guards (__main__.BudgetTests.test_whole_cpu_wall_and_peak_guards) ... ok
+test_closed_command_preserves_original_clock_and_relative_request (__main__.InterfaceTests.test_closed_command_preserves_original_clock_and_relative_request) ... ok
+test_external_request_sha_cannot_select_other_request (__main__.InterfaceTests.test_external_request_sha_cannot_select_other_request) ... ok
+test_json_duplicates_overflow_and_nonfinite_rejected (__main__.InterfaceTests.test_json_duplicates_overflow_and_nonfinite_rejected) ... ok
+test_metadata_snapshot_cap_stability_and_exact_sha (__main__.InterfaceTests.test_metadata_snapshot_cap_stability_and_exact_sha) ... ok
+test_one_supervise_no_process_or_dynamic_callback_framework (__main__.InterfaceTests.test_one_supervise_no_process_or_dynamic_callback_framework) ... ok
+test_parity_evidence_complete_and_no_grants (__main__.InterfaceTests.test_parity_evidence_complete_and_no_grants) ... ok
+test_preserved_V1_duplicate_parity_key_red_V2_green (__main__.InterfaceTests.test_preserved_V1_duplicate_parity_key_red_V2_green) ... ok
+test_exception_cleanup_unknown_preserved_not_success (__main__.OuterTests.test_exception_cleanup_unknown_preserved_not_success) ... Whole018 driver failed: RuntimeError: owned unknown
+ok
+test_existing_namespace_no_launch_or_overwrite (__main__.OuterTests.test_existing_namespace_no_launch_or_overwrite) ... Whole018 driver failed: ValueError: Existing fixed driver namespace retained: /private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-pure-outer-trsl10qg/CONSUMED.json
+ok
+test_failed_or_unknown_boundary_stops (__main__.OuterTests.test_failed_or_unknown_boundary_stops) ... ok
+test_normal_reap_without_mandatory_parity_stops (__main__.OuterTests.test_normal_reap_without_mandatory_parity_stops) ... Whole018 driver failed: ValueError: Missing or failed mandatory pipeline evidence
+ok
+test_one_supervision_global_limits_raw_flags_preserved (__main__.OuterTests.test_one_supervision_global_limits_raw_flags_preserved) ... ok
+test_checker_failure_preserved_and_no_success (__main__.PipelineTests.test_checker_failure_preserved_and_no_success) ... Whole018 pipeline failed: ValueError: key mismatch
+ok
+test_existing_owner_namespace_not_reused (__main__.PipelineTests.test_existing_owner_namespace_not_reused) ... Whole018 pipeline failed: ValueError: Owner namespace already consumed
+ok
+test_late_owner_never_calls_checker (__main__.PipelineTests.test_late_owner_never_calls_checker) ... Whole018 pipeline failed: ValueError: Owner returned too late; parity reserve retained, no verifier launch
+ok
+test_owner_failure_never_calls_checker (__main__.PipelineTests.test_owner_failure_never_calls_checker) ... Whole018 pipeline failed: RuntimeError: native mocked failure
+ok
+test_owner_then_independent_checker_with_same_original_identity (__main__.PipelineTests.test_owner_then_independent_checker_with_same_original_identity) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.017s
+
+OK
+real 0.06
+user 0.04
+sys 0.01

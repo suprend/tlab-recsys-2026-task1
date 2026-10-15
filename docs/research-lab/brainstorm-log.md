@@ -10,6 +10,14 @@
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 12:45 UTC / 15:45 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
+## Current12:00 checkpoint update —actual 11:59:26UTC:018 original submitted
+
+Root issued and submitted ONE actual Oct22 source-to-fixed-score018 operation: originalsession98791/chunk1b7294, total600CPU/900wall/8GiB, atmost2nativepredictions,0fit/0Y. Root owns polling/reaping; publisher does notpoll/largehash/retry. Exactdriver1c407… and request0d7d99… are staged onlyignored; issuedreceipte2b7325c… binds57smallcurrentpins and full independentWHOLE018 review. Output/resource/actualparity acceptance pending, no source-to-model success claimed. Real015 remains CLOSED.
+
+The earlier11:58:33 prelaunch snapshot was correct before this new handoff and is retained below. RootpreparationV1failed on a validemptylog pin beforeissued/staging; correctedV2 preserved it, noduplicate actualoperation. Conditional33914wallbasis and earlierCODEacceptance remain separate. Nextmaximum12:45UTC anchored12:00; goal/deadline17slots/reservations/solequeue/publisher unchanged. SafeNEXT Rootpoll SAME originalsession, NOTretry; publish only bounded issue/submission proof afterreadback.
+
+## Historical11:58:33 prelaunch checkpoint
+
 ## Current12:00 checkpoint —actual 11:58:33UTC, before original maximum
 
 Source-prefix accepted; exact development core/owner/parity/portable code integrated and limitedCODE accepted. Conditional33914/43200 all-declared active-WALL basis adopted for inert packing; actual600CPU/900wall and real015 remain CLOSED/unrun until separate Root operation decision. Latest targeted inventory confirms six_role_harness whole018driverV2 review completed; Root exact readback/operation remains pending, no claim/run/source-to-model success is inferred.
@@ -404,3 +412,11 @@ Post-publication completeness check found final parity report/ledger/probe outpu
 ###12:00 maximum checkpoint —actual 11:58:33UTC
 
 Saved before12:00 while final whole-driver review awaits Root readback/operation decision. Completed independent review is code evidence, not permission or actual runtime. Next maximum12:45UTC anchored12:00; no new gates/grants/budgets.
+
+### Actual018submission handoff —11:59:26UTC
+
+Original98791 pending, Root-onlypoll/reap,600CPU/900wall/8GiB/2predict/0fit/0Y. EarlierCLOSED entries are historical prelaunch snapshots; real015 remainsCLOSED, outputacceptancepending. No publisher data/native jobs.
+
+### Actual018 launch proof —12:01:55UTC
+
+[Original grant/driver/submission scope](../backlog-reviews/development-whole018-launch.md) retains17 exact small originals plus attributed Root handoff. Rootowns98791poll/reap, publisherjobs0; originalgrantstatus notrewritten and no actualrequestpayload/largefile copied.12:00checkpointactualsubmissionwrite11:59:26 wasbeforemaximum; next12:45 anchored12:00.

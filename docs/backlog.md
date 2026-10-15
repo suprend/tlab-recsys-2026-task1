@@ -25,7 +25,7 @@
 | TLAB-015 | P0 | in_progress: actual B=W toy accepted; chosen3 existing workers +V4r1 CODE repair accepted, wholeV3FAILED/consumed retained; conditional33914/43200 active-WALL basis adopted for inert packing; actual request/heldout closed | Root finitecost/request decision; numeric proposal source_import_review; independent timing_methodology_review; coordinator publication | accepted016; exact whole-decision/prediction seals and independently accepted historical-cost/resource request; optional chosen3 proposal separately reviewed |
 | TLAB-016 | P1 | done:4fits/4looks/1observer; development W=R2 accepted | root implementation; coordinator acceptance; C11 observer | immutable438 model seal; heldout claim separately015 |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
-| TLAB-018 | P0 | in_progress: full typed9 source-prefix accepted; Oct22 core/owner/parity/portable CODE accepted and byte-integrated; whole driver review pending; actual fixed-score replay ungranted; complete018 pending; no poll/retry | Root bounded reproduction decision; execution_scope_audit + disjoint TMP helper; coordinator publication | source-prefix accepted separately; no fit/queryY or complete018 acceptance;018 remains parallel to015 |
+| TLAB-018 | P0 | in_progress: full typed9 source-prefix accepted; Oct22 core/owner/parity/portable CODE accepted and byte-integrated; original Oct22 replay SUBMITTED/session98791 under600CPU/900wall/8GiB; actual parity/output acceptance pending; complete018 pending; no poll/retry | Root bounded reproduction decision; execution_scope_audit + disjoint TMP helper; coordinator publication | source-prefix accepted separately; no fit/queryY or complete018 acceptance;018 remains parallel to015 |
 | TLAB-019 | P0 | done: four fits / 12 prefixes, control sealed | root; independent replay and coordinator acceptance | immutable304-pin control; original failure preserved |
 
 Текущий срез:12 из19 крупных задач приняты;014/015 выполняются;018 частично принят;010–013 сознательно отложены. Зависимость010–013 от smoke008 уже снята, а user×item research/review завершены. Эти необязательные ветви не входят в замороженную процедуру015/016: возврат требует отдельного prospective development/reservation плана, ресурса и владельца, без переиспользования будущих25–31 outcome-метрик для нового выбора. Их исполнение не является prerequisite для завершения текущего отчёта. Исторические blocked-формулировки ниже сохранены как журнал первого среза, не как текущая очередь.
@@ -754,3 +754,9 @@ Both author pairs/separate critiques complete; exact Root research readbacks pen
 ###12:00 checkpoint —actual 11:58:33UTC, early
 
 Conditional33914active-WALL and limitedCODE integration accepted; actual600CPU/900wall and real015 CLOSED/unrun. Whole018 independentdriverV2 review completed per targetedinventory; Rootreadback/exactoperation pending.020 critique complete/Rootpending, no newHYP/gate. Nextmax12:45UTC anchored12:00; unchangedgoal/reservations/scope.
+
+### Actual018 originalsubmission —11:59:26UTC
+
+Rootissued e2b7325c… and originalsession98791/chunk1b7294 nowRUNNING/pending under600CPU900wall8GiB,2predictcap0fit0Y. Rootowns poll/reap; no publisherpoll/largehash/retry. Real015 CLOSED. Outputacceptance/complete018 pending. Previousungranted snapshots remainhistorical; next12:45UTC anchored12:00.
+
+[Original actual018 launch evidence](backlog-reviews/development-whole018-launch.md) records the reviewed once-only grant and separately attributed submission observation; source-to-model success/outputacceptance pending.

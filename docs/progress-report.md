@@ -1,6 +1,6 @@
 # Автоматизация признаков для ранжирования покупок
 
-По состоянию на 15 октября 2026, 11:53:27 UTC, приняты development-пайплайн, полный typed9 source-prefix и ограниченные проверки кода однодневного повтора. Условная оценка затрат33914 из43200 секунд active-WALL принята для подготовки запроса; сам повтор из нового источника и отложенная проверка качества ещё не запускались. Следующий шаг — закончить независимое review целого driver/request и оформить точную операцию;600CPU/900wall и real015 остаются закрыты.
+По состоянию на15 октября2026, 12:01:55 UTC, полный typed9 source-prefix и код механического однодневного повтора приняты; Root запустил один actual018 source-to-fixed-model replay. Исходная операция98791 ещё ожидает завершения и независимой приёмки выходов; обучение и будущие покупки не открываются, реальная отложенная проверка015 закрыта. Следующий шаг — Root проверяет ту же операцию и её ресурсы/полное keyed parity; повторный запуск не разрешён.
 
 Рабочий отчёт по первой задаче T-Lab. Ручной контроль настроен в пределах заранее заданного бюджета и независимо проверен. Четыре ветви автоматизации также выполнены и независимо проверены; неизменённое сравнение на отложенном периоде ещё впереди.
 
@@ -135,3 +135,7 @@ CostV2 37697 отклонён до конечного independently reviewed QA/
 [Scoped acceptance](backlog-reviews/development-v2-and-conditional-wall-acceptance.md) сохраняет ownerV2/parityV2/portable CODE review, исправленные реальные code-review defects и исходные failures. Принятый код установлен exact-byte; проверены только байты и compilation, без нового suite/native/data/model запуска. Это подготовка механического source-to-fixed-model повтора, не его фактический успех.
 
 Пять стадий условного бюджета33914/43200 active-WALL представлены целиком declared upper, measured=0. Root явно принял конечный cohort/managed-terminal/workload/reserve assumptions; aggregate historicalCPU остаётся неизвестным. Условная retrospective feasibility не становится измеренным завершением, runtime grant, свободным остатком для новых работ или качеством модели. Actual600CPU/900wall, real015/25–31 остаются CLOSED; complete018 pending. Исходные29412/37697 rejections и chosen3FAILED сохранены. [018/019 research refinements](research-lab/brainstorm-waves018019-synthesis.md) не добавляют обязательных gates.
+
+## Actual018 submission —15.10.2026 12:01:55UTC
+
+[Original operation](backlog-reviews/development-whole018-launch.md) submitted once as98791/chunk1b7294 under600CPU/900wall/8GiB, atmost2nativepredictions,0fit/0Y. Root-onlypoll/reap; output/parity/lifetime acceptance pending, no success inferred. Earlier ungranted entries are immutable prelaunch snapshots. Conditional33914/43200 wallbasis and real015 CLOSED are unchanged; requestpayload/data/models are not published.
