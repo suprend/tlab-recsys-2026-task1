@@ -1,0 +1,447 @@
+{
+  "version": 1,
+  "status": "FINAL_FRESH_PUBLICATION_V1_REVIEW",
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-adaptive-publication-review-v1.md",
+      "sha256": "97269fe37ad4fb043ec1a4cb1812dbc4fc5f818bf3a8e981372c87ceb072404a",
+      "bytes": 5522
+    },
+    {
+      "path": "/tmp/tlab-adaptive-publication-review-ledger-v1.json",
+      "sha256": "2030d79efe5cc27b1ca244213aefed4cfb576f24280af1403e71c07fab8babfd",
+      "bytes": 2454
+    },
+    {
+      "path": "/tmp/tlab-adaptive-publication-review-initial-freeze-v1.json",
+      "sha256": "35dbd9afcbf3f6ff935b5a6e66c370b27685f1e52ede24c2c61c5c558772ce71",
+      "bytes": 21699
+    },
+    {
+      "path": "/tmp/tlab-adaptive-publication-review-binding-ledger-v1.json",
+      "sha256": "06ab27ac42974cb3dd31b030d9b7b70ae0d1af2ce470b9fd4c250e7ac5093d49",
+      "bytes": 4989
+    }
+  ],
+  "initial_bound_inputs": {
+    "package_freeze": {
+      "path": "/tmp/tlab-adaptive-results-docs-proposal-v1/freeze.json",
+      "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/freeze.json",
+      "sha256": "c5350a9981a5fef2d11b11a6ebb6631ae85d0d9426585ef3075f00aa60160677",
+      "bytes": 12861
+    },
+    "diff": {
+      "path": "/tmp/tlab-adaptive-results-docs-proposal-v1/publication.diff",
+      "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/publication.diff",
+      "sha256": "42f3a95ef390ab5a4b924138a351b5dffba6532adc96f538a03c1f4792e36249",
+      "bytes": 46998
+    },
+    "candidates": [
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-tree-complete-acceptance-v1.json",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-tree-complete-acceptance-v1.json",
+        "candidate_sha256": "435bc1c592f971c64c58cc01baf6916b358c0d812fcb1b261022727720ff2b74",
+        "candidate_bytes": 8216,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/0-tlab-root-adaptive-tree-complete-acceptance-v1.json"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/originals/result.json",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/originals/result.json",
+        "candidate_sha256": "9126386add408b9b4c76a626b8512cb78074f6570dd8b26937a12c49700cf26f",
+        "candidate_bytes": 56368,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/1-result.json"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/originals/inventory.json",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/originals/inventory.json",
+        "candidate_sha256": "7ab84021e2274b578607b9582b48d875ca5b87a4e18fc1e8d33407f0d49504c8",
+        "candidate_bytes": 2017,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/2-inventory.json"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-native-free-regression-acceptance-v2.json",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-native-free-regression-acceptance-v2.json",
+        "candidate_sha256": "c13cfaca4f8765e2072013b3c1771ef50eb8ab3bfe9704c856a4a04815b86b60",
+        "candidate_bytes": 2065,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/3-tlab-root-adaptive-native-free-regression-acceptance-v2.json"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-tree-independent-recovery-issued-v2.json",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-tree-independent-recovery-issued-v2.json",
+        "candidate_sha256": "487380b5e637070d46eb9f75303396f25d915f4948c1344aadb122abc6310663",
+        "candidate_bytes": 1892,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/4-tlab-root-adaptive-tree-independent-recovery-issued-v2.json"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-tree-recovery-code-adoption-v3.json",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-tree-recovery-code-adoption-v3.json",
+        "candidate_sha256": "b62d8b4311dcd764e5e29d84d0cfa06dd35c5783869123856484d0a4188c3b47",
+        "candidate_bytes": 2517,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/5-tlab-root-adaptive-tree-recovery-code-adoption-v3.json"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-recovery-independent-review-v3.md",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-recovery-independent-review-v3.md",
+        "candidate_sha256": "0541f255509c9282e4c1c887d3f89a8a332704aa6ed44d30a2daeae33d6b15ca",
+        "candidate_bytes": 2662,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/6-tlab-adaptive-tree-recovery-independent-review-v3.md"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-test-selector-independent-review-v2.md",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-test-selector-independent-review-v2.md",
+        "candidate_sha256": "8a101e5c090986875fb937d281328b9ccf2b866610ecba92fd8224f7d4aefc2c",
+        "candidate_bytes": 1033,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/7-tlab-adaptive-tree-test-selector-independent-review-v2.md"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-native-call-regression-source-v2.py.txt",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-native-call-regression-source-v2.py.txt",
+        "candidate_sha256": "12e60d223e157f2fe34a73c1b0b28f1c1c986c881ba02bc2f901e901fad7d0bc",
+        "candidate_bytes": 3740,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/8-tlab-adaptive-tree-native-call-regression-source-v2.py.txt"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-independent-verifier-v2-v3.diff",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-independent-verifier-v2-v3.diff",
+        "candidate_sha256": "678bb2b60ae6286aebd5ef60fd8dfa62c278bc5dca0303ea04efa91deb956722",
+        "candidate_bytes": 954,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/9-tlab-adaptive-tree-independent-verifier-v2-v3.diff"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/originals/adaptive_tree_selection_audit-before-v3.py.txt",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/originals/adaptive_tree_selection_audit-before-v3.py.txt",
+        "candidate_sha256": "f66d5f389db22f8189bf918684f2144c32077bfb572fdb3838cbfdffc2111443",
+        "candidate_bytes": 19375,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/10-adaptive_tree_selection_audit-before-v3.py.txt"
+      },
+      {
+        "path": "tests/oracles/adaptive_tree_selection_audit.py",
+        "base_sha256": "f66d5f389db22f8189bf918684f2144c32077bfb572fdb3838cbfdffc2111443",
+        "base_bytes": 19375,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/tests/oracles/adaptive_tree_selection_audit.py",
+        "candidate_sha256": "ddbad1f8bb9b0db308b19ecad5e4ca3fddd6586f2566f30dd8767b6851004c76",
+        "candidate_bytes": 19375,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/11-adaptive_tree_selection_audit.py"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/publication.json",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/publication.json",
+        "candidate_sha256": "1ec35c2dd069a3e131fe501422dd8f6a8f814c033bcb68c17717c926abfebbaf",
+        "candidate_bytes": 4446,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/12-publication.json"
+      },
+      {
+        "path": "docs/backlog-reviews/adaptive-tree-results.json",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/adaptive-tree-results.json",
+        "candidate_sha256": "a29181ba769356936afcc9c8833c3a0f7b1d1a466eb6f0b045f85513716aba74",
+        "candidate_bytes": 5535,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/13-adaptive-tree-results.json"
+      },
+      {
+        "path": "docs/backlog-reviews/adaptive-tree-results.md",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/adaptive-tree-results.md",
+        "candidate_sha256": "94659689a0fea9f1ddbd494ffeaec0ce483c4b763641b362286d2f4f4959e4a7",
+        "candidate_bytes": 5184,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/14-adaptive-tree-results.md"
+      },
+      {
+        "path": "README.md",
+        "base_sha256": "53c3b3c4cde0e16e22ea31f595ca1362a1305056a87cf332043a8b50a412602b",
+        "base_bytes": 19637,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/README.md",
+        "candidate_sha256": "fecd086ff0e9d4aa7914c57ab495d8477d47102b453270aa66e3212adf8cc8e9",
+        "candidate_bytes": 19461,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/15-README.md"
+      },
+      {
+        "path": "docs/progress-report.md",
+        "base_sha256": "18a27c89a49defbc9feccae6493ed044ba313d54b210dcbfe8e1d7a3bb4110b6",
+        "base_bytes": 70914,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/progress-report.md",
+        "candidate_sha256": "58622860dfaca3085849437bb7557797b18407716a18b22a2a2c8ed52628aac6",
+        "candidate_bytes": 71786,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/16-progress-report.md"
+      },
+      {
+        "path": "docs/backlog.md",
+        "base_sha256": "78f08eaf87c90a2d0d5969394b211490f321c8e2a7605d05edef5a09a4f039c3",
+        "base_bytes": 185831,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog.md",
+        "candidate_sha256": "6512be5a205bf8c9ab0bed4552c84c37b64479d953f4780cf0248f35707fa02a",
+        "candidate_bytes": 186610,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/17-backlog.md"
+      },
+      {
+        "path": "docs/experiments/adaptive-tree-selection.md",
+        "base_sha256": "1663573a3246ad536078e061fcbcb85349fecfe48f0a84309b2b4f25d351655f",
+        "base_bytes": 4495,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/experiments/adaptive-tree-selection.md",
+        "candidate_sha256": "333e3a503f129426af097b46320b61b92c9cbd8fe7698f6641fb9459a12f6e21",
+        "candidate_bytes": 4446,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/18-adaptive-tree-selection.md"
+      },
+      {
+        "path": "docs/backlog-reviews/adaptive-tree-selection-preparation.md",
+        "base_sha256": "ab21c3df1763bbb4b75a60e96f72fceab92d79c918f74c1bec81fb84d70fc779",
+        "base_bytes": 2553,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/adaptive-tree-selection-preparation.md",
+        "candidate_sha256": "b1145af43849eb55dbaa32636bbf4665181ab72ad6953f464f80ed3e94641660",
+        "candidate_bytes": 2506,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/19-adaptive-tree-selection-preparation.md"
+      },
+      {
+        "path": "docs/backlog-reviews/adaptive-tree-selection-preparation.json",
+        "base_sha256": "6b5253542546dec153825120f22a4c05c9fd218822f16fe8fe373df5ea1f6cce",
+        "base_bytes": 12898,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/adaptive-tree-selection-preparation.json",
+        "candidate_sha256": "db32122a7804406d53b68cd886616d913923591b3b656743f68d7f70c1b9a678",
+        "candidate_bytes": 13571,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/20-adaptive-tree-selection-preparation.json"
+      },
+      {
+        "path": "docs/research-lab/index.md",
+        "base_sha256": "3a3e0aff2f00448679e7e18cc7f92d44a5745cbb8d0145c560f2fa5cc8da0d4f",
+        "base_bytes": 29428,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/research-lab/index.md",
+        "candidate_sha256": "5ab3709241f466ce69680e2f319dc8d6e51bbee425291f0ae55dbd360a2b45d7",
+        "candidate_bytes": 28936,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/21-index.md"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/progress-report-checkpoint-20261015.json",
+        "base_sha256": "4345e49af716bbfb6dd1a0f5465707ca49108c124665ca39903e2ae09b5b3699",
+        "base_bytes": 80880,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/progress-report-checkpoint-20261015.json",
+        "candidate_sha256": "6741f2e1349a168d007559a4cfb5eb26b391f23aa159731931abbf242f4ae1f3",
+        "candidate_bytes": 81784,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/22-progress-report-checkpoint-20261015.json"
+      },
+      {
+        "path": "docs/backlog-reviews/evidence/adaptive-tree-results/oracle-install-plan.json",
+        "base_sha256": null,
+        "base_bytes": 0,
+        "candidate_path": "/tmp/tlab-adaptive-results-docs-proposal-v1/candidates/docs/backlog-reviews/evidence/adaptive-tree-results/oracle-install-plan.json",
+        "candidate_sha256": "bb13b2900c9ffad60e49acf467785e947494ab52bbfd29de2c03f4b26035c8d7",
+        "candidate_bytes": 687,
+        "snapshot_path": "/tmp/tlab-adaptive-publication-review-inputs-v1/package/23-oracle-install-plan.json"
+      }
+    ],
+    "base_file_bindings": [
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-tree-complete-acceptance-v1.json",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/result.json",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/inventory.json",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-native-free-regression-acceptance-v2.json",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-tree-independent-recovery-issued-v2.json",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-tree-recovery-code-adoption-v3.json",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-recovery-independent-review-v3.md",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-test-selector-independent-review-v2.md",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-native-call-regression-source-v2.py.txt",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-adaptive-tree-independent-verifier-v2-v3.diff",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/adaptive_tree_selection_audit-before-v3.py.txt",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/adaptive_tree_selection_audit.py",
+        "sha256": "f66d5f389db22f8189bf918684f2144c32077bfb572fdb3838cbfdffc2111443",
+        "bytes": 19375,
+        "exists": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/publication.json",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/adaptive-tree-results.json",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/adaptive-tree-results.md",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+        "sha256": "53c3b3c4cde0e16e22ea31f595ca1362a1305056a87cf332043a8b50a412602b",
+        "bytes": 19637,
+        "exists": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+        "sha256": "18a27c89a49defbc9feccae6493ed044ba313d54b210dcbfe8e1d7a3bb4110b6",
+        "bytes": 70914,
+        "exists": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+        "sha256": "78f08eaf87c90a2d0d5969394b211490f321c8e2a7605d05edef5a09a4f039c3",
+        "bytes": 185831,
+        "exists": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/adaptive-tree-selection.md",
+        "sha256": "1663573a3246ad536078e061fcbcb85349fecfe48f0a84309b2b4f25d351655f",
+        "bytes": 4495,
+        "exists": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/adaptive-tree-selection-preparation.md",
+        "sha256": "ab21c3df1763bbb4b75a60e96f72fceab92d79c918f74c1bec81fb84d70fc779",
+        "bytes": 2553,
+        "exists": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/adaptive-tree-selection-preparation.json",
+        "sha256": "6b5253542546dec153825120f22a4c05c9fd218822f16fe8fe373df5ea1f6cce",
+        "bytes": 12898,
+        "exists": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+        "sha256": "3a3e0aff2f00448679e7e18cc7f92d44a5745cbb8d0145c560f2fa5cc8da0d4f",
+        "bytes": 29428,
+        "exists": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/progress-report-checkpoint-20261015.json",
+        "sha256": "4345e49af716bbfb6dd1a0f5465707ca49108c124665ca39903e2ae09b5b3699",
+        "bytes": 80880,
+        "exists": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/oracle-install-plan.json",
+        "sha256": null,
+        "bytes": 0,
+        "exists": false
+      }
+    ],
+    "protected_file_bindings": [
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+        "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+        "bytes": 18580
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/configs/studies/adaptive-tree-selection-oct2019-once.json",
+        "sha256": "6ffe3c7a82854fca25446faf8a580dce83c03584c7f37a81d63d1684b76049a7",
+        "bytes": 11680
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py",
+        "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+        "bytes": 40847
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/configs/reproduction/frozen-bw-oct2019.json",
+        "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+        "bytes": 19412
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+        "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+        "bytes": 300283
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+        "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+        "bytes": 46054
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/reproduce-frozen-comparison.md",
+        "sha256": "d583c37a39b743e41fb8bd528315e8a6102182d4641fe65a5225103542b1c8e7",
+        "bytes": 15308
+      }
+    ],
+    "canonical_HEAD_and_CLEAN": "Root metadata only; no Git read by reviewer",
+    "Root_dispatch_confirmed": true,
+    "all_initial_matches": true,
+    "created_utc": "2026-10-15T20:08:22Z"
+  },
+  "all_final_match": true,
+  "runtime_grant": false
+}

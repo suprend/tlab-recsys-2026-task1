@@ -1,0 +1,75 @@
+"""UNRUN stdlib-only regression; real nested load AST, no model/native/data IO."""
+import ast
+from copy import deepcopy
+import hashlib
+import json
+import math
+from pathlib import Path
+import struct
+import unittest
+
+
+def snapshot(path, sha):
+    with Path(path).open('rb') as stream:
+        raw = stream.read(128*1024+1)
+    assert len(raw) <= 128*1024 and hashlib.sha256(raw).hexdigest() == sha
+    return raw
+
+
+def native_namespace():
+    raw = snapshot('/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_prediction_audit.py',
+                   '3b378274041623ba37dcb5a53a115458f02af4f2665f10821875aaf099d3cf75')
+    tree = ast.parse(raw); wanted = {'need','keys','native_equal'}
+    body = [n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in wanted]
+    assert {n.name for n in body} == wanted
+    ns = dict(math=math,struct=struct)
+    exec(compile(ast.Module(body=body,type_ignores=[]),'<actual-native-helper-AST>','exec'),ns)
+    return ns
+
+
+def load_function(path, sha, recipe, actual):
+    tree = ast.parse(snapshot(path,sha))
+    verify = next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name == 'verify')
+    node = [n for n in ast.walk(verify) if isinstance(n,ast.FunctionDef) and n.name == 'load']
+    assert len(node) == 1
+    need = next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name == 'need')
+    expected = deepcopy(recipe['effective_parameters']); expected['iterations'] = 1200
+    class FakeCatBoost:
+        tree_count_ = 1200
+        feature_names_ = recipe['feature_names']['B']
+        def load_model(self, path, format):
+            assert path == '/fake-no-IO/B.full-1200.cbm' and format == 'cbm'
+        def get_all_params(self): return deepcopy(actual)
+        def get_cat_feature_indices(self): return []
+        def get_text_feature_indices(self): return []
+        def get_embedding_feature_indices(self): return []
+    class FakeFiles:
+        def local(self, name): return '/fake-no-IO/'+name
+    ns = dict(calls={'loads':0},check=lambda:None,CatBoostClassifier=FakeCatBoost,
+              files=FakeFiles(),recipe=recipe,expected_params=expected,N=native_namespace())
+    exec(compile(ast.Module(body=[need,*node],type_ignores=[]),'<actual-nested-load-AST>','exec'),ns)
+    return ns['load']
+
+
+class NativeCallRegression(unittest.TestCase):
+    def test_directional_alias_and_strict_mutations(self):
+        recipe = json.loads(snapshot('/tmp/tlab-public018-clean-20261015-once/configs/reproduction/frozen-bw-oct2019.json',
+                                     '3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec'))
+        expected = deepcopy(recipe['effective_parameters']); expected['iterations'] = 1200
+        actual = deepcopy(expected)
+        actual['bayesian_matrix_reg'] = float(format(expected['bayesian_matrix_reg'],'.10g'))
+        old = '/tmp/tlab-adaptive-tree-independent-verifier-v2.py'
+        new = '/tmp/tlab-adaptive-tree-independent-verifier-v3.py'
+        old_sha = 'f66d5f389db22f8189bf918684f2144c32077bfb572fdb3838cbfdffc2111443'
+        new_sha = 'ddbad1f8bb9b0db308b19ecad5e4ca3fddd6586f2566f30dd8767b6851004c76'
+        with self.assertRaisesRegex(ValueError,'Native parameter float differs'):
+            load_function(old,old_sha,recipe,actual)('B','.full-1200.cbm',1200)
+        load_function(new,new_sha,recipe,actual)('B','.full-1200.cbm',1200)
+        for key,value in [('depth',7),('iterations',1200.0),('unexpected_key',0)]:
+            changed = deepcopy(actual); changed[key] = value
+            with self.subTest(mutation=key), self.assertRaises(ValueError):
+                load_function(new,new_sha,recipe,changed)('B','.full-1200.cbm',1200)
+
+
+if __name__ == '__main__':
+    unittest.main()

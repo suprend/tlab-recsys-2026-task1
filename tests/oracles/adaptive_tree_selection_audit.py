@@ -129,7 +129,7 @@ def verify(output, *, export_root, project_root, scratch_directory, adapter_raw,
             calls['loads'] += 1; check(); model = CatBoostClassifier(); model.load_model(str(files.local(arm+suffix)),format='cbm'); check()
             need(type(model.tree_count_) is int and model.tree_count_ == trees and model.feature_names_ == recipe['feature_names'][arm]
                  and model.get_cat_feature_indices() == model.get_text_feature_indices() == model.get_embedding_feature_indices() == [], 'Exact native model schema/tree count differs')
-            N['native_equal'](expected_params, model.get_all_params()); return model
+            N['native_equal'](model.get_all_params(), expected_params); return model
         own = {}; canonical = {}; curves = {}; base = {}
         for arm in ('B','W'):
             summary = report['arms'][arm]; fit = files.body(arm+'.fit-consumed.json'); canonical[arm] = {}

@@ -1,0 +1,52 @@
+{
+  "V1_failed_attempt": {
+    "exit_code": 1,
+    "failed_before_comparator": "verify.body cannot see nestedtry.load; no native execution or policy failure",
+    "profile_permission_error": "time sysctl kern.clockrate Operation not permitted; not an auto-review rejection, partial profile not whole-success evidence",
+    "reported_profile_partial": {
+      "real": 0.07,
+      "sys": 0.01,
+      "user": 0.04
+    },
+    "source_sha256": "0542484bb8c76bae411d895a82b0d58386f461d85f4a0cdc80312136c0acf8ab",
+    "tool_chunk": "a2dc82"
+  },
+  "V2_actual": {
+    "closed": true,
+    "correct_call_serialized_alias_accepted": true,
+    "exit_code": 0,
+    "external_profile": {
+      "maximum_resident_set_size_bytes": 22478848,
+      "real_seconds": 0.09,
+      "sys_seconds": 0.01,
+      "user_seconds": 0.07
+    },
+    "original_reversed_call_rejected": true,
+    "source": {
+      "bytes": 3740,
+      "path": "/private/tmp/tlab-adaptive-tree-native-call-regression-source-v2.py",
+      "sha256": "12e60d223e157f2fe34a73c1b0b28f1c1c986c881ba02bc2f901e901fad7d0bc"
+    },
+    "strict_mutations": 3,
+    "test_methods": 1,
+    "tool_chunk": "11885d",
+    "wrong_depth_wrong_iteration_type_extra_key_rejected": true
+  },
+  "at_utc": "2026-10-15T19:51:05.592198+00:00",
+  "focused_review": {
+    "bytes": 1033,
+    "path": "/private/tmp/tlab-adaptive-tree-test-selector-independent-review-v2.md",
+    "sha256": "8a101e5c090986875fb937d281328b9ccf2b866610ecba92fd8224f7d4aefc2c"
+  },
+  "native_import_fit_predict_data_Y_models": 0,
+  "native_scientific_acceptance": false,
+  "new_grant_refill": false,
+  "original_study_deadline_monotonic": 88266.876793083,
+  "remaining_verifier_recovery_cpu_seconds": 565,
+  "shared_test_allocation_cpu_seconds": 10,
+  "shared_test_allocation_wall_seconds": 15,
+  "source_delta": "Only verify.body->ast.walk(verify); exactunique load assertion preserved, V1inversebytesexact",
+  "status": "Root_native_free_regression_accepted_V2_original_V1failure_preserved",
+  "test_allocation_covers_both_attempts_and_tail": true,
+  "version": 1
+}

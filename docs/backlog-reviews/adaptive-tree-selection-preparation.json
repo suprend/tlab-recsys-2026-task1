@@ -1,6 +1,5 @@
 {
   "observed_at_utc": "2026-10-15T19:47:54.706085+00:00",
-  "status": "ProducerCLOSED0; firstindependentverifierFAILED; numericacceptancepending; sourceV3/wrapperV2 source-reviewPASS reported; Rootadoption/testpending",
   "user_requirement": "Choose per-model best validation tree rather than use fixed count as new default",
   "scope": "post-final exploratory development; train8-20/selection22-23 only",
   "models": 2,
@@ -58,9 +57,8 @@
     "V2": "samecorrectness+resourcefocusedP2closed Rootadopted",
     "transport": "Rootsourceaccepted, exactsingleV6 producerissued"
   },
-  "publication": "adaptive-tree-producer-terminal-verifier-failure.md",
+  "publication": "adaptive-tree-results.md",
   "install_ownership": "Canonicalprojectsolepublisher; RootownTMPclone/runtimeonly",
-  "next_safe_step": "Root exactV3repairadoption and remaining575/originaldeadline finiteverification decision; no fits or automaticretry/publisherpoll",
   "prior_prelaunch_state": {
     "observed_at_utc": "2026-10-15T18:55:43.587652+00:00",
     "status": "V1 whole reviews complete; one supported output-literal alias P2; V2 narrowrepair and focused rechecks pending; no install/runtime",
@@ -200,7 +198,44 @@
     },
     "publisher_module_execution_tests_native_models_data_jobs": 0
   },
-  "Root_operation": {
+  "historical_actual_fit_predict_count": "not inferred fromsubmission; Root outputs pending",
+  "historical_verifier_wrapper_CODE": {
+    "Root_receipt_sha256": "3d6b97ae6a3cc4ae0f3b4b0e314b25d58a5384f8490f234cb60329273db32b50",
+    "Root_receipt_path": "/tmp/tlab-root-adaptive-verifier-wrapper-code-acceptance-v1.json",
+    "scope": "OriginalCODEaccepted, actual69903failed; V3repair+wrapperV2focusedreviewpending/noadoption",
+    "independent_source_review_sha256": "9cbb29c6590dcbddf5e883b2f40799a402eef9779f23d9723739d747f336c553"
+  },
+  "prior_execution_snapshot_before_failed_verification": {
+    "issued_sha256": "2dbdb327f65c7961a059e6ac0fcb55c3bdb1c2fbdf87eb1a508c8ebf12f5a113",
+    "operation_id": "adaptive-tree-per-model-20261015-once",
+    "session": 73792,
+    "chunk": "88be2a",
+    "state_from_Root_handoff": "SUBMITTED_RUNNING",
+    "fits_complete_selectedtrees_outputs_terminal_accepted": false,
+    "publisher_poll_or_runtime": false,
+    "whole_study_original_START_noreset": true,
+    "whole_study_limits": {
+      "cpu_seconds": 4200,
+      "rss_bytes": 12884901888,
+      "spill_bytes": 17179869184,
+      "wall_origin": "original producer driver START, noreset acrossverifier; Rootwillderiveactualremaining before independentcall",
+      "wall_seconds": 3600
+    },
+    "producer_limits": {
+      "cpu_seconds": 3500,
+      "rss_bytes": 12884901888,
+      "wall_seconds": 2700
+    },
+    "independent_verifier": "reservednotyetissued",
+    "latest_Root_liveness_handoff": {
+      "chunk": "5ae78b",
+      "state": "LIVE fromRootdirectmessage; models/curvesnotaccepted",
+      "publisher_poll": false
+    }
+  },
+  "historical_status_before_complete_acceptance": "ProducerCLOSED0; firstindependentverifierFAILED; numericacceptancepending; sourceV3/wrapperV2 source-reviewPASS reported; Rootadoption/testpending",
+  "status": "ROOT_ACCEPTED_complete_adaptive_development_study",
+  "historical_Root_operation_before_recovery": {
     "producer": {
       "Root_receipt_sha256": "5c1c801aa8b782cd183b355f962f68929237c3bfad7688b7fad1289835feeac8",
       "session": 73792,
@@ -264,39 +299,18 @@
     "absolute_deadline": 88266.876793083,
     "numericacceptance": false
   },
-  "actual_fit_predict_count": "not inferred fromsubmission; Root outputs pending",
-  "verifier_wrapper_CODE": {
-    "Root_receipt_sha256": "3d6b97ae6a3cc4ae0f3b4b0e314b25d58a5384f8490f234cb60329273db32b50",
-    "Root_receipt_path": "/tmp/tlab-root-adaptive-verifier-wrapper-code-acceptance-v1.json",
-    "scope": "OriginalCODEaccepted, actual69903failed; V3repair+wrapperV2focusedreviewpending/noadoption",
-    "independent_source_review_sha256": "9cbb29c6590dcbddf5e883b2f40799a402eef9779f23d9723739d747f336c553"
+  "accepted_results": {
+    "path": "adaptive-tree-results.json",
+    "Root_receipt_sha256": "435bc1c592f971c64c58cc01baf6916b358c0d812fcb1b261022727720ff2b74",
+    "B_selected_trees": 1189,
+    "W_selected_trees": 403,
+    "selection_NDCG_B": 0.4602082145463257,
+    "selection_NDCG_W": 0.46564617925183804,
+    "independent_recovery_session": 41266,
+    "closed_exit0": true,
+    "exploratory": true,
+    "original_final_reused": false
   },
-  "prior_execution_snapshot_before_failed_verification": {
-    "issued_sha256": "2dbdb327f65c7961a059e6ac0fcb55c3bdb1c2fbdf87eb1a508c8ebf12f5a113",
-    "operation_id": "adaptive-tree-per-model-20261015-once",
-    "session": 73792,
-    "chunk": "88be2a",
-    "state_from_Root_handoff": "SUBMITTED_RUNNING",
-    "fits_complete_selectedtrees_outputs_terminal_accepted": false,
-    "publisher_poll_or_runtime": false,
-    "whole_study_original_START_noreset": true,
-    "whole_study_limits": {
-      "cpu_seconds": 4200,
-      "rss_bytes": 12884901888,
-      "spill_bytes": 17179869184,
-      "wall_origin": "original producer driver START, noreset acrossverifier; Rootwillderiveactualremaining before independentcall",
-      "wall_seconds": 3600
-    },
-    "producer_limits": {
-      "cpu_seconds": 3500,
-      "rss_bytes": 12884901888,
-      "wall_seconds": 2700
-    },
-    "independent_verifier": "reservednotyetissued",
-    "latest_Root_liveness_handoff": {
-      "chunk": "5ae78b",
-      "state": "LIVE fromRootdirectmessage; models/curvesnotaccepted",
-      "publisher_poll": false
-    }
-  }
+  "historical_next_safe_step": "Root exactV3repairadoption and remaining575/originaldeadline finiteverification decision; no fits or automaticretry/publisherpoll",
+  "next_safe_step": "Oneindependentprose/resultscopec review thenRootpublicationadoption; no additionalnativejobs"
 }

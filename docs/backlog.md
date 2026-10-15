@@ -6,6 +6,8 @@
 
 ## Текущий статус
 
+15 октября 2026 года, 20:06 UTC — адаптивное обучение независимо принято: B выбрал 1189 деревьев, W — 403. Валидационный NDCG@20 — 0.460208 и 0.465646 против 0.458611 и 0.464703 при 300 деревьях того же обучения. Обе модели полностью обучены до 1200; выбор использовал 2400 зависимых значений на прежней валидации после финальной оценки. [Результат расширения TLAB-019](backlog-reviews/adaptive-tree-results.md). Принято 14 из 19 исходных задач. Предыдущие датированные статусы ниже сохранены как история.
+
 Обновление 2026-10-15T19:47:54.706085+00:00: [producer73792 CLOSED0, независимый verifier69903 FAILED](backlog-reviews/adaptive-tree-producer-terminal-verifier-failure.md) до curves из-за callerargumentorder; selectedcounts/metrics НЕ приняты. Rawunknowntrue/failed_unknown_cleanup сохранены;25conservativeCPU с600→575, originalStudySTART/deadline безreset. V3repair/wrapperV2source-reviewPASS reported, Rootadoption/testpending, новыхfits/retry/install нет.015/018done14/19 unchanged;039/040researchaccepted0newIDs/gates,041обаblindFIRST получены; separatecriticRoot-only послеguard.
 
 Обновление 2026-10-15T19:29:13.775042+00:00: [037](research-lab/brainstorm-wave037-synthesis.md) и[038](research-lab/brainstorm-wave038-synthesis.md) Rootaccepted как уточнения019/013,0новыхID/tasks/gates/grants. Старый6-prefix intent superseded/unrun; новая native2fit ветвь73792 отдельновыдана, latestRootLIVE7d5858, outputs/lifetime pending. Прежний bounded300study валиден; его parity не новыйgate.039criticcomplete/Rootreadbackpending; next20:15UTC отscheduled19:30 неизменен.
@@ -112,7 +114,7 @@ Current failure checkpoint 13:22:10UTC: [оригинальный real015 outer/
 | TLAB-016 | P1 | done:4fits/4looks/1observer; development W=R2 accepted | root implementation; coordinator acceptance; C11 observer | immutable438 model seal; heldout claim separately015 |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
 | TLAB-018 | P0 | done: full public raw→15freshcollections→2NEWfixedB/W fits→comparison on newlockedMac environment accepted; independent QC/fullY/chosen3/metadata/all41/44matrices/weights/native/fullranks/4estimands/200bootstrap passed, both original processes CLOSED0. Oldfailures/costs and core18 proof boundary preserved | Root acceptance; solepublisher docs appendix review | 14/19; no new quality/search/speed/Windows claim |
-| TLAB-019 | P0 | done: four fits / 12 prefixes, control sealed | root; independent replay and coordinator acceptance | immutable304-pin control; original failure preserved |
+| TLAB-019 | P0 | done: исходные 4 обучения / 12 префиксов; расширение с 2 обучениями / 2400 зависимыми проверками принято | Root; независимая проверка и публикация координатором | Прежний контроль и ошибки сохранены; [новый результат](backlog-reviews/adaptive-tree-results.md) получен после финальной оценки |
 
 Текущий срез:14 из19 крупных задач приняты, включая015 и018;014 выполняется как research;010–013 сознательно отложены. Зависимость010–013 от smoke008 уже снята, а user×item research/review завершены. Эти необязательные ветви не входят в замороженную процедуру015/016: возврат требует отдельного prospective development/reservation плана, ресурса и владельца, без переиспользования будущих25–31 outcome-метрик для нового выбора. Их исполнение не является prerequisite для завершения текущего отчёта. Исторические blocked-формулировки ниже сохранены как журнал первого среза, не как текущая очередь.
 

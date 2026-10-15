@@ -1,6 +1,6 @@
 # Подготовка адаптивного числа деревьев
 
-[ProducerCLOSED0, первая независимая проверка FAILED](adaptive-tree-producer-terminal-verifier-failure.md). Counts/curves/metrics pending; Узкий V3source-direction repair получил source-reviewPASS; Root adoption/test pending. Исходные015/018done14/19 сохранены; adaptive ветвь exploratory послеfinal. Общий selector/studyCLI: [инструкция](../experiments/adaptive-tree-selection.md).
+[Адаптивное исследование принято](adaptive-tree-results.md): для B выбраны 1189 деревьев, для W — 403. Два полных обучения до 1200 деревьев и 2400 зависимых значений на валидации проверены независимо, включая матрицы, сохранённые оценки и ранжирование. Прежние ошибки проверки и их затраты сохранены. Это дополнительное исследование после финальной оценки; в проекте принято 14 из 19 задач; статусы TLAB-015 и TLAB-018 сохранены. [Общий API и команда для принятого снимка данных](../experiments/adaptive-tree-selection.md).
 
 Новый план: две B/W модели обучаются до compute ceiling1200; каждая отдельно выбирает лучший observed prefix1…1200 по conditional query-macro fullY NDCG@20 и сохраняется после shrink. Это до2400 зависимых validation checks, а не независимые подтверждения. Глобальная tolerance band выбирает самое раннее дерево среди близких к global maximum; native early stopping не заявлен. Предложенная оптимизация считает stage curves на73 fullY-positive queries, включая off-C/empty-C; полные выбранные scores/ranks затем проверяются на всех4000 selectionQ.
 

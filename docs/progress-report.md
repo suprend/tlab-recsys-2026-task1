@@ -1,5 +1,9 @@
 # Автоматизация признаков для ранжирования покупок
 
+Текущий срез от 15 октября 2026 года, 20:06 UTC: адаптивное обучение независимо принято. Для B выбраны 1189 деревьев, для W — 403; валидационный NDCG@20 — 0.460208 и 0.465646 против 0.458611 и 0.464703 при 300 деревьях того же обучения. Обе модели полностью обучались до 1200 деревьев, затем размер выбирался отдельно. Исследование использует 2400 зависимых значений качества на прежней валидации; новой финальной оценки и доказанной экономии обучения нет. [Принятые результаты](backlog-reviews/adaptive-tree-results.md). В проекте принято 14 из 19 задач; статусы TLAB-015 и TLAB-018 сохранены.
+
+Ниже датированные промежуточные статусы сохранены как история; они не отменяют текущую приёмку.
+
 Обновление 2026-10-15T19:47:54.706085+00:00: [producer73792 CLOSED0, независимый verifier69903 FAILED](backlog-reviews/adaptive-tree-producer-terminal-verifier-failure.md) до curves из-за callerargumentorder; selectedcounts/metrics НЕ приняты. Rawunknowntrue/failed_unknown_cleanup сохранены;25conservativeCPU с600→575, originalStudySTART/deadline безreset. V3repair/wrapperV2source-reviewPASS reported, Rootadoption/testpending, новыхfits/retry/install нет.015/018done14/19 unchanged;039/040researchaccepted0newIDs/gates,041обаblindFIRST получены; separatecriticRoot-only послеguard.
 
 Обновление 2026-10-15T19:15:13.062161+00:00: [адаптивная V2 принята как CODE и установлена](backlog-reviews/adaptive-tree-v2-install-and-issued.md); Root отдельно отправил ОДИН producer73792/88be2a, RUNNING по handoff. Это максимум2новых fits/1200ceiling/до2400зависимых devchecks, selectedtrees/results/terminal/lifetime pending; independentverifier пока reserved/unissued. Нет publisherpoll/retry/nativeработ.015/018done14/19 и old300study/final неизменны;019extensionactive.

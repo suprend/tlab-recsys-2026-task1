@@ -1,0 +1,195 @@
+{
+  "Root_checks": "Whole actual native verifier result structure reviewed without dumping2400numbers; all4canonicalmatrices exactly equal prioracceptedindependentwitnesses; all2400finitecurves compared atalreadydeclared1e-12, independentlyrecoveredearliestglobalband best; all4estimandmetrics checked;18currentownedoutputSHA/bytes unchanged; actualclosed/reaped0 externalprofile and rawV6 checked; originalsharedclock preserved.",
+  "Root_metadata_checker_failure_preserved": {
+    "chunk": "0c3bff",
+    "correction": "No scientific/code/tolerance/model change; compare all2400 withoriginal1e-12 andsameexactselectedtrees/ranks, succeeded in this receipt.",
+    "exit_code": 1,
+    "reason": "Root mistakenly required bitwise equality of independently summed metric curves; predeclared oracle uses1e-12. Diagnostic5cd465 showed max2.220446049250313e-16 onbothcurves."
+  },
+  "accepted_at_utc": "2026-10-15T19:54:51.514665+00:00",
+  "arms": {
+    "B": {
+      "at_ceiling": false,
+      "distance_from_ceiling": 11,
+      "gain_vs_same_fit300": 0.0015974861052024947,
+      "global_maximum_band_tolerance": 1e-12,
+      "independent_conditional_NDCG20": 0.4602082145463257,
+      "independent_conditional_Recall20": 0.5900195694716243,
+      "max_independent_vs_producer_curve_absolute_difference": 2.220446049250313e-16,
+      "maximum_trained_trees": 1200,
+      "same_fit_prefix1200_NDCG20": 0.45515245774593477,
+      "same_fit_prefix300_NDCG20": 0.4586107284411232,
+      "same_k_values": {
+        "1189": 0.4602082145463257,
+        "1200": 0.45515245774593477,
+        "300": 0.4586107284411232,
+        "403": 0.45789014623263297,
+        "600": 0.4569773633373079
+      },
+      "selected_trees": 1189
+    },
+    "W": {
+      "at_ceiling": false,
+      "distance_from_ceiling": 797,
+      "gain_vs_same_fit300": 0.0009433018676767158,
+      "global_maximum_band_tolerance": 1e-12,
+      "independent_conditional_NDCG20": 0.46564617925183804,
+      "independent_conditional_Recall20": 0.5919765166340509,
+      "max_independent_vs_producer_curve_absolute_difference": 2.220446049250313e-16,
+      "maximum_trained_trees": 1200,
+      "same_fit_prefix1200_NDCG20": 0.46381544258293805,
+      "same_fit_prefix300_NDCG20": 0.46470287738416133,
+      "same_k_values": {
+        "1189": 0.46381544258293805,
+        "1200": 0.46381544258293805,
+        "300": 0.46470287738416133,
+        "403": 0.46564617925183804,
+        "600": 0.46201688714227074
+      },
+      "selected_trees": 403
+    }
+  },
+  "goal": "active",
+  "independent_result": {
+    "bytes": 56368,
+    "path": "/private/tmp/tlab-adaptive-tree-v6-verifier-recovery-v2-20261015-once/result.json",
+    "sha256": "9126386add408b9b4c76a626b8512cb78074f6570dd8b26937a12c49700cf26f"
+  },
+  "native_free_regression": {
+    "bytes": 2065,
+    "path": "/private/tmp/tlab-root-adaptive-native-free-regression-acceptance-v2.json",
+    "sha256": "c13cfaca4f8765e2072013b3c1771ef50eb8ab3bfe9704c856a4a04815b86b60"
+  },
+  "native_work": {
+    "accepted_independent_replay": {
+      "checkpoints": 2400,
+      "loads": 4,
+      "predicts": 4,
+      "streams": 2
+    },
+    "full_prediction_output_units": 3268596,
+    "max_trees_each": 1200,
+    "new_producer_fits": 2,
+    "original_failed_verifier_first_model_load_paid_separately": true,
+    "producer_dependent_validation_checkpoints": 2400,
+    "saved_selected_scores_checked": 1634298,
+    "verifier_new_fits": 0
+  },
+  "next_due_utc": "2026-10-15T21:00:00Z",
+  "observed_facts": {
+    "bytes": 1385,
+    "path": "/private/tmp/tlab-adaptive-tree-v6-verifier-recovery-v2-20261015-once/observed.json",
+    "sha256": "04e2c99d5e48990f288eca4057cd319d53c94e4009e26550834343eeeb03a9e7"
+  },
+  "original_failed_verifier": {
+    "bytes": 4809,
+    "path": "/private/tmp/tlab-root-adaptive-tree-independent-verifier-failure-v1.json",
+    "sha256": "b605722e8a090ef0fd935b70fb5896119926daa22395f88e157e5f4caea98fae"
+  },
+  "output_inventory": {
+    "bytes": 2017,
+    "path": "/private/tmp/tlab-adaptive-tree-v6-verifier-recovery-v2-20261015-once/inventory.json",
+    "sha256": "7ab84021e2274b578607b9582b48d875ca5b87a4e18fc1e8d33407f0d49504c8"
+  },
+  "per_arm_optimized_W_minus_B_NDCG20": 0.005437964705512333,
+  "producer_report": {
+    "bytes": 21033,
+    "path": "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/adaptive-tree-selection-1200-once/report.json",
+    "sha256": "50b689ff74843c10957eeb033030322e4b97798de1b84bfbf8d94976d40149b6"
+  },
+  "producer_terminal": {
+    "bytes": 2001,
+    "path": "/private/tmp/tlab-root-adaptive-tree-producer-terminal-v2.json",
+    "sha256": "5c1c801aa8b782cd183b355f962f68929237c3bfad7688b7fad1289835feeac8"
+  },
+  "publication": "Solecoordinator may nowinstall exactV3oracle ddbad and publishboundedresults/curves/smalloriginalevidence. No CBM/NPZ/raw/Parquet publication. OriginalreportDOC/source/recipe/lock remainprotected.",
+  "recovery_issue": {
+    "bytes": 1892,
+    "path": "/private/tmp/tlab-root-adaptive-tree-independent-recovery-issued-v2.json",
+    "sha256": "487380b5e637070d46eb9f75303396f25d915f4948c1344aadb122abc6310663"
+  },
+  "recovery_terminal": {
+    "closed": true,
+    "exit_code": 0,
+    "external_profile": {
+      "maximum_resident_set_size_bytes": 3914547200,
+      "real_seconds": 34.18,
+      "sys_seconds": 1.09,
+      "user_seconds": 43.94
+    },
+    "raw_V6": {
+      "actual_cpu": 45.035329,
+      "actual_total_cpu_seconds": null,
+      "arbitrary_descendant_containment": false,
+      "cpu_upper_seconds": 47.035365999999996,
+      "direct_child_inclusive_cpu": 44.827782,
+      "elapsed_seconds": 34.16459066601237,
+      "elapsed_upper_seconds": 39.16459066601237,
+      "errors": [],
+      "exit_code": 0,
+      "finalization_cpu_reserve_seconds": 2.0,
+      "observed_job_peak_rss_bytes": 3943186432,
+      "observed_process_count": 1,
+      "observed_total_cpu_seconds": 45.035329,
+      "reaped": true,
+      "rss_is_sampled_not_hard_limit": true,
+      "sampled_cpu_high": 44.99026875,
+      "sampled_job_rss_high": 3943186432,
+      "samples": 1012,
+      "scope": "synthetic_harness_process_supervision",
+      "signaled_pids": [],
+      "status": "verified_normal_exit",
+      "stop_reason": null,
+      "supervisor_exit_tail_measured": false,
+      "supervisor_finalization_hard_cpu_seconds": 2,
+      "supervisor_self_cpu": 0.207556,
+      "survivors_at_terminal_scan": [],
+      "unknown_active_work": false,
+      "wait4_child_cpu_seconds": 44.827782,
+      "wall_seconds": 34.164545666004415,
+      "worker_ledger_verified": false
+    },
+    "session": 41266,
+    "submission_chunk": "dd9ca8",
+    "terminal_chunk": "03ad40"
+  },
+  "resource_accounting": {
+    "absolute_deadline_monotonic": 88266.876793083,
+    "accepted_monotonic": 87468.887750583,
+    "actual_total_study_CPU_seconds": null,
+    "allocation_sum": 4200,
+    "conservative_allocations": {
+      "Root_shared_tail_reserve": 100,
+      "both_stdlib_regressions": 10,
+      "original_failed_verifier": 25,
+      "producer": 3500,
+      "recovery_inclusive": 565
+    },
+    "first_failed_stdlib_test_partial_CPU_profile": 0.05,
+    "no_reset_no_refill": true,
+    "original_V6_null_total_CPU_flags_retained": true,
+    "original_started_monotonic": 84666.876793083,
+    "sampled_RSS_not_hard_limit": true,
+    "sum_complete_external_CPU_profiles_excluding_first_partial_test_and_Root": 2649.62,
+    "whole_cpu_ceiling": 4200,
+    "whole_elapsed_wall_through_this_acceptance": 2802.0109575829993
+  },
+  "science_scope": {
+    "exploratory_after_original_final_reporting": true,
+    "final25_31_used": false,
+    "fullY_targets": 96,
+    "global_optimality_beyond1200": false,
+    "multiple_fold_CV": false,
+    "native_early_stopping": false,
+    "old015018_frozen_results_unchanged": true,
+    "per_arm_selected_k_contrast_not_fixed_k_feature_effect": true,
+    "quality_superiority_confirmed": false,
+    "selection_days": "2019-Oct22\u201323",
+    "training_compute_savings_proved": false,
+    "training_days": "2019-Oct8\u201320",
+    "validation_positive_fullY_queries": 73,
+    "validation_queries": 4000
+  },
+  "status": "Root_ACCEPTED_complete_adaptive_tree_development_study_and_independent_recovery",
+  "version": 1
+}
