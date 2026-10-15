@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026,16:40:54UTC.015/reportDONE,018partial13of19; publicV3installed/13core14methodintegrationaccepted, fullrawnewfits/newenvpending.032criticCOMPLETE/Rootreadbackpending. nextmax17:15UTC от16:30.
+Обновлён 15 октября 2026, 17:25:10 UTC. TLAB015/отчёт завершены; producer79330 CLOSED/reaped EXIT0, процесс принят, независимые численные выходы pending. TLAB018 partial, 13 из 19; волны032–034 Root accepted, новых ID/grants нет. Следующий максимум 18:00 UTC от17:15.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,7 +8,7 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 17:15 UTC / 20:15 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 18:00 UTC / 21:00 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
 ## Early15:00 checkpoint / exact current inventory — 2026-10-15T14:49:34.014907+00:00
 
@@ -683,3 +683,27 @@ Root clarification032A09b1f9cc — subsequent supplement, не FIRST evidence. M
 Обновление 16:40:54UTC: [publicV3 fourfileinstallation/integration приняты](../backlog-reviews/public018-v3-integration-install.md),13realcores/14methodsPASS once,22ownedmemoryconnections/0auditviolations,0realCatBoost/ML/data/models. Source/recipe/tests/DOC установлены byte-exact16:36:24, no testpackage marker; публичная инструкция и READMEusage доступны. Полный raw→freshcollections→две NEW fixedB/W fits→comparison/freshclone-newvenv пока UNRUN/UNGRANTED,018partial13/19;015/reportDONE. Rootnext — exactremoteHEAD/четыреpins и отдельное freshclone/lockedenv setup решение, затем producer/output operations; публикатор0runtime/tests.032criticcomplete/Rootreadbackpending, не новыеHYP/grants. Early16:22checkpoint/next17:15UTC от исходного16:30 сохраняются,33914/43200/1000/300 и исходныйgoal не reset.
 
 Original86286CLOSED/reaped8cf815EXIT0 не опрашивался/не повторялся. NativeDuckDBmemory22connections доказаны,0realCatBoost/ML; publisher только installcompile/bytechecks. Старые authorzerochildUNKNOWN и producerpendingflags сохраняются. Фактические оба032FIRST и один critic завершены, текущие activeauthors не выдумываются; следующая ротация Root.
+
+
+## Ранний17:15 после032/033 — 2026-10-15T17:09:04.401541+00:00
+
+Ранний17:15checkpoint фактически 17:09:04UTC: freshclone exactd35 и новая locked .venv-locked приняты Root; oldoffline setup68538FAILED/unknowntrue сохранён, online5013CLOSED0/no retry. Fullproducer79330SUBMITTED/RUNNING по Root handoff, отдельные4200CPU/3600wall/12GiB/16GiBspill и≤2NEW fixed300tree fits train8–20/selection22–23; output/fullterminal/independentacceptance PENDING,018partial13/19. Privateapprovedspec не публикуется, Rootalone polls/controls, publisher0data/native/process jobs. AdapterV2 CODEaccepted только,actualverifier notgranted/не установлен.032/033Rootresearchaccepted0IDs/tasks/grants;034bothFIRSTcomplete/Rootодинcritic послеpins, activeauthors не выдумываются.015/reportDONE/finalCIcross0/11historicalfits19looks неизменны. Зафиксирован срокследующей максимальной отметки18:00UTC/21:00МСК от исходного17:15, раньше после двух следующих завершённых research rounds; не от ранней записи/новыхидей, исходныйgoal/deadline17slots/33914/43200/1000/300 не reset.
+
+RootsetupHEADrelease после закрытия68538 подтверждён; cloneowns exactd35, protectedfour/deps/recipe/lock unchanged, docs-only publication allowed. Oldrootunknown/pendingflags immutable; новых quality/heldout25–31 labels для выбора нет.033иadapter CODE receipts фактическиsmall-hashchecked;034FIRSTreceived, отдельный critic только Root, publisher не dispatch.
+
+
+## 032/033/archive/acceptedenv/liveproducer — 2026-10-15T17:22:25.911912+00:00
+
+Обновление 17:22:25 UTC: [чистое окружение принято, полный producer 79330 работает](../backlog-reviews/public018-fresh-environment-and-producer.md); последнее Root-наблюдение 17:15:40 подтверждает только промежуточные metadata, полные выходы и lifetime ещё не приняты. TLAB015 и отчёт завершены, принято 13 из 19 задач; TLAB018 partial, final CI включает ноль. Исследования [032](brainstorm-wave032-synthesis.md), [033](brainstorm-wave033-synthesis.md) и [034](brainstorm-wave034-synthesis.md) приняты как existing-family refinements без новых ID, задач и grants; adapter V2 принят только как CODE, не установлен и не запускался. Старый offline failure/unknown сохранён, protected code/deps/recipe/lock не изменены; executable Root spec и большие выходы не публикуются. Ранний checkpoint 17:09:04 покрывает 17:15; следующий максимум 18:00 UTC от исходного якоря 17:15, runtime остаётся у Root.
+
+032A subsequentclarification отдельноотFIRST; одинcritic последвухdispatchprompts,0новыхIDs/jobs.033unsupportedT unavailable/T_partial отдельно, fullidentitybeforeASTdedup;9/17 толькоprospectiveceiling.034META не добавляет обязательных papers/tests; existing018 producer/output/lifetime остаётся текущим действием. RootreleasedpublicationHOLD послеoldsetupclosed; sourceclone exactd35 не меняется, currentREADME триошибочныеcurrentclaims исправлены минимально. Source-sanityV1/V2onlyreportedambienttrigger, newenvaccepted отдельно отproducer, executableapprovedspec excluded.
+
+
+## Исходный producer завершён, независимая численная проверка ожидается — 2026-10-15T17:25:10.733413+00:00
+
+Обновление 17:25:10 UTC: [полный producer 79330 завершился EXIT0, процесс принят](../backlog-reviews/public018-fresh-environment-and-producer.md); две новые модели и comparison произведены, независимая численная проверка ещё ожидается. TLAB018 partial, принято 13 из 19 задач; TLAB015 и отчёт завершены, final CI включает ноль. Волны [032](brainstorm-wave032-synthesis.md), [033](brainstorm-wave033-synthesis.md), [034](brainstorm-wave034-synthesis.md) приняты без новых ID/задач/grants; защищённый код и sourceclone d35 не изменены. Оригинальный 79330 CLOSED/reaped, повтор и дальнейший poll не выполняются; следующий максимум 18:00 UTC от якоря 17:15.
+
+[Сохранена подготовительная ошибка публикатора](../backlog-reviews/evidence/032034-publisher-preparation-failure/publication.json): TMP helper ожидал одно вхождение manifest literal вместо двух; проект на момент ошибки не изменялся. После исправления cardinality source скомпилирован и docs batch выполнен. Это не тест/операция producer и не даёт runtime authority.
+
+
+035: к 2026-10-15T17:27:01.721046+00:00 получены оба независимых FIRST ModelsA и RetrievalA, шесть фактических SHA совпали. Тексты не смешивались до авторских freezes; отдельный скептик назначается только Root, исследовательская приёмка пока pending. Новых задач/исполнительных допусков нет; это не задерживает основной независимый output review018 и не сдвигает18:00.

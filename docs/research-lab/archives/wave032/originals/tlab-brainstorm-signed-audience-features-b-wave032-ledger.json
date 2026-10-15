@@ -1,0 +1,168 @@
+{
+  "wave": "032",
+  "role": "independent_FIRST_A_features_b",
+  "created_at_utc": "2026-10-15T16:21:55.096590+00:00",
+  "word_count": 418,
+  "new_ids": [],
+  "novel_mechanisms": 0,
+  "disposition": "refine HYP001/TLAB012 +HYP002/HYP046 +round074; futureapproximateprimitive notadmitted",
+  "four_fields": {
+    "mechanism": "Shared signeditemaudience sketches plus exactbinarydegrees/selfremoval; meanunshrunkcosine canfactor throughqueryreference vector.",
+    "prediction": "Repeated requestedpostingintersections may becheaper, butfullmembership/sketchbuild/scan/queryhistorywork can dominate.",
+    "nearest_experiment": "<=24inventedevents4users/items3anchors2tinysignedmaps; exactvectors/postings andprojectiontransitionoracle, collision/expiry/NULL/ownuser cases; UNRUN/ungranted.",
+    "task1_benefit": "A typed approximate executionchoice inside existingcompatibilityfamily, noadditionalpredictiveinformation or guaranteedutility."
+  },
+  "definition": {
+    "source": "Strictpastglobal rawviewbag[S,t),membershipwindow[max(S,t-168h),t);NULLuserignoredonlydistinctprojection.",
+    "audience": "a_i(v)=1 iffqualifyingviewexists; d_i=sum_v a_i(v).",
+    "sketch": "S_i[b]=sum_{v:h(v)=b}s(v)*a_i(v);commonhash/signmapacrossallitems.",
+    "self_removal": "S_i^(-u)=S_i-a_i(u)*s(u)*unit(h(u));degree^(-u)=d_i-a_i(u).",
+    "mean": "For same declaredH_u excludingi, average estimated normalizedpairdot overcomplete|H|,undefinedtermszeroonlywithcoverage/missingflags. Factoringhistorysum islegalbecauseallnorms fixedexactperpair audience, not normalizedsketchnorm.",
+    "norms": "Binarydegree isexactL2squarednorm. Rawweightedcountvariant requires sum_of_squares, notdegree, andisnotadmitted here.",
+    "not_preserved": "Existing c>=3 threshold,c/(c+10) shrinkage andmaxcannot be folded through this mean sum; target isunshrunkmean only.",
+    "error": "Approxnormalizeddot cannegative/>1; no automaticclip/noexactcosrange/supportclaim.",
+    "membership": "Exactrefcounts+occurrences or reviewedlateststate required;sketchalonenosufficientdistinctexpirytruth.",
+    "clock": "Peerbucket excluded atanchor; lowerinclusive;anchorexpiry evenifnoarrivals;futureupdatesdo notrewriteoldanswers."
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "url": "https://arxiv.org/html/0902.2206v5",
+      "accessed": "2026-10-15",
+      "title": "Feature Hashing for Large Scale Multitask Learning",
+      "authors": [
+        "KilianWeinberger",
+        "AnirbanDasgupta",
+        "JoshAttenberg",
+        "JohnLangford",
+        "AlexSmola"
+      ],
+      "version": "v5dated2010-02-27; originalICML2009paper",
+      "anchors": "Lemma2lines76-79 unbiasedinnerproduct/variance;Theorem3/Corollary4lines83-97conditionaldistortion;AppendixDlines302-306previousproofcorrection",
+      "verified_scope": "Signedhashinnerproductexpectation anddistortionunderstatedrandommap/vectorconditions; notuniversalexactcosine/REES46quality.",
+      "read_limit": "HTMLdefinitionindexnotation inconsistent; adaptation definedexplicitly andcheckedagainstLemma2/AppendixA algebra, no codeexecution."
+    },
+    {
+      "id": "S2_metadata_only",
+      "url": "https://www.researchwithrutgers.org/en/publications/finding-frequent-items-in-data-streams-2/",
+      "accessed": "2026-10-15",
+      "title": "Finding Frequent Items in Data Streams",
+      "authors": [
+        "MosesCharikar",
+        "KevinChen",
+        "MartinFarach-Colton"
+      ],
+      "year": 2002,
+      "doi": "10.1007/3-540-45465-9_59",
+      "read_scope": "Authorinstitution indexedpublicationmetadata/abstract only;authorPDFhttps://www.cs.rutgers.edu/~farach/pubs/FrequentStream.pdf returnedInternalError.",
+      "not_used_for_algorithm_claims": "No originalCountSketchpointquery/median/runtime proof claimed; actualmechanism supportedbyS1."
+    }
+  ],
+  "canonical_dedup": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "anchors": "TLAB012/HYP001;existingItemCFfixedC/laterreservation",
+      "scope": "Alreadyexactitemneighborcompatibility, ownuserremovalbeforecosine, supportsandcost."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/features/09-user-item/02-item-neighbors.md",
+      "anchors": "P0binaryaudience/selfsubtraction/mean;P2postings/requestedpairscost",
+      "scope": "Ourtargetunshrunkmean isrelatedbutdoesnotreproduceexistingthreshold/shrinkagemax."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/features/09-user-item/05-item-audience.md",
+      "scope": "Existingaudienceprofileprototypes/selfremoval/supportNULL;ouraudiencesareuserIDvectors,notcategoryprofileprototypes."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/features/09-user-item/review-05-08.md",
+      "lines": [
+        15,
+        17,
+        19,
+        25,
+        33,
+        35
+      ],
+      "scope": "Support/ownuser/fold/completecost limits;noALS/walkqualityclaim."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/features/09-user-item/06-learned-space.md",
+      "anchors": "P0ALS/coldnormsupport/costHYP051",
+      "scope": "Sketch isnoALSfactorlearning ortrainedvocabulary;samelearnedspacefamily namesnotnewnessproof."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-074.md",
+      "line": 26,
+      "scope": "Signedhashedinnerproductdistortion alreadycited;collisiondoesnotestablishrecommendationcompatibility."
+    }
+  ],
+  "complete_cost": {
+    "E": "Allglobalqualifyingrawrowsread/processed;notoutputrowcount.",
+    "I": "Retainedrequireditemaudiences,notnecessarilyC-only;historyitemsvectorsneeded.",
+    "r_b": "rindependent/sketchmaps ofbbuckets;designvaluesunfixed/ungranted.",
+    "sketch_storage": "O(I*r*b)numericpayload+key/hash/index/allocatoroverhead.",
+    "exact_membership": "SeparateKitem/userstatesplusoccurrence/latestexpiry andqueue/compactionpeak;canapproachE;noglobalmemorysavingguarantee.",
+    "updates": "O(r*E)hash work plusmembership/order/expiry.",
+    "query": "O(r*b*|H|)queryreference plusO(r*b)percandidate;permapreduce/errorworkpaid.",
+    "full_pipeline": [
+      "Globalsourceauth/read/sort",
+      "Exactmembership/expiry",
+      "Sketchinitializationandupdates",
+      "Exactnorms/ownuserlookup",
+      "Historyandcandidateindexes",
+      "CompleteB41+newscore/support/maskexport/readback",
+      "Everyseed/failedsetting/cleanup",
+      "Anyseparatelyauthorizednative/fit/scoringwork"
+    ],
+    "strong_controls": [
+      "Independentexactvector/postingsoracle correctness",
+      "Optimizedcachedfullpostings/sparsereference atsameunshrunkmean/time/norm/history/fulloutputcontract forcost",
+      "EligibleB/Watfuturenewreservedqualitypanel withsameQ/C/fullY"
+    ],
+    "no_claim": "No costfeasibility/approxerror/nativequalitymeasured;sketchsettingnotexecutiongrant."
+  },
+  "future_literal_only": {
+    "status": "UNRUN/ungranted",
+    "events_max": 24,
+    "users_items_each": 4,
+    "anchors": 3,
+    "signed_maps": 2,
+    "cpu_seconds": 15,
+    "wall_seconds": 30,
+    "memory_MiB": 128,
+    "native": 0,
+    "fits": 0,
+    "Y": 0
+  },
+  "actual_actions": {
+    "peer032_read": false,
+    "helpers": 0,
+    "agents": 0,
+    "experiments": 0,
+    "fixtures_executed": 0,
+    "actualevents_data": 0,
+    "DB": 0,
+    "SQL": 0,
+    "models": 0,
+    "Y": 0,
+    "native": 0,
+    "fits": 0,
+    "predict": 0,
+    "downloads": 0,
+    "project_writes": 0,
+    "Git": 0,
+    "grants": 0,
+    "main_gates": 0
+  },
+  "read_failures": [
+    "Initial nonexistent09-embeddingsglob stopped;correctedtoexisting09-user-itempaths.",
+    "OriginalCountSketchauthorPDFcouldnotopen; onlymetadata used."
+  ],
+  "unresolved": [
+    "Hashfamily/seed/r/b/serialization/errorbudget unchosen andmustfreeze beforefuturetest.",
+    "Membershipandcompletephysicalcost mayeraseallgain.",
+    "Unshrunkmean isdifferentfromexistingthresholded/shrunkItemCF;noalias/exactnessclaim.",
+    "Noqualitylookorcurrentfinaladaptationallowed."
+  ],
+  "current_main_scope": "Rootsole runtime;publicV3metadataone-linefix/20-30integration pending perassignment,unchanged;next16:30originalanchorunchanged."
+}

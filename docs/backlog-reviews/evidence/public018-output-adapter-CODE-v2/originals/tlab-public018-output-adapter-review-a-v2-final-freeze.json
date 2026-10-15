@@ -1,0 +1,313 @@
+{
+  "version": 2,
+  "status": "FINAL_FRESH_NARROW_SOURCE_ONLY",
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-public018-output-adapter-review-a-v2.md",
+      "sha256": "99f7c3b94c06edcc169c89e4a052f243ec0763e520417ba9a6b07fe753b58d6a",
+      "bytes": 3427
+    },
+    {
+      "path": "/tmp/tlab-public018-output-adapter-review-a-v2-ledger.json",
+      "sha256": "6b45c00115b892beba7026576bf07220db329c0c8381337d1aef6fbbafe22725",
+      "bytes": 2002
+    },
+    {
+      "path": "/tmp/tlab-public018-output-adapter-review-a-v2-initial-freeze.json",
+      "sha256": "008d4883dd8eb7c2140c7e5d7d22b7416a87e55a6da3e09524bfbc8b2d4e0c60",
+      "bytes": 6844
+    },
+    {
+      "path": "/tmp/tlab-public018-output-adapter-review-a-v2-ast-ledger.json",
+      "sha256": "6ca9dc43ee3dcdee620630a02fad57ea57a58f6e88e48ed18fb182e2c3297dfc",
+      "bytes": 526
+    }
+  ],
+  "repair_files": [
+    {
+      "bytes": 36143,
+      "path": "/tmp/tlab-public018-actual-output-adapter-v1.py",
+      "sha256": "779608493da2abd80f169e46f97d0b94aa4b240d9b301ce8375777201c2e25df",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/0-tlab-public018-actual-output-adapter-v1.py",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 5493,
+      "path": "/tmp/tlab-public018-actual-output-adapter-interface-v1.md",
+      "sha256": "689986e984be758fb55814ab993848015c9e0b7b8fc8f91f03968f4a2ece102b",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/1-tlab-public018-actual-output-adapter-interface-v1.md",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 8697,
+      "path": "/tmp/tlab-public018-actual-output-adapter-manifest-v1.json",
+      "sha256": "60bf749292567810845f293aad659fc73664ec5f2e38b087e04c36e36d021199",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/2-tlab-public018-actual-output-adapter-manifest-v1.json",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 3280,
+      "path": "/tmp/tlab-public018-actual-output-adapter-freeze-v1.json",
+      "sha256": "dc3a340322b27639e06be71d157ebf3f6e9c5f2877c206f89daf6c8dcfd536b5",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/3-tlab-public018-actual-output-adapter-freeze-v1.json",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 9046,
+      "path": "/tmp/tlab-public018-output-adapter-review-a-v1.md",
+      "sha256": "16d98f3d142e30237cfb951b2e0bc65709c88e890fa7c2c8bddc8c699b8a502d",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/4-tlab-public018-output-adapter-review-a-v1.md",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 9171,
+      "path": "/tmp/tlab-public018-output-adapter-review-b-report-v1.md",
+      "sha256": "e513869e4c426263a5788035c17e15a35ceb3dbfa14c4021f45dcf5f039fbaad",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/5-tlab-public018-output-adapter-review-b-report-v1.md",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 40847,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py",
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/6-reproduce_frozen_comparison.py",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 74037,
+      "kind": "model",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/feature_program_model_audit.py",
+      "sha256": "e7d34647450dd8c55e7b1e6aeed8ed050be91316027388136394f69c8246b814",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/7-feature_program_model_audit.py",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 28790,
+      "kind": "source",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_source_audit.py",
+      "sha256": "43e34d4d4d38734e7a01d63f9778726b4714885881cde6573e5431583040cf8f",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/8-heldout_source_audit.py",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 17317,
+      "kind": "native",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_prediction_audit.py",
+      "sha256": "3b378274041623ba37dcb5a53a115458f02af4f2665f10821875aaf099d3cf75",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/9-heldout_prediction_audit.py",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 744,
+      "path": "/tmp/tlab-public018-output-adapter-review-b-numpy-context/manifest.json",
+      "sha256": "f6e90a890a2d56256e94d61fa1d3470c7261a0c361ee2b6c433c6696ff284823",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/10-manifest.json",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 36882,
+      "path": "/tmp/tlab-public018-output-adapter-review-b-numpy-context/0-_format_impl.py",
+      "sha256": "5d7fd66e8c78d0bd9fab82e8893609ba88f7fcd3569eaebb0748f40768e85c16",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/11-0-_format_impl.py",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 96284,
+      "path": "/tmp/tlab-public018-output-adapter-review-b-numpy-context/1-_npyio_impl.py",
+      "sha256": "51eb4572baad1e8198f71b3488a3cbcdb81ac85aa3c15cc2708cd907198a1fb5",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/12-1-_npyio_impl.py",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 3756,
+      "path": "/tmp/tlab-public018-actual-output-adapter-manifest-v2.json",
+      "sha256": "07c3f6b560a912662a0e8ec4dca289f0542cc8436a9a7e8e2d3d33a72219cd3d",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/13-tlab-public018-actual-output-adapter-manifest-v2.json",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 38507,
+      "path": "/tmp/tlab-public018-actual-output-adapter-v2.py",
+      "sha256": "96e00f3394ad19ab8920885d519aee90c419efd1d7fe97414d6db0fb57c68fa7",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/14-tlab-public018-actual-output-adapter-v2.py",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 6356,
+      "path": "/tmp/tlab-public018-actual-output-adapter-interface-v2.md",
+      "sha256": "66cae1777310e9e3a5365c09b5bd78be123bc81f26270bc8f04b32fd5f9fa400",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/15-tlab-public018-actual-output-adapter-interface-v2.md",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 13644,
+      "path": "/tmp/tlab-public018-actual-output-adapter-v1-v2.diff",
+      "sha256": "7e353da7cd30228f5789c0d1b6a7acdc70d25c021edceb3b87f922df0129f836",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/16-tlab-public018-actual-output-adapter-v1-v2.diff",
+      "initial_fresh": true
+    },
+    {
+      "bytes": 4498,
+      "path": "/tmp/tlab-public018-actual-output-adapter-repair-receipt-v2.json",
+      "sha256": "01da62aef56cd29b9e1a7b8fe5dc5b6f9f6d2f0e62d78c02c14e9a18586277bc",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/17-tlab-public018-actual-output-adapter-repair-receipt-v2.json",
+      "initial_fresh": true
+    },
+    {
+      "path": "/tmp/tlab-public018-actual-output-adapter-freeze-v2.json",
+      "bytes": 3791,
+      "sha256": "a7e3153c5cad2f4201050f85a18659c4787f8ab4d6f5b5212d174bb3aa32eb1d",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-review-a-v2-inputs/18-tlab-public018-actual-output-adapter-freeze-v2.json",
+      "initial_fresh": true
+    }
+  ],
+  "prior_whole_review_files": [
+    {
+      "original_path": "/tmp/tlab-public018-actual-output-adapter-freeze-v1.json",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/0-tlab-public018-actual-output-adapter-freeze-v1.json",
+      "bytes": 3280,
+      "sha256": "dc3a340322b27639e06be71d157ebf3f6e9c5f2877c206f89daf6c8dcfd536b5"
+    },
+    {
+      "original_path": "/tmp/tlab-public018-actual-output-adapter-manifest-v1.json",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/1-tlab-public018-actual-output-adapter-manifest-v1.json",
+      "bytes": 8697,
+      "sha256": "60bf749292567810845f293aad659fc73664ec5f2e38b087e04c36e36d021199"
+    },
+    {
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/feature_program_model_audit.py",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/2-feature_program_model_audit.py",
+      "bytes": 74037,
+      "sha256": "e7d34647450dd8c55e7b1e6aeed8ed050be91316027388136394f69c8246b814"
+    },
+    {
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_source_audit.py",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/3-heldout_source_audit.py",
+      "bytes": 28790,
+      "sha256": "43e34d4d4d38734e7a01d63f9778726b4714885881cde6573e5431583040cf8f"
+    },
+    {
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_prediction_audit.py",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/4-heldout_prediction_audit.py",
+      "bytes": 17317,
+      "sha256": "3b378274041623ba37dcb5a53a115458f02af4f2665f10821875aaf099d3cf75"
+    },
+    {
+      "original_path": "/tmp/tlab-public018-actual-output-adapter-v1.py",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/5-tlab-public018-actual-output-adapter-v1.py",
+      "bytes": 36143,
+      "sha256": "779608493da2abd80f169e46f97d0b94aa4b240d9b301ce8375777201c2e25df"
+    },
+    {
+      "original_path": "/tmp/tlab-public018-actual-output-adapter-interface-v1.md",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/6-tlab-public018-actual-output-adapter-interface-v1.md",
+      "bytes": 5493,
+      "sha256": "689986e984be758fb55814ab993848015c9e0b7b8fc8f91f03968f4a2ece102b"
+    },
+    {
+      "original_path": "/tmp/tlab-public018-adapter-stdlib-check-v1.py",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/7-tlab-public018-adapter-stdlib-check-v1.py",
+      "bytes": 5362,
+      "sha256": "02c1132971e32b1eb3173ccb3939af9589e50593ae1101e1edbc9693f6beff63"
+    },
+    {
+      "original_path": "/tmp/tlab-public018-adapter-stdlib-final-result-v1.json",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/8-tlab-public018-adapter-stdlib-final-result-v1.json",
+      "bytes": 492,
+      "sha256": "5cd34ee83d4bd59e6317acfdf7b51ea729fce6340449fe38c335e6a072f66622"
+    },
+    {
+      "original_path": "/tmp/tlab-public018-adapter-stdlib-final-check-v1.log",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/9-tlab-public018-adapter-stdlib-final-check-v1.log",
+      "bytes": 430,
+      "sha256": "e8689742f2b24eb857f1c74654d1bd75871040eb9b00d449c8886b5fab756d18"
+    },
+    {
+      "original_path": "/tmp/tlab-public018-adapter-stdlib-initial-check-v1.py",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/10-tlab-public018-adapter-stdlib-initial-check-v1.py",
+      "bytes": 5178,
+      "sha256": "e3d1308966071e49f6e81bef303175c9104da6fbc9fb3bb8a0df7e742f82b934"
+    },
+    {
+      "original_path": "/tmp/tlab-public018-adapter-stdlib-initial-result-v1.json",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/11-tlab-public018-adapter-stdlib-initial-result-v1.json",
+      "bytes": 492,
+      "sha256": "a9875635ba0283e8d6640a529f95600dd66f060d5a42c2dd3851331f47d21d21"
+    },
+    {
+      "original_path": "/tmp/tlab-public018-adapter-stdlib-initial-check-v1.log",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/12-tlab-public018-adapter-stdlib-initial-check-v1.log",
+      "bytes": 430,
+      "sha256": "8a250e47d3f0afcea7cbfb8ba06eca4ae2dacf0db17a993f79f7ec56c6214f08"
+    },
+    {
+      "original_path": "/tmp/tlab-frozen-bw-oct2019-v2.json",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/13-tlab-frozen-bw-oct2019-v2.json",
+      "bytes": 19412,
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec"
+    },
+    {
+      "original_path": "/tmp/tlab-reproduce-frozen-comparison-run-doc-v2.md",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/14-tlab-reproduce-frozen-comparison-run-doc-v2.md",
+      "bytes": 12139,
+      "sha256": "6c098cf326a4da6670278a855d0b4ad502df1f4cbad9e2056667acfde9fbddc5"
+    },
+    {
+      "original_path": "/tmp/tlab-reproduce-frozen-comparison-v2.py",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/15-tlab-reproduce-frozen-comparison-v2.py",
+      "bytes": 40827,
+      "sha256": "9fed90517ab3637640343badae762432d464de50d627a12f0fa93be1ece39106"
+    },
+    {
+      "original_path": "/tmp/test_reproduce_frozen_comparison_v2.py",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/16-test_reproduce_frozen_comparison_v2.py",
+      "bytes": 33917,
+      "sha256": "f75fc3ba807c3e6345de9fc776f58e27f5ab4a351546b8488f28659256f86f3d"
+    },
+    {
+      "original_path": "/tmp/tlab-reproduce-frozen-comparison-v3.py",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/17-tlab-reproduce-frozen-comparison-v3.py",
+      "bytes": 40847,
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85"
+    },
+    {
+      "original_path": "/tmp/tlab-public-frozen-comparison-v2-v3-entry.diff",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/18-tlab-public-frozen-comparison-v2-v3-entry.diff",
+      "bytes": 869,
+      "sha256": "c767698b46268b768a6a89935ef223fa3669180ce75f39de1f45654e1fd44472"
+    },
+    {
+      "original_path": "/tmp/tlab-root-public018-public-code-acceptance-v3.json",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/19-tlab-root-public018-public-code-acceptance-v3.json",
+      "bytes": 29339,
+      "sha256": "7e93246fdef156b13616f9b3c5640bfb2d0c3e5fd88a50e07df0948e84b5e8dc"
+    },
+    {
+      "original_path": "/tmp/tlab-frozen-comparison-independent-verification-plan-v1.md",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/20-tlab-frozen-comparison-independent-verification-plan-v1.md",
+      "bytes": 9207,
+      "sha256": "9d5d6729d7bf4e2c675b155dbefd2b93528c6ba02606e44bf9ac1422f249cf60"
+    },
+    {
+      "original_path": "/tmp/tlab-root-public018-independent-verifier-design-readback-v1.json",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/21-tlab-root-public018-independent-verifier-design-readback-v1.json",
+      "bytes": 5991,
+      "sha256": "bbae8cf088ed5fbc4af2faf4a66b1b55611b541dc94787b0b54e1c86ea62a404"
+    },
+    {
+      "original_path": "/tmp/tlab-root-public018-V3-integration-acceptance-v1.json",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/22-tlab-root-public018-V3-integration-acceptance-v1.json",
+      "bytes": 8339,
+      "sha256": "79d1b051cb9d541529afecd7466bf1a9a2c5fb849e1778c2a253cfe303d5564f"
+    },
+    {
+      "original_path": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+      "snapshot_path": "/tmp/tlab-public018-output-adapter-shared-review-v1/23-SKILL.md",
+      "bytes": 10077,
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43"
+    }
+  ],
+  "all_originals_and_copies_match": true,
+  "tests_probes_executed": 0,
+  "runtime_grant": false
+}

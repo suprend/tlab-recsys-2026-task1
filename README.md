@@ -21,7 +21,7 @@ uv run --frozen python -m scripts.reproduce_frozen_comparison \
   --rss-bytes "$RSS_BYTES" --spill-bytes "$SPILL_BYTES"
 ```
 
-Подготовка lockedPython3.12, ресурсные условия, поддерживаемая среда и unittest discovery — в инструкции. Код принят после [интеграции13реальных cores и14тестов](docs/backlog-reviews/public018-v3-integration-install.md) на invented events/FakeML; реальный fullraw→twofreshfits запуск и fresh-clone/newvenv proof ещё pending. TLAB018 partial,13из19 задач принято; параметры текущегоB/W и final results сохраняются.
+Подготовка lockedPython3.12, ресурсные условия, поддерживаемая среда и unittest discovery — в инструкции. Код принят после [интеграции13реальных cores и14тестов](docs/backlog-reviews/public018-v3-integration-install.md) на invented events/FakeML; [freshclone/newvenv принят](docs/backlog-reviews/public018-fresh-environment-and-producer.md), полный raw→twofreshfits producer завершился EXIT0; Root принял процесс, независимая численная проверка ожидается. TLAB018 partial,13из19 задач принято; параметры текущегоB/W и final results сохраняются.
 
 ## Публичный пример без исходных данных
 
@@ -79,7 +79,7 @@ NLP: [план сравнений](docs/nlp-experiments.md), [BM25 и TF–IDF](
 
 В Git сохраняем код, notebook с агрегированными выводами, протокол и зависимости. Исходные события, отдельные пользовательские истории, идентификаторы пользователей и сессий в выводах, модели, локальные пути и секреты не публикуем. Данные восстанавливаются из авторского источника; репозиторий их не распространяет.
 
-Рабочая постановка и следующие решения описаны в [плане экспериментов](docs/experiment-plan.md); окончательный protocol/model lock ещё не принят. Контекст выбора курсовой и личные заметки остаются отдельно от этого репозитория.
+Рабочая постановка и следующие решения описаны в [плане экспериментов](docs/experiment-plan.md); protocol/model locks приняты до [неизменённой отложенной проверки](docs/backlog-reviews/real015-heldout-results.md). Контекст выбора курсовой и личные заметки остаются отдельно от этого репозитория.
 
 
 Исходный исследовательский портфель завершён: 58 независимых записок и 13 групповых ревью. Разделы: [user × item](docs/features/09-user-item/index.md), [candidate generation](docs/candidate-generation/index.md), [model selection](docs/model-selection/index.md), [loss selection](docs/loss-selection/index.md). В каждом index сохранены выводы, источники и расхождения.
@@ -88,7 +88,7 @@ NLP: [план сравнений](docs/nlp-experiments.md), [BM25 и TF–IDF](
 
 Воспроизведение pipeline: [development collections](docs/experiments/development-collection.md), [CPU окружение](docs/experiments/cpu-environment.md), [manual18](docs/experiments/manual-features.md), [smoke training](docs/experiments/boosting-baselines.md). Первая версия [переносимой source-verification CLI (018)](docs/experiments/verification-workflow.md) принята на независимых synthetic fault checks для существующих sealed manual18 collections; полное восстановление и выдача новых approvals ещё не реализованы. Ignored данные/модели/approval-файлы не входят в clone, и новые hashes сами по себе не заменяют независимую проверку.
 
-Текущий читаемый результат — [рабочий технический отчёт](docs/progress-report.md): ручной контроль 019 и четыре сравнения 016 приняты. На выборке подбора победил R2: ΔNDCG≈0.006092, описательный интервал включает 0. Отложенная проверка 25–31 октября ещё не выполнялась; полное воспроизведение от исходных данных из чистого clone пока не показано.
+Текущий читаемый результат — [рабочий технический отчёт](docs/progress-report.md): ручной контроль 019 и четыре сравнения 016 приняты. На выборке подбора победил R2: ΔNDCG≈0.006092, описательный интервал включает 0. Отложенная проверка принята: final26–31 NDCG@20 B=0.459825,W=0.464947,95%CI разности[−0.010433,+0.018561] включает0. Freshclone/lockedenv приняты; полный018producer завершился EXIT0, независимая численная приёмка ещё ожидается.
 
 
 Автоматизация: [генератор программ признаков](docs/experiments/feature-programs.md) создаёт определения по человечески заданной схеме и шаблонам. Значения дополнительных признаков и четыре сопоставимые модели 016 независимо проверены; это не доказывает выигрыш на отложенной выборке или превосходство стратегии с ручными приоритетами. [Исполненный пример генерации без данных](docs/experiments/automation-walkthrough.md) показывает два блока и автоматически добавленную маску пропуска.

@@ -1,0 +1,36 @@
+{
+  "scope": "literal single-keyword repair only; source/AST review",
+  "inputs": [
+    {
+      "original": "/tmp/tlab-public018-fresh-setup-once.py",
+      "copy": "/tmp/tlab-public018-fresh-setup-source-sanity-v1-input.py",
+      "sha256": "8ebe072e8bc808a6c368da975691f4236dd30e8bd4726ce13bbfd56712f7498e",
+      "bytes": 5945,
+      "terminal_unchanged": true
+    },
+    {
+      "original": "/tmp/tlab-public018-fresh-setup-once-v2.py",
+      "copy": "/tmp/tlab-public018-fresh-setup-source-sanity-v2-input.py",
+      "sha256": "ef1d84f2a7f868ec237aad8133d55b83a767e69f0335fb1f54b0bbf7e436e457",
+      "bytes": 6005,
+      "terminal_unchanged": true
+    },
+    {
+      "original": "/tmp/tlab-root-public018-fresh-setup-v1-superseded-before-submission.json",
+      "copy": "/tmp/tlab-public018-fresh-setup-source-sanity-v2-supersession-input.json",
+      "sha256": "13d0a7a2f85930c03477e952d1b06f4ea295817b8450ac4033faffc4584c2344",
+      "bytes": 626,
+      "terminal_unchanged": true
+    }
+  ],
+  "original_conditional_P2": "closed for inherited UV_PROJECT_ENVIRONMENT trigger",
+  "source_diff_only": "explicit UV_PROJECT_ENVIRONMENT=str(CLONE / .venv) keyword",
+  "V2_AST_compile_parse": true,
+  "actual_setup_native_Git_probe_tests_children_project_operations": 0,
+  "runtime_grant": false,
+  "report": {
+    "path": "/tmp/tlab-public018-fresh-setup-source-sanity-v2.md",
+    "sha256": "cdc52daf09e2fab6f7f6d9ef6f574a8e03f5f961c2a021d4412ce9686870f3ac",
+    "words": 112
+  }
+}

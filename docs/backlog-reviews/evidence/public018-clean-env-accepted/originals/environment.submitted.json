@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/tmp/tlab-public018-clean-20261015-once/.venv-locked/bin/python",
+    "-I",
+    "-B",
+    "-c",
+    "import importlib.metadata as m,json,sys;print(json.dumps(dict(python=list(sys.version_info[:3]),prefix=sys.prefix,base_prefix=sys.base_prefix,versions={k:m.version(k) for k in [\"catboost\",\"duckdb\",\"numpy\",\"pandas\"]})))"
+  ],
+  "cwd": "/tmp/tlab-public018-clean-20261015-once",
+  "state": "submitted"
+}

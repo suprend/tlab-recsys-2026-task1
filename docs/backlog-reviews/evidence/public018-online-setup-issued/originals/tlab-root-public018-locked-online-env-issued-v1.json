@@ -1,0 +1,45 @@
+{
+  "authority": "Explicit Root engineering decision within existing user-authorized autonomy after inspected known offlinecache failure",
+  "constraints": [
+    "Own isolated cache and new environment",
+    "uv frozen lock/no builds/no HTTP retries/no Python downloads",
+    "No manual version changes/fallback/automaticretry/cloneoverwrite",
+    "No native imports/data/model/Y/fit/predict",
+    "Do not borrow priorclosedallowances"
+  ],
+  "exact_command": [
+    "/usr/bin/time",
+    "-p",
+    "/Users/mdpospelov/tlab-recsys-2026/.venv/bin/python",
+    "-I",
+    "-S",
+    "-B",
+    "/tmp/tlab-public018-locked-online-env-once-v2.py"
+  ],
+  "issued_at_utc": "2026-10-15T16:56:26.471338+00:00",
+  "limits": {
+    "Root_tail_cpu": 15,
+    "Root_tail_wall": 30,
+    "V6_cpu": 285,
+    "V6_wall": 570,
+    "cpu_seconds": 300,
+    "rss_bytes": 2147483648,
+    "scratch_bytes": 6442450944,
+    "wall_seconds": 600
+  },
+  "operation_id": "public018-locked-online-env-20261015-once",
+  "owner": "/root",
+  "previous_closed_failure": {
+    "exit": 1,
+    "receipt_sha256": "3d45da0541ac18e6baac1e58e779968591544af713fecf0e906aa6b31340b0d7",
+    "tool_session": 68538
+  },
+  "reason": "ExactlockedDuckDBwheelnotcached; fresh online lock-hashverified wheels-only install in DIFFERENT new .venv-locked; old failed .venv preserved",
+  "source": {
+    "bytes": 6272,
+    "path": "/tmp/tlab-public018-locked-online-env-once-v2.py",
+    "sha256": "2a97d5ea3b3b40293aee6afa1965fa62abcdb12f81d25effacf43064249e747f"
+  },
+  "source_head": "d35cfb6c73b8fd631e5f9aadba1deab4902db241",
+  "status": "prepared_not_yet_submitted"
+}
