@@ -49,3 +49,8 @@ Pass подтвердит только adapter/transport/operator mechanics на
 Предлагаемый предмет quality study — source-local matched manualB против заранее выбранного typed-program pipeline, с одинаковыми Q/C/fullY, training population/settings и заранее фиксированным primary contrast. Он изучает перенос **метода генерации**, если модели обучаются заново; применение прежней REES model было бы другим вопросом. Полный B41 допускается только после отдельной category resolver acceptance. Иначе нужно явно определить event-only B и более узкое утверждение; подмена отсутствующих category/price нулями не сохраняет исходный B.
 
 Source-local budget, calendar, fits и decision rule должны быть приняты как отдельный будущий эксперимент; здесь не назначаются новые attempts или mandatory looks. REES-selected bundle нельзя после внешних labels заменить новым winner и назвать untouched transfer. Negative valid contrast опровергает заявленное улучшение на этой cohort; неопределённость не доказывает эквивалентность. Даже успешный Retailrocket pilot поддержал бы перенос ограниченного метода на один additional source, а не universal schema automation, learned intelligence, causal lift или экономию human-hours.
+
+
+## Source-audit appendix —15Oct2026, сила отрицательного вывода
+
+Исходный текст сохранён. Фразу «Negative valid contrast опровергает заявленное улучшение на этой cohort» следует читать в более узком смысле: наблюдаемое улучшение не получено/принятый decision predicate не выполнен. Отрицательная point estimate сама по себе не опровергает положительный истинный эффект; inference зависит от uncertainty и selection history. При CI через0 знак остаётся неопределённым. Это поправка силы вывода, не новое metric rule или разрешение дополнительного evaluation.

@@ -95,3 +95,39 @@ The [016 source-collection design](../backlog-reviews/tlab016-feature-collection
 - [045: metamorphic properties and their surviving wrong implementations](round-045.md).
 
 These rounds add no current source calculations, features, fits or held-out looks.
+
+
+## Source and interpretation rounds046–064
+
+These notes refine literature provenance, typed/capability semantics, transfer limits, model-selection uncertainty, fixed-learner claims, partition completeness and reproducibility. They add no current production hypotheses, fits or held-out looks. Historical status snapshots remain labelled.
+
+|Round|Research note|
+|---|---|
+|046|[Round046 — LLM proposer: реальные loops и будущая typed граница](round-046.md)|
+|047|[Round047 — переносимость empirical evidence в temporal purchase ranking](round-047.md)|
+|048|[Round048: RelBench как temporal interface, а не готовый adapter](round-048.md)|
+|049|[Round049 — восстановление проверки без нового эксперимента](round-049.md)|
+|050|[Round050 — replay ranking claims без локального approval state](round-050.md)|
+|051|[Round051 — численная ошибка scores и точность ranking replay](round-051.md)|
+|052|[Round052 — capability contract переносимой feature automation](round-052.md)|
+|053|[Round053 — OpenFE: путь labels, бюджет и граница воспроизведения016](round-053.md)|
+|054|[Round054 — одно frozen сравнение и сила automation claim](round-054.md)|
+|055|[Round055 — purchase event не равен независимому завершённому заказу](round-055.md)|
+|056|[Round056 — historical provenance gate и train-only burst diagnostic](round-056.md)|
+|057|[Round057 — TGN как deferred stateful alternative, не дополнение016](round-057.md)|
+|058|[Round058 — приоритет и дедуп потенциальных additions055–057](round-058.md)|
+|059|[Round059 — accepted019 как контроль: справедливость016 и точные границы claims](round-059.md)|
+|060|[Round060 — fixed-learner feature contrast и совместная настройка: разные вопросы](round-060.md)|
+|061|[Round061 — что пользователь получает от typed automation016](round-061.md)|
+|062|[Round062 — memory-bounded verification: partitions не заменяют proof полноты](round-062.md)|
+|063|[Round063 — sparse external-sort replay fullY ranking без dense matrix](round-063.md)|
+|064|[Round064 — приоритет memory-bounded proof и sparse replay без расширения backlog](round-064.md)|
+
+[Evidence map](evidence-map.md), [source audit043–046](rounds043-046-source-audit.md), [047traceability audit](round047-evidence-map-audit.md), [all-I/R primary-choice audit](primary-choice-audit.md). The narrow appendices in043/045 retain their original prefixes.
+
+
+Further focused report/reproduction refinements (no new experiments):
+
+- [Round065 — CatBoost Plain/Logloss: importance не равна ranking gain](round-065.md).
+- [Round066 — standalone report должен различать local verification и clean reproduction](round-066.md).
+- [Round067 — минимальный reviewer protocol: runnable prefix и три честных STOP](round-067.md).

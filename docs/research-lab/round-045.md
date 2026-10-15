@@ -49,3 +49,8 @@ Proposal: заранее записанный bank; исходный и кажд
 Required defect classes: boundary `<`→`≤`, wrong24/168window, raw dedup, summed distinct, truncated recency, candidate-only denominator, NULL→0, first-peer/backoff metadata, missing empty key/physical row и rounded BIGINT. Accept: ноль literal/oracle mismatches и каждый non-equivalent mutant отвергнут содержательным gate; stale hash rejection сам по себе не detection formula fault. Surviving mutant означает reject предложенного test adequacy claim, не автоматический production defect.
 
 Generation, comparisons, minimized witnesses, failures и cleanup входят в отдельно разрешённый future CPU/wall/RSS ledger; бюджет сегодня не предоставлен. Passing tiny tests не является математическим доказательством, full source approval или exhaustive B oracle. Current018 numeric scope остаётся sampled, а selected016 source proof требует своей отдельной реальной приёмки.
+
+
+## Source-audit appendix —15Oct2026, recency merge
+
+Исходный текст сохранён. Сокращение «MAX-recency» в таблице означает recency, вычисленную из MAX eligible timestamp: R=t−max(event_time). При partition merge максимум берётся по last timestamps; если объединять уже вычисленные recencies для одинакового t, нужен MIN non-NULL recency, с NULL для полностью пустой eligible history. MAX самих recencies был бы ошибкой. Laws предполагают допустимые physical ranges после transformation, без BIGINT overflow. Это уточнение собственной формулы, не вывод из testing papers.
