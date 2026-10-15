@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 08:49:13 UTC / 11:49:13 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
+Обновлён 15 октября 2026, 08:58:36 UTC / 11:58:36 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,13 +8,14 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 09:00 UTC / 12:00 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 09:45 UTC / 12:45 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
-## Current snapshot at 08:49:13 UTC
+## Current snapshot at 08:58:36 UTC;09:00 maximum checkpoint
 
-- Main: actual chosen3 V3 whole integrationFAILED exit1 after six worker exits0; separate setup1new syntheticW44fit. V4 pure complete-verifier repair and read-only output review running. Both earlier accepted tiny milestones remain accepted. Actual requestCLOSED;36534core wall candidate unaccepted.
-- Inventory observed17known/5running/12completed: Root/coordinator, FeaturesA author010, six_role_harness repair and six_role_output_review running. MB010 firstdraft and009separate skeptic completed. Historical sourcecost author completed; no current real-source/heldout job or automatic retry.
-- Next hard maximum09:00UTC /12:00МСК remains anchored08:15, or two next completed research rounds. Previous08:24 late checkpoint remains explicit; this earlier failure update does not slide the deadline.
+- Main: chosen3 V3 целикомFAILED/consumed; V4pure complete-verifier repair и независимый разбор существующих выходов running. Ни один component exit0 не превращён в whole success. Ранее принятые source/B=Wtiny milestones сохранены; actual heldout requestCLOSED.
+- Parallel018: `/root/source_harness_review` готовит точный bounded full-source request/disk plan только через stat/small manifests/code; hashstream/import/native grant отсутствует. `/root/timing_methodology_review` проверяет историческую основу;36534 — span до interrupted turn, не доказанный whole-cohort lifetime upper.
+- Research inventory:17known/9running/8completed. Wave011 два independentauthors ModelsB/RetrievalA running; Wave010bothFIRSTdrafts complete, separateModelsA skeptic running. Root/coordinator и четыре main code/review/preparation линии также running; completed helpers не считаются авторами.
+- Checkpoint09:00 записан 08:58:36UTC, за 84s до максимума. Следующий максимум 09:45UTC /12:45МСК, anchored ORIGINAL09:00, либо два следующих completed rounds; новые идеи/поздние старые записи не reset clock/limits.
 
 ## Три независимые линии
 
@@ -275,3 +276,14 @@ Current independent research: FA010authorrunning, MB010firstfreezecompleted,009s
 
 
 Root completed full007–009 research readback at08:49:41UTC: [receipt](archives/wave009/original/tlab-root-waves007-009-readback.json),21pins/12originalauthor freshness.007type/common-mode witnesses remain toy-only;008finitepoint bounds do not certify CI/scheduler benefit;009closure/support/checkpoint/detachment/W comparator remain unresolved. [Wave009 synthesis](brainstorm-wave009-synthesis.md) preserves two deferred refinements with4fields, eight exact original artifacts,0IDs/tasks/jobs/admissions. This research acceptance does not accept the failed chosen3integration or historical36534core basis and does not alter09:00hardcheckpoint.
+
+
+## 09:00 maximum checkpoint — фактически 08:58:36 UTC / 11:58:36 МСК, за 84s до максимума
+
+Текущий visible snapshot проверен по authoritative inventory:17known/9running/8completed. Два независимых author011 `/root/brainstorm_models_b` и `/root/brainstorm_retrieval_a` running на typed grammar/proposal composition и unlabeled structural diversity, no helpers/jobs; оба010FIRSTdrafts frozen и отдельный `/root/brainstorm_models_a` skeptic running после обоихfreeze.007–009research readback опубликован ebb49ce:21pins/12originalauthor freshness,0newIDs/tasks/admissions. Root сохраняет назначения; новые гипотезы не prerequisites015/018/report.
+
+Main chosen3 V3 остаётся wholeFAILED exit1/consumed. Отдельно оплачен один setupW44syntheticfit, newB/study/integrationfits0; шесть worker exits0 и75chosen scalar comparisons не равны whole acceptance. `/root/six_role_harness` делает только versionedV4pure regression полного return verifier; `/root/six_role_output_review` анализирует уже имеющиеся выходы read-only. SafeNEXT — независимый разбор и точный pure repair freeze, без retry/refit/new namespace/переписывания исходных false/unknown flags.
+
+Parallel обязательный018 движется отдельно: `/root/source_harness_review` готовит конечный request/disk plan по read-only stat, small manifests и коду. Это preparation, без нового archive hashstream/native import/source acceptance. Historical-cost reviewer `/root/timing_methodology_review` running; авторский sourcecost erratum проверен по exactSHA61e8b9f58b29ca00dbf843d797dbce6cb9aa8da89ee634a314021aeb999376ff. Core turn statusINTERRUPTED, completedAt не доказывает normal completion/reaping всей группы. Восемь отдельных synchronous items действительноcompleted/exit0; этот узкий факт сохраняется.36534s — span до interruption, не принятый whole-history upper; исходный basis/ledger сохранены и должны читаться вместе с erratum, без silent rewrite. Actual heldout requestCLOSED,20000/38000bounds не приняты.
+
+Сохранён existingunboundedgoal до выполнения задания/userstop, boundedindividualoperations/failclosed и concurrency17включаяRoot/helpers. Solepublisher/backlog_coordinator, единственная очередь docs/backlog.md; B/W/reserved25–31 неизменны. Следующий checkpoint после двух следующих completedresearchrounds либо максимум09:45UTC /12:45МСК,45min от ORIGINAL09:00; текущая запись и идеи timer не сдвигают.
