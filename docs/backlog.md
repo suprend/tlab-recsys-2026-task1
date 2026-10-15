@@ -766,3 +766,7 @@ Rootissued e2b7325c… and originalsession98791/chunk1b7294 nowRUNNING/pending u
 Rootreaped98791/e2f5ba exit1; Native effective parameter differs at existingverify_model after1Bload/0predict/0fit0Y, sourceclosed. Q/C/B45/extras unaccepted, no ownerreturn/parity. V6unknown_active_work=true original retained, survivors[] not cleanupacceptance. Source-prefix remainsaccepted; original600900consumed/no retry. SeparateRootauthorizedONEBload15CPU30wall diagnosis underway, actual015 same dependency held/pureprep allowed/no015grant. Failedexternalreceipt pending.
 
 [Original018 failure and separate inert015 readback](backlog-reviews/development-whole018-failure.md) preserve external8.52CPU vs full-tree actual-totalUNKNOWN, unacceptedproducerexports and originalunknown flags. Inert015 metadataaccepted only; actualexecutionheld/no015grant.
+
+###020/021 completed-critique checkpoint —12:13:30UTC
+
+Both independent draft pairs/separate critiques complete, Rootresearchreadbacks pending; existingfamily refinements only,0newHYP/gates. Main remains concrete sharedverifier diagnosis/accepted-inert015prep; source018 originalFAILED no retry, real015held/no grant. No optional research requirement added.12:45UTC maximum unchanged.

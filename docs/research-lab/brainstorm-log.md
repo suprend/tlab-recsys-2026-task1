@@ -436,3 +436,7 @@ Root terminal98791/e2f5ba exit1, originalconsumed/no retry, partialexports unacc
 ### Original018 failure proof —12:09:04UTC
 
 [Failure overlay](../backlog-reviews/development-whole018-failure.md) retains8 exact small originals including separate inert015 metadataacceptance. Full-treeactualCPU UNKNOWN; externalreapedcommand8.52CPU is a different observation. Original98791closed/consumed/no retry, QCFexports unaccepted/no parity. NarrowoneBloaddiagnosis separate; no publisheractualjobs. Both021 FIRST drafts nowfrozen perhandoffs; separatecritic/Rootreview notinferred.20researchRootreadbackpending. Next12:45anchored12:00.
+
+## Two-round020/021 checkpoint —actual 12:13:30UTC
+
+Both independent FIRST pairs and their separate critiques are complete; Root research readbacks pending.020 retains claim/evidence refinements without turning negative quality into a gain.021 retains contribution-cap/logging-multiplicity sensitivity and demands matched itemmass/NULL/coverage/expiry semantics;0newHYP/admissions/main gates. Original018 FAILED/consumed1Bload0predict, partialQCF unaccepted, fulltreeactualCPU UNKNOWN, sourceprefix accepted. Root separateBload diagnostic and inert015/controller preparation remain separate; actual015 held/no grant, original018 no retry. No publisheractualjobs. Nextmaximum12:45UTC/15:45MSK stays anchored12:00, notreset by this round completion.
