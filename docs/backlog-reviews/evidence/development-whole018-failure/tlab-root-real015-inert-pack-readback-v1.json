@@ -1,0 +1,235 @@
+{
+  "actual439_or_native_source_model_Y_access": false,
+  "all_declared_wall_seconds": 33914,
+  "author_old_request_diff_claim": "compute_evidence only; Root independently checked immutable owner/model/source/policy/code identity, not original full request diff",
+  "claim_and_gates_absent": [
+    "artifacts/heldout-study/owner.claim.json",
+    "artifacts/acceptance/tlab015-reserved-initial-execution-v1.json",
+    "artifacts/acceptance/tlab015-reserved-predictions-v1.json",
+    "artifacts/acceptance/tlab015-reserved-source-v1.json",
+    "artifacts/acceptance/tlab015-reserved-target-execution-v1.json",
+    "artifacts/heldout-study/tlab015-declared-compute-v3/request.json"
+  ],
+  "code_AST_schema_checked_without_import": true,
+  "controller_reuse_review_pending": true,
+  "fresh_small_pins": [
+    {
+      "bytes": 15720,
+      "path": "/tmp/tlab-real015-declared-request-v3/ledger.json",
+      "sha256": "a456a845e74fa5dadfd9d8daa7ed71a1de753c3e707eac4df02939f641d238dc"
+    },
+    {
+      "bytes": 5105,
+      "path": "/tmp/tlab-real015-declared-request-v3/request.json",
+      "sha256": "315fe0bd55b240f23584943d66f5c0925ef94cf375af8e9c9b9e91592e9f429d"
+    },
+    {
+      "bytes": 1388,
+      "path": "/tmp/tlab-real015-declared-request-v3/compute-evidence.json",
+      "sha256": "92a1d3003bba003368a0dfd16471b4da44322d8aad5b274d5db6a46fb6a73fca"
+    },
+    {
+      "bytes": 21518,
+      "path": "/tmp/tlab-real015-declared-request-v3/basis.json",
+      "sha256": "c4803cf7937c6a451eb49888e4e0b508549581b04ae8f27511435efb720c04a8"
+    },
+    {
+      "bytes": 1917,
+      "path": "/tmp/tlab-real015-declared-request-v3/corrected-known-fixtures.json",
+      "sha256": "f4c9c5c949b36e5c76a1817047715f39253a2c53da077a2a1df76e3723cedc9c"
+    },
+    {
+      "bytes": 1009,
+      "path": "/tmp/tlab-real015-declared-request-v3/smoke008.json",
+      "sha256": "5586d6ef0fc472534e19f4d15a078c11b96d7359238c46b982948545eedc5527"
+    },
+    {
+      "bytes": 1455,
+      "path": "/tmp/tlab-real015-declared-request-v3/metadata009.json",
+      "sha256": "081e659e0ade0a2c96302f05fa3933f6cd92378686c1569b5f3835e87e7839af"
+    },
+    {
+      "bytes": 1585,
+      "path": "/tmp/tlab-real015-declared-request-v3/strong019.json",
+      "sha256": "1f118b02888f821332c19c36ffb5508883da1176ae8f4bb6bef3d8a811a2a0f8"
+    },
+    {
+      "bytes": 1815,
+      "path": "/tmp/tlab-real015-declared-request-v3/automation016.json",
+      "sha256": "61059d53c2006e5abd639fdd40eaface57e396ece422579304cb29855096c299"
+    },
+    {
+      "bytes": 1558,
+      "path": "/tmp/tlab-real015-declared-request-v3/decision_preparation.json",
+      "sha256": "c85603f362a64c5f6638a1657d6b919b9b455b713b182af9bb09ff7709b58fcc"
+    },
+    {
+      "bytes": 367,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml",
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a"
+    },
+    {
+      "bytes": 20181,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d"
+    },
+    {
+      "bytes": 18557,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70"
+    },
+    {
+      "bytes": 34909,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c"
+    },
+    {
+      "bytes": 10057,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_program_control.py",
+      "sha256": "aa7a4b43dd9eb4e2d7e00bc4c42386cdb4c6da142c179e1c5f6fad4a1450e4b7"
+    },
+    {
+      "bytes": 14019,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7"
+    },
+    {
+      "bytes": 14058,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_contract.py",
+      "sha256": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc"
+    },
+    {
+      "bytes": 10235,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_evaluation.py",
+      "sha256": "13ff442a599ab2623c7a3fa2316f36ed9ec8015215172edfcee86b8f25f51446"
+    },
+    {
+      "bytes": 21937,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_execution.py",
+      "sha256": "9eb119850e25ce9c3594cac47c003b75ff5086b9cb071c3ba130f18a0e83aa29"
+    },
+    {
+      "bytes": 9846,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py",
+      "sha256": "e1b06b2aac68c59379d15298c39101ec02b6a176c26b13d4671f8e445de2851b"
+    },
+    {
+      "bytes": 27763,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_reporting_worker.py",
+      "sha256": "22b5f784ff3b187bb45f0308b33f23a84c54ecedc6c40f2c595366721d910226"
+    },
+    {
+      "bytes": 10757,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_source.py",
+      "sha256": "c864bec3a3aefa946b7759993505bcde9dcd9c9edb7cb9ce03216d6ebddeafbb"
+    },
+    {
+      "bytes": 22679,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_worker_context.py",
+      "sha256": "2072302ca380ff9b983beaad8a9710d8bc833109f209f08f82b329eb5a93958d"
+    },
+    {
+      "bytes": 9074,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/inference_data.py",
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd"
+    },
+    {
+      "bytes": 25160,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103"
+    },
+    {
+      "bytes": 11864,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0"
+    },
+    {
+      "bytes": 9971,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9"
+    },
+    {
+      "bytes": 45803,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/run_heldout_reporting.py",
+      "sha256": "169b92aebf94a40b6ae76243e1821e983d4dc88657d120fe385155768a4d5cac"
+    },
+    {
+      "bytes": 47986,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_baseline.py",
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147"
+    },
+    {
+      "bytes": 6184,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66"
+    },
+    {
+      "bytes": 35022,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a"
+    },
+    {
+      "bytes": 12429,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_metric_audit.py",
+      "sha256": "fcbab73cdf74064b3f9ccffd47b0c57e0572638b584e34719d433d82551dccf9"
+    },
+    {
+      "bytes": 30224,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_metric_worker.py",
+      "sha256": "411a0c46d96fbbe1e4ba3b472b7d0e033e299464ebb45b6a6159e28f58f1fcf7"
+    },
+    {
+      "bytes": 16502,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_prediction_audit.py",
+      "sha256": "c552ab5a99bde1f8aac8cfc72a0bb0ea758829b558ca02d457e6a7c2b2c30438"
+    },
+    {
+      "bytes": 20200,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_prediction_worker.py",
+      "sha256": "fc2a62591a00024a57507cb5178a54409005cbb5a029f8b232bd5581a70f622c"
+    },
+    {
+      "bytes": 28790,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_source_audit.py",
+      "sha256": "43e34d4d4d38734e7a01d63f9778726b4714885881cde6573e5431583040cf8f"
+    },
+    {
+      "bytes": 12132,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_source_worker.py",
+      "sha256": "522b40fc7dad273b25184518b79c63e974cb1ff141af40d139aeffa7bb50ee30"
+    },
+    {
+      "bytes": 300283,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab"
+    },
+    {
+      "bytes": 2232,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/heldout/reporting-only-v1.json",
+      "sha256": "4d3d1f337d7f65dd41cab0a938073692d03df87b73442590f25e4267f7510f3d"
+    },
+    {
+      "bytes": 90426,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/acceptance/tlab016-feature-program-models-verified.json",
+      "sha256": "7e6130ca15f5af8fccdb18849916896bd087ab37e03659afe078abe45bf83cbe"
+    },
+    {
+      "bytes": 2713,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/automation-pool.json",
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3"
+    },
+    {
+      "bytes": 3631,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c"
+    }
+  ],
+  "future_original4200CPU7200wall8GiB_limits_unchanged": true,
+  "historical_CPU_upper": "UNKNOWN",
+  "no_new_cost_census_calibration_fits_suite_or_project_writes": true,
+  "recorded_at_utc": "2026-10-15T12:06:02.850729+00:00",
+  "runtime_granted": false,
+  "scope": "Root inert real015 exact small pack/current closure readback; not runtime approval",
+  "verdict": "ACCEPT request packing and unchanged original owner/model/source/policy metadata bindings",
+  "whole_wall_limit_seconds": 43200
+}

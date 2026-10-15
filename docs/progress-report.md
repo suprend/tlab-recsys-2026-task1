@@ -1,6 +1,6 @@
 # Автоматизация признаков для ранжирования покупок
 
-По состоянию на15 октября2026, 12:01:55 UTC, полный typed9 source-prefix и код механического однодневного повтора приняты; Root запустил один actual018 source-to-fixed-model replay. Исходная операция98791 ещё ожидает завершения и независимой приёмки выходов; обучение и будущие покупки не открываются, реальная отложенная проверка015 закрыта. Следующий шаг — Root проверяет ту же операцию и её ресурсы/полное keyed parity; повторный запуск не разрешён.
+По состоянию на 15 октября 2026, 12:05:15 UTC, actual018 однодневный replay завершился ошибкой при проверке параметров первой B-модели, до предсказаний. Полный typed9 source-prefix остаётся принятым; выгруженные Q/C/признаки пока не приняты, source-to-model и отложенная проверка015 не завершены. Root проверяет причину отдельной ограниченной диагностикой одной B-модели; исходная операция98791 исчерпана и повтор не разрешён.
 
 Рабочий отчёт по первой задаче T-Lab. Ручной контроль настроен в пределах заранее заданного бюджета и независимо проверен. Четыре ветви автоматизации также выполнены и независимо проверены; неизменённое сравнение на отложенном периоде ещё впереди.
 
@@ -139,3 +139,9 @@ CostV2 37697 отклонён до конечного independently reviewed QA/
 ## Actual018 submission —15.10.2026 12:01:55UTC
 
 [Original operation](backlog-reviews/development-whole018-launch.md) submitted once as98791/chunk1b7294 under600CPU/900wall/8GiB, atmost2nativepredictions,0fit/0Y. Root-onlypoll/reap; output/parity/lifetime acceptance pending, no success inferred. Earlier ungranted entries are immutable prelaunch snapshots. Conditional33914/43200 wallbasis and real015 CLOSED are unchanged; requestpayload/data/models are not published.
+
+## Actual018 terminal failure —12:05:15UTC
+
+Original98791/e2f5ba EXIT1,1Bmodel load/0predict/0fit/0Y; Native effective parameter differs in heldout_predictions.verify_model. Partial Q/C/B45/extras are unaccepted, no parity/ownerreturn. Rootexternal5.49wall/8.52CPU, MAXRSS1,952,514,048B distinct from sampledaggregate1,977,745,408B; V6unknowntrue retained. Separate15CPU/30wall Bload diagnosis is not a retry or quality experiment. Source-prefix accepted, real015 execution held on this verifier dependency; pureprep cancontinue/no015grant.
+
+[Original failure receipt and resource limits](backlog-reviews/development-whole018-failure.md) distinguish the measured reaped command from UNKNOWN full-tree actual-totalCPU. Separately accepted inert015 metadata packing is not a runtime grant; its shared verifier dependency remains held.

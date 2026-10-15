@@ -1,0 +1,98 @@
+{
+  "Y_access": false,
+  "all_keyed_parity_performed": false,
+  "complete018_accepted": false,
+  "error": "Native effective parameter differs",
+  "exports": "Q/C/B45/extras exist as producer partial files; not read/opened/hashed/accepted by this Root readback",
+  "external_MAXRSS_bytes": 1952514048,
+  "external_measured_command_CPU_seconds_display_rounded": 8.52,
+  "external_time_sys_seconds_display_rounded": 0.43,
+  "external_time_user_seconds_display_rounded": 8.09,
+  "external_time_wall_seconds_display_rounded": 5.49,
+  "fit_attempts": 0,
+  "fresh_small_pins": [
+    {
+      "bytes": 13062,
+      "path": "/tmp/tlab-root-development-whole018-issued-v1.json",
+      "sha256": "e2b7325cd059bb3001f1e2588d1f4ec7fba48d137b40d0aba1b01ba8e7a11fab"
+    },
+    {
+      "bytes": 2753,
+      "path": "/private/tmp/tlab-development-oct22-source-to-scores-once-process-receipt.json",
+      "sha256": "b7d81d6c2a7dacfcf2b23298e655b0b626c379bdfeda4b559f23a4a57500924a"
+    },
+    {
+      "bytes": 1471,
+      "path": "/private/tmp/tlab-development-oct22-source-to-scores-once-pipeline-failure.json",
+      "sha256": "4c02265d966ca939dffb98713241cf5b665d0a0c2bffa0a67af893ed7219df2a"
+    },
+    {
+      "bytes": 1439,
+      "path": "/private/tmp/tlab-development-oct22-source-to-scores-once-driver-failure.json",
+      "sha256": "5a0c85263e3caea69193fd84b99a812ba773f62cc68b4e2c8f567a43a164c0de"
+    },
+    {
+      "bytes": 1293,
+      "path": "/private/tmp/tlab-development-oct22-source-to-scores-once-consumed.json",
+      "sha256": "2b755a5d42bb24ccd41d093bb4fb1da1e809f4f218f8188f2f63f66ea72400a2"
+    },
+    {
+      "bytes": 11891,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/development-source-to-score-runs/oct2019-development-oct22-source-to-scores-once/failure.json",
+      "sha256": "02c3351b9013145f29b145eb7d053747c90e514e2890eeda01130cb0852bad1c"
+    },
+    {
+      "bytes": 612,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/artifacts/reproduction/development-oct22-source-to-scores-once/submitted.json",
+      "sha256": "5cb93e85d1fa04412df74b816b8b435b3f007e86e8af999080818b068f44d0f5"
+    }
+  ],
+  "full_tree_actual_total_CPU_claim": "UNKNOWN under retained supervisor unknown flag; external reaped command measurement is separate",
+  "model_load_attempts": 1,
+  "native_prediction_attempts": 0,
+  "next_step": "separate bounded model-metadata diagnosis; original markers and flags immutable",
+  "no_large_hash_native_target_or_project_write_in_readback": true,
+  "no_original_relaunch_or_new_namespace_allowed": true,
+  "original_supervisor_raw": {
+    "actual_cpu": 8.522267,
+    "actual_total_cpu_seconds": null,
+    "arbitrary_descendant_containment": false,
+    "cpu_upper_seconds": 10.52236,
+    "direct_child_inclusive_cpu": 8.433937,
+    "elapsed_seconds": 5.453112458999385,
+    "elapsed_upper_seconds": 10.453112458999385,
+    "errors": [],
+    "exit_code": 1,
+    "finalization_cpu_reserve_seconds": 2.0,
+    "observed_job_peak_rss_bytes": 1977745408,
+    "observed_process_count": 1,
+    "observed_total_cpu_seconds": 8.522267,
+    "reaped": true,
+    "rss_is_sampled_not_hard_limit": true,
+    "sampled_cpu_high": 8.511917416666666,
+    "sampled_job_rss_high": 1977745408,
+    "samples": 182,
+    "scope": "synthetic_harness_process_supervision",
+    "signaled_pids": [],
+    "status": "failed_unknown_cleanup",
+    "stop_reason": null,
+    "supervisor_exit_tail_measured": false,
+    "supervisor_finalization_hard_cpu_seconds": 2,
+    "supervisor_self_cpu": 0.088336,
+    "survivors_at_terminal_scan": [],
+    "unknown_active_work": true,
+    "wait4_child_cpu_seconds": 8.433937,
+    "wall_seconds": 5.453010584002186,
+    "worker_ledger_verified": false
+  },
+  "original_unknown_flags_retained": true,
+  "recorded_at_utc": "2026-10-15T12:05:17.374022+00:00",
+  "scope": "Root actual original018 failed external command and small failure evidence readback",
+  "session_id": 98791,
+  "source_connection_closed": true,
+  "source_prefix_acceptance_unchanged": true,
+  "terminal_chunk": "e2f5ba",
+  "terminal_exit_code": 1,
+  "two_model_scores_available": false,
+  "verdict": "FAILED_consumed_partial_no_retry"
+}

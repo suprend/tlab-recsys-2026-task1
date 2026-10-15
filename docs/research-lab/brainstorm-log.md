@@ -10,6 +10,14 @@
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 12:45 UTC / 15:45 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
 
+## Current actual018 FAILED partial —12:05:15UTC
+
+Root reaped original98791/chunke2f5ba EXIT1 once; no poll/retry/newnamespace. Existing heldout_predictions.verify_model raised Native effective parameter differs after1Bmodel load and0predictions; sourceclosedtrue,0fit0Y. Q/C/B45/extras exported but UNACCEPTED, no ownerreturn/parity/output acceptance. V6 original statusfailed_unknown_cleanup and unknown_active_work=true remain despite survivors[]/childreaped1; no cleanup-success reinterpretation. External5.49wall/8.52CPU/MAXRSS1,952,514,048B; V6 upper10.52236CPU/10.453112459wall/sampledaggregate1,977,745,408B separately.
+
+Source-prefix remains accepted; complete018 notdone. Original600CPU/900wall episode consumed. Root issued separate narrow ONEBload diagnostic15CPU/30wall toexecution_scope_audit; publisher does not duplicate it. Actual015 same verifier dependency held, pure controller preparation may continue; no015grant/Y. Failed externalreceipt/rootreadback pending publication. Nextmax12:45UTC anchored12:00 unchanged; original pending/grant flags immutable.
+
+## Historical actual018 submission snapshot
+
 ## Current12:00 checkpoint update —actual 11:59:26UTC:018 original submitted
 
 Root issued and submitted ONE actual Oct22 source-to-fixed-score018 operation: originalsession98791/chunk1b7294, total600CPU/900wall/8GiB, atmost2nativepredictions,0fit/0Y. Root owns polling/reaping; publisher does notpoll/largehash/retry. Exactdriver1c407… and request0d7d99… are staged onlyignored; issuedreceipte2b7325c… binds57smallcurrentpins and full independentWHOLE018 review. Output/resource/actualparity acceptance pending, no source-to-model success claimed. Real015 remains CLOSED.
@@ -420,3 +428,11 @@ Original98791 pending, Root-onlypoll/reap,600CPU/900wall/8GiB/2predict/0fit/0Y. 
 ### Actual018 launch proof —12:01:55UTC
 
 [Original grant/driver/submission scope](../backlog-reviews/development-whole018-launch.md) retains17 exact small originals plus attributed Root handoff. Rootowns98791poll/reap, publisherjobs0; originalgrantstatus notrewritten and no actualrequestpayload/largefile copied.12:00checkpointactualsubmissionwrite11:59:26 wasbeforemaximum; next12:45 anchored12:00.
+
+### Original018 terminal failure handoff —12:05:15UTC
+
+Root terminal98791/e2f5ba exit1, originalconsumed/no retry, partialexports unaccepted/0predict. Source-prefix valid; narrow separateBload diagnosis not an original018retry. V6unknowntrue retained. No publisheractualjobs.
+
+### Original018 failure proof —12:09:04UTC
+
+[Failure overlay](../backlog-reviews/development-whole018-failure.md) retains8 exact small originals including separate inert015 metadataacceptance. Full-treeactualCPU UNKNOWN; externalreapedcommand8.52CPU is a different observation. Original98791closed/consumed/no retry, QCFexports unaccepted/no parity. NarrowoneBloaddiagnosis separate; no publisheractualjobs. Both021 FIRST drafts nowfrozen perhandoffs; separatecritic/Rootreview notinferred.20researchRootreadbackpending. Next12:45anchored12:00.
