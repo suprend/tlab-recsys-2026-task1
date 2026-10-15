@@ -1,0 +1,29 @@
+{
+  "source_sha256": "9100471dc98cfc68ee558ad1dadaafbf1a862ffcd53bca9f239cffb10c068c55",
+  "cases": [
+    {
+      "case": "original_paid_preparation_fault_now_consumes_claim_and_no_retry",
+      "status": "PASS"
+    },
+    {
+      "case": "original_late_marker_now_rejects_and_persists_failure",
+      "status": "PASS"
+    },
+    {
+      "case": "missing_admission_pin_rejects_before_helper_or_claim",
+      "status": "PASS"
+    },
+    {
+      "case": "healthy_claim_and_old_failure_preserved",
+      "status": "PASS"
+    },
+    {
+      "case": "native_verified_snapshot_exec_and_changed_bytes_reject",
+      "status": "PASS"
+    }
+  ],
+  "self_cpu_seconds": 0.130161,
+  "wall_seconds_including_imports": 0.09259504199872026,
+  "peak_rss_bytes": 52690944,
+  "scope": "Native owner main on synthetic-author plumbing+own original faults and real verified_module;0source/oracle/data/models/fits"
+}

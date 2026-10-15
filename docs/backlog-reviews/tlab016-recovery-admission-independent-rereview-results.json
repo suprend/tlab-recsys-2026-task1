@@ -1,0 +1,59 @@
+{
+  "before_sha256": {
+    "scripts/feature_program_source_recovery.py": "47cc4495cbf24bd033316ca9a667382f66a1ab8cd718843d057c52d13bfeeec2",
+    "tests/oracles/feature_program_recovery_audit.py": "a3a485a0b0d899150c91eac3706e75e9e3d0fceb798ef5d48c84063bdc8891d6",
+    "tests/test_feature_program_source_recovery.py": "b99f602b0d066830539af99808b912b50e58ebf320bda0c63d35c122c92a1f5f",
+    "docs/experiments/feature-program-source-recovery.md": "eb3492d78608d12326ce2e68fea3cab0eb92d71673dc61d86e78fb0a2224a1ca"
+  },
+  "after_sha256": {
+    "scripts/feature_program_source_recovery.py": "47cc4495cbf24bd033316ca9a667382f66a1ab8cd718843d057c52d13bfeeec2",
+    "tests/oracles/feature_program_recovery_audit.py": "a3a485a0b0d899150c91eac3706e75e9e3d0fceb798ef5d48c84063bdc8891d6",
+    "tests/test_feature_program_source_recovery.py": "b99f602b0d066830539af99808b912b50e58ebf320bda0c63d35c122c92a1f5f",
+    "docs/experiments/feature-program-source-recovery.md": "eb3492d78608d12326ce2e68fea3cab0eb92d71673dc61d86e78fb0a2224a1ca"
+  },
+  "cases": [
+    {
+      "case": "native_admission_typed45_and_all15_empty_declarations",
+      "status": "PASS"
+    },
+    {
+      "case": "original_omit_admission_code_pin_NOW_REJECTS",
+      "status": "PASS"
+    },
+    {
+      "case": "strict_sourceclaim_version",
+      "status": "PASS"
+    },
+    {
+      "case": "strict_sourceclaim_source_wall_allocation",
+      "status": "PASS"
+    },
+    {
+      "case": "strict_sourceclaim_fit_attempts_authorized_here",
+      "status": "PASS"
+    },
+    {
+      "case": "strict_sourceclaim_unknown_cost_policy",
+      "status": "PASS"
+    },
+    {
+      "case": "independent_math_AST_same3193",
+      "status": "PASS",
+      "functions": [
+        "build_expected",
+        "physical_boundary",
+        "compare_every_value",
+        "expected_programs",
+        "validate_selected",
+        "schema",
+        "difference",
+        "utc",
+        "quote"
+      ]
+    }
+  ],
+  "self_cpu_seconds": 0.106909,
+  "wall_seconds_including_imports": 0.08410529200045858,
+  "peak_rss_bytes": 62586880,
+  "scope": "Pure native admission+metadata schema/AST;0events/Q/C/Parquet/actualsource/models/fits"
+}

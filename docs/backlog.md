@@ -449,3 +449,10 @@ The prospective recovery uses the one UNUSED source oracle to prove disjoint com
 ### Strong-control consumer accepted
 
 [Independent consumer review](backlog-reviews/tlab-strong-control-independent-review.md) accepts scripts/strong_control.py4b469d0e,8author+4independent targeted cases. It reconstructs the304-pin source/output/recovery/failed-history closure and selected spec without subprocess-producing environment snapshot. The metadata preflight deliberately stops at the first streaming hash sentinel: this is code acceptance, not a claim that current304large inputs were fully replayed again. Source/model execution approval remains external; no fit budget is granted.
+
+
+### Source016 recovered-proof code accepted, actual oracle still gated
+
+[Combined independent review](backlog-reviews/tlab016-source-recovery-code-rereview.md) accepts admission47cc4495/oraclea3a485a0/owner9100471d. Initial missing-helper-codepin, preclaim paid-preparation and late-failed-marker findings are preserved with fixes. Verified bounded source snapshots execute before helper calls, original executable pins are mandatory, and the sole unused oracle claim precedes paid export hashing. The independent32-total-input integration proves policy/claim/context/physical/source flow without regeneration; it is not a107-input or real OS-lifetime proof.
+
+Actual recovered-source acceptance remains HOLD until one exact external policy, one unused oracle process, every6134207pair×12value comparison, old45/Q/C completeness and successful external owner+child lifetime. No future original absolute source clock is invented; oldfailed107.42upper plus freshowner+oracle792CPU/1044activewall preserves the conservative existing limits. Source/model fits remain forbidden by code acceptance alone.

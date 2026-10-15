@@ -1,0 +1,3 @@
+# Publication-only fixture correction
+
+Final C11 code acceptance applies unchanged production admission47cc4495, oraclea3a485a0 and owner9100471d. The earlier author fixture count omitted separate exported-Q inputs. Before publication it was reduced to8events+6acceptedQ+4C+4oldB+6exportQ+4exportF=32total input rows,48 selected comparisons. Nine targeted author cases passed1.474s with ResourceWarning as error. C11 inspected and acknowledged the test/doc-only delta without another production semantic review; their separate combined native32-input proof had always met the bound. Original test/doc review hashes remain in the raw report. Published testSHAceed1e25…, docSHAced92b1f…; production bytes did not change.
