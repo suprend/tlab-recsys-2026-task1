@@ -1,0 +1,94 @@
+{
+  "observed_at_utc": "2026-10-15T18:01:09.754759+00:00",
+  "Root_acceptance_sha256": "6dfe06d94140e5231574cd76718a61df2b0fd16dfc3e74a0698544a4948d7db6",
+  "status": "ACCEPTED",
+  "task": "TLAB018 done in documented Mac/newlockedenv/frozen2fit scope",
+  "accepted_tasks": 14,
+  "of": 19,
+  "source_head": "d35cfb6c73b8fd631e5f9aadba1deab4902db241",
+  "producer": {
+    "session": 79330,
+    "closed_reaped": true,
+    "exit": 0,
+    "engineering_newfits": 2,
+    "external_wall": 966.83,
+    "external_CPU": 1356.54,
+    "external_upper_wall": 966.85,
+    "external_upper_CPU": 1356.56,
+    "sampled_RSS_bytes": 7121993728
+  },
+  "independent_verifier": {
+    "session": 50587,
+    "terminal": "49724a",
+    "closed_reaped": true,
+    "exit": 0,
+    "loads": 2,
+    "predicts": 2,
+    "fits": 0,
+    "selection_scores": 1634298,
+    "fullranks": true,
+    "all4estimands_200conditionalbootstrap": true,
+    "Root_numeric_fields_compared": 255,
+    "external_display": {
+      "system": 5.83,
+      "user": 124.38,
+      "wall": 81.87
+    },
+    "external_upper": {
+      "cpu": 130.23,
+      "wall": 81.89
+    },
+    "V6upper_separate_not_added": {
+      "cpu": 132.212582,
+      "wall": 86.85475512499397
+    },
+    "sampled_RSS_bytes": 4027482112,
+    "raw_V6": {
+      "actual_total_cpu_seconds": null,
+      "errors": [],
+      "observed_process_count": 1,
+      "status": "verified_normal_exit",
+      "survivors": [],
+      "unknown_active_work": false
+    }
+  },
+  "independent_source_support": [
+    {
+      "candidates": 817149,
+      "chosen3_exhaustive": true,
+      "core18_formula_values_exhaustive": false,
+      "fullY": 96,
+      "phase": "selection",
+      "positive_queries": 73,
+      "queries": 4000,
+      "retrieved": 65
+    },
+    {
+      "candidates": 5317058,
+      "chosen3_exhaustive": true,
+      "core18_formula_values_exhaustive": false,
+      "fullY": 619,
+      "phase": "train",
+      "positive_queries": 496,
+      "queries": 26000,
+      "retrieved": 444
+    }
+  ],
+  "development_NDCG": {
+    "B": 0.4586107284411233,
+    "W": 0.46470287738416133
+  },
+  "chosen3_metadata_QC_fullY_allmatrices_weights_native_fullranks_verified": true,
+  "historical_W44_materialmatrix_exact_equal": true,
+  "core18_formulas_exhaustive": false,
+  "source42M_cells_independently_oracled": false,
+  "newquality_search_speed_Windows_claim": false,
+  "historical_scientific_fits": 11,
+  "historical_selection_looks": 19,
+  "014": "ongoing research",
+  "010_013": "optional deferred",
+  "goal_active": true,
+  "next_due_utc": "2026-10-15T18:45:00Z",
+  "oldfailures_and_costs_preserved": true,
+  "publisher_data_models_runtime_jobs": 0
+}

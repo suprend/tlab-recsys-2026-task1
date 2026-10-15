@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026,17:48:29UTC. SourceV3/APIcanary accepted, отдельный recovery50587 RUNNING по Root handoff; producer79330 CLOSED0, failed5316 сохранён. Numericpending/018partial13/19,18:00UTC от17:15;035criticcomplete/Rootreadbackpending.
+Обновлён15 октября2026,18:01:09UTC.018done/fullpublicMacrepeat accepted,14 из19;50587/79330 CLOSED0, новая qualityclaim отсутствует.035criticcomplete/Rootreadbackpending,036обаFIRSTполучены/criticRoot-only. Early18:00checkpoint17:53:45.945309,next18:45UTC от18:00.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -717,3 +717,13 @@ RootsetupHEADrelease после закрытия68538 подтверждён; cl
 ## SourceV3/API proof и отдельная recovery — 2026-10-15T17:48:29.512245+00:00
 
 Обновление 17:48:29 UTC: [SourceV3/API canary и wrapperV2 binding приняты](../backlog-reviews/public018-adapterV3-API-recovery.md), отдельно выдан recovery50587/83c50c по тем же produceroutputs; Root handoff RUNNING, численная приёмка pending. Новый конечный600CPU/900wall/8GiB/2loads2predict0fits шаг не повторяет producer79330/2fits и не пополняет старую FAILED5316 попытку. TLAB018 partial,13 из19; прежние rawunknown flags и финальное качество015 неизменны. Следующий максимум18:00UTC от исходного17:15, publisher runtime0.
+
+
+## Ранний checkpoint к18:00 — 2026-10-15T17:53:45.945309+00:00
+
+Ранний checkpoint к18:00 сохранён фактически 2026-10-15T17:53:45.945309+00:00, до исходного максимума. Producer79330 CLOSED/reaped0/processaccepted, первая verifier5316 CLOSED1/rawunknowntrue сохранена; узкий SourceV3/API canary принят, новая отдельно выданная recovery50587 RUNNING по последнему Root handoff, полного numericoutput acceptance нет. TLAB018 partial,13 из19;015/отчёт приняты, finalCI включает0,11historicalfits/19looks и2engineeringfits producer не меняются. Последний actual agent inventory: Root/publisher/FeaturesA running; FeaturesB036FIRST complete,035criticcomplete/Rootreadbackpending, остальные кодовые handles completed; scope FeaturesA не предполагается. Root alone runtime/poll/grants, publisher0native/data/model/jobs и0criticdispatch. SafeNEXT — terminal50587 и Root независимая numeric/resource приёмка либо правдивый failure disposition; retry/новое обучение автоматически не разрешены. Следующий максимум18:45UTC/21:45МСК от исходного scheduled18:00, не от ранней записи или новых идей; исходная цель, deadline и отдельные лимиты сохраняются.
+
+
+## Полный source-to-new-training повтор принят — 2026-10-15T18:01:09.754759+00:00
+
+Обновление 18:01:09 UTC: [полный публичный повтор018 принят](../backlog-reviews/public018-complete-output-acceptance.md): clone/newlocked Mac environment/raw→15freshcollections→2NEWfixedfits→comparison, независимые матрицы/1634298scores/fullranks/4estimands/200bootstrap проверены. Producer79330 и verifier50587 CLOSED/reaped0,018done,14 из19;014research продолжается,010–013 optional deferred. Core18 formula proof не повышен до exhaustive; нового quality/search/speed/Windowsclaim нет,015finalCI включает0. Остались docs-only reproduction appendix и одно freshness review; runtime/retry/newfits не требуются. Early18:00checkpoint фактически17:53:45.945309, next18:45UTC от scheduled18:00.

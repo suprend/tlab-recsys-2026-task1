@@ -2,7 +2,7 @@
 
 15 октября 2026. Primary-source rounds дополняют canonical backlog; rejected/duplicate идеи сохраняются, budgets не складываются. [Фактический TLAB-015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0;финальное review отчёта завершено;018 остаётся partial, новые optional идеи не становятся gates.
 
-Текущая навигация (17:48:29UTC): [heldout](../backlog-reviews/real015-heldout-results.md), [producer](../backlog-reviews/public018-fresh-environment-and-producer.md), [accepted repair/API и recovery](../backlog-reviews/public018-adapterV3-API-recovery.md). Recovery50587 Root RUNNING/numericpending;018partial13/19,035criticcomplete/Rootreadbackpending;next18:00UTC от17:15.
+Текущая навигация (18:01:09UTC): [heldout](../backlog-reviews/real015-heldout-results.md), [полный публичный повтор018 принят](../backlog-reviews/public018-complete-output-acceptance.md).14 из19,018done documentedMacscope;015/reportaccepted, appendixfreshnessreview pending.035criticcomplete/Rootreadbackpending,036обаFIRST/Root-onlycritic;next18:45UTC отscheduled18:00.
 
 [Wave034 приоритет существующей воспроизводимости](brainstorm-wave034-synthesis.md): нет новых ID/тестов/grants, не добавляет gates.
 [Wave032 approximate cosine/Jaccard](brainstorm-wave032-synthesis.md): exactsupport/degree/masks/expiry retained, no exactequality046 claim,0IDs/grants.

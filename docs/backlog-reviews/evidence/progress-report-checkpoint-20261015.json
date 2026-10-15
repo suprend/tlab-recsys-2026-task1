@@ -11,7 +11,7 @@
   },
   "current_progress": {
     "path": "docs/progress-report.md",
-    "sha256": "b48279fd61788ee61afcecd32ea441b9cb97d885351d99fe1e8e1984d5b7ac78"
+    "sha256": "f4434d1399e4d1b6f5f661fef6d5d33bca555edb881c4f3c338da8d5134c9d12"
   },
   "changes": [
     "correct CODE-accepted heldout/source owner status while keeping fresh-process/runtime gates pending",
@@ -62,7 +62,9 @@
     "Обновление 17:22:25 UTC: [чистое окружение принято, полный producer 79330 работает](backlog-reviews/public018-fresh-environment-and-producer.md); последнее Root-наблюдение 17:15:40 подтверждает только промежуточные metadata, полные выходы и lifetime ещё не приняты. TLAB015 и отчёт завершены, принято 13 из 19 задач; TLAB018 partial, final CI включает ноль. Исследования [032](research-lab/brainstorm-wave032-synthesis.md), [033](research-lab/brainstorm-wave033-synthesis.md) и [034](research-lab/brainstorm-wave034-synthesis.md) приняты как existing-family refinements без новых ID, задач и grants; adapter V2 принят только как CODE, не установлен и не запускался. Старый offline failure/unknown сохранён, protected code/deps/recipe/lock не изменены; executable Root spec и большие выходы не публикуются. Ранний checkpoint 17:09:04 покрывает 17:15; следующий максимум 18:00 UTC от исходного якоря 17:15, runtime остаётся у Root.",
     "Обновление 17:25:10 UTC: [полный producer 79330 завершился EXIT0, процесс принят](backlog-reviews/public018-fresh-environment-and-producer.md); две новые модели и comparison произведены, независимая численная проверка ещё ожидается. TLAB018 partial, принято 13 из 19 задач; TLAB015 и отчёт завершены, final CI включает ноль. Волны [032](research-lab/brainstorm-wave032-synthesis.md), [033](research-lab/brainstorm-wave033-synthesis.md), [034](research-lab/brainstorm-wave034-synthesis.md) приняты без новых ID/задач/grants; защищённый код и sourceclone d35 не изменены. Оригинальный 79330 CLOSED/reaped, повтор и дальнейший poll не выполняются; следующий максимум 18:00 UTC от якоря 17:15.",
     "Обновление 17:32:54 UTC: [независимый verifier5316 завершился EXIT1 до моделей](backlog-reviews/public018-independent-verifier-failure.md): DuckDB read_only source connection отверг create_view. Native source count проверен, но Q/C/fullY/матрицы/метрики не приняты;0model loads/predicts/fits/heldout. Producer79330 CLOSED0 и новое чистое окружение остаются приняты в своём scope; TLAB018 partial,13 из19. SourceV3 repair и один invented API canary пока proposal, новых запусков/повторов/grants нет; rawunknowntrue первой попытки сохранён. Следующий максимум18:00UTC от исходного17:15, финальное качество и отчёт015 неизменны.",
-    "Обновление 17:48:29 UTC: [SourceV3/API canary и wrapperV2 binding приняты](backlog-reviews/public018-adapterV3-API-recovery.md), отдельно выдан recovery50587/83c50c по тем же produceroutputs; Root handoff RUNNING, численная приёмка pending. Новый конечный600CPU/900wall/8GiB/2loads2predict0fits шаг не повторяет producer79330/2fits и не пополняет старую FAILED5316 попытку. TLAB018 partial,13 из19; прежние rawunknown flags и финальное качество015 неизменны. Следующий максимум18:00UTC от исходного17:15, publisher runtime0."
+    "Обновление 17:48:29 UTC: [SourceV3/API canary и wrapperV2 binding приняты](backlog-reviews/public018-adapterV3-API-recovery.md), отдельно выдан recovery50587/83c50c по тем же produceroutputs; Root handoff RUNNING, численная приёмка pending. Новый конечный600CPU/900wall/8GiB/2loads2predict0fits шаг не повторяет producer79330/2fits и не пополняет старую FAILED5316 попытку. TLAB018 partial,13 из19; прежние rawunknown flags и финальное качество015 неизменны. Следующий максимум18:00UTC от исходного17:15, publisher runtime0.",
+    "Ранний checkpoint к18:00 сохранён фактически 2026-10-15T17:53:45.945309+00:00, до исходного максимума. Producer79330 CLOSED/reaped0/processaccepted, первая verifier5316 CLOSED1/rawunknowntrue сохранена; узкий SourceV3/API canary принят, новая отдельно выданная recovery50587 RUNNING по последнему Root handoff, полного numericoutput acceptance нет. TLAB018 partial,13 из19;015/отчёт приняты, finalCI включает0,11historicalfits/19looks и2engineeringfits producer не меняются. Последний actual agent inventory: Root/publisher/FeaturesA running; FeaturesB036FIRST complete,035criticcomplete/Rootreadbackpending, остальные кодовые handles completed; scope FeaturesA не предполагается. Root alone runtime/poll/grants, publisher0native/data/model/jobs и0criticdispatch. SafeNEXT — terminal50587 и Root независимая numeric/resource приёмка либо правдивый failure disposition; retry/новое обучение автоматически не разрешены. Следующий максимум18:45UTC/21:45МСК от исходного scheduled18:00, не от ранней записи или новых идей; исходная цель, deadline и отдельные лимиты сохраняются.",
+    "Обновление 18:01:09 UTC: [полный публичный повтор018 принят](backlog-reviews/public018-complete-output-acceptance.md): clone/newlocked Mac environment/raw→15freshcollections→2NEWfixedfits→comparison, независимые матрицы/1634298scores/fullranks/4estimands/200bootstrap проверены. Producer79330 и verifier50587 CLOSED/reaped0,018done,14 из19;014research продолжается,010–013 optional deferred. Core18 formula proof не повышен до exhaustive; нового quality/search/speed/Windowsclaim нет,015finalCI включает0. Остались docs-only reproduction appendix и одно freshness review; runtime/retry/newfits не требуются. Early18:00checkpoint фактически17:53:45.945309, next18:45UTC от scheduled18:00."
   ],
   "frozen_experimental_report_and_root_review_rewritten": false,
   "historical_all32_current_at_publication_claim_is_not_current_file_equality_after_this_progress_update": true,
@@ -209,7 +211,7 @@
       "superseded_by": "2026-10-15T17:09:04.401541+00:00 early17:15/freshenvaccepted/fullproducerpending/032033accepted"
     }
   ],
-  "updated_at_utc": "2026-10-15T17:09:04.401541+00:00",
+  "updated_at_utc": "2026-10-15T17:53:45.945309+00:00",
   "current_experimental_report_after_separate_Root_adoption": {
     "path": "docs/experimental-report.md",
     "sha256": "f6532cb5b9141bc41ef0c753f50aa15eaa9872d83fbf1f9a8edfcc491725119b",
@@ -218,25 +220,35 @@
     "historical_source_ledger_unchanged": true,
     "Root_review_originals_rewritten": false
   },
-  "latest_status_overlay_at_utc": "2026-10-15T17:48:29.512245+00:00",
-  "next_due_utc": "2026-10-15T18:00:00Z",
-  "next_due_anchor": "scheduled2026-10-15T17:15:00Z independentofearlywrite",
+  "latest_status_overlay_at_utc": "2026-10-15T18:01:09.754759+00:00",
+  "next_due_utc": "2026-10-15T18:45:00Z",
+  "next_due_anchor": "scheduled2026-10-15T18:00:00Z independentofearlywrite",
   "current_checkpoint": {
-    "scheduled_max_utc": "2026-10-15T17:15:00Z",
-    "actual_write_utc": "2026-10-15T17:09:04.401541+00:00",
+    "scheduled_max_utc": "2026-10-15T18:00:00Z",
+    "actual_write_utc": "2026-10-15T17:53:45.945309+00:00",
     "before_scheduled_max": true,
-    "cleanenvRootSHA": "6842dd8e9460dd5e05ac8030d65f6537f25698e288199188c395a0a96e22b47f",
-    "producerRootissuedSHA": "0bdc07818dcbeddaeee79a67d5ac5eb90f68b901ded93c5c7179dd95d101598a",
-    "wave033RootSHA": "ef8ec48f270d921c7df9aacfa1934a1dbe602033f0feaccafc547d8322753848",
-    "adapterRootCODEonlySHA": "a8feb252da2259743f4956509b147ff56cf1167ac3bd37fec4e96f1d721fc08e",
-    "full018accepted": false,
-    "actualverifier_granted": false,
+    "seconds_before_max": 374.054691,
+    "Root_repair_receipt_sha256": "ca8871f139acaf2969db936b3d4bad12735a7f9f9ccc5bb252dbcad4aa0d9b99",
+    "Root_recovery_issued_sha256": "e8a26a9210bec005b1f06c46c7b145b010d3598ea75c2e1f747a737fc77a2f0c",
+    "latest_Root_runtime_handoff": "50587/83c50c RUNNING; publisher no poll or output access",
+    "full_numeric_output_acceptance": false,
+    "018done": false,
+    "accepted_tasks": "13/19",
     "publisher_jobs": 0,
-    "archives_prepared": true,
-    "original_17_09_status_preserved_as_history": "SUBMITTED_RUNNING_acceptancepending",
-    "producer79330_lastRootstatus": "CLOSED_REAPED_EXIT0_processaccepted_independentnumericoutputpending",
-    "verifier5316": "CLOSED/reaped EXIT1 beforemodel loop; rawunknowntrue, no newrun/canarygranted",
-    "current_verifier50587": "RUNNING perRootcollaboration, repair/API scopeaccepted/numericpending"
+    "actual_agent_inventory_observed": {
+      "running": [
+        "/root",
+        "/root/backlog_coordinator",
+        "/root/brainstorm_features_a"
+      ],
+      "FeaturesA_scope_not_assumed": true,
+      "wave036FeaturesB": "FIRST complete by direct author handoff",
+      "wave035critic": "complete; Rootreadbackpending",
+      "other_code_handles": "completed, does not supersede Root actualruntime receipts"
+    },
+    "next_safe_step": "Root original50587 terminal/independent numeric-resource acceptance or truthful failure; no automaticretry/refit/grant",
+    "inherited_goal_and_bounded_operation_limits_unchanged": true,
+    "latest_runtime_overlay": "Original50587/79330 CLOSED0; complete018 accepted14/19; no active runtime"
   },
   "latest_archive_scope": {
     "032": 10,
@@ -258,18 +270,21 @@
   ],
   "next_research_round": "035 critic complete; Root full readback pending, no new canonical admission",
   "prior_scheduled_checkpoint": {
-    "scheduled_max_utc": "2026-10-15T16:30:00Z",
-    "actual_write_utc": "2026-10-15T16:22:15.554959+00:00",
+    "scheduled_max_utc": "2026-10-15T17:15:00Z",
+    "actual_write_utc": "2026-10-15T17:09:04.401541+00:00",
     "before_scheduled_max": true,
-    "Root_publicV3_CODE_only_sha256": "7e93246fdef156b13616f9b3c5640bfb2d0c3e5fd88a50e07df0948e84b5e8dc",
-    "Root_transportV2_CODE_only_sha256": "06b74da14b08f6ae1ccf2aa04e07020e8e30f9613350a9da994ca520c6c78ff7",
-    "installation_authorized": false,
-    "actual_raw_newfit_granted": false,
-    "integration20CPU30wall512MiB": "proposal_UNISSUED",
-    "publisher_runtime_tests_jobs": 0,
-    "next_safe_step": "exactharness Root readback and separately issued integration; installation only after actualRoot acceptance",
+    "cleanenvRootSHA": "6842dd8e9460dd5e05ac8030d65f6537f25698e288199188c395a0a96e22b47f",
+    "producerRootissuedSHA": "0bdc07818dcbeddaeee79a67d5ac5eb90f68b901ded93c5c7179dd95d101598a",
+    "wave033RootSHA": "ef8ec48f270d921c7df9aacfa1934a1dbe602033f0feaccafc547d8322753848",
+    "adapterRootCODEonlySHA": "a8feb252da2259743f4956509b147ff56cf1167ac3bd37fec4e96f1d721fc08e",
+    "full018accepted": false,
+    "actualverifier_granted": false,
+    "publisher_jobs": 0,
     "archives_prepared": true,
-    "031_Root_accepted_sha256": "8dd73d21c9f4682a1be9f03fa691be6da093778f52399fcbeae252a00f7be721"
+    "original_17_09_status_preserved_as_history": "SUBMITTED_RUNNING_acceptancepending",
+    "producer79330_lastRootstatus": "CLOSED_REAPED_EXIT0_processaccepted_independentnumericoutputpending",
+    "verifier5316": "CLOSED/reaped EXIT1 beforemodel loop; rawunknowntrue, no newrun/canarygranted",
+    "current_verifier50587": "RUNNING perRootcollaboration, repair/API scopeaccepted/numericpending"
   },
   "032_dispatch_race": {
     "two_prompts_one_existing_agent_one_review": true,
@@ -287,14 +302,16 @@
     "actual_engineeringfits": 2,
     "original_searchfits": 11,
     "original_selectionlooks": 19,
-    "independent_output_numeric_accepted": false,
+    "independent_output_numeric_accepted": true,
     "actualverifier_granted": false,
-    "018done": false,
+    "018done": true,
     "producer_pending_flags_rewritten": false,
     "publisher_tests_native_datajobs": 0,
     "independent_verifier_first_attempt_closed_failed": true,
     "new_verifier_granted": true,
-    "Rootverifier_failure_sha256": "e065e445fb2ecbfd01cd35d8efc9c40d8d40460701d16bbab16a5930063b3693"
+    "Rootverifier_failure_sha256": "e065e445fb2ecbfd01cd35d8efc9c40d8d40460701d16bbab16a5930063b3693",
+    "accepted_tasks": "14/19",
+    "Rootcomplete018_sha256": "6dfe06d94140e5231574cd76718a61df2b0fd16dfc3e74a0698544a4948d7db6"
   },
   "current_setup_producer_overlay": {
     "observed_by_publisher_at_utc": "2026-10-15T17:32:54.975045+00:00",
@@ -703,7 +720,7 @@
     "next_due_utc": "2026-10-15T18:00:00Z",
     "publisher_native_data_model_runtime_jobs": 0
   },
-  "next_safe_step": "Root alone polls original50587; only after terminal independentnumeric/resource readback may018 be accepted, no automaticretry/retraining.",
+  "next_safe_step": "Docs-only reproduction appendix/README/instruction/progress candidate and one independent freshness review; no runtime/fit/data/model jobs or new quality gate.",
   "current_verifier_recovery": {
     "observed_at_utc": "2026-10-15T17:48:29.512245+00:00",
     "repair_Root_sha256": "ca8871f139acaf2969db936b3d4bad12735a7f9f9ccc5bb252dbcad4aa0d9b99",
@@ -765,13 +782,13 @@
       "Allindependentmathematics/3historicalASTtransports unchanged",
       "Old5316failure/rawflags/debit retained; no allowance refill, anyrecoverynewexplicitpaidoperation"
     ],
-    "fullactualV3_output_accepted": false,
+    "fullactualV3_output_accepted": true,
     "recovery": {
       "operation_id": "public018-actual-output-verifier-recovery-v2-20261015-once",
       "Root_issued_sha256": "e8a26a9210bec005b1f06c46c7b145b010d3598ea75c2e1f747a737fc77a2f0c",
       "session_from_Root_handoff": 50587,
       "submission_chunk_from_Root_handoff": "83c50c",
-      "state": "SUBMITTED_RUNNING perRootcollaboration; issued prepared status unchanged",
+      "state": "CLOSED/reaped49724aEXIT0 accepted byRoot6dfe06",
       "limits": {
         "Root_tailCPU": 10,
         "Root_tailwall": 30,
@@ -795,5 +812,99 @@
     "018": "partial13/19",
     "next_due_utc": "2026-10-15T18:00:00Z",
     "publisher_jobs": 0
+  },
+  "complete018_acceptance": {
+    "observed_at_utc": "2026-10-15T18:01:09.754759+00:00",
+    "Root_acceptance_sha256": "6dfe06d94140e5231574cd76718a61df2b0fd16dfc3e74a0698544a4948d7db6",
+    "status": "ACCEPTED",
+    "task": "TLAB018 done in documented Mac/newlockedenv/frozen2fit scope",
+    "accepted_tasks": 14,
+    "of": 19,
+    "source_head": "d35cfb6c73b8fd631e5f9aadba1deab4902db241",
+    "producer": {
+      "session": 79330,
+      "closed_reaped": true,
+      "exit": 0,
+      "engineering_newfits": 2,
+      "external_wall": 966.83,
+      "external_CPU": 1356.54,
+      "external_upper_wall": 966.85,
+      "external_upper_CPU": 1356.56,
+      "sampled_RSS_bytes": 7121993728
+    },
+    "independent_verifier": {
+      "session": 50587,
+      "terminal": "49724a",
+      "closed_reaped": true,
+      "exit": 0,
+      "loads": 2,
+      "predicts": 2,
+      "fits": 0,
+      "selection_scores": 1634298,
+      "fullranks": true,
+      "all4estimands_200conditionalbootstrap": true,
+      "Root_numeric_fields_compared": 255,
+      "external_display": {
+        "system": 5.83,
+        "user": 124.38,
+        "wall": 81.87
+      },
+      "external_upper": {
+        "cpu": 130.23,
+        "wall": 81.89
+      },
+      "V6upper_separate_not_added": {
+        "cpu": 132.212582,
+        "wall": 86.85475512499397
+      },
+      "sampled_RSS_bytes": 4027482112,
+      "raw_V6": {
+        "actual_total_cpu_seconds": null,
+        "errors": [],
+        "observed_process_count": 1,
+        "status": "verified_normal_exit",
+        "survivors": [],
+        "unknown_active_work": false
+      }
+    },
+    "independent_source_support": [
+      {
+        "candidates": 817149,
+        "chosen3_exhaustive": true,
+        "core18_formula_values_exhaustive": false,
+        "fullY": 96,
+        "phase": "selection",
+        "positive_queries": 73,
+        "queries": 4000,
+        "retrieved": 65
+      },
+      {
+        "candidates": 5317058,
+        "chosen3_exhaustive": true,
+        "core18_formula_values_exhaustive": false,
+        "fullY": 619,
+        "phase": "train",
+        "positive_queries": 496,
+        "queries": 26000,
+        "retrieved": 444
+      }
+    ],
+    "development_NDCG": {
+      "B": 0.4586107284411233,
+      "W": 0.46470287738416133
+    },
+    "chosen3_metadata_QC_fullY_allmatrices_weights_native_fullranks_verified": true,
+    "historical_W44_materialmatrix_exact_equal": true,
+    "core18_formulas_exhaustive": false,
+    "source42M_cells_independently_oracled": false,
+    "newquality_search_speed_Windows_claim": false,
+    "historical_scientific_fits": 11,
+    "historical_selection_looks": 19,
+    "014": "ongoing research",
+    "010_013": "optional deferred",
+    "goal_active": true,
+    "next_due_utc": "2026-10-15T18:45:00Z",
+    "oldfailures_and_costs_preserved": true,
+    "publisher_data_models_runtime_jobs": 0
   }
 }

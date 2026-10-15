@@ -1,6 +1,6 @@
 # Автоматизация признаков для ранжирования покупок
 
-По состоянию на15 октября2026,17:48:29UTC, публичный raw → новые коллекции → две новые модели → comparison producer и чистое окружение завершены и приняты в процессном scope. Исправление независимого проверяющего принято после узкой API-проверки; новая ограниченная recovery-проверка работает, численная приёмка ещё pending: TLAB018 partial,13 из19. Отложенное качество остаётся прежним: NDCG+0,005122 с95%CI [−0,010433; +0,018561], без убедительного превосходства.
+По состоянию на15 октября2026,18:01:09UTC, полный публичный путь из исходного архива к новым коллекциям, двум новым fixedB/W моделям и сравнению независимо принят на новом locked Mac-окружении. TLAB018 завершён в этом scope, принято14 из19 задач; осталось обновить reproduction appendix и проверить его свежесть. Отложенное качество остаётся прежним: NDCG+0,005122 с95%CI [−0,010433; +0,018561], без убедительного превосходства.
 
 Рабочий отчёт по первой задаче T-Lab. Ручной контроль настроен в пределах заранее заданного бюджета и независимо проверен. Четыре ветви автоматизации и неизменённое отложенное сравнение выполнены и независимо приняты; финальная разность положительна, её интервал включает ноль.
 
@@ -243,3 +243,11 @@ Finalauthorproof: шесть unchanged методов PASS вV2 + исправл
 
 
 Обновление 17:48:29 UTC: [SourceV3/API canary и wrapperV2 binding приняты](backlog-reviews/public018-adapterV3-API-recovery.md), отдельно выдан recovery50587/83c50c по тем же produceroutputs; Root handoff RUNNING, численная приёмка pending. Новый конечный600CPU/900wall/8GiB/2loads2predict0fits шаг не повторяет producer79330/2fits и не пополняет старую FAILED5316 попытку. TLAB018 partial,13 из19; прежние rawunknown flags и финальное качество015 неизменны. Следующий максимум18:00UTC от исходного17:15, publisher runtime0.
+
+
+## Ранний18:00 checkpoint — 2026-10-15T17:53:45.945309+00:00
+
+Ранний checkpoint к18:00 сохранён фактически 2026-10-15T17:53:45.945309+00:00, до исходного максимума. Producer79330 CLOSED/reaped0/processaccepted, первая verifier5316 CLOSED1/rawunknowntrue сохранена; узкий SourceV3/API canary принят, новая отдельно выданная recovery50587 RUNNING по последнему Root handoff, полного numericoutput acceptance нет. TLAB018 partial,13 из19;015/отчёт приняты, finalCI включает0,11historicalfits/19looks и2engineeringfits producer не меняются. Последний actual agent inventory: Root/publisher/FeaturesA running; FeaturesB036FIRST complete,035criticcomplete/Rootreadbackpending, остальные кодовые handles completed; scope FeaturesA не предполагается. Root alone runtime/poll/grants, publisher0native/data/model/jobs и0criticdispatch. SafeNEXT — terminal50587 и Root независимая numeric/resource приёмка либо правдивый failure disposition; retry/новое обучение автоматически не разрешены. Следующий максимум18:45UTC/21:45МСК от исходного scheduled18:00, не от ранней записи или новых идей; исходная цель, deadline и отдельные лимиты сохраняются.
+
+
+Обновление 18:01:09 UTC: [полный публичный повтор018 принят](backlog-reviews/public018-complete-output-acceptance.md): clone/newlocked Mac environment/raw→15freshcollections→2NEWfixedfits→comparison, независимые матрицы/1634298scores/fullranks/4estimands/200bootstrap проверены. Producer79330 и verifier50587 CLOSED/reaped0,018done,14 из19;014research продолжается,010–013 optional deferred. Core18 formula proof не повышен до exhaustive; нового quality/search/speed/Windowsclaim нет,015finalCI включает0. Остались docs-only reproduction appendix и одно freshness review; runtime/retry/newfits не требуются. Early18:00checkpoint фактически17:53:45.945309, next18:45UTC от scheduled18:00.
