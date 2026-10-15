@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "status": "source_only_ungranted",
+  "files": [
+    {
+      "path": "/tmp/tlab-adaptive-tree-independent-verifier-v2.py",
+      "sha256": "f66d5f389db22f8189bf918684f2144c32077bfb572fdb3838cbfdffc2111443",
+      "bytes": 19375
+    },
+    {
+      "path": "/tmp/tlab-adaptive-tree-independent-verifier-interface-final-v2.md",
+      "sha256": "b95246f67e3419e1c8a0da361a8c05fc426acab871583db2a54626d904ceec3e",
+      "bytes": 8705
+    },
+    {
+      "path": "/tmp/tlab-adaptive-tree-independent-verifier-v1-v2.diff",
+      "sha256": "5bbd418c30f2a5e3f9b9a33d986823f29d144793a128fb7eb692008a7461a86d",
+      "bytes": 871
+    },
+    {
+      "path": "/tmp/tlab-adaptive-tree-independent-verifier-rebind-final-ledger-v2.json",
+      "sha256": "ac8a50bcbe5a87aa9a1a897d9810ca77e60d98ab45502a44c54e4225a217951e",
+      "bytes": 2272
+    }
+  ],
+  "preserved_originals": {
+    "/tmp/tlab-adaptive-tree-independent-verifier-v1.py": {
+      "sha256": "9a20064d0a4fd64087b20e6e5804aa43e9ad2e4544b07ce9e24bbf7966ef8eb9",
+      "bytes": 19375
+    },
+    "/tmp/tlab-adaptive-tree-independent-verifier-interface-v1.md": {
+      "sha256": "a7265d5a04134d683550c651836a055f263ea6b3b28c7a1df67f4d8d174a513d",
+      "bytes": 7979
+    },
+    "/tmp/tlab-adaptive-tree-independent-verifier-freeze-v1.json": {
+      "sha256": "d0e2d11b803822c28cd7e275af1ac1af3c21d9e283972d4788f9f481fa6b6eed",
+      "bytes": 3125
+    },
+    "/tmp/tlab-adaptive-tree-selection-study-v2.py": {
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "bytes": 18580
+    },
+    "/tmp/tlab-adaptive-tree-selection-request-proposal-v2.json": {
+      "sha256": "6ffe3c7a82854fca25446faf8a580dce83c03584c7f37a81d63d1684b76049a7",
+      "bytes": 11680
+    }
+  },
+  "code_delta": "Only PRODUCER_SHA and REQUEST_SHA; inverse byte/AST exact",
+  "preliminary_v2_freeze": {
+    "path": "/tmp/tlab-adaptive-tree-independent-verifier-freeze-v2.json",
+    "sha256": "0f734fc72b95a05e1a348259442a5f7a7267b50c0d7a91930aa7924da548a194"
+  },
+  "schema_clarification": "Producer request adds repair_provenance; consumed request and output/observation contracts unchanged",
+  "no_runtime_grant": true
+}

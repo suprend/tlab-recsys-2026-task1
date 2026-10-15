@@ -1,0 +1,101 @@
+{
+  "version": 2,
+  "reviewer": "timing_methodology_review",
+  "created_at_utc": "2026-10-15T19:01:58.637174+00:00",
+  "mode": "same_reviewer_focused_static_P2_closure",
+  "input_freeze": {
+    "path": "/tmp/tlab-adaptive-tree-focused-review-20261015-v2/freeze.json",
+    "bytes": 2945,
+    "sha256": "2c9f99eeed131085fa6cda9447d6616e75677d25fcee639028862a232ee6e650"
+  },
+  "inherited_review": {
+    "path": "/tmp/tlab-adaptive-tree-independent-resource-review-v1.md",
+    "bytes": 4358,
+    "sha256": "d189c3a6fcec812f3a3a05a5cfe9a607edf13a19db7d3967edad99a08c2cec98"
+  },
+  "inputs": [
+    {
+      "bytes": 18580,
+      "original": "/tmp/tlab-adaptive-tree-selection-study-v2.py",
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "snapshot": "/tmp/tlab-adaptive-tree-focused-review-20261015-v2/tlab-adaptive-tree-selection-study-v2.py",
+      "current_original_matches_snapshot": true
+    },
+    {
+      "bytes": 11680,
+      "original": "/tmp/tlab-adaptive-tree-selection-request-proposal-v2.json",
+      "sha256": "6ffe3c7a82854fca25446faf8a580dce83c03584c7f37a81d63d1684b76049a7",
+      "snapshot": "/tmp/tlab-adaptive-tree-focused-review-20261015-v2/tlab-adaptive-tree-selection-request-proposal-v2.json",
+      "current_original_matches_snapshot": true
+    },
+    {
+      "bytes": 3977,
+      "original": "/tmp/tlab-adaptive-tree-selection-repair-freeze-v2.json",
+      "sha256": "d9e045a40af18e57a8df91d029d08b0a3880156c5700831a014a25f4691a9ff9",
+      "snapshot": "/tmp/tlab-adaptive-tree-focused-review-20261015-v2/tlab-adaptive-tree-selection-repair-freeze-v2.json",
+      "current_original_matches_snapshot": true
+    },
+    {
+      "bytes": 19375,
+      "original": "/tmp/tlab-adaptive-tree-independent-verifier-v2.py",
+      "sha256": "f66d5f389db22f8189bf918684f2144c32077bfb572fdb3838cbfdffc2111443",
+      "snapshot": "/tmp/tlab-adaptive-tree-focused-review-20261015-v2/tlab-adaptive-tree-independent-verifier-v2.py",
+      "current_original_matches_snapshot": true
+    },
+    {
+      "bytes": 2192,
+      "original": "/tmp/tlab-adaptive-tree-independent-verifier-final-freeze-v2.json",
+      "sha256": "8aa3b69a2a18cf8c917dd72f569e201d37932d04e11ee7c499fef48c6744edb7",
+      "snapshot": "/tmp/tlab-adaptive-tree-focused-review-20261015-v2/tlab-adaptive-tree-independent-verifier-final-freeze-v2.json",
+      "current_original_matches_snapshot": true
+    },
+    {
+      "bytes": 871,
+      "original": "/tmp/tlab-adaptive-tree-independent-verifier-v1-v2.diff",
+      "sha256": "5bbd418c30f2a5e3f9b9a33d986823f29d144793a128fb7eb692008a7461a86d",
+      "snapshot": "/tmp/tlab-adaptive-tree-focused-review-20261015-v2/tlab-adaptive-tree-independent-verifier-v1-v2.diff",
+      "current_original_matches_snapshot": true
+    },
+    {
+      "bytes": 6501,
+      "original": "/tmp/tlab-adaptive-output-alias-regression-v2.py",
+      "sha256": "fae46b6fcb6ef7a41e437e08e63d6ce98c271c25f9d4c91182af1f4bc7284090",
+      "snapshot": "/tmp/tlab-adaptive-tree-focused-review-20261015-v2/tlab-adaptive-output-alias-regression-v2.py",
+      "current_original_matches_snapshot": true
+    }
+  ],
+  "disposition": "reported_P2_closed_no_new_P1_P2_in_narrow_delta",
+  "closure_location": {
+    "path": "/tmp/tlab-adaptive-tree-selection-study-v2.py",
+    "line": 121
+  },
+  "checked": {
+    "producer_inverse_exact_V1": true,
+    "three_selector_function_AST_identical": true,
+    "request_changed_keys": [
+      "driver",
+      "repair_provenance"
+    ],
+    "verifier_inverse_exact_V1_two_SHA_constants": true,
+    "regression_guards_and_primary_failure_preservation": "source_checked",
+    "AST_compile_three_Python_files": "PASS_not_executed"
+  },
+  "executions": {
+    "candidate_modules": 0,
+    "regression_tests": 0,
+    "fixtures": 0,
+    "native_imports": 0,
+    "data_model_Y_reads": 0,
+    "helpers_children": 0,
+    "project_writes": 0,
+    "git_actions": 0
+  },
+  "runtime_grant": false,
+  "actual_test_result": "NOT_OBSERVED_by_reviewer",
+  "full_pipeline_completion": "NOT_CLAIMED",
+  "report": {
+    "path": "/tmp/tlab-adaptive-tree-focused-resource-rereview-v2.md",
+    "bytes": 2763,
+    "sha256": "77f603e5b72b83706ce3ffdebf9376fbfd7b8e754411f7abf8ccbd1884bd7474"
+  }
+}

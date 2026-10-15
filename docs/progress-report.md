@@ -1,5 +1,7 @@
 # Автоматизация признаков для ранжирования покупок
 
+Обновление 2026-10-15T19:15:13.062161+00:00: [адаптивная V2 принята как CODE и установлена](backlog-reviews/adaptive-tree-v2-install-and-issued.md); Root отдельно отправил ОДИН producer73792/88be2a, RUNNING по handoff. Это максимум2новых fits/1200ceiling/до2400зависимых devchecks, selectedtrees/results/terminal/lifetime pending; independentverifier пока reserved/unissued. Нет publisherpoll/retry/nativeработ.015/018done14/19 и old300study/final неизменны;019extensionactive.
+
 Обновление 2026-10-15T18:55:43.587652+00:00: [адаптивная ветвь V1 остановлена source-only P2](backlog-reviews/adaptive-tree-code-v1-changes-requested.md) проверки literal output до resolve. V2 узко исправляется; затем те же reviewers и Root source/adoption/runtime decision. V1 не устанавливается, реальных adaptive fits нет. Synthetic selector PASS остаётся scoped;019extension активна,015/018done14/19 неизменны.
 
 По состоянию на15 октября2026,18:01:09UTC, полный публичный путь из исходного архива к новым коллекциям, двум новым fixedB/W моделям и сравнению независимо принят на новом locked Mac-окружении. TLAB018 завершён в этом scope, принято14 из19 задач; reproduction appendix отражает отдельно принятую scoped приёмку; история ошибок и ограничения сохранены. Отложенное качество остаётся прежним: NDCG+0,005122 с95%CI [−0,010433; +0,018561], без убедительного превосходства.

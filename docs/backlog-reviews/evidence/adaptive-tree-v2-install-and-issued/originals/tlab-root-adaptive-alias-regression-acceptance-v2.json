@@ -1,0 +1,50 @@
+{
+  "Root_independent_readback": "Actualfixture literal remains symlink, absenttargetnotcreated, regularbytesunder16MiB; testwhole127linesreadbeforeissue; V2earlyValueError before anyownedmkdir/native/data.",
+  "Root_readback_reserve": {
+    "cpu": 1,
+    "wall": 1
+  },
+  "accepted_at_utc": "2026-10-15T19:01:38.212453+00:00",
+  "closed": true,
+  "conservative_external_upper": {
+    "cpu": 0.05,
+    "wall": 0.06
+  },
+  "exit_code": 0,
+  "external_display": {
+    "sys": 0.0,
+    "user": 0.03,
+    "wall": 0.04
+  },
+  "fixture_regular_bytes": 52527,
+  "goal": "active",
+  "issue_sha256": "cc7eed0870d6feb19db8eaa2f49479e943ce89236d537b6a0ddeefea12278eea",
+  "native_fits_granted": false,
+  "proof_transfer": "V1selectorfourcluster06f5 retained; V2onlyguardelsewhere, threefunctionASTsbyteidentical. Thisregressiononlyprovespathcase, notnativefit/staged/shrink/resourcefeasibility.",
+  "result": {
+    "bytes": 854,
+    "path": "/tmp/tlab-adaptive-output-alias-result-v2.json",
+    "sha256": "f20499918cd93b0bed8b3757c61b624c8b03f8ebf49da4f101750a53b1fafb5c"
+  },
+  "status": "Root_ACCEPTED_actualV2_early_literal_alias_rejection",
+  "terminal_chunk": "30623e",
+  "test_result": {
+    "actual_fits": 0,
+    "actual_native_operations": 0,
+    "cpu_body": 0.012002000000000002,
+    "error": null,
+    "fixture": "/private/tmp/tlab-adaptive-alias-v2-hfajg7tv",
+    "forbidden_imports": [],
+    "literal": "/private/tmp/tlab-adaptive-alias-v2-hfajg7tv/artifacts/reproduction/adaptive-tree-selection-1200-once",
+    "mkdir_attempts": [],
+    "paid_open_attempts": [],
+    "passed": true,
+    "peak_rss_bytes": 27787264,
+    "producer_sha": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+    "request_sha": "6ffe3c7a82854fca25446faf8a580dce83c03584c7f37a81d63d1684b76049a7",
+    "scope": "Main body/process peak only; Root external timer closes startup/exit",
+    "sibling": "/private/tmp/tlab-adaptive-alias-v2-hfajg7tv/artifacts/reproduction/absent-sibling",
+    "source_binding_or_recipe_read_reached": false,
+    "wall_body": 0.01476966698828619
+  }
+}

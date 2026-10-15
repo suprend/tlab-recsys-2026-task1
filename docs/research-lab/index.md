@@ -2,7 +2,7 @@
 
 15 октября2026. Primary-source rounds дополняют единственный canonical backlog. [TLAB015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0; [018 публичный повтор принят](../backlog-reviews/public018-complete-output-acceptance.md) в документированном Mac scope. Принято14 из19; optional идеи не становятся gates.
 
-Текущая навигация: [heldout](../backlog-reviews/real015-heldout-results.md), [complete018](../backlog-reviews/public018-complete-output-acceptance.md), [принятая docsV4](../backlog-reviews/complete018-docs-v4.md), [current queue](../backlog.md).[035](brainstorm-wave035-synthesis.md)/[036](brainstorm-wave036-synthesis.md) Rootaccepted и архивированы;037/038skeptics complete, Rootreadback pending. Следующий максимум19:30UTC от scheduled18:45; новая адаптивная ветвь отдельно prepared/unrun.
+Текущая навигация: [heldout](../backlog-reviews/real015-heldout-results.md), [complete018](../backlog-reviews/public018-complete-output-acceptance.md), [принятая docsV4](../backlog-reviews/complete018-docs-v4.md), [current queue](../backlog.md).[035](brainstorm-wave035-synthesis.md)/[036](brainstorm-wave036-synthesis.md) Rootaccepted и архивированы;037/038skeptics complete, Rootreadback pending. [AdaptiveV2CODE+singleproducer submission](../backlog-reviews/adaptive-tree-v2-install-and-issued.md): output/lifetime pending;039обаFIRSTcomplete/Rootcritic. Следующий максимум20:15UTC от scheduled19:30.
 
 [Wave034 приоритет существующей воспроизводимости](brainstorm-wave034-synthesis.md): нет новых ID/тестов/grants, не добавляет gates.
 [Wave032 approximate cosine/Jaccard](brainstorm-wave032-synthesis.md): exactsupport/degree/masks/expiry retained, no exactequality046 claim,0IDs/grants.

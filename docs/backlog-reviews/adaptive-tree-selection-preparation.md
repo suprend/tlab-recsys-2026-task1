@@ -1,6 +1,6 @@
 # Подготовка адаптивного числа деревьев
 
-Пользователь уточнил требование: каждое новое обучение должно выбирать число деревьев по validation, а не использовать фиксированное300 как будущий default. Existing019 extension готовит общую функцию fit+choose-best и независимый verifier; [WholeCODE V1 review завершён с одним output-path P2](adaptive-tree-code-v1-changes-requested.md); узкая V2 repair и focused rechecks pending. Реальные адаптивные fits/predictions не запускались и не разрешены.
+Пользователь потребовал выбирать число деревьев отдельно для каждой новой модели. [V2 CODE принят и установлен; один Root producer отправлен](adaptive-tree-v2-install-and-issued.md). Fit/selectedtrees/output/lifetime/scientificacceptance pending; submission не означает завершённого обучения. Existing019 extension остаётся exploratory послеfinal. Общий selector и studyCLI: [инструкция](../experiments/adaptive-tree-selection.md).
 
 Новый план: две B/W модели обучаются до compute ceiling1200; каждая отдельно выбирает лучший observed prefix1…1200 по conditional query-macro fullY NDCG@20 и сохраняется после shrink. Это до2400 зависимых validation checks, а не независимые подтверждения. Глобальная tolerance band выбирает самое раннее дерево среди близких к global maximum; native early stopping не заявлен. Предложенная оптимизация считает stage curves на73 fullY-positive queries, включая off-C/empty-C; полные выбранные scores/ranks затем проверяются на всех4000 selectionQ.
 

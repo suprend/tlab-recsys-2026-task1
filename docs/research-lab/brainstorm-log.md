@@ -752,3 +752,10 @@ Root принял точную V4 документацию после одног
 Обновление 2026-10-15T18:55:43.587652+00:00: [адаптивная ветвь V1 остановлена source-only P2](../backlog-reviews/adaptive-tree-code-v1-changes-requested.md) проверки literal output до resolve. V2 узко исправляется; затем те же reviewers и Root source/adoption/runtime decision. V1 не устанавливается, реальных adaptive fits нет. Synthetic selector PASS остаётся scoped;019extension активна,015/018done14/19 неизменны.
 
 No newHYP/tasks/gates/grants; next19:30UTC fromscheduled18:45, originalgoal/limits/deadlineunchanged.037/038critics complete,Rootresearchreadbackpending.
+
+
+## 2026-10-15T19:15:13.062161+00:00 — adaptiveV2 CODE+singleproducer submission
+
+Обновление 2026-10-15T19:15:13.062161+00:00: [адаптивная V2 принята как CODE и установлена](../backlog-reviews/adaptive-tree-v2-install-and-issued.md); Root отдельно отправил ОДИН producer73792/88be2a, RUNNING по handoff. Это максимум2новых fits/1200ceiling/до2400зависимых devchecks, selectedtrees/results/terminal/lifetime pending; independentverifier пока reserved/unissued. Нет publisherpoll/retry/nativeработ.015/018done14/19 и old300study/final неизменны;019extensionactive.
+
+Early19:30checkpoint, next20:15UTC anchoredscheduled19:30;037/038distinctcriticscomplete Rootreadbackpending;039bothblindFIRSTcomplete, criticRoot-alone.0newID/mainqueue/grants fromresearch. Goal/deadline17slots/33914basis unchanged.

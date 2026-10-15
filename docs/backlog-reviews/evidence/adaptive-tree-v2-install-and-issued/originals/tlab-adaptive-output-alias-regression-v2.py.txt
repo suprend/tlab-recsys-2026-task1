@@ -1,0 +1,127 @@
+"""Actual V2 run must reject a dangling literal output before creating anything.
+
+Controlled ROOT is an explicit test-only seam; production sources stay intact.
+The exact protected stdlib public loader is copied, never replaced by a stub.
+"""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import resource
+import signal
+import sys
+import tempfile
+import time
+from types import ModuleType
+
+PRODUCER = Path('/tmp/tlab-adaptive-tree-selection-study-v2.py')
+PRODUCER_SHA = '4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6'
+REQUEST = Path('/tmp/tlab-adaptive-tree-selection-request-proposal-v2.json')
+REQUEST_SHA = '6ffe3c7a82854fca25446faf8a580dce83c03584c7f37a81d63d1684b76049a7'
+PUBLIC = Path('/tmp/tlab-public018-clean-20261015-once/scripts/reproduce_frozen_comparison.py')
+PUBLIC_SHA = 'ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85'
+
+
+def main(result):
+    cpu, wall = time.process_time(), time.monotonic()
+    resource.setrlimit(resource.RLIMIT_CPU, (3, 3))
+    signal.signal(signal.SIGALRM, lambda *_: (_ for _ in ()).throw(TimeoutError('Alias test wall fence')))
+    signal.alarm(4)
+    def snapshot(path, expected):
+        raw = path.read_bytes()
+        assert len(raw) <= 128 * 1024 and hashlib.sha256(raw).hexdigest() == expected
+        return raw
+    source = snapshot(PRODUCER, PRODUCER_SHA)
+    request = snapshot(REQUEST, REQUEST_SHA)
+    public = snapshot(PUBLIC, PUBLIC_SHA)
+    fixture = Path(tempfile.mkdtemp(prefix='tlab-adaptive-alias-v2-', dir='/tmp')).resolve()
+    scripts = fixture / 'scripts'
+    scripts.mkdir()
+    public_copy = scripts / PUBLIC.name
+    public_copy.write_bytes(public)
+    request_copy = fixture / 'request.json'
+    request_copy.write_bytes(request)
+    parent = fixture / 'artifacts/reproduction'
+    parent.mkdir(parents=True)
+    literal = parent / 'adaptive-tree-selection-1200-once'
+    sibling = parent / 'absent-sibling'
+    literal.symlink_to(sibling)
+    def identity(path):
+        s = path.lstat()
+        return (s.st_dev, s.st_ino, s.st_mode, s.st_size, s.st_mtime_ns, s.st_ctime_ns)
+    before, link = identity(literal), os.readlink(literal)
+    assert literal.is_symlink() and not literal.exists() and not sibling.exists()
+    # This exact shape passes V1's resolve/containment/closed-output predicates.
+    assert literal.resolve() == sibling and sibling.parent == parent
+    mkdir_attempts, forbidden_imports, paid_open_attempts = [], [], []
+    def audit(event, args):
+        if event == 'os.mkdir':
+            mkdir_attempts.append(str(args[0]))
+            raise AssertionError('No mkdir is allowed after the alias fixture is frozen')
+        if event == 'import' and str(args[0]).split('.')[0] in {'numpy', 'pandas', 'duckdb', 'catboost'}:
+            forbidden_imports.append(str(args[0]))
+            raise AssertionError('No native package import before output freshness rejection')
+        if event.startswith(('subprocess.', 'socket.', 'os.exec', 'os.spawn', 'os.posix_spawn')) or event in ('os.system', 'os.fork'):
+            raise AssertionError('No child or network operation allowed')
+        if event == 'open' and isinstance(args[0], (str, bytes)):
+            p = Path(os.fsdecode(args[0]))
+            if fixture in p.parents and set(p.parts) & {'artifacts', 'configs'}:
+                paid_open_attempts.append(str(p))
+                raise AssertionError('No consumed/output/recipe/source-binding I/O allowed')
+    sys.addaudithook(audit)
+    package = ModuleType('scripts')
+    package.__path__ = [str(scripts)]
+    sys.modules['scripts'] = package
+    producer = ModuleType('adaptive_alias_under_test')
+    producer.__file__, producer.__package__ = str(PRODUCER), ''
+    sys.modules[producer.__name__] = producer
+    exec(compile(source, str(PRODUCER), 'exec', dont_inherit=True), producer.__dict__)
+    producer.ROOT = fixture
+    passed, primary = False, None
+    try:
+        try:
+            producer.run(request_copy, REQUEST_SHA, literal)
+        except ValueError as error:
+            assert str(error) == 'Literal output must be new and not a symlink', str(error)
+        else:
+            raise AssertionError('Actual producer did not reject the dangling literal output')
+        assert identity(literal) == before and os.readlink(literal) == link
+        assert literal.is_symlink() and not sibling.exists() and not sibling.is_symlink()
+        assert not mkdir_attempts and not forbidden_imports and not paid_open_attempts
+        assert sorted(p.name for p in parent.iterdir()) == [literal.name]
+        assert public_copy.read_bytes() == public and request_copy.read_bytes() == request
+        snapshot(PRODUCER, PRODUCER_SHA)
+        snapshot(REQUEST, REQUEST_SHA)
+        peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        assert (peak if sys.platform == 'darwin' else peak * 1024) <= 128 * 2**20
+        assert time.process_time() < 3 and time.monotonic() - wall < 4
+        passed = True
+    except BaseException as error:
+        primary = error
+        raise
+    finally:
+        peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        body = dict(passed=passed, producer_sha=PRODUCER_SHA, request_sha=REQUEST_SHA,
+                    fixture=str(fixture), literal=str(literal), sibling=str(sibling),
+                    mkdir_attempts=mkdir_attempts, forbidden_imports=forbidden_imports,
+                    paid_open_attempts=paid_open_attempts, actual_fits=0,
+                    source_binding_or_recipe_read_reached=False if passed else None, actual_native_operations=0,
+                    cpu_body=time.process_time()-cpu, wall_body=time.monotonic()-wall,
+                    peak_rss_bytes=peak if sys.platform=='darwin' else peak*1024,
+                    scope='Main body/process peak only; Root external timer closes startup/exit',
+                    error=None if primary is None else dict(type=type(primary).__name__, message=str(primary)))
+        try:
+            with result.open('x') as stream:
+                json.dump(body, stream, sort_keys=True, indent=2, allow_nan=False)
+                stream.write('\n')
+        except BaseException as secondary:
+            if primary is None:
+                raise
+            primary.add_note('Secondary receipt failure: ' + type(secondary).__name__)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--result', type=Path, required=True)
+    main(parser.parse_args().result)

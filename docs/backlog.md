@@ -6,6 +6,8 @@
 
 ## Текущий статус
 
+Обновление 2026-10-15T19:15:13.062161+00:00: [адаптивная V2 принята как CODE и установлена](backlog-reviews/adaptive-tree-v2-install-and-issued.md); Root отдельно отправил ОДИН producer73792/88be2a, RUNNING по handoff. Это максимум2новых fits/1200ceiling/до2400зависимых devchecks, selectedtrees/results/terminal/lifetime pending; independentverifier пока reserved/unissued. Нет publisherpoll/retry/nativeработ.015/018done14/19 и old300study/final неизменны;019extensionactive.
+
 Обновление 2026-10-15T18:55:43.587652+00:00: [адаптивная ветвь V1 остановлена source-only P2](backlog-reviews/adaptive-tree-code-v1-changes-requested.md) проверки literal output до resolve. V2 узко исправляется; затем те же reviewers и Root source/adoption/runtime decision. V1 не устанавливается, реальных adaptive fits нет. Synthetic selector PASS остаётся scoped;019extension активна,015/018done14/19 неизменны.
 
 2026-10-15T18:45:45.859159+00:00 — Новая пользовательская ветвь019/013: [адаптивное per-model число деревьев](backlog-reviews/adaptive-tree-selection-preparation.md) готовится отдельно: best observed1…1200/fullY NDCG20, до2400зависимых checks/2fits. Один invented/FakeModel synthetic test принят; completeCODE reviews pending, реальные adaptive fits/runtime UNGRANTED. Старый6-prefix intent superseded/unrun;018исторический fixed300 и015final неизменны,25–31не переоткрываются.
