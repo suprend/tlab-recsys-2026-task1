@@ -131,3 +131,9 @@ Further focused report/reproduction refinements (no new experiments):
 - [Round065 — CatBoost Plain/Logloss: importance не равна ranking gain](round-065.md).
 - [Round066 — standalone report должен различать local verification и clean reproduction](round-066.md).
 - [Round067 — минимальный reviewer protocol: runnable prefix и три честных STOP](round-067.md).
+
+
+- [Round068 — portability: одинаковые actions не означают одинаковую metadata history](round-068.md).
+- [Round069 — post-selection bootstrap: screening и frozen heldout contrast](round-069.md).
+
+[Статическая критика016 worker draft](../backlog-reviews/tlab016-fixed-procedure-draft-critique.md) и [полного parent draft](../backlog-reviews/tlab016-full-runner-draft-review.md) сохраняют обнаруженные interface/snapshot/resource/persistence seams и наблюдавшиеся исправления. Это исторические draft reviews; code acceptance и execution permissions ими не выдаются.
