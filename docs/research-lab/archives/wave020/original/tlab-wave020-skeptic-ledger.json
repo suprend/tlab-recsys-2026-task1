@@ -1,0 +1,97 @@
+{
+  "wave": "020",
+  "reviewer": "models_b",
+  "status": "SKEPTIC_FROZEN",
+  "first_freeze_utc": "2026-10-15T11:53:45.138472+00:00",
+  "report": {
+    "path": "/tmp/tlab-wave020-skeptic-review.md",
+    "sha256": "375a72e9d1c50b9830b9ef860de391aa48dd578636ae77d5bef03ab03ef29327",
+    "bytes": 5007,
+    "words": 602
+  },
+  "inputfreeze": {
+    "path": "/tmp/tlab-wave020-skeptic-inputfreeze.json",
+    "sha256": "c13e04105f862fe472d5fdd4d7090407b6840bc7c5d4167a838e7dca2a0a1621",
+    "frozen_at_utc": "2026-10-15T11:51:11.039739+00:00",
+    "all_four_expected_hashes_match": true,
+    "inputs_unchanged_at_review_freeze": true
+  },
+  "root_reported_author_FIRSTfreeze_sha256": "c0d99ea64be78bfd4b35f2fbc8fa01071cf24a651bcdfea5a83d9b20bf1f4eea",
+  "root_reported_author_FIRSTfreeze_status": "Contextual Root value; path not provided, no independent fifth-file verification claimed",
+  "verdicts": {
+    "A": "retain_existing_scope_refinement; narrow transcription language to observable generation; reliability comparison unexecuted and tie not advantage",
+    "B": "retain_existing_claims_to_evidence_refinement; reuse report references, missing receipts unverified; no extra run"
+  },
+  "new_mechanisms": 0,
+  "new_hyp_ids": [],
+  "four_fields_present": {
+    "A": true,
+    "B": true
+  },
+  "strongest_controls": {
+    "A": "unchanged005 validator plus independent flat alias/closure/feature-order checklist on identical inputs",
+    "B": "hand-instantiated information-equivalent typed reference definitions with accepted005 registry; does not prove numerical source quality"
+  },
+  "dedup": [
+    "TLAB016 bounded typed generation",
+    "TLAB018 source/reproduction scope",
+    "HYP002",
+    "HYP046",
+    "round026 closure",
+    "round029 claims",
+    "round030 generator",
+    "round033 physical costs",
+    "round042 evidence boundaries"
+  ],
+  "prior_documents_read": [
+    "docs/research-lab/round-029.md",
+    "docs/research-lab/round-030.md",
+    "targeted scope/cost passages in round-026.md/round-033.md/round-042.md"
+  ],
+  "actual_vs_prospective": {
+    "authors_new_tests": "both proposed only, none executed",
+    "A_optional_cap": {
+      "variants": 16,
+      "metadata_bytes": 262144,
+      "CPU_seconds": 30,
+      "wall_seconds": 60,
+      "RSS_MiB": 128
+    },
+    "B_optional_cap": {
+      "claims": 12,
+      "files": 20,
+      "metadata_bytes": 2097152,
+      "CPU_seconds": 60,
+      "wall_seconds": 120,
+      "RSS_MiB": 128
+    },
+    "caps_are_grants": false,
+    "caps_are_measured_receipts": false,
+    "historical_016_CPU_upper": 1704.75,
+    "historical_016_scope": "source/fits/observer/admission, not isolated generation or whole-project CPU"
+  },
+  "counterclaims_rejected": [
+    "generation proves quality improvement",
+    "same-case checklist tie proves drift-prevention or future reliability",
+    "removed transcription establishes net human-hours savings",
+    "static pass proves numerical source completeness",
+    "source prefix proves full source-to-model",
+    "negative point establishes equivalence/universal uselessness",
+    "invalid/resource-incomplete comparison counts as valid negative quality",
+    "different historical fit/look budgets establish strategy superiority"
+  ],
+  "negative_disposition": "Preserve actual accepted engineering scope and honest frozen predictive outcome; unverified remains unverified; no new experiment needed",
+  "actual_counts": {
+    "experiments": 0,
+    "actual_data_Y_models_reads": 0,
+    "native_jobs": 0,
+    "fits": 0,
+    "predictions": 0,
+    "helpers": 0,
+    "project_writes": 0,
+    "large_hashes": 0,
+    "external_primary_sources_added": 0
+  },
+  "new_gate_framework_or_grant": false,
+  "mandatory015018_not_delayed": true
+}

@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 12:14:21 UTC / 15:14:21 МСК. Original018FAILED/consumed; real015held; max12:45UTC unchanged.
+Обновлён 15 октября 2026, 12:17:44 UTC / 15:17:44 МСК.020021researchreviewed; original018FAILED; real015held; max12:45UTC unchanged.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -440,3 +440,7 @@ Root terminal98791/e2f5ba exit1, originalconsumed/no retry, partialexports unacc
 ## Two-round020/021 checkpoint —actual 12:13:30UTC
 
 Both independent FIRST pairs and their separate critiques are complete; Root research readbacks pending.020 retains claim/evidence refinements without turning negative quality into a gain.021 retains contribution-cap/logging-multiplicity sensitivity and demands matched itemmass/NULL/coverage/expiry semantics;0newHYP/admissions/main gates. Original018 FAILED/consumed1Bload0predict, partialQCF unaccepted, fulltreeactualCPU UNKNOWN, sourceprefix accepted. Root separateBload diagnostic and inert015/controller preparation remain separate; actual015 held/no grant, original018 no retry. No publisheractualjobs. Nextmaximum12:45UTC/15:45MSK stays anchored12:00, notreset by this round completion.
+
+## Reviewed020/021 checkpoint —12:17:44UTC
+
+[Scoped normalization](brainstorm-waves020021-synthesis.md) archives14exact author/skeptic originals plusRootV1/V2 receipts. Root fullyread020authors/bothskeptics, notall021authorprose; expected/initialSHA normalization addsnoauthorchanges.0newHYP/tasks/grants/gates. Original98791FAILED/consumed1load0predict/no retry, partialexports unaccepted/sourceprefix unaffected. SeparateONEBload native diagnostic reproduced expectedRED perRoot; purefixproposal ongoing, originalfailure/unknownflags unchanged,015executionCLOSED/pureprep allowed. Nextmaximum12:45UTC anchored12:00, no timer/budget reset.

@@ -770,3 +770,7 @@ Rootreaped98791/e2f5ba exit1; Native effective parameter differs at existingveri
 ###020/021 completed-critique checkpoint —12:13:30UTC
 
 Both independent draft pairs/separate critiques complete, Rootresearchreadbacks pending; existingfamily refinements only,0newHYP/gates. Main remains concrete sharedverifier diagnosis/accepted-inert015prep; source018 originalFAILED no retry, real015held/no grant. No optional research requirement added.12:45UTC maximum unchanged.
+
+###020/021 Rootreviewed research —12:17:44UTC
+
+[Exact scoped synthesis/readbacks](research-lab/brainstorm-waves020021-synthesis.md) accepts existingfamily refinements with NULL/coverage/expiry/itemmass controls,0newHYP/tasks/admissions/main gates. Currentmain is sharednativeverifier purefixproposal after separateONCE expectedRED diagnosis; original018failed/consumed unchanged,015executionheld/no grant.12:45maximum unchanged.
