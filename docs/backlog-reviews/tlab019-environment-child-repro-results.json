@@ -1,0 +1,62 @@
+{
+  "scope": "freshprocess environment_snapshot only; no database/data/model/predict/fit",
+  "before_import_children": {
+    "user": 0.0,
+    "system": 0.0,
+    "total": 0.0
+  },
+  "before_environment_children": {
+    "user": 0.0,
+    "system": 0.0,
+    "total": 0.0
+  },
+  "after_environment_children": {
+    "user": 0.001364,
+    "system": 0.002368,
+    "total": 0.003732
+  },
+  "child_delta": 0.003732,
+  "events": [
+    {
+      "event": "subprocess.Popen",
+      "executable": "uname",
+      "argv": [
+        "uname",
+        "-p"
+      ]
+    },
+    {
+      "event": "subprocess.Popen",
+      "executable": "file",
+      "argv": [
+        "file",
+        "-b",
+        "managed-python-runtime/cpython-3.12-macos-aarch64-none/bin/python3.12"
+      ]
+    }
+  ],
+  "loaded_packages": {
+    "catboost": "1.2.10",
+    "duckdb": "1.5.6",
+    "numpy": "2.5.4",
+    "pandas": "3.0.6"
+  },
+  "platform_matches_fresh_platform_cache": true,
+  "exact_native_guard_error": {
+    "type": "ValueError",
+    "message": "Forbidden observer subprocess"
+  },
+  "wall_seconds": 0.2733035409983131,
+  "self": {
+    "user": 0.24828,
+    "system": 0.067963,
+    "total": 0.316243
+  },
+  "platform_module_path": "managed-python-runtime/cpython-3.12.14-macos-aarch64-none/lib/python3.12/platform.py",
+  "source_pins": {
+    "tests/oracles/strong_output_audit.py": "03b9c22fec7a42f136cd0e6017767411fdb856dab1a1220eb613ee6d012ccaab",
+    "scripts/strong_baseline.py": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+    "scripts/metadata_ablation.py": "35733f2f9ae7991072baff197d839681a8021b3f3ba54850da8c170818ff047a",
+    "scripts/train_baselines.py": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a"
+  }
+}

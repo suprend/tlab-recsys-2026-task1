@@ -409,3 +409,10 @@ Implementationdoesnotprovideactualsourceapproval/durableglobalclaim/final019sett
 [Независимое ревью аудитора](backlog-reviews/tlab019-oracle-independent-review.md) приняло public entry tests/oracles/strong_output_audit.py03b9c22…ccaab. Исправлены observer-only effective-LR mismatch и чтение context не из того же проверенного snapshot; producer10dffd/controller3758 не менялись. Семь независимых literal/context проверок и отдельный nativeAPI check на старом008CBM прошли,0fits/0realQY. Это готовность проверять будущий результат, а не принятие ещё не выполненного019.
 
 Следующий шаг: один same-process controller, оплачивающий imports/planning/wait/run/oracle внутри исходных CPU/wall; сначала actual proposal, затем точный external approval. Во время измеренного019 нет конкурирующих тяжёлых016 расчётов. [Разбор силы доказательства](backlog-reviews/tlab-small-support-evidence-review.md) ограничивает будущую интерпретацию: двенадцать зависимых checkpoint looks не равны двенадцати независимым попыткам, bootstrap не устраняет selection bias.
+
+
+### TLAB019: zero-fit восстановление observer — 15 октября 2026
+
+Исходный producer завершил четыре заранее заданных fits и12 checkpoint looks на26000train queries. Его исходный контроллер сохранил failed status: независимый observer отказал из-за локального platform subprocess. Это не принятие победителя. [Диагноз](backlog-reviews/tlab019-observer-failure-diagnosis.md) воспроизведён без данных/моделей. [Независимое ревью](backlog-reviews/tlab019-zero-fit-recovery-code-review.md) приняло отдельные owner и observer, сохраняющие старые outputs и failed history, исходный абсолютный deadline и общий бюджет.
+
+[Recovery contract](experiments/strong-recovery.md) разрешает после точного external policy ровно один zero-fit replay, без producer calls, новых fits/looks или held-out targets. На новый owner+observer остаётся218.520940actualCPU seconds из исходных300verification seconds; прежний отказ и консервативная диагностическая стоимость оплачены. CODE ACCEPT не равен actual output ACCEPT; следующая обязательная стадия — один replay и полная проверка его exit/tail receipts.

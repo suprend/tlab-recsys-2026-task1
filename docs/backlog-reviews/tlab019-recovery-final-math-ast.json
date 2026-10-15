@@ -1,0 +1,40 @@
+{
+  "unchanged_functions": [
+    "canonical",
+    "digest",
+    "read_raw_json",
+    "read",
+    "same",
+    "validate_checkout",
+    "effective_learning_rate",
+    "compare",
+    "validate_worker_launch",
+    "worker_resource_policy",
+    "whole_resource_policy",
+    "select",
+    "metric_values",
+    "summarize",
+    "bootstrap",
+    "main",
+    "Observer.local",
+    "Observer.cpu",
+    "Observer.rss",
+    "Observer.guard",
+    "Observer.sha",
+    "Observer.pins",
+    "Observer.install_timer",
+    "Observer.sql",
+    "Observer.atomic",
+    "Observer.collection",
+    "Observer.scored",
+    "Observer.npz",
+    "Observer.model"
+  ],
+  "allowed_reviewed_changes": [
+    "Observer.__init__",
+    "Observer.binding",
+    "Observer.execute",
+    "Observer.run",
+    "need"
+  ]
+}
