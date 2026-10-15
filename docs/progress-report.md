@@ -195,3 +195,9 @@ Actual028Rootdispatch 2026-10-15T14:53:51.228680+00:00: independentModelsA+Retri
 [027research-only archive](research-lab/brainstorm-wave027-synthesis.md) exact9originals, Boriginal/currentprefix separate.028bothFIRSTverified/distinctFeaturesBcriticactive, no currentLogloss/recipe change; mainpubliccode remainsunfrozen/CODEandnewfitsungranted. Next15:45UTC anchoredscheduled15:00, notactualpublicationdelay.
 
 028distinctFeaturesBcriticcompleted/Rootreadbackpending;447words0actualexperiments/grants, no currentrecipechanges. Schedulednextmax15:45UTC unchanged.
+
+## Public018 frozen candidate — independent whole-code review pending, 2026-10-15T15:11:19.860673+00:00
+
+Root фактически назначил двух read-only CODE reviewers после freeze b1f5c637…: six_role_output_review A/data-training-metrics и six_role_harness B/lifecycle-resources-portableCLI. Автор execution_scope_audit завершил candidate и остаётся владельцем адресных fixes; independentdesign accepted отдельно и не заменяет wholeCODEreview. Entry/recipe/tests/doc не установлены и не опубликованы до Root acceptance, realnewfitsUNGRANTED.
+
+Finalauthorproof: шесть unchanged методов PASS вV2 + исправленный empty-C метод targetedPASS/exit0 вV3. Это не заявление о новом полном7methodrun: ранний7BODYpass/outerBSDtime-lEXIT1 и отдельныйV2fixture-errorEXIT1 сохраняются как разные snapshots/расходы. Все исправления/profile внутриSAME60CPU120wall512MiB/no refill, FakeCatBoost0actualML; acceptanceCODE/runtime не выводится изtestbody.015/reportDONE/018partial13of19, next15:45UTC anchored15:00 unchanged.

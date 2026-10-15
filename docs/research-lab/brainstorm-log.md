@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026, 15:03:57UTC.015/reportDONE/018partial;027Rootresearcharchived0IDs/grants;028bothFIRSTverified/distinctFeaturesBcriticCOMPLETE/Rootreadbackpending. Mainpubliccandidateunfrozen/CODE/newfitsungranted. next15:45UTC anchored15:00.
+Обновлён15 октября2026, 15:11:19UTC.015/reportDONE/018partial; publiccandidateFROZEN/two independentCODEreviews pending/noinstall-newfits;028criticCOMPLETE/Rootreadbackpending. next15:45UTC anchored15:00.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -614,6 +614,12 @@ A currentFIRST e8b7c6…/ledger7d7e72…/freezee86db9… actualSHAverified. B or
 Publicrouteowner/seamreview remainsTMP; Root allowed only<=32inventedevents/FakeCatBoost integration insideexisting60CPU120wall512MiBtestscope. Actualfreshmodels/data/Y/qualityfits remainUNGRANTED; this is not a new resource pool or publisher testjob.
 
 [Rootaccepted Public018design/resource proof](../backlog-reviews/public-reproduction018-design.md) archived4originals, noCODE/runtimegrant/actualfits; onequeue/ownerroles/max15:00 remainunchanged.
+
+## MAIN public018 wholeCODE review pending — 2026-10-15T15:11:19.860673+00:00
+
+Freeze b1f5c637… verified as boundedmetadata only; no code/recipe/test/doc copied orinstalled. Root actuallyassigned independentreviewA six_role_output_review(data/training/metrics) +B six_role_harness(lifecycle/resources/portableCLI), firstpasssourceonly/no ownruntime/tests. Execution_scope_audit authorcompleted/immutablecandidate, fixesonlyafterfindings. Source-designacceptance remainsdistinct.
+
+Finalproof6unchangedV2methodsPASS+correctedemptyCtargetedV3PASS; early7BODY/outerBSDtime-lEXIT1 andV2fixture-errorEXIT1 preservedseparately. SAME60/120/512scope/no refill/FakeCatBoost0actualML, notfullCODEoractualtrainingacceptance.028separatecriticcomplete/Rootresearchreadbackpending, no newadmissions/currentrecipechanges.15:45UTCoriginalscheduled15:00anchor unchanged; mandatorycode priority.
 
 ## Wave027 research-only archive /028 distinctcritic — 2026-10-15T15:03:57.016549+00:00
 

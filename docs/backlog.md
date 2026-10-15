@@ -6,6 +6,8 @@
 
 ## Текущий статус
 
+Frozen publiccandidate 15:11:19UTC: b1f5c637… four-file candidate ready; Root assigned two independent read-only wholeCODE reviewers six_role_output_review A(data/training/metrics), six_role_harness B(lifecycle/resources/CLI). No entry/recipe/tests/doc publication/installation or realnewfitgrant yet. Authorproof6unchangedV2PASS+1correctedtargetedV3PASS separately fromBSDwrapper/V2fixtureEXIT1; no full7rerun claim/no refill.018partial13of19/15:45originalanchor.
+
 [027researchRootarchive](research-lab/brainstorm-wave027-synthesis.md) complete0newID/task/grant;028bothFIRSTverified/existingFeaturesBdistinctcriticCOMPLETE/Rootresearchreadbackpending. Mainpubliccandidateunfrozen/fullCODEandactualfitsungranted; next15:45UTC anchoredscheduled15:00.
 
 15:00 scheduled cadence duecheck actual 2026-10-15T14:58:42.723301+00:00; earlier14:49:34earlycheckpoint met this originaldeadline. Nextmax15:45UTC/18:45MSK anchored SCHEDULED15:00, notactualwrite; no idea/budget/goalreset. Currentmaincandidate BODY7syntheticPASS/outerprofilingFAILED retained, narrowwrappercorrection sameallowance; CODE/newfitsUNGRANTED/018partial13of19.027researchRootaccepted0IDs/tasks,028A FIRST/Bwriting; no currentmodelchanges.
