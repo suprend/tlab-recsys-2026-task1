@@ -1,0 +1,13 @@
+........Exception ignored in: <finalize object at 0x10e495180; dead>
+Traceback (most recent call last):
+  File "/Users/mdpospelov/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/weakref.py", line 590, in __call__
+    return info.func(*info.args, **(info.kwargs or {}))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mdpospelov/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/tempfile.py", line 940, in _cleanup
+    _warnings.warn(warn_message, ResourceWarning)
+ResourceWarning: Implicitly cleaning up <TemporaryDirectory '/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tmp394s80x5/artifacts/heldout-study/synthetic/source_oracle/oracle-scratch-peesrq6h'>
+.....................
+----------------------------------------------------------------------
+Ran 29 tests in 6.792s
+
+OK

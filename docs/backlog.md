@@ -2,7 +2,7 @@
 
 Обновлено 15 октября 2026. Канонический текущий статус приведён в таблице; последующие разделы сохраняют историю первого среза и принятых уточнений. Пользователь разрешил ночное исполнение, meaningful tests и ограниченные pilots параллельно с постоянной research-линией. Рабочий development-протокол — daily purchase ranking, eligibility48h и горизонт24h. Окончательный whole-decision lock и отложенная проверка ещё не выполнены.
 
-Координатор единолично ведёт этот файл и Git-публикацию в research-ветке/draft PR; Root и C11 разрабатывают/проверяют additive heldout inference/oracle; координатор ведёт whole-decision/source owner, acceptance и Git. Четыре модели016 с одним независимым observer, source016, ручной контроль019, smoke008 и данные017 приняты. Основная ветка не изменяется. Данные, локальные модели и run artifacts ignored; в Git — код, документация и агрегированные отчёты. Платный cloud не подключается.
+Координатор единолично ведёт этот файл и Git-публикацию в research-ветке/draft PR; Root и C11 разрабатывают/проверяют additive heldout inference/oracle; Root ведёт outer owner, координатор — production adapter, whole-decision/source acceptance и Git. Четыре модели016 с одним независимым observer, source016, ручной контроль019, smoke008 и данные017 приняты. Основная ветка не изменяется. Данные, локальные модели и run artifacts ignored; в Git — код, документация и агрегированные отчёты. Платный cloud не подключается.
 
 ## Текущий статус
 
@@ -17,16 +17,18 @@
 | TLAB-007 | P0 | done | heuristic worker; accepted B2/coordinator | — |
 | TLAB-008 | P0 | done: two-fit smoke; strong tuning tracked019 | root; independent code/output accept | —;017 accepted |
 | TLAB-009 | P1 | done: source/model accepted; wholeblock rejected, base41 frozen | root; independent direct-list reviewer | 008 smoke accepted; core→runner→100Q review gates |
-| TLAB-010 | P1 | blocked | unassigned | 008 |
-| TLAB-011 | P1 | blocked | unassigned | 008 |
-| TLAB-012 | P1 | blocked | unassigned | 008, measured resource gate; user-item review completed |
-| TLAB-013 | P1 | blocked | unassigned | 008, одна выбранная sensitivity |
+| TLAB-010 | P1 | deferred: optional taxonomy/text branch | unassigned | new predeclared development/reservation plan; as-of lexical/identity design and explicit bounded fit budget |
+| TLAB-011 | P1 | deferred: optional rule-based user-layer branch; learned extension separately | unassigned | past-only rule-owner snapshots, cost gate and new development reservation; learned extension needs its own fit/available_at/refresh contract; frozen015/016 unchanged |
+| TLAB-012 | P1 | deferred: optional ItemCF compatibility branch | unassigned | research/review complete;100-query postings/degree cost gate, fixedC and separately reserved development/fit budget |
+| TLAB-013 | P1 | deferred: optional protocol sensitivity | unassigned | one predeclared perturbation, explicit query/target/C estimand and separate evaluation reservation/budget |
 | TLAB-014 | P1 | in_progress | permanent research line | постоянная линия, не блокирует ядро |
-| TLAB-015 | P0 | in_progress: contract/source/prediction/evaluation cores accepted; no actual heldout reads | coordinator owner/source; root prediction core; C11 oracle/review | accepted016 models; exact whole-decision/prediction lock, budgets, owner/oracles |
+| TLAB-015 | P0 | in_progress: semantic cores/shared lifecycle/adapters accepted; owner P1 repair pending; no actual heldout reads | root outer owner; coordinator production/acceptance; C11 independent adapters | accepted016 models; complete tiny process integration, exact whole-decision/prediction seals and reviewed resource request |
 | TLAB-016 | P1 | done:4fits/4looks/1observer; development W=R2 accepted | root implementation; coordinator acceptance; C11 observer | immutable438 model seal; heldout claim separately015 |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
 | TLAB-018 | P0 | phase1 +P0A supplied-score/public prefix accepted; regeneration pending | C11; root independent review |12-row relocated smoke; actual private package/bootstrap not executed |
 | TLAB-019 | P0 | done: four fits / 12 prefixes, control sealed | root; independent replay and coordinator acceptance | immutable304-pin control; original failure preserved |
+
+Текущий срез:12 из19 крупных задач приняты;014/015 выполняются;018 частично принят;010–013 сознательно отложены. Зависимость010–013 от smoke008 уже снята, а user×item research/review завершены. Эти необязательные ветви не входят в замороженную процедуру015/016: возврат требует отдельного prospective development/reservation плана, ресурса и владельца, без переиспользования будущих25–31 outcome-метрик для нового выбора. Их исполнение не является prerequisite для завершения текущего отчёта. Исторические blocked-формулировки ниже сохранены как журнал первого среза, не как текущая очередь.
 
 Принятые core-файлы и их исходные acceptance pins заморожены. Новая реализация использует отдельные модули; их scopes назначаются явно. Новые исполнители получают непересекающийся scope. Сообщение агента не является доказательством done: нужны actual files/diff/checks и независимый substantive review. Не повторять неизменные проверки после их прохождения; следующий run оправдывается новой правкой, failure либо конкретной неопределённостью.
 
@@ -535,3 +537,8 @@ The [source observer v2](experiments/heldout-source-audit.md) preserves the orig
 ### Original worker contexts and nested output pins accepted
 
 The [shared worker helper](experiments/heldout-worker-context.md) and narrow lifecycle amendment passed50 author+4 unchanged independent+2 fresh retention methods. [Initial review](backlog-reviews/heldout-worker-context-independent-review.md) preserves the original terminal receipt-counter mutation; [rereview](backlog-reviews/heldout-worker-context-independent-rereview.md) confirms original receipt-byte repins and copied conflict-safe nested reference retention before paid streaming. The single immutable proposal, original staged authorities, child consumption, loaded/installed environment checks and Unix CPU fence remain mechanical authority/resource seams. One isolated tiny fence setup test does not prove actual native throughput or exact cap precision. Concrete production/oracle adapters, complete owner and all-seven process integration still require review; no actual reserved source, model inference, target relation or runtime grant exists.
+
+
+### Fixed reporting adapters accepted; outer owner review remains open
+
+The [production adapter](experiments/heldout-reporting-worker.md) and three fixed [source](experiments/heldout-source-worker.md), [prediction](experiments/heldout-prediction-worker.md) and [metric](experiments/heldout-metric-worker.md) oracle adapters passed independent code reviews. [Production rereview](backlog-reviews/heldout-production-adapter-independent-rereview.md) closes the unexpected namespace-initializer bootstrap gap; [oracle rereview](backlog-reviews/heldout-oracle-adapters-independent-rereview.md) preserves the original cleanup-warning evidence and confirms real synthetic resource cleanup. Production17 and oracle29 author methods plus their separate fault probes cover these adapter seams; they are not a six-process integration or actual-data proof. The outer owner still needs its complete independent review and tiny fresh-process integration. No actual reserved source, model inference, target relation or runtime allowance has been opened.
