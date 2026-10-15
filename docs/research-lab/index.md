@@ -148,3 +148,9 @@ Further focused report/reproduction refinements (no new experiments):
 - [Round072 — query-balanced Logloss and user-macro ranking gain are different quantities](round-072.md).
 
 [Concrete fresh-clone implementation plan](../backlog-reviews/tlab018-fresh-clone-implementation-plan.md) separates source-free mechanics, externally anchored artifact replay, new-source regeneration and retraining. Only the first additive replay implementation is currently under development; the plan supplies no private data, execution permission or new budget. These notes add no current016 pruning, weights, programs, fits or heldout changes.
+
+
+- [Round073 — exact cache reuse, stale metadata and paid comparison boundaries](round-073.md).
+- [Round074 — vocabulary, both towers and cached state require joint identity](round-074.md).
+
+[Next-backlog consolidation](../backlog-reviews/next-backlog-brainstorm.md), [automation-claims red team](../backlog-reviews/automation-claims-red-team.md), and [future reservation options](../backlog-reviews/future-label-reservation-options.md) refine existing work without new fits or current heldout changes. November prefixes were already inspected by the published category audit; a future month cannot be called wholly unseen. The notes retain their historical execution snapshot with an explicit publication appendix.

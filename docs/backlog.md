@@ -22,7 +22,7 @@
 | TLAB-012 | P1 | blocked | unassigned | 008, measured resource gate; user-item review completed |
 | TLAB-013 | P1 | blocked | unassigned | 008, одна выбранная sensitivity |
 | TLAB-014 | P1 | in_progress | permanent research line | постоянная линия, не блокирует ядро |
-| TLAB-015 | P0 | in_progress: contract/source core accepted; no actual heldout reads | coordinator owner/source; root prediction core; C11 oracle/review | accepted016 models; exact whole-decision/prediction lock, budgets, owner/oracles |
+| TLAB-015 | P0 | in_progress: contract/source/prediction cores accepted; no actual heldout reads | coordinator owner/source; root prediction core; C11 oracle/review | accepted016 models; exact whole-decision/prediction lock, budgets, owner/oracles |
 | TLAB-016 | P1 | done:4fits/4looks/1observer; development W=R2 accepted | root implementation; coordinator acceptance; C11 observer | immutable438 model seal; heldout claim separately015 |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
 | TLAB-018 | P0 | phase1 +P0A supplied-score/public prefix accepted; regeneration pending | C11; root independent review |12-row relocated smoke; actual private package/bootstrap not executed |
@@ -504,3 +504,10 @@ The additive [contract](experiments/heldout-contract.md) passed [independent rep
 ### Guarded historical438 B/W consumer accepted
 
 The additive [choice consumer](experiments/feature-program-control.md) passed10 author plus3 independent synthetic cases; [review/evidence](backlog-reviews/model-choice-consumer-independent-review.md) retains a bounded actual metadata gate stopped before large paid input hashes. It returns B/W-only bindings after future caller-paid full438 authentication, not a fresh-source/bootstrap seal. Actual W=R2 and model/source authority remain immutable. New heldout owners must pin this consumer/code and authenticate new-date Q/C/F, all-prediction replay and target intent; no actual heldout operation follows from this code acceptance.
+
+
+### Label-blind prediction core accepted; target core still reviewed
+
+The [prediction core](experiments/heldout-predictions.md) passed20 author and10 independent methods; [initial fault](backlog-reviews/heldout-predictions-independent-review.md) and [narrow rereview](backlog-reviews/heldout-predictions-independent-rereview.md) preserve the repaired key/query association and bounded input witness. This is core code acceptance only: no actual CBM/source/native prediction or reserved target was opened, and no owner/worker budget or all-date prediction seal is issued. The separate evaluation core remains under a narrow staged-Q binding repair; neither code path is an execution permission.
+
+[Research073/074](research-lab/index.md), [future-backlog audit](backlog-reviews/next-backlog-brainstorm.md), [claims red team](backlog-reviews/automation-claims-red-team.md), and [future reservation disclosure](backlog-reviews/future-label-reservation-options.md) add no current fits or new HYP IDs. Finish015/018/report before any separately approved future comparison; previously inspected November fragments are disclosed.
