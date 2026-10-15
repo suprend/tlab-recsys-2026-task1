@@ -204,3 +204,6 @@ Reviewed transfer004: [AmazonReviews2023](brainstorm-mb004.md), [RetailRocket](b
 
 
 Wave005 independent same-question first drafts: [FeaturesA](brainstorm-fa005.md), [ModelsA](brainstorm-ma005.md), [eight-file publication freeze](brainstorm-wave005-publication-freeze.json). HYP046 refinements only; separate skeptic active, no full-output correctness or speedup proof.
+
+
+[Waves005–008 additive synthesis](brainstorm-waves005-008-synthesis.md) and [22-file exact archive](archives/waves005-008/publication.json) preserve completed independent critiques and first drafts with no new IDs or execution admissions.

@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "scope": "wave005_independent_skeptic",
+  "reviewer": "/root/brainstorm_models_b",
+  "date": "2026-10-15",
+  "report_path": "/tmp/tlab-wave005-skeptic-review.md",
+  "inputfreeze_path": "/tmp/tlab-wave005-skeptic-review-inputfreeze.json",
+  "author_files_changed": false,
+  "append_only_review": true,
+  "new_HYP_count": 0,
+  "primary_input_SHA256s": {
+    "features_md": "99ef4ea1901f2ee2a77e93ac7ca52f576626ae8099f35bffb7c9d39f82458d72",
+    "features_ledger": "20d417c8e7b516a2cb6c20b1a03822d50fd6d27b2a95dc57b21a808914309795",
+    "models_md": "71fa683c3aefdffdd6a4c518f0e0173de3c577f917c7ab1323f5ffd894cb0068",
+    "models_ledger": "d7ff4ab80fd303a63471f5229aaf850890103fec7dd07ec41f81f22647dd7db5"
+  },
+  "first_freeze_before_analysis_UTC": "2026-10-15T07:14:41.270724+00:00",
+  "additional_context": "Four author-referenced tiny artifacts verified against author hashes before inspection; five immutable prior331b1ae29f3e484516893204a4f990c9372f2c25 files captured after initial context reading.",
+  "findings": [
+    {
+      "id": "W5-P3-01",
+      "priority": "P3",
+      "axis": "required metadata",
+      "path": "/tmp/tlab-brainstorm-automation-models-a-wave005-ledger.json",
+      "candidate": "M5-01",
+      "finding": "Required four semantic fields are present in prose but not exact per-candidate ledger keys; prediction/cheapest_falsifier and separate test object need normalization.",
+      "semantic_algorithm_bug": false,
+      "action": "Publisher normalize mechanism/testable_prediction/nearest_source_free_experiment/benefit_task1; do not invent a ready M5-02."
+    }
+  ],
+  "confirmed_P0_P1_P2_defects": 0,
+  "dispositions": [
+    {
+      "id": "A005-01",
+      "decision": "merge_refinement_HYP046",
+      "mechanism": "Fixed anchor/lower-bound partition and typed raw-count prefixes",
+      "testable_prediction": "Lower complete repeated-anchor cost than unchanged005 when reuse pays setup/state",
+      "nearest_source_free_experiment": "Direct and interval pure bounded exact-closure fixtures, irregular boundaries/duplicates/NULL/offC/emptyC",
+      "benefit_task1": "Automatically derive exact cross-anchor calculation with measured scoped efficiency only",
+      "four_fields": "named_in_MD_and_ledger",
+      "counterhypothesis": "Existing005 pruning/grouping, union-key state or sort/sink dominates",
+      "duplicate_with": "M5-01 flat/additive strategy",
+      "new_canonical_id": false
+    },
+    {
+      "id": "A005-02",
+      "decision": "retain_conditional_suboperator_HYP046",
+      "mechanism": "Append-only prefix latest-occurrence map plus exact rank/expiry state",
+      "testable_prediction": "Repeated-value retained memberships improve versus generic expiry only if map/rank overhead amortizes",
+      "nearest_source_free_experiment": "Direct sets vs generic multiplicity vs latest map, repeated/all-unique/renewal/NULL/global peers, expected retraction rejection",
+      "benefit_task1": "Source/operator-capability-driven exact state choice without predictive change",
+      "four_fields": "named_in_MD_and_ledger",
+      "counterhypothesis": "Unique data, rank/pointer/key overhead, ordering or sink removes benefit",
+      "new_canonical_id": false
+    },
+    {
+      "id": "M5-01",
+      "decision": "merge_refinement_HYP046_with_A005-01",
+      "mechanism": "Algebra/payload-aware selection among flat, disjoint hierarchy and proved inverse plans",
+      "testable_prediction": "Identical44 fields with lower complete cost than both unchanged005 and flat control",
+      "nearest_source_free_experiment": "Declared eight fixtures<=256 rows,<=16 anchors,<=8 keys; every44 outputs; direct/flat/capability plans; proposed60CPU/120wall/256MiB",
+      "benefit_task1": "Cheaper exact calculation for already frozen strong inputs; no purchase-ranking gain",
+      "four_fields": "semantic_pass_metadata_normalization_needed",
+      "counterhypothesis": "Few anchors/two windows/large exact payloads make flat or005 better",
+      "new_canonical_id": false
+    },
+    {
+      "id": "M5-02",
+      "decision": "defer_not_admitted_ready_proposal",
+      "mechanism": "SUDAF derivable canonical aggregate states",
+      "testable_prediction": null,
+      "nearest_source_free_experiment": "Moment/DISTINCT nonidentifiability negative only; code/legal-workload gate unpassed",
+      "benefit_task1": null,
+      "four_fields": "not_ready; no manufactured legal prediction/benefit",
+      "blockers": [
+        "mean/variance outside frozen DSL",
+        "executable author code unverified",
+        "count+map derivation may cost more than existing grouped aggregates"
+      ],
+      "new_canonical_id": false
+    }
+  ],
+  "dedup": {
+    "canonical_family": "HYP046",
+    "A005_01_and_M5_01": "same boundary/typed-state base; optional planner is within-family contrast",
+    "A005_02": "compatible sufficient-state specialization; not duplicate cardinality subtraction",
+    "M5_02": "deferred state derivation, no second ready mechanism"
+  },
+  "source_verification": [
+    {
+      "url": "https://link.springer.com/article/10.1007/s00778-025-00922-y",
+      "result": "Publication8May2025 and compositional context confirmed; older DBSP lineage; no full-paper/implementation guarantee adopted"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/feldera/feldera/main/crates/dbsp/src/operator/distinct.rs",
+      "result": "Batch positive-weight distinct versus accumulated change-stream distinct confirmed"
+    },
+    {
+      "url": "https://www.feldera.com/blog/time-series",
+      "result": "Retention requires truthful source ordering/append-only properties"
+    },
+    {
+      "url": "https://github.com/feldera/feldera/issues/1768",
+      "result": "Three identical rolling traces; completionMay2024; patch not audited"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/duckdb/duckdb/main/src/function/window/window_distinct_aggregator.cpp",
+      "result": "CanAggregate rejects exclusion/argument ordering plus other aggregate ineligibility; mutable upstream not installed engine"
+    },
+    {
+      "url": "https://github.com/uwheel/uwheel/blob/0ef74900d0facf62928c777dbaa7d9922ea6519f/crates/uwheel/src/wheels/read/plan.rs",
+      "result": "Own GitHub connector fetch: operation cost only; Landmark6; inverse childsum+8; no bytes/build/I/O"
+    },
+    {
+      "url": "https://github.com/uwheel/uwheel/blob/0ef74900d0facf62928c777dbaa7d9922ea6519f/crates/uwheel/src/aggregator/mod.rs",
+      "result": "Own pinned fetch: default optional inverseNone; prefix dispatch conditional"
+    },
+    {
+      "url": "https://github.com/uwheel/uwheel/blob/0ef74900d0facf62928c777dbaa7d9922ea6519f/crates/uwheel/src/aggregator/roaring/mod.rs",
+      "result": "Own pinned fetch: actual bitmap partial payloads merged by union"
+    },
+    {
+      "url": "https://ri.diva-portal.org/smash/get/diva2%3A1892506/FULLTEXT01.pdf",
+      "result": "Independent source reader primary indexed sections confirm u64SUM/second-tick limits; direct fullPDF unavailable"
+    },
+    {
+      "url": "https://doi.org/10.1145/3649133",
+      "result": "Primary indexed canonical-state derivation and author bibliography lineage supported; direct publisher/executable code unverified"
+    }
+  ],
+  "independent_checks": {
+    "features_count_dictionaries": 16,
+    "features_distinct_dictionaries": 16,
+    "boundary_points": 15,
+    "raw_distinct": [
+      3,
+      1
+    ],
+    "offC_denominators": [
+      4,
+      3
+    ],
+    "models_literal_events": 10,
+    "models_snapshot_item_count_distinct_metadata_checks": 4,
+    "dyadic_ranges": [
+      [
+        1,
+        8
+      ],
+      [
+        2,
+        9
+      ],
+      [
+        3,
+        10
+      ]
+    ],
+    "dyadic_pieces_each": 3,
+    "flat_combines": 18,
+    "hierarchy_query_combines": 6,
+    "hierarchy_build_combines": 15,
+    "hierarchy_total": 21,
+    "disjoint_16leaf_5level_memberships": 80,
+    "duplicate_expiry_raw_distinct": [
+      [
+        3,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "Fraction_moment_snapshots": 6,
+    "nonnull_membership_updates": 15,
+    "shared_scalar_updates": 45,
+    "separate_scalar_updates": 75,
+    "equal_moments": [
+      4,
+      6,
+      18
+    ],
+    "unequal_distinct": [
+      2,
+      3
+    ],
+    "B41_components": {
+      "prefix": 11,
+      "nonratio": 16,
+      "coverage": 2,
+      "ratios": 2,
+      "missing": 8,
+      "suffix": 2
+    },
+    "R2_L05": "item distinct user counts view24h/cart168h/purchase24h;threeBIGINTs",
+    "final_width": 44,
+    "author_script_executed": false,
+    "production44_equivalence_proved": false,
+    "physical_speed_or_RSS_measured": false
+  },
+  "physical_cost_review": {
+    "bounds_P_S_dense_payload": "consistent conditional bounds; grouping/sort/key bytes extra",
+    "sparse_prefix_lookup": "two logical lookups do not imply constant physical work",
+    "last_occurrence_rank_state": "O(P) per nonempty group explicit",
+    "hierarchy_payload": "variable per-ID payload and construction paid",
+    "scan_split": "possible loss of005 shared count/distinct scan acknowledged",
+    "sink": "all44 physical outputs plus readback paid",
+    "logical_vs_physical": "operation counts, row decodes, bytes/page reads, CPU/wall/RSS are distinct; no throughput inference"
+  },
+  "independent_reader": "/root/brainstorm_models_b/round002_tabular_synthesis_source; separate models-source/math/closure check by messages, no files",
+  "authorization": {
+    "actual_DB_SQL_raw_Q_C_Y": false,
+    "ML_native_models_fits": false,
+    "weights_paid_API": false,
+    "shared_edits": false,
+    "proposed_future_budget_authorized": false,
+    "heldouts": "CLOSED; current015/B41/R2/W unchanged"
+  },
+  "next": "Coordinator merge under HYP046 and normalize ledger metadata; only a separately scoped full44 source-free implementation check can advance correctness. No native invocation/source reservation or015 dependency follows."
+}
