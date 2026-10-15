@@ -54,3 +54,12 @@ Primary confirmation control — frozen tuned B, а не только B+support.
 
 - [Round026: compact legal8-bundle pool](round-026.md), [independent static critic](round-026-review.md): exact3physical closure, categorymask/coverage/retrieval alias traps, prospective named-schema/draw freeze. No compiler execution or fits.
 - [Round027: interpretation of two staticI/two seededR](round-027.md): analytic expected3.40625unique bundles, collisions/no redraw and matchedslot≠equalrealisedcompute; no learned-strategy superiority claim. Critic pending.
+
+
+- [Round028: independent reference-interpreter contract](round-028.md): selected-only12newcolumns, exactrawbag/distinct/fullprefix semantics, ≤32rowfuturefixture and namedmutants.
+- [Round029: evidence→claims matrix](round-029.md): schema→ASTgeneration versus prewrittenJSONselection, correctness/quality/speed/generalisation boundaries and validnegativeevidence.
+- [Round030: three parameterized generator families](round-030.md): typedrole instantiation and exactnamedclosures before frozenpool/draw.
+- [Independent critic028–030](round-028-030-review.md): handgold L01/L05×5C,11cores+1autoMASK=12physical; designaccepted, no implementation/executionapproval.
+- [Round031: primary-source Taobao compatibility](round-031.md): consumerfive-field schema only; officialdates/actiondictionary/license/access remainunknown, DIEN/DSIN datasets notconflated, nodownloads. Criticpending.
+
+[Prospective019v2 and freezeappendix](../backlog-reviews/strong-worker-design-freeze.md) retain4attempts/12looks/60actualCPUmin while adding outerwallhandoff and conservativeRSSpartition. This is implementation direction, not execution approval.

@@ -368,3 +368,12 @@ Six [new literature rounds](research-lab/index.md) preserve source/capability/li
 Producer101.181955CPU seconds; failedobserver3.335586+corrected4.585806=7.921392CPU charged, no reset/no new nativefits. Staticcritic terminal/scope/metadata blindspots closed by external checks and successfulparentexit; weightproofscope limited to acceptedcode+expectedpopulation, notCBMweightrecovery.
 
 [Round026](research-lab/round-026.md)+[critic](research-lab/round-026-review.md) offer8current005legal bundles with exact3physicalclosure; candidatebuyerdistinct168/categorymissing/coverage72aliases excluded. [Round027](research-lab/round-027.md) separates prospective fixedslotfairness from equalrealisedCPU and measuredstrategyquality. These do not grant newoperators/fits;019workercontract/exactexecution and016namedpool/seed/schema freeze still required.
+
+
+### Reviewed019direction and016symbolicpreflight — 15 октября 2026
+
+[019v2freezeappendix](backlog-reviews/strong-worker-design-freeze.md) согласован: ONEouter3600wall includes verifier/finalseal, reserve360wall+20cleanup;3600actualCPU includes300verification and liveparent/cleanup60 reserve, nofreshverifierbudget. Parent1GiB+sequentialchild7GiB=8GiBjob; TERM5/KILL/reap5/no childsubprocesses. Latefailedarmwholeineligible/all3lookslotsconsumed;016inherits trainediterations and scoringprefix separately. Rootowns newstrong_baseline script/tests/config/doc; noactualgate/fits untilindependentcode/exactplanapproval.
+
+Coorowns newfeature_programs script/tests/automation-pool/doc: schema+3humanboundedparameterizedfamilies→8generatedregistries, legality/semanticBalias/3physicalclosure, fixedI2/R2random2026 givesL02/L06/L01/L05. EighttinytestsPASS.646s, ≤25fixtureinputrows/onlyselected12newcols,0realdata/Pool/fits. Independentcode reviewpending; no execution approval. [Research028–030+critic](research-lab/round-028-030-review.md) preserve generation claims and exacthandgold; [031Taobaoschema](research-lab/round-031.md) doesnotgrantdatasetdownload/license/qualityclaim.
+
+[009203pinseal receipt](backlog-reviews/tlab009-model-acceptance-seal.md) fixesbase41/008incumbent, originalproofsimmutable. Moremanualfeatures are not addedaftermetadatarejection; priority019then016comparison remains.

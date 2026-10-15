@@ -1,0 +1,15 @@
+# Prospective019: согласованный contract appendix
+
+15 октября 2026. [Исходныйv1](strong-worker-design.md) и [critic](strong-worker-design-review.md) сохраняются; [v2](strong-worker-design-v2.md) с [narrowreview](strong-worker-design-v2-review.md) принят как направление реализации. Этот appendix закрывает outer-wall handoff до новых019outcomes. **Код/realexecution approval пока не выданы.**
+
+Final feature schema base41, eligible incumbent accepted008Logloss50/6000 после [отрицательного009](tlab009-model-output-verification.md). Grid неизменен: depth4/6×L2=3/30,300trainedtrees, checkpoints50/150/300;≤4nonrefillable nativeattempts/≤12newlooks, existingincumbent безrefit. Canonical tie set — score≥globalmax−1e−12, затем fewer scoringtrees, smaller depth, incumbent if otherwise equal, stableconfigID. Leaf-count/L2 preference v1 отвергнут.
+
+ONE surviving outer3600wall deadline закрепляется при запуске и передаётся через producer exit независимому verifier и artifact seal/finalization.360wall reserved для verification/finalseal, включая20wall cleanup (TERM5+KILL/reap5+receipt allowance10); producer/workers deadline не позднее outer−360. Verifier получает только remainingwall/remainingCPU, без fresh900/3600allowance. Все retries/refills запрещены; overrun/unknownusage→STOP/ineligible. Отдельный административный Git/PRwall измеряется вне compute experiment; это не скрытая дополнительная allowance для source/model work.
+
+Total3600actualCPU seconds включает свежий dedicated parent SELF +reapedCHILDREN delta, gate, imports/preparation/Pool/fit/scoring/persistence/failures и300CPUverification reserve. Worker SELF receipts — reconciliation, не повторное слагаемое. Live-child issuedallowance+parent/cleanup60CPUreserve carved from actualremainingtotal; отсутствиеreapedCPU не означаетнулевыеlivecosts. Nativechecks cooperative: фактический overrun сохраняется, математически hardCPU/RSS promise не делается.
+
+Job8GiB разделён наparent1GiB +one sequentialchild7GiB; matrices/Pool не остаются в parent. NochildOSsubprocesses. Изолированнаяprocessgroup, TERM5→KILL→boundedreap5, cleanup finally; corrupt/missingreceipt/unreapedchild/unknownCPU→STOP. Gate26000 can predeclare6000fallback only for reviewed resource/cardinality failure; integrity/API does not fallback.
+
+Reservearm+all3lookslots **before spawn/preparation**, full300fit must complete before scores. Latefailure делаетwholearm ineligible, alreadyreserved/seenlooks остаютсяconsumed; no partial-checkpoint rescue. Prefixcopies не refits, но exact treecount/savedpred fidelity отдельно проверяются.019winner может иметьtrained_iterations300/scoringprefix50; все016arms наследуют **оба** значения, не заменяют300treefit на50treefit по недоказанной эквивалентности. Incumbent50 используетtrained50/scoring50.
+
+Retrospective development22–23 и physical2026 sealing отделены от simulated2019 availability. Wholepipeline/model/ASTdecision available послеusedlabelmaturity24+positivecompute и доreserved25query, фактическиsealed доopeningreservedtargets. Existingcollection availability22 не удостоверяетadaptive019/016decision. Confirmationcalendar отдельныйreview gate.
