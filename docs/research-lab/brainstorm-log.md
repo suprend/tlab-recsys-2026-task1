@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026, 14:16:14UTC / 17:16:14МСК.015принят/13of19;026 A FIRSTverified/Bauthorrunning,025Rootreadbackpending, reportindepreview/018TMPonly. Следующиймаксимум15:00UTC anchored14:15.
+Обновлён15 октября2026, 14:16:14UTC / 17:16:14МСК.015принят/13of19;026 A FIRSTverified/Bauthorrunning,025Rootresearchaccepted0IDs/grants, reportindepreview/018TMPonly. Следующиймаксимум15:00UTC anchored14:15.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -9,6 +9,10 @@
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
 `next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 15:00 UTC / 18:00 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Wave025 Root research-only acceptance — 2026-10-15T14:19:12.047572+00:00
+
+[Independent FIRST pair/distinct skeptic/Root review](brainstorm-wave025-synthesis.md) complete,9originals unchanged. ExistingHYP046/A005-02 refinement: Aconditionalneeds-pilot, Bspec corrections merge; zero-G deletion/paidG, explicitNULL/differentactionuserkeys/no-arrival expiry, oneUNRUN15CPU30wall128MiBcanary. Fullbatched005/B41+3strongcontrol, no production-speed/quality/newID/task/grant claim. Current015done/018partial separate from historical runtime author text;026Afirstverified/Bwriting pending separatecritic. Next15:00UTC anchored14:15 unchanged.
 
 ## Wave026 started / cadence14:15 — actual 2026-10-15T14:16:14.976108+00:00
 

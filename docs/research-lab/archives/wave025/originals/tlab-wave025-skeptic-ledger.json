@@ -1,0 +1,173 @@
+{
+  "wave": 25,
+  "reviewer": "/root/brainstorm_models_a",
+  "status": "SKEPTIC_COMPLETE",
+  "created_at_utc": "2026-10-15T13:50:59.474137+00:00",
+  "inputfreeze_path": "/tmp/tlab-wave025-skeptic-inputfreeze.json",
+  "inputfreeze_sha256": "19a41bf7b5b73eecb66fc64a1b2927a05623b543803ce79a9785ec630a8d0cb4",
+  "all_four_initial_expected_hashes_matched": true,
+  "all_four_final_guards_pass": true,
+  "final_guards": [
+    {
+      "original_path": "/tmp/tlab-brainstorm-latest-distinct-features-b-wave025.md",
+      "snapshot_path": "/tmp/tlab-wave025-skeptic-inputs/tlab-brainstorm-latest-distinct-features-b-wave025.md",
+      "expected_sha256": "d006e391c7a00a80327e5b5d0725583d000317df458be666b0368b0407dc2ceb",
+      "final_original_sha256": "d006e391c7a00a80327e5b5d0725583d000317df458be666b0368b0407dc2ceb",
+      "final_snapshot_sha256": "d006e391c7a00a80327e5b5d0725583d000317df458be666b0368b0407dc2ceb",
+      "unchanged": true
+    },
+    {
+      "original_path": "/tmp/tlab-brainstorm-latest-distinct-features-b-wave025-ledger.json",
+      "snapshot_path": "/tmp/tlab-wave025-skeptic-inputs/tlab-brainstorm-latest-distinct-features-b-wave025-ledger.json",
+      "expected_sha256": "19920d679ae1ae2c6de3395daacedc776d2dbf03e6b15b9c583bc6a85be53501",
+      "final_original_sha256": "19920d679ae1ae2c6de3395daacedc776d2dbf03e6b15b9c583bc6a85be53501",
+      "final_snapshot_sha256": "19920d679ae1ae2c6de3395daacedc776d2dbf03e6b15b9c583bc6a85be53501",
+      "unchanged": true
+    },
+    {
+      "original_path": "/tmp/tlab-brainstorm-latest-state-retrieval-a-wave025.md",
+      "snapshot_path": "/tmp/tlab-wave025-skeptic-inputs/tlab-brainstorm-latest-state-retrieval-a-wave025.md",
+      "expected_sha256": "7195eeae59af9e45e9a2dd668be7ecc6907fa0f3ec9f11852aa7258e1ce742df",
+      "final_original_sha256": "7195eeae59af9e45e9a2dd668be7ecc6907fa0f3ec9f11852aa7258e1ce742df",
+      "final_snapshot_sha256": "7195eeae59af9e45e9a2dd668be7ecc6907fa0f3ec9f11852aa7258e1ce742df",
+      "unchanged": true
+    },
+    {
+      "original_path": "/tmp/tlab-brainstorm-latest-state-retrieval-a-wave025-ledger.json",
+      "snapshot_path": "/tmp/tlab-wave025-skeptic-inputs/tlab-brainstorm-latest-state-retrieval-a-wave025-ledger.json",
+      "expected_sha256": "d16052b5b54ef1c213b51d5564a1096f49f050c832213bf21cdc688b56571bd5",
+      "final_original_sha256": "d16052b5b54ef1c213b51d5564a1096f49f050c832213bf21cdc688b56571bd5",
+      "final_snapshot_sha256": "d16052b5b54ef1c213b51d5564a1096f49f050c832213bf21cdc688b56571bd5",
+      "unchanged": true
+    }
+  ],
+  "new_mechanisms": 0,
+  "new_hypotheses": 0,
+  "canonical_family": [
+    "HYP046",
+    "A005-02",
+    "TLAB005",
+    "TLAB016"
+  ],
+  "R025-E1": "report-local existing-family refinement; no new canonical admission",
+  "four_fields": {
+    "mechanism": "Latest strict-past qualifying occurrence plus keyed removable time order suffices for fixed-window item DISTINCT-user under immutable monotone replay; no retractions/backward anchors.",
+    "prediction": "Repeat-heavy keys can reduce occurrence state, but all-unique keys, sorting/expiry/churn/full sink/allocator high-water can erase the saving.",
+    "nearest_experiment": "UNRUN merged A-sized canary: two<=24-event bags,4anchors,<=8C rows; B sentinel/explicit NULL/action-specific expectations inside same bound; no duplicate trial.",
+    "task1_benefit": "Expose exact sufficient-state specialization and complete cost limitations on unchanged chosen model information, without quality or scalability claims."
+  },
+  "dispositions": [
+    {
+      "author": "A / features-b",
+      "disposition": "accept-needs-pilot",
+      "scope": "existing refinement only; no implementation/quality/cost admission",
+      "findings": [
+        "Maximum-membership proof and strict global-peer/lower-bound semantics are valid under stated append-only monotone contract.",
+        "Delete zero item/action counters or account G as historical empty groups.",
+        "Logical map/list/counter entries do not bound RSS; ordering/preparation and cold/inter-anchor peaks are charged."
+      ],
+      "cheapest_falsifier": "Renewal followed by old-copy expiry, lower equality and no-arrival expiry against independent direct sets."
+    },
+    {
+      "author": "B / retrieval-a",
+      "disposition": "refine",
+      "scope": "same mechanism; sentinel adversary survives",
+      "findings": [
+        "Eight concrete events have no NULL user, so cannot substantiate NULL witness coverage.",
+        "At28h+1s view key(u1,a,view) expires and cart key(u2,a,cart) survives; not the same action/key. purchase(u1,a,purchase)1h expired earlier.",
+        "Five coalesced heap tokens vs two live keys after all4h peers are ingested is plausible and consistent; before4h peers there are four tokens. This is hand reasoning only.",
+        "300CPU-second cap for eight-row proposal omits a wall bound; use one merged tiny envelope rather than duplicate trials."
+      ],
+      "cheapest_falsifier": "Use explicit per-action expected dictionaries and NULL case inside the existing A-sized bags; compare physical heap token peak with live key count."
+    }
+  ],
+  "physical_control": "Independent direct sets and strong coalesced refcounts for semantic/state checks; later actual unchanged batched005 optimizer/cache/common projection/fullB41+3 sink for physical cost. No per-feature naive-scan comparator.",
+  "cost": {
+    "merged_future_only": {
+      "status": "UNRUN/ungranted; not an execution request",
+      "bags": 2,
+      "events_each_max": 24,
+      "anchors": 4,
+      "Crows_max": 8,
+      "cpu_seconds_max": 15,
+      "wall_seconds_max": 30,
+      "rss_bytes_max": 134217728,
+      "includes": [
+        "fixture construction",
+        "oracle",
+        "checking",
+        "failures"
+      ]
+    },
+    "complete_later_scope": [
+      "source authentication",
+      "cold source/history",
+      "sort/spill",
+      "list/hash/index/support state",
+      "stale tokens/compaction/temporary copies if present",
+      "every update/expiry including arrival-free queries",
+      "projection/query work",
+      "domain backfill",
+      "common B41 metadata/coverage",
+      "complete sink/readback",
+      "failures/termination/cleanup"
+    ],
+    "no_measured_speedup_or_RSS": true
+  },
+  "primary_sources": [
+    {
+      "url": "https://www.feldera.com/blog/time-series",
+      "published": "2024-11-01",
+      "author": "Leonid Ryzhyk",
+      "verified_utc_date": "2026-10-15",
+      "claim": "Truthful lateness/append-only condition retention; discarding state differs from deleting records; not this list proof."
+    },
+    {
+      "url": "https://docs.python.org/3.12/library/collections.html#collections.OrderedDict",
+      "served_version": "3.12.15",
+      "verified_utc_date": "2026-10-15",
+      "claim": "Endpoint movement/FIFO removal APIs; space efficiency secondary; Counter zero entries not automatically removed."
+    },
+    {
+      "url": "https://docs.python.org/3.12/library/heapq.html#priority-queue-implementation-notes",
+      "served_version": "3.12.15",
+      "verified_utc_date": "2026-10-15",
+      "claim": "Lazy obsolete marking and replacement push recipe; sentinel memory reasoning is own adaptation."
+    }
+  ],
+  "source_limit": "Three primary sources checked. A DuckDB citation was not separately reopened in this review; NULL-skipping was checked as an explicit project/author contract rather than a runtime claim.",
+  "dedup_prior_read": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-fa005.md lines33–61; A005-02 already proves same sufficient state and intrusive membership.",
+  "no_information_change": [
+    "raw multiplicity unchanged",
+    "same item/action/user/window/null/filter policy",
+    "all global peers and shared clock",
+    "complete observed prefix or paid sort",
+    "source-start coverage and metadata unchanged",
+    "common label-blind requested-item domains and full backfill on misses"
+  ],
+  "negative_outcomes": {
+    "semantic_mismatch": "reject specialization",
+    "equal_or_noisy_cost": "speed unconfirmed",
+    "beats_refcounts_only": "no005 speed conclusion",
+    "tiny_logical_entry_reduction": "no productionRSS/CPU/I/O acceptance"
+  },
+  "actual_operations": {
+    "helpers": 0,
+    "experiments": 0,
+    "literal_execution": 0,
+    "native": 0,
+    "real_data_DB": 0,
+    "models": 0,
+    "Y": 0,
+    "fits": 0,
+    "predict_calls": 0,
+    "paid_jobs": 0,
+    "project_writes": 0,
+    "new_grants": 0,
+    "large_hashes": 0,
+    "input_snapshot_files": 4
+  },
+  "current_main_parent_observation": "Root issued/submitted FIRST-owner V4c007/de1e; runtime session67253 RUNNING. Reviewer did not poll/run/accept anything. OldV3/018FAILED/unknown remain;33914basis/reserves/deadline14:15 unchanged.",
+  "mandatory_boundary": "Optional critique is not015/018 prerequisite, recovery gate, retry or claim acceptance.",
+  "word_count_whitespace": 511
+}

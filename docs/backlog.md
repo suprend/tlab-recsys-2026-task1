@@ -6,6 +6,8 @@
 
 ## Текущий статус
 
+Research025 [Rootaccepted existing-family refinement](research-lab/brainstorm-wave025-synthesis.md),0newID/task/grant;015done/018partial unchanged,026A FIRSTverified/Bwriting, separatecritic onlyafterboth.
+
 Cadence14:15 actual 2026-10-15T14:16:14.976108+00:00 (+74.976108s):026twoindependentauthorsstarted/A FIRSTverified/Bwriting; separateexistingretrieval_a onlyafterbothFIRST.025Rootreadbackpending; report7be5123 independentreview,018TMPonly/no runtimegrant.015done/13of19 unchanged, noadditionalY/fit/currentretune; nextmax15:00UTC anchored14:15, planned027 notyetactive.
 
 Current accepted checkpoint 14:11:04UTC: [принятое отложенное сравнение](backlog-reviews/real015-heldout-results.md); final26–31 B0.459825→W0.464947, Δ+.005122/CI[−.010433,+.018561].015done/13of19 accepted,0fits/adaptation; confidenceintervalcrosses0, no superiority/search-benefit claim.018partial/014active/010–013optionaldeferred. Original67253closed0, oldV3/018FAILED/unknown preserved; safeNEXT018+finalreport review, no rerun/newY.14:15anchor unchanged.

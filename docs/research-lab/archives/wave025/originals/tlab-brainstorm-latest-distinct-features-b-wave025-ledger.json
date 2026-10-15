@@ -1,0 +1,149 @@
+{
+  "wave": "025",
+  "role": "independent_FIRST_A_features_b",
+  "created_at_utc": "2026-10-15T13:38:31.267925+00:00",
+  "draft_words": 458,
+  "novel_mechanisms": 0,
+  "new_ids": [],
+  "disposition": "refine HYP046 and A005-02 only; no admission authority",
+  "stable_ids": [
+    "HYP046",
+    "TLAB005",
+    "TLAB016",
+    "A005-02"
+  ],
+  "fixed_scope": {
+    "chosen_leaves": [
+      "D(item,view,24h,user)",
+      "D(item,cart,168h,user)",
+      "D(item,purchase,24h,user)"
+    ],
+    "definition_anchor": "docs/research-lab/round-033.md line22 L05",
+    "not_claimed": "This names the fixed three DISTINCT leaves in the question, not a change to actual accepted R2/W."
+  },
+  "four_fields": {
+    "mechanism": "Latest strict-past occurrence identity plus one removable ordered node per item/action/user; three fixed action windows.",
+    "prediction": "Repeated keys can reduce retained occurrence nodes, but unique keys/overhead/fullsink can erase saving.",
+    "nearest_experiment": "Two invented <=24-event bags,4monotone anchors,<=8Crows; independent direct sets, generic occurrence/refcounts and latest-list; UNRUN/ungranted.",
+    "task1_benefit": "Automatically choose an exact physical specialization without changing predictive information/learner/Q/C."
+  },
+  "proof_contract": [
+    "Immutable append-only observed source context",
+    "Verified nondecreasing event timestamps or paid ordering",
+    "Same source bounds/action/item/non-NULL user identity/filter policy",
+    "At every anchor complete prefix[S,t), excluding all timestamp-t peers",
+    "Membership iff latest>=max(S,t-W)",
+    "Expire on anchor advance even if no new event",
+    "Lower equality retained; no wall/arrival expiry",
+    "All source users for required items, not just Q-users",
+    "NULL user ignored only for DISTINCT;raw multiplicity elsewhere unchanged",
+    "No retractions/corrections/backward-anchor support",
+    "No recency/metadata/otherB substitution"
+  ],
+  "state_cost": {
+    "N": "Raw rows processed, including duplicates; ordering/preparation charged.",
+    "K": "Retained latest keys; coldbuild/inter-anchor peak can approachN.",
+    "G": "Retained per-item/action counter groups.",
+    "explicit_state": "Kdictentries+Kremovablelistnodes+Gcounters+encodedkeys/pointers/allocatoroverhead; sortedsource buffer/spill charged separately.",
+    "lazy_heap_counterexample": "One expiry notice per renewal retainsO(N) entries in a burst even with one live dictionary key; stale pops/compaction/rebuild peak paid.",
+    "generic_control": "Occurrence queue+per-keyrefcounts remains independently exact; every occurrence expires; output usespositive refs.",
+    "full_sink": "Complete unchangedB41 plus fixed3; coverage/support/projection/output/validation/failures/cleanup included.",
+    "no_claim": "No minimal-memory claim, cardinality-independent bound, measured speed or scalability."
+  },
+  "primary_sources": [
+    {
+      "id": "S1",
+      "url": "https://www.feldera.com/blog/time-series",
+      "accessed": "2026-10-15",
+      "author": "LeonidRyzhyk",
+      "published": "2024-11-01",
+      "anchors": "lines137-156 ordering/appendonly;162-177 lifetimeanalysis versusTTL/deletion",
+      "verified_scope": "Author states accurate source properties condition state elimination; retention not logical deletion.",
+      "not_inferred": "Ourlatest-listimplementation/exactness/performance; actualsourceingestiontruth; currentFelderaruntimebehavior."
+    },
+    {
+      "id": "S2",
+      "url": "https://duckdb.org/docs/current/sql/functions/aggregates",
+      "accessed": "2026-10-15",
+      "version": "Page labels1.5current",
+      "anchors": "lines562-564DISTINCT;584-587NULL/empty;607-608countrows/non-NULLcount",
+      "verified_scope": "DISTINCT considers distinctvalues; count argument ignoresNULL; count empty0.",
+      "not_inferred": "Physicalstate/rollingexpiry/latestmapimplementation or projectruntimeexecution."
+    }
+  ],
+  "local_dedup": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-002.md",
+      "lines": [
+        41,
+        43,
+        47
+      ],
+      "scope": "ExistingHYP046 shared exact execution, state/policy identity; no new allowance."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-fa005.md",
+      "lines": [
+        33,
+        35,
+        37,
+        39,
+        41,
+        45,
+        47,
+        53
+      ],
+      "scope": "A005-02 already states last-occurrence sufficiency, intrusive live membership, replay restrictions and counterexamples; this draft narrows fixedone-window-peraction accounting."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-fa005-ledger.json",
+      "scope": "Originalpriorauthor evidence read; no wave025 peer read or priorprobe rerun."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-033.md",
+      "lines": [
+        22,
+        30,
+        40
+      ],
+      "scope": "Exactthree L05 DISTINCT signatures, statecost and fullB commonmetadata/sink."
+    }
+  ],
+  "future_test_only": {
+    "status": "UNRUN/ungranted",
+    "bags": 2,
+    "max_events_each": 24,
+    "anchors": 4,
+    "max_Crows": 8,
+    "cpu_seconds": 15,
+    "wall_seconds": 30,
+    "memory_MiB": 128,
+    "native": 0,
+    "fits": 0,
+    "Y": 0,
+    "admission": false,
+    "main_prerequisite": false
+  },
+  "executed": {
+    "peer025_read": false,
+    "helpers": false,
+    "experiments": 0,
+    "literal_arithmetic_runs": 0,
+    "real_data_reads": 0,
+    "SQL": 0,
+    "native": 0,
+    "models": 0,
+    "Y": 0,
+    "fits": 0,
+    "installs": 0,
+    "project_writes": 0,
+    "new_compute_grants": 0
+  },
+  "unresolved": [
+    "Latest-list implementation is proposed, not executed or proven by actual output.",
+    "Actual coldbuild/statebytes/time and fullB41+3 cost unknown.",
+    "Sourceordering/immutablecontext must be authenticated by any future executor; eventtime not arrivaltruth."
+  ],
+  "nonfatal_source_read_limit": "Attempted old synthesisfilename was absent; dependent read stopped. Required wave005 original andround033 were read directly; no peer025 read.",
+  "current_main_scope": "Parent statesV4code+minimalrealenvaccepted a1dbdda7..., FIRSTprojectowner unstarted/no recoverygrant; originalV3/018 failures/unknown retained."
+}
