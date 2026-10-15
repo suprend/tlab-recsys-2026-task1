@@ -1,0 +1,117 @@
+{
+  "Y_relations_created": false,
+  "actual_DB_CBM_NPZ_archive_reads": 0,
+  "actual_fixed_owner_accepted": false,
+  "actual_source_acceptance": false,
+  "application_children": 0,
+  "author": "/root/execution_scope_audit",
+  "core_callbacks_test_seam_only": true,
+  "core_sha256": "cc5a5779199636c2336b2bc0edcb8b31ff496d2e6edf78ed48bfd5f8f3982e8f",
+  "delegated_helpers": 0,
+  "execution_grant": false,
+  "external_receipt": {
+    "path": "/tmp/tlab-development-source-to-score-independent-core-external-receipt-v1.json",
+    "sha256": "0418f0462e23f823975e449eeb3254fccb30db190251aba8b076dc8f229b709d"
+  },
+  "findings": [],
+  "fits": 0,
+  "freeze_sha256": "f2e6e5255e542f9cd60a11aa8b6002922303cda9eb8424bb624d8bb90496fc4d",
+  "freshness_input_count": 31,
+  "heldout439_calls": 0,
+  "input_hashes": {
+    "/Users/mdpospelov/tlab-recsys-2026/configs/features/automation-pool.json": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+    "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+    "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+    "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_contract.py": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py": "e1b06b2aac68c59379d15298c39101ec02b6a176c26b13d4671f8e445de2851b",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_source.py": "c864bec3a3aefa946b7759993505bcde9dcd9c9edb7cb9ce03216d6ebddeafbb",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/heuristic_baselines.py": "db00b2375fed1083d4bf9b45ef4535793d36ffeaa537050a07e99c61dad13ee4",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/inference_data.py": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+    "/Users/mdpospelov/tlab-recsys-2026/uv.lock": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+    "/tmp/tlab-development-source-to-score-concrete-schema-proposal.json": "349197ea213952d44e6bf586eae0d99a260266505c1baadc5c2941a34bfe3b51",
+    "/tmp/tlab-development-source-to-score-core-v1-freeze.json": "f2e6e5255e542f9cd60a11aa8b6002922303cda9eb8424bb624d8bb90496fc4d",
+    "/tmp/tlab-development-source-to-score-import-closure-proposal.json": "2e4bb6b5a4d131bec1fe24369947d9613647b0e7d72f394ff17d23fdcab76c19",
+    "/tmp/tlab-development-source-to-score-model-source-bindings-proposal.json": "ba4056c710951395ceae3f42bf04d54b8d16bdc83c0cf2114ea548a1aa133771",
+    "/tmp/tlab-development-source-to-score-proposal.md": "b54783899e27f4a88e78f13232e9e8efedc83ecba96301f8f5137fa5d764cb0c",
+    "/tmp/tlab-development-source-to-score-scope-addendum.md": "aae99988c44dc4331f455239e7be0e4e12ac2c57224d7c5cd787a5785ed4b534",
+    "/tmp/tlab-reproduce-development-slice-v1-author-tiny-test-receipt.json": "932065ffa559fda0a90a70769085e4f3c1740b4d14671abee9b6654dd1ad4344",
+    "/tmp/tlab-reproduce-development-slice-v1-author-tiny-test.stderr-time.txt": "6c829ff8a3481eee54c1e2e12fc7d63adb22353ec8730fa1416126a75f4a0a8b",
+    "/tmp/tlab-reproduce-development-slice-v1-author-tiny-test.stdout.txt": "6f621ce4ceceeca517379fc61ffb277574eecef5bd392e6bfad3c22af0d82692",
+    "/tmp/tlab-reproduce-development-slice-v1-tiny-approval-timeout.json": "a92fe011972f53a527543ef8716b3034a7b2c4da0ada37093d15b90ecb69e6a6",
+    "/tmp/tlab-reproduce-development-slice-v1.py": "cc5a5779199636c2336b2bc0edcb8b31ff496d2e6edf78ed48bfd5f8f3982e8f",
+    "/tmp/tlab-test-reproduce-development-slice-v1.py": "ea5fdd8c6f07744c0e2f8f4e32670f4856f346e29bbf74a70cd2ebfea9c5a43a"
+  },
+  "mandatory_all_keyed_Q_C_B45_extra3_scores_rank_parity_executed": false,
+  "probe_observations": {
+    "all_empty_C": {
+      "candidates": 0,
+      "prediction_calls": 0,
+      "queries": 2,
+      "source_acceptance": false
+    },
+    "matrix": {
+      "error": "Native caller changed input matrix",
+      "fake_prediction_calls": 1,
+      "rejected": true
+    },
+    "model": {
+      "error": "Frozen native tree count differs",
+      "fake_prediction_calls": 1,
+      "rejected": true
+    },
+    "nan": {
+      "error": "Exact finite float64 scalar predictions required",
+      "fake_prediction_calls": 1,
+      "rejected": true
+    },
+    "shape": {
+      "error": "Exact finite float64 scalar predictions required",
+      "fake_prediction_calls": 1,
+      "rejected": true
+    }
+  },
+  "probe_source_sha256": "84ce3160f3579b0cf5aa37777f7c46a3f314189ded8d73d349c20759bbc347fc",
+  "probe_tests": {
+    "author_inherited": 9,
+    "errors": 0,
+    "failures": 0,
+    "independent": 5,
+    "total": 14
+  },
+  "project_consumed_root_writes": 0,
+  "proof_pins": {
+    "/tmp/tlab-development-source-to-score-independent-core-inputs-v1/input-freeze.json": "2ec0593b987e5edb829713b396766817b413b7f2f6c9bb8eb0b35a2ab100db93",
+    "/tmp/tlab-development-source-to-score-independent-core-probes-v1-results.json": "7088a87369e405c440e21349956b392513f175b6ccca732500f2d93be1a3db3a",
+    "/tmp/tlab-development-source-to-score-independent-core-probes-v1.log": "60b1218a3dcd2b43b62c26a989a3ac232da9befdfd26dda051536244390c0101",
+    "/tmp/tlab-development-source-to-score-independent-core-probes-v1.py": "84ce3160f3579b0cf5aa37777f7c46a3f314189ded8d73d349c20759bbc347fc",
+    "/tmp/tlab-development-source-to-score-independent-core-probes-v1.stderr-time.txt": "96a5d207bfa48e4a86507442fea907f4fdd04667442167ceec71720deacc17f7",
+    "/tmp/tlab-development-source-to-score-independent-core-probes-v1.stdout.txt": "e66683516ded4c0d5b73b5cbfbcb7b825473fbdac94438fc60009b966f7bf40f"
+  },
+  "real_model_calls": 0,
+  "report": {
+    "path": "/tmp/tlab-development-source-to-score-independent-core-review.md",
+    "sha256": "3c2652171dd9f7bfd4bfff09c9983a037c002e6133ccb630667521e13e675caa"
+  },
+  "review_cost": {
+    "complete_python_exit_included": true,
+    "cpu_seconds_displayed_sum": 1.42,
+    "maximum_resident_set_size_bytes": 166985728,
+    "system_seconds_displayed": 0.1,
+    "user_seconds_displayed": 1.32,
+    "values_rounded_as_displayed": true,
+    "wall_seconds_displayed": 1.44
+  },
+  "reviewer": "/root/six_role_harness",
+  "scope": "independent_frozen_one_day_CORE_CODE_review_only",
+  "verdict": "no_supported_blocking_defect_found_within_CORE_scope"
+}

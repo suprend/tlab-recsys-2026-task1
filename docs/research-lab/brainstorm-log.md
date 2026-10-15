@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 10:51:34 UTC / 13:51:34 МСК. Двухраундовый checkpoint016+017; предел11:15UTC сохранён.
+Обновлён 15 октября 2026, 11:15:33 UTC / 14:15:33 МСК; checkpoint11:15, actual lateness33.487s.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -8,7 +8,15 @@
 
 При доступной ёмкости постоянно действуют как минимум две независимые авторские исследовательские линии и отдельная линия review; пользовательский запрос постоянной активности сильнее редкого отчётного checkpoint. Каждый завершённый brainstorm получает следующий источник/вопрос либо отдельное перекрёстное review. Предел17 одновременных процессов включает Root, координатора и вспомогательных агентов: помощники не увеличивают число независимых авторов. Состав проверяется по фактическому inventory, исторический allocation не выдаётся за текущие живые процессы.
 
-`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 11:15 UTC / 14:15 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+`next_due`: следующий видимый checkpoint после двух **следующих** завершённых исследовательских раундов либо не позднее15.10.2026 12:00 UTC / 15:00 МСК, что наступит раньше. Это предел обновления журнала, а не разрешение простаивать до него. Новые идеи не перезапускают часы, общий goal или уже отведённые бюджеты. Каждая отдельная платная операция сохраняет свой reviewed конечный предел времени, CPU, памяти, I/O, label/fit/API-вызовов и fail-closed условия. Будущие гипотезы не становятся prerequisites текущих015/018 или experimental report. B/W, reserved25–31, source/heldout gates этим контрактом не меняются.
+
+## Current11:15 checkpoint — actual 11:15:33UTC, 33.487s late
+
+Root CODE accepted the development core and narrow reference handoff; actual600CPU/900wall source-to-model episode remains UNGRANTED and complete018 pending.51 unique small pins,31core/23reference freshness checks,14 independent CORE cases including9inherited and100reference metadata assertions are code evidence, not real-source/model execution. OwnerV1 DOUBLE-schema failure is preserved; V2DECIMAL author21puretests is under independent review. Portable9test variant passed9tests, but whole verifierV1FAILED on/tmp/private/tmp lexical postcondition; narrowV2driver retry is planned, nofit/realIO, no public-suite success claim yet. Separate all-keyed parity checker remains implementation-only.
+
+015 censusV3 global29412 active-WALL bound is REJECTED, not CPU or adopted upper. Single async decoder pass completed once (time-p2.13wall/2.05CPU/117.8MB); offline pairing pending, genuine unmatchedcell125 remains unknown, no second cohort pass or heldout grant. Research018 FIRST pair plus separate skeptic complete, Root readback pending;019 both independent FIRST drafts are now frozen; separate FeaturesB critique assigned after both, optional RetailRocket only/no actualdata/newgates. The initial11:15:33 observation preceded the ModelsA FIRST handoff. Core/reference proof pack will be archived after current checkpoint. Source-only original65471 remains closed/reaped; no poll/retry. Next maximum12:00UTC/15:00МСК stays anchored11:15 despite this write; existing goal/17slots/reservations/solequeue/publisher unchanged.
+
+## Historical two-round checkpoint016+017
 
 ## Current view / two-round checkpoint016+017 at 10:51:34UTC
 
@@ -360,3 +368,7 @@ Root research readback SHA7d518456… accepts scoped refinements, not execution.
 ### Frozen016/017 research publication —10:53:27UTC
 
 [Normalized four-field synthesis](brainstorm-waves016017-synthesis.md) links17 exact wave originals and one exact Root readback: all14 Root pins, ModelsA firstfreeze and two owned pure witnesses. Original author drafts/ledgers are unchanged. Root fully read016 authors and016/017 skeptics; no full017-author-prose or native rerun is claimed.0newHYP/runtime admissions/main gates. Optional600/900 next018 episode remains ungranted; source grant ended, censusV3 unadopted and heldoutCLOSED. Checkpoint remains10:51:34UTC with maximum11:15UTC unchanged.
+
+### CORE/reference proof publication —11:18:01UTC
+
+[CODE-only proof](../backlog-reviews/development-core-reference-code-acceptance.md) publishes29 exact small originals/193070B plus22 existing Git code/config/publicmetadata SHA references without copying protected modules. OwnerV1/schema and portable-driverV1 failures remain pending historical evidence, no actual source-to-model operation. Both019FIRST drafts are now frozen; a separate FeaturesB critique was assigned after both perRoot.018 critique remains pending Root readback. No census upper adopted, no new grant/fit/largefile hash. Nextmax12:00UTC anchored11:15 despite actual11:15:33.487 latewrite.

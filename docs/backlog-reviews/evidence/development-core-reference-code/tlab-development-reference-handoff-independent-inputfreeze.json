@@ -1,0 +1,223 @@
+{
+  "mode": "independent read-only prepared narrow Root handoff review",
+  "handoff_sha256": "fd7304383e9c025d205a0b7f9060187f8062daa9baa2f9b0f86ea6a18323e05b",
+  "requirements": {
+    "root_explicit_narrow_reuse_of_already_accepted_historical_choice": true,
+    "runtime_grant": false,
+    "future_bounds_ungranted": {
+      "CPU_seconds": 600,
+      "wall_seconds": 900,
+      "RSS_bytes": 8589934592
+    },
+    "allowed": "small metadata and public code up to 8MiB/file; stdlib pure only",
+    "forbidden": [
+      "physical DB/CBM/NPZ/Parquet/archive reads or hashes",
+      "SQL/native/model/helper execution",
+      "438/439 physical traversal",
+      "Y/fit/metrics/reserved dates",
+      "project writes"
+    ]
+  },
+  "originals": [
+    {
+      "original": "/tmp/tlab-root-development-day-reference-handoff-prepared.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/tlab-root-development-day-reference-handoff-prepared.json",
+      "sha256": "fd7304383e9c025d205a0b7f9060187f8062daa9baa2f9b0f86ea6a18323e05b",
+      "bytes": 16752,
+      "final_sha256": "fd7304383e9c025d205a0b7f9060187f8062daa9baa2f9b0f86ea6a18323e05b",
+      "unchanged": true
+    },
+    {
+      "original": "/tmp/tlab-development-source-to-score-concrete-schema-proposal.json",
+      "input_key": "/tmp/tlab-development-source-to-score-concrete-schema-proposal.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/tmp/tmp/tlab-development-source-to-score-concrete-schema-proposal.json",
+      "bytes": 10174,
+      "sha256": "349197ea213952d44e6bf586eae0d99a260266505c1baadc5c2941a34bfe3b51",
+      "final_sha256": "349197ea213952d44e6bf586eae0d99a260266505c1baadc5c2941a34bfe3b51",
+      "unchanged": true
+    },
+    {
+      "original": "/tmp/tlab-development-source-to-score-model-source-bindings-proposal.json",
+      "input_key": "/tmp/tlab-development-source-to-score-model-source-bindings-proposal.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/tmp/tmp/tlab-development-source-to-score-model-source-bindings-proposal.json",
+      "bytes": 9708,
+      "sha256": "ba4056c710951395ceae3f42bf04d54b8d16bdc83c0cf2114ea548a1aa133771",
+      "final_sha256": "ba4056c710951395ceae3f42bf04d54b8d16bdc83c0cf2114ea548a1aa133771",
+      "unchanged": true
+    },
+    {
+      "original": "/tmp/tlab-root-full-source018-source-prefix-acceptance.json",
+      "input_key": "/tmp/tlab-root-full-source018-source-prefix-acceptance.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/tmp/tmp/tlab-root-full-source018-source-prefix-acceptance.json",
+      "bytes": 6583,
+      "sha256": "3599ad5882356deb9a7252ea8bb69c6395b57b719acae9dca92c04d80431fab8",
+      "final_sha256": "3599ad5882356deb9a7252ea8bb69c6395b57b719acae9dca92c04d80431fab8",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/artifacts/acceptance/tlab016-feature-program-models-verified.json",
+      "input_key": "artifacts/acceptance/tlab016-feature-program-models-verified.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/artifacts/acceptance/tlab016-feature-program-models-verified.json",
+      "bytes": 90426,
+      "sha256": "7e6130ca15f5af8fccdb18849916896bd087ab37e03659afe078abe45bf83cbe",
+      "final_sha256": "7e6130ca15f5af8fccdb18849916896bd087ab37e03659afe078abe45bf83cbe",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/artifacts/acceptance/tlab017-selection-collection.json",
+      "input_key": "artifacts/acceptance/tlab017-selection-collection.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/artifacts/acceptance/tlab017-selection-collection.json",
+      "bytes": 5835,
+      "sha256": "45af326c2a71bbc0a12ba0753c0701dafc9e75d366150169a90aac164e51de7b",
+      "final_sha256": "45af326c2a71bbc0a12ba0753c0701dafc9e75d366150169a90aac164e51de7b",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/artifacts/development/attempt-62ec7057fc3c46dd85dee7da6cf87474/report.json",
+      "input_key": "artifacts/development/attempt-62ec7057fc3c46dd85dee7da6cf87474/report.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/artifacts/development/attempt-62ec7057fc3c46dd85dee7da6cf87474/report.json",
+      "bytes": 6416,
+      "sha256": "3c6786f912ebd0512a3c3fa5e85d7240cbf75537edca3745945f150bf99e6858",
+      "final_sha256": "3c6786f912ebd0512a3c3fa5e85d7240cbf75537edca3745945f150bf99e6858",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/artifacts/development/c2c6ba099b4cffad131638cd33feba14db7232e78ced6c141a7f9c88d4c81b74/shards/0/anchor/invocation-a2235aeff2d0401294a061609f3619d8/f6e8ad7fe4565ff9316935ceeaf8330e5359b09a10e33420035be0b8aaa348d9/run.json",
+      "input_key": "artifacts/development/c2c6ba099b4cffad131638cd33feba14db7232e78ced6c141a7f9c88d4c81b74/shards/0/anchor/invocation-a2235aeff2d0401294a061609f3619d8/f6e8ad7fe4565ff9316935ceeaf8330e5359b09a10e33420035be0b8aaa348d9/run.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/artifacts/development/c2c6ba099b4cffad131638cd33feba14db7232e78ced6c141a7f9c88d4c81b74/shards/0/anchor/invocation-a2235aeff2d0401294a061609f3619d8/f6e8ad7fe4565ff9316935ceeaf8330e5359b09a10e33420035be0b8aaa348d9/run.json",
+      "bytes": 2497,
+      "sha256": "ba51e0c522d5b7acdd502ea8fb6ae9842c239eaf87b0100a5884d05aaf90d6ab",
+      "final_sha256": "ba51e0c522d5b7acdd502ea8fb6ae9842c239eaf87b0100a5884d05aaf90d6ab",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/external-lifetime.json",
+      "input_key": "artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/external-lifetime.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/external-lifetime.json",
+      "bytes": 1175,
+      "sha256": "dd27237c592340307c5d9a6110b9426900ff897fc2eaf320537e7c439452b941",
+      "final_sha256": "dd27237c592340307c5d9a6110b9426900ff897fc2eaf320537e7c439452b941",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/report.json",
+      "input_key": "artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/report.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/report.json",
+      "bytes": 113490,
+      "sha256": "0c3febcc51f4cea12000a01746e614e59260af6aab6d4d0e1adf751162f1a2c7",
+      "final_sha256": "0c3febcc51f4cea12000a01746e614e59260af6aab6d4d0e1adf751162f1a2c7",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/run.json",
+      "input_key": "artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/run.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/run.json",
+      "bytes": 103221,
+      "sha256": "f88f066305d6e93e55da77dd2efbd5de8f5f00da6bb674bf952c98a9be4532b8",
+      "final_sha256": "f88f066305d6e93e55da77dd2efbd5de8f5f00da6bb674bf952c98a9be4532b8",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/artifacts/source-import-runs/oct2019-full-018-20261015-once/kernel/import-evidence.json",
+      "input_key": "artifacts/source-import-runs/oct2019-full-018-20261015-once/kernel/import-evidence.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/artifacts/source-import-runs/oct2019-full-018-20261015-once/kernel/import-evidence.json",
+      "bytes": 2509,
+      "sha256": "08343988dc77c388abc7378ae99fba207b69672c2870bf5759c906f98edc22ff",
+      "final_sha256": "08343988dc77c388abc7378ae99fba207b69672c2870bf5759c906f98edc22ff",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/features/automation-pool.json",
+      "input_key": "configs/features/automation-pool.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/configs/features/automation-pool.json",
+      "bytes": 2713,
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+      "final_sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+      "input_key": "configs/features/manual-18.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/configs/features/manual-18.json",
+      "bytes": 3631,
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "final_sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/full-source018-terminal/tlab-root-full-source018-source-prefix-acceptance.json",
+      "input_key": "docs/backlog-reviews/evidence/full-source018-terminal/tlab-root-full-source018-source-prefix-acceptance.json",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/docs/backlog-reviews/evidence/full-source018-terminal/tlab-root-full-source018-source-prefix-acceptance.json",
+      "bytes": 6583,
+      "sha256": "3599ad5882356deb9a7252ea8bb69c6395b57b719acae9dca92c04d80431fab8",
+      "final_sha256": "3599ad5882356deb9a7252ea8bb69c6395b57b719acae9dca92c04d80431fab8",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+      "input_key": "uv.lock",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/metadata/project/uv.lock",
+      "bytes": 300283,
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "final_sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_program_control.py",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/context/scripts/feature_program_control.py",
+      "bytes": 10057,
+      "sha256": "aa7a4b43dd9eb4e2d7e00bc4c42386cdb4c6da142c179e1c5f6fad4a1450e4b7",
+      "final_sha256": "aa7a4b43dd9eb4e2d7e00bc4c42386cdb4c6da142c179e1c5f6fad4a1450e4b7",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/inference_data.py",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/context/scripts/inference_data.py",
+      "bytes": 9074,
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+      "final_sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/context/scripts/heldout_predictions.py",
+      "bytes": 9846,
+      "sha256": "e1b06b2aac68c59379d15298c39101ec02b6a176c26b13d4671f8e445de2851b",
+      "final_sha256": "e1b06b2aac68c59379d15298c39101ec02b6a176c26b13d4671f8e445de2851b",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/model_data.py",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/context/scripts/model_data.py",
+      "bytes": 13774,
+      "sha256": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+      "final_sha256": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/context/scripts/feature_programs.py",
+      "bytes": 14019,
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "final_sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/context/scripts/manual_features.py",
+      "bytes": 25160,
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "final_sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "unchanged": true
+    },
+    {
+      "original": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+      "copy": "/tmp/tlab-development-reference-handoff-independent-inputs/instructions/code-review-SKILL.md",
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+      "bytes": 10077,
+      "final_sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+      "unchanged": true
+    }
+  ],
+  "all_initial_final_hashes_match": true
+}

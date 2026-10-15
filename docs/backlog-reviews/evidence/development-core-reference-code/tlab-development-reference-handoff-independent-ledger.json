@@ -1,0 +1,103 @@
+{
+  "status": "no supported blocking metadata finding; supports limited prepared contract only",
+  "handoff_sha256": "fd7304383e9c025d205a0b7f9060187f8062daa9baa2f9b0f86ea6a18323e05b",
+  "original_input_count": 23,
+  "terminal_freshness": true,
+  "required_future_physical_refs": [
+    {
+      "path": "artifacts/source-import-runs/oct2019-full-018-20261015-once/kernel/events.duckdb",
+      "sha256": "4168068b05a5f7033876c05427037732322abe77fd2f97eef3ceca59d42ba786"
+    },
+    {
+      "path": "artifacts/strong-baseline/9c6969c88857620b24d27da288c6aeb2544187d2cb64267db5e81f8c3599b080/workers/arm-3/736d185cee18266642ad0dbc49199d9b667428c31f99454f78d82f85950d0364/prefix300.cbm",
+      "sha256": "a60a82894ed9385a7b4f38784e7ea34ed9476966557387924406f803343f2b2e"
+    },
+    {
+      "path": "artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/workers/R2/45ea167afa64d1051cb65eabdeee8f178abb87ddaa717ed500d10885be61ae89/prefix.cbm",
+      "sha256": "35eb3837db9dcabe0aa2c15a2d999e0c44feb98d39d6ae1da10a19b37c6928ec"
+    },
+    {
+      "path": "artifacts/strong-baseline/9c6969c88857620b24d27da288c6aeb2544187d2cb64267db5e81f8c3599b080/workers/arm-3/736d185cee18266642ad0dbc49199d9b667428c31f99454f78d82f85950d0364/prefix300-scores.npz",
+      "sha256": "4767177c22f67be6edfb0e256565b96ab339ef44a541180ff3ef84f9bb700bef"
+    },
+    {
+      "path": "artifacts/feature-program-invocations/3a0bf8f0834949c7ab2119a1d2acaef7/workers/R2/45ea167afa64d1051cb65eabdeee8f178abb87ddaa717ed500d10885be61ae89/scores.npz",
+      "sha256": "88c8f1353afab0ea2f2abd56f8b1ec5ffa12471013e9ca9cc9793d0da64a15f1"
+    },
+    {
+      "path": "artifacts/development/c2c6ba099b4cffad131638cd33feba14db7232e78ced6c141a7f9c88d4c81b74/shards/0/anchor/invocation-a2235aeff2d0401294a061609f3619d8/f6e8ad7fe4565ff9316935ceeaf8330e5359b09a10e33420035be0b8aaa348d9/queries.parquet",
+      "sha256": "bcab5fa0b1812771d47cb46ac4efdc4e0ce95e91e4486bba0a0d59d4bd8cad75"
+    },
+    {
+      "path": "artifacts/development/c2c6ba099b4cffad131638cd33feba14db7232e78ced6c141a7f9c88d4c81b74/shards/0/candidate/invocation-06d45f086da445fe8749d42b1f2aa17c/375c6512341f46dd94914f1e815c56f1fd482f780e7aab8ea9ad1348cd7c79b5/candidates.parquet",
+      "sha256": "43532df557e85dddf68c42ba3c5005038ca700250ca913de34037617b99bfbd3"
+    },
+    {
+      "path": "artifacts/development/c2c6ba099b4cffad131638cd33feba14db7232e78ced6c141a7f9c88d4c81b74/shards/0/features/invocation-15af8fa7ecab4dfb9a02db9b8f644252/f30b752e64e6eb356af75c2029860c941c4c640704d2e64ae1b2a5eceb7b04b5/features.parquet",
+      "sha256": "b4cc58eb9eb5a49a6f21f552f46e9edd94d6ec4fa45367ef2386195f94cc4b63"
+    },
+    {
+      "path": "artifacts/feature-program-collection/b8c3d08179a922d106e0e5e72e5a11d8eae27a1ab78a4f902a2b023a5c4131d6/selection/2019-10-22/features.parquet",
+      "sha256": "a50bd19db1fffe629db3d313a895d5a9bdbebd5c6831a31512901840308abd09"
+    }
+  ],
+  "physical_refs_opened_or_hashed": 0,
+  "native_calls": 0,
+  "helper_calls": 0,
+  "actual_jobs": 0,
+  "project_writes": 0,
+  "paid_external_API_calls": 0,
+  "historical_438_recertified": false,
+  "runtime_grant": false,
+  "pure_check_count": 100,
+  "measured_phases": {
+    "initial_freeze_cpu_seconds": 0.0006929999999999957,
+    "initial_freeze_wall_seconds": 0.000699791002261918,
+    "metadata_freeze_cpu_seconds": 0.006115999999999998,
+    "metadata_freeze_wall_seconds": 0.006668833004368935,
+    "context_freeze_cpu_seconds": 0.0016809999999999985,
+    "context_freeze_wall_seconds": 0.0016923340008361265,
+    "semantic_checks_cpu_seconds": 0.003258999999999998,
+    "semantic_checks_wall_seconds": 0.0037307910024537705,
+    "terminal_publication_cpu_seconds": 0.004512999999999996,
+    "terminal_publication_wall_seconds": 0.005805875000078231
+  },
+  "resource_accounting_limit": "Exact CPU entries cover named snapshot/check/publication phases. Read-only text-display commands were not individually CPU metered; their separate tool outcomes are retained in conversation. No application/native/paid work occurred. Bounded semantic check itself enforced 30CPU/60wall.",
+  "preserved_errors": [
+    {
+      "phase": "read-only metadata display",
+      "tool_chunk_id": "e09c73",
+      "exit_code": 1,
+      "error": "AttributeError: 'list' object has no attribute 'items'",
+      "artifact": "/tmp/tlab-development-reference-handoff-independent-inspection-failure.txt",
+      "corrected_verification": "/tmp/tlab-development-reference-handoff-independent-check-results.json"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-development-reference-handoff-independent-review.md",
+      "bytes": 5709,
+      "sha256": "a9418a6a1950786e1b80e607e2d898cb2a1e15fea526d6d5553e4f1b8072977d"
+    },
+    {
+      "path": "/tmp/tlab-development-reference-handoff-independent-inputfreeze.json",
+      "bytes": 13639,
+      "sha256": "04b238d67a97ac6546ea0ebd1785a5df3b142e3d3100fce5890a1e2d6bd3f47f"
+    },
+    {
+      "path": "/tmp/tlab-development-reference-handoff-independent-check-results.json",
+      "bytes": 14312,
+      "sha256": "439030c0d94c8c5ba2c90b7727f899326ebc301a1db675fc399eb343235dc7fd"
+    },
+    {
+      "path": "/tmp/tlab-development-reference-handoff-independent-checks.py",
+      "bytes": 11347,
+      "sha256": "a7f33a9077444519f06c1ccda542861abb69690a538f4ff9590d6e9a34286930"
+    },
+    {
+      "path": "/tmp/tlab-development-reference-handoff-independent-inspection-failure.txt",
+      "bytes": 557,
+      "sha256": "1a75d70c8b3f34057fc54e4faa4e4c9bb88b260e068eaed323d352252079a735"
+    }
+  ]
+}
