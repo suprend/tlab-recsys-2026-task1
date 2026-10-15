@@ -207,46 +207,68 @@ def _rows(con,sql,params,check):
  check()
 
 
-def _sample_values(con,u,i,t,S,E,check):
- """Independent streaming row arithmetic, not compiler/grouped expected fields."""
+def _sample_values_batch(con,pairs,t,S,E,check):
+ """One raw row stream/day; only aggregate/distinct/category state, never rows.
+
+ Exact distinct and per-category maps grow with observed raw support. Their
+ memory is guarded by the caller, not bounded by the number of sampled pairs.
+ """
+ if not pairs:return {}
+ qids=sorted({q for q,_ in pairs})
+ lookup=dict(run(con,'SELECT query_id,user_id FROM _hsa_q WHERE query_id IN(SELECT unnest(?::VARCHAR[]))',[qids],check=check).fetchall())
+ need(set(lookup)==set(qids),'Sample query outside expected Q')
+ users=sorted(set(lookup.values()));items=sorted({i for _,i in pairs})
+ us={u:dict(first=None,counts={a:0 for a in ('view','cart','purchase')},view_items=set(),category_counts={},category_last={}) for u in users}
+ it={i:dict(first=None,latest=None,cats=set(),view24=0,purchase24=0,view_users=set(),category_counts={}) for i in items}
+ ps={(lookup[q],i):dict(counts={a:0 for a in ('view','cart','purchase')},last={'view':None,'purchase':None}) for q,i in pairs}
  lo7=t-timedelta(days=7);lo24=t-timedelta(days=1)
- item_first=latest=None;cats=set();item_counts={'view':0,'purchase':0}
- for _,stamp,kind,cat in _rows(con,'SELECT user_id,event_time,event_type,category_id FROM _hsa_raw WHERE product_id=?',[i],check):
-  item_first=stamp if item_first is None else min(item_first,stamp)
-  if latest is None or stamp>latest:latest=stamp;cats={cat}
-  elif stamp==latest:cats.add(cat)
-  if stamp>=lo24 and kind in item_counts:item_counts[kind]+=1
- category=next(iter(cats)) if len(cats)==1 and None not in cats else None
- user_counts={a:0 for a in ('view','cart','purchase')};pair_counts=user_counts.copy();last_pair={'view':None,'purchase':None};first_user=None;ucount=0;u_last=None
- for pid,stamp,kind,cat in _rows(con,'SELECT product_id,event_time,event_type,category_id FROM _hsa_raw WHERE user_id=?',[u],check):
-  first_user=stamp if first_user is None else min(first_user,stamp)
-  if stamp>=lo7 and kind in user_counts:
-   user_counts[kind]+=1
-   if pid==i:pair_counts[kind]+=1
-  if pid==i and kind in last_pair:last_pair[kind]=stamp if last_pair[kind] is None else max(last_pair[kind],stamp)
-  if category is not None and kind=='view' and cat==category:
-   if stamp>=lo7:ucount+=1
-   u_last=stamp if u_last is None else max(u_last,stamp)
- scalar=lambda sql,args:run(con,sql,args,check=check).fetchone()[0]
- udist=scalar("SELECT count(DISTINCT product_id) FROM _hsa_raw WHERE user_id=? AND event_type='view' AND event_time>=?",[u,lo7])
- idist=scalar("SELECT count(DISTINCT user_id) FROM _hsa_raw WHERE product_id=? AND event_type='view' AND event_time>=?",[i,lo7])
- icount=scalar("SELECT count(*) FROM _hsa_raw WHERE product_id=? AND category_id=? AND event_type='view' AND event_time>=?",[i,category,lo7]) if category is not None else None
- ccount=scalar("SELECT count(*) FROM _hsa_raw WHERE category_id=? AND event_type='view' AND event_time>=?",[category,lo7]) if category is not None else None
+ for u,i,stamp,kind,cat in _rows(con,'''SELECT user_id,product_id,event_time,event_type,category_id FROM _hsa_raw
+ WHERE user_id IN(SELECT unnest(?::BIGINT[])) OR product_id IN(SELECT unnest(?::BIGINT[]))''',[users,items],check):
+  if u in us:
+   a=us[u];a['first']=stamp if a['first'] is None else min(a['first'],stamp)
+   if stamp>=lo7 and kind in a['counts']:a['counts'][kind]+=1
+   if kind=='view':
+    if stamp>=lo7 and i is not None:a['view_items'].add(i)
+    if cat is not None:
+     a['category_last'][cat]=stamp if cat not in a['category_last'] else max(a['category_last'][cat],stamp)
+     if stamp>=lo7:a['category_counts'][cat]=a['category_counts'].get(cat,0)+1
+  if i in it:
+   a=it[i];a['first']=stamp if a['first'] is None else min(a['first'],stamp)
+   if a['latest'] is None or stamp>a['latest']:a['latest']=stamp;a['cats']={cat}
+   elif stamp==a['latest']:a['cats'].add(cat)
+   if kind in {'view','purchase'} and stamp>=lo24:a[kind+'24']+=1
+   if kind=='view' and stamp>=lo7:
+    if u is not None:a['view_users'].add(u)
+    if cat is not None:a['category_counts'][cat]=a['category_counts'].get(cat,0)+1
+  if (u,i) in ps:
+   a=ps[(u,i)]
+   if stamp>=lo7 and kind in a['counts']:a['counts'][kind]+=1
+   if kind in a['last']:a['last'][kind]=stamp if a['last'][kind] is None else max(a['last'][kind],stamp)
+ clean={i:next(iter(a['cats'])) if len(a['cats'])==1 and None not in a['cats'] else None for i,a in it.items()}
+ categories=sorted({c for c in clean.values() if c is not None})
+ # Denominator includes every raw source item/user, outside the streamed domain.
+ denominators=dict(run(con,"SELECT category_id,count(*)::BIGINT FROM _hsa_raw WHERE event_type='view' AND event_time>=? AND category_id IN(SELECT unnest(?::BIGINT[])) GROUP BY category_id",[lo7,categories],check=check).fetchall()) if categories else {}
  rec=lambda stamp:None if stamp is None else (t-stamp).total_seconds()
- values={}
- for a in user_counts:values['user_'+a+'_7d']=user_counts[a];values['pair_'+a+'_7d']=pair_counts[a]
- values.update(user_distinct_viewed_items_7d=udist,pair_view_recency_seconds=rec(last_pair['view']),pair_purchase_recency_seconds=rec(last_pair['purchase']),
-  item_view_24h=item_counts['view'],item_purchase_24h=item_counts['purchase'],item_distinct_viewers_7d=idist,
-  user_category_view_7d=ucount if category is not None else None,user_category_view_recency_seconds=rec(u_last) if category is not None else None,
-  item_category_view_7d=icount,category_view_7d=ccount,
-  user_category_view_share_7d=ucount/user_counts['view'] if category is not None and user_counts['view'] else None,
-  item_category_view_share_7d=icount/ccount if ccount else None)
- values.update(candidate_category_id=category,candidate_category_ambiguous=len(cats)>1,candidate_category_missing=category is None,
-  item_has_observed_history=item_first is not None,user_has_observed_history=first_user is not None,
-  item_observed_age_seconds=rec(item_first),user_observed_age_seconds=rec(first_user))
- for w in (24,168):values['source_coverage_'+str(w)+'h']=max(0,(min(t,E)-max(S,t-timedelta(hours=w))).total_seconds())/(w*3600)
- values.update({n:values[n[:-8]] is None for n in FLAGS})
- return values
+ coverage={'source_coverage_'+str(w)+'h':max(0,(min(t,E)-max(S,t-timedelta(hours=w))).total_seconds())/(w*3600) for w in (24,168)}
+ result={}
+ for q,i in pairs:
+  u=lookup[q];a=us[u];b=it[i];p=ps[(u,i)];cat=clean[i]
+  uc=a['category_counts'].get(cat,0) if cat is not None else None
+  ic=b['category_counts'].get(cat,0) if cat is not None else None
+  cc=denominators.get(cat,0) if cat is not None else None
+  value={}
+  for kind in a['counts']:value['user_'+kind+'_7d']=a['counts'][kind];value['pair_'+kind+'_7d']=p['counts'][kind]
+  value.update(user_distinct_viewed_items_7d=len(a['view_items']),pair_view_recency_seconds=rec(p['last']['view']),pair_purchase_recency_seconds=rec(p['last']['purchase']),
+   item_view_24h=b['view24'],item_purchase_24h=b['purchase24'],item_distinct_viewers_7d=len(b['view_users']),
+   user_category_view_7d=uc,user_category_view_recency_seconds=rec(a['category_last'].get(cat)) if cat is not None else None,
+   item_category_view_7d=ic,category_view_7d=cc,
+   user_category_view_share_7d=uc/a['counts']['view'] if cat is not None and a['counts']['view'] else None,
+   item_category_view_share_7d=ic/cc if cc else None,
+   candidate_category_id=cat,candidate_category_ambiguous=len(b['cats'])>1,candidate_category_missing=cat is None,
+   item_has_observed_history=b['first'] is not None,user_has_observed_history=a['first'] is not None,
+   item_observed_age_seconds=rec(b['first']),user_observed_age_seconds=rec(a['first']))
+  value.update(coverage);value.update({n:value[n[:-8]] is None for n in FLAGS});result[(q,i)]=value
+ check();return result
 
 
 def _same_value(expected,actual,field):
@@ -302,10 +324,11 @@ def _audit_day(con,row,locked,relations,check):
   equivalent(con,extra,'_hsa_c',['query_id','product_id'],check);_chosen(con,choice,t,S,check)
   _mismatch(con,extra,'_hsa_extra',CHOSEN[choice],check,time_tolerance=1e-9)
  pairs,strata=_sample_pairs(con,t,check)
+ expected_samples=_sample_values_batch(con,pairs,t,S,E,check)
  for qid,pid in pairs:
   fields=[n for n,_ in B_SCHEMA]
   actual_values=run(con,'SELECT * FROM '+quote(b)+' WHERE query_id=? AND product_id=?',[qid,pid],check=check).fetchone()
-  actual=dict(zip(fields,actual_values));expected=_sample_values(con,actual['user_id'],pid,t,S,E,check)
+  actual=dict(zip(fields,actual_values));expected=expected_samples[(qid,pid)]
   for name,value in expected.items():_same_value(value,actual[name],name)
  qids=[v[0] for v in run(con,'SELECT query_id FROM _hsa_q ORDER BY query_id',check=check).fetchall()]
  empty=run(con,'SELECT count(*) FROM _hsa_q q WHERE NOT EXISTS(SELECT 1 FROM _hsa_c c WHERE c.query_id=q.query_id)',check=check).fetchone()[0]

@@ -1,0 +1,1470 @@
+{
+  "status": "single_tiny_callshape_probe_completed",
+  "summary": {
+    "raw_fixture_rows": 21,
+    "audited_days": 1,
+    "choice": "R2",
+    "query_count": 6,
+    "candidate_count": 9,
+    "selected_pairs": 5,
+    "selected_comparisons": 90,
+    "chosen_scalar_values": 27,
+    "sql_call_count": 97,
+    "call_kinds": {
+      "metadata_only": 6,
+      "raw_view_definition": 1,
+      "direct_raw_view_evaluation": 33,
+      "derived_only_sql": 57
+    },
+    "sampled_formula_source_calls": 24,
+    "streamed_source_calls": 10,
+    "streamed_rows": 40,
+    "stream_row_counts": [
+      4,
+      2,
+      7,
+      8,
+      4,
+      8,
+      4,
+      1,
+      1,
+      1
+    ],
+    "strata": {
+      "bottom_hash": {
+        "available_pairs": 9,
+        "sampled_pairs": 4
+      },
+      "pair_view_support": {
+        "available_pairs": 3,
+        "sampled_pairs": 1
+      },
+      "category_missing": {
+        "available_pairs": 7,
+        "sampled_pairs": 1
+      },
+      "category_ambiguous": {
+        "available_pairs": 6,
+        "sampled_pairs": 1
+      },
+      "past_pair_purchase_support": {
+        "available_pairs": 1,
+        "sampled_pairs": 1
+      },
+      "old_recency_support": {
+        "available_pairs": 1,
+        "sampled_pairs": 1
+      }
+    },
+    "baseline_formula_values_complete": false,
+    "physical_scan_counts": "not_measured_no_EXPLAIN_or_profile",
+    "fit_attempts": 0,
+    "native_predictions": 0,
+    "real_source_reads": 0,
+    "target_relations_created": false,
+    "test_cases_run": 0
+  },
+  "observed_source_sha256_before": {
+    "scripts/heldout_source.py": "c864bec3a3aefa946b7759993505bcde9dcd9c9edb7cb9ce03216d6ebddeafbb",
+    "tests/oracles/heldout_source_audit.py": "056f9b73eca546552b782141c9c37ba060bd1ba5fc75890b48a35b937ddf81cd",
+    "tests/test_heldout_source_audit.py": "3c093d25c1a3c303e59f5e06edea225c9aec5e79fcaa1d2abadd056d5c0a8c20",
+    "tests/test_heldout_source.py": "fda24fbe9069b24a6bd7ebb9a49f0c278fcabef7e970107d38d0c159bd23ce78",
+    "scripts/manual_features.py": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+    "scripts/anchor_pilot.py": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+    "scripts/candidate_pilot.py": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70"
+  },
+  "observed_source_sha256_after": {
+    "scripts/heldout_source.py": "c864bec3a3aefa946b7759993505bcde9dcd9c9edb7cb9ce03216d6ebddeafbb",
+    "tests/oracles/heldout_source_audit.py": "056f9b73eca546552b782141c9c37ba060bd1ba5fc75890b48a35b937ddf81cd",
+    "tests/test_heldout_source_audit.py": "3c093d25c1a3c303e59f5e06edea225c9aec5e79fcaa1d2abadd056d5c0a8c20",
+    "tests/test_heldout_source.py": "fda24fbe9069b24a6bd7ebb9a49f0c278fcabef7e970107d38d0c159bd23ce78",
+    "scripts/manual_features.py": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+    "scripts/anchor_pilot.py": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+    "scripts/candidate_pilot.py": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70"
+  },
+  "sql_calls": [
+    {
+      "index": 1,
+      "kind": "metadata_only",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT current_setting('threads')",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 2,
+      "kind": "metadata_only",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "DESCRIBE heldout_raw_events",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 3,
+      "kind": "metadata_only",
+      "oracle_stack": [
+        "run",
+        "schema",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "DESCRIBE \"actual_queries\"",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 4,
+      "kind": "metadata_only",
+      "oracle_stack": [
+        "run",
+        "schema",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "DESCRIBE \"actual_candidates\"",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 5,
+      "kind": "metadata_only",
+      "oracle_stack": [
+        "run",
+        "schema",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "DESCRIBE \"actual_base_features\"",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 6,
+      "kind": "metadata_only",
+      "oracle_stack": [
+        "run",
+        "schema",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "DESCRIBE \"actual_extra_features\"",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 7,
+      "kind": "raw_view_definition",
+      "oracle_stack": [
+        "run",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP VIEW _hsa_raw AS SELECT event_time,event_type,product_id,user_id,category_id FROM heldout_raw_events WHERE event_time>=TIMESTAMP '2019-10-01 00:00:00' AND event_time<TIMESTAMP '2019-10-25 00:00:00'",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 8,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_q AS WITH eligible AS( SELECT user_id,sum(CASE WHEN event_time>=? AND event_type IN('view','cart','purchase') THEN 1 ELSE 0 END)::BIGINT eligibility_events, count(*)::BIGINT history_events_7d,count(DISTINCT product_id)::BIGINT history_distinct_items_7d, count(DISTINCT event_time::DATE)::BIGINT history_active_days_7d,max(event_time) last_history_time FROM _hsa_raw WHERE user_id IS NOT NULL AND event_time>=? GROUP BY user_id HAVING eligibility_events>0), picked AS(SELECT *,row_number() OVER(ORDER BY sha256(?||user_id::VARCHAR),user_id) sample_rank FROM eligible) SELECT sha256(?||user_id::VARCHAR) query_id,user_id,?::TIMESTAMP anchor,eligibility_events,history_events_7d, history_distinct_items_7d,history_active_days_7d,last_history_time,?::DOUBLE history_coverage_7d,?::BOOLEAN label_is_mature FROM picked WHERE sample_rank<=2000",
+      "parameter_count": 7,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 9,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_pop AS SELECT product_id,count(DISTINCT user_id)::BIGINT popularity_distinct_users FROM _hsa_raw WHERE event_time>=? AND event_type='purchase' AND product_id IS NOT NULL AND user_id IS NOT NULL GROUP BY product_id",
+      "parameter_count": 1,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 10,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_rank_popularity",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_top AS SELECT *,row_number() OVER(ORDER BY popularity_distinct_users DESC,product_id) popular_source_rank FROM _hsa_pop QUALIFY popular_source_rank<=200",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 11,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_recent_all AS SELECT q.query_id,e.product_id,max(e.event_time) last_user_event_time FROM _hsa_q q JOIN _hsa_raw e USING(user_id) WHERE e.event_time>=? AND e.product_id IS NOT NULL AND e.event_type IN('view','cart','purchase') GROUP BY q.query_id,e.product_id",
+      "parameter_count": 1,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 12,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_rank_recent",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_recent AS SELECT *,row_number() OVER(PARTITION BY query_id ORDER BY last_user_event_time DESC,product_id) recent_source_rank FROM _hsa_recent_all QUALIFY recent_source_rank<=20",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 13,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_combine_candidates",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_c AS WITH k AS( SELECT q.query_id,p.product_id FROM _hsa_q q CROSS JOIN _hsa_top p UNION SELECT query_id,product_id FROM _hsa_recent) SELECT k.query_id,k.product_id,p.product_id IS NOT NULL from_popular,r.product_id IS NOT NULL from_recent, coalesce(g.popularity_distinct_users,0)::BIGINT popularity_distinct_users,p.popular_source_rank,r.recent_source_rank,r.last_user_event_time FROM k LEFT JOIN _hsa_top p USING(product_id) LEFT JOIN _hsa_recent r USING(query_id,product_id) LEFT JOIN _hsa_pop g USING(product_id)",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 14,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_c c WHERE NOT EXISTS(SELECT 1 FROM _hsa_raw e WHERE e.product_id=c.product_id)",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 15,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP VIEW _hsa_t AS SELECT c.query_id,c.product_id,q.user_id,q.anchor FROM _hsa_c c JOIN _hsa_q q USING(query_id)",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 16,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_du AS SELECT DISTINCT user_id FROM _hsa_q",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 17,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_di AS SELECT DISTINCT product_id FROM _hsa_t",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 18,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_expected_qc",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_dp AS SELECT DISTINCT user_id,product_id FROM _hsa_t",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 19,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "equivalent",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM((SELECT \"query_id\",\"user_id\",\"anchor\",\"eligibility_events\",\"history_events_7d\",\"history_distinct_items_7d\",\"history_active_days_7d\",\"last_history_time\",\"history_coverage_7d\",\"label_is_mature\" FROM \"actual_queries\" EXCEPT ALL SELECT \"query_id\",\"user_id\",\"anchor\",\"eligibility_events\",\"history_events_7d\",\"history_distinct_items_7d\",\"history_active_days_7d\",\"last_history_time\",\"history_coverage_7d\",\"label_is_mature\" FROM \"_hsa_q\") UNION ALL(SELECT \"query_id\",\"user_id\",\"anchor\",\"eligibility_events\",\"history_events_7d\",\"history_distinct_items_7d\",\"history_active_days_7d\",\"last_history_time\",\"history_coverage_7d\",\"label_is_mature\" FROM \"_hsa_q\" EXCEPT ALL SELECT \"query_id\",\"user_id\",\"anchor\",\"eligibility_events\",\"history_events_7d\",\"history_distinct_items_7d\",\"history_active_days_7d\",\"last_history_time\",\"history_coverage_7d\",\"label_is_mature\" FROM \"actual_queries\"))",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 20,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "equivalent",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM((SELECT \"query_id\",\"product_id\",\"from_popular\",\"from_recent\",\"popularity_distinct_users\",\"popular_source_rank\",\"recent_source_rank\",\"last_user_event_time\" FROM \"actual_candidates\" EXCEPT ALL SELECT \"query_id\",\"product_id\",\"from_popular\",\"from_recent\",\"popularity_distinct_users\",\"popular_source_rank\",\"recent_source_rank\",\"last_user_event_time\" FROM \"_hsa_c\") UNION ALL(SELECT \"query_id\",\"product_id\",\"from_popular\",\"from_recent\",\"popularity_distinct_users\",\"popular_source_rank\",\"recent_source_rank\",\"last_user_event_time\" FROM \"_hsa_c\" EXCEPT ALL SELECT \"query_id\",\"product_id\",\"from_popular\",\"from_recent\",\"popularity_distinct_users\",\"popular_source_rank\",\"recent_source_rank\",\"last_user_event_time\" FROM \"actual_candidates\"))",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 21,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_queries\"",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 22,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_candidates\"",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 23,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "equivalent",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM((SELECT \"query_id\",\"product_id\",\"from_popular\",\"from_recent\",\"popularity_distinct_users\",\"popular_source_rank\",\"recent_source_rank\",\"last_user_event_time\" FROM \"actual_base_features\" EXCEPT ALL SELECT \"query_id\",\"product_id\",\"from_popular\",\"from_recent\",\"popularity_distinct_users\",\"popular_source_rank\",\"recent_source_rank\",\"last_user_event_time\" FROM \"_hsa_c\") UNION ALL(SELECT \"query_id\",\"product_id\",\"from_popular\",\"from_recent\",\"popularity_distinct_users\",\"popular_source_rank\",\"recent_source_rank\",\"last_user_event_time\" FROM \"_hsa_c\" EXCEPT ALL SELECT \"query_id\",\"product_id\",\"from_popular\",\"from_recent\",\"popularity_distinct_users\",\"popular_source_rank\",\"recent_source_rank\",\"last_user_event_time\" FROM \"actual_base_features\"))",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 24,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" f JOIN _hsa_q q USING(query_id) WHERE f.user_id IS DISTINCT FROM q.user_id OR f.anchor IS DISTINCT FROM q.anchor",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 25,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_metadata",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_i AS SELECT d.product_id,min(e.event_time) first_seen,max(e.event_time) last_seen FROM _hsa_di d LEFT JOIN _hsa_raw e USING(product_id) GROUP BY d.product_id",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 26,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_metadata",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_category AS SELECT i.product_id, CASE WHEN count(DISTINCT e.category_id)=1 AND count(*) FILTER(WHERE e.event_time IS NOT NULL AND e.category_id IS NULL)=0 THEN min(e.category_id) END candidate_category_id, (count(DISTINCT e.category_id)>1 OR(count(DISTINCT e.category_id)>0 AND count(*) FILTER(WHERE e.event_time IS NOT NULL AND e.category_id IS NULL)>0)) candidate_category_ambiguous FROM _hsa_i i LEFT JOIN _hsa_raw e ON e.product_id=i.product_id AND e.event_time=i.last_seen GROUP BY i.product_id",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 27,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_metadata",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_u AS SELECT d.user_id,min(e.event_time) first_seen FROM _hsa_du d LEFT JOIN _hsa_raw e USING(user_id) GROUP BY d.user_id",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 28,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_metadata",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_meta AS SELECT p.*,c.candidate_category_id,c.candidate_category_ambiguous, c.candidate_category_id IS NULL candidate_category_missing,i.first_seen IS NOT NULL item_has_observed_history,u.first_seen IS NOT NULL user_has_observed_history, date_diff('microsecond',i.first_seen,?::TIMESTAMP)::DOUBLE/1000000 item_observed_age_seconds, date_diff('microsecond',u.first_seen,?::TIMESTAMP)::DOUBLE/1000000 user_observed_age_seconds, ?::DOUBLE source_coverage_24h,?::DOUBLE source_coverage_168h FROM _hsa_t p JOIN _hsa_i i USING(product_id) JOIN _hsa_category c USING(product_id) JOIN _hsa_u u USING(user_id)",
+      "parameter_count": 4,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 29,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_mismatch",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" a JOIN \"_hsa_meta\" e USING(query_id,product_id) WHERE (a.\"candidate_category_id\" IS DISTINCT FROM e.\"candidate_category_id\") OR (a.\"candidate_category_ambiguous\" IS DISTINCT FROM e.\"candidate_category_ambiguous\") OR (a.\"candidate_category_missing\" IS DISTINCT FROM e.\"candidate_category_missing\") OR (a.\"item_has_observed_history\" IS DISTINCT FROM e.\"item_has_observed_history\") OR (a.\"user_has_observed_history\" IS DISTINCT FROM e.\"user_has_observed_history\") OR ((a.\"item_observed_age_seconds\" IS NULL) IS DISTINCT FROM (e.\"item_observed_age_seconds\" IS NULL) OR (a.\"item_observed_age_seconds\" IS NOT NULL AND(NOT isfinite(a.\"item_observed_age_seconds\") OR abs(a.\"item_observed_age_seconds\"-e.\"item_observed_age_seconds\")>greatest(1e-12,abs(e.\"item_observed_age_seconds\")*1e-12)))) OR ((a.\"user_observed_age_seconds\" IS NULL) IS DISTINCT FROM (e.\"user_observed_age_seconds\" IS NULL) OR (a.\"user_observed_age_seconds\" IS NOT NULL AND(NOT isfinite(a.\"user_observed_age_seconds\") OR abs(a.\"user_observed_age_seconds\"-e.\"user_observed_age_seconds\")>greatest(1e-12,abs(e.\"user_observed_age_seconds\")*1e-12)))) OR ((a.\"source_coverage_24h\" IS NULL) IS DISTINCT FROM (e.\"source_coverage_24h\" IS NULL) OR (a.\"source_coverage_24h\" IS NOT NULL AND(NOT isfinite(a.\"source_coverage_24h\") OR abs(a.\"source_coverage_24h\"-e.\"source_coverage_24h\")>greatest(1e-12,abs(e.\"source_coverage_24h\")*1e-12)))) OR ((a.\"source_coverage_168h\" IS NULL) IS DISTINCT FROM (e.\"source_coverage_168h\" IS NULL) OR (a.\"source_coverage_168h\" IS NOT NULL AND(NOT isfinite(a.\"source_coverage_168h\") OR abs(a.\"source_coverage_168h\"-e.\"source_coverage_168h\")>greatest(1e-12,abs(e.\"source_coverage_168h\")*1e-12))))",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 30,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"user_view_7d\"<0 OR \"user_view_7d\" IS NULL",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 31,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"user_cart_7d\"<0 OR \"user_cart_7d\" IS NULL",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 32,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"user_purchase_7d\"<0 OR \"user_purchase_7d\" IS NULL",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 33,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"user_distinct_viewed_items_7d\"<0 OR \"user_distinct_viewed_items_7d\" IS NULL",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 34,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"pair_view_7d\"<0 OR \"pair_view_7d\" IS NULL",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 35,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"pair_cart_7d\"<0 OR \"pair_cart_7d\" IS NULL",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 36,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"pair_purchase_7d\"<0 OR \"pair_purchase_7d\" IS NULL",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 37,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE (\"pair_view_recency_seconds\"<=0 OR \"pair_view_recency_seconds\">?) OR (\"pair_view_recency_seconds\" IS NOT NULL AND NOT isfinite(\"pair_view_recency_seconds\")) OR \"pair_view_recency_seconds_missing\" IS DISTINCT FROM (\"pair_view_recency_seconds\" IS NULL)",
+      "parameter_count": 1,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 38,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE (\"pair_purchase_recency_seconds\"<=0 OR \"pair_purchase_recency_seconds\">?) OR (\"pair_purchase_recency_seconds\" IS NOT NULL AND NOT isfinite(\"pair_purchase_recency_seconds\")) OR \"pair_purchase_recency_seconds_missing\" IS DISTINCT FROM (\"pair_purchase_recency_seconds\" IS NULL)",
+      "parameter_count": 1,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 39,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"item_view_24h\"<0 OR \"item_view_24h\" IS NULL",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 40,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"item_purchase_24h\"<0 OR \"item_purchase_24h\" IS NULL",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 41,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"item_distinct_viewers_7d\"<0 OR \"item_distinct_viewers_7d\" IS NULL",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 42,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"user_category_view_7d\"<0 OR (candidate_category_missing IS DISTINCT FROM (\"user_category_view_7d\" IS NULL)) OR (candidate_category_missing AND \"user_category_view_7d\" IS NOT NULL) OR \"user_category_view_7d_missing\" IS DISTINCT FROM (\"user_category_view_7d\" IS NULL)",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 43,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"user_category_view_share_7d\"<0 OR \"user_category_view_share_7d\">1 OR (\"user_category_view_share_7d\" IS NOT NULL AND NOT isfinite(\"user_category_view_share_7d\")) OR (candidate_category_missing AND \"user_category_view_share_7d\" IS NOT NULL) OR \"user_category_view_share_7d_missing\" IS DISTINCT FROM (\"user_category_view_share_7d\" IS NULL)",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 44,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE (\"user_category_view_recency_seconds\"<=0 OR \"user_category_view_recency_seconds\">?) OR (\"user_category_view_recency_seconds\" IS NOT NULL AND NOT isfinite(\"user_category_view_recency_seconds\")) OR (candidate_category_missing AND \"user_category_view_recency_seconds\" IS NOT NULL) OR \"user_category_view_recency_seconds_missing\" IS DISTINCT FROM (\"user_category_view_recency_seconds\" IS NULL)",
+      "parameter_count": 1,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 45,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"item_category_view_7d\"<0 OR (candidate_category_missing IS DISTINCT FROM (\"item_category_view_7d\" IS NULL)) OR (candidate_category_missing AND \"item_category_view_7d\" IS NOT NULL) OR \"item_category_view_7d_missing\" IS DISTINCT FROM (\"item_category_view_7d\" IS NULL)",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 46,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"category_view_7d\"<0 OR (candidate_category_missing IS DISTINCT FROM (\"category_view_7d\" IS NULL)) OR (candidate_category_missing AND \"category_view_7d\" IS NOT NULL) OR \"category_view_7d_missing\" IS DISTINCT FROM (\"category_view_7d\" IS NULL)",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 47,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_structural_base",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_base_features\" WHERE \"item_category_view_share_7d\"<0 OR \"item_category_view_share_7d\">1 OR (\"item_category_view_share_7d\" IS NOT NULL AND NOT isfinite(\"item_category_view_share_7d\")) OR (candidate_category_missing AND \"item_category_view_share_7d\" IS NOT NULL) OR \"item_category_view_share_7d_missing\" IS DISTINCT FROM (\"item_category_view_share_7d\" IS NULL)",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 48,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "equivalent",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM((SELECT \"query_id\",\"product_id\" FROM \"actual_extra_features\" EXCEPT ALL SELECT \"query_id\",\"product_id\" FROM \"_hsa_c\") UNION ALL(SELECT \"query_id\",\"product_id\" FROM \"_hsa_c\" EXCEPT ALL SELECT \"query_id\",\"product_id\" FROM \"actual_extra_features\"))",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 49,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_chosen",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_values AS SELECT d.product_id,count(DISTINCT e.user_id) FILTER(WHERE e.event_type='view' AND e.event_time>=?)::BIGINT \"auto_item_view_count_distinct_24h_user_id\",count(DISTINCT e.user_id) FILTER(WHERE e.event_type='cart' AND e.event_time>=?)::BIGINT \"auto_item_cart_count_distinct_168h_user_id\",count(DISTINCT e.user_id) FILTER(WHERE e.event_type='purchase' AND e.event_time>=?)::BIGINT \"auto_item_purchase_count_distinct_24h_user_id\" FROM _hsa_di d LEFT JOIN _hsa_raw e ON e.product_id=d.product_id AND e.event_time>=? GROUP BY d.product_id",
+      "parameter_count": 4,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 50,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_chosen",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP VIEW _hsa_extra AS SELECT p.query_id,p.product_id,v.\"auto_item_view_count_distinct_24h_user_id\",v.\"auto_item_cart_count_distinct_168h_user_id\",v.\"auto_item_purchase_count_distinct_24h_user_id\" FROM _hsa_t p JOIN _hsa_values v USING(product_id)",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 51,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "equivalent",
+        "_chosen",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM((SELECT \"query_id\",\"product_id\" FROM \"_hsa_extra\" EXCEPT ALL SELECT \"query_id\",\"product_id\" FROM \"_hsa_c\") UNION ALL(SELECT \"query_id\",\"product_id\" FROM \"_hsa_c\" EXCEPT ALL SELECT \"query_id\",\"product_id\" FROM \"_hsa_extra\"))",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 52,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_mismatch",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM \"actual_extra_features\" a JOIN \"_hsa_extra\" e USING(query_id,product_id) WHERE (a.\"auto_item_view_count_distinct_24h_user_id\" IS DISTINCT FROM e.\"auto_item_view_count_distinct_24h_user_id\") OR (a.\"auto_item_cart_count_distinct_168h_user_id\" IS DISTINCT FROM e.\"auto_item_cart_count_distinct_168h_user_id\") OR (a.\"auto_item_purchase_count_distinct_24h_user_id\" IS DISTINCT FROM e.\"auto_item_purchase_count_distinct_24h_user_id\")",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 53,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_support AS SELECT p.query_id,p.product_id, coalesce(bool_or(e.event_type='view' AND e.event_time>=?),false) pair_view_support, coalesce(bool_or(e.event_type='purchase' AND e.event_time>=?),false) past_pair_purchase_support, max(e.event_time) FILTER(WHERE e.event_type='view') last_pair_view,max(e.event_time) FILTER(WHERE e.event_type='purchase') last_pair_purchase FROM _hsa_t p LEFT JOIN _hsa_raw e ON e.user_id=p.user_id AND e.product_id=p.product_id GROUP BY p.query_id,p.product_id",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 54,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "CREATE OR REPLACE TEMP TABLE _hsa_strata AS SELECT s.*,m.candidate_category_missing category_missing,m.candidate_category_ambiguous category_ambiguous,(last_pair_view<? OR last_pair_purchase<?) old_recency_support FROM _hsa_support s JOIN _hsa_meta m USING(query_id,product_id)",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 55,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_strata WHERE true",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 56,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT query_id,product_id FROM _hsa_strata WHERE true ORDER BY sha256(query_id||'|'||product_id::VARCHAR),query_id,product_id LIMIT ?",
+      "parameter_count": 1,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 57,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_strata WHERE pair_view_support",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 58,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT query_id,product_id FROM _hsa_strata WHERE pair_view_support ORDER BY sha256(query_id||'|'||product_id::VARCHAR),query_id,product_id LIMIT ?",
+      "parameter_count": 1,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 59,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_strata WHERE category_missing",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 60,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT query_id,product_id FROM _hsa_strata WHERE category_missing ORDER BY sha256(query_id||'|'||product_id::VARCHAR),query_id,product_id LIMIT ?",
+      "parameter_count": 1,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 61,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_strata WHERE category_ambiguous",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 62,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT query_id,product_id FROM _hsa_strata WHERE category_ambiguous ORDER BY sha256(query_id||'|'||product_id::VARCHAR),query_id,product_id LIMIT ?",
+      "parameter_count": 1,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 63,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_strata WHERE past_pair_purchase_support",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 64,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT query_id,product_id FROM _hsa_strata WHERE past_pair_purchase_support ORDER BY sha256(query_id||'|'||product_id::VARCHAR),query_id,product_id LIMIT ?",
+      "parameter_count": 1,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 65,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_strata WHERE old_recency_support",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 66,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_sample_pairs",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT query_id,product_id FROM _hsa_strata WHERE old_recency_support ORDER BY sha256(query_id||'|'||product_id::VARCHAR),query_id,product_id LIMIT ?",
+      "parameter_count": 1,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 67,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT * FROM \"actual_base_features\" WHERE query_id=? AND product_id=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 68,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_rows",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT user_id,event_time,event_type,category_id FROM _hsa_raw WHERE product_id=?",
+      "parameter_count": 1,
+      "streamed_rows": 4,
+      "fetchmany_calls": 2
+    },
+    {
+      "index": 69,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_rows",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT product_id,event_time,event_type,category_id FROM _hsa_raw WHERE user_id=?",
+      "parameter_count": 1,
+      "streamed_rows": 2,
+      "fetchmany_calls": 2
+    },
+    {
+      "index": 70,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(DISTINCT product_id) FROM _hsa_raw WHERE user_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 71,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(DISTINCT user_id) FROM _hsa_raw WHERE product_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 72,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT * FROM \"actual_base_features\" WHERE query_id=? AND product_id=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 73,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_rows",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT user_id,event_time,event_type,category_id FROM _hsa_raw WHERE product_id=?",
+      "parameter_count": 1,
+      "streamed_rows": 7,
+      "fetchmany_calls": 2
+    },
+    {
+      "index": 74,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_rows",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT product_id,event_time,event_type,category_id FROM _hsa_raw WHERE user_id=?",
+      "parameter_count": 1,
+      "streamed_rows": 8,
+      "fetchmany_calls": 2
+    },
+    {
+      "index": 75,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(DISTINCT product_id) FROM _hsa_raw WHERE user_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 76,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(DISTINCT user_id) FROM _hsa_raw WHERE product_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 77,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_raw WHERE product_id=? AND category_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 3,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 78,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_raw WHERE category_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 79,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT * FROM \"actual_base_features\" WHERE query_id=? AND product_id=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 80,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_rows",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT user_id,event_time,event_type,category_id FROM _hsa_raw WHERE product_id=?",
+      "parameter_count": 1,
+      "streamed_rows": 4,
+      "fetchmany_calls": 2
+    },
+    {
+      "index": 81,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_rows",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT product_id,event_time,event_type,category_id FROM _hsa_raw WHERE user_id=?",
+      "parameter_count": 1,
+      "streamed_rows": 8,
+      "fetchmany_calls": 2
+    },
+    {
+      "index": 82,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(DISTINCT product_id) FROM _hsa_raw WHERE user_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 83,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(DISTINCT user_id) FROM _hsa_raw WHERE product_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 84,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT * FROM \"actual_base_features\" WHERE query_id=? AND product_id=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 85,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_rows",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT user_id,event_time,event_type,category_id FROM _hsa_raw WHERE product_id=?",
+      "parameter_count": 1,
+      "streamed_rows": 4,
+      "fetchmany_calls": 2
+    },
+    {
+      "index": 86,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_rows",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT product_id,event_time,event_type,category_id FROM _hsa_raw WHERE user_id=?",
+      "parameter_count": 1,
+      "streamed_rows": 1,
+      "fetchmany_calls": 2
+    },
+    {
+      "index": 87,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(DISTINCT product_id) FROM _hsa_raw WHERE user_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 88,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(DISTINCT user_id) FROM _hsa_raw WHERE product_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 89,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT * FROM \"actual_base_features\" WHERE query_id=? AND product_id=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 90,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_rows",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT user_id,event_time,event_type,category_id FROM _hsa_raw WHERE product_id=?",
+      "parameter_count": 1,
+      "streamed_rows": 1,
+      "fetchmany_calls": 2
+    },
+    {
+      "index": 91,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "_rows",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT product_id,event_time,event_type,category_id FROM _hsa_raw WHERE user_id=?",
+      "parameter_count": 1,
+      "streamed_rows": 1,
+      "fetchmany_calls": 2
+    },
+    {
+      "index": 92,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(DISTINCT product_id) FROM _hsa_raw WHERE user_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 93,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(DISTINCT user_id) FROM _hsa_raw WHERE product_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 94,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_raw WHERE product_id=? AND category_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 3,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 95,
+      "kind": "direct_raw_view_evaluation",
+      "oracle_stack": [
+        "run",
+        "<lambda>",
+        "_sample_values",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_raw WHERE category_id=? AND event_type='view' AND event_time>=?",
+      "parameter_count": 2,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 96,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT query_id FROM _hsa_q ORDER BY query_id",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    },
+    {
+      "index": 97,
+      "kind": "derived_only_sql",
+      "oracle_stack": [
+        "run",
+        "_audit_day",
+        "audit_day"
+      ],
+      "sql": "SELECT count(*) FROM _hsa_q q WHERE NOT EXISTS(SELECT 1 FROM _hsa_c c WHERE c.query_id=q.query_id)",
+      "parameter_count": 0,
+      "streamed_rows": 0,
+      "fetchmany_calls": 0
+    }
+  ],
+  "tiny_resource": {
+    "wall_seconds": 0.20553116699738894,
+    "cpu_seconds": 0.22433400000000003,
+    "peak_rss_bytes": 141623296,
+    "threads": 2,
+    "engine_memory": "128MB",
+    "spill_cap": "0B"
+  }
+}

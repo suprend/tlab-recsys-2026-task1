@@ -7,6 +7,59 @@ import duckdb
 from tests.test_heldout_source import definitions, ROWS, T, BIG
 from scripts import heldout_source as producer
 from tests.oracles import heldout_source_audit as m
+from types import SimpleNamespace
+
+# Literal accepted-v1 comparison kernel, preserved independently of v2.
+ACCEPTED_V1_SOURCE_SHA256='056f9b73eca546552b782141c9c37ba060bd1ba5fc75890b48a35b937ddf81cd'
+ACCEPTED_V1_KERNEL_TEXT_SHA256='1cb8255acaa3ccd9b6574b8d26c45aa20bc5afff04c52a82d71bc7ac52802688'
+# These transport/constant helpers have unchanged v1/v2 AST/values.
+_rows=m._rows
+run=m.run
+FLAGS=m.FLAGS
+
+def _sample_values(con,u,i,t,S,E,check):
+ """Independent streaming row arithmetic, not compiler/grouped expected fields."""
+ lo7=t-timedelta(days=7);lo24=t-timedelta(days=1)
+ item_first=latest=None;cats=set();item_counts={'view':0,'purchase':0}
+ for _,stamp,kind,cat in _rows(con,'SELECT user_id,event_time,event_type,category_id FROM _hsa_raw WHERE product_id=?',[i],check):
+  item_first=stamp if item_first is None else min(item_first,stamp)
+  if latest is None or stamp>latest:latest=stamp;cats={cat}
+  elif stamp==latest:cats.add(cat)
+  if stamp>=lo24 and kind in item_counts:item_counts[kind]+=1
+ category=next(iter(cats)) if len(cats)==1 and None not in cats else None
+ user_counts={a:0 for a in ('view','cart','purchase')};pair_counts=user_counts.copy();last_pair={'view':None,'purchase':None};first_user=None;ucount=0;u_last=None
+ for pid,stamp,kind,cat in _rows(con,'SELECT product_id,event_time,event_type,category_id FROM _hsa_raw WHERE user_id=?',[u],check):
+  first_user=stamp if first_user is None else min(first_user,stamp)
+  if stamp>=lo7 and kind in user_counts:
+   user_counts[kind]+=1
+   if pid==i:pair_counts[kind]+=1
+  if pid==i and kind in last_pair:last_pair[kind]=stamp if last_pair[kind] is None else max(last_pair[kind],stamp)
+  if category is not None and kind=='view' and cat==category:
+   if stamp>=lo7:ucount+=1
+   u_last=stamp if u_last is None else max(u_last,stamp)
+ scalar=lambda sql,args:run(con,sql,args,check=check).fetchone()[0]
+ udist=scalar("SELECT count(DISTINCT product_id) FROM _hsa_raw WHERE user_id=? AND event_type='view' AND event_time>=?",[u,lo7])
+ idist=scalar("SELECT count(DISTINCT user_id) FROM _hsa_raw WHERE product_id=? AND event_type='view' AND event_time>=?",[i,lo7])
+ icount=scalar("SELECT count(*) FROM _hsa_raw WHERE product_id=? AND category_id=? AND event_type='view' AND event_time>=?",[i,category,lo7]) if category is not None else None
+ ccount=scalar("SELECT count(*) FROM _hsa_raw WHERE category_id=? AND event_type='view' AND event_time>=?",[category,lo7]) if category is not None else None
+ rec=lambda stamp:None if stamp is None else (t-stamp).total_seconds()
+ values={}
+ for a in user_counts:values['user_'+a+'_7d']=user_counts[a];values['pair_'+a+'_7d']=pair_counts[a]
+ values.update(user_distinct_viewed_items_7d=udist,pair_view_recency_seconds=rec(last_pair['view']),pair_purchase_recency_seconds=rec(last_pair['purchase']),
+  item_view_24h=item_counts['view'],item_purchase_24h=item_counts['purchase'],item_distinct_viewers_7d=idist,
+  user_category_view_7d=ucount if category is not None else None,user_category_view_recency_seconds=rec(u_last) if category is not None else None,
+  item_category_view_7d=icount,category_view_7d=ccount,
+  user_category_view_share_7d=ucount/user_counts['view'] if category is not None and user_counts['view'] else None,
+  item_category_view_share_7d=icount/ccount if ccount else None)
+ values.update(candidate_category_id=category,candidate_category_ambiguous=len(cats)>1,candidate_category_missing=category is None,
+  item_has_observed_history=item_first is not None,user_has_observed_history=first_user is not None,
+  item_observed_age_seconds=rec(item_first),user_observed_age_seconds=rec(first_user))
+ for w in (24,168):values['source_coverage_'+str(w)+'h']=max(0,(min(t,E)-max(S,t-timedelta(hours=w))).total_seconds())/(w*3600)
+ values.update({n:values[n[:-8]] is None for n in FLAGS})
+ return values
+
+v1=SimpleNamespace(_sample_values=_sample_values)
+
 RAW=ROWS+[(T-timedelta(hours=2),'view',30,77,None),(T-timedelta(hours=2),'view',30,None,None),
  (T-timedelta(hours=2),'view',None,88,None),(T-timedelta(hours=24),'view',10,1,100),
  (T-timedelta(minutes=10),'cart',20,None,None),(T-timedelta(days=3),'cart',20,99,None),
@@ -143,5 +196,66 @@ class SourceAudit(unittest.TestCase):
   self.con.execute("CREATE TEMP TABLE _hsa_recent_all AS SELECT 'q'::VARCHAR query_id,product_id,TIMESTAMP '2019-10-24 00:00:00' last_user_event_time FROM _hsa_pop WHERE product_id<=20")
   m._rank_popularity(self.con,lambda:None);m._rank_recent(self.con,lambda:None);m._combine_candidates(self.con,lambda:None)
   self.assertEqual(self.con.execute('SELECT min(product_id),max(product_id),count(*) FROM _hsa_top').fetchone(),(0,199,200));self.assertEqual(self.con.execute('SELECT min(product_id),max(product_id),count(*) FROM _hsa_recent').fetchone(),(0,19,20));self.assertEqual(self.con.execute('SELECT count(*),count(*) FILTER(WHERE from_recent) FROM _hsa_c').fetchone(),(200,20))
+
+
+class BatchSampleTests(unittest.TestCase):
+ setUp=SourceAudit.setUp
+ tearDown=SourceAudit.tearDown
+ insert=SourceAudit.insert
+ build=SourceAudit.build
+ audit=SourceAudit.audit
+ def compare(self,choice='I1',day=25):
+  args=self.build(choice,day);self.audit(args)
+  t=T+timedelta(days=day-25);S=datetime(2019,10,1);E=datetime(2019,11,1)
+  pairs,_=m._sample_pairs(self.con,t,lambda:None)
+  batch=m._sample_values_batch(self.con,pairs,t,S,E,lambda:None)
+  users=dict(self.con.execute('SELECT query_id,user_id FROM _hsa_q').fetchall())
+  for q,i in pairs:self.assertEqual(batch[(q,i)],v1._sample_values(self.con,users[q],i,t,S,E,lambda:None))
+  return batch
+ def test_every_sample_field_equal_accepted_v1_allchoices_and_dates(self):
+  self.insert()
+  for choice in ['B','I1','I2','R1','R2']:
+   for day in [25,26,31]:
+    with self.subTest(choice=choice,day=day):self.compare(choice,day)
+ def test_exact_NULL_distinct_and_raw_multiplicity_literal(self):
+  self.insert([(T-timedelta(hours=1),'view',None,1,9),(T-timedelta(hours=1),'view',1,1,9),(T-timedelta(hours=1),'view',1,1,9),(T-timedelta(hours=1),'view',1,None,9),(T-timedelta(hours=1),'view',1,2,9),(T-timedelta(minutes=1),'cart',1,1,9)])
+  values=self.compare();qid=self.con.execute('SELECT query_id FROM _hsa_q WHERE user_id=1').fetchone()[0];v=values[(qid,1)]
+  self.assertEqual((v['user_view_7d'],v['user_distinct_viewed_items_7d'],v['item_view_24h'],v['item_distinct_viewers_7d'],v['category_view_7d']),(3,1,4,2,5))
+ def test_late_latest_category_requires_all_history_category_maps(self):
+  self.insert([(T-timedelta(days=10),'view',1,1,777),(T-timedelta(hours=3),'view',1,1,777),(T-timedelta(hours=2),'view',1,1,9),(T-timedelta(minutes=1),'cart',1,7,777),(T-timedelta(hours=4),'view',99,99,777)])
+  values=self.compare('I2');qid=self.con.execute('SELECT query_id FROM _hsa_q WHERE user_id=1').fetchone()[0];v=values[(qid,1)]
+  self.assertEqual((v['candidate_category_id'],v['user_category_view_7d'],v['user_category_view_recency_seconds'],v['item_category_view_7d'],v['category_view_7d']),(777,1,10800.0,1,2))
+ def test_mixed_latest_NULL_ties_and_known_empty_category(self):
+  self.insert([(T-timedelta(hours=2),'purchase',1,1,9),(T-timedelta(hours=1),'cart',1,1,9),(T-timedelta(hours=1),'cart',1,2,None),(T-timedelta(hours=1),'cart',2,3,8)])
+  values=self.compare('I2');unknown=[v for (_,i),v in values.items() if i==1];self.assertTrue(unknown);self.assertTrue(all(v['candidate_category_ambiguous'] and v['user_category_view_7d'] is None for v in unknown))
+  zero=[v for (_,i),v in values.items() if i==2];self.assertTrue(zero);self.assertTrue(all(v['category_view_7d']==0 and v['item_category_view_share_7d'] is None for v in zero))
+ def test_future_suffix_and_prefix_recency_v1_equality(self):
+  self.insert(ROWS[:7]);before=self.compare('I2');self.insert(ROWS[7:]);after=self.compare('I2');self.assertEqual(before,after)
+  self.assertTrue(any(v['pair_purchase_recency_seconds'] is None for v in after.values()))
+ def test_single_stream_plus_single_global_denominator_shape(self):
+  self.insert();args=self.build();self.audit(args);pairs,_=m._sample_pairs(self.con,T,lambda:None);statements=[]
+  class Recording:
+   def __init__(inner,con):inner.con=con
+   def execute(inner,sql,params=()):statements.append(sql);return inner.con.execute(sql,params)
+   def __getattr__(inner,name):return getattr(inner.con,name)
+  m._sample_values_batch(Recording(self.con),pairs,T,datetime(2019,10,1),datetime(2019,11,1),lambda:None)
+  self.assertEqual(len(statements),3) # expected-Q lookup, one raw tuple stream, one category aggregate
+  self.assertEqual(sum('SELECT user_id,product_id,event_time,event_type,category_id FROM _hsa_raw' in s for s in statements),1)
+  self.assertEqual(sum("SELECT category_id,count(*)::BIGINT FROM _hsa_raw" in s for s in statements),1)
+ def test_empty_pairs_do_no_SQL_and_unknown_domain_rejects(self):
+  class NoSQL:
+   def execute(self,*a,**kw):raise AssertionError('empty sample must not query')
+  self.assertEqual(m._sample_values_batch(NoSQL(),[],T,T,T,lambda:None),{})
+  args=self.build();self.audit(args)
+  with self.assertRaisesRegex(ValueError,'outside expected Q'):m._sample_values_batch(self.con,[('unknown',1)],T,datetime(2019,10,1),datetime(2019,11,1),lambda:None)
+ def test_kernel_guard_abort_and_no_raw_row_cache_source_contract(self):
+  self.insert();args=self.build();self.audit(args);pairs,_=m._sample_pairs(self.con,T,lambda:None);n=[0]
+  def stop():
+   n[0]+=1
+   if n[0]==5:raise TimeoutError('stream interrupted')
+  with self.assertRaises(TimeoutError):m._sample_values_batch(self.con,pairs,T,datetime(2019,10,1),datetime(2019,11,1),stop)
+  import inspect
+  source=inspect.getsource(m._sample_values_batch)
+  self.assertNotIn('list(_rows',source);self.assertNotIn('fetchall()',source.split('for u,i,stamp,kind,cat in _rows',1)[1].split('clean=',1)[0])
 
 if __name__=='__main__':unittest.main()
