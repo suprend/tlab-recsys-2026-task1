@@ -137,3 +137,8 @@ Further focused report/reproduction refinements (no new experiments):
 - [Round069 — post-selection bootstrap: screening и frozen heldout contrast](round-069.md).
 
 [Статическая критика016 worker draft](../backlog-reviews/tlab016-fixed-procedure-draft-critique.md) и [полного parent draft](../backlog-reviews/tlab016-full-runner-draft-review.md) сохраняют обнаруженные interface/snapshot/resource/persistence seams и наблюдавшиеся исправления. Это исторические draft reviews; code acceptance и execution permissions ими не выдаются.
+
+
+- [Round070 — MIND: перенос арифметики при другом logging/target contract](round-070.md).
+
+[Refinement существующей HYP-001](../backlog-reviews/itemcf-hyp001-refinement.md) требует matched-support контроля в отдельной будущей ItemCF-фазе; нынешние016/heldout не меняются. [Проверка tagged CatBoost1.2.10 formats](../backlog-reviews/catboost-1.2.10-format-source-check.md) уточняет numeric schema/shrink/parameter evidence без новых native jobs.
