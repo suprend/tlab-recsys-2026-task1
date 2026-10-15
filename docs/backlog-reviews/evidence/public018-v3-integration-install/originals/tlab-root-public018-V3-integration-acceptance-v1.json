@@ -1,0 +1,186 @@
+{
+  "accepted_at_utc": "2026-10-15T16:32:28.492577+00:00",
+  "scope": "Root_V3_full13core_existing14_integration_and_terminal_acceptance_only",
+  "operation_id": "public018-V3-realcore13-existing14-integration-once",
+  "original_issue": {
+    "path": "/tmp/tlab-root-public018-V3-integration-operation-issued-v1.json",
+    "sha256": "3684d386855c7ae7eecb4f403e6213793eb6c82ef7d3340d54bad8884676577a"
+  },
+  "terminal": {
+    "session_id": 86286,
+    "submission_chunk": "aee645",
+    "terminal_chunk": "8cf815",
+    "exit_code": 0,
+    "state": "CLOSED_REAPED_do_not_poll_or_retry"
+  },
+  "all13_real_core_modules_loaded": true,
+  "all14_existing_methods_passed_once": true,
+  "native_memory_connections": 22,
+  "fixture_scope": "14inventedevents/fixture <=6Q64C; FakeML noactualCatBoost/model/datasetY",
+  "audit": "0Pythonprocess/network/CatBoost/realdata violations; nativeDuckDBmemoryDB+ownedfixtureallowlist. No arbitraryhostileC++containment claim.",
+  "external_time_p_display": {
+    "cpu_seconds": 1.16,
+    "wall_seconds": 1.45
+  },
+  "conservative_display_upper": {
+    "cpu_seconds": 1.18,
+    "wall_seconds": 1.47
+  },
+  "body_scope_preserved": {
+    "cpu_seconds": 1.119585,
+    "peak_rss_bytes": 165167104,
+    "scope": "harness entry through sample; full startup/exit/Root readback external",
+    "wall_seconds": 1.3924963329918683
+  },
+  "root_reserve_cpu_seconds": 2,
+  "root_reserve_wall_seconds": 5,
+  "conservative_external_plus_reserve": {
+    "cpu_seconds": 3.18,
+    "wall_seconds": 6.47
+  },
+  "limits": {
+    "cpu_seconds": 20,
+    "wall_seconds": 30,
+    "rss_bytes": 536870912
+  },
+  "references": {
+    "/tmp/tlab-public-v3-integration-once/harness.py": {
+      "bytes": 8051,
+      "sha256": "1953174a6d6ab2e35821f7832c94e3214120fb956691e2cee23a10df518bd5af"
+    },
+    "/tmp/tlab-public-v3-integration-once/manifest.json": {
+      "bytes": 6938,
+      "sha256": "217a7635a46713a3b396f868c214fd6d2fcab5e49a0b4640ebc1e85ac7d6fc5e"
+    },
+    "/tmp/tlab-public-v3-integration-once/consumed.json": {
+      "bytes": 158,
+      "sha256": "c7a5484b95c114598d9a2587c2631c596476dab770c5b98b7fd1ba585befdd5f"
+    },
+    "/tmp/tlab-public-v3-integration-once/result.json": {
+      "bytes": 1121,
+      "sha256": "93ed9cc97890f87078cb1d5d4990f5eaf78a816e1b6d4829ca61e280f658788c"
+    },
+    "/tmp/tlab-public-v3-integration-once/stdout.log": {
+      "bytes": 1006,
+      "sha256": "926cfbcc95b41d7d00ad31b2a5851eabc90e119a6d614eefcc515c74d60f278f"
+    },
+    "/tmp/tlab-public-v3-integration-once/stderr.log": {
+      "bytes": 3403,
+      "sha256": "7498d62934fb1f3ded68bad5e4c32fc29047277c928d141488458647b2a6f929"
+    },
+    "/tmp/tlab-public-v3-integration-once/README.md": {
+      "bytes": 4737,
+      "sha256": "4a49d855b0ef8f8d54578bef0888b34a882296c863ccd70119b9a12cb5d2fa65"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/configs/reproduction/frozen-bw-oct2019.json": {
+      "bytes": 19412,
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/docs/experiments/reproduce-frozen-comparison.md": {
+      "bytes": 12139,
+      "sha256": "6c098cf326a4da6670278a855d0b4ad502df1f4cbad9e2056667acfde9fbddc5"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/pyproject.toml": {
+      "bytes": 367,
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/anchor_pilot.py": {
+      "bytes": 20181,
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/candidate_pilot.py": {
+      "bytes": 18557,
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/development_collection.py": {
+      "bytes": 34909,
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/feature_programs.py": {
+      "bytes": 14019,
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/heldout_contract.py": {
+      "bytes": 14058,
+      "sha256": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/heldout_predictions.py": {
+      "bytes": 10946,
+      "sha256": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/inference_data.py": {
+      "bytes": 9074,
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/manual_features.py": {
+      "bytes": 25160,
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/metadata_price_features.py": {
+      "bytes": 36920,
+      "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/model_data.py": {
+      "bytes": 13774,
+      "sha256": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/program_model_data.py": {
+      "bytes": 10122,
+      "sha256": "1ee9c2fdbec93984e71f0edd055dbbf9046c2d4805eaa0c80f3f0e29bd5c06b1"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/protocol_manifest.py": {
+      "bytes": 11864,
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/ranking_metrics.py": {
+      "bytes": 9971,
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/reproduce_frozen_comparison.py": {
+      "bytes": 40847,
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/source_import.py": {
+      "bytes": 14444,
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/strong_baseline.py": {
+      "bytes": 47986,
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/temporal_contract.py": {
+      "bytes": 6184,
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/scripts/train_baselines.py": {
+      "bytes": 35022,
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/tests/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/tests/test_reproduce_frozen_comparison.py": {
+      "bytes": 33917,
+      "sha256": "f75fc3ba807c3e6345de9fc776f58e27f5ab4a351546b8488f28659256f86f3d"
+    },
+    "/tmp/tlab-public-v3-integration-once/checkout/uv.lock": {
+      "bytes": 300283,
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab"
+    }
+  },
+  "all24copiedinputs_sha_unchanged_and_fixtures_clean": true,
+  "producer_flags_unchanged": true,
+  "prior_author_unknown_child_flags_preserved": true,
+  "root_readback_failure_preserved": {
+    "chunk_id": "83e350",
+    "exit_code": 1,
+    "cause": "SyntaxError isNone/isFalse missing spaces; no receipt created/no dependent publication/acceptance. Corrected metadata checker only, NO native rerun."
+  },
+  "decision": "ACCEPT_engineering_import_SQL_API_binding_failure_tests_not_real_twofit_or_qualityproof",
+  "adoption_authorized": "Soleexistingcoordinator mayinstall exactV3 entry+threeunchangedV2candidates andpublishprivatebranch. No broad/unchangedprojecttests needed.",
+  "real_raw_twofit_or_new_environment_runtime_grant": false,
+  "complete018": "PARTIAL",
+  "goal": "ACTIVE",
+  "next_max_utc": "2026-10-15T17:15:00+00:00"
+}

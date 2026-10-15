@@ -1,0 +1,663 @@
+{
+  "available_at": "2019-10-22T00:00:00Z",
+  "base_physical_columns": [
+    "query_id",
+    "product_id",
+    "from_popular",
+    "from_recent",
+    "popularity_distinct_users",
+    "popular_source_rank",
+    "recent_source_rank",
+    "last_user_event_time",
+    "user_id",
+    "anchor",
+    "candidate_category_id",
+    "candidate_category_ambiguous",
+    "candidate_category_missing",
+    "item_has_observed_history",
+    "user_has_observed_history",
+    "item_observed_age_seconds",
+    "user_observed_age_seconds",
+    "user_view_7d",
+    "user_cart_7d",
+    "user_purchase_7d",
+    "user_distinct_viewed_items_7d",
+    "pair_view_7d",
+    "pair_cart_7d",
+    "pair_purchase_7d",
+    "pair_view_recency_seconds",
+    "pair_purchase_recency_seconds",
+    "item_view_24h",
+    "item_purchase_24h",
+    "item_distinct_viewers_7d",
+    "user_category_view_7d",
+    "user_category_view_recency_seconds",
+    "item_category_view_7d",
+    "category_view_7d",
+    "source_coverage_24h",
+    "source_coverage_168h",
+    "user_category_view_share_7d",
+    "item_category_view_share_7d",
+    "pair_view_recency_seconds_missing",
+    "pair_purchase_recency_seconds_missing",
+    "user_category_view_7d_missing",
+    "user_category_view_share_7d_missing",
+    "user_category_view_recency_seconds_missing",
+    "item_category_view_7d_missing",
+    "category_view_7d_missing",
+    "item_category_view_share_7d_missing"
+  ],
+  "bootstrap_replicates": 200,
+  "bootstrap_seed": 2026,
+  "constructor_parameters": {
+    "allow_writing_files": false,
+    "boost_from_average": false,
+    "boosting_type": "Plain",
+    "bootstrap_type": "No",
+    "depth": 6,
+    "iterations": 300,
+    "l2_leaf_reg": 30,
+    "leaf_estimation_backtracking": "AnyImprovement",
+    "leaf_estimation_iterations": 10,
+    "leaf_estimation_method": "Newton",
+    "learning_rate": 0.05,
+    "loss_function": "Logloss",
+    "random_seed": 2026,
+    "random_strength": 1,
+    "task_type": "CPU",
+    "thread_count": 2,
+    "use_best_model": false,
+    "verbose": false
+  },
+  "dependencies": {
+    "pyproject.toml": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+    "scripts/anchor_pilot.py": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+    "scripts/candidate_pilot.py": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+    "scripts/development_collection.py": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+    "scripts/feature_programs.py": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+    "scripts/heldout_contract.py": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc",
+    "scripts/heldout_predictions.py": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4",
+    "scripts/inference_data.py": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+    "scripts/manual_features.py": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+    "scripts/metadata_price_features.py": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+    "scripts/model_data.py": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+    "scripts/program_model_data.py": "1ee9c2fdbec93984e71f0edd055dbbf9046c2d4805eaa0c80f3f0e29bd5c06b1",
+    "scripts/protocol_manifest.py": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+    "scripts/ranking_metrics.py": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+    "scripts/source_import.py": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+    "scripts/strong_baseline.py": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+    "scripts/temporal_contract.py": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+    "scripts/train_baselines.py": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+    "uv.lock": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab"
+  },
+  "effective_parameters": {
+    "auto_class_weights": "None",
+    "bayesian_matrix_reg": 0.10000000149011612,
+    "best_model_min_trees": 1,
+    "boost_from_average": false,
+    "boosting_type": "Plain",
+    "bootstrap_type": "No",
+    "border_count": 254,
+    "class_names": [
+      0,
+      1
+    ],
+    "classes_count": 0,
+    "depth": 6,
+    "eval_fraction": 0,
+    "eval_metric": "Logloss",
+    "feature_border_type": "GreedyLogSum",
+    "force_unit_auto_pair_weights": false,
+    "grow_policy": "SymmetricTree",
+    "iterations": 300,
+    "l2_leaf_reg": 30,
+    "leaf_estimation_backtracking": "AnyImprovement",
+    "leaf_estimation_iterations": 10,
+    "leaf_estimation_method": "Newton",
+    "learning_rate": 0.05000000074505806,
+    "loss_function": "Logloss",
+    "max_leaves": 64,
+    "min_data_in_leaf": 1,
+    "model_shrink_mode": "Constant",
+    "model_shrink_rate": 0,
+    "model_size_reg": 0.5,
+    "nan_mode": "Min",
+    "penalties_coefficient": 1,
+    "pool_metainfo_options": {
+      "tags": {}
+    },
+    "posterior_sampling": false,
+    "random_score_type": "NormalWithModelSizeDecrease",
+    "random_seed": 2026,
+    "random_strength": 1,
+    "rsm": 1,
+    "sampling_frequency": "PerTree",
+    "score_function": "Cosine",
+    "sparse_features_conflict_fraction": 0,
+    "task_type": "CPU",
+    "use_best_model": false
+  },
+  "engine_memory": "2GB",
+  "environment": {
+    "packages": {
+      "catboost": "1.2.10",
+      "duckdb": "1.5.6",
+      "numpy": "2.5.4",
+      "pandas": "3.0.6"
+    },
+    "python_major_minor": [
+      3,
+      12
+    ]
+  },
+  "extra_feature_names": [
+    "auto_item_view_count_distinct_24h_user_id",
+    "auto_item_cart_count_distinct_168h_user_id",
+    "auto_item_purchase_count_distinct_24h_user_id"
+  ],
+  "feature_names": {
+    "B": [
+      "from_popular",
+      "from_recent",
+      "popularity_distinct_users",
+      "popular_source_rank",
+      "recent_source_rank",
+      "candidate_category_ambiguous",
+      "candidate_category_missing",
+      "item_has_observed_history",
+      "user_has_observed_history",
+      "item_observed_age_seconds",
+      "user_observed_age_seconds",
+      "user_view_7d",
+      "user_cart_7d",
+      "user_purchase_7d",
+      "user_distinct_viewed_items_7d",
+      "pair_view_7d",
+      "pair_cart_7d",
+      "pair_purchase_7d",
+      "pair_view_recency_seconds",
+      "pair_purchase_recency_seconds",
+      "item_view_24h",
+      "item_purchase_24h",
+      "item_distinct_viewers_7d",
+      "user_category_view_7d",
+      "user_category_view_recency_seconds",
+      "item_category_view_7d",
+      "category_view_7d",
+      "source_coverage_24h",
+      "source_coverage_168h",
+      "user_category_view_share_7d",
+      "item_category_view_share_7d",
+      "pair_view_recency_seconds_missing",
+      "pair_purchase_recency_seconds_missing",
+      "user_category_view_7d_missing",
+      "user_category_view_share_7d_missing",
+      "user_category_view_recency_seconds_missing",
+      "item_category_view_7d_missing",
+      "category_view_7d_missing",
+      "item_category_view_share_7d_missing",
+      "retrieval_last_event_age_seconds",
+      "retrieval_last_event_missing"
+    ],
+    "W": [
+      "from_popular",
+      "from_recent",
+      "popularity_distinct_users",
+      "popular_source_rank",
+      "recent_source_rank",
+      "candidate_category_ambiguous",
+      "candidate_category_missing",
+      "item_has_observed_history",
+      "user_has_observed_history",
+      "item_observed_age_seconds",
+      "user_observed_age_seconds",
+      "user_view_7d",
+      "user_cart_7d",
+      "user_purchase_7d",
+      "user_distinct_viewed_items_7d",
+      "pair_view_7d",
+      "pair_cart_7d",
+      "pair_purchase_7d",
+      "pair_view_recency_seconds",
+      "pair_purchase_recency_seconds",
+      "item_view_24h",
+      "item_purchase_24h",
+      "item_distinct_viewers_7d",
+      "user_category_view_7d",
+      "user_category_view_recency_seconds",
+      "item_category_view_7d",
+      "category_view_7d",
+      "source_coverage_24h",
+      "source_coverage_168h",
+      "user_category_view_share_7d",
+      "item_category_view_share_7d",
+      "pair_view_recency_seconds_missing",
+      "pair_purchase_recency_seconds_missing",
+      "user_category_view_7d_missing",
+      "user_category_view_share_7d_missing",
+      "user_category_view_recency_seconds_missing",
+      "item_category_view_7d_missing",
+      "category_view_7d_missing",
+      "item_category_view_share_7d_missing",
+      "retrieval_last_event_age_seconds",
+      "retrieval_last_event_missing",
+      "auto_item_view_count_distinct_24h_user_id",
+      "auto_item_cart_count_distinct_168h_user_id",
+      "auto_item_purchase_count_distinct_24h_user_id"
+    ]
+  },
+  "fit_data_cutoff": "2019-10-21T00:00:00Z",
+  "k": 20,
+  "kernel_spill_bytes": 8589934592,
+  "manual_registry": {
+    "category_counter_key": "historical_event_category_id",
+    "category_policy": "latest_global_past_timestamp_null_mixture_ambiguous",
+    "features": [
+      {
+        "column": null,
+        "event_type": "view",
+        "grain": "user",
+        "name": "user_view_7d",
+        "operator": "count",
+        "window": 168
+      },
+      {
+        "column": null,
+        "event_type": "cart",
+        "grain": "user",
+        "name": "user_cart_7d",
+        "operator": "count",
+        "window": 168
+      },
+      {
+        "column": null,
+        "event_type": "purchase",
+        "grain": "user",
+        "name": "user_purchase_7d",
+        "operator": "count",
+        "window": 168
+      },
+      {
+        "column": "product_id",
+        "event_type": "view",
+        "grain": "user",
+        "name": "user_distinct_viewed_items_7d",
+        "operator": "count_distinct",
+        "window": 168
+      },
+      {
+        "column": null,
+        "event_type": "view",
+        "grain": "pair",
+        "name": "pair_view_7d",
+        "operator": "count",
+        "window": 168
+      },
+      {
+        "column": null,
+        "event_type": "cart",
+        "grain": "pair",
+        "name": "pair_cart_7d",
+        "operator": "count",
+        "window": 168
+      },
+      {
+        "column": null,
+        "event_type": "purchase",
+        "grain": "pair",
+        "name": "pair_purchase_7d",
+        "operator": "count",
+        "window": 168
+      },
+      {
+        "column": "event_time",
+        "event_type": "view",
+        "grain": "pair",
+        "name": "pair_view_recency_seconds",
+        "operator": "recency_seconds",
+        "window": "observed"
+      },
+      {
+        "column": "event_time",
+        "event_type": "purchase",
+        "grain": "pair",
+        "name": "pair_purchase_recency_seconds",
+        "operator": "recency_seconds",
+        "window": "observed"
+      },
+      {
+        "column": null,
+        "event_type": "view",
+        "grain": "item",
+        "name": "item_view_24h",
+        "operator": "count",
+        "window": 24
+      },
+      {
+        "column": null,
+        "event_type": "purchase",
+        "grain": "item",
+        "name": "item_purchase_24h",
+        "operator": "count",
+        "window": 24
+      },
+      {
+        "column": "user_id",
+        "event_type": "view",
+        "grain": "item",
+        "name": "item_distinct_viewers_7d",
+        "operator": "count_distinct",
+        "window": 168
+      },
+      {
+        "column": null,
+        "event_type": "view",
+        "grain": "user_category",
+        "name": "user_category_view_7d",
+        "operator": "count",
+        "window": 168
+      },
+      {
+        "denominator": "user_view_7d",
+        "grain": "user_category",
+        "name": "user_category_view_share_7d",
+        "numerator": "user_category_view_7d",
+        "operator": "ratio"
+      },
+      {
+        "column": "event_time",
+        "event_type": "view",
+        "grain": "user_category",
+        "name": "user_category_view_recency_seconds",
+        "operator": "recency_seconds",
+        "window": "observed"
+      },
+      {
+        "column": null,
+        "event_type": "view",
+        "grain": "item_category",
+        "name": "item_category_view_7d",
+        "operator": "count",
+        "window": 168
+      },
+      {
+        "column": null,
+        "event_type": "view",
+        "grain": "category",
+        "name": "category_view_7d",
+        "operator": "count",
+        "window": 168
+      },
+      {
+        "denominator": "category_view_7d",
+        "grain": "item_category",
+        "name": "item_category_view_share_7d",
+        "numerator": "item_category_view_7d",
+        "operator": "ratio"
+      }
+    ],
+    "history": "strict_past_raw_event_rows",
+    "known_key_empty_count": 0,
+    "missing_recency": null,
+    "name": "manual18",
+    "undefined_ratio": null,
+    "unknown_conditional_key": null,
+    "version": 1
+  },
+  "matrix_byte_cap": 2147483648,
+  "max_fits": 2,
+  "minimum_free_disk_bytes": 42949672960,
+  "periods": {
+    "selection": {
+      "end": "2019-10-24T00:00:00Z",
+      "queries": 4000,
+      "start": "2019-10-22T00:00:00Z"
+    },
+    "train": {
+      "end": "2019-10-21T00:00:00Z",
+      "queries": 26000,
+      "start": "2019-10-08T00:00:00Z"
+    }
+  },
+  "program_bundle": "L05",
+  "program_contract": {
+    "allocation": {
+      "collision_policy": "whole_bundle_across_all_slots_consumed_no_redraw",
+      "max_fits": 4,
+      "max_new_columns": 12,
+      "random_draws": 2,
+      "random_law": "uniform_independent_with_replacement",
+      "random_seed": 2026,
+      "static_bundle_ids": [
+        "L02",
+        "L06"
+      ]
+    },
+    "context": {
+      "count_boundary": "lower_inclusive_upper_exclusive",
+      "history": "strict_past_raw_event_rows",
+      "identity": "nominal_keys_not_numeric_model_features",
+      "peer_policy": "exclude_all_global_timestamp_peers",
+      "recency_boundary": "full_observed_prefix",
+      "retrieval_alias_policy": "v1_purchase_distinct_users_168h_full_join_including_recent_only",
+      "source_availability": "event_time_assumed"
+    },
+    "grammar": {
+      "action_count_bindings": [
+        {
+          "grain": "user",
+          "window": 24
+        },
+        {
+          "grain": "pair",
+          "window": 24
+        },
+        {
+          "grain": "item",
+          "window": 168
+        }
+      ],
+      "action_distinct_bindings": [
+        {
+          "grain": "user",
+          "windows_by_action": {
+            "cart": 168,
+            "purchase": 168,
+            "view": 24
+          }
+        },
+        {
+          "grain": "item",
+          "windows_by_action": {
+            "cart": 168,
+            "purchase": 24,
+            "view": 24
+          }
+        }
+      ],
+      "cart_recency_bindings": [
+        {
+          "companion_action": "cart",
+          "companion_grain": "item",
+          "companion_operator": "count",
+          "companion_window": 24,
+          "grain": "pair"
+        },
+        {
+          "companion_action": "purchase",
+          "companion_grain": "user",
+          "companion_operator": "count_distinct",
+          "companion_window": 24,
+          "grain": "user"
+        },
+        {
+          "companion_action": "cart",
+          "companion_grain": "item",
+          "companion_operator": "count_distinct",
+          "companion_window": 24,
+          "grain": "item"
+        }
+      ],
+      "operators": [
+        "count",
+        "count_distinct",
+        "recency_seconds"
+      ],
+      "windows_hours": [
+        24,
+        168
+      ]
+    },
+    "role": "bounded_typed_feature_programs",
+    "schema": {
+      "fields": {
+        "category_id": {
+          "dtype": "BIGINT",
+          "role": "nullable_nominal_category"
+        },
+        "event_time": {
+          "dtype": "TIMESTAMP",
+          "role": "event_time"
+        },
+        "event_type": {
+          "dtype": "VARCHAR",
+          "role": "action"
+        },
+        "product_id": {
+          "dtype": "BIGINT",
+          "role": "nominal_item"
+        },
+        "user_id": {
+          "dtype": "BIGINT",
+          "role": "nominal_user"
+        }
+      },
+      "observed_actions": [
+        "view",
+        "cart",
+        "purchase"
+      ]
+    },
+    "version": 1
+  },
+  "program_slot": "R2",
+  "protocol": {
+    "budget": {
+      "max_anchors": 6000,
+      "max_candidate_pairs": 1320000
+    },
+    "candidates": {
+      "catalog": "products_seen_strictly_before_query",
+      "deduplicate": "product_id",
+      "max_unique": 220,
+      "popular_event_type": "purchase",
+      "popular_limit": 200,
+      "popular_unit": "distinct_users",
+      "popular_window_hours": 168,
+      "recent_event_types": [
+        "view",
+        "cart",
+        "purchase"
+      ],
+      "recent_limit": 20,
+      "recent_window_hours": 168
+    },
+    "history": {
+      "duplicates": "raw",
+      "metadata": "last_strict_past_ambiguity_preserved",
+      "ties": "global_read_before_update"
+    },
+    "pilot": {
+      "end": "2019-10-11T00:00:00Z",
+      "start": "2019-10-08T00:00:00Z"
+    },
+    "query": {
+      "eligibility_event_types": [
+        "view",
+        "cart",
+        "purchase"
+      ],
+      "eligibility_hours": 48,
+      "hour_utc": 0,
+      "kind": "daily_clock",
+      "max_users_per_day": 2000,
+      "sample_seed": 2026,
+      "sampling": "sha256_user_day_seed_before_labels"
+    },
+    "source": {
+      "end": "2019-11-01T00:00:00Z",
+      "start": "2019-10-01T00:00:00Z"
+    },
+    "status": "provisional_pilot",
+    "target": {
+      "availability_delay_seconds": 0,
+      "event_type": "purchase",
+      "horizon_hours": 24,
+      "include_anchor": true,
+      "include_end": false,
+      "maturity": "full_horizon",
+      "relevance": "distinct_binary_products"
+    },
+    "timezone": "UTC",
+    "version": 1
+  },
+  "provenance": {
+    "authority": "ordinary user command; no historical approval, private CBM, or agent execution grant is an input",
+    "choice": "B vs R2/L05 was selected before this new run; comparison is post-selection reproduction, not fresh validation or model selection",
+    "parameter_capture_sha256": "c5da7fdd527abcbf9b98f43c2bea66774e3fcca285e913efa6025f1618188a8c",
+    "training_order": "global query_id group order then product_id; Q sample sha256(query_id),query_id before Y"
+  },
+  "scope": "post_selection_frozen_B_R2_L05_retraining",
+  "source": {
+    "actions": [
+      "view",
+      "cart",
+      "purchase"
+    ],
+    "compressed_bytes": 1741928540,
+    "compressed_sha256": "8ebca1ad741295297368f2cf0315e3f36853a1a11768fb16babf8c9b83838147",
+    "compression": "gzip_all_members",
+    "empty_policy": "unquoted_and_quoted_empty_to_NULL_only_declared_nullable",
+    "encoding": "utf-8-strict",
+    "end": "2019-11-01T00:00:00Z",
+    "expected_rows": 42448764,
+    "fields": [
+      "event_time",
+      "event_type",
+      "product_id",
+      "category_id",
+      "category_code",
+      "brand",
+      "price",
+      "user_id",
+      "user_session"
+    ],
+    "max_field_characters": 65536,
+    "nullable_fields": [
+      "product_id",
+      "category_id",
+      "category_code",
+      "brand",
+      "price",
+      "user_id",
+      "user_session"
+    ],
+    "scope": "project_observed_REES46_October2019",
+    "start": "2019-10-01T00:00:00Z",
+    "types": [
+      "TIMESTAMP",
+      "VARCHAR",
+      "BIGINT",
+      "BIGINT",
+      "VARCHAR",
+      "VARCHAR",
+      "DECIMAL(12,2)",
+      "BIGINT",
+      "VARCHAR"
+    ],
+    "uncompressed_bytes": 5668612855,
+    "version": 1
+  },
+  "threads": 2,
+  "version": 1
+}

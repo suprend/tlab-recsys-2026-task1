@@ -1,6 +1,6 @@
 # Автоматизация признаков для ранжирования покупок
 
-По состоянию на15 октября2026,16:22:15UTC, TLAB-015, финальный отчёт и Oct22 fixed-model slice приняты; завершены13 из19 задач. CODE новой публичной командыV3 принят после независимого review, но установка ждёт отдельной13core/14method интеграции; public raw→freshcollections→NEW frozenB/W training→comparison ещё не выполнен, реальные новые fits не разрешены. Финальная разность NDCG+0,005122 с95%CI[−0,010433;+0,018561] не доказывает превосходство.
+По состоянию на15 октября2026,16:40:54UTC, приняты TLAB-015, финальный отчёт и Oct22 fixed-model slice; завершены13 из19 задач. PublicV3 CLI/recipe/tests/instruction установлены после принятой13core/14method интеграции на invented events/FakeML; полный raw→две NEW fixedB/W fits запуск и fresh-clone/newvenv proof ещё не выполнены,018partial. Финальная разность NDCG+0,005122 с95%CI[−0,010433;+0,018561] не доказывает превосходство.
 
 Рабочий отчёт по первой задаче T-Lab. Ручной контроль настроен в пределах заранее заданного бюджета и независимо проверен. Четыре ветви автоматизации и неизменённое отложенное сравнение выполнены и независимо приняты; финальная разность положительна, её интервал включает ноль.
 
@@ -223,3 +223,6 @@ Finalauthorproof: шесть unchanged методов PASS вV2 + исправл
 
 
 Обновление 16:28:45UTC: [031research](research-lab/brainstorm-wave031-synthesis.md) Root accepted existingHYP046 refinements,0 новыхID/задач/grants. [V3/transport CODE-only reviews](backlog-reviews/public018-code-only-v3.md) сохранены; установка/currentCLIfiles/newfits пока не разрешены.032обаFIRST завершены; Root и publisher одновременно dispatch одному existingModelsB — coordination race, выполняется ОДНО separate review, не две независимые проверки/не новыйslot/allowance. Пять FIRST SHA проверены16:24:48, post-FIRSTA clarification отдельно, originals неизменны. Futurecritic dispatch Root-alone, если он явно не передаст и не подтвердит ownership. Early16:22checkpoint покрывает16:30, next17:15UTC от исходного16:30;13/19/018partial/015reportDONE.
+
+
+Обновление 16:40:54UTC: [publicV3 fourfileinstallation/integration приняты](backlog-reviews/public018-v3-integration-install.md),13realcores/14methodsPASS once,22ownedmemoryconnections/0auditviolations,0realCatBoost/ML/data/models. Source/recipe/tests/DOC установлены byte-exact16:36:24, no testpackage marker; публичная инструкция и READMEusage доступны. Полный raw→freshcollections→две NEW fixedB/W fits→comparison/freshclone-newvenv пока UNRUN/UNGRANTED,018partial13/19;015/reportDONE. Rootnext — exactremoteHEAD/четыреpins и отдельное freshclone/lockedenv setup решение, затем producer/output operations; публикатор0runtime/tests.032criticcomplete/Rootreadbackpending, не новыеHYP/grants. Early16:22checkpoint/next17:15UTC от исходного16:30 сохраняются,33914/43200/1000/300 и исходныйgoal не reset.

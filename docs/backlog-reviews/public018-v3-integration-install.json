@@ -1,0 +1,86 @@
+{
+  "scope": "Root-accepted V3 real13core/14existing methods engineering integration plusauthorized fourfileinstallation",
+  "Root_acceptance_sha256": "79d1b051cb9d541529afecd7466bf1a9a2c5fb849e1778c2a253cfe303d5564f",
+  "Root_doc_adoption_sha256": "4c459429638817fb6a52f9abdc40bc822111dde09b584464b6e511114a95310a",
+  "original_operation_id": "public018-V3-realcore13-existing14-integration-once",
+  "terminal": {
+    "session_id": 86286,
+    "submission_chunk": "aee645",
+    "terminal_chunk": "8cf815",
+    "exit_code": 0,
+    "state": "CLOSED_REAPED_do_not_poll_or_retry"
+  },
+  "cores": 13,
+  "tests": 14,
+  "native_memory_connections": 22,
+  "real_CatBoost_models_data_ML_operations": 0,
+  "audit_violations": 0,
+  "cost": {
+    "external_time_p_display": {
+      "cpu_seconds": 1.16,
+      "wall_seconds": 1.45
+    },
+    "conservative_display_upper": {
+      "cpu_seconds": 1.18,
+      "wall_seconds": 1.47
+    },
+    "body_scope_preserved": {
+      "cpu_seconds": 1.119585,
+      "peak_rss_bytes": 165167104,
+      "scope": "harness entry through sample; full startup/exit/Root readback external",
+      "wall_seconds": 1.3924963329918683
+    },
+    "conservative_external_plus_Root_reserve": {
+      "cpu_seconds": 3.18,
+      "wall_seconds": 6.47
+    },
+    "limits": {
+      "cpu_seconds": 20,
+      "wall_seconds": 30,
+      "rss_bytes": 536870912
+    }
+  },
+  "four_files_installed": [
+    {
+      "path": "configs/reproduction/frozen-bw-oct2019.json",
+      "source": "/tmp/tlab-frozen-bw-oct2019-v2.json",
+      "bytes": 19412,
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+      "target_absent_before": true,
+      "byteexact_after": true
+    },
+    {
+      "path": "docs/experiments/reproduce-frozen-comparison.md",
+      "source": "/tmp/tlab-reproduce-frozen-comparison-run-doc-v3.md",
+      "bytes": 12159,
+      "sha256": "9203c02aa502b2d1b1ca7b2fa2bec8ba692bf6cfb5c208738a83249d54dd193e",
+      "target_absent_before": true,
+      "byteexact_after": true
+    },
+    {
+      "path": "scripts/reproduce_frozen_comparison.py",
+      "source": "/tmp/tlab-reproduce-frozen-comparison-v3.py",
+      "bytes": 40847,
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "target_absent_before": true,
+      "byteexact_after": true
+    },
+    {
+      "path": "tests/test_reproduce_frozen_comparison.py",
+      "source": "/tmp/test_reproduce_frozen_comparison_v2.py",
+      "bytes": 33917,
+      "sha256": "f75fc3ba807c3e6345de9fc776f58e27f5ab4a351546b8488f28659256f86f3d",
+      "target_absent_before": true,
+      "byteexact_after": true
+    }
+  ],
+  "test_package_marker_added": false,
+  "test_command_edit_only": true,
+  "new_fulltwofits_or_cleanenvironment_runtime_grant": false,
+  "complete018": "PARTIAL",
+  "accepted_tasks": 13,
+  "of": 19,
+  "publisher_jobs_tests": 0,
+  "original_producer_pending_flags_preserved": true,
+  "prior_author_zerochild_fields": "UNMEASURED_UNKNOWN"
+}

@@ -1,0 +1,47 @@
+{
+  "installed_at_utc": "2026-10-15T16:36:24.121475+00:00",
+  "scope": "Root-authorized FOUR additive byteexactpublicfiles after13core14methodactualintegration acceptance; editorialdocoverride only",
+  "Root_CODE_receipt_sha256": "7e93246fdef156b13616f9b3c5640bfb2d0c3e5fd88a50e07df0948e84b5e8dc",
+  "Root_integration_receipt_sha256": "79d1b051cb9d541529afecd7466bf1a9a2c5fb849e1778c2a253cfe303d5564f",
+  "Root_doc_override_receipt_sha256": "4c459429638817fb6a52f9abdc40bc822111dde09b584464b6e511114a95310a",
+  "files": [
+    {
+      "path": "configs/reproduction/frozen-bw-oct2019.json",
+      "source": "/tmp/tlab-frozen-bw-oct2019-v2.json",
+      "bytes": 19412,
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+      "target_absent_before": true,
+      "byteexact_after": true
+    },
+    {
+      "path": "docs/experiments/reproduce-frozen-comparison.md",
+      "source": "/tmp/tlab-reproduce-frozen-comparison-run-doc-v3.md",
+      "bytes": 12159,
+      "sha256": "9203c02aa502b2d1b1ca7b2fa2bec8ba692bf6cfb5c208738a83249d54dd193e",
+      "target_absent_before": true,
+      "byteexact_after": true
+    },
+    {
+      "path": "scripts/reproduce_frozen_comparison.py",
+      "source": "/tmp/tlab-reproduce-frozen-comparison-v3.py",
+      "bytes": 40847,
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "target_absent_before": true,
+      "byteexact_after": true
+    },
+    {
+      "path": "tests/test_reproduce_frozen_comparison.py",
+      "source": "/tmp/test_reproduce_frozen_comparison_v2.py",
+      "bytes": 33917,
+      "sha256": "f75fc3ba807c3e6345de9fc776f58e27f5ab4a351546b8488f28659256f86f3d",
+      "target_absent_before": true,
+      "byteexact_after": true
+    }
+  ],
+  "new_python_inmemory_compile_only": 2,
+  "recipe_JSON_parse_only": true,
+  "tests_package_marker_added": false,
+  "native_data_model_Y_test_or_runtime_by_publisher": 0,
+  "full_raw_newfits_granted": false,
+  "complete018": "PARTIAL"
+}

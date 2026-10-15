@@ -8,6 +8,21 @@
 
 Текущие владельцы, проверки и бюджеты — в [backlog](docs/backlog.md). Весь месяц использован для EDA и проверки источника; confirmation/final query-level targets и метрики не использовались для выбора моделей. Решение заморожено до отложенной проверки; положительный доверительный интервал не получен.
 
+## Повтор фиксированного сравнения из raw
+
+[Публичная инструкция](docs/experiments/reproduce-frozen-comparison.md) описывает построение новых train/selection коллекций и двух новых300-tree B41/W44 моделей из локального Oct2019 архива. Задайте положительные целые `CPU_SECONDS`, `WALL_SECONDS`, `RSS_BYTES`, `SPILL_BYTES` и выберите новый output directory:
+
+```bash
+uv run --frozen python -m scripts.reproduce_frozen_comparison \
+  --raw data/raw/2019-Oct.csv.gz \
+  --output artifacts/public-frozen-comparison-01 \
+  --recipe configs/reproduction/frozen-bw-oct2019.json \
+  --cpu-seconds "$CPU_SECONDS" --wall-seconds "$WALL_SECONDS" \
+  --rss-bytes "$RSS_BYTES" --spill-bytes "$SPILL_BYTES"
+```
+
+Подготовка lockedPython3.12, ресурсные условия, поддерживаемая среда и unittest discovery — в инструкции. Код принят после [интеграции13реальных cores и14тестов](docs/backlog-reviews/public018-v3-integration-install.md) на invented events/FakeML; реальный fullraw→twofreshfits запуск и fresh-clone/newvenv proof ещё pending. TLAB018 partial,13из19 задач принято; параметры текущегоB/W и final results сохраняются.
+
 ## Публичный пример без исходных данных
 
 После установки locked-окружения можно проверить ранжирование на 12 синтетических строках:

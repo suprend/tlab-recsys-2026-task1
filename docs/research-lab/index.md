@@ -2,7 +2,7 @@
 
 15 октября 2026. Primary-source rounds дополняют canonical backlog; rejected/duplicate идеи сохраняются, budgets не складываются. [Фактический TLAB-015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0;финальное review отчёта завершено;018 остаётся partial, новые optional идеи не становятся gates.
 
-Текущая навигация(16:28:45UTC): [heldout](../backlog-reviews/real015-heldout-results.md), [Oct22 slice](../backlog-reviews/018-accepted-oct22-slice.md), [финальный отчёт](../experimental-report.md), [V3 CODE-only reviews](../backlog-reviews/public018-code-only-v3.md).031 accepted;032bothFIRST/один separateModelsBcritic active. PublicV3 установка ждёт отдельной интеграции; реальные новые fits не разрешены. [Ранний checkpoint](brainstorm-log.md).
+Текущая навигация(16:40:54UTC): [heldout](../backlog-reviews/real015-heldout-results.md), [Oct22slice](../backlog-reviews/018-accepted-oct22-slice.md), [отчёт](../experimental-report.md), [publicV3 installed/integration](../backlog-reviews/public018-v3-integration-install.md), [публичная инструкция](../experiments/reproduce-frozen-comparison.md).031accepted;032criticcomplete/Rootreadbackpending. Fullraw/newfits/newenvpending,018partial13/19;17:15originalanchor.
 
 [Wave031 exact materialization policies](brainstorm-wave031-synthesis.md): HYP046 refinements, complete routes/lifetimes/actualcalls и sunkfallback costs;0IDs/grants/speedclaim.
 [Wave030 pair proxy/search allocation](brainstorm-wave030-synthesis.md): HYP141/FA01 refinement, learned tables и conditional user-bound не равны fullY utility;0IDs/grants.

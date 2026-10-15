@@ -1,4 +1,6 @@
-# Публичная команда018: CODE принят, установка ждёт интеграции
+# Историческая CODE-only приёмка публичной команды018
+
+Текущий overlay: [установка четырёх файлов разрешена и выполнена после принятой интеграции](public018-v3-integration-install.md). Последующие абзацы сохраняют scope предшествующей CODE-only приёмки; реальные fullraw/newfits/newenv пока pending.
 
 Root принял exact publicV3 entryad27… и три неизменённыхV2 файла только на уровне CODE. [Пятнадцать точных review/fix оригиналов](evidence/public018-code-only-v3/publication.json) сохраняют A/B rereviews, последующий platform addendum, freeze/note/one-expression diff и Root acceptance. Текущие CLI source/recipe/tests/doc не скопированы и не установлены.018partial/13из19, реальные новые fits не разрешены.
 

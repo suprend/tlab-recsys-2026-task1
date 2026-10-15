@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён15 октября2026,16:28:45UTC.015/reportDONE,018partial13of19; V3 CODEaccepted/installationpending отдельной интеграции.031Rootaccepted,032bothFIRST/одинModelsBcritic активен. nextmax17:15UTC от16:30.
+Обновлён15 октября2026,16:40:54UTC.015/reportDONE,018partial13of19; publicV3installed/13core14methodintegrationaccepted, fullrawnewfits/newenvpending.032criticCOMPLETE/Rootreadbackpending. nextmax17:15UTC от16:30.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -676,3 +676,10 @@ Actual inventory перед этой публикацией:031 FeaturesA/Models
 Обновление 16:28:45UTC: [031research](brainstorm-wave031-synthesis.md) Root accepted existingHYP046 refinements,0 новыхID/задач/grants. [V3/transport CODE-only reviews](../backlog-reviews/public018-code-only-v3.md) сохранены; установка/currentCLIfiles/newfits пока не разрешены.032обаFIRST завершены; Root и publisher одновременно dispatch одному existingModelsB — coordination race, выполняется ОДНО separate review, не две независимые проверки/не новыйslot/allowance. Пять FIRST SHA проверены16:24:48, post-FIRSTA clarification отдельно, originals неизменны. Futurecritic dispatch Root-alone, если он явно не передаст и не подтвердит ownership. Early16:22checkpoint покрывает16:30, next17:15UTC от исходного16:30;13/19/018partial/015reportDONE.
 
 Root clarification032A09b1f9cc — subsequent supplement, не FIRST evidence. ModelsB подтвердил single review/freeze всех6inputs16:25:22.219802UTC; оба dispatch после обоих FIRST не затрагивают blind authors, не создают дополнительного review/slot/grant. Никаких author changes или jobs от publisher; следующие critics только Root либо явный подтверждённый handoff.
+
+
+## PublicV3 installed afteractualintegration — 2026-10-15T16:40:54.024553+00:00
+
+Обновление 16:40:54UTC: [publicV3 fourfileinstallation/integration приняты](../backlog-reviews/public018-v3-integration-install.md),13realcores/14methodsPASS once,22ownedmemoryconnections/0auditviolations,0realCatBoost/ML/data/models. Source/recipe/tests/DOC установлены byte-exact16:36:24, no testpackage marker; публичная инструкция и READMEusage доступны. Полный raw→freshcollections→две NEW fixedB/W fits→comparison/freshclone-newvenv пока UNRUN/UNGRANTED,018partial13/19;015/reportDONE. Rootnext — exactremoteHEAD/четыреpins и отдельное freshclone/lockedenv setup решение, затем producer/output operations; публикатор0runtime/tests.032criticcomplete/Rootreadbackpending, не новыеHYP/grants. Early16:22checkpoint/next17:15UTC от исходного16:30 сохраняются,33914/43200/1000/300 и исходныйgoal не reset.
+
+Original86286CLOSED/reaped8cf815EXIT0 не опрашивался/не повторялся. NativeDuckDBmemory22connections доказаны,0realCatBoost/ML; publisher только installcompile/bytechecks. Старые authorzerochildUNKNOWN и producerpendingflags сохраняются. Фактические оба032FIRST и один critic завершены, текущие activeauthors не выдумываются; следующая ротация Root.
