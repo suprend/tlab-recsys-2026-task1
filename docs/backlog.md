@@ -16,7 +16,7 @@
 | TLAB-006 | P0 | done | metrics worker; accepted B3/coordinator | — |
 | TLAB-007 | P0 | done | heuristic worker; accepted B2/coordinator | — |
 | TLAB-008 | P0 | done: two-fit smoke; strong tuning tracked019 | root; independent code/output accept | —;017 accepted |
-| TLAB-009 | P1 | full source accepted; ONEfit code accepted, execution pending | root; independent direct-list reviewer | 008 smoke accepted; core→runner→100Q review gates |
+| TLAB-009 | P1 | done: source/model accepted; wholeblock rejected, base41 frozen | root; independent direct-list reviewer | 008 smoke accepted; core→runner→100Q review gates |
 | TLAB-010 | P1 | blocked | unassigned | 008 |
 | TLAB-011 | P1 | blocked | unassigned | 008 |
 | TLAB-012 | P1 | blocked | unassigned | 008, measured resource gate; user-item review completed |
@@ -359,3 +359,12 @@ Six [new literature rounds](research-lab/index.md) preserve source/capability/li
 [Exact009 execution gate](backlog-reviews/tlab009-single-fit-approval.md) issued for unchanged192pins/runce0e…; Root started ONEattempt with fresh-parent CPU/tail receipt. Actual outputs remain pending independent model/score/fullY/bootstrap audit. No independent heavy source/model job overlaps measured fitting.
 
 [019 worker seam](backlog-reviews/strong-worker-design.md) is changes-requested: canonical tie law remains fewer trees→smaller depth→incumbent→configID within globalmax−1e−12. TERM/grace/KILL/reap/no descendants, live-child CPU and partial-checkpoint eligibility must be fixed prospectively before execution. Fresh processes solve monotonic peakRSS fallback; they do not create extra CPU, fits or looks.
+
+
+### TLAB009 actual model ACCEPT, whole metadata block REJECT — 15 октября 2026
+
+[Independent output verdict](backlog-reviews/tlab009-model-output-verification.md): exactlyONE50treefit/runce0e67…, all817149scores/fourfullYestimands/200pairedbootstrap/modelparams/noCTR/keys/claim/pins verified. NDCG.40041404049<.41444755082; Recall.54500978474<.57921330724floor. **Frozenfinalmanualfeature schema for019/016 = base41; eligibleincumbent existing008Logloss50/6000.** Sourcecheckedmetadataoutputs remain archive, no replacement/refit/retune. TLAB009done as falsifiedblockhypothesis, not successfulqualitygain.
+
+Producer101.181955CPU seconds; failedobserver3.335586+corrected4.585806=7.921392CPU charged, no reset/no new nativefits. Staticcritic terminal/scope/metadata blindspots closed by external checks and successfulparentexit; weightproofscope limited to acceptedcode+expectedpopulation, notCBMweightrecovery.
+
+[Round026](research-lab/round-026.md)+[critic](research-lab/round-026-review.md) offer8current005legal bundles with exact3physicalclosure; candidatebuyerdistinct168/categorymissing/coverage72aliases excluded. [Round027](research-lab/round-027.md) separates prospective fixedslotfairness from equalrealisedCPU and measuredstrategyquality. These do not grant newoperators/fits;019workercontract/exactexecution and016namedpool/seed/schema freeze still required.

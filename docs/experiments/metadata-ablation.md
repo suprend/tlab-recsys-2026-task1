@@ -1,6 +1,8 @@
 # TLAB-009: единственное сравнение metadata/price
 
-Статус: runner и 16 synthetic/mocked tests реализованы. Первое независимое review выявило ошибку classification при terminal failure; [исправление принято независимым re-review](../backlog-reviews/tlab-metadata-ablation-independent-rereview.md), отдельное execution approval ожидается. Реальные matrices/Pool/fit ещё не запускались. Accepted008/metadata100Q producers неизменны. Это development screening experiment на том же C/Y и тех же 6000train/4000selection Q; его задача — решить, включать ли весь metadata block в последующий frozen baseline.
+Статус: **единственный actualfit и независимая output-проверка приняты; metadata/price блок отклонён по заранее закреплённому правилу**. NDCG@20 .400414 вместо .414448 у unchanged008, Recall@20 .545010 вместо .581213. Дальнейшийbaseline сохраняетbase41, incumbent008Logloss50/6000; no retune/replacement. [Полные результаты, ресурсы и история observer failure](../backlog-reviews/tlab009-model-output-verification.md).
+
+Ниже сохранён design исходного сравнения: runner16synthetic/mockedtests, initialterminalclassificationP1 и independentcodeacceptance. Accepted008/metadata100Q producers неизменны.
 
 `prepare_plan` повторно проверяет strict canonical14 collection scope, одинаковую temporal policy и положительный availability gap, полный independently accepted metadata export с physical Parquet checks, actual config snapshot и внешний accepted008control. Полный numeric order фиксирован в identity: base41+metadata15; отдельно3nominal. Все actual input/code/environment/output/control proof hashes входят в план; подготовка плана не запускает обучение и не выдаёт разрешение.
 
@@ -26,3 +28,6 @@ Timeout/MemoryError записывает failed attempt и base41/no replacement
 
 
 [Полный source export](../backlog-reviews/tlab009-full-source-verification.md) принят176pinrecord, [old008control](../backlog-reviews/tlab008-control-seal.md) —114pinrecord. Readonlyactualproposal ce0e67…fcd2a проверила192pins/wholephysicalconsumer/control/environment:72.600066wall/76.881697actualCPU seconds/RSS579567616,0matrix/Pool/fit/claim. Exactcode35733…f047a иmodel_data89766…108f приняты; actualONEfit ещё не выполнялся.
+
+
+Actual runce0e67… independently verified all817149scores, fourfullYestimands, paired200bootstrap, model50/noCTR/effectiveparams/traincardinality. Production87.824675wall/101.181955actualCPU/RSS2984067072. Initialfailedparameterobserver3.335586CPU +correctedreplay4.585806CPU preserved;0refits. Earlier pending statements above are historical stages, superseded by this actual result.

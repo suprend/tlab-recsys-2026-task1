@@ -50,3 +50,7 @@ Primary confirmation control — frozen tuned B, а не только B+support.
 - [Round025: operator semantics proof obligations](round-025.md): grain/unit/subset/NULL/closure annotations before pool freeze; units are declared, not inferred.
 
 020–025 are research proposals/refinements, not added operators/budgets or replacement actual evidence.023–025 await a separate critic; all rejected/refined ideas remain visible. [Fresh-worker019 design](../backlog-reviews/strong-worker-design.md) retains its [changes-requested review](../backlog-reviews/strong-worker-design-review.md); canonical selection policy is unchanged.
+
+
+- [Round026: compact legal8-bundle pool](round-026.md), [independent static critic](round-026-review.md): exact3physical closure, categorymask/coverage/retrieval alias traps, prospective named-schema/draw freeze. No compiler execution or fits.
+- [Round027: interpretation of two staticI/two seededR](round-027.md): analytic expected3.40625unique bundles, collisions/no redraw and matchedslot≠equalrealisedcompute; no learned-strategy superiority claim. Critic pending.
