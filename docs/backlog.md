@@ -1,10 +1,10 @@
 # Единый рабочий backlog T-Lab
 
-Обновлено 15 октября 2026. Это первый исполняемый срез по уже завершённым исследованиям, а не ожидание всего портфеля. Пользователь разрешил ночное исполнение, meaningful tests и ограниченные pilots параллельно с постоянной research-линией. Target purchase-ranking — главный кандидат; конкретные protocol variants ещё проверяются, не объявлены финальным выбором.
+Обновлено 15 октября 2026. Канонический текущий статус приведён в таблице; последующие разделы сохраняют историю первого среза и принятых уточнений. Пользователь разрешил ночное исполнение, meaningful tests и ограниченные pilots параллельно с постоянной research-линией. Рабочий development-протокол — daily purchase ranking, eligibility48h и горизонт24h. Окончательный whole-decision lock и отложенная проверка ещё не выполнены.
 
-Координатор единолично ведёт этот файл и Git-публикацию в research-ветке/draft PR; Root исполняет TLAB-009, auxiliary worker — независимый review009; TLAB-008 smoke и017 приняты. Основная ветка не изменяется. Данные, локальные модели и run artifacts ignored; в Git — код, документация и агрегированные отчёты. Платный cloud не подключается.
+Координатор единолично ведёт этот файл и Git-публикацию в research-ветке/draft PR; Root исправляет runner016 после независимого ревью; координатор проверяет его код и ведёт heldout design; C11 реализовал независимый model observer, который проверяет Root. Source016, ручной контроль019, smoke008 и данные017 приняты. Основная ветка не изменяется. Данные, локальные модели и run artifacts ignored; в Git — код, документация и агрегированные отчёты. Платный cloud не подключается.
 
-## Текущий статус и первый цикл
+## Текущий статус
 
 | ID | Приоритет | Статус | Владелец | Обязательные зависимости |
 |---|---|---|---|---|
@@ -22,13 +22,13 @@
 | TLAB-012 | P1 | blocked | unassigned | 008, measured resource gate; user-item review completed |
 | TLAB-013 | P1 | blocked | unassigned | 008, одна выбранная sensitivity |
 | TLAB-014 | P1 | in_progress | permanent research line | постоянная линия, не блокирует ядро |
-| TLAB-015 | P0 | blocked | unassigned | locked protocol + выбранные завершённые ablations |
-| TLAB-016 | P1 | blocked | unassigned | 008,009, accepted/needs-pilot HYP |
+| TLAB-015 | P0 | in_progress: design only; no heldout reads | coordinator design; implementation unassigned | accepted016 model/output + whole-decision/prediction lock |
+| TLAB-016 | P1 | review: source accepted; model fixes pending | root implementation; coordinator review; C11 observer | repair terminal-integrity findings, observer ACCEPT, exact approval |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
 | TLAB-018 | P0 | phase1 code accepted; regeneration pending | verification worker; C11 accepted | existing-sealed readonly/manual18 only; no real scans/writes |
-| TLAB-019 | P0 | blocked: prospective tuning plan review | unassigned | 009 feature decision/freeze; CPU ledger; exact 4-fit plan review |
+| TLAB-019 | P0 | done: four fits / 12 prefixes, control sealed | root; independent replay and coordinator acceptance | immutable304-pin control; original failure preserved |
 
-Файлы `scripts/temporal_contract.py` и `tests/test_temporal_contract.py` принадлежат только Root до завершения001. Новые исполнители получают непересекающийся scope. Сообщение агента не является доказательством done: нужны actual files/diff/checks и независимый substantive review. Не повторять неизменные проверки после их прохождения; следующий run оправдывается новой правкой, failure либо конкретной неопределённостью.
+Принятые core-файлы и их исходные acceptance pins заморожены. Новая реализация использует отдельные модули; их scopes назначаются явно. Новые исполнители получают непересекающийся scope. Сообщение агента не является доказательством done: нужны actual files/diff/checks и независимый substantive review. Не повторять неизменные проверки после их прохождения; следующий run оправдывается новой правкой, failure либо конкретной неопределённостью.
 
 Источники первой версии: [архитектура B1](backlog-reviews/architecture.md), [независимая верификация B2](backlog-reviews/verification.md), [синтез16 feature studies](features/index.md), [target research](target-research/index.md). B3 завершил [независимый скептический review](backlog-reviews/skeptical-review.md): first-five допустимы как provisional slice с отдельным scan/state resource gate. Это проверка плана, не подтверждение реализации или экспериментального выигрыша.
 
@@ -73,7 +73,7 @@ Execution statuses: `ready` — нет невыполненных обязате
 
 **TLAB-014 — постоянная research-линия. P1, in_progress; current actor определяется active agent status.** Исследователи продолжают 58-topic очередь и регулярные primary-paper/generalization rounds; один рабочий слот сохраняется за research. Новые `HYP-NNN` содержат mechanism, novelty относительно нашего backlog, counterhypothesis, sources, inputs, строгую временную политику, baseline, experiment, metric/cost, acceptance/reject и scope переносимости. Статусы гипотез `accepted/needs-pilot/deferred/rejected` отделены от execution; rejected сохраняются с причиной. Output: `docs/research-lab/round-NNN.md` и новые/уточнённые HYP в canonical backlog. Один раунд: 3–5 primary papers/author repos, 2–5 содержательных гипотез либо обоснованные отказы; ≤60 минут на раунд, без обязательной квоты новых идей. Другие датасеты: сначала compatibility/license matrix, массовую загрузку не планировать. Источники: [experiment plan](experiment-plan.md), [embedding protocol](embedding-experiments.md), будущие research-lab rounds.
 
-**TLAB-016 — бюджетная автоматизация. P1, blocked до 008/009 и принятой HYP.** Первое сравнение: ограниченная grammar/random search над уже проверенными primitives против strong manual; LLM-guided — лишь отдельная ветвь с тем же бюджетом и отдельной авторизацией внешнего API. Initial cap: ≤12 materialized candidates и ≤4 validation fits, ≤2 CPU-часов; preprocessing/failed attempts входят в бюджет. Output: experiment register и operator provenance. Контргипотеза: выигрыш объясняется большим search budget. Источники: experiment plan, embedding protocol и HYP, прошедшая независимое review.
+**TLAB-016 — бюджетная автоматизация. P1, model review; source accepted.** Исходное описание первого среза ниже дополнено позднейшими fixed-procedure/selector/budget решениями; актуальные guards и владельцы — в таблице и последних audit entries. Первое сравнение: ограниченная grammar/random search над уже проверенными primitives против strong manual; LLM-guided — лишь отдельная ветвь с тем же бюджетом и отдельной авторизацией внешнего API. Initial cap: ≤12 materialized candidates и ≤4 validation fits, ≤2 CPU-часов; preprocessing/failed attempts входят в бюджет. Output: experiment register и operator provenance. Контргипотеза: выигрыш объясняется большим search budget. Источники: experiment plan, embedding protocol и HYP, прошедшая независимое review.
 
 **TLAB-015 — заморозка решения и единственный final holdout. P0, blocked до принятого protocol и завершённых выбранных ablations.** Output: lock manifest выбранных features/loss/refit policy, один test report и полный отрицательный/положительный вывод. Acceptance: latest research не переоткрывает использованный test; test не используется для новых HYP и early stopping. Максимум один согласованный финальный run на ветвь; если протокол ещё не принят, продолжать development и инфраструктуру, не читать test ради снятия блокировки.
 
@@ -474,3 +474,8 @@ Actual recovered-source acceptance remains HOLD until one exact external policy,
 [Whole-decision/driver proposal](backlog-reviews/heldout-driver-lock-design.md) and [independent adversarial critic](backlog-reviews/heldout-contract-adversarial-review.md) specify reporting-only25 and unchanged26–31, a new prospective calendar version, all B/W predictions sealed before any reserved query-Y unlock, legal raw25 history for26, sampled user-day membership, fullY/censoring and separate clock/budget gates. No heldout data/model/target execution or new fit permission follows from these notes. Exact positive simulated compute allowance, budgets, code/seal reviews remain pending.
 
 [Scientific scope review](backlog-reviews/tlab016-fixed-procedure-scientific-claims-review.md) clarifies that selected-union12 serves four B+3 arms; finalW adds0 or3 physical columns. A valid negative result may support an automation demonstration, without claiming quality/speed/strategy superiority or task completion before model/reproduction/report evidence. No new HYP, task or search budget is added.
+
+
+### Model016 review v1: changes requested before any fits
+
+[Full independent runner review](backlog-reviews/tlab016-model-runner-code-review-v1.md) reproduced two terminal-integrity blockers and unknown fit/look-count precision on missing child receipts. Twenty-one author tests passed; three unique independent synthetic regressions failed as expected against frozen61e977. Root is batching repairs; no actual016owner claim or native fit has run. The accepted019model native-parameter API probe passed without Q/Y/predictions or a quality look. Original failure evidence is retained; code acceptance awaits targeted repaired-freeze review and separate independent observer review.
