@@ -1,0 +1,100 @@
+{
+  "actual_archive_DB_model_reads": 0,
+  "actual_owner_imported": false,
+  "actual_supervisor_or_backend_called": false,
+  "application_processes": 0,
+  "author_methods": 16,
+  "body_measurement_not_external_whole_lifetime": true,
+  "cpu_seconds": 0.036267999999999995,
+  "errors": 0,
+  "failures": 0,
+  "guard_violations": [],
+  "independent_methods": 5,
+  "input_hashes_post": {
+    "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+    "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb",
+    "/Users/mdpospelov/personal-agent-system/docs/agents/verification.md": "d84015a05b7ebc9c4bdc570e75e0a62fbcbe134217a367715fbf5e2acc1e69ec",
+    "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/run_source_import.py": "5df50bb2577b4515c5d80a5eaf4a6f2bf18abe344039d1cd22a51a872e1c7653",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+    "/Users/mdpospelov/tlab-recsys-2026/uv.lock": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+    "/tmp/tlab-full-source-import-driver-owner-interface-regression.py": "8d1a5cdb60eb360b787634f3e2b3011d1e0354d78fc63fa599809e2544b16b11",
+    "/tmp/tlab-full-source-import-external-driver-v1-freeze.json": "09d8dbc4b2f5de299b93dcb47e5ef8c4671deab867d264d2b4ee4a9090b9890e",
+    "/tmp/tlab-full-source-import-external-driver-v1-owner-interface-red.txt": "f8aa853f18c4115837fc85ca4b90d9956d2d6be16f739fb478f7179ebdbea895",
+    "/tmp/tlab-full-source-import-external-driver-v1-tests.py": "d0600fbffbedba178f9a96d010e0f035858800f09b8fa7f62f572c12cfb5521d",
+    "/tmp/tlab-full-source-import-external-driver-v1.md": "8d2fefb2dab48e2a3699c6bfa6922fc187e78fea852e100e788a1bba8bea67fa",
+    "/tmp/tlab-full-source-import-external-driver-v1.py": "c83b45bbfb46ba3468f5e9930fce995b45fd43a2c4f37930b8289e6b910e9ba8",
+    "/tmp/tlab-full-source-import-external-driver-v2-author-tests.txt": "bcd156954fe92e31fe32fba5824feab619ba38fbf57c5053067512afad856d78",
+    "/tmp/tlab-full-source-import-external-driver-v2-freeze.json": "077118040f97ebcaa850d65c3b72a5fb91b44aac5d0592911a3a35bad0d4bbf8",
+    "/tmp/tlab-full-source-import-external-driver-v2-owner-interface-green.txt": "17fde96ffd1fa9800f05e01d8d289e7daabb893f50a677f03fb161d20645252b",
+    "/tmp/tlab-full-source-import-external-driver-v2-tests.py": "d1b4174d0b4304330ab98beb5324078c73320de516ca81f5a0d58f2f97aee7a9",
+    "/tmp/tlab-full-source-import-external-driver-v2.md": "50ce24ce5791a5e92293049dc622ce4b5867b8c702b3ceeb9e07d2a255b39657",
+    "/tmp/tlab-full-source-import-external-driver-v2.py": "a3ed67df71669d6784b15bff9aede9defb834e20afa4ae165b69883a299726b0",
+    "/tmp/tlab-full-source-import-request-proposal.json": "17edb3954caed6cd409765e870ef8ec547bfc407e30f0e47f5d1df92f553219c",
+    "/tmp/tlab-heldout-harness-processes.py": "449d98755ce6ea32e34bad7def7838a3f1d5ccabcbc666fb05dddc5e8c6ac232",
+    "/tmp/tlab-root-full-source-import-request-prereview-acceptance.json": "8e09c012fa22acd2955c8df9eef674a266d06326ca8acb7e328166fd8c2282e9"
+  },
+  "input_hashes_pre": {
+    "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+    "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb",
+    "/Users/mdpospelov/personal-agent-system/docs/agents/verification.md": "d84015a05b7ebc9c4bdc570e75e0a62fbcbe134217a367715fbf5e2acc1e69ec",
+    "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/run_source_import.py": "5df50bb2577b4515c5d80a5eaf4a6f2bf18abe344039d1cd22a51a872e1c7653",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+    "/Users/mdpospelov/tlab-recsys-2026/uv.lock": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+    "/tmp/tlab-full-source-import-driver-owner-interface-regression.py": "8d1a5cdb60eb360b787634f3e2b3011d1e0354d78fc63fa599809e2544b16b11",
+    "/tmp/tlab-full-source-import-external-driver-v1-freeze.json": "09d8dbc4b2f5de299b93dcb47e5ef8c4671deab867d264d2b4ee4a9090b9890e",
+    "/tmp/tlab-full-source-import-external-driver-v1-owner-interface-red.txt": "f8aa853f18c4115837fc85ca4b90d9956d2d6be16f739fb478f7179ebdbea895",
+    "/tmp/tlab-full-source-import-external-driver-v1-tests.py": "d0600fbffbedba178f9a96d010e0f035858800f09b8fa7f62f572c12cfb5521d",
+    "/tmp/tlab-full-source-import-external-driver-v1.md": "8d2fefb2dab48e2a3699c6bfa6922fc187e78fea852e100e788a1bba8bea67fa",
+    "/tmp/tlab-full-source-import-external-driver-v1.py": "c83b45bbfb46ba3468f5e9930fce995b45fd43a2c4f37930b8289e6b910e9ba8",
+    "/tmp/tlab-full-source-import-external-driver-v2-author-tests.txt": "bcd156954fe92e31fe32fba5824feab619ba38fbf57c5053067512afad856d78",
+    "/tmp/tlab-full-source-import-external-driver-v2-freeze.json": "077118040f97ebcaa850d65c3b72a5fb91b44aac5d0592911a3a35bad0d4bbf8",
+    "/tmp/tlab-full-source-import-external-driver-v2-owner-interface-green.txt": "17fde96ffd1fa9800f05e01d8d289e7daabb893f50a677f03fb161d20645252b",
+    "/tmp/tlab-full-source-import-external-driver-v2-tests.py": "d1b4174d0b4304330ab98beb5324078c73320de516ca81f5a0d58f2f97aee7a9",
+    "/tmp/tlab-full-source-import-external-driver-v2.md": "50ce24ce5791a5e92293049dc622ce4b5867b8c702b3ceeb9e07d2a255b39657",
+    "/tmp/tlab-full-source-import-external-driver-v2.py": "a3ed67df71669d6784b15bff9aede9defb834e20afa4ae165b69883a299726b0",
+    "/tmp/tlab-full-source-import-request-proposal.json": "17edb3954caed6cd409765e870ef8ec547bfc407e30f0e47f5d1df92f553219c",
+    "/tmp/tlab-heldout-harness-processes.py": "449d98755ce6ea32e34bad7def7838a3f1d5ccabcbc666fb05dddc5e8c6ac232",
+    "/tmp/tlab-root-full-source-import-request-prereview-acceptance.json": "8e09c012fa22acd2955c8df9eef674a266d06326ca8acb7e328166fd8c2282e9"
+  },
+  "methods": 21,
+  "observations": {
+    "original_v1_red": {
+      "command": [
+        "/Users/mdpospelov/tlab-recsys-2026/.venv/bin/python",
+        "-I",
+        "-B",
+        "/Users/mdpospelov/tlab-recsys-2026/scripts/run_source_import.py",
+        "--request",
+        "/Users/mdpospelov/tlab-recsys-2026/artifacts/reproduction/requests/oct2019-full-018-20261015-once.json",
+        "--expected-request-sha",
+        "17edb3954caed6cd409765e870ef8ec547bfc407e30f0e47f5d1df92f553219c"
+      ],
+      "error_type": "ValueError",
+      "message": "Normalized project-relative path required",
+      "traceback": "Traceback (most recent call last):\n  File \"/tmp/tlab-full-source-import-driver-independent-pure-v1-v2.py\", line 85, in test_actual_owner_interface_original_red_same_function_repaired_green\n    local(arg1, existing=False)\n  File \"/Users/mdpospelov/tlab-recsys-2026/scripts/run_source_import.py\", line 47, in local\n    need(type(name) is str and name and not name.startswith('/') and '\\\\' not in name,'Normalized project-relative path required')\n  File \"/Users/mdpospelov/tlab-recsys-2026/scripts/run_source_import.py\", line 36, in need\n    if not condition:raise ValueError(message)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Normalized project-relative path required\n"
+    },
+    "repaired_v2_green": {
+      "command": [
+        "/Users/mdpospelov/tlab-recsys-2026/.venv/bin/python",
+        "-I",
+        "-B",
+        "/Users/mdpospelov/tlab-recsys-2026/scripts/run_source_import.py",
+        "--request",
+        "artifacts/reproduction/requests/oct2019-full-018-20261015-once.json",
+        "--expected-request-sha",
+        "17edb3954caed6cd409765e870ef8ec547bfc407e30f0e47f5d1df92f553219c"
+      ],
+      "filesystem_observation_mocked": true,
+      "owner_imported": false,
+      "resolved": "/Users/mdpospelov/tlab-recsys-2026/artifacts/reproduction/requests/oct2019-full-018-20261015-once.json"
+    },
+    "source_delta": [
+      "command"
+    ]
+  },
+  "project_or_consumed_root_writes": 0,
+  "status": "PASS",
+  "wall_seconds": 0.03869625000515953
+}

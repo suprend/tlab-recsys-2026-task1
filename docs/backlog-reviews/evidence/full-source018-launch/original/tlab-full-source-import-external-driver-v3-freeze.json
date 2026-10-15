@@ -1,0 +1,95 @@
+{
+  "version": 3,
+  "scope": "full_source018_external_driver_outer_budget_split_only",
+  "author": "/root/execution_scope_audit",
+  "created_at": "2026-10-15T09:34:16.098653+00:00",
+  "independent_reviewer": "/root/six_role_harness",
+  "independent_review_status": "pending",
+  "execution_granted": false,
+  "actual_owner_or_supervisor_called": false,
+  "source_diff": "Only outer LIMITS7200/10800 ->7190/10790;8GiB unchanged",
+  "outer_limits": {
+    "cpu_seconds": 7190,
+    "wall_seconds": 10790,
+    "rss_bytes": 8589934592
+  },
+  "unchanged_inner_request_limits": {
+    "cpu_seconds": 7200,
+    "wall_seconds": 10800,
+    "rss_bytes": 8589934592
+  },
+  "root_outside_entry_reserve": {
+    "cpu_seconds": 10,
+    "wall_seconds": 10
+  },
+  "root_metadata_stage_limit": {
+    "cpu_seconds": 5,
+    "wall_seconds": 5
+  },
+  "original_combined_ceiling": {
+    "cpu_seconds": 7200,
+    "wall_seconds": 10800
+  },
+  "v6_internal_reserves_already_inside_outer": {
+    "cpu_seconds": 2,
+    "wall_seconds": 5
+  },
+  "v6_reserves_not_double_counted": true,
+  "actual_external_lifetime_sum_not_yet_measured": true,
+  "root_external_time_l_receipts_and_combined_cap_check_required": true,
+  "fingerprints": [
+    {
+      "path": "/tmp/tlab-full-source-import-external-driver-v2-freeze.json",
+      "sha256": "077118040f97ebcaa850d65c3b72a5fb91b44aac5d0592911a3a35bad0d4bbf8",
+      "bytes": 5585
+    },
+    {
+      "path": "/tmp/tlab-full-source-import-external-driver-v3.py",
+      "sha256": "3f28305f33a4cda040504dffbe6fe14ce3dda5206e9662941c8e2d5ab6b71b49",
+      "bytes": 9412
+    },
+    {
+      "path": "/tmp/tlab-full-source-import-external-driver-v3-tests.py",
+      "sha256": "daa1a7061e96fc8d68c2412110609634e0dec0251f030ae2e989fc26d6eab4c1",
+      "bytes": 12641
+    },
+    {
+      "path": "/tmp/tlab-full-source-import-external-driver-v3-author-tests.txt",
+      "sha256": "42cf1e659bfd2767fd03a77fb443f67cc47d6851e3f9d473803fdc3cb85241b2",
+      "bytes": 2695
+    },
+    {
+      "path": "/tmp/tlab-full-source-import-external-driver-v3.md",
+      "sha256": "09b3a275e1e17fe4f263e09d9c57e529cd2ccc363b0cd8fe8907d858d371492d",
+      "bytes": 1836
+    },
+    {
+      "path": "/tmp/tlab-full-source-import-driver-independent-code-review.md",
+      "sha256": "cc3d947058549e3885f6c7535697f1557236891bfae9ce9c9371ca9e39b97935",
+      "bytes": 5067
+    }
+  ],
+  "prior_v2_all17fingerprints_unchanged": true,
+  "observed_absent": [
+    "/Users/mdpospelov/tlab-recsys-2026/artifacts/reproduction/requests/oct2019-full-018-20261015-once.json",
+    "/Users/mdpospelov/tlab-recsys-2026/artifacts/source-import-runs/oct2019-full-018-20261015-once",
+    "/Users/mdpospelov/tlab-recsys-2026/artifacts/source-import-owner/claims/oct2019-full-018-20261015-once.json",
+    "/tmp/tlab-full-source018-20261015-once-owner.stdout-stderr.log",
+    "/tmp/tlab-full-source018-20261015-once-process-receipt.json",
+    "/tmp/tlab-full-source018-20261015-once-driver.stdout.json",
+    "/tmp/tlab-full-source018-20261015-once-driver.error.json"
+  ],
+  "author_tests": {
+    "methods": 16,
+    "status": "PASS",
+    "reported_body_seconds": 0.021,
+    "terminal_exit": 0,
+    "terminal_chunk": "adfbd1",
+    "supervise_mocked": true,
+    "backend_never_instantiated": true
+  },
+  "no_project_writes": true,
+  "no_staging_or_claims_or_grants": true,
+  "no_archive_or_DB_or_model_reads": true,
+  "no_native_SQL_fit_predict": true
+}

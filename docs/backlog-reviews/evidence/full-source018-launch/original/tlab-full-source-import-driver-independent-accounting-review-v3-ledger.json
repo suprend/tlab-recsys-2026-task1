@@ -1,0 +1,100 @@
+{
+  "V6_internal_reserves_already_inside_outer": {
+    "cpu_seconds": 2,
+    "wall_seconds": 5
+  },
+  "absent_paths": {
+    "/Users/mdpospelov/tlab-recsys-2026/artifacts/reproduction/requests/oct2019-full-018-20261015-once.json": true,
+    "/Users/mdpospelov/tlab-recsys-2026/artifacts/source-import-owner/claims/oct2019-full-018-20261015-once.json": true,
+    "/Users/mdpospelov/tlab-recsys-2026/artifacts/source-import-runs/oct2019-full-018-20261015-once": true,
+    "/tmp/tlab-full-source018-20261015-once-driver.error.json": true,
+    "/tmp/tlab-full-source018-20261015-once-driver.stdout.json": true,
+    "/tmp/tlab-full-source018-20261015-once-owner.stdout-stderr.log": true,
+    "/tmp/tlab-full-source018-20261015-once-process-receipt.json": true
+  },
+  "actual_archive_DB_model_reads": 0,
+  "actual_combined_lifetime_not_yet_measured": true,
+  "actual_owner_backend_calls": 0,
+  "application_processes": 0,
+  "author": "/root/execution_scope_audit",
+  "delegated_helpers": 0,
+  "execution_grant": false,
+  "findings": [],
+  "freeze_sha256": "d0d363ca0e0b18eb6f0771776f07b69e2d7c5aae9ff6837cbd5642564134727e",
+  "freshness_input_count": 24,
+  "inner_limits": {
+    "cpu_seconds": 7200,
+    "rss_bytes": 8589934592,
+    "wall_seconds": 10800
+  },
+  "input_hashes": {
+    "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/run_source_import.py": "5df50bb2577b4515c5d80a5eaf4a6f2bf18abe344039d1cd22a51a872e1c7653",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+    "/Users/mdpospelov/tlab-recsys-2026/uv.lock": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+    "/tmp/tlab-full-source-import-driver-independent-code-review.md": "cc3d947058549e3885f6c7535697f1557236891bfae9ce9c9371ca9e39b97935",
+    "/tmp/tlab-full-source-import-driver-owner-interface-regression.py": "8d1a5cdb60eb360b787634f3e2b3011d1e0354d78fc63fa599809e2544b16b11",
+    "/tmp/tlab-full-source-import-external-driver-v1-freeze.json": "09d8dbc4b2f5de299b93dcb47e5ef8c4671deab867d264d2b4ee4a9090b9890e",
+    "/tmp/tlab-full-source-import-external-driver-v1-owner-interface-red.txt": "f8aa853f18c4115837fc85ca4b90d9956d2d6be16f739fb478f7179ebdbea895",
+    "/tmp/tlab-full-source-import-external-driver-v1-tests.py": "d0600fbffbedba178f9a96d010e0f035858800f09b8fa7f62f572c12cfb5521d",
+    "/tmp/tlab-full-source-import-external-driver-v1.md": "8d2fefb2dab48e2a3699c6bfa6922fc187e78fea852e100e788a1bba8bea67fa",
+    "/tmp/tlab-full-source-import-external-driver-v1.py": "c83b45bbfb46ba3468f5e9930fce995b45fd43a2c4f37930b8289e6b910e9ba8",
+    "/tmp/tlab-full-source-import-external-driver-v2-author-tests.txt": "bcd156954fe92e31fe32fba5824feab619ba38fbf57c5053067512afad856d78",
+    "/tmp/tlab-full-source-import-external-driver-v2-freeze.json": "077118040f97ebcaa850d65c3b72a5fb91b44aac5d0592911a3a35bad0d4bbf8",
+    "/tmp/tlab-full-source-import-external-driver-v2-owner-interface-green.txt": "17fde96ffd1fa9800f05e01d8d289e7daabb893f50a677f03fb161d20645252b",
+    "/tmp/tlab-full-source-import-external-driver-v2-tests.py": "d1b4174d0b4304330ab98beb5324078c73320de516ca81f5a0d58f2f97aee7a9",
+    "/tmp/tlab-full-source-import-external-driver-v2.md": "50ce24ce5791a5e92293049dc622ce4b5867b8c702b3ceeb9e07d2a255b39657",
+    "/tmp/tlab-full-source-import-external-driver-v2.py": "a3ed67df71669d6784b15bff9aede9defb834e20afa4ae165b69883a299726b0",
+    "/tmp/tlab-full-source-import-external-driver-v3-author-tests.txt": "42cf1e659bfd2767fd03a77fb443f67cc47d6851e3f9d473803fdc3cb85241b2",
+    "/tmp/tlab-full-source-import-external-driver-v3-freeze.json": "d0d363ca0e0b18eb6f0771776f07b69e2d7c5aae9ff6837cbd5642564134727e",
+    "/tmp/tlab-full-source-import-external-driver-v3-tests.py": "daa1a7061e96fc8d68c2412110609634e0dec0251f030ae2e989fc26d6eab4c1",
+    "/tmp/tlab-full-source-import-external-driver-v3.md": "09b3a275e1e17fe4f263e09d9c57e529cd2ccc363b0cd8fe8907d858d371492d",
+    "/tmp/tlab-full-source-import-external-driver-v3.py": "3f28305f33a4cda040504dffbe6fe14ce3dda5206e9662941c8e2d5ab6b71b49",
+    "/tmp/tlab-full-source-import-request-proposal.json": "17edb3954caed6cd409765e870ef8ec547bfc407e30f0e47f5d1df92f553219c",
+    "/tmp/tlab-heldout-harness-processes.py": "449d98755ce6ea32e34bad7def7838a3f1d5ccabcbc666fb05dddc5e8c6ac232"
+  },
+  "outer_limits": {
+    "cpu_seconds": 7190,
+    "rss_bytes": 8589934592,
+    "wall_seconds": 10790
+  },
+  "outside_reserve": {
+    "cpu_seconds": 10,
+    "wall_seconds": 10
+  },
+  "project_consumed_root_writes": 0,
+  "proof_pins": {
+    "/tmp/tlab-full-source-import-driver-independent-accounting-pure-v3.json": "5fc1629afe63ae006d4d699a6ffe6e0f3839c1392551b3c28ec81b791e2691f5",
+    "/tmp/tlab-full-source-import-driver-independent-accounting-pure-v3.log": "a04275ef4f97f97f37cbb7dbedc49eef9835e1341a495534fa9e282375f1d827",
+    "/tmp/tlab-full-source-import-driver-independent-accounting-pure-v3.py": "7e20e5d76fc35f73e39c890c238aaf1010c50f36d2d9bec330543a87fa2d0c0d",
+    "/tmp/tlab-full-source-import-driver-independent-inputs-v3/input-freeze.json": "d6f456eec8b166ca0124b106c9f41ac2d1906aabea1add20b099a882a157ffca"
+  },
+  "pure": {
+    "cpu_seconds": 0.013419,
+    "errors": 0,
+    "failures": 0,
+    "guard_violations": [],
+    "independent_accounting_methods": 3,
+    "methods": 6,
+    "selected_author_methods": 3,
+    "status": "PASS",
+    "wall_seconds": 0.01341787500132341
+  },
+  "report": {
+    "path": "/tmp/tlab-full-source-import-driver-independent-accounting-review-v3.md",
+    "sha256": "b309ed4d53799385e8366c7ae64d33052206427fc9db083ede0f635e13af7ef3"
+  },
+  "reviewer": "/root/six_role_harness",
+  "scope": "V3_outer_accounting_delta_only",
+  "source_sha256": "3f28305f33a4cda040504dffbe6fe14ce3dda5206e9662941c8e2d5ab6b71b49",
+  "stage_max": {
+    "cpu_seconds": 5,
+    "wall_seconds": 5
+  },
+  "terminal": {
+    "chunk": "871112",
+    "exit_code": 0
+  },
+  "tests_sha256": "daa1a7061e96fc8d68c2412110609634e0dec0251f030ae2e989fc26d6eab4c1",
+  "verdict": "no_unresolved_finding_in_requested_delta"
+}

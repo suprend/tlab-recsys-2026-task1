@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/tmp/tlab-full-source-import-driver-owner-interface-regression.py", line 48, in <module>
+    print(json.dumps(probe(Path(sys.argv[1])),sort_keys=True))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tlab-full-source-import-driver-owner-interface-regression.py", line 38, in probe
+    result=local(argument,existing=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mdpospelov/tlab-recsys-2026/scripts/run_source_import.py", line 47, in local
+    need(type(name) is str and name and not name.startswith('/') and '\\' not in name,'Normalized project-relative path required')
+  File "/Users/mdpospelov/tlab-recsys-2026/scripts/run_source_import.py", line 36, in need
+    if not condition:raise ValueError(message)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Normalized project-relative path required

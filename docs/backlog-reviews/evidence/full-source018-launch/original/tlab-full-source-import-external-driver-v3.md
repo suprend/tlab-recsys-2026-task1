@@ -1,0 +1,9 @@
+# Full-source018 driver V3 — only outer-budget split
+
+Root accepted V2 CODE after the independent interface review. V3 changes one constant expression only: outer supervisor LIMITS are7190CPU seconds,10790wall seconds,8GiB sampled RSS. The original request and the driver's inner-resource assertions remain7200CPU/10800wall. The relative CLI request repair, request SHA, source/closure checks, exclusivity, no retry and original supervisor failure flags are unchanged.
+
+The original overall allowance remains7200CPU/10800wall. Root reserves10CPU/10wall outside this driver ENTRY for bounded metadata staging and external-launch/accounting overhead; Root's staging itself is limited to<=5CPU/<=5wall. The accepted V6 internal2CPU finalization reserve and5wall allowance are already inside7190/10790 and are not added again. The outer limit may stop the inner owner earlier; no allowance or attempt is refilled.
+
+Root must collect external `/usr/bin/time -l` complete-exit observations and check the actual charged sum, including outside-ENTRY work, against the unchanged7200/10800 ceiling. This source proposal does not claim that future staging/launch/tails have already happened or are measured. Sampled8GiB remains an observation guard, not a hard aggregate allocation guarantee.
+
+Actual author check: unchanged16 pure/mocked methods PASS0.021s; terminal exit0, chunkadfbd1. Tests expect7190/10790 only for the outer supervisor call; mocked inner request and preflight rejection contract still use7200/10800. The actual accepted owner need/local AST tests remain. No supervisor, owner, process backend, archive/DB/model, native/SQL/fit, staging, project write, claim or grant was performed. V1/V2 original evidence remains immutable. Narrow independent review by `/root/six_role_harness` is pending; Root retains runtime authority.
