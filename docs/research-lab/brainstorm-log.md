@@ -1,6 +1,6 @@
 # Журнал новых исследовательских идей
 
-Обновлён 15 октября 2026, 06:45 UTC / 09:45 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
+Обновлён 15 октября 2026, 06:55 UTC / 09:55 МСК. Этот журнал отделяет новые механизмы от уточнений прежнего backlog. Статус «исследуется» означает текущую работу, а не готовый результат или разрешение эксперимента. Отложенные результаты25–31 остаются закрыты.
 
 ## Действующий контракт непрерывной кампании — checkpoint 06:45 UTC / 09:45 МСК
 
@@ -158,3 +158,14 @@ TA01 объединён сFA04. TA02 distinct edit-prior остаётся local-
 ## Следующие решения
 
 Сначала сдача текущих независимых drafts, параллельно критика уже сданных F001/M001; затем ротация cross-review и сравнение novelty/стоимости. Следующие темы выбираются по найденным пробелам, а не ради счётчика HYP. Любой будущий pilot требует отдельной development/label reservation, matched baseline, заранее заданных метрик и предела стоимости. Нынешние015/016, выбранные модели и heldout policy новыми идеями не изменяются.
+
+
+## Main-round checkpoint — 06:55:12 UTC / 09:55:12 МСК
+
+После завершённых002/003 review получены также FB002, RA003 и MB003 critiques; их publication/dedup идёт отдельно, новых canonical IDs пока нет. Шесть уже зарегистрированных139–144 [нормализованы](brainstorm-wave001-normalization-receipt.json) по четырём explicit полям mechanism/testable_prediction/nearest_experiment/benefit_towardTask1. Research dispositions new/merged отдельно от fit-not-admitted/execution-not-ready; literal next gates ещё не заявлены выполненными. [Progress](../progress-report.md) теперь датирует первый реально проверенный executable task1 slice: manual B41 +generated8 pool/4 B+3 fits/development acceptance, B0.458611→R20.464703 с интервалом через0; reporting25–31 pending. Frozen source ledger experimental report описывает source snapshot331b1ae, а [evolution receipt](../backlog-reviews/evidence/progress-report-checkpoint-20261015.json) связывает прежние32refs/27paths и изменённый progress text.
+
+Authoritative inventory на этом checkpoint содержит17known handles:13running и4completed. Running independent new-author lanes: `/root/brainstorm_features_a` и `/root/brainstorm_models_a` — wave005, один вопрос о точной typed strict-past materialization, historical context331b1ae, без peer005 drafts. Фактический запуск этой новой волны наблюдён сейчас, а не оставлен как future plan. `/root/brainstorm_features_b` — отдельный skeptic обеих frozen004 datasets; `/root/brainstorm_retrieval_a` — собственный append-only audit RetailRocket без peer004 cross-read. Amazon author `/root/brainstorm_models_b` ужеcompleted. Root/coordinator, `/root/six_role_harness`, `/root/six_role_harness/owned_family_review`, `/root/six_role_harness/supervisor_review`, `/root/source_import_owner` и scoped primary-source helpers такжеrunning; completed helper/reviewer не посчитан действующим автором.
+
+Current failure state: narrow nativeSELF backend bridge passed в scope Root, но supervisor V5 wholecore не accepted из-за свежего parent-PID lineage P2; V6 repair активен. Source tiny harness V2 также не принят, V3 repair pending после независимых/root pure findings. Kernel/outer source owner CODE acceptance остаётся в силе; actual fit/import/reserved jobs не запускались. SafeNEXT: закончить read-only independent repair review и только затем согласовать точный bounded fresh-process request/source+resource+exit proof в Root scope. Этот checkpoint не выдаёт нового allowance и не переписывает failed evidence.
+
+Wave006 остаётся planned после следующих двух completed rounds либо07:30 UTC /10:30 МСК maximum; существующий deadline не отодвинут новыми идеями. Приоритет015/018/report, frozen B/W и inherited stop/resource/reservation limits сохраняются. Общий goal непрерывный; каждый paid operation конечен и fail-closed. Дата25October23:59 без первично подтверждённого timezone не превращена здесь в придуманный hard cutoff.

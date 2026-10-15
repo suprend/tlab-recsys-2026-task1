@@ -189,3 +189,6 @@ Crossed critique первой волны: [FA](brainstorm-fa001-review-by-b.md),
 
 
 Следующие source-only drafts, independent crossed review pending: [MB003](brainstorm-mb003.md), [RA003](brainstorm-ra003.md); [first-draft freeze](brainstorm-round003-drafts-freeze.json). Retrieval записи уточняют существующие HYP061–062/067, LA-NAM сохраняется как negative admission finding.
+
+
+[Four-field normalization](brainstorm-wave001-normalization-receipt.json) supplements the same six registered research hypotheses; [dated executable progress](../progress-report.md) and its [historical source receipt](../backlog-reviews/evidence/progress-report-checkpoint-20261015.json) keep current status distinct from the frozen report source snapshot.
