@@ -200,10 +200,10 @@ Completed follow-up critique: [FB002](brainstorm-fb002-review-by-retrieval-b.md)
 Reviewed transfer004: [AmazonReviews2023](brainstorm-mb004.md), [RetailRocket](brainstorm-ra004.md), [separate skeptic](brainstorm-wave004-skeptic-review.md), [ten-file/body/probe publication freeze](brainstorm-wave004-publication-freeze.json). One original8-case AST-isolated symbolic gate passed; external corpus/quality/runtime transfer remains unmeasured.
 
 
-[Root-limited004 readback](brainstorm-wave004-root-literal-review.json) accepts original symbolic/literal evidence only; [wave002 synthesis](brainstorm-wave002-synthesis.md) is a proposed conditional-registration normalization with0newIDs. Current006 live author observation and source-free failure gates remain in the journal checkpoint.
+[Root-limited004 readback](brainstorm-wave004-root-literal-review.json) accepts original symbolic/literal evidence only; [wave002 synthesis](brainstorm-wave002-synthesis.md) is a proposed conditional-registration normalization with0newIDs. The006 live observation was historical; subsequent author/skeptic states and source-free failure gates are dated in the journal checkpoint.
 
 
-Wave005 independent same-question first drafts: [FeaturesA](brainstorm-fa005.md), [ModelsA](brainstorm-ma005.md), [eight-file publication freeze](brainstorm-wave005-publication-freeze.json). HYP046 refinements only; separate skeptic active, no full-output correctness or speedup proof.
+Wave005 independent same-question first drafts: [FeaturesA](brainstorm-fa005.md), [ModelsA](brainstorm-ma005.md), [eight-file publication freeze](brainstorm-wave005-publication-freeze.json). HYP046 refinements only; the subsequent separate skeptic is completed and archived below, with no full-output correctness or speedup proof.
 
 
 [Waves005–008 additive synthesis](brainstorm-waves005-008-synthesis.md) and [22-file exact archive](archives/waves005-008/publication.json) preserve completed independent critiques and first drafts with no new IDs or execution admissions.
