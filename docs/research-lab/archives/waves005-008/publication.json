@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "scope": "exact research archive and additive four-field synthesis only; docs/backlog.md remains onlyexecutionqueue",
   "files": {
     "docs/research-lab/archives/waves005-008/original/tlab-wave005-skeptic-review.md": {
@@ -298,8 +298,8 @@
   "readback_status": {
     "005": "Root read full skeptic; narrow research conclusions only",
     "006": "Root receipt archived; exact rational/NULL and paper-version qualifications preserved",
-    "007": "independent skeptic completed; Root readback pending at archive preparation",
-    "008": "Separate skeptic completed; Root research/literal readback pending; zero execution admission"
+    "007": "Root full research readback accepted: toy common-mode/type evidence only, no production assurance/admission",
+    "008": "Root full research readback accepted: finite point bounds only, population/scheduler usefulness unresolved, no admission"
   },
   "no_measured_physical_gain_or_predictive_superiority": true,
   "publication_qa": {
@@ -313,10 +313,16 @@
     "scope": "metadata/readback only",
     "archived_python_AST_parsed": 1
   },
-  "prior_publication_manifest_sha256": "96509725bae13e36960a688c9f10332025b67fe84a4bbdba25441eaca5bf5c34",
-  "prior_published_manifest_commit": "c3d3c3b974833421037db277c6cf86cce25f61c8",
+  "prior_publication_manifest_sha256": "8052bddc5ca3cd85e68f5185d2752567f80ad758e3a1f18c307e92314051c00f",
+  "prior_published_manifest_commit": "b2a26f4fe961e994f59d3d8bd5c6d2ab7dd3ee70",
   "wave008_readiness_findings": [
     "P2: distinguish100Q training/evaluation cap and compatible W population",
     "P2: single realized A-S pipeline comparison does not establish expected policy benefit"
-  ]
+  ],
+  "Root_research_receipt": {
+    "path": "docs/research-lab/archives/wave009/original/tlab-root-waves007-009-readback.json",
+    "sha256": "e25f7b10529dc9da9445b550700fad9b5d9585839b34f272fa451349194f1d73",
+    "crosswave_pins": 21,
+    "new_IDs_or_jobs": 0
+  }
 }

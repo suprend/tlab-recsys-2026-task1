@@ -207,3 +207,6 @@ Wave005 independent same-question first drafts: [FeaturesA](brainstorm-fa005.md)
 
 
 [Waves005–008 additive synthesis](brainstorm-waves005-008-synthesis.md) and [27-file exact archive](archives/waves005-008/publication.json) preserve completed independent critiques and first drafts with no new IDs or execution admissions.
+
+
+[Wave009 synthesis](brainstorm-wave009-synthesis.md) and [eight-file exact archive](archives/wave009/publication.json): separate skeptic and Root007–009 readback accept research refinements only;0newIDs/tasks/admissions.

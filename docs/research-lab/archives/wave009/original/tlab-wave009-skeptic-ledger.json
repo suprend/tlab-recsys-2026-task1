@@ -1,0 +1,466 @@
+{
+  "schema_version": 1,
+  "wave": "009",
+  "role": "independent_skeptic",
+  "created_at_utc": "2026-10-15T08:44:43.105923+00:00",
+  "first_input_freeze": "/tmp/tlab-wave009-skeptic-inputfreeze.json",
+  "scope": "Primary-source/code text and invented finite stdlib arithmetic only",
+  "parent_constraint": "Nohelpers; main015actualcost/proof priority; nochanges015/016/reserved targets; noadmissions",
+  "helpers": 0,
+  "author_edits": false,
+  "new_mechanisms": 0,
+  "new_HYP_ids": 0,
+  "execution_admissions": 0,
+  "actual_jobs": {
+    "data": 0,
+    "SQL": 0,
+    "Q_C_Y": 0,
+    "native": 0,
+    "ML": 0,
+    "fit": 0,
+    "predict": 0,
+    "paidAPI": 0,
+    "dataset_or_weights_download": 0
+  },
+  "sources": [
+    {
+      "id": "S01",
+      "kind": "primary_paper",
+      "title": "AutAuT, NeurIPS 2025",
+      "url": "https://papers.neurips.cc/paper_files/paper/2025/file/61c2975281d60d3b1ce4cefc157d99df-Paper-Conference.pdf",
+      "access": "Direct primary PDF read; training text and Algorithm 1 inspected",
+      "anchors": [
+        "sections3.2–3.4",
+        "training p5 lines310–326",
+        "Algorithm1 p24"
+      ],
+      "verified": "Molecular LLM auxiliary-task retrieval, alignment/Fisher-related task weighting and repeated validation feedback; not a fixed fit-free selection rule",
+      "boundary": "No empirical recommendation gain or reproduced implementation"
+    },
+    {
+      "id": "S02",
+      "kind": "primary_author_code",
+      "url": "https://github.com/zhiqiangzhongddu/AUTAUT/blob/main/code/main_GNN.py",
+      "path": "code/main_GNN.py",
+      "ref": "main (mutable)",
+      "inspected_blob_sha": "334c55b7f2676bc82d8fc84e58d24984ac443d94",
+      "access": "Direct GitHub file read before skeptic arithmetic",
+      "verified": "scratch/train/pretrain dispatch to train_and_eval; latter branches marked TBD",
+      "boundary": "Inspected path only; modification metadata is not release provenance"
+    },
+    {
+      "id": "S03",
+      "kind": "primary_author_code",
+      "url": "https://github.com/zhiqiangzhongddu/AUTAUT/blob/main/code/gnns/gnn_runner.py",
+      "path": "code/gnns/gnn_runner.py",
+      "ref": "main (mutable)",
+      "inspected_blob_sha": "e6762ce45c4a835b0a4ca1de52183102277006ae",
+      "anchors": [
+        "lines120–231"
+      ],
+      "access": "Direct GitHub file read before skeptic arithmetic",
+      "verified": "Ordinary task loss backward/step, train/valid/test evaluation and get_pred each epoch, best validation epoch",
+      "boundary": "No claim of repo-wide missing algorithm; no execution"
+    },
+    {
+      "id": "S04",
+      "kind": "primary_paper",
+      "title": "GradEnFS, AISTATS 2024",
+      "url": "https://proceedings.mlr.press/v238/liu24f.html",
+      "access": "Direct primary publisher read",
+      "verified": "Sparse MLP gradient-ensemble input feature selection",
+      "boundary": "No auxiliary-label or ranking guarantee"
+    },
+    {
+      "id": "S05",
+      "kind": "primary_author_code",
+      "url": "https://github.com/KaitingLiu/GradEnFS/blob/main/main.py",
+      "path": "main.py",
+      "ref": "main (mutable)",
+      "inspected_blob_sha": "ed1aa850b426ed321a62cf3ce64e88cc87a86431",
+      "anchors": [
+        "lines90–121"
+      ],
+      "access": "Direct GitHub file read",
+      "verified": "Batch mean absolute input gradients, optimizer step and sparse importance update",
+      "boundary": "No execution or immutable release reconstruction"
+    },
+    {
+      "id": "S06",
+      "kind": "primary_author_code",
+      "url": "https://github.com/KaitingLiu/GradEnFS/blob/main/gradenfs.py",
+      "path": "gradenfs.py",
+      "ref": "main (mutable)",
+      "inspected_blob_sha": "e37afed54e681b42d007e20f80ad42c03af92f1a",
+      "anchors": [
+        "lines130–145"
+      ],
+      "access": "Direct GitHub file read",
+      "verified": "beta*previous+gradient importance and top-k",
+      "boundary": "Different statistic from absolute aggregate gate gradient"
+    },
+    {
+      "id": "S07",
+      "kind": "primary_paper_foundation",
+      "title": "Du et al., Adapting Auxiliary Losses Using Gradient Similarity",
+      "url": "https://arxiv.org/html/1812.02224v2",
+      "access": "Direct primary read",
+      "anchors": [
+        "section3",
+        "Proposition2",
+        "AppendixA"
+      ],
+      "verified": "Cosine-weighted auxiliary shared-parameter updates and conditional differentiable-loss convergence; noisy cosine/slower convergence caveats",
+      "boundary": "Not a finite-step ranking or selected-feature guarantee; older foundation explicitly separated from2024–26 works"
+    },
+    {
+      "id": "S08",
+      "kind": "primary_paper_foundation",
+      "title": "ESMM",
+      "url": "https://arxiv.org/pdf/1804.07931v2",
+      "access": "Direct primary PDF read",
+      "anchors": [
+        "sections2.1–2.3"
+      ],
+      "verified": "Impression-domain click/conversion factorization and shared representation",
+      "boundary": "FixedC is not impressions; no REES46 funnel/CTR/CVR inference"
+    },
+    {
+      "id": "L01",
+      "kind": "existing_project_contract",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/refinement-multibehavior-auxiliary.md",
+      "anchors": [
+        "lines17–43"
+      ],
+      "verified": "HYP065 nested union-any distinction, joint auxiliary shared-encoder comparison, matched controls, strict maturity and fullY",
+      "read_only": true
+    },
+    {
+      "id": "L02",
+      "kind": "existing_project_interface",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/boosting-baselines.md",
+      "anchors": [
+        "lines7–17"
+      ],
+      "verified": "Numeric NULL is NaN, existing manual/missing/coverage/retrieval inputs, no fitted imputer; strict availability",
+      "read_only": true
+    },
+    {
+      "id": "L03",
+      "kind": "accepted_public_aggregate",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab017-collection-verification.md",
+      "anchors": [
+        "lines5–10"
+      ],
+      "verified": "Train26000Q,496positiveQ,619fullY,5317058candidate rows,444retrieved; selection4000Q,73positiveQ,96fullY,817149rows,65retrieved",
+      "boundary": "Historical accepted aggregate only; no actual rows or new support calculation",
+      "read_only": true
+    },
+    {
+      "id": "L04",
+      "kind": "dedup_prior",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-fb002.md",
+      "anchors": [
+        "lines33–47"
+      ],
+      "verified": "FB07 supervised acquisition, paid feedback and W/equal-replacement comparator boundary",
+      "read_only": true
+    },
+    {
+      "id": "L05",
+      "kind": "dedup_prior",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-fa001.md",
+      "anchors": [
+        "lines13–59"
+      ],
+      "verified": "FA01pair,FA02migration,FA03tasktransfer,FA04macros are existing distinct search mechanisms",
+      "read_only": true
+    },
+    {
+      "id": "L06",
+      "kind": "dedup_prior",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-waves005-008-synthesis.md",
+      "anchors": [
+        "lines3–7"
+      ],
+      "verified": "Prior search/acquisition/closure and budget refinements; no existing execution reuse",
+      "read_only": true
+    },
+    {
+      "id": "A_MB",
+      "kind": "frozen_author_input",
+      "path": "/tmp/tlab-brainstorm-auxiliary-models-b-wave009.md",
+      "sha256": "eed791370c441f2f7511cded7d726a095417f878a05ca78a7543744988ab49e1",
+      "anchors": [
+        "lines7–15 fourfields",
+        "lines31–45 contracts",
+        "lines49–53 witnesses",
+        "lines57–65 controls/costs"
+      ],
+      "boundary": "Proposal, not implemented or measured"
+    },
+    {
+      "id": "A_RA",
+      "kind": "frozen_author_input",
+      "path": "/tmp/tlab-brainstorm-auxiliary-retrieval-a-wave009.md",
+      "sha256": "fc8998c04e0f97e6684eb213287052c36816b46dc0450fb47be7091a2ee5eebd",
+      "anchors": [
+        "lines9–14 fourfields",
+        "lines18–34 labels/witnesses",
+        "lines38–58 budget/temporal protocol"
+      ],
+      "boundary": "Proposal, not implemented or measured"
+    },
+    {
+      "id": "L07",
+      "kind": "current_consumer_source",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/program_model_data.py",
+      "anchors": [
+        "lines1,61–84,119"
+      ],
+      "verified": "B41numeric representation and exact three-column physical delta; recency masks belong to closure",
+      "access": "Literal source read only; no import or execution"
+    }
+  ],
+  "entries": [
+    {
+      "existing_local_id": "MB9-R01",
+      "mechanism": "Auxiliary readouts train on detached purchase representation; separate fixed-weight gate attribution routes aligned auxiliary credit to AST bundle selection, never trunk updates.",
+      "testable_prediction": "Auxiliary-credit bundle beats matched purchase-credit bundle on later purchase-fullY ranking with fixed pool/capacity and identical final learning.",
+      "nearest_experiment": "ExistingHYP065 joint shared-encoder auxiliary contrast; FA/FB paid search/acquisition; own literal credit/ranking witnesses.",
+      "benefit_toward_task1": "Evaluate whether mature view/cart labels improve automatic strict-past feature selection at justified cost.",
+      "disposition": "retain_refinement_defer_real_pilot",
+      "new_mechanism": false,
+      "new_id": false,
+      "execution_admitted": false,
+      "conditional_delta_vs_HYP065": "Changed supervision destination: selector credit, not shared representation. Merge if same auxiliary-only selector routing already exists.",
+      "critical_unresolved": [
+        "Finite NaN encoding and complete physical closure;49/1699 parameter arithmetic is conditional",
+        "Explicit checkpoint cohort for84480reverse-row claim",
+        "Retrieved-positive support, not only fullYpositive queries/users",
+        "Executable detachment/trunk/Pcredit invariance with isolated state and differentiable attribution recomputation",
+        "W reference or equal-capacity replacement; B41 alone cannot establish task1 improvement"
+      ],
+      "matched_control": "Shared fully paid proxy trajectory and purchase-only credits; isolate auxiliary credit usage; report cheaper standalone purchase-only work. Same final capacity/population/settings. CompatibleW scoring charged; additionalWfit requires enlarged separate reservation.",
+      "literal_falsifier": "Own stdlib analytic credit reversal and constructed alignment/ranking counterexample PASS; no detach implementation tested.",
+      "future_minimal_gate": "Bounded literal finite encoding/closure/detachment/controller test under separate authority; no new mandatory framework. Then separate source gate before real comparison.",
+      "sources": [
+        "A_MB",
+        "L01",
+        "L02",
+        "L03",
+        "L04",
+        "L05",
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07"
+      ]
+    },
+    {
+      "existing_local_id": "R009-E1",
+      "mechanism": "Use auxiliary proxy only after predeclared purchase tie; compare allocation with spending remaining credits on additional purchase-only AST probes.",
+      "testable_prediction": "Auxiliary label allocation beats equal-opportunity purchase-only allocation and incumbentW later, with Recall/cost/support guards.",
+      "nearest_experiment": "ExistingHYP065 label semantics, FA/FB search acquisition and006/008budget evidence; eight-query two-world literal.",
+      "benefit_toward_task1": "Prevent extra dense-label feedback from being claimed as efficient automatic feature discovery without opportunity-cost control.",
+      "disposition": "retain_refinement_defer_real_pilot",
+      "new_mechanism": false,
+      "new_id": false,
+      "execution_admitted": false,
+      "matched_control": "Same8ASTbank;sharedP(a,b);Pspends2credits onP(c,d),auxpolicy spends2onVC(a,b)onlyifdeclaredtie. At most6unique responses/8policycredits; failures/undefined/duplicate consume.",
+      "critical_unresolved": [
+        "88000 bound counts coreASTvalues; eight physical columns permit176000",
+        "11.44M counts two training matrices, not all learner iteration work",
+        "Equal credits are not equal physical source/CPU cost; scope is allocation not pure auxiliary-loss effect",
+        "Two-fit envelope requires compatibleprepaidW; learnedproxy or newbaseline invalidates it"
+      ],
+      "literal_falsifier": "Own stdlib tie/world/nestedunion counterexamples PASS; no final augmentation learner tested.",
+      "future_minimal_gate": "Bounded literal feedback-ledger/controller replay preserving no-tie stop and failure consumption; source and two-fit quality envelopes deferred to separate authority.",
+      "sources": [
+        "A_RA",
+        "L01",
+        "L04",
+        "L05",
+        "L06",
+        "S08"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "F01",
+      "severity": "material_contract",
+      "claim": "49 finite input /1699params conditional; currentNULLinterface permitsNaN; complete AST closure may add columns",
+      "sources": [
+        "A_MB:31",
+        "L02:11",
+        "L07:61–84"
+      ],
+      "disposition": "refine"
+    },
+    {
+      "id": "F02",
+      "severity": "material_contract",
+      "claim": "84480reverse-row visits requires16Q/checkpoint; full440000row warmup would10560000",
+      "sources": [
+        "A_MB:59",
+        "own_literal:costs"
+      ],
+      "disposition": "refine"
+    },
+    {
+      "id": "F03",
+      "severity": "editorial_arithmetic",
+      "claim": "8float32 trainpayload170145856; draft170144000 understated1856",
+      "sources": [
+        "A_MB:61",
+        "L03:7",
+        "own_literal:costs"
+      ],
+      "disposition": "refine"
+    },
+    {
+      "id": "F04",
+      "severity": "material_support",
+      "claim": "32positiveQ/16users must distinguish fullYpositive from retrievedpositive training support",
+      "sources": [
+        "A_MB:43",
+        "L03:5–10"
+      ],
+      "disposition": "refine"
+    },
+    {
+      "id": "F05",
+      "severity": "material_implementation",
+      "claim": "Detached training must coexist with differentiable fixed-weight attribution recomputation and isolated state",
+      "sources": [
+        "A_MB:35,53",
+        "own_literal:routing_contract"
+      ],
+      "disposition": "refine; implementation unexecuted"
+    },
+    {
+      "id": "F06",
+      "severity": "material_task1_comparator",
+      "claim": "B41-only improvement does not establishWimprovement; reserveWreference/replacement andcharge costs",
+      "sources": [
+        "A_MB:63–65",
+        "A_RA:54–58",
+        "L04:47"
+      ],
+      "disposition": "refine"
+    },
+    {
+      "id": "F07",
+      "severity": "scope_arithmetic",
+      "claim": "RA88000corevalues; up to176000physical8column values",
+      "sources": [
+        "A_RA:52",
+        "own_literal:costs"
+      ],
+      "disposition": "refine"
+    },
+    {
+      "id": "F08",
+      "severity": "scope_cost",
+      "claim": "11.44M is matrix-pair-row envelope, not all trainingiteration/source work",
+      "sources": [
+        "A_RA:54",
+        "own_literal:costs"
+      ],
+      "disposition": "refine"
+    },
+    {
+      "id": "F09",
+      "severity": "source_locator",
+      "claim": "AutAuTweighting discussion extends into3.4; draft3.2–3.3locator incomplete",
+      "sources": [
+        "A_MB:19",
+        "S01"
+      ],
+      "disposition": "refine"
+    },
+    {
+      "id": "F10",
+      "severity": "claim_boundary",
+      "claim": "Paper guarantees/codecompatibility do not prove targetutility; restricted code observations not repo-wideabsence",
+      "sources": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "disposition": "retain boundaries"
+    },
+    {
+      "id": "F11",
+      "severity": "matched_budget",
+      "claim": "6unique responses/8opportunity credits valid; equalcredits differ fromphysicalCPU; Pmustgetuseful spareopportunities",
+      "sources": [
+        "A_RA:40–44",
+        "A_MB:57",
+        "own_literal:costs"
+      ],
+      "disposition": "retain with scope"
+    },
+    {
+      "id": "F12",
+      "severity": "math_boundary",
+      "claim": "All authorwitnesses reproduced; none measures actualrankerutility/detachment/throughput",
+      "sources": [
+        "own_literal:MB_credit",
+        "own_literal:MB_alignment_ranking_negative",
+        "own_literal:RA_worlds"
+      ],
+      "disposition": "retain"
+    }
+  ],
+  "own_literal_execution": {
+    "script": "/tmp/tlab-wave009-literal-check.py",
+    "result": "/tmp/tlab-wave009-literal-results.json",
+    "receipt": "exec chunk38d184, exit0",
+    "observed_outcome": "pass",
+    "cpu_seconds": 4.800000000000637e-05,
+    "boundary": "Own invented gradients/ranks/labels and payload arithmetic only; noautodiff/detachmentimplementation, proxytraining, finallearner or source throughput"
+  },
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-wave009-skeptic-review.md",
+      "bytes": 15342,
+      "sha256": "f149c68fd727e8582f37bf14e1c491ff8e5308964f8655f5d2296237672bd9c2"
+    },
+    {
+      "path": "/tmp/tlab-wave009-literal-check.py",
+      "bytes": 6004,
+      "sha256": "f782cca20420fae94ddfd4e19da8db4c8bad10be2e89c4c90948de46e1f4aed3"
+    },
+    {
+      "path": "/tmp/tlab-wave009-literal-results.json",
+      "bytes": 2997,
+      "sha256": "e998fbafcca13ba0f8ab3d106b121d857655304ff755a3910a79733e5058f6b0"
+    }
+  ],
+  "independent_artifact_reviewer": null,
+  "unresolved_gaps": [
+    "Frozen finite input encoding and complete physical closure",
+    "Actual detached-training/attribution invariance test",
+    "Explicit checkpointbatch/support definition",
+    "Reserved compatibleW/comparator/calendar and common later training support",
+    "Measured allinclusive costs/source completeness only under futureauthority"
+  ],
+  "rejected_overclaims": [
+    "New independent mechanism/architecture",
+    "Alignment or labelinclusion guaranteesNDCG",
+    "StandalonePefficiency from sharedproxycache",
+    "RealWquality from literalrankW",
+    "Currentlabel/fit/heldoutauthorization",
+    "Code compatibility asdatasetquality or repeated-validationbudgetfree"
+  ]
+}
