@@ -22,7 +22,7 @@
 | TLAB-012 | P1 | blocked | unassigned | 008, measured resource gate; user-item review completed |
 | TLAB-013 | P1 | blocked | unassigned | 008, одна выбранная sensitivity |
 | TLAB-014 | P1 | in_progress | permanent research line | постоянная линия, не блокирует ядро |
-| TLAB-015 | P0 | in_progress: contract/source/prediction cores accepted; no actual heldout reads | coordinator owner/source; root prediction core; C11 oracle/review | accepted016 models; exact whole-decision/prediction lock, budgets, owner/oracles |
+| TLAB-015 | P0 | in_progress: contract/source/prediction/evaluation cores accepted; no actual heldout reads | coordinator owner/source; root prediction core; C11 oracle/review | accepted016 models; exact whole-decision/prediction lock, budgets, owner/oracles |
 | TLAB-016 | P1 | done:4fits/4looks/1observer; development W=R2 accepted | root implementation; coordinator acceptance; C11 observer | immutable438 model seal; heldout claim separately015 |
 | TLAB-017 | P0 | done | root; accepted B2/coordinator/source oracles | —; immutable train/selection collections sealed |
 | TLAB-018 | P0 | phase1 +P0A supplied-score/public prefix accepted; regeneration pending | C11; root independent review |12-row relocated smoke; actual private package/bootstrap not executed |
@@ -511,3 +511,10 @@ The additive [choice consumer](experiments/feature-program-control.md) passed10 
 The [prediction core](experiments/heldout-predictions.md) passed20 author and10 independent methods; [initial fault](backlog-reviews/heldout-predictions-independent-review.md) and [narrow rereview](backlog-reviews/heldout-predictions-independent-rereview.md) preserve the repaired key/query association and bounded input witness. This is core code acceptance only: no actual CBM/source/native prediction or reserved target was opened, and no owner/worker budget or all-date prediction seal is issued. The separate evaluation core remains under a narrow staged-Q binding repair; neither code path is an execution permission.
 
 [Research073/074](research-lab/index.md), [future-backlog audit](backlog-reviews/next-backlog-brainstorm.md), [claims red team](backlog-reviews/automation-claims-red-team.md), and [future reservation disclosure](backlog-reviews/future-label-reservation-options.md) add no current fits or new HYP IDs. Finish015/018/report before any separately approved future comparison; previously inspected November fragments are disclosed.
+
+
+### Reserved evaluation and independent arithmetic cores accepted
+
+The [evaluation core](experiments/heldout-evaluation.md) passed20 author+4 independent methods after [staged-Q repair](backlog-reviews/heldout-evaluation-independent-rereview.md). The separate [metric observer core](experiments/heldout-metric-audit.md) passed17 author+4 independent methods and imports no production006/evaluation/target code; [review](backlog-reviews/heldout-metric-independent-review.md) retains limits. Original fault and all probes are archived. These are code-level gates only: actual reserved source/CBM/prediction/Y operations and whole-owner execution remain CLOSED/pending. New source and prediction oracle cores, concrete owner/worker bindings, measured resource policy and all-seven-prediction seal are required before actual target access.
+
+[Generation walkthrough](experiments/automation-walkthrough.md) actually ran the existing source-free API on two committed JSON files, no SQL/fit/data; README bottom now agrees with accepted016 development. [Submission audit](backlog-reviews/submission-gap-brainstorm.md) and [adapter conformance research](backlog-reviews/transfer-adapter-conformance.md) refine reporting/future seams without new current jobs or HYP IDs.
