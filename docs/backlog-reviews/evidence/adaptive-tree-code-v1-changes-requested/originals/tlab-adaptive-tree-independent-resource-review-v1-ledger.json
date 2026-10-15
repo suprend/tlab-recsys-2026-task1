@@ -1,0 +1,188 @@
+{
+  "version": 1,
+  "reviewer": "timing_methodology_review",
+  "mode": "independent_static_read_only_review",
+  "created_at_utc": "2026-10-15T18:48:16.572525+00:00",
+  "scope_freeze": {
+    "path": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/freeze.json",
+    "bytes": 7346,
+    "sha256": "d3949c9554903cc3ed815f148c2569137b08ea9f8a954848833ee87480b3ccb0"
+  },
+  "disposition": "P2_literal_output_alias_requires_narrow_repair",
+  "findings": [
+    {
+      "priority": 2,
+      "path": "/tmp/tlab-adaptive-tree-selection-study-v1.py",
+      "start_line": 121,
+      "end_line": 126,
+      "title": "Reject literal once-output alias before resolution",
+      "static_trigger": "Existing dangling fixed output symlink to absent sibling under artifacts/reproduction",
+      "runtime_reproduction_performed": false
+    }
+  ],
+  "checks": [
+    {
+      "role": "producer",
+      "original": "/tmp/tlab-adaptive-tree-selection-study-v1.py",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/00-tlab-adaptive-tree-selection-study-v1.py",
+      "bytes": 18474,
+      "sha256": "a7c2a630dc289b50d279553a5079fb92484ce562fbb721f5858e716a9295e261",
+      "syntax": "PASS_not_executed"
+    },
+    {
+      "role": "request",
+      "original": "/tmp/tlab-adaptive-tree-selection-request-proposal-v1.json",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/01-tlab-adaptive-tree-selection-request-proposal-v1.json",
+      "bytes": 10102,
+      "sha256": "afd032d1f877da5cd5671f00775245b55c1eaaccb9e357576fe32ad644b6bcb7",
+      "syntax": null
+    },
+    {
+      "role": "verifier",
+      "original": "/tmp/tlab-adaptive-tree-independent-verifier-v1.py",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/02-tlab-adaptive-tree-independent-verifier-v1.py",
+      "bytes": 19375,
+      "sha256": "9a20064d0a4fd64087b20e6e5804aa43e9ad2e4544b07ce9e24bbf7966ef8eb9",
+      "syntax": "PASS_not_executed"
+    },
+    {
+      "role": "verifierinterface",
+      "original": "/tmp/tlab-adaptive-tree-independent-verifier-interface-v1.md",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/03-tlab-adaptive-tree-independent-verifier-interface-v1.md",
+      "bytes": 7979,
+      "sha256": "a7265d5a04134d683550c651836a055f263ea6b3b28c7a1df67f4d8d174a513d",
+      "syntax": null
+    },
+    {
+      "role": "verifierfreeze",
+      "original": "/tmp/tlab-adaptive-tree-independent-verifier-freeze-v1.json",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/04-tlab-adaptive-tree-independent-verifier-freeze-v1.json",
+      "bytes": 3125,
+      "sha256": "d0e2d11b803822c28cd7e275af1ac1af3c21d9e283972d4788f9f481fa6b6eed",
+      "syntax": null
+    },
+    {
+      "role": "synthetictest",
+      "original": "/tmp/tlab-adaptive-tree-selection-synthetic-v1.py",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/05-tlab-adaptive-tree-selection-synthetic-v1.py",
+      "bytes": 7973,
+      "sha256": "891b224c99820683b5293025060e9fe392701fda7a10379b4f48fd55c06b4313",
+      "syntax": "PASS_not_executed"
+    },
+    {
+      "role": "syntheticfreeze",
+      "original": "/tmp/tlab-adaptive-tree-selection-synthetic-freeze-v1.json",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/06-tlab-adaptive-tree-selection-synthetic-freeze-v1.json",
+      "bytes": 2424,
+      "sha256": "b98a736772cccf5bdeab28d947fc37b000e123801ae7224ac3c9f8be7014336a",
+      "syntax": null
+    },
+    {
+      "role": "prioradapter",
+      "original": "/tmp/tlab-public018-actual-output-adapter-v3.py",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/07-tlab-public018-actual-output-adapter-v3.py",
+      "bytes": 38709,
+      "sha256": "cb24a4143c1093c7e07b2dfbb7fa021bc8530ab9448188eb22a696164220c8c4",
+      "syntax": null
+    },
+    {
+      "role": "Rootacceptedinput",
+      "original": "/tmp/tlab-root-public018-complete-output-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/08-tlab-root-public018-complete-output-acceptance-v1.json",
+      "bytes": 5380,
+      "sha256": "6dfe06d94140e5231574cd76718a61df2b0fd16dfc3e74a0698544a4948d7db6",
+      "syntax": null
+    },
+    {
+      "role": "acceptedindependentmatrices",
+      "original": "/tmp/tlab-public018-output-verifier-recovery-v2-20261015-once/result.json",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/09-result.json",
+      "bytes": 29266,
+      "sha256": "0a4a8fac03de95ca147ddc7f5ba1e62c60ae12bb78d220753094cb930664a75a",
+      "syntax": null
+    },
+    {
+      "role": "scripts/reproduce_frozen_comparison.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/10-reproduce_frozen_comparison.py",
+      "bytes": 40847,
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "syntax": null
+    },
+    {
+      "role": "scripts/train_baselines.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/11-train_baselines.py",
+      "bytes": 35022,
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "syntax": null
+    },
+    {
+      "role": "scripts/ranking_metrics.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/12-ranking_metrics.py",
+      "bytes": 9971,
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "syntax": null
+    },
+    {
+      "role": "scripts/heldout_predictions.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/13-heldout_predictions.py",
+      "bytes": 10946,
+      "sha256": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4",
+      "syntax": null
+    },
+    {
+      "role": "tests/oracles/feature_program_model_audit.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/feature_program_model_audit.py",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/14-feature_program_model_audit.py",
+      "bytes": 74037,
+      "sha256": "e7d34647450dd8c55e7b1e6aeed8ed050be91316027388136394f69c8246b814",
+      "syntax": null
+    },
+    {
+      "role": "tests/oracles/heldout_prediction_audit.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_prediction_audit.py",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/15-heldout_prediction_audit.py",
+      "bytes": 17317,
+      "sha256": "3b378274041623ba37dcb5a53a115458f02af4f2665f10821875aaf099d3cf75",
+      "syntax": null
+    },
+    {
+      "role": "configs/reproduction/frozen-bw-oct2019.json",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/reproduction/frozen-bw-oct2019.json",
+      "snapshot": "/tmp/tlab-adaptive-tree-code-review-20261015-v1/16-frozen-bw-oct2019.json",
+      "bytes": 19412,
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+      "syntax": null
+    }
+  ],
+  "checks_performed": [
+    "Read complete new producer/request/verifier/interface/synthetic test",
+    "Read relevant frozen public loader/core/oracle/accepted-input support",
+    "Verify all17 bounded snapshot SHA256 and lengths",
+    "Verify current original producer/request/verifier/synthetic test SHA256",
+    "AST parse+compile new producer/verifier/synthetic test; compiled code never executed"
+  ],
+  "executions": {
+    "candidate_modules": 0,
+    "synthetic_tests": 0,
+    "fixtures": 0,
+    "native_imports": 0,
+    "data_or_model_reads": 0,
+    "fits": 0,
+    "predicts": 0,
+    "children_or_helpers": 0,
+    "project_writes": 0,
+    "git_actions": 0
+  },
+  "runtime_grant": false,
+  "resource_feasibility": "UNKNOWN_unmeasured",
+  "whole_operation_lifetime_guard": "NOT_ESTABLISHED_by_module_source; unchanged V6 transport pending Root",
+  "report": {
+    "path": "/tmp/tlab-adaptive-tree-independent-resource-review-v1.md",
+    "bytes": 4358,
+    "sha256": "d189c3a6fcec812f3a3a05a5cfe9a607edf13a19db7d3967edad99a08c2cec98"
+  }
+}

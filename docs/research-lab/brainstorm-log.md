@@ -745,3 +745,10 @@ Root принял точную V4 документацию после одног
 Новая пользовательская ветвь019/013: [адаптивное per-model число деревьев](../backlog-reviews/adaptive-tree-selection-preparation.md) готовится отдельно: best observed1…1200/fullY NDCG20, до2400зависимых checks/2fits. Один invented/FakeModel synthetic test принят; completeCODE reviews pending, реальные adaptive fits/runtime UNGRANTED. Старый6-prefix intent superseded/unrun;018исторический fixed300 и015final неизменны,25–31не переоткрываются.
 
 [035](brainstorm-wave035-synthesis.md) и[036](brainstorm-wave036-synthesis.md) приняты Root как existing-family refinements;21exact originals inclRootreceipts архивированы,0newID/tasks/grants. RSS sinceBudget claim явно superseded, WSL не проверен.037/038independentcritics complete/Rootreadbackpending. Next19:30UTC от scheduled18:45, без reset цели/дедлайна/лимитов.
+
+
+## 2026-10-15T18:55:43.587652+00:00 — adaptiveV1 CODE changes requested
+
+Обновление 2026-10-15T18:55:43.587652+00:00: [адаптивная ветвь V1 остановлена source-only P2](../backlog-reviews/adaptive-tree-code-v1-changes-requested.md) проверки literal output до resolve. V2 узко исправляется; затем те же reviewers и Root source/adoption/runtime decision. V1 не устанавливается, реальных adaptive fits нет. Synthetic selector PASS остаётся scoped;019extension активна,015/018done14/19 неизменны.
+
+No newHYP/tasks/gates/grants; next19:30UTC fromscheduled18:45, originalgoal/limits/deadlineunchanged.037/038critics complete,Rootresearchreadbackpending.

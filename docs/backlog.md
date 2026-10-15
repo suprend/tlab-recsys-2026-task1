@@ -6,6 +6,8 @@
 
 ## Текущий статус
 
+Обновление 2026-10-15T18:55:43.587652+00:00: [адаптивная ветвь V1 остановлена source-only P2](backlog-reviews/adaptive-tree-code-v1-changes-requested.md) проверки literal output до resolve. V2 узко исправляется; затем те же reviewers и Root source/adoption/runtime decision. V1 не устанавливается, реальных adaptive fits нет. Synthetic selector PASS остаётся scoped;019extension активна,015/018done14/19 неизменны.
+
 2026-10-15T18:45:45.859159+00:00 — Новая пользовательская ветвь019/013: [адаптивное per-model число деревьев](backlog-reviews/adaptive-tree-selection-preparation.md) готовится отдельно: best observed1…1200/fullY NDCG20, до2400зависимых checks/2fits. Один invented/FakeModel synthetic test принят; completeCODE reviews pending, реальные adaptive fits/runtime UNGRANTED. Старый6-prefix intent superseded/unrun;018исторический fixed300 и015final неизменны,25–31не переоткрываются.
 
 Обновление 18:01:09 UTC: [полный публичный повтор018 принят](backlog-reviews/public018-complete-output-acceptance.md): clone/newlocked Mac environment/raw→15freshcollections→2NEWfixedfits→comparison, независимые матрицы/1634298scores/fullranks/4estimands/200bootstrap проверены. Producer79330 и verifier50587 CLOSED/reaped0,018done,14 из19;014research продолжается,010–013 optional deferred. Core18 formula proof не повышен до exhaustive; нового quality/search/speed/Windowsclaim нет,015finalCI включает0. Остались docs-only reproduction appendix и одно freshness review; runtime/retry/newfits не требуются. Early18:00checkpoint фактически17:53:45.945309, next18:45UTC от scheduled18:00.

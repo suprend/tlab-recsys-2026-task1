@@ -1,6 +1,6 @@
 {
-  "observed_at_utc": "2026-10-15T18:45:45.859159+00:00",
-  "status": "TMP prepared; one synthetic test Root accepted; wholeCODE reviews pending; actual adaptive runtime ungranted",
+  "observed_at_utc": "2026-10-15T18:55:43.587652+00:00",
+  "status": "V1 whole reviews complete; one supported output-literal alias P2; V2 narrowrepair and focused rechecks pending; no install/runtime",
   "user_requirement": "Choose per-model best validation tree rather than use fixed count as new default",
   "scope": "post-final exploratory development; train8-20/selection22-23 only",
   "models": 2,
@@ -53,5 +53,15 @@
   "Root_only_future_runtime_decision": true,
   "no25_31_reopen_or_independent_quality_claim": true,
   "new_canonical_backlog_file": false,
-  "next_due_utc": "2026-10-15T19:30:00Z"
+  "next_due_utc": "2026-10-15T19:30:00Z",
+  "code_reviews": {
+    "correctnessB": "no supportedP1/P2 source-only",
+    "resource": "oneP2 outputliteralalias before.resolve",
+    "thinV6": "no supportedfinding transport-only, proposalunissued",
+    "original_V1_immutable": true,
+    "V2_selector_AST": "Root says unchanged; finalfreeze/focusedreviewpending"
+  },
+  "publication": "adaptive-tree-code-v1-changes-requested.md",
+  "install_ownership": "Root only into its own TMPclone afteracceptance; canonicalpublisherprojectGit only",
+  "next_safe_step": "V2closeP2→samefocusedreviews→RootacceptedTMPsourceinstall→Rootseparatefinite2fitdecision"
 }
