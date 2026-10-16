@@ -1,0 +1,26 @@
+test_null_projected_ids_keep_raw_counts_but_not_distinct (tlab_null_oracle_candidate.ManualFeaturesTests.test_null_projected_ids_keep_raw_counts_but_not_distinct) ... 
+  test_null_projected_ids_keep_raw_counts_but_not_distinct (tlab_null_oracle_candidate.ManualFeaturesTests.test_null_projected_ids_keep_raw_counts_but_not_distinct) (source='oracle', feature='user_distinct_viewed_items_7d') ... FAIL
+  test_null_projected_ids_keep_raw_counts_but_not_distinct (tlab_null_oracle_candidate.ManualFeaturesTests.test_null_projected_ids_keep_raw_counts_but_not_distinct) (source='oracle', feature='item_distinct_viewers_7d') ... FAIL
+
+======================================================================
+FAIL: test_null_projected_ids_keep_raw_counts_but_not_distinct (tlab_null_oracle_candidate.ManualFeaturesTests.test_null_projected_ids_keep_raw_counts_but_not_distinct) (source='oracle', feature='user_distinct_viewed_items_7d')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mdpospelov/tlab-recsys-2026/tests/test_manual_features.py", line 164, in test_null_projected_ids_keep_raw_counts_but_not_distinct
+    def test_category_changes_do_not_reclassify_historical_events(self):
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1
+
+======================================================================
+FAIL: test_null_projected_ids_keep_raw_counts_but_not_distinct (tlab_null_oracle_candidate.ManualFeaturesTests.test_null_projected_ids_keep_raw_counts_but_not_distinct) (source='oracle', feature='item_distinct_viewers_7d')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mdpospelov/tlab-recsys-2026/tests/test_manual_features.py", line 164, in test_null_projected_ids_keep_raw_counts_but_not_distinct
+    def test_category_changes_do_not_reclassify_historical_events(self):
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1
+
+----------------------------------------------------------------------
+Ran 1 test in 1.053s
+
+FAILED (failures=2)

@@ -64,11 +64,11 @@ def oracle(records,user,item,t):
     for kind in ['view','cart','purchase']:
         values['user_'+kind+'_7d']=count(u,kind)
         values['pair_'+kind+'_7d']=count(pair,kind)
-    values['user_distinct_viewed_items_7d']=len({r[2] for r in u if r[1]=='view'})
+    values['user_distinct_viewed_items_7d']=len({r[2] for r in u if r[1]=='view' and r[2] is not None})
     for kind in ['view','purchase']:
         values['pair_'+kind+'_recency_seconds']=recency(pair_full,kind)
         values['item_'+kind+'_24h']=count(item24,kind)
-    values['item_distinct_viewers_7d']=len({r[3] for r in recent if r[2]==item and r[1]=='view'})
+    values['item_distinct_viewers_7d']=len({r[3] for r in recent if r[2]==item and r[1]=='view' and r[3] is not None})
     usercat=[r for r in recent if r[3]==user and r[4]==category]
     itemcat=[r for r in recent if r[2]==item and r[4]==category]
     cat=[r for r in recent if r[4]==category]
@@ -103,6 +103,71 @@ class ManualFeaturesTests(unittest.TestCase):
         cursor=self.con.execute('SELECT * FROM manual_features ORDER BY query_id,product_id')
         cols=[c[0] for c in cursor.description]
         return {(r[cols.index('query_id')],r[cols.index('product_id')]):dict(zip(cols,r)) for r in cursor.fetchall()}
+
+    def test_null_projected_ids_keep_raw_counts_but_not_distinct(self):
+        # Four strict-past raw rows plus one global timestamp peer at T.
+        records=[
+            (T-timedelta(hours=2),'view',1,10,100,'toy.category'),
+            (T-timedelta(hours=2),'view',1,10,100,'toy.category'),
+            (T-timedelta(hours=1),'view',1,None,100,'toy.category'),
+            (T-timedelta(minutes=30),'view',None,10,100,'toy.category'),
+            (T,'view',1,20,100,'toy.category'),
+        ]
+        self.con.execute('DELETE FROM events')
+        self.con.executemany('INSERT INTO events VALUES (?,?,?,?,?,?)',records)
+        self.con.execute('DELETE FROM pilot_candidates')
+        self.con.execute('DELETE FROM pilot_queries')
+        self.con.execute("INSERT INTO pilot_queries VALUES ('q10',10,?,true)",[T])
+        self.pairs=[('q10',1)]
+        self.con.executemany('INSERT INTO pilot_candidates VALUES (?,?)',self.pairs)
+        result=create_manual_features(self.con,self.config,self.registry)
+        with self.subTest(source='production',check='one-row-all18'):
+            self.assertEqual((result['feature_rows'],result['core_features']),(1,18))
+        actual=self.actual()[('q10',1)]
+        # Literal gold is independent of both SQL and the Python oracle.
+        gold={
+            'user_view_7d':3,
+            'user_cart_7d':0,
+            'user_purchase_7d':0,
+            'user_distinct_viewed_items_7d':1,
+            'pair_view_7d':2,
+            'pair_cart_7d':0,
+            'pair_purchase_7d':0,
+            'pair_view_recency_seconds':7200.0,
+            'pair_purchase_recency_seconds':None,
+            'item_view_24h':3,
+            'item_purchase_24h':0,
+            'item_distinct_viewers_7d':1,
+            'user_category_view_7d':3,
+            'user_category_view_share_7d':1.0,
+            'user_category_view_recency_seconds':1800.0,
+            'item_category_view_7d':3,
+            'category_view_7d':4,
+            'item_category_view_share_7d':0.75,
+        }
+        metadata_gold={'candidate_category_id':100,
+                       'candidate_category_missing':False,
+                       'candidate_category_ambiguous':False}
+        self.assertEqual(len(gold),18)
+        # Production gold checks execute before any oracle comparison can fail.
+        for name,value in gold.items():
+            with self.subTest(source='production',feature=name):
+                self.assertEqual(actual[name],value)
+        for name,value in metadata_gold.items():
+            with self.subTest(source='production',metadata=name):
+                self.assertEqual(actual[name],value)
+        expected,category,ambiguous=oracle(records,10,1,T)
+        with self.subTest(source='oracle',check='all18-key-coverage'):
+            self.assertEqual(set(expected),set(gold))
+        for name,value in gold.items():
+            with self.subTest(source='oracle',feature=name):
+                self.assertEqual(expected[name],value)
+        oracle_metadata={'candidate_category_id':category,
+                         'candidate_category_missing':category is None,
+                         'candidate_category_ambiguous':ambiguous}
+        for name,value in metadata_gold.items():
+            with self.subTest(source='oracle',metadata=name):
+                self.assertEqual(oracle_metadata[name],value)
 
     def test_all18_features_match_independent_full_row_oracle(self):
         result=create_manual_features(self.con,self.config,self.registry)
