@@ -1,5 +1,8 @@
 # Автоматизация признаков для ранжирования покупок
 
+**Срез 2026-10-16 17:16:16 UTC:14 из19 принято.** [LOCALfc502](research-lab/archives/wave075/context/tlab-root-wave074-native-guide-LOCAL-actual-acceptance-v1.json) принят: fulltree3049/reviewedsubset1003, архив074 и [native-guide P2](experiments/development-training-native-test.md) closed. Текущий opted helper toy body PASS under consumed50/65; ordinary nativeCLI/callback-abort UNRUN. [075](research-lab/brainstorm-wave075-synthesis.md) NEW0/REFINE3/ADMIT0 после3 independent FIRST→new skeptic; toysUNRUN/costUNKNOWN, архив пока SOURCE-only.014 continuous,010–013optional/deferred; scientificreport/finalCI/adaptive scope unchanged. NativeCLI50CPU/65wall и exact476publication вопросы без ответа, externalpayload не fc502/075; b286уже опубликован. Science/helperCLOSED/remainderUNKNOWN. Сохранённый originalgrid075next17:15UTC/20:15МСК не является позднейпроверкойdispatch;45-minute cadence/deadline25Oct23:59TZunknown/observedBLOCKEDgoal без изменений. Ниже целиком сохранён исторический срез16:22:34.
+
+
 ## Текущий срез — 2026-10-16 16:22:34 UTC
 
 **Принято 14 из 19 задач. Архив072–073 принят в LOCAL3253; ordinary native CLI SOURCE_READY, его end-to-end ещё UNRUN.** [Actual local acceptance](research-lab/archives/wave074/context/tlab-root-waves072073-LOCAL-actual-acceptance-v1.json): полный tree3018,52delta=47A5M;972 — reviewed subset. Tiny source/QYC/F270/read-only verifier уже приняты. Actual Prepared X/weights/native fit/curve/selection/reload этого CLI не выполнялись; callback-abort также UNRUN.

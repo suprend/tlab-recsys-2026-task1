@@ -1,5 +1,16 @@
 # Журнал новых исследовательских идей
 
+## Новый датированный checkpoint — 2026-10-16 17:16:16 UTC
+
+[075](brainstorm-wave075-synthesis.md): Root NEW0/REFINE3/ADMIT0 после трёх независимых fork-none FIRST и нового отдельного скептика; qualifiers и raw originals сохранены в [source-map](archives/wave075/publication.json). OTTO disclosed prefix/globalstrictpast разделены; Dressipi1/3 gold до дополнительного test-shortening; Coveo gold conditionaljointtokenadmission, vectors не rawmedia/rights/utility. AlltoysUNRUN/costUNKNOWN, без нового ID/task/gate/grant.075archive/overlay пока SOURCE-предложение.
+
+[LOCALfc502](archives/wave075/context/tlab-root-wave074-native-guide-LOCAL-actual-acceptance-v1.json) принят actualRoot: fulltree3049/subset1003/exact36delta/3013othersunchanged.074архив и [native-guide P2](../experiments/development-training-native-test.md) closed; текущий opted helper normal toy body PASS по ранее consumed50/65, ordinary nativeCLI/callback-abort UNRUN. Бюджет нового CLI50/65 и exact476publication question без ответов/executeissues; localfc502/075не расширяют externalpayload, b286уже опубликован. Actual QYC/F/verifieraccepted; science/helperCLOSED/remainderUNKNOWN.
+
+075commoncontext16:44:33.761823→dispatchupper16:45:20.121880 после scheduled16:30 из-за DOC source-identity P2 correction, не individualstarts. Сохранённый nextoriginalgrid075 — **17:15UTC/20:15МСК**; поздний live inventory этим архивом не проверялся.45-minute cadence/deadline25Oct23:59 timezoneUNKNOWN noreset.14/19/014continuous/010–013optionaldeferred unchanged; observedBLOCKEDgoal без mutation. Каждый платный шаг требует reviewed finite CPU/wall/memory/I/O/label/fit/API/fail-closed limits. Hypotheses не prerequisites015/018/report; fixedB/W/reserved25–31 unchanged. Полезность — coverageоснов/проверяемыйвывод/реальноеисправление, не noveltyquota/agentcount; один canonicalowner.
+
+## Исторический checkpoint16:22:34 UTC; прежний body сохранён побайтно
+
+
 ## Новый датированный checkpoint — 2026-10-16 16:22:34 UTC
 
 [074](brainstorm-wave074-synthesis.md) принята Root: NEW0/REFINE2/MERGE1/ADMIT0, три независимых blind FIRST и новый отдельный скептик. A сохраняет accepted fixed300 automation scope; B объединён с transfer-conformance/TA03 и ограничен mechanics на фиксированных входах; C сохраняет existing native composition priority после human assent. Новый experiment сейчас не рекомендован. Optional toys UNRUN, cost/benefit UNKNOWN; IDs/tasks/gates/grants не добавлены.074 archive/current overlay пока SOURCE-предложение.

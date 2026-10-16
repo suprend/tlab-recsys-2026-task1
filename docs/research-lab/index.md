@@ -1,5 +1,16 @@
 # Постоянная research-линия
 
+## Актуальный датированный срез — 2026-10-16 17:16:16 UTC
+
+**14 из19 принято;014 continuous,010–013 optional/deferred.** [LOCALfc502](archives/wave075/context/tlab-root-wave074-native-guide-LOCAL-actual-acceptance-v1.json) actualaccepted: full3049/reviewed1003,074архив и [native-guide P2](../experiments/development-training-native-test.md) closed. Helper same-current opt-in toy body PASS under consumed50/65; ordinary nativeCLI E2E/callbackabortUNRUN. Actual QYC/F/verifier accepted, Prepared/nativeE2Eunproduced.
+
+[075 — OTTO/Dressipi/Coveo](brainstorm-wave075-synthesis.md), [оригиналы/source-map](archives/wave075/publication.json): NEW0/REFINE3/ADMIT0, independent3FIRSTthennewskeptic. AlltoysUNRUN/costUNKNOWN; datasetcapabilities/rights/utility не доказаны.075archive/overlay SOURCE-only. Бюджет CLI50/65 и exact476publication questions unanswered; fc502/075 вне exactexternalpayload, b286already published. Science/helperCLOSED/remainderUNKNOWN/frozenreport/14of19 неизменны.
+
+075dispatchupper16:45:20 после due16:30; сохранённая следующая исходная точка17:15UTC/20:15МСК — расписание, не позднийliveinventory.45-minute grid/deadline25Oct23:59 timezoneUNKNOWN/observedBLOCKEDgoal unchanged.
+
+## Исторический срез16:22:34 UTC; прежний индекс сохранён побайтно
+
+
 ## Актуальный датированный срез — 2026-10-16 16:22:34 UTC
 
 **Принято 14 из 19 задач;014 continuous,010–013 optional/deferred.** [LOCAL3253](archives/wave074/context/tlab-root-waves072073-LOCAL-actual-acceptance-v1.json) с072–073 принят: tree3018,52delta,972reviewed subset. QYC/F270/read-only verifier фактически приняты; ordinary native CLI SOURCE_READY, actual Prepared/nativeE2E/callback-abort UNRUN.

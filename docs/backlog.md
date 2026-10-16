@@ -1,5 +1,16 @@
 # Единый рабочий backlog T-Lab
 
+## Текущий датированный срез — 2026-10-16 17:16:16 UTC
+
+**Принято14 из19 задач. LOCALfc502 принят: архив074 и DOC-P2 currentness закрыты; полный tree3049, reviewed subset1003.** [Actual acceptance](research-lab/archives/wave075/context/tlab-root-wave074-native-guide-LOCAL-actual-acceptance-v1.json) сохраняет36delta=31A5M и3013 unchanged entries; subset не весь repository. [Актуальный native guide](experiments/development-training-native-test.md) правильно различает accepted same-current helper toy body и ordinary CLI native E2E/callback-abort UNRUN. Старый helper50/65 consumed/CLOSED, новый native50CPU/65wall вопрос без ответа.
+
+[075 — OTTO/Dressipi/Coveo](research-lab/brainstorm-wave075-synthesis.md) принята как NEW0/REFINE3/ADMIT0: три independent FIRST, затем отдельный скептик. OTTO требует twohistorydomains; Dressipi gold1/3 ограничен pre-extra-shortening; Coveo gold условен на joint-token admission, supplied vectors не raw media/rights/quality proof. All toys UNRUN/costUNKNOWN; текущий075 архив/overlay пока SOURCE-предложение. Исходная таблица19IDs/история неизменны:014 continuous,010–013 optional/deferred,015/018 done.
+
+Оба human вопроса pending: native CLI one-attempt50CPU/65wall и publication exact476. External payload не fc502/075; b286 ранее опубликован. Science CLOSED/remainderUNKNOWN, actual QYC/F/verifier accepted, actual Prepared/nativeE2E UNRUN. Научный report/fixed300finalCI/adaptive1189/403 scope не расширяются.075 dispatchupper16:45:20 после due16:30; сохранённый nextoriginalgrid17:15UTC/20:15МСК, не поздний live dispatch inventory.45-minute grid/deadline25Oct23:59 timezoneUNKNOWN/один coordinator и observedBLOCKED goal metadata не меняются.
+
+## Исторический срез16:22:34 UTC; весь прежний body сохранён побайтно
+
+
 ## Текущий датированный срез — 2026-10-16 16:22:34 UTC
 
 **Принято 14 из 19 исходных задач. LOCAL3253 с архивом072–073 принят; обычный native CLI готов по SOURCE review, но end-to-end ещё UNRUN.** [Локальная приёмка](research-lab/archives/wave074/context/tlab-root-waves072073-LOCAL-actual-acceptance-v1.json) подтверждает полный tree3018,52 изменённых пути и972 reviewed entries; subset не является всем репозиторием. Actual QYC/F270/read-only verifier приняты, Prepared X/weights/native fit/selection/reload этим CLI ещё не произведены; callback-abort UNRUN.
