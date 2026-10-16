@@ -1,0 +1,832 @@
+{
+  "wave": 61,
+  "author": "A",
+  "direction": "BASIC_CONTROL_PROOF_COVERAGE_FINITE_FUTURE_COMPILER_CANARY",
+  "created_utc": "2026-10-16T05:59:39Z",
+  "shared_context": {
+    "path": "/tmp/tlab-wave061-shared-context-v1.json",
+    "sha256": "5a36263be04d2133312ef09674f0ccc3d464d94edc18044a57963920beb6b451",
+    "expected_sha256": "5a36263be04d2133312ef09674f0ccc3d464d94edc18044a57963920beb6b451",
+    "verified": true,
+    "read_scope": "Full JSON"
+  },
+  "source_pins": [
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/0-task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "bytes": 3638,
+      "hash_verified": true,
+      "read_scope": "Full requirements text"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/data.md",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/1-data.md",
+      "sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "bytes": 6378,
+      "hash_verified": true,
+      "read_scope": "Full source/data description text; no underlying data"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/2-experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "bytes": 46054,
+      "hash_verified": true,
+      "read_scope": "Only returned rg excerpts for 060/014/016/019/013/timeseries/6000/native/canary/B41/bundle; combined output partially truncated, no full-read claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/3-index.md",
+      "sha256": "310817eb7d45f461d0cb81049e720617c8c152f7d27e99623153a5d7f7d52b74",
+      "bytes": 30465,
+      "hash_verified": true,
+      "read_scope": "Only returned rg excerpts for those same patterns; combined output partially truncated, no linked current-wave peer bodies"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/4-progress-report.md",
+      "sha256": "eba943e5b008d04311ed5d6346be3518b873c0414efcce16b2a34809d225e076",
+      "bytes": 14389,
+      "hash_verified": true,
+      "read_scope": "Returned status/research/source-scope rg excerpts; no full body read"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/5-manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160,
+      "hash_verified": true,
+      "read_scope": "Lines1–280 requested; first combined return partly truncated; lines105–270 independently reread fully"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/6-feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "hash_verified": true,
+      "read_scope": "Full text returned before the combined contract/source output truncation; no import"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/7-train_development.py",
+      "sha256": "f4d19483532318b25c2adb51734ec347e772d3441edca944c5c91ce791cacde9",
+      "bytes": 12640,
+      "hash_verified": true,
+      "read_scope": "Returned bounded-argument/source-audit rg excerpts plus lines50–80; no import"
+    },
+    {
+      "original": "/tmp/tlab-root-native-helper-result-local-installed-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/8-tlab-root-native-helper-result-local-installed-acceptance-v1.json",
+      "sha256": "f74498d4964003f06149f65a1e18e24fba8fb0ad86bb8adcd0d2f697e4f17634",
+      "bytes": 1439,
+      "hash_verified": true,
+      "read_scope": "Full JSON acceptance receipt"
+    },
+    {
+      "original": "/tmp/tlab-root-wave059-archive-local-installed-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/9-tlab-root-wave059-archive-local-installed-acceptance-v1.json",
+      "sha256": "b3bb783e119533dc5336f7ad841e55e8858129c0eb7ecb5ac81019cf60304d05",
+      "bytes": 1302,
+      "hash_verified": true,
+      "read_scope": "Full JSON acceptance receipt"
+    },
+    {
+      "original": "/tmp/tlab-root-wave060-research-readback-v1.json",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/10-tlab-root-wave060-research-readback-v1.json",
+      "sha256": "883e73a2b49834800a30e3423734e2275c0857ebbd524f96493723e35bfbc280",
+      "bytes": 1410,
+      "hash_verified": true,
+      "read_scope": "Full JSON Root060 receipt"
+    },
+    {
+      "original": "/tmp/tlab-root-ordinary-local-versioning-workflow-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/11-tlab-root-ordinary-local-versioning-workflow-adoption-v1.json",
+      "sha256": "1f68503df345d3fe5e8bb464c173ef74ed6b3656ae650b29efaf438aac5ff369",
+      "bytes": 1955,
+      "hash_verified": true,
+      "read_scope": "Full JSON ordinary-versioning receipt; informational only"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/feature-program-model-contract.md",
+      "snapshot": "/tmp/tlab-wave061-frozen-context-v1/12-feature-program-model-contract.md",
+      "sha256": "9c6b228ec4b91def279d943fd2b5ce4d98cb825a32fbedece604c343bcc80660",
+      "bytes": 11622,
+      "hash_verified": true,
+      "read_scope": "Returned first interface paragraphs and source-audit rg excerpts; no full-read claim"
+    }
+  ],
+  "pin_verification": "All13 frozen-source hashes and shared-context hash matched via text-only shasum; source hash verification is not runtime/compiler proof.",
+  "additional_text_pins": [
+    {
+      "path": "/tmp/tlab-wave060-nonalias-c-FIRST.md",
+      "sha256": "eca148e9977b360e114093facccc225f2954865ab94fdadd995efd38acdf49ac",
+      "hash_verified": true,
+      "read_scope": "Full historical FIRST"
+    },
+    {
+      "path": "/tmp/tlab-wave060-nonalias-c-pins.json",
+      "sha256": "f3e4dcd72a05c59acb0c0f237af0ee7b61b6c0827ae0df18b1cbb4df1958ec48",
+      "hash_verified": true,
+      "read_scope": "Returned historical metadata/expected-table sections; combined output partially truncated; no full-read claim"
+    },
+    {
+      "path": "/tmp/tlab-wave060-nonalias-c-freeze.json",
+      "sha256": "e9369127ff0911c7b0f4c9ee81b56577c51621aaf9bae503047aba2a8555ff15",
+      "hash_verified": true,
+      "read_scope": "Full historical freeze"
+    },
+    {
+      "path": "/tmp/tlab-wave060-skeptic-review.md",
+      "sha256": "d3f180884649bf9c6b89806fd82a9b82d81a7eab040bdccde8df7dc907685678",
+      "hash_verified": true,
+      "read_scope": "Full historical skeptic text in returned final section; specifically fixture preconditions, B41 table and bank values"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "hash_verified": true,
+      "read_scope": "Lines1–110 text"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "hash_verified": true,
+      "read_scope": "Lines166–205 and239–266 text; confirms full loader joins Y"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "hash_verified": true,
+      "read_scope": "Lines1–55 declarative config only"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "hash_verified": true,
+      "read_scope": "Full declarative JSON"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+      "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34",
+      "hash_verified": true,
+      "read_scope": "Full skill; task nohelpers overrides optional delegation"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md",
+      "sha256": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb",
+      "hash_verified": true,
+      "read_scope": "Full coordination text; task bans Git/runtime"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/docs/agents/verification.md",
+      "sha256": "d84015a05b7ebc9c4bdc570e75e0a62fbcbe134217a367715fbf5e2acc1e69ec",
+      "hash_verified": true,
+      "read_scope": "Full verification text; no tests executed"
+    }
+  ],
+  "external_sources": [
+    {
+      "url": "https://raw.githubusercontent.com/blue-yonder/tsfresh/v0.21.2/tsfresh/feature_extraction/feature_calculators.py",
+      "version": "Official tag v0.21.2",
+      "retrieved_utc_start": "2026-10-16T05:54:27Z",
+      "retrieved_utc_end": "2026-10-16T05:54:29Z",
+      "read_scope": "Initial open returned lines0–302; targeted open returned excerpts654–881,1090–1274,1705–1919. Claims restricted to helper92–117, runs752–776, peaks1140–1174 and autocorrelation1769–1807. No fulltext archive.",
+      "paraphrase": "Mean-relative runs use strict inequalities. Peaks require a value greater than each requested neighbor and omit edge positions without full support. Autocorrelation centers both shifted sequences by the full-series mean and divides their summed product by (length minus lag) times global variance; near-zero variance returns missing. These calculator definitions establish expected numeric semantics only.",
+      "verbatim_quoted_words": 0
+    }
+  ],
+  "mechanism": {
+    "status": "ANALYTICAL_PROPOSAL_ONLY",
+    "existing_evidence": "Root060 accepted one-anchor full-B41/retrieval/all-eight-support analytical witness, conditional on legal UTC/pilot/source/query metadata. No compiler canary run.",
+    "native_evidence": "Root accepted one actual eight-tree artificial fit, flat eight-prefix oracle, selected copy1, save/reload and original8 retained; one normal helper path only.",
+    "ordinary_CLI": "E2E and callback-abort UNRUN; CLI cap<=6000Q differs from historical26000Q control. FakeML/CODE tests and --help are not E2E."
+  },
+  "fixture": {
+    "clock": "UTC",
+    "anchor": "2019-10-08T00:00:00Z",
+    "source_start": "2019-10-01T00:00:00Z",
+    "source_end": "2019-11-01T00:00:00Z",
+    "pilot_start": "2019-10-08T00:00:00Z",
+    "pilot_end_exclusive": "2019-10-11T00:00:00Z",
+    "query": {
+      "query_id": "fixture-q",
+      "user_id": 101,
+      "anchor": "2019-10-08T00:00:00Z",
+      "label_is_mature": true
+    },
+    "item_id": 201,
+    "category_id": 301,
+    "source_coverage": "Complete invented observation coverage of [Oct1,Nov1); absence of rows in a bin means zero events, not unavailable data. T-168h>=source_start; source_end>=T+24h. Declared actions remain view/cart/purchase capabilities, though this fixture has only view rows.",
+    "raw_rows_A": [
+      "2019-10-07T18:30:00Z",
+      "2019-10-07T20:30:00Z",
+      "2019-10-07T21:30:00Z",
+      "2019-10-07T23:30:00Z"
+    ],
+    "raw_rows_B": [
+      "2019-10-07T18:30:00Z",
+      "2019-10-07T19:30:00Z",
+      "2019-10-07T20:30:00Z",
+      "2019-10-07T23:30:00Z"
+    ],
+    "row_semantics": "Each listed timestamp is exactly one raw view by user101 of item201 with historical category301. No other rows, actions, duplicate events or peers; first/last equal in A/B.",
+    "bin_semantics": "168 half-open hourly bins [T-168h+jh,T-168h+(j+1)h), j0..167; one count at each occupied midpoint. First162 bins zero; A tail[1,0,1,1,0,1], B tail[1,1,1,0,0,1]. No time interpolation, phase shift, normalization or label look.",
+    "candidate_expected": {
+      "query_id": "fixture-q",
+      "product_id": 201,
+      "from_popular": false,
+      "from_recent": true,
+      "popularity_distinct_users": 0,
+      "popular_source_rank": null,
+      "recent_source_rank": 1,
+      "last_user_event_time": "2019-10-07T23:30:00Z",
+      "candidate_category_id": 301
+    },
+    "base_model_coordinates": [
+      {
+        "name": "from_popular",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": false,
+        "expected_B": false
+      },
+      {
+        "name": "from_recent",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": true,
+        "expected_B": true
+      },
+      {
+        "name": "popularity_distinct_users",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 0,
+        "expected_B": 0
+      },
+      {
+        "name": "popular_source_rank",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": null,
+        "expected_B": null
+      },
+      {
+        "name": "recent_source_rank",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 1,
+        "expected_B": 1
+      },
+      {
+        "name": "candidate_category_ambiguous",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": false,
+        "expected_B": false
+      },
+      {
+        "name": "candidate_category_missing",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": false,
+        "expected_B": false
+      },
+      {
+        "name": "item_has_observed_history",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": true,
+        "expected_B": true
+      },
+      {
+        "name": "user_has_observed_history",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": true,
+        "expected_B": true
+      },
+      {
+        "name": "item_observed_age_seconds",
+        "declared_dtype": "DOUBLE",
+        "canary_physical_dtype": "DOUBLE",
+        "model_dtype": "float32",
+        "expected_A": 19800,
+        "expected_B": 19800
+      },
+      {
+        "name": "user_observed_age_seconds",
+        "declared_dtype": "DOUBLE",
+        "canary_physical_dtype": "DOUBLE",
+        "model_dtype": "float32",
+        "expected_A": 19800,
+        "expected_B": 19800
+      },
+      {
+        "name": "user_view_7d",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 4,
+        "expected_B": 4
+      },
+      {
+        "name": "user_cart_7d",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 0,
+        "expected_B": 0
+      },
+      {
+        "name": "user_purchase_7d",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 0,
+        "expected_B": 0
+      },
+      {
+        "name": "user_distinct_viewed_items_7d",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 1,
+        "expected_B": 1
+      },
+      {
+        "name": "pair_view_7d",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 4,
+        "expected_B": 4
+      },
+      {
+        "name": "pair_cart_7d",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 0,
+        "expected_B": 0
+      },
+      {
+        "name": "pair_purchase_7d",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 0,
+        "expected_B": 0
+      },
+      {
+        "name": "pair_view_recency_seconds",
+        "declared_dtype": "DOUBLE",
+        "canary_physical_dtype": "DOUBLE",
+        "model_dtype": "float32",
+        "expected_A": 1800,
+        "expected_B": 1800
+      },
+      {
+        "name": "pair_purchase_recency_seconds",
+        "declared_dtype": "DOUBLE",
+        "canary_physical_dtype": "DOUBLE",
+        "model_dtype": "float32",
+        "expected_A": null,
+        "expected_B": null
+      },
+      {
+        "name": "item_view_24h",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 4,
+        "expected_B": 4
+      },
+      {
+        "name": "item_purchase_24h",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 0,
+        "expected_B": 0
+      },
+      {
+        "name": "item_distinct_viewers_7d",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 1,
+        "expected_B": 1
+      },
+      {
+        "name": "user_category_view_7d",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 4,
+        "expected_B": 4
+      },
+      {
+        "name": "user_category_view_recency_seconds",
+        "declared_dtype": "DOUBLE",
+        "canary_physical_dtype": "DOUBLE",
+        "model_dtype": "float32",
+        "expected_A": 1800,
+        "expected_B": 1800
+      },
+      {
+        "name": "item_category_view_7d",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 4,
+        "expected_B": 4
+      },
+      {
+        "name": "category_view_7d",
+        "declared_dtype": "BIGINT",
+        "canary_physical_dtype": "BIGINT",
+        "model_dtype": "float32",
+        "expected_A": 4,
+        "expected_B": 4
+      },
+      {
+        "name": "source_coverage_24h",
+        "declared_dtype": "DOUBLE",
+        "canary_physical_dtype": "DOUBLE",
+        "model_dtype": "float32",
+        "expected_A": 1,
+        "expected_B": 1
+      },
+      {
+        "name": "source_coverage_168h",
+        "declared_dtype": "DOUBLE",
+        "canary_physical_dtype": "DOUBLE",
+        "model_dtype": "float32",
+        "expected_A": 1,
+        "expected_B": 1
+      },
+      {
+        "name": "user_category_view_share_7d",
+        "declared_dtype": "DOUBLE",
+        "canary_physical_dtype": "DOUBLE",
+        "model_dtype": "float32",
+        "expected_A": 1,
+        "expected_B": 1
+      },
+      {
+        "name": "item_category_view_share_7d",
+        "declared_dtype": "DOUBLE",
+        "canary_physical_dtype": "DOUBLE",
+        "model_dtype": "float32",
+        "expected_A": 1,
+        "expected_B": 1
+      },
+      {
+        "name": "pair_view_recency_seconds_missing",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": false,
+        "expected_B": false
+      },
+      {
+        "name": "pair_purchase_recency_seconds_missing",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": true,
+        "expected_B": true
+      },
+      {
+        "name": "user_category_view_7d_missing",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": false,
+        "expected_B": false
+      },
+      {
+        "name": "user_category_view_share_7d_missing",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": false,
+        "expected_B": false
+      },
+      {
+        "name": "user_category_view_recency_seconds_missing",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": false,
+        "expected_B": false
+      },
+      {
+        "name": "item_category_view_7d_missing",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": false,
+        "expected_B": false
+      },
+      {
+        "name": "category_view_7d_missing",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": false,
+        "expected_B": false
+      },
+      {
+        "name": "item_category_view_share_7d_missing",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "BOOLEAN",
+        "model_dtype": "float32",
+        "expected_A": false,
+        "expected_B": false
+      },
+      {
+        "name": "retrieval_last_event_age_seconds",
+        "declared_dtype": "DOUBLE",
+        "canary_physical_dtype": "FLOAT",
+        "model_dtype": "float32",
+        "expected_A": 1800,
+        "expected_B": 1800
+      },
+      {
+        "name": "retrieval_last_event_missing",
+        "declared_dtype": "BOOLEAN",
+        "canary_physical_dtype": "FLOAT",
+        "model_dtype": "float32",
+        "expected_A": false,
+        "expected_B": false
+      }
+    ],
+    "missingness": "NULL at popular_source_rank and pair_purchase_recency_seconds in B41; float32 projection maps both to NaN, compares masks separately, and compares all nonmissing values exactly. One explicit recency missing flag true; six category-derived missing flags and pair-view missing flag false.",
+    "eight_bundles": [
+      {
+        "bundle_id": "L01",
+        "base41": "unchanged",
+        "physical_delta_expected_A_equals_B": [
+          {
+            "name": "auto_user_view_count_24h",
+            "dtype": "BIGINT",
+            "value": 4
+          },
+          {
+            "name": "auto_user_cart_count_24h",
+            "dtype": "BIGINT",
+            "value": 0
+          },
+          {
+            "name": "auto_user_purchase_count_24h",
+            "dtype": "BIGINT",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "bundle_id": "L02",
+        "base41": "unchanged",
+        "physical_delta_expected_A_equals_B": [
+          {
+            "name": "auto_pair_view_count_24h",
+            "dtype": "BIGINT",
+            "value": 4
+          },
+          {
+            "name": "auto_pair_cart_count_24h",
+            "dtype": "BIGINT",
+            "value": 0
+          },
+          {
+            "name": "auto_pair_purchase_count_24h",
+            "dtype": "BIGINT",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "bundle_id": "L03",
+        "base41": "unchanged",
+        "physical_delta_expected_A_equals_B": [
+          {
+            "name": "auto_item_view_count_168h",
+            "dtype": "BIGINT",
+            "value": 4
+          },
+          {
+            "name": "auto_item_cart_count_168h",
+            "dtype": "BIGINT",
+            "value": 0
+          },
+          {
+            "name": "auto_item_purchase_count_168h",
+            "dtype": "BIGINT",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "bundle_id": "L04",
+        "base41": "unchanged",
+        "physical_delta_expected_A_equals_B": [
+          {
+            "name": "auto_user_view_count_distinct_24h_product_id",
+            "dtype": "BIGINT",
+            "value": 1
+          },
+          {
+            "name": "auto_user_cart_count_distinct_168h_product_id",
+            "dtype": "BIGINT",
+            "value": 0
+          },
+          {
+            "name": "auto_user_purchase_count_distinct_168h_product_id",
+            "dtype": "BIGINT",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "bundle_id": "L05",
+        "base41": "unchanged",
+        "physical_delta_expected_A_equals_B": [
+          {
+            "name": "auto_item_view_count_distinct_24h_user_id",
+            "dtype": "BIGINT",
+            "value": 1
+          },
+          {
+            "name": "auto_item_cart_count_distinct_168h_user_id",
+            "dtype": "BIGINT",
+            "value": 0
+          },
+          {
+            "name": "auto_item_purchase_count_distinct_24h_user_id",
+            "dtype": "BIGINT",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "bundle_id": "L06",
+        "base41": "unchanged",
+        "physical_delta_expected_A_equals_B": [
+          {
+            "name": "auto_pair_cart_recency_seconds_observed",
+            "dtype": "DOUBLE",
+            "value": null
+          },
+          {
+            "name": "auto_item_cart_count_24h",
+            "dtype": "BIGINT",
+            "value": 0
+          },
+          {
+            "name": "auto_pair_cart_recency_seconds_observed_missing",
+            "dtype": "BOOLEAN",
+            "value": true
+          }
+        ]
+      },
+      {
+        "bundle_id": "L07",
+        "base41": "unchanged",
+        "physical_delta_expected_A_equals_B": [
+          {
+            "name": "auto_user_cart_recency_seconds_observed",
+            "dtype": "DOUBLE",
+            "value": null
+          },
+          {
+            "name": "auto_user_purchase_count_distinct_24h_product_id",
+            "dtype": "BIGINT",
+            "value": 0
+          },
+          {
+            "name": "auto_user_cart_recency_seconds_observed_missing",
+            "dtype": "BOOLEAN",
+            "value": true
+          }
+        ]
+      },
+      {
+        "bundle_id": "L08",
+        "base41": "unchanged",
+        "physical_delta_expected_A_equals_B": [
+          {
+            "name": "auto_item_cart_recency_seconds_observed",
+            "dtype": "DOUBLE",
+            "value": null
+          },
+          {
+            "name": "auto_item_cart_count_distinct_24h_user_id",
+            "dtype": "BIGINT",
+            "value": 0
+          },
+          {
+            "name": "auto_item_cart_recency_seconds_observed_missing",
+            "dtype": "BOOLEAN",
+            "value": true
+          }
+        ]
+      }
+    ],
+    "bank_expected": {
+      "order": [
+        "number_peaks_n1",
+        "number_peaks_n2",
+        "longest_strike_above_mean",
+        "longest_strike_below_mean",
+        "autocorrelation_lag1",
+        "autocorrelation_lag2"
+      ],
+      "A": [
+        1,
+        0,
+        2,
+        162,
+        "1637/6847",
+        "3400/6806"
+      ],
+      "B": [
+        0,
+        0,
+        3,
+        162,
+        "3401/6847",
+        "1636/6806"
+      ],
+      "bank_missing_masks_A_B": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "differing_coordinates": [
+        0,
+        2,
+        4,
+        5
+      ],
+      "equal_coordinates": [
+        1,
+        3
+      ]
+    },
+    "independent_derivation": "Manually enumerated occupied bins give n168,sum4,mean1/42,var41/1764. Strict local peaks: A's zero-based index162 only; B none. Max positive runs2/3; initial zero run162. Lag1 products1/2 and lag2 products2/1; endpoint-truncated sums7 for both. Centered numerator P-7/42+(168-lag)/1764 with denominator (168-lag)*41/1764 gives frozen rationals. This is analytical arithmetic, not executed calculations."
+  },
+  "nearest_finite_future_test": {
+    "status": "UNRUN_DEFERRED_NO_AUTHORITY",
+    "scope": "Two isolated synthetic event/query fixtures, no real datasets/targets/models/fits; existing compiler plus separately implemented future binner/calculator adapter. No source regeneration or production run.",
+    "compiler_calls": "Future only: two create_candidates calls; for each fixture, create_manual_features on manual18 plus each of the eight frozen full-base typed registries (18 feature-materialization invocations total). Compare 39 native fields by names/order/physical types to literal tables, and all41 declared schema coordinates plus float32 projection. Retrieval suffixes are declared DOUBLE/BOOLEAN by generator schema but actual loader expressions cast both to FLOAT; distinguish those schemas. Fail on missing/extra/reordered coordinates, row/key multiplication, value or NULL disagreement. Registry definitions must be frozen reviewed ones; no producer-derived gold.",
+    "projection_boundary": "numeric_feature_names is pure, but current complete load_prepared path reads Y. Compare the 39 native model-coordinate fields plus the two declared retrieval-derived coordinates in a label-free projection, preserving native NULL and float32 masks. This verifies compiler outputs/declared projection only; does not claim full-loader or ordinary CLI E2E parity and must not invoke the Y-joining loader merely to obtain a 41-vector.",
+    "bin_and_bank": "Future binner must reproduce both literal168-count vectors, using the same strict-past rows and bins; directly call the six frozen-tag tsfresh calculator settings. Integer outputs exact. Rationals converted to float64 only for comparison; predeclare abs tolerance1e-12, relative tolerance0, and require six finite/nonmissing values. Any disagreement fails.",
+    "minimal_claim": "Fixture-specific agreement closes the hand-mathematics-to-compiler seam for this witness only. It does not prove all boundaries, global same-timestamp exclusion, missing category histories, repeated anchors, complete production lineage, loader parity, prediction utility, runtime, cost savings or exhaustive semantics.",
+    "goal_benefit": "Detect a representational-witness/compiler/adapter mismatch before considering a later temporal-feature utility experiment.",
+    "counterhypothesis": "Even if fixture passes, targets can be conditionally identical at fixed B; sparse bin phase or regularization can erase practical benefit."
+  },
+  "decision": {
+    "zero_new_valid": 0,
+    "new_IDs": 0,
+    "new_mandatory_gates": 0,
+    "new_budget_or_execution_grants": 0,
+    "dedup": [
+      "TLAB-014",
+      "TLAB-016",
+      "TLAB-019",
+      "TLAB-013",
+      "FB-05"
+    ],
+    "disposition": "Optional refinement of existing proof coverage only; all finite tests remain UNRUN. No implementation or utility claim.",
+    "utility_future": "Separate prospective physical-column closure/budget for six cores plus masks and Recall comparator/threshold/stage; no inherited old016 exact3-column grant; historical25–31 cannot become fresh confirmation.",
+    "scientific_allocations": "CLOSED",
+    "remaining_budget": "UNKNOWN",
+    "native_allowance": "50CPU65wall once CONSUMED_CLOSED; no reuse",
+    "deadline": "25Oct23:59 timezone unspecified unchanged",
+    "launch": "Early after the two closed accepted execution rounds; original06:00UTC",
+    "next_original_grid_UTC": "2026-10-16 06:45 UTC"
+  },
+  "independence": {
+    "peer061_FIRST_pins_messages_read_before_freeze": false,
+    "helpers": 0,
+    "prohibited_actions_executed": [],
+    "canonical_writes": 0,
+    "network_writes": 0,
+    "runtime_imports_tests_SQL_data_Y_models_fits_Git_probes": 0
+  }
+}

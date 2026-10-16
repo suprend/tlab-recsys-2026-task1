@@ -1,0 +1,13 @@
+# Wave060 B FIRST — empirical null controls
+
+Decision: zero new IDs. Defer an optional refinement of existing TLAB-014/016 search diagnostics and TLAB-013 multiplicity; no new gate or grant. Twelve snapshot hashes match shared context `429c5dce1d5dc5f1eb4f11af5e1f8d568f3cb55211fc7f078553426e80d01788`.
+
+Mechanism: add two predeclared triplets of exogenous independent noise to B41. Assign independent values per split/query/item row, without stable entity codes, copied missingness masks, or Y access. Repeat the complete selector, counting every prefix/arm look. Noise generation is cheap; training and selection are paid. Arbitrary row shuffling is weaker: exchangeability across repeated users, dates and candidate rows is unestablished, while copied masks/strata may retain genuine signal.
+
+Nearest finite future test: four new fits—B41, B41+frozen L05, B41+Z1, B41+Z2—with three additional physical columns per augmented arm, identical declared population, Q/C/mature fullY including off-C/zero-Y, strict-past inputs, weights, objective, ceiling and current NDCG-only prefix selector. No historical Recall guard is inherited. Freeze randomization, fits, all looks and a separately label-reserved temporal reporting block beforehand; opened 25–31 labels cannot supply fresh confirmation. Current ≤6000-Q training differs from historical 26000-Q training.
+
+Falsifiable prediction: max null development uplift ≥ positive L05 uplift, but that selected null has reserve uplift ≤0. This pattern would expose susceptibility to selection optimism; two seeds cannot estimate its frequency or yield a calibrated p-value. Goal benefit: qualify trust in apparent feature-search gains. Counterhypothesis: unmatched noise geometry or noise-induced regularization alters optimization; null utility may improve despite conditional feature irrelevance. Passing this sentinel cannot clear historical adaptive search.
+
+[Boruta (2010), abstract](https://www.jstatsoft.org/article/view/v036i11) motivates comparison with random probes; its Random-Forest relevance procedure does not validate our ranking selector. [Authors’ Model-X exposition (2019)](https://web.stanford.edu/group/candes/knockoffs/modeling.html) requires known covariate law, iid observations, swap exchangeability, conditional nullness and fair statistics. Those requirements are unproved here; no knockoff/FDR claim follows. A semantic canary checks construction/cutoffs, not B41 nonalias or ranking utility.
+
+All proposed tests UNRUN/deferred. Scientific budgets CLOSED/remainder UNKNOWN; the sole native toy fit is consumed/CLOSED. Ordinary CLI E2E remains UNRUN. Next original grid: 06:00 UTC.

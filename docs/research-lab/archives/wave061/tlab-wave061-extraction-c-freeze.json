@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "wave": 61,
+  "author": "C",
+  "status": "FIRST_FROZEN_STOPPED",
+  "frozen_at_utc": "2026-10-16 05:56:52 UTC",
+  "first": {
+    "path": "/tmp/tlab-wave061-extraction-c-FIRST.md",
+    "sha256": "d1bee719e2023da81b54e3b289e76be607a9a33c00047c214ff78719978638e0",
+    "word_count": 328
+  },
+  "pins": {
+    "path": "/tmp/tlab-wave061-extraction-c-pins.json",
+    "sha256": "8c98becd718fd993788c4ebb4d2ebcaf361295677198ceeaf77d9fd7a89834f6"
+  },
+  "shared_context_sha256": "5a36263be04d2133312ef09674f0ccc3d464d94edc18044a57963920beb6b451",
+  "verified_frozen_pins": 13,
+  "actual_manual_and_feature_program_sources_match": true,
+  "independence": {
+    "peer061_first_or_pins_or_messages_reads_before_freeze": 0,
+    "helpers": 0
+  },
+  "result": {
+    "new_ids": 0,
+    "new_admissions": 0,
+    "existing_refinements": [
+      "TLAB-013 optional validator batching"
+    ],
+    "runtime": "UNRUN",
+    "cpu_memory_speedup": "UNMEASURED",
+    "quality_claim": "NONE"
+  },
+  "stop_after_freeze": true,
+  "authority": "Source read + own TMP notes/hash only. Scientific allocations CLOSED; remainder UNKNOWN; helper grant consumed CLOSED. No imports, SQL, EXPLAIN, tests, data/events/Y/models/fits, Git/attributes probes, canonical or network writes.",
+  "cadence": {
+    "original_utc": "2026-10-16T06:00:00Z",
+    "next_original_grid_utc": "2026-10-16T06:45:00Z",
+    "preserved": true
+  }
+}
