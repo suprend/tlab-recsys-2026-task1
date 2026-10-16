@@ -1,0 +1,48 @@
+{
+  "start_utc": "2026-10-16T02:10:11.689476+00:00",
+  "status": "CLOSED",
+  "recipe_sha256": "4b0f3f752104e92eb7debb6fda44fe2cd2100228eaddf70198b92df0a858e052",
+  "inputs": {
+    "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/adaptive-tree-results.json": "a29181ba769356936afcc9c8833c3a0f7b1d1a466eb6f0b045f85513716aba74",
+    "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/result.json": "9126386add408b9b4c76a626b8512cb78074f6570dd8b26937a12c49700cf26f"
+  },
+  "font_cache_sha256": "b95df6bf015f7a81a6af50edd04c6f7f64799bae5ec63e8826640ed19bf00c19",
+  "font_cache_excluded_from_publication": true,
+  "child_perprocess_CPU_ceiling_seconds": 5,
+  "outer_wall_timeout_seconds": 15,
+  "prior_closed_failures_preserved": [
+    "/tmp/tlab-adaptive-tree-figure-render-receipt-v1.json",
+    "/tmp/tlab-adaptive-tree-figure-render-receipt-v2.json"
+  ],
+  "prior_actual_complete_child_RUSAGE_CPU": 9.675158,
+  "scope": "additional ordinary CODE presentation after verified cache diagnosis; no old scientific/ML allowance reset",
+  "real_data_model_Y_reads": 0,
+  "new_ML_fits": 0,
+  "network_Git_canonical_writes": 0,
+  "exit_code": 0,
+  "reaped": true,
+  "child_pid": 75454,
+  "wall_seconds": 2.8148800839990145,
+  "child_RUSAGE_CPU_seconds": 1.260575,
+  "observed_child_peak_RSS_bytes": 107429888,
+  "RSS_scope": "macOS RUSAGE_CHILDREN observed max, not hard/fulltree bound",
+  "stdout": "",
+  "stderr": "findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.\nfindfont: Failed to find font weight semibold for DejaVu Sans, now using 700.\n",
+  "outputs": [
+    {
+      "path": "/tmp/tlab-adaptive-tree-figure-20261016-cached-once/adaptive-validation.pdf",
+      "bytes": 66658,
+      "sha256": "4e197404fcbcc1a46795b84fcbed3fd749ef3599585f7d4991ee45de1ce2d1f0"
+    },
+    {
+      "path": "/tmp/tlab-adaptive-tree-figure-20261016-cached-once/adaptive-validation.png",
+      "bytes": 143978,
+      "sha256": "7ca0f535fee2a644e31fb0047de633c0de792e1e8c4dfda27f61924fe3d8311d"
+    },
+    {
+      "path": "/tmp/tlab-adaptive-tree-figure-20261016-cached-once/validation-checks.json",
+      "bytes": 500,
+      "sha256": "aee5109a8d6c3fba8f214098e32d34e3d72b205b09289af69e2a7263bff5d639"
+    }
+  ]
+}
