@@ -1,0 +1,102 @@
+{
+  "utc": "2026-10-16T01:07:53.078921+00:00",
+  "status": "CODE_UNIT_PASS11_ACTUAL_TERMINAL_EXIT0_CLOSED",
+  "actual_terminal_chunk": "2f883b",
+  "reported_tool_wall_seconds": 0.256018958,
+  "outer_body_wall_seconds": 0.30196783400606364,
+  "wall_scopes_retained_separately_not_added": true,
+  "methods": [
+    "test_each_run_uses_its_own_selected_count",
+    "test_missing_validation_rejects_before_fit",
+    "test_actual_callback_failure_is_preserved",
+    "test_short_fit_never_selects_or_falls_back",
+    "test_only_copy_is_shrunk_and_original_stays_full",
+    "test_native_stopping_option_rejects_before_fit",
+    "test_callback_error_remains_primary_when_native_fit_wraps_it",
+    "test_native_error_without_guard_failure_is_preserved",
+    "test_fitted_model_is_rejected_without_another_fit",
+    "test_no_positive_full_targets_rejects_before_fit",
+    "test_off_candidate_targets_report_zero_informative_groups_without_changing_selection"
+  ],
+  "actual_coverage": "10 originalFakeML lifecyclemethods +1 new actualNumPy/accounting/ranking/selector offCpositivequery; 3 changingrankings/curve0/earliest1/copiedsupport withoutmutation",
+  "newbytes_all11methods_actualpass": true,
+  "source_pins_unchanged": true,
+  "CatBoost_DuckDB_imports": false,
+  "forbidden_import_attempts": [],
+  "actual_ML_fits": 0,
+  "real_source_reads": 0,
+  "native_training_helper_body": "UNRUN; FakeML helper lifecycle/code tested only",
+  "numpy_python_versions": "not recorded inthisunit; runtimepathname alone notversionproof",
+  "observed_peak_RSS_bytes": 47923200,
+  "RSS_not_hard_or_whole_tree_sum": true,
+  "outer_profile": {
+    "status": "REAPED",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "",
+    "error": null,
+    "cleanup_errors": [],
+    "reap_known": true,
+    "command": [
+      "/tmp/tlab-public018-clean-20261015-once/.venv-locked/bin/python",
+      "-I",
+      "-B",
+      "/tmp/tlab-development-support-code-unit-runner-proposal-v1.py",
+      "--request",
+      "/tmp/tlab-root-development-support-code-unit-issued-v1.json",
+      "--request-sha256",
+      "9696f5a3e473dd0d34cc256571b66630fd1152a779fbb55f082145b87269556f"
+    ],
+    "request_sha256": "9696f5a3e473dd0d34cc256571b66630fd1152a779fbb55f082145b87269556f",
+    "wall_from_outer_first_line": 0.30196783400606364,
+    "outer_cpu_through_profile": 0.047521999999999995,
+    "outer_RUSAGE_CHILDREN_cpu": 0.242608,
+    "observed_descendant_peak_rss_bytes": 47972352,
+    "ML_fits": 0,
+    "real_dataset_reads": 0,
+    "scope": "Outer RUSAGE_CHILDREN reported literally; full-tree aggregation semantics not independently proved here. Child and inner profiles retained separately, not summed as disjoint. Profile excludes final JSONwrite/exit; tool terminal separately closes lifetime. RSS observed only; whole-tree instantaneous sum not measured. No data sandbox claim."
+  },
+  "inner_profile": {
+    "status": "CODE_UNIT_CHECKED_PENDING_ROOT_EXTERNAL_LIFETIME",
+    "request_sha256": "9696f5a3e473dd0d34cc256571b66630fd1152a779fbb55f082145b87269556f",
+    "supervisor_cpu_through_profile": 0.036074999999999996,
+    "reaped_child_cpu": 0.202467,
+    "child_peak_rss_bytes": 47972352,
+    "wall_from_first_python_line": 0.2618201669974951,
+    "scope": "Root must retain before-exec startup/full exit and enforce whole30wall; inner4CPU guard cooperative; no hard RSS/data-isolation or ML/quality claim"
+  },
+  "evidence": [
+    {
+      "path": "/tmp/tlab-development-support-code-unit-20261016-once/consumed.json",
+      "sha256": "7782db874792c0a08ddd8a30ef1d87f58dd89dbba6ac08a8afafe4e287c26034",
+      "bytes": 201
+    },
+    {
+      "path": "/tmp/tlab-development-support-code-unit-20261016-once/tests.txt",
+      "sha256": "e52fd4504468d6f6aa0a41c15f482a98eed41a608361355dcb7749fe87492e5f",
+      "bytes": 1942
+    },
+    {
+      "path": "/tmp/tlab-development-support-code-unit-20261016-once/child-result.json",
+      "sha256": "a76eb3abdfbfa35c4d9f109776e9c4da284577929fb6576440d263cf18f989ef",
+      "bytes": 313
+    },
+    {
+      "path": "/tmp/tlab-development-support-code-unit-20261016-once/terminal.json",
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d",
+      "bytes": 54
+    },
+    {
+      "path": "/tmp/tlab-development-support-code-unit-20261016-once/result.json",
+      "sha256": "afe7a397ec00b96b3164614dea62f3870e638ad13a9cb68bcd1c37b9d3a531c7",
+      "bytes": 496
+    },
+    {
+      "path": "/tmp/tlab-development-support-code-unit-outer-receipt-v1.json",
+      "sha256": "d7af77f82e59e11ffd69f7382c5484d43da9ba66d8f224b3631463a76b6a2a38",
+      "bytes": 1181
+    }
+  ],
+  "installation": "notyet; canonicaloldhelper/test/doc preserved untilsolecoordinatorupdate",
+  "no_new_real_pilot_fit_CV_qualityclaim_or_budget_reset": true
+}

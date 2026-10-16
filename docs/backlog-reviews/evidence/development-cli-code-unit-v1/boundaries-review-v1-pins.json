@@ -1,0 +1,319 @@
+{
+  "utc": "2026-10-16T03:08:13.239415+00:00",
+  "reviewer": "/root/six_role_harness",
+  "mode": "independent source-only development CLI boundaries review",
+  "verdict": "changes_requested",
+  "findings": [
+    {
+      "id": "CLI-B-001",
+      "priority": "P2",
+      "path": "scripts/train_development.py",
+      "lines": [
+        216,
+        218
+      ],
+      "title": "Unprotected failure telemetry can mask primary error",
+      "trigger": "Existing fit/save/guard error followed by telemetry/format/report-preparation exception",
+      "evidence": "source-only control flow; no executable probe",
+      "fix": "contain optional telemetry/formatting/report update and persistence, retain original primary via bare raise; focused fake identity regression",
+      "native_required": false
+    }
+  ],
+  "packet_sha256": "cb0b0530871ac62578dab64fdca30dd089539d6d0199b204c219faf65e60941d",
+  "initial_manifest": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/manifest.json",
+  "initial_manifest_sha256": "e4acc8d87bdd45ee7655d97d30c3e1d544a8c6210c95fff7104ea6f912bf2901",
+  "fresh_input_pins": [
+    {
+      "path": "/tmp/tlab-development-cli-proposal-v1/manifest.json",
+      "sha256": "cb0b0530871ac62578dab64fdca30dd089539d6d0199b204c219faf65e60941d",
+      "bytes": 5538,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/00-manifest.json",
+      "sha256": "cb0b0530871ac62578dab64fdca30dd089539d6d0199b204c219faf65e60941d",
+      "bytes": 5538,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-proposal-v1/candidate/scripts/train_development.py",
+      "sha256": "464a92ac64d7132223d2286ac0fa23142b9236a54bc46a8f8520c02920f01b5d",
+      "bytes": 12064,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/01-train_development.py",
+      "sha256": "464a92ac64d7132223d2286ac0fa23142b9236a54bc46a8f8520c02920f01b5d",
+      "bytes": 12064,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-proposal-v1/candidate/tests/test_train_development.py",
+      "sha256": "a8589efcc73aa83d0dc6e68739169af160821c537bb41ee6c7ff5d2dc4801035",
+      "bytes": 15762,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/02-test_train_development.py",
+      "sha256": "a8589efcc73aa83d0dc6e68739169af160821c537bb41ee6c7ff5d2dc4801035",
+      "bytes": 15762,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-proposal-v1/candidate/docs/experiments/development-training.md",
+      "sha256": "67da8031fc81bda9866a3c27959de0f7fa21c185d56fcf43b27dacfcf2448cde",
+      "bytes": 10919,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/03-development-training.md",
+      "sha256": "67da8031fc81bda9866a3c27959de0f7fa21c185d56fcf43b27dacfcf2448cde",
+      "bytes": 10919,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-proposal-v1/candidate/README.md",
+      "sha256": "5619b5101ac70b109db7a838d0d00eedcfa89edfd28bae0b5ba6f9149bf1b266",
+      "bytes": 20828,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/04-README.md",
+      "sha256": "5619b5101ac70b109db7a838d0d00eedcfa89edfd28bae0b5ba6f9149bf1b266",
+      "bytes": 20828,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "bytes": 35022,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/05-train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "bytes": 35022,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/06-development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "bytes": 18580,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/07-adaptive_tree_selection.py",
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "bytes": 18580,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/08-development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/09-protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/10-ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/11-anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml",
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+      "bytes": 367,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/12-pyproject.toml",
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+      "bytes": 367,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "bytes": 300283,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/13-uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "bytes": 300283,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/development-training.md",
+      "sha256": "0aa404f711286c4e8495f6bc5b59ab071e5cb46a905cf9b6c8a60554ca26e418",
+      "bytes": 6238,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/14-development-training.md",
+      "sha256": "0aa404f711286c4e8495f6bc5b59ab071e5cb46a905cf9b6c8a60554ca26e418",
+      "bytes": 6238,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "sha256": "e145f68cbbb06df9391edae432667b1151ce121fd3aeacc8f35e8b323a95afdc",
+      "bytes": 19864,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/15-README.md",
+      "sha256": "e145f68cbbb06df9391edae432667b1151ce121fd3aeacc8f35e8b323a95afdc",
+      "bytes": 19864,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/development/train.json",
+      "sha256": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8",
+      "bytes": 637,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/16-train.json",
+      "sha256": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8",
+      "bytes": 637,
+      "matches_initial": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/development/selection.json",
+      "sha256": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36",
+      "bytes": 643,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/17-selection.json",
+      "sha256": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36",
+      "bytes": 643,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-user-training-request-route-audit-v1.md",
+      "sha256": "db502cb564715b38281f47a9893b90200f9282fd40ff567337c13e603e02ae5a",
+      "bytes": 4684,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/18-tlab-user-training-request-route-audit-v1.md",
+      "sha256": "db502cb564715b38281f47a9893b90200f9282fd40ff567337c13e603e02ae5a",
+      "bytes": 4684,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-user-training-request-route-audit-v1-pins.json",
+      "sha256": "a821cc336b51ab13a5408c57c56b3531edb86eda7961fc74e0f2ecf6267c9191",
+      "bytes": 6074,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/19-tlab-user-training-request-route-audit-v1-pins.json",
+      "sha256": "a821cc336b51ab13a5408c57c56b3531edb86eda7961fc74e0f2ecf6267c9191",
+      "bytes": 6074,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-proposal-v1/source.diff",
+      "sha256": "8cb0872bff35c28e932b204c245d26d73f49f0a3cf07abc99f408792309c1897",
+      "bytes": 37575,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/20-source.diff",
+      "sha256": "8cb0872bff35c28e932b204c245d26d73f49f0a3cf07abc99f408792309c1897",
+      "bytes": 37575,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-proposal-v1/candidate-audit.md",
+      "sha256": "e99e9a30bece4f5e74198eb42f7a0351df730b9d8118428025b8cef70364676d",
+      "bytes": 2728,
+      "matches_initial": true
+    },
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1-inputs/21-candidate-audit.md",
+      "sha256": "e99e9a30bece4f5e74198eb42f7a0351df730b9d8118428025b8cef70364676d",
+      "bytes": 2728,
+      "matches_initial": true
+    }
+  ],
+  "report": "/tmp/tlab-development-cli-boundaries-review-v1.md",
+  "report_sha256": "63a461507175dc96ab4c34319b72eb2cfd2dbf5fdb5729cbf26a744c9ee8655a",
+  "checks": [
+    "whole four-file candidate source scope plus README/doc delta against bases",
+    "actual verify_collection lineage/phase role/maturity validation, not mock assumptions",
+    "actual training phase source/registry/policy and availability-gap checks",
+    "actual prepare_dataset label-blind train cap, uncapped validation, fullY separated, emptyC retained",
+    "actual helper full fit and per-model selector/copy/shrink; chosen-prefix persistence scoring",
+    "fresh output/no-resume, conservative helper-attempt metadata, no retry",
+    "SELF/cooperative vs external whole-lifetime resources, inherited memory/spill limits",
+    "nine fake dispatch tests dependency/coverage limitations and native UNRUN",
+    "pending50CPU65wall separate helper budget not CLI grant"
+  ],
+  "new_CLI_tests": {
+    "methods": 9,
+    "state": "UNRUN"
+  },
+  "native_CLI_end_to_end": "UNRUN",
+  "actual": {
+    "candidate_imports_tests_fixtures": 0,
+    "native_SQL_ML": 0,
+    "data_models_Y": 0,
+    "jobs_helpers": 0,
+    "Git_network_canonical_edits": 0,
+    "coordinator_contacts": 0,
+    "runtime_grants": 0
+  },
+  "limitations": "static conditional failure witness; no actual OS telemetry failure, SQL execution, native fit or output artifact validation; accepted lower-core history not recertified"
+}

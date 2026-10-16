@@ -1,0 +1,61 @@
+{
+  "manifest": {
+    "path": "/tmp/tlab-development-cli-proposal-v3/manifest.json",
+    "bytes": 7675,
+    "sha256": "f3d0fba14dadd5cf0982f3d61667fbfa314f2a9f9f4e96f3424f948e689b9dc8"
+  },
+  "files": [
+    {
+      "target_relative_path": "scripts/train_development.py",
+      "path": "/tmp/tlab-development-cli-proposal-v3/candidate/scripts/train_development.py",
+      "bytes": 12640,
+      "sha256": "f4d19483532318b25c2adb51734ec347e772d3441edca944c5c91ce791cacde9"
+    },
+    {
+      "target_relative_path": "tests/test_train_development.py",
+      "path": "/tmp/tlab-development-cli-proposal-v3/candidate/tests/test_train_development.py",
+      "bytes": 19794,
+      "sha256": "601bb6d5e1b510da7864de66daab0173a2d431303c0d9dca1f155898bf9d4389"
+    },
+    {
+      "target_relative_path": "docs/experiments/development-training.md",
+      "path": "/tmp/tlab-development-cli-proposal-v3/candidate/docs/experiments/development-training.md",
+      "bytes": 10919,
+      "sha256": "67da8031fc81bda9866a3c27959de0f7fa21c185d56fcf43b27dacfcf2448cde"
+    },
+    {
+      "target_relative_path": "README.md",
+      "path": "/tmp/tlab-development-cli-proposal-v3/candidate/README.md",
+      "bytes": 20828,
+      "sha256": "5619b5101ac70b109db7a838d0d00eedcfa89edfd28bae0b5ba6f9149bf1b266"
+    },
+    {
+      "path": "/tmp/tlab-development-cli-proposal-v3/v2-v3.diff",
+      "bytes": 4922,
+      "sha256": "cf620f251a1e075e0414bb45f7c5ef39a45d271237b174ca922e890818a94c74"
+    },
+    {
+      "path": "/tmp/tlab-development-cli-proposal-v3/v1-v3.diff",
+      "bytes": 8068,
+      "sha256": "3dedcc3ba18ad96c0652bcaeb69329ac70abb9482b4035f684e5194ee6f20544"
+    },
+    {
+      "path": "/tmp/tlab-development-cli-proposal-v3/source.diff",
+      "bytes": 42265,
+      "sha256": "806bde79564ff9eb4c76d219028f74ba226c3218942a0a8938c75e1ab0e8a145"
+    },
+    {
+      "path": "/tmp/tlab-development-cli-proposal-v3/candidate-audit.md",
+      "bytes": 3260,
+      "sha256": "50b1358eafff6d0f91776e765c8e44563e99169d7a1acd3036ce10a457d54c5f"
+    }
+  ],
+  "V1_V2_and_original_base_fresh_unchanged": true,
+  "corrections": [
+    "CLI-B-001",
+    "CLI-A-001",
+    "CLI-A-002"
+  ],
+  "execution": false,
+  "authority": "Source-only; no test/native/ML/install grant"
+}

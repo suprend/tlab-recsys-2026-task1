@@ -1,0 +1,11 @@
+# Development CLI: source и 12 CODE-unit проверок
+
+Принята V3 реализация обычного [development caller](../experiments/development-training.md#обычная-команда-нового-development-training): [CLI](../../scripts/train_development.py) и [тесты](../../tests/test_train_development.py). Продукционные байты и тесты совпадают с фактически проверенными TMP-источниками. Это приёмка кода, не native fit или разрешение на обучение; текущая установка подтверждается отдельно.
+
+2026-10-16 в 03:28:58 UTC Root принял **12 тестов: 0 errors/failures/skips**. Терминал e3cdee CLOSED exit0, child reaped. Наблюдались Python 3.12.14 / NumPy 2.5.4. Реальны parser/orchestration/helper/callback/accounting/phase/ranking/JSON и NumPy; backend, checkpoint selector и accepted-data I/O подставные, fixtures придуманные. Реальных CatBoost/DuckDB imports, ML fits, event-data reads не было. Native helper и CLI остаются **UNRUN**; native fit/shrink/serialization и lineage реальных collections этим не доказаны.
+
+Два независимых V1 review нашли три P2: сохранение primary exception при сбое telemetry, точное совпадение rankings наряду со score tolerance и repin после final persistence. Focused V3 review закрыли их на уровне исходника; последующий unit исполнил 12 тестов. Исторические review/author UNRUN-фразы сохранены как датированные originals; actual-unit результат позднее уточняет только CODE-test статус.
+
+[Карта точных оригиналов](evidence/development-cli-code-unit-v1/publication.json) содержит четыре review с pins/freezes, V3 manifest/freeze/repair diff, исходный audit пользовательского маршрута и пять unit-доказательств. Audit описывал отсутствие обычного caller до этой реализации. Приватные runner/authorization bodies не копируются; ссылки/SHA в receipts остаются provenance, не полномочиями.
+
+Tool wall 0.430295583 и observer-body wall 0.511329417 сохранены раздельно; child RUSAGE CPU 0.396457, parent body CPU 0.00218 — отдельные scopes, не новый full-tree bound. Затраты не обнулены, научный ML бюджет не пополнен. Helper-вопрос 50 CPU/65 wall и exact b760 push-вопрос без ответа; первый не является CLI grant. Local checkpoint CLOSED_FAILED: 0 commits/ref updates. Этот пакет не касается owned alternate index, старых B/W/final результатов или historical fixed replay.

@@ -1,0 +1,118 @@
+{
+  "status": "LITERAL_USER_REQUEST_NOT_YET_COMPLETE_AS_DOCUMENTED_GENERAL_DEVELOPMENT_CLI",
+  "report": {
+    "path": "/tmp/tlab-user-training-request-route-audit-v1.md",
+    "bytes": 4684,
+    "sha256": "db502cb564715b38281f47a9893b90200f9282fd40ff567337c13e603e02ae5a",
+    "words": 325
+  },
+  "inputs": [
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/0-README.md",
+      "bytes": 19864,
+      "sha256": "e145f68cbbb06df9391edae432667b1151ce121fd3aeacc8f35e8b323a95afdc"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/development-training.md",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/1-development-training.md",
+      "bytes": 6238,
+      "sha256": "0aa404f711286c4e8495f6bc5b59ab071e5cb46a905cf9b6c8a60554ca26e418"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/development-training-native-test.md",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/2-development-training-native-test.md",
+      "bytes": 2220,
+      "sha256": "355df2686d140f2c971729f5476e8d3ff1c2731073c1abfcd311ea147d1d63ed"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/adaptive-tree-selection.md",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/3-adaptive-tree-selection.md",
+      "bytes": 4446,
+      "sha256": "333e3a503f129426af097b46320b61b92c9cbd8fe7698f6641fb9459a12f6e21"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/4-development_training.py",
+      "bytes": 5590,
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/5-adaptive_tree_selection.py",
+      "bytes": 18580,
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/6-train_baselines.py",
+      "bytes": 35022,
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_baseline.py",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/7-strong_baseline.py",
+      "bytes": 47986,
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/8-reproduce_frozen_comparison.py",
+      "bytes": 40847,
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/boosting-baselines.md",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/9-boosting-baselines.md",
+      "bytes": 16805,
+      "sha256": "ae80fde081432b9feff3dd40ac05d0293dc3dfdf6d0602a9c98a9a7672ae4792"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/strong-baseline.md",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/10-strong-baseline.md",
+      "bytes": 12222,
+      "sha256": "8d4bcae4d3aa33649ab3f5027e239da16b49548fe479403e8e474a84c44617e7"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/feature-program-model-contract.md",
+      "copy": "/tmp/tlab-user-training-request-route-audit-v1-inputs/11-feature-program-model-contract.md",
+      "bytes": 11622,
+      "sha256": "9c6b228ec4b91def279d943fd2b5ce4d98cb825a32fbedece604c343bcc80660"
+    }
+  ],
+  "retained_initial_lookup_error": {
+    "chunk": "700252",
+    "exit_code": 2,
+    "cause": "guessed scripts/feature_program_models.py does not exist; actual documented routes inspected instead; no candidate command executed"
+  },
+  "source_findings": {
+    "status": "SOURCE_REQUIREMENT_GAP",
+    "documented_general_development_CLI_using_helper_found": false,
+    "helper_is_library_only": true,
+    "helper_selects_each_call_after_complete_fit": true,
+    "adaptive_CLI_is_completed_fixed_snapshot_once_study": true,
+    "README_training_command_is_historical_frozen300": true,
+    "legacy_smoke_strong_feature_routes_not_called_new_development_defaults": true,
+    "global_optimality_claim_supported": false,
+    "suggested_minimum_files": [
+      "scripts/train_development.py (new single-model CLI)",
+      "tests/test_train_development.py (new CLI unit tests)",
+      "docs/experiments/development-training.md",
+      "README.md"
+    ],
+    "protected_frozen_routes_recipe_no_changes_proposed": true,
+    "native_body": "UNRUN",
+    "separate_50CPU65wall_human_engineering_question": "UNANSWERED per Root task, not independently polled",
+    "native_test_not_a_substitute_for_product_caller": true,
+    "initial_path_lookup_error_retained": "700252 exit2: guessed scripts/feature_program_models.py absent; corrected by actual docs/source discovery",
+    "project_import_native_test_ML_data_Git_mutation_network_question_helper_canonical_operations": 0
+  },
+  "search_scope": "README + relevant current docs; fit_development/select_best_tree references under scripts; source-only current CLI inspection. No exhaustive external-caller claim.",
+  "all_original_and_copy_source_pins_terminal_fresh": true,
+  "current_route_integration_implemented": false,
+  "native_body": "UNRUN",
+  "separate_50CPU65wall_human_question": "UNANSWERED per Root instruction; no question/poll from reviewer",
+  "actual_imports_tests_native_ML_data_model_Y_Git_mutation_network_questions_helpers_canonical_edits": 0,
+  "new_resource_or_runtime_grant": false,
+  "stop_after_report": true
+}

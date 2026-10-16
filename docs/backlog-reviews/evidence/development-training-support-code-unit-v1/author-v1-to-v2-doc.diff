@@ -1,0 +1,11 @@
+--- V1/docs/experiments/development-training.md
++++ V2/docs/experiments/development-training.md
+@@ -9,7 +9,7 @@
+ Возвращается `DevelopmentFit`: `full_model`, отдельная `selected_model`, `trained_ceiling`, `selected_trees`, полная `validation_curve`, `validation_support`, `training_accounting`. Усечена только копия; исходная обученная модель остаётся полной. Выбранный размер может совпасть с потолком, если это результат complete validation selector.
+ 
+ `validation_support.informative_candidate_groups` возвращает уже вычисленное
+-`group_accounting(validation)['informative_groups']`: число групп кандидатов с
++`group_accounting(validation)[-1]['informative_groups']`: число групп кандидатов с
+ положительными и отрицательными labels внутри C. Это диагностическое поле;
+ исходный словарь support selector не изменяется. При корректных
+ `y = 1[item ∈ fullY]` и фиксированном C ноль означает, что каждая группа пустая,

@@ -1,0 +1,20 @@
+# Immutable unified patches: exact-path classification
+
+Stage 02's ordinary cached whitespace check **FAILED exit 2** after one successful `git add`: 15 trailing-space diagnostics in four immutable G02 `.diff` artifacts. The actual failure remains FAILED; its original receipt SHA256 is `7a2c4893e4f9aee2140c80d875567c1d7afa4a1e394b535684a8bcd9949f3dbc`, and raw checker stdout is `e341a8d7612105b511e6355a362d8c2c5251ddfecd2bf8e3597e5a755f12bed7`. These are local evidence identities, not invented repository links. The 52 staged blobs and all 432 worktree files remain exact; HEAD is the accepted commit01 `49a56ce5e5f7d2d55ad3b0e7d5af5baf6615ba2b`.
+
+Static examination of all six `.diff`/`.patch` artifacts in the frozen inventory found 25 trailing lines. Every one is exactly **`b' '`**, a blank context line inside a counted unified-diff hunk. Its leading context marker is required by the patch format; trimming would change the accepted raw patch. Four files belong to G02 (15 lines); two belong to G03 (10 lines), whose actual cached check is still UNRUN.
+
+| Immutable artifact | Raw SHA256 | Bytes | Exact space-only context lines |
+|---|---|---:|---|
+| [author-v1-v3.diff](evidence/development-cli-code-unit-v1/author-v1-v3.diff) | `3dedcc3ba18ad96c0652bcaeb69329ac70abb9482b4035f684e5194ee6f20544` | 8068 | 17, 18, 43, 68, 143 |
+| [author-base-to-v2.diff](evidence/development-training-support-code-unit-v1/author-base-to-v2.diff) | `16a682fe62ade17bd5267c1b337e6ed8cc9ddde9cd9a4e35782f72a8b11b6e4c` | 11029 | 24, 25, 104, 110, 112, 125, 127 |
+| [author-v1-to-v2-doc.diff](evidence/development-training-support-code-unit-v1/author-v1-to-v2-doc.diff) | `367679970db738565e5f1aa5edd409dc704ebcff4f9de9a695b200477a03b28e` | 1267 | 5 |
+| [doc-v2-to-v3.diff](evidence/development-training-support-code-unit-v1/doc-v2-to-v3.diff) | `ada5c6a040d68ce78408b6e3341c7bf3d7d845e5d1f0cb7ada30b68f2a5e7561` | 3447 | 4, 6 |
+| [author-v1-to-v2.diff](evidence/itemcf-extraction-code-unit-v1/author-v1-to-v2.diff) | `72380ba669ac7c583fce258832bfdba41ff4260ff590f3598faac056ea0f1408` | 3801 | 4, 9, 11, 27, 29, 33, 53, 66, 71 |
+| [doc-v2-to-v3.diff](evidence/itemcf-extraction-code-unit-v1/doc-v2-to-v3.diff) | `9b923b690f65886bfeb7ea9ee1e0ab9685ab72d0b4f83fd4b9ed2807e67f18de` | 2259 | 6 |
+
+Six literal pathname rules classify only these immutable data artifacts with `-text whitespace=-blank-at-eol`; the existing RED transcript rule and [its note](immutable-transcript-versioning.md) remain byte-identical. There is no wildcard, global checker setting, code-path exception, `-diff`/binary suppression or filter. `-text` prevents EOL normalization only. The whitespace rule permits EOL whitespace throughout each named file, not just these context lines; raw SHA/size/mode and raw staged-blob checks still bind every byte. Under the currently reviewed unset `core.whitespace`, default EOF and space-before-tab checks remain; arbitrary future custom flags are not inherited. This does not promise behavior for altered files or changed Git policy.
+
+This is a metadata proposal, not an installation or checker PASS. After independently reviewed exact local installation, the accepted worktree map would change only `.gitattributes` and this new note: **433 unique paths**. A separate Root stage issue would add **only those two metadata files**, retaining the existing 52 staged blobs: combined G02 would have 54 staged paths (53 added, 1 modified). Only its later ordinary cached check and Root staged inspection can establish a new result. Old stage02 is never retroactively PASS; no reset/re-add/retry/commit follows from this note.
+
+Six logical commits remain possible: commit01 is immutable history; `.gitattributes` intentionally appears again as an amendment in combined G02, so 434 cumulative path-visits mean 433 distinct files. Future preflights must use the explicitly updated 433-map and verify prior committed objects separately. No new driver, experiment, gate, native/data budget or external-publication permission is created. The exact original b760 push question remains unanswered.

@@ -1,0 +1,16 @@
+# Запрос о выборе числа деревьев: маршрут пользователя пока не завершён
+
+**Обычной документированной команды нового development-training, автоматически выбирающей k на каждом запуске, сейчас нет.** Реализован library helper; его scoped описание корректно, но это ещё не исполнение буквального пользовательского запроса на готовом маршруте.
+
+[`fit_development:22`](/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py:22) требует отдельную validation и после полного fit вызывает selector на строке77. У модуля нет main/CLI; поиск по scripts не нашёл production caller этого helper. [Документация:22–24](/Users/mdpospelov/tlab-recsys-2026/docs/experiments/development-training.md:22) прямо оставляет caller будущим.
+
+[Adaptive CLI:17](/Users/mdpospelov/tlab-recsys-2026/docs/experiments/adaptive-tree-selection.md:17) выбирает k, но привязан к конкретным принятым exports/report и завершённому once-study с1200 ceiling; это не автоматический режим каждого будущего training. [README:18](/Users/mdpospelov/tlab-recsys-2026/README.md:18) предлагает исторический public replay, чей [`scoring_prefix=300:595`](/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py:595) намеренно фиксирован. Smoke/019/016 также сохраняют исторические процедуры. Их переписывать ради нового поведения не требуется.
+
+Минимальное содержательное продолжение — один явный single-model caller на уже поддержанном accepted-collection→Prepared входе, без нового data format/framework или research ID:
+
+- Новый `scripts/train_development.py`: обязательные train/validation descriptors, поддержанные constructor params, `--max-iterations` и явные resource/output параметры. Переиспользовать `train_baselines.verify_collection:56`, `validate_training_phases:166`, `prepare_dataset:208`; не запускать исторический smoke-runner и его two-loss procedure. После проверки chronology/maturity/schema вызвать helper ровно один раз. Selection нельзя отключить; потолок не считается выбранным k. Сохранить полный/выбранный models, recipe/data identities, complete curve/support, chosen k и reload/prefix parity; failure не превращать в fallback/refit/complete. Обычный CLI не должен зависеть от старого Root once-study.
+- Новый `tests/test_train_development.py`: проверить реальный CLI dispatch с fake backend, разные выбранные k в двух независимых вызовах, обязательную validation, full-Y off-C/empty-C сохранность, отказ до fit при неверной phase/chronology и отсутствие повторного fit/успешного результата после failure. Не дублировать selector math.
+- `docs/experiments/development-training.md`: документировать фактическую команду, входы и «лучший observed validation prefix внутри потолка», без обещания глобального оптимума.
+- `README.md`: дать отдельный development entry рядом с явно историческим fixed300 replay. Frozen command/recipe и библиотечные тела можно сохранить без изменений.
+
+Это предложение интеграции, не mandate/adoption. Native helper body остаётся UNRUN; вопрос о отдельном50CPU/65wall human engineering budget не отвечен. Его diagnostic не заменяет пользовательский caller. Новых ресурсов/разрешений нет. Только source reads/search/hash; все12 pins неизменны, начальная ошибка имени файла сохранена в ledger. Никаких imports/tests/native/ML/data/Git/network или canonical edits.

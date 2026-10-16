@@ -1,0 +1,139 @@
+--- BASE/scripts/development_training.py
++++ V2/scripts/development_training.py
+@@ -86,4 +86,6 @@
+              and model.tree_count_ == max_iterations and selected.feature_names_ == model.feature_names_ == train.feature_names,
+              'Selected copy must preserve the complete original model')
+     check()
+-    return DevelopmentFit(model, selected, max_iterations, best, tuple(curve), dict(support), dict(accounting))
++    return DevelopmentFit(model, selected, max_iterations, best, tuple(curve),
++                          dict(support, informative_candidate_groups=validation_accounting['informative_groups']),
++                          dict(accounting))
+--- BASE/tests/test_development_training.py
++++ V2/tests/test_development_training.py
+@@ -79,7 +79,7 @@
+         self.helper = module.fit_development; FakeClassifier.total_fits = 0
+         self.train, self.validation = Prepared(), Prepared(); self.choices = [2]; self.selections = []
+         b = ModuleType('scripts.train_baselines'); b.Prepared = Prepared; b._BudgetCallback = actual_callback()
+-        b.group_accounting = lambda data: ([2],[1],[1],[True],[.5,.5],{'positive_fullY_queries':1})
++        b.group_accounting = lambda data: ([2],[1],[1],[True],[.5,.5],{'positive_fullY_queries':1,'informative_groups':1})
+         selector = ModuleType('scripts.adaptive_tree_selection')
+         def select(model, validation, *, maximum, check):
+             assert validation is self.validation and maximum == model.tree_count_ == 5
+@@ -183,6 +183,84 @@
+         self.assertEqual(self.selections, [])
+ 
+ 
++    def test_off_candidate_targets_report_zero_informative_groups_without_changing_selection(self):
++        from dataclasses import dataclass
++        import math
++        import numpy as np
++        from scripts import ranking_metrics as metrics
++
++        # Actual accounting and ranking bodies, without importing SQL/data loaders.
++        accounting = ModuleType('scripts.train_baselines')
++        accounting.__dict__.update(np=np, dataclass=dataclass,
++                                   QueryRanking=metrics.QueryRanking)
++        wanted = {'Prepared', 'group_accounting', 'rankings', '_BudgetCallback'}
++        body = [node for node in ast.parse(raw_source(REPO_ROOT/'scripts/train_baselines.py')).body
++                if isinstance(node, (ast.ClassDef, ast.FunctionDef)) and node.name in wanted]
++        self.assertEqual({node.name for node in body}, wanted)
++        selector = ModuleType('scripts.adaptive_tree_selection')
++        selector.__dict__['math'] = math
++        selector_names = {'need', 'positive_layout', '_choose_curve', 'select_best_tree'}
++        selector_body = [node for node in ast.parse(raw_source(REPO_ROOT/'scripts/adaptive_tree_selection.py')).body
++                         if isinstance(node, ast.FunctionDef) and node.name in selector_names]
++        self.assertEqual({node.name for node in selector_body}, selector_names)
++        package = ModuleType('scripts')
++        package.train_baselines, package.adaptive_tree_selection = accounting, selector
++        package.ranking_metrics = metrics
++        modules = dict(self.modules, scripts=package)
++        modules.update({'scripts.train_baselines': accounting,
++                        'scripts.adaptive_tree_selection': selector,
++                        'scripts.ranking_metrics': metrics})
++        selector_supports = []
++        prefixes = ((3.0, -1.0), (-2.0, 7.0), (0.0, 0.0))
++
++        def staged(instance, x, **kwargs):
++            self.assertEqual(kwargs, dict(prediction_type='RawFormulaVal', ntree_start=0,
++                                          ntree_end=3, eval_period=1, thread_count=2))
++            self.assertEqual(x.shape, (2, 1))
++            return (np.asarray(values, dtype=np.float64) for values in prefixes)
++
++        with patch.dict(sys.modules, modules):
++            exec(compile(ast.Module(body=body, type_ignores=[]), '<actual-accounting-and-rankings>', 'exec'),
++                 accounting.__dict__)
++            exec(compile(ast.Module(body=selector_body, type_ignores=[]), '<actual-selector>', 'exec'),
++                 selector.__dict__)
++            actual_select = selector.select_best_tree
++
++            def capture_support(*args, **kwargs):
++                best, curve, support = actual_select(*args, **kwargs)
++                selector_supports.append(support)
++                return best, curve, support
++
++            selector.select_best_tree = capture_support
++
++            def prepared(query_id, targets, labels):
++                return accounting.Prepared(
++                    [(query_id, 'invented-u', None, frozenset(targets))],
++                    np.asarray([0, 0], dtype=np.int32), np.asarray([1, 2], dtype=np.int64),
++                    np.asarray([[0.0], [1.0]], dtype=np.float32),
++                    np.asarray(labels, dtype=np.int8), ['invented_numeric'])
++
++            train = prepared('train', {1}, [1, 0])
++            validation = prepared('validation', {99}, [0, 0])
++            self.assertEqual(accounting.group_accounting(validation)[-1]['informative_groups'], 0)
++            orders = [tuple(accounting.rankings(validation, scores)[0].ranked_items)
++                      for scores in prefixes]
++            self.assertEqual(orders, [(1, 2), (2, 1), (1, 2)])
++            model = FakeClassifier()
++            model.params['iterations'] = 3
++            with patch.object(FakeClassifier, 'staged_predict', staged, create=True):
++                result = self.helper(model, train, validation, max_iterations=3, check=lambda: None)
++        # FullY={99} is outside fixed C={1,2}; every prefix has literal NDCG=0.
++        self.assertEqual(result.validation_curve, (0.0, 0.0, 0.0))
++        self.assertEqual((result.selected_trees, result.trained_ceiling), (1, 3))
++        self.assertEqual(result.validation_support['informative_candidate_groups'], 0)
++        self.assertEqual(result.validation_support['fullY_positive_queries'], 1)
++        self.assertEqual(len(selector_supports), 1)
++        self.assertNotIn('informative_candidate_groups', selector_supports[0])
++        self.assertIsNot(result.validation_support, selector_supports[0])
++        self.assertEqual((FakeClassifier.total_fits, model.tree_count_, model.shrinks), (1, 3, []))
++        self.assertEqual((result.selected_model.tree_count_, result.selected_model.shrinks), (1, [1]))
++
+ 
+ if __name__ == '__main__':
+     unittest.main()
+--- BASE/docs/experiments/development-training.md
++++ V2/docs/experiments/development-training.md
+@@ -8,8 +8,29 @@
+ 
+ Возвращается `DevelopmentFit`: `full_model`, отдельная `selected_model`, `trained_ceiling`, `selected_trees`, полная `validation_curve`, `validation_support`, `training_accounting`. Усечена только копия; исходная обученная модель остаётся полной. Выбранный размер может совпасть с потолком, если это результат complete validation selector.
+ 
++`validation_support.informative_candidate_groups` возвращает уже вычисленное
++`group_accounting(validation)[-1]['informative_groups']`: число групп кандидатов с
++положительными и отрицательными labels внутри C. Это диагностическое поле;
++исходный словарь support selector не изменяется. При корректных
++`y = 1[item ∈ fullY]` и фиксированном C ноль означает, что каждая группа пустая,
++полностью отрицательная или полностью положительная, поэтому NDCG не зависит
++от перестановки её кандидатов. Scores и rankings при этом могут меняться.
++Положительное число не гарантирует неплоскую наблюдаемую кривую или достаточную
++статистическую мощность. Поле не включает отказ, resampling, увеличение потолка,
++дополнительный fit или изменение выбора prefix.
++
+ Caller отвечает за временное разделение train/validation, зрелость и полноту Q/C/Y, происхождение фичей, source pins, сохранение моделей/метаданных, отчёт и общие CPU/RSS/wall ограничения. `check` обязателен и кооперативен; native blocking/startup/cleanup/exit требуют внешнего наблюдения. Helper не выдаёт разрешения на обучение и не создаёт CLI/controller.
+ 
+ Будущие non-frozen callers должны явно перейти на этот helper. Его наличие само по себе не меняет другие маршруты. Исторические smoke/019/016/frozen процедуры и принятый selector сохранены.
+ 
+-`tests/test_development_training.py` содержит 10 native-free lifecycle-проверок: fake backend/accounting, spy selector и AST реального callback. Они проверяют orchestration, но не реальный CatBoost fit, native shrink/serialization или математику selector. В переносимой компоновке прошли все 22 native-free теста двух модулей, включая эти 10 lifecycle-проверок. Проверки выполнены без реального обучения и доступа к датасету; они не подтверждают native-интеграцию нового helper.
++В исходной версии `tests/test_development_training.py` прошли 10 native-free
++lifecycle-проверок: fake backend/accounting, spy selector и AST реального callback;
++они входили в 22 пройденных native-free теста двух модулей. Эти результаты
++относятся к исходным байтам и не подтверждают реальный CatBoost fit или native
++shrink/serialization. Для диагностического поля подготовлен 11-й тест **UNRUN**:
++реальные accounting/ranking/selector тела на маленьких NumPy-массивах и fake ML,
++validation Q=1, fullY={99}, C={1,2}, три prefix-перестановки. Ожидаются ноль
++informative groups, NDCG-кривая `(0,0,0)`, выбранный prefix 1 и неизменный исходный
++support. Эта проверка не использует SQL, реальные данные или native ML; новые
++байты всего модуля тестов пока не исполнены. Native-интеграция helper остаётся
++непроверенной.

@@ -1,0 +1,198 @@
+{
+  "status": "SOURCE_ONLY_UNRUN_REVIEW_REQUIRED",
+  "version": 3,
+  "canonical_writer": "backlog_coordinator only",
+  "candidate_files": [
+    {
+      "target_relative_path": "scripts/train_development.py",
+      "path": "/tmp/tlab-development-cli-proposal-v3/candidate/scripts/train_development.py",
+      "bytes": 12640,
+      "sha256": "f4d19483532318b25c2adb51734ec347e772d3441edca944c5c91ce791cacde9"
+    },
+    {
+      "target_relative_path": "tests/test_train_development.py",
+      "path": "/tmp/tlab-development-cli-proposal-v3/candidate/tests/test_train_development.py",
+      "bytes": 19794,
+      "sha256": "601bb6d5e1b510da7864de66daab0173a2d431303c0d9dca1f155898bf9d4389"
+    },
+    {
+      "target_relative_path": "docs/experiments/development-training.md",
+      "path": "/tmp/tlab-development-cli-proposal-v3/candidate/docs/experiments/development-training.md",
+      "bytes": 10919,
+      "sha256": "67da8031fc81bda9866a3c27959de0f7fa21c185d56fcf43b27dacfcf2448cde"
+    },
+    {
+      "target_relative_path": "README.md",
+      "path": "/tmp/tlab-development-cli-proposal-v3/candidate/README.md",
+      "bytes": 20828,
+      "sha256": "5619b5101ac70b109db7a838d0d00eedcfa89edfd28bae0b5ba6f9149bf1b266"
+    }
+  ],
+  "preserved_lineage": [
+    {
+      "manifest": {
+        "path": "/tmp/tlab-development-cli-proposal-v1/manifest.json",
+        "bytes": 5538,
+        "sha256": "cb0b0530871ac62578dab64fdca30dd089539d6d0199b204c219faf65e60941d"
+      },
+      "freeze": {
+        "path": "/tmp/tlab-development-cli-proposal-v1/freeze.json",
+        "bytes": 1797,
+        "sha256": "092e3e66c35ccfd58a3bcb0d1c9423b16d554fffeb150a1cc22ebc427bd0d2fe"
+      }
+    },
+    {
+      "manifest": {
+        "path": "/tmp/tlab-development-cli-proposal-v2/manifest.json",
+        "bytes": 6579,
+        "sha256": "594226fd6dc048bd357dcac63bc0fb4db1d6771f8fc85731c384697fbef523be"
+      },
+      "freeze": {
+        "path": "/tmp/tlab-development-cli-proposal-v2/freeze.json",
+        "bytes": 2022,
+        "sha256": "878cadf9e9a37266b7d3e8d34bd749b79fcdf7b6600cd3b6545ec015a1af5893"
+      }
+    }
+  ],
+  "correction_basis": [
+    {
+      "path": "/tmp/tlab-development-cli-boundaries-review-v1.md",
+      "bytes": 3550,
+      "sha256": "63a461507175dc96ab4c34319b72eb2cfd2dbf5fdb5729cbf26a744c9ee8655a"
+    },
+    {
+      "path": "/tmp/tlab-development-cli-correctness-review-v1.md",
+      "bytes": 2722,
+      "sha256": "2dd1c3c9c141631091d75666145f2f6e1b984823e5682a5e73e9a4f0209dd41f"
+    }
+  ],
+  "base_and_context_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "bytes": 35022,
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "bytes": 5590,
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "bytes": 18580,
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "bytes": 34909,
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "bytes": 11864,
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "bytes": 9971,
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "bytes": 20181,
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml",
+      "bytes": 367,
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+      "bytes": 300283,
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/development-training.md",
+      "bytes": 6238,
+      "sha256": "0aa404f711286c4e8495f6bc5b59ab071e5cb46a905cf9b6c8a60554ca26e418"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "bytes": 19864,
+      "sha256": "e145f68cbbb06df9391edae432667b1151ce121fd3aeacc8f35e8b323a95afdc"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/development/train.json",
+      "bytes": 637,
+      "sha256": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/development/selection.json",
+      "bytes": 643,
+      "sha256": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36"
+    },
+    {
+      "path": "/tmp/tlab-user-training-request-route-audit-v1.md",
+      "bytes": 4684,
+      "sha256": "db502cb564715b38281f47a9893b90200f9282fd40ff567337c13e603e02ae5a"
+    },
+    {
+      "path": "/tmp/tlab-user-training-request-route-audit-v1-pins.json",
+      "bytes": 6074,
+      "sha256": "a821cc336b51ab13a5408c57c56b3531edb86eda7961fc74e0f2ecf6267c9191"
+    }
+  ],
+  "exact_V2_to_V3_patch": {
+    "path": "/tmp/tlab-development-cli-proposal-v3/v2-v3.diff",
+    "bytes": 4922,
+    "sha256": "cf620f251a1e075e0414bb45f7c5ef39a45d271237b174ca922e890818a94c74"
+  },
+  "exact_V1_to_V3_patch": {
+    "path": "/tmp/tlab-development-cli-proposal-v3/v1-v3.diff",
+    "bytes": 8068,
+    "sha256": "3dedcc3ba18ad96c0652bcaeb69329ac70abb9482b4035f684e5194ee6f20544"
+  },
+  "complete_base_to_V3_patch": {
+    "path": "/tmp/tlab-development-cli-proposal-v3/source.diff",
+    "bytes": 42265,
+    "sha256": "806bde79564ff9eb4c76d219028f74ba226c3218942a0a8938c75e1ab0e8a145"
+  },
+  "audit": {
+    "path": "/tmp/tlab-development-cli-proposal-v3/candidate-audit.md",
+    "bytes": 3260,
+    "sha256": "50b1358eafff6d0f91776e765c8e44563e99169d7a1acd3036ce10a457d54c5f"
+  },
+  "corrections": [
+    "CLI-B-001",
+    "CLI-A-001",
+    "CLI-A-002"
+  ],
+  "inverse_restores_exact_V2_CLI": true,
+  "old_ten_test_method_AST_unchanged": true,
+  "README_doc_bytes_unchanged": true,
+  "source_AST_compile": "PASS_not_executed",
+  "runtime_fit_call_sites": 1,
+  "test_class": "DevelopmentCLI",
+  "test_method_ids": [
+    "test_independent_calls_select_separately_and_save_reload_without_refit",
+    "test_validation_and_ceiling_are_required_parser_arguments",
+    "test_validation_is_uncapped_and_keeps_off_candidate_and_empty_candidate_queries",
+    "test_chronology_failure_precedes_preparation_and_fit",
+    "test_fit_or_save_failure_never_retries_or_reports_complete",
+    "test_reload_mismatch_prevents_complete_without_another_fit",
+    "test_primary_fit_exception_survives_secondary_failure_telemetry_or_formatting",
+    "test_input_mutation_during_fit_prevents_complete_without_refit",
+    "test_near_equal_scores_with_changed_ranking_are_rejected_without_refit",
+    "test_input_mutation_by_final_report_writer_is_rejected_without_refit",
+    "test_existing_or_dangling_output_is_preserved_before_backend_load",
+    "test_default_cli_source_import_has_no_backend_or_filesystem_effect"
+  ],
+  "executed_tests": 0,
+  "native_imports": 0,
+  "ML_fits": 0,
+  "candidate_CLI_runs": 0,
+  "project_Git_network_writes": 0,
+  "independent_rereview": "PENDING_Root_assignment",
+  "no_runtime_authority": true
+}
