@@ -1,0 +1,24 @@
+{
+  "utc": "2026-10-16T00:16:49.815849+00:00",
+  "priority": "P2",
+  "path": "scripts/itemcf_extraction.py",
+  "source_sha256": "aeb0a2e83597630b1cf57443bb581a22a239ed56f74dd4108813ec8b87737aa5",
+  "lines": [
+    111,
+    112
+  ],
+  "trigger": "Accepted aware offset-zero anchor2020-10-26 Europe/London; source coverage starts2020-10-19T00UTC",
+  "actual": "wall-clock b-7days yields2020-10-18T23UTC for preflight, false coverage refusal; SQL naive lower wouldbeOct19T00UTC",
+  "expected": "normalize accepted anchor to UTC before fixed7day arithmetic, preserve accepted input domain",
+  "evidence": "Root stdlib datetime/ZoneInfo calculation only; candidate/native/SQL/tests0",
+  "repair": "separateV2, canonical UTC normalization plus one native-free regression, frozenV1 unchanged",
+  "review_A": "no-findingsV1 only does not close this Root finding",
+  "supersedes_line_mapping_only": {
+    "path": "/tmp/tlab-root-itemcf-extraction-v1-DST-finding.json",
+    "sha256": "f875cec235be4797937e245872abc5c3e2ee7e3c6a7794592b446072ecf132e3",
+    "old_unverified_lines": [
+      115,
+      122
+    ]
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "utc": "2026-10-16T00:29:06.916288+00:00",
+  "status": "CODE_UNIT_PASS5_ACTUAL_TERMINAL_EXIT0_CLOSED",
+  "terminal_chunk": "4b8796",
+  "actual_tool_wall_seconds": 0.924616792,
+  "reported_outer_body_wall_seconds": 0.9689266659988789,
+  "wall_values_not_added_or_normalized": true,
+  "tests": [
+    "test_literal_source_to_projection_and_empty_query",
+    "test_zero_offset_anchor_normalizes_before_seven_day_arithmetic",
+    "test_full_source_descriptor_refuses_before_opener_or_callback",
+    "test_literal_signed_decimal_hash_tie_order",
+    "test_member_limit_refuses_complete_result_and_closes"
+  ],
+  "scope": "real DuckDB SQL on tiny invented typed9 databases plus pure kernel and one empty-Q DSTpreflight; no actual source dataset or MLfit",
+  "main_fixture": "36events+2Q+3C=41, 28 distinct posting memberships; mean3/260 max3/13 history20 coverage1/20",
+  "additional_fixture_cases": "4tie events; same36events member-overflow; preopenerbudget0database; DSTemptyQ0database",
+  "source_pins_unchanged": true,
+  "observed_RSS_peak_bytes": 122044416,
+  "observed_RSS_is_not_hard_or_whole_tree_sum": true,
+  "outer_profile": {
+    "status": "REAPED",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "",
+    "error": null,
+    "cleanup_errors": [],
+    "reap_known": true,
+    "command": [
+      "/tmp/tlab-public018-clean-20261015-once/.venv-locked/bin/python",
+      "-I",
+      "-B",
+      "/tmp/tlab-itemcf-extractor-code-unit-runner-proposal-v2.py",
+      "--request",
+      "/tmp/tlab-root-itemcf-extractor-code-unit-issued-v1.json",
+      "--request-sha256",
+      "c529e1da866d44ec6549bebb6224571950d523884462e27879453a98600e665f"
+    ],
+    "request_sha256": "c529e1da866d44ec6549bebb6224571950d523884462e27879453a98600e665f",
+    "wall_from_outer_first_line": 0.9689266659988789,
+    "outer_cpu_through_profile": 0.048109,
+    "outer_RUSAGE_CHILDREN_cpu": 0.7727289999999999,
+    "observed_descendant_peak_rss_bytes": 122044416,
+    "ML_fits": 0,
+    "real_dataset_reads": 0,
+    "scope": "Outer RUSAGE_CHILDREN reported literally; full-tree aggregation semantics not independently proved here. Child and inner profiles retained separately, not summed as disjoint. Profile excludes final JSONwrite/exit; tool terminal separately closes lifetime. RSS observed only; whole-tree instantaneous sum not measured. No data sandbox claim."
+  },
+  "inner_profile": {
+    "status": "CODE_UNIT_CHECKED_PENDING_ROOT_EXTERNAL_LIFETIME",
+    "request_sha256": "c529e1da866d44ec6549bebb6224571950d523884462e27879453a98600e665f",
+    "supervisor_cpu_through_profile": 0.036695,
+    "reaped_child_cpu": 0.731923,
+    "child_peak_rss_bytes": 122044416,
+    "wall_from_first_python_line": 0.9289750829921104,
+    "scope": "Root must retain before-exec startup/full exit and enforce whole30wall; supervisor5CPU guard cooperative; no hard RSS/data-isolation or ML/quality claim"
+  },
+  "evidence": [
+    {
+      "path": "/tmp/tlab-itemcf-extractor-code-unit-20261016-once/consumed.json",
+      "sha256": "1ec0ef1620edda681a024393ed55ba3041c687d20968bd73537375e466d4c341",
+      "bytes": 201
+    },
+    {
+      "path": "/tmp/tlab-itemcf-extractor-code-unit-20261016-once/tests.txt",
+      "sha256": "bee11004d23e0f86253a9abff9179cec416750615b9a5244899d0418b6e36cd3",
+      "bytes": 940
+    },
+    {
+      "path": "/tmp/tlab-itemcf-extractor-code-unit-20261016-once/child-result.json",
+      "sha256": "ebfa83b77c0d9f4a9bdcb9e7c54212e408ef6ec5bc5e5d0ce99870e231a241d3",
+      "bytes": 259
+    },
+    {
+      "path": "/tmp/tlab-itemcf-extractor-code-unit-20261016-once/terminal.json",
+      "sha256": "6379c17d798191f995d43b0950ea7787779fe29c9af7354b25de37a514ff207d",
+      "bytes": 54
+    },
+    {
+      "path": "/tmp/tlab-itemcf-extractor-code-unit-20261016-once/result.json",
+      "sha256": "e8d7192a7aaafffb5e8edc1674c3553026939ee84aedad914ef6c9594787843e",
+      "bytes": 490
+    },
+    {
+      "path": "/tmp/tlab-itemcf-code-unit-outer-receipt-v2.json",
+      "sha256": "73faf9cc697e61755c3ec19caf52ca4f52c8fe46450543d2a59eeaa268c892f5",
+      "bytes": 1173
+    }
+  ],
+  "MLfits": 0,
+  "real_source_reads": 0,
+  "new_real_pilot_or_native_training_allocation": false,
+  "installation": "notyet; solecoordinator next",
+  "HEAD_and_staged_state_unchanged": true
+}

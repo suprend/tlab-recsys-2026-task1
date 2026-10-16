@@ -1,0 +1,83 @@
+--- V1/scripts/itemcf_extraction.py
++++ V2/scripts/itemcf_extraction.py
+@@ -8,7 +8,7 @@
+ 
+ from contextlib import contextmanager
+ from dataclasses import dataclass
+-from datetime import datetime, timedelta
++from datetime import datetime, timedelta, timezone
+ 
+ from scripts.itemcf_projection import LimitExceeded
+ 
+@@ -106,6 +106,7 @@
+     _clock(b, "b")
+     _clock(source.start, "source.start")
+     _clock(source.end, "source.end")
++    b = b.astimezone(timezone.utc)
+     if b.hour or b.minute or b.second:
+         raise ValueError("b must be a daily UTC midnight anchor")
+     start = b - timedelta(days=7)
+--- V1/tests/test_itemcf_extraction.py
++++ V2/tests/test_itemcf_extraction.py
+@@ -4,6 +4,7 @@
+ from pathlib import Path
+ import tempfile
+ import unittest
++from zoneinfo import ZoneInfo
+ 
+ import duckdb
+ 
+@@ -99,6 +100,23 @@
+                           rows[1]["itemcf_mean"]), (20, True, 0.0))
+         self.assertTrue(rows[2]["candidate_cold"])
+ 
++    def test_zero_offset_anchor_normalizes_before_seven_day_arithmetic(self):
++        opened = []
++
++        def forbidden_opener():
++            opened.append(True)
++            raise AssertionError("Empty batch must not open a source")
++
++        # London is UTC at this anchor, but was UTC+1 seven calendar days ago.
++        b = datetime(2020, 10, 26, tzinfo=ZoneInfo("Europe/London"))
++        source = SourceContract(0, datetime(2020, 10, 19, tzinfo=timezone.utc),
++                                datetime(2020, 10, 26, tzinfo=timezone.utc))
++        snapshots = extract_itemcf_snapshot(
++            forbidden_opener, (), b=b, source=source,
++            limits=ExtractionLimits(0, 0, 0), check=lambda: None)
++        self.assertEqual(snapshots, ())
++        self.assertEqual(opened, [])
++
+     def test_full_source_descriptor_refuses_before_opener_or_callback(self):
+         calls = []
+ 
+--- V1/docs/experiments/itemcf-extraction.md
++++ V2/docs/experiments/itemcf-extraction.md
+@@ -8,7 +8,10 @@
+ each with a distinct bounded query ID and at most 220 distinct exact signed
+ BIGINT candidate IDs. Candidate and query order are preserved, including queries
+ with no candidates. Float, bool and NULL IDs are rejected. The common `b` is an
+-aware, second-precision UTC midnight. `SourceContract(rows, start, end)` declares
++aware, second-precision UTC midnight. Any accepted zero-offset timezone is
++normalized to `timezone.utc` before subtracting seven days, preserving the
++anchor instant across seasonal timezone transitions.
++`SourceContract(rows, start, end)` declares
+ authenticated typed9 row count and half-open UTC coverage containing `[b-7d,b)`.
+ 
+ The zero-argument injected opener must return a fresh **read-only DuckDB
+@@ -51,10 +54,12 @@
+ hard-interrupt a blocked native call. These limits are not hard native resource
+ bounds, measured IO, or authentication/content evidence.
+ 
+-The four prepared tests use invented typed9 events only: the 36-event/41-input
++The five prepared tests use invented typed9 events or empty preflight only: the 36-event/41-input
+ literal extraction-to-kernel case (mean `3/260`, max `3/13`), pre-opener full-source
+-refusal, signed-decimal hash ties, and complete-result refusal/cleanup at the
+-member bound. The window outsider is one **second** before the lower endpoint.
++refusal, signed-decimal hash ties, complete-result refusal/cleanup at the
++member bound, and the London zero-offset anchor crossing a seasonal transition
++with exact seven-day UTC coverage and no opener/SQL. The window outsider is
++one **second** before the lower endpoint.
+ They are **UNRUN** in CODE preparation. No actual source pilot, CPU/RSS estimate,
+ ranking improvement, fit, runtime grant or new mandatory gate follows from this
+ candidate. The 128 MB fixture engine setting is not a process RSS allowance.

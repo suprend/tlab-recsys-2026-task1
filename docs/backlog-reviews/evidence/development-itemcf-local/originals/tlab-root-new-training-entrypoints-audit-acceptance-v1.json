@@ -1,0 +1,26 @@
+{
+  "accepted_utc": "2026-10-15T21:01:42.102986+00:00",
+  "scope": "Source entrypoint audit, not automatic-integration or execution acceptance",
+  "source_pins_checked": 19,
+  "exact_source_copies_checked": 19,
+  "report": {
+    "path": "/tmp/tlab-new-training-tree-selection-entrypoints-audit-v1.md",
+    "sha256": "c941bc081652ce1917ae12d4be64577af245a0eb361cf7aa68e08c2df92b601b",
+    "bytes": 3135
+  },
+  "pinfile": {
+    "path": "/tmp/tlab-new-training-tree-selection-entrypoints-audit-v1-pins.json",
+    "sha256": "504d323eb3a24ed27dad0f265a9966312035d245cdfd80a2211ca330aec95171",
+    "bytes": 6724
+  },
+  "observations": [
+    "New adaptive study calls full-range selector and shrinks selected prefix",
+    "Reusable selector is explicit post-fit API, not automatic fit default",
+    "Strong019 did select among50/150/300; describing it as wholly unselected fixed300 is false",
+    "Legacy smoke can take a fresh approval but is not a general adaptive default",
+    "No second active non-frozen workflow silently fixing300 verified; no exhaustive callgraph claim"
+  ],
+  "decision": "Prepare small explicit future-development fit helper; historical source/recipes and selector immutable",
+  "prototype_status": "SourceImportReview dispatched source+test-source only, UNRUN; no actual fit grant",
+  "runtime_or_publication_changes": 0
+}

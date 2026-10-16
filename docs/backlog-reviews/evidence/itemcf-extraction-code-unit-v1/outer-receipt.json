@@ -1,0 +1,27 @@
+{
+  "status": "REAPED",
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "",
+  "error": null,
+  "cleanup_errors": [],
+  "reap_known": true,
+  "command": [
+    "/tmp/tlab-public018-clean-20261015-once/.venv-locked/bin/python",
+    "-I",
+    "-B",
+    "/tmp/tlab-itemcf-extractor-code-unit-runner-proposal-v2.py",
+    "--request",
+    "/tmp/tlab-root-itemcf-extractor-code-unit-issued-v1.json",
+    "--request-sha256",
+    "c529e1da866d44ec6549bebb6224571950d523884462e27879453a98600e665f"
+  ],
+  "request_sha256": "c529e1da866d44ec6549bebb6224571950d523884462e27879453a98600e665f",
+  "wall_from_outer_first_line": 0.9689266659988789,
+  "outer_cpu_through_profile": 0.048109,
+  "outer_RUSAGE_CHILDREN_cpu": 0.7727289999999999,
+  "observed_descendant_peak_rss_bytes": 122044416,
+  "ML_fits": 0,
+  "real_dataset_reads": 0,
+  "scope": "Outer RUSAGE_CHILDREN reported literally; full-tree aggregation semantics not independently proved here. Child and inner profiles retained separately, not summed as disjoint. Profile excludes final JSONwrite/exit; tool terminal separately closes lifetime. RSS observed only; whole-tree instantaneous sum not measured. No data sandbox claim."
+}
