@@ -1,0 +1,161 @@
+{
+  "wave": "049",
+  "role": "independent_blind_FIRST_A_features_a",
+  "created_utc": "2026-10-15T23:05:14.837229+00:00",
+  "word_count": 231,
+  "new_supported_mismatches": 0,
+  "new_ids": [],
+  "disposition": "negative_bounded_audit; merge_existing006_estimand_evidence_only",
+  "source_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "bytes": 9971,
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "bytes": 35022,
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_evaluation.py",
+      "bytes": 10235,
+      "sha256": "13ff442a599ab2623c7a3fa2316f36ed9ec8015215172edfcee86b8f25f51446"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "bytes": 18580,
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_ranking_metrics.py",
+      "bytes": 10912,
+      "sha256": "2384c596c9028d778d62af2dd81190698dee31442282ecb572c52f4cd469c8c6"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "bytes": 46054,
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/heldout-evaluation.md",
+      "bytes": 4802,
+      "sha256": "02d587812239943f586e4bf35806fc10d4ab2f8f9febcd8fe6f9229d47e68bf2"
+    }
+  ],
+  "scope": "Full target ranking/conditional query macro/positive projection/tree selector versus current declared report; valid-input static tracing only, not complete source extraction or feature formula proof.",
+  "four_fields": {
+    "mechanism": "Trace fullY denominators, every retained Q, exact ranking tie order and query-macro numerator/denominator through scoring and selector projection.",
+    "prediction": "Full-cohort and fullY-positive-only projection yield identical conditional query-macro NDCG, preserving positive empty-C misses; declared user-macro differs.",
+    "closest_tiny_meaningful_test": "UNRUN four literal Q with3 C rows; full/projection paths against hand2/3 conditional query,3/4 conditional user,1/2 all-query-zero. Existing metric tests already cover distinctions; no new test/run admission.",
+    "task1_benefit": "Retain a defensible metric interpretation and avoid relabeling legitimate conditional evaluation as cohort leakage/new bug."
+  },
+  "hand_literal_UNRUN": {
+    "Q": [
+      {
+        "qid": "a-emptyC",
+        "user": "A",
+        "C": [],
+        "Y": [
+          99
+        ],
+        "score": 0
+      },
+      {
+        "qid": "a-hit",
+        "user": "A",
+        "C": [
+          2
+        ],
+        "Y": [
+          2
+        ],
+        "score": 1
+      },
+      {
+        "qid": "b-hit",
+        "user": "B",
+        "C": [
+          3
+        ],
+        "Y": [
+          3
+        ],
+        "score": 1
+      },
+      {
+        "qid": "c-emptyY",
+        "user": "C",
+        "C": [
+          4
+        ],
+        "Y": [],
+        "conditional_score": null
+      }
+    ],
+    "expected": {
+      "conditional_macro_query_ndcg": "2/3",
+      "conditional_user_macro_ndcg": "3/4",
+      "all_query_zero_ndcg": "1/2"
+    },
+    "status": "Written literal only; no fixture/arithmetic/pipeline executed"
+  },
+  "rejected_apparent_mismatch": "positive_layout conditions metric work on fullY positivity for a predeclared conditional metric; no fixedQ/C resampling and positive empty-C/off-C-only Q retained.",
+  "source_functions": [
+    "ranking_metrics.score_query full targets determine IDCG",
+    "ranking_metrics._estimate query macro uses query-count denominator",
+    "train_baselines.rankings emits every Prepared query and exact-ID lexsort",
+    "heldout_evaluation._rankings emits every Q with full targets/raw-score-desc product-asc",
+    "adaptive_tree_selection.positive_layout preserves positive empty-C records",
+    "adaptive_tree_selection.select_best_tree selects conditional_macro_query.ndcg"
+  ],
+  "existing_coverage_read": [
+    "test_full_targets_define_denominators_even_outside_catalog_and_shortlist",
+    "test_shortlist_is_not_filled_and_empty_candidates_are_misses",
+    "test_empty_mature_targets_and_censoring_remain_distinct",
+    "test_query_macro_and_user_macro_are_different_estimands",
+    "test_cluster_draws_preserve_query_macro_and_seed",
+    "test_zero_positive_draws_are_explicit_and_not_redrawn"
+  ],
+  "outcomes": {
+    "agreement": "Retain bounded negative finding under existing006, no new runtime/research task.",
+    "disagreement": "Localize named source/transport/metric issue before affected interpretation; no current execution permission.",
+    "not_established": [
+      "Actual source completeness",
+      "Actual model/score/output parity",
+      "Independent truth of receipt claims",
+      "Whole-search validation or quality superiority"
+    ]
+  },
+  "future_cost_not_grant": {
+    "literal_queries": 4,
+    "candidate_rows": 3,
+    "projection_calls": 1,
+    "ranking_adapter_calls": 2,
+    "metric_evaluations": 2,
+    "fits_native_actualdata_Y": 0,
+    "includes": [
+      "construction",
+      "hand-gold checks",
+      "failures"
+    ],
+    "status": "UNRUN_NOT_ADMITTED"
+  },
+  "dedup": [
+    "existing006fullY/evaluator tests",
+    "own040/045 metric/selection-scope boundaries",
+    "knownfixed300correction excluded",
+    "knownwave048NULLoraclefix excluded"
+  ],
+  "editorial_preflight": "Initial264word draft rejected before any output creation; shortened within250word cap.",
+  "operations": {
+    "peer049_read_before_FIRST": false,
+    "raw_DB_matrices_CBM_predictions_artifact_following": 0,
+    "project_module_imports_tests_nativeSQL_network": 0,
+    "helpers_runtime_jobs_polls": 0,
+    "Git_canonical_project_writes": 0,
+    "coordinator_contacts_runtime_grants_newmandatoryIDs": 0,
+    "small_source_TMP_IO_only": true
+  },
+  "current_scope_preserved": true
+}

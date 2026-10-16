@@ -1,0 +1,13 @@
+# Wave054 skeptic — conditional caller requirements, no existing legacy bug
+
+The frozen sources establish a single-model helper and historical paired study, not an ordinary future paired consumer. A's split-helper proposal is conditional on that consumer actually being justified; no CLI/refactor is warranted merely to consume quota. Preserve single-model composition and frozen historical routes.
+
+**Qualify “before validation.”** `development_training.py:55–57` calls validation accounting before fit: `train_baselines.py:274–294` reads binary labels and full-Y support. This is predeclared admission, not model-dependent selection feedback. The actual order is accounting55 → fit63 → selector77. Historical study loops177–207 finish/persist both full fits before selection214–272. Two helper calls instead give B-fit/B-select/W-fit; they do not satisfy that literal order. A fit-only phase would require zero selectors after W-fit failure under the literal contract.
+
+B's immutable plans plus quarantined feedback can satisfy a narrower information contract if no human/controller can use B outcomes to alter W. That is neither literal-order equivalence nor global statistical independence. Strengthen “no discretionary continuation”: even a predeclared metric-driven W cancellation/retry rule or complete-cases-only reporting cannot silently support the claimed paired comparison. Exogenous failures remain failures, retained with attempts/costs; an incomplete pair must not become a complete paired result.
+
+Before either fit, fix recipes, source/data identities, ordered features, Q/C/full-Y populations, chronology/maturity, weights/seeds/objective, ceilings, selection/tie law and metric-independent continuation/reporting. Retain full/selected model identities, complete curves/support, scores/ranks, reload/prefix parity and event/failure records. Existing positive empty-C/off-C coverage remains required.
+
+Separate selected sizes estimate a tuned-recipe contrast. A predeclared common k≤min(K_B,K_W) with otherwise matched recipes supports a fixed-k contrast; equal k alone does not isolate feature causality. Saved curves yield descriptive same-k NDCG differences, not new independent confirmation or free additional metrics.
+
+Charge both full fits, K_B+K_W dependent looks, preparation/scoring/persistence/verification, failures and startup/cleanup/exit. Shrinking saves no completed training; historical remainder is unknown and allocations closed. All18 frozen inputs remain exact; unfrozen D metadata/current canonical sources were not read. Source/AST only,0runtime/newIDs/gates/grants. Original01:30UTC grid retained; Root alone decides future implementation.

@@ -1,0 +1,152 @@
+{
+  "wave": 42,
+  "role": "blind_FIRST_B_models_a",
+  "words": 273,
+  "new_ids": [],
+  "new_mechanisms": 0,
+  "dedup": [
+    "TLAB019",
+    "TLAB013",
+    "wave037 all-prefix/globalband",
+    "wave039 patience no global guarantee/post-fit no savings",
+    "wave040 retrospective reused-feedback diagnostic"
+  ],
+  "disposition": "reject automatic doubling as unsupported rule; optional UNRUN fixed-P50 scalar replay refines existing patience family; no native extension proposal or main gate",
+  "four_fields": {
+    "mechanism": "one frozen P50 strict-record patience policy replay with cap1200; earliest global1e-12 band among seen prefixes",
+    "prediction": "within-epsilon fidelity requires B reaching1189; strict record there means P50 cannot stop B before1200; only W can offer check savings",
+    "nearest_falsifier": "read two separately accepted scalar curves only under future permission; reject if either arm regret>epsilon or no aggregate check reduction; no retuningP",
+    "task1_benefit": "cheaply falsify false compute-saving claims while finishing main report and preserving finite-cap uncertainty"
+  },
+  "common_control": "same full1200 curves/whole73-fullY-positive cohort incl offC/emptyC, same P50 and global1e-12 selector; no partial curve or candidate-only metric substitution",
+  "trusted_Root_aggregates_only": {
+    "accepted_adaptive_study": true,
+    "B": {
+      "selected": 1189,
+      "at_selected_ndcg_rounded": 0.460208,
+      "at300_rounded": 0.458611,
+      "at1200_rounded": 0.455152
+    },
+    "W": {
+      "selected": 403,
+      "at_selected_ndcg_rounded": 0.465646,
+      "at300_rounded": 0.464703,
+      "at1200_rounded": 0.463815
+    },
+    "trained_ceiling_each": 1200,
+    "selection_days": "22-23",
+    "fullY_positive_queries": 73,
+    "dependent_validation_looks": 2400,
+    "post_final_development": true,
+    "rounded_values_not_used_for_epsilon_test": true,
+    "live_curves_outputs_not_read": true
+  },
+  "policy": {
+    "P": 50,
+    "max_prefix": 1200,
+    "patience_reset": "only strict increase of exact running maximum, no local epsilon chaining",
+    "stop": "50 prefixes since last strict record or fixed cap",
+    "return": "earliest seen prefix with score>=maximum_seen-1e-12",
+    "nonfinite_or_incomplete": "reject malformed replay input",
+    "policies_tested": 1,
+    "changingP_after_feedback": "not authorized",
+    "B_bound": "first global-epsilon-band entry1189 strictly exceeds all earlier scores; next P50 stop>=1239, beyond1200"
+  },
+  "prospective_replay_only": {
+    "input_curves": 2,
+    "input_bytes_max": 1048576,
+    "known_criterion_values_revisited_max": 2400,
+    "new_metric_values": 0,
+    "new_policy_outcomes": 2,
+    "new_native_fits_chunks_predicts": 0,
+    "cpu_seconds_cap": 15,
+    "wall_seconds_cap": 30,
+    "peak_rss_bytes_cap": 134217728,
+    "cost_includes": [
+      "interpreter/startup",
+      "accepted scalar file authentication",
+      "parse/finite/count checks",
+      "one policy replay/control comparisons",
+      "receipt persistence",
+      "failure cleanup/full exit tail"
+    ],
+    "grant": false,
+    "not_independent_validation_feedback": true
+  },
+  "native_cost_not_grant": {
+    "fresh_matched_full_vs_stopping_BW_fit_attempts": 4,
+    "validation_checks_max": 4800,
+    "includes": [
+      "all full/control and stopped fits",
+      "source/matrix/Pool preparation",
+      "fullY scoring/ordering every observed iteration",
+      "callback/stopping overhead",
+      "hashes/serialization/reload/verification",
+      "failures/cleanup/startup/full tail"
+    ],
+    "chunks": "each fit/continuation call paid in addition; no path equivalence assumed",
+    "actual_earlystop_speedup_not_established": true,
+    "not_current_experiment": true
+  },
+  "negative_outcomes": [
+    "regret>1e-12 eitherarm rejects exact-fidelity policy on known curves",
+    "no total check reduction rejects proposed replay saving",
+    "success is only compatibility with reused curves, not future global optimality or timing",
+    "unknown future beyond1200 stays unknown; no automatic doubling/extension/refit"
+  ],
+  "source": [
+    {
+      "url": "https://catboost.ai/docs/en/concepts/overfitting-detector",
+      "verified": "Iter checks waiting since best validation value; training can stop before specified trees; does not guarantee global prefix maximum or our fullY metric"
+    }
+  ],
+  "bounded_prior_pins": [
+    {
+      "path": "docs/research-lab/brainstorm-wave037-synthesis.md",
+      "bytes": 2159,
+      "sha256": "fe40f61899465ab9fed1868431e2ba7544355f762e313a8dc041eb436197a2fa",
+      "scope": "bounded prior/docs identity only; historical status text not overriding current Root metadata"
+    },
+    {
+      "path": "docs/research-lab/brainstorm-wave039-synthesis.md",
+      "bytes": 1856,
+      "sha256": "2d88be98e12c7630cf34aa3e18edea93a2307e4fd2ba63fdb86ae194776e345b",
+      "scope": "bounded prior/docs identity only; historical status text not overriding current Root metadata"
+    },
+    {
+      "path": "docs/research-lab/brainstorm-wave040-synthesis.md",
+      "bytes": 1699,
+      "sha256": "56426a26495b70a50e91e8d0620eec669146afa00ca9413e371d442bfa69cb6e",
+      "scope": "bounded prior/docs identity only; historical status text not overriding current Root metadata"
+    },
+    {
+      "path": "docs/experiments/adaptive-tree-selection.md",
+      "bytes": 4495,
+      "sha256": "1663573a3246ad536078e061fcbcb85349fecfe48f0a84309b2b4f25d351655f",
+      "scope": "bounded prior/docs identity only; historical status text not overriding current Root metadata"
+    },
+    {
+      "path": "docs/research-lab/round-038.md",
+      "bytes": 12625,
+      "sha256": "ed861cac5057d2530ba4d8f221d5c91e311d00e8ffe1034a234c016dfd9a5770",
+      "scope": "bounded prior/docs identity only; historical status text not overriding current Root metadata"
+    }
+  ],
+  "peer042_unread": true,
+  "actual_operations": {
+    "source_docs_reads": true,
+    "stdlib_artifact_SHA_JSON_only": true,
+    "native_data_DB_Y_models_curves_liveoutputs": 0,
+    "fixtures_tests_fit_predict": 0,
+    "jobs_processes_polls_helpers": 0,
+    "install_download": 0,
+    "Git_project_writes": 0,
+    "current_limits_gates_grants_changes": 0
+  },
+  "authority": "Root-owned accepted main/adaptive evidence; publication finish priority; original015/018/final/clock untouched",
+  "report": {
+    "path": "/tmp/tlab-brainstorm-ceiling-policy-models-a-wave042.md",
+    "bytes": 3393,
+    "sha256": "fe7f1dccffc94eded8f2939b6df1386abff9eb62d6020369d15186e34ec4a037"
+  }
+}

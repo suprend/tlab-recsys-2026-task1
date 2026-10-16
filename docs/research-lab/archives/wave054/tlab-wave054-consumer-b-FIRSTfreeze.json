@@ -1,0 +1,45 @@
+{
+  "wave": 54,
+  "author": "consumer-b",
+  "frozen_at_utc": "2026-10-16T00:50:48Z",
+  "root_observed_utc": "2026-10-16T00:45:21Z",
+  "next_original_grid_utc": "2026-10-16T01:30:00Z",
+  "input_context": {
+    "path": "/tmp/tlab-wave053-basic-training-context-v1/context.json",
+    "sha256": "c58cf446c34405df03f88a0d0360924c42e7aad61a7c65ccf362e1b5c675fcba"
+  },
+  "first": {
+    "path": "/tmp/tlab-wave054-consumer-b-FIRST.md",
+    "sha256": "0f14dd1f35073fd48e99586408da92ae9c35a3279f47e02b5c6013c59136213d",
+    "whitespace_word_count": 219
+  },
+  "source_pin_ledger": {
+    "path": "/tmp/tlab-wave054-consumer-b-source-pins.md",
+    "sha256": "187798bdf124229814aaa4c0956f72c7993c176490138e62b9b5f084245e2886"
+  },
+  "blind_first": true,
+  "peer054_read": false,
+  "subagents_spawned": 0,
+  "refinement_id": "TLAB-019",
+  "new_hypotheses": 0,
+  "new_ids": 0,
+  "new_gates": 0,
+  "executed": {
+    "fits": 0,
+    "validation_looks": 0,
+    "native_calls": 0,
+    "project_runtime_imports": 0,
+    "real_data_or_Y_reads": 0,
+    "tests_or_fixtures": 0,
+    "canonical_writes": 0,
+    "git_operations": 0,
+    "network_writes": 0
+  },
+  "source_check": {
+    "kind": "manual hypothetical information-flow trace, not executable fixture",
+    "case_1": "A caller that chooses W's ceiling from B.selected_trees has a validation→W edge. The helper validates each model's declared positive ceiling, not a sealed pair of plans, so helper success alone cannot establish absence of this edge.",
+    "case_2": "If both recipes and failure/continuation choices are sealed and B validation-derived output is quarantined from any W-altering caller, a B-wins/B-loses change cannot change W's recipe. Sequential calls still calculate B validation before W fit and therefore do not reproduce literal historical order.",
+    "status": "source-based inference only; no implementation claimed"
+  },
+  "authority": "No real pilot/new fit/current final reuse authorized; historical CPU remainder unknown; old allocations closed."
+}

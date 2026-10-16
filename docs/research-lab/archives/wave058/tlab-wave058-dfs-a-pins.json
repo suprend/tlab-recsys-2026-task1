@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "wave": 58,
+  "author": "A_DFS",
+  "formed_blind": true,
+  "peer_reads": 0,
+  "peer_messages": 0,
+  "coordinator_contacts": 0,
+  "context": {
+    "path": "/tmp/tlab-wave058-shared-context-v1.json",
+    "sha256": "0abd7e1766c6d4e507347f7cd1e792f6b7cd9ea673d44958b484642dfed1dc47"
+  },
+  "local_read_basis": [
+    {
+      "path": "/tmp/tlab-wave058-frozen-context-v1/0-task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "scope": "full"
+    },
+    {
+      "path": "/tmp/tlab-wave058-frozen-context-v1/1-data.md",
+      "sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "scope": "full"
+    },
+    {
+      "path": "/tmp/tlab-wave058-frozen-context-v1/2-progress-report.md",
+      "sha256": "62147a089abd8c845c8ae7ae2990f5417f7abb62869ec158f820dfd953351b41",
+      "scope": "lines1-115 and targeted rg matches"
+    },
+    {
+      "path": "/tmp/tlab-wave058-frozen-context-v1/3-experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "scope": "lines15-72 and targeted rg matches including final/resource/automation results"
+    },
+    {
+      "path": "/tmp/tlab-wave058-frozen-context-v1/4-index.md",
+      "sha256": "d6b9933bbde90a65dbc2b6829a84550dbacbeb9f60e6e93efe04b359f6f96156",
+      "scope": "lines1-98 and targeted rg matches; existing wave022/round024 DFS overlap"
+    },
+    {
+      "path": "/tmp/tlab-wave058-frozen-context-v1/5-feature-program-model-contract.md",
+      "sha256": "9c6b228ec4b91def279d943fd2b5ce4d98cb825a32fbedece604c343bcc80660",
+      "scope": "full; large initial read followed by lines25-44 amendments reread"
+    },
+    {
+      "path": "/tmp/tlab-wave058-frozen-context-v1/6-tlab-root-wave057-research-readback-v1.json",
+      "sha256": "eee4d1be6e7f55923240d3d7bc9fbd2a6dcedc627a3520e3d4d5e816d298e59c",
+      "scope": "full"
+    },
+    {
+      "path": "/tmp/tlab-wave058-frozen-context-v1/7-tlab-root-development-cli-code-unit-acceptance-v1.json",
+      "sha256": "aa70bffa95278cf1ab58c13b0b21887251449d50d28641c839d256b1d257a5f8",
+      "scope": "full"
+    }
+  ],
+  "skill_read": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+  "primary_sources": [
+    {
+      "id": "P1",
+      "version": "Kanter and Veeramachaneni, DSAA2015, author PDF,10pages",
+      "url": "https://groups.csail.mit.edu/EVO-DesignOpt/groupWebSite/uploads/Site/DSAA_DSM_2015.pdf",
+      "scope": "SectionII recursive primitives/feature growth;III filters;IV availability;VI-VII benchmark limitations",
+      "retrieval_utc_interval": {
+        "started": "2026-10-16 03:50:43 UTC",
+        "ended": "2026-10-16 03:50:45 UTC"
+      },
+      "quoted_words": 0,
+      "derived_words_upper": 100
+    },
+    {
+      "id": "P2",
+      "version": "alteryx/featuretools v1.31.0 tagged official source",
+      "urls": [
+        "https://raw.githubusercontent.com/alteryx/featuretools/v1.31.0/featuretools/computational_backends/calculate_feature_matrix.py",
+        "https://raw.githubusercontent.com/alteryx/featuretools/v1.31.0/featuretools/entityset/entityset.py"
+      ],
+      "scope": "calculate_feature_matrix signature/docstring47-134, cutoff normalization154-189, time-key reindex304-320, per-cutoff evaluation397-477; EntitySet._handle_time1277-1325 and last-time-index description969-977",
+      "retrieval_utc_interval": {
+        "started": "2026-10-16 03:50:43 UTC",
+        "ended": "2026-10-16 03:50:45 UTC"
+      },
+      "quoted_words": 0,
+      "derived_words_upper": 150
+    }
+  ],
+  "primary_source_count": 2,
+  "count_basis": "One paper plus one versioned official Featuretools release; two files from the same release support API and backend semantics.",
+  "discovery_only": "MIT paper URL search; failed dai.lids.mit.edu/wp-content/uploads/2017/10/DSAA_DSM_2015.pdf404. Other discovery snippets not relied on.",
+  "external_content_hashes": "Not obtained; no full external bodies or tool-output snapshots retained.",
+  "words": 343,
+  "operations": "Read-only frozen text, primary web/source reads, TMP note/metadata/hash writes only; no imports/tests/SQL/data/features/models/Y/CLI/Git/network writes.",
+  "disposition": "Conditional duplicate/refinement existing014/016;013 physical accounting only; all experimentsUNRUN,0newIDs/mandatorygates/grants.",
+  "scheduled_original_UTC": "2026-10-16 03:45 UTC",
+  "actual_prelaunch_UTC": "2026-10-16T03:47:04.563773+00:00",
+  "late_prelaunch_preserved": true,
+  "next_original_grid_UTC": "2026-10-16 04:30 UTC"
+}

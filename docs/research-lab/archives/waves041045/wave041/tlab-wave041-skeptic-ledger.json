@@ -1,0 +1,213 @@
+{
+  "wave": "041",
+  "role": "distinct independent skeptic",
+  "reviewer": "/root/brainstorm_features_b",
+  "created_utc": "2026-10-15T19:51:57.639593+00:00",
+  "report_path": "/tmp/tlab-wave041-skeptic-review.md",
+  "report_sha256": "8a760c15e67e711cc5db37fc93f4bd33a16d6d201b0360f43a6069c4da967d90",
+  "report_word_count_whitespace": 337,
+  "inputfreeze": {
+    "path": "/tmp/tlab-wave041-skeptic-inputfreeze.json",
+    "sha256": "59f18b1c94785beb74ddd595d0e5f361fff29345186d909ee65ecc92b2dcfc4c",
+    "actual_all6_bytes_embedded_before_analysis": true
+  },
+  "input_end_recheck": [
+    {
+      "path": "/tmp/tlab-brainstorm-training-weight-models-b-wave041.md",
+      "bytes": 3144,
+      "start_sha256": "8993f9803f029365dea6b253626cf785a87fb76b659c85a4d9997d572da82e13",
+      "end_sha256": "8993f9803f029365dea6b253626cf785a87fb76b659c85a4d9997d572da82e13",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-training-weight-models-b-wave041-ledger.json",
+      "bytes": 6624,
+      "start_sha256": "5fa30bd19470a56ddbd47547e57b1e5a5c3af2b0af467aa4805b8245a223542c",
+      "end_sha256": "5fa30bd19470a56ddbd47547e57b1e5a5c3af2b0af467aa4805b8245a223542c",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-training-weight-models-b-wave041-FIRSTfreeze.json",
+      "bytes": 569,
+      "start_sha256": "4f40b9388ffaf73d407117163e60090f782a749baafb48c1dbd24e5139ef2e27",
+      "end_sha256": "4f40b9388ffaf73d407117163e60090f782a749baafb48c1dbd24e5139ef2e27",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-loss-accounting-retrieval-a-wave041.md",
+      "bytes": 3257,
+      "start_sha256": "9f91f7967d1831b2db1a5c43dd3aa32c2e25381000d506deb9af2bd7a46a2a74",
+      "end_sha256": "9f91f7967d1831b2db1a5c43dd3aa32c2e25381000d506deb9af2bd7a46a2a74",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-loss-accounting-retrieval-a-wave041-ledger.json",
+      "bytes": 7527,
+      "start_sha256": "f9fe43e4269e33e205257d2d2a9b4267a10840b585a6d943994a233dacd9f853",
+      "end_sha256": "f9fe43e4269e33e205257d2d2a9b4267a10840b585a6d943994a233dacd9f853",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-loss-accounting-retrieval-a-wave041-FIRSTfreeze.json",
+      "bytes": 1910,
+      "start_sha256": "ac917b6fc6d7b4a8ba45f66af5fd921216a2cc0657da6cab26a2da7f348027eb",
+      "end_sha256": "ac917b6fc6d7b4a8ba45f66af5fd921216a2cc0657da6cab26a2da7f348027eb",
+      "unchanged": true
+    }
+  ],
+  "new_mechanisms": 0,
+  "new_ids": [],
+  "admissions": [],
+  "gates": [],
+  "grants": [],
+  "dispositions": {
+    "A": "retain/refine optional existing013/019 sensitivity; defer actual paid two-fit test until separately reserved",
+    "B": "retain/refine optional independent training accounting diagnostic; prefer as cheaper prospective readout, never a new mandatory gate",
+    "count_only_gradient_dominance_or_loss_change": "reject",
+    "HYP027_identity": "merge existing sampling-estimator distinction; A is deliberate risk reweighting, not unbiased original-risk sampling"
+  },
+  "four_fields": {
+    "A": {
+      "mechanism": "All full-C rows retained; change query-type risk mass via alpha390/25610 and normalization26000/780.",
+      "prediction": "Conditional hypothesis: risk allocation could change finite-capacity ranks; rarity alone predicts no gain; ranking may worsen or merely shift calibration.",
+      "nearest_finite_experiment": "UNRUN/ungranted two fresh B41 Logloss fits, one fixed alpha, same source/Q/C/labels/seed/settings and per-arm best-prefix rule <=1200 each, <=2400 dependent validation looks.",
+      "task1_benefit": "Separate a basic training-risk policy alternative from lack of feature information; no automatic recipe change."
+    },
+    "B": {
+      "mechanism": "Independent per-query support/label/weight accounting plus an analytic constant-score BCE reference.",
+      "prediction": "98.5% all-negative ideal mass does not establish gradient dominance; independent count/binding inconsistency rejects accounting, agreement proves no quality effect.",
+      "nearest_finite_experiment": "UNRUN/ungranted one projected mature-training accounting readout, zero fits/native predictions/validation-model looks.",
+      "task1_benefit": "Expose objective/support accounting and avoid spending fits based on a count-only argument."
+    }
+  },
+  "independent_static_and_hand_math_checks": {
+    "source_group_definitions": "train_baselines.py274-293 informative means p>0 and n-p>0; all-negative means n>0,p=0; empty/allpositive separately counted. Exhaustive390+25610=26000 implies zero residual categories under supplied same-domain counts.",
+    "mass": "25610/26000=.985. alpha=390/25610 gives rawnegative390,rawinformative390,total780. g=26000/780 yields eachtype13000,total26000. This is hand algebra; no numeric fixture executed.",
+    "query_decomposition": "Given no allpositive/empty groups, all retrieved-positive queries equal390 informative;496-390=106 fullY-positive no-inC-target queries;26000-496=25504 zeroYqueries. No actual source targets inspected.",
+    "prevalence": "P=sum p_q/n_q; query-uniform prevalence P/26000 differs from positive-queryfraction496/26000 and neednot equal row-uniform444/5317058. P not supplied or estimated.",
+    "BCE_identity": "For binary y, fixed positive weights and probabilitypi=P/W, unnormalized logit derivativew(pi-y); allnegativeG0=piW0,remainingG1=piW1-P=-piW0. Normalization by fixedW leaves cancellation. No initialization/gradient/fit claim.",
+    "identity_limit": "Cancellation from the same weights/labels definingpi is algebraically guaranteed, hence not independent data-validity or loss-quality evidence. Independent binding/group reconstruction is the useful proposed audit.",
+    "regularization_scope": "Ideal total mass preserved. Heterogeneous risk weights still change leaf-specific gradients/Hessians. Official l2 description alone doesnot establish global weight-scale invariance or exact fitted-risk equivalence; no native source/runtime proof attempted.",
+    "negative_semantics": "Observed mature purchase0 is not an observed impression/dislike; offCfullY positives remain misses, not target-insertion permission."
+  },
+  "preferred_prospective_diagnostic": {
+    "status": "optionalUNRUN/ungranted; not current prerequisite",
+    "fits": 0,
+    "native_predictions": 0,
+    "validation_model_looks": 0,
+    "training_label_derived_readouts": 1,
+    "inputs": {
+      "queries": 26000,
+      "C_rows": 5317058,
+      "fullY_rows": "M unknown;496 is positive-querycount"
+    },
+    "projected_fields": [
+      "query identity",
+      "candidate product identity",
+      "binary training label",
+      "fullYmembership/positivity",
+      "realized object weights"
+    ],
+    "independent_control": "Same frozen mature query/candidate/label domain; independent source or accepted bound per-query summaries. Do not call recomputed self-cancellation an independent oracle.",
+    "cost": [
+      "authentication/byte and semantic binding",
+      "projected Q/C/fullY reads",
+      "membership/grouping/weight summaries",
+      "state/sort/spill",
+      "complete report/readback",
+      "startup/tail/failures"
+    ],
+    "reuse": "Only actually available accepted bound per-query summaries can reduce scans; no assumed cache or free fullmatrixbuild.",
+    "negative_criterion": "Mismatch falsifies accounting/binding; agreement doesnot show calibration/ranking benefit. No automatic new fit or loss patch."
+  },
+  "A_paid_contrast_cost": {
+    "fits": 2,
+    "max_trees_each": 1200,
+    "prefix_looks_max": 2400,
+    "looks_dependent": true,
+    "weight_contrasts": 1,
+    "alpha_sweeps": 0,
+    "full_rows_retained": 5317058,
+    "preparation": "One common feature/source preparation onlyifvalidreusable, plus training-label-derived type weights and both realized weight vectors/Pools; charge all materialization/quantization/memory/failures.",
+    "evaluation": "Complete unchanged Q/C/fullY/productties, independent selected-prefix verification, predeclared Recall tolerance; oldfinalimmutable, reusedvalidationexploratory.",
+    "CPU_wall_RSS_feasibility": "Unknown/ungranted; no speed/memory reduction from keepingallrows."
+  },
+  "primary_sources": [
+    {
+      "url": "https://catboost.ai/docs/en/concepts/loss-functions-classification#Logloss",
+      "accessed_utc": "2026-10-15",
+      "verified": "Lines92-102 document Logloss use_weights defaulttrue;422 listsoptimization support.",
+      "scope": "Weighted metric/objective documentation, not observed native gradients or fitted-quality claim."
+    },
+    {
+      "url": "https://catboost.ai/docs/en/references/training-parameters/common#l2_leaf_reg",
+      "accessed_utc": "2026-10-15",
+      "verified": "Lines401-418 identifyL2 costfunctioncoefficient anddefault3.0.",
+      "scope": "Doesnot specify/prove arbitrary object-weight rescaling invariance; no nativeleafimplementationclaim."
+    }
+  ],
+  "bounded_local_source_reads": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "anchors": [
+        "274-293",
+        "362-375"
+      ],
+      "verified": "Actual group-accounting definitions/float64 reciprocal query weights and weight passedtoLoglossPool. Statictextonly."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/loss-selection/review-01-03.md",
+      "anchors": [
+        "11-13",
+        "17-23"
+      ],
+      "verified": "BCE/pairwise support difference; same-informative paidablation;macroqueryweights;negative semantics;HYP027inverse-inclusion risk;classweightingchangesrisk."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/loss-selection/01-pointwise.md",
+      "anchors": [
+        "9",
+        "13-19",
+        "25-27",
+        "33-39"
+      ],
+      "verified": "Outcome0/nonimpression, full-Cqueryrisk, inverse-inclusion versus riskshift, finite-model limits andexisting008/027."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/target-research/04-training-negatives.md",
+      "anchors": [
+        "9",
+        "13",
+        "25-28",
+        "35"
+      ],
+      "verified": "OffCmiss/maturity,allmatureBCE, exposurelimits andcompletefixedevaluation."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "scope": "Targetedexisting008/013/019 andcanonicaldedup context; no current runtime output or model curve read."
+    }
+  ],
+  "dedup": [
+    "TLAB013 weighting/protocol sensitivity",
+    "TLAB019 strongbaseline training policy",
+    "TLAB008 BCE/PairLogit support comparison",
+    "L01 existing weighted-risk/accounting prior",
+    "HYP027 preserves originalfull-Crisk with inclusionweights; notAsoftbalancing"
+  ],
+  "actual_operations": {
+    "small_TMP_IO_hash_and_source_text_only": true,
+    "fresh_primary_pages": 2,
+    "native_import_probes": 0,
+    "data_DB_SQL_Y_models": 0,
+    "fit_predict": 0,
+    "fixtures_experiments": 0,
+    "runtime_outputs_curves": 0,
+    "jobs_processes_polls": 0,
+    "helpers_agents": 0,
+    "Git_project_writes": 0,
+    "quality_looks": 0,
+    "grants_gates": 0
+  },
+  "main_scope": "Current repair/test finishpriority and originalstudydeadline88266 unchanged. No currentstudy/runtime/quality inspection and no new prerequisite."
+}

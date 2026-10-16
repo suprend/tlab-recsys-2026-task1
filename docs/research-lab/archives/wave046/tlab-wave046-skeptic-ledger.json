@@ -1,0 +1,204 @@
+{
+  "wave": "046",
+  "role": "one distinct post-FIRST source-only skeptic",
+  "created_utc": "2026-10-15T22:01:25.273694+00:00",
+  "report": {
+    "path": "/tmp/tlab-wave046-skeptic-review.md",
+    "bytes": 2849,
+    "sha256": "8ad25ec65dfd6c55210a4855232dfcdcfc23f1d3dd8240e10ea0230de9764a40"
+  },
+  "word_count_whitespace": 316,
+  "inputfreeze": {
+    "path": "/tmp/tlab-wave046-skeptic-inputfreeze.json",
+    "bytes": 3442,
+    "sha256": "7f232571c9534ece62794b103475e372ef9f7fea341a63111ec1c0d047bcb4fe"
+  },
+  "six_author_inputs_frozen_before_analysis": true,
+  "root_readback_separately_frozen": true,
+  "sourcepins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "bytes": 5464,
+      "sha256": "3d6052c0b7948f453426de815e8441e1f2230fb7c6356c709c0852fd8aeb17d8",
+      "first_pin_match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "bytes": 18580,
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "first_pin_match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "bytes": 35022,
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "first_pin_match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py",
+      "bytes": 40847,
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "first_pin_match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/development-training.md",
+      "bytes": 3927,
+      "sha256": "17c0d6b7f3ad3d9da0f69219fdb37add661a044c6b96f188d7398b20f2adf246",
+      "first_pin_match": true
+    },
+    {
+      "path": "/tmp/tlab-new-training-tree-selection-entrypoints-audit-v1.md",
+      "bytes": 3135,
+      "sha256": "c941bc081652ce1917ae12d4be64577af245a0eb361cf7aa68e08c2df92b601b",
+      "first_pin_match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/adaptive-tree-selection.md",
+      "bytes": 4446,
+      "sha256": "333e3a503f129426af097b46320b61b92c9cbd8fe7698f6641fb9459a12f6e21",
+      "first_pin_match": true
+    }
+  ],
+  "sourcepins_metadata": {
+    "path": "/tmp/tlab-wave046-skeptic-sourcepins.json",
+    "bytes": 1567,
+    "sha256": "a81a2efa539ecf3c00f88e2ba7cb377dc13c699a057936ec2fdaa9a389edc6e2"
+  },
+  "new_ids": [],
+  "novel_mechanisms": 0,
+  "existing_ids": [
+    "TLAB019",
+    "TLAB014"
+  ],
+  "decision": "Defer unspecified CLI. Identify one concrete future non-frozen consumer/input family before choosing its single adapter; this is not a new mandatory gate.",
+  "four_fields": {
+    "mechanism": "Both authors propose one additive real consumer delegating to the fit_development seam and preserving returned full/selected outputs. They differ in authority/input contracts.",
+    "prediction": "Actual authorized consumer delegates exactly once per declared arm and consumes returned selected count/model; invalid inputs fail before helper and exceptions never cause direct-fit or ceiling fallback.",
+    "nearest_finite_check": "A four actual-entrypoint native-free cases versus B three synthetic invocations, at most one spy; UNRUN/ungranted. Exact failure/consumed namespace cases need retained consumer-specific identity.",
+    "task1_benefit": "Practical automatic tree selection for an identified future training use. A new CLI is not intrinsically required by the existing callable/helper request."
+  },
+  "per_author": {
+    "A_models_a": {
+      "verdict": "Conditional integration refinement, not a necessary general CLI or a current implementation. Defer until a named future consumer uses public018-format inputs.",
+      "adapter": "reproduce_frozen_comparison.prepare_matrix authenticated caller-owned exports, frozen B/W recipe, ordered recipe feature_names; not verify_collection.",
+      "fits_max": 2,
+      "dependent_validation_criteria_max": "2 * separately declared ceiling",
+      "fake_check_cap_prospective_only": {
+        "cpu_seconds": 30,
+        "wall_seconds": 60,
+        "rss_bytes": 268435456,
+        "granted": false
+      },
+      "failure_risks": [
+        "No old both-fits-complete receipt for per-arm selection",
+        "Public source/recipe closure is frozen and cannot be silently reused as a new operation authority",
+        "Native spies prove wiring only"
+      ]
+    },
+    "B_features_a": {
+      "verdict": "Conditional one-fit v1 consumer refinement. Not a route for full original 26,000-query training unless separately supported input preparation exists.",
+      "adapter": "verify_collection returns phase/refs/feature_columns/pins/plan from accepted exact v1 lineage; prepare_dataset derives names from report collection feature_columns through numeric_feature_names.",
+      "explicit_query_cap_max": 6000,
+      "query_cap_None_allowed": true,
+      "matrix_row_cap_max": 1320000,
+      "fits": 1,
+      "dependent_validation_criteria": "separately declared ceiling",
+      "fake_invocations": 3,
+      "spy_helper_calls_max": 1,
+      "chronology_ledger_correction": "Code equality label_available_before == fit_data_cutoff, not strict cutoff-before-label-bound inequality. model_timing equal across phases; fit < ready <= selection_start; config wall within declared gap.",
+      "failure_risks": [
+        "Cannot relabel cpu_smoke approval",
+        "Matching Prepared shape/features does not prove source lineage",
+        "No native integration from fake checks"
+      ]
+    }
+  },
+  "source_observations": [
+    {
+      "path": "scripts/development_training.py",
+      "lines": [
+        22,
+        29,
+        52,
+        59,
+        77,
+        82,
+        89
+      ],
+      "fact": "Atomic one-arm fit then select then copy/shrink; Prepared and feature equality checks; caller owns lineage/lifecycle."
+    },
+    {
+      "path": "scripts/train_baselines.py",
+      "lines": [
+        21,
+        56,
+        162,
+        166,
+        178,
+        180,
+        208,
+        210,
+        212,
+        214
+      ],
+      "fact": "v1 exact lineage, report-derived feature names, cutoff equality and positive availability gap, bounded explicit query/row caps."
+    },
+    {
+      "path": "scripts/reproduce_frozen_comparison.py",
+      "lines": [
+        360,
+        370,
+        372,
+        381,
+        389,
+        395,
+        405,
+        406
+      ],
+      "fact": "Public split-export loader frozen B/W names and exact schema, matrix payload cap, larger query/row limits; not v1 adapter."
+    },
+    {
+      "path": "scripts/adaptive_tree_selection.py",
+      "lines": [
+        177,
+        195,
+        206,
+        208,
+        211,
+        214,
+        230
+      ],
+      "fact": "Two full fits complete before validation feedback; training released before validation; helper replacement would alter chronology and overlap."
+    }
+  ],
+  "memory_complete_cost": [
+    "train + validation Prepared matrices simultaneously",
+    "preparation/query/fullY temporaries",
+    "weights/accounting arrays",
+    "native Pool/quantization and model work",
+    "selector positive layout and staged scores",
+    "full model + copied/shrunk model",
+    "save/reload/score receipts if consumer requires",
+    "all source/authentication/rejected work/failures",
+    "whole-process startup/tail and independent checks"
+  ],
+  "complete_code_source_closure": "Actual caller/helper/selector/transitive imports plus chosen loader producer/export/registry/protocol/source schema and runtime pins must be bound. Historical CODE does not include helper/selector; source identity is not execution authority.",
+  "current_runtime_authority": "UNKNOWN; no grant follows from prior collection approval, old once request, future budget proposal or this review.",
+  "negative_outcomes": [
+    "No identified consumer: CLI would create its own obligation; defer",
+    "Invalid inputs reach helper or failure falls back: reject wiring",
+    "Both-fits-first receipt emitted after per-arm validation: reject chronology claim",
+    "Full training claimed under v1 row cap: reject scope claim",
+    "Fake checks passed: native fit/shrink/serialization and resources still unproven"
+  ],
+  "external_primary_pages": 0,
+  "actual_operations": {
+    "text_source_reading_TMP_metadata_only": true,
+    "runtime_native_data_Y_models_currentcurves_runtimeoutputs": 0,
+    "tests_fixtures_jobs_polls_helpers": 0,
+    "Git_project_canonical_publication_writes": 0,
+    "coordinator_contact": 0,
+    "new_grants_quality_CV_gates": 0
+  },
+  "preserved": "Root alone decides/executes; current publication question, historical routes, final, budgets/deadline/reserves unchanged."
+}

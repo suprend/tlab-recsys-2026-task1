@@ -1,0 +1,133 @@
+{
+  "wave": 57,
+  "author": "B",
+  "topic": "TabICLv2 conditional purchase-ranking adaptation",
+  "independent_first": true,
+  "frozen_basis": {
+    "path": "/tmp/tlab-wave057-shared-context-v1.json",
+    "sha256": "498438763c9862ac39531b9cfc8ae55b6c92490487197572383979e99a14a971",
+    "read_scope": "Full shared context. All conclusions use these prelaunch snapshots; original canonical files may change and were not read."
+  },
+  "local_inputs": [
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/0-task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "read_scope": "Full snapshot"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/data.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/1-data.md",
+      "sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "read_scope": "Full snapshot, re-read individually after aggregate truncation"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/2-progress-report.md",
+      "sha256": "ee57437aeb969028e364e90b74de325bc940252ec538310d56292fc9374ab6d3",
+      "read_scope": "Full snapshot"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave055-synthesis.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/3-brainstorm-wave055-synthesis.md",
+      "sha256": "ac96a29b400feda4fbf6fa39fef4c302b5e683dc82a9121c628ff985bc210126",
+      "read_scope": "Full snapshot, re-read individually after aggregate truncation"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave053-synthesis.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/4-brainstorm-wave053-synthesis.md",
+      "sha256": "cdf5e6073ad82676ba2b2a81f874e790a898de915df22630be15a7d9686d0d9a",
+      "read_scope": "Full snapshot, re-read individually after aggregate truncation"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/5-experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "read_scope": "Lines 1-88 plus bounded rg matches for 014/TabICL/ranking/NDCG/imbalance/support/temporal/1200/B1189/W403/headings across snapshot; not full report"
+    },
+    {
+      "original": "/tmp/tlab-root-wave056-research-readback-v1.json",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/tlab-root-wave056-research-readback-v1.json",
+      "sha256": "cbe3c9937582160a3f7462bbfcc97660cdd775784f6c3000048b45835a64dc6d",
+      "read_scope": "Full snapshot, re-read individually after aggregate truncation; referenced source files and prior FIRSTs not opened"
+    },
+    {
+      "original": "/tmp/tlab-root-development-cli-integration-gap-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/tlab-root-development-cli-integration-gap-adoption-v1.json",
+      "sha256": "66fa76d1ca672c4702846e10f0ddd9ff578227278d0c74e49f4c0e8fb7c86022",
+      "read_scope": "Full snapshot; no candidate/code/helper read"
+    }
+  ],
+  "skill": {
+    "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+    "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34",
+    "read_scope": "Full; bounded task, no iterative campaign operations delegated"
+  },
+  "web_retrieval_utc": "2026-10-16T02:56:57Z",
+  "web_queries": [
+    "TabICL paper official repository latest TabICL 2"
+  ],
+  "primary_sources": [
+    {
+      "id": "P1",
+      "url": "https://arxiv.org/html/2602.11139v2",
+      "metadata_url": "https://arxiv.org/abs/2602.11139",
+      "version": "arXiv:2602.11139v2",
+      "revised_utc": "2026-09-16T13:10:38Z",
+      "read_scope": "Abstract metadata/history; HTML returned lines 0-259, targeted find results on Limitations, imbalance(no match), preprocess(no match), 100K, 1M, balanced accuracy(no match), Benchmarks, Per-dataset metrics, 50K, test samples; open near 550 returned lines 461-703. Bounded excerpts of sections 3,4.2,6,8,A.2,A.4,B.1,H.2,J.1,L.2-L.5; not full paper. References incidentally visible not followed.",
+      "quoted_words": 0
+    },
+    {
+      "id": "P2",
+      "url": "https://github.com/soda-inria/tabicl",
+      "version": "Official v2.2.0 release, 2026-09-02; commit 0dbff3ec8fc68c123c87af77b0ea8b25cd2d23f3",
+      "checkpoint": "tabicl-classifier-v2-20260212.ckpt",
+      "release_pin_url": "https://github.com/soda-inria/tabicl/commit/0dbff3ec8fc68c123c87af77b0ea8b25cd2d23f3",
+      "read_urls": [
+        "https://github.com/soda-inria/tabicl",
+        "https://github.com/soda-inria/tabicl/blob/main/README.md",
+        "https://github.com/soda-inria/tabicl/blob/main/CHANGES.md",
+        "https://github.com/soda-inria/tabicl/tags",
+        "https://github.com/soda-inria/tabicl/tree/main/src/tabicl",
+        "https://github.com/soda-inria/tabicl/tree/main/src/tabicl/_sklearn",
+        "https://github.com/soda-inria/tabicl/commit/0dbff3ec8fc68c123c87af77b0ea8b25cd2d23f3",
+        "https://raw.githubusercontent.com/soda-inria/tabicl/0dbff3ec8fc68c123c87af77b0ea8b25cd2d23f3/README.md",
+        "https://raw.githubusercontent.com/soda-inria/tabicl/0dbff3ec8fc68c123c87af77b0ea8b25cd2d23f3/src/tabicl/_sklearn/classifier.py",
+        "https://raw.githubusercontent.com/soda-inria/tabicl/0dbff3ec8fc68c123c87af77b0ea8b25cd2d23f3/src/tabicl/_sklearn/preprocessing.py"
+      ],
+      "read_scope": "Repository browsing was web text only, no local clone/import/run. Mutable main README/CHANGES returned partial excerpts; tags established release/date and full commit URL. Fixed-commit classifier returned lines 0-550, including fit signature/body; preprocessing bounded returned matches lines 0-183,606-786,950-1031,1051-1126. Fixed README find(cautious) returned 268-366. Directory listings and release commit partial view only. These are one official-repository source family, not a full repository review.",
+      "failed_read": "GitHub commits/main API web open returned Internal Error; no main commit pin inferred.",
+      "quoted_words": 0
+    }
+  ],
+  "search_scope": "Broad discovery returned incidental PyPI/docs/forks/other papers. None used as an additional evidence source or opened. Exactly two primary source families support FIRST; only two citation URLs in FIRST.",
+  "derived_word_limits": "FIRST 348 whitespace words; paper-derived and official-repository-derived prose each below 200 words; no verbatim source archive/full paper/tool-text snapshot saved.",
+  "execution_status": {
+    "ML": false,
+    "real_data_read": false,
+    "model_read": false,
+    "tests": false,
+    "imports": false,
+    "repo_CLI": false,
+    "Git_mutation": false,
+    "network_writes": false,
+    "canonical_edits": false,
+    "helpers": false,
+    "coordinator_contacts": false,
+    "peer057_read_or_discussion": false,
+    "native_body": "UNRUN",
+    "development_CLI": "Separate active implementer; independent of this research",
+    "past_allocations": "CLOSED",
+    "historic_6CPUh_remaining": "UNKNOWN",
+    "human_50CPU65wall_helper_only": "ASKED_UNANSWERED",
+    "new_IDs": 0,
+    "new_mandatory_gates": 0,
+    "new_grants": 0
+  },
+  "conceptual_status": "One optional conditional control under existing TLAB-014 alternative-model family; not an execution plan or runtime authorization.",
+  "schedule": {
+    "original_utc": "2026-10-16 03:00 UTC",
+    "next_original_grid_utc": "2026-10-16 03:45 UTC",
+    "early_dispatch_preserves_grid": true
+  }
+}

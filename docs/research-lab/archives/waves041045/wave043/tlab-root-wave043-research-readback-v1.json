@@ -1,0 +1,85 @@
+{
+  "accepted_utc": "2026-10-15T20:56:39.987754+00:00",
+  "wave": "043",
+  "scope": "Research-only disposition accepted; no pilot/runtime permission or implementation acceptance",
+  "actual_input_pins": [
+    {
+      "path": "/tmp/tlab-itemcf100-support-cost-models-b-wave043.md",
+      "bytes": 3619,
+      "sha256": "c965dcd6d32ce9e12299b6f427c5e41fcbed8d9341b8aa58cf01cea51a34e3c9"
+    },
+    {
+      "path": "/tmp/tlab-itemcf100-support-cost-models-b-wave043-ledger.json",
+      "bytes": 11854,
+      "sha256": "2c554135dee86a53a20a97f601b8dead6318d102c44e72d7b14607616c652220"
+    },
+    {
+      "path": "/tmp/tlab-itemcf100-support-cost-models-b-wave043-FIRSTfreeze.json",
+      "bytes": 687,
+      "sha256": "f8e71adcf57a014bd65b72d6fbdf486ba1e76277ab8b4366130fbf5b3ea98635"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-itemcf-cost-features-b-wave043.md",
+      "bytes": 3416,
+      "sha256": "ce374f94b7ac2b26244ae55123e7516d13482f8d0271eb7f6630e65174ef2b4d"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-itemcf-cost-features-b-wave043-ledger.json",
+      "bytes": 16949,
+      "sha256": "7b281f53aeb51b4bc1f297df1b8819041825fb6e96819eb52f33e00411a17b73"
+    },
+    {
+      "path": "/tmp/tlab-brainstorm-itemcf-cost-features-b-wave043-FIRSTfreeze.json",
+      "bytes": 597,
+      "sha256": "be091f25ba218361663800bf86c328c54c4baaffc13f683eb6de1bbcb4cf6107"
+    },
+    {
+      "path": "/tmp/tlab-root-wave043-first-readback-v1.json",
+      "bytes": 1576,
+      "sha256": "00ff1018c7a168d7b97bd679975f192e756e26d3cb566ae6dcc60ce8534cbdff"
+    },
+    {
+      "path": "/tmp/tlab-wave043-skeptic-review.md",
+      "bytes": 5539,
+      "sha256": "81635947c904b98384005c1ed11daefe53fcea3017ab07ec93dd9f32b2174c5b"
+    },
+    {
+      "path": "/tmp/tlab-wave043-skeptic-review-ledger.json",
+      "bytes": 6656,
+      "sha256": "6e5ee64f76992869342f886a6634d2cd68ea9d84a3b732fec70c2acd66fc7d0e"
+    },
+    {
+      "path": "/tmp/tlab-wave043-skeptic-inputfreeze.json",
+      "bytes": 54049,
+      "sha256": "bfc4339615d72cb22fa01a34a0dce4af1d4cf72db19c957816dc441377cdff96"
+    }
+  ],
+  "complete_freeze_pairs": 7,
+  "full_report_and_ledger_read": true,
+  "existing_ids": [
+    "TLAB-012",
+    "HYP-001"
+  ],
+  "new_ids": [],
+  "new_gates": [],
+  "admitted_runtime_tasks": [],
+  "decision": {
+    "A": "Retain prospective Oct22 two-pass plan as base, not ready/issued; no independent full extraction proof",
+    "B": "Refine semantics; reject 30m row envelope as feasible without certified pruning; one declared full scan exceeds it",
+    "refinements": [
+      "Own B_ui from complete snapshot postings; truncated history cannot establish absence",
+      "NULL products excluded before distinct/history cap; NULL users not pooled; invalid Q/C fails",
+      "Single cohort/window for comparisons; coverage needs binding",
+      "Cache only source/window/action/NULL-pinned raw counts before user subtraction; count all recomputations"
+    ],
+    "minimal_seam": "Pure all-C ItemCF projection from complete history/postings; proposal only, not implemented",
+    "quality_or_new_fit_claim": false
+  },
+  "missing_admission": [
+    "Exact accepted DB/Q/C/protocol/code/interpreter bindings",
+    "Enforced inclusive scan/state/cost envelope",
+    "Authoritative global compute reconciliation"
+  ],
+  "publication": "b7607b4 pending unanswered human question; no retry or payload change",
+  "limits": "Original goal/deadline/17 slots/cadence/33914 wall basis/metadata and auth reserves preserved; closed native episodes not reset; original6CPUh remainder UNKNOWN"
+}

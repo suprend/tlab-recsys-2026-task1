@@ -1,0 +1,17 @@
+{
+  "utc": "2026-10-16T03:19:42.892585+00:00",
+  "status": "ROOT_CHECKER_FALSE_POSITIVE_CORRECTED_HASHES_MATCH",
+  "previous_record": "/tmp/tlab-root-wave057-critic-pins-mismatch-v1.json",
+  "previous_record_sha256": "8dbc316bd67f5ffd4fa15e042aa44d0e16563dd4a1327fca17a87518646e3f2b",
+  "actual_cause": "Root substring screen falsely matched metadata key web_or_tool_text_snapshots_saved:0; assertion was not hash check. Prior failure record incorrectly labelled pins mismatch; no author artifact changed.",
+  "actual_frozen_output_hashes_match": {
+    "/tmp/tlab-wave057-skeptic-review.md": "cfa7c433e91b83fde934283c65216cdda00a422b7ddb8c613962d2153cb8a836",
+    "/tmp/tlab-wave057-skeptic-pins.json": "54de4a700815adde9be2c65669eb1c140077013fcbf9e539e3ec544ebbb3aabe"
+  },
+  "benign_metadata_keys_triggering_substring": [
+    "web_or_tool_text_snapshots_saved"
+  ],
+  "corrected_screen": "recursive exact key-name check, not substring; no literal tool_text_snapshot key; metadata records zero externalfulltext saves",
+  "canonical_or_Git_actions": 0,
+  "research_adoption_before_correction": false
+}

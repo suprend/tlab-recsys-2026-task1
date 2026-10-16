@@ -1,0 +1,77 @@
+{
+  "wave": "050",
+  "author": "/root/brainstorm_retrieval_a",
+  "phase": "blind_FIRST",
+  "created_utc": "2026-10-15T23:18:16.867Z",
+  "peer050_unread_before_FIRST": true,
+  "report": {
+    "path": "/tmp/tlab-brainstorm-evidence-audit-retrieval-a-wave050.md",
+    "bytes": 1696,
+    "words": 220,
+    "sha256": "b1de3cfef7bc0d65eb837442dc5f2b69f9399c07a9e827659fbfc53630c2c3b2"
+  },
+  "source_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "bytes": 46054,
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "unchanged_on_final_read": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "bytes": 19771,
+      "sha256": "63c045aa242346e34bb64aedb556896d9e24b2a63e9465832b7e27871bacfc30",
+      "unchanged_on_final_read": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report-source-ledger.json",
+      "bytes": 31904,
+      "sha256": "5d90a5fe9aefd76a7b3d42d145a9e835d3c7afe99fdeb8e228fe803b3804df7c",
+      "unchanged_on_final_read": true
+    }
+  ],
+  "one_supported_failure": {
+    "location": "docs/experimental-report.md:158",
+    "label": "EDA entry",
+    "destination": "../README.md#L23",
+    "observed_destination": "README.md:23 is --rss-bytes/--spill-bytes inside the full frozen B/W producer command.",
+    "intended_support": "README.md:38 EDA heading; :46 EDA command matches report :155.",
+    "historical_intent": "docs/experimental-report-source-ledger.json sources.S29 names README.md lines23..30 as the EDA entry/prerequisites. README.md :36 explicitly labels that source ledger a historical snapshot.",
+    "mechanism": "Path survives while mutable line content drifts.",
+    "prediction": "Existence-only check passes although content-against-claim check fails.",
+    "nearest_meaningful_check": "Performed bounded static traversal of this one report reference and textual EDA heading/command comparison; no browser/network/command invocation.",
+    "user_goal_benefit": "Keep the evidence/reproduction entry aimed at EDA and distinguish it from fresh model training.",
+    "decision": "Recommend narrow report-link repair to the actual EDA section, independently check its content; preserve historical ledger and accepted study."
+  },
+  "limits": [
+    "Known four progress-report legacy anchors excluded; this finding is the README EDA reference.",
+    "No claim about actual Git tracking/commit identity or browser fragment rendering: both are outside the authorized inspection.",
+    "Source hashes pin inspected bytes, not a newly verified commit.",
+    "No evidence about model metrics, data conformity or new portability quality is produced."
+  ],
+  "dedup": {
+    "new_ids": [],
+    "existing_ids": [
+      "TLAB014",
+      "TLAB018"
+    ],
+    "new_mechanisms": 0,
+    "new_mandatory_tasks_gates_grants": 0
+  },
+  "cost": {
+    "actual": "Small static document reads, allowed directory metadata, bounded reference/path-existence inspection and small SHA256s only; no source commands were run.",
+    "future": "One narrow link correction/readback, if adopted by Root; no CLI, CV, runtime, fit or feedback authority is implied."
+  },
+  "operations": {
+    "network": 0,
+    "Git": 0,
+    "imports_of_project_code": 0,
+    "tests_fixtures_native_jobs_polls": 0,
+    "actual_data_DB_models_predictions_Y_artifact_reads": 0,
+    "private_TMP_fullspec_reads_or_copies": 0,
+    "helpers": 0,
+    "project_canonical_writes": 0,
+    "coordinator_contact": 0
+  },
+  "unchanged": "Original goal/deadline/45-minute grid/limits/budgets/reserves and accepted main study; Root alone critic after both FIRSTs."
+}

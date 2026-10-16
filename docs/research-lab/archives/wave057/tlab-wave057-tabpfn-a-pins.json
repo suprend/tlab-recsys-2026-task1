@@ -1,0 +1,147 @@
+{
+  "wave": 57,
+  "author": "A",
+  "topic": "TabPFN for REES46 purchase ranking versus strong boosting",
+  "utc": "2026-10-16T02:58:46Z",
+  "context": {
+    "path": "/tmp/tlab-wave057-shared-context-v1.json",
+    "sha256": "498438763c9862ac39531b9cfc8ae55b6c92490487197572383979e99a14a971",
+    "hash_verified": true,
+    "read_scope": "Full visible JSON. Exact prelaunch snapshot is evidence basis; original canonical files may change during the wave and were not opened."
+  },
+  "local_inputs": [
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/0-task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "read_scope": "Full visible snapshot text.",
+      "hash_verified": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/data.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/1-data.md",
+      "sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "read_scope": "Full visible snapshot text; schema/provenance only, no actual events.",
+      "hash_verified": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/2-progress-report.md",
+      "sha256": "ee57437aeb969028e364e90b74de325bc940252ec538310d56292fc9374ab6d3",
+      "read_scope": "Full text re-read separately after initial aggregate clipping.",
+      "hash_verified": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave055-synthesis.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/3-brainstorm-wave055-synthesis.md",
+      "sha256": "ac96a29b400feda4fbf6fa39fef4c302b5e683dc82a9121c628ff985bc210126",
+      "read_scope": "Full visible snapshot text.",
+      "hash_verified": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave053-synthesis.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/4-brainstorm-wave053-synthesis.md",
+      "sha256": "cdf5e6073ad82676ba2b2a81f874e790a898de915df22630be15a7d9686d0d9a",
+      "read_scope": "Full text reconstructed from visible initial re-read and explicit last-six-line re-read.",
+      "hash_verified": true
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/5-experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "read_scope": "Bounded substantive read lines 1-73; whole-file cat attempt aggregate-truncated; additional rg matches across file aggregate-truncated; tail reporting/reproduction was visible but not basis for new factual counts. Not a full report read.",
+      "hash_verified": true
+    },
+    {
+      "original": "/tmp/tlab-root-wave056-research-readback-v1.json",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/tlab-root-wave056-research-readback-v1.json",
+      "sha256": "cbe3c9937582160a3f7462bbfcc97660cdd775784f6c3000048b45835a64dc6d",
+      "read_scope": "Full visible snapshot JSON; referenced underlying files not opened.",
+      "hash_verified": true
+    },
+    {
+      "original": "/tmp/tlab-root-development-cli-integration-gap-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave057-frozen-context-v1/tlab-root-development-cli-integration-gap-adoption-v1.json",
+      "sha256": "66fa76d1ca672c4702846e10f0ddd9ff578227278d0c74e49f4c0e8fb7c86022",
+      "read_scope": "Full visible snapshot JSON; referenced candidate not opened.",
+      "hash_verified": true
+    }
+  ],
+  "skill": {
+    "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+    "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34",
+    "read_scope": "Full short SKILL.md; no iterative helper or agent delegated, as this task explicitly forbids helpers."
+  },
+  "primary_source_count": 2,
+  "primary_sources": [
+    {
+      "id": "P1",
+      "title": "TabPFN-3.5: Technical Report",
+      "url": "https://arxiv.org/html/2609.17895v2",
+      "version": "arXiv:2609.17895v2",
+      "version_utc": "2026-09-22T17:28:29Z",
+      "retrieval_utc": "2026-10-16T02:58:46Z",
+      "read_scope": "Bounded HTML: version, Introduction/recommended shapes, 2.1-2.6, 3.1-3.3 and C.2.3 grouped-protocol passage. Earlier v1 discovery reads superseded by v2 reread. Not the full paper, no PDF/full text archived.",
+      "metadata_url": "https://arxiv.org/abs/2609.17895",
+      "verbatim_quote_words": 0,
+      "derived_words_upper_bound": 180
+    },
+    {
+      "id": "P2",
+      "title": "PriorLabs/TabPFN official repository",
+      "url": "https://github.com/PriorLabs/TabPFN/blob/v9.2.0/README.md",
+      "version": "v9.2.0",
+      "release_date": "2026-10-12",
+      "observed_release_time": "15:13 (GitHub rendering; timezone not separately established)",
+      "commit_short_observed": "f02b3b5",
+      "full_commit_sha_retrieval": "Unavailable via web; not invented.",
+      "checkpoint": "tabpfn-v3.5-20260909.safetensors",
+      "retrieval_utc": "2026-10-16T02:58:46Z",
+      "read_scope": "README installation/basic use, usage tips, limits/license, checkpoint filename and CPU/cache environment settings. Release list only latest tag/date plus nearby v9.1 changes. Classifier public fit signature and bounded sample_weight text search; no local imports or runtime.",
+      "auxiliary_pages_same_repository": [
+        "https://github.com/PriorLabs/TabPFN/releases",
+        "https://github.com/PriorLabs/TabPFN/blob/v9.2.0/src/tabpfn/classifier.py"
+      ],
+      "source_contract_note": "Visible public fit signature accepts X,y; no sample_weight match in rendered partial file. Proposal intentionally matches unweighted contexts; no exhaustive claim about every API.",
+      "mutable_main_discovery": "main README viewed before tag, final evidence uses v9.2.0. API main-commit and release-latest opens returned internal error; no dependent conclusion assumed.",
+      "verbatim_quote_words": 0,
+      "derived_words_upper_bound": 170
+    }
+  ],
+  "queries": [
+    "TabPFN official 2026 TabPFN 2.5 paper Nature 10000 samples 500 features",
+    "site:github.com/PriorLabs/TabPFN releases latest v2.5 2026",
+    "TabPFN-3 arxiv paper May 2026 Prior Labs"
+  ],
+  "discovery_scope": "Search snippets used to discover current version only. Older paper and third-party snippets not relied on for claims. Two primary source families substantively read: current technical report and its official repository.",
+  "copyright": "No full paper, page, tool-text snapshots or verbatim archives saved. FIRST is bounded paraphrase; zero quotations. URLs/version/scope metadata only in pins.",
+  "manual_math": {
+    "basis": "Published frozen report train C=5317058, positive C=444; simple expectation, no data access or simulation.",
+    "expression": "5000 * 444 / 5317058",
+    "rounded_expected_positive_rows": 0.418,
+    "interpretation": "Expectation under uniform row sample; not an observed context count or quality result."
+  },
+  "authority": {
+    "all_historical_allocations": "CLOSED",
+    "six_CPUh_remaining": "UNKNOWN",
+    "helper50CPU65wall": "ASKED_UNANSWERED; helper-only; no budget authorization",
+    "native_body": "UNRUN",
+    "separate_main_CLI": "independent implementer active; not research dependency",
+    "new_research_IDs": 0,
+    "new_mandatory_gates": 0,
+    "new_grants": 0,
+    "ML_fits": 0,
+    "model_or_data_reads": 0,
+    "experiments": 0,
+    "CLI_runs": 0,
+    "imports": 0,
+    "tests": 0,
+    "Git_mutations": 0,
+    "network_writes": 0,
+    "canonical_edits": 0,
+    "helpers": 0,
+    "peer057_drafts_read": 0,
+    "coordinator_contacts": 0
+  },
+  "outcome": "Optional conditional learner-family refinement under existing TLAB-014; current main result remains publishable within existing caveats. No novelty quota or mandatory gate."
+}

@@ -1,0 +1,11 @@
+# Wave049 A FIRST — отрицательный estimand-аудит
+
+**0 новых mismatch/ID.** Проверена связка fullY→ranking→conditional query-macro→selector/отчёт при корректных входах; это не приёмка моделей/данных. Fixed300 и известный NULL-oracle не предлагаются повторно.
+
+**Механизм проверки.** [Объявленная метрика](/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md:40) использует полный Y, сохраняет empty-C positives и различает query/user estimands. `score_query` вычисляет IDCG по полному target count; `_estimate` для query-macro делит сумму score totals на число query, а не на пользователей. `train_baselines.rankings` создаёт запись каждого retained Q, включая пустой C; heldout `_rankings` передаёт полный Y и exact product-ID ties.
+
+Кажущийся кандидат отвергнут: [positive_layout](/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py:28) фильтрует только вычисление заранее объявленной conditional metric, после фиксации Q/C. Положительные empty-C/off-C-only запросы остаются; это не label-conditioned пересэмплирование исходного cohort. Оптимизация не меняет primary estimand.
+
+**Предсказание/ближайший finite falsifier — UNRUN, existing006 refinement.** Четыре literal Q: userA имеет positive empty-C miss и hit; userB — hit; userC — emptyY с одним кандидатом. Полные targets первых трёх singleton; ранги дают0/1/1. Сильный контроль — ручные значения: conditional query NDCG=2/3, conditional user=3/4, all-query-zero=1/2. Полное вычисление и positive-only selector projection должны совпасть по primary. Изменение знаменателя/потеря empty-C positive опровергнет конкретный путь. Existing ranking tests уже покрывают эти различия; запуск/новый test сейчас не предлагается.
+
+**Task1 benefit/cost/outcome.** Сохранить точную интерпретацию результата вместо выдуманного нового дефекта. Будущая source-free проверка:4Q/3candidate rows,1 projection,2 ranking-adapter вызова,2 metric evaluations;0 fits/native/data/Y. Подготовка/проверка/failures платные, allowance отсутствует. Совпадение→merge отрицательное evidence без новых работ; расхождение→локализовать implementation/contract до claims. Новых quality/CV/runtime gates нет; source completeness и reported receipt claims здесь независимо не проверены.

@@ -1,0 +1,368 @@
+{
+  "wave": 57,
+  "role": "Distinct nonauthor skeptic",
+  "status": "SOURCE_ONLY_REVIEW_FROZEN_PENDING_ROOT_ADMISSION",
+  "created_utc": "2026-10-16 03:12:29 UTC",
+  "root_prerequisite": "Root all-three-FIRST receipt verified before independent primary-source readback; no authoring contribution to FIRSTs.",
+  "input_hash_checks": {
+    "before_phase": "First local-input hash sweep completed before substantive external checks, by 2026-10-16T03:05:15Z",
+    "after_utc": "2026-10-16 03:13:20 UTC",
+    "all_19_supplied_paths_match": true,
+    "all_nine_FIRST_pins_freezes_match_receipt": true,
+    "all_eight_snapshot_paths_match_shared_context": true,
+    "final_after_review_hash_count": 22
+  },
+  "local_inputs": [
+    {
+      "path": "/tmp/tlab-root-wave057-three-FIRST-readback-v1.json",
+      "sha256_before": "dcf5c97b3e222dfcb88acd5ea3f2f9eeb87ef79869eb883f5b8de118a7c58e08",
+      "sha256_after": "dcf5c97b3e222dfcb88acd5ea3f2f9eeb87ef79869eb883f5b8de118a7c58e08",
+      "expected_sha256": "dcf5c97b3e222dfcb88acd5ea3f2f9eeb87ef79869eb883f5b8de118a7c58e08",
+      "before_after_match": true,
+      "read_scope": "Full receipt JSON; establishes Root read all three frozen FIRSTs before critic dispatch."
+    },
+    {
+      "path": "/tmp/tlab-wave057-shared-context-v1.json",
+      "sha256_before": "498438763c9862ac39531b9cfc8ae55b6c92490487197572383979e99a14a971",
+      "sha256_after": "498438763c9862ac39531b9cfc8ae55b6c92490487197572383979e99a14a971",
+      "expected_sha256": "498438763c9862ac39531b9cfc8ae55b6c92490487197572383979e99a14a971",
+      "before_after_match": true,
+      "read_scope": "Full JSON; frozen copies, not mutable canonical documents, are contextual basis."
+    },
+    {
+      "path": "/tmp/tlab-wave057-tabpfn-a-FIRST.md",
+      "sha256_before": "dae5eba7858e6cb03d3e3140a31643d0005ec546bd4189cbeab8e6fa1fca0ac4",
+      "sha256_after": "dae5eba7858e6cb03d3e3140a31643d0005ec546bd4189cbeab8e6fa1fca0ac4",
+      "expected_sha256": "dae5eba7858e6cb03d3e3140a31643d0005ec546bd4189cbeab8e6fa1fca0ac4",
+      "before_after_match": true,
+      "read_scope": "Full FIRST."
+    },
+    {
+      "path": "/tmp/tlab-wave057-tabpfn-a-pins.json",
+      "sha256_before": "1875695738a7cbeb045419de86831dd678923062cf1b0b3023ab0939fb3e3c8a",
+      "sha256_after": "1875695738a7cbeb045419de86831dd678923062cf1b0b3023ab0939fb3e3c8a",
+      "expected_sha256": "1875695738a7cbeb045419de86831dd678923062cf1b0b3023ab0939fb3e3c8a",
+      "before_after_match": true,
+      "read_scope": "Full visible pins in initial aggregate read."
+    },
+    {
+      "path": "/tmp/tlab-wave057-tabpfn-a-freeze.json",
+      "sha256_before": "93c367a8b030ca2fd843b74ef430ccea02a92a80bbf26a10e2a2655fb8699315",
+      "sha256_after": "93c367a8b030ca2fd843b74ef430ccea02a92a80bbf26a10e2a2655fb8699315",
+      "expected_sha256": "93c367a8b030ca2fd843b74ef430ccea02a92a80bbf26a10e2a2655fb8699315",
+      "before_after_match": true,
+      "read_scope": "Selected status/wave/author/files/shared-context/independence/authority/disposition/stop/read-boundary fields re-read via jq; initial aggregate partially clipped, not a full freeze read claim."
+    },
+    {
+      "path": "/tmp/tlab-wave057-tabicl-b-FIRST.md",
+      "sha256_before": "487f42c2fd2d9c11ef9f4922f1ded099e53c42ab12fb9bcdcd64da196d9a1ecf",
+      "sha256_after": "487f42c2fd2d9c11ef9f4922f1ded099e53c42ab12fb9bcdcd64da196d9a1ecf",
+      "expected_sha256": "487f42c2fd2d9c11ef9f4922f1ded099e53c42ab12fb9bcdcd64da196d9a1ecf",
+      "before_after_match": true,
+      "read_scope": "Full FIRST."
+    },
+    {
+      "path": "/tmp/tlab-wave057-tabicl-b-pins.json",
+      "sha256_before": "4c9e168c2d62f98724508b4be37b5410734ad03807970aa00390dc92447cfedc",
+      "sha256_after": "4c9e168c2d62f98724508b4be37b5410734ad03807970aa00390dc92447cfedc",
+      "expected_sha256": "4c9e168c2d62f98724508b4be37b5410734ad03807970aa00390dc92447cfedc",
+      "before_after_match": true,
+      "read_scope": "Full individual re-read after initial aggregate clipping."
+    },
+    {
+      "path": "/tmp/tlab-wave057-tabicl-b-freeze.json",
+      "sha256_before": "1c04d7bd35f5d9167ee900f36f399eda7e0602c6d83bc87fd6aebcdaead41943",
+      "sha256_after": "1c04d7bd35f5d9167ee900f36f399eda7e0602c6d83bc87fd6aebcdaead41943",
+      "expected_sha256": "1c04d7bd35f5d9167ee900f36f399eda7e0602c6d83bc87fd6aebcdaead41943",
+      "before_after_match": true,
+      "read_scope": "Full visible freeze JSON after initial output truncation marker."
+    },
+    {
+      "path": "/tmp/tlab-wave057-tabm-c-FIRST.md",
+      "sha256_before": "13f58341b74c3ceacf42e960d9a6cfef9c6ba30b1fb6be9cf796f454f6ab326c",
+      "sha256_after": "13f58341b74c3ceacf42e960d9a6cfef9c6ba30b1fb6be9cf796f454f6ab326c",
+      "expected_sha256": "13f58341b74c3ceacf42e960d9a6cfef9c6ba30b1fb6be9cf796f454f6ab326c",
+      "before_after_match": true,
+      "read_scope": "Full FIRST."
+    },
+    {
+      "path": "/tmp/tlab-wave057-tabm-c-pins.json",
+      "sha256_before": "16a3bef7d2b7b7faa5a244f488633327ec1a97378f6d7d24ffcda31a3e04a9ab",
+      "sha256_after": "16a3bef7d2b7b7faa5a244f488633327ec1a97378f6d7d24ffcda31a3e04a9ab",
+      "expected_sha256": "16a3bef7d2b7b7faa5a244f488633327ec1a97378f6d7d24ffcda31a3e04a9ab",
+      "before_after_match": true,
+      "read_scope": "Full individual re-read after initial aggregate clipping."
+    },
+    {
+      "path": "/tmp/tlab-wave057-tabm-c-freeze.json",
+      "sha256_before": "ba04c583591a5ca508c568874a422a40013f457b0bdb51e4e9530c6a8e0204f5",
+      "sha256_after": "ba04c583591a5ca508c568874a422a40013f457b0bdb51e4e9530c6a8e0204f5",
+      "expected_sha256": "ba04c583591a5ca508c568874a422a40013f457b0bdb51e4e9530c6a8e0204f5",
+      "before_after_match": true,
+      "read_scope": "Full visible freeze JSON in initial aggregate."
+    },
+    {
+      "path": "/tmp/tlab-wave057-frozen-context-v1/0-task1-requirements.md",
+      "sha256_before": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "sha256_after": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "expected_sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "before_after_match": true,
+      "read_scope": "Full frozen document re-read separately; linked authorized task page itself not opened."
+    },
+    {
+      "path": "/tmp/tlab-wave057-frozen-context-v1/1-data.md",
+      "sha256_before": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "sha256_after": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "expected_sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "before_after_match": true,
+      "read_scope": "Full frozen data documentation re-read after clipping; no actual events or dataset read."
+    },
+    {
+      "path": "/tmp/tlab-wave057-frozen-context-v1/2-progress-report.md",
+      "sha256_before": "ee57437aeb969028e364e90b74de325bc940252ec538310d56292fc9374ab6d3",
+      "sha256_after": "ee57437aeb969028e364e90b74de325bc940252ec538310d56292fc9374ab6d3",
+      "expected_sha256": "ee57437aeb969028e364e90b74de325bc940252ec538310d56292fc9374ab6d3",
+      "before_after_match": true,
+      "read_scope": "Full visible frozen document; canonical original not opened."
+    },
+    {
+      "path": "/tmp/tlab-wave057-frozen-context-v1/3-brainstorm-wave055-synthesis.md",
+      "sha256_before": "ac96a29b400feda4fbf6fa39fef4c302b5e683dc82a9121c628ff985bc210126",
+      "sha256_after": "ac96a29b400feda4fbf6fa39fef4c302b5e683dc82a9121c628ff985bc210126",
+      "expected_sha256": "ac96a29b400feda4fbf6fa39fef4c302b5e683dc82a9121c628ff985bc210126",
+      "before_after_match": true,
+      "read_scope": "Full frozen document re-read after clipping."
+    },
+    {
+      "path": "/tmp/tlab-wave057-frozen-context-v1/4-brainstorm-wave053-synthesis.md",
+      "sha256_before": "cdf5e6073ad82676ba2b2a81f874e790a898de915df22630be15a7d9686d0d9a",
+      "sha256_after": "cdf5e6073ad82676ba2b2a81f874e790a898de915df22630be15a7d9686d0d9a",
+      "expected_sha256": "cdf5e6073ad82676ba2b2a81f874e790a898de915df22630be15a7d9686d0d9a",
+      "before_after_match": true,
+      "read_scope": "Full frozen document re-read separately."
+    },
+    {
+      "path": "/tmp/tlab-wave057-frozen-context-v1/5-experimental-report.md",
+      "sha256_before": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "sha256_after": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "expected_sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "before_after_match": true,
+      "read_scope": "Lines 1-95, not full report: requirement, Q/C/Y, counts, metric, weighted B, historical 016 Recall guard, initial source/cost text. No linked raw outputs opened."
+    },
+    {
+      "path": "/tmp/tlab-wave057-frozen-context-v1/tlab-root-wave056-research-readback-v1.json",
+      "sha256_before": "cbe3c9937582160a3f7462bbfcc97660cdd775784f6c3000048b45835a64dc6d",
+      "sha256_after": "cbe3c9937582160a3f7462bbfcc97660cdd775784f6c3000048b45835a64dc6d",
+      "expected_sha256": "cbe3c9937582160a3f7462bbfcc97660cdd775784f6c3000048b45835a64dc6d",
+      "before_after_match": true,
+      "read_scope": "Full frozen metadata receipt; referenced prior FIRSTs not opened."
+    },
+    {
+      "path": "/tmp/tlab-wave057-frozen-context-v1/tlab-root-development-cli-integration-gap-adoption-v1.json",
+      "sha256_before": "66fa76d1ca672c4702846e10f0ddd9ff578227278d0c74e49f4c0e8fb7c86022",
+      "sha256_after": "66fa76d1ca672c4702846e10f0ddd9ff578227278d0c74e49f4c0e8fb7c86022",
+      "expected_sha256": "66fa76d1ca672c4702846e10f0ddd9ff578227278d0c74e49f4c0e8fb7c86022",
+      "before_after_match": true,
+      "read_scope": "Full frozen adoption receipt; CLI candidate not read."
+    }
+  ],
+  "auxiliary_local_sources": [
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+      "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34",
+      "read_scope": "Full short skill before research; hash rechecked at finalization, no claim of early independent pre-read hash."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "sha256_before": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "sha256_after": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "read_scope": "Lines1-100 as source text only. Before/after hashes independently equal and agree with frozen wave056 Root receipt; select_best_tree and _choose_curve examined. This narrowly pinned live code supplements frozen contextual documents."
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "sha256_before": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "sha256_after": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "read_scope": "Bounded rg matches plus4 context lines around select_best_tree/Recall/recall/NDCG/ndcg; import/delegation observed. Before/after hashes independently equal and match frozen wave056 receipt. No execution or full-helper audit."
+    }
+  ],
+  "primary_sources": [
+    {
+      "id": "P1",
+      "title": "TabPFN-3.5 Technical Report",
+      "url": "https://arxiv.org/html/2609.17895v2",
+      "metadata_url": "https://arxiv.org/abs/2609.17895",
+      "version": "arXiv:2609.17895v2",
+      "first_submitted_utc": "2026-09-15T22:38:29Z",
+      "revision_utc": "2026-09-22T17:28:29Z",
+      "read_scope": "Abstract version/history; HTML initial lines 0-126; bounded find results for non-large, H100(no match), eight, ECDF, internal, group identifier. Substantive excerpts of Introduction/Table2, sections2.2/2.5/3.1/3.2 and C.2.3; not full paper.",
+      "verified": "Recommended 1M rows/6000 features; eight default estimators; train-context ECDF; grouped ID protocol; Plus/harness/internal relational preview; no local purchase ranking or CPU measurement.",
+      "retrieved_between_utc": [
+        "2026-10-16T03:04:20Z",
+        "2026-10-16 03:12:29 UTC"
+      ],
+      "verbatim_prose_quotes_words": 0,
+      "archive": "URLs/version/scope metadata and bounded paraphrase only; no external page/fulltext/tool snapshot saved."
+    },
+    {
+      "id": "P2",
+      "title": "Official PriorLabs TabPFN release/API",
+      "url": "https://github.com/PriorLabs/TabPFN/blob/v9.2.0/README.md",
+      "version": "v9.2.0",
+      "release_date": "2026-10-12",
+      "publishing_commit": "f02b3b5941717472eafd078c15ae2043676b3fcf",
+      "publishing_commit_source": "https://pypi.org/project/tabpfn/9.2.0/",
+      "checkpoint": "tabpfn-v3.5-20260909.safetensors",
+      "read_urls": [
+        "https://github.com/PriorLabs/TabPFN/releases/tag/v9.2.0",
+        "https://github.com/PriorLabs/TabPFN/releases",
+        "https://github.com/PriorLabs/TabPFN/tags",
+        "https://github.com/PriorLabs/TabPFN/blob/v9.2.0/src/tabpfn/classifier.py",
+        "https://pypi.org/project/tabpfn/9.2.0/"
+      ],
+      "read_scope": "Release/tag pages; bounded README CPU/checkpoint/environment matches; classifier public fit signature plus source portions returned by find, sample_weight no match in rendered partial file. PyPI key dates/release files/Trusted Publishing identity confirms full date and publishing commit. Not full API/implementation audit.",
+      "verified": "CPU5000 guard is overrideable; public classifier fit(X,y); no groups/sample_weight arguments in that fit signature; release9.1 notes a built-in majority-downsample prior correction, which does not reconstitute query weights.",
+      "retrieved_between_utc": [
+        "2026-10-16T03:04:20Z",
+        "2026-10-16 03:12:29 UTC"
+      ],
+      "verbatim_prose_quotes_words": 0,
+      "archive": "URLs/version/scope metadata and bounded paraphrase only; no external page/fulltext/tool snapshot saved."
+    },
+    {
+      "id": "P3",
+      "title": "TabICLv2 paper",
+      "url": "https://arxiv.org/html/2602.11139v2",
+      "metadata_url": "https://arxiv.org/abs/2602.11139",
+      "version": "arXiv:2602.11139v2",
+      "first_submitted_utc": "2026-02-11T18:51:02Z",
+      "revision_utc": "2026-09-16T13:10:38Z",
+      "read_scope": "Abstract version/history; bounded HTML find results for250,H100,distribution,shift,target-aware,Limitations. Excerpts of architecture,4.2,6,8,A.2/A.4 and H.2; not full paper.",
+      "verified": "Classification/regression benchmarks; target-aware training labels; H100/FA3/AMP million-row offloading example; future distribution-shift work; no purchase-ranking or local CPU budget result.",
+      "retrieved_between_utc": [
+        "2026-10-16T03:04:20Z",
+        "2026-10-16 03:12:29 UTC"
+      ],
+      "verbatim_prose_quotes_words": 0,
+      "archive": "URLs/version/scope metadata and bounded paraphrase only; no external page/fulltext/tool snapshot saved."
+    },
+    {
+      "id": "P4",
+      "title": "Official soda-inria TabICL release/API",
+      "url": "https://github.com/soda-inria/tabicl/blob/0dbff3ec8fc68c123c87af77b0ea8b25cd2d23f3/src/tabicl/_sklearn/classifier.py",
+      "version": "v2.2.0",
+      "release_date": "2026-09-02",
+      "commit": "0dbff3ec8fc68c123c87af77b0ea8b25cd2d23f3",
+      "checkpoint": "tabicl-classifier-v2-20260212.ckpt",
+      "read_urls": [
+        "https://github.com/soda-inria/tabicl/releases/tag/v2.2.0",
+        "https://github.com/soda-inria/tabicl/tags",
+        "https://github.com/soda-inria/tabicl/commit/0dbff3ec8fc68c123c87af77b0ea8b25cd2d23f3"
+      ],
+      "read_scope": "Release date/day and tags year/commit; bounded classifier default checkpoint, init and public fit signature/body excerpts, sample_weight no match in rendered source. Not full repository review.",
+      "verified": "Public classifier fit(self,X,y); no group/sample_weight arguments; v2 default checkpoint matches FIRST. Package release and paper revision are separate dates.",
+      "retrieved_between_utc": [
+        "2026-10-16T03:04:20Z",
+        "2026-10-16 03:12:29 UTC"
+      ],
+      "verbatim_prose_quotes_words": 0,
+      "archive": "URLs/version/scope metadata and bounded paraphrase only; no external page/fulltext/tool snapshot saved."
+    },
+    {
+      "id": "P5",
+      "title": "TabM paper",
+      "url": "https://arxiv.org/html/2410.24210v3",
+      "metadata_url": "https://arxiv.org/abs/2410.24210",
+      "version": "arXiv:2410.24210v3",
+      "first_submitted_date": "2024-10-31",
+      "revision_date": "2025-02-18",
+      "read_scope": "Abstract metadata/version history; bounded find results A100,46,domain-aware. Sections3.1,4 and D.1/D.2 excerpts; not full paper.",
+      "verified": "46 datasets, nine domain-aware splits, supervised classification/regression metrics, mostlyA100, tuning and multiple seeds; no local ranking evidence.",
+      "retrieved_between_utc": [
+        "2026-10-16T03:04:20Z",
+        "2026-10-16 03:12:29 UTC"
+      ],
+      "verbatim_prose_quotes_words": 0,
+      "archive": "URLs/version/scope metadata and bounded paraphrase only; no external page/fulltext/tool snapshot saved."
+    },
+    {
+      "id": "P6",
+      "title": "Official yandex-research TabM release/API",
+      "url": "https://github.com/yandex-research/tabm/blob/a507095893d784c5702059d737ddfbd1299c41dd/README.md",
+      "version": "v0.0.3",
+      "release_date": "2025-08-14",
+      "commit": "a507095893d784c5702059d737ddfbd1299c41dd",
+      "read_urls": [
+        "https://github.com/yandex-research/tabm/releases/tag/v0.0.3",
+        "https://github.com/yandex-research/tabm/tags",
+        "https://github.com/yandex-research/tabm/commit/a507095893d784c5702059d737ddfbd1299c41dd"
+      ],
+      "read_scope": "Release/tag date and commit identity; bounded README Training/Inference passage; commit version declaration. Not full library implementation.",
+      "verified": "Train independent submodel predictions using mean loss; average probabilities for classification inference. No event aggregation contract.",
+      "retrieved_between_utc": [
+        "2026-10-16T03:04:20Z",
+        "2026-10-16 03:12:29 UTC"
+      ],
+      "verbatim_prose_quotes_words": 0,
+      "archive": "URLs/version/scope metadata and bounded paraphrase only; no external page/fulltext/tool snapshot saved."
+    }
+  ],
+  "failed_or_limited_web_reads": [
+    "Official GitHub releases API for all three returned Internal Error; not evidence of missing releases.",
+    "TabPFN commit click returned Internal Error; full publishing commit recovered independently from PyPI Trusted Publishing metadata.",
+    "TabPFN releases.atom returned Cache miss; no inference based on it.",
+    "PriorLabs tags page stale at v8.5.0; not used to reject current v9.2.0. Fixed release and PyPI used."
+  ],
+  "claim_verification": {
+    "paper_version_dates": "confirmed independently",
+    "official_release_dates": "confirmed independently; TabPFN via PyPI release metadata and GitHub day/time, others via official tags full date",
+    "hardware_scale": "bounded source claims confirmed with qualifications, no local cost extrapolation",
+    "selector": "live source verified NDCG-only, historical016 guard distinct",
+    "A_support": "row case-control full-Q support unestablished; no weightedB equivalence",
+    "B_support": "label-conditioned whole-Q subset, unweighted support differs full query-weighted B",
+    "C_support": "conditional support-preserving fixed recipe; empirical validity UNRUN",
+    "Task1": "Alternative learner comparisons may address alternative-method branch if measured against strongB; do not demonstrate automatic event-feature generation"
+  },
+  "copyright": {
+    "full_papers_saved": 0,
+    "web_or_tool_text_snapshots_saved": 0,
+    "verbatim_prose_quotes_words": 0,
+    "source_derived_prose": "Each intellectual primary source remains below200 output words; source scope fields are metadata/original bounded paraphrases."
+  },
+  "authority": {
+    "ML_fits": 0,
+    "experiments": 0,
+    "dataset_reads": 0,
+    "model_reads": 0,
+    "Y_reads": 0,
+    "imports": 0,
+    "tests": 0,
+    "repo_CLI_runs": 0,
+    "Git_mutations": 0,
+    "network_writes": 0,
+    "canonical_edits": 0,
+    "helpers": 0,
+    "coordinator_contacts": 0,
+    "user_questions": 0,
+    "new_IDs": 0,
+    "new_mandatory_experiments": 0,
+    "new_mandatory_gates": 0,
+    "new_frameworks": 0,
+    "new_grants": 0,
+    "native_body": "UNRUN",
+    "helper_only_50CPU65wall": "ASKED_UNANSWERED",
+    "historic_allocations": "CLOSED",
+    "historic_6CPUh_remaining": "UNKNOWN",
+    "new_untouched_outer_period_available": false,
+    "ordinary_CLI": "Separate implementation under independent code review; not delayed by research"
+  },
+  "review_words_whitespace": 345,
+  "next_original_grid_UTC": "2026-10-16 03:45 UTC",
+  "admission": "Root alone; this reviewer makes no canonical or backlog changes",
+  "stop": "Freeze three designated TMP artifacts and stop.",
+  "manual_math": {
+    "basis": "Frozen experimental report train candidate rows5317058, in-C positive pairs444; arithmetic only, no data/models/tests.",
+    "uniform_5000_expectation": 0.41752412706425246,
+    "uniform_50000_expectation": 4.175241270642524,
+    "interpretation": "Expectations under uniform row sampling only. They reject naive sparse-context assumptions, not a model family, and do not verify actual context counts."
+  }
+}

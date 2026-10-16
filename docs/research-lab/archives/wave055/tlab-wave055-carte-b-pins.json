@@ -1,0 +1,64 @@
+{
+  "role": "independent_author_B",
+  "wave": "055",
+  "phase": "BLIND_FIRST",
+  "report_path": "/tmp/tlab-wave055-carte-b-FIRST.md",
+  "shared_context": {
+    "path": "/tmp/tlab-wave055-shared-context-v1.json",
+    "sha256": "06632f424ba3927a7a407459e171dde7f7768f692461be95bca95e7be707c178"
+  },
+  "local_inputs_read": [
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md", "bytes": 3638, "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md", "bytes": 10992, "sha256": "a3d80e240b5527545dcc4521b726c015831be1d7a5f16075b3955119cbb0e663"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md", "bytes": 29917, "sha256": "ee5f598914e72dd1983d9270299e0769b832a7ede6ef92e6edf6d4fde66ea3ea"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-047.md", "bytes": 9847, "sha256": "ef1bb2328218b6450d8bdd8e0cba024041893ed69e92a9d618bcb1dd8d61e8c9"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ta001.md", "bytes": 12530, "sha256": "8f79d90c6fac66eaa8d0ce142a4cda417a67e0113a367a128f896192835dc9fb"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-m001.md", "bytes": 17784, "sha256": "f761d9844b9bd7c34d75448b36ac52b2c5bdbd3f27fa4dcf88236c7043036a0e"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/feature-programs.md", "bytes": 7796, "sha256": "ff2353c32b897583a4fb99aa89bf6e77aa479c64a88ead7c52792e537d3c0bcf"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py", "bytes": 14019, "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7"}
+  ],
+  "skill_read": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+  "primary_source_count": 2,
+  "source_ledger": [
+    {
+      "id": "S1",
+      "url": "https://arxiv.org/html/2402.16785v2",
+      "identity_url": "https://arxiv.org/abs/2402.16785",
+      "version": "arXiv:2402.16785v2",
+      "version_utc": "2024-05-31T15:03:11Z",
+      "claim_scope": "Sections3.1-3.3: representation, YAGO3 pretraining, reused layers and cross-table supervised transfer. Section4.1/AppendixA.2-A.3: datasets, splitting, metrics, tuning and hardware. No recommendation/NDCG or historical availability claim.",
+      "locator_lines": ["118-181", "184-199", "358-378", "421-436"],
+      "observed_utc_date": "2026-10-16"
+    },
+    {
+      "id": "S2",
+      "url": "https://github.com/soda-inria/carte",
+      "version": "main README as served by web tool on 2026-10-16; not exact-commit bound",
+      "claim_scope": "Author README example only: FastText cc.en.300.bin input via huggingface_hub, sklearn fit/predict, CPU example with num_model=10 and n_jobs=10, active-development caveat. No installation, import, model download or runtime verification.",
+      "locator_lines": ["218-303"],
+      "observed_utc_date": "2026-10-16",
+      "pin_limitations": "Commits/main page (tool cache described as 3 months old) reports latest listed commit f54690da4cddbedd1e1a9113a312f85783d2c125, 2025-08-11, Update README.md. Exact commit page, pinned README and raw pinned README returned cache-miss; API commits/main inaccessible. This SHA is not asserted to bind the observed main README. Paper v2 is the stable mechanistic source.",
+      "provenance_only_urls_attempted": [
+        "https://github.com/soda-inria/carte/commits/main/",
+        "https://github.com/soda-inria/carte/commit/f54690da4cddbedd1e1a9113a312f85783d2c125",
+        "https://github.com/soda-inria/carte/blob/f54690da4cddbedd1e1a9113a312f85783d2c125/README.md",
+        "https://raw.githubusercontent.com/soda-inria/carte/f54690da4cddbedd1e1a9113a312f85783d2c125/README.md",
+        "https://api.github.com/repos/soda-inria/carte/commits/main",
+        "https://github.com/soda-inria/carte/tree/main/carte_ai"
+      ]
+    }
+  ],
+  "source_word_budget_note": "Mechanistic and empirical paraphrase in FIRST is bounded to 200 words for S1; S2 paraphrase is much smaller than 200 words. Local audit, inference, dedup and proposed source-free experiment are own analysis.",
+  "decision": "0 new ideas or canonical IDs; optional representation-contract refinement only",
+  "experiment_status": "UNRUN; proposed source-free symbolic construction, no execution grant",
+  "restrictions_observed": {
+    "peer055_drafts_read": false,
+    "peer_discussion_before_freeze": false,
+    "helpers_spawned": false,
+    "canonical_writes": 0,
+    "git_mutations": 0,
+    "network_mutations": 0,
+    "native_import_test_sql_realdata_models_targets_downloadweights_ml": 0,
+    "only_tmp_writes_and_read_only_primary_browsing": true
+  }
+}

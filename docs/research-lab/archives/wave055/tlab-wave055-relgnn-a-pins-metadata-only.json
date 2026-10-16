@@ -1,0 +1,170 @@
+{
+  "role": "independent_author_A_FIRST",
+  "wave": "055",
+  "frozen_utc": "2026-10-16 01:35:43 UTC",
+  "dispatch_grid_utc": "2026-10-16 01:30 UTC",
+  "next_grid_utc": "2026-10-16 02:15 UTC",
+  "context": {
+    "path": "/tmp/tlab-wave055-shared-context-v1.json",
+    "sha256": "06632f424ba3927a7a407459e171dde7f7768f692461be95bca95e7be707c178",
+    "match": true
+  },
+  "prior_files": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "bytes": 3638,
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "observed_sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "observed_bytes": 3638,
+      "match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "bytes": 10992,
+      "sha256": "a3d80e240b5527545dcc4521b726c015831be1d7a5f16075b3955119cbb0e663",
+      "observed_sha256": "a3d80e240b5527545dcc4521b726c015831be1d7a5f16075b3955119cbb0e663",
+      "observed_bytes": 10992,
+      "match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "bytes": 29917,
+      "sha256": "ee5f598914e72dd1983d9270299e0769b832a7ede6ef92e6edf6d4fde66ea3ea",
+      "observed_sha256": "ee5f598914e72dd1983d9270299e0769b832a7ede6ef92e6edf6d4fde66ea3ea",
+      "observed_bytes": 29917,
+      "match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-047.md",
+      "bytes": 9847,
+      "sha256": "ef1bb2328218b6450d8bdd8e0cba024041893ed69e92a9d618bcb1dd8d61e8c9",
+      "observed_sha256": "ef1bb2328218b6450d8bdd8e0cba024041893ed69e92a9d618bcb1dd8d61e8c9",
+      "observed_bytes": 9847,
+      "match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ta001.md",
+      "bytes": 12530,
+      "sha256": "8f79d90c6fac66eaa8d0ce142a4cda417a67e0113a367a128f896192835dc9fb",
+      "observed_sha256": "8f79d90c6fac66eaa8d0ce142a4cda417a67e0113a367a128f896192835dc9fb",
+      "observed_bytes": 12530,
+      "match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-m001.md",
+      "bytes": 17784,
+      "sha256": "f761d9844b9bd7c34d75448b36ac52b2c5bdbd3f27fa4dcf88236c7043036a0e",
+      "observed_sha256": "f761d9844b9bd7c34d75448b36ac52b2c5bdbd3f27fa4dcf88236c7043036a0e",
+      "observed_bytes": 17784,
+      "match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/feature-programs.md",
+      "bytes": 7796,
+      "sha256": "ff2353c32b897583a4fb99aa89bf6e77aa479c64a88ead7c52792e537d3c0bcf",
+      "observed_sha256": "ff2353c32b897583a4fb99aa89bf6e77aa479c64a88ead7c52792e537d3c0bcf",
+      "observed_bytes": 7796,
+      "match": true
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "bytes": 14019,
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "observed_sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "observed_bytes": 14019,
+      "match": true
+    }
+  ],
+  "sources_refreshed_completed_utc": "2026-10-16 01:33:31 UTC",
+  "source_limit": "3 records: publication record, versioned author manuscript, author repository. PMLR and arXiv describe the same scholarly work.",
+  "sources": [
+    {
+      "label": "S1",
+      "url": "https://proceedings.mlr.press/v267/chen25ad.html",
+      "scope": "Published bibliographic record/abstract; ICML 2025, PMLR267:8296–8312.",
+      "tool_snapshot_sha256": "27c24f6f3ce496a46e3391c216f87c1aae0b63cda14ad181c3ecca9e032d0f15",
+      "original_bytes_sha256": null
+    },
+    {
+      "label": "S2",
+      "url": "https://arxiv.org/html/2502.06784v2",
+      "scope": "Author manuscript v2, 2025-06-06; §§2.2,4.1–4.3,5 and Appendix C–D; not verified byte-equivalent to PMLR PDF.",
+      "tool_snapshot_sha256": "a9cc40d7fe933303f13696a8d1d814d131554b77c7d1ff8941b55c732d638cc9",
+      "original_bytes_sha256": null
+    },
+    {
+      "label": "S3",
+      "url": "https://raw.githubusercontent.com/snap-stanford/RelGNN/main/examples/relgnn_task_link_idgnn.py",
+      "scope": "Author repository main branch; opened inference script only, NeighborLoader configuration, automatic checkpoint/data download paths, sampled-target readout.",
+      "tool_snapshot_sha256": "5cf2db84adaa40d9f7ee7492950d5d591c8693e9e531db4b1b8bec66ce43d7a3",
+      "original_bytes_sha256": null
+    }
+  ],
+  "additional_same_author_repository_read_paths": [
+    "https://github.com/snap-stanford/RelGNN",
+    "https://raw.githubusercontent.com/snap-stanford/RelGNN/main/examples/atomic_routes.py",
+    "https://raw.githubusercontent.com/snap-stanford/RelGNN/main/examples/relgnn_model.py"
+  ],
+  "version_limitations": [
+    "PMLR PDF could not be parsed by web tool; full mechanism checked in arXiv v2, not asserted byte-identical to proceedings.",
+    "Author repository main commit SHA was not exposed by browser/API views. S3 is pinned to the archived web tool text, not an immutable Git revision.",
+    "tool_snapshot_sha256 hashes exact returned text representation, not upstream original file bytes; crawled freshness metadata is retained.",
+    "Read code was not executed and dependency/training recipe completeness was not verified."
+  ],
+  "independence": {
+    "peer055_read_before_FIRST": false,
+    "peer_contacts": false,
+    "helpers_spawned": false
+  },
+  "operations": {
+    "canonical_mutations": 0,
+    "git_mutations": 0,
+    "network_mutations": 0,
+    "raw_or_targets_accessed": 0,
+    "native_import_test_SQL_ML": 0,
+    "data_or_model_downloads": 0,
+    "fits": 0
+  },
+  "experiments": [
+    {
+      "name": "12-event two-anchor fixed-weight literal route/availability audit",
+      "status": "UNRUN",
+      "fits": 0
+    },
+    {
+      "name": "hypothetical RelGNN versus matched HeteroGNN versus strong-B quality comparison",
+      "status": "UNRUN",
+      "budget": "unallocated; remaining CPU unknown"
+    }
+  ],
+  "publication_transform": {
+    "kind": "metadata_only_derivative",
+    "original_local_path": "/tmp/tlab-wave055-relgnn-a-pins.json",
+    "original_sha256": "6ba1114c05b2f2c453eaa7ac86b8a7041893b2e826f63e7fe7675e59d2206431",
+    "original_bytes": 54892,
+    "removed_verbatim_external_source_texts": [
+      {
+        "json_pointer": "/sources/0/tool_text_snapshot",
+        "characters": 6946,
+        "words": 903,
+        "utf8_sha256": "27c24f6f3ce496a46e3391c216f87c1aae0b63cda14ad181c3ecca9e032d0f15"
+      },
+      {
+        "json_pointer": "/sources/1/tool_text_snapshot",
+        "characters": 33713,
+        "words": 4430,
+        "utf8_sha256": "a9cc40d7fe933303f13696a8d1d814d131554b77c7d1ff8941b55c732d638cc9"
+      },
+      {
+        "json_pointer": "/sources/2/tool_text_snapshot",
+        "characters": 6283,
+        "words": 530,
+        "utf8_sha256": "5cf2db84adaa40d9f7ee7492950d5d591c8693e9e531db4b1b8bec66ce43d7a3"
+      }
+    ],
+    "reason": "Archive research results, URLs, versions, claim scopes and tool-text digests; do not reproduce whole external papers/pages",
+    "other_original_metadata_preserved": true,
+    "original_FIRST_and_freeze_not_changed": true,
+    "archived_sha_differs_from_original": true
+  }
+}

@@ -1,0 +1,9 @@
+PASS в конечной области archive exact-payload/provenance review: поддержанных P1/P2 не выявлено.
+
+Все 22 candidates совпали с manifest по SHA256/размеру; 12 original artifacts и 8 frozen contexts побайтно соответствуют источникам. Все цели имеют base ABSENT и по-прежнему отсутствуют. Publication mapping точно связывает 20 копий с относительными назначениями; новая локальная ссылка разрешается внутри пакета. Исторические ссылки сохранены со своей исходной базой, без обещания актуальности canonical.
+
+Синтез из 307 слов согласован с Root decision3bb3 и critic903ab. DFS требует явных temporal keys/strict cutoff/scaffold/as-of conflict-NULL семантик; tiny canary не выдаётся за utility/cost proof. OpenFE constant-prior boosting=false назван screening ablation, а не paper FeatureBoost; сохранены ограничения weights/split/rowwise state/NaN masks/aliases и будущий common1189 contrast. Это refinements014/016, стоимость/sampling013; новых admissions, ID, gates, grants или эмпирических quality/local-cost результатов не заявлено.
+
+CLI29 installed, 12 CODE/FakeML PASS и help exit0 обозначены как поздняя информация Root; native helper/CLI E2E остаются UNRUN. FIRSTs/context с install-pending не переписаны. Исходные 03:45, поздние 03:47 и следующие 04:30 сохранены; план трёх следующих авторов не назван исполненным dispatch.
+
+Primary-source records — bounded paraphrase/URL/version/scope, не upstream byte-hash доказательство. Full papers/tool text/private grant/runner bodies в просмотренном составе не выявлены; zero-count metadata не принималась за payload. Конечная свежесть inputs, 20 источников и 22 copies подтверждена. Текущие четыре canonical документа не читались. Git/imports/tests/CLI/native/ML/data/model/Y/network/canonical edits/helpers не выполнялись; install authority отсутствует.

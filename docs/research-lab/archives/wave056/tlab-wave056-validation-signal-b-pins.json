@@ -1,0 +1,89 @@
+{
+  "wave": 56,
+  "agent": "validation-signal-b",
+  "first_blind": true,
+  "context": {
+    "path": "/tmp/tlab-wave056-shared-context-v1.json",
+    "sha256": "b58449e770a15f54565da7ac3ac30c928e83ebb05bbe3757ec07ac08b956e6bf"
+  },
+  "read_complete_utc": "2026-10-16 02:20:37 UTC",
+  "freeze_utc": "2026-10-16 02:23:14 UTC",
+  "final_source_recheck_utc": "2026-10-16 02:23:14 UTC",
+  "all_expected_hashes_matched": true,
+  "source_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "bytes": 3638
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "sha256": "ee57437aeb969028e364e90b74de325bc940252ec538310d56292fc9374ab6d3",
+      "bytes": 11597
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/fixed300-retrospective.md",
+      "sha256": "75b7b4d8b9d97fe5e96e89e1cfe6b6425e09f819bde7c9209e913bc29435ea3b",
+      "bytes": 2615
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave053-synthesis.md",
+      "sha256": "cdf5e6073ad82676ba2b2a81f874e790a898de915df22630be15a7d9686d0d9a",
+      "bytes": 4315
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave054-synthesis.md",
+      "sha256": "6e1e414ceebb8ee567200423801f42cf4a0ce26bdbd34923a113623b834373b7",
+      "bytes": 2942
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_development_training.py",
+      "sha256": "547fac7bf2591ca831fa717e17017e39fe98994c1f87ab7b2110b9dc22ca3a23",
+      "bytes": 14288
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_development_training_native.py",
+      "sha256": "eca8d1a071361a93e563b105b0c743f235073527876a49e81dd8080c2dea1887",
+      "bytes": 9112
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/native-support-assertion-contract-review.md",
+      "sha256": "9f33c93e8162afd8d272cd139cbe0ed89cba8f5865a5ca2de9e5c4142c764267",
+      "bytes": 1767
+    }
+  ],
+  "ancillary_skill": {
+    "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+    "use": "executor instructions read; outside scientific input pins"
+  },
+  "actions": {
+    "source_text_reads": 10,
+    "source_hash_checks": 30,
+    "first_peer_reads": 0,
+    "runtime": 0,
+    "imports": 0,
+    "tests": 0,
+    "native": 0,
+    "ml_fits": 0,
+    "sql": 0,
+    "raw_data": 0,
+    "collections": 0,
+    "Y": 0,
+    "models": 0,
+    "git_mutations": 0,
+    "network_mutations": 0,
+    "canonical_writes": 0,
+    "helpers": 0,
+    "coordinator_contacts": 0,
+    "grants": 0,
+    "human_questions": 0,
+    "papers_web": 0,
+    "tmp_outputs": 3
+  }
+}
+

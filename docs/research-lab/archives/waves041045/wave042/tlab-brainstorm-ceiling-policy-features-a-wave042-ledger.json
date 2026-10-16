@@ -1,0 +1,88 @@
+{
+  "wave": "042",
+  "role": "independent_FIRST_author_A",
+  "status": "frozen_source_only_proposal",
+  "novel_mechanisms": 0,
+  "disposition": "refine_existing; preserve_current_cap; no_new_experiment_admission",
+  "existing_ids": [
+    "019",
+    "013"
+  ],
+  "dedup_own_prior_waves": [
+    "037",
+    "039",
+    "040"
+  ],
+  "current_context": {
+    "receipt": "435bc",
+    "fits": 2,
+    "ceiling": 1200,
+    "selection_days": [
+      "2019-10-22",
+      "2019-10-23"
+    ],
+    "positive_queries": 73,
+    "max_dependent_prefix_looks": 2400,
+    "B": {
+      "best_prefix": 1189,
+      "best_ndcg": 0.460208,
+      "at300": 0.458611,
+      "at1200": 0.455152
+    },
+    "W": {
+      "best_prefix": 403,
+      "best_ndcg": 0.465646,
+      "at300": 0.464703,
+      "at1200": 0.463815
+    },
+    "authority": "Root aggregate facts only; no runtime outputs inspected"
+  },
+  "four_fields": {
+    "mechanism": "One predeclared compute-bounded ceiling, equal candidate prefix spaces and selector for B/W; no automatic repeated boundary expansion.",
+    "prediction": "A boundary-adjacent winner does not guarantee useful extension; accepted B endpoints already refute monotone improvement, not a possible later rebound.",
+    "nearest_finite_experiment": "UNRUN conditional future single C=2400 proposal: two fresh full fits; own argmax 1..2400; compare maxima <=1200 within each new fit. No current authorization.",
+    "task1_benefit": "Separate bounded capacity sensitivity from a claimed automatic-feature advantage; preserve equal tuning opportunities and honest uncertainty."
+  },
+  "matched_control": "Identical grammar/features/train/selection/selector; equal 1..2400 spaces, with same-fit restricted <=1200 prefix maxima; prior-run prefix parity is diagnostic, not assumed.",
+  "negative_falsifier": "Both maxima remain <=1200: no selection benefit from extension. New beyond-cap winner remains adaptive descriptive evidence; no independent quality claim or automatic second extension.",
+  "strong_counterexample": "Nonmonotonic curve can rebound after 1200; preserving cap is a resource decision and cannot establish global optimum. Larger-grid selection maxima can improve from extra looks alone.",
+  "future_paid_cost": {
+    "new_full_fit_segments": 2,
+    "new_ceiling_each": 2400,
+    "new_tree_iterations_total": 4800,
+    "new_max_dependent_prefix_evaluations": 4800,
+    "combined_with_accepted_fits": 4,
+    "combined_tree_iterations": 7200,
+    "combined_max_prefix_evaluations": 7200,
+    "included": [
+      "preparation",
+      "source authentication",
+      "full-candidate prefix predictions",
+      "exact fullY NDCG computation",
+      "model persistence",
+      "memory",
+      "result verification",
+      "all rejected prefixes and repeated selection feedback"
+    ],
+    "cpu_projection": null,
+    "no_init_model_equivalence_assumed": true,
+    "positive_query_count_stays": 73
+  },
+  "current_action": "No extra experiment; preserve 1200 and accepted results.",
+  "primary_sources_added": [],
+  "own_prior_sources": [
+    "/tmp/tlab-brainstorm-capacity-interaction-features-a-wave037.md",
+    "/tmp/tlab-brainstorm-exact-stopping-features-a-wave039.md",
+    "/tmp/tlab-wave040-skeptic-review.md"
+  ],
+  "independence": {
+    "peer042_read_before_FIRST": false,
+    "live_outputs_read": false,
+    "actual_data_models_Y_accessed": false,
+    "experiments_or_jobs_executed": false,
+    "helpers_used": false,
+    "project_or_git_writes": false
+  },
+  "word_count": 297,
+  "created_utc": "2026-10-15T20:01:24.072895+00:00"
+}

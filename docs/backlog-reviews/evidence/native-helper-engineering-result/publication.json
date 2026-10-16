@@ -1,0 +1,207 @@
+{
+  "scope": "ONE_ACCEPTED_NATIVE_HELPER_NORMAL_PATH_TOY_RESULT_ONLY_NO_NEW_RUNTIME_AUTHORITY",
+  "originals": [
+    {
+      "path": "docs/backlog-reviews/evidence/native-helper-engineering-result/profile.json",
+      "relative_destination": "profile.json",
+      "source": "/tmp/tlab-native-helper-engineering-20261016-once/profile.json",
+      "sha256": "e72f862e795bd780ad8470cab144b7b713637ada03794558c0f870ab4dca5068",
+      "bytes": 306,
+      "copy_kind": "exact_small_original",
+      "role": "Wrapper profile, excludes final JSON/exit"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-helper-engineering-result/child-terminal.json",
+      "relative_destination": "child-terminal.json",
+      "source": "/tmp/tlab-native-helper-engineering-20261016-once/terminal.json",
+      "sha256": "0a5af7cc5d849fd2c4bb2795efcacfa47e2f993094225b64e360a8896bb7f9ed",
+      "bytes": 353,
+      "copy_kind": "exact_small_original",
+      "role": "Raw child terminal remains pending Root full exit; later overlay closes outer"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-helper-engineering-result/child-stderr.txt",
+      "relative_destination": "child-stderr.txt",
+      "source": "/tmp/tlab-native-helper-engineering-20261016-once/stderr.txt",
+      "sha256": "32e6aae6081df26c6a55fb715bc5b3a42d1aedd97de280c5efd07fa1c7ca04bc",
+      "bytes": 254,
+      "copy_kind": "exact_small_original",
+      "role": "Actual unittest stderr: one method OK, no skip"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-helper-engineering-result/child-stdout.txt",
+      "relative_destination": "child-stdout.txt",
+      "source": "/tmp/tlab-native-helper-engineering-20261016-once/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "copy_kind": "exact_small_original",
+      "role": "Actual empty child stdout"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-helper-engineering-result/external-result.json",
+      "relative_destination": "external-result.json",
+      "source": "/tmp/tlab-native-helper-engineering-external-result-v1.json",
+      "sha256": "a1985e09c5afcc7614698d962749138990373908377b08e1757b5e079d87e53f",
+      "bytes": 1995,
+      "copy_kind": "exact_small_original",
+      "role": "Known wrapper full exit/resource scopes; conservative CPU sum may overlap"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-helper-engineering-result/root-actual-terminal.json",
+      "relative_destination": "root-actual-terminal.json",
+      "source": "/tmp/tlab-root-native-helper-engineering-actual-terminal-v1.json",
+      "sha256": "0d844ad3ce3dbfdc93d1a343e2684a4cf31a3b53c4c81a5e371f5f2b8987e685",
+      "bytes": 712,
+      "copy_kind": "exact_small_original",
+      "role": "Actual outer85582/9d36c3 CLOSED EXIT0 and reaping"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-helper-engineering-result/root-acceptance.json",
+      "relative_destination": "root-acceptance.json",
+      "source": "/tmp/tlab-root-native-helper-engineering-acceptance-v1.json",
+      "sha256": "8f2f1c02b7f2335f97f914e3f3040fdbbbe48dff6451c88644b2e56c92e0c115",
+      "bytes": 2361,
+      "copy_kind": "exact_small_original",
+      "role": "Root accepts toy normal path; closes once50CPU65wall allowance"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-helper-engineering-result/independent-output-review.md",
+      "relative_destination": "independent-output-review.md",
+      "source": "/tmp/tlab-native-helper-engineering-output-independent-review-v1.md",
+      "sha256": "8cbeb259daabf587847681e29aa9fb10616dd0173cf63a741ab22716d8318962",
+      "bytes": 3698,
+      "copy_kind": "exact_small_original",
+      "role": "Independent actual result-scope review, no execution authority"
+    }
+  ],
+  "source11_current_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_development_training_native.py",
+      "bytes": 9112,
+      "sha256": "eca8d1a071361a93e563b105b0c743f235073527876a49e81dd8080c2dea1887"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "bytes": 5590,
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "bytes": 18580,
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "bytes": 35022,
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "bytes": 20181,
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "bytes": 34909,
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "bytes": 11864,
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "bytes": 6184,
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "bytes": 9971,
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml",
+      "bytes": 367,
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+      "bytes": 300283,
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab"
+    }
+  ],
+  "review_ledger_reference_only": {
+    "source": "/tmp/tlab-native-helper-engineering-output-independent-review-v1-pins.json",
+    "sha256": "8588b15e250ba9c3525385107c3a1c720213f267b21e71fdd7dfd484b3a039b8",
+    "bytes": 6562,
+    "private_inputs": "Reference-only; no human/grant/issued request/runner bodies copied"
+  },
+  "accepted_actual": {
+    "test_case_methods": 1,
+    "physical_native_fits": 1,
+    "trained_trees": 8,
+    "selected_copy_trees": 1,
+    "retained_full_model_trees": 8,
+    "prefix_oracle": "All8 flat/tie fullY NDCG@20 prefixes; global1e-12/fewer-trees choice1",
+    "toy_rows": {
+      "train": 6,
+      "validation": 7,
+      "features": 2
+    },
+    "save_reload": "Selectedcopy finite scores/parity within1e-12",
+    "actual_outer_terminal": {
+      "session_id": 85582,
+      "chunk_id": "9d36c3",
+      "exit_code": 0,
+      "closed": true
+    },
+    "normal_path": "ROOT_ACCEPTED_PASS"
+  },
+  "remaining_UNRUN": [
+    "ordinary development CLI native E2E",
+    "native callback-abort/failure path"
+  ],
+  "resource_scopes": {
+    "authorized_once_CPU": 50,
+    "authorized_once_wall": 65,
+    "closed": true,
+    "remaining_not_reusable": true,
+    "automatic_retry": false,
+    "external_known_wrapper_exit_wall": 1.3083547499991255,
+    "native_child_CPU": 0.946233,
+    "wrapper_SELF_CPU_profile": 0.024205,
+    "observed_child_peak_RSS_bytes": 136347648,
+    "conservative_known_process_CPU_sum": 1.969726,
+    "CPU_sum_may_overlap": true,
+    "exact_total_or_hard_whole_tree_CPU_RSS": false,
+    "profile_excludes_final_JSON_exit": true
+  },
+  "raw_child_pending_flag": "Preserved verbatim; later Root actual terminal/acceptance is separate overlay",
+  "old_V2_and_originals": "Preserved; no broad rewrite of historical UNRUN statements",
+  "scientific_scope": "No quality/CV/superiority/earlystop/global optimum/training cost saving; original19queue14accepted/014active/010-013optionaldeferred and historicalfrozen300 study unchanged",
+  "publication_state": "Only exactb760 question remains UNANSWERED; nativeyes notpush; historicalprivatePR1/updateddescriptionUNSENT/freshremoteUNKNOWN",
+  "Git_state": "0newcommits/refupdates; oldfailedownedindex/primaryHEADindex preserved;attributesUNPROBED;customGitV4SOURCEUNRUN",
+  "research_reference_only": {
+    "wave059": {
+      "source": "/tmp/tlab-root-wave059-research-readback-v1.json",
+      "sha256": "fe85599a93c1011c8520ef874ba0f2134897e21cc082f912d76c7c40983696a9",
+      "bytes": 1420,
+      "research_status": "ROOT_ACCEPTED existing refinements; archive not yet installed; all proposed experiments UNRUN"
+    },
+    "wave060": {
+      "source": "/tmp/tlab-root-wave060-dispatch-v1.json",
+      "sha256": "dde19dd3160c7a49e37248cb130cba994ed5d3133dd59457f39461cf54a1ebf0",
+      "bytes": 920,
+      "dispatch_bounds": [
+        "2026-10-16 05:23:44 UTC",
+        "2026-10-16T05:24:46.774671+00:00"
+      ],
+      "scheduled_original_UTC": "2026-10-16 05:15 UTC",
+      "next_original_grid_UTC": "2026-10-16 06:00 UTC",
+      "scope": "Dated dispatch fact, no later active-author claim"
+    }
+  },
+  "private_human_grant_issued_request_runner_bodies_or_models_data_copied": false,
+  "this_preparation_runtime_native_tests_Git_network_canonical_mutations": 0
+}

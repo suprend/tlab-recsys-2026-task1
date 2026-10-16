@@ -1,0 +1,69 @@
+{
+  "wave": 48,
+  "role": "independent_blind_FIRST_B_models_a",
+  "strong_defect_candidates": 0,
+  "new_ids": [],
+  "existing_ids": ["TLAB005", "TLAB001", "TLAB014"],
+  "disposition": "negative static audit; one compound coverage witness only, not a defect/repair/admission claim",
+  "read_order": "actual manual/temporal tests before compiler branches",
+  "coverage": [
+    {"source": "tests/test_manual_features.py:107-116", "fact": "all18 features compared against direct-row oracle on11 synthetic pairs"},
+    {"source": "tests/test_manual_features.py:118-133", "fact": "separate SQL raw counts and expiring distinct check"},
+    {"source": "tests/test_manual_features.py:137-162", "fact": "NULLmixture/allNULL, knownemptyzero, zero-denominatorNULL and missingflag"},
+    {"source": "tests/test_manual_features.py:164-185", "fact": "category change keeps event-observed categories; distinct multiplicity and fullprefix recency"},
+    {"source": "tests/test_manual_features.py:187-206", "fact": "globalanchor peers/future permutation and laterclean metadata do not backfill earlieranchor"},
+    {"source": "tests/test_temporal_contract.py:26-65,114-149", "fact": "half-open boundaries, rolling/calendar separation,30daycoverage and globalpeers"}
+  ],
+  "four_fields": {
+    "mechanism": "historical event category grouping joined to query-current candidate category; SQLISNOTNULL distinguishes knowncategory0 fromunknown",
+    "prediction": "documented5-event witness yields userview3/usercategoryview2/share2over3, itemcategoryview0/categoryview2/share0; source branches agree",
+    "nearest_UNRUN_regression": "single optional actualmanual18 direct-value compoundconformance case; no regression file created or executed",
+    "task1_benefit": "protect existing feature semantics without inventing a bug, new feature family or extra mandatory gate"
+  },
+  "precise_branches": [
+    {"source": "configs/features/manual-18.json:6", "semantics": "historical_event_category_id"},
+    {"source": "scripts/manual_features.py:139-142", "semantics": "aggregate raw eventcategory; conditionalgroupNULLexcluded"},
+    {"source": "scripts/manual_features.py:175-185", "semantics": "latestglobalpast complete timestamp bucket; NULLmixture ambiguity"},
+    {"source": "scripts/manual_features.py:198", "semantics": "join aggregatecategory to query-current metadata category"},
+    {"source": "scripts/manual_features.py:202-205", "semantics": "knownkey missing aggregatecoalesces0, unknowncategory staysNULL viaISNOTNULL"},
+    {"source": "scripts/manual_features.py:223-227", "semantics": "namednestedcountshare, zero denominatorNULL, independent missingflags"}
+  ],
+  "witness": {
+    "location": "report contains5 literal descriptive eventrows only; no executable fixture persisted",
+    "source_start": "2019-10-01T00:00:00Z",
+    "query_anchor": "2019-10-08T00:00:00Z",
+    "query_user": 10,
+    "candidate_item": 1,
+    "expected": {
+      "candidate_category_id": 0,
+      "candidate_category_missing": false,
+      "candidate_category_ambiguous": false,
+      "user_view_7d": 3,
+      "user_category_view_7d": 2,
+      "user_category_view_share_7d_rational": "2/3",
+      "category_view_7d": 2,
+      "item_category_view_7d": 0,
+      "item_category_view_share_7d": 0,
+      "user_category_view_recency_seconds": 10800,
+      "pair_view_recency_seconds": 14400,
+      "user_distinct_viewed_items_7d": 2,
+      "user_category_view_share_7d_missing": false,
+      "item_category_view_share_7d_missing": false
+    },
+    "static_counterexample_found": false,
+    "uncovered_combination": "category0 plus historicalNULL, duplicate rawviews and globalanchor peer",
+    "falsifiers_if_future_run": ["user share1 would reclassify historicalNULL", "NULL for knowncategory0 count/share would violateISNOTNULL contract", "anchorpeer999 changing metadata/count violates strictpast"],
+    "zero_category_observed_in_realdata_claim": false
+  },
+  "limits": ["sampled18/11syntheticpairs is not exhaustive full-data coreformula proof", "no native/query execution verified these expectations", "coveragegap alone is not defect", "only allowedfiles+actualregistry inspected; no search of artifacts or peer048"],
+  "source_pins": [
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py", "bytes": 25160, "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py", "bytes": 6184, "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_manual_features.py", "bytes": 17946, "sha256": "46d3b80a2b6397319670f087b013ba4e1ee880262c2a22e5a1dfe90ee26210db"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_temporal_contract.py", "bytes": 7839, "sha256": "da93baa48da757c60cf8b1d5d2a1acfda935aa0c82292d166e053852d5f97836"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json", "bytes": 3631, "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c"}
+  ],
+  "source_pin_total_bytes": 60760,
+  "peer048_unread": true,
+  "actual_actions": {"static_source_reads": true, "project_module_imports": 0, "Python_or_literal_execution": 0, "fixtures_tests_created_or_run": 0, "data_models_Y_reads": 0, "runtime_jobs_helpers": 0, "Git_project_canonical_writes": 0, "network": 0, "coordinator_contact": 0, "runtime_budget_grants_newgates_capresets": 0}
+}

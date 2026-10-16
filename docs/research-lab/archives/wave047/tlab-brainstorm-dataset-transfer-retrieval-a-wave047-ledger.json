@@ -1,0 +1,146 @@
+{
+  "wave": "047",
+  "author": "/root/brainstorm_retrieval_a",
+  "phase": "blind_FIRST",
+  "created_utc": "2026-10-15T22:19:16.031Z",
+  "peer047_unread_before_FIRST": true,
+  "new_ids": [],
+  "dedup": "Deferred to Root after FIRST as instructed; no novelty claim.",
+  "report": {
+    "path": "/tmp/tlab-brainstorm-dataset-transfer-retrieval-a-wave047.md",
+    "bytes": 2811,
+    "sha256": "8cb1e23c273b718693c566c0ef186e7c77636d1c2f408bb6aaf1a475e209b3b7",
+    "words": 323
+  },
+  "local_source_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/data.md",
+      "bytes": 6378,
+      "sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "bytes": 3638,
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "bytes": 6184,
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "bytes": 14019,
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7"
+    }
+  ],
+  "research_skill": {
+    "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+    "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34"
+  },
+  "sources": [
+    {
+      "kind": "Primary provider release card, facts obtained from primary-card search result",
+      "url": "https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset",
+      "provider_namespace": "retailrocket",
+      "retrieved_utc": "2026-10-15T22:16:19Z",
+      "release_version": "Card search extract reports Version 2; version-specific URL inaccessible",
+      "version_specific_url": "https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset/versions/2",
+      "immutable_page_or_release_bytes_sha256": "UNKNOWN; no raw release/HTML download",
+      "dataset_file_pins": "UNKNOWN; no dataset bytes read",
+      "license": "Card declares CC BY-NC-SA 4.0; this is a declaration, not an independent legal assessment",
+      "access": "Public card/search extract readable; data download/authentication requirements UNKNOWN and untested",
+      "evidence_limits": "One batched search returned the primary card full description. First fresh primary open to version 2 failed; second canonical-card open returned title/URL with no parsed lines. No additional page fetches.",
+      "canonical_open_capture": {
+        "bytes": 317,
+        "sha256": "f7a7cb3cbe51c02af229f5e78ed9a5870d38688973ab5fd8c8fba55a195e8b0b",
+        "text": "Retailrocket recommender system dataset | Kaggle (https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset)\nciteturn1694view0 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({\"ref_id\":\"https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset\",\"lineno\":null}); Total lines: 0\n",
+        "limitation": "Pin covers exact tool response, not release-card contents or data; factual schema support is the indexed primary-card extract."
+      }
+    }
+  ],
+  "observed_vs_inferred": {
+    "observed": "Primary card documents visitor/item actions, transactions, timestamped weekly property snapshots and category/availability semantics. Static local DSL declares explicit five-field typed schema, all three actions, reviewed templates/windows and B41/manual18 closure.",
+    "inferred": "13-digit Unix examples suggest milliseconds; future adapter must validate unit/range without silently choosing seconds. Same visitor key can define daily observed-visitor targets; durable account/person/cross-device identity is not established.",
+    "unknown": [
+      "Event ingestion/publication delay",
+      "Property snapshot publication delay and exact intervening change times",
+      "Historically versioned category-tree topology",
+      "Semantic property identifiers for raw monetary price, brand or category_code",
+      "Actual source coverage, candidate ceiling, positive support and future quality",
+      "Exact immutable release content and download authentication"
+    ]
+  },
+  "four_fields": {
+    "mechanism": "Capability-declared event-only adapter for user/item/pair count, distinct and recency operators; unsupported metadata branches remain unsupported.",
+    "prediction": "Original visitor-key 48h eligibility and daily fullY 24h purchase items survive the adapter; session-actor replacement and future metadata joins must be refused.",
+    "nearest_finite_experiment": "UNRUN zero-fit schema/closure audit: one mapping and two planned literal cases, with no events/labels/models loaded. No fixtures were created or executed.",
+    "task1_benefit": "Separate portable temporal calculation from unsupported metadata/actor equivalence before spending purchase feedback. This is not an external quality result."
+  },
+  "mapping": {
+    "actor": {
+      "from": "visitorid",
+      "to": "user_id nominal observed visitor",
+      "restriction": "No synthetic session actor; persistence beyond documented key reuse remains unproven."
+    },
+    "item": {
+      "from": "itemid",
+      "to": "product_id nominal item"
+    },
+    "actions": {
+      "view": "view",
+      "addtocart": "cart",
+      "transaction": "purchase"
+    },
+    "transactionid": "Unused; target remains distinct items, not order-level outcomes.",
+    "time": "Unix -> aware UTC with source unit verified; preserve original timestamp peer groups and exclude global anchor peers.",
+    "session": "Not documented; no original user_session equivalence claimed.",
+    "category_id": "Only an explicit past-snapshot adapter; NULL before any eligible snapshot, conflicting tied values require declared ambiguity. Snapshot observation is not exact contemporaneous ground truth.",
+    "category_code_price_brand": "UNKNOWN semantic mapping; not guessed from anonymous property IDs.",
+    "category_tree": "Timestamp-free hierarchy cannot automatically supply historically valid paths.",
+    "availability": "Not used to prune C or relabel negatives; additional source capability is excluded from common control."
+  },
+  "adapter_caveats": [
+    "Current feature_programs.py is exact-schema/reviewed-template code, not already portable runtime. Projection of manual18/B41/category branches requires explicit prospective review; no silent adapter accepted here.",
+    "If metadata is ever enabled, distinguish event-enriched frozen attributes from query-current snapshots; source REES46 fields are event observed. Do not backfill future property values or claim actual release availability from snapshot timestamps.",
+    "Event-time availability assumptions and whole-window mature labels must be explicit. Full past 7-day retrieval coverage, 48h cohort and full 24h label coverage are separately checked; source overlap is not exposure/account age."
+  ],
+  "matched_control": "Explicit hand-written common event-only registry, same typed meanings, Q/C, history, peer exclusion, NULL policy, 24/168h windows and observed actor keys. For future quality work, equal complete search/control fit and feedback budgets must be separately specified; present proposal does not choose new model settings.",
+  "counterexamples": [
+    {
+      "case": "Actor split",
+      "literal": "Anchor t is daily UTC midnight; visitor 7 views at t-40 minutes and transacts item X at t+10 minutes.",
+      "expected": "Visitor-key actor is eligible from past48h and X is a target in [t,t+24h). A 30-minute sessionizer places purchase in a new future-only actor and loses the original target.",
+      "executed": false
+    },
+    {
+      "case": "Future metadata",
+      "literal": "Property category A at t-1h; category B at t+1h for the same item.",
+      "expected": "A full-file latest join exposes B at t; a strict-past snapshot join cannot. Snapshot timestamps alone still do not prove publication times.",
+      "executed": false
+    }
+  ],
+  "negative_disposition": "Reject unsupported equivalence or fail the adapter; do not switch to next-session target, shrink/reshape cohort or C to claim success. Valid schema audit without measured quality remains only semantic evidence.",
+  "future_cost": {
+    "nearest": "One schema/closure review and two planned literal checks, 0 fits, 0 predictions, 0 label looks; not executed.",
+    "quality": "UNKNOWN; must reserve source scan/preparation, model/search attempts and all inner/outer looks separately. No cost-free source-trained reuse or automatically admitted future study.",
+    "physical": "Full events scan/index; complete property scan/asof index if metadata enabled, retained rolling histories or expiry structures, timestamp-peer buffer, sorting/spill, full-domain denominators, coverage checks, Q/C/feature/material sinks, file hashes, disk/memory/startup/tails/failures, fit/prediction and all feedback are charged."
+  },
+  "operation_counts": {
+    "batched_web_searches": 1,
+    "fresh_primary_page_opens": 2,
+    "version_open_failed": 1,
+    "bounded_static_rg_inventory": 1,
+    "data_downloads": 0,
+    "actual_data_reads": 0,
+    "DB_SQL": 0,
+    "Y_reads": 0,
+    "models_native_fits_predictions": 0,
+    "fixtures_tests_runtime_jobs_polls": 0,
+    "helpers": 0,
+    "project_Git_canonical_writes": 0,
+    "coordinator_or_publisher_contacts": 0,
+    "new_runtime_grants": 0
+  },
+  "unchanged": "Original REES46 study, target/C/cohort, accepted current study, original budgets/deadline/limits/main route. Optional future portability only; no mandatory task or gate."
+}

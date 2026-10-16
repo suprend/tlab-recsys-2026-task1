@@ -1,0 +1,58 @@
+{
+  "utc": "2026-10-16T05:08:45.620833+00:00",
+  "request_sha256": "ea5e730435b05a476145a6a02b41a0b0aae57a7bc01049fb589d606055386983",
+  "direct_human_authorization_sha256": "af059ae8f0f613ea6c32fed8bdb05a42e697b2b1a79034340e1eb964abbc3ef1",
+  "wrapper_pid": 90425,
+  "wrapper_returncode": 0,
+  "wrapper_reaped": true,
+  "external_timeout": false,
+  "wall_before_Popen_through_known_wrapper_exit": 1.3083547499991255,
+  "external_reaped_usage_CPU": 0.973993,
+  "outside_observer_SELF_CPU_snapshot": 0.049499999999999995,
+  "outside_observer_CPU_cap": [
+    1,
+    1
+  ],
+  "conservative_known_process_CPU_sum_with_possible_overlap": 1.969726,
+  "CPU_scope": "Conservative sum may double-count waited descendants; not exact total or whole-tree proof. Final observer JSON/exit beyond snapshot remains within outside reserve condition.",
+  "profile": {
+    "wall_from_first_line": 1.2910470420029014,
+    "self_CPU": 0.024205,
+    "reaped_child_CPU": 0.946233,
+    "child_ru_maxrss_native_units": 136347648,
+    "RSS_units": "bytes",
+    "hard_RSS_claim": false,
+    "full_tree_CPU_or_RSS_claim": false,
+    "scope": "excludes final JSON/exit; Root owns outside reserve"
+  },
+  "terminal": {
+    "status": "CHILD_EXIT0_PENDING_ROOT_FULL_EXIT",
+    "error": null,
+    "cleanup_errors": [],
+    "reap_known": true,
+    "launch_attempted": true,
+    "child_returncode": 0,
+    "inherited_CPU": [
+      9223372036854775807,
+      9223372036854775807
+    ],
+    "child_CPU": [
+      45,
+      45
+    ],
+    "parent_CPU": [
+      3,
+      4
+    ],
+    "pid": 90426,
+    "unknown": false
+  },
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_bytes": 0,
+  "native_child_reap_known": true,
+  "original_science_allocations": "CLOSED unchanged; remainingUNKNOWN",
+  "ordinaryCLI_native": "UNRUN; not within this allowance",
+  "automatic_retry": false
+}

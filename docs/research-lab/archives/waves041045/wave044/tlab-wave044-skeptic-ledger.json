@@ -1,0 +1,175 @@
+{
+  "authority": "Root independently reads before adoption. Currentmainb7607b4/unansweredpublicationquestion/originalgoal/deadline/17slots/33914wallbasis/UNKNOWN6CPUh/reserves/closedstudy caps unchanged.",
+  "checks": [
+    {
+      "evidence": "round007 explicitly fixes learning rate/initialization and discusses boost_from_average=False; round060 distinguishes fixed learner feature effect from symmetric nested retuning. Existing019/013/014 cover these knobs; no novel mechanism/ID.",
+      "id": "DEDUP",
+      "result": "MERGE_EXISTING"
+    },
+    {
+      "evidence": "strong_baseline.specification depth4/6 x L2=3/30; model_parameters LR.05, boostFalse; adaptive run copies recipe/changesiterations1200; verify_model expects frozen40+iterations1200. No existingalternateknob override. New prospective version must bind exact treatment nativeparams without widening originalverifier.",
+      "id": "A_SOURCE",
+      "result": "SUPPORTED_STATIC_ONLY"
+    },
+    {
+      "evidence": "Earlier chosenprefix and primaryscore withinreference1e-12 is a falsifiable literal joint prediction. Worse/nonearlier falsifies that narrow prediction, not all possible learner interactions.",
+      "id": "A_FALSIFIER",
+      "result": "RETAIN_NARROW_PREDICTION"
+    },
+    {
+      "evidence": "A numeric1e-12 argmax/equality tolerance is not a justified practically acceptable ranking-quality loss; B comparablequality/Recall rejection is unspecified. Freeze a substantive quality/Recall decision separately before future feedback; no numeric margin invented here. This is not a currentmain gate.",
+      "id": "QUALITY_DECISION",
+      "result": "CLARIFY_BEFORE_FUTURE_PILOT",
+      "severity": "methodological"
+    },
+    {
+      "evidence": "Official1.2.10common1185 documents initialbestconstant; optimal_const_for_loss.h14-25 uses floattarget/weights,doubleaccumulation,floatreturn,174-178 convertsweightedmean toLogit. Full CPU callchain/Pooltypedweights/environmentnotexecuted. Prior requires trainingC y/querymass weights, not fullYqueryprevalence; sameorderednative y/w yieldssamepriorB/W.",
+      "id": "B_INITIALIZER",
+      "result": "SUPPORTED_HELPER_NOT_DEPLOYED_NATIVE_PROOF"
+    },
+    {
+      "evidence": "Twofull1200treatmentfits are symmetric new search opportunity, not actualCPU matching or fullhistoricalselection symmetry. Earlierselectedk doesnot reducefullyincurredtraining. Fourfreshfits can provide matchednewtrainingtiming, but is not logicallyrequired for inference-onlybenchmark; anyphysicalspeed/modelbytesneeds ownboundedmeasurement.",
+      "id": "COMPUTE_SPEED",
+      "result": "KEEP_OPPORTUNITY_AND_COST_DISTINCT"
+    },
+    {
+      "evidence": "D(treatment)-D(control) with separatelyselectedk includeslearner/checkpoint-selection interactions, not fixed-kfeature-only causality or independentautomation superiority.",
+      "id": "EFFECT",
+      "result": "TUNED_RECIPE_SENSITIVITY_ONLY"
+    },
+    {
+      "evidence": "Eachfuturealternative2fits<=2400newdependentcriteria withprevious2400reference; ifbothauthorized4fits/4800new+2400reference. Repeatedreads are paid feedback but not new independentinformation. Full sourceprep/Pool/native/metric/serialization/verification/failures/startup/tailincluded. No CPU/wall/RSS numericgrant or oldclosedbalance inferred.",
+      "id": "COST_LOOKS",
+      "result": "DEFER_NO_GRANT"
+    },
+    {
+      "evidence": "Both use alreadyseen22-23 andpreviouslyselectedW, proposedpost-final; no25-31 or newouterconfirmation. Symmetric extra tuning doesnot cure repeatedvalidationselectionbias.",
+      "id": "CHRONOLOGY",
+      "result": "RETAIN_EXPLORATORY"
+    }
+  ],
+  "disposition": "Research refinements accepted with explicit methodological clarifications; all pilots deferred/ungranted; no newID/task/gate/main prerequisite",
+  "freshness": "All six FIRST originals/copies and eight supporting source/doc snapshots unchanged through terminal staticreadback; no actual source/data authentication claim.",
+  "performed": {
+    "native_data_Y_models_currentcurves_runtimeoutputs_artifactref_reads_tests_fixtures_jobs_polls_helpers_Git_projectwrites_publishercontact_runtimegrants": 0,
+    "six_original_bytecopies_manifest": true,
+    "static_source_reports_and_primary_official_web_only": true
+  },
+  "preserved_failure": {
+    "exit_code": 2,
+    "operation": "One initial rg included guessed optional docs/research-lab/brainstorm-wave041-synthesis.md",
+    "reason": "File absent; no data/native operation. Dedup proof based on actualround007/060 andexisting019/013/014, not claim about absentpublication. No041artifactsearch or draft follow-up."
+  },
+  "primary_sources": [
+    {
+      "scope": "Documentation, not actualexecution",
+      "supported": "Step/iterationcoupling, no .05/.1 half-tree equivalencetheorem",
+      "url": "https://catboost.ai/docs/en/concepts/parameter-tuning",
+      "verified_by": "Officialwebread/find; learningrate203-221, iterations102-119"
+    },
+    {
+      "supported": "Bestconstantbias initialization option; not actualcaller/typedweightproof",
+      "url": "https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/docs/en/references/training-parameters/common.md",
+      "verified_by": "Officialtaggedsource1185-1204"
+    },
+    {
+      "supported": "Floatweightedtargetmean thenLogit forLogloss/CrossEntropy; onlyhelper sourceverified",
+      "url": "https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/libs/metrics/optimal_const_for_loss.h",
+      "verified_by": "Officialtaggedsource14-25 and174-178"
+    }
+  ],
+  "report": {
+    "bytes": 4310,
+    "path": "/tmp/tlab-wave044-skeptic-review.md",
+    "sha256": "faf2442c1f35c8a212a28e0cdbbd4c5593aa3e989b7d5a60b0667fc8f4b4ad7f"
+  },
+  "report_words": 317,
+  "role": "One distinct skeptic after both independently frozen FIRSTs; neither FIRST coauthored",
+  "six_inputfreeze": {
+    "bytes": 2033,
+    "path": "/tmp/tlab-wave044-skeptic-inputfreeze.json",
+    "sha256": "b629ff5aae323f1eccfc0bb0af7b5b4febdf16dfc0c47f5274893b0c98246cc8"
+  },
+  "six_inputs": [
+    {
+      "bytes": 3274,
+      "copy": "/tmp/tlab-wave044-skeptic-inputs-v1/tlab-brainstorm-fundamentals-models-a-wave044.md",
+      "sha256": "baa06ca37ac4cccf499dd23aabc8babfa23b2931e738cfc624fdd4e0df6a5964",
+      "source": "/tmp/tlab-brainstorm-fundamentals-models-a-wave044.md"
+    },
+    {
+      "bytes": 6366,
+      "copy": "/tmp/tlab-wave044-skeptic-inputs-v1/tlab-brainstorm-fundamentals-models-a-wave044-ledger.json",
+      "sha256": "a5db80d5048939c17472ba00e4b15d835d2661e82c245e3dc0620fe4cceddcba",
+      "source": "/tmp/tlab-brainstorm-fundamentals-models-a-wave044-ledger.json"
+    },
+    {
+      "bytes": 2638,
+      "copy": "/tmp/tlab-wave044-skeptic-inputs-v1/tlab-brainstorm-fundamentals-models-a-wave044-FIRSTfreeze.json",
+      "sha256": "e624a59ab60142c5ac1ed72a41524fe7490909e7a04510d1f6cec1a4b58cb4e5",
+      "source": "/tmp/tlab-brainstorm-fundamentals-models-a-wave044-FIRSTfreeze.json"
+    },
+    {
+      "bytes": 2656,
+      "copy": "/tmp/tlab-wave044-skeptic-inputs-v1/tlab-brainstorm-fundamentals-retrieval-a-wave044.md",
+      "sha256": "2b71754c4af58b914de2d5d05b18f032bf47c149457c83b37a9f64cb3fe47470",
+      "source": "/tmp/tlab-brainstorm-fundamentals-retrieval-a-wave044.md"
+    },
+    {
+      "bytes": 7329,
+      "copy": "/tmp/tlab-wave044-skeptic-inputs-v1/tlab-brainstorm-fundamentals-retrieval-a-wave044-ledger.json",
+      "sha256": "46933e9b600bce6caa50d0757380a852c7625c7d324f64193f2ecc93815948e3",
+      "source": "/tmp/tlab-brainstorm-fundamentals-retrieval-a-wave044-ledger.json"
+    },
+    {
+      "bytes": 2337,
+      "copy": "/tmp/tlab-wave044-skeptic-inputs-v1/tlab-brainstorm-fundamentals-retrieval-a-wave044-FIRSTfreeze.json",
+      "sha256": "50849130907d5bbdc7822797da37bb6269098813e1ee291831255d688639fe74",
+      "source": "/tmp/tlab-brainstorm-fundamentals-retrieval-a-wave044-FIRSTfreeze.json"
+    }
+  ],
+  "source_pins": [
+    {
+      "bytes": 47986,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_baseline.py",
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147"
+    },
+    {
+      "bytes": 18580,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6"
+    },
+    {
+      "bytes": 35022,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a"
+    },
+    {
+      "bytes": 19412,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/reproduction/frozen-bw-oct2019.json",
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec"
+    },
+    {
+      "bytes": 873,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/models/strong-grid.json",
+      "sha256": "d32daac420f447444d987969cdd49ac1cad427bbd7357114d148c02085aed66e"
+    },
+    {
+      "bytes": 14968,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-007.md",
+      "sha256": "ddcddb03d4d8024506b08213f4df8113d31f5bf8c94cd427bb1bb12b6ec8f9ec"
+    },
+    {
+      "bytes": 11258,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-060.md",
+      "sha256": "e4faafebf2a50e86b35da9229f1bf9a64c93a8757a55146bec0d713a9146307d"
+    },
+    {
+      "bytes": 186965,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "sha256": "24e9e01338a1e771087ac014acd3d9b57d573634c1082f321cf81e5c0e3ae020"
+    }
+  ],
+  "version": 1,
+  "wave": 44
+}

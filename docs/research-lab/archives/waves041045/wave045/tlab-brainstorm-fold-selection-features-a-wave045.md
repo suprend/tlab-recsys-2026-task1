@@ -1,0 +1,11 @@
+# Wave045 — outer оценивает замороженный inner-выбор
+
+**0 новых механизмов:** refinement TLAB-019/013/014, [round060](/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-060.md:34), round005 и собственного wave040. Реального CV нет; текущие fake22/1280 проверки арифметики не являются native CV.
+
+**Механизм.** В каждом будущем fold inner выбирает собственный prefix B/W по одинаковому заранее ограниченному пространству. До outer feedback замораживается mapping `fold→(features/params identity,kB,kW)`. Outer только оценивает этот mapping; его результаты не выбирают признаки, trees, ceiling, folds или исключаемые дни. Train-label maturity предшествует fit; inner-label maturity и завершение selection/shrink предшествуют outer anchor с положительным временем на вычисления.
+
+**Предсказание и ближайшая конечная проверка — UNRUN.** Задать на бумаге один fold, два arm, два prefix; inner winners B2/W1. Две противоположные outer-таблицы предпочитают разные prefix. Сильный контроль — буквально заданный inner-only mapping B2/W1: в обеих версиях неизменны mapping и feature identity, меняются только отчётные outer scores. Изменение выбора или получение selector-ом outer scores опровергает изоляцию. Никаких fixtures сейчас не создаётся.
+
+**Стоимость/польза.** Будущая чистая проверка:0 fits/data, четыре selector-вызова и четыре оценивания выбранного outer prefix, включая negative controls/проверку mapping; подготовка и failures платные, исполнения не разрешено. Если позднее отдельно выбран настоящий fixed-W fold: два новых full fits,≤2C inner prefix-оценок и два outer predictions, плюс source preparation/fullY/serialization/verification. Весь search внутри folds потребует дополнительных неоценённых fits/looks.
+
+**Граница вывода.** Исторический W/features выбран на22–23, новая prefix-процедура сформирована после final: перенос назад остаётся retrospective fixed-W diagnostic. Outer-only mapping не устраняет это загрязнение. Whole-search validation требует fold-local generation/tuning/feature selection из доступного прошлого. Нет положительных outer query — metric undefined; не refill. Негативная проверка отклоняет реализацию, не текущий study. Новый gate, бюджет или prerequisite не создаётся.

@@ -1,0 +1,76 @@
+{
+  "wave": "045",
+  "role": "independent_blind_FIRST_A",
+  "created_utc": "2026-10-15T21:23:48.070152+00:00",
+  "word_count": 250,
+  "new_ids": [],
+  "novel_mechanisms": 0,
+  "disposition": "refine_existing_inner_outer_isolation; no_execution_admission",
+  "existing_refs": [
+    "TLAB-019",
+    "TLAB-013",
+    "TLAB-014",
+    "round060",
+    "round005",
+    "own_wave040"
+  ],
+  "four_fields": {
+    "mechanism": "Freeze per-fold features/parameters/prefix mapping chosen from inner only before outer feedback. Outer outputs are report-only and cannot alter any selection.",
+    "prediction": "Two conflicting outer worlds leave B2/W1 and feature/parameter identity unchanged when inner input is fixed.",
+    "nearest_finite_experiment": "UNRUN paper specification: one fold, two arms/two prefixes, fixed inner winners B2/W1 and two opposed outer tables; compare selector mapping with explicit inner-only table.",
+    "task1_benefit": "Detect outer feedback leakage at the choice boundary while distinguishing conditional fixed-W diagnostics from evaluation of complete feature-search/tuning procedure."
+  },
+  "matched_control": "Explicit hand-specified inner-only B2/W1 mapping, not an intentionally weak all-data selector.",
+  "falsifier": "Any changed prefix/features/parameters between outer-table variants, or outer scores supplied to the selector, rejects isolation. No fixture or test executed.",
+  "negative_outcome": "Reject only proposed implementation evidence; no new current-study gate. Undefined positive-query support remains undefined with no resampling/refill.",
+  "future_check_cost": {
+    "fits": 0,
+    "actual_data_access": 0,
+    "selector_invocations_max": 4,
+    "selected_outer_prefix_evaluations_max": 4,
+    "included": [
+      "construction of named tables/controls",
+      "mapping/identity checks",
+      "negative controls",
+      "preparation",
+      "failures"
+    ],
+    "numerical_CPU_allowance": null,
+    "granted": false
+  },
+  "future_one_fixed_W_fold_cost": {
+    "new_full_fits": 2,
+    "inner_prefix_evaluations_max": "2*C where C is separately predeclared per-arm ceiling",
+    "outer_predictions": 2,
+    "included": [
+      "source/Q/C/features/fullY preparation",
+      "all prefix feedback including discarded prefixes",
+      "serialization",
+      "verification",
+      "failures"
+    ],
+    "whole_search_additional_fits_and_looks": "UNKNOWN; must not relabel two fixed-W fits as whole-search validation"
+  },
+  "availability": "Train labels mature before fit; inner labels mature and selection/shrink complete before outer anchor with positive compute gap. No retrospective deployment availability claim.",
+  "historical_scope": "W/features chosen using22–23 and newer prefix procedure formed postfinal. Backward-origin fixed-W analysis cannot be unbiased whole-search validation. Shared users/folds need not be independent.",
+  "actual_status_from_Root": "No actual CV performed. New helper fake22/1280 arithmetic checks are not native CV; outputs not inspected.",
+  "source_reads": [
+    "own /tmp/tlab-wave040-skeptic-review.md",
+    "docs/research-lab/round-060.md nested selection section",
+    "docs/research-lab/round-005.md existing adaptive-validation discussion",
+    "docs/research-lab/round-007.md query-mass/L2 discussion (not temporal-CV evidence)",
+    "archived validation wave007 A/B denotation/common-mode notes (not temporal-CV evidence)",
+    "bounded canonical index/backlog references"
+  ],
+  "external_primary_sources_added": 0,
+  "independence": {
+    "peer045_read_before_FIRST": false,
+    "helpers": 0,
+    "data_Y_models_curves_runtime_outputs_artifacts_followed": 0,
+    "native_fixtures_tests_jobs_polls": 0,
+    "Git_project_writes": 0,
+    "publisher_contacts": 0,
+    "runtime_grants_new_gates": 0
+  },
+  "preserved": "Original goal/deadline/17slots/33914 conditional wall/unknown6CPUh/reserves/closedstudy/mainb7607b4/pendingpublication untouched"
+}

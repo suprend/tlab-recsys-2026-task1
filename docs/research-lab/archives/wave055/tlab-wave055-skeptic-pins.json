@@ -1,0 +1,359 @@
+{
+  "role": "independent_skeptic_not_author",
+  "wave": "055",
+  "review_path": "/tmp/tlab-wave055-skeptic-review.md",
+  "observed_review_end_utc": "2026-10-16 01:43:55 UTC",
+  "protocol": {
+    "scheduled_original_grid_utc": "2026-10-16 01:30:00 UTC",
+    "root_dispatch_utc": "2026-10-16 01:30:06 UTC",
+    "next_original_grid_utc": "2026-10-16 02:15:00 UTC",
+    "all_three_blind_FIRSTs_frozen_before_critic_dispatch": true,
+    "basis": "Root readback was hash-verified on entry; A/B/C freeze receipts and all nine author artifact hashes match. This does not independently reconstruct every author action.",
+    "no_author_FIRST_modified": true,
+    "primary_key_open_calls": 4,
+    "primary_unique_sources": 3,
+    "source_browsing": "Four opens (three papers plus one targeted CARTE reopen); finds only within those same papers. No author main snapshot treated as immutable upstream bytes.",
+    "helper_agents_spawned": 0
+  },
+  "input_verification": {
+    "entry_hashes": "Actual shasum SHA256 readback on initial review call matched all three control metadata files, all nine author artifacts and all eight shared inputs.",
+    "exit_recheck_utc": "2026-10-16 01:43:55 UTC",
+    "exit_scope": "All 24 listed files rehashed; all 24 byte sizes match. Additional four existing-queue/dedup files also match their initial read hashes.",
+    "count": 24,
+    "all_match": true,
+    "checked_inputs": [
+      {
+        "path": "/tmp/tlab-root-wave055-three-FIRST-readback-v1.json",
+        "sha256": "89254c4d34e411d4d414aae00126bc98966a3cbf930df243a3733eb5e2cd1243",
+        "bytes": 2049,
+        "before_sha256": "89254c4d34e411d4d414aae00126bc98966a3cbf930df243a3733eb5e2cd1243",
+        "after_sha256": "89254c4d34e411d4d414aae00126bc98966a3cbf930df243a3733eb5e2cd1243",
+        "actual_bytes": 2049,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/tmp/tlab-wave055-shared-context-v1.json",
+        "sha256": "06632f424ba3927a7a407459e171dde7f7768f692461be95bca95e7be707c178",
+        "bytes": 3585,
+        "before_sha256": "06632f424ba3927a7a407459e171dde7f7768f692461be95bca95e7be707c178",
+        "after_sha256": "06632f424ba3927a7a407459e171dde7f7768f692461be95bca95e7be707c178",
+        "actual_bytes": 3585,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/tmp/tlab-wave055-root-dispatch-v1.json",
+        "sha256": "04ffb0a337ffc5c4adae3c6503a91592a37f0f3fade2d82ccba3e4642580c8fb",
+        "bytes": 747,
+        "before_sha256": "04ffb0a337ffc5c4adae3c6503a91592a37f0f3fade2d82ccba3e4642580c8fb",
+        "after_sha256": "04ffb0a337ffc5c4adae3c6503a91592a37f0f3fade2d82ccba3e4642580c8fb",
+        "actual_bytes": 747,
+        "matches_before_and_after": true
+      },
+      {
+        "author": "A",
+        "path": "/tmp/tlab-wave055-relgnn-a-FIRST.md",
+        "sha256": "9294a5d1d496438c898dd56e557f3f6b1288c767c28add2e57bd0c42c5a7dafe",
+        "bytes": 6224,
+        "before_sha256": "9294a5d1d496438c898dd56e557f3f6b1288c767c28add2e57bd0c42c5a7dafe",
+        "after_sha256": "9294a5d1d496438c898dd56e557f3f6b1288c767c28add2e57bd0c42c5a7dafe",
+        "actual_bytes": 6224,
+        "matches_before_and_after": true
+      },
+      {
+        "author": "A",
+        "path": "/tmp/tlab-wave055-relgnn-a-pins.json",
+        "sha256": "6ba1114c05b2f2c453eaa7ac86b8a7041893b2e826f63e7fe7675e59d2206431",
+        "bytes": 54892,
+        "before_sha256": "6ba1114c05b2f2c453eaa7ac86b8a7041893b2e826f63e7fe7675e59d2206431",
+        "after_sha256": "6ba1114c05b2f2c453eaa7ac86b8a7041893b2e826f63e7fe7675e59d2206431",
+        "actual_bytes": 54892,
+        "matches_before_and_after": true
+      },
+      {
+        "author": "A",
+        "path": "/tmp/tlab-wave055-relgnn-a-freeze.json",
+        "sha256": "f3ecb2c7afccef4906a0910679d95d95f20395181725ba2e52e71aefdb6acfad",
+        "bytes": 1461,
+        "before_sha256": "f3ecb2c7afccef4906a0910679d95d95f20395181725ba2e52e71aefdb6acfad",
+        "after_sha256": "f3ecb2c7afccef4906a0910679d95d95f20395181725ba2e52e71aefdb6acfad",
+        "actual_bytes": 1461,
+        "matches_before_and_after": true
+      },
+      {
+        "author": "B",
+        "path": "/tmp/tlab-wave055-carte-b-FIRST.md",
+        "sha256": "77b2b35a9e1d60c1508462b30807456e503ae640caec6bef9665d37f29c242cc",
+        "bytes": 4931,
+        "before_sha256": "77b2b35a9e1d60c1508462b30807456e503ae640caec6bef9665d37f29c242cc",
+        "after_sha256": "77b2b35a9e1d60c1508462b30807456e503ae640caec6bef9665d37f29c242cc",
+        "actual_bytes": 4931,
+        "matches_before_and_after": true
+      },
+      {
+        "author": "B",
+        "path": "/tmp/tlab-wave055-carte-b-pins.json",
+        "sha256": "f9f1871fda001a4ad4d1233098c1f2d1bb541d2bc9f995672a5f3ff320824a73",
+        "bytes": 4737,
+        "before_sha256": "f9f1871fda001a4ad4d1233098c1f2d1bb541d2bc9f995672a5f3ff320824a73",
+        "after_sha256": "f9f1871fda001a4ad4d1233098c1f2d1bb541d2bc9f995672a5f3ff320824a73",
+        "actual_bytes": 4737,
+        "matches_before_and_after": true
+      },
+      {
+        "author": "B",
+        "path": "/tmp/tlab-wave055-carte-b-freeze.json",
+        "sha256": "b3b9646ae31d534a9f37b353ec47f8faf749cb6be0b0f2e35802695f2a630cb8",
+        "bytes": 1408,
+        "before_sha256": "b3b9646ae31d534a9f37b353ec47f8faf749cb6be0b0f2e35802695f2a630cb8",
+        "after_sha256": "b3b9646ae31d534a9f37b353ec47f8faf749cb6be0b0f2e35802695f2a630cb8",
+        "actual_bytes": 1408,
+        "matches_before_and_after": true
+      },
+      {
+        "author": "C",
+        "path": "/tmp/tlab-wave055-relgt-c-FIRST.md",
+        "sha256": "56e1a4ee41f4da5f8f64d84a3bd37e3684a8ebba6cd3a0cd668718ecbac66bbf",
+        "bytes": 6476,
+        "before_sha256": "56e1a4ee41f4da5f8f64d84a3bd37e3684a8ebba6cd3a0cd668718ecbac66bbf",
+        "after_sha256": "56e1a4ee41f4da5f8f64d84a3bd37e3684a8ebba6cd3a0cd668718ecbac66bbf",
+        "actual_bytes": 6476,
+        "matches_before_and_after": true
+      },
+      {
+        "author": "C",
+        "path": "/tmp/tlab-wave055-relgt-c-pins.json",
+        "sha256": "6d6adeb2ed9f7958a4fb156cc209c65d52b8f630f4f98a128986c0801de730e1",
+        "bytes": 6604,
+        "before_sha256": "6d6adeb2ed9f7958a4fb156cc209c65d52b8f630f4f98a128986c0801de730e1",
+        "after_sha256": "6d6adeb2ed9f7958a4fb156cc209c65d52b8f630f4f98a128986c0801de730e1",
+        "actual_bytes": 6604,
+        "matches_before_and_after": true
+      },
+      {
+        "author": "C",
+        "path": "/tmp/tlab-wave055-relgt-c-freeze.json",
+        "sha256": "fd11a2e6c77e1817414b3624f2232b259e32cee810175f91baa6ad2fce711256",
+        "bytes": 1031,
+        "before_sha256": "fd11a2e6c77e1817414b3624f2232b259e32cee810175f91baa6ad2fce711256",
+        "after_sha256": "fd11a2e6c77e1817414b3624f2232b259e32cee810175f91baa6ad2fce711256",
+        "actual_bytes": 1031,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+        "bytes": 3638,
+        "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+        "before_sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+        "after_sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+        "actual_bytes": 3638,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+        "bytes": 10992,
+        "sha256": "a3d80e240b5527545dcc4521b726c015831be1d7a5f16075b3955119cbb0e663",
+        "before_sha256": "a3d80e240b5527545dcc4521b726c015831be1d7a5f16075b3955119cbb0e663",
+        "after_sha256": "a3d80e240b5527545dcc4521b726c015831be1d7a5f16075b3955119cbb0e663",
+        "actual_bytes": 10992,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+        "bytes": 29917,
+        "sha256": "ee5f598914e72dd1983d9270299e0769b832a7ede6ef92e6edf6d4fde66ea3ea",
+        "before_sha256": "ee5f598914e72dd1983d9270299e0769b832a7ede6ef92e6edf6d4fde66ea3ea",
+        "after_sha256": "ee5f598914e72dd1983d9270299e0769b832a7ede6ef92e6edf6d4fde66ea3ea",
+        "actual_bytes": 29917,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-047.md",
+        "bytes": 9847,
+        "sha256": "ef1bb2328218b6450d8bdd8e0cba024041893ed69e92a9d618bcb1dd8d61e8c9",
+        "before_sha256": "ef1bb2328218b6450d8bdd8e0cba024041893ed69e92a9d618bcb1dd8d61e8c9",
+        "after_sha256": "ef1bb2328218b6450d8bdd8e0cba024041893ed69e92a9d618bcb1dd8d61e8c9",
+        "actual_bytes": 9847,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ta001.md",
+        "bytes": 12530,
+        "sha256": "8f79d90c6fac66eaa8d0ce142a4cda417a67e0113a367a128f896192835dc9fb",
+        "before_sha256": "8f79d90c6fac66eaa8d0ce142a4cda417a67e0113a367a128f896192835dc9fb",
+        "after_sha256": "8f79d90c6fac66eaa8d0ce142a4cda417a67e0113a367a128f896192835dc9fb",
+        "actual_bytes": 12530,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-m001.md",
+        "bytes": 17784,
+        "sha256": "f761d9844b9bd7c34d75448b36ac52b2c5bdbd3f27fa4dcf88236c7043036a0e",
+        "before_sha256": "f761d9844b9bd7c34d75448b36ac52b2c5bdbd3f27fa4dcf88236c7043036a0e",
+        "after_sha256": "f761d9844b9bd7c34d75448b36ac52b2c5bdbd3f27fa4dcf88236c7043036a0e",
+        "actual_bytes": 17784,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/feature-programs.md",
+        "bytes": 7796,
+        "sha256": "ff2353c32b897583a4fb99aa89bf6e77aa479c64a88ead7c52792e537d3c0bcf",
+        "before_sha256": "ff2353c32b897583a4fb99aa89bf6e77aa479c64a88ead7c52792e537d3c0bcf",
+        "after_sha256": "ff2353c32b897583a4fb99aa89bf6e77aa479c64a88ead7c52792e537d3c0bcf",
+        "actual_bytes": 7796,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+        "bytes": 14019,
+        "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+        "before_sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+        "after_sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+        "actual_bytes": 14019,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/model-selection/05-tabular-neural.md",
+        "sha256": "2e08b6fe23ece637ffc54b47c2dda8703ad7cb2c1ae0156f292c6905353ed2a6",
+        "bytes": 10636,
+        "before_sha256": "2e08b6fe23ece637ffc54b47c2dda8703ad7cb2c1ae0156f292c6905353ed2a6",
+        "after_sha256": "2e08b6fe23ece637ffc54b47c2dda8703ad7cb2c1ae0156f292c6905353ed2a6",
+        "actual_bytes": 10636,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/model-selection/08-hybrid-selection.md",
+        "sha256": "e9d38095b477a369534cffcdd0c8d71232f0b98a8e6ebc21099c585a8f799a5a",
+        "bytes": 11663,
+        "before_sha256": "e9d38095b477a369534cffcdd0c8d71232f0b98a8e6ebc21099c585a8f799a5a",
+        "after_sha256": "e9d38095b477a369534cffcdd0c8d71232f0b98a8e6ebc21099c585a8f799a5a",
+        "actual_bytes": 11663,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-048.md",
+        "sha256": "1e5a7569888949533ee863c8eb97149e6dbf6382f79c2e751bec1b0856c99dcf",
+        "bytes": 10738,
+        "before_sha256": "1e5a7569888949533ee863c8eb97149e6dbf6382f79c2e751bec1b0856c99dcf",
+        "after_sha256": "1e5a7569888949533ee863c8eb97149e6dbf6382f79c2e751bec1b0856c99dcf",
+        "actual_bytes": 10738,
+        "matches_before_and_after": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+        "sha256": "8ffb8ee42f33b07a2fa9d2c1a6284dcea31a1bb9ee3420cf3b120f143a4196e7",
+        "bytes": 188033,
+        "before_sha256": "8ffb8ee42f33b07a2fa9d2c1a6284dcea31a1bb9ee3420cf3b120f143a4196e7",
+        "after_sha256": "8ffb8ee42f33b07a2fa9d2c1a6284dcea31a1bb9ee3420cf3b120f143a4196e7",
+        "actual_bytes": 188033,
+        "matches_before_and_after": true
+      }
+    ],
+    "read_scope": "All three FIRST texts and freeze receipts; author source ledgers; task/progress/feature-program documentation; selected prior and code text; full M05/M08 and round048. Hash verification is not a claim of full semantic review of every byte in each prior document."
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "title": "RelGNN: Composite Message Passing for Relational Deep Learning",
+      "url": "https://arxiv.org/html/2502.06784v2",
+      "version": "arXiv:2502.06784v2, 2025-06-06; ICML2025 author manuscript",
+      "locators": [
+        "§2.2 lines112–116: <=t sampler",
+        "§§3.2/4.2–4.3 lines135–198: composite routes, fused intermediate/source embeddings and destination queries",
+        "§5 lines210–212: identical GNN processing/encoder/sampler/head/loss, raw-entity LightGBM",
+        "§5.3 lines261–269: pair heads/MAP/ID-GNN sampled support",
+        "Appendix C lines574–577: aggregation-matched atomic-route ablation"
+      ],
+      "claim_scope": "A's mechanism and control caveats are source faithful. No local ranking effect, strong-B superiority, CPU saving or pretrained-transfer claim follows.",
+      "inspected_on_utc_date": "2026-10-16",
+      "original_upstream_bytes_sha256": null,
+      "limitation": "Versioned primary HTML inspected. No PMLR/arXiv original-byte equivalence claim; web-rendered text is not the original PDF bytes."
+    },
+    {
+      "id": "S2",
+      "title": "CARTE: Pretraining and Transfer for Tabular Learning",
+      "url": "https://arxiv.org/html/2402.16785v2",
+      "version": "arXiv:2402.16785v2, 2024-05-31",
+      "locators": [
+        "§3.1 lines118–128: row-star, missing leaves omitted, values/columns encoded, numeric column-value product",
+        "§3.2 lines129–162: YAGO3/FastText/contrastive pretraining",
+        "§3.3 lines163–181: partial layer reuse, similar outcomes, target validation and weighting",
+        "Appendix A.2 lines360–368: 5fold/100 random-search configurations except CARTE/TabPFN; 10 train/test splits",
+        "Appendix A.3 lines421–433: GPU pretraining/32-core CPU downstream experiments"
+      ],
+      "claim_scope": "B's mechanism, transfer and budget cautions are supported. Row graph does not build temporal interaction history. Lexical and nominal-key roles are an adaptation judgment, not a measured REES quality result.",
+      "inspected_on_utc_date": "2026-10-16",
+      "original_upstream_bytes_sha256": null,
+      "limitation": "Historical checkpoint/YAGO availability not established. No repository-main byte binding or local execution was attempted."
+    },
+    {
+      "id": "S3",
+      "title": "RelGT — official ICLR2026 conference paper",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/file/fa1ef43326cfb8a808c0649708187f2a-Paper-Conference.pdf",
+      "version": "Published as a conference paper at ICLR2026; publisher identifier fa1ef43326cfb8a808c0649708187f2a; 22-page PDF",
+      "locators": [
+        "§3.1 PDFp5–6 lines254–255/288–311: random fallback; random node-feature inputs resampled at every training step; concatenated five elements",
+        "§3.2 PDFp7 lines342–371: all-pair attention, EMA-kmeans centroids, task-specific head",
+        "§4.1 PDFp8 lines427–431: K300/B4096, tuning limitations",
+        "A.1 PDFp15 lines809–815: recommendation explicitly excluded",
+        "A.7 PDFp20 lines1135–1139: A100 experiments"
+      ],
+      "claim_scope": "C requires source-faithfulness clarification about stochastic node inputs, RNG-coupled invariance and caching. Compact pair/GNN-PE proposal is an adaptation; fixed evaluation policy is unresolved and must not be presented as published implementation behavior.",
+      "inspected_on_utc_date": "2026-10-16",
+      "original_upstream_bytes_sha256": null,
+      "limitation": "Publisher PDF text read through web tool; no PDF bytes downloaded and no paper/code equivalence asserted."
+    }
+  ],
+  "decisions": [
+    {
+      "author": "A",
+      "disposition": "accept research/refine/defer",
+      "existing_queue": [
+        "TLAB-014",
+        "round048"
+      ],
+      "reason": "Atomic-route composition is a genuine learned-representation mechanism distinct from HYP002/HYP011 generated aggregate programs, but transfer utility remains unmeasured."
+    },
+    {
+      "author": "B",
+      "disposition": "merge/refine/defer",
+      "existing_queue": [
+        "M08"
+      ],
+      "reason": "Lexical-versus-nominal contract is useful; HYP012 semantic proposer and M001-C4 labelled-context transfer are distinct mechanisms. No generic embedding novelty ID."
+    },
+    {
+      "author": "C",
+      "disposition": "refinement required/direct transfer reject/full RelGT defer",
+      "existing_queue": [
+        "M05",
+        "M08",
+        "round048"
+      ],
+      "reason": "Preserve stochastic GNN-PE lifecycle; no recommendation benchmark evidence; a user-only head and changed candidate support do not implement the current estimand."
+    }
+  ],
+  "actionability": {
+    "existing_queue_only": true,
+    "optional_fixtures": "All UNRUN. Merge overlapping temporal contracts into round048; only consider a source-free fixture if a concrete future adapter is selected. A hand-specified zero-fit witness can establish a representation contract, not usefulness.",
+    "current_core": "Do not displace existing helper-native integration/paired-caller work. No new compulsory gate, task, branch, grant or implementation.",
+    "future_method_comparison": "If separately selected, specify matched input/head/capacity mechanism contrast plus package contrast against strong tuned B; preserve Q/C/fullY and fresh boundary, account for every setup/fit/look/failure/scoring cost.",
+    "CPU_remaining": "unknown"
+  },
+  "operations": {
+    "tmp_output_writes_only": true,
+    "canonical_mutations": 0,
+    "git_mutations": 0,
+    "network_mutations": 0,
+    "raw_data_or_targets_accesses": 0,
+    "native_import_test_SQL_ML": 0,
+    "models_or_dataset_downloads": 0,
+    "fits": 0,
+    "coordinator_messages": 0,
+    "experimental_helpers": 0
+  },
+  "limitations": [
+    "Frozen receipts support timing/order but cannot independently prove all historical author actions.",
+    "Author repository-main snapshots remain mutable observations, not immutable Git byte proof.",
+    "No actual adapter/fixture/model was executed; no quality/control adequacy/transfer/CPU-savings result is established."
+  ]
+}

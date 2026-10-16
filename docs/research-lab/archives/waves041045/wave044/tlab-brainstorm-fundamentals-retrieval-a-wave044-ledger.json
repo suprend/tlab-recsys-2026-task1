@@ -1,0 +1,138 @@
+{
+  "wave": "044",
+  "author": "/root/brainstorm_retrieval_a",
+  "role": "independent blind FIRST B",
+  "frozen_at_utc": "2026-10-15T21:11:38.283Z",
+  "report": {
+    "path": "/tmp/tlab-brainstorm-fundamentals-retrieval-a-wave044.md",
+    "bytes": 2656,
+    "sha256": "2b71754c4af58b914de2d5d05b18f032bf47c149457c83b37a9f64cb3fe47470",
+    "words": 287
+  },
+  "new_ids": [],
+  "novel_mechanisms": 0,
+  "existing_ids": [
+    "TLAB019",
+    "TLAB013"
+  ],
+  "dedup": [
+    "round007 explicitly discusses fixing initialization and boost_from_average=False toy",
+    "ownwave041 analytic weighted-prevalence reference did not claim actual native initialization",
+    "Existing pointwise/query weighting and finite baseline tuning, not a new feature or loss family"
+  ],
+  "one_future_choice": "boost_from_average False versus True, symmetrically for B41/W44",
+  "mechanism": "Loss-optimal training-only constant initialization can alter BCE residuals and fitted tree trajectory despite the constant offset alone preserving within-query ranking.",
+  "prediction": "If initialization delay partly explains large/different selected tree budgets, True reaches comparable fullY selection ranking with earlier chosen prefixes and may change W-minus-B. No assertion this explains current curves; training Logloss alone is insufficient.",
+  "nearest_finite_unrun": "First static/native-binding design audit: training-only actual typed target/weight flow must imply same weighted prior for both arms. No fixture or native check executed. Later optional two new True full1200 fits use the fixed all-prefix fullY selector and eligible accepted False controls.",
+  "control": "Exact same source/Q/C/fullY/orderedfeatures/weights/datarepresentation/environment and all non-treatment recipe fields; only initialization flag differs. Accepted False controls must have complete identity evidence, otherwise defer rather than automatically add fresh fits.",
+  "future_cost": {
+    "status": "ungranted/unknown affordability; not charged to any closed study",
+    "new_fits": 2,
+    "new_trained_tree_ceiling_each": 1200,
+    "new_dependent_checkpoint_evaluations_max": 2400,
+    "reused_control_metrics": "Any observed accepted False scores/curves are reused feedback and paid reads; not new independent information.",
+    "fixed_fields": "depth6,L2=30,learning_rate.05,CPU2,seed2026,trainOct8-20,selectionOct22-23,fullY conditionalNDCG20 global1e-12band/fewer-prefix policy",
+    "prep": "All source/recipe authentication, mature training label/weight prior calculation, full matrices/masks/targetsets, Pool/train/prefixprediction/ranking/persistence/reload/verification/memory/spill/failures/readback paid.",
+    "savings": "Earlier shrink may reduce final model/inference work; full1200 training is still incurred. No actual CPU or inference saving established."
+  },
+  "decision": "Defer if no comparable-quality smaller selected model or adverse ranking/Recall under frozen criteria. Any changedW-minus-B is development sensitivity, not independent feature causality or a new final result.",
+  "task1_benefit": "Test an elementary manual-baseline setting before expanding automated feature inventory, while requiring symmetric model tuning opportunities.",
+  "static_findings": [
+    {
+      "path": "scripts/strong_baseline.py",
+      "lines": [
+        575,
+        577
+      ],
+      "fact": "Strong baseline explicitly sets boost_from_average=False, lr.05, Newton10/AnyImprovement,Plain,bootstrapNo."
+    },
+    {
+      "path": "configs/reproduction/frozen-bw-oct2019.json",
+      "fact": "Frozen constructor keeps boost_from_average=False, depth6/L2=30."
+    },
+    {
+      "path": "scripts/adaptive_tree_selection.py",
+      "lines": [
+        175,
+        176
+      ],
+      "fact": "Adaptive constructor copies frozen recipe then changes iterations to1200; initialization flag is inherited."
+    }
+  ],
+  "primary_sources": [
+    {
+      "url": "https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/docs/en/references/training-parameters/common.md",
+      "version": "v1.2.10",
+      "lines": [
+        1179,
+        1204
+      ],
+      "claim": "Flag requests the loss-optimal initial constant; Logloss supported. Pinned official docs verified after live website timed out."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/libs/metrics/optimal_const_for_loss.h",
+      "version": "v1.2.10",
+      "lines": [
+        14,
+        25,
+        174,
+        179
+      ],
+      "claim": "Tagged helper computes weighted target average then Logit for Logloss. This is static helper evidence; full CPU training callchain/actual native typed values are not tested in this turn."
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_baseline.py",
+      "bytes": 47986,
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+      "scope": "static source/config or accepted historical human-readable report; no runtime artifact"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "bytes": 18580,
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "scope": "static source/config or accepted historical human-readable report; no runtime artifact"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/reproduction/frozen-bw-oct2019.json",
+      "bytes": 19412,
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+      "scope": "static source/config or accepted historical human-readable report; no runtime artifact"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/models/strong-grid.json",
+      "bytes": 873,
+      "sha256": "d32daac420f447444d987969cdd49ac1cad427bbd7357114d148c02085aed66e",
+      "scope": "static source/config or accepted historical human-readable report; no runtime artifact"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-007.md",
+      "bytes": 14968,
+      "sha256": "ddcddb03d4d8024506b08213f4df8113d31f5bf8c94cd427bb1bb12b6ec8f9ec",
+      "scope": "static source/config or accepted historical human-readable report; no runtime artifact"
+    }
+  ],
+  "canonical_dedup_reads": [
+    "docs/research-lab/index.md bounded relevant lines",
+    "docs/backlog.md bounded settings/HYP references",
+    "docs/model-selection/01-catboost.md",
+    "docs/model-selection/review-01-04.md",
+    "docs/model-selection/review-05-08.md",
+    "docs/loss-selection/01-pointwise.md",
+    "docs/research-lab/round-007.md",
+    "docs/research-lab/round-010.md",
+    "docs/research-lab/round-059.md"
+  ],
+  "peer044_read_before_freeze": false,
+  "actual_operations": {
+    "native_data_Y_models_currentcurves_runtimeoutputs": 0,
+    "fixtures_tests_jobs_polls": 0,
+    "helpers": 0,
+    "Git_project_writes": 0,
+    "publisher_contact": 0,
+    "runtime_grants": 0,
+    "small_static_source_artifact_IO_hashes_only": true
+  },
+  "authority": "Current study and mainb7607b4/publication question untouched. Original goal/deadline/17slots/33914wallbasis/unknown6CPUh/reserves/closedstudy caps preserved. No reset/refill/new task/gate/extension/grant; Root alone dispatches skeptic after both FIRST."
+}
