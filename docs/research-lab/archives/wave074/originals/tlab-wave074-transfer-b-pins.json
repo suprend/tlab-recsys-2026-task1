@@ -1,0 +1,581 @@
+{
+  "wave": 74,
+  "author": "B_transfer_priority_074",
+  "mode": "read-only bounded meta-review, scratch artifact writes only",
+  "shared_context": {
+    "path": "/tmp/tlab-wave074-shared-context-v1.json",
+    "sha256": "a8f2c93f31e8d1fb70e8818df7b14b6a94bca775fd7a6a4d508f9fa59069c979",
+    "expected_sha256_matched": true,
+    "metadata_read": "question/angles/rules/limits/current_actual and source inventory; all58 snapshot hashes and sizes independently checked",
+    "snapshot_count": 58
+  },
+  "snapshot_pins": [
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/0-task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "bytes": 3638,
+      "verified": true,
+      "body_read": "full"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/data.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/1-data.md",
+      "sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "bytes": 6378,
+      "verified": true,
+      "body_read": "full; first joined output truncated, then complete separate read"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/2-experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "bytes": 46054,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/6-train_development.py",
+      "sha256": "f4d19483532318b25c2adb51734ec347e772d3441edca944c5c91ce791cacde9",
+      "bytes": 12640,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/7-development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/8-development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/9-train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "bytes": 35022,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/10-source_import.py",
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+      "bytes": 14444,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/11-anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/12-candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "bytes": 18557,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/13-manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/14-feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "verified": true,
+      "body_read": "lines1-110 plus focused rg matching lines through138; remainder hash-only"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/15-protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/16-temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "verified": true,
+      "body_read": "full lines1-168"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/17-clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "verified": true,
+      "body_read": "full lines1-60; provisional historical config, not new current authority"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/0-backlog.md",
+      "sha256": "e862b72ff34ac5c323bca5a5109e73a5d8c7f54f910a9f146558d7dc029cb152",
+      "bytes": 194060,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/1-index.md",
+      "sha256": "4faae2b5a4eedb1e789157855710c3ccba3d2bcba1669ffe8f8d66b923fbb006",
+      "bytes": 34057,
+      "verified": true,
+      "body_read": "focused keyword-search excerpts including204/225, not full"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/2-progress-report.md",
+      "sha256": "32373926f2cc08bc86f248ea92c6d2891d608d487b48c77236c7a7c20dfbb550",
+      "bytes": 17243,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/3-README.md",
+      "sha256": "8f7f07dfcfa458d6d0b2d64d9d1b712b26f9a4590e03f57289fed40f3ee5384e",
+      "bytes": 21405,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-integrated-local-checkpoint-final-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/4-tlab-root-integrated-local-checkpoint-final-actual-acceptance-v1.json",
+      "sha256": "348f39621fc372265427000cf6327c628339f16c8dfdd48cf43c3b604c5190b4",
+      "bytes": 1378,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-wave067-research-readback-v1.json",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/5-tlab-root-wave067-research-readback-v1.json",
+      "sha256": "8602e173e5d3a1279dbbcb8805bb4ca904dd5a15981719b8bc67857afac3b320",
+      "bytes": 1769,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-tiny-design-v1/design.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/6-design.md",
+      "sha256": "69277952685e113a14ea8db52f2b852d1b17f6b9c9cc23381948d420dae2fa73",
+      "bytes": 3269,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-wave068-research-readback-v1.json",
+      "snapshot": "/tmp/tlab-wave069-frozen-context-v1/0-tlab-root-wave068-research-readback-v1.json",
+      "sha256": "80d60c00fc294d3c71cbf39f9ff91d06d0869a3bf93a3f5ea7b6d220b8da632e",
+      "bytes": 2330,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-tiny-design-v2/design.md",
+      "snapshot": "/tmp/tlab-wave069-frozen-context-v1/1-design.md",
+      "sha256": "c101a7b2a05874f0743b2ee5f63ba2d50332fe4499e712b281ca191770f0a1ec",
+      "bytes": 3464,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-builder-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave069-frozen-context-v1/2-tlab-root-native-cli-tiny-builder-actual-acceptance-v1.json",
+      "sha256": "736a6e7583629dc39c47ccf8a7b4e512a5b819a0ccdea79cbeff57cf8f78a343",
+      "bytes": 2072,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-ten-event-F-manual-oracle-v1/manual-F.md",
+      "snapshot": "/tmp/tlab-wave069-frozen-context-v1/3-manual-F.md",
+      "sha256": "57f5218f27f142dc6772cfe563f1bed7858806f8ef8661d1dbc004cf2107fb69",
+      "bytes": 13943,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-QYC-production-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/0-tlab-root-native-cli-tiny-QYC-production-actual-acceptance-v1.json",
+      "sha256": "cf55faa63973aa73eb3ee132ccdf5972a7df216e917464808df2d0236b76868a",
+      "bytes": 1707,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-QYC-physical-rows-v1.json",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/1-tlab-root-native-cli-tiny-QYC-physical-rows-v1.json",
+      "sha256": "84e15f26619cc386537d254d7a867eec047ba17bd26bf49817ba9ada6d212bce",
+      "bytes": 19351,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-wave069-skeptic-review-v1.md",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/2-tlab-wave069-skeptic-review-v1.md",
+      "sha256": "7503aa0fb7e1cac1824038ad2cccae155899c4845731166d938cb7b7f18d6414",
+      "bytes": 4125,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-ten-event-F-manual-oracle-v1/manual-F.md",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/3-manual-F.md",
+      "sha256": "57f5218f27f142dc6772cfe563f1bed7858806f8ef8661d1dbc004cf2107fb69",
+      "bytes": 13943,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-ten-event-F-manual-oracle-v1/source-pins.json",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/4-source-pins.json",
+      "sha256": "4894bcb949fb8492c5ef571fedef4dff60cc9e37011cb29f13f1d52509b9e40a",
+      "bytes": 3349,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-ten-event-F-manual-oracle-v1/freeze.json",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/5-freeze.json",
+      "sha256": "0bf5b0b361e8096eee5840b500a81cf5dbe7da0c7cf62e1a7f6b19e8dddcac4a",
+      "bytes": 1984,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/0-backlog.md",
+      "sha256": "9e45e8e1c3713504525d3ef7f207089c7efdd8b0dabcbbd6ff25f923b72e1491",
+      "bytes": 193374,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/1-progress-report.md",
+      "sha256": "8d16462037487fdb986a853a354b492a76ba9c191ee389599f2bc6ca9b4c709f",
+      "bytes": 16916,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/nlp-experiments.md",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/2-nlp-experiments.md",
+      "sha256": "9269b4f4e5994ea077f2f23cf372de43aa97f4eecf85bd3b76c4df94f2a86d61",
+      "bytes": 15877,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-builder-source-archive-current4-LOCAL-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/3-tlab-root-builder-source-archive-current4-LOCAL-actual-acceptance-v1.json",
+      "sha256": "48e3f17ef7da6b1ddd4e01bdabf11e9c6aeed0a5bfea8cd9bc78bdf1cc40632f",
+      "bytes": 1649,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-F-production-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/4-tlab-root-native-cli-tiny-F-production-actual-acceptance-v1.json",
+      "sha256": "db5457a1680b311edb1b9a2141f5d2e521ceacc114cb8f45219a48814595843e",
+      "bytes": 2483,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-F-physical-rows-v1.json",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/5-tlab-root-native-cli-tiny-F-physical-rows-v1.json",
+      "sha256": "273a421bdfa13302c9dcd0c3c6bdc698e9d3b375e4dc7b5a7bbddd29390be37e",
+      "bytes": 11422,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-tiny-F-actual-semantic-review-v1.md",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/6-tlab-native-cli-tiny-F-actual-semantic-review-v1.md",
+      "sha256": "874b0217f4fd503ba61cab64c807ac51f50304d5f0edc75197beb6efda3b2b1e",
+      "bytes": 8405,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-wave070-skeptic-review-v1.md",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/7-tlab-wave070-skeptic-review-v1.md",
+      "sha256": "a8197e64fb2e5b200752f16e740cc2ed87426934f16562ec10381c11989c3e3a",
+      "bytes": 4263,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-verifier-actual-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/0-tlab-root-native-cli-tiny-verifier-actual-adoption-v1.json",
+      "sha256": "e16371704f8ad0fff83c86fe618a28944185ab84b75fb27ad47414bbb74cc0ae",
+      "bytes": 3393,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-F-semantic-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/1-tlab-root-native-cli-tiny-F-semantic-adoption-v1.json",
+      "sha256": "6bdf9f53475ec3c7d12123ba8b0ea21b6930beacf12a2c61b52b84ea9db93662",
+      "bytes": 2410,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-tiny-prepared-manual-oracle-v1/manual-prepared.md",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/2-manual-prepared.md",
+      "sha256": "2b3ab9470424b71ea8acb52796cdc66bc6b4d6d1a1a61cb85a438a0866fd67b7",
+      "bytes": 9906,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-prepared-manual-oracle-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/3-tlab-root-native-cli-tiny-prepared-manual-oracle-adoption-v1.json",
+      "sha256": "aac75aea95ca88d33d5610932a3b9d8285d27fd084124381afdff8eb0b676905",
+      "bytes": 2471,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-task1-deliverable-audit-071.md",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/4-tlab-task1-deliverable-audit-071.md",
+      "sha256": "c958b022a3d8c515cd4b6737d193699bad696f915f3c758b6e311bbb8675742b",
+      "bytes": 6557,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-task1-deliverable-audit-071-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/5-tlab-root-task1-deliverable-audit-071-adoption-v1.json",
+      "sha256": "89eb747bd823e2ac2be2cb3925101de3ab3a9ed479b70988977ea3bf3825f252",
+      "bytes": 1983,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-wave071-research-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/6-tlab-root-wave071-research-adoption-v1.json",
+      "sha256": "7008a93629762e67580e2b60ad31973e206eb6266c78f8048ef312c1ebe606f6",
+      "bytes": 3782,
+      "verified": true,
+      "body_read": "joined output truncated; no complete-body reading claim or substantive reliance"
+    },
+    {
+      "original": "/tmp/tlab-wave071-skeptic-v1.md",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/7-tlab-wave071-skeptic-v1.md",
+      "sha256": "8fcea37f1eb7538452fd396c3b14cca96e80e27fdfa84662e9cefb18f75fe5c3",
+      "bytes": 4654,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-QYC-F-verifier-waves068071-LOCAL-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/0-tlab-root-QYC-F-verifier-waves068071-LOCAL-actual-acceptance-v1.json",
+      "sha256": "b4649c031de52424b0a4f8583a4758a568ea03dc82db58a7d26fda9212eeedc7",
+      "bytes": 1894,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-wave072-research-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/1-tlab-root-wave072-research-adoption-v1.json",
+      "sha256": "9a934eaccd6eb0ffa4c25401eea53312687008c51c7f990fe3dcbf6aab4223cb",
+      "bytes": 4674,
+      "verified": true,
+      "body_read": "joined output truncated; read visible disposition/A/B/C/limits tail, not full"
+    },
+    {
+      "original": "/tmp/tlab-wave072-skeptic-v1.md",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/2-tlab-wave072-skeptic-v1.md",
+      "sha256": "b549b210834320748179392a70928232fd16d533ea761f8573d0c5b689a9d607",
+      "bytes": 4155,
+      "verified": true,
+      "body_read": "full visible output"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-native-e2e-source-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/3-tlab-root-native-cli-tiny-native-e2e-source-adoption-v1.json",
+      "sha256": "582fbd0a6215ba7470bcbabea073c78043dd18d1507ccc7b6022ecc18be3a2b7",
+      "bytes": 4071,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/4-backlog.md",
+      "sha256": "4674bccbafb8dd8b51836d58fa3efeee2da66ddb078a2f2e58887bb062b8b72f",
+      "bytes": 196232,
+      "verified": true,
+      "body_read": "focused keyword excerpts; full displayed relevant lines478/641/673/693/718/728/778/859; not full"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/5-progress-report.md",
+      "sha256": "7c0578aa13cf6296d03d9665dc8df11490efa19b964c80d3f3240b867cda5701",
+      "bytes": 21369,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-publication-476dfd6-source-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave074-frozen-overlay-v1/0-tlab-root-publication-476dfd6-source-adoption-v1.json",
+      "sha256": "2cf21e0487ec1f1d2d735df1f108c8171c793eeb319b009a9ab593629bd2817c",
+      "bytes": 6435,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-pending-human-questions-20261016-152533-v1.json",
+      "snapshot": "/tmp/tlab-wave074-frozen-overlay-v1/1-tlab-root-pending-human-questions-20261016-152533-v1.json",
+      "sha256": "da7e06cc089b9b3af90e587e94b2cf6d78a456e57f1706781def1aceb692dce4",
+      "bytes": 2070,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-root-waves072073-source-precheck-v2.json",
+      "snapshot": "/tmp/tlab-wave074-frozen-overlay-v1/2-tlab-root-waves072073-source-precheck-v2.json",
+      "sha256": "f186fabc0f3497fef26f12a39554848a6d9fe00bbe70b597c6ec37de27c20c5a",
+      "bytes": 1858,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    },
+    {
+      "original": "/tmp/tlab-waves072073-integration-proposal-v3/manifest.json",
+      "snapshot": "/tmp/tlab-wave074-frozen-overlay-v1/3-manifest.json",
+      "sha256": "d98ec9348af597e4898c2e9b71eaecd8ce584bd7f58a679472d45fea4bf5050d",
+      "bytes": 34135,
+      "verified": true,
+      "body_read": "hash/size only; no body-reading claim"
+    }
+  ],
+  "supplemental_pins": [
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2",
+      "bytes": 22428,
+      "body_read": "full sections1-5; initial joined output tail truncated, completed lines75-88 separately"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+      "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34",
+      "bytes": 2480,
+      "body_read": "full; separately re-read after initial truncated joined output"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md",
+      "sha256": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb",
+      "bytes": 5230,
+      "body_read": "full"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/docs/agents/verification.md",
+      "sha256": "d84015a05b7ebc9c4bdc570e75e0a62fbcbe134217a367715fbf5e2acc1e69ec",
+      "bytes": 7124,
+      "body_read": "full"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ra004.md",
+      "sha256": "3c199e03ce8c373f2a14faaa15c900f41177cc2cd0d71559b692968564a913ee",
+      "bytes": 15716,
+      "body_read": "full lines1-57, including post-freeze appendix, visible before joined output truncation"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-mb004.md",
+      "sha256": "322f3d1031d5cb1e2c85fb6e7f32fd16224749acd84d392670ba7f9244952112",
+      "bytes": 15738,
+      "body_read": "initial partial body then focused lines32-71; no full-body claim; used F1/F2 and final boundary"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/transfer-adapter-conformance.md",
+      "sha256": "e4acafde25405e6aee63ec1357916f7071a4ae6adee74736bd5e3ae214bbcdea",
+      "bytes": 14633,
+      "body_read": "full assembled: body1-59 visible plus separate60-71 readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-019.md",
+      "sha256": "ce4925063dc3b62200018ec1f87cc12d549853f3d8269fe2d0f2e972f835bbad",
+      "bytes": 11153,
+      "body_read": "joined output truncated; only visible tail; not relied upon"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-052.md",
+      "sha256": "f48d4868109ae81034fcd38d380b00e44a6cc0958ede9cd6bf50e0c0b75d6ba5",
+      "bytes": 11686,
+      "body_read": "full58lines visible after joined output truncation"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ta001.md",
+      "sha256": "8f79d90c6fac66eaa8d0ce142a4cda417a67e0113a367a128f896192835dc9fb",
+      "bytes": 12530,
+      "body_read": "heading and focused matching lines; TA03 lines39-53 among excerpts; not full"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-tb001.md",
+      "sha256": "3bc0ba8345b83f53f42c950824602c3b8b7b18fd29afed3b772827ea7eb555a5",
+      "bytes": 12652,
+      "body_read": "heading and focused matching lines; not full"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ta001-review-by-b.md",
+      "sha256": "a71ffa5334ae2ddfe544dda1f8e8fb1c154dbdfedaf0664fe05d61d89d127ee5",
+      "bytes": 13370,
+      "body_read": "full49lines"
+    }
+  ],
+  "external_primary_documents": [
+    {
+      "url": "https://www.kaggle.com/retailrocket/ecommerce-dataset/home",
+      "equivalent_url": "https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset/home",
+      "read_UTC": "2026-10-16T15:54:15.027842+00:00",
+      "read_scope": "Direct open returned zero readable lines; same publisher card retrieved through indexed search text. Read Context/Content/schema/property-snapshot description and license display. No other search result relied upon.",
+      "supported_claim": "Behavior events are separate from timestamped weekly item property snapshots collapsed into changes. Card does not establish ingestion/knowledge-availability clock.",
+      "license_display": "CC BY-NC-SA 4.0; no interpretation of legal use or dataset-use permission claimed",
+      "provenance": "Retailrocket publisher namespace; card attributes dataset to Retail Rocket; factual provider claims only",
+      "local_fulltext_download": false,
+      "web_result_refs": [
+        "turn1924view0",
+        "turn1925search0"
+      ]
+    }
+  ],
+  "failed_read": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/AGENTS.md",
+      "reason": "FileNotFoundError; no content claim. Snapshot verification before the missing instruction read completed58/58; subsequent useful instruction/source reads continued."
+    }
+  ],
+  "honesty": "Broad text inventory/search and joined outputs sometimes truncated; explicit scopes above replace any complete-reading claim. Hash checks are byte checks, not semantic reading. No project modules/imports/tests/data/DB/SQL/Parquet/model/native/control/approval/goal/user-question action.",
+  "independence": {
+    "peer074_material_read_before_FIRST_freeze": false,
+    "peer074_messages_read_before_FIRST_freeze": false,
+    "additional_subagents": 0
+  },
+  "created_UTC": "2026-10-16T15:54:15.027842+00:00"
+}

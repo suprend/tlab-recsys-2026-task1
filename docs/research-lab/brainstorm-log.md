@@ -1,5 +1,16 @@
 # Журнал новых исследовательских идей
 
+## Новый датированный checkpoint — 2026-10-16 16:22:34 UTC
+
+[074](brainstorm-wave074-synthesis.md) принята Root: NEW0/REFINE2/MERGE1/ADMIT0, три независимых blind FIRST и новый отдельный скептик. A сохраняет accepted fixed300 automation scope; B объединён с transfer-conformance/TA03 и ограничен mechanics на фиксированных входах; C сохраняет existing native composition priority после human assent. Новый experiment сейчас не рекомендован. Optional toys UNRUN, cost/benefit UNKNOWN; IDs/tasks/gates/grants не добавлены.074 archive/current overlay пока SOURCE-предложение.
+
+[LOCAL3253](archives/wave074/context/tlab-root-waves072073-LOCAL-actual-acceptance-v1.json) с072–073 независимо принят: tree3018/exact52delta/972reviewed subset, остальные2966 old entries сохранены. Исторический15:48 pending-P3 context074, laterSOURCEclosure15:53 и local acceptance16:14 остаются разными датированными фактами. Actual QYC/F/verifier приняты; native SOURCE_READY, actual Prepared/nativeE2E/callback-abort UNRUN.
+
+Оба human вопроса pending: новый native50 CPU/65 wall и publication exact476. Старый helper/science CLOSED/remainder UNKNOWN; b286 ранее опубликован. Known local descendant3253 не расширяет exact476 external scope. Common074 bounds15:48:27–15:50:12 после scheduled15:45, не individual starts; next fixed **16:30 UTC /19:30 МСК**.45-minute grid/deadline25Oct23:59 timezoneUNKNOWN без reset.14/19/014continuous/010–013optionaldeferred сохраняются; lastobserved goalBLOCKED не меняется. Каждый платный шаг требует собственного reviewed finite CPU/wall/memory/I/O/label/fit/API/fail-closed предела. Hypotheses не prerequisites015/018/report; B/W/reserved25–31 unchanged. Полезность — покрытие основ, проверяемый вывод и реальное исправление, без novelty quota/agent-count success; один canonical coordinator.
+
+## Исторический checkpoint15:32:25 UTC; прежний журнал сохранён побайтно
+
+
 ## Новый датированный checkpoint — 2026-10-16 15:32:25 UTC
 
 Root принял [072](brainstorm-wave072-synthesis.md) и [073](brainstorm-wave073-synthesis.md): каждая волна — три независимых blind FIRST, затем новый отдельный скептик; NEW0/REFINE3/ADMIT0. 072 уточняет matched-versus-selected estimands, полный cost ledger и условия tied Gram/pooling. 073 уточняет conditional uncertainty, fixed-C ceilings и границы oracle independence. Ручные toys UNRUN, costs/benefit UNKNOWN; новых IDs, задач, gates или grants нет. Архив/current overlay пока TMP SOURCE-предложение, не выполненная установка.

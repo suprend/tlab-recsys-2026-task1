@@ -1,5 +1,16 @@
 # Постоянная research-линия
 
+## Актуальный датированный срез — 2026-10-16 16:22:34 UTC
+
+**Принято 14 из 19 задач;014 continuous,010–013 optional/deferred.** [LOCAL3253](archives/wave074/context/tlab-root-waves072073-LOCAL-actual-acceptance-v1.json) с072–073 принят: tree3018,52delta,972reviewed subset. QYC/F270/read-only verifier фактически приняты; ordinary native CLI SOURCE_READY, actual Prepared/nativeE2E/callback-abort UNRUN.
+
+[074 — сохранить принятый core и границы следующего шага](brainstorm-wave074-synthesis.md), [оригиналы/source-map](archives/wave074/publication.json): NEW0/REFINE2/MERGE1/ADMIT0 после трёх независимых FIRST и нового скептика. Новый experiment сейчас не рекомендован; optional checks UNRUN/costUNKNOWN. Архив/overlay пока SOURCE-предложение. Исторические pending snapshots не переписываются поздними acceptances.
+
+Native50 CPU/65 wall и publication exact476 вопросы без ответов/execute issues. b286 ранее опубликован; local3253/074 не меняют exact476 payload/title/body. Science/helperCLOSED/remainderUNKNOWN, frozenreport/finalCI/adaptive scope unchanged. Next fixed16:30 UTC /19:30 МСК,45-minute grid/deadline25Oct23:59 timezoneUNKNOWN, lastobserved goalBLOCKED без изменений.
+
+## Исторический срез15:32:25 UTC; прежний индекс сохранён побайтно
+
+
 ## Актуальный датированный срез — 2026-10-16 15:32:25 UTC
 
 **Принято 14 из 19 задач;014 continuous,010–013 optional/deferred.** Actual [QYC](../backlog-reviews/native-cli-tiny-QYC-result.md), [F270](../backlog-reviews/native-cli-tiny-F-result.md) и [read-only verifier](../backlog-reviews/native-cli-tiny-verifier-result.md) приняты; [Local476](archives/wave073/context/tlab-root-QYC-F-verifier-waves068071-LOCAL-actual-acceptance-v1.json) отдельно подтверждает полный tree2971 и subset925. Ordinary native CLI SOURCE_READY; actual Prepared X/weights/native E2E и callback-abort UNRUN. Новый human native budget question50CPU65wall без ответа, прежний helper grant CLOSED; science CLOSED/remainder UNKNOWN.

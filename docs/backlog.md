@@ -1,5 +1,16 @@
 # Единый рабочий backlog T-Lab
 
+## Текущий датированный срез — 2026-10-16 16:22:34 UTC
+
+**Принято 14 из 19 исходных задач. LOCAL3253 с архивом072–073 принят; обычный native CLI готов по SOURCE review, но end-to-end ещё UNRUN.** [Локальная приёмка](research-lab/archives/wave074/context/tlab-root-waves072073-LOCAL-actual-acceptance-v1.json) подтверждает полный tree3018,52 изменённых пути и972 reviewed entries; subset не является всем репозиторием. Actual QYC/F270/read-only verifier приняты, Prepared X/weights/native fit/selection/reload этим CLI ещё не произведены; callback-abort UNRUN.
+
+[Волна074](research-lab/brainstorm-wave074-synthesis.md) принята как REFINE2/MERGE1/NEW0/ADMIT0 после трёх независимых FIRST и нового скептика. Новый эксперимент сейчас не рекомендован; её архив/этот overlay — отдельное SOURCE-предложение, не выполненная установка. Исходная таблица19IDs и история ниже неизменны:014 continuous,010–013 optional/deferred,015/018 done. Toys UNRUN, cost/utility UNKNOWN.
+
+Новый native question50 CPU/65 wall и exact476 publication question ожидают ответов; execute issues не выданы. External payload остаётся exact476, не local3253/074. Ранее b286 опубликован; локальное архивирование не расширяет публикационное согласие. Прежний helper grant/science CLOSED, remainder UNKNOWN; fixed300/final CI crossing0 и adaptive1189/403/reused73Q/2400dependent checks сохраняют границы. Следующая исходная research-точка16:30 UTC /19:30 МСК,45-minute grid/deadline25Oct23:59 timezoneUNKNOWN и один coordinator неизменны. Последнее observed goal metadata — BLOCKED, без изменения.
+
+## Исторический срез15:32:25 UTC; весь прежний текст сохранён побайтно
+
+
 ## Текущий датированный срез — 2026-10-16 15:32:25 UTC
 
 **Принято 14 из 19 задач. Tiny source/plans → Q/Y/C → F → два read-only verifier вызова приняты; ordinary native CLI подготовлен и прошёл SOURCE review, но его end-to-end ещё UNRUN.** Actual Prepared X/weights, fit/curve/selection/reload этим CLI не произведены; callback-abort также UNRUN. [QYC](backlog-reviews/native-cli-tiny-QYC-result.md), [F](backlog-reviews/native-cli-tiny-F-result.md) и [verifier](backlog-reviews/native-cli-tiny-verifier-result.md) сохраняют свои tiny scopes. [Local checkpoint476](research-lab/archives/wave073/context/tlab-root-QYC-F-verifier-waves068071-LOCAL-actual-acceptance-v1.json) принят: полный tree2971, reviewed subset925; subset не выдаётся за весь репозиторий.

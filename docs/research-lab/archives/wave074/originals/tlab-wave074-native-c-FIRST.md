@@ -1,0 +1,11 @@
+NEW0; REFINE existing TLAB-019 engineering priority; ADMIT0.
+
+Mechanism/decision: accepted native helper behavior, FakeML CLI orchestration and manual Prepared expectations leave a composition uncertainty: does ordinary CLI preserve their semantics through real loader→Pool→selection→serialization? The prepared one-fit/eight-tree proposal already addresses this. [Helper acceptance](/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/native-helper-engineering-result/root-acceptance.json), [CODE/source](/tmp/tlab-wave066-frozen-context-v1/6-train_development.py).
+
+Counterhypothesis: components pass separately while composition changes order/NaNs/weights or drops positive empty-C fullY. Dropping that query would double the conditional metric. The earlier flat/tie helper result cannot establish CLI composition.
+
+Prediction: correct composition matches all246 predicted X coordinates/masks and labels/weights; every prefix has conditional NDCG D(r)/2, r∈{1,2}, with D(r)=(1/log2(r+1))/(1+1/log2(3)). Thus only two metric values are possible; a flat curve and any correctly selected earliest maximum are acceptable. Selected/reloaded scores and rankings must match the full prefix over all3 candidate rows/all3 Q. [Frozen prediction, not observed Prepared](/tmp/tlab-wave072-frozen-overlay-v1/2-manual-prepared.md).
+
+Finite optional future check: reuse the existing ONE attempt, ≤ONE fit8trees, UNRUN/costUNKNOWN, only after the pending human answer to separate50CPU65wall. Accept independently verified exact composition and completed lifetime; mismatch/incomplete closure rejects this engineering acceptance, without automatic retry or rejecting Task1 core. [Source-ready scope](/tmp/tlab-wave073-frozen-overlay-v1/3-tlab-root-native-cli-tiny-native-e2e-source-adoption-v1.json).
+
+Utility: finish the user's ordinary adaptive-training route when authorized; now await the existing answer. Full training precedes prefix selection, so this cannot establish early stopping, training savings, global optimum, new heldout quality or feature-only gain. Prepared246 remains prediction; fixed300/final/adaptive1189/403 claims stay unchanged. Old helper/science budgets CLOSED; publication separately awaits assent. No new mandatory test/gate/ID.

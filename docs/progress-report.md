@@ -1,5 +1,18 @@
 # Автоматизация признаков для ранжирования покупок
 
+## Текущий срез — 2026-10-16 16:22:34 UTC
+
+**Принято 14 из 19 задач. Архив072–073 принят в LOCAL3253; ordinary native CLI SOURCE_READY, его end-to-end ещё UNRUN.** [Actual local acceptance](research-lab/archives/wave074/context/tlab-root-waves072073-LOCAL-actual-acceptance-v1.json): полный tree3018,52delta=47A5M;972 — reviewed subset. Tiny source/QYC/F270/read-only verifier уже приняты. Actual Prepared X/weights/native fit/curve/selection/reload этого CLI не выполнялись; callback-abort также UNRUN.
+
+[Волна074](research-lab/brainstorm-wave074-synthesis.md): NEW0/REFINE2/MERGE1/ADMIT0; три независимых FIRST, затем новый скептик. Принятый Task1 core сохраняется, перенос mechanics не означает перенос качества; дополнительный эксперимент сейчас не рекомендован.074 archive/overlay пока SOURCE-предложение. Старый15:48 pending-P3 контекст сохранён отдельно от поздней SOURCE closure и local acceptance.014 continuous,010–013 optional/deferred, исходная очередь и научные результаты неизменны.
+
+Оба существующих human вопроса без ответа: отдельно native50 CPU/65 wall и publication exact476. Ни native execute issue, ни push/PR action не выданы. Local3253/074 не меняют exact476 payload/title/body; previously b286 опубликован. Старый helper grant/science CLOSED, remainder UNKNOWN. Fixed300 final CI crossing0 и adaptive1189/403 на reused73positiveQ/2400dependent checks не дают нового quality/CV/early-stop/global-optimum claim.
+
+Следующий исходный research grid — **16:30 UTC /19:30 МСК**, без reset; deadline25Oct2026 23:59 timezoneUNKNOWN. Goal-tool последнее observedBLOCKED, здесь не изменяется. Дальше — ответ на уже заданные вопросы, не новый mandatory gate или admission.
+
+## Исторический срез15:32:25 UTC; весь прежний текст сохранён
+
+
 ## Текущий срез — 2026-10-16 15:32:25 UTC
 
 **Принято 14 из 19 исходных задач. Работают tiny source/plans → Q/Y/C → F → два read-only verifier вызова. Ordinary native CLI SOURCE_READY, его native end-to-end ещё UNRUN.** Actual Prepared3×41 X/weights, fit/curve/selected copy/reload этим CLI не произведены; callback-abort отдельно UNRUN. [QYC](backlog-reviews/native-cli-tiny-QYC-result.md), [F270](backlog-reviews/native-cli-tiny-F-result.md) и [verifier108/102](backlog-reviews/native-cli-tiny-verifier-result.md) приняты в tiny scope. [Local476](research-lab/archives/wave073/context/tlab-root-QYC-F-verifier-waves068071-LOCAL-actual-acceptance-v1.json) независимо принят: полный tree2971, reviewed subset925.
