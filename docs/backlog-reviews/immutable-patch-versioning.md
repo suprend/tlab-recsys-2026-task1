@@ -63,3 +63,19 @@ Root's additional bounded static preflight of the integration review evidence id
 | [tlab-identified-target-wording-independent-review-v1-freeze.json](evidence/local-integration-20261016/identified-target-wording/tlab-identified-target-wording-independent-review-v1-freeze.json) | `dbcf396cec174f7c0a1d9a2a0dd7d87bc073b72c783deebf3c4947c4dd2904aa` | 1183 |
 
 These originals remain byte-identical. Three additional literal `-text whitespace=-blank-at-eof` rules apply only to their named archival paths. This proposal therefore has five added rules relative to canonical metadata: one SIDE064 EOF rule, one CODE diff EOL rule, and three review EOF rules. Root's source classification covers 114 archive plus 19 CODE candidates and the selected review evidence; no test or cached checker was run for this metadata preparation, and no checker failed in this round. All prior canonical and V1/V2 metadata bytes stay exact prefixes. There is no wildcard, global/source-code exception, normalization, hook/filter/signing change, installation, commit or future-publication permission.
+
+## 2026-10-16 11:47 UTC — wave066/067 source-archive EOF classification
+
+The static preflight of the adopted 50-file wave066/067 source archive found exactly five immutable originals ending in two LF bytes. All 50 candidates have no trailing space/tab lines. The six original independent-review artifacts (report/pins/freeze for V1 and focused V2 closure) were also checked: each ends in one LF and has no trailing space/tab lines, so none needs an additional rule. This is a bounded byte inspection before staging; no cached checker failed or ran in this round.
+
+| Immutable original | Raw SHA256 | Bytes | Final LF |
+|---|---|---:|---:|
+| [tlab-wave066-metadata-c-FIRST.md](../research-lab/archives/wave066/tlab-wave066-metadata-c-FIRST.md) | `c0db8af5e8a0b0e08dbd85062274ba0a316421d5203838af2a999b26ee60160a` | 2821 | 2 |
+| [tlab-wave066-skeptic-freeze.json](../research-lab/archives/wave066/tlab-wave066-skeptic-freeze.json) | `94cac98383bc4ee88cb3c597a53eb096616aeddf4d39dedaa69c9503a2f1aca1` | 1689 | 2 |
+| [tlab-wave066-skeptic-pins.json](../research-lab/archives/wave066/tlab-wave066-skeptic-pins.json) | `cce21cf86ae4934e2f717b247b1fdf2b82312c3a0aa76dfd9c7d818663ea74af` | 17109 | 2 |
+| [tlab-wave066-skeptic-review.md](../research-lab/archives/wave066/tlab-wave066-skeptic-review.md) | `777ba550a662882d00c5a786bb35054adbf051ab02022909cc57e36db7490b36` | 4975 | 2 |
+| [tlab-wave067-deliverable-a-FIRST.md](../research-lab/archives/wave067/tlab-wave067-deliverable-a-FIRST.md) | `26247e2bcb5ddfc41f772921e6d6a22d884da99db089798594a2a6b18da62172` | 2738 | 2 |
+
+Five additional literal `-text whitespace=-blank-at-eof` rules classify only these archived data paths. Their raw FIRST/critic bytes remain untouched. The existing 18 exact rules and this note's full prior body remain byte-exact prefixes; newly authored metadata ends in exactly one LF. There is no wildcard, global/source-code exception, normalization, hook/filter/signing bypass or binary suppression. Earlier checker failures retain their historical outcomes.
+
+The archive's source adoption closes its documentation findings only. This preparation does not install files, stage, commit, run a builder/collector/native CLI, borrow a budget, or authorize external publication. A later finite Root issue must bind the actual installation and ordinary cached check. No builder/collection/native-CLI PASS is inferred from source review.

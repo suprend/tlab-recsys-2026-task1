@@ -1,0 +1,176 @@
+{
+  "version": 1,
+  "status": "SOURCE_DESIGN_PINS_NOT_EXECUTION_ACCEPTANCE",
+  "project": "/Users/mdpospelov/tlab-recsys-2026",
+  "HEAD_observed": "b2864d575745b3484eb36c837f2fc692eb0ae79d",
+  "hashes_rechecked_at_utc": "2026-10-16T11:06:08Z",
+  "source_and_context_inputs": [
+    {
+      "path": "scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909
+    },
+    {
+      "path": "scripts/train_development.py",
+      "sha256": "f4d19483532318b25c2adb51734ec347e772d3441edca944c5c91ce791cacde9",
+      "bytes": 12640
+    },
+    {
+      "path": "scripts/development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590
+    },
+    {
+      "path": "scripts/source_import.py",
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+      "bytes": 14444
+    },
+    {
+      "path": "scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181
+    },
+    {
+      "path": "scripts/train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "bytes": 35022
+    },
+    {
+      "path": "scripts/adaptive_tree_selection.py",
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "bytes": 18580
+    },
+    {
+      "path": "scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "bytes": 18557
+    },
+    {
+      "path": "scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160
+    },
+    {
+      "path": "scripts/heuristic_baselines.py",
+      "sha256": "db00b2375fed1083d4bf9b45ef4535793d36ffeaa537050a07e99c61dad13ee4",
+      "bytes": 22853
+    },
+    {
+      "path": "scripts/verify_development.py",
+      "sha256": "60519794c8c5b8bc7ac04f960e554f13ab3e125043c2a0e46d53f67ea0810ee0",
+      "bytes": 39362
+    },
+    {
+      "path": "scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971
+    },
+    {
+      "path": "scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864
+    },
+    {
+      "path": "scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184
+    },
+    {
+      "path": "tests/test_development_collection.py",
+      "sha256": "adf2688898f8d6ec597b5f7ed5263fd48c1e3877695f9724b05a2134291a940a",
+      "bytes": 20324
+    },
+    {
+      "path": "tests/test_train_development.py",
+      "sha256": "601bb6d5e1b510da7864de66daab0173a2d431303c0d9dca1f155898bf9d4389",
+      "bytes": 19794
+    },
+    {
+      "path": "tests/test_development_training.py",
+      "sha256": "547fac7bf2591ca831fa717e17017e39fe98994c1f87ab7b2110b9dc22ca3a23",
+      "bytes": 14288
+    },
+    {
+      "path": "tests/test_development_training_native.py",
+      "sha256": "eca8d1a071361a93e563b105b0c743f235073527876a49e81dd8080c2dea1887",
+      "bytes": 9112
+    },
+    {
+      "path": "tests/test_verify_development.py",
+      "sha256": "dec1291cc9db51546532bcc2d851d38abf2e273d027d9b847781449f049edd73",
+      "bytes": 28887
+    },
+    {
+      "path": "tests/test_train_baselines.py",
+      "sha256": "65a713fc613dc37e9a9f27b31d70ad62673c08cdd5facfeb1e2cfe450a529190",
+      "bytes": 26193
+    },
+    {
+      "path": "tests/test_source_import.py",
+      "sha256": "97cf28b827a8dc1f56ab128320993b27ad29f7e2ec82777e3ac6e81b8da7b073",
+      "bytes": 13098
+    },
+    {
+      "path": "configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "bytes": 3631
+    },
+    {
+      "path": "configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403
+    },
+    {
+      "path": "configs/development/train.json",
+      "sha256": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8",
+      "bytes": 637
+    },
+    {
+      "path": "configs/development/selection.json",
+      "sha256": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36",
+      "bytes": 643
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+      "bytes": 367
+    },
+    {
+      "path": "uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "bytes": 300283
+    },
+    {
+      "path": "/tmp/tlab-wave067-fixture-b-FIRST.md",
+      "sha256": "b33e79961e00974a3b76dcb1775e0b24cefb9b6dcd95734d93e812ccacac6f43",
+      "bytes": 2654
+    },
+    {
+      "path": "/tmp/tlab-wave067-fixture-b-freeze.json",
+      "sha256": "50af9bb3242ca5a9e0eb40a96f4eac6fb7f7445f38c86c6e27139c27e2186a83",
+      "bytes": 1303
+    }
+  ],
+  "read_scope": [
+    "Required five modules inspected as text, with targeted create_queries/create_labels/run and collection/training gates; same parser/protocol/temporal sources read during preceding bounded source task and hashes rechecked unchanged.",
+    "Actual runtime fixture, collection acceptance and verifier helpers inspected; their approval-writing helpers explicitly simulate external review and cannot supply authority here.",
+    "train_baselines prepare/verify/accounting/ranking, adaptive selector, numeric schema and verifier formula/sample boundary inspected; native-helper opt-in source read as context, not imported or run.",
+    "Some initial batched source outputs were truncated; targeted complete sections supplied the contracts used in this design. Hash-only files include uv.lock and tests/test_development_training.py; broad rg matches over other tests are navigation-only, not full-file review claims.",
+    "Frozen wave067 B FIRST and freeze were read as an earlier source proposal; importer metadata change was rejected from this design. New independent tiny oracle artifact remains unread before this design freeze."
+  ],
+  "independence": {
+    "Root_peer_count_summary_disclosed_before_freeze": true,
+    "full_blind_design_claimed": false,
+    "peer_FIRST_file_read_before_freeze": false,
+    "disclosure_first_tool_clock_after_Root_correction_utc": "2026-10-16T11:02:04Z",
+    "exact_message_receipt_timestamp_available": false,
+    "detail": "independence-disclosure.json"
+  },
+  "limits": {
+    "candidate_import_AST_compile_test_SQL_collection_model_fit_inference_native_network_runs": 0,
+    "canonical_or_Git_writes": 0,
+    "new_scientific_IDs_gates_or_grants": 0,
+    "science_native50": "CLOSED; no authority carried forward"
+  },
+  "future_design_review_required": true
+}

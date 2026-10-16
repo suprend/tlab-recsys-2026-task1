@@ -1,0 +1,63 @@
+{
+  "version": 2,
+  "utc": "2026-10-16T11:42:17.142358+00:00",
+  "verdict": "PASS_ARC001_CLOSED_SOURCE_METADATA",
+  "reviewed_source_version": "waves066067 proposal V3",
+  "input_snapshot": {
+    "path": "/tmp/tlab-waves066067-archive-independent-review-v2-inputs/initial-pins.json",
+    "sha256": "868bb182756827bdfd060bbf8762013eecb63e6b1d9b88029efb4e4aa3c56e6a",
+    "bytes": 21464
+  },
+  "closure_checks": {
+    "path": "/tmp/tlab-waves066067-archive-independent-review-v2-inputs/closure-checks.json",
+    "sha256": "4e1929f67489f7430c2dba12fd4041dab2255f3be1c357677a4c154138f1444b",
+    "bytes": 722
+  },
+  "prior_V2_review_and_finding_preserved": [
+    {
+      "path": "/tmp/tlab-waves066067-archive-independent-review-v1.md",
+      "sha256": "ba493cee2c718a383fced8a9980c67e64593d3f1fed005bc4574433f75b6af59",
+      "bytes": 4098
+    },
+    {
+      "path": "/tmp/tlab-waves066067-archive-independent-review-v1-pins.json",
+      "sha256": "53be7d5d1720c902a21841298eef5d4349ef9d8ab47776da58d5acd03ab6da3c",
+      "bytes": 3264
+    },
+    {
+      "path": "/tmp/tlab-waves066067-archive-independent-review-v1-freeze.json",
+      "sha256": "3e748a58c82c9dc5e4a92a6e2081a444680dddf62860de6407362106815c92eb",
+      "bytes": 671
+    }
+  ],
+  "source_manifest": {
+    "path": "/tmp/tlab-waves066067-archive-proposal-v3/manifest.json",
+    "sha256": "88417d2c7f6c55e62dead611f56006e69c249df935e89c4685f3b5bd0f7e1039",
+    "bytes": 153894
+  },
+  "source_freeze": {
+    "path": "/tmp/tlab-waves066067-archive-proposal-v3/freeze.json",
+    "sha256": "c00031d8760e10aabf1e97264fdff6bfce25927eda62250e466f2654bfab3758",
+    "bytes": 1072
+  },
+  "literal_diff": {
+    "path": "/tmp/tlab-waves066067-archive-proposal-v3/publication-maps-v2-to-v3.diff",
+    "sha256": "0a2f10d659d244cd250768e4d51ff57ea05769be1b8e3c4011406a9dca9cd5a3",
+    "bytes": 1208
+  },
+  "report": {
+    "path": "/tmp/tlab-waves066067-archive-independent-review-v2.md",
+    "sha256": "5bc47a4dde4c71102faa72d6fd6918699db6f3d0123bff6820dcbb09777ac468",
+    "bytes": 2105
+  },
+  "report_words": 162,
+  "terminal_freshness": {
+    "V3_originals_and_copies": 55,
+    "V2_evidence_originals_and_copies": 193,
+    "all_SHA_bytes_modes_unchanged": true,
+    "all50_targets_absent_including_symlink": true
+  },
+  "primary_currentness": "Root receipt only, no Git query",
+  "no_new_canonical_Git_network_runtime_or_goal_action": true,
+  "installation_runtime_push_authority": false
+}

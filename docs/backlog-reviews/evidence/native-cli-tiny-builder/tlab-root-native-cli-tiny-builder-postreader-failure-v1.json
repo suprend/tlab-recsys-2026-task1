@@ -1,0 +1,10 @@
+{
+  "UTC": "2026-10-16T12:01:25.244258+00:00",
+  "status": "ROOT_POST_READER_METADATA_ASSERTION_RECONCILED_NO_RUNTIME_RETRY",
+  "failed_tool": "bd4e0a CLOSED exit1",
+  "cause": "Dictionary merge {path: relative, **file_ref} let the recorded absolute path overwrite the relative map key; physical 28-file inventory is correct.",
+  "physical_exact28_verified": true,
+  "builder_outer_tool": "205344 CLOSED exit0, child reaped; consumed namespace must not be rerun",
+  "correction": "Build map entries as {**file_ref, path: relative}; leave source, DB, plans and raw receipts untouched.",
+  "payload_mutations": 0
+}

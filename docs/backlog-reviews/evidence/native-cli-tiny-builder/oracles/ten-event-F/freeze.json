@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "task": "/root/native_cli_tiny_oracle",
+  "freeze_observed_at_utc": "2026-10-16T11:57:29Z",
+  "status": "manual_preproduction_ten_event_F_oracle_frozen_unexecuted_unaccepted",
+  "artifacts": {
+    "/tmp/tlab-native-cli-ten-event-F-manual-oracle-v1/manual-F.md": "57f5218f27f142dc6772cfe563f1bed7858806f8ef8661d1dbc004cf2107fb69",
+    "/tmp/tlab-native-cli-ten-event-F-manual-oracle-v1/source-pins.json": "4894bcb949fb8492c5ef571fedef4dff60cc9e37011cb29f13f1d52509b9e40a"
+  },
+  "disclosure": {
+    "fixture_design_was_disclosed": true,
+    "new_blind_design_FIRST_claim": false,
+    "independent_hand_derivation_from_source_before_generated_F_read": true,
+    "generated_F_read": false,
+    "nine_event_FIRST_preserved_and_hash_verified": true,
+    "builder_sha_matches_parent_expected": true
+  },
+  "manual_coverage": {
+    "literal_events": 10,
+    "train_F_rows": 3,
+    "selection_F_rows": 3,
+    "core_registry_features_per_row": 18,
+    "core_missing_flag_fields": 8,
+    "prepared_numeric_fields": 41,
+    "candidate_category_metadata": "all six candidate rows known/unambiguous; missing/ambiguous candidate categories are not covered",
+    "positive_only_selection_query_denominator": 2,
+    "all_query_zero_selection_query_denominator": 3,
+    "selection_empty_candidate_queries_retained": 1,
+    "selection_empty_target_queries_retained": 1,
+    "selection_targets_outside_C_retained": 2
+  },
+  "operations_in_this_extension": {
+    "application_imports": 0,
+    "tests": 0,
+    "SQL_calls": 0,
+    "calculation_programs": 0,
+    "executable_helpers_written": 0,
+    "builder_runs": 0,
+    "F_production_calls": 0,
+    "native_grants_consumed": 0,
+    "fits": 0,
+    "inference_calls": 0,
+    "data_model_score_reads": 0,
+    "goal_tools": 0,
+    "canonical_git_network_actions": 0
+  },
+  "future_native_fit": "at most one fit with ceiling <=8 trees; remains ungranted",
+  "next_action": "report frozen manual tables and STOP; no execution authorized"
+}

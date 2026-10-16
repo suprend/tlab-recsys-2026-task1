@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "UTC": "2026-10-16T12:39:30Z",
+  "status": "CURRENT4_READ_ONLY_REVIEW_FROZEN_NO_SUPPORTED_FINDINGS_STOP",
+  "reviewer": "/root/candidate_reachability_review",
+  "snapshot_as_of_UTC": "2026-10-16 12:27:14 UTC",
+  "report": {
+    "path": "/tmp/tlab-current4-source-plans-status-independent-review-v1.md",
+    "sha256": "fdcb2e0f300cea1d20b1bae8cba60586f9b7c85f82ba9009bddccf33f6442ebf",
+    "bytes": 3342,
+    "words_wc_w": 417,
+    "mode": "0644"
+  },
+  "pins": {
+    "path": "/tmp/tlab-current4-source-plans-status-independent-review-v1-pins.json",
+    "sha256": "9c69b5f747ec26ccb58fc2205954d09197609351f9684e8d5f8af1e914f018d8",
+    "bytes": 7783,
+    "mode": "0644"
+  },
+  "proposal_manifest_sha256": "1d7f414919e1b7303144e5ffe2659f08f8b03bb6ee721893efb7011c453e9304",
+  "proposal_freeze_sha256": "070169d8b27e5550c450aaacacda80b444917ba2538ea8b654d950228fd9a73d",
+  "proposal_diff_sha256": "07b30fc3075da003b521a1ded283491d1f46bc34a313e38e33257e75c53d586e",
+  "paired_dependency_manifest_sha256": "c5456a14c178af23822bc964015ea6db0a5de30349f1064c8ae9e0e211d6ddd8",
+  "final_freshness": {
+    "UTC": "2026-10-16T12:39:30Z",
+    "SHA256_and_bytes_checked_paths": 26,
+    "all26_match": true,
+    "includes_current_canonical_four_document_bytes": true,
+    "Git_state_not_retrieved": true,
+    "report_and_pins_read_back_before_freeze": true,
+    "reviewed_artifact_mutations": 0
+  },
+  "findings": 0,
+  "read_only_helper": "/root/candidate_reachability_review/builder_path_review",
+  "authority": "Independent static documentation review only. Not installation, execution, producer/shard/collection/native approval, publication, goal mutation or permission to alter the paired package. Root alone adopts; coordinator alone writes canonical documents.",
+  "limitations": "No source-code/DB/runtime/SQL/import/test/ML/model/native/remote/Git/goal-tool checks. Only four-file status snapshot and stated text/JSON dependencies; full paired81 contents and progress-history file were not independently re-audited.",
+  "next_action_for_reviewer": "STOP"
+}

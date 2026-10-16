@@ -1,0 +1,11 @@
+# Волна 067: конкретный README fix и две будущие проверки
+
+Три независимых FIRST и новый отдельный скептик приняты Root только как уточнения существующих направлений. Новых ID, задач, научных допусков, бюджетов или обязательных ворот нет. [Решение](archives/wave067/tlab-root-wave067-research-readback-v1.json), [критика](archives/wave067/tlab-wave067-skeptic-review.md), [publication map](archives/wave067/publication.json).
+
+**A — исправлено конкретное противоречие README.** FIRST обнаружил, что README называл native helper UNRUN, хотя один normal-path toy fit уже принят. Позднее ровно эта формулировка независимо принята и установлена в локальном коммите 2d49: 8 обученных деревьев, отдельная выбранная копия 1, save/reload parity, исходная модель сохраняет 8. Ordinary CLI E2E и native callback-abort остаются UNRUN. Исторический FIRST с будущим предложением сохранён побайтно. Неопределённый final CI не означает отсутствия измеренного automation experiment и не доказывает superiority/equivalence; fixed-300 Mac replay сохраняет свой scope.
+
+**B — Q4/Y2/C8 верно для предложенного collector-case.** Это ручной strict-past oracle, а не выполненный chronological native CLI. Anchor-time покупки входят в Y, но не в историю того же anchor. Добавление typed provenance row внутри importer transaction меняет reviewed DB/source contract даже при прежнем API: нужны новые затронутые seals, старые receipts/DB сохраняются. Adapter-derived DB также имеет отдельную identity. Подмена производственного provenance или maturity недопустима; эксперимент UNRUN.
+
+**C — ближайшая проверка ограничена двумя M-вызовами manual18.** Предсказаны literal первые 12 значений, переход последних шести category features в NULL и masks false→true, сохранность candidate columns/строки, ages и заявленной coverage. Предложение не запускалось и дефекта не демонстрирует. Generated registries, full loader и CLI этим не покрываются.
+
+Дедуп: A → 014/016/018/019, B → 018 через 014/066A, C → 022/036/040/043/047/066C. Общий frozen контекст переиспользуется по exact SHA; дополнительные версии связаны с immutable Git objects. Следующая исходная отметка — 11:15 UTC; закрытые science/native allowances и deadline неизменны. Непринятый новый native-CLI design вне архива.

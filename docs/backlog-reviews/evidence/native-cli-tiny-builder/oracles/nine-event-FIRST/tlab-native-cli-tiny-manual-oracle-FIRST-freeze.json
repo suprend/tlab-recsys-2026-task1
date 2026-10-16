@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "task": "/root/native_cli_tiny_oracle",
+  "freeze_observed_at_utc": "2026-10-16T10:56:34Z",
+  "status": "independent_source_only_FIRST_frozen_unexecuted_unaccepted",
+  "artifacts": {
+    "/tmp/tlab-native-cli-tiny-manual-oracle-FIRST.md": {
+      "sha256": "85937ef83b26e030422b3301467cff4194019cefa4cea390ca1476dca02d35e9",
+      "word_count_upper_bound": 354
+    },
+    "/tmp/tlab-native-cli-tiny-manual-oracle-FIRST-pins.json": {
+      "sha256": "2e8ad8da5516c5d074e04fd314315f2bd464541327d983e63d9446168d22b95b"
+    }
+  },
+  "independence": {
+    "peer_implementation_design_test_proposals_read_before_freeze": false,
+    "forbidden_design_path_read": false,
+    "conclusions_coordinated_before_freeze": false,
+    "first_persisted_manual_derivation_precedes_peer_proposal_reads": true
+  },
+  "permissions_consumed": {
+    "native_grants": 0,
+    "new_queue_ids": 0,
+    "application_imports": 0,
+    "tests": 0,
+    "sql_calls": 0,
+    "fits": 0,
+    "inference_calls": 0,
+    "data_model_score_reads": 0,
+    "git_operations": 0,
+    "canonical_or_network_writes": 0,
+    "production_importer_changes": 0
+  },
+  "ordinary_cli_e2e": "UNRUN; admission still requires actual independent reviews and a separate future grant",
+  "prior_native_helper_8_tree_status": "PASS supplied by parent context; separate evidence, not independently re-executed here",
+  "original_deadline": {"local_text": "25 October 23:59", "timezone": "unknown"},
+  "next_action": "report freeze and STOP; no execution authorized by this artifact"
+}

@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "observed_at_utc": "2026-10-16T11:53:25Z",
+  "scope": "manual pre-F derivation for disclosed selected ten-event fixture; not a blind FIRST",
+  "builder_expected_sha256_verified": "283272887ac95ecd7ab0b27074edbecbb9818cffdc7cff9ccbeb44c48f119d85",
+  "pins": {
+    "/tmp/tlab-native-cli-tiny-builder-proposal-v1/build_fixture.py": "283272887ac95ecd7ab0b27074edbecbb9818cffdc7cff9ccbeb44c48f119d85",
+    "/tmp/tlab-native-cli-tiny-design-v2/manual-QYC.md": "10da40872d6fee3ec132fd3f9e721717eb9cda1ba824c5f2a4b3596ff573abd5",
+    "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+    "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+    "/Users/mdpospelov/tlab-recsys-2026/configs/development/train.json": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8",
+    "/Users/mdpospelov/tlab-recsys-2026/configs/development/selection.json": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36"
+  },
+  "read_scopes": {
+    "builder": ["symbol/line index for navigation", "55-77: paths/schema/EVENTS literals", "166-183: config mutations/literals"],
+    "selected_manual_QYC": "complete disclosed specification",
+    "registry": "complete manual18 declarations",
+    "manual_feature_formulas": "106-264; prior FIRST source reading of the same pinned definitions retained",
+    "prepared_fields_and_population": "188-293; prior FIRST source reading retained",
+    "metric": "111-194; prior FIRST source reading retained",
+    "anchor_candidate_temporal_selector_and_base_phase_sources": "source hashes rechecked; same pinned source reading from earlier independent FIRST retained"
+  },
+  "preserved_nine_event_FIRST": {
+    "/tmp/tlab-native-cli-tiny-manual-oracle-FIRST.md": "85937ef83b26e030422b3301467cff4194019cefa4cea390ca1476dca02d35e9",
+    "/tmp/tlab-native-cli-tiny-manual-oracle-FIRST-pins.json": "2e8ad8da5516c5d074e04fd314315f2bd464541327d983e63d9446168d22b95b",
+    "/tmp/tlab-native-cli-tiny-manual-oracle-FIRST-freeze.json": "b2cc2841424f0577583b9fa4b9505b2eb7b41b694544be903f30feacbb18943f"
+  },
+  "excluded_evidence": ["generated F", "source databases", "native model files", "native scores", "future generated matrices", "builder runtime outputs"]
+}

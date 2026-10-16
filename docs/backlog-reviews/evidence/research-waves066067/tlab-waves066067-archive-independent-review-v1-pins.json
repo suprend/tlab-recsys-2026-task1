@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "utc": "2026-10-16T11:39:39.517917+00:00",
+  "verdict": "CHANGES_REQUESTED_ONE_STATUS_MAP_P2",
+  "reviewed_source_version": "waves066067 proposal V2",
+  "finding": {
+    "id": "ARC-001",
+    "priority": "P2",
+    "locations": [
+      {
+        "path": "/tmp/tlab-waves066067-archive-proposal-v2/candidate/docs/research-lab/archives/wave066/publication.json",
+        "line": 1409
+      },
+      {
+        "path": "/tmp/tlab-waves066067-archive-proposal-v2/candidate/docs/research-lab/archives/wave067/publication.json",
+        "line": 1004
+      }
+    ],
+    "trigger": "Read same2d49/348f396 checkpoint status in both maps",
+    "result": "Two false installed predicates contradict paired maps and later actual installed documentation",
+    "repair": "Two false to true, or distinguish relevance from installation status; originals/syntheses unchanged"
+  },
+  "input_ledgers": [
+    {
+      "path": "/tmp/tlab-waves066067-archive-independent-review-v1-inputs/initial-pins.json",
+      "sha256": "716dc089940f49c081f7f8faa54bd13fa0c7545b6e7396e34571dadf5b224478",
+      "bytes": 80520
+    },
+    {
+      "path": "/tmp/tlab-waves066067-archive-independent-review-v1-inputs/later-status-input-pins.json",
+      "sha256": "2fcbc5ad02041bc0b0ffbc8fb1d236fa2faff0fb2edf1d6bdc6fe124a9f9094b",
+      "bytes": 1191
+    },
+    {
+      "path": "/tmp/tlab-waves066067-archive-independent-review-v1-inputs/public-alias-pins.json",
+      "sha256": "07c291e2890fe16663df23b2816f88cdc9e06a1507626b23ad142054f4529a99",
+      "bytes": 3454
+    },
+    {
+      "path": "/tmp/tlab-waves066067-archive-independent-review-v1-inputs/additional-body-dependency-pins.json",
+      "sha256": "3e53204a38f5e98b5023557fdbf6c2b3963bedafdf59b919640714b8a8f67202",
+      "bytes": 522
+    }
+  ],
+  "static_checks": {
+    "path": "/tmp/tlab-waves066067-archive-independent-review-v1-inputs/static-checks.json",
+    "sha256": "ccf9d3719f621ebe87eeded74b52669e5e8da181907f907c171c0e616a40819d",
+    "bytes": 4783
+  },
+  "own_checker_location_alias_correction": {
+    "path": "/tmp/tlab-waves066067-archive-independent-review-v1-inputs/checker-input-location-correction.json",
+    "sha256": "8c51d25c877fbafd079e433255bbf2e222d978cee79c189777c764664c397cc1",
+    "bytes": 492
+  },
+  "source_manifest": {
+    "path": "/tmp/tlab-waves066067-archive-proposal-v2/manifest.json",
+    "sha256": "7333c82429ab63cb141e3542aa914bae06e34dbed29f0849df3bfad62b2380cc",
+    "bytes": 153383
+  },
+  "source_freeze": {
+    "path": "/tmp/tlab-waves066067-archive-proposal-v2/freeze.json",
+    "sha256": "654d0757510f622dad3ccbc1168df0d3376ef5c5e6c7df92400a1da7e1309c91",
+    "bytes": 1048
+  },
+  "report": {
+    "path": "/tmp/tlab-waves066067-archive-independent-review-v1.md",
+    "sha256": "ba493cee2c718a383fced8a9980c67e64593d3f1fed005bc4574433f75b6af59",
+    "bytes": 4098
+  },
+  "report_words": 322,
+  "terminal_freshness": {
+    "193_original_and_copy_SHA_bytes_modes_unchanged": true,
+    "three_excluded_policy_sources_and_V1copies_preserved_without_new_bodycopy": true,
+    "all50_targets_absent_including_symlink": true
+  },
+  "Git_currentness": "Root receipt only; no Git commands",
+  "publication_runtime_authority": false,
+  "no_execution_or_canonical_network_goal_mutation": true
+}

@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "status": "INDEPENDENT_READ_ONLY_CURRENT4_REVIEW_NO_SUPPORTED_FINDINGS_NO_INSTALL_PUSH_GRANT",
+  "reviewer": "/root/candidate_reachability_review",
+  "as_of_snapshot_UTC": "2026-10-16 12:27:14 UTC",
+  "reported_base_HEAD": "2d49d7a34797d3e595f19ad9b24bd4d99daa2bf7",
+  "reported_base_index_sha256": "cf18bfd2634693d5a536500cd52120d32a1eb9a2cf4f2a9cd31070b644bb3c0e",
+  "Git_state_not_independently_retrieved": true,
+  "scope_inputs": [
+    {"path":"/tmp/tlab-current4-source-plans-status-proposal-v1/manifest.json","sha256":"1d7f414919e1b7303144e5ffe2659f08f8b03bb6ee721893efb7011c453e9304","bytes":7459},
+    {"path":"/tmp/tlab-current4-source-plans-status-proposal-v1/freeze.json","sha256":"070169d8b27e5550c450aaacacda80b444917ba2538ea8b654d950228fd9a73d","bytes":1202},
+    {"path":"/tmp/tlab-current4-source-plans-status-proposal-v1/current4.diff","sha256":"07b30fc3075da003b521a1ded283491d1f46bc34a313e38e33257e75c53d586e","bytes":50193}
+  ],
+  "documents": [
+    {"path":"docs/backlog.md","candidate":"/tmp/tlab-current4-source-plans-status-proposal-v1/candidate/docs/backlog.md","candidate_sha256":"9e45e8e1c3713504525d3ef7f207089c7efdd8b0dabcbbd6ff25f923b72e1491","candidate_bytes":193374,"candidate_mode":"0644","base":"/tmp/tlab-current4-source-plans-status-proposal-v1/base/docs/backlog.md","base_sha256":"e862b72ff34ac5c323bca5a5109e73a5d8c7f54f910a9f146558d7dc029cb152","base_bytes":194060,"current_canonical":"/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md","current_canonical_sha256_equals_base":true},
+    {"path":"docs/progress-report.md","candidate":"/tmp/tlab-current4-source-plans-status-proposal-v1/candidate/docs/progress-report.md","candidate_sha256":"8d16462037487fdb986a853a354b492a76ba9c191ee389599f2bc6ca9b4c709f","candidate_bytes":16916,"candidate_mode":"0644","base":"/tmp/tlab-current4-source-plans-status-proposal-v1/base/docs/progress-report.md","base_sha256":"32373926f2cc08bc86f248ea92c6d2891d608d487b48c77236c7a7c20dfbb550","base_bytes":17243,"current_canonical":"/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md","current_canonical_sha256_equals_base":true},
+    {"path":"docs/research-lab/index.md","candidate":"/tmp/tlab-current4-source-plans-status-proposal-v1/candidate/docs/research-lab/index.md","candidate_sha256":"70f2946531d54fa86745f2697c6bed4cb8d9b77d2140b5b6efbf6711542ded8d","candidate_bytes":35023,"candidate_mode":"0644","base":"/tmp/tlab-current4-source-plans-status-proposal-v1/base/docs/research-lab/index.md","base_sha256":"4faae2b5a4eedb1e789157855710c3ccba3d2bcba1669ffe8f8d66b923fbb006","base_bytes":34057,"current_canonical":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md","current_canonical_sha256_equals_base":true},
+    {"path":"docs/research-lab/brainstorm-log.md","candidate":"/tmp/tlab-current4-source-plans-status-proposal-v1/candidate/docs/research-lab/brainstorm-log.md","candidate_sha256":"d7d56115249a75936a06ba6e5d4e578f240aaf447e7d0ba07c21349762747f4b","candidate_bytes":180574,"candidate_mode":"0644","base":"/tmp/tlab-current4-source-plans-status-proposal-v1/base/docs/research-lab/brainstorm-log.md","base_sha256":"d0a2b53c6145f9f8e111a094013931c70be5108f26a5fd76de41d8e8a713c914","base_bytes":176085,"current_canonical":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-log.md","current_canonical_sha256_equals_base":true}
+  ],
+  "provenance_pins_checked": [
+    {"path":"/tmp/tlab-root-integrated-local-checkpoint-final-actual-acceptance-v1.json","sha256":"348f39621fc372265427000cf6327c628339f16c8dfdd48cf43c3b604c5190b4","bytes":1378},
+    {"path":"/tmp/tlab-root-native-cli-tiny-builder-actual-acceptance-v1.json","sha256":"736a6e7583629dc39c47ccf8a7b4e512a5b819a0ccdea79cbeff57cf8f78a343","bytes":2072},
+    {"path":"/tmp/tlab-native-cli-tiny-builder-actual-output-review-v1.md","sha256":"c8b0e1eb2f1169f14ac2f9b1f90ac59b824c3455f6f3a7ddda32c1f5c224ad5a","bytes":3929},
+    {"path":"/tmp/tlab-native-cli-tiny-builder-actual-output-review-v1-freeze.json","sha256":"af05862637f82182d68d620e18b6512c81c60ef44d4c6185c8ef0fad733cbfb2","bytes":3976},
+    {"path":"/tmp/tlab-root-native-cli-tiny-builder-independent-output-adoption-v1.json","sha256":"1536cb2911052b947789331907dbcad48d0ad857ad330c462444e27626ba164a","bytes":841},
+    {"path":"/tmp/tlab-root-native-cli-tiny-genuine-producer-plan-approvals-v1.json","sha256":"d7167161377d11d238ffdce7b1a8aa36ad443a905246269d7fcba8c1f14d13c7","bytes":1114},
+    {"path":"/tmp/tlab-root-wave067-research-readback-v1.json","sha256":"8602e173e5d3a1279dbbcb8805bb4ca904dd5a15981719b8bc67857afac3b320","bytes":1769},
+    {"path":"/tmp/tlab-root-wave068-research-readback-v1.json","sha256":"80d60c00fc294d3c71cbf39f9ff91d06d0869a3bf93a3f5ea7b6d220b8da632e","bytes":2330},
+    {"path":"/tmp/tlab-root-wave069-research-adoption-v1.json","sha256":"4602dcd024107a5642423b134384ab6f2718cabd340e20d9a54eecbe04bd4bb8","bytes":9164}
+  ],
+  "paired_dependency": {
+    "manifest":"/tmp/tlab-native-cli-builder-local-integration-proposal-v1/manifest.json",
+    "manifest_sha256":"c5456a14c178af23822bc964015ea6db0a5de30349f1064c8ae9e0e211d6ddd8",
+    "manifest_bytes":78459,
+    "proposed_targets_without_current4":81,
+    "target":"docs/backlog-reviews/native-cli-tiny-builder-result.md",
+    "source":"/tmp/tlab-native-cli-builder-local-integration-proposal-v1/candidate/docs/backlog-reviews/native-cli-tiny-builder-result.md",
+    "sha256":"38633557e58df461785784086518e0dabc626b4cecd76416ee90fef23dd30545",
+    "bytes":4996,
+    "mode":"0644",
+    "actual_full_81_file_packet_NOT_audited":true,
+    "coherent_atomic_dependency_not_a_new_gate":true
+  },
+  "read_scope":"All supplied diff hunks; complete progress report; changed/current backlog/index/journal sections; relevant Root JSON receipts; paired manifest selected fields and result note. Prior actual-output review carried forward unchanged. Full old history not semantically re-audited.",
+  "checks": {
+    "all4_candidate_base_and_current_document_SHA256_equal_expected":true,
+    "all9_listed_provenance_SHA256_and_bytes_match":true,
+    "unified_diff_physical_projections_files":4,
+    "unified_diff_physical_projections_hunks":7,
+    "unified_diff_physical_projections_errors":0,
+    "BSD_regenerated_diff_sha256":"770b5267d1d6525dc574059bb108bca5088b296fd5107321526d341c12dd1398",
+    "BSD_diff_difference":"Different valid blank-line alignment/context; supplied unified-diff projections and hunk counts verified against physical sources.",
+    "reviewer_text_probe_initial_failure":"Base-header substring offset incorrectly omitted do from docs; no artifact writes. Corrected prefix-removal reader passed. Original failed tool output retained.",
+    "backlog_dated_history_and_single_queue_cmp_exit":0,
+    "progress_lines1_through25_results_CODE_native_compiler_candidateQC_cmp_exit":0,
+    "progress_L13_L23_L52_L88_anchor_lines_cmp_exit":0,
+    "index_Wave034_and_later_historical_entries_cmp_exit":0,
+    "journal_existing_dated_history_lines14_through870_cmp_exit":0,
+    "progress_history_file_outside_scope_not_independently_reaudited":true,
+    "new_builder_note_dependency_resolves_in_paired_packet":true,
+    "new_scientific_IDs_tasks_grants_mandatory_gates_or_duplicate_queue":0,
+    "findings":0
+  },
+  "independent_readonly_helper":"/root/candidate_reachability_review/builder_path_review; returned no supported actionable findings; no writes or execution authorization",
+  "limitations":"No source-code, DB, SQL, project runtime/import/test/ML/model, native CLI, remote/PR, Git or goal-tool verification. Current source/plan and producer-only status supported by dated Root receipts, not fresh production or goal execution. Review does not install, approve execution or publish. Only assigned TMP report/pins/freeze written."
+}
