@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "UTC": "2026-10-16T18:23:30.331240+00:00",
+  "wave": 77,
+  "status": "QUALIFIED_SOURCE_RESEARCH_ADOPTED_NO_EXPERIMENT_ADMITTED",
+  "references": [
+    {
+      "path": "/tmp/tlab-wave077-shared-context-v1.json",
+      "sha256": "798f55d94700376d5ea8c3d125299790c65c8ecefc3a0a254cab405211fea0c0",
+      "bytes": 5462
+    },
+    {
+      "path": "/tmp/tlab-root-wave077-dispatch-v1.json",
+      "sha256": "d61d95199852507ea1cb977999e24161df85e560d7b8648a3d0fdad89e1f6b45",
+      "bytes": 1152
+    },
+    {
+      "path": "/tmp/tlab-root-wave077-three-FIRSTs-readback-v1.json",
+      "sha256": "6ce5073c49c6333689d9c046ab66626053fe6d459257c1cb5b4da6027e9059c0",
+      "bytes": 2575
+    },
+    {
+      "path": "/tmp/tlab-root-wave077-primary-manual-readback-v1.json",
+      "sha256": "6b6a9fe1f85b774ddc3460266299604024812c5f79806d5c353cef0e5d6e2eca",
+      "bytes": 3050
+    },
+    {
+      "path": "/tmp/tlab-wave077-entrypoint-a-FIRST.md",
+      "sha256": "01e2c9aede4309c34d63765b4dca4a4becc3c6be52fce2cc038192fd31642c05",
+      "bytes": 2899
+    },
+    {
+      "path": "/tmp/tlab-wave077-entrypoint-a-pins.json",
+      "sha256": "6e3527230f721d899ccfea6289efc36c015a85431191b50f882a2a2da2b8649d",
+      "bytes": 2209
+    },
+    {
+      "path": "/tmp/tlab-wave077-entrypoint-a-freeze.json",
+      "sha256": "e67c3b7861dc3074c9c82d428decc2cf949d69a246d8a25b93b2f9684070a913",
+      "bytes": 819
+    },
+    {
+      "path": "/tmp/tlab-wave077-estimand-b-FIRST.md",
+      "sha256": "0bfab7b344cd3abdc3bb7fbf38c0347f3377144651ab5e08944111e731717dbf",
+      "bytes": 2736
+    },
+    {
+      "path": "/tmp/tlab-wave077-estimand-b-pins.json",
+      "sha256": "b225448b2fa51f5d516e70fb1abb405f9242b0ef0c06f6e9d9e23141f36077cf",
+      "bytes": 2116
+    },
+    {
+      "path": "/tmp/tlab-wave077-estimand-b-freeze.json",
+      "sha256": "f59d10c6913242d4b41f87489489a9d3f3f44b2f27061797b0fb1ef81bf6cc5a",
+      "bytes": 860
+    },
+    {
+      "path": "/tmp/tlab-wave077-artifact-c-FIRST.md",
+      "sha256": "532f842cbd4df34d8be1ba4f452793b080b0fc1889cc0b5ae066638046b3f3eb",
+      "bytes": 2882
+    },
+    {
+      "path": "/tmp/tlab-wave077-artifact-c-pins.json",
+      "sha256": "afdecf6c0e02c7e4e2fbafe0e111ce5f361e46067a1f8749dfc621b0ae4583b5",
+      "bytes": 2661
+    },
+    {
+      "path": "/tmp/tlab-wave077-artifact-c-freeze.json",
+      "sha256": "6539acbf5e3847986588dd01be6ba6db728523c30358eb6827145dca975520b3",
+      "bytes": 525
+    },
+    {
+      "path": "/tmp/tlab-wave077-skeptic-v1.md",
+      "sha256": "636b8059d131a3f5149a4c2393292b3cbe6296ed3b9b4e1d3ac436722593d6cc",
+      "bytes": 3470
+    },
+    {
+      "path": "/tmp/tlab-wave077-skeptic-v1-pins.json",
+      "sha256": "5522876d405f921d878e614a91c9be427a714715879b63eb43e1b174df9d77b7",
+      "bytes": 5944
+    },
+    {
+      "path": "/tmp/tlab-wave077-skeptic-v1-freeze.json",
+      "sha256": "c2eccb640f757aaa2c5e4712d09b7a60cda7c7abc1eb824fe4735caa32e40d7b",
+      "bytes": 1020
+    }
+  ],
+  "independence": "ThreeNEW fork-none authors ownFIRSTs froze beforeNEWdistinctskeptic dispatch. Nopeerreads attested; independence not retrospectively proven from artifactbytes. Root fullyreadFIRSTs/skeptic and verified16safebindings.",
+  "counts": {
+    "NEW": 0,
+    "REFINE": 2,
+    "MERGE": 1,
+    "ADMIT": 0
+  },
+  "dispositions": [
+    {
+      "author": "A",
+      "status": "REFINE",
+      "existing": "adaptive/development-training support andTLAB014",
+      "mechanism": "Publicnormalentrypoint selectsperinvocation acrosswholetrainedceiling; frozenoldfixed300reproremainsintentional.",
+      "prediction": "Scriptedone-positive ranks3,2,3,1 =>cap3select2/cap4select4.",
+      "counter": "Alreadyimplemented; fakeordinaryCLIwitnessmustsatisfyexistinglineage/dtype/class/copy/parityguards, bypassingthemnotordinaryCLIproof. Scriptedtrajectorynotclaimtwoindependentnativefitsidenticalprefixes.",
+      "nearest_future_experiment": "Twofullseamfake-backendcap3/cap4syntheticpublicmaincases, proposedUNRUN/costUNKNOWN/unallocated.",
+      "benefit": "Avoidsilentwrongtrainingmode whenextendingmatchedstrongbaseline."
+    },
+    {
+      "author": "B",
+      "status": "REFINE",
+      "existing": "fullYglobalband adaptive support andTLAB014",
+      "mechanism": "RetainfullY-positive support includingemptyC/off-C; globalearliestwithinabsolute1e-12band.",
+      "prediction": "Fixedconditionalpredictions: zeroYadditioninvariant; swappingrank1/2queryA/Btiedinitially, addingunreachablepurchaseA makesBfavoringprefix2win. EmptyCpositive scalescurveandcanalterabsolutebandchoice.",
+      "counter": "Existingcodealreadyimplementsselector; metric/testbodiesunread, nomissingtest/bugclaim. Fixedpredictionconditionalpropertynotallquery/retraininginvariance; representedfloatsmustpreservetoyrelations.",
+      "nearest_future_experiment": "Smallfixed-CfullY/supportandthreeglobalbandvaluesoracle, proposedUNRUN/costUNKNOWN/unallocated.",
+      "benefit": "Preservefuturepurchasemetricdenominatorsandstabletiepolicy."
+    },
+    {
+      "author": "C",
+      "status": "MERGE",
+      "existing": "existingadaptive/development-training/model-choice support andTLAB014",
+      "mechanism": "Bindactualselectedensemble artifactdigest/k/features, notnominaliterations/nativebestiteration.",
+      "prediction": "HypotheticalN3k1selected(2,0),full(-1,3),samekwrong(0,2) distinguishedbycount/digest/nonemptyrawvector.",
+      "counter": "Existingproducerguards/authenticatedhistoricalconsumer mayalreadycoverthese; trustedexternaldigestbindingrequired. Finiteparitynotglobalequivalence; expectedretainediterations1200 isoldSOURCEcontractnotnewgenericruntimeobservation.",
+      "nearest_future_experiment": "Finitefull/substitutedselectedartifactconsumerwitness, proposedUNRUN/costUNKNOWN/unallocated.",
+      "benefit": "Carrycorrectadaptive-rankingfunctionintofuturepurchaseworkflow."
+    }
+  ],
+  "rejected_claims": "HistoricalhelperUNRUNgeneralization supersededbyacceptedflat8treehelper/selected1serializationtoyunderconsumedCLOSEDgrant; ordinaryCLI nativeE2EstillUNRUN. Rejectunsupportedcurrentdefect/newnoveltyID/newmandatorygate/qualityconfirmation/globaloptimum/early-training-saving/operationapproval.",
+  "cadence": {
+    "due_UTC": "2026-10-16T18:00:00Z",
+    "context_UTC": "2026-10-16T18:13:51.178430+00:00",
+    "dispatch_completed_upper_bound_UTC": "2026-10-16T18:14:43.470472+00:00",
+    "delay": "RealcoredependencySOURCEaudit/SOURCE076anchorinvestigationfirst; noreset, noindividualstartclaim.",
+    "next_due_UTC": "2026-10-16T18:45:00Z"
+  },
+  "authority": "No experiment/native/test/projectimport/data/SQL/model/newheldout/Git/canonical/networkmutation orgrant. Both priorhumanquestionsPENDINGunanswered; scienceCLOSED/remainderUNKNOWN, oldhelpergrantconsumed. Archive/TLAB014queue refinementonly; no newmain requirement."
+}

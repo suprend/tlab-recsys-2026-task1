@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "UTC": "2026-10-16T18:42:50.675131+00:00",
+  "status": "ACTUAL_ONE_NATIVE_CLI_ATTEMPT_FAILED_CLOSED_NO_RETRY",
+  "outer_actual": {
+    "first_tool_chunk": "c20bd2",
+    "session_id": 16922,
+    "final_tool_chunk": "cb814f",
+    "terminal": "CLOSED",
+    "exit_code": 1,
+    "original_invocations": 1
+  },
+  "child_actual": {
+    "returncode": 1,
+    "reaped": true,
+    "CPU_seconds": 23.271678,
+    "launch_to_reap_wall_seconds": 23.60912195799756,
+    "peak_RSS_bytes": 132513792
+  },
+  "parent_profile": {
+    "CPU_to_preJSON_seconds": 0.05601999999999999,
+    "wall_to_preJSON_seconds": 23.632445416005794,
+    "tail_excluded": true,
+    "known_postspawn_hard5": true
+  },
+  "budget": "Freshhumanone50CPU65wall attemptconsumedCLOSED regardlessunusednumericalallowance; no retry/residualborrow/extra nativechecks.",
+  "actual_CLI_report": {
+    "status": "failed",
+    "fit_attempt_count": 0,
+    "counter_semantics": "conservative helper attempt; failure may precede native fit",
+    "observations": {
+      "cpu_seconds": 22.112436,
+      "process_peak_rss_bytes": 131858432,
+      "wall_seconds": 22.183853499998804
+    },
+    "error_type": "ValueError",
+    "error": "Python write outside exclusive attempt"
+  },
+  "cause_observation": "Actualstack run169→environment_snapshot407→platform.platform→lazyprocessor→subprocess.check_output→os.open(devnull,O_RDWR)→workerwriteguardrejectbeforePopen. This is metadata/harness policy incompatibility beforePrepared/constructor/fit, notmodelqualityfailure.",
+  "fit_evidence": "CLI conservative fit-attemptcounter0 persists. Worker actualforward/nativeobservercountersnull/lost; sourceorderalso shows no intendedCLI fit reached. Do notpretendobservednativecounter0.",
+  "secondary_limit": "CLIreportCPU22.112436 exceeds its20cooperativelimit andworker22 threshold; actualprimary remainswriteguardValueError, notCPUkill/timeout. SeparateSOURCEdiagnosischeckinglostworker-failedreceipt; noadequacy/greenfixclaim.",
+  "immutable_inputs_actual_SHA_bytes_modes": 120,
+  "partial_outputs": [
+    {
+      "path": "cli/report.json",
+      "sha256": "3667780e9e5a0e98b8679e5da9db9eb56d65d587dea91740f054cd41061c6c44",
+      "bytes": 595
+    },
+    {
+      "path": "worker-consumed.json",
+      "sha256": "0207e67504cc18d38daa6354ed63027404cc91caaaefbda7e072beee5e770d89",
+      "bytes": 154
+    }
+  ],
+  "success_outputs": "NoPreparedPool/independentprefix/recipe/CBM/NPZ/workerresult; fullroute/selection/serializationNOT_VERIFIED. No callbackabort/qualityclaim.",
+  "control_refs_metadata_only": [
+    {
+      "path": "/tmp/tlab-native-cli-tiny-native-e2e-execution-20261016-once/attempt-consumed.json",
+      "sha256": "1fb6062a3ed37494700d88af355e875f07a00c2ad5277e4b03635d1948f959c5",
+      "bytes": 460,
+      "file_mode": "0600",
+      "body_Git_excluded": true
+    },
+    {
+      "path": "/tmp/tlab-native-cli-tiny-native-e2e-execution-20261016-once/child-entry-consumed.json",
+      "sha256": "185118551dab5a4759976a8678f17a9c009c426c054f14741b55e83837908090",
+      "bytes": 218,
+      "file_mode": "0600",
+      "body_Git_excluded": true
+    },
+    {
+      "path": "/tmp/tlab-native-cli-tiny-native-e2e-execution-20261016-once/child-result.json",
+      "sha256": "b144bbc5fe356afaa416c1fb34d5f067c20e0cc46fa24c8cf63557f916437404",
+      "bytes": 784,
+      "file_mode": "0600",
+      "body_Git_excluded": true
+    },
+    {
+      "path": "/tmp/tlab-native-cli-tiny-native-e2e-execution-20261016-once/child-stderr.txt",
+      "sha256": "4e6c86fc9f6834f31338da19124c2a01e1d6fcc11dcd0b9dd7b179c44fc44664",
+      "bytes": 4493,
+      "file_mode": "0600",
+      "body_Git_excluded": true
+    },
+    {
+      "path": "/tmp/tlab-native-cli-tiny-native-e2e-execution-20261016-once/child-stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "file_mode": "0600",
+      "body_Git_excluded": true
+    },
+    {
+      "path": "/tmp/tlab-native-cli-tiny-native-e2e-execution-20261016-once/parent-result.json",
+      "sha256": "1ef9aee9a1cded75382ea7309d270d869e5ded33a7deded03b463b296a028434",
+      "bytes": 1388,
+      "file_mode": "0600",
+      "body_Git_excluded": true
+    }
+  ],
+  "followup": "TwoindependentSOURCEdiagnosis/remediationagents active, no application/nativeexecution. Exact476publicationseparatelyhumanapproved/solewriteractive. Frozenfailednamespacepreserved.",
+  "publication_exclusions": "No rawhumanreply/grant/runner/worker/controlbodies/models/data copied toGit bythisreceipt; safeaggregatemetadata only iflaterreviewed."
+}

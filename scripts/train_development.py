@@ -166,7 +166,7 @@ def run(args):
         require(train_collection['feature_columns'] == validation_collection['feature_columns'],
                 'Train and validation feature schemas differ')
         pins = input_pins(b, train_collection, validation_collection, check)
-        report['environment'] = b.environment_snapshot()
+        report['environment'] = b.environment_snapshot(platform_format='kernel')
         check()
         train = b.prepare_dataset(train_collection, max_queries=args.train_query_cap,
                                   max_rows=args.max_matrix_rows, check=check)

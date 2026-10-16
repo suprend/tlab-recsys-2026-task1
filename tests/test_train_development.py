@@ -148,7 +148,12 @@ class DevelopmentCLI(unittest.TestCase):
             self.preparations.append((collection['phase']['role'], max_queries, max_rows))
             return self.train if collection['phase']['role'] == 'train' else self.validation
         b.verify_collection, b.prepare_dataset = verify, prepare
-        b.environment_snapshot = lambda: dict(backend='fake ML; actual NumPy', numpy=np.__version__)
+        self.environment_formats = []
+        def environment(*, platform_format):
+            self.assertEqual(platform_format, 'kernel')
+            self.environment_formats.append(platform_format)
+            return dict(backend='fake ML; actual NumPy', numpy=np.__version__)
+        b.environment_snapshot = environment
         selector = ModuleType('scripts.adaptive_tree_selection')
         def select(model, validation, *, maximum, check):
             self.assertIs(validation, self.validation)
@@ -201,6 +206,7 @@ class DevelopmentCLI(unittest.TestCase):
         self.assertEqual((first['selected_trees'], second['selected_trees']), (2, 4))
         self.assertEqual((first['trained_ceiling'], second['trained_ceiling']), (5, 5))
         self.assertEqual(len(self.helper_calls), 2)
+        self.assertEqual(self.environment_formats, ['kernel', 'kernel'])
         self.assertEqual(FakeClassifier.counts, dict(fit=2, shrink=2, save=4, load=2, predict=6))
         for name, best in (('first', 2), ('second', 4)):
             out = self.root/name

@@ -1,0 +1,24 @@
+{
+  "author": "author077A",
+  "wave": 77,
+  "scope": "metadata only; bounded read-only public source reasoning",
+  "shared_context_sha256": "798f55d94700376d5ea8c3d125299790c65c8ecefc3a0a254cab405211fea0c0",
+  "source_pins": [
+    {"path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md", "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34", "read_scope": "full skill instructions"},
+    {"path": "/tmp/tlab-wave077-shared-context-v1.json", "sha256": "798f55d94700376d5ea8c3d125299790c65c8ecefc3a0a254cab405211fea0c0", "read_scope": "full shared JSON; expected SHA matched"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py", "sha256": "f4d19483532318b25c2adb51734ec347e772d3441edca944c5c91ce791cacde9", "read_scope": "keyword scan whole source; displayed lines 1-90,130-246; hash whole file"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py", "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9", "read_scope": "keyword scan whole source; displayed lines 1-91 (complete 91-line file); hash whole file"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py", "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a", "read_scope": "keyword scan whole source; displayed lines 350-395,575-596 (EOF); hash whole file"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/development-training-support-code-acceptance.md", "sha256": "63450fdd4f76e7a01f5d5fb4e6a09e341b17a83ab3540b4e97b2b4e2ebe77d07", "read_scope": "displayed lines 1-48 complete note; hash whole file"}
+  ],
+  "unread_permitted_sources": ["adaptive_tree_selection.py", "strong_baseline.py", "model-choice-consumer-independent-review.md", "development-training-native-test.md"],
+  "peer077_outputs_read_before_freeze": false,
+  "native_or_project_imports": 0,
+  "execution_or_tests": 0,
+  "data_or_cachebody_reads": 0,
+  "network_access": 0,
+  "failures": [],
+  "budget": "UNKNOWN/unallocated",
+  "human_questions": "nativeCLI and exact476 publication remain pending unanswered",
+  "authority": "assigned TMP outputs only; no grants/new gate"
+}

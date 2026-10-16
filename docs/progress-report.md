@@ -1,5 +1,30 @@
 # Автоматизация признаков для ранжирования покупок
 
+## Результат и остающаяся работа — SOURCE-срез 2026-10-16 20:11:51 UTC
+
+Работает воспроизводимый конвейер автоматизации признаков; полный повтор с новым окружением на Mac выполнен. Финальный NDCG B = 0.459825, W = 0.464947; 95% CI разницы пересекает ноль, поэтому надёжный выигрыш не установлен. Адаптивное число деревьев исследовано на reused validation, а не новом независимом holdout.
+
+Исправление метаданных принято по SOURCE и CODE: 12 методов основного прогона плюс один переносимый stdlib-тест, все обязательные terminal guards PASS. Это synthetic doubles с настоящим NumPy, без native ML/данных и без доказательства lock parity. Исправленная версия ещё не установлена; её native E2E и callback-abort UNRUN. Старый native attempt FAILED до Prepared/fit, одно разрешение 50 CPU / 65 wall consumed/CLOSED; остаток не переиспользуется. Старые native worker pins нельзя переносить на изменённый CLI.
+
+Exact476 опубликован, draft PR №1 обновлён и принят; оба прежних человеческих вопроса разрешены. Новый LOCAL41 — только подготовленный план, фактическое согласие на установку ещё не получено. Позднейшие локальные коммиты и этот пакет не разрешены к push. Сохранённая исходная точка cadence — 20:15 UTC / 23:15 МСК; более поздний dispatch этим срезом не проверялся, сетка 45 минут не сброшена.
+
+В проекте принято 14 из 19 задач; четыре optional эксперимента отложены. [Один сводный отчёт](research-lab/round079-engineering-checkpoint.md) сохраняет 078/079 и CODE-review: новых обязательных пробелов Task1, IDs или научных сравнений не добавлено. Исторические pipeline/QYC/F/verifier/helper результаты и frozen experimental report не расширяются. Science CLOSED, remainder UNKNOWN; наблюдавшийся BLOCKED goal metadata не изменён.
+
+## Исторический SOURCE-срез 18:55:57 UTC — весь прежний candidate body сохранён
+
+
+## Результат и оставшаяся работа — 2026-10-16 18:55:57 UTC
+
+**Exact476 опубликован, draft PR №1 обновлён и принят Root.** [Проверка публикации](backlog-reviews/evidence/publication-476/originals/tlab-root-publication-476dfd6-final-actual-acceptance-v1.json) подтверждает PRIVATE/OPEN+DRAFT/head476/точные title и body. Более поздний локальный36dbe78 и этот077 пакет не опубликованы; publication grant fulfilled, будущий push не разрешён.
+
+**Обычный native CLI: ATTEMPTED_FAILED до Prepared/fit.** [Actual failure](backlog-reviews/evidence/native-cli-tiny-failure/originals/tlab-root-native-cli-tiny-native-e2e-actual-failure-v1.json): platform.platform()→lazy subprocess→devnull O_RDWR отклонён write guard. CLI counter fit_attempt_count=0; сохранённого native-observer counter нет. Child exit1/reaped,CPU23.271678s/wall23.609122s, не timeout. Новый one-attempt50CPU/65wall grant consumed/CLOSED; callback-abort UNRUN. TMP metadata-compatibility fix готовится отдельно, ещё не установлен/не native-verified; legacy metadata format глобально не заменён. Оба human вопроса разрешены, нового budget вопроса pending нет.
+
+Воспроизводимый конвейер событийных признаков и полный frozen-study повтор на Mac приняты ранее. Final26–31 NDCG **B0.459825/W0.464947**, paired-user95% CI разницы [−0.01043;0.01856] пересекает0: надёжный выигрыш не установлен. Adaptive B1189/W403 после full1200/reused22–23/73positiveQ/2400dependent checks остаётся post-final exploratory; [научный отчёт](experimental-report.md) неизменен. Старый flat8 helper toy PASS и его consumed grant не равны successful CLI E2E.
+
+**14 из19 принято**,014 continuous, четыре optional010–013 deferred. [077](research-lab/brainstorm-wave077-synthesis.md) NEW0/REFINE2/MERGE1/ADMIT0; будущие toys UNRUN/costUNKNOWN. LOCAL37 accepted/full3106/subset1060; actual QYC/F/verifier PASS, native attempt не дал Prepared/model. Science/old native grants CLOSED/remainderUNKNOWN. V1 pending18:36:48 был stale-context, хотя Root знал assent18:35; raw history сохранена. Due07818:45 delayed по реальным operations/failure/compatfix, next original19:30UTC/22:30МСК. Deadline25Oct23:59TZunknown/observedBLOCKEDgoal/один owner неизменны. Этот V2 — TMP SOURCE-only.
+
+## Исторический срез17:52:56 UTC — весь прежний текст сохранён побайтно
+
 ## Результат и оставшаяся работа — 2026-10-16 17:52:56 UTC
 
 Воспроизводимый конвейер автоматического расчёта событийных признаков работает; полный повтор эксперимента выполнен на Mac. На final26–31 NDCG равен **B 0.459825 / W 0.464947**. 95% paired-user CI разницы [−0.01043; 0.01856] пересекает 0, поэтому надёжный выигрыш не установлен. [Научный отчёт](experimental-report.md) сохраняет исходные границы.

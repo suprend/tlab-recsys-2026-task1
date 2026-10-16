@@ -1,5 +1,28 @@
 # Журнал новых исследовательских идей
 
+## Датированный engineering checkpoint — 2026-10-16 20:11:51 UTC
+
+[Сводный отчёт 078–079 и metadata-fix](round079-engineering-checkpoint.md): 078 — три независимых FIRST, затем отдельный скептик, NEW 0 / REFINE 2 / MERGE 1 / ADMIT 0; 079 — два независимых FIRST, затем новый скептик, NEW 0 / REFINE 2 / ADMIT 0. Сохранены raw тексты и Root-квалификации. 078 oracles UNRUN/cost UNKNOWN; 079 не нашла дополнительного обязательного пробела принятого Task1 и не означает сдачу/оценку/goal completion.
+
+Исправление метаданных принято по SOURCE и CODE: 12 методов основного прогона плюс один переносимый stdlib-тест, все обязательные terminal guards PASS. Это synthetic doubles с настоящим NumPy, без native ML/данных и без доказательства lock parity. Исправленная версия ещё не установлена; её native E2E и callback-abort UNRUN. Старый native attempt FAILED до Prepared/fit, одно разрешение 50 CPU / 65 wall consumed/CLOSED; остаток не переиспользуется. Старые native worker pins нельзя переносить на изменённый CLI.
+
+Exact476 опубликован, draft PR №1 обновлён и принят; оба прежних человеческих вопроса разрешены. Новый LOCAL41 — только подготовленный план, фактическое согласие на установку ещё не получено. Позднейшие локальные коммиты и этот пакет не разрешены к push. Сохранённая исходная точка cadence — 20:15 UTC / 23:15 МСК; более поздний dispatch этим срезом не проверялся, сетка 45 минут не сброшена.
+
+14/19 и исходная очередь неизменны: 014 continuous, 010–013 optional/deferred. Каждый новый платный шаг требует своего reviewed конечного CPU/wall/memory/I/O/label/fit/API/fail-closed предела; hypotheses не prerequisites 015/018, fixed B/W и reserved 25–31 не меняются. Польза оценивается покрытием основ, проверяемым выводом и реальным исправлением, не количеством агентов/отчётов. Deadline 25 Oct 23:59 timezone UNKNOWN, science CLOSED/remainder UNKNOWN и один canonical owner сохранены.
+
+## Исторический SOURCE-срез 18:55:57 UTC — весь прежний candidate body сохранён
+
+
+## Новый датированный checkpoint — 2026-10-16 18:55:57 UTC
+
+[077](brainstorm-wave077-synthesis.md), [оригиналы/source-map](archives/wave077/publication.json): NEW0/REFINE2/MERGE1/ADMIT0,3 independent fork-none FIRST затем новый distinctskeptic. A normal entrypoint cap3/4 oracle и B fullY/support/absoluteglobalband refine existing support; C MERGE existing artifact consumer. Futuretoys UNRUN/costUNKNOWN/no newID/gate/grant; rawFIRST сохранены, stale helper-UNRUN qualified later accepted flat8 helper toy.
+
+[Exact476 publication](../backlog-reviews/evidence/publication-476/originals/tlab-root-publication-476dfd6-final-actual-acceptance-v1.json) fulfilled/Rootaccepted, PRIVATE draftPR1/head476/exactbody; laterlocal36d/077 не опубликованы. [Native attempt](../backlog-reviews/evidence/native-cli-tiny-failure/originals/tlab-root-native-cli-tiny-native-e2e-actual-failure-v1.json) ATTEMPTED_FAILED до Prepared/fit по platform metadata/devnull write guard; CLIcounter0, nativeobserver unavailable. Child exit1/reaped23.271678CPU/23.609122wall, не timeout; one50CPU/65wall grant consumed/CLOSED, callback-abort UNRUN. Два independent SOURCE diagnosis/remediation — operational audit, не researchwave078; TMP compatibility fix отдельно, не installed/nativeverified/global kernel default. Оба human вопроса RESOLVED, нового budget вопроса pending нет.
+
+V1 pending-prefix18:36:48 stale-context: Root знал actualhumanassent18:35, не объявлять V1 pre-assent. V1/rawfreeze сохранены.077due18:00→context18:13:51.178430→dispatchupper18:14:43.470472 остаётся historical, individualstartsUNKNOWN.078due18:45 delayed approvedoperations/failure/compatfix; next original19:30UTC/22:30МСК без reset.14/19/014continuous/010–013optionaldeferred/fixedB/W/reserved25–31/report неизменны; science/oldgrantsCLOSED/remainderUNKNOWN, observedBLOCKEDgoal. Каждая новая платная операция требует reviewed finite CPU/wall/memory/I/O/label/fit/API/failclosed bounds; hypotheses не prerequisites015/018. Польза — основы/проверяемыйвывод/реальноеисправление; один canonical owner. V2 SOURCE-only.
+
+## Исторический срез17:52:56 UTC — весь прежний текст сохранён побайтно
+
 ## Новый датированный checkpoint — 2026-10-16 17:52:56 UTC
 
 [076](brainstorm-wave076-synthesis.md), [оригиналы и source-map](archives/wave076/publication.json): NEW0/REFINE3/ADMIT0. Три независимых fork-none FIRST17:17:59/17:18:21/17:18:51, затем новый отдельный скептик17:24:05 и Root adoption17:25:22. Общие paper+README — две primary pages, не три corroborations. Retrospective compatible supplied vectors допустимы при UNKNOWN fit clocks; declared identity rejection не выявляет hidden rotation. Click availability UNKNOWN и cross-session person link лишь synthetic; pooled zero-vector cosine MISSING при near-count1/0. Valid/total, actual bag/duplicates, ms availability и query-context-at-T требуют явных contracts. All future witnesses UNRUN/cost UNKNOWN; no IDs/tasks/gates/grants.

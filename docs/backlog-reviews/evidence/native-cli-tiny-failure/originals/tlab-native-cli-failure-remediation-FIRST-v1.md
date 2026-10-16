@@ -1,0 +1,13 @@
+# Independent FIRST: source-only remediation
+
+Status: proposal, unimplemented and unverified; no peer diagnosis/remediation read.
+
+Observed: [stderr](/tmp/tlab-native-cli-tiny-native-e2e-execution-20261016-once/child-stderr.txt) reaches `environment_snapshot → platform.platform → lazy processor → check_output → devnull O_RDWR`, rejected by the worker's outside-attempt write guard. Even allowing `/dev/null` would encounter the separate process ban. [CLI order](/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py:169) places this before preparation, model construction, fit and selection. This establishes harness compatibility failure, not model/selector failure. Parent evidence records child reaping, 23.271678 CPU and 23.609122 wall seconds; it does not allocate another attempt.
+
+Minimal public-source candidate: replace only [helper platform formatting](/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py:395) with a documented string from direct `os.uname()` attributes `sysname/release/machine`; use `sys.platform` when that API is absent. Avoid `platform` entirely. Preserve `python/platform/loaded_packages` keys and types, loaded/installed/lock equality checks, and errors. This preserves structural contracts, not exact `platform.platform()` text: kernel identity differs from macOS marketing/version formatting. Check downstream text assumptions before adoption.
+
+Prediction: that metadata path performs no command launch or writable devnull open, without cache history. Counterevidence would be either event from the revised path, a changed dependency check, or an unsupported consumer requiring the old string. Do not prime stdlib caches, monkeypatch the production helper, weaken audit, or silently permit subprocesses. A harness-only exception is not presently justified: an external command adds executable provenance and descendant accounting obligations; unchanged one-fit limits alone do not establish those guarantees.
+
+Future minimal metadata oracle: isolated helper tests with dependency doubles, cold-cache hostile process/write hooks, deterministic uname and unavailable-uname cases; verify exact schema, lock-mismatch rejection and zero forbidden events. No native import, fit or scientific rerun is needed for that contract check; no test was run here.
+
+Old frozen sources/receipts stay immutable. The helper is source-pinned by both training paths; a new revision requires explicit new provenance/inventory, never rewritten old approvals. Full CLI success remains unknown. Future execution budget: UNKNOWN/unallocated; no retry, grant, or additional scientific gate requested. Private harness bodies are excluded from Git.

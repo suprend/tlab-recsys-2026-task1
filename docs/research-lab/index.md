@@ -1,5 +1,28 @@
 # Постоянная research-линия
 
+## Актуальный SOURCE-срез — 2026-10-16 20:11:51 UTC
+
+[078–079: сводный checkpoint и исправление метаданных](round079-engineering-checkpoint.md) содержит полный безопасный FIRST/скептический/review материал и compact pins. Исходный Task1 pipeline/Mac reproduction принят; надёжный quality gain не установлен. В проекте принято 14 из 19 задач, 014 continuous и 010–013 optional/deferred; новых IDs/gates/grants нет.
+
+Исправление метаданных принято по SOURCE и CODE: 12 методов основного прогона плюс один переносимый stdlib-тест, все обязательные terminal guards PASS. Это synthetic doubles с настоящим NumPy, без native ML/данных и без доказательства lock parity. Исправленная версия ещё не установлена; её native E2E и callback-abort UNRUN. Старый native attempt FAILED до Prepared/fit, одно разрешение 50 CPU / 65 wall consumed/CLOSED; остаток не переиспользуется. Старые native worker pins нельзя переносить на изменённый CLI.
+
+Exact476 опубликован, draft PR №1 обновлён и принят; оба прежних человеческих вопроса разрешены. Новый LOCAL41 — только подготовленный план, фактическое согласие на установку ещё не получено. Позднейшие локальные коммиты и этот пакет не разрешены к push. Сохранённая исходная точка cadence — 20:15 UTC / 23:15 МСК; более поздний dispatch этим срезом не проверялся, сетка 45 минут не сброшена.
+
+Этот отчёт и current overlays входят в будущий LOCAL41 только при его разрешённой установке; отдельные raw-archive пути для 078/079 не обещаются. Полные прежние записи и source cutoffs сохранены ниже.
+
+## Исторический SOURCE-срез 18:55:57 UTC — весь прежний candidate body сохранён
+
+
+## Актуальный датированный срез — 2026-10-16 18:55:57 UTC
+
+**14 из19 принято;014 continuous,010–013 optional/deferred.** [Exact476 publication fulfilled](../backlog-reviews/evidence/publication-476/originals/tlab-root-publication-476dfd6-final-actual-acceptance-v1.json), Root confirmed PRIVATE/OPEN draftPR1/head476/exacttitlebody. Local36d/077 не опубликованы; будущий push вне разрешения.
+
+[Ordinary native CLI attempt](../backlog-reviews/evidence/native-cli-tiny-failure/originals/tlab-root-native-cli-tiny-native-e2e-actual-failure-v1.json) ATTEMPTED_FAILED до Prepared/fit, metadata lazy-subprocess/devnull write guard. CLIcounter0, persisted native observer unavailable; child23.271678CPU/23.609122wall/exit1/reaped, не timeout. New50CPU/65wall consumed/CLOSED, callback-abort UNRUN. TMP compatibility fix preparing separately; не installed/native-verified, без global legacy-format replacement. Оба human вопроса resolved; pending budget question нет.
+
+[077 synthesis](brainstorm-wave077-synthesis.md), [exact originals/source-map](archives/wave077/publication.json): NEW0/REFINE2/MERGE1/ADMIT0, future witnesses UNRUN/costUNKNOWN. Historical helper-UNRUN qualified accepted flat8 toy; current native attempt не quality result. Mac/finalCIcross0/adaptive1189/403/LOCAL37 full3106 subset1060/QYC/F/verifier scope неизменен. V1 pending18:36:48 stale-context preserved, не pre-assent claim (Root knew18:35). Due07818:45 delayed realoperations/failure/compatfix, operational twoauthors не wave078; next original19:30UTC/22:30МСК/45minute grid/deadline25Oct23:59TZunknown/observedBLOCKEDgoal/один coordinator unchanged. V2 SOURCE-only.
+
+## Исторический срез17:52:56 UTC — весь прежний текст сохранён побайтно
+
 ## Актуальный датированный срез — 2026-10-16 17:52:56 UTC
 
 **14 из19 принято;014 continuous,010–013 optional/deferred.** [075 actual local acceptance](archives/wave076/context/tlab-root-wave075-LOCAL-actual-acceptance-v1.json) подтверждает5097317/fulltree3073/subset1027/CLEAN. Mac reproducibility/fixed300 finalCIcross0 и exploratory adaptive1189/403 приняты в прежнем scope; ordinary native CLI E2E/callback-abort UNRUN, helper toy allowance consumed/CLOSED.

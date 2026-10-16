@@ -392,7 +392,12 @@ def fit_smoke_model(data, method, config, *, check=lambda: None):
     return model, summary
 
 
-def environment_snapshot():
+def environment_snapshot(*, platform_format='legacy'):
+    """Verify locked dependencies and report Python/platform metadata.
+
+    Legacy preserves platform.platform() text. Kernel uses only os.uname()
+    sysname/release/machine, or sys.platform when that API is absent.
+    """
     import platform
     import sys
     import tomllib
@@ -404,7 +409,18 @@ def environment_snapshot():
         locked = [p['version'] for p in packages if p['name'] == name]
         if locked != [value] or version(name) != value:
             raise ValueError('Loaded/installed dependency differs from lock: ' + name)
-    return dict(python=sys.version, platform=platform.platform(), loaded_packages=actual)
+    if platform_format == 'legacy':
+        host = platform.platform()
+    elif platform_format == 'kernel':
+        import os
+        if hasattr(os, 'uname'):
+            uname = os.uname()
+            host = f'{uname.sysname}-{uname.release}-{uname.machine}'
+        else:
+            host = sys.platform
+    else:
+        raise ValueError('Unknown environment platform format: ' + str(platform_format))
+    return dict(python=sys.version, platform=host, loaded_packages=actual)
 
 
 def _config_snapshot(path):

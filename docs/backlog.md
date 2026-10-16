@@ -1,5 +1,26 @@
 # Единый рабочий backlog T-Lab
 
+## Текущий SOURCE-срез — 2026-10-16 20:11:51 UTC
+
+В проекте принято 14 из 19 задач. TLAB-014 продолжается; TLAB-010–013 остаются optional/deferred, TLAB-015/018 приняты в прежнем scope. [Сводный checkpoint 078–079 и CODE-исправления](research-lab/round079-engineering-checkpoint.md) сохраняет точные тексты и ограничения: NEW 0, новых задач/gates/grants нет; будущие исследовательские свидетели UNRUN и cost UNKNOWN.
+
+Исправление метаданных принято по SOURCE и CODE: 12 методов основного прогона плюс один переносимый stdlib-тест, все обязательные terminal guards PASS. Это synthetic doubles с настоящим NumPy, без native ML/данных и без доказательства lock parity. Исправленная версия ещё не установлена; её native E2E и callback-abort UNRUN. Старый native attempt FAILED до Prepared/fit, одно разрешение 50 CPU / 65 wall consumed/CLOSED; остаток не переиспользуется. Старые native worker pins нельзя переносить на изменённый CLI.
+
+Exact476 опубликован, draft PR №1 обновлён и принят; оба прежних человеческих вопроса разрешены. Новый LOCAL41 — только подготовленный план, фактическое согласие на установку ещё не получено. Позднейшие локальные коммиты и этот пакет не разрешены к push. Сохранённая исходная точка cadence — 20:15 UTC / 23:15 МСК; более поздний dispatch этим срезом не проверялся, сетка 45 минут не сброшена.
+
+## Исторический SOURCE-срез 18:55:57 UTC — весь прежний candidate body сохранён
+
+
+## Текущий датированный срез — 2026-10-16 18:55:57 UTC
+
+**14 из19 принято;014 continuous,010–013 optional/deferred.** [Exact476 publication](backlog-reviews/evidence/publication-476/originals/tlab-root-publication-476dfd6-final-actual-acceptance-v1.json) fulfilled/Root-accepted: PRIVATE draftPR1/head476, точные title/body; local36d/077 не опубликованы, будущая публикация не разрешена.
+
+[Новый native CLI attempt](backlog-reviews/evidence/native-cli-tiny-failure/originals/tlab-root-native-cli-tiny-native-e2e-actual-failure-v1.json) ATTEMPTED_FAILED до Prepared/fit: platform metadata lazy subprocess/devnull write-guard ValueError. CLIcounter0; persisted native observer unavailable. Child23.271678CPU/23.609122wall/exit1/reaped, не timeout.50CPU/65wall one-attempt consumed/CLOSED, callback-abort UNRUN; TMP native-free compatibility fix отдельно, не installed/native verified. Legacy metadata format глобально не изменён. Оба human вопроса разрешены; новый budget вопрос не pending.
+
+[077](research-lab/brainstorm-wave077-synthesis.md) NEW0/REFINE2/MERGE1/ADMIT0: A/B refine adaptive entrypoint/fullY/globalband, C merge existing artifact consumer; futuretoys UNRUN/costUNKNOWN/no newID/gate/grant. Raw FIRST helper-UNRUN historical, later flat8 helper toy accepted. LOCAL37 accepted/full3106/subset1060, QYC/F/verifier accepted; original fixed300CIcross0/adaptive1189/403/report/scienceclosed scope неизменен. V1 pending18:36:48 stale despite Root assent18:35, сохранён как diagnosis history. Due07818:45 delayed actualoperations/failure/compatfix; next original19:30UTC/22:30МСК,45minute grid/deadline25Oct23:59TZunknown/observedBLOCKEDgoal/один owner без reset. V2 archive/overlay SOURCE-only.
+
+## Исторический срез17:52:56 UTC — весь прежний текст сохранён побайтно
+
 ## Текущий датированный срез — 2026-10-16 17:52:56 UTC
 
 **Принято14 из19 задач;014 continuous,010–013 optional/deferred.** [LOCAL075](research-lab/archives/wave076/context/tlab-root-wave075-LOCAL-actual-acceptance-v1.json) принят:5097317/full3073/reviewed subset1027, exact28=24A4M и3045 old entries unchanged. Это локальный архив, не native execution или external publication. [Native guide](experiments/development-training-native-test.md) сохраняет accepted helper toy body под consumed allowance; обычный native CLI E2E/callback-abort UNRUN.
