@@ -1,0 +1,332 @@
+{
+  "wave": 68,
+  "role": "blind_transfer_author_a",
+  "created_UTC": "2026-10-16T11:27:20Z",
+  "original_scheduled_UTC": "2026-10-16T11:15:00Z",
+  "next_original_grid_UTC": "2026-10-16T12:00:00Z",
+  "shared_context": {
+    "path": "/tmp/tlab-wave068-shared-context-v1.json",
+    "sha256": "8a5be46e2788829f1a34a24cf07772c5a7bd6e35b814de572ee16a0b5765d9e0",
+    "verification": "MATCH"
+  },
+  "snapshot_verification": {
+    "count": 22,
+    "matches": 22,
+    "mismatches": 0,
+    "UTC": "2026-10-16T11:25:06Z",
+    "read_scope": "All22 files read by SHA256 byte hashing. Content: full task/data/design/acceptance JSON; relevant source/document searches and selected excerpts elsewhere; clipped tool outputs do not constitute full-content review."
+  },
+  "source_pins": [
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/0-task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "bytes": 3638
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/data.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/1-data.md",
+      "sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "bytes": 6378
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/2-experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "bytes": 46054
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/6-train_development.py",
+      "sha256": "f4d19483532318b25c2adb51734ec347e772d3441edca944c5c91ce791cacde9",
+      "bytes": 12640
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/7-development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/8-development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/9-train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "bytes": 35022
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/10-source_import.py",
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+      "bytes": 14444
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/11-anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/12-candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "bytes": 18557
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/13-manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/14-feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/15-protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/16-temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/17-clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/0-backlog.md",
+      "sha256": "e862b72ff34ac5c323bca5a5109e73a5d8c7f54f910a9f146558d7dc029cb152",
+      "bytes": 194060
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/1-index.md",
+      "sha256": "4faae2b5a4eedb1e789157855710c3ccba3d2bcba1669ffe8f8d66b923fbb006",
+      "bytes": 34057
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/2-progress-report.md",
+      "sha256": "32373926f2cc08bc86f248ea92c6d2891d608d487b48c77236c7a7c20dfbb550",
+      "bytes": 17243
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/3-README.md",
+      "sha256": "8f7f07dfcfa458d6d0b2d64d9d1b712b26f9a4590e03f57289fed40f3ee5384e",
+      "bytes": 21405
+    },
+    {
+      "original": "/tmp/tlab-root-integrated-local-checkpoint-final-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/4-tlab-root-integrated-local-checkpoint-final-actual-acceptance-v1.json",
+      "sha256": "348f39621fc372265427000cf6327c628339f16c8dfdd48cf43c3b604c5190b4",
+      "bytes": 1378
+    },
+    {
+      "original": "/tmp/tlab-root-wave067-research-readback-v1.json",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/5-tlab-root-wave067-research-readback-v1.json",
+      "sha256": "8602e173e5d3a1279dbbcb8805bb4ca904dd5a15981719b8bc67857afac3b320",
+      "bytes": 1769
+    },
+    {
+      "original": "/tmp/tlab-native-cli-tiny-design-v1/design.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/6-design.md",
+      "sha256": "69277952685e113a14ea8db52f2b852d1b17f6b9c9cc23381948d420dae2fa73",
+      "bytes": 3269
+    }
+  ],
+  "prior_dedup_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ra004.md",
+      "sha256": "3c199e03ce8c373f2a14faaa15c900f41177cc2cd0d71559b692968564a913ee"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-mb004.md",
+      "sha256": "322f3d1031d5cb1e2c85fb6e7f32fd16224749acd84d392670ba7f9244952112"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave004-amazon-primary-review.md",
+      "sha256": "040661039462b25e7b111c9aa221f2fc84da5971b3b948e08a172b8ddd7a1964"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave004-skeptic-review.md",
+      "sha256": "b4457b71c55bd90810ad7514a98ada5ffb068931376842237df417e4863755e7"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave047/tlab-brainstorm-dataset-transfer-retrieval-a-wave047.md",
+      "sha256": "8cb1e23c273b718693c566c0ef186e7c77636d1c2f408bb6aaf1a475e209b3b7"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave047/tlab-brainstorm-dataset-transfer-features-b-wave047.md",
+      "sha256": "af9e6be524872181dd62131a008fb787232040708145def09b6575a9bf4bec3b"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave063/tlab-wave063-transfer-c-FIRST.md",
+      "sha256": "eafd1804d291067bf124a6041ad394983649ceffa24ad7632dff34238fc37530"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-004.md",
+      "sha256": "8f085fc35eae11951d1bc6a8909784ab1d2de62ac1756849c65778b8c1d1cb6e"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-052.md",
+      "sha256": "f48d4868109ae81034fcd38d380b00e44a6cc0958ede9cd6bf50e0c0b75d6ba5"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/transfer-adapter-conformance.md",
+      "sha256": "e4acafde25405e6aee63ec1357916f7071a4ae6adee74736bd5e3ae214bbcdea"
+    }
+  ],
+  "dedup_search": {
+    "scope": "Frozen backlog/index; historical research-lab and backlog-review Markdown only",
+    "exact_query": "instacart|relative.clock|relative time|capped at 30|calendar alignment|calendar anchor",
+    "Instacart_hits": 0,
+    "other_hit": "wave055 RelGT relative-time encoding is a different mechanism",
+    "conclusion": "New source-specific identifiability witness; existing capability-rejection mechanism. No new scientific ID."
+  },
+  "primary_sources": [
+    {
+      "id": "S1",
+      "url": "https://tech.instacart.com/3-million-instacart-orders-open-sourced-d40d29ead6f2",
+      "title": "3 Million Instacart Orders, Open Sourced",
+      "publisher": "Instacart Engineering",
+      "author": "Jeremy Stanley",
+      "publication_date": "2017-05-03",
+      "access_date_UTC": "2026-10-16",
+      "read_scope": "Publisher post main text, especially lines59–60,74–108; linked corpus/download and separate terms not opened.",
+      "source_content_sha256": null,
+      "version_limit": "Dynamic HTML; publication date and source URL recorded, no immutable external-byte pin.",
+      "license_evidence": "Line76 declares noncommercial use subject to linked Terms and Conditions; detailed terms/redistribution rights remain UNKNOWN."
+    },
+    {
+      "id": "S2",
+      "url": "https://gist.github.com/jeremystan/c3b39d947d9b88b3ccff3147dbcf6c6b",
+      "title": "The Instacart Online Grocery Shopping Dataset 2017 Data Descriptions",
+      "author": "Jeremy Stanley (publisher post's linked dictionary)",
+      "created": "2017-05-02 20:23 as displayed; timezone not established",
+      "access_date_UTC": "2026-10-16",
+      "read_scope": "Author-authored data dictionary lines63–97; reader comments not used as evidence.",
+      "source_content_sha256": null,
+      "version_limit": "Page displays one revision, immutable revision SHA not established.",
+      "schema_limit": "Dictionary spells days_since_prior and says four SETs while listing three; exact corpus headers/sets not certified. No file opened."
+    }
+  ],
+  "structural_difference": "Customer-relative order sequence with capped intervals and weekday/hour, but no shared absolute calendar. Event-algebra arithmetic alone cannot synchronize customer streams.",
+  "logical_fixture": {
+    "status": "UNRUN / manual specification only",
+    "orders": 4,
+    "basket_memberships": 4,
+    "projection": [
+      [
+        "U",
+        "U1",
+        1,
+        0,
+        10,
+        null,
+        "A"
+      ],
+      [
+        "U",
+        "U2",
+        2,
+        0,
+        10,
+        7,
+        "B"
+      ],
+      [
+        "V",
+        "V1",
+        1,
+        0,
+        11,
+        null,
+        "Z"
+      ],
+      [
+        "V",
+        "V2",
+        2,
+        0,
+        11,
+        7,
+        "X"
+      ]
+    ],
+    "projection_columns": [
+      "user",
+      "order",
+      "order_number",
+      "weekday",
+      "hour",
+      "days_since_prior",
+      "item"
+    ],
+    "worldA_hours_from_T": {
+      "U1": -168,
+      "U2": 0,
+      "V1": -167,
+      "V2": 1
+    },
+    "worldB_hours_from_T": {
+      "U1": -168,
+      "U2": 0,
+      "V1": -335,
+      "V2": -167
+    },
+    "oracle": "At U2 anchorT, global X membership count on[T-168h,T) is0 inA,1 inB; before each customer's second order their own order-prefix membership count is1 inboth.",
+    "limits": "Invented external calendar witness; not proof of eligible/mature REESQ, coverage, actual dataset values or an executed adapter."
+  },
+  "resource_contract": {
+    "current_science": "CLOSED",
+    "remainder": "UNKNOWN",
+    "native_ONE": "consumed CLOSED",
+    "future_fixture": "0fits; only manual/source specification proposed, no reservation",
+    "actual_future_cost": "UNKNOWN: preparation, scan, state, verification, runtime, RSS, failures",
+    "no_new_mandatory_gate": true,
+    "no_new_grant": true,
+    "no_new_admission": true
+  },
+  "independence": {
+    "wave068_peer_FIRST_read_before_freeze": false,
+    "wave068_peer_review_read_before_freeze": false,
+    "peer_conclusion_coordination_before_freeze": false,
+    "helpers": 0
+  },
+  "actions": {
+    "public_primary_documents_read": 2,
+    "actual_corpus_read": 0,
+    "raw_downloads": 0,
+    "imports": 0,
+    "tests": 0,
+    "SQL": 0,
+    "native": 0,
+    "models": 0,
+    "inference": 0,
+    "fits": 0,
+    "Git": 0,
+    "canonical_writes": 0,
+    "network_writes": 0,
+    "global_goal_tools": 0
+  },
+  "adoption_owner": "Root only",
+  "canonical_writer": "backlog_coordinator only",
+  "first_word_count": 307
+}
+

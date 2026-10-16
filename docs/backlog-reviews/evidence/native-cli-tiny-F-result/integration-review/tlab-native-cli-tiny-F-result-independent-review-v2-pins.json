@@ -1,0 +1,267 @@
+{
+  "version": 2,
+  "UTC": "2026-10-16T14:05:08Z",
+  "verdict": "PASS_V1_P2_CURRENTNESS_CLOSED_FOCUSED_SOURCE_ONLY",
+  "manifest": {
+    "path": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/manifest.json",
+    "sha256": "5cb20c02963c8e90b359c4065c965419a9938c26639a219894506c72d9e47996",
+    "bytes": 17705
+  },
+  "proposal_freeze": {
+    "path": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/freeze.json",
+    "sha256": "a09a55ac0b2d36ded855a377734d920bccac6d6c2257300fb11b962eb75d5b75",
+    "bytes": 4948
+  },
+  "focused_diff": {
+    "path": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/v1-to-v2-authored.diff",
+    "sha256": "9fd51c46129642bf46583b3dca88432b5d034ba7a1d1b0ce721438f22ebc4925",
+    "bytes": 4684
+  },
+  "report": {
+    "path": "/tmp/tlab-native-cli-tiny-F-result-independent-review-v2.md",
+    "sha256": "edc23ac38a3a166e074db000958ef0bc82380c3ea84a9b95b6f6a1696fbb683a",
+    "bytes": 2406
+  },
+  "preserved_V1_manifest": {
+    "manifest": "/tmp/tlab-native-cli-tiny-F-result-proposal-v1/manifest.json",
+    "sha256": "14a4d92b9a1e48ab68030d4c61b186dcc1f74d1e9103b19ffbff80b5c74c8d77",
+    "all_bytes_preserved": true
+  },
+  "preserved_V1_review": [
+    {
+      "path": "/tmp/tlab-native-cli-tiny-F-result-independent-review-v1.md",
+      "sha256": "847d0a3bcb775ded64a53e8ee0005d6b54c7efbc5a4802b9ce4f8301917dc199",
+      "bytes": 4384,
+      "copy": false,
+      "scope": "frozen unchanged V1 P2 source finding, not runtime/data failure"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-tiny-F-result-independent-review-v1-pins.json",
+      "sha256": "171eb986082eeba923e19b5e217cff6ae94515aa5f5d8fd77caaaf8d297277dc",
+      "bytes": 27230,
+      "copy": false,
+      "scope": "frozen unchanged V1 P2 source finding, not runtime/data failure"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-tiny-F-result-independent-review-v1-freeze.json",
+      "sha256": "f658fa0dcf8bf3553bbf901e2d814db70524c74f16e7fc67c5506b72841c70ad",
+      "bytes": 1546,
+      "copy": false,
+      "scope": "frozen unchanged V1 P2 source finding, not runtime/data failure"
+    }
+  ],
+  "reviewed_V2_targets": [
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/root-production-acceptance.json",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/root-production-acceptance.json",
+      "source": "/tmp/tlab-root-native-cli-tiny-F-production-actual-acceptance-v1.json",
+      "sha256": "db5457a1680b311edb1b9a2141f5d2e521ceacc114cb8f45219a48814595843e",
+      "bytes": 2483,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR",
+      "original_mode": "0o644",
+      "copy_rule": "exact bytes; candidate0644 mode explicitly selected"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/physical-rows.json",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/physical-rows.json",
+      "source": "/tmp/tlab-root-native-cli-tiny-F-physical-rows-v1.json",
+      "sha256": "273a421bdfa13302c9dcd0c3c6bdc698e9d3b375e4dc7b5a7bbddd29390be37e",
+      "bytes": 11422,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR",
+      "original_mode": "0o644",
+      "copy_rule": "exact bytes; candidate0644 mode explicitly selected"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/root-semantic-adoption.json",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/root-semantic-adoption.json",
+      "source": "/tmp/tlab-root-native-cli-tiny-F-semantic-adoption-v1.json",
+      "sha256": "6bdf9f53475ec3c7d12123ba8b0ea21b6930beacf12a2c61b52b84ea9db93662",
+      "bytes": 2410,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR",
+      "original_mode": "0o644",
+      "copy_rule": "exact bytes; candidate0644 mode explicitly selected"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/independent-semantic-review.md",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/independent-semantic-review.md",
+      "source": "/tmp/tlab-native-cli-tiny-F-actual-semantic-review-v1.md",
+      "sha256": "874b0217f4fd503ba61cab64c807ac51f50304d5f0edc75197beb6efda3b2b1e",
+      "bytes": 8405,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR",
+      "original_mode": "0o644",
+      "copy_rule": "exact bytes; candidate0644 mode explicitly selected"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/independent-semantic-pins.json",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/independent-semantic-pins.json",
+      "source": "/tmp/tlab-native-cli-tiny-F-actual-semantic-review-v1-pins.json",
+      "sha256": "82a738c63c30a83a736e4be37c07ff864e5101cc8ce13efee8628cd0e1fa5ba0",
+      "bytes": 7718,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR",
+      "original_mode": "0o644",
+      "copy_rule": "exact bytes; candidate0644 mode explicitly selected"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/independent-semantic-freeze.json",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/independent-semantic-freeze.json",
+      "source": "/tmp/tlab-native-cli-tiny-F-actual-semantic-review-v1-freeze.json",
+      "sha256": "0fe0cadf1699252ea27a17b4bd358aed7ca198d4aa1089089c2ab9c69bbc24dc",
+      "bytes": 2441,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR",
+      "original_mode": "0o644",
+      "copy_rule": "exact bytes; candidate0644 mode explicitly selected"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/worker-result.json",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/worker-result.json",
+      "source": "/private/tmp/tlab-native-cli-tiny-F-resume-20261016-once/worker-result.json",
+      "sha256": "4c6d68f65548f6a2eb497943b7c464324ae9a2cdcce425637f431a09a6d34e19",
+      "bytes": 21048,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR",
+      "original_mode": "0o600",
+      "copy_rule": "exact bytes; candidate0644 mode explicitly selected"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/parent-result.json",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/parent-result.json",
+      "source": "/tmp/tlab-native-cli-tiny-F-resume-execution-20261016-once/parent-result.json",
+      "sha256": "6e0efe32440dee915d5f64af0c2b4a7f6402b4d60d5eede11878c9583b55d3f4",
+      "bytes": 1320,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR",
+      "original_mode": "0o600",
+      "copy_rule": "exact bytes; candidate0644 mode explicitly selected"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/child-result.json",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/child-result.json",
+      "source": "/tmp/tlab-native-cli-tiny-F-resume-execution-20261016-once/child-result.json",
+      "sha256": "3a08150862088f5ee96035bdf7f6366c16fe6392af5fb77cda3d0a0939070a40",
+      "bytes": 2496,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR",
+      "original_mode": "0o600",
+      "copy_rule": "exact bytes; candidate0644 mode explicitly selected"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/child-stdout.txt",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/child-stdout.txt",
+      "source": "/tmp/tlab-native-cli-tiny-F-resume-execution-20261016-once/child-stdout.txt",
+      "sha256": "57f21049acf8be0fe4fdcf16ca2715f0e768ccb3824b68384cb1d1dd5e31cbeb",
+      "bytes": 871,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR",
+      "original_mode": "0o600",
+      "copy_rule": "exact bytes; candidate0644 mode explicitly selected"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/child-stderr.txt",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/originals/child-stderr.txt",
+      "source": "/tmp/tlab-native-cli-tiny-F-resume-execution-20261016-once/child-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR",
+      "original_mode": "0o600",
+      "copy_rule": "exact bytes; candidate0644 mode explicitly selected"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/physical-artifact-bindings.json",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/physical-artifact-bindings.json",
+      "source": "derived bounded metadata from accepted physical export/worker/pins",
+      "sha256": "e62c78b2188fc178370c7b911d12fc21c4cb10a30faa2135168054669a1a5443",
+      "bytes": 7630,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/reference-aliases.json",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/reference-aliases.json",
+      "source": "authored minimal prior-evidence aliases; no original content duplicated",
+      "sha256": "0d7f7c0b311eae98cb98daa14fce45081093b87f78697984eb1d1711fed3c3ae",
+      "bytes": 3390,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR"
+    },
+    {
+      "path": "docs/backlog-reviews/evidence/native-cli-tiny-F-result/publication.json",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/evidence/native-cli-tiny-F-result/publication.json",
+      "source": "authored bounded publication/copy map",
+      "sha256": "9c6c0441f8f869ee5a1db588db88472822f74133811e5ba8c4067b8aadc8571b",
+      "bytes": 5159,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR"
+    },
+    {
+      "path": "docs/backlog-reviews/native-cli-tiny-F-result.md",
+      "candidate_source": "/tmp/tlab-native-cli-tiny-F-result-proposal-v2/candidate/docs/backlog-reviews/native-cli-tiny-F-result.md",
+      "source": "authored concise dated F milestone note",
+      "sha256": "a3f2ce83e45dd4ec59cae67a54eac1f139c761b25d4b58e1d777b69e77295b96",
+      "bytes": 6559,
+      "file_mode": "0o644",
+      "base_state": "EXPECTED_ABSENT_NOT_READ_BY_AUTHOR"
+    }
+  ],
+  "later_collection_metadata_reference_only": {
+    "path": "/tmp/tlab-root-native-cli-tiny-genuine-collection-acceptances-v1.json",
+    "sha256": "fbb599ff018b83b06167973ba4f0dbcfa2f22a7cfbb6fa1e9f9e6bb1ba285337",
+    "bytes": 2143,
+    "issued_UTC": "2026-10-16T13:45:07.011376+00:00",
+    "scope": "metadata chronology only; excluded control body"
+  },
+  "closure_checks": {
+    "P2_closed": true,
+    "remaining_findings": [],
+    "candidate15_SHA_bytes_regular_modes": true,
+    "target15_absences_including_symlinks": true,
+    "raw11_original_pairs_modes_and_bytes_exact": true,
+    "unchanged13_candidates_exact_V1": true,
+    "V1_all15_candidate_SHA_bytes_modes_preserved": true,
+    "V1_review3_bindings_preserved": true,
+    "target_pathset_same": true,
+    "note_all_bytes_outside_line27_exact": true,
+    "publication_changes_only_time_and_timeline_fields": true,
+    "all_other_original_manifest_metadata_unchanged": true,
+    "original_packet_preparation_time_preserved": "2026-10-16 13:45:17 UTC",
+    "accepted_evidence_cutoff": "2026-10-16 13:43:33 UTC",
+    "exact_semantic_receipt_UTC": "2026-10-16T13:43:33.145629+00:00",
+    "later_genuine_collection_metadata_UTC": "2026-10-16T13:45:07.011376+00:00",
+    "historical_raw_unissued_observation_not_retconned": true,
+    "later_verifier_evidence_explicitly_outside_packet": true,
+    "physical_refs_aliases_numerical_resources_not_rewritten": true,
+    "total_candidate_bytes": 83352,
+    "extra_terminal_blank_lines": 0,
+    "trailing_whitespace_lines": 0,
+    "cached_check": "UNRUN",
+    "terminal15_raw11_unchanged13_fresh": true
+  },
+  "observed_primary_state": {
+    "HEAD": "6e77f6bccb9b3df9d04ebe8ec52c31d5f19286a7",
+    "index_sha256": "051b35a8a86883f56c5b0bd5123b27274e4b31a22a3a3d466a9b11a9e06a44e0",
+    "CLEAN": true,
+    "staged_empty": true
+  },
+  "scope": "Focused closure of V1 currentness P2; wider V1 source review inherited through unchanged evidence; no new numerical/physical/later-verifier review",
+  "operations": {
+    "canonical_candidate_mutations": 0,
+    "Git_mutations": 0,
+    "application_imports": 0,
+    "runtime": 0,
+    "tests": 0,
+    "executable_helpers": 0,
+    "SQL_DB_Parquet_model_native": 0,
+    "raw_private_approval_body_reads": 0,
+    "approval_writes": 0,
+    "network": 0,
+    "goal_calls": 0,
+    "only_assigned_three_TMP_V2_review_outputs": true
+  },
+  "authority": "Read-only source closure only; Root adoption separate; no install/execution/acceptance/fit/Git/publication authority"
+}

@@ -1,5 +1,22 @@
 # Автоматизация признаков для ранжирования покупок
 
+## Текущий срез — 2026-10-16 14:08:23 UTC
+
+**На tiny fixture из 10 синтетических событий работают source/plans → Q/Y/C → F → два read-only verifier вызова. Ordinary native CLI end-to-end ещё UNRUN. Принято 14 из 19 исходных задач.** Root принял QYC/F semantics и фактические verifier results после независимых reviews. Prepared X/weights, native fit/curve/selected-tree/reload этого CLI ещё не производились; callback-abort остаётся отдельным UNRUN. TLAB-014 continuous, TLAB-010–013 optional/deferred.
+
+[QYC result](backlog-reviews/native-cli-tiny-QYC-result.md): train Q/Y/C=2/1/3, selection=3/3/3; 52 новых outputs = 28 profiles + 24 других. [F result](backlog-reviews/native-cli-tiny-F-result.md): по 3 строки × 45 колонок; независимый literal review всех 270 cells, 34 новых outputs = 24 profiles + 10 других. [Verifier result](backlog-reviews/native-cli-tiny-verifier-result.md): 3 пары на роль, суммарно 108 formula и 102 metadata/support checks. Generic F-values policy остаётся deterministic sampling; tiny bottom-hash покрыл все три пары. Off-C fullY/empty-C positive/empty-Y queries сохранены, но native метрики этим не рассчитаны.
+
+Предыдущий source/plans + архив066/067 установлен и независимо принят в локальном `6e77f6bccb9b3df9d04ebe8ec52c31d5f19286a7`. Новые notes/evidence и research [068](research-lab/brainstorm-wave068-synthesis.md)/[069](research-lab/brainstorm-wave069-synthesis.md)/[070](research-lab/brainstorm-wave070-synthesis.md)/[071](research-lab/brainstorm-wave071-synthesis.md) вводятся одним отдельным reviewed LOCAL checkpoint; этот SOURCE-пакет до точного Root issue не даёт права на установку или Git. Все четыре волны — existing refinements, NEW/ADMIT=0; proposed toys UNRUN.
+
+Следующий технический шаг — независимая привязка Prepared3×41 X/weights и review ordinary native CLI proposal; новый native grant не выдан. [Ручные X41 expectations](backlog-reviews/evidence/native-cli-tiny-verifier-result/future-prepared-oracle/manual-prepared.md) приняты только как прогноз, не actual Prepared. [Bounded Task1 audit](backlog-reviews/evidence/task1-deliverable-audit-071/tlab-task1-deliverable-audit-071.md) не нашёл обязательного научного пробела в проверенном automation/comparison/report/Mac018 scope; [Root qualification](backlog-reviews/evidence/task1-deliverable-audit-071/tlab-root-task1-deliverable-audit-071-adoption-v1.json) сохраняет отсутствие goal-completion/submission решения. Adaptive CLI — user engineering extension, не новый scientific gate. Старый helper-only 50 CPU / 65 wall CLOSED, остаток не переиспользуется; science CLOSED, исторический остатокUNKNOWN. Доказательства fixed300/final, adaptive1189/403 и CODE/helper ниже не расширяются.
+
+Следующая исходная точка research-сетки после071 — **14:15 UTC / 17:15 МСК 16 октября**, 45 минут без reset; это датированное расписание, не поздний live inventory. Deadline **25 октября 2026,23:59**, timezone неизвестен. Последнее наблюдение goal-tool — BLOCKED; metadata этой записи статус не меняет. Публикация b286/PR1 исполнена по точному согласию; новых push/PR authority нет, свежий remote здесь не проверялся. Локальные2d49/6e77 не отправлялись.
+
+## Исторический SOURCE-срез 12:27:14 UTC и неизменённые результаты
+
+Весь прежний текст ниже сохранён; его pending/install/следующая12:45 формулировки относятся к тому историческому срезу, а не отменяют фактические milestones выше.
+
+
 **Принято 14 из 19 исходных задач.** Native helper normal path принят: один toy fit до 8 деревьев → выбранная копия с 1 деревом → save/reload; исходная модель сохранила 8 деревьев. Ordinary development CLI end-to-end и native callback-abort остаются **UNRUN**. CLI установлен, 12 FakeML/CODE тестов и module `--help` exit 0 приняты отдельно. TLAB-014 активна; TLAB-010–013 необязательные и отложены. Научные результаты и ограничения ниже неизменны.
 
 ## Результаты

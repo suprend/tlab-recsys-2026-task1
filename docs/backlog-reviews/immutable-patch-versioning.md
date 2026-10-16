@@ -79,3 +79,12 @@ The static preflight of the adopted 50-file wave066/067 source archive found exa
 Five additional literal `-text whitespace=-blank-at-eof` rules classify only these archived data paths. Their raw FIRST/critic bytes remain untouched. The existing 18 exact rules and this note's full prior body remain byte-exact prefixes; newly authored metadata ends in exactly one LF. There is no wildcard, global/source-code exception, normalization, hook/filter/signing bypass or binary suppression. Earlier checker failures retain their historical outcomes.
 
 The archive's source adoption closes its documentation findings only. This preparation does not install files, stage, commit, run a builder/collector/native CLI, borrow a budget, or authorize external publication. A later finite Root issue must bind the actual installation and ordinary cached check. No builder/collection/native-CLI PASS is inferred from source review.
+
+## 2026-10-16: research068-071 immutable FIRST EOF classification
+
+Static source preflight found exactly four raw originals ending with two LF: the A068 FIRST/pins/freeze triple and A071 validation FIRST. None has trailing spaces or tabs. Preserve all raw bytes and SHA256; append only these four exact data-path rules to .gitattributes. Existing rules and note body stay byteexact. No wildcard/global/code exception, normalization, filter/hook/signing bypass, or failed cached checker occurred in this preparation. Actual ordinary staged whitespace behavior remains UNRUN until a separately issued local checkpoint.
+
+- `docs/research-lab/archives/wave068/tlab-wave068-transfer-a-FIRST.md`: SHA256 `d62df0a48bbb0d487012a706116f6407fced0e98923d6a41449108625d82aab3`, two LF.
+- `docs/research-lab/archives/wave068/tlab-wave068-transfer-a-freeze.json`: SHA256 `93d0783724f8de6cdf58317c1ad0fa193f4aba9a990a01b88d9dfaf993ee5842`, two LF.
+- `docs/research-lab/archives/wave068/tlab-wave068-transfer-a-pins.json`: SHA256 `05e93ed17d72e131a02114c501238148399fce0b8a0590618f9a18668fb3ff6b`, two LF.
+- `docs/research-lab/archives/wave071/tlab-wave071-validation-a-FIRST.md`: SHA256 `d247e52708a3112ebc65a7093ac63eb9443d3b88a08d48d726e75a1acfeea8c7`, two LF.

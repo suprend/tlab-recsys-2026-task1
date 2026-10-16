@@ -1,0 +1,13 @@
+# Wave071C — H&M transfer boundary
+
+Recorded 2026-10-16T13:38:39Z. Independent FIRST; REFINE existing HYP002/TLAB005/014/016, deduped round031, transfer-adapter-conformance, 047/063/067–070. New ideas: 0; optional deferred transfer.
+
+The [publisher data description](https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations/data) describes purchase history by date, duplicate transactions as repeated purchases, separate article/customer metadata, and incomplete corresponding images. Public detailed schema inspection requires agreement: exact types, title/description text fields, file bytes, seconds/timezone and historical metadata availability remain unverified. [Published rules §B7](https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations/rules) describe noncommercial research/education use and restrictions on sharing. Current access and applicability remain UNKNOWN; no agreement accepted.
+
+Mechanism: reuse purchase COUNT/DISTINCT arithmetic only under an explicit day/calendar, multiplicity, coverage, maturity and availability contract. Current generator requires three observed actions and its reviewed timestamp semantics; this is no drop-in adapter. Unsupported view/cart channels are not observed zeros. Encoding a date as midnight cannot recover intraday order or second-level recency. A released article text/image snapshot does not establish what was known at historical query time: require as-of evidence or an explicitly weaker snapshot assumption. Stock, impressions, source completeness and ingestion clocks remain UNKNOWN.
+
+Minimal manual toy, **UNRUN**: three date-only rows (U,A,D),(U,A,D),(U,B,D). Stipulate an artificial calendar. World1 places both A purchases at09:00 and B at17:00; world2 swaps those times. Date projections coincide. Completed-day raw count=3/distinct=2, but noon A count=2 versus0, and next-midnight A recency=15h versus7h. Additional unlogged views versus none also leave purchase rows unchanged. A metadata revision available D+1 cannot justify D-time text/image features.
+
+Falsifiable prediction: a proposed contract rejects unsupported channels/intraday ASTs while preserving the declared completed-day gold3/2; fabricated view0 or exact seconds fails. Counterhypothesis: daily anchors suffice for count-only primitives when timezone, day completion and coverage are declared. That narrower transfer remains plausible.
+
+Task1 predictive benefit and total implementation/evaluation cost: UNKNOWN. No pilot, implementation, new ID/gate/budget. Context13:31: tiny F270-cell review frozen, Root adoption pending; no PreparedX/verifier/nativeCLI/fit. Science/native CLOSED; future CLI≤8 ungranted. Next14:15UTC fixed; deadline25Oct23:59 timezoneUNKNOWN.

@@ -1,0 +1,187 @@
+{
+  "wave": 68,
+  "author": "C",
+  "verified_UTC": "2026-10-16T11:26:55Z",
+  "shared_context": {
+    "path": "/tmp/tlab-wave068-shared-context-v1.json",
+    "sha256": "8a5be46e2788829f1a34a24cf07772c5a7bd6e35b814de572ee16a0b5765d9e0"
+  },
+  "verified_shared_snapshot_count": 22,
+  "all_shared_snapshot_hashes_match": true,
+  "source_pins": [
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/0-task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "bytes": 3638
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/data.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/1-data.md",
+      "sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "bytes": 6378
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/2-experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "bytes": 46054
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/6-train_development.py",
+      "sha256": "f4d19483532318b25c2adb51734ec347e772d3441edca944c5c91ce791cacde9",
+      "bytes": 12640
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/7-development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/8-development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/9-train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "bytes": 35022
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/10-source_import.py",
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+      "bytes": 14444
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/11-anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/12-candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "bytes": 18557
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/13-manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/14-feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/15-protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/16-temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/17-clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/0-backlog.md",
+      "sha256": "e862b72ff34ac5c323bca5a5109e73a5d8c7f54f910a9f146558d7dc029cb152",
+      "bytes": 194060
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/1-index.md",
+      "sha256": "4faae2b5a4eedb1e789157855710c3ccba3d2bcba1669ffe8f8d66b923fbb006",
+      "bytes": 34057
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/2-progress-report.md",
+      "sha256": "32373926f2cc08bc86f248ea92c6d2891d608d487b48c77236c7a7c20dfbb550",
+      "bytes": 17243
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/3-README.md",
+      "sha256": "8f7f07dfcfa458d6d0b2d64d9d1b712b26f9a4590e03f57289fed40f3ee5384e",
+      "bytes": 21405
+    },
+    {
+      "original": "/tmp/tlab-root-integrated-local-checkpoint-final-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/4-tlab-root-integrated-local-checkpoint-final-actual-acceptance-v1.json",
+      "sha256": "348f39621fc372265427000cf6327c628339f16c8dfdd48cf43c3b604c5190b4",
+      "bytes": 1378
+    },
+    {
+      "original": "/tmp/tlab-root-wave067-research-readback-v1.json",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/5-tlab-root-wave067-research-readback-v1.json",
+      "sha256": "8602e173e5d3a1279dbbcb8805bb4ca904dd5a15981719b8bc67857afac3b320",
+      "bytes": 1769
+    },
+    {
+      "original": "/tmp/tlab-native-cli-tiny-design-v1/design.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/6-design.md",
+      "sha256": "69277952685e113a14ea8db52f2b852d1b17f6b9c9cc23381948d420dae2fa73",
+      "bytes": 3269
+    }
+  ],
+  "supplemental_source_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_train_development.py",
+      "sha256": "601bb6d5e1b510da7864de66daab0173a2d431303c0d9dca1f155898bf9d4389"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_development_training.py",
+      "sha256": "547fac7bf2591ca831fa717e17017e39fe98994c1f87ab7b2110b9dc22ca3a23"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_development_training_native.py",
+      "sha256": "eca8d1a071361a93e563b105b0c743f235073527876a49e81dd8080c2dea1887"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/development-training.md",
+      "sha256": "456535a47409567dbb104669a517bf731d156cdde89fd7fa6e8ec54b859808a0"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/development-cli-code-acceptance.md",
+      "sha256": "61562958df4306525286542a64004708964b9a9b982d1fb99029e9e794bd2a64"
+    }
+  ],
+  "execution": {
+    "imports": 0,
+    "tests": 0,
+    "native_fits": 0,
+    "models_loaded": 0,
+    "real_data_reads": 0,
+    "web": 0,
+    "git": 0,
+    "canonical_writes": 0
+  },
+  "supplemental_current_production_sources_match_shared_snapshots": [
+    "scripts/train_development.py",
+    "scripts/development_training.py",
+    "scripts/development_collection.py",
+    "scripts/train_baselines.py"
+  ]
+}

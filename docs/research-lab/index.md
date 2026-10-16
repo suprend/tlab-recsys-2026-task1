@@ -1,5 +1,20 @@
 # Постоянная research-линия
 
+## Актуальный датированный срез — 2026-10-16 14:08:23 UTC
+
+**14 из 19 задач принято.** [Tiny source/plans](../backlog-reviews/native-cli-tiny-builder-result.md), [QYC](../backlog-reviews/native-cli-tiny-QYC-result.md), [F270](../backlog-reviews/native-cli-tiny-F-result.md) и [два read-only verifier результата](../backlog-reviews/native-cli-tiny-verifier-result.md) приняты в своих пределах. Generic F-values sampler на tiny3 pairs покрыл все3 на роль; это не general exhaustive proof. Prepared X/weights и ordinary native CLI E2E ещё UNPRODUCED/UNRUN, callback-abort отдельно UNRUN; нового native grant нет.
+
+Root adopted existing refinements: [068 — clocks/sketches/lifecycle](brainstorm-wave068-synthesis.md), [069 — event-relation/exact state/provenance](brainstorm-wave069-synthesis.md), [070 — Pool weights/unknown keys/property clocks](brainstorm-wave070-synthesis.md), [071 — readiness/category text/day clocks](brainstorm-wave071-synthesis.md). NEW/ADMIT=0; права/clock/completeness/cost/utility неизвестны, proposed toys UNRUN. Сводки/точные FIRST/pins/freezes/reviews вводятся новым единым reviewed LOCAL пакетом вместе с current4; canonical installation требует отдельного Root issue. Прежний066/067/source пакет уже принят локально в6e77.
+
+TLAB-014 continuous,010–013 optional/deferred; [backlog](../backlog.md) — единственная очередь. Research071 планировалась13:30, common dispatch bounds13:31:40.979850–13:41:09.935222UTC, не индивидуальные старты; следующая исходная точка14:15UTC/17:15МСК. Сетка45минут/deadline25Oct23:59TZunknown unchanged. Goal-tool observedBLOCKED; science/nativeCLOSED/remainderUNKNOWN. Fixed300/finalCI/adaptive1189/403 не расширены. Exactb286 private publication исполнена; новые local пакеты не имеют push/PR permission и свежего remote наблюдения.
+
+[Bounded Task1 audit](../backlog-reviews/evidence/task1-deliverable-audit-071/tlab-task1-deliverable-audit-071.md) и [Root currency qualification](../backlog-reviews/evidence/task1-deliverable-audit-071/tlab-root-task1-deliverable-audit-071-adoption-v1.json): обязательный научный пробел в проверенном scope не найден; это не сдача/оценка/goal completion. [Future X41 manual oracle](../backlog-reviews/evidence/native-cli-tiny-verifier-result/future-prepared-oracle/manual-prepared.md) —246 predictions/41names/NaN masks до actualPrepared/native, не выполненный loader.
+
+## Исторический SOURCE-срез 12:27:14 UTC и прежний индекс
+
+Ниже сохранён прежний текст, включая датированные pending/install/расписание; текущие milestones выше его явно дополняют.
+
+
 16 октября 2026. Primary-source rounds дополняют единственный canonical backlog. [TLAB015 принят](../backlog-reviews/real015-heldout-results.md): небольшой положительный point estimate, CI включает0; [018 публичный повтор принят](../backlog-reviews/public018-complete-output-acceptance.md) в документированном Mac scope. Принято14 из19; optional идеи не становятся gates.
 
 Срез SOURCE-подготовки на **2026-10-16 12:27:14 UTC**. Root принял066/067 как уточнения существующих направлений; архив V3 подготовлен и проверен, установка на этом SOURCE-срезе ещё ожидается. 068 и069 также приняты Root, остаются TMP вне архива066/067. В069 скептик классифицировал NEW0/REFINE3/MERGE0/REJECT0/ADMIT0; Root связал выводы с существующими IDs. Новых научных механизмов, ID, задач, grants, обязательных gates и admissions —0. Предложенные data/quality/performance/native опыты UNRUN; исторические FIRST/контекст сохранены. Принято14 из19; TLAB-014 continuous, TLAB-010–013 optional deferred; [backlog](../backlog.md) — единственная очередь.

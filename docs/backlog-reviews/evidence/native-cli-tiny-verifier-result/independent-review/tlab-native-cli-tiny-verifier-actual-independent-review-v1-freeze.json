@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "frozen_at_utc": "2026-10-16T13:59:38Z",
+  "scope": "independent actual verifier-result review; no execution or acceptance",
+  "files_sha256": {
+    "/tmp/tlab-native-cli-tiny-verifier-actual-independent-review-v1.md": "484aaf2fc2be5c8c359930715dbba233fc27f118c1b92d673072fb33846acfb2",
+    "/tmp/tlab-native-cli-tiny-verifier-actual-independent-review-v1-pins.json": "55a7f97b945267094050339ea63f9afe2edfecfe7124bf24114c2f4068bff3ab"
+  },
+  "supported_mismatches": [],
+  "finding": "Actual verifier evidence is consistent with manual oracle, prior physical QYC/F review and pinned operative source; all3 tiny pairs covered per role under generic sampled-F policy.",
+  "limits": [
+    "No current reviewer DB/Parquet data read or120-file independent rehash",
+    "Source DB literal content inherited from Root binding",
+    "Diagnostic coverage semantics rely on prior QYC review",
+    "Prepared X41, native curves, selected tree and reload parity remain unproduced here"
+  ],
+  "reviewer_application_execution_SQL_native_approval_goal_calls": 0,
+  "root_alone_owns_adoption_acceptance_and_future_execution_authority": true
+}

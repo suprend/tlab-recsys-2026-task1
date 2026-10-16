@@ -1,0 +1,113 @@
+{
+  "status": "TMP_SOURCE_F_RESULT_PROPOSAL_NOT_INSTALLED_OR_PUBLISHED",
+  "originals": [
+    {
+      "source": "/tmp/tlab-root-native-cli-tiny-F-production-actual-acceptance-v1.json",
+      "path": "originals/root-production-acceptance.json",
+      "sha256": "db5457a1680b311edb1b9a2141f5d2e521ceacc114cb8f45219a48814595843e",
+      "bytes": 2483,
+      "copy": "exact original bytes"
+    },
+    {
+      "source": "/tmp/tlab-root-native-cli-tiny-F-physical-rows-v1.json",
+      "path": "originals/physical-rows.json",
+      "sha256": "273a421bdfa13302c9dcd0c3c6bdc698e9d3b375e4dc7b5a7bbddd29390be37e",
+      "bytes": 11422,
+      "copy": "exact original bytes"
+    },
+    {
+      "source": "/tmp/tlab-root-native-cli-tiny-F-semantic-adoption-v1.json",
+      "path": "originals/root-semantic-adoption.json",
+      "sha256": "6bdf9f53475ec3c7d12123ba8b0ea21b6930beacf12a2c61b52b84ea9db93662",
+      "bytes": 2410,
+      "copy": "exact original bytes"
+    },
+    {
+      "source": "/tmp/tlab-native-cli-tiny-F-actual-semantic-review-v1.md",
+      "path": "originals/independent-semantic-review.md",
+      "sha256": "874b0217f4fd503ba61cab64c807ac51f50304d5f0edc75197beb6efda3b2b1e",
+      "bytes": 8405,
+      "copy": "exact original bytes"
+    },
+    {
+      "source": "/tmp/tlab-native-cli-tiny-F-actual-semantic-review-v1-pins.json",
+      "path": "originals/independent-semantic-pins.json",
+      "sha256": "82a738c63c30a83a736e4be37c07ff864e5101cc8ce13efee8628cd0e1fa5ba0",
+      "bytes": 7718,
+      "copy": "exact original bytes"
+    },
+    {
+      "source": "/tmp/tlab-native-cli-tiny-F-actual-semantic-review-v1-freeze.json",
+      "path": "originals/independent-semantic-freeze.json",
+      "sha256": "0fe0cadf1699252ea27a17b4bd358aed7ca198d4aa1089089c2ab9c69bbc24dc",
+      "bytes": 2441,
+      "copy": "exact original bytes"
+    },
+    {
+      "source": "/private/tmp/tlab-native-cli-tiny-F-resume-20261016-once/worker-result.json",
+      "path": "originals/worker-result.json",
+      "sha256": "4c6d68f65548f6a2eb497943b7c464324ae9a2cdcce425637f431a09a6d34e19",
+      "bytes": 21048,
+      "copy": "exact original bytes"
+    },
+    {
+      "source": "/tmp/tlab-native-cli-tiny-F-resume-execution-20261016-once/parent-result.json",
+      "path": "originals/parent-result.json",
+      "sha256": "6e0efe32440dee915d5f64af0c2b4a7f6402b4d60d5eede11878c9583b55d3f4",
+      "bytes": 1320,
+      "copy": "exact original bytes"
+    },
+    {
+      "source": "/tmp/tlab-native-cli-tiny-F-resume-execution-20261016-once/child-result.json",
+      "path": "originals/child-result.json",
+      "sha256": "3a08150862088f5ee96035bdf7f6366c16fe6392af5fb77cda3d0a0939070a40",
+      "bytes": 2496,
+      "copy": "exact original bytes"
+    },
+    {
+      "source": "/tmp/tlab-native-cli-tiny-F-resume-execution-20261016-once/child-stdout.txt",
+      "path": "originals/child-stdout.txt",
+      "sha256": "57f21049acf8be0fe4fdcf16ca2715f0e768ccb3824b68384cb1d1dd5e31cbeb",
+      "bytes": 871,
+      "copy": "exact original bytes"
+    },
+    {
+      "source": "/tmp/tlab-native-cli-tiny-F-resume-execution-20261016-once/child-stderr.txt",
+      "path": "originals/child-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "copy": "exact original bytes"
+    }
+  ],
+  "physical_reference_map": {
+    "path": "physical-artifact-bindings.json",
+    "sha256": "e62c78b2188fc178370c7b911d12fc21c4cb10a30faa2135168054669a1a5443",
+    "bytes": 7630
+  },
+  "prior_reference_aliases": {
+    "path": "reference-aliases.json",
+    "sha256": "0d7f7c0b311eae98cb98daa14fce45081093b87f78697984eb1d1711fed3c3ae",
+    "bytes": 3390
+  },
+  "output_counts": {
+    "new_files": 34,
+    "profile_json_files": 24,
+    "other_new_files": 10,
+    "intentional_existing_state_changes": 2,
+    "total_project_files": 118
+  },
+  "timeline": "Source f077/dcd5 and QYC states remain historical; production/export pending flags and Root semantic adoption13:43:33 are exact earlier observations. At that semantic cutoff collection receipts were unissued, verifier/native/prepared-X not executed. Packet preparation13:45:17 is later; genuine collection metadata was separately issued13:45:07.011376, and later verifier evidence is outside this F packet. No control bodies copied and no raw flags retconned.",
+  "readback_preparation_error": "812f1e dict-vs-array text-only comparison failed; corrected7f4599 and all270 cells matched per Root. No producer retry/output or project mutation.",
+  "exclusions": [
+    "DB/Parquet and24profile contents",
+    "private approval/acceptance bodies/control issues/plans",
+    "wrappers/runners/executable code",
+    "previous canonical oracle/QYC originals (aliases only)",
+    "source/root control metadata bodies f077/dcd5 (hashrefs only)",
+    "current4 files/goal calls",
+    "collection verifier/prepared3x41X/nativefit results which do not exist in this snapshot"
+  ],
+  "rights": "No installation/Git/runtime/external-publication or new scientific budget/gate authority.",
+  "packet_prepared_UTC": "2026-10-16 13:45:17 UTC",
+  "accepted_evidence_cutoff_UTC": "2026-10-16 13:43:33 UTC"
+}

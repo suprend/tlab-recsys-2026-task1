@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "task": "/root/native_cli_tiny_oracle",
+  "freeze_observed_at_utc": "2026-10-16T13:29:33Z",
+  "status": "independent_actual_F_collection_semantic_review_no_mismatch_not_acceptance",
+  "artifacts": {
+    "/tmp/tlab-native-cli-tiny-F-actual-semantic-review-v1.md": "874b0217f4fd503ba61cab64c807ac51f50304d5f0edc75197beb6efda3b2b1e",
+    "/tmp/tlab-native-cli-tiny-F-actual-semantic-review-v1-pins.json": "82a738c63c30a83a736e4be37c07ff864e5101cc8ce13efee8628cd0e1fa5ba0"
+  },
+  "physical_export_sha256_rechecked": "273a421bdfa13302c9dcd0c3c6bdc698e9d3b375e4dc7b5a7bbddd29390be37e",
+  "actual_comparison": {
+    "physical_F_rows": 6,
+    "columns_per_role": 45,
+    "physical_cells_compared": 270,
+    "manual_registry_values_compared": 108,
+    "generated_flags_compared": 48,
+    "schema_keys_context_retrieval_nulls_types_compared": true,
+    "mismatches_found": 0,
+    "physical_F_hash_bytes_mode_verified": 2,
+    "F_run_IDs_independently_rehashed": 2,
+    "QYC_seals_and_sixteen_outputs_metadata_rehashed_unchanged": true,
+    "genuine_shard_approval_entries_per_role_compared": 14,
+    "nonDB_approval_pins_physically_rehashed_per_role": 13,
+    "F_input_pins_per_role_compared": 17,
+    "collection_counts": {
+      "train": {"queries": 2, "labels": 1, "candidates": 3, "features": 3},
+      "selection": {"queries": 3, "labels": 3, "candidates": 3, "features": 3}
+    },
+    "empty_C_empty_Y_offC_targets_retained": true,
+    "model_timing_unchanged_valid": true,
+    "historical_disclosed_preF_oracle_preserved": true,
+    "independent_nine_event_FIRST_preserved": true
+  },
+  "source_boundary": "DB content and unchanged source pin inherited from Root's accepted literal ten-event fixture; no DB access here",
+  "prepared_native_boundary": "Prepared 3x41 float32 X, derived retrieval-age/missing, weights, staged scores/curve, selection and reload parity are NOT PRODUCED OR VERIFIED HERE; historical predictions not upgraded",
+  "operations_in_this_review": {
+    "SQL_DB_engine_Parquet_body_imports": 0,
+    "application_imports_tests_executable_helpers": 0,
+    "F_producers_aggregates_verifiers": 0,
+    "ML_fits_inference": 0,
+    "native_grants_consumed": 0,
+    "project_canonical_Git_network_writes": 0,
+    "approval_or_execution_grants_issued": 0,
+    "goal_tool_calls": 0
+  },
+  "acceptance_owner": "Root alone; review files are evidence only",
+  "next_action": "report exact SHA256 values and STOP"
+}

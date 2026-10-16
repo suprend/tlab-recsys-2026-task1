@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "UTC": "2026-10-16T14:00:54.265661+00:00",
+  "status": "ROOT_ADOPTS_ACTUAL_TWO_READ_ONLY_SOURCE_VERIFIER_RESULTS_AFTER_INDEPENDENT_REVIEW",
+  "exact_evidence": {
+    "/tmp/tlab-native-cli-tiny-verifier-actual-independent-review-v1.md": "484aaf2fc2be5c8c359930715dbba233fc27f118c1b92d673072fb33846acfb2",
+    "/tmp/tlab-native-cli-tiny-verifier-actual-independent-review-v1-pins.json": "55a7f97b945267094050339ea63f9afe2edfecfe7124bf24114c2f4068bff3ab",
+    "/tmp/tlab-native-cli-tiny-verifier-actual-independent-review-v1-freeze.json": "514e81195f08aebb06764d169cbe02238f8f3baf3677e8752c1af90b9d0970b0",
+    "/tmp/tlab-root-native-cli-tiny-verifier-actual-results-v1.json": "fdd136391a8426726f0c3055b08d446bcc37137bebb0f57f027eb7511b40c645"
+  },
+  "review_recursive_file_pins_freshrehashed": 28,
+  "Root_read_actuals_and_entire7036B_independent_report": true,
+  "actual_outer": {
+    "initial_chunk": "ff1f8e",
+    "session": 36576,
+    "terminal_chunk": "1a8f73",
+    "exit": 0,
+    "known_child_reaped": true
+  },
+  "once_consumed_no_retry": true,
+  "actual_verifier_calls": 2,
+  "actual_roles": {
+    "train": {
+      "status": "verified",
+      "counts": {
+        "candidates": 3,
+        "features": 3,
+        "labels": 1,
+        "queries": 2
+      },
+      "population": {
+        "empty_C_queries": 0,
+        "fullY_outside_C": 0,
+        "mature_empty_Y_queries": 1
+      },
+      "sample_pairs": 3,
+      "formula_checks": 54,
+      "sampled_metadata_support_checks": 51,
+      "scope": {
+        "F_rowset": "exhaustive_exact_C",
+        "F_values": "deterministic_sample_only",
+        "QYC": "exhaustive_source_relations"
+      }
+    },
+    "selection": {
+      "status": "verified",
+      "counts": {
+        "candidates": 3,
+        "features": 3,
+        "labels": 3,
+        "queries": 3
+      },
+      "population": {
+        "empty_C_queries": 1,
+        "fullY_outside_C": 2,
+        "mature_empty_Y_queries": 1
+      },
+      "sample_pairs": 3,
+      "formula_checks": 54,
+      "sampled_metadata_support_checks": 51,
+      "scope": {
+        "F_rowset": "exhaustive_exact_C",
+        "F_values": "deterministic_sample_only",
+        "QYC": "exhaustive_source_relations"
+      }
+    }
+  },
+  "all120_regular_input_SHAbytesmodes_unchanged": true,
+  "independent_generic_Fvalues_scope": "deterministic_sample_only, actualtinybottomhashall3pairsperrolecovered;108formula102metadata/supportchecks total, matchespriorfull270cellmanualreview; no generalall-dataF proof",
+  "new_project_files_loader_fits_inference_approvals": 0,
+  "resources": {
+    "child_CPU_seconds": 1.3058040000000002,
+    "child_launch_to_reap_wall_seconds": 1.4879149579792283,
+    "observed_child_RSS_Darwin_bytes": 131858432,
+    "parent_SELF_preJSON_CPU_seconds": 0.06384,
+    "parent_persistence_exit_tail": "notmeasured"
+  },
+  "limits": "SourceandQYCexhaustive/Frowsetexhaustivefixture, noexactboundaries/truncation/ambiguouscategories; query_coverage diagnostics retainedpriorQYCreview not queriedbyverifier. NoPrepared3x41X/nativePool/weights/nativeCLI/fit/curve/selectedtree/reload/newqualityclaims. ScienceCLOSED/remainderUNKNOWN/humanhelper50CPU65wallCLOSED unchanged. FutureCLI8SOURCEproposal/manualXoracle pending,separatefreshnativegrant unissued.",
+  "installation_external_publication": "NOTISSUED_coherentlocalintegrationpending",
+  "goal_status_changed": false
+}

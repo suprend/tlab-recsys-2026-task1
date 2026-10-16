@@ -1,0 +1,32 @@
+{
+  "wave": 69,
+  "author": "brainstorm_taobao_069",
+  "recorded_UTC": "2026-10-16T12:09:24Z",
+  "original_scheduled_UTC": "2026-10-16T12:00:00Z",
+  "next_original_grid_UTC": "2026-10-16T12:45:00Z",
+  "skills_applied": ["research", "research-campaign"],
+  "shared_context": {"path": "/tmp/tlab-wave069-shared-context-v1.json", "sha256": "323cdc4c43b03a4275d52a294494362aa9d1a7382fb583c89df1990b73133712", "snapshot_count": 26, "all_26_sha256_matched": true},
+  "primary_pages_opened": 2,
+  "primary_sources": [
+    {"url": "https://tianchi.aliyun.com/dataset/649", "retrieved_UTC": "2026-10-16T12:08:00Z", "retrieval_time_precision": "minute approximate; actual frozen receipt below", "observation": "Reader returned only title 淘宝用户购物行为数据集. No schema/license/access/time facts confirmed.", "unknown": ["license", "current download access", "action dictionary", "timestamp units", "timezone", "date bounds", "completeness"]},
+    {"url": "https://github.com/alibaba/nann/blob/master/NANN_impls/nann/data_provider/convert_UB_to_tfrecord.py", "retrieved_UTC": "2026-10-16T12:08:00Z", "retrieval_time_precision": "minute approximate; actual frozen receipt below", "version": "mutable master; commit not exposed in returned text", "observation": "Five positions consumed; behavior assignment commented out. Every item appended to per-user history; item-category map populated across input. No publisher action dictionary or timezone contract supplied.", "web_lines": "746-763; 796-821"}
+  ],
+  "dedupe_sources": [
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-031.md", "sha256": "0a97f976cee67d0703ce5bfeee02db028944116637d3a0c9ad9b25f0d8fe405c"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/transfer-adapter-conformance.md", "sha256": "e4acafde25405e6aee63ec1357916f7071a4ae6adee74736bd5e3ae214bbcdea"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave047/tlab-brainstorm-dataset-transfer-features-b-wave047.md", "sha256": "af9e6be524872181dd62131a008fb787232040708145def09b6575a9bf4bec3b"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave063/tlab-wave063-transfer-c-FIRST.md", "sha256": "eafd1804d291067bf124a6041ad394983649ceffa24ad7632dff34238fc37530"},
+    {"path": "/tmp/tlab-wave068-frozen-context-v1/0-backlog.md", "sha256": "e862b72ff34ac5c323bca5a5109e73a5d8c7f54f910a9f146558d7dc029cb152"}
+  ],
+  "local_mechanics": [
+    {"path": "/tmp/tlab-wave066-frozen-context-v1/10-source_import.py", "lines": "19-21,67-71", "observation": "Literal UTC typed9; actions view/cart/purchase only; unknown source action rejects."},
+    {"path": "/tmp/tlab-wave066-frozen-context-v1/13-manual_features.py", "lines": "70-71,176-188", "observation": "DSL action whitelist and all-events item/user observed state."},
+    {"path": "/tmp/tlab-wave066-frozen-context-v1/11-anchor_pilot.py", "lines": "160-187", "observation": "Declared eligibility actions; diagnostic history bag and distinct support read source relation."},
+    {"path": "/tmp/tlab-wave066-frozen-context-v1/12-candidate_pilot.py", "lines": "62-78", "observation": "Purchase popularity and declared recent-action support."},
+    {"path": "/tmp/tlab-wave066-frozen-context-v1/17-clock-48h.json", "observation": "48h eligibility and168h recentC use three declared actions; fullY distinct purchase24h includingT/excludingT+H."}
+  ],
+  "new_ideas": 0,
+  "refines": ["round031", "TLAB-013", "TLAB-014", "TLAB-016", "TLAB-019"],
+  "authority": "Root alone adopts; backlog_coordinator alone writes canonical files.",
+  "negative_scope": {"peer069_reads_before_freeze": 0, "raw_downloads": 0, "actual_data_reads": 0, "imports_tests_SQL_native_ML_model_inference": 0, "canonical_writes": 0, "Git_calls": 0, "network_writes": 0, "helper_programs": 0, "new_gates_grants": 0}
+}

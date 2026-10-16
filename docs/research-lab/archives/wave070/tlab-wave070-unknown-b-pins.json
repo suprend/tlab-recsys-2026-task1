@@ -1,0 +1,96 @@
+{
+  "wave": 70,
+  "author": "unknown_b",
+  "observed_UTC": "2026-10-16T12:48:58Z",
+  "shared_context": {
+    "path": "/tmp/tlab-wave070-shared-context-v1.json",
+    "sha256": "cf449b60736a43c5cae3cce777db972dcb337d8e2ee3343680530f937559065a",
+    "matched": true,
+    "exact_snapshot_pin_list": "source_pins in this hash-bound context",
+    "snapshot_pin_count": 32,
+    "all_32_snapshot_sha256_verified_against_context": true
+  },
+  "read_scopes": {
+    "wave066_snapshots": {
+      "0,1,17": "complete requirements, data provenance/schema and clock48h configuration",
+      "2": "report findings, target/training/metric and heldout limitations; targeted semantic search",
+      "6": "main collection verification/preparation and declared selection/training population",
+      "7": "complete fit_development implementation",
+      "8": "phase maturity, aggregation/Q-C-Y integrity and acceptance source excerpts",
+      "9": "prepare_dataset, fullY, group_accounting, explicit_pairs, ranking and objectives",
+      "10": "complete typed9 parser/import kernel text",
+      "11": "query eligibility and complete label construction/accounting implementation",
+      "12": "candidate generation, fullY coverage, catalog policy and run excerpts",
+      "13": "NULL/count/category/compiler targeted search plus grain filtering source excerpts",
+      "14": "header/context contract and targeted NULL/operator/target search",
+      "15": "target/maturity/query/history protocol validation source excerpts"
+    },
+    "wave068_snapshots": {
+      "0,1": "current status and targeted prior-work/066/043/047/candidate-reachability search",
+      "2": "progress/target wording/reachability and grants excerpts",
+      "3": "README current protocol/results and targeted semantics search",
+      "4,5,6": "complete checkpoint acceptance,067 readback and tiny design v1"
+    },
+    "wave069_snapshots": {
+      "0,1,2,3": "complete068 readback, design v2, builder acceptance and manual-F specification"
+    },
+    "wave070_snapshots": {
+      "0,1,2,4,5": "complete QYC production receipt, physical synthetic row text, prior069 skeptic, source pins and freeze",
+      "3": "identical manual-F bytes to069/3: both hashes verified; shared content read once"
+    },
+    "precision": "Relevant sections are identified above; hashing all32 does not claim every source byte was semantically reviewed. Physical row JSON describes synthetic fixture only; no data/DB/Parquet/model file opened."
+  },
+  "additional_source_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "scope": "QueryRanking, score_query and all estimands through paired bootstrap source"
+    },
+    {
+      "path": "/tmp/tlab-wave066-unknown-b-FIRST.md",
+      "sha256": "dbfa6af70f40d1740cbd16d56b4ac6dd267c2ccf078e8ba3a6d0a7db49c522f8",
+      "scope": "complete historical independent FIRST for dedupe"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/target-research/02-purchase-target.md",
+      "sha256": "8d460e92a5ceae9d886ee8d8e64f6564208fb3bc435f8fb9eabe6d013101cbfa",
+      "scope": "historical target and installed16October identified-key qualification"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/anchor-pilot.md",
+      "sha256": "f66ec8d4f4b38889046d311fad94f896ce5343a77c44f0f6211e837a9deed005",
+      "scope": "pilot semantics/target-accounting wording"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-043.md",
+      "sha256": "6ea9d108e4cc5f362be600549eca09eb5737699a5f5f03a79f3896d2a2861598",
+      "scope": "complete portability contract and correctness-only pilot text"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-047.md",
+      "sha256": "ef1bb2328218b6450d8bdd8e0cba024041893ed69e92a9d618bcb1dd8d61e8c9",
+      "scope": "complete empirical-transfer limitations"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/candidate-reachability-code-result.md",
+      "sha256": "143f13823b0d0d2df4e64f06aca66062d77c0e72d4e7e83e44291b1569c0e442",
+      "scope": "complete accepted synthetic CODE scope/limitations"
+    }
+  ],
+  "actual_sources_rehashed_equal_frozen": [
+    "scripts/source_import.py",
+    "scripts/anchor_pilot.py",
+    "scripts/candidate_pilot.py",
+    "scripts/train_baselines.py",
+    "scripts/development_training.py"
+  ],
+  "skills_read": [
+    "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+    "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+    "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md"
+  ],
+  "external_primary_works_opened": 0,
+  "authority": "Root alone adopts; coordinator sole canonical writer. Author writes only own FIRST/pins/freeze.",
+  "independence": "No wave070 peer FIRST, review or message read before own FIRST freeze.",
+  "operations": "Source/text/hash/time only; zero application import, SQL, DB/actual-data read, tests, download, ML, inference, Git write, executable helper, user question or global goal tool."
+}
