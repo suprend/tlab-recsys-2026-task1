@@ -1,5 +1,18 @@
 # Автоматизация признаков для ранжирования покупок
 
+## Текущий срез — 2026-10-16 15:32:25 UTC
+
+**Принято 14 из 19 исходных задач. Работают tiny source/plans → Q/Y/C → F → два read-only verifier вызова. Ordinary native CLI SOURCE_READY, его native end-to-end ещё UNRUN.** Actual Prepared3×41 X/weights, fit/curve/selected copy/reload этим CLI не произведены; callback-abort отдельно UNRUN. [QYC](backlog-reviews/native-cli-tiny-QYC-result.md), [F270](backlog-reviews/native-cli-tiny-F-result.md) и [verifier108/102](backlog-reviews/native-cli-tiny-verifier-result.md) приняты в tiny scope. [Local476](research-lab/archives/wave073/context/tlab-root-QYC-F-verifier-waves068071-LOCAL-actual-acceptance-v1.json) независимо принят: полный tree2971, reviewed subset925.
+
+[Research072](research-lab/brainstorm-wave072-synthesis.md) и [073](research-lab/brainstorm-wave073-synthesis.md) приняты как existing refinements, без новых IDs/tasks/gates/grants. По три независимых FIRST, затем новый отдельный скептик; toys UNRUN, стоимость/польза UNKNOWN. Этот архив/overlay пока TMP SOURCE-предложение. TLAB-014 continuous,010–013 optional/deferred; исходная очередь14/19, отчёт и научные результаты ниже неизменны.
+
+Новый human question50 CPU/65 wall на один ordinary native CLI attempt ожидает ответа; grant/execute issue не выданы. Старый helper-only grant consumed/CLOSED, science CLOSED/remainder UNKNOWN. Exact476 publication package прошёл независимый review и Root source adoption; отдельный human publication question также без ответа. Ранее exactb286 опубликован;476 и последующие локальные архивы не публикуются автоматически. [Bounded Task1 audit](backlog-reviews/evidence/task1-deliverable-audit-071/tlab-task1-deliverable-audit-071.md) не выявил обязательного scientific deliverable gap в проверенном scope, но не объявляет submission/goal completion; его старый pending-verifier абзац уточнён [Root](backlog-reviews/evidence/task1-deliverable-audit-071/tlab-root-task1-deliverable-audit-071-adoption-v1.json) с учётом accepted e163 verifier.
+
+Next original research: **15:45 UTC /18:45 МСК 16 октября**,45-minute grid без reset. Deadline25Oct2026 23:59 timezoneUNKNOWN; goal-tool последнее observedBLOCKED, здесь не изменяется. Fixed300 final CI crossing0 и adaptive B1189/W403 на reused73positiveQ/2400dependent looks остаются прежними; source-ready CLI не доказывает CV/quality/speed/early stopping или глобальный оптимум.
+
+## Исторический срез 14:08:23 UTC; весь прежний текст сохранён
+
+
 ## Текущий срез — 2026-10-16 14:08:23 UTC
 
 **На tiny fixture из 10 синтетических событий работают source/plans → Q/Y/C → F → два read-only verifier вызова. Ordinary native CLI end-to-end ещё UNRUN. Принято 14 из 19 исходных задач.** Root принял QYC/F semantics и фактические verifier results после независимых reviews. Prepared X/weights, native fit/curve/selected-tree/reload этого CLI ещё не производились; callback-abort остаётся отдельным UNRUN. TLAB-014 continuous, TLAB-010–013 optional/deferred.

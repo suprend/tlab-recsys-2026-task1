@@ -1,5 +1,17 @@
 # Постоянная research-линия
 
+## Актуальный датированный срез — 2026-10-16 15:32:25 UTC
+
+**Принято 14 из 19 задач;014 continuous,010–013 optional/deferred.** Actual [QYC](../backlog-reviews/native-cli-tiny-QYC-result.md), [F270](../backlog-reviews/native-cli-tiny-F-result.md) и [read-only verifier](../backlog-reviews/native-cli-tiny-verifier-result.md) приняты; [Local476](archives/wave073/context/tlab-root-QYC-F-verifier-waves068071-LOCAL-actual-acceptance-v1.json) отдельно подтверждает полный tree2971 и subset925. Ordinary native CLI SOURCE_READY; actual Prepared X/weights/native E2E и callback-abort UNRUN. Новый human native budget question50CPU65wall без ответа, прежний helper grant CLOSED; science CLOSED/remainder UNKNOWN.
+
+- [072 — matched controls, полная стоимость, pooling](brainstorm-wave072-synthesis.md); [оригиналы/source-map](archives/wave072/publication.json).
+- [073 — conditional uncertainty, ceilings, oracle layers](brainstorm-wave073-synthesis.md); [оригиналы/source-map](archives/wave073/publication.json).
+
+Обе волны приняты после трёх независимых FIRST и нового отдельного скептика; по NEW0/REFINE3/ADMIT0. Toys UNRUN, utility/cost UNKNOWN. Архив/current overlay пока TMP SOURCE-предложение; canonical installation отдельно. Publication exact476 прошла independent review/Root source adoption, human вопрос без ответа. Ранее exactb286 опубликован; новых push/PR authority нет. Следующая исходная точка15:45 UTC /18:45 МСК,45-minute grid/deadline25Oct23:59 timezoneUNKNOWN неизменны. Goal-tool последнее observedBLOCKED. Научный отчёт/fixed300 CI crossing0/adaptive1189/403 scope сохраняются.
+
+## Исторический срез 14:08:23 UTC; прежний индекс сохранён побайтно
+
+
 ## Актуальный датированный срез — 2026-10-16 14:08:23 UTC
 
 **14 из 19 задач принято.** [Tiny source/plans](../backlog-reviews/native-cli-tiny-builder-result.md), [QYC](../backlog-reviews/native-cli-tiny-QYC-result.md), [F270](../backlog-reviews/native-cli-tiny-F-result.md) и [два read-only verifier результата](../backlog-reviews/native-cli-tiny-verifier-result.md) приняты в своих пределах. Generic F-values sampler на tiny3 pairs покрыл все3 на роль; это не general exhaustive proof. Prepared X/weights и ordinary native CLI E2E ещё UNPRODUCED/UNRUN, callback-abort отдельно UNRUN; нового native grant нет.

@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "UTC": "2026-10-16T15:11:34.041859+00:00",
+  "shared_context": {
+    "path": "/tmp/tlab-wave073-shared-context-v1.json",
+    "sha256": "e9c341eb070195c23fcb1ccaeefb4f94819a991062be78af8aa6ce6ddf55d4c5"
+  },
+  "three_independent_FIRSTs": [
+    {
+      "path": "/tmp/tlab-wave073-uncertainty-a-FIRST.md",
+      "sha256": "ef32b78f0f95d9fda11c370cdc018eb2c8424f2d4f97ab2257e844847a083e86",
+      "bytes": 2678
+    },
+    {
+      "path": "/tmp/tlab-wave073-uncertainty-a-pins.json",
+      "sha256": "94f118deca978026844f0ee096fd5824be0c79a5986e0bc6549e495b69ae0c11",
+      "bytes": 26817
+    },
+    {
+      "path": "/tmp/tlab-wave073-uncertainty-a-freeze.json",
+      "sha256": "32c8ef38e84d0dace885b790040c15f4e1736106a705e5713a56dfe96a7fa8b5",
+      "bytes": 672
+    },
+    {
+      "path": "/tmp/tlab-wave073-ceiling-b-FIRST.md",
+      "sha256": "e0bb77d0847855828de3923d0d1bc62b6f5c86ab467a4994cc2520cfbd293d2c",
+      "bytes": 2259
+    },
+    {
+      "path": "/tmp/tlab-wave073-ceiling-b-pins.json",
+      "sha256": "d99e065bcf8a9ce98dd66050c9b4dfe1d0e375f1aea1ce9e473870fe991cce53",
+      "bytes": 18658
+    },
+    {
+      "path": "/tmp/tlab-wave073-ceiling-b-freeze.json",
+      "sha256": "43976d21e2626267bdccd516f6028a59b4744b83a8bd19db259ae2066c99a6b4",
+      "bytes": 1080
+    },
+    {
+      "path": "/tmp/tlab-wave073-oracle-c-FIRST.md",
+      "sha256": "02529cd2279ebb38a2d22a2ec17aac1b15915afa329d2cbb6f592d9e880d2559",
+      "bytes": 2645
+    },
+    {
+      "path": "/tmp/tlab-wave073-oracle-c-pins.json",
+      "sha256": "507a4734dd8ef335a61363e17a4962e6ed9c63f6e53c783c561477e7f2de83ef",
+      "bytes": 27188
+    },
+    {
+      "path": "/tmp/tlab-wave073-oracle-c-freeze.json",
+      "sha256": "2d7c768d49e97169657fb5a59878f77dc3dadffff68922853cbccbdb0b00ab99",
+      "bytes": 1003
+    }
+  ],
+  "checks": {
+    "all_3_FIRST_bodies_read": true,
+    "all_162_shared_snapshot_hash_bytes_match": true,
+    "all_freeze_output_pins_match": true
+  },
+  "scope": "SOURCE-only pre-skeptic readback; no experiment or task admitted; all toys UNRUN; native budget question pending, not grant",
+  "next_fixed_UTC": "2026-10-16T15:45:00Z"
+}

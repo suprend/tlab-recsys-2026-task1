@@ -1,5 +1,16 @@
 # Единый рабочий backlog T-Lab
 
+## Текущий датированный срез — 2026-10-16 15:32:25 UTC
+
+**Принято 14 из 19 задач. Tiny source/plans → Q/Y/C → F → два read-only verifier вызова приняты; ordinary native CLI подготовлен и прошёл SOURCE review, но его end-to-end ещё UNRUN.** Actual Prepared X/weights, fit/curve/selection/reload этим CLI не произведены; callback-abort также UNRUN. [QYC](backlog-reviews/native-cli-tiny-QYC-result.md), [F](backlog-reviews/native-cli-tiny-F-result.md) и [verifier](backlog-reviews/native-cli-tiny-verifier-result.md) сохраняют свои tiny scopes. [Local checkpoint476](research-lab/archives/wave073/context/tlab-root-QYC-F-verifier-waves068071-LOCAL-actual-acceptance-v1.json) принят: полный tree2971, reviewed subset925; subset не выдаётся за весь репозиторий.
+
+[072](research-lab/brainstorm-wave072-synthesis.md) и [073](research-lab/brainstorm-wave073-synthesis.md) — по три existing refinements после трёх независимых FIRST и нового отдельного скептика; NEW/ADMIT=0. Их архив и этот overlay пока TMP SOURCE-предложение, установка требует отдельного Root issue. Таблица19IDs и её история ниже неизменны:014 continuous,010–013 optional/deferred,015/018 done. Toys UNRUN, стоимость/польза UNKNOWN.
+
+Следующий технический шаг — ответ на отдельный human budget question50 CPU/65 wall для одного native CLI attempt; ответа и execute issue на этом срезе нет. Source-ready не означает native PASS. Прежний helper-only grant CLOSED; science CLOSED, remainder UNKNOWN. Exact476 publication overview/PR text прошли независимый review и Root source adoption, отдельный вопрос пользователю ожидает ответа. Ранее exactb286 опубликован; новые локальные архивы не получают external authority автоматически. Fixed300/final CI crossing0 и adaptive1189/403/reused73Q/2400dependent looks не расширены. Следующая исходная точка15:45 UTC /18:45 МСК;45-minute grid/deadline25Oct23:59 timezoneUNKNOWN, один coordinator и observedBLOCKED goal metadata сохраняются.
+
+## Исторический срез 14:08:23 UTC; прежний текст сохранён побайтно
+
+
 ## Текущий датированный срез — 2026-10-16 14:08:23 UTC
 
 **Принято 14 из 19 задач. Tiny no-fit цепочка source/plans → Q/Y/C → F → два read-only verifier вызова выполнена и принята; ordinary native CLI E2E остаётся UNRUN.** [QYC](backlog-reviews/native-cli-tiny-QYC-result.md) сохраняет train2/1/3 и selection3/3/3 Q/Y/C, positive empty-C и off-C fullY. [F](backlog-reviews/native-cli-tiny-F-result.md): две таблицы3×45 и все270 literal cells. [Verifier](backlog-reviews/native-cli-tiny-verifier-result.md): по3 tiny pairs, всего108 formula/102 metadata checks при generic sampled-F policy. Prepared3×41 X/weights, native fit/curve/selection/reload ещё не произведены этим CLI; native callback-abort UNRUN. Новых grants, IDs или обязательных gates нет.

@@ -1,5 +1,16 @@
 # Журнал новых исследовательских идей
 
+## Новый датированный checkpoint — 2026-10-16 15:32:25 UTC
+
+Root принял [072](brainstorm-wave072-synthesis.md) и [073](brainstorm-wave073-synthesis.md): каждая волна — три независимых blind FIRST, затем новый отдельный скептик; NEW0/REFINE3/ADMIT0. 072 уточняет matched-versus-selected estimands, полный cost ledger и условия tied Gram/pooling. 073 уточняет conditional uncertainty, fixed-C ceilings и границы oracle independence. Ручные toys UNRUN, costs/benefit UNKNOWN; новых IDs, задач, gates или grants нет. Архив/current overlay пока TMP SOURCE-предложение, не выполненная установка.
+
+[Local476](archives/wave073/context/tlab-root-QYC-F-verifier-waves068071-LOCAL-actual-acceptance-v1.json) принят, полный tree2971/reviewed subset925. Actual QYC/F270/read-only verifier приняты; native CLI V2 SOURCE_READY, actual Prepared/native end-to-end/callback-abort UNRUN. Новый human native50CPU65wall question без ответа; старый helper grant CLOSED/science CLOSED/remainder UNKNOWN. Publication exact476 прошла independent review/Root source adoption, отдельный human вопрос ожидает ответа. Exactb286 ранее опубликован; это не future-payload authority.
+
+072 common bounds14:11:56–14:17:24 охватывают due14:15;07315:00:24–15:01:52 после due15:00, не индивидуальные старты. Следующая исходная research-точка **15:45 UTC /18:45 МСК**;45-minute grid, deadline25Oct23:59 timezoneUNKNOWN не меняются. 14/19 accepted;014 continuous,010–013 optional/deferred; observedBLOCKED goal metadata без изменения. Каждый платный шаг сохраняет отдельный reviewed finite CPU/wall/memory/I/O/label/fit/API/fail-closed предел. Hypotheses не prerequisites015/018/report; B/W и reserved25–31 неизменны. Полезность оценивается покрытием основ, проверяемым выводом и исправлением, без novelty quota/agent-count success. Один canonical coordinator сохраняется.
+
+## Исторический checkpoint 14:08:23 UTC; прежний журнал сохранён побайтно
+
+
 ## Новый датированный checkpoint — 2026-10-16 14:08:23 UTC
 
 **Работает tiny no-fit цепочка source/plans → QYC → F → два read-only verifier вызова; ordinary native CLI E2E ещё UNRUN. Принято14 из19 исходных задач.** [QYC](../backlog-reviews/native-cli-tiny-QYC-result.md):52 новых outputs=28profiles+24others; [F](../backlog-reviews/native-cli-tiny-F-result.md):34outputs=24profiles+10others, две3×45 таблицы,270 literal cells; [verifier](../backlog-reviews/native-cli-tiny-verifier-result.md):108 formula/102 metadata checks, tinyall3pairs на роль, generic sampled policy. Prepared X/weights/native Pool/fit/curve/selection/reload не произведены; callback-abort отдельноUNRUN. Старыйhelper-only50CPU65wall CLOSED, не reuse; scienceCLOSED/remainderUNKNOWN.

@@ -1,0 +1,804 @@
+{
+  "version": 1,
+  "wave": 73,
+  "role": "NEW_distinct_skeptic",
+  "UTC": "2026-10-16T15:17:24.818551+00:00",
+  "shared_context": {
+    "path": "/tmp/tlab-wave073-shared-context-v1.json",
+    "sha256": "e9c341eb070195c23fcb1ccaeefb4f94819a991062be78af8aa6ce6ddf55d4c5",
+    "bytes": 18824
+  },
+  "root_readback": {
+    "path": "/tmp/tlab-root-wave073-three-FIRSTs-readback-v1.json",
+    "sha256": "b0d810a61a687ca35daa1a143b33cf38a2850fb359c842e78ec712f426ee2178",
+    "bytes": 2159
+  },
+  "peer_artifacts": [
+    {
+      "path": "/tmp/tlab-wave073-uncertainty-a-FIRST.md",
+      "sha256": "ef32b78f0f95d9fda11c370cdc018eb2c8424f2d4f97ab2257e844847a083e86",
+      "bytes": 2678,
+      "read_scope": "complete FIRST body / complete freeze; pins parsed metadata/read scopes/all54 shared references checked, not all source bodies"
+    },
+    {
+      "path": "/tmp/tlab-wave073-uncertainty-a-pins.json",
+      "sha256": "94f118deca978026844f0ee096fd5824be0c79a5986e0bc6549e495b69ae0c11",
+      "bytes": 26817,
+      "read_scope": "complete FIRST body / complete freeze; pins parsed metadata/read scopes/all54 shared references checked, not all source bodies"
+    },
+    {
+      "path": "/tmp/tlab-wave073-uncertainty-a-freeze.json",
+      "sha256": "32c8ef38e84d0dace885b790040c15f4e1736106a705e5713a56dfe96a7fa8b5",
+      "bytes": 672,
+      "read_scope": "complete FIRST body / complete freeze; pins parsed metadata/read scopes/all54 shared references checked, not all source bodies"
+    },
+    {
+      "path": "/tmp/tlab-wave073-ceiling-b-FIRST.md",
+      "sha256": "e0bb77d0847855828de3923d0d1bc62b6f5c86ab467a4994cc2520cfbd293d2c",
+      "bytes": 2259,
+      "read_scope": "complete FIRST body / complete freeze; pins parsed metadata/read scopes/all54 shared references checked, not all source bodies"
+    },
+    {
+      "path": "/tmp/tlab-wave073-ceiling-b-pins.json",
+      "sha256": "d99e065bcf8a9ce98dd66050c9b4dfe1d0e375f1aea1ce9e473870fe991cce53",
+      "bytes": 18658,
+      "read_scope": "complete FIRST body / complete freeze; pins parsed metadata/read scopes/all54 shared references checked, not all source bodies"
+    },
+    {
+      "path": "/tmp/tlab-wave073-ceiling-b-freeze.json",
+      "sha256": "43976d21e2626267bdccd516f6028a59b4744b83a8bd19db259ae2066c99a6b4",
+      "bytes": 1080,
+      "read_scope": "complete FIRST body / complete freeze; pins parsed metadata/read scopes/all54 shared references checked, not all source bodies"
+    },
+    {
+      "path": "/tmp/tlab-wave073-oracle-c-FIRST.md",
+      "sha256": "02529cd2279ebb38a2d22a2ec17aac1b15915afa329d2cbb6f592d9e880d2559",
+      "bytes": 2645,
+      "read_scope": "complete FIRST body / complete freeze; pins parsed metadata/read scopes/all54 shared references checked, not all source bodies"
+    },
+    {
+      "path": "/tmp/tlab-wave073-oracle-c-pins.json",
+      "sha256": "507a4734dd8ef335a61363e17a4962e6ed9c63f6e53c783c561477e7f2de83ef",
+      "bytes": 27188,
+      "read_scope": "complete FIRST body / complete freeze; pins parsed metadata/read scopes/all54 shared references checked, not all source bodies"
+    },
+    {
+      "path": "/tmp/tlab-wave073-oracle-c-freeze.json",
+      "sha256": "2d7c768d49e97169657fb5a59878f77dc3dadffff68922853cbccbdb0b00ab99",
+      "bytes": 1003,
+      "read_scope": "complete FIRST body / complete freeze; pins parsed metadata/read scopes/all54 shared references checked, not all source bodies"
+    }
+  ],
+  "snapshot_checks": [
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/0-task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "bytes": 3638,
+      "actual_sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "actual_bytes": 3638,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/data.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/1-data.md",
+      "sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "bytes": 6378,
+      "actual_sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+      "actual_bytes": 6378,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/2-experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "bytes": 46054,
+      "actual_sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "actual_bytes": 46054,
+      "match": true,
+      "read_scope": "lines105..124: fixed final observed aggregates, cohort and bootstrap support; not full report"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/6-train_development.py",
+      "sha256": "f4d19483532318b25c2adb51734ec347e772d3441edca944c5c91ce791cacde9",
+      "bytes": 12640,
+      "actual_sha256": "f4d19483532318b25c2adb51734ec347e772d3441edca944c5c91ce791cacde9",
+      "actual_bytes": 12640,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/7-development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590,
+      "actual_sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "actual_bytes": 5590,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/8-development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909,
+      "actual_sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "actual_bytes": 34909,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/9-train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "bytes": 35022,
+      "actual_sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "actual_bytes": 35022,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/10-source_import.py",
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+      "bytes": 14444,
+      "actual_sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+      "actual_bytes": 14444,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/11-anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181,
+      "actual_sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "actual_bytes": 20181,
+      "match": true,
+      "read_scope": "lines155..205: eligibility/raw diagnostics/hash query sampling; source only"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/12-candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "bytes": 18557,
+      "actual_sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "actual_bytes": 18557,
+      "match": true,
+      "read_scope": "lines1..230 displayed completely in recovered bundle2: retrieval distinct/group ranks, no-refill, full-target coverage; no execution"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/13-manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160,
+      "actual_sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "actual_bytes": 25160,
+      "match": true,
+      "read_scope": "lines1..274 displayed in two bounded calls/recovered bundle1: policies, count/distinct, latest metadata, category NULL/ratios/masks; no execution"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/14-feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "actual_sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "actual_bytes": 14019,
+      "match": true,
+      "read_scope": "bounded rg keyword matches only; not exhaustive compiler or canary review"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/15-protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "actual_sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "actual_bytes": 11864,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/16-temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "actual_sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "actual_bytes": 6184,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "snapshot": "/tmp/tlab-wave066-frozen-context-v1/17-clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "actual_sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "actual_bytes": 1403,
+      "match": true,
+      "read_scope": "complete JSON displayed"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/0-backlog.md",
+      "sha256": "e862b72ff34ac5c323bca5a5109e73a5d8c7f54f910a9f146558d7dc029cb152",
+      "bytes": 194060,
+      "actual_sha256": "e862b72ff34ac5c323bca5a5109e73a5d8c7f54f910a9f146558d7dc029cb152",
+      "actual_bytes": 194060,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/1-index.md",
+      "sha256": "4faae2b5a4eedb1e789157855710c3ccba3d2bcba1669ffe8f8d66b923fbb006",
+      "bytes": 34057,
+      "actual_sha256": "4faae2b5a4eedb1e789157855710c3ccba3d2bcba1669ffe8f8d66b923fbb006",
+      "actual_bytes": 34057,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/2-progress-report.md",
+      "sha256": "32373926f2cc08bc86f248ea92c6d2891d608d487b48c77236c7a7c20dfbb550",
+      "bytes": 17243,
+      "actual_sha256": "32373926f2cc08bc86f248ea92c6d2891d608d487b48c77236c7a7c20dfbb550",
+      "actual_bytes": 17243,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/3-README.md",
+      "sha256": "8f7f07dfcfa458d6d0b2d64d9d1b712b26f9a4590e03f57289fed40f3ee5384e",
+      "bytes": 21405,
+      "actual_sha256": "8f7f07dfcfa458d6d0b2d64d9d1b712b26f9a4590e03f57289fed40f3ee5384e",
+      "actual_bytes": 21405,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-integrated-local-checkpoint-final-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/4-tlab-root-integrated-local-checkpoint-final-actual-acceptance-v1.json",
+      "sha256": "348f39621fc372265427000cf6327c628339f16c8dfdd48cf43c3b604c5190b4",
+      "bytes": 1378,
+      "actual_sha256": "348f39621fc372265427000cf6327c628339f16c8dfdd48cf43c3b604c5190b4",
+      "actual_bytes": 1378,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-wave067-research-readback-v1.json",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/5-tlab-root-wave067-research-readback-v1.json",
+      "sha256": "8602e173e5d3a1279dbbcb8805bb4ca904dd5a15981719b8bc67857afac3b320",
+      "bytes": 1769,
+      "actual_sha256": "8602e173e5d3a1279dbbcb8805bb4ca904dd5a15981719b8bc67857afac3b320",
+      "actual_bytes": 1769,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-tiny-design-v1/design.md",
+      "snapshot": "/tmp/tlab-wave068-frozen-context-v1/6-design.md",
+      "sha256": "69277952685e113a14ea8db52f2b852d1b17f6b9c9cc23381948d420dae2fa73",
+      "bytes": 3269,
+      "actual_sha256": "69277952685e113a14ea8db52f2b852d1b17f6b9c9cc23381948d420dae2fa73",
+      "actual_bytes": 3269,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-wave068-research-readback-v1.json",
+      "snapshot": "/tmp/tlab-wave069-frozen-context-v1/0-tlab-root-wave068-research-readback-v1.json",
+      "sha256": "80d60c00fc294d3c71cbf39f9ff91d06d0869a3bf93a3f5ea7b6d220b8da632e",
+      "bytes": 2330,
+      "actual_sha256": "80d60c00fc294d3c71cbf39f9ff91d06d0869a3bf93a3f5ea7b6d220b8da632e",
+      "actual_bytes": 2330,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-tiny-design-v2/design.md",
+      "snapshot": "/tmp/tlab-wave069-frozen-context-v1/1-design.md",
+      "sha256": "c101a7b2a05874f0743b2ee5f63ba2d50332fe4499e712b281ca191770f0a1ec",
+      "bytes": 3464,
+      "actual_sha256": "c101a7b2a05874f0743b2ee5f63ba2d50332fe4499e712b281ca191770f0a1ec",
+      "actual_bytes": 3464,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-builder-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave069-frozen-context-v1/2-tlab-root-native-cli-tiny-builder-actual-acceptance-v1.json",
+      "sha256": "736a6e7583629dc39c47ccf8a7b4e512a5b819a0ccdea79cbeff57cf8f78a343",
+      "bytes": 2072,
+      "actual_sha256": "736a6e7583629dc39c47ccf8a7b4e512a5b819a0ccdea79cbeff57cf8f78a343",
+      "actual_bytes": 2072,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-ten-event-F-manual-oracle-v1/manual-F.md",
+      "snapshot": "/tmp/tlab-wave069-frozen-context-v1/3-manual-F.md",
+      "sha256": "57f5218f27f142dc6772cfe563f1bed7858806f8ef8661d1dbc004cf2107fb69",
+      "bytes": 13943,
+      "actual_sha256": "57f5218f27f142dc6772cfe563f1bed7858806f8ef8661d1dbc004cf2107fb69",
+      "actual_bytes": 13943,
+      "match": true,
+      "read_scope": "lines1..60 literal ten-event fixture, rows, feature table and disclosed-not-blind statement; not full manual"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-QYC-production-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/0-tlab-root-native-cli-tiny-QYC-production-actual-acceptance-v1.json",
+      "sha256": "cf55faa63973aa73eb3ee132ccdf5972a7df216e917464808df2d0236b76868a",
+      "bytes": 1707,
+      "actual_sha256": "cf55faa63973aa73eb3ee132ccdf5972a7df216e917464808df2d0236b76868a",
+      "actual_bytes": 1707,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-QYC-physical-rows-v1.json",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/1-tlab-root-native-cli-tiny-QYC-physical-rows-v1.json",
+      "sha256": "84e15f26619cc386537d254d7a867eec047ba17bd26bf49817ba9ada6d212bce",
+      "bytes": 19351,
+      "actual_sha256": "84e15f26619cc386537d254d7a867eec047ba17bd26bf49817ba9ada6d212bce",
+      "actual_bytes": 19351,
+      "match": true,
+      "read_scope": "metadata prefix lines1..100 plus ALL rows of ALL8 tables transformed to displayed JSON; source snapshot only, no Parquet/DB access"
+    },
+    {
+      "original": "/tmp/tlab-wave069-skeptic-review-v1.md",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/2-tlab-wave069-skeptic-review-v1.md",
+      "sha256": "7503aa0fb7e1cac1824038ad2cccae155899c4845731166d938cb7b7f18d6414",
+      "bytes": 4125,
+      "actual_sha256": "7503aa0fb7e1cac1824038ad2cccae155899c4845731166d938cb7b7f18d6414",
+      "actual_bytes": 4125,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-ten-event-F-manual-oracle-v1/manual-F.md",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/3-manual-F.md",
+      "sha256": "57f5218f27f142dc6772cfe563f1bed7858806f8ef8661d1dbc004cf2107fb69",
+      "bytes": 13943,
+      "actual_sha256": "57f5218f27f142dc6772cfe563f1bed7858806f8ef8661d1dbc004cf2107fb69",
+      "actual_bytes": 13943,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-ten-event-F-manual-oracle-v1/source-pins.json",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/4-source-pins.json",
+      "sha256": "4894bcb949fb8492c5ef571fedef4dff60cc9e37011cb29f13f1d52509b9e40a",
+      "bytes": 3349,
+      "actual_sha256": "4894bcb949fb8492c5ef571fedef4dff60cc9e37011cb29f13f1d52509b9e40a",
+      "actual_bytes": 3349,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-ten-event-F-manual-oracle-v1/freeze.json",
+      "snapshot": "/tmp/tlab-wave070-frozen-context-v1/5-freeze.json",
+      "sha256": "0bf5b0b361e8096eee5840b500a81cf5dbe7da0c7cf62e1a7f6b19e8dddcac4a",
+      "bytes": 1984,
+      "actual_sha256": "0bf5b0b361e8096eee5840b500a81cf5dbe7da0c7cf62e1a7f6b19e8dddcac4a",
+      "actual_bytes": 1984,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/0-backlog.md",
+      "sha256": "9e45e8e1c3713504525d3ef7f207089c7efdd8b0dabcbbd6ff25f923b72e1491",
+      "bytes": 193374,
+      "actual_sha256": "9e45e8e1c3713504525d3ef7f207089c7efdd8b0dabcbbd6ff25f923b72e1491",
+      "actual_bytes": 193374,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/1-progress-report.md",
+      "sha256": "8d16462037487fdb986a853a354b492a76ba9c191ee389599f2bc6ca9b4c709f",
+      "bytes": 16916,
+      "actual_sha256": "8d16462037487fdb986a853a354b492a76ba9c191ee389599f2bc6ca9b4c709f",
+      "actual_bytes": 16916,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/nlp-experiments.md",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/2-nlp-experiments.md",
+      "sha256": "9269b4f4e5994ea077f2f23cf372de43aa97f4eecf85bd3b76c4df94f2a86d61",
+      "bytes": 15877,
+      "actual_sha256": "9269b4f4e5994ea077f2f23cf372de43aa97f4eecf85bd3b76c4df94f2a86d61",
+      "actual_bytes": 15877,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-builder-source-archive-current4-LOCAL-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/3-tlab-root-builder-source-archive-current4-LOCAL-actual-acceptance-v1.json",
+      "sha256": "48e3f17ef7da6b1ddd4e01bdabf11e9c6aeed0a5bfea8cd9bc78bdf1cc40632f",
+      "bytes": 1649,
+      "actual_sha256": "48e3f17ef7da6b1ddd4e01bdabf11e9c6aeed0a5bfea8cd9bc78bdf1cc40632f",
+      "actual_bytes": 1649,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-F-production-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/4-tlab-root-native-cli-tiny-F-production-actual-acceptance-v1.json",
+      "sha256": "db5457a1680b311edb1b9a2141f5d2e521ceacc114cb8f45219a48814595843e",
+      "bytes": 2483,
+      "actual_sha256": "db5457a1680b311edb1b9a2141f5d2e521ceacc114cb8f45219a48814595843e",
+      "actual_bytes": 2483,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-F-physical-rows-v1.json",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/5-tlab-root-native-cli-tiny-F-physical-rows-v1.json",
+      "sha256": "273a421bdfa13302c9dcd0c3c6bdc698e9d3b375e4dc7b5a7bbddd29390be37e",
+      "bytes": 11422,
+      "actual_sha256": "273a421bdfa13302c9dcd0c3c6bdc698e9d3b375e4dc7b5a7bbddd29390be37e",
+      "actual_bytes": 11422,
+      "match": true,
+      "read_scope": "metadata prefix lines1..155 plus ALL6 physical45-column rows transformed to displayed named JSON; source snapshot only, no Parquet/DB access"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-tiny-F-actual-semantic-review-v1.md",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/6-tlab-native-cli-tiny-F-actual-semantic-review-v1.md",
+      "sha256": "874b0217f4fd503ba61cab64c807ac51f50304d5f0edc75197beb6efda3b2b1e",
+      "bytes": 8405,
+      "actual_sha256": "874b0217f4fd503ba61cab64c807ac51f50304d5f0edc75197beb6efda3b2b1e",
+      "actual_bytes": 8405,
+      "match": true,
+      "read_scope": "complete text displayed; independent review evidence, not new actual-data inspection"
+    },
+    {
+      "original": "/tmp/tlab-wave070-skeptic-review-v1.md",
+      "snapshot": "/tmp/tlab-wave071-frozen-context-v1/7-tlab-wave070-skeptic-review-v1.md",
+      "sha256": "a8197e64fb2e5b200752f16e740cc2ed87426934f16562ec10381c11989c3e3a",
+      "bytes": 4263,
+      "actual_sha256": "a8197e64fb2e5b200752f16e740cc2ed87426934f16562ec10381c11989c3e3a",
+      "actual_bytes": 4263,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-verifier-actual-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/0-tlab-root-native-cli-tiny-verifier-actual-adoption-v1.json",
+      "sha256": "e16371704f8ad0fff83c86fe618a28944185ab84b75fb27ad47414bbb74cc0ae",
+      "bytes": 3393,
+      "actual_sha256": "e16371704f8ad0fff83c86fe618a28944185ab84b75fb27ad47414bbb74cc0ae",
+      "actual_bytes": 3393,
+      "match": true,
+      "read_scope": "complete JSON displayed in recovered bundle2: observed roles/counts/source and sampled-F scopes"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-F-semantic-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/1-tlab-root-native-cli-tiny-F-semantic-adoption-v1.json",
+      "sha256": "6bdf9f53475ec3c7d12123ba8b0ea21b6930beacf12a2c61b52b84ea9db93662",
+      "bytes": 2410,
+      "actual_sha256": "6bdf9f53475ec3c7d12123ba8b0ea21b6930beacf12a2c61b52b84ea9db93662",
+      "actual_bytes": 2410,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-native-cli-tiny-prepared-manual-oracle-v1/manual-prepared.md",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/2-manual-prepared.md",
+      "sha256": "2b3ab9470424b71ea8acb52796cdc66bc6b4d6d1a1a61cb85a438a0866fd67b7",
+      "bytes": 9906,
+      "actual_sha256": "2b3ab9470424b71ea8acb52796cdc66bc6b4d6d1a1a61cb85a438a0866fd67b7",
+      "actual_bytes": 9906,
+      "match": true,
+      "read_scope": "lines1..80 displayed: prediction scope/order/weights/246 X table; not actual Prepared"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-prepared-manual-oracle-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/3-tlab-root-native-cli-tiny-prepared-manual-oracle-adoption-v1.json",
+      "sha256": "aac75aea95ca88d33d5610932a3b9d8285d27fd084124381afdff8eb0b676905",
+      "bytes": 2471,
+      "actual_sha256": "aac75aea95ca88d33d5610932a3b9d8285d27fd084124381afdff8eb0b676905",
+      "actual_bytes": 2471,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-task1-deliverable-audit-071.md",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/4-tlab-task1-deliverable-audit-071.md",
+      "sha256": "c958b022a3d8c515cd4b6737d193699bad696f915f3c758b6e311bbb8675742b",
+      "bytes": 6557,
+      "actual_sha256": "c958b022a3d8c515cd4b6737d193699bad696f915f3c758b6e311bbb8675742b",
+      "actual_bytes": 6557,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-task1-deliverable-audit-071-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/5-tlab-root-task1-deliverable-audit-071-adoption-v1.json",
+      "sha256": "89eb747bd823e2ac2be2cb3925101de3ab3a9ed479b70988977ea3bf3825f252",
+      "bytes": 1983,
+      "actual_sha256": "89eb747bd823e2ac2be2cb3925101de3ab3a9ed479b70988977ea3bf3825f252",
+      "actual_bytes": 1983,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-wave071-research-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/6-tlab-root-wave071-research-adoption-v1.json",
+      "sha256": "7008a93629762e67580e2b60ad31973e206eb6266c78f8048ef312c1ebe606f6",
+      "bytes": 3782,
+      "actual_sha256": "7008a93629762e67580e2b60ad31973e206eb6266c78f8048ef312c1ebe606f6",
+      "actual_bytes": 3782,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-wave071-skeptic-v1.md",
+      "snapshot": "/tmp/tlab-wave072-frozen-overlay-v1/7-tlab-wave071-skeptic-v1.md",
+      "sha256": "8fcea37f1eb7538452fd396c3b14cca96e80e27fdfa84662e9cefb18f75fe5c3",
+      "bytes": 4654,
+      "actual_sha256": "8fcea37f1eb7538452fd396c3b14cca96e80e27fdfa84662e9cefb18f75fe5c3",
+      "actual_bytes": 4654,
+      "match": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "original": "/tmp/tlab-root-QYC-F-verifier-waves068071-LOCAL-actual-acceptance-v1.json",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/0-tlab-root-QYC-F-verifier-waves068071-LOCAL-actual-acceptance-v1.json",
+      "sha256": "b4649c031de52424b0a4f8583a4758a568ea03dc82db58a7d26fda9212eeedc7",
+      "bytes": 1894,
+      "actual_sha256": "b4649c031de52424b0a4f8583a4758a568ea03dc82db58a7d26fda9212eeedc7",
+      "actual_bytes": 1894,
+      "match": true,
+      "read_scope": "complete JSON displayed"
+    },
+    {
+      "original": "/tmp/tlab-root-wave072-research-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/1-tlab-root-wave072-research-adoption-v1.json",
+      "sha256": "9a934eaccd6eb0ffa4c25401eea53312687008c51c7f990fe3dcbf6aab4223cb",
+      "bytes": 4674,
+      "actual_sha256": "9a934eaccd6eb0ffa4c25401eea53312687008c51c7f990fe3dcbf6aab4223cb",
+      "actual_bytes": 4674,
+      "match": true,
+      "read_scope": "complete JSON displayed"
+    },
+    {
+      "original": "/tmp/tlab-wave072-skeptic-v1.md",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/2-tlab-wave072-skeptic-v1.md",
+      "sha256": "b549b210834320748179392a70928232fd16d533ea761f8573d0c5b689a9d607",
+      "bytes": 4155,
+      "actual_sha256": "b549b210834320748179392a70928232fd16d533ea761f8573d0c5b689a9d607",
+      "actual_bytes": 4155,
+      "match": true,
+      "read_scope": "complete text displayed"
+    },
+    {
+      "original": "/tmp/tlab-root-native-cli-tiny-native-e2e-source-adoption-v1.json",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/3-tlab-root-native-cli-tiny-native-e2e-source-adoption-v1.json",
+      "sha256": "582fbd0a6215ba7470bcbabea073c78043dd18d1507ccc7b6022ecc18be3a2b7",
+      "bytes": 4071,
+      "actual_sha256": "582fbd0a6215ba7470bcbabea073c78043dd18d1507ccc7b6022ecc18be3a2b7",
+      "actual_bytes": 4071,
+      "match": true,
+      "read_scope": "complete JSON displayed; historical native source proposal, not execution"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/4-backlog.md",
+      "sha256": "4674bccbafb8dd8b51836d58fa3efeee2da66ddb078a2f2e58887bb062b8b72f",
+      "bytes": 196232,
+      "actual_sha256": "4674bccbafb8dd8b51836d58fa3efeee2da66ddb078a2f2e58887bb062b8b72f",
+      "actual_bytes": 196232,
+      "match": true,
+      "read_scope": "targeted128..151 ID table,240..252 metrics006,19..30 canary/native scope; attempted1..52 broad joint output truncated, not full reading"
+    },
+    {
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "snapshot": "/tmp/tlab-wave073-frozen-overlay-v1/5-progress-report.md",
+      "sha256": "7c0578aa13cf6296d03d9665dc8df11490efa19b964c80d3f3240b867cda5701",
+      "bytes": 21369,
+      "actual_sha256": "7c0578aa13cf6296d03d9665dc8df11490efa19b964c80d3f3240b867cda5701",
+      "actual_bytes": 21369,
+      "match": true,
+      "read_scope": "attempted1..70 broad joint output partly truncated; relevant source/canary/parser/native boundaries observed, no complete-read claim"
+    }
+  ],
+  "all54_snapshot_hash_bytes_match": true,
+  "all162_author_shared_references_match": true,
+  "all_freeze_output_pins_match": true,
+  "supplementary_source_checks": [
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2",
+      "bytes": 22428,
+      "match_author_pin": true,
+      "read_scope": "complete88-line text displayed in recovered bounded call"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+      "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34",
+      "bytes": 2480,
+      "match_author_pin": true,
+      "read_scope": "complete text displayed"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md",
+      "sha256": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb",
+      "bytes": 5230,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/06-usercf-audience.md",
+      "sha256": "ab3d94b157c099420aaf7c08172c17b5879076f3ad97714a4cd240765dc547da",
+      "bytes": 11091,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/09-vector-search.md",
+      "sha256": "ee38bbfaca083c93df9215fdd29f08573e5ed4e4bb27e75ce3808a6dbf12790d",
+      "bytes": 10815,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/12-evaluation-budget.md",
+      "sha256": "f31e14393c2a7a1c289678882925a2ecb92c52dfb2701bcc06f1ea70300cde8e",
+      "bytes": 11205,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave017/original/tlab-brainstorm-claims-retrieval-a-wave017.md",
+      "sha256": "93694f5af7d129ca7848fceec2c0726fd866b1c2f5c3e29182bffb88e2a1c8c9",
+      "bytes": 4541,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/waves041045/wave042/tlab-brainstorm-ceiling-policy-features-a-wave042.md",
+      "sha256": "4b0cafbe9cd02aa72579cc048f41a96d7e810cdc7f1171b3d287ad062dd8cb17",
+      "bytes": 3985,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-mb002-primary-note.md",
+      "sha256": "7518b1b23aa12bb9bc316ade307ad322de2fc2bfd17652c341bdf70b9f6ff2c8",
+      "bytes": 10097,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-tb001.md",
+      "sha256": "3bc0ba8345b83f53f42c950824602c3b8b7b18fd29afed3b772827ea7eb555a5",
+      "bytes": 12652,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave066-synthesis.md",
+      "sha256": "5bc73423e9373779d5cbabd93c04a5605d6366c47a1fbc9d547eef05c217b7b2",
+      "bytes": 3403,
+      "match_author_pin": true,
+      "read_scope": "complete short synthesis displayed"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave067-synthesis.md",
+      "sha256": "251c8d04fe2fdcada50ef7ab7fc29678b02f23698aa4992f749d19890fa1b7f4",
+      "bytes": 3319,
+      "match_author_pin": true,
+      "read_scope": "complete short synthesis displayed"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave068-synthesis.md",
+      "sha256": "dd009bcd5cf43caa871167ac42d94c245a7ce8077cdc1d6d56f75e99523988d7",
+      "bytes": 4015,
+      "match_author_pin": true,
+      "read_scope": "complete short synthesis displayed"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/refinement-post-heldout-retrieval-priority.md",
+      "sha256": "c644262921ee33a0a93a20f2a7f1dbaf6de98750c6792840dd6121b111d3f7be",
+      "bytes": 9396,
+      "match_author_pin": true,
+      "read_scope": "complete source note displayed (fewer than190lines): existing perquery ceiling/coverage aggregation and dedupe"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-019.md",
+      "sha256": "ce4925063dc3b62200018ec1f87cc12d549853f3d8269fe2d0f2e972f835bbad",
+      "bytes": 11153,
+      "match_author_pin": true,
+      "read_scope": "lines1..23 fully displayed; earlier broad rg partial/truncated; not full reading"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-069.md",
+      "sha256": "a3d236948c71df49d33ea98edb310d7201350bb4e94d3f1d4e0250c660803b63",
+      "bytes": 9770,
+      "match_author_pin": true,
+      "read_scope": "targeted rg matches/context including conditional-date/sparse-ratio/future limits and toy; combined output partly truncated, no full reading"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-070.md",
+      "sha256": "15111e39042dc0b5961e3c0c78bf9c5adaf088c2be5b803401788ceea15af71e",
+      "bytes": 10300,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/target-research/03-candidates.md",
+      "sha256": "ed3ac12349597111dd4e84dd970e98dd94bcd2ad59686b1a89784da5bd15d548",
+      "bytes": 11079,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/target-research/05-evaluation.md",
+      "sha256": "6831dfc8ef04f529fb81bde7a08adae0175a4ab3199712231428a93e2b86c523",
+      "bytes": 11491,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971,
+      "match_author_pin": true,
+      "read_scope": "lines100..255 fully displayed: score_query/evaluate/user totals/paired bootstrap; no import"
+    },
+    {
+      "path": "/tmp/tlab-wave066-frozen-context-v1/2-experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "bytes": 46054,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/tmp/tlab-wave066-frozen-context-v1/9-train_baselines.py",
+      "sha256": "bdab8bbe0ed4863dd9922e436c38699a0c69e0d2846289ab9f5a63b44c52412a",
+      "bytes": 35022,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/tmp/tlab-wave068-frozen-context-v1/1-index.md",
+      "sha256": "4faae2b5a4eedb1e789157855710c3ccba3d2bcba1669ffe8f8d66b923fbb006",
+      "bytes": 34057,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    },
+    {
+      "path": "/tmp/tlab-wave073-frozen-overlay-v1/4-backlog.md",
+      "sha256": "4674bccbafb8dd8b51836d58fa3efeee2da66ddb078a2f2e58887bb062b8b72f",
+      "bytes": 196232,
+      "match_author_pin": true,
+      "read_scope": "HASH_ONLY_BODY_NOT_CLAIMED_READ"
+    }
+  ],
+  "external_primary_sources": [
+    {
+      "url": "https://cameron.econ.ucdavis.edu/research/Cameron_Miller_JHR_2015_February.pdf",
+      "access": "web parsed primary author PDF, no download or local bytes/hash claimed",
+      "read_scope": "abstract/introduction lines4..39, between-cluster independence and regression scope",
+      "limitation": "not sparse ranking ratio coverage theorem"
+    }
+  ],
+  "honesty": "Full FIRST/freezes and parsed pins; bounded source reads and transformed frozen observed JSON rows only. Earlier broad combined outputs truncated; narrower recovered reads used where stated. HASH_ONLY bodies are not claimed read. No DB/SQL/Parquet/raw dataset application execution, experiments, native/model/helper/getter/test/import or canonical/Git/network writes. One read-only primary web source.",
+  "review_words_whitespace": 447,
+  "disposition": {
+    "new": 0,
+    "refine": 3,
+    "reject": 0,
+    "admit": 0
+  },
+  "authority": "Source-only own three TMP outputs. ScienceCLOSED/remainderUNKNOWN; oldhelpergrantCLOSED; new50CPU65wallhumanquestionPENDINGnotgrant; native/PreparedUNRUN. Root sole coordinator."
+}
