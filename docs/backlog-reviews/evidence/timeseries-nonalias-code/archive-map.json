@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "scope": "Additive12newfilecanonicalproposal outsidecurrentmain433slice; no operation/grant/rerun",
+  "exact_originals": [
+    {
+      "source": "/tmp/tlab-timeseries-nonalias-code-proposal-v1/candidate/tests/test_timeseries_nonalias_canary.py",
+      "destination": "docs/backlog-reviews/evidence/timeseries-nonalias-code/tested-original.py",
+      "sha256": "b2867705419595f6bc162a54e6bcf939acbfb55587c062756a6d113ac28330b1",
+      "bytes": 13621,
+      "mode": "0o644",
+      "content_transport": "byte-exact original; destination mode0o644"
+    },
+    {
+      "source": "/tmp/tlab-timeseries-nonalias-code-proposal-v1/contract.md",
+      "destination": "docs/backlog-reviews/evidence/timeseries-nonalias-code/preparation-contract.md",
+      "sha256": "b552d52f7327b30b93560aefea67059f5c7044d235e181162a1b26256fcb14c3",
+      "bytes": 5002,
+      "mode": "0o644",
+      "content_transport": "byte-exact original; destination mode0o644"
+    },
+    {
+      "source": "/tmp/tlab-root-timeseries-nonalias-code-acceptance-v1.json",
+      "destination": "docs/backlog-reviews/evidence/timeseries-nonalias-code/root-acceptance.json",
+      "sha256": "54cb66066bd69e28c8ee0bd93b7a575e2523879c44ad804b6287e33f518afc4f",
+      "bytes": 1553,
+      "mode": "0o644",
+      "content_transport": "byte-exact original; destination mode0o644"
+    },
+    {
+      "source": "/tmp/tlab-timeseries-nonalias-code-20261016-once/result.json",
+      "destination": "docs/backlog-reviews/evidence/timeseries-nonalias-code/result.json",
+      "sha256": "528c752abf7499be6007ee28448cc757f15369f8ed36952f36cf30e1057c2a86",
+      "bytes": 1309,
+      "mode": "0o644",
+      "content_transport": "byte-exact original; destination mode0o644"
+    },
+    {
+      "source": "/tmp/tlab-timeseries-nonalias-code-20261016-once/stderr.txt",
+      "destination": "docs/backlog-reviews/evidence/timeseries-nonalias-code/stderr.txt",
+      "sha256": "9d7c6a6403771967bf958832404f01d05e1573744a33421e9926cffc364b6c69",
+      "bytes": 313,
+      "mode": "0o644",
+      "content_transport": "byte-exact original; destination mode0o644"
+    },
+    {
+      "source": "/tmp/tlab-timeseries-nonalias-code-independent-review-v1.md",
+      "destination": "docs/backlog-reviews/evidence/timeseries-nonalias-code/static-review.md",
+      "sha256": "0dc86a4e81a468920e0606d42a8bf76d92f9a3cf00795b49343b19dcf11d5ad5",
+      "bytes": 5226,
+      "mode": "0o644",
+      "content_transport": "byte-exact original; destination mode0o644"
+    },
+    {
+      "source": "/tmp/tlab-timeseries-nonalias-code-actual-output-independent-review-v1.md",
+      "destination": "docs/backlog-reviews/evidence/timeseries-nonalias-code/actual-output-review.md",
+      "sha256": "7b214f574ecb48e3debf11fb8a605c4f178f4bae889a117ea189fa1782642e4c",
+      "bytes": 3072,
+      "mode": "0o644",
+      "content_transport": "byte-exact original; destination mode0o644"
+    },
+    {
+      "source": "/tmp/tlab-timeseries-nonalias-code-actual-output-independent-review-v1-pins.json",
+      "destination": "docs/backlog-reviews/evidence/timeseries-nonalias-code/actual-output-pins.json",
+      "sha256": "8d41a27957e2057d7af75306e95fdc8764d7f4f06bd91ef55cc80572619b0021",
+      "bytes": 10652,
+      "mode": "0o644",
+      "content_transport": "byte-exact original; destination mode0o644"
+    },
+    {
+      "source": "/tmp/tlab-root-timeseries-nonalias-code-terminal-witness-v1.json",
+      "destination": "docs/backlog-reviews/evidence/timeseries-nonalias-code/root-terminal-witness.json",
+      "sha256": "10c1d42cf81499874792c49af38717e59a984d1090f871390ea4794870765204",
+      "bytes": 669,
+      "mode": "0o644",
+      "content_transport": "byte-exact original; destination mode0o644"
+    }
+  ],
+  "canonical_test_derivative": {
+    "source": "/tmp/tlab-timeseries-nonalias-code-proposal-v1/candidate/tests/test_timeseries_nonalias_canary.py",
+    "source_sha256": "b2867705419595f6bc162a54e6bcf939acbfb55587c062756a6d113ac28330b1",
+    "destination": "tests/test_timeseries_nonalias_canary.py",
+    "sha256": "05e2254508b3fed355fc8c2d32363e0566e5a24abd11a6b5e4cb8b5a72dc7a22",
+    "bytes": 13615,
+    "mode": "0o644",
+    "only_change": "delete leading6bytes UNRUN in first module docstring, one diff hunk",
+    "AST_equal_except_first_docstring_constant": true,
+    "execution": "original only executed; derivative not rerun"
+  },
+  "result_note": "docs/backlog-reviews/timeseries-nonalias-code-result.md",
+  "not_copied_metadata_refs": [
+    {
+      "path": "/tmp/tlab-timeseries-nonalias-code-independent-review-v1-pins.json",
+      "sha256": "ae6f99aa1646926ec7d6c1fb7e56240e06ae4f94b1146ae693005145742a6c81",
+      "bytes": 8370,
+      "mode": "0o644"
+    },
+    {
+      "path": "/tmp/tlab-timeseries-nonalias-code-independent-review-v1-freeze.json",
+      "sha256": "ea8e0fe1c58f6f72d3d7d988da6b681c6cb9d58c00ca38f5350380b3caa7c24b",
+      "bytes": 894,
+      "mode": "0o644"
+    },
+    {
+      "path": "/tmp/tlab-timeseries-nonalias-code-actual-output-independent-review-v1-freeze.json",
+      "sha256": "831a3b0e6c98b5b9dd33b0aa25104d740dd7cb13e23af31291587fcab095410c",
+      "bytes": 896,
+      "mode": "0o644"
+    },
+    {
+      "path": "/tmp/tlab-timeseries-nonalias-code-actual-output-independent-review-v1-terminal-addendum.json",
+      "sha256": "e85d1006688bc38cdfbb48a3b11af92910797167e79347485a03dc0e6831480c",
+      "bytes": 814,
+      "mode": "0o644"
+    },
+    {
+      "path": "/tmp/tlab-timeseries-nonalias-code-20261016-once/consumed.json",
+      "sha256": "b22d3855b699b948411ba2e4c7faa56338499fc5cdc1a133c05a83c02fcd5c25",
+      "bytes": 157,
+      "mode": "0o644"
+    },
+    {
+      "path": "/tmp/tlab-timeseries-nonalias-code-20261016-once/submitted.json",
+      "sha256": "571212603fd3f435edd966d82fe08fedc4b513ed2d403d9b8e76f4341b08cd95",
+      "bytes": 159,
+      "mode": "0o644"
+    },
+    {
+      "path": "/tmp/tlab-timeseries-nonalias-code-20261016-once/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": "/tmp/tlab-timeseries-nonalias-code-proposal-v1/manifest.json",
+      "sha256": "1d82a8c1330866e88a7dac73f3d1c1a62cdab132eda66302f99ee6b91a852b86",
+      "bytes": 7982,
+      "mode": "0o644"
+    },
+    {
+      "path": "/tmp/tlab-timeseries-nonalias-code-proposal-v1/freeze.json",
+      "sha256": "53b73e4f1040fde0f97b83e8c787e651203ccc7b46408e2a201be6113d77fced",
+      "bytes": 1729,
+      "mode": "0o644"
+    },
+    {
+      "path": "/tmp/tlab-timeseries-nonalias-code-proposal-v1/sourcepins.json",
+      "sha256": "143c50bac575ec9661512c3d90374262ae6a94e149f17b3bddeb37f0020ce753",
+      "bytes": 5469,
+      "mode": "0o644"
+    }
+  ],
+  "issued_request_not_opened_or_copied": {
+    "path": "/tmp/tlab-root-timeseries-nonalias-code-request-v1.json",
+    "bytes": 9409,
+    "sha256": "d930ba2ab689b450b314468a77e7070a18ec8d382e90f98378dc455395c20dcc"
+  },
+  "selection_reason": "12-target cap: retain executed original/contract, result+nonemptylog, both reviews, actualreviewpins including staticpins hash, Root acceptance/closedterminal and map. Empty stdout and remaining freeze/consumed/submitted/preparation metadata bound by hashes, not duplicatefiles.",
+  "excluded": [
+    "issued executable requests/grants",
+    "runners",
+    "fixtureDBs or scratch tree",
+    "real source/data/model/Y files",
+    "current4 docs/main433 changes"
+  ],
+  "original_once_episode": "CONSUMED_CLOSED; no retry or native50CPU65wall reuse",
+  "actual_packet_preparation": {
+    "imports_tests_SQL_ML_native": 0,
+    "canonical_Git_network_helpers": 0
+  }
+}
