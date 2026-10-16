@@ -1,5 +1,17 @@
 # Автоматизация признаков для ранжирования покупок
 
+## Результат и оставшаяся работа — 2026-10-16 17:52:56 UTC
+
+Воспроизводимый конвейер автоматического расчёта событийных признаков работает; полный повтор эксперимента выполнен на Mac. На final26–31 NDCG равен **B 0.459825 / W 0.464947**. 95% paired-user CI разницы [−0.01043; 0.01856] пересекает 0, поэтому надёжный выигрыш не установлен. [Научный отчёт](experimental-report.md) сохраняет исходные границы.
+
+Адаптивное число деревьев исследовано: B1189/W403 выбраны после полных fit1200 на reused22–23,73positiveQ и2400 dependent checks; это post-final exploratory результат. Обычный native CLI E2E и callback-abort ещё **UNRUN**. Helper toy body ранее принят под consumed/CLOSED50CPU/65wall; новые native50CPU/65wall и publication exact476 вопросы всё ещё без ответа.
+
+Принято **14 из19 задач**;014 — continuous research, четыре optional010–013 отложены. [076](research-lab/brainstorm-wave076-synthesis.md) уточняет supplied vectors и nonlinear similarity-before-pooling: pooled zero-vector cosine MISSING. Это SOURCE-only гипотезы, не raw text/BM25/image access, actual compiler или quality proof; future witnesses UNRUN, cost UNKNOWN.
+
+[Локальный архив075 принят](research-lab/archives/wave076/context/tlab-root-wave075-LOCAL-actual-acceptance-v1.json): commit5097317, полный tree3073 и reviewed subset1027 различаются. Actual QYC/F/read-only verifier приняты; actual Prepared/native E2E не произведены. Exact476 external payload не включает509/076; b286 ранее опубликован. Science/helper allowances CLOSED, remainder UNKNOWN. Сохранённая следующая originalgrid точка076 —18:00UTC/21:00МСК; deadline25Oct23:59 timezoneUNKNOWN, observedBLOCKED goal и один owner неизменны.076 archive/overlay пока TMP SOURCE-предложение.
+
+## Исторический срез17:16:16 UTC — весь прежний текст сохранён побайтно
+
 **Срез 2026-10-16 17:16:16 UTC:14 из19 принято.** [LOCALfc502](research-lab/archives/wave075/context/tlab-root-wave074-native-guide-LOCAL-actual-acceptance-v1.json) принят: fulltree3049/reviewedsubset1003, архив074 и [native-guide P2](experiments/development-training-native-test.md) closed. Текущий opted helper toy body PASS under consumed50/65; ordinary nativeCLI/callback-abort UNRUN. [075](research-lab/brainstorm-wave075-synthesis.md) NEW0/REFINE3/ADMIT0 после3 independent FIRST→new skeptic; toysUNRUN/costUNKNOWN, архив пока SOURCE-only.014 continuous,010–013optional/deferred; scientificreport/finalCI/adaptive scope unchanged. NativeCLI50CPU/65wall и exact476publication вопросы без ответа, externalpayload не fc502/075; b286уже опубликован. Science/helperCLOSED/remainderUNKNOWN. Сохранённый originalgrid075next17:15UTC/20:15МСК не является позднейпроверкойdispatch;45-minute cadence/deadline25Oct23:59TZunknown/observedBLOCKEDgoal без изменений. Ниже целиком сохранён исторический срез16:22:34.
 
 

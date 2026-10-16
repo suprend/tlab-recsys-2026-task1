@@ -1,5 +1,15 @@
 # Постоянная research-линия
 
+## Актуальный датированный срез — 2026-10-16 17:52:56 UTC
+
+**14 из19 принято;014 continuous,010–013 optional/deferred.** [075 actual local acceptance](archives/wave076/context/tlab-root-wave075-LOCAL-actual-acceptance-v1.json) подтверждает5097317/fulltree3073/subset1027/CLEAN. Mac reproducibility/fixed300 finalCIcross0 и exploratory adaptive1189/403 приняты в прежнем scope; ordinary native CLI E2E/callback-abort UNRUN, helper toy allowance consumed/CLOSED.
+
+[076 — supplied vectors и nonlinear-before-pooling](brainstorm-wave076-synthesis.md), [точные originals/source-map](archives/wave076/publication.json): NEW0/REFINE3/ADMIT0, три independent FIRST затем новый скептик, общие две primary pages. Retrospective supplied comparisons допустимы при UNKNOWN clocks, но hidden alignment/actual fullY/quality не доказаны. Zero pooled vector cosine MISSING; valid/total, bag и T contracts обязательны в будущей спецификации. All future witnesses UNRUN/costUNKNOWN; raw text/BM25/raw images не получены;076 archive/overlay SOURCE-only.
+
+Native50CPU/65wall и exact476publication вопросы pending; внешнее согласие наb286 выполнено и не распространяется на509/076. Actual QYC/F/verifier accepted, actual Prepared/native E2E UNRUN; science/helper CLOSED/remainderUNKNOWN. Common bounds076 охватывают scheduled17:15; следующая сохранённая точка18:00UTC/21:00МСК по исходной45-minute grid. Deadline25Oct23:59 timezoneUNKNOWN/observedBLOCKED goal/один coordinator неизменны.
+
+## Исторический срез17:16:16 UTC — весь прежний текст сохранён побайтно
+
 ## Актуальный датированный срез — 2026-10-16 17:16:16 UTC
 
 **14 из19 принято;014 continuous,010–013 optional/deferred.** [LOCALfc502](archives/wave075/context/tlab-root-wave074-native-guide-LOCAL-actual-acceptance-v1.json) actualaccepted: full3049/reviewed1003,074архив и [native-guide P2](../experiments/development-training-native-test.md) closed. Helper same-current opt-in toy body PASS under consumed50/65; ordinary nativeCLI E2E/callbackabortUNRUN. Actual QYC/F/verifier accepted, Prepared/nativeE2Eunproduced.

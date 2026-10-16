@@ -1,0 +1,13 @@
+# FIRST — wave076C
+
+Source facts: [Paper v4](https://arxiv.org/html/2104.09423v4), §§2–3, supplies search vectors and catalog vectors from pretrained modeling/reduction; catalog coverage includes training/testing SKUs when available. [Current publisher README](https://github.com/coveooss/SIGIR-ecom-data-challenge/blob/main/README.md), search/catalog sections, explicitly declares query/description compatibility, but does not establish query/image compatibility or historical vector availability.
+
+Smallest useful refinement: `near(v,w; τ=0.8) → {1,0,missing(reason)}`, then existing scalar aggregation. Inputs carry compatibility-group/revision, dimension and role; permit evidenced query→description comparison only. Equal dimension alone proves nothing. Schema/role/revision/dimension mismatches reject the expression. Missing components, nonfinite coordinates or zero norm make that row missing, never nonmatch. Independently normalize valid vectors before cosine. Encoder/reducer lineage must be declared; supplied vectors remove encoder training, not provenance obligations.
+
+History: count matches between each earlier search-query vector and candidate description at anchor T, grouped by actual session and window `[T−W,T)`. Each canonical search row weighs one, including genuine repeated queries; no result-slate explosion or implicit deduplication. Require event time and vector/dependency availability strictly before T; candidate metadata also available before T. Unknown availability blocks the strict historical claim. Report total/valid rows; return missing if valid=0. Exclude peers at T. Nonmatch implies no purchase-negative label.
+
+Literal oracle, manually reasoned: candidate `(1,0)`; histories A=`[(1,0),(−1,0)]`, B=`[(0,1),(0,−1)]`. Both pooled means and mean pairwise cosines equal zero, but threshold counts are A=1, B=0. Thus nonlinear comparison before aggregation can retain information lost by 072 linear pooling.
+
+Prediction: after-query candidate ranking might gain from historical semantic-support counts beyond pooled similarity. Counterhypothesis: query repetition/noise or existing exact-history/category features explain everything. Minimal future falsifier, only after separate authorization: frozen chronological matched Q/C/Y comparison against strong baseline plus pooling, controlling valid-history coverage. Benefit, measured runtime and memory are UNKNOWN; arithmetic cost is O(history length×dimension) per candidate, without fitting an encoder.
+
+Disposition: refinement of typed automation/HYP002/046 and existing embedding families, no new ID/framework/gate. Main14/19, closed old budgets, UNKNOWN remainder and both pending human questions remain unchanged. Shared-paper readings are not independent corroboration.

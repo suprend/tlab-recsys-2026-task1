@@ -1,5 +1,15 @@
 # Журнал новых исследовательских идей
 
+## Новый датированный checkpoint — 2026-10-16 17:52:56 UTC
+
+[076](brainstorm-wave076-synthesis.md), [оригиналы и source-map](archives/wave076/publication.json): NEW0/REFINE3/ADMIT0. Три независимых fork-none FIRST17:17:59/17:18:21/17:18:51, затем новый отдельный скептик17:24:05 и Root adoption17:25:22. Общие paper+README — две primary pages, не три corroborations. Retrospective compatible supplied vectors допустимы при UNKNOWN fit clocks; declared identity rejection не выявляет hidden rotation. Click availability UNKNOWN и cross-session person link лишь synthetic; pooled zero-vector cosine MISSING при near-count1/0. Valid/total, actual bag/duplicates, ms availability и query-context-at-T требуют явных contracts. All future witnesses UNRUN/cost UNKNOWN; no IDs/tasks/gates/grants.
+
+[075 local acceptance](archives/wave076/context/tlab-root-wave075-LOCAL-actual-acceptance-v1.json) принят actualRoot:5097317/full3073/reviewed1027/exact28/3045 unchanged. Native guide P2 закрыт; helper normal toy PASS под consumed50/65, ordinary native CLI E2E/callback-abort UNRUN. Оба вопроса — новый native50CPU/65wall и publication exact476 — pending;509/076 не расширяют exact external payload, b286 уже опубликован. Actual QYC/F/verifier accepted; actual Prepared/native E2E UNRUN.076 archive/overlay пока SOURCE-предложение.
+
+Common context17:14:42.527982→dispatch upper17:16:10.207347 UTC **охватывают due17:15**, не individual starts; следующая исходная точка18:00UTC/21:00МСК.45-minute grid/deadline25Oct23:59 timezoneUNKNOWN noreset;14/19/014continuous/010–013optionaldeferred и observedBLOCKEDgoal неизменны. Каждый платный шаг требует своего reviewed finite CPU/wall/memory/I/O/label/fit/API/fail-closed предела. Hypotheses не prerequisites015/018/report; B/W/reserved25–31 неизменны. Полезность — покрытие основ, проверяемый вывод и реальное исправление, не agent/report count; один canonical owner.
+
+## Исторический срез17:16:16 UTC — весь прежний текст сохранён побайтно
+
 ## Новый датированный checkpoint — 2026-10-16 17:16:16 UTC
 
 [075](brainstorm-wave075-synthesis.md): Root NEW0/REFINE3/ADMIT0 после трёх независимых fork-none FIRST и нового отдельного скептика; qualifiers и raw originals сохранены в [source-map](archives/wave075/publication.json). OTTO disclosed prefix/globalstrictpast разделены; Dressipi1/3 gold до дополнительного test-shortening; Coveo gold conditionaljointtokenadmission, vectors не rawmedia/rights/utility. AlltoysUNRUN/costUNKNOWN, без нового ID/task/gate/grant.075archive/overlay пока SOURCE-предложение.

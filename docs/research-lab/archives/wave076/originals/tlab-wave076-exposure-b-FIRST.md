@@ -1,0 +1,13 @@
+# Wave076B — response nonclick and endpoint mismatch
+
+Source facts (checked descriptions only): Paper v4 and README 1.0.0 report returned search products and after-query clicked products; authors call nonclicks “seen.” Neither checked description establishes viewport, rank semantics, or propensities. Recommendation evaluates the next product (MRR) or subsequent session products, capped at 20 (F1@20); queries enter inputs but not metrics. Cart prediction concerns buying carted X in that session, evaluated at AC and 2/4/6/8/10 later events; purchase sessions are trimmed before first purchase. README warns frontend tracking is imperfect. [Paper](https://arxiv.org/html/2104.09423v4), [README](https://github.com/coveooss/SIGIR-ecom-data-challenge/blob/main/README.md).
+
+Mechanism: refine TA03/target-loss and HYP002/046 typed automation with a query-conditioned alternative-set relation: returned, recorded-clicked, and outside-response remain distinct. Nonclick means only returned minus recorded-clicked under a declared observation closure. Separate query-context and click-availability clocks; query timestamp alone cannot establish that later clicks were already known. Click closure and actual visibility remain UNKNOWN.
+
+Discriminator (stipulated toy, not observed data): return [A,B], record click A, cart A, end session without purchase; the same hypothetical shopper buys A in another session two hours later. B has a recorded nonclick, not demonstrated rejection. A is nonbuy for the original cart endpoint but positive for complete 24h purchase Y. Released session identifiers do not establish that cross-session shopper link. A future full-purchase target must also include eligible purchases outside the returned list.
+
+Prediction: this relation could automate response-conditioned counts/recency for later eligible session prefixes, distinguishing absent exposure records from recorded nonclicks; it cannot justify preference negatives or propensity weighting. Counterhypothesis: apparent signal primarily reflects ranking/examination policy or imperfect tracking and adds nothing beyond recent clicks.
+
+Minimal future falsifier, unrun: an independently specified two-prefix witness that needs after-query clicked membership before its availability, or yields identical session-nonbuy and 24h-purchase labels in the toy, rejects that compilation. Predictive benefit and CPU/wall cost are UNKNOWN; no quality claim follows from this witness.
+
+Disposition: REFINE existing families; no new experiment/core gate. Main14/19 unchanged; old budgets CLOSED, remainder UNKNOWN; both human questions PENDING. Same-paper perspectives are not independent corroboration.

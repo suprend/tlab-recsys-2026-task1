@@ -1,5 +1,15 @@
 # Единый рабочий backlog T-Lab
 
+## Текущий датированный срез — 2026-10-16 17:52:56 UTC
+
+**Принято14 из19 задач;014 continuous,010–013 optional/deferred.** [LOCAL075](research-lab/archives/wave076/context/tlab-root-wave075-LOCAL-actual-acceptance-v1.json) принят:5097317/full3073/reviewed subset1027, exact28=24A4M и3045 old entries unchanged. Это локальный архив, не native execution или external publication. [Native guide](experiments/development-training-native-test.md) сохраняет accepted helper toy body под consumed allowance; обычный native CLI E2E/callback-abort UNRUN.
+
+[076](research-lab/brainstorm-wave076-synthesis.md): NEW0/REFINE3/ADMIT0 после трёх независимых FIRST и нового скептика; supplied query/description vectors допускают retrospective comparison, неизвестные clocks ограничивают historical claims. Nonlinear near-count1/0 не равен pooled cosine: нулевые pooled vectors дают MISSING. Click availability UNKNOWN, person link в24h toy только предположен. Общие paper+README — две страницы; witnesses UNRUN/cost UNKNOWN, без новых IDs/tasks/gates/grants.
+
+Оба human вопроса pending: native CLI50CPU/65wall и exact476 publication. Exact476 payload не509/076; b286 уже опубликован. QYC/F/verifier accepted, actual Prepared/native E2E UNRUN. Fixed300 finalCIcross0/adaptive1189/403/frozenreport не меняются; science/helper CLOSED/remainderUNKNOWN. Bounds07617:14:42.527982–17:16:10.207347 охватывают due17:15, не individual starts; next original18:00UTC/21:00МСК без reset. Deadline25Oct23:59TZunknown/observedBLOCKEDgoal/один owner сохранены.076 archive/overlay пока SOURCE-предложение.
+
+## Исторический срез17:16:16 UTC — весь прежний текст сохранён побайтно
+
 ## Текущий датированный срез — 2026-10-16 17:16:16 UTC
 
 **Принято14 из19 задач. LOCALfc502 принят: архив074 и DOC-P2 currentness закрыты; полный tree3049, reviewed subset1003.** [Actual acceptance](research-lab/archives/wave075/context/tlab-root-wave074-native-guide-LOCAL-actual-acceptance-v1.json) сохраняет36delta=31A5M и3013 unchanged entries; subset не весь repository. [Актуальный native guide](experiments/development-training-native-test.md) правильно различает accepted same-current helper toy body и ordinary CLI native E2E/callback-abort UNRUN. Старый helper50/65 consumed/CLOSED, новый native50CPU/65wall вопрос без ответа.

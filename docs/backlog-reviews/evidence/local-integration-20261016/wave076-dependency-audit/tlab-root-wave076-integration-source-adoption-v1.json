@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "UTC": "2026-10-16T18:15:15.034825+00:00",
+  "status": "SOURCE_READY_ADOPTED_NOT_LOCAL_EXECUTION",
+  "references": [
+    {
+      "path": "/tmp/tlab-wave076-integration-proposal-v1/manifest.json",
+      "sha256": "0a69328447a230df82c346443f8d30465f5d13b3b42dbf2fb487014961699edf",
+      "bytes": 21739
+    },
+    {
+      "path": "/tmp/tlab-wave076-integration-proposal-v1/freeze.json",
+      "sha256": "f9b01fbf5ae7c37a827fdd0bae78e6d074c892621d85bdb3dd566a2901796504",
+      "bytes": 1174
+    },
+    {
+      "path": "/tmp/tlab-root-wave076-integration-source-precheck-v1.json",
+      "sha256": "1ac84e3b71e9b010821178825610f9387cf6f948aea17258376bcb445c512fca",
+      "bytes": 6532
+    },
+    {
+      "path": "/tmp/tlab-wave076-integration-independent-review-v1.md",
+      "sha256": "5e3bf0e1078a7c0214ff2cede3a1624e4c39631971435747b72b014539e58fc1",
+      "bytes": 3357
+    },
+    {
+      "path": "/tmp/tlab-wave076-integration-independent-review-v1-pins.json",
+      "sha256": "c14d7e323a8df8d9861efb3390191648926cb0534b1e46adff14619d1b93961d",
+      "bytes": 46676
+    },
+    {
+      "path": "/tmp/tlab-wave076-integration-independent-review-v1-freeze.json",
+      "sha256": "bb3e3760c24394fe41cffcd5398829648f7bf9a0a836587c367348cc1bf155da",
+      "bytes": 1290
+    }
+  ],
+  "actual_root_checks": {
+    "targets": 24,
+    "exact_originals": 18,
+    "declared_blankline_insert_hashes_and_full_old_inverses": [
+      {
+        "path": "docs/progress-report.md",
+        "declared_anchor_offset": 96,
+        "insert_bytes": 2401,
+        "insert_sha256": "fcaa687142233c7d8fef7b01d63c01d713cdf171fa1e8d374754408283bca5f4",
+        "exact_entire_old_body_inverse": true
+      },
+      {
+        "path": "docs/backlog.md",
+        "declared_anchor_offset": 45,
+        "insert_bytes": 2000,
+        "insert_sha256": "62f94a0f89de9e332175007a50d768b19e71e4a158787bd72cf7604af85aaa5a",
+        "exact_entire_old_body_inverse": true
+      },
+      {
+        "path": "docs/research-lab/index.md",
+        "declared_anchor_offset": 44,
+        "insert_bytes": 1876,
+        "insert_sha256": "dfdc33dab56244a64038100ed88436c897ba8834bbbbe7e056f9411df9dc57ce",
+        "exact_entire_old_body_inverse": true
+      },
+      {
+        "path": "docs/research-lab/brainstorm-log.md",
+        "declared_anchor_offset": 71,
+        "insert_bytes": 2399,
+        "insert_sha256": "a60babe14f4d2ec9a8164ae063f6c1514a688e2cff78f9d84168fa4f4351c92c",
+        "exact_entire_old_body_inverse": true
+      }
+    ],
+    "correct_base_HEAD_CLEAN": true
+  },
+  "independent_review": "PASS no actionable finding; reviewer initial H1 anchor checker assumption resolved with declared preserved-blankline anchor, no SOURCE change; diagnosis kept in raw review metadata.",
+  "scope": "Root prior source precheck fully read prefixes/synthesis and checked maps/guards; current replay rehashes24sources/rawblobs/modes/18originals/baseabsences and4declaredinsert anchors. SOURCE only, no runtime/scientific rerun or full-tree raw audit.",
+  "claims": "076 NEW0 REFINE3 ADMIT0; future toys UNRUN/costUNKNOWN; retrospective supplied compatible query-description use remains possible; alignment/query-click-availability/persistent identity remain limited. Pooledzero cosine is MISSING, not0. No mandatory scientific gap/grant.",
+  "authority": "Permission for sole writer to PREPARE a reviewed exact local union proposal only. No LOCAL issue/install/commit/native/publication authority. Both existing human questions remain PENDING unanswered.",
+  "canonical_mutations": 0
+}
