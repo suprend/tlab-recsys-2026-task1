@@ -37,3 +37,29 @@ All 433 current payload files were examined for extra final LF bytes. Exactly th
 Six additional exact-path rules permit only blank-at-EOF in these named immutable data files with `-text whitespace=-blank-at-eof`. No wildcard, global setting, source-code exception, hook/filter/signing override or binary suppression is added. Existing transcript and six patch rules stay exact prefixes. Raw source and staged-blob SHA/size/modes still bind every archived byte. No archive is trimmed or normalized.
 
 This later two-file metadata proposal changes only `.gitattributes` and this existing note in the accepted map; unique payload stays 433, other 431 paths stay exact. A new explicit operation may stage only those two files while preserving 309 staged archive blobs, giving 311 G05 paths (309 added, two modified); normal cached check must then pass before ordinary commit. This is distinct from the failed operation and does not relabel its result. With two later metadata overlaps, cumulative path-visits become 436 across the same six logical commits; prior commits remain immutable. Future actual checker/commit is UNRUN here. No runtime/data/ML/grant/external-publication authority follows.
+
+## 2026-10-16 10:01 UTC — preflight SIDE064 original EOF classification
+
+Root's bounded static audit of the next 114 archive candidates reported one extra-final-LF case: `docs/research-lab/archives/side064/tlab-side064-native-oracle-FIRST.md`, raw SHA256 `08da4345f551a8fc916ce3dbd9d1e8795b6e9e3e24994b2f9a4239b4908b1e94`, 2726 bytes, ending in exactly two LF bytes. The original historical FIRST and its exact archive copy are preserved. This proposal rechecks only that named body/copy and the two metadata bases; it does not claim a new audit of all 114 files.
+
+This round has no failed cached whitespace checker: the issue was identified by static preflight before staging, and this proposal does not run a cached check. One additional literal pathname rule, `-text whitespace=-blank-at-eof`, classifies only this immutable archived data file. It is not a source-code exception, wildcard, global whitespace setting, hook/filter/signing override or normalization of the original. All prior metadata bytes remain exact prefixes; authored metadata ends with one LF.
+
+Installation, any later actual cached check and the integrated local checkpoint remain separate Root actions. No test/native/runtime work or future external-publication permission follows. The completed exact b286 publication and old failures/history are unchanged.
+
+## 2026-10-16 10:32 UTC — additional CODE19 immutable diff classification
+
+Root's static preflight now covers the 114 archive candidates plus 19 CODE integration candidates. In addition to the SIDE064 EOF case above, it identified `docs/backlog-reviews/evidence/candidate-reachability-code/test-source-v1-to-v2.diff`, raw SHA256 `eb552f1ec96ea363db593ef0e5c62f668617293f39b698a23c2eefac34399df6`, 4369 bytes, ending in one LF. Lines 17, 61 and 63 are exactly `b' '`: required context markers inside counted unified-diff hunks. The source diff and its frozen packet copy were rechecked byte-for-byte here; neither is trimmed or normalized. This is a bounded metadata check, not a new CODE, native or runtime execution.
+
+The two additions relative to the canonical metadata are exactly the SIDE064 `-text whitespace=-blank-at-eof` rule and this diff's `-text whitespace=-blank-at-eol` rule. Existing metadata and V1 candidate bytes stay exact prefixes. No wildcard, global whitespace override, source-code exception or hook/filter/signing change is introduced. This round has no failed cached checker: discovery was static before staging; an actual ordinary cached check remains pending. Installation and the integrated local checkpoint require a separate Root issue. The completed b286 publication gives no permission to publish a later payload.
+
+## 2026-10-16 10:34 UTC — exact review-original EOF classification
+
+Root's additional bounded static preflight of the integration review evidence identified three original identified-target review files, each ending in exactly two LF bytes and containing no trailing spaces or tabs. Their exact archived paths and identities are:
+
+| Original review evidence | Raw SHA256 | Bytes |
+|---|---|---:|
+| [tlab-identified-target-wording-independent-review-v1.md](evidence/local-integration-20261016/identified-target-wording/tlab-identified-target-wording-independent-review-v1.md) | `53b86a23bb9f3f20ac19768c7e5b2fab7d9940c8cb61086774847dae592dfeb3` | 3481 |
+| [tlab-identified-target-wording-independent-review-v1-pins.json](evidence/local-integration-20261016/identified-target-wording/tlab-identified-target-wording-independent-review-v1-pins.json) | `983161547dc0a3f63d76dfe8a6f73d8a80b7ae907fc56d4bcc38dac290e404da` | 6992 |
+| [tlab-identified-target-wording-independent-review-v1-freeze.json](evidence/local-integration-20261016/identified-target-wording/tlab-identified-target-wording-independent-review-v1-freeze.json) | `dbcf396cec174f7c0a1d9a2a0dd7d87bc073b72c783deebf3c4947c4dd2904aa` | 1183 |
+
+These originals remain byte-identical. Three additional literal `-text whitespace=-blank-at-eof` rules apply only to their named archival paths. This proposal therefore has five added rules relative to canonical metadata: one SIDE064 EOF rule, one CODE diff EOL rule, and three review EOF rules. Root's source classification covers 114 archive plus 19 CODE candidates and the selected review evidence; no test or cached checker was run for this metadata preparation, and no checker failed in this round. All prior canonical and V1/V2 metadata bytes stay exact prefixes. There is no wildcard, global/source-code exception, normalization, hook/filter/signing change, installation, commit or future-publication permission.

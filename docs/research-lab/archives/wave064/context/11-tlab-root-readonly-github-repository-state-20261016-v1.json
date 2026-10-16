@@ -1,0 +1,28 @@
+{
+  "utc": "2026-10-16T08:09:43.631228+00:00",
+  "status": "READONLY_REPOSITORY_PRIVACY_CONFIRMED_PR_FETCH_FAILED",
+  "tool_calls": [
+    {
+      "tool": "github.get_repo",
+      "repository_full_name": "suprend/tlab-recsys-2026",
+      "result": "SUCCESS",
+      "repository_id": "1419778145",
+      "visibility": "private",
+      "archived": false,
+      "default_branch": "main"
+    },
+    {
+      "tool": "github.fetch_pr",
+      "repository_full_name": "suprend/tlab-recsys-2026",
+      "pr_number": 1,
+      "result": "isErrortrue_Transportclosed"
+    }
+  ],
+  "fresh_privacy": "private",
+  "fresh_branch_HEAD": "UNKNOWN",
+  "fresh_PR_state_draft_head": "UNKNOWN",
+  "priorPRsnapshot": "HistoricalprivatePR1draftonly notfreshOPEN",
+  "external_writes": 0,
+  "publication_authority": "Nochange; exactb760questionUNANSWERED; repoaccesspermissionNOTtrustedhumanpublicationapproval; noalternatepublisher/3rdpushattempt",
+  "scope": "PurposebuiltconnectorGETonly; no retryPRerror"
+}

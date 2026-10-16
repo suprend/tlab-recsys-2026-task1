@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "scope": "independent_source_text_only_manual_oracle_for_synthetic_CODE_canary_existing_022_036_040_043_047",
+  "source_project": "/Users/mdpospelov/tlab-recsys-2026",
+  "source_reads_started_at_utc": "2026-10-16T09:27:39Z",
+  "source_hashes_observed_at_utc": "2026-10-16T09:29:18Z",
+  "actual_source_reads": [
+    {"path": "scripts/source_import.py", "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236", "bytes": 14444, "lines": 197, "text_commands": ["sed -n '1,260p'"], "relevant_contract": "FIELDS line19; NULLABLE line22; parse_row line60; profile constants/validation and import distinction"},
+    {"path": "scripts/anchor_pilot.py", "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d", "bytes": 20181, "lines": 383, "text_commands": ["sed -n '1,320p' (combined response partly truncated)", "sed -n '145,255p' (complete targeted response)"], "relevant_contract": "DIAGNOSTIC_HISTORY line25; stable_key line42; create_queries line142; create_labels maturity assignment distinction"},
+    {"path": "scripts/candidate_pilot.py", "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70", "bytes": 18557, "lines": 284, "text_commands": ["sed -n '1,360p'", "sed -n '1,155p'"], "relevant_contract": "validate_queries line24; create_candidates line38; validation does not reconstruct sampling proof"},
+    {"path": "scripts/protocol_manifest.py", "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0", "bytes": 11864, "lines": 235, "text_commands": ["sed -n '1,285p'"], "relevant_contract": "validate_protocol line70; exact keys, source/pilot bounds, maturity, caps, lookback and budget definitions"},
+    {"path": "scripts/temporal_contract.py", "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66", "bytes": 6184, "lines": 168, "text_commands": ["cat"], "relevant_contract": "history_window line56; label_is_mature line84; source_coverage line118"},
+    {"path": "configs/protocols/clock-48h.json", "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9", "bytes": 1403, "lines": 60, "text_commands": ["cat"], "relevant_contract": "clock48h source/pilot, eligibility, target, candidate/history and budget defaults"}
+  ],
+  "other_reads": [
+    "Source-project rg --files with narrow filename filters: source paths and test filenames only; no tests opened; no AGENTS.md returned.",
+    "rg -n definition-name text over five pinned source files; full-file shasum -a256 and wc -lc over six pinned files.",
+    "Existence-only check of the three intended /tmp manual-oracle outputs before creating them; none existed."
+  ],
+  "constraints": {
+    "independent_before_first_freeze": true,
+    "implementation_or_peer_material_read": false,
+    "proposal_directory_read": false,
+    "tests_read_or_executed": false,
+    "project_imports_helpers_or_SQL_executed": false,
+    "native_ML_model_or_production_data_accessed": false,
+    "Git_or_network_writes": false,
+    "project_files_changed": false,
+    "output_writes_only": ["/tmp/tlab-candidate-reachability-manual-oracle-FIRST.md", "/tmp/tlab-candidate-reachability-manual-oracle-pins.json", "/tmp/tlab-candidate-reachability-manual-oracle-freeze.json"],
+    "new_ID_admission_gate_or_execution_permission": false
+  }
+}

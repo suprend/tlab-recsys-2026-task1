@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "proposal_id": "candidate-reachability-ordinary-code-v1",
+  "status": "source_only_not_executed",
+  "author_scope": "Author synthetic engineering canary source and freeze only; execution requires a separate Root issue.",
+  "repository": "/Users/mdpospelov/tlab-recsys-2026",
+  "repository_head_observed": "b2864d575745b3484eb36c837f2fc692eb0ae79d",
+  "source": {
+    "path": "/tmp/tlab-candidate-reachability-code-proposal-v1/test_candidate_reachability.py",
+    "sha256": "edd384cc59b452a4f1e065a91bb677b44e4f7e629b68e13e1b821f6a5e4c3b06",
+    "lines": 153,
+    "unittest_methods": 1,
+    "isolated_memory_histories": 5,
+    "logical_fixtures": 4,
+    "total_input_row_instances": 6
+  },
+  "production_functions_called_by_proposal": [
+    "scripts.source_import.parse_row",
+    "scripts.protocol_manifest.load_protocol",
+    "scripts.anchor_pilot.create_queries",
+    "scripts.candidate_pilot.create_candidates"
+  ],
+  "source_pins": {
+    "scripts/source_import.py": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+    "scripts/anchor_pilot.py": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+    "scripts/candidate_pilot.py": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+    "scripts/protocol_manifest.py": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+    "scripts/temporal_contract.py": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+    "configs/protocols/clock-48h.json": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+    "pyproject.toml": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+    "uv.lock": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab"
+  },
+  "other_read_reference_pins": {
+    "tests/test_candidate_pilot.py": "b50a36f51a600def574f6ec7033d732f2ba439498a55e7787671f65a701432c5",
+    "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2"
+  },
+  "project_agents_checked_absent": [
+    "/Users/AGENTS.md",
+    "/Users/mdpospelov/AGENTS.md",
+    "/Users/mdpospelov/tlab-recsys-2026/AGENTS.md",
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/AGENTS.md",
+    "/Users/mdpospelov/tlab-recsys-2026/tests/AGENTS.md",
+    "/Users/mdpospelov/tlab-recsys-2026/configs/AGENTS.md"
+  ],
+  "import_boundary": {
+    "mechanism": "Before importing duckdb or project modules, hash all pinned inputs and inspect Import/ImportFrom nodes in the five project modules plus the canary against finite stdlib/duckdb and local-module allowlists.",
+    "third_party_import_roots_allowed": ["duckdb"],
+    "project_module_allowlist": [
+      "scripts.source_import", "scripts.anchor_pilot", "scripts.candidate_pilot",
+      "scripts.protocol_manifest", "scripts.temporal_contract"
+    ],
+    "no_ml_module_import": true,
+    "note": "source_import imports the stdlib gzip module at definition time; no gzip/archive function is invoked. DuckDB is the sole permitted non-stdlib engine."
+  },
+  "fixture_contract": {
+    "anchor_utc": "2019-10-08T00:00:00Z",
+    "history_input_times_utc": ["2019-10-07T23:00:00Z", "2019-10-07T22:00:00Z"],
+    "protocol": "Load the pinned clock-48h JSON and clone it; shorten only pilot.end to 2019-10-09T00:00:00Z.",
+    "N": "One view by user 7 at t-1h, product NULL; five metadata fields remain populated. Q contains 7 with eligibility=1/history rows=1/distinct products=0; C empty.",
+    "P": "One view by user 7/product 101 at t-1h; all five metadata fields populated. Q distinct products=1; C=(7,101,false,true,0,NULL,1,t-1h).",
+    "NP": "N plus one purchase by user 8/product 202 at t-2h. Q contains users 7 and 8, below the configured sample cap; C=(7,202,true,false,1,1,NULL,NULL),(8,202,true,true,1,1,1,t-2h).",
+    "M": "Before is a fresh P copy; after preserves event_time,event_type,user_id,product_id and sets exactly category_id,category_code,brand,price,user_session to NULL. Q/C match before and P exactly.",
+    "physical_schema": "All histories insert parse_row return tuples into the full literal ordered typed9 schema and assert DESCRIBE plus row counts. N product NULL and all five M metadata NULLs are read back explicitly.",
+    "maturity_premise": "Assert create_queries leaves every label_is_mature NULL, then explicitly assign TRUE solely to call the existing candidate validator; do not call create_labels or generate Y.",
+    "coverage_premise": "The Q diagnostic 1.0 is calendar overlap from declared source bounds, not independently established archive completeness."
+  },
+  "later_execution_proposal_not_a_grant": {
+    "operation_class": "ordinary_low_impact_synthetic_engineering_CODE",
+    "owner": "Root only after independent source/oracle review and a separate explicit issue",
+    "python": "/tmp/tlab-public018-clean-20261015-once/.venv-locked/bin/python",
+    "entrypoint": "/tmp/tlab-candidate-reachability-code-proposal-v1/test_candidate_reachability.py",
+    "working_directory": "Repository or separately admitted clone matching all source pins",
+    "processes": 1,
+    "duckdb_threads_per_connection": 1,
+    "memory_databases": 5,
+    "concurrency": "Sequential; each connection is closed in finally",
+    "hard_cpu_seconds": 10,
+    "hard_wall_seconds": 30,
+    "hard_limits_owner": "Separately admitted external trusted runner; no runner source is included here",
+    "environment_requirements": ["PYTHONDONTWRITEBYTECODE=1 or Python -B", "PYTHONNOUSERSITE=1"],
+    "attempts": 1,
+    "retry": false,
+    "borrow_closed_science_or_native50_budget": false,
+    "science_native_ml_authority": "CLOSED; the prior human CatBoost grant is consumed and supplies no authority here"
+  },
+  "excluded_operations": [
+    "Current execution/import of the canary or project modules",
+    "SQL execution or DuckDB connection during source preparation",
+    "Tests or syntax/compile/import checks during source preparation",
+    "Data/archive/gzip reads, source import loader, persistent databases",
+    "create_labels, Y, coverage_report, build_candidates, features",
+    "Model/calibrator/native ML imports, fits, scoring, plots",
+    "Download, cache production, process retry, canonical repository edits, Git writes"
+  ],
+  "claim_limits": [
+    "Parser-direct synthetic tuples, not the complete compressed archive/import pipeline",
+    "Declared calendar coverage and an artificial maturity premise only",
+    "No actual October incidence or production data claim",
+    "No features, Y, complete production CLI, native fit, ranking or recommendation quality claim",
+    "Runtime success is unknown until a separately issued ordinary CODE execution"
+  ],
+  "independence": "The author did not read the independent manual oracle author's output/messages before this source freeze."
+}

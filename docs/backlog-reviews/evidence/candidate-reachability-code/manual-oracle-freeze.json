@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "status": "FIRST_frozen_STOP",
+  "freeze_time_reference_utc": "2026-10-16T09:31:06Z",
+  "scope": "independent_manual_source_text_oracle_for_synthetic_CODE_canary_only",
+  "first": {
+    "path": "/tmp/tlab-candidate-reachability-manual-oracle-FIRST.md",
+    "sha256": "6667b49b5358504296354a8d8381b055864030ec2ca5e4b104e68b002c1fb482",
+    "main_body_word_count_including_title_and_appendix_heading": 323,
+    "compact_expected_tables_appendix": true
+  },
+  "pins": {
+    "path": "/tmp/tlab-candidate-reachability-manual-oracle-pins.json",
+    "sha256": "96de9ebf81375feb4e22aad6041764f21bfbce9d208cbccb4834ddeb23417139"
+  },
+  "freeze_assertions": {
+    "FIRST_written_and_reread_before_this_freeze": true,
+    "author_implementation_or_messages_read_before_freeze": false,
+    "peer_oracles_or_reviews_read_before_freeze": false,
+    "proposal_directory_read_before_freeze": false,
+    "test_execution_import_helpers_SQL_native_ML_models_or_data_used": false,
+    "root_alone_may_adopt": true,
+    "new_ID_admission_gate_or_execution_permission_created": false,
+    "work_stops_after_freeze": true
+  },
+  "interpretation": "Exact tables apply to five isolated histories at t with validated one-day pilot bounds and post-sampling declared synthetic maturity TRUE. This is source-derived expectation, not observed execution evidence, production incidence, label completeness, scientific validation or native execution authority."
+}

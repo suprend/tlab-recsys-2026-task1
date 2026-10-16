@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "scope": "Independent review of exact TMP two-document append-only wording proposal",
+  "reviewer": "brainstorm_skeptic_066, separate follow-up; original066 freeze unchanged",
+  "proposal_manifest_sha256": "6d2f5ab33347f4d3ce15c0839914f1201d0a616f28201487a74a0063e0a4a0f4",
+  "inputs": [
+    {
+      "path": "/tmp/tlab-identified-target-wording-proposal-v1/manifest.json",
+      "sha256": "6d2f5ab33347f4d3ce15c0839914f1201d0a616f28201487a74a0063e0a4a0f4"
+    },
+    {
+      "path": "/tmp/tlab-identified-target-wording-proposal-v1/proposal.diff",
+      "sha256": "ff4eb0ae3df8dcd1da164f8b519efe29afb24c7b810ac371b8014a1a5907628c",
+      "bytes": 6241,
+      "scope": "two append-only hunks; no changed original line"
+    },
+    {
+      "path": "/tmp/tlab-identified-target-wording-proposal-v1/base/docs/target-research/02-purchase-target.md",
+      "sha256": "4d86eb7e77d3cfba297dc25c83bb044733a98944673771862c043fa5deec8f5a",
+      "bytes": 12171
+    },
+    {
+      "path": "/tmp/tlab-identified-target-wording-proposal-v1/candidate/docs/target-research/02-purchase-target.md",
+      "sha256": "8d460e92a5ceae9d886ee8d8e64f6564208fb3bc435f8fb9eabe6d013101cbfa",
+      "bytes": 13909
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/target-research/02-purchase-target.md",
+      "sha256": "4d86eb7e77d3cfba297dc25c83bb044733a98944673771862c043fa5deec8f5a"
+    },
+    {
+      "path": "/tmp/tlab-identified-target-wording-proposal-v1/base/docs/experiments/anchor-pilot.md",
+      "sha256": "f9cd294501ea8ee8bc35f211d31e48fdebb6e8c44a1a6bab10eb5320897c5b1a",
+      "bytes": 10139
+    },
+    {
+      "path": "/tmp/tlab-identified-target-wording-proposal-v1/candidate/docs/experiments/anchor-pilot.md",
+      "sha256": "f66ec8d4f4b38889046d311fad94f896ce5343a77c44f0f6211e837a9deed005",
+      "bytes": 11896
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/anchor-pilot.md",
+      "sha256": "f9cd294501ea8ee8bc35f211d31e48fdebb6e8c44a1a6bab10eb5320897c5b1a"
+    },
+    {
+      "path": "/tmp/tlab-root-wave066-research-readback-v1.json",
+      "sha256": "e5d86e3f15b37fe5c6fb94df2b8205c1242082047f92e38169c7eae19229276e"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "verified_line_fragments": [
+        {
+          "function": "create_labels",
+          "definition_line": 202,
+          "product_filter_line": 234,
+          "raw_group_sum_line": 271
+        }
+      ],
+      "candidate_relative_link": "../../scripts/anchor_pilot.py#L202"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py",
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+      "verified_line_fragments": [
+        {
+          "function": "parse_row",
+          "definition_line": 60,
+          "empty_to_NULL_line": 66,
+          "signed64_range_line": 74
+        },
+        {
+          "function": "validate_csv",
+          "definition_line": 116,
+          "global_null_counter_line": 138
+        }
+      ],
+      "candidate_relative_links": [
+        "../../scripts/source_import.py#L60",
+        "../../scripts/source_import.py#L116"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-wave066-unknown-b-FIRST.md",
+      "sha256": "dbfa6af70f40d1740cbd16d56b4ac6dd267c2ccf078e8ba3a6d0a7db49c522f8",
+      "written_or_modified_by_this_proposal": false
+    },
+    {
+      "path": "/tmp/tlab-wave066-unknown-b-pins.json",
+      "sha256": "9cd110c75fc11de86198a6ef6c8f98cb986608743e5f1a7a126efa25c9f289a2",
+      "written_or_modified_by_this_proposal": false
+    },
+    {
+      "path": "/tmp/tlab-wave066-unknown-b-freeze.json",
+      "sha256": "22cfa4a0cd4ffb8f9c5ab11d1b7ebf7ac53fa29f74499352d6747c4c8d09811e",
+      "written_or_modified_by_this_proposal": false
+    },
+    {
+      "path": "/tmp/tlab-wave066-skeptic-review.md",
+      "sha256": "777ba550a662882d00c5a786bb35054adbf051ab02022909cc57e36db7490b36"
+    },
+    {
+      "path": "/tmp/tlab-wave066-skeptic-pins.json",
+      "sha256": "cce21cf86ae4934e2f717b247b1fdf2b82312c3a0aa76dfd9c7d818663ea74af"
+    },
+    {
+      "path": "/tmp/tlab-wave066-skeptic-freeze.json",
+      "sha256": "94cac98383bc4ee88cb3c597a53eb096616aeddf4d39dedaa69c9503a2f1aca1"
+    },
+    {
+      "path": "/tmp/tlab-identified-target-wording-proposal-v1/freeze.json",
+      "sha256": "ace22cfcb939ebb27a65b5f35f9835b2d392767f3cd97d3818a157306f94a7bc"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43"
+    }
+  ],
+  "checks": [
+    {
+      "name": "target canonical/base",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "name": "target old-byte prefix",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "name": "pilot canonical/base",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "name": "pilot old-byte prefix",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "name": "target appendix word count",
+      "exit_code": 0,
+      "output": "     128\n"
+    },
+    {
+      "name": "pilot appendix word count",
+      "exit_code": 0,
+      "output": "     127\n"
+    }
+  ],
+  "proposal_freeze_read": true,
+  "all_input_hashes_match": true,
+  "append_word_counts": [
+    128,
+    127
+  ],
+  "old_bytes_exact_prefixes": true,
+  "base_equals_current_canonical": true,
+  "source_content_scopes": {
+    "anchor_pilot": "actual source lines202-278; source filters and postfiltered raw group accounting",
+    "source_import": "actual source lines18-77,116-145; nullable parsing, signed64 IDs, global field NULL counters",
+    "base_notes": "target lines27-45; pilot lines1-23; complete original prefixes verified byte-for-byte",
+    "proposal": "complete manifest/diff/freeze and both appended suffixes",
+    "authority": "Root066 research readback complete, only historical boundary relevant; later Q/C status not used as labels proof"
+  },
+  "disposition": "NO_FINDINGS; recommend exact two appendices as source wording only; Root/coordinator retains adoption/installation authority",
+  "runtime_and_science_boundary": "Six-event canary UNRUN; no October unknown-key incidence or impact inferred; no new IDs/gates/grants/results",
+  "side_effects": {
+    "imports": 0,
+    "tests": 0,
+    "SQL": 0,
+    "native": 0,
+    "model": 0,
+    "inference": 0,
+    "actualdata": 0,
+    "canonical_writes": 0,
+    "Git_mutations": 0,
+    "network_writes": 0,
+    "downloads": 0
+  },
+  "verification_history": "First V8 hash-list construction failed on authority field mapping before any hash command ran; corrected root_readback_path mapping; complete hash verification then passed. No proposal bytes changed.",
+  "skills": "code-review independent small-change reviewer; research/research-campaign context already read",
+  "report_word_count": 235
+}
+
