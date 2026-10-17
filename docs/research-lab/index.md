@@ -1,5 +1,18 @@
 # Постоянная research-линия
 
+## Карта результата и аудита — 2026-10-17 00:13:55 UTC
+
+[Сводка семи проблем](../backlog-reviews/full-pipeline-audit-20261016.md), [архив и provenance](../backlog-reviews/pipeline-audit-20261016/publication.json), [R3](../backlog-reviews/pipeline-audit-20261016/global-R3-v2/report.md) и [89 CODE-методов](../backlog-reviews/pipeline-audit-20261016/CODE-core32-result.json). Подготовлены 27 code/test изменений; фактическая LOCAL-установка фиксируется отдельной приёмкой.
+
+Рабочий конвейер/полный Mac повтор приняты исторически; final CI разницы B/W пересекает ноль, adaptive scope остаётся exploratory. LOCAL41 принят, exact476 опубликован. Исправленная native CLI end-to-end и callback-abort ещё не проверены; будущий native план SOURCE-only, без нового grant.
+
+Приняты 14 из 19 исходных задач. TLAB-014 continuous, TLAB-010–013 — четыре отложенных optional эксперимента. docs/backlog.md остаётся единственной очередью; новые IDs, обязательные научные gates и бюджеты не создаются. Волна 084 завершена, 085 SOURCE complete, её raw archive — next slice; next 00:45 UTC по прежней сетке. 080–082/CODE и 083 сохраняются отдельно.
+
+## Исторические срезы — весь прежний текст сохранён побайтно
+
+Статусы ниже относятся к указанным датам; прежние pending/uninstalled не описывают текущую приёмку LOCAL41 и CODE-аудита.
+
+
 ## Актуальный SOURCE-срез — 2026-10-16 20:11:51 UTC
 
 [078–079: сводный checkpoint и исправление метаданных](round079-engineering-checkpoint.md) содержит полный безопасный FIRST/скептический/review материал и compact pins. Исходный Task1 pipeline/Mac reproduction принят; надёжный quality gain не установлен. В проекте принято 14 из 19 задач, 014 continuous и 010–013 optional/deferred; новых IDs/gates/grants нет.

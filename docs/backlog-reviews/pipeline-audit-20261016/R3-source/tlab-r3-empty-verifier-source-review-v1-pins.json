@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "reviewer": "audit_leakage_redteam_r1",
+  "scope": "R3 independent SOURCE-only verifier contract update",
+  "sources": [
+    {
+      "path": "/tmp/tlab-audit-r3-empty-verifier-test-v1/candidate/tests/test_verify_development.py",
+      "bytes": 29868,
+      "sha256": "e7460ab01512f4e2b557b21cab4a9a34a842af80135fd9becc809bf1af98e85c",
+      "inspection": "target changed methods and setup/build; complete AST/diff comparison"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-empty-verifier-test-v1/manifest.json",
+      "bytes": 2599,
+      "sha256": "a983e77affcb6d1532f975af67818af0a8450fea345278189c10438e98eb6c8f",
+      "inspection": "full manifest/hash"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-empty-verifier-test-v1/candidate.diff",
+      "bytes": 2492,
+      "sha256": "34c5c3862eebd5683d80badb50b0aac3a8091e66a47d5de9124813863ed0cb33",
+      "inspection": "complete text reconstructed independently"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-empty-verifier-test-v1/HANDOFF.md",
+      "bytes": 3848,
+      "sha256": "1949448d7a6cfeb73fd63979ff6a86b440df11ecf08cea4ba29408c2f0eaafc3",
+      "inspection": "full handoff"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-empty-verifier-test-v1/base-pins.json",
+      "bytes": 3059,
+      "sha256": "6ed76dae466128fb290044ec268e0448e3026d0ef551288f645de6b1d9768de6",
+      "inspection": "full metadata and every source pin rehashed"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-empty-verifier-test-v1/freeze.json",
+      "bytes": 1409,
+      "sha256": "af995d78a9053c595181df654ca618ddd246e07b63fc642909c86fc0103985a5",
+      "inspection": "every output pin independently rehashed"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-empty-verifier-test-v1/exact-methods.json",
+      "bytes": 320,
+      "sha256": "559ec9d0cbb7d658abb2f9f6c385be9f3ba34a75398ee41ccf33e2a4164d390f",
+      "inspection": "exact two IDs/readback"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/manifest.json",
+      "bytes": 170955,
+      "sha256": "d78611b5190f69a7fc33ce09e0a92ff79cd5c0b0c59013aac77e651c4319c27b",
+      "inspection": "hash identity"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_verify_development.py",
+      "bytes": 28887,
+      "sha256": "dec1291cc9db51546532bcc2d851d38abf2e273d027d9b847781449f049edd73",
+      "inspection": "complete AST/base diff; relevant source excerpts"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_development_collection.py",
+      "bytes": 20324,
+      "sha256": "adf2688898f8d6ec597b5f7ed5263fd48c1e3877695f9724b05a2134291a940a",
+      "inspection": "106-193 real runtime fixture/import chain"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/development_collection.py",
+      "bytes": 36058,
+      "sha256": "0aaf7a53236863540a86a77730215d1c5e106bf29f9440402a8527a03e717736",
+      "inspection": "1-20,325-385,577-605 aggregation/failure/caller"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/verify_development.py",
+      "bytes": 39362,
+      "sha256": "60519794c8c5b8bc7ac04f960e554f13ab3e125043c2a0e46d53f67ea0810ee0",
+      "inspection": "1-566 full source"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/anchor_pilot.py",
+      "bytes": 20747,
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "inspection": "import/static empty-schema search"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/candidate_pilot.py",
+      "bytes": 19102,
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "inspection": "import/static source search"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/manual_features.py",
+      "bytes": 26364,
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "inspection": "import/typed empty-schema search"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/heuristic_baselines.py",
+      "bytes": 23423,
+      "sha256": "b13cc9056bf856b3aa3eb04db9de96e871cbdcbc41ab236bb80ab9c20a06c191",
+      "inspection": "import search"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/protocol_manifest.py",
+      "bytes": 11864,
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "inspection": "import/temporal context"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/temporal_contract.py",
+      "bytes": 6184,
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "inspection": "import/temporal context"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/ranking_metrics.py",
+      "bytes": 9971,
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "inspection": "import chain"
+    }
+  ],
+  "source_checks": {
+    "complete_diff_equal": true,
+    "unchanged_methods_ast": 34,
+    "prefix_suffix_bytes_equal": true
+  },
+  "execution": false
+}

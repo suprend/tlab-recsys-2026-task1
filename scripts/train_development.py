@@ -15,7 +15,8 @@ import time
 
 
 CODE = ('scripts/train_development.py', 'scripts/development_training.py',
-        'scripts/adaptive_tree_selection.py', 'pyproject.toml')
+        'scripts/adaptive_tree_selection.py', 'scripts/metadata_price_collection.py',
+        'scripts/metadata_price_features.py', 'pyproject.toml')
 
 
 def require(ok, message):
@@ -79,7 +80,9 @@ def load_runtime():
     from catboost import CatBoostClassifier
     from scripts import train_baselines as b
     from scripts.development_training import fit_development
-    return SimpleNamespace(np=np, Classifier=CatBoostClassifier, b=b, fit=fit_development)
+    from scripts.metadata_price_collection import verify_collection_strict
+    return SimpleNamespace(np=np, Classifier=CatBoostClassifier, b=b, fit=fit_development,
+                           verify_collection=verify_collection_strict)
 
 
 def input_pins(b, train, validation, check):
@@ -160,8 +163,8 @@ def run(args):
                   resource_scope='SELF CPU/peak RSS; run-entry wall; no hard tree/startup/cleanup containment')
     try:
         b._atomic_json(output/'report.json', report)
-        train_collection = b.verify_collection(args.train_acceptance, check=check)
-        validation_collection = b.verify_collection(args.validation_acceptance, check=check)
+        train_collection = runtime.verify_collection(args.train_acceptance, check=check)
+        validation_collection = runtime.verify_collection(args.validation_acceptance, check=check)
         b.validate_training_phases(train_collection, validation_collection, {'wall_seconds': args.wall_seconds})
         require(train_collection['feature_columns'] == validation_collection['feature_columns'],
                 'Train and validation feature schemas differ')

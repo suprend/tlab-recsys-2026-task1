@@ -1,0 +1,84 @@
+{
+  "candidate_files": [
+    {
+      "bytes": 16854,
+      "coverage": "complete candidate source read",
+      "original": "scripts/eda.py",
+      "sha256": "f6523303bfd0e0cc5434b4173141483f9e396711f6757538960a004719cf3f14",
+      "snapshot": "/tmp/tlab-audit-fix-eda-cache-v1/candidate/scripts/eda.py"
+    },
+    {
+      "bytes": 8200,
+      "coverage": "complete candidate source read",
+      "original": "tests/test_eda_cache_witness.py",
+      "sha256": "3a1204cb1d867005962287c9e05f553cc3d16297f1af518d59b4aa9da466eb40",
+      "snapshot": "/tmp/tlab-audit-fix-eda-cache-v1/candidate/tests/test_eda_cache_witness.py"
+    }
+  ],
+  "candidate_freeze_sha256": "e96c938eb771901c0f00c9f668744386f5b2c44494f06daedacdf3f1a6ecd2e8",
+  "metadata_and_context": [
+    {
+      "bytes": 2707,
+      "path": "/tmp/tlab-audit-fix-eda-cache-v1/HANDOFF.md",
+      "sha256": "81585e29e9700154b1dfc4113c5b74ce48367acc285a75e0a02d4d61935de6c5"
+    },
+    {
+      "bytes": 1226,
+      "path": "/tmp/tlab-audit-fix-eda-cache-v1/manifest.json",
+      "sha256": "6a81ea1335a8ac445cc520ed7442f5b75d3477a86dba02bc68bdf70f411bb960"
+    },
+    {
+      "bytes": 17479,
+      "path": "/tmp/tlab-audit-fix-eda-cache-v1/candidate.diff",
+      "sha256": "5ee3ea5d2e443fbfd3489ac6d23196fe1a83b5e4e7892826df68a57864deff80"
+    },
+    {
+      "bytes": 2470,
+      "path": "/tmp/tlab-audit-fix-eda-cache-v1/base-pins.json",
+      "sha256": "13477b5324c3cf6052df838eb9633f9850ec686fa6fa5d468348e9875a7a4185"
+    },
+    {
+      "bytes": 448,
+      "path": "/tmp/tlab-audit-fix-eda-cache-v1/readback.txt",
+      "sha256": "82e329b5a9548fd3176ba8c51959c1d880f4222706633abfa09cb991cd2d4267"
+    },
+    {
+      "bytes": 842,
+      "path": "/tmp/tlab-audit-fix-eda-cache-v1/freeze.json",
+      "sha256": "e96c938eb771901c0f00c9f668744386f5b2c44494f06daedacdf3f1a6ecd2e8"
+    },
+    {
+      "bytes": 944,
+      "path": "/tmp/tlab-audit-fix-eda-cache-v1/SHA256SUMS",
+      "sha256": "01b8ad47d9125cd947be96ea6d0cec4962785df12c3971f0b9fcff7f70f5f636"
+    },
+    {
+      "bytes": 175,
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/.gitignore",
+      "sha256": "0d23e7856d6bbaa8eacfd79d4e51e67add920cca451b50dca439ff9c3df56ab3"
+    },
+    {
+      "bytes": 18557,
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70"
+    },
+    {
+      "bytes": 8721,
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/plots.py",
+      "sha256": "d07ef753d04b8bf44794aec2aa8d5b0cca83dc9e4e9585403dae817a2200d7f1"
+    },
+    {
+      "bytes": 11440,
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/user_metrics.py",
+      "sha256": "f6b35a68d038f5176d4cf7ae6768fc343fe7d39b4111fb348f18f3cd415e9fad"
+    }
+  ],
+  "no_canonical_writes": true,
+  "no_project_runtime": true,
+  "phase": "FIX_SOURCE",
+  "reviewer": "audit_repro_lineage_r1",
+  "test_execution": false,
+  "test_method_count_static": 13,
+  "verdict": "SOURCE_ACCEPT_sequential_accidental_drift_only",
+  "version": 1
+}

@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "reviewer": "/root/audit_feature_leakage_r1",
+  "UTC": "2026-10-16T23:34:03.067875+00:00",
+  "scope": "R3 batching SOURCE review only",
+  "candidate_sha256": "4608abf379eab7fc091c20fc8fb56a805063ad65018aaadd480f882968e0d965",
+  "sources": [
+    {
+      "path": "/tmp/tlab-audit-r3-batching-regression-v1/candidate/tests/test_feature_batch_invariance.py",
+      "bytes": 17548,
+      "sha256": "4608abf379eab7fc091c20fc8fb56a805063ad65018aaadd480f882968e0d965",
+      "inspection": "full source/contract metadata"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-batching-regression-v1/SOURCE-HANDOFF.md",
+      "bytes": 4625,
+      "sha256": "e8dcf200cbcea3dc8c3d39fd3352be52b74c3a03c89aa0e690b7d93a85c5dadb",
+      "inspection": "full source/contract metadata"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-batching-regression-v1/manifest.json",
+      "bytes": 3035,
+      "sha256": "9e8449c16df45bdf21ea5aa68d9cc75e872aa13e4c5a2eff516771bb350dc689",
+      "inspection": "full source/contract metadata"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-batching-regression-v1/basepins.json",
+      "bytes": 4638,
+      "sha256": "cf2ab1c0c5bec2838391cfd453f7af888a821feb621b41a2d34b3d2bfb0c6cd8",
+      "inspection": "full source/contract metadata"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-batching-regression-v1/freeze.json",
+      "bytes": 1197,
+      "sha256": "ad46c84f04f8ffa18bdc81af641b061f0337b7407a9035f991b39173521c9c29",
+      "inspection": "full source/contract metadata"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/manual_features.py",
+      "bytes": 26364,
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "inspection": "124-267 actual compiler path and metadata/count state; prior source body unchanged from reviewed FIX"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/candidate_pilot.py",
+      "bytes": 19102,
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "inspection": "1-50 validation import/path; no retrieval function called"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/protocol_manifest.py",
+      "bytes": 11864,
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "inspection": "20-160 validators/config caps"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/feature_programs.py",
+      "bytes": 14019,
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "inspection": "1-26 import/context; generated pool contracts from prior FIRST"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/anchor_pilot.py",
+      "bytes": 20747,
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "inspection": "1-45 import/UTC helpers"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/temporal_contract.py",
+      "bytes": 6184,
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "inspection": "1-20 import closure; source coverage from prior FIRST"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_feature_programs_all_bundles_rich.py",
+      "bytes": 22526,
+      "sha256": "8b0e0fa999ed30c0e6e51e185fe2c33d5bcb72f0df9efc5b65e0cf2baf068e6e",
+      "inspection": "1-260 independent schema/BUNDLES/bundle_schema/import closure; selected370-377; no test body invoked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/configs/features/manual-18.json",
+      "bytes": 3631,
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "inspection": "hash/reference; full prior FIRST unchanged"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/configs/features/automation-pool.json",
+      "bytes": 2713,
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+      "inspection": "hash/reference; full prior FIRST unchanged"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/configs/protocols/clock-48h.json",
+      "bytes": 1403,
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "inspection": "hash/reference; full prior FIRST unchanged"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/manifest.json",
+      "bytes": 170955,
+      "sha256": "d78611b5190f69a7fc33ce09e0a92ff79cd5c0b0c59013aac77e651c4319c27b",
+      "inspection": "hash/metadata authority only"
+    }
+  ],
+  "verdict": "SOURCE BLOCKED P2 invalid two-day protocol caps; rest conditionally reviewed",
+  "findings": [
+    {
+      "priority": "P2",
+      "path": "tests/test_feature_batch_invariance.py",
+      "lines": [
+        206,
+        260
+      ],
+      "trigger": "2 days * 3 per day > max_anchors3; next pairs constraint needs1320"
+    }
+  ],
+  "source_counts": {
+    "events": 22,
+    "queries": 3,
+    "candidates": 5,
+    "combined_input_rows": 30
+  },
+  "word_count": 577,
+  "runtime": "UNRUN",
+  "cost": "UNKNOWN",
+  "project_execution": false,
+  "canonical_or_Git_mutation": false
+}

@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "author": "/root/audit_next_features_blind",
+  "kind": "independent_FIRST_SOURCE_only",
+  "frozen_scope": "/tmp/tlab-full-pipeline-audit-combined-v1/repository",
+  "combined_manifest": {
+    "path": "/tmp/tlab-full-pipeline-audit-combined-v1/manifest.json",
+    "sha256": "d78611b5190f69a7fc33ce09e0a92ff79cd5c0b0c59013aac77e651c4319c27b",
+    "bytes": 170955
+  },
+  "inputs": [
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/docs/backlog.md",
+      "sha256": "62bbaff8f19d2860ee849075b379a0fa7f7967c0c05b4c700655377541147305",
+      "bytes": 209404,
+      "original_path": "docs/backlog.md",
+      "inspection": [
+        "1-240 (first read output truncated)",
+        "290-420",
+        "408-540",
+        "386-410",
+        "rg targeted HYP/status/batching lines through842"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/docs/research-lab/index.md",
+      "sha256": "3a07a80af1b0698626427332fc7710d784897db18d7340846a4a410a9b85e20d",
+      "bytes": 49445,
+      "original_path": "docs/research-lab/index.md",
+      "inspection": [
+        "rg targeted HYP/dedup descriptions only; no linked FIRST bodies opened"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "original_path": "scripts/feature_programs.py",
+      "inspection": [
+        "1-229"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364,
+      "original_path": "scripts/manual_features.py",
+      "inspection": [
+        "1-330"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/train_baselines.py",
+      "sha256": "b25dc30cc7265dddb3cbf910edff12cc4bcf220161c86c59a7d3fa33cf129bed",
+      "bytes": 35812,
+      "original_path": "scripts/train_baselines.py",
+      "inspection": [
+        "165-280",
+        "rg symbols/feature fields"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/feature_program_collection.py",
+      "sha256": "b3e05d85d97afc26d8cbda8627d3bfffc46ad6a037d03beb1c0c6d5d807ef84f",
+      "bytes": 34940,
+      "original_path": "scripts/feature_program_collection.py",
+      "inspection": [
+        "1-250"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/feature_program_experiment.py",
+      "sha256": "55fb8f483815218908cbdd626fda0a274502e7ac5bbbef20d211882c18e36aad",
+      "bytes": 61929,
+      "original_path": "scripts/feature_program_experiment.py",
+      "inspection": [
+        "rg symbols/feature fields only"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/inference_data.py",
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+      "bytes": 9074,
+      "original_path": "scripts/inference_data.py",
+      "inspection": [
+        "1-126"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/program_model_data.py",
+      "sha256": "1ee9c2fdbec93984e71f0edd055dbbf9046c2d4805eaa0c80f3f0e29bd5c06b1",
+      "bytes": 10122,
+      "original_path": "scripts/program_model_data.py",
+      "inspection": [
+        "1-153"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/model_data.py",
+      "sha256": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+      "bytes": 13774,
+      "original_path": "scripts/model_data.py",
+      "inspection": [
+        "rg definitions/selection/label/order lines only"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_feature_programs_all_bundles_rich.py",
+      "sha256": "8b0e0fa999ed30c0e6e51e185fe2c33d5bcb72f0df9efc5b65e0cf2baf068e6e",
+      "bytes": 22526,
+      "original_path": "tests/test_feature_programs_all_bundles_rich.py",
+      "inspection": [
+        "1-260 (read output truncated)",
+        "256-377"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_manual_features.py",
+      "sha256": "f8a7729909c2a661ec721aad35ea8dca15410d9ef2f8fe4b22f566456a0ef95a",
+      "bytes": 21324,
+      "original_path": "tests/test_manual_features.py",
+      "inspection": [
+        "rg test names and temporal/category assertions only"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_feature_programs.py",
+      "sha256": "18135cd1157d35ea374d9fa286c425051d886e78709b67b29eadbccfba2d194b",
+      "bytes": 11550,
+      "original_path": "tests/test_feature_programs.py",
+      "inspection": [
+        "rg test names and temporal/category assertions only"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_feature_program_collection.py",
+      "sha256": "841df2429c1a57e7bd9dafc8a88edbbda94db53db04760dad546f29defdecd96",
+      "bytes": 15602,
+      "original_path": "tests/test_feature_program_collection.py",
+      "inspection": [
+        "rg test names and temporal/category assertions only"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_program_model_data.py",
+      "sha256": "bd54448cbf3b59edd9246574be2fd9276391d8706bddaa634ffd16d3593823f8",
+      "bytes": 7617,
+      "original_path": "tests/test_program_model_data.py",
+      "inspection": [
+        "1-118"
+      ]
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_inference_data.py",
+      "sha256": "fe6bf6a78d0dad50556f1390012beed569c2e2a1451ff85c3b584dae00b44f88",
+      "bytes": 8793,
+      "original_path": "tests/test_inference_data.py",
+      "inspection": [
+        "rg test names/loader references only"
+      ]
+    }
+  ],
+  "report": {
+    "path": "/tmp/tlab-audit-next-features-FIRST.md",
+    "sha256": "e43fa3eef6258de27747ff334765e1e8b8cc4c6bde37da678da69b5ef9294043",
+    "bytes": 8935
+  },
+  "independence": "No other current-wave FIRST or audit/reports bodies opened; supplied historical context not a new independent review claim. Backlog/index summaries allowed for deduplication.",
+  "runtime": "UNRUN; no project import/tests/SQL/native/real data; only read-only shell and own metadata hashing/writing",
+  "findings": {
+    "new_supported_bugs": 0,
+    "new_canonical_hypotheses": 0,
+    "refinements": 2,
+    "admissions": 0
+  },
+  "created_utc": "2026-10-16T23:20:51.240965+00:00"
+}

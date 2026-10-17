@@ -315,12 +315,17 @@ class VerificationTests(unittest.TestCase):
         self.assertEqual(result['counts'],dict(queries=4,labels=0,candidates=2,features=2))
         self.assertEqual(result['population'],dict(mature_empty_Y_queries=4,empty_C_queries=2,fullY_outside_C=0))
 
-    def test_failed_all_empty_source_producer_cannot_be_verified_complete(self):
+    def test_failed_aggregation_attempt_cannot_be_verified_complete(self):
         import json
+        from unittest.mock import patch
+        from scripts import development_collection
         from scripts.protocol_manifest import canonical_json,sha256_file
         from scripts.verify_development import VerificationError
-        with self.assertRaisesRegex(ValueError,'Missing or duplicate daily report coverage'):
-            self.build([])
+        with patch.object(development_collection,'aggregate_collection',
+                          side_effect=ValueError('synthetic aggregation failure')) as aggregate:
+            with self.assertRaisesRegex(ValueError,'synthetic aggregation failure'):
+                self.build([])
+        aggregate.assert_called_once()
         fixture=self.fixture;state=fixture.read_state()
         self.assertEqual(state['status'],'failed')
         names={str(fixture.directory.relative_to(self.root))+'/state.json',
@@ -334,6 +339,18 @@ class VerificationTests(unittest.TestCase):
         self.assertEqual(failure.exception.evidence['failure_gate'],'lineage.complete_attempt')
         self.assertEqual(failure.exception.evidence['status'],'failed')
         self.assertNotIn('counts',failure.exception.evidence)
+
+    def test_all_empty_source_is_verified_with_typed_empty_QYCF_and_zero_population(self):
+        self.build([])
+        result=verify(self.root,self.expected)
+        self.assertEqual(result['status'],'verified')
+        self.assertEqual(result['counts'],dict(queries=0,labels=0,candidates=0,features=0))
+        self.assertEqual(result['population'],dict(mature_empty_Y_queries=0,empty_C_queries=0,fullY_outside_C=0))
+        self.assertEqual(result['completed'],[
+            'lineage','shard_0_QYC','shard_0_F','shard_1_QYC','shard_1_F'])
+        self.assertEqual(result['sample_pairs'],0)
+        self.assertEqual(result['formula_checks'],0)
+        self.assertEqual(result['fits'],0)
 
     def test_reordered_peers_and_future_suffix_do_not_change_verified_relations(self):
         rows=self.complex_rows();self.build(rows)

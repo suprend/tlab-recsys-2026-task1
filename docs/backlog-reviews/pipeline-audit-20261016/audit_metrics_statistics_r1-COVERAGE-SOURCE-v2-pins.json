@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "reviewer": "audit_metrics_statistics_r1",
+  "scope": "narrow v2 appended float32-X P3 SOURCE rereview",
+  "candidate_manifest_sha256": "7b14188ccc6cd8ce667e8137eb2cf85180ce72f33228392186a96fdff7c88a22",
+  "candidate_freeze_sha256": "6274cc13c9faceb4bf3b49df76449e781e5c0552b56079fd2900f6464407ec62",
+  "inputs": [
+    {
+      "path": "/tmp/tlab-audit-coverage-regressions-v2/manifest.json",
+      "sha256": "7b14188ccc6cd8ce667e8137eb2cf85180ce72f33228392186a96fdff7c88a22",
+      "bytes": 3094
+    },
+    {
+      "path": "/tmp/tlab-audit-coverage-regressions-v2/freeze.json",
+      "sha256": "6274cc13c9faceb4bf3b49df76449e781e5c0552b56079fd2900f6464407ec62",
+      "bytes": 1803
+    },
+    {
+      "path": "/tmp/tlab-audit-coverage-regressions-v2/changes-from-v1.patch",
+      "sha256": "819cc1379cd1bbe5643d5adcdafc313b63f0a46761dfe6e4c7b953a8ad2d80c3",
+      "bytes": 750
+    },
+    {
+      "path": "/tmp/tlab-audit-coverage-regressions-v2/candidate.patch",
+      "sha256": "fa0b864d4a5ee6d92633341cad4ccd4ff6923be2d6277093c724e86b71280a2b",
+      "bytes": 30506
+    },
+    {
+      "path": "/tmp/tlab-audit-coverage-regressions-v2/SOURCE-HANDOFF.md",
+      "sha256": "f011cb7e7401bcce308fd873f007907131251cd9a24ed3e915805219123c795b",
+      "bytes": 4016
+    },
+    {
+      "path": "/tmp/tlab-audit-coverage-regressions-v2/dependency-read-pins.json",
+      "sha256": "47b19984563f9862f8188d3ab63c2bad2ea5d9cff7f58e8963f21d6b62263c76",
+      "bytes": 9881
+    },
+    {
+      "path": "/tmp/tlab-audit-coverage-regressions-v2/candidate/tests/test_feature_programs_all_bundles_rich.py",
+      "sha256": "8b0e0fa999ed30c0e6e51e185fe2c33d5bcb72f0df9efc5b65e0cf2baf068e6e",
+      "bytes": 22526
+    },
+    {
+      "path": "/tmp/tlab-audit-coverage-regressions-v2/candidate/tests/test_source_import_independent_order.py",
+      "sha256": "22e4f41ab19b1d8a4969a1c85d3a82963edf837269cafc92450020b4b4881ba1",
+      "bytes": 7274
+    },
+    {
+      "path": "/tmp/tlab-audit-coverage-regressions-v1/candidate/tests/test_feature_programs_all_bundles_rich.py",
+      "sha256": "eec53cc3d044539f63f055146499c4d0f8c525a64a7ae9213ac8565570bc7ec9",
+      "bytes": 22449
+    },
+    {
+      "path": "/tmp/tlab-audit-coverage-regressions-v1/candidate/tests/test_source_import_independent_order.py",
+      "sha256": "22e4f41ab19b1d8a4969a1c85d3a82963edf837269cafc92450020b4b4881ba1",
+      "bytes": 7274
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-COVERAGE-SOURCE.md",
+      "sha256": "5ee98fd5dc572514144a41ce48c029adf3f781c19bb7e3f7c30b778679f83481",
+      "bytes": 4132
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-COVERAGE-SOURCE-pins.json",
+      "sha256": "c2a58941a82b79037ccda0c059c16730eb6202bd2e89a9b05dd8da17c0bbd31f",
+      "bytes": 5416
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-COVERAGE-SOURCE-freeze.json",
+      "sha256": "98883326f887e4bd2d00d84a3bd93d74f82968ab5ded7e8dbbda0221142314d7",
+      "bytes": 1132
+    }
+  ],
+  "byte_delta": "exactly one projected.x.dtype assertion",
+  "execution": "text/byte/hash only",
+  "CODE": "PENDING"
+}

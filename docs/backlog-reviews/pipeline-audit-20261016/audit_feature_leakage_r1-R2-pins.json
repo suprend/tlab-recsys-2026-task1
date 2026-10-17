@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "reviewer": "/root/audit_feature_leakage_r1",
+  "round": "R2 crossed review",
+  "UTC": "2026-10-16T22:35:20.123832+00:00",
+  "frozen_HEAD": "c538de4097322715fccac494e2b2becc3279e8e1",
+  "manifest_sha256": "7e2e871f148beac5b9fce3aa23970b370db0c8fdc9eac89958fb6342a4d2a41a",
+  "sources": [
+    {
+      "path": "scripts/manual_features.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160,
+      "inspection": "272-401; prior FIRST full source unchanged"
+    },
+    {
+      "path": "scripts/anchor_pilot.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181,
+      "inspection": "52-70,335-375; limited finally/close/save search"
+    },
+    {
+      "path": "scripts/candidate_pilot.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "bytes": 18557,
+      "inspection": "240-276; limited finally/close/save search"
+    },
+    {
+      "path": "scripts/heuristic_baselines.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/heuristic_baselines.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/heuristic_baselines.py",
+      "sha256": "db00b2375fed1083d4bf9b45ef4535793d36ffeaa537050a07e99c61dad13ee4",
+      "bytes": 22853,
+      "inspection": "340-376; limited finally/close/save search"
+    },
+    {
+      "path": "scripts/development_collection.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909,
+      "inspection": "550-587; limited finally/close/save search"
+    },
+    {
+      "path": "scripts/feature_program_collection.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_program_collection.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/feature_program_collection.py",
+      "sha256": "b3e05d85d97afc26d8cbda8627d3bfffc46ad6a037d03beb1c0c6d5d807ef84f",
+      "bytes": 34940,
+      "inspection": "247-276,410-440; limited finally/close/save search"
+    },
+    {
+      "path": "scripts/metadata_price_features.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_features.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/metadata_price_features.py",
+      "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+      "bytes": 36920,
+      "inspection": "500-551; limited finally/close/save search"
+    },
+    {
+      "path": "tests/test_manual_features.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_manual_features.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_manual_features.py",
+      "sha256": "f8a7729909c2a661ec721aad35ea8dca15410d9ef2f8fe4b22f566456a0ef95a",
+      "bytes": 21324,
+      "inspection": "302-386"
+    },
+    {
+      "path": "tests/test_heuristic_baselines.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_heuristic_baselines.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_heuristic_baselines.py",
+      "sha256": "b68d294482765a9f04dc6a408a9bc52b4bf1a0d7697f50caf50c6a0f9b2837cf",
+      "bytes": 23624,
+      "inspection": "1-105; fixture/connect/runner text matches only"
+    },
+    {
+      "path": "docs/experiments/manual-features.md",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/manual-features.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/manual-features.md",
+      "sha256": "789fa3c8e58472c9208bb5a71baca93892af93c1836d0bfceab3f3faa45ffc55",
+      "bytes": 12695,
+      "inspection": "46-62"
+    },
+    {
+      "path": "reports/audit_manual_features_r1-FIRST.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-FIRST.md",
+      "sha256": "4d15ce66187799b15fd1f811a77bb1d064e2d34d42e736e08aba83e76cee71d7",
+      "bytes": 8848,
+      "inspection": "full crossed peer report/contract"
+    },
+    {
+      "path": "reports/audit_manual_features_r1-pins.json",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-pins.json",
+      "sha256": "a448d1cf0f722e04806d7c7b82ef31ae19c2167649644449cce9c17e56a392d7",
+      "bytes": 11522,
+      "inspection": "full crossed peer report/contract"
+    },
+    {
+      "path": "reports/audit_manual_features_r1-freeze.json",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-freeze.json",
+      "sha256": "04aeffc505d89620d564f46f9f8a08417038b5bb1ff35813d0b2192e8066c3d1",
+      "bytes": 1027,
+      "inspection": "full crossed peer report/contract"
+    },
+    {
+      "path": "dispatch.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/dispatch.md",
+      "sha256": "9fc6919633be1563de2624f89a17667c096c02385e3b52438cb42f9070604826",
+      "bytes": 5314,
+      "inspection": "full crossed peer report/contract"
+    }
+  ],
+  "own_FIRST_guards": [
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-FIRST.md",
+      "bytes": 8089,
+      "sha256": "10c0e09f4ec4a8408fa5bd77558b5057f34bbb418005b677d30038c47af6b083"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-pins.json",
+      "bytes": 17634,
+      "sha256": "5551a527a698c81e7b9f3ec66d0fc97543047b6bdc7af5c166ff4e69027489d9"
+    }
+  ],
+  "peer_verdict": "P2 CONFIRM with exception-context and outer-receipt qualification",
+  "verification": "static only; no project imports/tests/SQL/native/data",
+  "word_count": 551,
+  "additional_moving_context": []
+}

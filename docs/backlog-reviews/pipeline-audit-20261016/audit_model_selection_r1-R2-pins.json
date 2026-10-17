@@ -1,0 +1,171 @@
+{
+  "FIRST_immutable_sha256": "eefeaf0084eae6131eccf5565b51464b64e890950ba30d87643801b481e32067",
+  "additional_current_context": [],
+  "peer_artifacts": [
+    {
+      "bytes": 7471,
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-FIRST.md",
+      "sha256": "6ba530bd5eff8b1439b19b448441a6562283c4c076cec02856b6521b2b4bbfe4"
+    },
+    {
+      "bytes": 18029,
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-pins.json",
+      "sha256": "6df458288e2cb7d2149d839c1d37612652b9d5a747961faa00a921bc10e57ec2"
+    },
+    {
+      "bytes": 805,
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-freeze.json",
+      "sha256": "e95508d29238975d9a1cc182628916b4f17f624ca73dbfda69ed10d281ffb3c2"
+    }
+  ],
+  "reviewer": "audit_model_selection_r1",
+  "round": "R2",
+  "shared_manifest_sha256": "7e2e871f148beac5b9fce3aa23970b370db0c8fdc9eac89958fb6342a4d2a41a",
+  "sources": [
+    {
+      "bytes": 12664,
+      "inspected_scope": "full from FIRST; R2 75-98,161-198",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py",
+      "path": "scripts/train_development.py",
+      "sha256": "2ec59f282a9d83e570b8642cabb4fc96b4cdf8ed5fb95248f93916df9d77d4c6",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/train_development.py"
+    },
+    {
+      "bytes": 35665,
+      "inspected_scope": "full verify_collection, validate_training_phases, prepare_dataset and CODE from FIRST",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "path": "scripts/train_baselines.py",
+      "sha256": "626addc85304d926611301c764f7010b4a2b42fedf313f5f319e20264b271d8b",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/train_baselines.py"
+    },
+    {
+      "bytes": 5590,
+      "inspected_scope": "22-58 and full FIRST",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "path": "scripts/development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/development_training.py"
+    },
+    {
+      "bytes": 34909,
+      "inspected_scope": "245-365,552-575 plus referenced definitions from FIRST",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "path": "scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/development_collection.py"
+    },
+    {
+      "bytes": 37105,
+      "inspected_scope": "1-105, CODE/strict-call search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_collection.py",
+      "path": "scripts/metadata_price_collection.py",
+      "sha256": "59565643f58a3b34bb716c6cc071d7e1802d79aaf0b707e1537459b0a5377afa",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/metadata_price_collection.py"
+    },
+    {
+      "bytes": 36920,
+      "inspected_scope": "imports and 251-273; GATE_CODE",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_features.py",
+      "path": "scripts/metadata_price_features.py",
+      "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/metadata_price_features.py"
+    },
+    {
+      "bytes": 20615,
+      "inspected_scope": "CODE and strict-call search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_ablation.py",
+      "path": "scripts/metadata_ablation.py",
+      "sha256": "35733f2f9ae7991072baff197d839681a8021b3f3ba54850da8c170818ff047a",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/metadata_ablation.py"
+    },
+    {
+      "bytes": 39362,
+      "inspected_scope": "19-59,164-300,414-468; lineage/entry search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/verify_development.py",
+      "path": "scripts/verify_development.py",
+      "sha256": "60519794c8c5b8bc7ac04f960e554f13ab3e125043c2a0e46d53f67ea0810ee0",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/verify_development.py"
+    },
+    {
+      "bytes": 47986,
+      "inspected_scope": "30-37,120-136,350-355; full relevant worker from FIRST",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_baseline.py",
+      "path": "scripts/strong_baseline.py",
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/strong_baseline.py"
+    },
+    {
+      "bytes": 34940,
+      "inspected_scope": "imports/CODE/strict-call search;73-87",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_program_collection.py",
+      "path": "scripts/feature_program_collection.py",
+      "sha256": "b3e05d85d97afc26d8cbda8627d3bfffc46ad6a037d03beb1c0c6d5d807ef84f",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/feature_program_collection.py"
+    },
+    {
+      "bytes": 61929,
+      "inspected_scope": "1-60,385-425; imports/CODE/strict-call search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_program_experiment.py",
+      "path": "scripts/feature_program_experiment.py",
+      "sha256": "55fb8f483815218908cbdd626fda0a274502e7ac5bbbef20d211882c18e36aad",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/feature_program_experiment.py"
+    },
+    {
+      "bytes": 25160,
+      "inspected_scope": "38-101; registry/feature-schema search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "path": "scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/manual_features.py"
+    },
+    {
+      "bytes": 14019,
+      "inspected_scope": "98-111,139-156; bundle/registry search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "path": "scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/feature_programs.py"
+    },
+    {
+      "bytes": 13774,
+      "inspected_scope": "imports/strict-call search only",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/model_data.py",
+      "path": "scripts/model_data.py",
+      "sha256": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/model_data.py"
+    },
+    {
+      "bytes": 22718,
+      "inspected_scope": "1-55; omission/lineage search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_metadata_price_collection.py",
+      "path": "tests/test_metadata_price_collection.py",
+      "sha256": "09da5d00941f76f1900a106a698ca553512ccd7f2844be03adb934cb4e8802d6",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_metadata_price_collection.py"
+    },
+    {
+      "bytes": 26193,
+      "inspected_scope": "302-343; collection fixture/search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_train_baselines.py",
+      "path": "tests/test_train_baselines.py",
+      "sha256": "65a713fc613dc37e9a9f27b31d70ad62673c08cdd5facfeb1e2cfe450a529190",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_train_baselines.py"
+    },
+    {
+      "bytes": 20090,
+      "inspected_scope": "98-116,143-150,172-185 and full FIRST",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_train_development.py",
+      "path": "tests/test_train_development.py",
+      "sha256": "34c8b794742e40c7d923d7d9d92ed3dc47a3795531241538a4f9895f3c74ec17",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_train_development.py"
+    },
+    {
+      "bytes": 11128,
+      "inspected_scope": "registry/CLI scope matches; full FIRST",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/development-training.md",
+      "path": "docs/experiments/development-training.md",
+      "sha256": "456535a47409567dbb104669a517bf731d156cdde89fd7fa6e8ec54b859808a0",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/development-training.md"
+    }
+  ],
+  "version": 1
+}

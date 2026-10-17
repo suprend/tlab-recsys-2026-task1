@@ -1,0 +1,1886 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/audit_next_candidates_blind",
+  "created_at_utc": "2026-10-16T23:40:49.786008+00:00",
+  "scope": "SOURCE privacy/provenance only; exact draft119; no R3 execution review",
+  "read_only_reviewed_inputs": [
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/documentation-and-evidence-draft-manifest-v3.json",
+      "sha256": "2ad629da15498bb415a548e3aeadae793bc33bd23c011b838197828616b1b044",
+      "bytes": 90324,
+      "mode": 420,
+      "purpose": "reviewed exact draft manifest"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/candidate-draft-v3/docs/progress-report.md",
+      "sha256": "b95f34bd0c1ae35b62ef39c2b303f7dd1aea0d1473623b72d79a1c6c757582f1",
+      "bytes": 38981,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/progress-report.md"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "sha256": "6459851a7480d354ca5a7c32f0675b2d00b2eec67ff6659893e9a922297734b0",
+      "bytes": 35979,
+      "mode": 420,
+      "purpose": "canonical historical base read-only"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/candidate-draft-v3/docs/backlog.md",
+      "sha256": "36c051c51b3cb1efd7a3bc32d79335c045c0df89fbb9c205684aae94f7960c08",
+      "bytes": 210949,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog.md"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "sha256": "62bbaff8f19d2860ee849075b379a0fa7f7967c0c05b4c700655377541147305",
+      "bytes": 209404,
+      "mode": 420,
+      "purpose": "canonical historical base read-only"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/candidate-draft-v3/docs/research-lab/brainstorm-log.md",
+      "sha256": "f645dcfb918e7f0c116e941745fe6b007c75598a1e64c5b01201f157686013f3",
+      "bytes": 202190,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/research-lab/brainstorm-log.md"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-log.md",
+      "sha256": "2294df5a8c05261c20392dbd6a8dd7279f1bfccd6c3230bc9272a4b466a1a50a",
+      "bytes": 198815,
+      "mode": 420,
+      "purpose": "canonical historical base read-only"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/candidate-draft-v3/docs/research-lab/index.md",
+      "sha256": "52daffb9ec5a0f0ef2831c7a31420ead3805b7e5f3c141734a3d8bc714cdab48",
+      "bytes": 50986,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/research-lab/index.md"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "sha256": "3a07a80af1b0698626427332fc7710d784897db18d7340846a4a410a9b85e20d",
+      "bytes": 49445,
+      "mode": 420,
+      "purpose": "canonical historical base read-only"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/candidate-draft-v3/docs/backlog-reviews/full-pipeline-audit-20261016.md",
+      "sha256": "7632e92025858611638ec77f4cae8c964a06ef7d63ba2cc5f9a2574f627ef11b",
+      "bytes": 7696,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/full-pipeline-audit-20261016.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-FIRST.md",
+      "sha256": "626901efb73ec73f247de1ec4ad2fd640f1705c7d973e8446f49d858b736764f",
+      "bytes": 6280,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-pins-safe-derived.json",
+      "sha256": "ad1eafe5aff1f0eddf930b775ac9b4ef42fd75c26359dac483fb4d56835a395f",
+      "bytes": 20223,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-pins-safe-derived.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-freeze.json",
+      "sha256": "0482f20d1397c417223b6a62183397b95c4f05bfdd7a60665f2f98e5d7f71fe7",
+      "bytes": 808,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-R2.md",
+      "sha256": "8ee6ba047e092fe0015c6af34cf4eab795f48eddbe0da096a9829865dce3945f",
+      "bytes": 4413,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-R2-pins.json",
+      "sha256": "4fd172ae36662f04fa5bd1dd9635846a995685f7124efe24f529a4e5220e98df",
+      "bytes": 8279,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-R2-freeze.json",
+      "sha256": "d9a17e56ba04fdfb5edf5aaf5ed19552fd03115f9a44d41150f4a0869aaf9f86",
+      "bytes": 661,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_anchors_targets_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-FIRST.md",
+      "sha256": "9aecc38c843fc5c471543753a9a01dd98076c68abf9c279eab723a5255c1b9d0",
+      "bytes": 7723,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-pins.json",
+      "sha256": "b0ce6772f9d59abb532e7e9574f0bf2587651e6ac73e3cfbb80929e29e31a205",
+      "bytes": 12921,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-freeze.json",
+      "sha256": "eaea0ca3cf329753e811dd26bfee5476bdc8f373d39853496efc64989ba4b191",
+      "bytes": 712,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-R2.md",
+      "sha256": "5199abed72225869ccaaf3e53c8280cd6f4368e4bc1e5b7faa0e5c23506a3251",
+      "bytes": 4129,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-R2-pins.json",
+      "sha256": "6e8adc0605e19283b07085e469b2a3151ef7fd71773d71a34d42313a9e5f62ea",
+      "bytes": 9843,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-R2-freeze.json",
+      "sha256": "c2c44944ca7bbb00e9574527c34ac7f20201332f27ef85c61fb527e7cfc4507b",
+      "bytes": 656,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_candidates_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-COVERAGE-SOURCE.md",
+      "sha256": "27dc7b3ec24b6d7dd96b71409c3d482ae1fc11af1ad6cd9be92443ecf12dafe4",
+      "bytes": 3925,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-COVERAGE-SOURCE.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-COVERAGE-SOURCE-pins.json",
+      "sha256": "c60f0fc03b9b1c11a41580415a4a71e284f55471774003183d11445571ace31c",
+      "bytes": 6206,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-COVERAGE-SOURCE-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-COVERAGE-SOURCE-freeze.json",
+      "sha256": "7ecb49128244f8669ef80a5093786f26295c5395e172ce0ee1250c67033db86c",
+      "bytes": 766,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-COVERAGE-SOURCE-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-FIRST.md",
+      "sha256": "e74e50ea7abef4b9111d83485e787086dd18cfb34049399960e5a112445c2976",
+      "bytes": 7014,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-pins.json",
+      "sha256": "a4cd87ddca395cae242ad843554a4385fa606c8f4998654d5edffd4dda08e524",
+      "bytes": 12652,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-freeze.json",
+      "sha256": "c59982878f6c69aaafc6113d9bb577adb14ffd0145879b0b2a36b9e909870ad8",
+      "bytes": 839,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-R2.md",
+      "sha256": "05511b8ee28469f1485a627623c3a7f087af09ca02a82cd5a874925a2c1f5415",
+      "bytes": 4712,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-R2-pins.json",
+      "sha256": "690a666e9b97b95ec4628174f58af694d619fbab1cb07249d57279eacaedb3f7",
+      "bytes": 9134,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-R2-freeze.json",
+      "sha256": "80b630f19dc85c3ef126e48f9096c783b420aee8119f0cd64419884db78654e2",
+      "bytes": 839,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_automation_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-FIRST.md",
+      "sha256": "10c0e09f4ec4a8408fa5bd77558b5057f34bbb418005b677d30038c47af6b083",
+      "bytes": 8089,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-pins.json",
+      "sha256": "5551a527a698c81e7b9f3ec66d0fc97543047b6bdc7af5c166ff4e69027489d9",
+      "bytes": 17634,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-freeze.json",
+      "sha256": "4674e16ca6a7cae7abf1c759b78852d220712c83b9ff9fc2471b80f6944dbbe0",
+      "bytes": 1067,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-FIX-SOURCE.md",
+      "sha256": "226b6c075fa9b896fa327c505955c679c262f4149b466a4f88ecac0b0b096197",
+      "bytes": 5144,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-FIX-SOURCE.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-FIX-SOURCE-pins.json",
+      "sha256": "293b12e28185e1f428b2836482b2802f299c180175c54969d4d32a6318a06604",
+      "bytes": 13909,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-FIX-SOURCE-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-FIX-SOURCE-freeze.json",
+      "sha256": "a6491c4b5284d92bb2dfbb37bab1ca5e100d269db1b71acfa4f1aa8bdab8f734",
+      "bytes": 975,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-FIX-SOURCE-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-R2.md",
+      "sha256": "7c04b9cc0afd7082a0d7ff8455ed413c005c77a4edd6d33ce4b2d3eb43239f8a",
+      "bytes": 4541,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-R2-pins.json",
+      "sha256": "4ba03272f80279c1683d92146dee333cc62c2e2031f608125fc33b3399fb150a",
+      "bytes": 6503,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-R2-freeze.json",
+      "sha256": "061863648e2b1d8555373af1141cdb5b29c4505f3d84e0f8ff5f4e4e0d919a00",
+      "bytes": 923,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_feature_leakage_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-FIRST.md",
+      "sha256": "af4ec3418a532f5a3bcab0f62d3005d5c7b22f4d55dcf4493cd49c95391a8c36",
+      "bytes": 9655,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-pins.json",
+      "sha256": "1f8ad9dd70677c4000e5aec513b1521d0ce26ead564752bc12f0c101185906fe",
+      "bytes": 13171,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-freeze.json",
+      "sha256": "495993fa0152f49d2cdf0bde9ebe9e0c48135e77f979abb963f5584d97c3b7ab",
+      "bytes": 774,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-FIX-SOURCE.md",
+      "sha256": "2f0e43638368fdb4d1999733a7cf45e8171b89e95e8ce1a68529e8212e3cff41",
+      "bytes": 5168,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-FIX-SOURCE.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-FIX-SOURCE-pins.json",
+      "sha256": "12f7c2487d90fd7c10e91c0e5b891a0507f3edf0c6fd478d94e19a3446cdee10",
+      "bytes": 17211,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-FIX-SOURCE-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-FIX-SOURCE-freeze.json",
+      "sha256": "2afdb8076c12377bebdc81dfa8cab303c5ffcb7acb3dac5bd8700d24f3e194dd",
+      "bytes": 795,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-FIX-SOURCE-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-R2.md",
+      "sha256": "4550345ed0c68236a9e478e66d996c45d655bdd4cac4ab1ee59ddf56c44a6225",
+      "bytes": 5533,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-R2-pins.json",
+      "sha256": "94e8043abd02bb8d26e9621cb87becefa7e88018e5ce32c5ee9cc333236dd2bb",
+      "bytes": 20690,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-R2-freeze.json",
+      "sha256": "147af951267651694401823d5252c19e13e06ede2feae35470043b70db093fec",
+      "bytes": 768,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_ingestion_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-FIRST.md",
+      "sha256": "6a5de244b0c08ddf551de40c4b71e9fe1e21e417a6a05aed4e741de23a0e56d5",
+      "bytes": 7487,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-pins.json",
+      "sha256": "0006d07ac46a93dbeab70ce228c752225df7c9f8d4b348b0d67c3f2d0b6baa0c",
+      "bytes": 17225,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-freeze.json",
+      "sha256": "f71319db4870927a84c3c1d4be7618eeef7a63abe028d4e9eeea91f3521019fe",
+      "bytes": 572,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-FIX-SOURCE.md",
+      "sha256": "1063f901918c89dcac7434cfe61fb1c51e84d14e358f9b2ad6f6d4943ce59e9d",
+      "bytes": 4391,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-FIX-SOURCE.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-FIX-SOURCE-pins.json",
+      "sha256": "b4d6bbe07084861589f502a9c390d328845806d64d9b39b2b8028b918094f804",
+      "bytes": 4683,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-FIX-SOURCE-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-FIX-SOURCE-freeze.json",
+      "sha256": "30895bb1ba224f5d32a802792405fb57fd8bc0a359941f1f1459738d53987696",
+      "bytes": 511,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-FIX-SOURCE-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-R2.md",
+      "sha256": "e9b42674d47691ec2817700253703ee046ce4dacd2746df3b3d15ac7a14a8aec",
+      "bytes": 4275,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-R2-pins.json",
+      "sha256": "4db45f4deb5eac759eb454c8e758f84046eb82a270077dfe3d4b95bc5ef22043",
+      "bytes": 6740,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-R2-freeze.json",
+      "sha256": "4916c4cc9a6934820f44d4ce05425f5b5ee7ba91af620822c2b014a514326c26",
+      "bytes": 513,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_leakage_redteam_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-FIRST.md",
+      "sha256": "4d15ce66187799b15fd1f811a77bb1d064e2d34d42e736e08aba83e76cee71d7",
+      "bytes": 8848,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-pins.json",
+      "sha256": "a448d1cf0f722e04806d7c7b82ef31ae19c2167649644449cce9c17e56a392d7",
+      "bytes": 11522,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-freeze.json",
+      "sha256": "04aeffc505d89620d564f46f9f8a08417038b5bb1ff35813d0b2192e8066c3d1",
+      "bytes": 1027,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-FIX-SOURCE.md",
+      "sha256": "de138a9dcaf3185cf346d74ce7b542d183ca1a9b50e1f93b16812446467813f1",
+      "bytes": 4782,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-FIX-SOURCE.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-FIX-SOURCE-pins.json",
+      "sha256": "131a10b917e391592eab02da9883cb0c4fcfadfcd1bd5c34c86e5e919f031d8c",
+      "bytes": 10500,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-FIX-SOURCE-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-FIX-SOURCE-freeze.json",
+      "sha256": "d7ea4ffeeba203c4e591f5c65bd9c1f9a4c6cb4c052f105ce6ba4377622c0380",
+      "bytes": 862,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-FIX-SOURCE-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-R2.md",
+      "sha256": "faef49d0f39fe9a05aa2916f6254f1343359d8ed81cc2332820cad452883d96a",
+      "bytes": 4300,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-R2-pins.json",
+      "sha256": "22d2f7162b229cca63b35a6f1be2cd990cb9b9d55e33b51c58542870ee733201",
+      "bytes": 7984,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-R2-freeze.json",
+      "sha256": "277ceb9602dc868a1e0c0b72811f2464ce555934c96accf4cfa5afeae7d4a086",
+      "bytes": 852,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_manual_features_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE-v2.md",
+      "sha256": "72e3f6d4560c4214866dded8db3b002dd1f2ad79b16ac017b54af055f9511e41",
+      "bytes": 1897,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE-v2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE-v2-pins.json",
+      "sha256": "9e6d77f05d90c6cb649dba017f7e39b565e8982505bd3fed6b575bd9ab6dff4a",
+      "bytes": 3245,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE-v2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE-v2-freeze.json",
+      "sha256": "838ce6795c306afd5bd58a4b4d5ac1621dd17ab93ff48070857a8e54d39a94e2",
+      "bytes": 903,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE-v2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE.md",
+      "sha256": "5ee98fd5dc572514144a41ce48c029adf3f781c19bb7e3f7c30b778679f83481",
+      "bytes": 4132,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE-pins.json",
+      "sha256": "c2a58941a82b79037ccda0c059c16730eb6202bd2e89a9b05dd8da17c0bbd31f",
+      "bytes": 5416,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE-freeze.json",
+      "sha256": "98883326f887e4bd2d00d84a3bd93d74f82968ab5ded7e8dbbda0221142314d7",
+      "bytes": 1132,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-COVERAGE-SOURCE-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-FIRST.md",
+      "sha256": "44697dccff5bf10e6f07b4b640d509237c2accf8eb99daeff7d5280ec01af74d",
+      "bytes": 8071,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-pins.json",
+      "sha256": "de786572b4ce28f0745d94d359f5bf31b1ecf320375a458d426d5298630fbf5c",
+      "bytes": 15480,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-freeze.json",
+      "sha256": "5668eb6560fccec5fb2c31ded91b5791a3e4f67ae95af4a3912905931bdcd8ef",
+      "bytes": 965,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-R2.md",
+      "sha256": "43bfc7b97b69236f3bb9e67ed290251c9fdc128f0ac4ccb0b523132ec23e28b3",
+      "bytes": 3929,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-R2-pins.json",
+      "sha256": "589d1e6a4e8b9a02ae161aa0baf386730163e387fb8980882c532c3e66f24fa1",
+      "bytes": 7254,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-R2-freeze.json",
+      "sha256": "0ef86788a7d035e5d01a41298f1508ba793daacfd023926871f3d6137c677ecb",
+      "bytes": 923,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_metrics_statistics_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-FIRST.md",
+      "sha256": "eefeaf0084eae6131eccf5565b51464b64e890950ba30d87643801b481e32067",
+      "bytes": 9490,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-pins.json",
+      "sha256": "43b35479ac772ae9c18b3d53d3f65fbc8e4202be0a9c6c295eb22098d54c1e1b",
+      "bytes": 33701,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-freeze.json",
+      "sha256": "7284bb0ccc0e95029e7e5bb8b448ec840767a44f912bbe24687affb693e2eb7b",
+      "bytes": 574,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-FIX-SOURCE.md",
+      "sha256": "c2be843919cb8c15b6d858f5d61152fcaa5d5793783238fe62d136f5e6ac4169",
+      "bytes": 6028,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-FIX-SOURCE.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-FIX-SOURCE-pins.json",
+      "sha256": "264c231527b16bf10db9b757e3ba0ecd75930952be166004ad78ad6a49830f44",
+      "bytes": 11925,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-FIX-SOURCE-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-FIX-SOURCE-freeze.json",
+      "sha256": "af27c672a5c5838799bf121a102fe85315554d3bb696ef2d6c0b42b2dbc426bc",
+      "bytes": 946,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-FIX-SOURCE-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-R2.md",
+      "sha256": "7b31cf17229634a027b27519e141dd809efecc3319022b21aab2b2f4b0f08e08",
+      "bytes": 5441,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-R2-pins.json",
+      "sha256": "3a6650f4b485cb378e49c39797667f48e70f77160b6753aa46b0b3f57c76fb80",
+      "bytes": 8731,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-R2-freeze.json",
+      "sha256": "02a2aec446130ddf20911b5503569607176c0ce9973876d9307e9ea61293b9c9",
+      "bytes": 858,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_model_selection_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-COMBINED-CODE-ACTUAL-v3.md",
+      "sha256": "a997f2370e02f7ebf3665691e308fc77109298c80bfee13654f89a67ea53f578",
+      "bytes": 3009,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-COMBINED-CODE-ACTUAL-v3.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-COMBINED-CODE-ACTUAL-v3-pins.json",
+      "sha256": "f5c9608ebf440c22be2be99e00009310b251a9b72438cc1ac2f669f9458ad464",
+      "bytes": 3088,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-COMBINED-CODE-ACTUAL-v3-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-COMBINED-CODE-ACTUAL-v3-freeze.json",
+      "sha256": "bb36bc85f7d5662274aff3ebc75d9f0f4ac18bdce51e5916bbd8b91b1dfca006",
+      "bytes": 745,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-COMBINED-CODE-ACTUAL-v3-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-FIRST.md",
+      "sha256": "2cc8a6012b8b8af3ecc0f54a38cca1d02381d86377d17dc7628e56b9f3b25b4e",
+      "bytes": 7208,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-pins.json",
+      "sha256": "4c4a4fb035399599c00bdb6c855bc4fa0220437d694afb1e542ad077ce0789d2",
+      "bytes": 19532,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-freeze.json",
+      "sha256": "f801f766b9cbf04e4b0e54c8528534cf5f0ad10cb4fc9293bbd81c11c168dc30",
+      "bytes": 773,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-FIX-SOURCE.md",
+      "sha256": "32aa3dd8fcfb0aeca27cda34d4853db37a1c304e9d54cc79c9b7ae71113b9bae",
+      "bytes": 4164,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-FIX-SOURCE.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-FIX-SOURCE-pins.json",
+      "sha256": "b03eb4f69938a313ec898a9f35f7191f610ad92e7066da5f1cffbdb27e8acdae",
+      "bytes": 3114,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-FIX-SOURCE-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-FIX-SOURCE-freeze.json",
+      "sha256": "01cf3ff59a023075c3c83e2a782bc78680df1a27c5928c4a7640f6240338ebda",
+      "bytes": 823,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-FIX-SOURCE-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-R2.md",
+      "sha256": "66edaf96f08e01eb30dacae4b740ab8d52e1a043cbaf8739707e6316153eac69",
+      "bytes": 3993,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-R2-pins.json",
+      "sha256": "64fa32949efd10f586d3b899b7f1325513e97d0999ef6211b82345e0f9d4a181",
+      "bytes": 5594,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-R2-freeze.json",
+      "sha256": "37907d9b371a464fec43dbdfbec6e0312ffd8bea52fe100618d0417bb39b96a7",
+      "bytes": 737,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_repro_lineage_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-FIRST.md",
+      "sha256": "1471f52422d45f654f2c8ef6a11749de7fff109834ef2204138e76a68c9cf782",
+      "bytes": 7238,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-pins.json",
+      "sha256": "9308b2c146725cf3864ff9e945da831a1eedf58b65fcc17ed9c52cdad38be7ff",
+      "bytes": 22146,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-freeze.json",
+      "sha256": "3758c9a09858a5231af9b01b02ca3c0dd821cc49cb8073591a6865955498ee85",
+      "bytes": 807,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-R2.md",
+      "sha256": "3986c478788ae05b326ecd6362666fdb895ab734be4bbe2dcb756a59c56fa959",
+      "bytes": 4056,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-R2-pins.json",
+      "sha256": "55a389a10cdbc35b5b3cf81ddeeba25e0e31ae8be4206fc239ecc1e7457196fd",
+      "bytes": 6018,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-R2-freeze.json",
+      "sha256": "b99895553d07831afa1345aece19fd5cb241eddb03454071a49287c8869a19ec",
+      "bytes": 692,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_retrieval_evaluation_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-FIRST.md",
+      "sha256": "c82b35aa2043bdeb4ebbfb29971406141eeec19db824ac140f05565e803f7c5e",
+      "bytes": 8377,
+      "mode": 292,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-pins.json",
+      "sha256": "dcc241898042c86ba5a7a2cfaef88fa185df9500bd2fc4122ded4587927b19ed",
+      "bytes": 215827,
+      "mode": 292,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-freeze.json",
+      "sha256": "c527f288a3c5eb235d7500261ce4b7e74b68d323ae9586d18cc2e14f344bdaa4",
+      "bytes": 838,
+      "mode": 292,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-R2.md",
+      "sha256": "7c281e0d7e36770b6d3d245d044e5c2f7361da8da9682e5aed84438d5ab0b9d8",
+      "bytes": 5570,
+      "mode": 292,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-R2-pins.json",
+      "sha256": "4c5050b86a83978e8dd779e2d2b54c66d1e4921fa6e032a0e6fab5ef5a2ef62e",
+      "bytes": 18508,
+      "mode": 292,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-R2-freeze.json",
+      "sha256": "0418cb445bfa1f3373abd3e95ccb7ed58367ab1eb7b2bdfed3478938b377a296",
+      "bytes": 711,
+      "mode": 292,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_test_coverage_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-FIRST.md",
+      "sha256": "6ba530bd5eff8b1439b19b448441a6562283c4c076cec02856b6521b2b4bbfe4",
+      "bytes": 7471,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-FIRST.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-pins.json",
+      "sha256": "6df458288e2cb7d2149d839c1d37612652b9d5a747961faa00a921bc10e57ec2",
+      "bytes": 18029,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-freeze.json",
+      "sha256": "e95508d29238975d9a1cc182628916b4f17f624ca73dbfda69ed10d281ffb3c2",
+      "bytes": 805,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-FIX-SOURCE.md",
+      "sha256": "2dd2697094a186bc13e40e63ffebbac72c2c760cea56a2ec6fd14ae8f386891e",
+      "bytes": 4051,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-FIX-SOURCE.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-FIX-SOURCE-pins.json",
+      "sha256": "5c5ce61bafce1c6a022c8a55c57020543df87ea0849913ed8ebfb855686a1176",
+      "bytes": 4902,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-FIX-SOURCE-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-FIX-SOURCE-freeze.json",
+      "sha256": "38b5631d750daefd7e303bcf96b659fa953c1255745450506f1e5027f26e57e3",
+      "bytes": 689,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-FIX-SOURCE-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-R2.md",
+      "sha256": "bee18faad77eaa80c073dd65ea6e5171ab80679f63854a83da346e160f5aafe8",
+      "bytes": 4124,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-R2.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-R2-pins.json",
+      "sha256": "6ea59884af5306cd5d5b4bf2f6b4518baf23a1df2d39baa99cbc3493d0c5df04",
+      "bytes": 4743,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-R2-pins.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-R2-freeze.json",
+      "sha256": "7851558d28249fcbdd9794402808ba46fdd0849a3ea98ebfbe6eb18b4cf77f8c",
+      "bytes": 643,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/audit_training_matrix_r1-R2-freeze.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/provenance.md",
+      "sha256": "1cc727fbc5ee290477b30aad92349a8317223ca08bfbed444b2ca97444a200e8",
+      "bytes": 2291,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/provenance.md"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate-v2/docs/backlog-reviews/pipeline-audit-20261016/publication.json",
+      "sha256": "0327fa1faf9c7f6f3c765b63811aff1d289f1cb2a689d229799848cf2b47be3d",
+      "bytes": 119548,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/publication.json"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-candidate/docs/backlog-reviews/pipeline-audit-20261016/CODE-result.json",
+      "sha256": "09b85c6205e3e97f6d404283b9c67a7e5f465f0d4d5b051a72bf7f97cddd3a4e",
+      "bytes": 12820,
+      "mode": 420,
+      "purpose": "candidate target",
+      "target": "docs/backlog-reviews/pipeline-audit-20261016/CODE-result.json"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_anchors_targets_r1-FIRST.md",
+      "sha256": "626901efb73ec73f247de1ec4ad2fd640f1705c7d973e8446f49d858b736764f",
+      "bytes": 6280,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_anchors_targets_r1-pins.json",
+      "sha256": "59b5f75ea0e9acb7bffa78c911f4323d07f99ae8259dfabb1e52b25e1a7a73c7",
+      "bytes": 50234,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_anchors_targets_r1-freeze.json",
+      "sha256": "0482f20d1397c417223b6a62183397b95c4f05bfdd7a60665f2f98e5d7f71fe7",
+      "bytes": 808,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_anchors_targets_r1-R2.md",
+      "sha256": "8ee6ba047e092fe0015c6af34cf4eab795f48eddbe0da096a9829865dce3945f",
+      "bytes": 4413,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_anchors_targets_r1-R2-pins.json",
+      "sha256": "4fd172ae36662f04fa5bd1dd9635846a995685f7124efe24f529a4e5220e98df",
+      "bytes": 8279,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_anchors_targets_r1-R2-freeze.json",
+      "sha256": "d9a17e56ba04fdfb5edf5aaf5ed19552fd03115f9a44d41150f4a0869aaf9f86",
+      "bytes": 661,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_candidates_r1-FIRST.md",
+      "sha256": "9aecc38c843fc5c471543753a9a01dd98076c68abf9c279eab723a5255c1b9d0",
+      "bytes": 7723,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_candidates_r1-pins.json",
+      "sha256": "b0ce6772f9d59abb532e7e9574f0bf2587651e6ac73e3cfbb80929e29e31a205",
+      "bytes": 12921,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_candidates_r1-freeze.json",
+      "sha256": "eaea0ca3cf329753e811dd26bfee5476bdc8f373d39853496efc64989ba4b191",
+      "bytes": 712,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_candidates_r1-R2.md",
+      "sha256": "5199abed72225869ccaaf3e53c8280cd6f4368e4bc1e5b7faa0e5c23506a3251",
+      "bytes": 4129,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_candidates_r1-R2-pins.json",
+      "sha256": "6e8adc0605e19283b07085e469b2a3151ef7fd71773d71a34d42313a9e5f62ea",
+      "bytes": 9843,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_candidates_r1-R2-freeze.json",
+      "sha256": "c2c44944ca7bbb00e9574527c34ac7f20201332f27ef85c61fb527e7cfc4507b",
+      "bytes": 656,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-COVERAGE-SOURCE.md",
+      "sha256": "27dc7b3ec24b6d7dd96b71409c3d482ae1fc11af1ad6cd9be92443ecf12dafe4",
+      "bytes": 3925,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-COVERAGE-SOURCE-pins.json",
+      "sha256": "c60f0fc03b9b1c11a41580415a4a71e284f55471774003183d11445571ace31c",
+      "bytes": 6206,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-COVERAGE-SOURCE-freeze.json",
+      "sha256": "7ecb49128244f8669ef80a5093786f26295c5395e172ce0ee1250c67033db86c",
+      "bytes": 766,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-FIRST.md",
+      "sha256": "e74e50ea7abef4b9111d83485e787086dd18cfb34049399960e5a112445c2976",
+      "bytes": 7014,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-pins.json",
+      "sha256": "a4cd87ddca395cae242ad843554a4385fa606c8f4998654d5edffd4dda08e524",
+      "bytes": 12652,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-freeze.json",
+      "sha256": "c59982878f6c69aaafc6113d9bb577adb14ffd0145879b0b2a36b9e909870ad8",
+      "bytes": 839,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-R2.md",
+      "sha256": "05511b8ee28469f1485a627623c3a7f087af09ca02a82cd5a874925a2c1f5415",
+      "bytes": 4712,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-R2-pins.json",
+      "sha256": "690a666e9b97b95ec4628174f58af694d619fbab1cb07249d57279eacaedb3f7",
+      "bytes": 9134,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-R2-freeze.json",
+      "sha256": "80b630f19dc85c3ef126e48f9096c783b420aee8119f0cd64419884db78654e2",
+      "bytes": 839,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-FIRST.md",
+      "sha256": "10c0e09f4ec4a8408fa5bd77558b5057f34bbb418005b677d30038c47af6b083",
+      "bytes": 8089,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-pins.json",
+      "sha256": "5551a527a698c81e7b9f3ec66d0fc97543047b6bdc7af5c166ff4e69027489d9",
+      "bytes": 17634,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-freeze.json",
+      "sha256": "4674e16ca6a7cae7abf1c759b78852d220712c83b9ff9fc2471b80f6944dbbe0",
+      "bytes": 1067,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-FIX-SOURCE.md",
+      "sha256": "226b6c075fa9b896fa327c505955c679c262f4149b466a4f88ecac0b0b096197",
+      "bytes": 5144,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-FIX-SOURCE-pins.json",
+      "sha256": "293b12e28185e1f428b2836482b2802f299c180175c54969d4d32a6318a06604",
+      "bytes": 13909,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-FIX-SOURCE-freeze.json",
+      "sha256": "a6491c4b5284d92bb2dfbb37bab1ca5e100d269db1b71acfa4f1aa8bdab8f734",
+      "bytes": 975,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-R2.md",
+      "sha256": "7c04b9cc0afd7082a0d7ff8455ed413c005c77a4edd6d33ce4b2d3eb43239f8a",
+      "bytes": 4541,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-R2-pins.json",
+      "sha256": "4ba03272f80279c1683d92146dee333cc62c2e2031f608125fc33b3399fb150a",
+      "bytes": 6503,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-R2-freeze.json",
+      "sha256": "061863648e2b1d8555373af1141cdb5b29c4505f3d84e0f8ff5f4e4e0d919a00",
+      "bytes": 923,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_ingestion_r1-FIRST.md",
+      "sha256": "af4ec3418a532f5a3bcab0f62d3005d5c7b22f4d55dcf4493cd49c95391a8c36",
+      "bytes": 9655,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_ingestion_r1-pins.json",
+      "sha256": "1f8ad9dd70677c4000e5aec513b1521d0ce26ead564752bc12f0c101185906fe",
+      "bytes": 13171,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_ingestion_r1-freeze.json",
+      "sha256": "495993fa0152f49d2cdf0bde9ebe9e0c48135e77f979abb963f5584d97c3b7ab",
+      "bytes": 774,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_ingestion_r1-FIX-SOURCE.md",
+      "sha256": "2f0e43638368fdb4d1999733a7cf45e8171b89e95e8ce1a68529e8212e3cff41",
+      "bytes": 5168,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_ingestion_r1-FIX-SOURCE-pins.json",
+      "sha256": "12f7c2487d90fd7c10e91c0e5b891a0507f3edf0c6fd478d94e19a3446cdee10",
+      "bytes": 17211,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_ingestion_r1-FIX-SOURCE-freeze.json",
+      "sha256": "2afdb8076c12377bebdc81dfa8cab303c5ffcb7acb3dac5bd8700d24f3e194dd",
+      "bytes": 795,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_ingestion_r1-R2.md",
+      "sha256": "4550345ed0c68236a9e478e66d996c45d655bdd4cac4ab1ee59ddf56c44a6225",
+      "bytes": 5533,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_ingestion_r1-R2-pins.json",
+      "sha256": "94e8043abd02bb8d26e9621cb87becefa7e88018e5ce32c5ee9cc333236dd2bb",
+      "bytes": 20690,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_ingestion_r1-R2-freeze.json",
+      "sha256": "147af951267651694401823d5252c19e13e06ede2feae35470043b70db093fec",
+      "bytes": 768,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_leakage_redteam_r1-FIRST.md",
+      "sha256": "6a5de244b0c08ddf551de40c4b71e9fe1e21e417a6a05aed4e741de23a0e56d5",
+      "bytes": 7487,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_leakage_redteam_r1-pins.json",
+      "sha256": "0006d07ac46a93dbeab70ce228c752225df7c9f8d4b348b0d67c3f2d0b6baa0c",
+      "bytes": 17225,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_leakage_redteam_r1-freeze.json",
+      "sha256": "f71319db4870927a84c3c1d4be7618eeef7a63abe028d4e9eeea91f3521019fe",
+      "bytes": 572,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_leakage_redteam_r1-FIX-SOURCE.md",
+      "sha256": "1063f901918c89dcac7434cfe61fb1c51e84d14e358f9b2ad6f6d4943ce59e9d",
+      "bytes": 4391,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_leakage_redteam_r1-FIX-SOURCE-pins.json",
+      "sha256": "b4d6bbe07084861589f502a9c390d328845806d64d9b39b2b8028b918094f804",
+      "bytes": 4683,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_leakage_redteam_r1-FIX-SOURCE-freeze.json",
+      "sha256": "30895bb1ba224f5d32a802792405fb57fd8bc0a359941f1f1459738d53987696",
+      "bytes": 511,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_leakage_redteam_r1-R2.md",
+      "sha256": "e9b42674d47691ec2817700253703ee046ce4dacd2746df3b3d15ac7a14a8aec",
+      "bytes": 4275,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_leakage_redteam_r1-R2-pins.json",
+      "sha256": "4db45f4deb5eac759eb454c8e758f84046eb82a270077dfe3d4b95bc5ef22043",
+      "bytes": 6740,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_leakage_redteam_r1-R2-freeze.json",
+      "sha256": "4916c4cc9a6934820f44d4ce05425f5b5ee7ba91af620822c2b014a514326c26",
+      "bytes": 513,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-FIRST.md",
+      "sha256": "4d15ce66187799b15fd1f811a77bb1d064e2d34d42e736e08aba83e76cee71d7",
+      "bytes": 8848,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-pins.json",
+      "sha256": "a448d1cf0f722e04806d7c7b82ef31ae19c2167649644449cce9c17e56a392d7",
+      "bytes": 11522,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-freeze.json",
+      "sha256": "04aeffc505d89620d564f46f9f8a08417038b5bb1ff35813d0b2192e8066c3d1",
+      "bytes": 1027,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-FIX-SOURCE.md",
+      "sha256": "de138a9dcaf3185cf346d74ce7b542d183ca1a9b50e1f93b16812446467813f1",
+      "bytes": 4782,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-FIX-SOURCE-pins.json",
+      "sha256": "131a10b917e391592eab02da9883cb0c4fcfadfcd1bd5c34c86e5e919f031d8c",
+      "bytes": 10500,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-FIX-SOURCE-freeze.json",
+      "sha256": "d7ea4ffeeba203c4e591f5c65bd9c1f9a4c6cb4c052f105ce6ba4377622c0380",
+      "bytes": 862,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-R2.md",
+      "sha256": "faef49d0f39fe9a05aa2916f6254f1343359d8ed81cc2332820cad452883d96a",
+      "bytes": 4300,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-R2-pins.json",
+      "sha256": "22d2f7162b229cca63b35a6f1be2cd990cb9b9d55e33b51c58542870ee733201",
+      "bytes": 7984,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-R2-freeze.json",
+      "sha256": "277ceb9602dc868a1e0c0b72811f2464ce555934c96accf4cfa5afeae7d4a086",
+      "bytes": 852,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-COVERAGE-SOURCE-v2.md",
+      "sha256": "72e3f6d4560c4214866dded8db3b002dd1f2ad79b16ac017b54af055f9511e41",
+      "bytes": 1897,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-COVERAGE-SOURCE-v2-pins.json",
+      "sha256": "9e6d77f05d90c6cb649dba017f7e39b565e8982505bd3fed6b575bd9ab6dff4a",
+      "bytes": 3245,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-COVERAGE-SOURCE-v2-freeze.json",
+      "sha256": "838ce6795c306afd5bd58a4b4d5ac1621dd17ab93ff48070857a8e54d39a94e2",
+      "bytes": 903,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-COVERAGE-SOURCE.md",
+      "sha256": "5ee98fd5dc572514144a41ce48c029adf3f781c19bb7e3f7c30b778679f83481",
+      "bytes": 4132,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-COVERAGE-SOURCE-pins.json",
+      "sha256": "c2a58941a82b79037ccda0c059c16730eb6202bd2e89a9b05dd8da17c0bbd31f",
+      "bytes": 5416,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-COVERAGE-SOURCE-freeze.json",
+      "sha256": "98883326f887e4bd2d00d84a3bd93d74f82968ab5ded7e8dbbda0221142314d7",
+      "bytes": 1132,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-FIRST.md",
+      "sha256": "44697dccff5bf10e6f07b4b640d509237c2accf8eb99daeff7d5280ec01af74d",
+      "bytes": 8071,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-pins.json",
+      "sha256": "de786572b4ce28f0745d94d359f5bf31b1ecf320375a458d426d5298630fbf5c",
+      "bytes": 15480,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-freeze.json",
+      "sha256": "5668eb6560fccec5fb2c31ded91b5791a3e4f67ae95af4a3912905931bdcd8ef",
+      "bytes": 965,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-R2.md",
+      "sha256": "43bfc7b97b69236f3bb9e67ed290251c9fdc128f0ac4ccb0b523132ec23e28b3",
+      "bytes": 3929,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-R2-pins.json",
+      "sha256": "589d1e6a4e8b9a02ae161aa0baf386730163e387fb8980882c532c3e66f24fa1",
+      "bytes": 7254,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-R2-freeze.json",
+      "sha256": "0ef86788a7d035e5d01a41298f1508ba793daacfd023926871f3d6137c677ecb",
+      "bytes": 923,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_model_selection_r1-FIRST.md",
+      "sha256": "eefeaf0084eae6131eccf5565b51464b64e890950ba30d87643801b481e32067",
+      "bytes": 9490,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_model_selection_r1-pins.json",
+      "sha256": "43b35479ac772ae9c18b3d53d3f65fbc8e4202be0a9c6c295eb22098d54c1e1b",
+      "bytes": 33701,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_model_selection_r1-freeze.json",
+      "sha256": "7284bb0ccc0e95029e7e5bb8b448ec840767a44f912bbe24687affb693e2eb7b",
+      "bytes": 574,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_model_selection_r1-FIX-SOURCE.md",
+      "sha256": "c2be843919cb8c15b6d858f5d61152fcaa5d5793783238fe62d136f5e6ac4169",
+      "bytes": 6028,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_model_selection_r1-FIX-SOURCE-pins.json",
+      "sha256": "264c231527b16bf10db9b757e3ba0ecd75930952be166004ad78ad6a49830f44",
+      "bytes": 11925,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_model_selection_r1-FIX-SOURCE-freeze.json",
+      "sha256": "af27c672a5c5838799bf121a102fe85315554d3bb696ef2d6c0b42b2dbc426bc",
+      "bytes": 946,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_model_selection_r1-R2.md",
+      "sha256": "7b31cf17229634a027b27519e141dd809efecc3319022b21aab2b2f4b0f08e08",
+      "bytes": 5441,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_model_selection_r1-R2-pins.json",
+      "sha256": "3a6650f4b485cb378e49c39797667f48e70f77160b6753aa46b0b3f57c76fb80",
+      "bytes": 8731,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_model_selection_r1-R2-freeze.json",
+      "sha256": "02a2aec446130ddf20911b5503569607176c0ce9973876d9307e9ea61293b9c9",
+      "bytes": 858,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-COMBINED-CODE-ACTUAL-v3.md",
+      "sha256": "a997f2370e02f7ebf3665691e308fc77109298c80bfee13654f89a67ea53f578",
+      "bytes": 3009,
+      "mode": 420,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-COMBINED-CODE-ACTUAL-v3-pins.json",
+      "sha256": "f5c9608ebf440c22be2be99e00009310b251a9b72438cc1ac2f669f9458ad464",
+      "bytes": 3088,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-COMBINED-CODE-ACTUAL-v3-freeze.json",
+      "sha256": "bb36bc85f7d5662274aff3ebc75d9f0f4ac18bdce51e5916bbd8b91b1dfca006",
+      "bytes": 745,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-FIRST.md",
+      "sha256": "2cc8a6012b8b8af3ecc0f54a38cca1d02381d86377d17dc7628e56b9f3b25b4e",
+      "bytes": 7208,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-pins.json",
+      "sha256": "4c4a4fb035399599c00bdb6c855bc4fa0220437d694afb1e542ad077ce0789d2",
+      "bytes": 19532,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-freeze.json",
+      "sha256": "f801f766b9cbf04e4b0e54c8528534cf5f0ad10cb4fc9293bbd81c11c168dc30",
+      "bytes": 773,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-FIX-SOURCE.md",
+      "sha256": "32aa3dd8fcfb0aeca27cda34d4853db37a1c304e9d54cc79c9b7ae71113b9bae",
+      "bytes": 4164,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-FIX-SOURCE-pins.json",
+      "sha256": "b03eb4f69938a313ec898a9f35f7191f610ad92e7066da5f1cffbdb27e8acdae",
+      "bytes": 3114,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-FIX-SOURCE-freeze.json",
+      "sha256": "01cf3ff59a023075c3c83e2a782bc78680df1a27c5928c4a7640f6240338ebda",
+      "bytes": 823,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-R2.md",
+      "sha256": "66edaf96f08e01eb30dacae4b740ab8d52e1a043cbaf8739707e6316153eac69",
+      "bytes": 3993,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-R2-pins.json",
+      "sha256": "64fa32949efd10f586d3b899b7f1325513e97d0999ef6211b82345e0f9d4a181",
+      "bytes": 5594,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_repro_lineage_r1-R2-freeze.json",
+      "sha256": "37907d9b371a464fec43dbdfbec6e0312ffd8bea52fe100618d0417bb39b96a7",
+      "bytes": 737,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_retrieval_evaluation_r1-FIRST.md",
+      "sha256": "1471f52422d45f654f2c8ef6a11749de7fff109834ef2204138e76a68c9cf782",
+      "bytes": 7238,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_retrieval_evaluation_r1-pins.json",
+      "sha256": "9308b2c146725cf3864ff9e945da831a1eedf58b65fcc17ed9c52cdad38be7ff",
+      "bytes": 22146,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_retrieval_evaluation_r1-freeze.json",
+      "sha256": "3758c9a09858a5231af9b01b02ca3c0dd821cc49cb8073591a6865955498ee85",
+      "bytes": 807,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_retrieval_evaluation_r1-R2.md",
+      "sha256": "3986c478788ae05b326ecd6362666fdb895ab734be4bbe2dcb756a59c56fa959",
+      "bytes": 4056,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_retrieval_evaluation_r1-R2-pins.json",
+      "sha256": "55a389a10cdbc35b5b3cf81ddeeba25e0e31ae8be4206fc239ecc1e7457196fd",
+      "bytes": 6018,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_retrieval_evaluation_r1-R2-freeze.json",
+      "sha256": "b99895553d07831afa1345aece19fd5cb241eddb03454071a49287c8869a19ec",
+      "bytes": 692,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_test_coverage_r1-FIRST.md",
+      "sha256": "c82b35aa2043bdeb4ebbfb29971406141eeec19db824ac140f05565e803f7c5e",
+      "bytes": 8377,
+      "mode": 292,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_test_coverage_r1-pins.json",
+      "sha256": "dcc241898042c86ba5a7a2cfaef88fa185df9500bd2fc4122ded4587927b19ed",
+      "bytes": 215827,
+      "mode": 292,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_test_coverage_r1-freeze.json",
+      "sha256": "c527f288a3c5eb235d7500261ce4b7e74b68d323ae9586d18cc2e14f344bdaa4",
+      "bytes": 838,
+      "mode": 292,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_test_coverage_r1-R2.md",
+      "sha256": "7c281e0d7e36770b6d3d245d044e5c2f7361da8da9682e5aed84438d5ab0b9d8",
+      "bytes": 5570,
+      "mode": 292,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_test_coverage_r1-R2-pins.json",
+      "sha256": "4c5050b86a83978e8dd779e2d2b54c66d1e4921fa6e032a0e6fab5ef5a2ef62e",
+      "bytes": 18508,
+      "mode": 292,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_test_coverage_r1-R2-freeze.json",
+      "sha256": "0418cb445bfa1f3373abd3e95ccb7ed58367ab1eb7b2bdfed3478938b377a296",
+      "bytes": 711,
+      "mode": 292,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-FIRST.md",
+      "sha256": "6ba530bd5eff8b1439b19b448441a6562283c4c076cec02856b6521b2b4bbfe4",
+      "bytes": 7471,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-pins.json",
+      "sha256": "6df458288e2cb7d2149d839c1d37612652b9d5a747961faa00a921bc10e57ec2",
+      "bytes": 18029,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-freeze.json",
+      "sha256": "e95508d29238975d9a1cc182628916b4f17f624ca73dbfda69ed10d281ffb3c2",
+      "bytes": 805,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-FIX-SOURCE.md",
+      "sha256": "2dd2697094a186bc13e40e63ffebbac72c2c760cea56a2ec6fd14ae8f386891e",
+      "bytes": 4051,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-FIX-SOURCE-pins.json",
+      "sha256": "5c5ce61bafce1c6a022c8a55c57020543df87ea0849913ed8ebfb855686a1176",
+      "bytes": 4902,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-FIX-SOURCE-freeze.json",
+      "sha256": "38b5631d750daefd7e303bcf96b659fa953c1255745450506f1e5027f26e57e3",
+      "bytes": 689,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-R2.md",
+      "sha256": "bee18faad77eaa80c073dd65ea6e5171ab80679f63854a83da346e160f5aafe8",
+      "bytes": 4124,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-R2-pins.json",
+      "sha256": "6ea59884af5306cd5d5b4bf2f6b4518baf23a1df2d39baa99cbc3493d0c5df04",
+      "bytes": 4743,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-R2-freeze.json",
+      "sha256": "7851558d28249fcbdd9794402808ba46fdd0849a3ea98ebfbe6eb18b4cf77f8c",
+      "bytes": 643,
+      "mode": 420,
+      "purpose": "raw original provenance comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/manifest-draft-v3.json",
+      "sha256": "e2e4fe7dca0220e023418e0a39d60d80586bea83a099af22d5b439af737205ab",
+      "bytes": 8156,
+      "mode": 420,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/evidence-draft-manifest.json",
+      "sha256": "61c298a8d06d59294f942d23114ba3d1fdfc8172d2efbc7f13fe9c862ca75ea6",
+      "bytes": 85891,
+      "mode": 420,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-full-audit-documentation-proposal-v1/safe-pins-three-field-removal-proof.json",
+      "sha256": "1809113e2dad5fbd641d9c7ee56a139d3d7a05ddc9cfcfeeff7e4aa29a0d594f",
+      "bytes": 1885,
+      "mode": 420,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-root-full-pipeline-audit-R1-R2-checkpoint-v1.json",
+      "sha256": "fb30030245107dc43b6f460648d19433bd0ef6310192a6fb1c201e6a77ff7d17",
+      "bytes": 9603,
+      "mode": 384,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/manifest.json",
+      "sha256": "d78611b5190f69a7fc33ce09e0a92ff79cd5c0b0c59013aac77e651c4319c27b",
+      "bytes": 170955,
+      "mode": 420,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/root-test-methods.json",
+      "sha256": "9f32c8eda35fdf31cb23415ce7e9fea157c4f58d1803e7c17b2a6ad00c40642b",
+      "bytes": 7489,
+      "mode": 420,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-root-local41-actual-acceptance-v1.json",
+      "sha256": "7ce4c6e36a591d46241e55cd0c4d608aa54e2aedce9769d112d241927d987018",
+      "bytes": 1757,
+      "mode": 384,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "bytes": 46054,
+      "mode": 420,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-pipeline-audit-CODE-round1-v3/Root-actual-pass.json",
+      "sha256": "e8b0d3cf3034abe89914e2ac31f8fef1d3afadaa2d692fc875b7f0e850f1fd8a",
+      "bytes": 2811,
+      "mode": 420,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-pipeline-audit-CODE-round1-v2/Root-terminal-failure.json",
+      "sha256": "5d161ed48b77b62e2444a3416c3db5421d075021fadd7ce146fac405ae9f051a",
+      "bytes": 1067,
+      "mode": 420,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-audit-next-features-FIRST.md",
+      "sha256": "e43fa3eef6258de27747ff334765e1e8b8cc4c6bde37da678da69b5ef9294043",
+      "bytes": 8935,
+      "mode": 420,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-audit-next-candidates-FIRST.md",
+      "sha256": "b9155c5c333d20f879a21648d24fae0948934425949569ca1bea4c0196410bfa",
+      "bytes": 7654,
+      "mode": 292,
+      "purpose": "draft claim/source reference freshness"
+    },
+    {
+      "path": "/tmp/tlab-audit-next-skeptic-v1.md",
+      "sha256": "68d1089dcffc13398b8e17ba023e8a5c6d9a4e2d466e79fecae1b1d062b7a4c2",
+      "bytes": 7679,
+      "mode": 420,
+      "purpose": "wave084 classification evidence"
+    },
+    {
+      "path": "/tmp/tlab-audit-next-skeptic-v1-pins.json",
+      "sha256": "473343f73af385a81ab7d7290ec56be160e41fc4b82e18f1321c7bc3ff6ef201",
+      "bytes": 12362,
+      "mode": 420,
+      "purpose": "wave084 classification evidence"
+    },
+    {
+      "path": "/tmp/tlab-audit-next-skeptic-v1-freeze.json",
+      "sha256": "e4d605ca611c0461cece6155c03af03af07d1fd6101480c8dfe28eb2e10dd72f",
+      "bytes": 821,
+      "mode": 420,
+      "purpose": "wave084 classification evidence"
+    }
+  ],
+  "candidate_targets": 119,
+  "candidate_target_SHA_bytes_mode_rechecked": 119,
+  "raw_exact_actual_bytes_compared": 110,
+  "safe_derivative_strict_three_deletions": true,
+  "original_freezes_reference_raw_originals": 37,
+  "full_old_document_inverse_checks": 4,
+  "unsafe_complete_instruction_bodies_in_candidates": 0,
+  "supported_findings": 0,
+  "project_operations": "No project imports/tests/SQL/native/data/Git/canonical writes"
+}

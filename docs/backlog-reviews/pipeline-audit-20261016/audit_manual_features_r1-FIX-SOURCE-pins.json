@@ -1,0 +1,226 @@
+{
+  "version": 1,
+  "reviewer": "/root/audit_manual_features_r1",
+  "stage": "FIX-SOURCE",
+  "verdict": "QUALIFIED_SOURCE_PASS_NO_SUPPORTED_FINDINGS",
+  "candidate_manifest_sha256": "a759aa17a9ae881db994ebd69f8f4a42998e547d3ba63f69d3ac0bec9314b785",
+  "baseline_HEAD": "c538de4097322715fccac494e2b2becc3279e8e1",
+  "sources": [
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/HANDOFF.md",
+      "sha256": "c73e5598c7244c698837ced72193c71bef8d82fb5d869b01d40fb11ecf211f2b",
+      "bytes": 3570,
+      "inspection": "full"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/manifest.json",
+      "sha256": "a759aa17a9ae881db994ebd69f8f4a42998e547d3ba63f69d3ac0bec9314b785",
+      "bytes": 10828,
+      "inspection": "full metadata"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/freeze.json",
+      "sha256": "d049aa47889287a8dbaba1fd158b61f092e1dfcaf72c6b028add2e543ec434e1",
+      "bytes": 4260,
+      "inspection": "full metadata; all listed artifacts hashed"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_heuristic_baselines.py",
+      "sha256": "b68d294482765a9f04dc6a408a9bc52b4bf1a0d7697f50caf50c6a0f9b2837cf",
+      "bytes": 23624,
+      "inspection": "1–70,180–312; fixture API and setup"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "bytes": 3631,
+      "inspection": "prior FIRST full; canonical names context"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "inspection": "full"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/reproduction/frozen-bw-oct2019.json",
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+      "bytes": 19412,
+      "inspection": "63–98,160–228; JSON B41 literal comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/reproduce_frozen_comparison.py",
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "bytes": 40847,
+      "inspection": "dependency symbol search;150–210"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/reproduce_development_slice.py",
+      "sha256": "738d03ee35d4ee1238952f8d1c6e9d7b09c80a237a38c0355377d021cb93e332",
+      "bytes": 49725,
+      "inspection": "1–130,214–235,348–362; immutable-owner searches"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "inspection": "201–235 manifest write API"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-FIRST.md",
+      "sha256": "4d15ce66187799b15fd1f811a77bb1d064e2d34d42e736e08aba83e76cee71d7",
+      "bytes": 8848,
+      "inspection": "prior immutable FIRST context"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-R2.md",
+      "sha256": "faef49d0f39fe9a05aa2916f6254f1343359d8ed81cc2332820cad452883d96a",
+      "bytes": 4300,
+      "inspection": "prior immutable R2 context"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-pins.json",
+      "sha256": "a448d1cf0f722e04806d7c7b82ef31ae19c2167649644449cce9c17e56a392d7",
+      "bytes": 11522,
+      "inspection": "prior ordered B41 literal comparison"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/candidate/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364,
+      "inspection": "full static diff and AST; changed semantic sections read with original line numbers"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/diffs/scripts__manual_features.py.patch",
+      "sha256": "168536b57e9879779d1f3f9d06996b679da4fe906fcbf099c4924813051b88ea",
+      "bytes": 4747,
+      "inspection": "full diff read; new-test diff source and AST inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/base/scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160,
+      "inspection": "baseline byte/hash equality; changed hunks and unchanged compiler AST comparison where relevant"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/candidate/scripts/train_baselines.py",
+      "sha256": "b25dc30cc7265dddb3cbf910edff12cc4bcf220161c86c59a7d3fa33cf129bed",
+      "bytes": 35812,
+      "inspection": "full static diff and AST; changed semantic sections read with original line numbers"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/diffs/scripts__train_baselines.py.patch",
+      "sha256": "a4fd628b45b18195be9313a4e24f7ad4531677fd65dfbf264c235b7ec84d734e",
+      "bytes": 1192,
+      "inspection": "full diff read; new-test diff source and AST inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/base/scripts/train_baselines.py",
+      "sha256": "626addc85304d926611301c764f7010b4a2b42fedf313f5f319e20264b271d8b",
+      "bytes": 35665,
+      "inspection": "baseline byte/hash equality; changed hunks and unchanged compiler AST comparison where relevant"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/candidate/scripts/anchor_pilot.py",
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "bytes": 20747,
+      "inspection": "full static diff and AST; changed semantic sections read with original line numbers"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/diffs/scripts__anchor_pilot.py.patch",
+      "sha256": "d13e32d7d0e7a37cbd7968c608a75c9efafae243e70099cf6e329c518230c699",
+      "bytes": 1856,
+      "inspection": "full diff read; new-test diff source and AST inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/base/scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181,
+      "inspection": "baseline byte/hash equality; changed hunks and unchanged compiler AST comparison where relevant"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/candidate/scripts/candidate_pilot.py",
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "bytes": 19102,
+      "inspection": "full static diff and AST; changed semantic sections read with original line numbers"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/diffs/scripts__candidate_pilot.py.patch",
+      "sha256": "b3499bb86b29a420364bd8756cbe8f4c55fa15537527d68dcdd3001a6e1e089e",
+      "bytes": 1853,
+      "inspection": "full diff read; new-test diff source and AST inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/base/scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "bytes": 18557,
+      "inspection": "baseline byte/hash equality; changed hunks and unchanged compiler AST comparison where relevant"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/candidate/scripts/heuristic_baselines.py",
+      "sha256": "b13cc9056bf856b3aa3eb04db9de96e871cbdcbc41ab236bb80ab9c20a06c191",
+      "bytes": 23423,
+      "inspection": "full static diff and AST; changed semantic sections read with original line numbers"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/diffs/scripts__heuristic_baselines.py.patch",
+      "sha256": "747b144113552237055395149d475a36e1bcb51528cd7c85500899de2a21e952",
+      "bytes": 2017,
+      "inspection": "full diff read; new-test diff source and AST inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/base/scripts/heuristic_baselines.py",
+      "sha256": "db00b2375fed1083d4bf9b45ef4535793d36ffeaa537050a07e99c61dad13ee4",
+      "bytes": 22853,
+      "inspection": "baseline byte/hash equality; changed hunks and unchanged compiler AST comparison where relevant"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/candidate/tests/test_feature_projection_reserved_names.py",
+      "sha256": "92ab493e297d240f2013ea95ea7cbd9b5f4c67574177cc35cf76ec3e87c681e2",
+      "bytes": 4603,
+      "inspection": "full static diff and AST; changed semantic sections read with original line numbers"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/diffs/tests__test_feature_projection_reserved_names.py.patch",
+      "sha256": "065470f1609a4559021eb3f7aa1c9f50ea1c3a2372e6d1302f02f07f30bbe291",
+      "bytes": 4775,
+      "inspection": "full diff read; new-test diff source and AST inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/candidate/tests/test_runner_cleanup_receipts.py",
+      "sha256": "5386e9857d11ba14ded608ebe2d83ef85cd930cfa490ede9831ab18c2d0c1d58",
+      "bytes": 7136,
+      "inspection": "full static diff and AST; changed semantic sections read with original line numbers"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-feature-boundaries-v1/diffs/tests__test_runner_cleanup_receipts.py.patch",
+      "sha256": "58403cdf2991869ff0b8cbd80c666e41750bd3728f9b2dd2cbefdac0ef9be95c",
+      "bytes": 7377,
+      "inspection": "full diff read; new-test diff source and AST inspected"
+    }
+  ],
+  "static_checks": {
+    "package_freeze_hashes_match": true,
+    "seven_candidate_ast_parses": true,
+    "five_baseline_bytes_match": true,
+    "unchanged_compiler_function_AST": {
+      "_expression": true,
+      "_grain_sql": true,
+      "create_manual_features": true
+    },
+    "literal_B41_matches_prior_frozen_order_and_recipe": true,
+    "new_test_method_definitions": {
+      "tests/test_feature_projection_reserved_names.py": 5,
+      "tests/test_runner_cleanup_receipts.py": 4
+    }
+  },
+  "runtime": {
+    "project_imports": 0,
+    "tests": 0,
+    "SQL": 0,
+    "native_ML": 0,
+    "real_data_reads": 0
+  },
+  "canonical_writes": 0,
+  "recipe_writes": 0
+}

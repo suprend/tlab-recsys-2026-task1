@@ -343,8 +343,25 @@ def aggregate_collection(plan, state, *, check=lambda: None, ledger=None):
         _verify_feature_lineage(entry, fm, fr)
         for name, manifest in [('queries', am), ('labels', am), ('candidates', cm), ('features', fm)]:
             refs[name].append(manifest['artifact_refs'][name])
-        for day in ar['daily_outcomes']:
-            expected_daily.append(day['anchor'])
+        shard_days = []
+        day = utc(protocol['pilot']['start'])
+        while day < utc(protocol['pilot']['end']):
+            shard_days.append(day.strftime('%Y-%m-%dT%H:%M:%SZ'))
+            day += timedelta(days=1)
+        population = ar['population']
+        if [day['anchor'] for day in population] != shard_days:
+            raise ValueError('Missing or duplicate daily population coverage')
+        if any(type(day['sampled_queries']) is not int or day['sampled_queries'] < 0 for day in population):
+            raise ValueError('Invalid daily query population')
+        # Outcomes group actual Q, so valid zero-query days occur only in the
+        # authenticated population calendar. Missing nonempty outcomes still fail.
+        nonempty = [day for day in population if day['sampled_queries'] > 0]
+        if [day['anchor'] for day in ar['daily_outcomes']] != [day['anchor'] for day in nonempty]:
+            raise ValueError('Missing or duplicate daily report coverage')
+        expected_daily.extend(shard_days)
+        for day, sampled in zip(ar['daily_outcomes'], nonempty):
+            if day['queries'] != sampled['sampled_queries']:
+                raise ValueError('Daily outcome query population differs from Q')
             reported['queries'] += day['queries']
             reported['labels'] += day['distinct_targets']
         reported['candidates'] += sum(day['candidate_rows'] for day in cr['daily_coverage'])

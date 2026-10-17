@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "reviewer": "audit_training_matrix_r1-FIX-SOURCE",
+  "status": "qualified_SOURCE_PASS",
+  "manifest_sha256": "fd56691c289dd06ebd8db74860a3e84ec342382dc01717c1d79795ae536fce59",
+  "sources": [
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/repository/scripts/strong_baseline.py",
+      "sha256": "209f03d114aed5fa93bf860b40cabdd69f5040ae7a81e45c0788ae590ebd03c6",
+      "bytes": 48659,
+      "scope": "source/diff/base inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/base/scripts/strong_baseline.py",
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+      "bytes": 47986,
+      "scope": "source/diff/base inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/strong_baseline.diff",
+      "sha256": "b17f3afc88f9d6db2fb4ddf3fe9aae02d6f6bab10891b63dbfeb5d296cee24d0",
+      "bytes": 2145,
+      "scope": "source/diff/base inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/repository/tests/oracles/strong_output_audit.py",
+      "sha256": "6ff8e7fa97851a82b05f010b1acda6924f7f33a1442245ff3dfff75db9954c04",
+      "bytes": 39786,
+      "scope": "source/diff/base inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/base/tests/oracles/strong_output_audit.py",
+      "sha256": "03b9c22fec7a42f136cd0e6017767411fdb856dab1a1220eb613ee6d012ccaab",
+      "bytes": 39403,
+      "scope": "source/diff/base inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/strong_output_audit.diff",
+      "sha256": "5e6aa95ab8745f6850d53cf9f07702bd0412db528adfab5149a72a3eeda97d53",
+      "bytes": 4756,
+      "scope": "source/diff/base inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/repository/tests/oracles/strong_recovery_audit.py",
+      "sha256": "f56d6245e96d5d45c36e30e00feb49476fff237b7f5e74bdec3f1c7481d41e2f",
+      "bytes": 49119,
+      "scope": "source/diff/base inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/base/tests/oracles/strong_recovery_audit.py",
+      "sha256": "4c1c46eac98dcafd64a7af87f51f0bb77ec9c5dcc54b8c3bd4c62919a2e0ac10",
+      "bytes": 48736,
+      "scope": "source/diff/base inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/strong_recovery_audit.diff",
+      "sha256": "578b4b911b457b94776a78903e5ef5b2d78781366a7fba5a25064baea243adee",
+      "bytes": 4765,
+      "scope": "source/diff/base inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/repository/tests/test_strong_ranking_parity.py",
+      "sha256": "37c06f5f563c76161bb988bce2a2b6473d963fc67570e4a9631c476686a8b00f",
+      "bytes": 11737,
+      "scope": "source/diff/base inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/test_strong_ranking_parity.diff",
+      "sha256": "b38f985c22adc90cd90b860aa9bbfa3d01ea60aec572f0bf8b50e0f05de5d846",
+      "bytes": 12020,
+      "scope": "source/diff/base inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/manifest.json",
+      "sha256": "fd56691c289dd06ebd8db74860a3e84ec342382dc01717c1d79795ae536fce59",
+      "bytes": 5483,
+      "scope": "source contract/context"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/handoff.md",
+      "sha256": "a33b65b2c05036467f05f505e7dbda811b70b6113dda2886629b1f2e646b096f",
+      "bytes": 2850,
+      "scope": "source contract/context"
+    },
+    {
+      "path": "/tmp/tlab-audit-fix-ranking-parity-v1/freeze.json",
+      "sha256": "5d0c06ffb868ed7cefd9ab1fcad960e3fc7a7107559c749ec35d812c87b7bc5b",
+      "bytes": 908,
+      "scope": "source contract/context"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/train_baselines.py",
+      "sha256": "626addc85304d926611301c764f7010b4a2b42fedf313f5f319e20264b271d8b",
+      "bytes": 35665,
+      "scope": "source contract/context"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971,
+      "scope": "source contract/context"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-R2.md",
+      "sha256": "bee18faad77eaa80c073dd65ea6e5171ab80679f63854a83da346e160f5aafe8",
+      "bytes": 4124,
+      "scope": "source contract/context"
+    }
+  ],
+  "tests_run": false,
+  "project_or_native_actions": false,
+  "additional_current_sources": [],
+  "own_immutable": {
+    "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-FIRST.md": "6ba530bd5eff8b1439b19b448441a6562283c4c076cec02856b6521b2b4bbfe4",
+    "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_training_matrix_r1-R2.md": "bee18faad77eaa80c073dd65ea6e5171ab80679f63854a83da346e160f5aafe8"
+  }
+}

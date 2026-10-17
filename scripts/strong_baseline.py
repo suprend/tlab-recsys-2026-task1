@@ -309,6 +309,21 @@ def resource_failure(error):
     return isinstance(error,(MemoryError,TimeoutError,duckdb.OutOfMemoryException))
 
 
+def saved_prefix_rankings(data,scores,replay,actual_trees,trees):
+    import numpy as np
+    from scripts import train_baselines as b
+    scores=np.asarray(scores);replay=np.asarray(replay)
+    if (actual_trees!=trees or scores.shape!=(len(data.group),) or replay.shape!=scores.shape
+            or not np.isfinite(scores).all() or not np.isfinite(replay).all()
+            or not np.allclose(scores,replay,rtol=0,atol=1e-12)):
+        raise ValueError('Saved prefix fidelity failure')
+    rows=b.rankings(data,scores)
+    # Numeric tolerance cannot turn a raw-score ordering change into a tie.
+    # Compare every query and candidate, including queries with empty full-Y.
+    if rows!=b.rankings(data,replay):raise ValueError('Saved prefix rankings differ')
+    return rows
+
+
 def worker_main(path,*,issued_context_sha256):
     from dataclasses import asdict
     from catboost import CatBoostClassifier,Pool
@@ -386,8 +401,7 @@ def worker_main(path,*,issued_context_sha256):
                 audit.stage('save_prefix'+str(k),lambda:prefix.save_model(str(model_path)))
                 loaded=CatBoostClassifier();loaded.load_model(str(model_path))
                 replay=audit.stage('replay_saved_prefix'+str(k),lambda:loaded.predict(selection.x,prediction_type='RawFormulaVal',thread_count=2))
-                if loaded.tree_count_!=k or not np.allclose(scores,replay,rtol=0,atol=1e-12):raise ValueError('Saved prefix fidelity failure')
-                rows=audit.stage('rank_prefix'+str(k),lambda:b.rankings(selection,scores))
+                rows=audit.stage('rank_prefix'+str(k),lambda:saved_prefix_rankings(selection,scores,replay,loaded.tree_count_,k))
                 look['status']='seen_evaluation_started';write(directory/'report.json',audit.report)
                 metrics=audit.stage('external_fullY_prefix'+str(k),lambda:asdict(evaluate(rows,20)))
                 audit.stage('save_scores'+str(k),lambda:np.savez_compressed(score_path,group=selection.group,product_id=selection.items,raw_score=np.asarray(scores)))

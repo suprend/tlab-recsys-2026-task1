@@ -1,0 +1,13 @@
+# R3 batching regression v2 — narrow independent SOURCE rereview
+
+**SOURCE PASS for the narrow repair and previously reviewed finite test scope; runtime UNRUN.** Candidate SHA256 `98141d01ba08c1b8fa50f804c7055e876d10dbfbc1cd6e456f84f3d7d0c40538`; manifest SHA256 `b2ffa5906147aa5326feb8c19d52890d81003e644708fea99846d88749834996`. Original v1 source, P2 report and freeze remain unchanged.
+
+The only source changes are lines206/260: both budget expressions become `dict(max_anchors=6, max_candidate_pairs=1320)`. Independent byte/token comparison found exactly two changed lines/four numeric tokens. Reversing those replacements restores **all** v1 bytes exactly. V2 AST parses; v2 freeze/basepins/combined and preserved v1 artifacts match their hashes.
+
+This closes the specific protocol blocker at frozen `protocol_manifest.py:138-142`:2 declared days×3 potential users/day=6 anchors, and6×220=1320 potential pairs. Other already reviewed protocol conditions remain satisfied: UTC midnight bounds within the October source, sufficient past warm-up and mature24h target. Actual largest per-anchor Q is2≤3, all3 retained Q≤6 and5 fixed C≤1320. The higher declarations neither add actual queries/events/candidates nor authorize execution or expenditure.
+
+Because every other source byte is unchanged, the v1 conditional review of actual compiler calls and both local mutants now applies without that preflight refusal. The candidate-item SEMI JOIN still changes A/category100 denominator4/share1/4 to1/share1; preserving the first real metadata TEMP table still changes B's current200/1/4 to stale100/denominator2/share1/2. Explicit wrong-value assertions precede rejection by literal gold. These are genuine source/state faults; no artificial result-vector corruption was substituted. Mutation behavior itself remains UNRUN.
+
+Retain v1's coverage qualifications: full B45 is compared metamorphically, with selected independent literals rather than a fresh complete arithmetic oracle; fixed Q/C do not prove retrieval/label lineage; same-anchor nonempty candidate union does not vary; no exhaustive future-suffix/pre-source proof follows. The fixture has22 invented event rows,3Q and5C (30 total relation-input rows). Future CODE authority must distinguish source-event and total-row bounds.
+
+No new blocker found in the exact narrow delta. Intended56 compiler calls/76 internal anchor batches/29 sequential connections and the helper/import boundary are unchanged; CPU/wall/RSS/cleanup costs UNKNOWN. Tests, project imports, SQL, native/ML and real-data reads UNRUN. No canonical/Git writes. This source result is sufficient to prepare a separately Root-authorized bounded toy run, followed by actual-output review; it is not a runtime PASS. Readback/freeze then STOP.

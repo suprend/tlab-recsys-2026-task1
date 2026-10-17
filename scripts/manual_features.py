@@ -46,6 +46,16 @@ def validate_registry(registry):
     if not isinstance(features, list) or not 1 <= len(features) <= 64:
         raise ValueError('Registry must contain1–64 features')
     names = {}
+    # Include loader-owned columns when checking the compiler's full emitted
+    # namespace: a recency/category feature also produces a missing flag.
+    reserved = {'query_id', 'user_id', 'product_id', 'anchor', 'label_is_mature',
+                'from_popular', 'from_recent', 'popularity_distinct_users', 'popular_source_rank',
+                'recent_source_rank', 'last_user_event_time', 'candidate_category_id',
+                'candidate_category_ambiguous', 'candidate_category_missing',
+                'item_has_observed_history', 'user_has_observed_history',
+                'item_observed_age_seconds', 'user_observed_age_seconds',
+                'retrieval_last_event_age_seconds', 'retrieval_last_event_missing'}
+    physical_names = set(reserved)
     for feature in features:
         if not isinstance(feature, dict):
             raise ValueError('Feature must be an object')
@@ -53,17 +63,17 @@ def validate_registry(registry):
         _keys(feature, {'name', 'grain', 'operator', 'numerator', 'denominator'} if ratio
               else {'name', 'grain', 'operator', 'event_type', 'window', 'column'})
         name = feature['name']
-        reserved = {'query_id', 'user_id', 'product_id', 'anchor', 'label_is_mature',
-                    'from_popular', 'from_recent', 'popularity_distinct_users', 'popular_source_rank',
-                    'recent_source_rank', 'last_user_event_time', 'candidate_category_id',
-                    'candidate_category_ambiguous', 'candidate_category_missing',
-                    'item_has_observed_history', 'user_has_observed_history',
-                    'item_observed_age_seconds', 'user_observed_age_seconds'}
         if (not isinstance(name, str) or not re.fullmatch(r'[a-z][a-z0-9_]{0,63}', name)
                 or name in names or name in reserved or name.startswith('source_coverage_') or name.endswith('_missing')):
             raise ValueError('Feature names must be unique safe identifiers')
         if not isinstance(feature['grain'], str) or feature['grain'] not in GRAINS:
             raise ValueError('Unsupported grain')
+        emitted = [name]
+        if ratio or feature['operator'] == 'recency_seconds' or 'category_id' in GRAINS[feature['grain']]:
+            emitted.append(name + '_missing')
+        if any(column in physical_names for column in emitted):
+            raise ValueError('Feature names must be unique safe identifiers, including generated columns')
+        physical_names.update(emitted)
         names[name] = feature
         if ratio:
             continue
@@ -285,6 +295,7 @@ def run(candidate_directory, registry_path, output_root, *, acceptance_path, max
                               process_rss_stage_ceiling_bytes=8 * 2**30,
                               rss_enforcement='cooperative stage checks, not an OS kill'))
     con = timer = manifest = None
+    primary_error = None
     def guard():
         deadline.check()
         if peak_rss_bytes() > 8 * 2**30:
@@ -384,14 +395,23 @@ def run(candidate_directory, registry_path, output_root, *, acceptance_path, max
         report['feature_columns'] = [r[0] for r in con.execute('DESCRIBE manual_features').fetchall()]
         guard()
         report['status'] = 'complete'
-    except Exception as error:
+    except BaseException as error:
+        primary_error = error
         report.update(status='failed', error_type=type(error).__name__, error=str(error))
         raise
     finally:
         if timer is not None:
             timer.cancel()
-        if con is not None:
-            con.close()
+        cleanup_error = None
+        try:
+            if con is not None:
+                con.close()
+        except BaseException as error:
+            cleanup_error = error
+            report.update(status='failed', cleanup_errors=[dict(operation='close_connection',
+                          error_type=type(error).__name__, error=str(error))])
+            if primary_error is None:
+                report.update(error_type=type(error).__name__, error=str(error))
         report.update(seconds=time.monotonic() - started, process_peak_rss_bytes=peak_rss_bytes(),
                       temp_disk_bytes_after_close=directory_bytes(temp))
         save_json(directory / 'report.json', report)
@@ -399,6 +419,8 @@ def run(candidate_directory, registry_path, output_root, *, acceptance_path, max
             write_run_manifest(manifest, directory / 'run.json')
         print(json.dumps(dict(status=report['status'], run_id=report.get('run_id'),
                               seconds=report['seconds'], report=str(directory / 'report.json'))), flush=True)
+        if cleanup_error is not None and primary_error is None:
+            raise cleanup_error
     return report
 
 

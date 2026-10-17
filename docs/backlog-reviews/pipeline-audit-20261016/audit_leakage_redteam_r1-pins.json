@@ -1,0 +1,365 @@
+{
+  "version": 1,
+  "reviewer": "audit_leakage_redteam_r1",
+  "mode": "blind FIRST static read-only",
+  "manifest_sha256": "7e2e871f148beac5b9fce3aa23970b370db0c8fdc9eac89958fb6342a4d2a41a",
+  "head": "c538de4097322715fccac494e2b2becc3279e8e1",
+  "sources": [
+    {
+      "path": "scripts/temporal_contract.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "inspection": "1-168 text; 1-82 numbered reread"
+    },
+    {
+      "path": "scripts/protocol_manifest.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "inspection": "1-235 text"
+    },
+    {
+      "path": "scripts/anchor_pilot.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181,
+      "inspection": "1-275"
+    },
+    {
+      "path": "scripts/candidate_pilot.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "bytes": 18557,
+      "inspection": "1-284"
+    },
+    {
+      "path": "scripts/manual_features.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160,
+      "inspection": "1-320"
+    },
+    {
+      "path": "scripts/development_collection.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909,
+      "inspection": "1-300"
+    },
+    {
+      "path": "scripts/model_data.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/model_data.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/model_data.py",
+      "sha256": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+      "bytes": 13774,
+      "inspection": "1-201"
+    },
+    {
+      "path": "scripts/inference_data.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/inference_data.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/inference_data.py",
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+      "bytes": 9074,
+      "inspection": "1-126"
+    },
+    {
+      "path": "scripts/train_baselines.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/train_baselines.py",
+      "sha256": "626addc85304d926611301c764f7010b4a2b42fedf313f5f319e20264b271d8b",
+      "bytes": 35665,
+      "inspection": "1-330"
+    },
+    {
+      "path": "scripts/train_development.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/train_development.py",
+      "sha256": "2ec59f282a9d83e570b8642cabb4fc96b4cdf8ed5fb95248f93916df9d77d4c6",
+      "bytes": 12664,
+      "inspection": "1-246"
+    },
+    {
+      "path": "scripts/development_training.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590,
+      "inspection": "1-91"
+    },
+    {
+      "path": "scripts/metadata_price_features.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_features.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/metadata_price_features.py",
+      "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+      "bytes": 36920,
+      "inspection": "1-174; targeted text search across file"
+    },
+    {
+      "path": "scripts/feature_program_collection.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_program_collection.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/feature_program_collection.py",
+      "sha256": "b3e05d85d97afc26d8cbda8627d3bfffc46ad6a037d03beb1c0c6d5d807ef84f",
+      "bytes": 34940,
+      "inspection": "120-215; targeted text search across file"
+    },
+    {
+      "path": "scripts/feature_programs.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "inspection": "1-195"
+    },
+    {
+      "path": "scripts/strong_baseline.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_baseline.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/strong_baseline.py",
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+      "bytes": 47986,
+      "inspection": "315-455; targeted text search across file"
+    },
+    {
+      "path": "scripts/feature_program_experiment.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_program_experiment.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/feature_program_experiment.py",
+      "sha256": "55fb8f483815218908cbdd626fda0a274502e7ac5bbbef20d211882c18e36aad",
+      "bytes": 61929,
+      "inspection": "208-223,395-455; targeted text search across file"
+    },
+    {
+      "path": "scripts/adaptive_tree_selection.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/adaptive_tree_selection.py",
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "bytes": 18580,
+      "inspection": "1-85,180-236; targeted text search across file"
+    },
+    {
+      "path": "scripts/heldout_source.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_source.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/heldout_source.py",
+      "sha256": "c864bec3a3aefa946b7759993505bcde9dcd9c9edb7cb9ce03216d6ebddeafbb",
+      "bytes": 10757,
+      "inspection": "1-142"
+    },
+    {
+      "path": "scripts/heldout_contract.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_contract.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/heldout_contract.py",
+      "sha256": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc",
+      "bytes": 14058,
+      "inspection": "1-191"
+    },
+    {
+      "path": "scripts/heldout_predictions.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/heldout_predictions.py",
+      "sha256": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4",
+      "bytes": 10946,
+      "inspection": "100-182"
+    },
+    {
+      "path": "scripts/heldout_evaluation.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_evaluation.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/heldout_evaluation.py",
+      "sha256": "13ff442a599ab2623c7a3fa2316f36ed9ec8015215172edfcee86b8f25f51446",
+      "bytes": 10235,
+      "inspection": "1-162"
+    },
+    {
+      "path": "scripts/heldout_reporting_worker.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_reporting_worker.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/heldout_reporting_worker.py",
+      "sha256": "22b5f784ff3b187bb45f0308b33f23a84c54ecedc6c40f2c595366721d910226",
+      "bytes": 27763,
+      "inspection": "1-333"
+    },
+    {
+      "path": "scripts/reproduce_frozen_comparison.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/reproduce_frozen_comparison.py",
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "bytes": 40847,
+      "inspection": "267-360,529-577; function/call index"
+    },
+    {
+      "path": "scripts/source_import.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/source_import.py",
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+      "bytes": 14444,
+      "inspection": "1-197"
+    },
+    {
+      "path": "scripts/itemcf_extraction.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/itemcf_extraction.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/itemcf_extraction.py",
+      "sha256": "1981cd54e3a7c3737c3dde4da02b1ba0fdf6ee96f0b3514fdaeaba68adcb32bf",
+      "bytes": 11121,
+      "inspection": "80-260"
+    },
+    {
+      "path": "docs/task1-requirements.md",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "bytes": 3638,
+      "inspection": "full text"
+    },
+    {
+      "path": "README.md",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/README.md",
+      "sha256": "8f7f07dfcfa458d6d0b2d64d9d1b712b26f9a4590e03f57289fed40f3ee5384e",
+      "bytes": 21405,
+      "inspection": "text output; current top sections"
+    },
+    {
+      "path": "docs/backlog.md",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog.md",
+      "sha256": "62bbaff8f19d2860ee849075b379a0fa7f7967c0c05b4c700655377541147305",
+      "bytes": 209404,
+      "inspection": "targeted temporal/leakage searches"
+    },
+    {
+      "path": "docs/research-lab/index.md",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/research-lab/index.md",
+      "sha256": "3a07a80af1b0698626427332fc7710d784897db18d7340846a4a410a9b85e20d",
+      "bytes": 49445,
+      "inspection": "110-255; targeted dedup searches"
+    },
+    {
+      "path": "configs/protocols/clock-48h.json",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "inspection": "full text"
+    },
+    {
+      "path": "configs/development/train.json",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/development/train.json",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/development/train.json",
+      "sha256": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8",
+      "bytes": 637,
+      "inspection": "full text"
+    },
+    {
+      "path": "configs/development/selection.json",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/development/selection.json",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/development/selection.json",
+      "sha256": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36",
+      "bytes": 643,
+      "inspection": "full text"
+    },
+    {
+      "path": "configs/development/confirmation.json",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/development/confirmation.json",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/development/confirmation.json",
+      "sha256": "cd8992a7ce5394153be42df75434493ff0b09150da9f812b92ddeb9b4b8498b9",
+      "bytes": 648,
+      "inspection": "full text"
+    },
+    {
+      "path": "configs/features/manual-18.json",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "bytes": 3631,
+      "inspection": "full text"
+    },
+    {
+      "path": "configs/features/automation-pool.json",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/features/automation-pool.json",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/features/automation-pool.json",
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+      "bytes": 2713,
+      "inspection": "full text"
+    },
+    {
+      "path": "configs/features/automation-selection.json",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/features/automation-selection.json",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/features/automation-selection.json",
+      "sha256": "3bb1e4f63f32160135daaee95d257f571f394af25f4b74378ba2785be12b5ac0",
+      "bytes": 1365,
+      "inspection": "full text"
+    },
+    {
+      "path": "configs/reproduction/frozen-bw-oct2019.json",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/reproduction/frozen-bw-oct2019.json",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/reproduction/frozen-bw-oct2019.json",
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+      "bytes": 19412,
+      "inspection": "full text"
+    },
+    {
+      "path": "configs/studies/adaptive-tree-selection-oct2019-once.json",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/studies/adaptive-tree-selection-oct2019-once.json",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/studies/adaptive-tree-selection-oct2019-once.json",
+      "sha256": "6ffe3c7a82854fca25446faf8a580dce83c03584c7f37a81d63d1684b76049a7",
+      "bytes": 11680,
+      "inspection": "targeted text search"
+    },
+    {
+      "path": "instructions/00-AGENTS.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/00-AGENTS.md",
+      "sha256": "25076d696b7550f423f0a19a151585ef12a2ac2444eee6677b1e00c95b7fa8b1",
+      "bytes": 12407,
+      "inspection": "full text"
+    },
+    {
+      "path": "instructions/01-SKILL.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/01-SKILL.md",
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+      "bytes": 10077,
+      "inspection": "full text"
+    },
+    {
+      "path": "instructions/02-SKILL.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/02-SKILL.md",
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2",
+      "bytes": 22428,
+      "inspection": "full text"
+    },
+    {
+      "path": "instructions/03-coordination.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/03-coordination.md",
+      "sha256": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb",
+      "bytes": 5230,
+      "inspection": "full text"
+    },
+    {
+      "path": "instructions/04-verification.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/04-verification.md",
+      "sha256": "d84015a05b7ebc9c4bdc570e75e0a62fbcbe134217a367715fbf5e2acc1e69ec",
+      "bytes": 7124,
+      "inspection": "full text"
+    },
+    {
+      "path": "dispatch.md",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/dispatch.md",
+      "sha256": "9fc6919633be1563de2624f89a17667c096c02385e3b52438cb42f9070604826",
+      "bytes": 5314,
+      "inspection": "full text"
+    }
+  ],
+  "additional_current_context": [],
+  "not_executed": [
+    "project imports",
+    "tests",
+    "SQL",
+    "native",
+    "ML",
+    "getters",
+    "raw data/model reads"
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "version": 3,
+  "reviewer": "/root/audit_feature_leakage_r1",
+  "UTC": "2026-10-16T23:41:06.834160+00:00",
+  "scope": "fresh V3 SOURCE review of same-anchor Q/C delta and actual mutant falsifiers",
+  "candidate_sha256": "fe287023fb5f852702288637a04125226dec97e288911d355258d6ee7eb0f8f5",
+  "manifest_sha256": "9d0ede50373160328b6935fb1e5b81a560bebab262c58cabd30d10a9f06de8d4",
+  "sources": [
+    {
+      "path": "/tmp/tlab-audit-r3-batching-regression-v3/candidate/tests/test_feature_batch_invariance.py",
+      "bytes": 18614,
+      "sha256": "fe287023fb5f852702288637a04125226dec97e288911d355258d6ee7eb0f8f5",
+      "inspection": "full fresh V3 source/contract metadata"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-batching-regression-v3/SOURCE-HANDOFF.md",
+      "bytes": 5098,
+      "sha256": "a6fc16378e29bc9b34de02122fbdcbc2c2ff17aa7c6296afdaf6edbe42046e6a",
+      "inspection": "full fresh V3 source/contract metadata"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-batching-regression-v3/manifest.json",
+      "bytes": 6877,
+      "sha256": "9d0ede50373160328b6935fb1e5b81a560bebab262c58cabd30d10a9f06de8d4",
+      "inspection": "full fresh V3 source/contract metadata"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-batching-regression-v3/basepins.json",
+      "bytes": 6681,
+      "sha256": "434a67b16d97f25936fd505aaa9e686fc30ca0c13b287ebe142afa738d2f2bd5",
+      "inspection": "full fresh V3 source/contract metadata"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-batching-regression-v3/freeze.json",
+      "bytes": 3291,
+      "sha256": "f4111e0da73f144878ec32b60326353fe943fbf376ce5dde1c57da1bb852791d",
+      "inspection": "full fresh V3 source/contract metadata"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-batching-regression-v2/candidate/tests/test_feature_batch_invariance.py",
+      "bytes": 17550,
+      "sha256": "98141d01ba08c1b8fa50f804c7055e876d10dbfbc1cd6e456f84f3d7d0c40538",
+      "inspection": "full V2->V3 stdlib textual/AST comparison"
+    },
+    {
+      "path": "/tmp/tlab-r3-batching-source-review-v1.md",
+      "bytes": 4689,
+      "sha256": "d9f50353c0c3eb4beaea146844d1f92100544cf321b8665a7ff7e61d15f184b5",
+      "inspection": "own immutable prior finding/qualification or hash guard"
+    },
+    {
+      "path": "/tmp/tlab-r3-batching-source-review-v1-pins.json",
+      "bytes": 5332,
+      "sha256": "dc6344dbfc1a18d7985e945053339241eed452cdfb2aa081c5fdd14bfad3e5b3",
+      "inspection": "own immutable prior finding/qualification or hash guard"
+    },
+    {
+      "path": "/tmp/tlab-r3-batching-source-review-v1-freeze.json",
+      "bytes": 861,
+      "sha256": "2453211d30c2f2554e19c704e117d2dc703d4df54a03810d8bd99307cfee2e68",
+      "inspection": "own immutable prior finding/qualification or hash guard"
+    },
+    {
+      "path": "/tmp/tlab-r3-batching-source-review-v2.md",
+      "bytes": 2779,
+      "sha256": "ad551ed43195ad0915e561a1add88d1f847436765c79a1e7c23ea30fe0e0dd2a",
+      "inspection": "own immutable prior finding/qualification or hash guard"
+    },
+    {
+      "path": "/tmp/tlab-r3-batching-source-review-v2-pins.json",
+      "bytes": 6947,
+      "sha256": "d5f5851d471e60cc5858c3cfa0d658fc7ea37437b200839b328a3dc6eeef1539",
+      "inspection": "own immutable prior finding/qualification or hash guard"
+    },
+    {
+      "path": "/tmp/tlab-r3-batching-source-review-v2-freeze.json",
+      "bytes": 989,
+      "sha256": "e8756ab7defe7e555afd7366c4e4314a0d2b499462c95a65d640b67619aa02ad",
+      "inspection": "own immutable prior finding/qualification or hash guard"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/manual_features.py",
+      "bytes": 26364,
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "inspection": "fresh hash of same previously reviewed frozen compiler/helper/config dependency"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/feature_programs.py",
+      "bytes": 14019,
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "inspection": "fresh hash of same previously reviewed frozen compiler/helper/config dependency"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/anchor_pilot.py",
+      "bytes": 20747,
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "inspection": "fresh hash of same previously reviewed frozen compiler/helper/config dependency"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/candidate_pilot.py",
+      "bytes": 19102,
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "inspection": "fresh hash of same previously reviewed frozen compiler/helper/config dependency"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/protocol_manifest.py",
+      "bytes": 11864,
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "inspection": "fresh hash of same previously reviewed frozen compiler/helper/config dependency"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/temporal_contract.py",
+      "bytes": 6184,
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "inspection": "fresh hash of same previously reviewed frozen compiler/helper/config dependency"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_feature_programs_all_bundles_rich.py",
+      "bytes": 22526,
+      "sha256": "8b0e0fa999ed30c0e6e51e185fe2c33d5bcb72f0df9efc5b65e0cf2baf068e6e",
+      "inspection": "fresh hash of same previously reviewed frozen compiler/helper/config dependency"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/configs/features/manual-18.json",
+      "bytes": 3631,
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "inspection": "fresh hash of same previously reviewed frozen compiler/helper/config dependency"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/configs/features/automation-pool.json",
+      "bytes": 2713,
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+      "inspection": "fresh hash of same previously reviewed frozen compiler/helper/config dependency"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/configs/protocols/clock-48h.json",
+      "bytes": 1403,
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "inspection": "fresh hash of same previously reviewed frozen compiler/helper/config dependency"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/uv.lock",
+      "bytes": 300283,
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "inspection": "fresh hash of same previously reviewed frozen compiler/helper/config dependency"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/manifest.json",
+      "bytes": 170955,
+      "sha256": "d78611b5190f69a7fc33ce09e0a92ff79cd5c0b0c59013aac77e651c4319c27b",
+      "inspection": "fresh shared snapshot hash authority"
+    }
+  ],
+  "verdict": "SOURCE PASS; same-anchor gap closed in source; runtime UNRUN",
+  "EVENTS_AST_unchanged": true,
+  "unchanged_function_AST": [
+    "expected_extra",
+    "compile_schedule",
+    "candidate_conditioned",
+    "execute",
+    "stale_connect"
+  ],
+  "source_counts": {
+    "events": 22,
+    "queries": 4,
+    "candidates": 6,
+    "total_relation_inputs": 32,
+    "first_day_queries": 3,
+    "second_day_queries": 1
+  },
+  "source_work_bounds": {
+    "normal_compiler_calls": 63,
+    "mutant_compiler_calls": 6,
+    "compiler_calls": 69,
+    "anchor_batches": 89,
+    "connections": 30
+  },
+  "word_count": 527,
+  "cost": "UNKNOWN",
+  "project_execution": false,
+  "canonical_or_Git_mutation": false
+}

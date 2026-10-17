@@ -140,14 +140,20 @@ class DevelopmentCLI(unittest.TestCase):
                                    ('negative', 'u4', None, frozenset())], [0, 0, 1, 3], [1, 2, 3, 4], [1, 0, 0, 0])
         self.preparations, self.selections, self.choices = [], [], [2]
         self.on_select = lambda: None
+        self.verifications = []
         def verify(path, *, check):
             check()
+            self.verifications.append(Path(path).name)
             return deepcopy(self.collections[Path(path).name])
+        def legacy_verify(*args, **kwargs):
+            raise AssertionError('CLI bypassed its strict runtime verification gate')
         def prepare(collection, *, max_queries, max_rows, check):
             check()
             self.preparations.append((collection['phase']['role'], max_queries, max_rows))
             return self.train if collection['phase']['role'] == 'train' else self.validation
-        b.verify_collection, b.prepare_dataset = verify, prepare
+        # Lifecycle-only doubles; actual strict CLI lineage has its own tiny-bundle tests.
+        b.prepare_dataset = prepare
+        b.verify_collection = legacy_verify
         self.environment_formats = []
         def environment(*, platform_format):
             self.assertEqual(platform_format, 'kernel')
@@ -175,7 +181,8 @@ class DevelopmentCLI(unittest.TestCase):
         def fit(*args, **kwargs):
             self.helper_calls.append(args)
             return helper.fit_development(*args, **kwargs)
-        self.runtime = SimpleNamespace(np=np, b=b, Classifier=FakeClassifier, fit=fit)
+        self.runtime = SimpleNamespace(np=np, b=b, Classifier=FakeClassifier, fit=fit,
+                                       verify_collection=verify)
         self.addCleanup(patch.stopall)
         patch.dict(sys.modules, {'catboost': cb, 'scripts.train_baselines': b,
                                  'scripts.adaptive_tree_selection': selector}).start()
@@ -206,6 +213,7 @@ class DevelopmentCLI(unittest.TestCase):
         self.assertEqual((first['selected_trees'], second['selected_trees']), (2, 4))
         self.assertEqual((first['trained_ceiling'], second['trained_ceiling']), (5, 5))
         self.assertEqual(len(self.helper_calls), 2)
+        self.assertEqual(self.verifications, ['train.json', 'validation.json']*2)
         self.assertEqual(self.environment_formats, ['kernel', 'kernel'])
         self.assertEqual(FakeClassifier.counts, dict(fit=2, shrink=2, save=4, load=2, predict=6))
         for name, best in (('first', 2), ('second', 4)):

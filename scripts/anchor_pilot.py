@@ -334,6 +334,7 @@ def run(config_path, db_path, output_root, *, seconds=1800):
     ledger.connection = con
     manifest['artifact_refs']['report'] = (directory / 'report.json').relative_to(ROOT).as_posix()
     timer = deadline.interrupt_timer(con)
+    primary_error = None
     try:
         deadline.check()
         con.execute('SET threads=2')
@@ -355,18 +356,29 @@ def run(config_path, db_path, output_root, *, seconds=1800):
         manifest['artifact_refs']['report'] = (directory / 'report.json').relative_to(ROOT).as_posix()
         deadline.check()
         report['status'] = 'complete'
-    except Exception as error:
+    except BaseException as error:
+        primary_error = error
         report.update(status='failed', error_type=type(error).__name__, error=str(error))
         raise
     finally:
         timer.cancel()
-        con.close()
+        cleanup_error = None
+        try:
+            con.close()
+        except BaseException as error:
+            cleanup_error = error
+            report.update(status='failed', cleanup_errors=[dict(operation='close_connection',
+                          error_type=type(error).__name__, error=str(error))])
+            if primary_error is None:
+                report.update(error_type=type(error).__name__, error=str(error))
         report.update(seconds=time.monotonic() - started, process_peak_rss_bytes=peak_rss_bytes(),
                       temp_disk_bytes_after_close=directory_bytes(temp))
         save_json(directory / 'report.json', report)
         write_run_manifest(manifest, directory / 'run.json')
         print(json.dumps({'status': report['status'], 'run_id': manifest['run_id'],
                           'seconds': report['seconds'], 'report': str(directory / 'report.json')}), flush=True)
+        if cleanup_error is not None and primary_error is None:
+            raise cleanup_error
     return report
 
 

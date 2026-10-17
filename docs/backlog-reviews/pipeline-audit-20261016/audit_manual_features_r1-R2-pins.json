@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "reviewer": "/root/audit_manual_features_r1",
+  "stage": "R2",
+  "HEAD": "c538de4097322715fccac494e2b2becc3279e8e1",
+  "shared_manifest_sha256": "7e2e871f148beac5b9fce3aa23970b370db0c8fdc9eac89958fb6342a4d2a41a",
+  "peer_freeze_outputs_match": true,
+  "own_FIRST_immutable": {
+    "audit_manual_features_r1-FIRST.md": "4d15ce66187799b15fd1f811a77bb1d064e2d34d42e736e08aba83e76cee71d7",
+    "audit_manual_features_r1-pins.json": "a448d1cf0f722e04806d7c7b82ef31ae19c2167649644449cce9c17e56a392d7",
+    "audit_manual_features_r1-freeze.json": "04aeffc505d89620d564f46f9f8a08417038b5bb1ff35813d0b2192e8066c3d1"
+  },
+  "sources": [
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160,
+      "inspection": "38–108,194–229; prior FIRST full source retained; runner310,377,384 rechecked",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/train_baselines.py",
+      "sha256": "626addc85304d926611301c764f7010b4a2b42fedf313f5f319e20264b271d8b",
+      "bytes": 35665,
+      "inspection": "94–145,188–267,529–555; reserved/full projection/caller trace",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909,
+      "inspection": "26–84; feature registry searches and563–565 caller (prior FIRST read)",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/model_data.py",
+      "sha256": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+      "bytes": 13774,
+      "inspection": "89–116; duplicate-name and projection symbol matches",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590,
+      "inspection": "43–61",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "inspection": "15–65,98–151",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/feature_program_collection.py",
+      "sha256": "b3e05d85d97afc26d8cbda8627d3bfffc46ad6a037d03beb1c0c6d5d807ef84f",
+      "bytes": 34940,
+      "inspection": "registry/schema/caller symbol matches only; prior FIRST411–435",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "inspection": "registry-related symbol search only; prior FIRST65–145",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/metadata_price_features.py",
+      "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+      "bytes": 36920,
+      "inspection": "retrieval/missing/numeric declaration symbol matches only",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_manual_features.py",
+      "sha256": "f8a7729909c2a661ec721aad35ea8dca15410d9ef2f8fe4b22f566456a0ef95a",
+      "bytes": 21324,
+      "inspection": "registry rejection/runner related symbol matches; prior FIRST full",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_train_baselines.py",
+      "sha256": "65a713fc613dc37e9a9f27b31d70ad62673c08cdd5facfeb1e2cfe450a529190",
+      "bytes": 26193,
+      "inspection": "numeric helper/lineage related symbol matches; prior FIRST scoped",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "bytes": 3631,
+      "inspection": "prior FIRST full; witness rename references verified",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/manual-features.md",
+      "sha256": "789fa3c8e58472c9208bb5a71baca93892af93c1836d0bfceab3f3faa45ffc55",
+      "bytes": 12695,
+      "inspection": "registry/custom-name symbol matches; prior FIRST full",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/feature-programs.md",
+      "sha256": "ff2353c32b897583a4fb99aa89bf6e77aa479c64a88ead7c52792e537d3c0bcf",
+      "bytes": 7796,
+      "inspection": "frozen-base acceptance qualification symbol match24",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/boosting-baselines.md",
+      "sha256": "ae80fde081432b9feff3dd40ac05d0293dc3dfdf6d0602a9c98a9a7672ae4792",
+      "bytes": 16805,
+      "inspection": "numeric matrix/retrieval symbol match11",
+      "shared_manifest_match": true
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-FIRST.md",
+      "sha256": "10c0e09f4ec4a8408fa5bd77558b5057f34bbb418005b677d30038c47af6b083",
+      "bytes": 8089,
+      "inspection": "full crossed peer report",
+      "shared_manifest_match": null
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-pins.json",
+      "sha256": "5551a527a698c81e7b9f3ec66d0fc97543047b6bdc7af5c166ff4e69027489d9",
+      "bytes": 17634,
+      "inspection": "metadata/pin map",
+      "shared_manifest_match": null
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-freeze.json",
+      "sha256": "4674e16ca6a7cae7abf1c759b78852d220712c83b9ff9fc2471b80f6944dbbe0",
+      "bytes": 1067,
+      "inspection": "full peer freeze/readback",
+      "shared_manifest_match": null
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-FIRST.md",
+      "sha256": "4d15ce66187799b15fd1f811a77bb1d064e2d34d42e736e08aba83e76cee71d7",
+      "bytes": 8848,
+      "inspection": "immutable own FIRST checked",
+      "shared_manifest_match": null
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-pins.json",
+      "sha256": "a448d1cf0f722e04806d7c7b82ef31ae19c2167649644449cce9c17e56a392d7",
+      "bytes": 11522,
+      "inspection": "immutable own FIRST pins checked",
+      "shared_manifest_match": null
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_manual_features_r1-freeze.json",
+      "sha256": "04aeffc505d89620d564f46f9f8a08417038b5bb1ff35813d0b2192e8066c3d1",
+      "bytes": 1027,
+      "inspection": "immutable own FIRST freeze checked",
+      "shared_manifest_match": null
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/dispatch.md",
+      "sha256": "9fc6919633be1563de2624f89a17667c096c02385e3b52438cb42f9070604826",
+      "bytes": 5314,
+      "inspection": "prior FIRST full contract",
+      "shared_manifest_match": null
+    }
+  ],
+  "witnesses": "A/B hand-derived from text; not executed",
+  "execution": "text/hash/JSON/report packaging only",
+  "verdict": "CONFIRM P3; derived missing-flag route supplements direct age-name collision"
+}

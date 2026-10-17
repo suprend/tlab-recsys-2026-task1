@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "reviewer": "/root/audit_feature_leakage_r1",
+  "UTC": "2026-10-16T22:30:22.869913+00:00",
+  "stage": "FIRST_FROZEN_STOP",
+  "manifest_sha256": "7e2e871f148beac5b9fce3aa23970b370db0c8fdc9eac89958fb6342a4d2a41a",
+  "frozen_HEAD": "c538de4097322715fccac494e2b2becc3279e8e1",
+  "source_pin_count": 44,
+  "source_readback_all_match": true,
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-FIRST.md",
+      "bytes": 8089,
+      "sha256": "10c0e09f4ec4a8408fa5bd77558b5057f34bbb418005b677d30038c47af6b083"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_leakage_r1-pins.json",
+      "bytes": 17634,
+      "sha256": "5551a527a698c81e7b9f3ec66d0fc97543047b6bdc7af5c166ff4e69027489d9"
+    }
+  ],
+  "executed_verification": "stdlib hash/JSON/text readback only",
+  "project_execution": false,
+  "findings": [
+    {
+      "id": "F1",
+      "priority": "P3",
+      "current_frozen_configs_affected": false
+    }
+  ],
+  "no_sibling_FIRST_read": true
+}

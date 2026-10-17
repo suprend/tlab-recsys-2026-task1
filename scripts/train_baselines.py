@@ -6,6 +6,7 @@ Raw IDs are join keys only; all selection queries and full targets are retained.
 from dataclasses import asdict, dataclass
 from pathlib import Path
 import hashlib
+import re
 import time
 import uuid
 
@@ -187,12 +188,14 @@ def validate_training_phases(train, selection, config):
 
 def numeric_feature_names(columns):
     excluded = {'query_id', 'user_id', 'product_id', 'anchor', 'candidate_category_id', 'last_user_event_time'}
+    if any(not isinstance(c, str) or not re.fullmatch(r'[a-z][a-z0-9_]*', c) for c in columns):
+        raise ValueError('Unsafe/duplicate feature columns')
     if not excluded <= set(columns):
         raise ValueError('Expected complete manual feature schema')
-    result = [c for c in columns if c not in excluded]
-    if any(not c.replace('_', '').isalnum() for c in result) or len(result) != len(set(result)):
+    result = [c for c in columns if c not in excluded] + ['retrieval_last_event_age_seconds', 'retrieval_last_event_missing']
+    if len(columns) != len(set(columns)) or len(result) != len(set(result)):
         raise ValueError('Unsafe/duplicate feature columns')
-    return result + ['retrieval_last_event_age_seconds', 'retrieval_last_event_missing']
+    return result
 
 
 @dataclass

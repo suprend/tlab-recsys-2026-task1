@@ -17,6 +17,7 @@ SCHEMA = {
     'price': 'DECIMAL(12,2)', 'user_id': 'BIGINT', 'user_session': 'VARCHAR',
 }
 SOURCE_URL = 'https://data.rees46.com/datasets/marketplace/2019-Oct.csv.gz'
+CACHE_WITNESS_FORMAT = 'eda-cache-physical-sha256-v1'
 
 
 def encode(value):
@@ -42,16 +43,94 @@ def query(connection, name, sql, params=None):
     return result
 
 
-def connect(db, read_only=False, threads=4, memory='6GB'):
+def cache_witness_path(db):
+    # Derived metadata beside the DB (the default data/ directory is ignored).
+    return db.with_name(db.name + '.eda-cache.json')
+
+
+def cache_error(reason):
+    return ValueError(f'EDA cache {reason}; choose a new --db path or independently verify '
+                      'this cache. Existing files will not be adopted or rebuilt automatically.')
+
+
+def database_fingerprint(db):
+    """Hash a closed/checkpointed file; concurrent writers are unsupported."""
+    wal = db.with_name(db.name + '.wal')
+    if wal.exists() or wal.is_symlink():
+        raise cache_error('has an unexpected WAL')
+    if not db.is_file():
+        raise cache_error('is not a regular database file')
+    before = db.stat()
+    checksum = hashlib.sha256()
+    size = 0
+    with db.open('rb') as stream:
+        while chunk := stream.read(8 * 1024 * 1024):
+            checksum.update(chunk)
+            size += len(chunk)
+    after = db.stat()
+    fields = ('st_dev', 'st_ino', 'st_size', 'st_mtime_ns', 'st_ctime_ns')
+    if (tuple(getattr(before, field) for field in fields) !=
+            tuple(getattr(after, field) for field in fields) or size != after.st_size or
+            wal.exists() or wal.is_symlink()):
+        raise cache_error('changed while its content witness was checked')
+    return {'database_sha256': checksum.hexdigest(), 'database_bytes': size}
+
+
+def verify_cache(db, source_sha256=None):
+    """Fail closed for legacy/mutated caches; never create or refresh evidence here."""
+    try:
+        witness = json.loads(cache_witness_path(db).read_text(encoding='utf-8'))
+    except (OSError, ValueError) as error:
+        raise cache_error('has no readable content witness') from error
+    keys = {'format', 'source_sha256', 'database_sha256', 'database_bytes'}
+    valid_sha = lambda value: (isinstance(value, str) and len(value) == 64 and
+                               all(char in '0123456789abcdef' for char in value))
+    if (not isinstance(witness, dict) or set(witness) != keys or
+            witness['format'] != CACHE_WITNESS_FORMAT or
+            not valid_sha(witness['source_sha256']) or not valid_sha(witness['database_sha256']) or
+            type(witness['database_bytes']) is not int or witness['database_bytes'] < 0):
+        raise cache_error('has an invalid content witness')
+    if source_sha256 is not None and witness['source_sha256'] != source_sha256:
+        raise cache_error('belongs to another source')
+    actual = database_fingerprint(db)
+    if any(witness[key] != value for key, value in actual.items()):
+        raise cache_error('does not match its recorded content witness')
+    return witness
+
+
+def seal_cache(db, source_sha256):
+    # Only the fresh ingest path may seal. Exclusive ownership must continue through
+    # checkpoint, close and publication; this is drift detection, not adversarial proof.
+    witness = {'format': CACHE_WITNESS_FORMAT, 'source_sha256': source_sha256,
+               **database_fingerprint(db)}
+    with cache_witness_path(db).open('x', encoding='utf-8') as stream:
+        json.dump(witness, stream, indent=2)
+        stream.write('\n')
+    if verify_cache(db, source_sha256) != witness:
+        raise cache_error('witness changed during publication')
+
+
+def connect(db, read_only=False, threads=4, memory='6GB', source_sha256=None):
+    witness = verify_cache(db, source_sha256) if read_only else None
+    if not read_only and (db.exists() or db.is_symlink()):
+        raise cache_error('requires a fresh path for writable ingest')
     db.parent.mkdir(parents=True, exist_ok=True)
     connection = duckdb.connect(str(db), read_only=read_only)
-    connection.execute(f"SET threads={int(threads)}")
-    connection.execute(f"SET memory_limit='{memory}'")
-    connection.execute('SET preserve_insertion_order=false')
-    temp = db.parent.parent / 'tmp' / 'duckdb'
-    temp.mkdir(parents=True, exist_ok=True)
-    connection.execute('SET temp_directory=?', [str(temp)])
-    connection.execute("SET max_temp_directory_size='80GB'")
+    try:
+        # Check again before any query: a file replacement between precheck and
+        # native open must not quietly become the accepted connection.
+        if read_only and verify_cache(db, source_sha256) != witness:
+            raise cache_error('witness changed while opening the database')
+        connection.execute(f"SET threads={int(threads)}")
+        connection.execute(f"SET memory_limit='{memory}'")
+        connection.execute('SET preserve_insertion_order=false')
+        temp = db.parent.parent / 'tmp' / 'duckdb'
+        temp.mkdir(parents=True, exist_ok=True)
+        connection.execute('SET temp_directory=?', [str(temp)])
+        connection.execute("SET max_temp_directory_size='80GB'")
+    except Exception:
+        connection.close()
+        raise
     return connection
 
 
@@ -69,30 +148,41 @@ def ingest(source, db):
         recorded = json.loads(manifest.read_text())
         if recorded.get('sha256') != fingerprint or recorded.get('compressed_bytes') != source.stat().st_size:
             raise ValueError('Source does not match the verified download manifest.')
-    con = connect(db, memory='8GB')
-    existing = con.execute("SELECT count(*) FROM information_schema.tables WHERE table_name='events'").fetchone()[0]
-    if existing:
-        meta = con.execute('SELECT source_sha256 FROM ingest_metadata').fetchone()[0]
-        if meta != fingerprint:
-            raise ValueError('Existing database belongs to another source; choose a new --db path.')
-        print('[ingest] using existing verified-source table', flush=True)
+    if db.exists() or db.is_symlink():
+        con = connect(db, read_only=True, memory='8GB', source_sha256=fingerprint)
+        try:
+            meta = con.execute('SELECT source_sha256 FROM ingest_metadata').fetchone()[0]
+            if meta != fingerprint:
+                raise cache_error('metadata belongs to another source')
+            rows = con.execute('SELECT count(*) FROM events').fetchone()[0]
+        finally:
+            con.close()
+        print('[ingest] using existing verified-source and content-witness table', flush=True)
     else:
+        witness_path = cache_witness_path(db)
+        wal = db.with_name(db.name + '.wal')
+        if witness_path.exists() or witness_path.is_symlink() or wal.exists() or wal.is_symlink():
+            raise cache_error('has orphaned witness or WAL files')
         print('[ingest] reading entire gzip with strict typed CSV parser', flush=True)
         schema_literal = '{' + ','.join(f"'{key}':'{value}'" for key, value in SCHEMA.items()) + '}'
-        con.execute('BEGIN TRANSACTION')
+        con = connect(db, memory='8GB')
         try:
-            con.execute(f"""CREATE TABLE events AS SELECT * FROM read_csv(?,
-                columns={schema_literal}, header=true, timestampformat='%Y-%m-%d %H:%M:%S UTC',
-                nullstr='', ignore_errors=false, strict_mode=true)""", [str(source)])
-            con.execute('CREATE TABLE ingest_metadata(source_sha256 VARCHAR, source_bytes BIGINT, source_url VARCHAR)')
-            con.execute('INSERT INTO ingest_metadata VALUES (?,?,?)', [fingerprint, source.stat().st_size, SOURCE_URL])
-            con.execute('COMMIT')
-        except Exception:
-            con.execute('ROLLBACK')
-            raise
-        con.execute('CHECKPOINT')
-    rows = con.execute('SELECT count(*) FROM events').fetchone()[0]
-    con.close()
+            con.execute('BEGIN TRANSACTION')
+            try:
+                con.execute(f"""CREATE TABLE events AS SELECT * FROM read_csv(?,
+                    columns={schema_literal}, header=true, timestampformat='%Y-%m-%d %H:%M:%S UTC',
+                    nullstr='', ignore_errors=false, strict_mode=true)""", [str(source)])
+                con.execute('CREATE TABLE ingest_metadata(source_sha256 VARCHAR, source_bytes BIGINT, source_url VARCHAR)')
+                con.execute('INSERT INTO ingest_metadata VALUES (?,?,?)', [fingerprint, source.stat().st_size, SOURCE_URL])
+                con.execute('COMMIT')
+            except Exception:
+                con.execute('ROLLBACK')
+                raise
+            rows = con.execute('SELECT count(*) FROM events').fetchone()[0]
+            con.execute('CHECKPOINT')
+        finally:
+            con.close()
+        seal_cache(db, fingerprint)
     print(f'[ingest] complete: {rows:,} rows; {time.monotonic()-started:.1f}s', flush=True)
     return {'sha256': fingerprint, 'compressed_bytes': source.stat().st_size, 'rows': rows}
 

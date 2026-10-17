@@ -1,0 +1,248 @@
+{
+  "version": 1,
+  "audit": "audit_manual_features_r1",
+  "mode": "read-only static FIRST",
+  "HEAD": "c538de4097322715fccac494e2b2becc3279e8e1",
+  "shared_manifest_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/manifest.json",
+  "shared_manifest_sha256": "7e2e871f148beac5b9fce3aa23970b370db0c8fdc9eac89958fb6342a4d2a41a",
+  "sources": [
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/dispatch.md",
+      "original_path": null,
+      "sha256": "9fc6919633be1563de2624f89a17667c096c02385e3b52438cb42f9070604826",
+      "bytes": 5314,
+      "inspected_scope": "full contract",
+      "matches_shared_manifest": null
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/00-AGENTS.md",
+      "original_path": null,
+      "sha256": "25076d696b7550f423f0a19a151585ef12a2ac2444eee6677b1e00c95b7fa8b1",
+      "bytes": 12407,
+      "inspected_scope": "full",
+      "matches_shared_manifest": null
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/01-SKILL.md",
+      "original_path": null,
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+      "bytes": 10077,
+      "inspected_scope": "full",
+      "matches_shared_manifest": null
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/02-SKILL.md",
+      "original_path": null,
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2",
+      "bytes": 22428,
+      "inspected_scope": "full",
+      "matches_shared_manifest": null
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/03-coordination.md",
+      "original_path": null,
+      "sha256": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb",
+      "bytes": 5230,
+      "inspected_scope": "full",
+      "matches_shared_manifest": null
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/04-verification.md",
+      "original_path": null,
+      "sha256": "d84015a05b7ebc9c4bdc570e75e0a62fbcbe134217a367715fbf5e2acc1e69ec",
+      "bytes": 7124,
+      "inspected_scope": "full",
+      "matches_shared_manifest": null
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/manual_features.py",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160,
+      "inspected_scope": "full",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/features/manual-18.json",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "bytes": 3631,
+      "inspected_scope": "full",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_manual_features.py",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_manual_features.py",
+      "sha256": "f8a7729909c2a661ec721aad35ea8dca15410d9ef2f8fe4b22f566456a0ef95a",
+      "bytes": 21324,
+      "inspected_scope": "full",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/temporal_contract.py",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "inspected_scope": "full",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/candidate_pilot.py",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "bytes": 18557,
+      "inspected_scope": "1–120; related symbol searches",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/protocol_manifest.py",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "inspected_scope": "65–145; related symbol searches",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/heuristic_baselines.py",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heuristic_baselines.py",
+      "sha256": "db00b2375fed1083d4bf9b45ef4535793d36ffeaa537050a07e99c61dad13ee4",
+      "bytes": 22853,
+      "inspected_scope": "75–180,206–284; related symbol searches",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/development_collection.py",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909,
+      "inspected_scope": "155–215,330–440,550–572; caller searches",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/feature_program_collection.py",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_program_collection.py",
+      "sha256": "b3e05d85d97afc26d8cbda8627d3bfffc46ad6a037d03beb1c0c6d5d807ef84f",
+      "bytes": 34940,
+      "inspected_scope": "411–435; caller searches",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/train_baselines.py",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "sha256": "626addc85304d926611301c764f7010b4a2b42fedf313f5f319e20264b271d8b",
+      "bytes": 35665,
+      "inspected_scope": "180–275; numeric-feature symbol searches; auxiliary reviewer schema comparisons",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/inference_data.py",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/scripts/inference_data.py",
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+      "bytes": 9074,
+      "inspected_scope": "full",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_train_baselines.py",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/tests/test_train_baselines.py",
+      "sha256": "65a713fc613dc37e9a9f27b31d70ad62673c08cdd5facfeb1e2cfe450a529190",
+      "bytes": 26193,
+      "inspected_scope": "96–111,155–178; auxiliary reviewer related physical-boundary context",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/manual-features.md",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/manual-features.md",
+      "sha256": "789fa3c8e58472c9208bb5a71baca93892af93c1836d0bfceab3f3faa45ffc55",
+      "bytes": 12695,
+      "inspected_scope": "full",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/label-blind-inference.md",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/label-blind-inference.md",
+      "sha256": "9f3283186ec03c67051e2a1b8faedf68a41b6dde66ac39b1c0f27a17669009f3",
+      "bytes": 3972,
+      "inspected_scope": "full",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/boosting-baselines.md",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/boosting-baselines.md",
+      "sha256": "ae80fde081432b9feff3dd40ac05d0293dc3dfdf6d0602a9c98a9a7672ae4792",
+      "bytes": 16805,
+      "inspected_scope": "auxiliary reviewer full; root author search hits only",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/verification-workflow.md",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/verification-workflow.md",
+      "sha256": "4517f193ef18770dcbcc5c8f9c77b2f449ce16ee73e2845ecbe0ed809adf50c1",
+      "bytes": 17319,
+      "inspected_scope": "1–70",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog.md",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "sha256": "62bbaff8f19d2860ee849075b379a0fa7f7967c0c05b4c700655377541147305",
+      "bytes": 209404,
+      "inspected_scope": "233–267,280–286,318–321; related manual/duplication/schema keyword hits",
+      "matches_shared_manifest": true
+    },
+    {
+      "snapshot_path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/research-lab/index.md",
+      "original_path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "sha256": "3a07a80af1b0698626427332fc7710d784897db18d7340846a4a410a9b85e20d",
+      "bytes": 49445,
+      "inspected_scope": "1–108; related keyword hits only",
+      "matches_shared_manifest": true
+    }
+  ],
+  "statically_derived_ordered_B41": [
+    "from_popular",
+    "from_recent",
+    "popularity_distinct_users",
+    "popular_source_rank",
+    "recent_source_rank",
+    "candidate_category_ambiguous",
+    "candidate_category_missing",
+    "item_has_observed_history",
+    "user_has_observed_history",
+    "item_observed_age_seconds",
+    "user_observed_age_seconds",
+    "user_view_7d",
+    "user_cart_7d",
+    "user_purchase_7d",
+    "user_distinct_viewed_items_7d",
+    "pair_view_7d",
+    "pair_cart_7d",
+    "pair_purchase_7d",
+    "pair_view_recency_seconds",
+    "pair_purchase_recency_seconds",
+    "item_view_24h",
+    "item_purchase_24h",
+    "item_distinct_viewers_7d",
+    "user_category_view_7d",
+    "user_category_view_recency_seconds",
+    "item_category_view_7d",
+    "category_view_7d",
+    "source_coverage_24h",
+    "source_coverage_168h",
+    "user_category_view_share_7d",
+    "item_category_view_share_7d",
+    "pair_view_recency_seconds_missing",
+    "pair_purchase_recency_seconds_missing",
+    "user_category_view_7d_missing",
+    "user_category_view_share_7d_missing",
+    "user_category_view_recency_seconds_missing",
+    "item_category_view_7d_missing",
+    "category_view_7d_missing",
+    "item_category_view_share_7d_missing",
+    "retrieval_last_event_age_seconds",
+    "retrieval_last_event_missing"
+  ],
+  "executed": "text/hash/report packaging only; no SQL/tests/project imports/DB/ML/native",
+  "independence": "No current audit peer FIRST/report conclusions read. Auxiliary child independently mapped only physical B41, then source verified. Early broad symbol search surfaced historical report snippets; those claims were not used as runtime/current-code proof. No historical report body intentionally opened.",
+  "external_context": []
+}

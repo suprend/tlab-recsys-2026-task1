@@ -1,0 +1,211 @@
+{
+  "version": 1,
+  "reviewer": "/root/audit_training_matrix_r1",
+  "status": "qualified_SOURCE_PASS",
+  "scope": "One actual synthetic selected-F57 preparation/append/inference test source; not runtime",
+  "sources": [
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/feature_program_collection.py",
+      "sha256": "b3e05d85d97afc26d8cbda8627d3bfffc46ad6a037d03beb1c0c6d5d807ef84f",
+      "bytes": 34940,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/metadata_price_collection.py",
+      "sha256": "59565643f58a3b34bb716c6cc071d7e1802d79aaf0b707e1537459b0a5377afa",
+      "bytes": 37105,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/metadata_price_features.py",
+      "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+      "bytes": 36920,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/train_baselines.py",
+      "sha256": "b25dc30cc7265dddb3cbf910edff12cc4bcf220161c86c59a7d3fa33cf129bed",
+      "bytes": 35812,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/model_data.py",
+      "sha256": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+      "bytes": 13774,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/program_model_data.py",
+      "sha256": "1ee9c2fdbec93984e71f0edd055dbbf9046c2d4805eaa0c80f3f0e29bd5c06b1",
+      "bytes": 10122,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/inference_data.py",
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+      "bytes": 9074,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/anchor_pilot.py",
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "bytes": 20747,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/candidate_pilot.py",
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "bytes": 19102,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/development_collection.py",
+      "sha256": "0aaf7a53236863540a86a77730215d1c5e106bf29f9440402a8527a03e717736",
+      "bytes": 36058,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_feature_programs_all_bundles_rich.py",
+      "sha256": "8b0e0fa999ed30c0e6e51e185fe2c33d5bcb72f0df9efc5b65e0cf2baf068e6e",
+      "bytes": 22526,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "bytes": 3631,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/configs/features/automation-pool.json",
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+      "bytes": 2713,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-audit-next-features-FIRST.md",
+      "sha256": "e43fa3eef6258de27747ff334765e1e8b8cc4c6bde37da678da69b5ef9294043",
+      "bytes": 8935,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-audit-next-features-FIRST-pins.json",
+      "sha256": "38d6ae8758b92e69c1c52769da4b94813a014b9556f88b1b5afb7ef7903f34e7",
+      "bytes": 6762,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-audit-next-features-FIRST-freeze.json",
+      "sha256": "c6a4d505d28f3f04d5ae8e0411c94710c198debae0101a268f0dd919bef4fad0",
+      "bytes": 603,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-audit-next-skeptic-v1.md",
+      "sha256": "68d1089dcffc13398b8e17ba023e8a5c6d9a4e2d466e79fecae1b1d062b7a4c2",
+      "bytes": 7679,
+      "inspection": "relevant source/context regions; transitive imports/hash checked"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-train-infer-regression-v1/manifest.json",
+      "sha256": "50d6525496d988a4a25a6938da46fbaad9c10ed717559d58f310b777b6861902",
+      "bytes": 2116,
+      "inspection": "candidate/contract/context inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-train-infer-regression-v1/pins.json",
+      "sha256": "f28c5bee121fcf3f35f6c3a1ea421246a0a1cf389a944b642dc3f8b94e178b47",
+      "bytes": 9724,
+      "inspection": "candidate/contract/context inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-train-infer-regression-v1/freeze.json",
+      "sha256": "e309381ded66fa85f3f1c78ff3065870eb8043e3d3cfa55543df45daf3fc3e20",
+      "bytes": 1207,
+      "inspection": "candidate/contract/context inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-train-infer-regression-v1/handoff.md",
+      "sha256": "fbdfef3845e0f214c53272f98b8081786920949cf06e16d300a886e34f00c6ac",
+      "bytes": 5987,
+      "inspection": "candidate/contract/context inspected"
+    },
+    {
+      "path": "/tmp/tlab-audit-r3-train-infer-regression-v1/candidate/tests/test_selected_program_train_inference_parity.py",
+      "sha256": "fbb4c1ebf218ba4d7f105e9a41a6ae6fe0c0195f13dcf1b7a41cef4a24b38db2",
+      "bytes": 15798,
+      "inspection": "candidate/contract/context inspected"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/manifest.json",
+      "sha256": "d78611b5190f69a7fc33ce09e0a92ff79cd5c0b0c59013aac77e651c4319c27b",
+      "bytes": 170955,
+      "inspection": "candidate/contract/context inspected"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_inference_data.py",
+      "sha256": "fe6bf6a78d0dad50556f1390012beed569c2e2a1451ff85c3b584dae00b44f88",
+      "bytes": 8793,
+      "inspection": "candidate/contract/context inspected"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/tests/test_program_model_data.py",
+      "sha256": "bd54448cbf3b59edd9246574be2fd9276391d8706bddaa634ffd16d3593823f8",
+      "bytes": 7617,
+      "inspection": "candidate/contract/context inspected"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/docs/backlog.md",
+      "sha256": "62bbaff8f19d2860ee849075b379a0fa7f7967c0c05b4c700655377541147305",
+      "bytes": 209404,
+      "inspection": "candidate/contract/context inspected"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-v1/repository/docs/research-lab/index.md",
+      "sha256": "3a07a80af1b0698626427332fc7710d784897db18d7340846a4a410a9b85e20d",
+      "bytes": 49445,
+      "inspection": "candidate/contract/context inspected"
+    }
+  ],
+  "tests_run": false,
+  "project_execution": false,
+  "native_SQL_data_ML_execution": false,
+  "cost": "UNKNOWN",
+  "runtime": "UNRUN"
+}

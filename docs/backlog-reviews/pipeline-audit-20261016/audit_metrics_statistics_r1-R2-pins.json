@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "reviewer": "audit_metrics_statistics_r1",
+  "round": "R2",
+  "manifest_sha256": "7e2e871f148beac5b9fce3aa23970b370db0c8fdc9eac89958fb6342a4d2a41a",
+  "HEAD": "c538de4097322715fccac494e2b2becc3279e8e1",
+  "peer_inputs": [
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_test_coverage_r1-FIRST.md",
+      "sha256": "c82b35aa2043bdeb4ebbfb29971406141eeec19db824ac140f05565e803f7c5e",
+      "bytes": 8377
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_test_coverage_r1-pins.json",
+      "sha256": "dcc241898042c86ba5a7a2cfaef88fa185df9500bd2fc4122ded4587927b19ed",
+      "bytes": 215827
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_test_coverage_r1-freeze.json",
+      "sha256": "c527f288a3c5eb235d7500261ce4b7e74b68d323ae9586d18cc2e14f344bdaa4",
+      "bytes": 838
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-FIRST.md",
+      "sha256": "e74e50ea7abef4b9111d83485e787086dd18cfb34049399960e5a112445c2976",
+      "bytes": 7014
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-pins.json",
+      "sha256": "a4cd87ddca395cae242ad843554a4385fa606c8f4998654d5edffd4dda08e524",
+      "bytes": 12652
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_feature_automation_r1-freeze.json",
+      "sha256": "c59982878f6c69aaafc6113d9bb577adb14ffd0145879b0b2a36b9e909870ad8",
+      "bytes": 839
+    }
+  ],
+  "protected_FIRST": [
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-FIRST.md",
+      "sha256": "44697dccff5bf10e6f07b4b640d509237c2accf8eb99daeff7d5280ec01af74d"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-pins.json",
+      "sha256": "de786572b4ce28f0745d94d359f5bf31b1ecf320375a458d426d5298630fbf5c"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_metrics_statistics_r1-freeze.json",
+      "sha256": "5668eb6560fccec5fb2c31ded91b5791a3e4f67ae95af4a3912905931bdcd8ef"
+    }
+  ],
+  "sources": [
+    {
+      "path": "tests/oracles/feature_program_audit.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/feature_program_audit.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/oracles/feature_program_audit.py",
+      "sha256": "319327b80feb73dba1be9b89d14caea9d775e38979887e866d032633a3a9f0a3",
+      "bytes": 30571,
+      "inspection": "40-245"
+    },
+    {
+      "path": "tests/oracles/feature_program_model_audit.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/feature_program_model_audit.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/oracles/feature_program_model_audit.py",
+      "sha256": "e7d34647450dd8c55e7b1e6aeed8ed050be91316027388136394f69c8246b814",
+      "bytes": 74037,
+      "inspection": "1-410,824-958; dtype/weight/ranking caller search"
+    },
+    {
+      "path": "tests/oracles/heldout_prediction_audit.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_prediction_audit.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/oracles/heldout_prediction_audit.py",
+      "sha256": "3b378274041623ba37dcb5a53a115458f02af4f2665f10821875aaf099d3cf75",
+      "bytes": 17317,
+      "inspection": "full"
+    },
+    {
+      "path": "tests/test_heldout_prediction_audit.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_heldout_prediction_audit.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_heldout_prediction_audit.py",
+      "sha256": "04590eef77abfbd755c17b7711a6fd6977970c5f8db780de64a28b655b3094b5",
+      "bytes": 10572,
+      "inspection": "1-120"
+    },
+    {
+      "path": "tests/test_train_baselines.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_train_baselines.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_train_baselines.py",
+      "sha256": "65a713fc613dc37e9a9f27b31d70ad62673c08cdd5facfeb1e2cfe450a529190",
+      "bytes": 26193,
+      "inspection": "28-79"
+    },
+    {
+      "path": "tests/test_model_data.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_model_data.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_model_data.py",
+      "sha256": "69d05ed5dcd9fafdbc72448aa4c6c3c0df6199d5e949e5f538445a13519a8427",
+      "bytes": 10283,
+      "inspection": "36-100"
+    },
+    {
+      "path": "tests/test_program_model_data.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_program_model_data.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_program_model_data.py",
+      "sha256": "bd54448cbf3b59edd9246574be2fd9276391d8706bddaa634ffd16d3593823f8",
+      "bytes": 7617,
+      "inspection": "38-100"
+    },
+    {
+      "path": "tests/test_ranking_metrics.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_ranking_metrics.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_ranking_metrics.py",
+      "sha256": "2384c596c9028d778d62af2dd81190698dee31442282ecb572c52f4cd469c8c6",
+      "bytes": 10912,
+      "inspection": "7-91,109-174 in R2; full prior FIRST"
+    },
+    {
+      "path": "tests/oracles/heldout_metric_audit.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/heldout_metric_audit.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/oracles/heldout_metric_audit.py",
+      "sha256": "fcbab73cdf74064b3f9ccffd47b0c57e0572638b584e34719d433d82551dccf9",
+      "bytes": 12429,
+      "inspection": "full prior FIRST reused"
+    },
+    {
+      "path": "tests/test_heldout_metric_audit.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_heldout_metric_audit.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_heldout_metric_audit.py",
+      "sha256": "acdf4794eb4a253b3afb5d48d5b7c8603b7f2265e20dfd4c9b9a447a516f4482",
+      "bytes": 9654,
+      "inspection": "full prior FIRST reused"
+    },
+    {
+      "path": "scripts/heldout_evaluation.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_evaluation.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/heldout_evaluation.py",
+      "sha256": "13ff442a599ab2623c7a3fa2316f36ed9ec8015215172edfcee86b8f25f51446",
+      "bytes": 10235,
+      "inspection": "full prior FIRST reused"
+    },
+    {
+      "path": "scripts/ranking_metrics.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971,
+      "inspection": "full prior FIRST reused"
+    }
+  ],
+  "additional_current_context": [],
+  "executed": "static text/hash/readback only",
+  "literal_witness_execution": "UNRUN"
+}

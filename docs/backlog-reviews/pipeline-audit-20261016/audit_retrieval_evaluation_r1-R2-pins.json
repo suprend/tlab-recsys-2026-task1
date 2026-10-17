@@ -1,0 +1,126 @@
+{
+  "reviewer": "audit_retrieval_evaluation_r1",
+  "round": "R2 crossed review",
+  "manifest_sha256": "7e2e871f148beac5b9fce3aa23970b370db0c8fdc9eac89958fb6342a4d2a41a",
+  "HEAD": "c538de4097322715fccac494e2b2becc3279e8e1",
+  "sources": [
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/candidate_pilot.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "c6044b683acafb3d7a90d2310037e65c46699d98b640e46cb1a45f4f4314fa70",
+      "bytes": 18557,
+      "inspected": "20-191; prior FIRST full"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/anchor_pilot.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "bytes": 20181,
+      "inspected": "142-190,288-301; prior FIRST142-277"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/manual_features.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "sha256": "e2558299783a04aba34432fe72c0e7e16e6ddbcbfd074bdf18e8b09eae224103",
+      "bytes": 25160,
+      "inspected": "1-257,300-377; attempted full read truncated other lines"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/train_baselines.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "sha256": "626addc85304d926611301c764f7010b4a2b42fedf313f5f319e20264b271d8b",
+      "bytes": 35665,
+      "inspected": "180-242"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/feature_programs.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "inspected": "1-155"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/development_collection.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "bytes": 34909,
+      "inspected": "205-318,393-428"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/itemcf_projection.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/itemcf_projection.py",
+      "sha256": "a148d3a3032395a1377c387f00093c1320a5df8e4a8bd7939a3928fca79251af",
+      "bytes": 5463,
+      "inspected": "prior FIRST full; R2 cap comparison"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_candidate_pilot.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_candidate_pilot.py",
+      "sha256": "b50a36f51a600def574f6ec7033d732f2ba439498a55e7787671f65a701432c5",
+      "bytes": 9707,
+      "inspected": "1-146 and relevant symbol/edge searches"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_candidate_reachability.py",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_candidate_reachability.py",
+      "sha256": "d0328bc9d1eaa03c8fd6a8e3a45e58a39ce2dc4627940e27ce821a0dee6e7d14",
+      "bytes": 6998,
+      "inspected": "82-106 and relevant symbol/edge searches"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/manifest.json",
+      "sha256": "7e2e871f148beac5b9fce3aa23970b370db0c8fdc9eac89958fb6342a4d2a41a",
+      "bytes": 278545,
+      "inspected": "report/context/hash verification; own FIRST inherited"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/dispatch.md",
+      "sha256": "9fc6919633be1563de2624f89a17667c096c02385e3b52438cb42f9070604826",
+      "bytes": 5314,
+      "inspected": "report/context/hash verification; own FIRST inherited"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_candidates_r1-FIRST.md",
+      "sha256": "9aecc38c843fc5c471543753a9a01dd98076c68abf9c279eab723a5255c1b9d0",
+      "bytes": 7723,
+      "inspected": "report/context/hash verification; own FIRST inherited"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_candidates_r1-pins.json",
+      "sha256": "b0ce6772f9d59abb532e7e9574f0bf2587651e6ac73e3cfbb80929e29e31a205",
+      "bytes": 12921,
+      "inspected": "report/context/hash verification; own FIRST inherited"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_candidates_r1-freeze.json",
+      "sha256": "eaea0ca3cf329753e811dd26bfee5476bdc8f373d39853496efc64989ba4b191",
+      "bytes": 712,
+      "inspected": "report/context/hash verification; own FIRST inherited"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_retrieval_evaluation_r1-FIRST.md",
+      "sha256": "1471f52422d45f654f2c8ef6a11749de7fff109834ef2204138e76a68c9cf782",
+      "bytes": 7238,
+      "inspected": "report/context/hash verification; own FIRST inherited"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_retrieval_evaluation_r1-pins.json",
+      "sha256": "9308b2c146725cf3864ff9e945da831a1eedf58b65fcc17ed9c52cdad38be7ff",
+      "bytes": 22146,
+      "inspected": "report/context/hash verification; own FIRST inherited"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-20261016-v1/reports/audit_retrieval_evaluation_r1-freeze.json",
+      "sha256": "3758c9a09858a5231af9b01b02ca3c0dd821cc49cb8073591a6865955498ee85",
+      "bytes": 807,
+      "inspected": "report/context/hash verification; own FIRST inherited"
+    }
+  ],
+  "peer_sources_all_verified": 36,
+  "additional_live_context": [],
+  "optional083_read": false,
+  "FIRST_immutable_verified": true,
+  "report_sha256": "3986c478788ae05b326ecd6362666fdb895ab734be4bbe2dcb756a59c56fa959",
+  "words": 489,
+  "verification": "static text/hash/readback only"
+}

@@ -1,0 +1,19 @@
+# SOURCE privacy/provenance review — draft-v3
+
+**PASS в точном запрошенном SOURCE scope; поддержанных findings нет.** Проверен manifest `documentation-and-evidence-draft-manifest-v3.json`, SHA `2ad629da15498bb415a548e3aeadae793bc33bd23c011b838197828616b1b044`. Это проверка черновика из **119 targets: 5 docs + 114 evidence**, а не финального LOCAL пакета, R3 runtime или разрешения установки.
+
+Фактически перепроверены SHA/bytes/mode всех 119 candidate files, 119 уникальных безопасных project-relative targets и отсутствие candidate symlinks. Все115 A targets ещё отсутствуют в canonical; четыре M bases соответствуют declared SHA/bytes. Файлы — только43 Markdown и76 JSON; исполняемые приложения, fixtures, модели, raw tables и private control files отдельными targets не включены.
+
+**110 RAW_EXACT** файлов byte-identical своим фактическим TMP originals; просмотрены все37 report triples. Каждый из37 оригинальных freezes по-прежнему содержит hashes именно исходных report и pins. Это37 отчётов, а не37 независимых эмпирических результатов:13 FIRST +13 R2 +7 FIX-SOURCE +2 первоначальных COVERAGE-SOURCE, отдельно focused COVERAGE-v2 и actual CODE-v3 review.
+
+**Исключение PersonalOS корректно изолировано.** Raw anchor-pins SHA `59b5f75e…a7a73c7` остаётся TMP и не выбран target. Safe derivative имеет другое имя и собственный SHA `ad1eafe5…5a395f`. Независимое JSON-сравнение подтверждает удаление ровно трёх `source_bytes_base64`; все остальные значения/типы равны. Encoded strings и полные decoded instruction bodies отсутствуют во всех119 candidate files. Происхождение/размеры/SHA инструкций сохранены. `publication.json` и provenance явно говорят: оригинальный freeze связывает raw pins, **не** safe derivative. Report и freeze сохранены точными оригиналами; подмена provenance не обнаружена.
+
+Просмотр JSON key tree не нашёл других embedded source/base64/policy/control-body fields или длинных body-like строк; credential/private-key сигнатуры не обнаружены. В отчётах нет длинных исполняемых fenced bodies. Это ограниченный SOURCE privacy review authored reports и карты, не универсальное доказательство отсутствия любого возможного секретного текста. Локальные paths, контрольные SHA и агрегаты являются ссылками/provenance, не скопированными private executables или raw user rows.
+
+**Исторические документы сохранены.** Новая секция вставлена после неизменённого H1; проверены четыре declared byte inverses: удаление ровно новой вставки реконструирует целый прежний canonical файл с исходным SHA. Поэтому требование preservation выполнено, хотя весь старый файл не является буквальным suffix новой версии. Старые pending/UNRUN записи явно названы историческими.
+
+**Текущие claims квалифицированы.** CODE aggregate содержит те же57 уникальных IDs в том же порядке, что frozen allowlist, все OK; его ссылки на фактический v3 результат и независимый actual review свежие. Это45 новых методов +12 DevelopmentCLI, без удвоения из-за двух эпизодов. V2 сохранён FAILED child120/owner1; v3 exit0/reaped отражён отдельно. Документы не заявляют R3 PASS, новую native CLI E2E проверку, полный raw повтор этим эпизодом, доказанный quality gain или новый scientific/native grant. 084 NEW0/REFINE4/MERGE4/ADMIT0 соответствует отдельно замороженному скептику; приблизительное время dispatch остаётся квалифицированным наблюдением Root.
+
+**Граница интеграции:** в старом physical `evidence-candidate` осталась прежняя невыбранная `publication.json`; manifest119 однозначно выбирает её v2 replacement из другого каталога. Копировать нужно exact target mapping, а не каталог glob целиком. Это не finding против reviewed tuple. Изменённый позднее draft потребует адресной повторной проверки; финальный R3/общий review/normal staged whitespace пока вне этого PASS.
+
+Выполнены только чтение и stdlib metadata/hash/JSON сравнения. Project imports/tests/SQL/native/data/Git/canonical mutations —0. Собственные report/pins/freeze записаны отдельно. STOP.

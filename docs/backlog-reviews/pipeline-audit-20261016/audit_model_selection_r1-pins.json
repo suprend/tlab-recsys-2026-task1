@@ -1,0 +1,592 @@
+{
+  "HEAD": "c538de4097322715fccac494e2b2becc3279e8e1",
+  "additional_context": [],
+  "instructions": [
+    {
+      "bytes": 12407,
+      "original": "/Users/mdpospelov/personal-agent-system/AGENTS.md",
+      "sha256": "25076d696b7550f423f0a19a151585ef12a2ac2444eee6677b1e00c95b7fa8b1",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/00-AGENTS.md"
+    },
+    {
+      "bytes": 10077,
+      "original": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/01-SKILL.md"
+    },
+    {
+      "bytes": 22428,
+      "original": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/02-SKILL.md"
+    },
+    {
+      "bytes": 5230,
+      "original": "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md",
+      "sha256": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/03-coordination.md"
+    },
+    {
+      "bytes": 7124,
+      "original": "/Users/mdpospelov/personal-agent-system/docs/agents/verification.md",
+      "sha256": "d84015a05b7ebc9c4bdc570e75e0a62fbcbe134217a367715fbf5e2acc1e69ec",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/instructions/04-verification.md"
+    }
+  ],
+  "manifest_sha256": "7e2e871f148beac5b9fce3aa23970b370db0c8fdc9eac89958fb6342a4d2a41a",
+  "missing_frozen_links": [
+    "docs/research-lab/brainstorm-wave077-synthesis.md",
+    "docs/research-lab/round-005.md",
+    "docs/research-lab/round-019.md"
+  ],
+  "mode": "static_independent_FIRST",
+  "reviewer": "audit_model_selection_r1",
+  "scope_note": "Search-only inputs are pinned for freshness but do not imply full semantic inspection. No moving checkout context read.",
+  "sources": [
+    {
+      "bytes": 12664,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py",
+      "path": "scripts/train_development.py",
+      "sha256": "2ec59f282a9d83e570b8642cabb4fc96b4cdf8ed5fb95248f93916df9d77d4c6",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/train_development.py"
+    },
+    {
+      "bytes": 5590,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "path": "scripts/development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/development_training.py"
+    },
+    {
+      "bytes": 18580,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "path": "scripts/adaptive_tree_selection.py",
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/adaptive_tree_selection.py"
+    },
+    {
+      "bytes": 14058,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_contract.py",
+      "path": "scripts/heldout_contract.py",
+      "sha256": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/heldout_contract.py"
+    },
+    {
+      "bytes": 35665,
+      "inspected_scope": "1-530; relevant fit/collection/accounting/ranking/environment bodies",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "path": "scripts/train_baselines.py",
+      "sha256": "626addc85304d926611301c764f7010b4a2b42fedf313f5f319e20264b271d8b",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/train_baselines.py"
+    },
+    {
+      "bytes": 9971,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "path": "scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/ranking_metrics.py"
+    },
+    {
+      "bytes": 40847,
+      "inspected_scope": "imports/CORE_ORDER and 127-173,213-267,360-479,520-620",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py",
+      "path": "scripts/reproduce_frozen_comparison.py",
+      "sha256": "ad27d69662e85a647c34c5853b64213a0526bf509e84f4dd639a7e93acf02a85",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/reproduce_frozen_comparison.py"
+    },
+    {
+      "bytes": 10946,
+      "inspected_scope": "1-86; remaining definitions search only",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py",
+      "path": "scripts/heldout_predictions.py",
+      "sha256": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/heldout_predictions.py"
+    },
+    {
+      "bytes": 47986,
+      "inspected_scope": "56-76,223-236,312-406,574-599; definitions search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_baseline.py",
+      "path": "scripts/strong_baseline.py",
+      "sha256": "10dffd789dded9a578b397b95a7b209285857459c0c92c8c925d1dfca6df3147",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/strong_baseline.py"
+    },
+    {
+      "bytes": 15437,
+      "inspected_scope": "180-275; model/parameter identifiers search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_control.py",
+      "path": "scripts/strong_control.py",
+      "sha256": "4b469d0e8ee5ce29341fc4531d4f6ff8552898a626fae0893ad650e6c189f36c",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/strong_control.py"
+    },
+    {
+      "bytes": 34909,
+      "inspected_scope": "1-85,170-207; import search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "path": "scripts/development_collection.py",
+      "sha256": "d3d811e7987812366d36163537bdd8784ccb55ef3e1596ba7bf6d02338f80f3c",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/development_collection.py"
+    },
+    {
+      "bytes": 20181,
+      "inspected_scope": "imports only",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "path": "scripts/anchor_pilot.py",
+      "sha256": "d9344599ae1d64780374ede5006644e1f9983ed84085d0c8a64ec76fd99c835d",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/anchor_pilot.py"
+    },
+    {
+      "bytes": 11864,
+      "inspected_scope": "imports only",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "path": "scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/scripts/protocol_manifest.py"
+    },
+    {
+      "bytes": 14288,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_development_training.py",
+      "path": "tests/test_development_training.py",
+      "sha256": "547fac7bf2591ca831fa717e17017e39fe98994c1f87ab7b2110b9dc22ca3a23",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_development_training.py"
+    },
+    {
+      "bytes": 20090,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_train_development.py",
+      "path": "tests/test_train_development.py",
+      "sha256": "34c8b794742e40c7d923d7d9d92ed3dc47a3795531241538a4f9895f3c74ec17",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_train_development.py"
+    },
+    {
+      "bytes": 9112,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_development_training_native.py",
+      "path": "tests/test_development_training_native.py",
+      "sha256": "eca8d1a071361a93e563b105b0c743f235073527876a49e81dd8080c2dea1887",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_development_training_native.py"
+    },
+    {
+      "bytes": 9340,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_heldout_contract.py",
+      "path": "tests/test_heldout_contract.py",
+      "sha256": "0d974aec26113db12699a6595e230e7f9786c8c02e30247f129fa77240902e0a",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_heldout_contract.py"
+    },
+    {
+      "bytes": 19375,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/adaptive_tree_selection_audit.py",
+      "path": "tests/oracles/adaptive_tree_selection_audit.py",
+      "sha256": "ddbad1f8bb9b0db308b19ecad5e4ca3fddd6586f2566f30dd8767b6851004c76",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/oracles/adaptive_tree_selection_audit.py"
+    },
+    {
+      "bytes": 39403,
+      "inspected_scope": "223-240,305-322; replay/ranking search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/strong_output_audit.py",
+      "path": "tests/oracles/strong_output_audit.py",
+      "sha256": "03b9c22fec7a42f136cd0e6017767411fdb856dab1a1220eb613ee6d012ccaab",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/oracles/strong_output_audit.py"
+    },
+    {
+      "bytes": 48736,
+      "inspected_scope": "302-319,387-404; replay/ranking search",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/oracles/strong_recovery_audit.py",
+      "path": "tests/oracles/strong_recovery_audit.py",
+      "sha256": "4c1c46eac98dcafd64a7af87f51f0bb77ec9c5dcc54b8c3bd4c62919a2e0ac10",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/oracles/strong_recovery_audit.py"
+    },
+    {
+      "bytes": 873,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/models/strong-grid.json",
+      "path": "configs/models/strong-grid.json",
+      "sha256": "d32daac420f447444d987969cdd49ac1cad427bbd7357114d148c02085aed66e",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/models/strong-grid.json"
+    },
+    {
+      "bytes": 294,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/models/cpu-smoke.json",
+      "path": "configs/models/cpu-smoke.json",
+      "sha256": "d8140e4581e6aa769af75f3638a697bb7224943ce1f6dcd1c5cd4588ed27c14a",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/models/cpu-smoke.json"
+    },
+    {
+      "bytes": 19412,
+      "inspected_scope": "45-150; setting matches",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/reproduction/frozen-bw-oct2019.json",
+      "path": "configs/reproduction/frozen-bw-oct2019.json",
+      "sha256": "3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/reproduction/frozen-bw-oct2019.json"
+    },
+    {
+      "bytes": 11680,
+      "inspected_scope": "1-112,142-161,225-250; setting matches",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/configs/studies/adaptive-tree-selection-oct2019-once.json",
+      "path": "configs/studies/adaptive-tree-selection-oct2019-once.json",
+      "sha256": "6ffe3c7a82854fca25446faf8a580dce83c03584c7f37a81d63d1684b76049a7",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/configs/studies/adaptive-tree-selection-oct2019-once.json"
+    },
+    {
+      "bytes": 21405,
+      "inspected_scope": "selection/native-status matches",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/README.md",
+      "path": "README.md",
+      "sha256": "8f7f07dfcfa458d6d0b2d64d9d1b712b26f9a4590e03f57289fed40f3ee5384e",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/README.md"
+    },
+    {
+      "bytes": 11128,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/development-training.md",
+      "path": "docs/experiments/development-training.md",
+      "sha256": "456535a47409567dbb104669a517bf731d156cdde89fd7fa6e8ec54b859808a0",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/development-training.md"
+    },
+    {
+      "bytes": 5022,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/development-training-native-test.md",
+      "path": "docs/experiments/development-training-native-test.md",
+      "sha256": "ce22d1e85bfa91b6c5b157e635b8bfd8578c1b861512fe0ed6d7a48388343f73",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/development-training-native-test.md"
+    },
+    {
+      "bytes": 4446,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/adaptive-tree-selection.md",
+      "path": "docs/experiments/adaptive-tree-selection.md",
+      "sha256": "333e3a503f129426af097b46320b61b92c9cbd8fe7698f6641fb9459a12f6e21",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/experiments/adaptive-tree-selection.md"
+    },
+    {
+      "bytes": 8055,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/adaptive-tree-results.md",
+      "path": "docs/backlog-reviews/adaptive-tree-results.md",
+      "sha256": "a13c7bd088eda0c23e9b63e4c81958a6beada0bfe9226364ad9ba724741cc807",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/adaptive-tree-results.md"
+    },
+    {
+      "bytes": 4000,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/native-helper-engineering-result.md",
+      "path": "docs/backlog-reviews/native-helper-engineering-result.md",
+      "sha256": "0d4c1aec1d03eca700becbed7f07058ec2a472706c9829a8e1b262b0747abe0b",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/native-helper-engineering-result.md"
+    },
+    {
+      "bytes": 4066,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/model-selection/index.md",
+      "path": "docs/model-selection/index.md",
+      "sha256": "c43ed840e827ddcc5fa4ac6cd2e7fd0def47bbae28baf561bfc280bd6a2bbd7a",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/model-selection/index.md"
+    },
+    {
+      "bytes": 49445,
+      "inspected_scope": "selection/sparse-support/bootstrap/currentness matches",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "path": "docs/research-lab/index.md",
+      "sha256": "3a07a80af1b0698626427332fc7710d784897db18d7340846a4a410a9b85e20d",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/research-lab/index.md"
+    },
+    {
+      "bytes": 209404,
+      "inspected_scope": "selected matches/current checkpoint, 468-506; no exhaustive review",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "path": "docs/backlog.md",
+      "sha256": "62bbaff8f19d2860ee849075b379a0fa7f7967c0c05b4c700655377541147305",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog.md"
+    },
+    {
+      "bytes": 3638,
+      "inspected_scope": "full",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "path": "docs/task1-requirements.md",
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/task1-requirements.md"
+    },
+    {
+      "bytes": 11088,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_strong_recovery.py",
+      "path": "tests/test_strong_recovery.py",
+      "sha256": "9b0648862a6f4cfc64ce2336f96abff87ce8e1398fde229cf8e67806e829c6f3",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_strong_recovery.py"
+    },
+    {
+      "bytes": 10499,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_strong_control.py",
+      "path": "tests/test_strong_control.py",
+      "sha256": "f3c77b0c0ba32d7cafc73b588b9eee783928203b9d4120e0284199ad02aed320",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_strong_control.py"
+    },
+    {
+      "bytes": 31251,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_strong_baseline.py",
+      "path": "tests/test_strong_baseline.py",
+      "sha256": "1f9527c9fba10d88999f7984472bd7b820890e9ee9a4bf00db6ac6b456117ee8",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_strong_baseline.py"
+    },
+    {
+      "bytes": 5316,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/tests/test_strong_recovery_audit.py",
+      "path": "tests/test_strong_recovery_audit.py",
+      "sha256": "31e2bb8c5609cc28bc9786833372c15d2d0c77482e4608d30ac90ac33fabb3cd",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/tests/test_strong_recovery_audit.py"
+    },
+    {
+      "bytes": 11735,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-prospective-plan-review.md",
+      "path": "docs/backlog-reviews/tlab019-prospective-plan-review.md",
+      "sha256": "7dca2d10e1bf6a961921a9a6834b06ead2bc92014fac8f33b61c1cff2ca8c754",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-prospective-plan-review.md"
+    },
+    {
+      "bytes": 2097,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-controller-rereview.md",
+      "path": "docs/backlog-reviews/tlab019-controller-rereview.md",
+      "sha256": "b1be6c51a681f7bfdb9874dc27ed5e07a21fb892ccb9948807a5d5cd7ea5975f",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-controller-rereview.md"
+    },
+    {
+      "bytes": 1860,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-controller-checks-source.md",
+      "path": "docs/backlog-reviews/tlab019-controller-checks-source.md",
+      "sha256": "6957aa696f7aa52849399b5a45de3c12d451fe6e5ec68d616ea135c756e4fbbf",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-controller-checks-source.md"
+    },
+    {
+      "bytes": 4032,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-controller-review.md",
+      "path": "docs/backlog-reviews/tlab019-controller-review.md",
+      "sha256": "34017787e92077a682ace71bf60d7ae803d4b38db49eb07ac859ce0ade5eab81",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-controller-review.md"
+    },
+    {
+      "bytes": 2927,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-oracle-lr-portability-fix.md",
+      "path": "docs/backlog-reviews/tlab019-oracle-lr-portability-fix.md",
+      "sha256": "e638f19f907604ccf182ed8910476c612e7a8483356695bdeefccd37a912c26c",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-oracle-lr-portability-fix.md"
+    },
+    {
+      "bytes": 2450,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-recovery-owner-review.md",
+      "path": "docs/backlog-reviews/tlab019-recovery-owner-review.md",
+      "sha256": "676d61f15c3c23ac33bbb089a9f8b891487fc79b6bff93765981d35dbe42b5ee",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-recovery-owner-review.md"
+    },
+    {
+      "bytes": 464,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-recovery-owner-rereview.md",
+      "path": "docs/backlog-reviews/tlab019-recovery-owner-rereview.md",
+      "sha256": "2186a8984819995332ddd71ff7db106c34a1794c2076a48f71392c2eba9d13bc",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-recovery-owner-rereview.md"
+    },
+    {
+      "bytes": 11541,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-targeted-faults-source.md",
+      "path": "docs/backlog-reviews/tlab019-targeted-faults-source.md",
+      "sha256": "0ee8876be9173fbdc626750de080fd032705b0825c46173610aa4699f776585f",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-targeted-faults-source.md"
+    },
+    {
+      "bytes": 2675,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-launch-code-rereview.md",
+      "path": "docs/backlog-reviews/tlab019-launch-code-rereview.md",
+      "sha256": "ed9f3d866d2ea2818488db94139c84e699e4e69471dc0e18bd2fc682b240f395",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-launch-code-rereview.md"
+    },
+    {
+      "bytes": 4395,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-pure-platform-review.md",
+      "path": "docs/backlog-reviews/tlab019-pure-platform-review.md",
+      "sha256": "87a4565806bb6d69621a0804021faba849f4c7a72f9914cac6bb83dd61db07a6",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-pure-platform-review.md"
+    },
+    {
+      "bytes": 2820,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-oracle-literal-checks-source.md",
+      "path": "docs/backlog-reviews/tlab019-oracle-literal-checks-source.md",
+      "sha256": "3dd3b79f127b81235072620cc50d52858c02486f85eb02767ecb237b47fe15e1",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-oracle-literal-checks-source.md"
+    },
+    {
+      "bytes": 9444,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-code-review.md",
+      "path": "docs/backlog-reviews/tlab019-code-review.md",
+      "sha256": "028e38088344486f44009a3021699bf59581d435ab6a228602185783d4374e4d",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-code-review.md"
+    },
+    {
+      "bytes": 1666,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-oracle-snapshot-fix.md",
+      "path": "docs/backlog-reviews/tlab019-oracle-snapshot-fix.md",
+      "sha256": "da8a04935d22fea8daae6487ee9c9de469a3968905cc931c285ddc17bde618f4",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-oracle-snapshot-fix.md"
+    },
+    {
+      "bytes": 3099,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-oracle-independent-review.md",
+      "path": "docs/backlog-reviews/tlab019-oracle-independent-review.md",
+      "sha256": "e70f98d99b2490890c1220f4803a89ba72be93264cec4816de454a86e7d44192",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-oracle-independent-review.md"
+    },
+    {
+      "bytes": 3063,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-recovery-observer-review.md",
+      "path": "docs/backlog-reviews/tlab019-recovery-observer-review.md",
+      "sha256": "6a9f6afdf8b0b5d8298ef65d0232ff83ed502a8f7524a7634574f22f6afcf683",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-recovery-observer-review.md"
+    },
+    {
+      "bytes": 38609,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-oracle-pre-lr-observer-source.md",
+      "path": "docs/backlog-reviews/tlab019-oracle-pre-lr-observer-source.md",
+      "sha256": "2bbcb5b5cb8c2040b052d80c13f7023b2b200c64d91a22df9b2a962060b14957",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-oracle-pre-lr-observer-source.md"
+    },
+    {
+      "bytes": 2452,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-prefix-api-proof-source.md",
+      "path": "docs/backlog-reviews/tlab019-prefix-api-proof-source.md",
+      "sha256": "65e3d2256d46a9b9448da3ce8d598f77df5aa22361883b46a038fe5113856d89",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-prefix-api-proof-source.md"
+    },
+    {
+      "bytes": 8798,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-incumbent-policy-review.md",
+      "path": "docs/backlog-reviews/tlab019-incumbent-policy-review.md",
+      "sha256": "a7c73428eb82857d7af0ee6fcfb1f357dd8b6114e9c748fefd167c906f4af88f",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-incumbent-policy-review.md"
+    },
+    {
+      "bytes": 5378,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-launch-checks-source.md",
+      "path": "docs/backlog-reviews/tlab019-launch-checks-source.md",
+      "sha256": "4fdbf3f7e22dbdba403fd86c382917f490fa4130e694dc35bfaa5193c6333040",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-launch-checks-source.md"
+    },
+    {
+      "bytes": 2959,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-oracle-context-checks-source.md",
+      "path": "docs/backlog-reviews/tlab019-oracle-context-checks-source.md",
+      "sha256": "093ec59a07e409332cb09d306cd946cc72796f108513369beecfb2f786e819cc",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-oracle-context-checks-source.md"
+    },
+    {
+      "bytes": 7000,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-original-faults-source.md",
+      "path": "docs/backlog-reviews/tlab019-original-faults-source.md",
+      "sha256": "e9f8ac76dd00cb4400bf72aaca81344a48bac14d562ff9aa27916417d0913c62",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-original-faults-source.md"
+    },
+    {
+      "bytes": 862,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-strong-oracle-accepted-source.md",
+      "path": "docs/backlog-reviews/tlab019-strong-oracle-accepted-source.md",
+      "sha256": "bd6cf2152b8c9e72369910198b1aa9ae4e37c3ea4426f95de52339354c36fcac",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-strong-oracle-accepted-source.md"
+    },
+    {
+      "bytes": 5384,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-code-rereview.md",
+      "path": "docs/backlog-reviews/tlab019-code-rereview.md",
+      "sha256": "f16094d909ddbb2cbf73c6a087db24ea224b963010317be475e07a172acd50af",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-code-rereview.md"
+    },
+    {
+      "bytes": 4754,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-zero-fit-recovery-code-review.md",
+      "path": "docs/backlog-reviews/tlab019-zero-fit-recovery-code-review.md",
+      "sha256": "04d898597f607b0fd35c74c8610b2228e480b21a8206ceb0d69885d510e367ef",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-zero-fit-recovery-code-review.md"
+    },
+    {
+      "bytes": 39539,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-oracle-pre-context-observer-source.md",
+      "path": "docs/backlog-reviews/tlab019-oracle-pre-context-observer-source.md",
+      "sha256": "37329d353b11604d09d6aa877fae1f4ed55c4599f54b0a56876b97245cc3b6b4",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-oracle-pre-context-observer-source.md"
+    },
+    {
+      "bytes": 2898,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-oracle-native-api-check-source.md",
+      "path": "docs/backlog-reviews/tlab019-oracle-native-api-check-source.md",
+      "sha256": "096f3e1dee66aea9dadbc1932b731cc7cb990a1c1d82e911e75805c3b0b258da",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-oracle-native-api-check-source.md"
+    },
+    {
+      "bytes": 5770,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-oracle-entry-interface-final.md",
+      "path": "docs/backlog-reviews/tlab019-oracle-entry-interface-final.md",
+      "sha256": "7a1da5a5d250a03435931221a9d9dd638fb594756a2262ce18a774368ec0f994",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-oracle-entry-interface-final.md"
+    },
+    {
+      "bytes": 5512,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-observer-failure-diagnosis.md",
+      "path": "docs/backlog-reviews/tlab019-observer-failure-diagnosis.md",
+      "sha256": "0e1d29c668ff345aed366301c0c7cc61ea7f1134b136bec589be6853e6a39435",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-observer-failure-diagnosis.md"
+    },
+    {
+      "bytes": 1645,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-code-publication.md",
+      "path": "docs/backlog-reviews/tlab019-code-publication.md",
+      "sha256": "2687e6038e2b22887283ad472cb5119361e717ab8842b10051062a57d18e44b8",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-code-publication.md"
+    },
+    {
+      "bytes": 2588,
+      "inspected_scope": "search only: rank parity/near tie/1e-12/fidelity identifiers",
+      "original": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab019-strong-output-verification.md",
+      "path": "docs/backlog-reviews/tlab019-strong-output-verification.md",
+      "sha256": "b4a4c6e022f753cce75d27ceff0aef1148c7e20ef0786fa0664315e9cfc8737c",
+      "snapshot": "/tmp/tlab-full-pipeline-audit-20261016-v1/repository/docs/backlog-reviews/tlab019-strong-output-verification.md"
+    }
+  ],
+  "version": 1
+}

@@ -15,6 +15,15 @@ def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':')
 def digest(value):return hashlib.sha256(canonical(value).encode()).hexdigest()
 def need(condition,message):
  if not condition:raise ValueError(message)
+def ranking_order(scores,groups,items):
+ import numpy as np
+ need(scores.ndim==1 and scores.shape==groups.shape==items.shape and np.isfinite(scores).all(),'Finite score vector')
+ return np.lexsort((items,-scores,groups))
+def score_parity(predicted,replay,groups,items,message):
+ import numpy as np
+ need(replay.shape==predicted.shape and np.isfinite(replay).all() and np.allclose(predicted,replay,rtol=0,atol=1e-12),message)
+ # All keyed candidate ranks matter, even outside top20 or positive full-Y.
+ need(np.array_equal(ranking_order(predicted,groups,items),ranking_order(replay,groups,items)),message+' rankings differ')
 def read_raw_json(raw):
  need(type(raw) is bytes,'JSON must use one immutable byte snapshot')
  def pairs(xs):
@@ -221,9 +230,7 @@ class Observer:
   x=np.column_stack([numeric(a[name]) for name in names]);need(x.shape==(n,41) and not np.isinf(x).any(),'Selection arrays')
   return x,groups,items,qrows,targets,names,summary
  def scored(self,scores,groups,items,qrows,targets):
-  import numpy as np
-  need(scores.shape==items.shape and np.isfinite(scores).all(),'Finite score vector')
-  order=np.lexsort((items,-scores,groups));ranked={};offset=0
+  order=ranking_order(scores,groups,items);ranked={};offset=0
   for g,(q,u) in enumerate(qrows):
    end=offset
    while end<len(order) and groups[order[end]]==g:end+=1
@@ -235,7 +242,7 @@ class Observer:
    need(set(saved.files)=={'group','product_id','raw_score'},'NPZ exact fields')
    need(np.issubdtype(saved['group'].dtype,np.integer) and np.issubdtype(saved['product_id'].dtype,np.integer),'NPZ key dtypes')
    need(np.array_equal(saved['group'],groups) and np.array_equal(saved['product_id'],items),'NPZ sorted exact keys')
-   need(saved['raw_score'].shape==predicted.shape and np.isfinite(saved['raw_score']).all() and np.allclose(saved['raw_score'],predicted,rtol=0,atol=1e-12),'Saved score replay')
+   score_parity(predicted,saved['raw_score'],groups,items,'Saved score replay')
  def model(self,path,trees,names,params):
   from catboost import CatBoostClassifier
   m=CatBoostClassifier();m.load_model(str(path));self.guard();need(m.tree_count_==trees and m.feature_names_==names and m.get_cat_feature_indices()==[] and m.get_text_feature_indices()==[],'Saved numeric model trees/features')
@@ -296,7 +303,7 @@ class Observer:
        for path in [wd/'full300.cbm',wd/f'prefix{k}.cbm',wd/f'prefix{k}-scores.npz']:
         name=str(path.relative_to(self.root));need(name in m['outputs'] and self.sha(path)==m['outputs'][name],'Partial artifact is not sealed')
        score=np.asarray(partial.predict(x,ntree_end=k,prediction_type='RawFormulaVal',thread_count=2));self.guard();prefix=self.model(wd/f'prefix{k}.cbm',k,names,pparams)
-       replay=np.asarray(prefix.predict(x,prediction_type='RawFormulaVal',thread_count=2));self.guard();need(np.allclose(score,replay,rtol=0,atol=1e-12),'Partial prefix fidelity');self.npz(wd/f'prefix{k}-scores.npz',score,g,it);partial_replayed+=1
+       replay=np.asarray(prefix.predict(x,prediction_type='RawFormulaVal',thread_count=2));self.guard();score_parity(score,replay,g,it,'Partial prefix fidelity');self.npz(wd/f'prefix{k}-scores.npz',score,g,it);partial_replayed+=1
        del prefix,replay,score
       del partial
      continue
@@ -312,7 +319,7 @@ class Observer:
     full=self.model(wd/'full300.cbm',300,names,params)
     for cp,k in zip(wr['checkpoints'],TREES):
      pred=np.asarray(full.predict(x,ntree_end=k,prediction_type='RawFormulaVal',thread_count=2));self.guard()
-     prefix=self.model(wd/f'prefix{k}.cbm',k,names,params);pp=np.asarray(prefix.predict(x,prediction_type='RawFormulaVal',thread_count=2));self.guard();need(np.allclose(pred,pp,rtol=0,atol=1e-12),'Full300/prefix equivalence')
+     prefix=self.model(wd/f'prefix{k}.cbm',k,names,params);pp=np.asarray(prefix.predict(x,prediction_type='RawFormulaVal',thread_count=2));self.guard();score_parity(pred,pp,g,it,'Full300/prefix equivalence')
      self.npz(wd/f'prefix{k}-scores.npz',pred,g,it);metrics,per,_=self.scored(pred,g,it,qrows,targets)
      artifacts={str((wd/n).relative_to(self.root)):wm['outputs'][str((wd/n).relative_to(self.root))] for n in [f'prefix{k}.cbm',f'prefix{k}-scores.npz']}
      expectedcp=dict(config_id=digest(arm),incumbent=False,trees=k,trained_iterations=300,depth=arm['depth'],l2_leaf_reg=arm['l2_leaf_reg'],population=population,metrics=metrics,artifacts=artifacts,model_path=str((wd/f'prefix{k}.cbm').relative_to(self.root)),score_path=str((wd/f'prefix{k}-scores.npz').relative_to(self.root)))

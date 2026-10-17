@@ -23,7 +23,7 @@ import sys
 import time
 from types import ModuleType
 
-RECIPE_SHA256 = '3a26fed3bee450cb7ce4b658816386c14cbd2c4133a18bdaa39ae058e5b560ec'
+RECIPE_SHA256 = 'ac904c0eb906fb6ccef9418aba5a2e298f5fc03655655ca3221de3bba44f7579'
 ROOT = Path(__file__).resolve().parents[1]
 UTC = timezone.utc
 CORE_ORDER = ('source_import', 'temporal_contract', 'protocol_manifest', 'anchor_pilot',

@@ -288,6 +288,7 @@ def run(candidate_directory, acceptance_path, output_root, *, seconds=1800, repl
     ledger = StageLedger(temp, deadline=deadline)
     report['stages'] = ledger.rows
     con = timer = None
+    primary_error = None
     def guard():
         deadline.check()
         if peak_rss_bytes() > 6*2**30:
@@ -353,20 +354,31 @@ def run(candidate_directory, acceptance_path, output_root, *, seconds=1800, repl
         report['artifact_hashes'] = {'rankings.jsonl': stage('fingerprint_rankings', lambda: sha256_file(output))}
         guard()
         report.update(status='complete', metrics=metrics)
-    except Exception as error:
+    except BaseException as error:
+        primary_error = error
         report.update(status='failed', error_type=type(error).__name__, error=str(error))
         raise
     finally:
         if timer is not None:
             timer.cancel()
-        if con is not None:
-            con.close()
+        cleanup_error = None
+        try:
+            if con is not None:
+                con.close()
+        except BaseException as error:
+            cleanup_error = error
+            report.update(status='failed', cleanup_errors=[dict(operation='close_connection',
+                          error_type=type(error).__name__, error=str(error))])
+            if primary_error is None:
+                report.update(error_type=type(error).__name__, error=str(error))
         profiles = [row['engine_profile'] for row in ledger.rows if 'engine_profile' in row]
         report['engine_peak_buffer_memory_bytes'] = max((p.get('system_peak_buffer_memory') or 0 for p in profiles), default=0)
         report['engine_peak_spill_bytes'] = max((p.get('system_peak_temp_dir_size') or 0 for p in profiles), default=0)
         report.update(seconds=time.monotonic()-started, process_peak_rss_bytes=peak_rss_bytes(),
             temp_disk_bytes_after_close=directory_bytes(temp))
         save_json(directory/'report.json', report)
+        if cleanup_error is not None and primary_error is None:
+            raise cleanup_error
     return report
 
 
