@@ -1,0 +1,89 @@
+{
+  "Y_read": false,
+  "actual_V2_budget": {
+    "peak_rss_bytes": 129368064,
+    "total_whole_child_cpu_seconds": 8.036494000000001,
+    "total_whole_wall_seconds": 8.098988207
+  },
+  "actual_real_inputs_read": 0,
+  "adequacy": "UNKNOWN",
+  "all16V1MethodsRetained": true,
+  "failed_attempts_preserved": [
+    "synthetic-attempt1.log",
+    "synthetic-attempt1-terminal.json",
+    "test_discovery-attempt1.py"
+  ],
+  "files": {
+    "CHECKS.json": {
+      "bytes": 2724,
+      "sha256": "50ea91d28402066119a57e3ca140fedd82fbd38540ee7f0ae64e72a49930c7f1"
+    },
+    "README.md": {
+      "bytes": 9789,
+      "sha256": "dd6fcf94c3ab992ffe7d30cd619c6e05b1406e175327b04bcbabfcff69d746aa"
+    },
+    "REQUEST-UNBOUND.json": {
+      "bytes": 247,
+      "sha256": "32975674b3dc49980c599e28476e43f43ef5a21fc0b27c9877ab134124259297"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 3463,
+      "sha256": "33175a206948fca490e5a8b27e19c0d013d795c4d4340bb25bf421ec88ca1abd"
+    },
+    "V1-to-V2.diff": {
+      "bytes": 8994,
+      "sha256": "9d73b6c4b7f8cacad1cbe564258b22ed9e04eb0440e6de45a901e77ae845f5f3"
+    },
+    "discovery.py": {
+      "bytes": 21921,
+      "sha256": "a903a30f06b83314eb1f83dcb6693237d59f814d09a9e8956bb35f4345e45d4b"
+    },
+    "synthetic-attempt1-terminal.json": {
+      "bytes": 181,
+      "sha256": "f6d6762f9004835419c49871aaa20ef654dd62d59ba9332994110760c04b0d9b"
+    },
+    "synthetic-attempt1.log": {
+      "bytes": 3646,
+      "sha256": "5089f8ef1a01945157c5abc87840294b2ab997996c17366a50ae8c5d6178362e"
+    },
+    "synthetic-attempt2-terminal.json": {
+      "bytes": 181,
+      "sha256": "4d0d907edb7b3476c1bc1331d0e092aa792ef99407dbd5750d673c5eeae4814c"
+    },
+    "synthetic-attempt2.log": {
+      "bytes": 3106,
+      "sha256": "349858812f0e39f56071252b9a13151dddad61250b68f3f925754da3107e7ae2"
+    },
+    "test_discovery-attempt1.py": {
+      "bytes": 19405,
+      "sha256": "1e01955f36111a8e92ffce23792e31bba0bc1999ed3f06d793ee85b8aad2753e"
+    },
+    "test_discovery.py": {
+      "bytes": 19516,
+      "sha256": "1247a838dad2a1a8aef47f00fdb34db5c73d7ba956dd40df5d72bd2f01385b2b"
+    },
+    "v1-synthetic-attempt1.log": {
+      "bytes": 2469,
+      "sha256": "802c948f0a374de0f2e5696f83a1b4baf73076b5f0e4201c7bf697f2550ccb28"
+    },
+    "v1-synthetic-attempt2.log": {
+      "bytes": 2628,
+      "sha256": "79219775e7fdbe83dc6e67989a6032b57753885b7ec65692028e2f38fc27f873"
+    }
+  },
+  "final_unique_methods": 20,
+  "fits": 0,
+  "frozen_utc": "2026-10-17 10:07:43 UTC",
+  "full_cost": "UNKNOWN",
+  "independent_review": "Root assigns targeted correctness/resources re-reviews after this freeze",
+  "input_binding": "UNBOUND; Root later supplies reviewed same-DB descriptors and semantic bridge",
+  "original_V1_freeze": {
+    "bytes": 1735,
+    "sha256": "fabd2bb26230a7b100600a51a0818c7765f313b2d5b2f0ee144a3dad76a8e00d"
+  },
+  "original_V1_manifest_reverified": "PASS_UNCHANGED",
+  "real_runtime_budget": "NOT_ISSUED",
+  "status": "SOURCE_V2_READY_SYNTHETIC20_PASS_REAL_PILOT_UNRUN",
+  "tested_caller_sha256": "a903a30f06b83314eb1f83dcb6693237d59f814d09a9e8956bb35f4345e45d4b",
+  "tested_tests_sha256": "1247a838dad2a1a8aef47f00fdb34db5c73d7ba956dd40df5d72bd2f01385b2b"
+}

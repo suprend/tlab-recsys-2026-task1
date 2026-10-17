@@ -1,0 +1,43 @@
+{
+  "chosen_caps": {
+    "CPU_seconds": 40,
+    "RSS_bytes": 268435456,
+    "each_output_bytes": 2097152,
+    "wall_seconds": 60
+  },
+  "controls": {
+    "CPU_RLIMIT_hard": 40,
+    "RSS": "checked self ru_maxrss; no OS aggregate hardRSS claim",
+    "chunk_bytes": 1048576,
+    "cooperative_read_guard_seconds": 50,
+    "wall_alarm_seconds": 55
+  },
+  "finalization_phase": {
+    "CPU_prefix_seconds": 0.015002000000000008,
+    "hash_read_bytes": 2107128,
+    "peak_RSS_bytes": 22085632,
+    "scope": "after all small/output hashes/report creation/freshness checks; before own receipt/pins/final exit",
+    "wall_prefix_seconds": 0.018671291996724904
+  },
+  "honest_limits": "Exact whole own-audit CPU/wall across separate metadata/helper phases absent; samples are not fabricated final totals. All measured phases far below caps.",
+  "no_DB_QC_repeat": true,
+  "no_data_decoding_SQL_imports_controller_tests_fits_models": true,
+  "opaque_input_once_phase": {
+    "CPU_prefix_seconds": 0.578446,
+    "bytes_hashed": 1512112379,
+    "files": 7,
+    "peak_RSS_bytes": 21774336,
+    "scope": "after seven complete opaque hashes and comparisons, before final print/exit; terminal0 observed",
+    "terminal_exit": 0,
+    "tool_chunk": "279406",
+    "wall_prefix_seconds": 0.5790093749819789
+  },
+  "outputs": [
+    "/tmp/tlab-hyp061-independent-resources-actual-v1.md",
+    "/tmp/tlab-hyp061-independent-resources-actual-v1-pins.json",
+    "/tmp/tlab-hyp061-independent-resources-actual-v1-own-resource-actual-receipt.json"
+  ],
+  "schema": "readonly_audit_resource_actual_receipt_v1",
+  "scope": "Own audit only, not discovery runtime; excludes model reasoning and separately unprofiled initial small-metadata inspection/helper read",
+  "status": "MAIN_READONLY_CHECKS_COMPLETE_PREFIX_SAMPLES_TERMINAL_CLOSURE_REPORTED_SEPARATELY"
+}

@@ -1,0 +1,29 @@
+{
+  "V3_execution_attempts": 1,
+  "child_exit": 0,
+  "child_reaped": true,
+  "cost_qualification": "Owner samples precede final serialization/hash/exit; not exact whole-attempt CPU/wall; actual original tool closure observed",
+  "initial_chunk": "eab004",
+  "no_live_session": true,
+  "oracle": {
+    "bytes": 75972,
+    "mode": "0600",
+    "path": "/private/tmp/tlab-hyp061-independent-correctness-actual-v3/oracle-results.json",
+    "role": "full_independent_oracle_results",
+    "sha256": "0c4365c253f8c4355a4fbdc85c404bfe6287dc82ff2ff77735bb84a58fcbb122"
+  },
+  "original_session": 29548,
+  "postclosure_clock_observation": "2026-10-17 10:37:23 UTC",
+  "receipt": {
+    "bytes": 1737,
+    "mode": "0600",
+    "path": "/private/tmp/tlab-hyp061-independent-correctness-actual-v3/actual-receipt.json",
+    "role": "actual_verifier_parent_receipt",
+    "sha256": "07431ad3da59d8013340749e7696b502854fabcd50f8871265a7ba9969297246"
+  },
+  "retry": false,
+  "status": "ACTUAL_ORIGINAL_VERIFIER_TOOL_CLOSED_EXIT0",
+  "terminal_chunk": "b41f30",
+  "tool_exit_code": 0,
+  "tool_facts": "Directly observed original exec/write_stdin results by verifier owner"
+}
