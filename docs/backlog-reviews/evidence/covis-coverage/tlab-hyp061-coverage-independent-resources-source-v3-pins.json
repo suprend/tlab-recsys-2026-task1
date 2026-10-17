@@ -1,0 +1,457 @@
+{
+  "checks": {
+    "V1_V3_production_changed_functions": [
+      "read_labels"
+    ],
+    "V2_V3_byte_equal": [
+      "coverage.py",
+      "estimands.py",
+      "test_estimands.py",
+      "REQUEST-UNBOUND.json"
+    ],
+    "ast_only_parse_files": 4,
+    "canonical_git_writes": 0,
+    "exact_diffs_verified": [
+      "V1-to-V3.diff",
+      "V2-to-V3.diff"
+    ],
+    "executable_launches": 0,
+    "four_terminal_cost_reconciliation": {
+      "cpu_seconds": 16.250314,
+      "peak_process_rss_bytes": 175538176,
+      "wall_seconds": 16.614496624005316
+    },
+    "frozen_descriptors_verified": 47,
+    "imports": 0,
+    "network": 0,
+    "real_body_reads": 0,
+    "recorded_final_success": true,
+    "recorded_final_tests": 15,
+    "retests": 0,
+    "semantic_peer_conclusions_read": 0,
+    "sql": 0
+  },
+  "fresh_input_readback_utc": "2026-10-17T11:29:51.824052+00:00",
+  "inputs": [
+    {
+      "bytes": 2677,
+      "mode": "0o644",
+      "mtime_ns": 1792236436652354564,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/CHECKS.json",
+      "read_extent": "full text",
+      "sha256": "a4519a34f156af63ab5b315721b35fe637b67d2d04ae6f5a185d310b13ab3f0d"
+    },
+    {
+      "bytes": 1087,
+      "mode": "0o644",
+      "mtime_ns": 1792236436652435022,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/CHECKS.md",
+      "read_extent": "full text",
+      "sha256": "f7d135fc612993de49fcbed787fa7c6e147ea0a2551f6e6f315525f896c3a403"
+    },
+    {
+      "bytes": 4408,
+      "mode": "0o644",
+      "mtime_ns": 1792236436652706772,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/README.md",
+      "read_extent": "full text",
+      "sha256": "8c27d895ef9ba73f89f04373790606223ff341db0d7910812f4ef15fa5f4f155"
+    },
+    {
+      "bytes": 255,
+      "mode": "0o644",
+      "mtime_ns": 1792236328417588131,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/REQUEST-UNBOUND.json",
+      "read_extent": "bytes compared to previously fully reviewed V1/V2 or used for exact diff/AST/cost reconciliation",
+      "sha256": "66800c1f498a7d7855d5816f75e4e9c731af9faac48cd6a592b59ae4efb8fea7"
+    },
+    {
+      "bytes": 2975,
+      "mode": "0o644",
+      "mtime_ns": 1792236436652606355,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/SOURCE-PINS.json",
+      "read_extent": "full text",
+      "sha256": "806cea3ab2fc6f512381bed4b9e7bba0b53e3ae9265feedf800298048fbe62f2"
+    },
+    {
+      "bytes": 7194,
+      "mode": "0o644",
+      "mtime_ns": 1792236436652222231,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/V1-to-V3.diff",
+      "read_extent": "full text",
+      "sha256": "f3a69c74400aaac048145afcb8dae2f2c3cb7034717de6cec890616525484379"
+    },
+    {
+      "bytes": 1371,
+      "mode": "0o644",
+      "mtime_ns": 1792236436651653605,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/V2-to-V3.diff",
+      "read_extent": "full text",
+      "sha256": "0daf8d62ea044d04da70779ddd3e7ebbce54fe19075f4ec82acb9ed6c2c8e02f"
+    },
+    {
+      "bytes": 22141,
+      "mode": "0o644",
+      "mtime_ns": 1792236328417016922,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/coverage.py",
+      "read_extent": "full text",
+      "sha256": "3f7d1ae6a226ea512965098009cc7f24eee80456ec6a938fb1621ae484c9a03e"
+    },
+    {
+      "bytes": 7254,
+      "mode": "0o644",
+      "mtime_ns": 1792236328417163756,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/estimands.py",
+      "read_extent": "bytes compared to previously fully reviewed V1/V2 or used for exact diff/AST/cost reconciliation",
+      "sha256": "3aa8e4b2d49e275de399e27e5190437d0a9818977ebcb5de2a88f3954fac6a49"
+    },
+    {
+      "bytes": 771,
+      "mode": "0o644",
+      "mtime_ns": 1792236436618854441,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/source-metadata-v3-attempt1.log",
+      "read_extent": "full text",
+      "sha256": "3db9368484a27928bc4f077971d8031b3bc836cf822dfc20abea0429c34789f6"
+    },
+    {
+      "bytes": 2735,
+      "mode": "0o644",
+      "mtime_ns": 1792236341856054492,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/synthetic-v3-attempt1.log",
+      "read_extent": "full text",
+      "sha256": "1eae07675296ab370d5ba06a598bdbfb2ecedbb3822e5200f97d999869d547fd"
+    },
+    {
+      "bytes": 15018,
+      "mode": "0o644",
+      "mtime_ns": 1792236328417710673,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/test_coverage.py",
+      "read_extent": "full text",
+      "sha256": "8753d2639450a9149f6cdf72c929b77be4a0a3027663e7c121d91dbc7abaca8a"
+    },
+    {
+      "bytes": 6460,
+      "mode": "0o644",
+      "mtime_ns": 1792236328417461131,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/test_estimands.py",
+      "read_extent": "bytes compared to previously fully reviewed V1/V2 or used for exact diff/AST/cost reconciliation",
+      "sha256": "b612737c5a2bc90dbadabd9083330335ea94c9806fd9332ad5d65ba4a776053c"
+    },
+    {
+      "bytes": 2494,
+      "mode": "0o644",
+      "mtime_ns": 1792236292677648394,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/CHECKS.json",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "2e38b556465e568366ed56e82d236357c63c189f71b889d57a3e7f0b4f6b0263"
+    },
+    {
+      "bytes": 3967,
+      "mode": "0o644",
+      "mtime_ns": 1792236292677719311,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/README.md",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "66add3fb2185c1f04b5734c5e88aae0af838708e4dea23f596250d21d8be6d93"
+    },
+    {
+      "bytes": 255,
+      "mode": "0o644",
+      "mtime_ns": 1792235935037673588,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/REQUEST-UNBOUND.json",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "66800c1f498a7d7855d5816f75e4e9c731af9faac48cd6a592b59ae4efb8fea7"
+    },
+    {
+      "bytes": 2488,
+      "mode": "0o644",
+      "mtime_ns": 1792236292677540227,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/SOURCE-PINS.json",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "fdf262134024c2f3cf373a11dcbb90833613110823e2642c2386d7237e2bf2cb"
+    },
+    {
+      "bytes": 7146,
+      "mode": "0o644",
+      "mtime_ns": 1792236292677188352,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/V1-to-V2.diff",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "d850dc9ac27d445430eabf4afb66e8909568c95b46ab96af805f7002c34e6d78"
+    },
+    {
+      "bytes": 22141,
+      "mode": "0o644",
+      "mtime_ns": 1792236041090083289,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/coverage.py",
+      "read_extent": "bytes compared to previously fully reviewed V1/V2 or used for exact diff/AST/cost reconciliation",
+      "sha256": "3f7d1ae6a226ea512965098009cc7f24eee80456ec6a938fb1621ae484c9a03e"
+    },
+    {
+      "bytes": 7254,
+      "mode": "0o644",
+      "mtime_ns": 1792235935037188505,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/estimands.py",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "3aa8e4b2d49e275de399e27e5190437d0a9818977ebcb5de2a88f3954fac6a49"
+    },
+    {
+      "bytes": 4962,
+      "mode": "0o644",
+      "mtime_ns": 1792236306728087144,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/freeze.json",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "08001775324cd600b72ea63236bce9f79581676c9d975ac1c871d23e25c41b23"
+    },
+    {
+      "bytes": 4795,
+      "mode": "0o644",
+      "mtime_ns": 1792236225774850703,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/synthetic-v2-attempt1.log",
+      "read_extent": "full text",
+      "sha256": "4c30129ae1e781898a47cbdceabc51bfea3a915ebfa7031b23f9286d1c0b5c41"
+    },
+    {
+      "bytes": 14970,
+      "mode": "0o644",
+      "mtime_ns": 1792236041110593791,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/test_coverage.py",
+      "read_extent": "bytes compared to previously fully reviewed V1/V2 or used for exact diff/AST/cost reconciliation",
+      "sha256": "0d2284c240ad4cb9cc7919e5240557b298f1adb1456ef386fabfd56b927b083c"
+    },
+    {
+      "bytes": 6460,
+      "mode": "0o644",
+      "mtime_ns": 1792235935037532338,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/test_estimands.py",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "b612737c5a2bc90dbadabd9083330335ea94c9806fd9332ad5d65ba4a776053c"
+    },
+    {
+      "bytes": 3535,
+      "mode": "0o644",
+      "mtime_ns": 1792235935035461505,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/CHECKS.json",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "c1d31590a1aeeb49c35ccaf9534b747a1f2c4fefc005464145479c83c3ee0f43"
+    },
+    {
+      "bytes": 646,
+      "mode": "0o644",
+      "mtime_ns": 1792235935036409922,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/FIXTURE-attempt1-to-final.diff",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "8ab0aed32b914e23fe0163c288bff0e3ce881a4979f6c68f25d370e7527e28db"
+    },
+    {
+      "bytes": 49252,
+      "mode": "0o644",
+      "mtime_ns": 1792235935035953255,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/NEW-SOURCE.diff",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "bfba42390d5dec6b9dda6e443324a85e62ea6a13335cf7587fe482219a3a679b"
+    },
+    {
+      "bytes": 8636,
+      "mode": "0o644",
+      "mtime_ns": 1792235935035637088,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/README.md",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "807178c2b602f3ad14d2ee90bde1dc6ccf43cf7926ed3ed1030bf250d8e657eb"
+    },
+    {
+      "bytes": 255,
+      "mode": "0o644",
+      "mtime_ns": 1792235935036551672,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/REQUEST-UNBOUND.json",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "66800c1f498a7d7855d5816f75e4e9c731af9faac48cd6a592b59ae4efb8fea7"
+    },
+    {
+      "bytes": 2691,
+      "mode": "0o644",
+      "mtime_ns": 1792235935034326171,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/SOURCE-PINS.json",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "dc025602f699652cb6b4372d481e021bcdea8c83ed6acf590f11c81a5d197880"
+    },
+    {
+      "bytes": 513,
+      "mode": "0o644",
+      "mtime_ns": 1792235935036254922,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/attempt1-sources.json",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "08cf8a0d41acdad07a5c19f742e87a6d9e509a34c7c0631ec5f6c9a30e1f8e7d"
+    },
+    {
+      "bytes": 513,
+      "mode": "0o644",
+      "mtime_ns": 1792235935035147838,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/attempt2-sources.json",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "bb664bddbe6fb99b1b12e588ae9f903538345cf89a70cf1d2d372f7ed80f0842"
+    },
+    {
+      "bytes": 21630,
+      "mode": "0o644",
+      "mtime_ns": 1792235935035314172,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/coverage.py",
+      "read_extent": "bytes compared to previously fully reviewed V1/V2 or used for exact diff/AST/cost reconciliation",
+      "sha256": "19e170f76c34e4ff7530b21439191769518261045432ed3b6608cab392fe95d9"
+    },
+    {
+      "bytes": 7254,
+      "mode": "0o644",
+      "mtime_ns": 1792235935036717713,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/estimands.py",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "3aa8e4b2d49e275de399e27e5190437d0a9818977ebcb5de2a88f3954fac6a49"
+    },
+    {
+      "bytes": 5159,
+      "mode": "0o644",
+      "mtime_ns": 1792235935036889130,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/freeze.json",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "591af6b52043baa54fc3e7145bc6cdb6268501758bb4fd088f99de90390a9440"
+    },
+    {
+      "bytes": 621,
+      "mode": "0o644",
+      "mtime_ns": 1792235935034828547,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/source-metadata-attempt1.log",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "e0c27602f7d2f637d13d6ccd80e71dd82eac7e9cb477ab1b21719eeae18ed5bf"
+    },
+    {
+      "bytes": 180,
+      "mode": "0o644",
+      "mtime_ns": 1792235935034489505,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/synthetic-attempt1-terminal.json",
+      "read_extent": "bytes compared to previously fully reviewed V1/V2 or used for exact diff/AST/cost reconciliation",
+      "sha256": "653e12cd3b650d933bf0e10ba6c1a7ffac47fc864205b2107fdf01ad6ce65a11"
+    },
+    {
+      "bytes": 3177,
+      "mode": "0o644",
+      "mtime_ns": 1792235935035793880,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/synthetic-attempt1.log",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "b0cc900ebbe757b07299c70eb4189a29efd4c2e969ee5f2951dc4fb62d8029aa"
+    },
+    {
+      "bytes": 181,
+      "mode": "0o644",
+      "mtime_ns": 1792235935033849088,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/synthetic-attempt2-terminal.json",
+      "read_extent": "bytes compared to previously fully reviewed V1/V2 or used for exact diff/AST/cost reconciliation",
+      "sha256": "dbe932cba4d32b18af925ce5f1b81dbfcb68b6761431c5f4cbe3a9263e83ad6f"
+    },
+    {
+      "bytes": 2577,
+      "mode": "0o644",
+      "mtime_ns": 1792235935036101880,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/synthetic-attempt2.log",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "fe07f576e2e792297ef8ecbe19b137c7b874671ce5e8041ee73a29383b0d1da5"
+    },
+    {
+      "bytes": 12452,
+      "mode": "0o644",
+      "mtime_ns": 1792235935034125255,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/test_coverage.py",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "52156f3cca8acc169111c239c9da0c239e94d8feb5e51ecf8384608f1d49e858"
+    },
+    {
+      "bytes": 6426,
+      "mode": "0o644",
+      "mtime_ns": 1792235935034670505,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/test_estimands-attempt1.py.txt",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "de3c7aff67df3b2898c32d2869de57aac67de621cc3dbd1f1b854462c6bf716f"
+    },
+    {
+      "bytes": 6460,
+      "mode": "0o644",
+      "mtime_ns": 1792235935034999588,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v1-evidence/test_estimands.py",
+      "read_extent": "opaque hash and metadata; retained evidence not re-reviewed",
+      "sha256": "b612737c5a2bc90dbadabd9083330335ea94c9806fd9332ad5d65ba4a776053c"
+    },
+    {
+      "bytes": 940,
+      "mode": "0o644",
+      "mtime_ns": 1792236223595877487,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v2-attempt1-sources.json",
+      "read_extent": "full text",
+      "sha256": "4a4b5df814e551c00178f271e763bf2804ee4359dfa24f444d13aa513f2a489e"
+    },
+    {
+      "bytes": 266,
+      "mode": "0o644",
+      "mtime_ns": 1792236225836538333,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v2-evidence/v2-attempt1-terminal-receipt.json",
+      "read_extent": "full text",
+      "sha256": "d6fca44c3246c6b762b791cc327119d34da7fa025c7c9e2da47918dd525ca401"
+    },
+    {
+      "bytes": 939,
+      "mode": "0o644",
+      "mtime_ns": 1792236337285455420,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v3-attempt1-sources.json",
+      "read_extent": "full text",
+      "sha256": "ada187b02d3b59a326e9c3c959682709a216375076d9e6be16c0ac84002ccaec"
+    },
+    {
+      "bytes": 265,
+      "mode": "0o644",
+      "mtime_ns": 1792236341893155073,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/v3-attempt1-terminal-receipt.json",
+      "read_extent": "full text",
+      "sha256": "f580afe4e6861c21fdfe24a90a823e1a78d19b8077e7e0706bbfd1c664c8e6da"
+    },
+    {
+      "bytes": 8360,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/freeze.json",
+      "read_extent": "full JSON",
+      "sha256": "c36804a8c94679e8d64ab91697104a3fabf710d1c1a1e7a1111eae4edccef052"
+    },
+    {
+      "bytes": 5708,
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/NEXTSTAGE-PLAN-v2.md",
+      "read_extent": "opaque hash; fully read in V1 review",
+      "sha256": "b8896d7f7ee7a12593cdfdfe4f7f3fc4a58bddbd9e3f7312b96de895a104565f"
+    },
+    {
+      "bytes": 1403,
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "read_extent": "full source config",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9"
+    }
+  ],
+  "new_supported_blockers": [],
+  "report": {
+    "bytes": 4888,
+    "path": "/tmp/tlab-hyp061-coverage-independent-resources-source-v3.md",
+    "sha256": "45ba1ab7d6312163463de177213366ada2414dd1815ba74d3b9ff300fb95c9d7"
+  },
+  "retained_qualification": {
+    "class": "diagnostic P3",
+    "effect": "can replace primary, still nonzero failclosed",
+    "file": "/tmp/tlab-hyp061-coverage-proposal-v3/coverage.py",
+    "line": 284,
+    "trigger": "receipt construction/telemetry failure after earlier primary"
+  },
+  "reviewer": "/root/wave092_integration_correctness",
+  "source_findings_closed": [
+    {
+      "closure": "strict resolve/distinct literals; exact allowlist/externalfalse/configlock inside try before relations",
+      "closure_lines": [
+        185,
+        197
+      ],
+      "issue": "missing exact-three-Y engine boundary",
+      "priority": "P2"
+    }
+  ],
+  "status": "READY_QUALIFIED_STATIC_PASS_V1_P2_CLOSED_REAL_UNBOUND_UNRUN_NOT_ADMITTED"
+}

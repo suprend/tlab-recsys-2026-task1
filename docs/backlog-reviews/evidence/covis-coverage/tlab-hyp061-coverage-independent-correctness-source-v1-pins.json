@@ -1,0 +1,175 @@
+{
+  "utc": "2026-10-17T11:18:37.751975+00:00",
+  "status": "SOURCE_CHANGES_REQUESTED_P2_TARGET_WINDOW",
+  "author": "/root/wave099_evaluation_blind",
+  "scope": "Named current frozen TMP source, no Git baseline; independent correctness/estimands static review",
+  "findings": [
+    {
+      "priority": "P2",
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/coverage.py",
+      "line": 202,
+      "title": "Enforce frozen 24-hour half-open target window",
+      "source_only_trigger": "At anchor+24h or+30h a typed consistent label passes the 48h inclusive guard; no execution performed."
+    }
+  ],
+  "all_inputs_fresh": true,
+  "inputs": [
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/freeze.json",
+      "bytes": 5159,
+      "sha256": "591af6b52043baa54fc3e7145bc6cdb6268501758bb4fd088f99de90390a9440",
+      "read_scope": "full frozen metadata, exact Root-provided expected hash"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/CHECKS.json",
+      "bytes": 3535,
+      "sha256": "c1d31590a1aeeb49c35ccaf9534b747a1f2c4fefc005464145479c83c3ee0f43",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/FIXTURE-attempt1-to-final.diff",
+      "bytes": 646,
+      "sha256": "8ab0aed32b914e23fe0163c288bff0e3ce881a4979f6c68f25d370e7527e28db",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/NEW-SOURCE.diff",
+      "bytes": 49252,
+      "sha256": "bfba42390d5dec6b9dda6e443324a85e62ea6a13335cf7587fe482219a3a679b",
+      "read_scope": "hash only redundant complete new-source diff"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/README.md",
+      "bytes": 8636,
+      "sha256": "807178c2b602f3ad14d2ee90bde1dc6ccf43cf7926ed3ed1030bf250d8e657eb",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/REQUEST-UNBOUND.json",
+      "bytes": 255,
+      "sha256": "66800c1f498a7d7855d5816f75e4e9c731af9faac48cd6a592b59ae4efb8fea7",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/SOURCE-PINS.json",
+      "bytes": 2691,
+      "sha256": "dc025602f699652cb6b4372d481e021bcdea8c83ed6acf590f11c81a5d197880",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/attempt1-sources.json",
+      "bytes": 513,
+      "sha256": "08cf8a0d41acdad07a5c19f742e87a6d9e509a34c7c0631ec5f6c9a30e1f8e7d",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/attempt2-sources.json",
+      "bytes": 513,
+      "sha256": "bb664bddbe6fb99b1b12e588ae9f903538345cf89a70cf1d2d372f7ed80f0842",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/coverage.py",
+      "bytes": 21630,
+      "sha256": "19e170f76c34e4ff7530b21439191769518261045432ed3b6608cab392fe95d9",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/estimands.py",
+      "bytes": 7254,
+      "sha256": "3aa8e4b2d49e275de399e27e5190437d0a9818977ebcb5de2a88f3954fac6a49",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/source-metadata-attempt1.log",
+      "bytes": 621,
+      "sha256": "e0c27602f7d2f637d13d6ccd80e71dd82eac7e9cb477ab1b21719eeae18ed5bf",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/synthetic-attempt1-terminal.json",
+      "bytes": 180,
+      "sha256": "653e12cd3b650d933bf0e10ba6c1a7ffac47fc864205b2107fdf01ad6ce65a11",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/synthetic-attempt1.log",
+      "bytes": 3177,
+      "sha256": "b0cc900ebbe757b07299c70eb4189a29efd4c2e969ee5f2951dc4fb62d8029aa",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/synthetic-attempt2-terminal.json",
+      "bytes": 181,
+      "sha256": "dbe932cba4d32b18af925ce5f1b81dbfcb68b6761431c5f4cbe3a9263e83ad6f",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/synthetic-attempt2.log",
+      "bytes": 2577,
+      "sha256": "fe07f576e2e792297ef8ecbe19b137c7b874671ce5e8041ee73a29383b0d1da5",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/test_coverage.py",
+      "bytes": 12452,
+      "sha256": "52156f3cca8acc169111c239c9da0c239e94d8feb5e51ecf8384608f1d49e858",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/test_estimands-attempt1.py.txt",
+      "bytes": 6426,
+      "sha256": "de3c7aff67df3b2898c32d2869de57aac67de621cc3dbd1f1b854462c6bf716f",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/test_estimands.py",
+      "bytes": 6460,
+      "sha256": "b612737c5a2bc90dbadabd9083330335ea94c9806fd9332ad5d65ba4a776053c",
+      "read_scope": "complete source/metadata/log; tests read as text only, never executed"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/NEXTSTAGE-PLAN-v2.md",
+      "bytes": 5708,
+      "sha256": "b8896d7f7ee7a12593cdfdfe4f7f3fc4a58bddbd9e3f7312b96de895a104565f",
+      "read_scope": "complete authoritative operational/analysis specification"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+      "bytes": 10077,
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+      "read_scope": "complete read-only review workflow"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "bytes": 1403,
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "read_scope": "complete target horizon/include-end/eligibility source"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "bytes": 20747,
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "read_scope": "lines200–265 source label construction only"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/category_candidate_pilot.py",
+      "bytes": 28415,
+      "sha256": "bcee5e0a071d7ea70a4a214171bf088705ae9de25e1847032eda23226d1eebe0",
+      "read_scope": "lines200–275 target validation/evaluation context only"
+    }
+  ],
+  "report": {
+    "path": "/tmp/tlab-hyp061-coverage-independent-correctness-source-v1.md",
+    "bytes": 9246,
+    "sha256": "de809096424ce25ad1d56593fa58bb01fb76a6e64dc4882fed213fe489861d9a"
+  },
+  "executed_tests": 0,
+  "actual_data_body_reads": 0,
+  "backend_or_project_imports": 0,
+  "SQL": 0,
+  "fits": 0,
+  "new_predictions": 0,
+  "canonical_or_Git_or_network_mutations": 0,
+  "STOP": true
+}

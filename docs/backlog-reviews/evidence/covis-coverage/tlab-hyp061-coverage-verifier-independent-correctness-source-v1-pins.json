@@ -1,0 +1,231 @@
+{
+  "Root_terminal_schema_and_bound_descriptors_match": true,
+  "UTC": "2026-10-17T11:51:57.889811+00:00",
+  "actual_result_descriptors_not_opened_or_hashed": [
+    {
+      "bytes": 3222,
+      "path": "/private/tmp/tlab-hyp061-coverage-runtime-v1-once/consumer/receipt.json",
+      "scope": "Root descriptor only; body not opened or hashed",
+      "sha256": "b3bcd7004a48684977d92f3db3aa083e08d98427ebdfd860a7682f001d1b579d"
+    },
+    {
+      "bytes": 6647,
+      "path": "/private/tmp/tlab-hyp061-coverage-runtime-v1-once/consumer/aggregate.json",
+      "scope": "Root descriptor only; body not opened or hashed",
+      "sha256": "a0f25a34771e4f70828d2bcf4cd117a806ba850c3f554cd1bb7668f893e5e2c4"
+    },
+    {
+      "bytes": 2858,
+      "path": "/private/tmp/tlab-hyp061-coverage-runtime-v1-once/consumer/BEFORE_Y.json",
+      "scope": "Root descriptor only; body not opened or hashed",
+      "sha256": "60d5fa621f88506fbbe02eb84ca88c673a1c1b7d2eaa258e4b029532abc84840"
+    },
+    {
+      "bytes": 2334000,
+      "path": "/private/tmp/tlab-hyp061-coverage-runtime-v1-once/consumer/private-per-query.jsonl",
+      "scope": "Root descriptor only; body not opened or hashed",
+      "sha256": "c4a533236272f0f12a0cef5f5fcc2b4180b9ee23ee9575c4dffd9e1585cf3a2b"
+    },
+    {
+      "bytes": 1814,
+      "path": "/private/tmp/tlab-hyp061-coverage-runtime-v1-once/consumer/private-target-changes.jsonl",
+      "scope": "Root descriptor only; body not opened or hashed",
+      "sha256": "7071e969a5b091ec8604b2c876b7d02cf96c16d8cc6fd4aeaf04cd173db16e4e"
+    }
+  ],
+  "all13package_entries_verified": true,
+  "all_observed_Source_metadata_refs_fresh": true,
+  "binding_changed_keys": [
+    "primary_per_query",
+    "primary_changes",
+    "limits"
+  ],
+  "helper_byte_exact": {
+    "bounded_child": {
+      "byte_exact": true,
+      "bytes": 4664,
+      "sha256": "1c0dfaa27fbf0df5a05c3e5166c4d7d0f2fdb9a5566173d30985d5a7d9b301bc"
+    },
+    "child_limits": {
+      "byte_exact": true,
+      "bytes": 206,
+      "sha256": "75bbd879f76f4d46443e9bcb3546d43859e7a24301cf6663f18eb10667d311cb"
+    },
+    "digest": {
+      "byte_exact": true,
+      "bytes": 269,
+      "sha256": "486da94ba3a3e3959f7b8de4af785022783be9161c687822a7032817fc2e0fb4"
+    }
+  },
+  "independent_helper": "core_verifier_fixture_map; readonly stats/plan/tests only",
+  "new_source_diff_exact": true,
+  "observed_Source_metadata_refs": [
+    {
+      "bytes": 1652,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/CHECKS.json",
+      "sha256": "566c738508bd8e9c47a759e0d47b900908345c23406013ff0e0ce10b4346871d"
+    },
+    {
+      "bytes": 86477,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/NEW-SOURCE.diff",
+      "sha256": "25eebe007ec131a0a038ed59be2d243b1f0b01735477a8faa0c025dad248faf2"
+    },
+    {
+      "bytes": 11385,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/README.md",
+      "sha256": "969858424641827f36327a354afb08615c06bf1f7458ff77f8653908887d1e79"
+    },
+    {
+      "bytes": 1629,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/REQUEST-UNBOUND.json",
+      "sha256": "11526c64240a1f225b54f31127479cfcfba4a1662299ca25a947ec7ee9d45668"
+    },
+    {
+      "bytes": 4419,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/SOURCE-PINS.json",
+      "sha256": "8dc59651bacc8b3260e9d9413e5095433e99bcf8361697dea3e3c99d89667495"
+    },
+    {
+      "bytes": 9070,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/STATS-SOURCE-NOTE.md",
+      "sha256": "78aa13102581ffff303582eaf98e95a6244af6238e677d3f6be86278671565b4"
+    },
+    {
+      "bytes": 516,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/literal-attempt1-receipt.json",
+      "sha256": "af61dec7c127a3961e1b15b43b7f4a9e3aaab2cf32e72cf79eef78428cb78b9d"
+    },
+    {
+      "bytes": 917,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/literal-attempt1-sources.json",
+      "sha256": "192250844476fdddc359d255f3b33f99b0e3de41ed990ff01db98fc8395862d0"
+    },
+    {
+      "bytes": 1080,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/literal-attempt1.log",
+      "sha256": "5cb668365d198136ae3be2cca1bf910703577fa2a119d8ec9e168d49b0fa0b67"
+    },
+    {
+      "bytes": 35889,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/oracle.py",
+      "sha256": "1bdfac19f9d9125bba52143d028927dc1e2e883d1bbba384807f5487a4f58659"
+    },
+    {
+      "bytes": 14063,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/oracle_stats.py",
+      "sha256": "55b7857088fcfdb42bd69513515417a5bcd1e663a6f154559fbd76acd6a8a97b"
+    },
+    {
+      "bytes": 11121,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/test_literals.py",
+      "sha256": "104b7060948f7a6f434b4d54f97c73b40ba50e2e0c91bb1b0ae8bd9768346a98"
+    },
+    {
+      "bytes": 2836,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/freeze.json",
+      "sha256": "2d9603e93bfc61844142a309347bde23f14dfde6336f9716037cbbf180d0a9d3"
+    },
+    {
+      "bytes": 5708,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/NEXTSTAGE-PLAN-v2.md",
+      "sha256": "b8896d7f7ee7a12593cdfdfe4f7f3fc4a58bddbd9e3f7312b96de895a104565f"
+    },
+    {
+      "bytes": 1576,
+      "mode": "0600",
+      "path": "/tmp/tlab-hyp061-coverage-real-binding-proposal-v1/request.json",
+      "sha256": "1b0bda2f1289b9cf9a99881f406c02c1c2efe7525044f0650fb3b87c984c44ad"
+    },
+    {
+      "bytes": 3595,
+      "mode": "0600",
+      "path": "/tmp/tlab-hyp061-coverage-launch-proposal-v1/freeze.json",
+      "sha256": "0b15febc8de2648281dd2182f9dd1989936e08d1a4ff305a9ed893bdbc79cf20"
+    },
+    {
+      "bytes": 1182,
+      "mode": "0644",
+      "path": "/tmp/tlab-root-hyp061-coverage-original-terminal-v1.json",
+      "sha256": "238662863069508d990abab66b069735c79b76fb1c3ae4de4c746e00e07a6a28"
+    },
+    {
+      "bytes": 8360,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/freeze.json",
+      "sha256": "c36804a8c94679e8d64ab91697104a3fabf710d1c1a1e7a1111eae4edccef052"
+    },
+    {
+      "bytes": 1756,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-launch-proposal-v1/request.json",
+      "sha256": "8dcc97e3e078244e1bb9a700054216939aaac7b85a400d93478cf30dd69b0f9b"
+    },
+    {
+      "bytes": 6873,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-launch-proposal-v1/launcher.py",
+      "sha256": "46448026befae00a7531ff51fece7949a95c2010d3f3470cddaa5893ea68f6ff"
+    },
+    {
+      "bytes": 3315,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-launch-proposal-v1/freeze.json",
+      "sha256": "4bf8834ffd45d99fecfc5f5f0ad2f06033ad66daf97ee6c04d76963ab146dcbf"
+    },
+    {
+      "bytes": 2073,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-coverage-verifier-launch-proposal-v1/PLAN.md",
+      "sha256": "617f73c8c5ac570672fd9369d6d2bb2aacf4c60d0649cbe30e41fab8e6d66132"
+    },
+    {
+      "bytes": 6840,
+      "mode": "0600",
+      "path": "/tmp/tlab-hyp061-coverage-launch-proposal-v1/launcher.py",
+      "sha256": "66f31556c8091cce356aac573702c4b89e0fb5153afbd23e2a5dd27db2da75b3"
+    },
+    {
+      "bytes": 10077,
+      "mode": "0644",
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43"
+    }
+  ],
+  "observed_count": 24,
+  "reader_failure": {
+    "cause": "Requested README.md absent; actual frozen metadata names PLAN.md",
+    "corrected_read": "3c31b5",
+    "exit": 1,
+    "operator_source_defect": false,
+    "tool": "8a3cfd"
+  },
+  "report": {
+    "bytes": 7311,
+    "mode": "0600",
+    "path": "/tmp/tlab-hyp061-coverage-verifier-independent-correctness-source-v1.md",
+    "sha256": "52245386cf801e8558a04d0ff17b5b62fb5b10ec00d07c3612d41e3e12bd4bd1"
+  },
+  "runtime_namespace_absent": true,
+  "status": "QUALIFIED_SOURCE_PASS_ACTUAL_UNRUN_NO_ADMISSION",
+  "test_evidence": "One retained5-method invented PASS; no rerun",
+  "test_limits": [
+    "matched-pair substitution evades current5 literals despite correct Source",
+    "matched_count stats fixture always empty",
+    "no totalNplus0/exactthreshold/reject/native6000/closure integration"
+  ],
+  "verification": "Text/AST/hash only; no imports/SQL/tests/runtime/data body reads"
+}

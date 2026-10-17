@@ -1,0 +1,6 @@
+One-off metadata writer failed at parse time; no source/test/artifact writes from that invocation occurred.
+  File "<stdin>", line 34
+    dump('SOURCE-PINS.json',{'version':3,'sources':oldpins['sources'],'inherited_v2_source_pins':ref(v2/'SOURCE-PINS.json'),'v2_failure_freeze':dict(ref(v2/'freeze.json'),path=str(v2/'freeze.json'),'read_extent':'full manifest, verified all31 files and32-file evidence copy'), ...})
+                                                                                                                                                                                                                   ^
+SyntaxError: positional argument follows keyword argument
+Corrected the metadata writer only; no production/test edits or further test runs.

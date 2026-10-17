@@ -1,0 +1,98 @@
+{
+  "utc": "2026-10-17T11:47:50.619237+00:00",
+  "author": "/root/wave099_evaluation_blind",
+  "scope": "new Source-only independent verifier, no actual execution/admission",
+  "inputs": [
+    {
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/NEXTSTAGE-PLAN-v2.md",
+      "bytes": 5708,
+      "sha256": "b8896d7f7ee7a12593cdfdfe4f7f3fc4a58bddbd9e3f7312b96de895a104565f",
+      "read_scope": "authoritative estimands/continuation plan, read as text"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-real-binding-proposal-v1/request.json",
+      "bytes": 1576,
+      "sha256": "1b0bda2f1289b9cf9a99881f406c02c1c2efe7525044f0650fb3b87c984c44ad",
+      "read_scope": "exact allowed primary binding metadata only; referenced seal/labels not opened"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-launch-proposal-v1/freeze.json",
+      "bytes": 3595,
+      "sha256": "0b15febc8de2648281dd2182f9dd1989936e08d1a4ff305a9ed893bdbc79cf20",
+      "read_scope": "allowed launch source metadata only; referenced actual inputs/results not opened"
+    },
+    {
+      "path": "/tmp/tlab-root-hyp061-coverage-original-terminal-v1.json",
+      "bytes": 1182,
+      "sha256": "238662863069508d990abab66b069735c79b76fb1c3ae4de4c746e00e07a6a28",
+      "read_scope": "Root-permitted original closure metadata; only fields/descriptors, no referenced output bodies opened"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v3/freeze.json",
+      "bytes": 8360,
+      "sha256": "c36804a8c94679e8d64ab91697104a3fabf710d1c1a1e7a1111eae4edccef052",
+      "read_scope": "previously reviewed source/schema freeze only, no primary import or actual outcomes"
+    }
+  ],
+  "helper": {
+    "task": "/root/wave099_evaluation_blind/coverage_verifier_stats_author",
+    "scope": [
+      "oracle_stats.py",
+      "STATS-SOURCE-NOTE.md"
+    ],
+    "blindness": "Only authoritative analysis read; no primary consumer/estimands/project/data/result access; no imports/tests/runtime",
+    "final_module_sha256": "55b7857088fcfdb42bd69513515417a5bcd1e663a6f154559fbd76acd6a8a97b",
+    "coordinator_changes_before_single_test": [
+      "global query-order point reduction",
+      "reporting decision labels aligned without changing criteria"
+    ]
+  },
+  "tested_sources": [
+    {
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/oracle.py",
+      "bytes": 35889,
+      "sha256": "1bdfac19f9d9125bba52143d028927dc1e2e883d1bbba384807f5487a4f58659"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/oracle_stats.py",
+      "bytes": 14063,
+      "sha256": "55b7857088fcfdb42bd69513515417a5bcd1e663a6f154559fbd76acd6a8a97b"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/test_literals.py",
+      "bytes": 11121,
+      "sha256": "104b7060948f7a6f434b4d54f97c73b40ba50e2e0c91bb1b0ae8bd9768346a98"
+    }
+  ],
+  "actual_check": {
+    "attempt": 1,
+    "exit_code": 0,
+    "reaped": true,
+    "signals": [],
+    "failure": null,
+    "child_CPU_seconds": 0.053982,
+    "parent_CPU_prefix": 0.008052999999999998,
+    "wall_prefix_seconds": 0.10134108300553635,
+    "child_maxRSS_bytes": 35766272,
+    "post_sources_match": true,
+    "actual_data_reads": 0,
+    "native_or_primary_imports": 0,
+    "fits": 0,
+    "new_predictions": 0,
+    "measurement": "wrapper prefix excludes final receipt/exit; CPU hard parent1+child4; wall alarm8 and6+1+1 cleanup nominal; RSS observed"
+  },
+  "explicit_exclusions": [
+    "actual seal/DB/Q/C/Y/JSONL",
+    "primary aggregate/private result bodies",
+    "primary consumer/estimands/project/model imports",
+    "new graph SQL or source data scans",
+    "models/fits/predictions",
+    "active brainstorm102 peers",
+    "canonical/Git/network writes"
+  ],
+  "source_format_context": "Seven historical labels fields and closed BEFORE_Y/input/output schemas are from previously independently reviewed V3 Source. I/O author disclosed prior source-review visibility. Pure statistics helper did not see primary code.",
+  "runtime_inputs": "REQUEST-UNBOUND.json still has null private output witnesses; all referenced actual bodies remain unopened",
+  "resource_scope": "One literal-only5CPU8wall256MiB envelope completed. Actual verifier90CPU120wall1GiB/16MiB is prospective/unissued; startup/final tail require Root external supervision. PhysicalIO UNKNOWN.",
+  "all_source_inputs_fresh": true,
+  "source_tests_were_not_actual_validation": true
+}

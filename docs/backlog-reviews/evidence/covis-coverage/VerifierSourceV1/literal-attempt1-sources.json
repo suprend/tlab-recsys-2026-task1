@@ -1,0 +1,33 @@
+{
+  "command": [
+    "/private/tmp/tlab-public018-clean-20261015-once/.venv-locked/bin/python",
+    "-I",
+    "-B",
+    "/tmp/tlab-hyp061-coverage-verifier-proposal-v1/test_literals.py"
+  ],
+  "files": {
+    "oracle.py": {
+      "bytes": 35889,
+      "sha256": "1bdfac19f9d9125bba52143d028927dc1e2e883d1bbba384807f5487a4f58659"
+    },
+    "oracle_stats.py": {
+      "bytes": 14063,
+      "sha256": "55b7857088fcfdb42bd69513515417a5bcd1e663a6f154559fbd76acd6a8a97b"
+    },
+    "test_literals.py": {
+      "bytes": 11121,
+      "sha256": "104b7060948f7a6f434b4d54f97c73b40ba50e2e0c91bb1b0ae8bd9768346a98"
+    }
+  },
+  "inputs": "only invented literals and owned temporary text fixtures; no primary/data/backend",
+  "whole_limits": {
+    "CPU": 5,
+    "wall": 8,
+    "observed_RSS": 268435456
+  },
+  "child_hard_CPU": 4,
+  "parent_hard_CPU": 1,
+  "child_wait_seconds": 6,
+  "term_seconds": 1,
+  "kill_reap_seconds": 1
+}

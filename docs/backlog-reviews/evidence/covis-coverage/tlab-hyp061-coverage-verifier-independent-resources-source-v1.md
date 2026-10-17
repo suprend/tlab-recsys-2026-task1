@@ -1,0 +1,27 @@
+# HYP-061 outcome verifier: independent resources/failure SOURCE review
+
+**Qualified static PASS, including Root's frozen binding/outer. No supported resource/lifecycle blocker found.** Actual verifier is UNRUN/NOT ADMITTED; this review grants no authority and does not interpret original measurement metrics. Root retains runtime and semantic acceptance.
+
+## Oracle source and closure
+
+Full `oracle.py`, `oracle_stats.py`, literal tests, README/note, CHECKS, template and one-run evidence were reviewed. All12 package descriptors plus freeze match; three Python ASTs parse. Oracle imports stdlib plus DuckDB only inside target reading. It authenticates and compiles only its exact own sibling stats module; neither primary consumer/estimands nor project/model/backend code is imported. No graph/source DB or original Q/C Parquet reader, fit, prediction, child launch or retry is implemented.
+
+The request is bounded128KiB with exact keys/finite limits. Null private descriptors in REQUEST-UNBOUND fail the descriptor checks; the template cannot produce a successful verifier result. Source binds fixed primary request/terminal hashes and original directory, verifies clean original receipt/closed-marker/output witnesses, authenticates complete three-stream inputs and exactly three historical label descriptors. Root's opaque acceptance witness and original producer semantics remain external premises; hashes do not establish those semantics independently.
+
+Own ORACLE_BEFORE_Y is exclusively written, closed and hashed, then rehashed before logical targets. Target paths strictly resolve to three distinct literal labels.parquet files. Inside the native preservation try, exact allowed_paths, externalfalse and configuration lock are installed and settings read back before relations (`242–257`). Seven typed fields are projected into an in-memory connection,512MB/two threads/zero spill. Batch4096/count1M, foreign/duplicate/scalar/prior/window checks bound admitted records. Opaque label hashing precedes the marker by design; no claim of zero Y-byte access before the logical barrier is made.
+
+Complete candidate domains/priors are parsed with finite64MiB line/256MiB stream descriptors and fixed6000/44172 counts. Per-query reconstruction can do substantial work/allocation between row checks. Statistics accept≤6000 records; production invokes fixed2000 draws/seed61061. At most6000 multiplicities are held per draw, rather than a draws×users matrix. Hooks run initially/finally, every32 rows, each draw and every256 RNG/user-vector steps. Sorts, native calls, JSON decoding/serialization remain cooperative gaps. Small literals prove no real adequacy, physical IO bound or universal memory containment.
+
+Native close preserves an existing primary; late pins, telemetry and receipt persistence are guarded separately (`276–286`, `454–496`). Secondary failures retain the primary and final nonzero rethrow; exception truthiness is not used. Receipt construction is inside its preservation try. Output writes are exclusive and closed; final receipt inventories/hashes existing files. Any failed late check or persistence cannot yield successful exit. Partial files can remain; result status is explicitly pending Root closure. Startup/OOM/OS failure can still prevent a valid receipt, and final hashing/serialization may fail fast: best-effort diagnostic coverage is not universal fault containment.
+
+## Frozen bound launch
+
+Launch freeze4bf8834f… and its seven Source/binding descriptors match. Bound request8dcc97e3… changes only the two null private witnesses and lower worker caps:80CPU/100wall/1GiB/15MiB,2MiB final reserve. The seven external original-measurement witness descriptors were inspected as metadata only; their bodies were not reopened or rehashed here.
+
+Launcher46448026… pins oracle/request/oracle_stats, accepts no overrides, uses project Python `-I -B`, one Popen/process group and one exclusive job. The bounded_child function is byte-exact1c0dfaa2…, including final LF. Initial parent CPU(6,82) permits child hard82 before parent hard6: nominal88CPU within chosen90. Wait108+TERM2+KILL-reap5 totals115wall within120. CORE0/FSIZE512MiB and separate stream closes/reap receipt remain. It returns success only for child exit0, reap and no cleanup errors; failure stops without retry. Job absence was freshly checked.
+
+These reserves are nominal: startup/final-tail work, blocking native IO and owner hard-kill cases prevent a universal hard whole-wall claim. Worker self clocks exclude request/startup and final receipt/exit; wrapper elapsed is sampled before its final persistence/exit.1GiB RSS and16MiB whole output are cooperative/observed;512MiB per-file FSIZE is not a16MiB aggregate hard cap. Actual Root terminal, final job inventory and pins remain necessary after any admitted attempt. Physical IO/adequacy UNKNOWN; old32GiB screen NOT PASSED.
+
+Retained literal evidence records one5/5 run, exit0/reaped, child0.053982CPU, wrapper0.101341wall prefix and35766272B child peak. Tested three-file hashes remain exact. There was no full6000/native-reader integration or actual-data verification; no tests were rerun in this review.
+
+Fresh readback 2026-10-17T11:52:18.844225+00:00. Source freeze2d9603e9…; caller1bdfac19…; stats55b78570…; analysis b889 unchanged. No actual Q/prior/C/Y/aggregate/private bodies, SQL, imports, runtime, network, canonical/Git writes or peer conclusions were read. A disjoint read-only helper checked closure and exact outer binding; only this report and pins were written. STOP.

@@ -1,0 +1,6 @@
+  File "<stdin>", line 10
+    actual=next(json.loads(line) for line in (root/f'synthetic-attempt{number}.log').read_text().splitlines() if line.startswith('{"cpu_seconds"')))
+                                                                                                                                                   ^
+SyntaxError: unmatched ')'
+
+Cause: one extra closing parenthesis in the one-off metadata writer. No Python statement in that writer executed. Passing consumer/estimands/test source and both synthetic logs were unchanged. Replaced nested expression with a simple parsed-record list; no test rerun.

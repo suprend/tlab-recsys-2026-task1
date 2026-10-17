@@ -1,0 +1,84 @@
+{
+  "utc": "2026-10-17T11:47:50.621067+00:00",
+  "status": "SOURCE_PROTOTYPE_FROZEN_LITERAL5_PASS_ACTUAL_VERIFIER_UNRUN_NOT_ADMITTED",
+  "analysis_sha256": "b8896d7f7ee7a12593cdfdfe4f7f3fc4a58bddbd9e3f7312b96de895a104565f",
+  "files": {
+    "CHECKS.json": {
+      "bytes": 1652,
+      "sha256": "566c738508bd8e9c47a759e0d47b900908345c23406013ff0e0ce10b4346871d"
+    },
+    "NEW-SOURCE.diff": {
+      "bytes": 86477,
+      "sha256": "25eebe007ec131a0a038ed59be2d243b1f0b01735477a8faa0c025dad248faf2"
+    },
+    "README.md": {
+      "bytes": 11385,
+      "sha256": "969858424641827f36327a354afb08615c06bf1f7458ff77f8653908887d1e79"
+    },
+    "REQUEST-UNBOUND.json": {
+      "bytes": 1629,
+      "sha256": "11526c64240a1f225b54f31127479cfcfba4a1662299ca25a947ec7ee9d45668"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 4419,
+      "sha256": "8dc59651bacc8b3260e9d9413e5095433e99bcf8361697dea3e3c99d89667495"
+    },
+    "STATS-SOURCE-NOTE.md": {
+      "bytes": 9070,
+      "sha256": "78aa13102581ffff303582eaf98e95a6244af6238e677d3f6be86278671565b4"
+    },
+    "literal-attempt1-receipt.json": {
+      "bytes": 516,
+      "sha256": "af61dec7c127a3961e1b15b43b7f4a9e3aaab2cf32e72cf79eef78428cb78b9d"
+    },
+    "literal-attempt1-sources.json": {
+      "bytes": 917,
+      "sha256": "192250844476fdddc359d255f3b33f99b0e3de41ed990ff01db98fc8395862d0"
+    },
+    "literal-attempt1.log": {
+      "bytes": 1080,
+      "sha256": "5cb668365d198136ae3be2cca1bf910703577fa2a119d8ec9e168d49b0fa0b67"
+    },
+    "oracle.py": {
+      "bytes": 35889,
+      "sha256": "1bdfac19f9d9125bba52143d028927dc1e2e883d1bbba384807f5487a4f58659"
+    },
+    "oracle_stats.py": {
+      "bytes": 14063,
+      "sha256": "55b7857088fcfdb42bd69513515417a5bcd1e663a6f154559fbd76acd6a8a97b"
+    },
+    "test_literals.py": {
+      "bytes": 11121,
+      "sha256": "104b7060948f7a6f434b4d54f97c73b40ba50e2e0c91bb1b0ae8bd9768346a98"
+    }
+  },
+  "tested_sources": {
+    "oracle.py": {
+      "bytes": 35889,
+      "sha256": "1bdfac19f9d9125bba52143d028927dc1e2e883d1bbba384807f5487a4f58659"
+    },
+    "oracle_stats.py": {
+      "bytes": 14063,
+      "sha256": "55b7857088fcfdb42bd69513515417a5bcd1e663a6f154559fbd76acd6a8a97b"
+    },
+    "test_literals.py": {
+      "bytes": 11121,
+      "sha256": "104b7060948f7a6f434b4d54f97c73b40ba50e2e0c91bb1b0ae8bd9768346a98"
+    }
+  },
+  "single_literal_attempt": {
+    "tests": 5,
+    "exit_code": 0,
+    "reaped": true,
+    "child_CPU_seconds": 0.053982,
+    "parent_CPU_prefix": 0.008052999999999998,
+    "wall_prefix_seconds": 0.10134108300553635,
+    "peak_child_RSS_bytes": 35766272,
+    "native_imports": 0,
+    "real_inputs": 0
+  },
+  "actual_verifier_budget": "PROSPECTIVE90CPU120wall1GiBcooperativeRSS16MiBoutput; Root admission missing",
+  "actual_results_bodies_read": false,
+  "root_sole_operator": true,
+  "STOP": true
+}

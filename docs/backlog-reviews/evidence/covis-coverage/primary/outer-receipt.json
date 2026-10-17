@@ -1,0 +1,44 @@
+{
+  "child_cpu_seconds": 13.994364000000001,
+  "children_ru_maxrss": 422428672,
+  "cleanup_errors": [],
+  "command": [
+    "/Users/mdpospelov/tlab-recsys-2026/.venv/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/tlab-hyp061-coverage-proposal-v3/coverage.py",
+    "--request",
+    "/private/tmp/tlab-hyp061-coverage-real-binding-proposal-v1/request.json",
+    "--output",
+    "/private/tmp/tlab-hyp061-coverage-runtime-v1-once/consumer"
+  ],
+  "elapsed_seconds": 14.06393770800787,
+  "limits": {
+    "CORE": 0,
+    "FSIZE_bytes": 536870912,
+    "KILL_reap_grace": 5,
+    "TERM_grace": 2,
+    "child_CPU": 112,
+    "parent_hard_CPU": 6,
+    "wait_wall": 168
+  },
+  "outcome": "exit_zero",
+  "pid": 77939,
+  "primary_error": null,
+  "reaped": true,
+  "request_sha256": "1b0bda2f1289b9cf9a99881f406c02c1c2efe7525044f0650fb3b87c984c44ad",
+  "returncode": 0,
+  "ru_maxrss_scope": "RUSAGE_CHILDREN maximum at sample; not summed group RSS or a hard RSS bound",
+  "ru_maxrss_units": "bytes",
+  "signals": [],
+  "streams": {
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

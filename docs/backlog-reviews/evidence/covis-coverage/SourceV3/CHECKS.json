@@ -1,0 +1,78 @@
+{
+  "actual_Y_body_reads": 0,
+  "actual_producer_outputs_read": 0,
+  "adequacy": "UNKNOWN",
+  "ast_parse": "PASS; exact tested sources checked after run without imports",
+  "combined_cost": {
+    "child_cpu_seconds": 16.250314,
+    "max_rss_bytes": 175538176,
+    "wall_seconds": 16.614496624005316
+  },
+  "consumer_methods": 5,
+  "deferred_P3": "Receipt construction/guard.telemetry can replace an earlier exception; fails closed but primary diagnostics incomplete. No new repair/framework authorized.",
+  "fits": 0,
+  "full_native_integration": [
+    "before relation exact3 resolved path membership preserving count, external=false and lock=true",
+    "settings installed before any label relation",
+    "attempt to enable external access rejected",
+    "undeclared fourth Parquet rejected",
+    "all declared paths usable with locked settings DuckDB1.5.6",
+    "complete invented6000/44172 prior/six arms/three tiny label files/2000 bootstrap draws/private persistence and aggregate assertions"
+  ],
+  "limits": {
+    "observed_rss_qualification_bytes": 536870912,
+    "rss_hard_containment": false,
+    "total_cpu_seconds": 20,
+    "total_wall_seconds": 30,
+    "v3_cpu_seconds": 8,
+    "v3_wall_seconds": 16
+  },
+  "model_imports": 0,
+  "physical_IO": "UNKNOWN; old32GiB screen NOT PASSED",
+  "predictions": 0,
+  "prior_failures": "v2-evidence retains V2 failed order assertion plus complete V1 source/failing decimal fixture/logs/metadata-writer error; neither prior freeze changed",
+  "prior_suite_attempts": 3,
+  "pure_methods": 10,
+  "real_inputs_read": 0,
+  "runtime": "UNRUN_NOT_ADMITTED",
+  "source_metadata_failure": "source-metadata-v3-attempt1.log: one-off metadata writer parse SyntaxError; corrected without source/test edits or further suite run",
+  "status": "SYNTHETIC_PASS_SOURCE_ONLY",
+  "target_boundary_literal_subcases": 7,
+  "terminal_receipt": {
+    "attempt": 1,
+    "child_cpu_seconds": 4.5929139999999995,
+    "child_peak_rss_bytes": 175538176,
+    "exit_code": 0,
+    "failure": null,
+    "fits": 0,
+    "real_inputs_read": 0,
+    "reaped": true,
+    "retry_count": 0,
+    "version": 3,
+    "wall_seconds": 4.607396041013999
+  },
+  "test_summary": {
+    "cpu_seconds": 4.50362,
+    "duckdb": "1.5.6",
+    "errors": 0,
+    "exit_code": 0,
+    "failures": 0,
+    "fits": 0,
+    "real_inputs_read": 0,
+    "rss_bytes": 175538176,
+    "skipped": 0,
+    "success": true,
+    "tests": 15,
+    "wall_seconds": 4.50499466698966
+  },
+  "total_suite_attempts": 4,
+  "unchanged_v2_files": [
+    "coverage.py",
+    "estimands.py",
+    "test_estimands.py",
+    "REQUEST-UNBOUND.json"
+  ],
+  "unique_v3_methods": 15,
+  "v3_attempt_count": 1,
+  "version": 3
+}

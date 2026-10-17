@@ -1,0 +1,214 @@
+{
+  "checks": {
+    "ast_only_files": [
+      "coverage.py",
+      "estimands.py",
+      "test_coverage.py",
+      "test_estimands.py"
+    ],
+    "canonical_git_writes": 0,
+    "fixture_diff_exact": true,
+    "frozen_descriptors_match": 18,
+    "logical_barrier_static": "closed+hash+recheck before DuckDB import and logical relation",
+    "network": 0,
+    "peer_conclusions_read": 0,
+    "production_and_consumer_tests_unchanged_between_attempts": true,
+    "real_body_reads": 0,
+    "recorded_attempts_reconciled": 2,
+    "source_execution": 0,
+    "source_imports": 0,
+    "sql": 0,
+    "test_method_count": 14,
+    "tests_rerun": 0
+  },
+  "diagnostic_qualification": {
+    "condition": "receipt construction or telemetry fails after existing primary",
+    "effect": "nonzero failure can replace primary; no semantic PASS/resource bypass",
+    "file": "/tmp/tlab-hyp061-coverage-proposal-v1/coverage.py",
+    "line": 278
+  },
+  "findings": [
+    {
+      "file": "/tmp/tlab-hyp061-coverage-proposal-v1/coverage.py",
+      "lines": [
+        187,
+        191
+      ],
+      "priority": "P2",
+      "scope": "missing requested engine confinement; no observed extra access",
+      "trigger": "first logical label connection has no engine allowed_paths/externalfalse/configlock"
+    }
+  ],
+  "fresh_input_readback_utc": "2026-10-17T11:19:05.087916+00:00",
+  "frozen_package_sha256": "591af6b52043baa54fc3e7145bc6cdb6268501758bb4fd088f99de90390a9440",
+  "inputs": [
+    {
+      "bytes": 3535,
+      "mode": "0o644",
+      "mtime_ns": 1792235605402467894,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/CHECKS.json",
+      "read_extent": "full text",
+      "sha256": "c1d31590a1aeeb49c35ccaf9534b747a1f2c4fefc005464145479c83c3ee0f43"
+    },
+    {
+      "bytes": 646,
+      "mode": "0o644",
+      "mtime_ns": 1792235605404780436,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/FIXTURE-attempt1-to-final.diff",
+      "read_extent": "full text",
+      "sha256": "8ab0aed32b914e23fe0163c288bff0e3ce881a4979f6c68f25d370e7527e28db"
+    },
+    {
+      "bytes": 49252,
+      "mode": "0o644",
+      "mtime_ns": 1792235605404508644,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/NEW-SOURCE.diff",
+      "read_extent": "opaque hash only; final source read directly",
+      "sha256": "bfba42390d5dec6b9dda6e443324a85e62ea6a13335cf7587fe482219a3a679b"
+    },
+    {
+      "bytes": 8636,
+      "mode": "0o644",
+      "mtime_ns": 1792235605404907144,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/README.md",
+      "read_extent": "full text",
+      "sha256": "807178c2b602f3ad14d2ee90bde1dc6ccf43cf7926ed3ed1030bf250d8e657eb"
+    },
+    {
+      "bytes": 255,
+      "mode": "0o644",
+      "mtime_ns": 1792235332106838884,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/REQUEST-UNBOUND.json",
+      "read_extent": "full text",
+      "sha256": "66800c1f498a7d7855d5816f75e4e9c731af9faac48cd6a592b59ae4efb8fea7"
+    },
+    {
+      "bytes": 2691,
+      "mode": "0o644",
+      "mtime_ns": 1792235605403780894,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/SOURCE-PINS.json",
+      "read_extent": "full text",
+      "sha256": "dc025602f699652cb6b4372d481e021bcdea8c83ed6acf590f11c81a5d197880"
+    },
+    {
+      "bytes": 513,
+      "mode": "0o644",
+      "mtime_ns": 1792235359674305633,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/attempt1-sources.json",
+      "read_extent": "full text",
+      "sha256": "08cf8a0d41acdad07a5c19f742e87a6d9e509a34c7c0631ec5f6c9a30e1f8e7d"
+    },
+    {
+      "bytes": 513,
+      "mode": "0o644",
+      "mtime_ns": 1792235395436883289,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/attempt2-sources.json",
+      "read_extent": "full text",
+      "sha256": "bb664bddbe6fb99b1b12e588ae9f903538345cf89a70cf1d2d372f7ed80f0842"
+    },
+    {
+      "bytes": 21630,
+      "mode": "0o644",
+      "mtime_ns": 1792235332082159465,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/coverage.py",
+      "read_extent": "full text",
+      "sha256": "19e170f76c34e4ff7530b21439191769518261045432ed3b6608cab392fe95d9"
+    },
+    {
+      "bytes": 7254,
+      "mode": "0o644",
+      "mtime_ns": 1792235011015030923,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/estimands.py",
+      "read_extent": "full text",
+      "sha256": "3aa8e4b2d49e275de399e27e5190437d0a9818977ebcb5de2a88f3954fac6a49"
+    },
+    {
+      "bytes": 621,
+      "mode": "0o644",
+      "mtime_ns": 1792235605355940432,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/source-metadata-attempt1.log",
+      "read_extent": "full text",
+      "sha256": "e0c27602f7d2f637d13d6ccd80e71dd82eac7e9cb477ab1b21719eeae18ed5bf"
+    },
+    {
+      "bytes": 180,
+      "mode": "0o644",
+      "mtime_ns": 1792235364876205967,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/synthetic-attempt1-terminal.json",
+      "read_extent": "full text",
+      "sha256": "653e12cd3b650d933bf0e10ba6c1a7ffac47fc864205b2107fdf01ad6ce65a11"
+    },
+    {
+      "bytes": 3177,
+      "mode": "0o644",
+      "mtime_ns": 1792235364797277752,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/synthetic-attempt1.log",
+      "read_extent": "full text",
+      "sha256": "b0cc900ebbe757b07299c70eb4189a29efd4c2e969ee5f2951dc4fb62d8029aa"
+    },
+    {
+      "bytes": 181,
+      "mode": "0o644",
+      "mtime_ns": 1792235400002729863,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/synthetic-attempt2-terminal.json",
+      "read_extent": "full text",
+      "sha256": "dbe932cba4d32b18af925ce5f1b81dbfcb68b6761431c5f4cbe3a9263e83ad6f"
+    },
+    {
+      "bytes": 2577,
+      "mode": "0o644",
+      "mtime_ns": 1792235399942556150,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/synthetic-attempt2.log",
+      "read_extent": "full text",
+      "sha256": "fe07f576e2e792297ef8ecbe19b137c7b874671ce5e8041ee73a29383b0d1da5"
+    },
+    {
+      "bytes": 12452,
+      "mode": "0o644",
+      "mtime_ns": 1792235265818379492,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/test_coverage.py",
+      "read_extent": "full text",
+      "sha256": "52156f3cca8acc169111c239c9da0c239e94d8feb5e51ecf8384608f1d49e858"
+    },
+    {
+      "bytes": 6426,
+      "mode": "0o644",
+      "mtime_ns": 1792235388017641445,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/test_estimands-attempt1.py.txt",
+      "read_extent": "full text comparison against final fixture diff",
+      "sha256": "de3c7aff67df3b2898c32d2869de57aac67de621cc3dbd1f1b854462c6bf716f"
+    },
+    {
+      "bytes": 6460,
+      "mode": "0o644",
+      "mtime_ns": 1792235388017792528,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/test_estimands.py",
+      "read_extent": "full text",
+      "sha256": "b612737c5a2bc90dbadabd9083330335ea94c9806fd9332ad5d65ba4a776053c"
+    },
+    {
+      "bytes": 5159,
+      "path": "/tmp/tlab-hyp061-coverage-proposal-v1/freeze.json",
+      "read_extent": "full JSON",
+      "sha256": "591af6b52043baa54fc3e7145bc6cdb6268501758bb4fd088f99de90390a9440"
+    },
+    {
+      "bytes": 5708,
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/NEXTSTAGE-PLAN-v2.md",
+      "read_extent": "full text",
+      "sha256": "b8896d7f7ee7a12593cdfdfe4f7f3fc4a58bddbd9e3f7312b96de895a104565f"
+    }
+  ],
+  "limits": {
+    "actual_runtime": "UNRUN_NOT_ADMITTED",
+    "resource_proof": "cooperative Source only; no universal containment or physical IO proof",
+    "statistics_semantics": "separate Root-assigned reviewer"
+  },
+  "report": {
+    "bytes": 4899,
+    "path": "/tmp/tlab-hyp061-coverage-independent-resources-source-v1.md",
+    "sha256": "1d9edb9116497e629f2fbcfc173569501168edbcea78426412919c2ac232172f"
+  },
+  "reviewer": "/root/wave092_integration_correctness",
+  "status": "READY_SOURCE_REVIEW_P2_ENGINE_FILE_BOUNDARY_REAL_UNRUN_NOT_ADMITTED"
+}
