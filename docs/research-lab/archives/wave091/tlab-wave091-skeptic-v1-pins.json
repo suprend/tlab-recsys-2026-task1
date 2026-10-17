@@ -1,0 +1,549 @@
+{
+  "version": 1,
+  "scope": "wave091 separate skeptical SOURCE-only review",
+  "observed_at_utc": "2026-10-17T04:40:00.240131+00:00",
+  "first_recorded_reviewer_metadata_clock_utc": "2026-10-17T04:34:16.460642+00:00",
+  "exact_start": "UNKNOWN",
+  "report": {
+    "path": "/tmp/tlab-wave091-skeptic-v1.md",
+    "bytes": 8316,
+    "sha256": "faa9e6872e4a2a79fb7966dc7677ecb7a4f0cc9177e433a701822ba8e2a81b6c"
+  },
+  "words_whitespace": 1031,
+  "frozen_author_inputs": [
+    {
+      "path": "/tmp/tlab-wave091-temporal-paths-FIRST.md",
+      "bytes": 6885,
+      "sha256": "d65cf8b2c83f3e670e2adb002672bd295f25e71dfb9632d10b55b403924c9d33",
+      "supplied_sha256_match": true
+    },
+    {
+      "path": "/tmp/tlab-wave091-temporal-paths-pins.json",
+      "bytes": 6782,
+      "sha256": "9eaa680187350599ac594614c0135069e43395410aea97d02e9f300b19101249",
+      "supplied_sha256_match": true
+    },
+    {
+      "path": "/tmp/tlab-wave091-temporal-paths-freeze.json",
+      "bytes": 935,
+      "sha256": "26b6e6615d390c681de8f3608ea1b696eed7099ed0164b178a548e8277fe66ae",
+      "supplied_sha256_match": true
+    },
+    {
+      "path": "/tmp/tlab-wave091-semantic-pruning-FIRST.md",
+      "bytes": 6967,
+      "sha256": "088cba19bde693081b8aa500b352e8ee0190f6a3313e251d33050fe9adc763b4",
+      "supplied_sha256_match": true
+    },
+    {
+      "path": "/tmp/tlab-wave091-semantic-pruning-pins.json",
+      "bytes": 3303,
+      "sha256": "282a87066e38758ac41cac5a9c7c8f624dcb06ee0ef6c68bb8032ed11ee51148",
+      "supplied_sha256_match": true
+    },
+    {
+      "path": "/tmp/tlab-wave091-semantic-pruning-freeze.json",
+      "bytes": 760,
+      "sha256": "060c59638edea74fecb6584c49834a50924c1c50546c58a80be338e97122c0fc",
+      "supplied_sha256_match": true
+    },
+    {
+      "path": "/tmp/tlab-wave091-join-consolidation-FIRST.md",
+      "bytes": 7608,
+      "sha256": "6f33bf369d358eb603a02fac2ea8c175f038b96e9964c319664424d36793bc8c",
+      "supplied_sha256_match": true
+    },
+    {
+      "path": "/tmp/tlab-wave091-join-consolidation-pins.json",
+      "bytes": 6332,
+      "sha256": "80ac9708a0405f90afa2ff8197775629c5856718eae577fbccf9cea378b4e369",
+      "supplied_sha256_match": true
+    },
+    {
+      "path": "/tmp/tlab-wave091-join-consolidation-freeze.json",
+      "bytes": 884,
+      "sha256": "78ac640bf16972a49e956e6539e0dc4512b0981ccb50322ed73e406a6e069962",
+      "supplied_sha256_match": true
+    }
+  ],
+  "author_source_pin_verification": {
+    "occurrences": 55,
+    "unique_paths": 38,
+    "all_match": true,
+    "paths": [
+      {
+        "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+        "bytes": 22428,
+        "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+        "bytes": 222387,
+        "sha256": "0430c22d81a300d3979b784dfd3d2c08fbff668e00bda0ba1d2a76e1c393d6ab",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+        "bytes": 62664,
+        "sha256": "36c5c49b973c57aba0365ab1a6980ca9cae3a0a92c954abd5f992182b22c9998",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-log.md",
+        "bytes": 216607,
+        "sha256": "d59647c4db66a1d6cc1d685eeaf6eb3901f880da9d37857dd3f0086bc57dba5e",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-001.md",
+        "bytes": 22970,
+        "sha256": "a125715acaea5e16ed764c9400e469984f655ecd1437341276d5747ed04659fc",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-004.md",
+        "bytes": 15770,
+        "sha256": "8f085fc35eae11951d1bc6a8909784ab1d2de62ac1756849c65778b8c1d1cb6e",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-011.md",
+        "bytes": 13182,
+        "sha256": "422553352b1f42dfef29cbd9ecd08560183f3a51caea8b73ba6a761cf2794e76",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-013.md",
+        "bytes": 12741,
+        "sha256": "8974e352c842d1f320d99618d47939c08805b58034adbee4eacb341cdcf81f6d",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-011-013-review.md",
+        "bytes": 7143,
+        "sha256": "b1236c46651e9079fed91f96ec1dcfdb87eb65a29aff6dd6b8e83e96cf2aa148",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-022.md",
+        "bytes": 10678,
+        "sha256": "72473f13c8230eca13edbff3eb29d52602fb04c26154c6161346d4f683f51499",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-047.md",
+        "bytes": 9847,
+        "sha256": "ef1bb2328218b6450d8bdd8e0cba024041893ed69e92a9d618bcb1dd8d61e8c9",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-048.md",
+        "bytes": 10738,
+        "sha256": "1e5a7569888949533ee863c8eb97149e6dbf6382f79c2e751bec1b0856c99dcf",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave022-synthesis.md",
+        "bytes": 3536,
+        "sha256": "b434e4f335c92fab0b55c97b641a15de3a0401bf5978934d398fef0995b58363",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave089-synthesis.md",
+        "bytes": 4171,
+        "sha256": "3ded5c269e5667c9d09623b0bba50abd3cb75a3302a34a40f0d0e3432f782001",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave090-synthesis.md",
+        "bytes": 4075,
+        "sha256": "8bda9b4fa3382f702a9394c71704d8f8a90b691f4eb80bf9b1b613fdfca3b63f",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave089/tlab-wave089-population-FIRST.md",
+        "bytes": 5502,
+        "sha256": "e610f0d8bba7c3aac9422a6daacc2e513dd3ff524f11dfaf1662d9d7aa2cfa34",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+        "bytes": 3638,
+        "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/tlab016-feature-collection-design.md",
+        "bytes": 5915,
+        "sha256": "0ece111f57fd747e42d219f42d52429454e3b2190a1c72ff4f0f9265d4b6ea6d",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+        "bytes": 14019,
+        "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+        "bytes": 26364,
+        "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+        "bytes": 19102,
+        "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+        "bytes": 6184,
+        "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+        "author_pin_match": true
+      },
+      {
+        "path": "/tmp/tlab-hippasus-primary-provenance-v1.md",
+        "bytes": 3688,
+        "sha256": "ffb942976f5068f4d0d36b12d86c07dcfc2893ec23ae24ae85a52d8a620fa6d0",
+        "author_pin_match": true
+      },
+      {
+        "path": "/tmp/tlab-root-hippasus-frontier-source-acceptance-v1.json",
+        "bytes": 1781,
+        "sha256": "463dbe7d7b7c8292deef45c1974789ba4052dbbfa070604d839c8d98c48c18b9",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-002.md",
+        "bytes": 19489,
+        "sha256": "d08a13621e1a973dd9e3bd02a332d986bc666e8112e550508eab8e1ddbf9c139",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-025.md",
+        "bytes": 10153,
+        "sha256": "674354fbe80880ee0fb39cc836ec3493a925257c34f3df7c64d398bbf88357e3",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-044.md",
+        "bytes": 9878,
+        "sha256": "9a403b0d928e44f45b0b27da6b3ba06107709f0514c3cb408ff13f75087621f6",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave001-hypotheses.json",
+        "bytes": 9637,
+        "sha256": "02e53b002a9f6ca85c2330f6a83f3c1e464981a35f7a0c0e05c6ac39104df197",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md",
+        "bytes": 5230,
+        "sha256": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-033.md",
+        "bytes": 10790,
+        "sha256": "44b02363a9e878ae44fdd337b02716d62e5767bbd8ae10d97b3a2a62a527f28d",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/features/index.md",
+        "bytes": 21655,
+        "sha256": "9dba4ebea5d1b1334fb9b31324972c9cd6c655d5d2e18dece21e27a7ee495a5e",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/category-recovery.md",
+        "bytes": 8562,
+        "sha256": "9e54bf773dd30a25fd53e25300c4ed29e991551b75fc018d0f310dd3c7049923",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/data.md",
+        "bytes": 6378,
+        "sha256": "037f9f0ab24a83a772c1a9f70341cfe267ac6de89ad6c9ee27bda2eac1d0ac86",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/metadata-price-features.md",
+        "bytes": 12128,
+        "sha256": "64300ce90148d0c53b02fc25dd6ccec19d02cd0476aa670cff9bb81886dff8a1",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/metadata-ablation.md",
+        "bytes": 9477,
+        "sha256": "1222c4babf816bfe7f1f465f98aa4c403c9950cc2d8b979baec8fd7b558568fc",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/feature-program-model-contract.md",
+        "bytes": 11622,
+        "sha256": "9c6b228ec4b91def279d943fd2b5ce4d98cb825a32fbedece604c343bcc80660",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/feature-programs.md",
+        "bytes": 7796,
+        "sha256": "ff2353c32b897583a4fb99aa89bf6e77aa479c64a88ead7c52792e537d3c0bcf",
+        "author_pin_match": true
+      },
+      {
+        "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/refinement-category-text-controls.md",
+        "bytes": 11226,
+        "sha256": "dc863d5fb7b1d74667dbbe1abe0e662fdc256c71e0f169f2bcd50192baece146",
+        "author_pin_match": true
+      }
+    ],
+    "verification_is_metadata_not_full_content_read": true
+  },
+  "local_content_reads": [
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+      "bytes": 22428,
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2",
+      "read_extent": "full"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md",
+      "bytes": 5230,
+      "sha256": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb",
+      "read_extent": "full"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "bytes": 222387,
+      "sha256": "0430c22d81a300d3979b784dfd3d2c08fbff668e00bda0ba1d2a76e1c393d6ab",
+      "read_extent": "latest overlays and relevant task/HYP registry searches"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "bytes": 62664,
+      "sha256": "36c5c49b973c57aba0365ab1a6980ca9cae3a0a92c954abd5f992182b22c9998",
+      "read_extent": "latest overlay plus relevant searches; earlier large output partly truncated"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-log.md",
+      "bytes": 216607,
+      "sha256": "d59647c4db66a1d6cc1d685eeaf6eb3901f880da9d37857dd3f0086bc57dba5e",
+      "read_extent": "latest overlays and historical tail/relevant searches"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-001.md",
+      "bytes": 22970,
+      "sha256": "a125715acaea5e16ed764c9400e469984f655ecd1437341276d5747ed04659fc",
+      "read_extent": "HYP011/012/013 and metric slices/relevant searches"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-002.md",
+      "bytes": 19489,
+      "sha256": "d08a13621e1a973dd9e3bd02a332d986bc666e8112e550508eab8e1ddbf9c139",
+      "read_extent": "HYP046 lines41–50 plus relevant searches"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-013.md",
+      "bytes": 12741,
+      "sha256": "8974e352c842d1f320d99618d47939c08805b58034adbee4eacb341cdcf81f6d",
+      "read_extent": "lines13–45 and relevant searches"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-044.md",
+      "bytes": 9878,
+      "sha256": "9a403b0d928e44f45b0b27da6b3ba06107709f0514c3cb408ff13f75087621f6",
+      "read_extent": "full lines1–56"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave089-synthesis.md",
+      "bytes": 4171,
+      "sha256": "3ded5c269e5667c9d09623b0bba50abd3cb75a3302a34a40f0d0e3432f782001",
+      "read_extent": "full"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave090-synthesis.md",
+      "bytes": 4075,
+      "sha256": "8bda9b4fa3382f702a9394c71704d8f8a90b691f4eb80bf9b1b613fdfca3b63f",
+      "read_extent": "full"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md",
+      "bytes": 3638,
+      "sha256": "643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb",
+      "read_extent": "full"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "bytes": 14019,
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "read_extent": "lines1–145 and allocation/registry source excerpt"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "bytes": 26364,
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "read_extent": "lines124–170/223–256 plus relevant searches"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "bytes": 19102,
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "read_extent": "lines184–194/238–254 plus relevant searches"
+    },
+    {
+      "path": "/tmp/tlab-hippasus-primary-provenance-v1.md",
+      "bytes": 3688,
+      "sha256": "ffb942976f5068f4d0d36b12d86c07dcfc2893ec23ae24ae85a52d8a620fa6d0",
+      "read_extent": "full"
+    },
+    {
+      "path": "/tmp/tlab-wave091-primary-frontier-v1.md",
+      "bytes": 1689,
+      "sha256": "eda9e4e681857839198aeff45526a38796712f7c80800aec245859cd9237f4e3",
+      "read_extent": "full historical preliminary memo"
+    },
+    {
+      "path": "/tmp/tlab-root-hippasus-frontier-source-acceptance-v1.json",
+      "bytes": 1781,
+      "sha256": "463dbe7d7b7c8292deef45c1974789ba4052dbbfa070604d839c8d98c48c18b9",
+      "read_extent": "full"
+    },
+    {
+      "path": "/tmp/tlab-wave091-dispatch-state-v1.json",
+      "bytes": 1373,
+      "sha256": "a332e5d106e26e8cce1e828c84a2ef7752befed40e89a3a4155ff9a50b7cf63a",
+      "read_extent": "full"
+    },
+    {
+      "path": "/tmp/tlab-root-publication-d2d-actual-pass-v1.json",
+      "bytes": 1813,
+      "sha256": "97c432f25fb87c2b5d00e254fc6d34910fc54f6ba701df4271dd76b67566b5a0",
+      "read_extent": "full"
+    },
+    {
+      "path": "/tmp/tlab-publication-d2d-independent-actual-review-v1.md",
+      "bytes": 2995,
+      "sha256": "b876aa1ea538025f244821793590357dddf29715dc23f6d265727721077082ab",
+      "read_extent": "full; source/receipt consistency, not own remote query"
+    }
+  ],
+  "primary_web_reads": [
+    {
+      "url": "https://arxiv.org/html/2602.02025v1",
+      "version": "v1",
+      "sections": [
+        "3",
+        "4",
+        "6 equations1–6",
+        "7",
+        "8"
+      ],
+      "content_sha256": "UNKNOWN"
+    },
+    {
+      "url": "https://arxiv.org/html/2602.02025v2",
+      "version": "v2",
+      "sections": [
+        "4.1",
+        "4.2 equations1–9",
+        "4.3",
+        "4.4",
+        "5.1 parameter defaults",
+        "5.5 threshold passages"
+      ],
+      "content_sha256": "UNKNOWN"
+    },
+    {
+      "url": "https://arxiv.org/pdf/2602.02025v2",
+      "version": "v2",
+      "result": "web fetch failed Cache miss; no local download or Appendix read",
+      "content_sha256": "UNKNOWN"
+    }
+  ],
+  "helpers": [
+    {
+      "task": "/root/wave091_skeptic/semantic_source_check",
+      "scope": "v2 semantic enabled-route algebra/fallbacks",
+      "mode": "read-only, no helper files; parent-history context inherited; no blindness claim"
+    },
+    {
+      "task": "/root/wave091_skeptic/join_source_check",
+      "scope": "v1/v2 join projection/total-match/consolidation assumptions",
+      "mode": "read-only, no helper files; parent-history context inherited; no blindness claim"
+    }
+  ],
+  "dispositions": {
+    "NEW": 0,
+    "REFINE": 5,
+    "MERGE": 5,
+    "same_refine_merge_proposals": true,
+    "REJECT_PROPOSALS": 0,
+    "ADMIT": 0,
+    "A1": [
+      "HYP-011",
+      "HYP-002",
+      "HYP-046",
+      "TLAB-005",
+      "TLAB-016"
+    ],
+    "A2": [
+      "HYP-002",
+      "HYP-046",
+      "TLAB-004",
+      "TLAB-005",
+      "TLAB-006",
+      "TLAB-016"
+    ],
+    "B1": [
+      "HYP-002",
+      "HYP-012",
+      "TLAB-016"
+    ],
+    "C1": [
+      "HYP-046",
+      "TLAB-005",
+      "TLAB-016"
+    ],
+    "C2": [
+      "HYP-046",
+      "HYP-002",
+      "TLAB-005",
+      "TLAB-016"
+    ]
+  },
+  "local_git_observation": {
+    "HEAD": "d2d2aac4715dfff8bf3f0be20ac27f6d8f42bb1d",
+    "branch": "codex/research-features-and-targets",
+    "status_short": "CLEAN",
+    "remote_state": "Root receipts/supplied observations; reviewer made no remote query"
+  },
+  "publication_status": "Root actual receipt plus independent52checks PASS; Root final adoption separately supplied/in progress; authors pending claims dated history",
+  "experiments": "UNRUN",
+  "budget_adequacy": "UNKNOWN",
+  "actual_Hippasus_code_dependencies_artifact_dataset_licenses": "UNKNOWN",
+  "bounds": {
+    "project_writes": 0,
+    "git_mutations": 0,
+    "runtime_tests_sql_enumerations_models_API": 0,
+    "network_writes": 0,
+    "downloads_installs": 0,
+    "new_ids_tasks_gates_grants": 0
+  },
+  "schedule": {
+    "Root_dispatch_bracket_UTC": [
+      "2026-10-17T04:26:16Z",
+      "2026-10-17T04:28:13.511972+00:00"
+    ],
+    "original_due_UTC": "2026-10-17T04:30:00Z",
+    "next_due_UTC": "2026-10-17T05:15:00Z",
+    "cadence_minutes": 45,
+    "deadline": "25Oct23:59;timezoneUNKNOWN",
+    "individual_starts": "UNKNOWN"
+  },
+  "sole_coordinator_publisher": "/root",
+  "READY": true,
+  "STOP": true
+}

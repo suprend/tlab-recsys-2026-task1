@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "UTC": "2026-10-17T04:31:48.143791+00:00",
+  "verdict": "ACTUAL_RECEIPT_SOURCE_CONSISTENCY_PASS_EXACTD2D",
+  "base": "7cc04e02b5169583a08dc790b3d823925fd80199",
+  "head": "d2d2aac4715dfff8bf3f0be20ac27f6d8f42bb1d",
+  "inputs": [
+    {
+      "path": "/tmp/tlab-root-publication-d2d-actual-pass-v1.json",
+      "sha256": "97c432f25fb87c2b5d00e254fc6d34910fc54f6ba701df4271dd76b67566b5a0",
+      "bytes": 1813,
+      "mode": 420
+    },
+    {
+      "path": "/tmp/tlab-publication-d2d-actual-v1/preflight.json",
+      "sha256": "c1e544e8d3869676cc3499beec6257cae1966f87c239ef20bdb3ad158fa41b48",
+      "bytes": 3317,
+      "mode": 420
+    },
+    {
+      "path": "/tmp/tlab-publication-d2d-actual-v1/remote-readback.json",
+      "sha256": "cb8686e8c07a1417d1278a28bf69be1c725046d57ee840294c741e6724f72df1",
+      "bytes": 3662,
+      "mode": 420
+    },
+    {
+      "path": "/tmp/tlab-publication-d2d-independent-source-review-v1-freeze.json",
+      "sha256": "7c48ee52f3dcf2a27666acda23ddb68248848ff76f881f56789949405db89362",
+      "bytes": 7813,
+      "mode": 420
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/tmp/tlab-publication-d2d-independent-actual-review-v1.md",
+      "sha256": "b876aa1ea538025f244821793590357dddf29715dc23f6d265727721077082ab",
+      "bytes": 2995,
+      "mode": 420
+    },
+    {
+      "path": "/tmp/tlab-publication-d2d-independent-actual-review-v1-pins.json",
+      "sha256": "fc363b993f8aca5134865e77f49d6b4eae472013a60dc24e21d7a0c3bd0179d1",
+      "bytes": 13750,
+      "mode": 420
+    }
+  ],
+  "title": {
+    "path": "/tmp/tlab-publication-d2d-proposal-v1/pr-title.txt",
+    "sha256": "cc1d3a8c70362713f53c00d34f500d2488ea76ca64ed21b5636948ef2682bb12",
+    "bytes": 59,
+    "mode": 420
+  },
+  "body": {
+    "path": "/tmp/tlab-publication-d2d-proposal-v1/pr-body.md",
+    "sha256": "61b8ee7eb591f605e9fb9c9a26137a6d50d277ccf8c40474963b8b20a1f128ad",
+    "bytes": 2506,
+    "mode": 420
+  },
+  "checks": 52,
+  "failed_checks": [],
+  "findings": [],
+  "execution_authority": false,
+  "external_facts_provenance": "Network returned values/PR1 identity and actual original-session CLOSED0/reaped/no-replay/normalauto_review are Root tool-service observations. Reviewer independently verifies local receipts/source byte/hash bindings and current local Git only; no network or session replay.",
+  "reviewer_network_replay_Gitmutations_tests_native_data_models_projectimports_issues_grants": 0
+}
