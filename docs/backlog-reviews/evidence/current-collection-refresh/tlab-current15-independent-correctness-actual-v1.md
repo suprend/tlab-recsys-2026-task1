@@ -1,0 +1,22 @@
+# CURRENT15 independent actual correctness review
+
+Verdict: **PASS in the finite same-processed-DB refresh scope.** No supported correctness finding. This establishes current/historical collection identity and the checked Q/C/Y invariants, not source-formula truth or model quality.
+
+One bounded inspection, no retry, directly returned exit0 (own tool chunk1991e2). I hashed **all75 new and all75 actual historical Parquet files** independently: every byte count/SHA256 matches the accepted inventory35888151… and the newly produced manifests. The75 pairs are therefore byte-identical, not merely equal under the producer's SQL comparator. All15 new/old manifests match their original witnesses/descriptors; the current producer has exactly91 files:75Parquet+15manifests+report, no unexpected files or symlinks. New Parquet total28,966,534B.213 authorized source/metadata/data inputs were hashed before and after the bounded inspection, unchanged.
+
+Only45 **current Q/C/Y** Parquet files were decoded, using existing DuckDB1.5.6 in-memory, one thread/256MiB/0 spill, exact allowed paths, external access disabled and configuration locked. Old feature files and all base/extra files were opaque hash inputs only. There was no redundant feature-value join, source DB/raw scan or model operation.
+
+Independent literal native schemas, daily row counts and unique/non-null keys matched all45 Q/C/Y exports and the report; every day has2000 Q. Global Q keys and(user,anchor) are unique, fullY keys are unique, no C/Y orphans exist, and Q are mature. Retrieved last-event timestamps are strictly before anchor. Serialized first-purchase timestamps lie in[anchor,anchor+24h), with positive raw counts and consistent same-second flags. Those checks validate serialized artifacts, not a new scan of their source events.
+
+| Phase | Q | Candidate rows | FullY | Positive Q | Empty-Y Q | Retrieved Y | Off-C Y |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Train8–20 |26,000|5,317,058|619|496|25,504|444|175|
+| Selection22–23 |4,000|817,149|96|73|3,927|65|31|
+
+Both phases have zero empty-C Q; every Q has200–220 candidates. I rebuilt ordered query_id/group/fullY hashes and per-Q count/1-count mass hashes independently from those files. All four hashes equal the producer's current and historical identities, and aggregate literals match the published historical acceptance. FullY was never filtered to C:619=444+175 and96=65+31. The mathematical one-unit mass per nonempty Q is retained; no float64 weight array or numerical weight-sum was materialized.
+
+The report's75 unique comparison records consistently show valid/equal, zero changed cells/added/removed keys, matching ordered schemas, unique keys and no recorded nonfinite values. For base/extra, native schema/key/value claims are producer/historical evidence supported by independently proven byte identity; I did not independently decode their feature columns. Current entry/recipe/19 dependency hashes match the actual bound source closure and prior reviewed V3 caller27a6c460…/request66ed33ac…/freeze43fdb270…. Conditional B41/W44 input equality follows from identical physical inputs and unchanged reviewed projection/recipe. **Actual current Prepared, float32/NumPy matrices, model weights, prediction or fit were not exercised.**
+
+Producer report76f6ae9c… and parent receipt44b13e1b… match Root terminal27c9f709…. Receipt records return0/reaped, signals[], no primary/cleanup errors; producer secondary_errors[] and both original streams empty. Root supplies original session55906→terminal501f3c exit0/reaped/no retry; I did not observe those original tools. Pending-review labels remain historical status, not this review's acceptance authority. Reported zero fits/loads/predictions is consistent with reviewed caller route and output inventory, not independent backend/heap instrumentation.
+
+Own inspection telemetry:0.785475CPU/0.832822wall seconds,175,259,648B peak RSS, within60CPU/90wall/1GiB; RSS is a cooperative maximum check, not arbitrary-allocation containment. Receipt/logs remain under2MiB. Producer cost remains separate:211.798972 child CPU/158.483959 wrapper wall, reported peak2,009,350,144B. No scientific cost/quality/general leak-freedom claim, final25–31 collection, DB/model/body import, canonical/Git/network mutation or new grant. A disjoint helper checked metadata/source/closure only. Final report/pins readback completed. STOP.

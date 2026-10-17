@@ -1,0 +1,33 @@
+{
+  "status": "ORIGINAL_TERMINAL_EXIT0_REAPED_PENDING_TWO_ACTUAL_REVIEWS",
+  "utc": "2026-10-17T09:39:34.577541+00:00",
+  "owner": "/root",
+  "original_session": 55906,
+  "original_start_chunk": "c4e85b",
+  "original_terminal_chunk": "501f3c",
+  "original_tool_exit": 0,
+  "reaped": true,
+  "attempts": 1,
+  "retry": false,
+  "job": "/private/tmp/tlab-current-collection-refresh-runtime-v1-once",
+  "report": {
+    "path": "/private/tmp/tlab-current-collection-refresh-runtime-v1-once/producer/report.json",
+    "bytes": 369826,
+    "sha256": "76f6ae9cb85118c24958a294aa2cc15973d3a6bccac74e3eb78a9677e099fa2d"
+  },
+  "receipt": {
+    "path": "/private/tmp/tlab-current-collection-refresh-runtime-v1-once/receipt.json",
+    "bytes": 1306,
+    "sha256": "44b13e1ba29c282d014879946feb1d425920d58c72347f82ed90820b6cfd7357"
+  },
+  "observed_reported_status": "EXACT_LOGICAL_MATCH_FOR_PROCESSED_DB",
+  "observed_reported_parquet_byte_matches": 75,
+  "comparisons": 75,
+  "child_CPU_seconds": 211.798972,
+  "wrapper_elapsed_seconds": 158.4839592499775,
+  "max_child_RSS_bytes": 2009350144,
+  "fits": 0,
+  "model_loads": 0,
+  "predictions": 0,
+  "scope": "same accepted processedDB/current15; no rawimport/formulatruth/Prepared/nativequality claim"
+}

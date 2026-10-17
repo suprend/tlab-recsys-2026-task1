@@ -1,0 +1,54 @@
+{
+  "V2_all_frozen_files_unchanged": true,
+  "adequacy": "UNKNOWN",
+  "ast_parse": "PASS",
+  "final_suite": {
+    "cpu_seconds": 0.822289,
+    "errors": 0,
+    "exit_code": 0,
+    "failures": 0,
+    "fits": 0,
+    "real_data_reads": 0,
+    "rss_bytes": 164167680,
+    "skipped": 0,
+    "success": true,
+    "terminal_exit_code": 0,
+    "tests": 17,
+    "wall_seconds": 0.8962599590013269,
+    "whole_cpu_seconds": 0.92,
+    "whole_wall_seconds": 1.05
+  },
+  "final_unique_methods": 17,
+  "frozen_V2_negative_control": {
+    "accounting_qualification": "Wrapper expected failure/error split incorrectly. Actual2failures/1error establish three intended red regressions; raw wrapper was not PASS.",
+    "actual": {
+      "cpu_seconds": 0.016215999999999994,
+      "errors": 1,
+      "exit_code": 1,
+      "expected_red_observed": false,
+      "failures": 2,
+      "fits": 0,
+      "real_data_reads": 0,
+      "rss_bytes": 54493184,
+      "scope": "EXPECTED_RED frozenV2 against three V3 regressions",
+      "skipped": 0,
+      "tests": 3,
+      "wall_seconds": 0.0166596669878345
+    },
+    "terminal_exit_code": 1,
+    "whole_cpu_seconds": 0.08,
+    "whole_wall_seconds": 0.09
+  },
+  "granted_caps": {
+    "cpu_seconds": 20,
+    "duckdb_threads": 2,
+    "rss_bytes": 536870912,
+    "wall_seconds": 30
+  },
+  "max_observed_rss_bytes": 164167680,
+  "orchestration_MATCH_DRIFT": "UNRUN",
+  "real_refresh": "UNRUN",
+  "success_status_then_falsy_primary": "UNRUN",
+  "total_observed_whole_cpu_seconds_approx": 1.0,
+  "total_observed_whole_wall_seconds_approx": 1.14
+}
