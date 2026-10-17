@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "UTC": "2026-10-17T08:09:42.661Z",
+  "operation_id": "cold-cli-lifecycle-v3-bundle1",
+  "state": "terminal_exit0_pending_independent_actual_review",
+  "observed_whole_elapsed_upper_ms": 8593,
+  "original_tool": {
+    "start": 1792224560146,
+    "first": {
+      "chunk_id": "4dc39e",
+      "wall_time_seconds": 1.002532,
+      "session_id": 33526,
+      "original_token_count": 0,
+      "output": ""
+    },
+    "last": {
+      "chunk_id": "7e9e28",
+      "wall_time_seconds": 1.225e-05,
+      "exit_code": 0,
+      "original_token_count": 67,
+      "output": "{\"status\": \"COLD_CLI_BUNDLE_PASS_PENDING_INDEPENDENT_ACTUAL_REVIEW\", \"child_exits\": {\"success\": 0, \"callback_abort\": 1}, \"child_reaped\": {\"success\": true, \"callback_abort\": true}, \"receipt\": \"/private/tmp/tlab-cold-cli-lifecycle-runtime-v1-once/actual-receipt.json\"}\n"
+    },
+    "elapsed_ms": 8593
+  },
+  "owner_receipt": {
+    "path": "/private/tmp/tlab-cold-cli-lifecycle-runtime-v1-once/actual-receipt.json",
+    "sha256": "e85670c0556f25e2f92620a5e6633f6ba09aaef52e6142ccf674fd61ca508bb4",
+    "bytes": 17687
+  },
+  "execution_budget": {
+    "cpu_seconds": 100,
+    "wall_seconds": 65,
+    "native_fit_maximum": 2,
+    "iterations_per_fit_maximum": 8
+  },
+  "authority": "New direct human authorization: necessary local training may proceed without asking per attempt.",
+  "bundle_consumed": true,
+  "retry_of_this_bundle": false
+}
