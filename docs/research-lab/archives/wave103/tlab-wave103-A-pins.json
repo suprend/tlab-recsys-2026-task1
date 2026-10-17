@@ -1,0 +1,228 @@
+{
+  "task": "tlab-wave103-A-FIRST",
+  "author": "/root/wave103_candidate_author",
+  "recorded_at_utc": "2026-10-17 12:02:07 UTC",
+  "repo_head_observed": "7518e45f110be88951f7e2e1e3fc157a1b810bc8",
+  "formal_wave_utc": "2026-10-17T12:00:00Z",
+  "root_reported_early_dispatch_utc": "2026-10-17T11:57:00Z",
+  "next_due_utc": "2026-10-17T12:45:00Z",
+  "instructions": {
+    "user_AGENTS": "Instructions supplied in user message for /Users/mdpospelov/personal-agent-system; obeyed as task context. No physical AGENTS found in TLab root or checked /Users ancestors.",
+    "allowed_writes": "Only /tmp/tlab-wave103-A-FIRST.md, -pins.json, -freeze.json and one helper's distinct /tmp/tlab-wave103-A-helper* files.",
+    "canonical_owner": "Root"
+  },
+  "independence": {
+    "peer103_read": false,
+    "new_coverage_outcomes_read": false,
+    "actual_coverage_verifier_tmp_read": false,
+    "old_summaries_visible": "Mandatory index/backlog/log contain historical Q100/Q6000 computation counts and historical Coverage V1 UNRUN/source-P2 status; these were visible. Root confirmed old summaries are authorized context. No contamination gate inferred.",
+    "helper": "Only one helper on nonoverlapping primary source ECIR2010; received after own RecSys2019 reading. No peer author or skeptic read."
+  },
+  "operations": {
+    "repository_writes": false,
+    "actual_data_reads": false,
+    "sql": false,
+    "imports": false,
+    "tests": false,
+    "fits": false,
+    "network_mutations": false,
+    "git_mutations": false,
+    "web_primary_read": true,
+    "executed_experiments": false
+  },
+  "read_scopes": [
+    {
+      "path": "docs/task1-overview.md",
+      "scope": "all 89 lines"
+    },
+    {
+      "path": "docs/backlog.md",
+      "scope": "requested lines1-240 (combined output truncated); lines635-705; rg matches for HYP001/053/061/062/067/140-144, ItemCF/fusion/candidate terms. Only displayed excerpts read; no assertion full1243-line reading."
+    },
+    {
+      "path": "docs/research-lab/index.md",
+      "scope": "cat requested; output truncated. Displayed beginning current summaries and historical sections/research links read; no assertion full612-line reading."
+    },
+    {
+      "path": "docs/research-lab/brainstorm-log.md",
+      "scope": "lines1-110 and365-420 plus displayed rg heading/candidate matches; no full1272-line reading."
+    },
+    {
+      "path": "docs/candidate-generation/index.md",
+      "scope": "all displayed text; requested1-160"
+    },
+    {
+      "path": "docs/candidate-generation/04-category-brand-price.md",
+      "scope": "all displayed text; requested1-150"
+    },
+    {
+      "path": "docs/candidate-generation/05-itemcf.md",
+      "scope": "requested1-160, combined output truncated after experimental section; observed mechanism/grain/cost text only"
+    },
+    {
+      "path": "docs/candidate-generation/06-usercf-audience.md",
+      "scope": "requested1-120; combined output truncation; observed P1/P2/budget/review excerpt"
+    },
+    {
+      "path": "docs/candidate-generation/11-fusion.md",
+      "scope": "all displayed text; requested1-180"
+    },
+    {
+      "path": "docs/research-lab/brainstorm-ra001.md",
+      "scope": "all displayed text; requested1-180"
+    },
+    {
+      "path": "docs/research-lab/brainstorm-rb001.md",
+      "scope": "requested1-180 then1-125; combined outputs truncated; observed RB1,RB2,partial RB3,RB4,common contract and disposition; not full untruncated claim"
+    },
+    {
+      "path": "docs/research-lab/brainstorm-ra002.md",
+      "scope": "requested1-160 in truncated combined output; primarily visible RA2-02 and shared gate; no full-reading claim"
+    },
+    {
+      "path": "docs/research-lab/brainstorm-ra003.md",
+      "scope": "all displayed text; requested1-150"
+    },
+    {
+      "path": "docs/research-lab/brainstorm-wave101-synthesis.md",
+      "scope": "all displayed text; requested1-100"
+    },
+    {
+      "path": "docs/research-lab/brainstorm-wave102-synthesis.md",
+      "scope": "all displayed text; requested1-110"
+    },
+    {
+      "path": "personal-agent-system skills research/research-campaign and docs/agents coordination/verification",
+      "scope": "complete cat outputs"
+    },
+    {
+      "path": "/tmp/tlab-wave103-A-helper-xquad.md and helper-pins.json",
+      "scope": "complete cat outputs after helper completion"
+    }
+  ],
+  "primary_reading": [
+    {
+      "title": "A Comparison of Calibrated and Intent-Aware Recommendations",
+      "authors": "Mesut Kaya; Derek Bridge",
+      "venue": "RecSys2019",
+      "doi": "10.1145/3298689.3347045",
+      "url": "https://www.insight-centre.org/wp-content/uploads/2020/05/A-Comparison-of-Calibrated-and-Intent-Aware-Recommendations.pdf",
+      "read_on_utc": "2026-10-17",
+      "read_scope": "Substantive deliberate reading: Section2 through2.1, Eqs1-7, Section4, Section5.1, Section5.3 and Section6.2. Source extraction additionally displayed abstract/introduction, Section2.2/3,5.2 and surrounding results text. Nine-page paper not read in full; plots/tables not visually inspected.",
+      "evidence": "Product residual marginal in Eq5; within-aspect normalized item score Eq7; calibration versus diversity distinction; random per-user60/20/20 methodology; quality losses possible. No REES46 transfer claim.",
+      "retrieval": "Successful web PDF extraction; main reference turn2373view0 and followup turn2392view0; no local download."
+    },
+    {
+      "title": "Explicit Search Result Diversification through Sub-Queries",
+      "authors": "Santos; Peng; Macdonald; Ounis",
+      "venue": "ECIR2010",
+      "doi": "10.1007/978-3-642-12275-0_11",
+      "url": "https://ir.dcs.gla.ac.uk/terrier/publications/ecir2010_rodrygo_div.pdf",
+      "reading_owner": "xquad_primary helper only",
+      "read_scope": "Helper pins exact scope: abstract/introduction, Section2, Section3/Algorithm1/3.1/3.2,4.1-4.4 and opening5 before Table1. Main author read helper report, not paper.",
+      "evidence": "Inverse accumulated mass differs from 2019 product formula; m initialization absent in printed algorithm.",
+      "helper_artifacts": [
+        "/tmp/tlab-wave103-A-helper-xquad.md",
+        "/tmp/tlab-wave103-A-helper-xquad-pins.json"
+      ]
+    }
+  ],
+  "discovery_only": {
+    "queries": [
+      "intent aware diversification xQuAD submodular recommendation category coverage fixed pool primary source Santos Macdonald Ounis 2010 pdf",
+      "recommendation calibration popularity categories calibrated recommendations Steck 2018 pdf"
+    ],
+    "note": "Search snippets included Steck2018 and other papers; no extra whole-paper reading or secondary mechanism evidence claimed."
+  },
+  "dedup_search": {
+    "paths": "docs/candidate-generation,docs/features,brainstorm-r*.md,brainstorm-wave0*.md,brainstorm-wave100-102*.md",
+    "terms": "xquad|submodular|diminishing|saturat|насыщен|убывающ|calibrat|калиброван",
+    "result": "No displayed xQuAD/cumulative residual mechanism match; MMR/diversity, mass quotas and unique-yield routing are existing. This is not proof global novelty."
+  },
+  "fresh_file_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/task1-overview.md",
+      "sha256": "bcd4be46821013e9381080cd6efd67b0b061aefdc8d020ee877594da4b28975d"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "sha256": "a2c00fe36b338cb45e3397cc1da1543b42e7e47253d2fc1e4c829bc9f9d604b7"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-log.md",
+      "sha256": "e9e9627e6400bd8328f7e7c3ee90b21cf7f750f2d9c3bfab6bfe125f0c91156d"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "sha256": "ead302e7ca9baf6de5b5359a8d855083ba6977d1b74fd51226ef3535f522eac6"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/index.md",
+      "sha256": "bd49a1768b05aa9577da8a2ea7e123aa80c45be44a54b8a7bf9bbcc903fe10bb"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/04-category-brand-price.md",
+      "sha256": "371c1c98d1dac088c97966ee967c79c060fcaa6fbca25b0e765a5bceac0df4ae"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/05-itemcf.md",
+      "sha256": "f8a35655402279d89d86586a310d4166aa11a2ffdffe83b07123d5710bd8a21a"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/06-usercf-audience.md",
+      "sha256": "ab3d94b157c099420aaf7c08172c17b5879076f3ad97714a4cd240765dc547da"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/11-fusion.md",
+      "sha256": "181a40fdbe3a19da5b93cde3b5aaf84cf4d03631b2d57f04c02b333b8cc35794"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ra001.md",
+      "sha256": "6b5adda3e822b451ab3aefd955515e073ed99a185a62dcb9f94f2208f436b897"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-rb001.md",
+      "sha256": "29af80fffc3249dc2c743f518d1c6577fb787dcbd5004c3ba0aae8a271063050"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ra002.md",
+      "sha256": "a73bbae2ee825295e6674670782bb1e763eaded8a61d9f4e93865ae6d081e3b1"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ra003.md",
+      "sha256": "19ed927b0db8ba13c3ee2e6bc0368bcecb809e7d1e0ffcb844a78617b90c6c5c"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave101-synthesis.md",
+      "sha256": "79cecd7d04ad99d3508ddc6262ab179c8cbfdbcc9625ec0b3142c610fb4b6958"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave102-synthesis.md",
+      "sha256": "e519578599b9fc6d5df71d8298a6ef2cbe3f71eab443932f14c55273e1fa8e45"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+      "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md",
+      "sha256": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/docs/agents/verification.md",
+      "sha256": "d84015a05b7ebc9c4bdc570e75e0a62fbcbe134217a367715fbf5e2acc1e69ec"
+    },
+    {
+      "path": "/tmp/tlab-wave103-A-helper-xquad.md",
+      "sha256": "8c2d7d5d3c5fe8f4a74ef29c09343b6ce21a799f3954c41161de0cb463778936"
+    },
+    {
+      "path": "/tmp/tlab-wave103-A-helper-xquad-pins.json",
+      "sha256": "f71dce54fe33656ab6756aeb7b1bc694efde5044059f16f9987af2b0030d08c8"
+    }
+  ]
+}

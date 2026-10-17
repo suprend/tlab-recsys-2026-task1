@@ -1,0 +1,34 @@
+{
+  "task": "wave103 independent skeptic primary/math helper",
+  "session_date": "2026-10-17",
+  "method": "primary web reads plus hand algebra only",
+  "sources": [
+    {
+      "url": "https://proceedings.mlr.press/v15/ravikumar11a/ravikumar11a.pdf",
+      "version": "PMLR volume 15, AISTATS 2011",
+      "sections_relied_on": ["Definition 1: NDCG-like loss and normalization", "Section 3.1: Lemma 4", "Section 3.1: Corollary 5"],
+      "text_tool_refs": ["turn2395view0", "turn2396view0"],
+      "returned_text_exposure": ["first open: extracted lines 0-486, PDF pages 0-4", "second open at line 299: extracted lines 172-557, PDF pages 2-4"],
+      "screenshot_requests": [{"pageno": 3, "tool_ref": "turn2397view0"}, {"pageno": 2, "tool_ref": "turn2397view1"}],
+      "screenshot_limit": "Tool wrapper returned screenshot references without visible image pixels; no visual confirmation claimed or relied on.",
+      "local_path": null,
+      "sha256": null,
+      "hash_limit": "Web source only; no local source bytes downloaded or hashed."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/docs/en/concepts/loss-functions-ranking.md",
+      "version": "v1.2.10 tag (not resolved to immutable commit)",
+      "sections_relied_on": ["automatic pair generation paragraph, line 12", "PairLogit, lines 18-20"],
+      "text_tool_refs": ["turn2395view1", "turn2396view1", "turn2396view2"],
+      "returned_text_exposure": ["initial open: metadata only, 678 total lines", "PairLogit find: lines 6-54 and unrelated surrounding hits at lines 584-677", "max_pairs find: no matching text"],
+      "local_path": null,
+      "sha256": null,
+      "hash_limit": "Web source only; no local source bytes downloaded or hashed."
+    }
+  ],
+  "permitted_outputs": ["/tmp/tlab-wave103-skeptic-helper-math.md", "/tmp/tlab-wave103-skeptic-helper-math-pins.json"],
+  "excluded_reads_and_actions": ["author FIRST", "repository", "data", "SQL", "imports", "runtime execution", "tests", "models", "private artifacts", "Git", "coverage", "verifier", "other /tmp outcomes", "network mutation", "gates", "experiment admission"],
+  "artifact_hashes": {"/tmp/tlab-wave103-skeptic-helper-math.md": "4c2dc98581eda482913836997b3bb69b959e59896f480752a645e80b4670a924", "self_sha256": "Reported externally after final write to avoid self-reference."},
+  "artifact_readback": "Both outputs actually read back with cat; note length confirmed by wc as 351 words. Parent explicitly allowed metadata-only cat/shasum/wc for exactly these two outputs. No scientific/tests/imports/SQL/model runtime execution occurred.",
+  "limitations": ["No empirical or trained-quality claim", "No implementation behavior beyond documented PairLogit formula verified", "No local primary-source byte hashes", "No immutable CatBoost commit resolution"]
+}

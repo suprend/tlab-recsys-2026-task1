@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "wave": 103,
+  "reviewer": "B independent source reviewer; not canary implementer",
+  "mode": "named frozen files; read-only static source; no Git baseline or prototype execution",
+  "verdict": "NO_ACTIONABLE_FINDINGS_SOURCE_ACCEPT_IN_DECLARED_LITERAL_DOMAIN",
+  "runtime_admission": false,
+  "scope": [
+    {
+      "path": "/tmp/tlab-wave103-objective-canary-proposal-v1/canary.py",
+      "sha256": "f2535bdda3500878ecfe7929a83e714e3f5fd9b66237023b9ed57f15d9e856fb",
+      "bytes": 3103,
+      "lines_read": [1, 63],
+      "matches_root_assignment": true,
+      "unchanged_at_final_freshness_check": true
+    },
+    {
+      "path": "/tmp/tlab-wave103-objective-canary-proposal-v1/README.md",
+      "sha256": "2fc9ac5c76c9296ccd877cdd49f338b3031d706fe6b6816f8e50c6d9c5a657d5",
+      "bytes": 4770,
+      "lines_read": [1, 31],
+      "matches_root_assignment": true,
+      "unchanged_at_final_freshness_check": true
+    },
+    {
+      "path": "/tmp/tlab-wave103-objective-canary-proposal-v1/freeze.json",
+      "sha256": "fbf17ebb02621071a4a1fae590a4c52404977f66b6c8b606e4da3f304bc53073",
+      "bytes": 1821,
+      "content_read": "full body; no referenced C FIRST opened",
+      "matches_root_assignment": true,
+      "unchanged_at_final_freshness_check": true
+    }
+  ],
+  "instruction_source": {
+    "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+    "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+    "content_read": "full body",
+    "additional_authority": "Root direct assignment: static only, no imports/compile/tests/execute; optional TLAB008/L03, no HYP035 reopening, no canonical/Git/actual coverage"
+  },
+  "first_b_unchanged": {
+    "path": "/tmp/tlab-wave103-B-FIRST.md",
+    "sha256": "62774903d915d60fad835e0371ea8786cd385d7eb6508db40e49d713aa26028e",
+    "operation": "hash only in this review",
+    "matches_frozen_first": true
+  },
+  "report": {
+    "path": "/tmp/tlab-wave103-objective-canary-independent-source-v1.md",
+    "sha256": "2ac79bdf285220fb02c87a477a987ba07e076a8fe8add0a64199002698f2c94c",
+    "readback": "full saved text read back before final handoff"
+  },
+  "mathematical_review": [
+    "six original expected binary NDCG formulas independently hand-derived for both mixtures",
+    "BCE marginals distinguished from raw-logit minimizers",
+    "per-query pair weights sum to one and directed pair coefficients reconstructed",
+    "symmetric basket risk derivative and strictly positive second derivative establish d*=log(9/11)",
+    "basket b/c symmetry justified by two identical comparison terms",
+    "singleton never-positive c has no finite full-score optimum",
+    "m=h and coverage factor one on the declared finite domain"
+  ],
+  "performed": {
+    "source_reading": true,
+    "hand_symbolic_derivation": true,
+    "hash_metadata_and_line_mapping": true,
+    "prototype_imports": 0,
+    "syntax_compilation": 0,
+    "tests": 0,
+    "prototype_executions": 0,
+    "actual_coverage_or_scientific_data_reads": 0,
+    "project_imports": 0,
+    "fits": 0,
+    "network": 0,
+    "git": 0,
+    "canonical_writes": 0
+  },
+  "limitations": [
+    "Syntax/runtime behavior was not validated by execution",
+    "External Root wrapper, startup/resource compliance and output size unmeasured/unadmitted",
+    "No assertion about actual CatBoost settings or REES46/model gain",
+    "Optional existing contrast only; no new gate, task, hypothesis or main-work blocker"
+  ],
+  "stop_after_readback": true
+}

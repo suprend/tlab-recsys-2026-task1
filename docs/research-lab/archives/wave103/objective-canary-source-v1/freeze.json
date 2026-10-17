@@ -1,0 +1,49 @@
+{
+  "artifact": "wave103-C-objective-canary-proposal",
+  "version": 1,
+  "frozen_at_utc": "2026-10-17T12:06:55.911614+00:00",
+  "status": "SOURCE_ONLY_READY_FOR_INDEPENDENT_SOURCE_REVIEW",
+  "files": [
+    {
+      "path": "/tmp/tlab-wave103-objective-canary-proposal-v1/canary.py",
+      "sha256": "f2535bdda3500878ecfe7929a83e714e3f5fd9b66237023b9ed57f15d9e856fb",
+      "bytes": 3103,
+      "lines": 63
+    },
+    {
+      "path": "/tmp/tlab-wave103-objective-canary-proposal-v1/README.md",
+      "sha256": "2fc9ac5c76c9296ccd877cdd49f338b3031d706fe6b6816f8e50c6d9c5a657d5",
+      "bytes": 4770,
+      "lines": 31
+    }
+  ],
+  "source_files": 1,
+  "execution_count": 0,
+  "test_count": 0,
+  "syntax_compile_count": 0,
+  "prototype_import_count": 0,
+  "scientific_data_reads": 0,
+  "project_imports": 0,
+  "native_calls": 0,
+  "fits": 0,
+  "canonical_writes": 0,
+  "git_operations": 0,
+  "readback": "Author read both written files as source; no code execution or syntax validation. Hashing and manifest creation use only standard-library file metadata operations.",
+  "first_unchanged": {
+    "path": "/tmp/tlab-wave103-C-FIRST.md",
+    "sha256": "5bd1de9b17484293a699fab0ea948c30526b93bb053382c0705dce04418fb3c4",
+    "expected_sha256": "5bd1de9b17484293a699fab0ea948c30526b93bb053382c0705dce04418fb3c4"
+  },
+  "prospective_run": {
+    "decision_owner": "Root after separate source review and queue selection",
+    "processes": 1,
+    "cpu_seconds": 5,
+    "wall_seconds": 8,
+    "rss_bytes": 134217728,
+    "output_bytes": 65536,
+    "stdlib_only": true,
+    "enforcement": "external Root-owned limits; no controller in prototype",
+    "authorization": "UNGRANTED by this source-only handoff"
+  },
+  "scope": "Optional refinement of existing objective contrast; no new hypothesis, campaign, task or mandatory gate."
+}

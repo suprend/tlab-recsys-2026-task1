@@ -1,5 +1,18 @@
 # Журнал новых исследовательских идей
 
+## ОСТАНОВЛЕНО ПО ЗАПРОСУ ПОЛЬЗОВАТЕЛЯ — 17 октября 2026
+
+Цель `paused`, heartbeat `t-lab-backlog` — `PAUSED`; действовавшие агенты прерваны. Новых запусков и запланированных волн нет. Все нижние READY/next_due исторические и не разрешают продолжение. [Итоговый снимок](../stop-report-2026-10-17.md) фиксирует работающий pipeline, отсутствие устойчивого gain и незавершённые материалы. C0/B41/W44/frozen final сохранены;14/19 принято, исследованиеTLAB014 остановлено,010–013 optional. Продолжение — только по новому явному поручению пользователя.
+
+
+## Волна 103: три FIRST, отдельный скептик, Root SOURCE adoption
+
+Формальная точка17 октября2026,12:00 UTC; ранний dispatch11:57–11:58. [Синтез и точные оригиналы](brainstorm-wave103-synthesis.md): NEW0 / REFINE2(A,C) / MERGE3(A,B,C) / REJECT0 / scientific ADMIT0 (новые эмпирические ML-опыты); B только merge. A→fusion11/HYP053; C→TLAB008/L03/028/059, без возобновления отклонённого HYP035.
+
+Root отдельно выбрал OBJECTIVE-CANARY103 в existing objective contrast: Source-ready, independent static review готов, queued. Actual UNRUN. Запуск — после отдельного допуска Root и проверки внешнего ограничителя; приёмка результата — после original terminal/reap/receipts. READY обозначает готовность шага, а не разрешение. Optional literal witness,0 данных/fits, без quality claim/нового gate.
+
+Main C0,14/19 и optional010–013 неизменны. Следующая точка12:45 UTC /15:45 МСК; cadence45минут не сброшен. Прежнее тело сохранено.
+
 ## HYP-061 coverage: INCONCLUSIVE, C0 сохранён — 17 октября 2026, 11:59 UTC
 
 [Root принял конечную проверку](../backlog-reviews/covis-coverage-results.md): 6000 Q, 104 Q+ и 121 цель. Cosine покрыл 95 целей против 92 у C0; новых пар 24 против 21, повторов по 71. MacroΔ +0.02403846, 95% CI [0;0.05603549]: строгий lower95>0 не выполнен. Count96 — вторичный результат. Продолжение не допущено; это full-C coverage исторической когорты, не качество ранжирования. Новых fits/predictions нет; frozen final/negative2027 неизменны.
