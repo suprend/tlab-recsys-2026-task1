@@ -1,0 +1,13 @@
+{
+  "wave":"096","author":"B-independent","state":"READY",
+  "freeze_time_bracket":"after observed2026-10-17 08:13:53UTC; exact creation time not asserted",
+  "artifacts":[
+    {"path":"/tmp/tlab-wave096-B-FIRST.md","sha256":"1dbd959b4aa68d19b56e56f254e753a84d1cefac69c70ea79cb1a68ee47d8c94","words_wc":701,"readback":"complete finalcat after creation; no later edits"},
+    {"path":"/tmp/tlab-wave096-B-pins.json","sha256":"aa1cd7d5e5120c23a7883cd46df6faad7f268b5bad9e6728a24519939c425911","readback":"complete finalcat after literal correction; JSON.parse succeeded"}
+  ],
+  "timing":{"first_observed_clock_utc":"2026-10-17 08:10:49 UTC","original_due_utc":"2026-10-17T08:15:00Z","next_due_utc":"2026-10-17T09:00:00Z","grid_reset":false,"exact_start":"UNKNOWN"},
+  "independence":{"authorA096_reads_before_freeze":0,"critic096_reads_before_freeze":0,"helpers":0,"claim_limit":"author declaration"},
+  "proposal":{"hypotheses":1,"new_ids":0,"stable_ids":["HYP-002","TLAB-014","TLAB-016","TLAB-019"],"test":"paired frozenB41/W44 seed2027 max1200 on accepted26000/4000developmentsplit","status":"UNRUN","fits_proposed":2,"actual_fits":0,"adequacy":"UNKNOWN","cost":"UNKNOWN","fresh_final_claim":false,"no_grant_or_gate_added":true},
+  "scope":{"only_own_three_TMP_files_written":true,"native_imports":0,"backend_calls":0,"SQL":0,"data_queries":0,"tests":0,"fits":0,"Git":0,"network_mutations":0,"canonical_mutations":0},
+  "stop":"READY then STOP; Root sole coordinator/canonical writer/publisher"
+}

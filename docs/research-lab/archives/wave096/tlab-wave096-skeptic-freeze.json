@@ -1,0 +1,65 @@
+{
+  "schema": "wave096-skeptic-freeze-v1",
+  "status": "READY",
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-wave096-skeptic-v1.md",
+      "sha256": "d697216d4ba8e9e8aa92ee87148b7cda5baa504e2c4622eae310abefdf766707",
+      "full_readback": true
+    },
+    {
+      "path": "/tmp/tlab-wave096-skeptic-pins.json",
+      "sha256": "6aef05d34dd6311c67bea83dbaa20358ff340e4822752b6e6b510681f4dfda13",
+      "full_readback": true
+    }
+  ],
+  "report_words": 548,
+  "input_pin_recheck": [
+    [
+      "921157f21de6c9396e70b13efa3edd1dfe6a4a1062171bd083d4c109da34db42",
+      "/tmp/tlab-wave096-A-FIRST.md"
+    ],
+    [
+      "870bb556329c6bc09c633300786c0be672ff76c5e9ee32916d8555588e5e8253",
+      "/tmp/tlab-wave096-A-FIRST-pins.json"
+    ],
+    [
+      "62aba34fc63c6c92c3ae1260c6a9f611c23cbe1997669ea369084754f8d2a475",
+      "/tmp/tlab-wave096-A-FIRST-freeze.json"
+    ],
+    [
+      "1dbd959b4aa68d19b56e56f254e753a84d1cefac69c70ea79cb1a68ee47d8c94",
+      "/tmp/tlab-wave096-B-FIRST.md"
+    ],
+    [
+      "aa1cd7d5e5120c23a7883cd46df6faad7f268b5bad9e6728a24519939c425911",
+      "/tmp/tlab-wave096-B-pins.json"
+    ],
+    [
+      "67b0e15a89b0a97312984d9d9265547cfa280323e01bc357de7d42a993705b9d",
+      "/tmp/tlab-wave096-B-freeze.json"
+    ]
+  ],
+  "after_both_frozen": true,
+  "decision": {
+    "NEW": 0,
+    "REFINE": 2,
+    "MERGE": 2,
+    "scientific_runtime_ADMIT": 0,
+    "preferred": "B pairedseed2027 implementation thenrun undercontinuing humanlocalpermission",
+    "A": "retainexistingretrievalalternative"
+  },
+  "actual_export_root": "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once",
+  "metadata_parent_verified_all75": true,
+  "data_content_hashes_verified": false,
+  "science": "UNRUN",
+  "adequacy": "UNKNOWN",
+  "no_newgate_or_permission_question": true,
+  "timing": {
+    "due": "2026-10-17T08:15:00Z",
+    "next": "2026-10-17T09:00:00Z",
+    "reset": false,
+    "last_clock_observed": "2026-10-17 08:20:14 UTC"
+  },
+  "stop": "READY; Rootsolecoordinator; STOP"
+}

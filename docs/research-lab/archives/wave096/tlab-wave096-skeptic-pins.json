@@ -1,0 +1,155 @@
+{
+  "schema": "wave096-skeptic-pins-v1",
+  "inputs": [
+    [
+      "A-FIRST",
+      "921157f21de6c9396e70b13efa3edd1dfe6a4a1062171bd083d4c109da34db42"
+    ],
+    [
+      "A-FIRST-pins",
+      "870bb556329c6bc09c633300786c0be672ff76c5e9ee32916d8555588e5e8253"
+    ],
+    [
+      "A-FIRST-freeze",
+      "62aba34fc63c6c92c3ae1260c6a9f611c23cbe1997669ea369084754f8d2a475"
+    ],
+    [
+      "B-FIRST",
+      "1dbd959b4aa68d19b56e56f254e753a84d1cefac69c70ea79cb1a68ee47d8c94"
+    ],
+    [
+      "B-pins",
+      "aa1cd7d5e5120c23a7883cd46df6faad7f268b5bad9e6728a24519939c425911"
+    ],
+    [
+      "B-freeze",
+      "67b0e15a89b0a97312984d9d9265547cfa280323e01bc357de7d42a993705b9d"
+    ]
+  ],
+  "input_root": "/tmp/tlab-wave096-",
+  "input_read_extent": "all six full; hashesactual match frozen; declarations do not prove nonreading",
+  "sources": [
+    [
+      "docs/experiments/candidate-pilot.md",
+      "dfc3c0aa158b38064dd35c5dbb8babd1692edd1a89035e0c0530463c33110fa8",
+      "full"
+    ],
+    [
+      "docs/candidate-generation/04-category-brand-price.md",
+      "371c1c98d1dac088c97966ee967c79c060fcaa6fbca25b0e765a5bceac0df4ae",
+      "full"
+    ],
+    [
+      "scripts/candidate_pilot.py",
+      "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "37-138 partlytruncated; priorunchanged093 retained"
+    ],
+    [
+      "scripts/manual_features.py",
+      "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "165-202"
+    ],
+    [
+      "docs/backlog-reviews/adaptive-tree-results.md",
+      "a13c7bd088eda0c23e9b63e4c81958a6beada0bfe9226364ad9ba724741cc807",
+      "full"
+    ],
+    [
+      "docs/backlog-reviews/adaptive-tree-results.json",
+      "a29181ba769356936afcc9c8833c3a0f7b1d1a466eb6f0b045f85513716aba74",
+      "1-87"
+    ],
+    [
+      "scripts/adaptive_tree_selection.py",
+      "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "18-25,85-180,175-252; helper1-310"
+    ],
+    [
+      "scripts/development_training.py",
+      "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "fullprior; helperfullcurrent"
+    ],
+    [
+      "scripts/train_development.py",
+      "16248901e80d9f13d58c08261d1b108844452f6c459311d657790a511d9db968",
+      "48-88"
+    ],
+    [
+      "scripts/reproduce_frozen_comparison.py",
+      "018e5762ff899e612a497b6cf4e00e0025b7b3012930ef8654cb4a0f2807039f",
+      "360-378,460-505,symbols; helper1-34,127-187,256-264,360-479"
+    ],
+    [
+      "docs/backlog-reviews/evidence/adaptive-tree-results/originals/tlab-root-adaptive-tree-complete-acceptance-v1.json",
+      "435bc1c592f971c64c58cc01baf6916b358c0d812fcb1b261022727720ff2b74",
+      "88-103"
+    ],
+    [
+      "/tmp/tlab-root-cold-cli-V3-final-actual-acceptance-v1.json",
+      "17921b15ab3a3b1e395c49edfdd05ee56710bc34fa0af6b3ea2b9fe395f1045a",
+      "fullsafe metadata"
+    ],
+    [
+      "artifacts/candidate-pilot/42be82b3e4eda60c3c202e72de381172f1d979efe4c6c5a970d41d1adc5e26f3/run.json",
+      "c36ab35964303ca0fb918f6becf0e1fd40e42679c5488aa6ab88814d7c897462",
+      "fullprovenance"
+    ],
+    [
+      "configs/reproduction/frozen-bw-oct2019.json",
+      "ac904c0eb906fb6ccef9418aba5a2e298f5fc03655655ca3221de3bba44f7579",
+      "helper52-152"
+    ]
+  ],
+  "project_root": "/Users/mdpospelov/tlab-recsys-2026",
+  "metadata": {
+    "main_root": "canonicalreport+sampleexportsENOENT; helper75ENOENT, notglobalabsence",
+    "actual_root": "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once",
+    "parent_stat_all75": true,
+    "regular_nonempty": true,
+    "bytes": 28966534,
+    "report_bytes": 52763,
+    "A_DB_Q_Y_bytes": [
+      1574187008,
+      280986,
+      6267
+    ],
+    "bodies_read": 0,
+    "content_hashes_verified": false
+  },
+  "helper": {
+    "name": "api_source_facts",
+    "source_metadata_only": true,
+    "no_files": true,
+    "finished": true
+  },
+  "decisions": {
+    "NEW": 0,
+    "REFINE": 2,
+    "MERGE": 2,
+    "scientific_runtime_ADMIT": 0,
+    "preferred": "B existingtask boundedimplementation then localrun",
+    "A": "retainHYP053/032/TLAB004",
+    "newgate": false
+  },
+  "counts": {
+    "B_parity_calls": 6,
+    "B_parity_scores": 4902894,
+    "B_stored_selected_scores": 1634298,
+    "B_curve_points": 2400,
+    "B_fits": 2,
+    "A_query_list_evaluations": 24000
+  },
+  "limitations": [
+    "AllscienceUNRUN, adequacyUNKNOWN.",
+    "Two V8 artifact-construction SyntaxErrors occurred before anytool/write; corrected, notscienceexecution.",
+    "Initialcombinedoutputtruncated; extents bounded.",
+    "Main-rootmissing resolvedthroughreceiptactualclone; statnotcontentproof.",
+    "No newexternalclaim; no browsing needed.",
+    "No backend imports/native/tests/fit/SQL/dataquery/model/data-body/Git/network/projectmutations; only stdlibmetadata."
+  ],
+  "timing": {
+    "due": "2026-10-17T08:15:00Z",
+    "next": "2026-10-17T09:00:00Z",
+    "reset": false
+  }
+}
