@@ -1,0 +1,338 @@
+{
+  "utc": "2026-10-17T08:51:51.560912+00:00",
+  "verdict": "ROOT_ARITHMETIC_AND_BYTE_CHECK_PASS_PENDING_PEER_ACTUAL",
+  "original_terminal": "/tmp/tlab-root-category-pilot-original-terminal-v1.json",
+  "run_id": "9ecd6fbdcbaad468f037ed05ea9311fe9458a4c5fb85226c8b0d9346ab63d5c2",
+  "inputs": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/category_candidate_pilot.py",
+      "sha256": "bcee5e0a071d7ea70a4a214171bf088705ae9de25e1847032eda23226d1eebe0",
+      "bytes": 28415
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "bytes": 19102
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "bytes": 20747
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "bytes": 300283
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/pilot_queries.parquet",
+      "sha256": "29886b4d344ae206aeda81d854cc4632168593400273949a7b7229627fe40e18",
+      "bytes": 280986
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/pilot_candidates.parquet",
+      "sha256": "d083c33610f25d54d1315318e8b941e031869b1b2405ad1c4169adfc3d198efc",
+      "bytes": 1786548
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/cc_eval_lists.parquet",
+      "sha256": "fb5e18b5ca2959ff5d9a2f8bae3789b8d6b160b507ed00388746e212fc907292",
+      "bytes": 3388636
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/cc_sources.parquet",
+      "sha256": "4f8d435bdf9a141d0a4f35154a727c984c050d8cb6bf68d6f5fa01c7b3d2bb74",
+      "bytes": 3423177
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/cc_support.parquet",
+      "sha256": "90b48d2dcc5b83550322714929a396a2052bd1d69cab7c3a4e46ebcdea6e5f86",
+      "bytes": 222772
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/cc_profiles.parquet",
+      "sha256": "d4b4fe5a457f3d20de06bf7fcccfb3bf5ec354843026bf6f7448d8bc8313ba3a",
+      "bytes": 316950
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/cc_membership.parquet",
+      "sha256": "54f5d4fcd4a2de7a5a5d8e6e2ee4bfcc706e9816362f7bb55998adfd8aa02981",
+      "bytes": 2597991
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/target-changes.parquet",
+      "sha256": "550c8484e5e7e5c61e32900eb18a12aa0b99a76c72945f577213b6a9a646d844",
+      "bytes": 1578
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/query-changes.parquet",
+      "sha256": "c9e2798637c0ab5c14876f8e25e578feea5d990c96025848c24878fa7f833a2d",
+      "bytes": 221625
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/candidate-seal.json",
+      "bytes": 1681,
+      "sha256": "be4fa438b85e8a5debb1065cdb2ad5c3bb159fa900deb96e2c101c96081d6f1b"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/cc_eval_lists.parquet",
+      "bytes": 3388636,
+      "sha256": "fb5e18b5ca2959ff5d9a2f8bae3789b8d6b160b507ed00388746e212fc907292"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/cc_membership.parquet",
+      "bytes": 2597991,
+      "sha256": "54f5d4fcd4a2de7a5a5d8e6e2ee4bfcc706e9816362f7bb55998adfd8aa02981"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/cc_profiles.parquet",
+      "bytes": 316950,
+      "sha256": "d4b4fe5a457f3d20de06bf7fcccfb3bf5ec354843026bf6f7448d8bc8313ba3a"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/cc_sources.parquet",
+      "bytes": 3423177,
+      "sha256": "4f8d435bdf9a141d0a4f35154a727c984c050d8cb6bf68d6f5fa01c7b3d2bb74"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/cc_support.parquet",
+      "bytes": 222772,
+      "sha256": "90b48d2dcc5b83550322714929a396a2052bd1d69cab7c3a4e46ebcdea6e5f86"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/pilot_candidates.parquet",
+      "bytes": 1786548,
+      "sha256": "d083c33610f25d54d1315318e8b941e031869b1b2405ad1c4169adfc3d198efc"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/pilot_queries.parquet",
+      "bytes": 280986,
+      "sha256": "29886b4d344ae206aeda81d854cc4632168593400273949a7b7229627fe40e18"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/query-changes.parquet",
+      "bytes": 221625,
+      "sha256": "c9e2798637c0ab5c14876f8e25e578feea5d990c96025848c24878fa7f833a2d"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/query-coverage.parquet",
+      "bytes": 261919,
+      "sha256": "717c593d87c3cda6cd628aa34657404fd1cad3de9670585cb82c936a74c6a014"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/report.json",
+      "bytes": 59934,
+      "sha256": "d290ec82cffc5e2c2d78d4d3a022233d518be266a08d42558c74c3693b15a4e5"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/run.json",
+      "bytes": 5210,
+      "sha256": "c770b5c194143f35690723a5929f1390db8d5ef6b0aa443051175fa77df5e7cc"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/target-changes.parquet",
+      "bytes": 1578,
+      "sha256": "550c8484e5e7e5c61e32900eb18a12aa0b99a76c72945f577213b6a9a646d844"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/candidate_catalog_verification.profile.json",
+      "bytes": 29668,
+      "sha256": "cf25ae35824edacc43570aaf4777b175f4ec3a16e7e7721db18149067f903564"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/category_source_20191008.profile.json",
+      "bytes": 25940,
+      "sha256": "81e9ec3279ebaf2a773e226a72c34690c1ad4ce853ae5e18cc3bad356a3d1bdd"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/category_source_20191009.profile.json",
+      "bytes": 27715,
+      "sha256": "55222570f334cc05ce9b555df60386828e1c3f684133348d9f6cd60353fba0a0"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/category_source_20191010.profile.json",
+      "bytes": 27716,
+      "sha256": "22094ec63f007190aa6ef93c8a0c6a898dd19e1abd8096d811b96ee8105ac3bf"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/latest_user_views_20191008.profile.json",
+      "bytes": 15012,
+      "sha256": "99901f7d78ddd87694115cca94c2846e0b777c09f6e349d400ca53d9a69a9231"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/latest_user_views_20191009.profile.json",
+      "bytes": 15023,
+      "sha256": "fd02202d22980e0dd32881d0476ff955df6f86d41ca88e3b2b8f6bce36d31fb5"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/latest_user_views_20191010.profile.json",
+      "bytes": 15031,
+      "sha256": "506b88639fdf0b3d8dc3d06616666bb3019a08d090f19f1bea36337fec3c6e18"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/membership_bucket_20191008.profile.json",
+      "bytes": 18372,
+      "sha256": "8444aa405b5ae3e02bc021e0f9dafead6274a5eda08a76421dcf5e9a64d14e4b"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/membership_bucket_20191009.profile.json",
+      "bytes": 18367,
+      "sha256": "544d3e1c9e03481cd0976c0a50ae7889cb28ef11a71e9572ae9a33513fca6331"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/membership_bucket_20191010.profile.json",
+      "bytes": 18347,
+      "sha256": "6d687525d84421b8e9e4e90094a85da926b87e52937e9ae5e39bccabd510dbb6"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/membership_latest_20191008.profile.json",
+      "bytes": 8270,
+      "sha256": "840f0bda8b88c8f2fa267ca40eaee391b40f7ac202ee47303af6073c121ff025"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/membership_latest_20191009.profile.json",
+      "bytes": 8283,
+      "sha256": "121de8def082bfc13489defe77c77fb4143fdab1b2a802a66fced4fa59a89529"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/membership_latest_20191010.profile.json",
+      "bytes": 8273,
+      "sha256": "eb8ca851b12a9f23c191a7b24b7b22b484ad54817c8116402fa380418177b61e"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/popular_counts_2019-10-08.profile.json",
+      "bytes": 8540,
+      "sha256": "23c3b2db169334fe523a830e50dee28fa1572e3c03937ffda22a3e9d8e3e3738"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/popular_counts_2019-10-09.profile.json",
+      "bytes": 8556,
+      "sha256": "7e907f299295ed461bd08acadbf0f21a0e61129ca62686f7504eafe39990d69b"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/popular_counts_2019-10-10.profile.json",
+      "bytes": 8545,
+      "sha256": "14174464cbbc01670fc887cf2212d201e20b4cd96f37ac8be7ea6412d2865447"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/profile_support_20191008.profile.json",
+      "bytes": 26767,
+      "sha256": "3749e392044f944790fdcfdd463fae9b33a1d2575737699831ca902f921137ec"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/profile_support_20191009.profile.json",
+      "bytes": 26817,
+      "sha256": "55365a0f093683a908f5d8ea7b6463137799679373a0bd6a5560b1b0bb9a38bd"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/profile_support_20191010.profile.json",
+      "bytes": 26807,
+      "sha256": "d5a0cdac96d875a1a4c4024530578962f66d98b8863cd0d73fa70d9c034ba36b"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/profiles_20191008.profile.json",
+      "bytes": 8481,
+      "sha256": "64d4b0cbb8fa6102a746e3381b26a18dad25973185ee213257dab58aa330bcde"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/profiles_20191009.profile.json",
+      "bytes": 8469,
+      "sha256": "25815175948461ab974e718f7153466419f802779196b784f66675562d8aae39"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/profiles_20191010.profile.json",
+      "bytes": 8445,
+      "sha256": "b9eefe28231061e304f61c6bc27d5351b9719c61a2924256f7d4a19ee06497f3"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/recent_2019-10-08.profile.json",
+      "bytes": 31311,
+      "sha256": "c806d11262fe92cf21f516fa3857a666c3c14324c9a7b93e7b8d0bcf7fccf385"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/recent_2019-10-09.profile.json",
+      "bytes": 31319,
+      "sha256": "720d601a816cacf6f6b369280b82f97108022d80052cdb1be2a9eebaddf6ae0d"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/recent_2019-10-10.profile.json",
+      "bytes": 31345,
+      "sha256": "6084fa1cd458cd73aca78f9d9831589180378fce6ab4645815120de3ddb152bd"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/snapshot_popular_counts_2019-10-08.profile.json",
+      "bytes": 8659,
+      "sha256": "1ca606624e42341589cd37698dfecb05248d2ba6f05bfec6ddf812ad1a77b9f9"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/snapshot_popular_counts_2019-10-09.profile.json",
+      "bytes": 8663,
+      "sha256": "bb2f9886d5173da26e35a8f9f3e55e6a4adb200e9847e4df9a35473d09d260ef"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/snapshot_popular_counts_2019-10-10.profile.json",
+      "bytes": 8660,
+      "sha256": "06b17fd9ba0261701467cf0be17dd9b52aa67d97cad7c51c210dbfd844a59648"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/union_2019-10-08.profile.json",
+      "bytes": 30040,
+      "sha256": "9f8734c3d406191de962fb4d385d585f0c9a56357f2473a35b30700f60ee9419"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/union_2019-10-09.profile.json",
+      "bytes": 30100,
+      "sha256": "6636f78645452829b268c602562422dbc9a5f22b737da14a9f911adf9392fbd4"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/union_2019-10-10.profile.json",
+      "bytes": 30128,
+      "sha256": "ea14d1b3ae367290a8d65f2c186dfe9711fdfcdf215435441ceffd89a299446b"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/view_bucket_20191008.profile.json",
+      "bytes": 19026,
+      "sha256": "3c90431cf7567d7cc26d45cc7c0d64359be0e8a7116bb5154e73e043c76b34f6"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/view_bucket_20191009.profile.json",
+      "bytes": 19036,
+      "sha256": "3e4e8bf5862c30276a31b7a5b0495d50f28774c8593e20026792060e90d71ae5"
+    },
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/temp/view_bucket_20191010.profile.json",
+      "bytes": 19032,
+      "sha256": "2e9519a6cfb3a621447ab96b86d15051022b95cf22d23e4a5213929331ff910d"
+    }
+  ],
+  "output_bytes": 13203770,
+  "native_macro_recall_delta": 0.009615384615384581,
+  "native_new_pair_delta": -1,
+  "native_ci95": [
+    -0.04761904761904756,
+    0.06796116504854366
+  ],
+  "no_policy_advancement": true,
+  "decision": "inconclusive_coverage_contrast_new_pair_prediction_not_met",
+  "all_named_stage_seconds": 3.4542222968884744,
+  "category_source_stage_seconds": 2.1265958339790814,
+  "whole_child_elapsed_seconds": 190.24189816697617,
+  "scope": "Source/run/receipt, all physical outputs hashes, reported arithmetic; no independent raw/order/metric recomputation claim; review still pending"
+}

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "status": "FROZEN",
+  "frozen_utc": "2026-10-17T08:48:18.065397+00:00",
+  "first_actual_clock_observation_utc": "2026-10-17T08:44:15Z",
+  "scheduled_due_utc": "2026-10-17T09:00:00Z",
+  "next_due_utc": "2026-10-17T09:45:00Z",
+  "grid_minutes": 45,
+  "owner": "/root/wave097_execution_primitives_blind",
+  "root_sole_coordinator": true,
+  "first": {
+    "path": "/tmp/tlab-wave097-A-FIRST.md",
+    "sha256": "8f81df0784ea90c188d4df3755280d74e6cb6bb8ceb7bf8d38ad1e2556369fdd",
+    "bytes": 5881
+  },
+  "pins": {
+    "path": "/tmp/tlab-wave097-A-pins.json",
+    "sha256": "2328245cd171d0a7bb4f684a562cc184c306970102f300c9ffdd56dfb2e641cc",
+    "bytes": 5333
+  },
+  "benchmark": [
+    {
+      "path": "/tmp/tlab-wave097-A-bench/primitive.py",
+      "sha256": "6ad7cdf147b81567fdd38077ce19d6e7aae3283b9de3aa6871d9229a394eea15",
+      "bytes": 5828
+    },
+    {
+      "path": "/tmp/tlab-wave097-A-bench/result.json",
+      "sha256": "20f208e549fabe9091fe2c8de2f1c678ff5588805199c1e3442bde74fc05ce64",
+      "bytes": 1946
+    }
+  ],
+  "word_count": 665,
+  "source_primary_sha256": "bcee5e0a071d7ea70a4a214171bf088705ae9de25e1847032eda23226d1eebe0",
+  "peer_wave097_notes_read": false,
+  "pre_freeze_readback_verified": true,
+  "disposition": {
+    "new_proposed": 0,
+    "refinements_proposed": 1,
+    "scientific_admitted": 0
+  },
+  "stop_after_readback": true
+}

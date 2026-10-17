@@ -1,0 +1,471 @@
+{
+  "version": 2,
+  "UTC": "2026-10-17T08:35:23.113226+00:00",
+  "verdict": "QUALIFIED_SOURCE_V2_PASS",
+  "supported_findings": [],
+  "prior_P2": "RESOLVED: persistent target identities and all-Q per-query counts with post-label exports",
+  "report": {
+    "path": "/tmp/tlab-category-pilot-independent-correctness-source-v2.md",
+    "sha256": "97f384c4ce8f8e4c319dacdc0e9648cd8c9bb2eca8144510b590bc0fef84e165",
+    "bytes": 2510,
+    "mode": "0600"
+  },
+  "report_words": 300,
+  "frozen_inputs": {
+    "scripts/category_candidate_pilot.py": {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/scripts/category_candidate_pilot.py",
+      "sha256": "bcee5e0a071d7ea70a4a214171bf088705ae9de25e1847032eda23226d1eebe0",
+      "bytes": 28415,
+      "mode": "0644"
+    },
+    "tests/test_category_candidate_pilot.py": {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/tests/test_category_candidate_pilot.py",
+      "sha256": "5b8b2d70564fcf9686d649cffe97559a2549314cfe1b20b24c12745c86c24945",
+      "bytes": 16377,
+      "mode": "0644"
+    },
+    "CONTRACT.md": {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/CONTRACT.md",
+      "sha256": "8594ab375e3c10d16ddfb93b899c10ab6c50bfb946eb57c4af60cc77c7cf5acb",
+      "bytes": 11444,
+      "mode": "0644"
+    },
+    "fileplan.json": {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/fileplan.json",
+      "sha256": "11a5b5697edd0e0cad2ff9bd3192d21eb0b6904c5489dd26a5102c8df43c1473",
+      "bytes": 5000,
+      "mode": "0644"
+    }
+  },
+  "inputs_before": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "bytes": 19102,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/CONTRACT.md",
+      "sha256": "3d1bd324b56b01c29a6b740573d9f63462f5840329a631d58f9744cb34c32634",
+      "bytes": 9200,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/fileplan.json",
+      "sha256": "76c0b26e81f55e74c0aaf45e8e2c134d8d096545f15b5a0549ed20ad2c3558d8",
+      "bytes": 2391,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/scripts/category_candidate_pilot.py",
+      "sha256": "0b0a761cfb68d5090c6439ca3924e3940086252e35c0bfbbfe07fb4d841ac589",
+      "bytes": 27135,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v1.log",
+      "sha256": "a0a02ad836a14d8d872b2d1954e563ef39c18022e16a8851b5500fa782da90d4",
+      "bytes": 1402,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v2.log",
+      "sha256": "d8323873ad134dfe68672f331a394a97373b268a0b255e935af494798a1eb389",
+      "bytes": 15295,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v3.log",
+      "sha256": "671c7abece58c01a65608398295634b4ce0a88f869ea8867c3bb029b5271d767",
+      "bytes": 15790,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v4.log",
+      "sha256": "d0864609ecbe5f621b94c8a776095b41b3ad976fb0feee72ace3029ee00ed5b5",
+      "bytes": 15384,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v5.log",
+      "sha256": "63237e11efeed2bf2f211b3c1ca04ed384a3b6efb8dc6899d963111cc7395558",
+      "bytes": 2491,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v6.log",
+      "sha256": "95b37402115b1fb6a378a574bfe298c77d6ca031125004117e02954432aa9ef8",
+      "bytes": 2656,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/tests/test_category_candidate_pilot.py",
+      "sha256": "88818d415e7ea52901b229d6e18911fdde11928e1e23c8d9dd06c17ca92b11a8",
+      "bytes": 14342,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/CONTRACT.md",
+      "sha256": "8594ab375e3c10d16ddfb93b899c10ab6c50bfb946eb57c4af60cc77c7cf5acb",
+      "bytes": 11444,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/fileplan.json",
+      "sha256": "11a5b5697edd0e0cad2ff9bd3192d21eb0b6904c5489dd26a5102c8df43c1473",
+      "bytes": 5000,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/scripts/category_candidate_pilot.py",
+      "sha256": "bcee5e0a071d7ea70a4a214171bf088705ae9de25e1847032eda23226d1eebe0",
+      "bytes": 28415,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-reporting-v2.log",
+      "sha256": "fd0b317425789d01fb3eb3a5530a89f58f2b466c110cb5c4c4f9017085c0f4b8",
+      "bytes": 2863,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v1.log",
+      "sha256": "a0a02ad836a14d8d872b2d1954e563ef39c18022e16a8851b5500fa782da90d4",
+      "bytes": 1402,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v2.log",
+      "sha256": "d8323873ad134dfe68672f331a394a97373b268a0b255e935af494798a1eb389",
+      "bytes": 15295,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v3.log",
+      "sha256": "671c7abece58c01a65608398295634b4ce0a88f869ea8867c3bb029b5271d767",
+      "bytes": 15790,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v4.log",
+      "sha256": "d0864609ecbe5f621b94c8a776095b41b3ad976fb0feee72ace3029ee00ed5b5",
+      "bytes": 15384,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v5.log",
+      "sha256": "63237e11efeed2bf2f211b3c1ca04ed384a3b6efb8dc6899d963111cc7395558",
+      "bytes": 2491,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v6.log",
+      "sha256": "95b37402115b1fb6a378a574bfe298c77d6ca031125004117e02954432aa9ef8",
+      "bytes": 2656,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/tests/test_category_candidate_pilot.py",
+      "sha256": "5b8b2d70564fcf9686d649cffe97559a2549314cfe1b20b24c12745c86c24945",
+      "bytes": 16377,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-pilot-independent-correctness-source-v1-pins.json",
+      "sha256": "9048de4cc0f1a107a7f3a1cb7b15f93ef29edfcea1f6adcdc153680d3b1e765d",
+      "bytes": 16518,
+      "mode": "0600"
+    },
+    {
+      "path": "/tmp/tlab-category-pilot-independent-correctness-source-v1.md",
+      "sha256": "8906d351da8067309244b3d65263fc567798fb4de05d5b3b643f11904ab87b18",
+      "bytes": 3497,
+      "mode": "0600"
+    }
+  ],
+  "inputs_after": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "bytes": 19102,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/CONTRACT.md",
+      "sha256": "3d1bd324b56b01c29a6b740573d9f63462f5840329a631d58f9744cb34c32634",
+      "bytes": 9200,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/fileplan.json",
+      "sha256": "76c0b26e81f55e74c0aaf45e8e2c134d8d096545f15b5a0549ed20ad2c3558d8",
+      "bytes": 2391,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/scripts/category_candidate_pilot.py",
+      "sha256": "0b0a761cfb68d5090c6439ca3924e3940086252e35c0bfbbfe07fb4d841ac589",
+      "bytes": 27135,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v1.log",
+      "sha256": "a0a02ad836a14d8d872b2d1954e563ef39c18022e16a8851b5500fa782da90d4",
+      "bytes": 1402,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v2.log",
+      "sha256": "d8323873ad134dfe68672f331a394a97373b268a0b255e935af494798a1eb389",
+      "bytes": 15295,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v3.log",
+      "sha256": "671c7abece58c01a65608398295634b4ce0a88f869ea8867c3bb029b5271d767",
+      "bytes": 15790,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v4.log",
+      "sha256": "d0864609ecbe5f621b94c8a776095b41b3ad976fb0feee72ace3029ee00ed5b5",
+      "bytes": 15384,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v5.log",
+      "sha256": "63237e11efeed2bf2f211b3c1ca04ed384a3b6efb8dc6899d963111cc7395558",
+      "bytes": 2491,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v6.log",
+      "sha256": "95b37402115b1fb6a378a574bfe298c77d6ca031125004117e02954432aa9ef8",
+      "bytes": 2656,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/tests/test_category_candidate_pilot.py",
+      "sha256": "88818d415e7ea52901b229d6e18911fdde11928e1e23c8d9dd06c17ca92b11a8",
+      "bytes": 14342,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/CONTRACT.md",
+      "sha256": "8594ab375e3c10d16ddfb93b899c10ab6c50bfb946eb57c4af60cc77c7cf5acb",
+      "bytes": 11444,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/fileplan.json",
+      "sha256": "11a5b5697edd0e0cad2ff9bd3192d21eb0b6904c5489dd26a5102c8df43c1473",
+      "bytes": 5000,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/scripts/category_candidate_pilot.py",
+      "sha256": "bcee5e0a071d7ea70a4a214171bf088705ae9de25e1847032eda23226d1eebe0",
+      "bytes": 28415,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-reporting-v2.log",
+      "sha256": "fd0b317425789d01fb3eb3a5530a89f58f2b466c110cb5c4c4f9017085c0f4b8",
+      "bytes": 2863,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v1.log",
+      "sha256": "a0a02ad836a14d8d872b2d1954e563ef39c18022e16a8851b5500fa782da90d4",
+      "bytes": 1402,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v2.log",
+      "sha256": "d8323873ad134dfe68672f331a394a97373b268a0b255e935af494798a1eb389",
+      "bytes": 15295,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v3.log",
+      "sha256": "671c7abece58c01a65608398295634b4ce0a88f869ea8867c3bb029b5271d767",
+      "bytes": 15790,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v4.log",
+      "sha256": "d0864609ecbe5f621b94c8a776095b41b3ad976fb0feee72ace3029ee00ed5b5",
+      "bytes": 15384,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v5.log",
+      "sha256": "63237e11efeed2bf2f211b3c1ca04ed384a3b6efb8dc6899d963111cc7395558",
+      "bytes": 2491,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-test-run-v6.log",
+      "sha256": "95b37402115b1fb6a378a574bfe298c77d6ca031125004117e02954432aa9ef8",
+      "bytes": 2656,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/tests/test_category_candidate_pilot.py",
+      "sha256": "5b8b2d70564fcf9686d649cffe97559a2549314cfe1b20b24c12745c86c24945",
+      "bytes": 16377,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-pilot-independent-correctness-source-v1-pins.json",
+      "sha256": "9048de4cc0f1a107a7f3a1cb7b15f93ef29edfcea1f6adcdc153680d3b1e765d",
+      "bytes": 16518,
+      "mode": "0600"
+    },
+    {
+      "path": "/tmp/tlab-category-pilot-independent-correctness-source-v1.md",
+      "sha256": "8906d351da8067309244b3d65263fc567798fb4de05d5b3b643f11904ab87b18",
+      "bytes": 3497,
+      "mode": "0600"
+    }
+  ],
+  "input_count": 28,
+  "inputs_unchanged": true,
+  "AST_changed_functions": [
+    "evaluate_policies",
+    "export_target_changes",
+    "run"
+  ],
+  "AST_unchanged_functions": [
+    "compare_original_baseline",
+    "create_policies",
+    "direct",
+    "main",
+    "need",
+    "paired_bootstrap",
+    "round_robin_capped",
+    "rows",
+    "seal_candidates"
+  ],
+  "module_level_AST_unchanged": true,
+  "new_regression_lines": [
+    190,
+    214
+  ],
+  "test_methods": 14,
+  "source_checks": {
+    "identity_rows_exclusive_gained_lost": true,
+    "allQ_cohort_zero_counts": true,
+    "two_ordered_private_exports": true,
+    "post_seal_post_labels_only": true,
+    "physical_artifact_descriptors_bound_to_report": true,
+    "literal_new1100_repeat200_and_emptyY_zero_regression": true,
+    "separate_reader_after_source_close": true
+  },
+  "test_scope": {
+    "supplied_log": {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v2/synthetic-reporting-v2.log",
+      "sha256": "fd0b317425789d01fb3eb3a5530a89f58f2b466c110cb5c4c4f9017085c0f4b8",
+      "bytes": 2863,
+      "mode": "0644"
+    },
+    "recorded_tests": 14,
+    "reviewer_run": false,
+    "V1_log_copies_unchanged": true
+  },
+  "remaining_limits": [
+    {
+      "scope": "C0 fixture independence",
+      "source_lines": [
+        129,
+        137
+      ],
+      "detail": "Comparator gold is a parquet copy of the same just-created pilot_candidates. This validates the comparator/deletion fault, not independent literal equality of every recent rank/flag/count/timestamp. Real CLI still enforces independently authenticated external C0 EXCEPT ALL."
+    },
+    {
+      "scope": "Exact lower endpoint",
+      "source_lines": [
+        30,
+        51
+      ],
+      "detail": "No fixture event lies exactly at t−7d, so >=→> on the new profile lower boundary is not distinguished. Source itself uses inclusive >=."
+    },
+    {
+      "scope": "Source quota exhaustion",
+      "source_lines": [
+        30,
+        51,
+        78,
+        86
+      ],
+      "detail": "R/K fixture lists do not reach21; rank20/21 clipping and duplicate skipping without quota+1 refill are not independently exercised. Source cap SQL and next-unseen helper are inspected and coherent."
+    },
+    {
+      "scope": "Real provenance",
+      "source_lines": [
+        189,
+        231
+      ],
+      "detail": "Invented CLI plumbing mocks load_run_manifest. Genuine accepted historical manifests and real pilot remain unexecuted."
+    }
+  ],
+  "real_pilot": "UNRUN",
+  "budget_adequacy": "UNKNOWN",
+  "operations": {
+    "project_import": 0,
+    "test_SQL_backend_execution": 0,
+    "real_DB_Parquet_model_read": 0,
+    "network": 0,
+    "Git_canonical_mutation": 0,
+    "new_authority_issued": 0
+  },
+  "STOP": true
+}

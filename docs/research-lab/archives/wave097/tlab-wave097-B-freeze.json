@@ -1,0 +1,41 @@
+{
+  "wave": "097",
+  "author": "B-independent",
+  "state": "READY",
+  "freeze_host_utc": "2026-10-17T08:47:14.946204+00:00",
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-wave097-B-FIRST.md",
+      "sha256": "d9bd8a126e4fc4abfa9e507796cdcde0817ac7f1a33f28c5cee21d785e8d9dba",
+      "bytes": 5145
+    },
+    {
+      "path": "/tmp/tlab-wave097-B-pins.json",
+      "sha256": "c5d7d61790f0b8830339c812cd4294efab96fc53f2af45302859acdf2c0b3cd2",
+      "bytes": 7257
+    }
+  ],
+  "first_observed_clock_utc": "2026-10-17 08:44:29 UTC",
+  "original_due_utc": "2026-10-17T09:00:00Z",
+  "next_due_utc": "2026-10-17T09:45:00Z",
+  "cadence_minutes": 45,
+  "grid_reset": false,
+  "independence": {
+    "wave097_A_reads_before_freeze": 0,
+    "wave097_critic_reads_before_freeze": 0,
+    "evidence_helpers": 1
+  },
+  "proposal": {
+    "ideas": 1,
+    "new_ids": 0,
+    "reuse_existing": [
+      "HYP-002",
+      "TLAB-016",
+      "TLAB-019"
+    ],
+    "tests_or_fits_executed": 0,
+    "new_gates": 0,
+    "fresh_quality_claim": false
+  },
+  "stop": "Readback then STOP. Root sole coordinator/canonical writer/Git publisher."
+}

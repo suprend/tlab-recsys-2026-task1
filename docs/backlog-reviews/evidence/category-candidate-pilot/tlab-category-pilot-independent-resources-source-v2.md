@@ -1,0 +1,13 @@
+# HYP053 V2 targeted resource/provenance recheck
+
+**Qualified SOURCE PASS; no supported findings in the reporting delta.** The prior V1 resource review remains the baseline; this is not a new full metadata or real-data audit.
+
+Actual code changes are limited to post-label target-change rows, ALL-Q/cohort counters, a two-file exporter and its report binding. Nine existing functions, including retrieval, baseline parity, candidate sealing, bootstrap and CLI parser, are AST-identical. Removing the single new export assignment makes `run` AST-identical to V1; module globals are unchanged.
+
+`cc_target_changes` retains query/item/cohort plus gained/lost direction and new-pair identity. `cc_changes` starts from every original Q×native/matched and left-joins those rows, retaining explicit zeros. Aggregate report counts stay separate from private identity artifacts. [The exporter](/tmp/tlab-category-candidate-pilot-proposal-v2/scripts/category_candidate_pilot.py:274) refuses existing targets, writes ordered `target-changes.parquet` and `query-changes.parquet`, and records physical path/SHA/bytes. Its [sole CLI call](/tmp/tlab-category-candidate-pilot-proposal-v2/scripts/category_candidate_pilot.py:403) follows sealed-candidate evaluation and label authentication/import. No label-derived data enter retrieval or pre-label seals.
+
+Both COPY operations receive checks before and after; hashes and added files count toward the same existing inclusive CPU/wall and256MiB non-temp-output policy. The following bootstrap/late-input checks and failure/finalization paths remain unchanged. The new work receives no extra allowance. Controls remain cooperative/observed: one COPY/hash can cross a cap before the next check, and final process cost still needs Root's full-episode evidence. Existing path normalization/symlink and pending-final-exit limitations remain as in V1. No additional fit or data preparation is introduced.
+
+The amended source contains14 tests. Its new regression closes the writer, reopens physical Parquet with a fresh reader, checks literal lost/repeat versus gained/new identities and all6query×cohort rows including zeros, then verifies descriptors. The retained new log reports14PASS; I did not rerun it. All six V1 logs and original V1 source pins remain unchanged, with byte-exact V2 historical copies. All supplied V2 hashes and fileplan descriptors passed freshness/readback.
+
+Checks were source reads, complete diffs, AST comparisons and hashes only. No actual DB/Parquet/model body, backend import, test, SQL, ML/native operation, network or project/Git mutation occurred. The optional100Qresume remains absent and is not demanded. Real pilot **UNRUN**, full-scale adequacy **UNKNOWN**; Root owns actual execution and acceptance.

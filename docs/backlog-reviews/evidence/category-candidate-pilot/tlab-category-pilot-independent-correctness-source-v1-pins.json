@@ -1,0 +1,423 @@
+{
+  "version": 1,
+  "UTC": "2026-10-17T08:30:30.655583+00:00",
+  "verdict": "SOURCE_P2_REPORT_OUTPUTS_INCOMPLETE",
+  "findings": [
+    {
+      "priority": "P2",
+      "title": "Persist per-query gain/loss identities promised by the pilot contract",
+      "file": "/tmp/tlab-category-candidate-pilot-proposal-v1/scripts/category_candidate_pilot.py",
+      "lines": [
+        237,
+        245,
+        252,
+        384
+      ],
+      "trigger": "Run the declared pilot with a target replaced by another target, e.g. fullY{1100,200,99999}, C0 hits200 and C1 hits1100 as the actual fixture.",
+      "expected": "Retained per-query gained/lost decomposition and gained/lost product identities, as required by frozen096A and CONTRACT.",
+      "actual": "cc_changes groups by query_id/cohort while dropping product_id; returned changes aggregate again by cohort. Only cc_coverage is exported; neither per-query changes nor identity rows are retained.",
+      "impact": "A zero net hit contrast can conceal which targets were recovered/displaced; the declared paired diagnostic cannot be audited from the emitted report/query-coverage alone.",
+      "fix": "Retain/export query_id,cohort,product_id,direction and repeat/new-pair fields, plus per-query gained/lost counts; derive cohort totals from those rows. Add literal ID assertions to the existing count-only identity-named test139–149."
+    }
+  ],
+  "critical_fixture_limitations": [
+    {
+      "scope": "C0 fixture independence",
+      "source_lines": [
+        129,
+        137
+      ],
+      "detail": "Comparator gold is a parquet copy of the same just-created pilot_candidates. This validates the comparator/deletion fault, not independent literal equality of every recent rank/flag/count/timestamp. Real CLI still enforces independently authenticated external C0 EXCEPT ALL."
+    },
+    {
+      "scope": "Exact lower endpoint",
+      "source_lines": [
+        30,
+        51
+      ],
+      "detail": "No fixture event lies exactly at t−7d, so >=→> on the new profile lower boundary is not distinguished. Source itself uses inclusive >=."
+    },
+    {
+      "scope": "Source quota exhaustion",
+      "source_lines": [
+        30,
+        51,
+        78,
+        86
+      ],
+      "detail": "R/K fixture lists do not reach21; rank20/21 clipping and duplicate skipping without quota+1 refill are not independently exercised. Source cap SQL and next-unseen helper are inspected and coherent."
+    },
+    {
+      "scope": "Real provenance",
+      "source_lines": [
+        189,
+        231
+      ],
+      "detail": "Invented CLI plumbing mocks load_run_manifest. Genuine accepted historical manifests and real pilot remain unexecuted."
+    }
+  ],
+  "report": {
+    "path": "/tmp/tlab-category-pilot-independent-correctness-source-v1.md",
+    "sha256": "8906d351da8067309244b3d65263fc567798fb4de05d5b3b643f11904ab87b18",
+    "bytes": 3497,
+    "mode": "0600"
+  },
+  "report_words": 435,
+  "frozen_inputs": {
+    "scripts/category_candidate_pilot.py": {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/scripts/category_candidate_pilot.py",
+      "sha256": "0b0a761cfb68d5090c6439ca3924e3940086252e35c0bfbbfe07fb4d841ac589",
+      "bytes": 27135,
+      "mode": "0644"
+    },
+    "tests/test_category_candidate_pilot.py": {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/tests/test_category_candidate_pilot.py",
+      "sha256": "88818d415e7ea52901b229d6e18911fdde11928e1e23c8d9dd06c17ca92b11a8",
+      "bytes": 14342,
+      "mode": "0644"
+    },
+    "CONTRACT.md": {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/CONTRACT.md",
+      "sha256": "3d1bd324b56b01c29a6b740573d9f63462f5840329a631d58f9744cb34c32634",
+      "bytes": 9200,
+      "mode": "0644"
+    },
+    "fileplan.json": {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/fileplan.json",
+      "sha256": "76c0b26e81f55e74c0aaf45e8e2c134d8d096545f15b5a0549ed20ad2c3558d8",
+      "bytes": 2391,
+      "mode": "0644"
+    }
+  },
+  "requirements": {
+    "path": "/tmp/tlab-wave096-A-FIRST.md",
+    "sha256": "921157f21de6c9396e70b13efa3edd1dfe6a4a1062171bd083d4c109da34db42",
+    "bytes": 6162,
+    "mode": "0644"
+  },
+  "core_bindings": {
+    "scripts/candidate_pilot.py": {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "bytes": 19102,
+      "mode": "0644"
+    },
+    "scripts/manual_features.py": {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364,
+      "mode": "0644"
+    },
+    "scripts/protocol_manifest.py": {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "mode": "0644"
+    },
+    "scripts/temporal_contract.py": {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "mode": "0644"
+    },
+    "configs/protocols/clock-48h.json": {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "mode": "0644"
+    }
+  },
+  "inputs_before": [
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+      "bytes": 10077,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "bytes": 20747,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "bytes": 19102,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "bytes": 300283,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/CONTRACT.md",
+      "sha256": "3d1bd324b56b01c29a6b740573d9f63462f5840329a631d58f9744cb34c32634",
+      "bytes": 9200,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/fileplan.json",
+      "sha256": "76c0b26e81f55e74c0aaf45e8e2c134d8d096545f15b5a0549ed20ad2c3558d8",
+      "bytes": 2391,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/scripts/category_candidate_pilot.py",
+      "sha256": "0b0a761cfb68d5090c6439ca3924e3940086252e35c0bfbbfe07fb4d841ac589",
+      "bytes": 27135,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v1.log",
+      "sha256": "a0a02ad836a14d8d872b2d1954e563ef39c18022e16a8851b5500fa782da90d4",
+      "bytes": 1402,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v2.log",
+      "sha256": "d8323873ad134dfe68672f331a394a97373b268a0b255e935af494798a1eb389",
+      "bytes": 15295,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v3.log",
+      "sha256": "671c7abece58c01a65608398295634b4ce0a88f869ea8867c3bb029b5271d767",
+      "bytes": 15790,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v4.log",
+      "sha256": "d0864609ecbe5f621b94c8a776095b41b3ad976fb0feee72ace3029ee00ed5b5",
+      "bytes": 15384,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v5.log",
+      "sha256": "63237e11efeed2bf2f211b3c1ca04ed384a3b6efb8dc6899d963111cc7395558",
+      "bytes": 2491,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v6.log",
+      "sha256": "95b37402115b1fb6a378a574bfe298c77d6ca031125004117e02954432aa9ef8",
+      "bytes": 2656,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/tests/test_category_candidate_pilot.py",
+      "sha256": "88818d415e7ea52901b229d6e18911fdde11928e1e23c8d9dd06c17ca92b11a8",
+      "bytes": 14342,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-wave096-A-FIRST.md",
+      "sha256": "921157f21de6c9396e70b13efa3edd1dfe6a4a1062171bd083d4c109da34db42",
+      "bytes": 6162,
+      "mode": "0644"
+    }
+  ],
+  "inputs_after": [
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+      "bytes": 10077,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "bytes": 20747,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "bytes": 19102,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "bytes": 300283,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/CONTRACT.md",
+      "sha256": "3d1bd324b56b01c29a6b740573d9f63462f5840329a631d58f9744cb34c32634",
+      "bytes": 9200,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/fileplan.json",
+      "sha256": "76c0b26e81f55e74c0aaf45e8e2c134d8d096545f15b5a0549ed20ad2c3558d8",
+      "bytes": 2391,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/scripts/category_candidate_pilot.py",
+      "sha256": "0b0a761cfb68d5090c6439ca3924e3940086252e35c0bfbbfe07fb4d841ac589",
+      "bytes": 27135,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v1.log",
+      "sha256": "a0a02ad836a14d8d872b2d1954e563ef39c18022e16a8851b5500fa782da90d4",
+      "bytes": 1402,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v2.log",
+      "sha256": "d8323873ad134dfe68672f331a394a97373b268a0b255e935af494798a1eb389",
+      "bytes": 15295,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v3.log",
+      "sha256": "671c7abece58c01a65608398295634b4ce0a88f869ea8867c3bb029b5271d767",
+      "bytes": 15790,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v4.log",
+      "sha256": "d0864609ecbe5f621b94c8a776095b41b3ad976fb0feee72ace3029ee00ed5b5",
+      "bytes": 15384,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v5.log",
+      "sha256": "63237e11efeed2bf2f211b3c1ca04ed384a3b6efb8dc6899d963111cc7395558",
+      "bytes": 2491,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v6.log",
+      "sha256": "95b37402115b1fb6a378a574bfe298c77d6ca031125004117e02954432aa9ef8",
+      "bytes": 2656,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/tests/test_category_candidate_pilot.py",
+      "sha256": "88818d415e7ea52901b229d6e18911fdde11928e1e23c8d9dd06c17ca92b11a8",
+      "bytes": 14342,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-wave096-A-FIRST.md",
+      "sha256": "921157f21de6c9396e70b13efa3edd1dfe6a4a1062171bd083d4c109da34db42",
+      "bytes": 6162,
+      "mode": "0644"
+    }
+  ],
+  "input_count": 19,
+  "inputs_unchanged": true,
+  "Source_checks": {
+    "AST_parse": "PASS",
+    "test_methods": [
+      "test_next_unseen_round_robin_exact_root_example_and_source_exhaustion",
+      "test_category_recovers_outside_old_C_without_Y_and_no_refill",
+      "test_distinct_customers_not_raw_purchase_rows_and_numeric_category_tie",
+      "test_latest_global_bucket_NULL_mixture_conflict_missing_no_older_backoff",
+      "test_user_latest_view_bucket_excluded_with_support_and_not_current_reclassified",
+      "test_future_suffix_and_peer_permutation_preserve_all_lists_and_membership",
+      "test_matched_sizes_and_unique_round_robin_positions",
+      "test_exact_cached_C0_parity_and_changed_row_fail_closed",
+      "test_sealed_lists_keep_offC_fullY_emptyY_and_gained_lost_identity",
+      "test_empty_C_and_empty_positive_bootstrap_draws_are_not_zero_or_redrawn",
+      "test_censored_queries_and_duplicate_fullY_are_rejected",
+      "test_fullY_all_empty_is_undefined_and_no_target_insertion",
+      "test_invented_CLI_plumbing_and_connect_failure_report"
+    ],
+    "complete_source_read": true,
+    "C0_actual_core_forwarding": true,
+    "C0_external_physical_EXCEPT_ALL_gate": true,
+    "Y_body_after_physical_C_seal": true,
+    "strict_past_global_bucket_all_U": true,
+    "historical_latest_view_profiles": true,
+    "RR_next_unseen_fixed_source_turn": true,
+    "native_matched_separate": true,
+    "allQ_fullY_macro_micro": true,
+    "bootstrap_whole_user_undefined_draws_preserved": true,
+    "output_COPY_literals": [
+      "COPY cc_coverage TO ? (FORMAT PARQUET,COMPRESSION ZSTD)",
+      "COPY (SELECT * FROM "
+    ]
+  },
+  "test_evidence_scope": {
+    "supplied_final_log": {
+      "path": "/tmp/tlab-category-candidate-pilot-proposal-v1/synthetic-test-run-v6.log",
+      "sha256": "95b37402115b1fb6a378a574bfe298c77d6ca031125004117e02954432aa9ef8",
+      "bytes": 2656,
+      "mode": "0644"
+    },
+    "recorded_tests": 13,
+    "reviewer_rerun": false,
+    "original_execution_observed_by_reviewer": false,
+    "six_logs_preserved": true
+  },
+  "unimplemented_qualified": [
+    "100Q prefix/resume",
+    "code-name/unnamed slice"
+  ],
+  "scientific_scope": "Coverage-only development reuse; no ranker/feature-search/final-quality inference",
+  "operations": {
+    "controller_or_project_import": 0,
+    "tests_SQL_backend_execution": 0,
+    "DB_Parquet_model_body_open": 0,
+    "network": 0,
+    "author_contact": 0,
+    "Git_canonical_mutation": 0,
+    "new_grant_or_gate_created": 0
+  },
+  "STOP": true
+}

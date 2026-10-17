@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "scope": "synthetic category-ranking primitive only; no events/source files/labels/models",
+  "first_actual_utc": "2026-10-17T08:46:24.323290+00:00",
+  "finished_actual_utc": "2026-10-17T08:46:24.483644+00:00",
+  "python": "3.12.14 (main, Sep  1 2026, 14:09:38) [Clang 22.1.3 ]",
+  "platform": "macOS-26.3-arm64-arm-64bit",
+  "duckdb": "1.5.6",
+  "limits": {
+    "cpu_seconds": 15,
+    "wall_seconds": 25,
+    "duckdb_memory": "256MiB",
+    "threads": 1,
+    "spill": "0B",
+    "fits": 0
+  },
+  "fixture": {
+    "queries": 600,
+    "profile_rows": 1641,
+    "categories": 30,
+    "membership_rows": 5808,
+    "bigint_base": 1152921504606846976,
+    "corner_cases": [
+      "popularity ties",
+      "NULL and absent buyers => zero",
+      "thin category <20",
+      "queries with no/2/3 categories",
+      "NULL membership category",
+      "BIGINT >2^60"
+    ]
+  },
+  "attempts": [
+    {
+      "route": "A",
+      "wall_seconds": 0.0554968339856714,
+      "process_cpu_seconds": 0.05549499999999999,
+      "output_rows": 32105
+    },
+    {
+      "route": "B",
+      "wall_seconds": 0.005485542002134025,
+      "process_cpu_seconds": 0.005486999999999992,
+      "output_rows": 32105
+    },
+    {
+      "route": "B",
+      "wall_seconds": 0.005434999999124557,
+      "process_cpu_seconds": 0.005433999999999994,
+      "output_rows": 32105
+    },
+    {
+      "route": "A",
+      "wall_seconds": 0.05652874999213964,
+      "process_cpu_seconds": 0.056506,
+      "output_rows": 32105
+    }
+  ],
+  "mismatches_except_all": 0,
+  "precap_join_rows_A": 317585,
+  "prerank_membership_rows_B": 5807,
+  "inclusive_process_cpu_seconds": 0.225799,
+  "inclusive_active_wall_seconds": 0.21995912501006387,
+  "peak_rss_bytes": 96649216,
+  "note": "Full synthetic build, B build+join and complete materialized sink paid. No warmup, no retry. Timings include profiling-free same-process warm context; not full pilot throughput or quality."
+}

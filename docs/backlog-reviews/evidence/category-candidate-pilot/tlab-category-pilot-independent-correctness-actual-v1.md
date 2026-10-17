@@ -1,0 +1,15 @@
+Qualified ACTUAL consistency/correctness PASS for this completed coverage pilot; supported producer findings: none.
+
+I inspected 13 explicitly allowlisted derived Parquets in an in-memory DuckDB connection with external access disabled/configuration locked. No raw-events DB was opened/scanned/rehashed. Actual canonical source hashes match reviewed Source V2. Output seals, historical accepted Q/Y/C0 artifacts and metadata stayed unchanged before/after inspection.
+
+Full eight-column C0 multiset parity against cached accepted baseline is exact across all 1226268 rows, including flags/ranks/counts/timestamps. Sealed Q equals accepted Q. I reconstructed every native NEXT UNSEEN ordering from capped physical source lists (2232807 positions), checked P140/R20/K≤20, dedup/positions and every matched prefix against min(native sizes). Membership/profile outputs have valid strict-past timestamps,7d profiles and consistent category/support joins; original event truth was not rescanned.
+
+Independent fullY/list arithmetic matches all 24000 query/cell records:6000Q,104positiveQ and121targets per cell. Native C0/C1 have 92/93 hits, repeat71/73 and new-pair21/20; matched C0/C1 have 90/93 hits. Native positive-query macro Recall 0.7836538462→0.7932692308; matched 0.7644230769→0.7932692308. Report micro/macro and per-day totals agree. Physical changed-target identities and all 12000 Q×cohort counters match independent set differences, including zeros: native gained/lost5/4,new-pair3/4; matched5/2,new-pair3/2.
+
+Paired whole-user bootstrap was independently recomputed, seed 2026/1000draws: undefined 0/no redraw. Native 95% CI[-0.0476190476190476,0.0679611650485437], matched[-0.0229885057471264,0.0789473684210527], matching report. Both cross zero and native new-pair net is−1. The predeclared advance criterion is not met; its interval decision is inconclusive. No ranker/final-quality benefit follows.
+
+Seal hashes, inspected Source order and completed execution evidence are consistent with sealing before labels. The hardcoded label_reads=0 field and current file contents do not independently prove historical read order. Global latest-bucket truth, distinct-purchaser ranking, label blindness and raw DB immutability remain Source/producer-supported, not independently reconstructed event history.
+
+Parent receipt records exit0/reaped/cleanup[],190.241898wall/219.506339childCPU/2540388352-byte max child RSS, within declared ceilings. Original session28868 closure is attributed to Root. Producer pending-exit flag is a prefix qualifier resolved by outer evidence, not an unclosed run or universal resource-containment proof.
+
+A first reviewer process failed CLOSED1 on full EXCEPT ALL under its own 1GB/no-temp cap; this was a reader query-memory failure, not producer failure. I replaced it with complete 100-Q partitioned multiset/order comparisons under the same cap. The successful readback used 21.161s wall; no producer replay occurred. All 66 captured inputs stayed unchanged. Only assigned report/pins were written; no project import, ML, raw scan, network or canonical/Git mutation. READY. STOP.
