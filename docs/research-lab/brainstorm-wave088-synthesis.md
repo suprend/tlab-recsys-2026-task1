@@ -1,0 +1,13 @@
+# Волна 088: пять уточнений существующих направлений
+
+Три независимых FIRST и отдельный скептик приняты Root: **NEW 0 / REFINE 5 / MERGE 5 / ADMIT 0**. Все будущие опыты UNRUN, cost/adequacy UNKNOWN; новых IDs, задач, обязательных gates и grants нет. Independence заявлена авторами и согласуется с metadata; отдельного доказательства непрочтения peers нет.
+
+**Кандидаты — два уточнения.** Crossed training/evaluation policies отделяют inference-policy contrast от retraining; negative-only bridge задаёт другой controlled risk. Literal bookkeeping: 32 metric evaluations, 8 cells, 4 scalar path equalities, 2 interactions, 4 feature contrasts. Fixed300 — только диагностика frozen recipes, не production adaptive-prefix compliance. Будущее production comparison требует собственного inner prefix-selection/evaluation scope и оплаченных curves. Bridge должен закрепить positive/negative masses, global scaling, PairLogit pairs и empty-positive policy. Текущий gain этим не объяснён.
+
+**Automation — одно уточнение.** Переразбиение одной event bag проверяет prospective adapter-conformance, сохраняя occurrences, transport namespace, capabilities, coverage и clocks. 198 calls покрывают absent-view только как decisions. Проверка supported numeric outputs требует будущих revised 207 или 210 и полного списка closure cells, без бесплатного расширения. Featuretools допускает defaults/inference; explicit index/types — предложенный contract. Три layouts одной bag не устанавливают predictive transfer или экономию труда.
+
+**Robustness — два уточнения.** Whole-actor histogram cap отличается от actor-item cap. Показанная duplicate invariance относится лишь к уже насыщенной гистограмме. Off-C denominator требует покрытия всего actor-window, state dependencies и reverse expiry updates. Collision q определяется h,N; независимой информации, DP, confidence correction или unbiased audience proof не появляется. Реальное качество и robustness не измерены.
+
+Уточнения объединены с прежними TLAB-004/005/006/007/008/013/016/018/019, HYP-002/004/046/053/061–062 и FB-02. Due 02:15 был пропущен; clock observations не подменяют UNKNOWN individual starts. По Root adoption следующий исходный срок — 03:00 UTC / 06:00 МСК 17 октября; 45-минутная сетка и deadline 25 Oct 23:59 timezone UNKNOWN не сброшены.
+
+[Тринадцать оригиналов, включая Root adoption](archives/wave088/tlab-root-wave088-source-adoption-v1.json) сохранены побайтно. [Source map](../backlog-reviews/evidence/wave088-native-publication/publication.json) различает original hashes/target paths и metadata-only private references; raw FIRST не исправлены задним числом.

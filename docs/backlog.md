@@ -1,5 +1,16 @@
 # Единый рабочий backlog T-Lab
 
+## Опубликованный результат и следующий SOURCE-шаг — 2026-10-17 02:43:29 UTC
+
+[Код, исследования и Prepared доказательства опубликованы](backlog-reviews/wave088-native-publication-status.md) в private repository; draft PR обновлён, main не изменён. Prepared принят на вымышленном случае: 246 значений двух матриц 3×41; типы подтверждены Source-authenticated checks, не прямым просмотром heap. RawX/pins остаются withheld.
+
+Native V2 принят только по SOURCE; полного исправленного native запуска и callback-abort ещё не было. Запрос на одну новую попытку 50 CPU / 65 wall / один fit≤8 synthetic деревьев ожидает ответа; allocation/issue нет, старые allocations CLOSED. Этот checkpoint не запускает ML и не даёт grant.
+
+[Волна 088](research-lab/brainstorm-wave088-synthesis.md) завершена: три независимые author lines, пять refinements/merges, NEW 0 / ADMIT 0. Все будущие опыты UNRUN/cost UNKNOWN. Due 02:15 пропущен; следующий исходный срок 03:00 UTC / 06:00 МСК и 45-минутная сетка сохранены. Приняты 14 из 19 задач; TLAB-014 продолжается, TLAB-010–013 optional/deferred. Единственная очередь, исходный deadline с UNKNOWN timezone и старые тела документов сохранены.
+
+Весь прежний текст ниже сохранён побайтно; ранние pending/unpublished статусы относятся к своим датам.
+
+
 ## Данные для обучения подготовлены — 2026-10-17 02:04:47 UTC
 
 [Данные для обучения подготовлены и проверены](backlog-reviews/post-audit-Prepared-result.md) на вымышленном случае: две матрицы по три строки и 41 признаку, 246 сериализованных значений, группы, метки, веса и полный набор целей. Типы и размеры подтверждены исполненными проверками в закреплённом исходном коде, без независимой heap-инспекции. Полный исправленный native CLI и callback-abort остаются UNRUN; нового native grant нет.
