@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "UTC": "2026-10-17T01:59:28.152120+00:00",
+  "status": "ROOT_ACCEPTED_FINITE_PREPARED_SERIALIZED_VALUES_AND_SOURCE_AUTHENTICATED_CHECKS",
+  "root_actual_proof": {
+    "path": "/tmp/tlab-root-post-audit-Prepared-actual-pass-v1.json",
+    "bytes": 3022,
+    "sha256": "339b6d9bce6f9f31d9f51b3eb8c6d2e2a173e78c0063f5aee669b15003f76d2e"
+  },
+  "independent_review": [
+    {
+      "path": "/tmp/tlab-native-post-audit-Prepared-independent-actual-review-v1.md",
+      "bytes": 3394,
+      "sha256": "ae3065aed7044a95fa699fd336794fd04c0881e5c9bac8d8e15e30427f15414e"
+    },
+    {
+      "path": "/tmp/tlab-native-post-audit-Prepared-independent-actual-review-v1-pins.json",
+      "bytes": 86580,
+      "sha256": "2db19d8bbaab436a998e58e569e27ed92e8071ab5c06e60bd8d7d76454d38d6e"
+    },
+    {
+      "path": "/tmp/tlab-native-post-audit-Prepared-independent-actual-review-v1-freeze.json",
+      "bytes": 750,
+      "sha256": "b57effca46b7c0c860ac6431581194e923375ed4ccddeb11f5fb2a140a38f1f8"
+    }
+  ],
+  "actual120_input_SHA_bytes_modes_unchanged": true,
+  "feature_dimension": 41,
+  "matrix_shapes": {
+    "train": [
+      3,
+      41
+    ],
+    "selection": [
+      3,
+      41
+    ]
+  },
+  "serialized_cells_checked": 246,
+  "finite_float32_cells": 228,
+  "NULLs_for_NaN": 18,
+  "fullY_emptyC_offC_groups_y_weights_accounting_verified": true,
+  "CLI55_pin_names_and_values_verified": true,
+  "heap_directly_inspected": false,
+  "memory_dtypes_shape_nbytes": "authenticated productionworker assertions, not independentheapinspection",
+  "direct_owner_tool_chunk": "5b7fc7",
+  "direct_owner_exit": 0,
+  "session_id": null,
+  "child_exit": 0,
+  "child_reaped": true,
+  "whole_wall_upper_seconds": 0.743,
+  "native_fits": 0,
+  "full_CLI_run": false,
+  "ML_runtime_loaded": false,
+  "native_authority": false,
+  "qualification": "Only finite10eventcase; not currentnativeE2E/CV/realquality/general-leakproof. Prioroneattemptnative50CPU65wall grantsCLOSED. A new concrete nativeworker/review and newhumanallocation required before ML."
+}
