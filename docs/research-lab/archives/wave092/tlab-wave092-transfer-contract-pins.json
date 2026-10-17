@@ -1,0 +1,66 @@
+{
+  "wave": "092",
+  "role": "independent transfer contract author C",
+  "mode": "PRIMARY_SOURCE_READ_ONLY_RESEARCH_AND_ASSIGNED_TMP_OUTPUTS",
+  "individual_start": "UNKNOWN",
+  "clock_observations_utc_not_starts": ["2026-10-17 05:14:48 UTC", "2026-10-17 05:17:49 UTC"],
+  "schedule": {"original_due": "2026-10-17 05:15 UTC", "next_due": "2026-10-17 06:00 UTC / 09:00 MSK", "grid_minutes": 45, "original_limits": "UNCHANGED"},
+  "independence": {"current_wave092_peer_contents_read_before_FIRST": false, "peer_discussion_before_FIRST": false, "helpers": 0, "root_messages": "Path clarification and own source-progress only; no peer proposal supplied"},
+  "local_decisive_inputs": [
+    {"path": "/tmp/tlab-wave092-common-frontier-v1.md", "sha256": "a801d66dbf399e1482900cb6104c1f8ab6614dd841e3331a8343f9dd55cbe0cc", "read_extent": "cat, entire returned text; dispatch hash matched"},
+    {"path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md", "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34", "read_extent": "cat, entire returned text"},
+    {"path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md", "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2", "read_extent": "initial combined output truncated; later isolated cat returned entire88lines before FIRST freeze"},
+    {"path": "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md", "sha256": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb", "read_extent": "cat, entire returned text"},
+    {"path": "/Users/mdpospelov/personal-agent-system/docs/agents/verification.md", "sha256": "d84015a05b7ebc9c4bdc570e75e0a62fbcbe134217a367715fbf5e2acc1e69ec", "read_extent": "cat, entire returned text"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md", "sha256": "c25a5f3c41a3c6b5a546b752525e7e36184dfd5c5adb3fae3eadcf2b3a741929", "read_extent": "sed1-180 fully; sed181-300 combined output truncated; sed370-430 partially rendered; rg matches HYP002/011/012/046 and source-transfer status"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/README.md", "sha256": "8f7f07dfcfa458d6d0b2d64d9d1b712b26f9a4590e03f57289fed40f3ee5384e", "read_extent": "cat entire returned text, source/protocol context only"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md", "sha256": "5410838b7cea47381f3f11283496fac7fa22ea7e7d0cbb34b57f5d2ece10110b", "read_extent": "rg source/dedup matches including201,212,311,317,386,407; not a full read"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave091-synthesis.md", "sha256": "4b89009e654aeaea6047075bf71d450fbc3ecd916ca166b026a21f077d075727", "read_extent": "cat entire returned text"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave047-synthesis.md", "sha256": "b3b9d87302de2ffdca787f546760d4b2503f269cbe229e402bc830dfe5e956d7", "read_extent": "cat entire returned text"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-waves018019-synthesis.md", "sha256": "6dcd419190bff9b38c42cc0018d328324a9b391c449a3134245ba77c2f53bde9", "read_extent": "cat issued; combined output truncated, not used for decisive claims"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-021.md", "sha256": "f91c0c72aede11b82620957c8af09b7feaa9cb7189a359f2e58488f459fcd6dc", "read_extent": "cat entire returned text; UCI cancellation duplicate disposition"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-048.md", "sha256": "1e5a7569888949533ee863c8eb97149e6dbf6382f79c2e751bec1b0856c99dcf", "read_extent": "cat entire returned text"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-052.md", "sha256": "f48d4868109ae81034fcd38d380b00e44a6cc0958ede9cd6bf50e0c0b75d6ba5", "read_extent": "sed1-58, entire note returned"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-013.md", "sha256": "8974e352c842d1f320d99618d47939c08805b58034adbee4eacb341cdcf81f6d", "read_extent": "cat entire returned text; namespace/multiplicity dedup"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-011-013-review.md", "sha256": "b1236c46651e9079fed91f96ec1dcfdb87eb65a29aff6dd6b8e83e96cf2aa148", "read_extent": "rg literal matches on namespace/identity, lines18,27"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-016.md", "sha256": "5a752e9f3ad8fd597c8e870efb05800c8e47f7a7258d46549771283ebcd754f2", "read_extent": "rg literal matches lines21,25,33"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-030.md", "sha256": "66708b965d93aec32631642bd60fee7519388a43d3fe796aed8a71c8262215cf", "read_extent": "rg literal matches lines15,48"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-036.md", "sha256": "3967e06634d5f17246d0f2a4cc841e1aa1244650868cd4c1fc23b24879ee7614", "read_extent": "rg literal matches lines11,46"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-068.md", "sha256": "5f586b33c367cbe490631500b6e1ac287edd14f3172799484d77f983737985fb", "read_extent": "rg literal match line27"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/transfer-adapter-conformance.md", "sha256": "e4acafde25405e6aee63ec1357916f7071a4ae6adee74736bd5e3ae214bbcdea", "read_extent": "cat entire returned text; earlier rg15/26"}
+  ],
+  "discovery_limits": [
+    "Initial rg --files filename-only discovery returned568paths and was truncated; no current092 content was opened.",
+    "Broad keyword rg over docs/research-lab markdown excluding current092 and brainstorm-log returned archive/context repetitions and was truncated. These unpinned discovery snippets do not establish exhaustive dedup or decisive provenance; decisive canonical notes were separately pinned above.",
+    "No current-wave peer FIRST, private native control, raw records, source datasets, models, grants, APIs, scripts, tests, SQL, synthetic enumeration or project/Git/network writes were performed. Filename/hash/source-text inspection and three assigned TMP outputs only."
+  ],
+  "local_errors": [
+    "ENOENT /Users/mdpospelov/tlab-recsys-2026/AGENTS.md; root confirmed no project AGENTS and supplied docs/ prefix.",
+    "Initial missing /Users/mdpospelov/tlab-recsys-2026/research-lab/{index.md,brainstorm-wave091-synthesis.md}; corrected to docs/research-lab.",
+    "Guessed brainstorm-wave004-synthesis.md and wave019/078/079/080/081 names absent; existing canonical specific notes used instead. No dependence on failed reads."
+  ],
+  "primary_sources": [
+    {"url": "https://huggingface.co/datasets/stanford-star/relbench-v1/commit/5e8aa4672a4aeadd05b03671d2b07aedf2489098", "version": "5e8aa4672a4aeadd05b03671d2b07aedf2489098", "read_extent": "rendered diff; relevant manifest/table identity and user-engagement/user-badge/post-votes lines97-141,695-705,761-770,827-836; renderer extents vary by page", "status": "PROVEN_DEFINITION_ONLY; parquet and transformation identity UNKNOWN"},
+    {"url": "https://huggingface.co/datasets/stanford-star/relbench-v1/commit/81f67194a39dc2df62e85ae9732df0852848c868", "version": "81f67194a39dc2df62e85ae9732df0852848c868", "read_extent": "rendered diff lines1208-1634, especially1507-1560", "status": "Readable task-source block; no execution"},
+    {"url": "https://huggingface.co/datasets/stanford-star/relbench-v1/blob/main/rel-stack/manifest.yaml", "version": "main displayed file commit5e8aa46, resolved full commit above", "read_extent": "lines97-141", "status": "schema text inspected; no raw rows"},
+    {"url": "https://huggingface.co/datasets/stanford-star/relbench-v1/blob/main/rel-stack/README.md", "version": "main displayed81f6719", "read_extent": "lines101-128", "status": "description not substituted for executable horizon"},
+    {"url": "https://meta.stackexchange.com/questions/2677/database-schema-documentation-for-the-public-data-dump-and-sede", "version": "provider-hosted community schema observed2026-10-17, modified2026-10-08", "read_extent": "Posts81-141, PostHistory245-324, Votes532-578", "status": "upstream schema; exact RelBench preservation UNKNOWN"},
+    {"url": "https://stackoverflow.com/help/licensing", "version": "live provider page observed2026-10-17", "read_extent": "29-37", "status": "contribution license periods only; not blanket transformed-database license"},
+    {"url": "https://papers.nips.cc/paper_files/paper/2024/file/25cd345233c65fac1fec0ce61d0f7836-Supplemental-Datasets_and_Benchmarks_Track.pdf", "version": "NeurIPS2024 supplemental,20pages", "read_extent": "parsed text initial0-335 and focused489-523; no screenshots/PDF pages inspected", "status": "historical acquisition/license report; not latest artifact proof"},
+    {"url": "https://huggingface.co/datasets/stanford-star/relbench-v1/blob/main/README.md", "version": "main displayedfcaafe3; full commit unresolved", "read_extent": "108-140", "status": "current per-database/conversion license text; source version closure UNKNOWN"},
+    {"url": "https://archive.ics.uci.edu/dataset/502/online+retail+ii", "version": "UCI502 DOI10.24432/C5CG6D; card donated2019-09-20", "read_extent": "13-122", "status": "schema/license checked; cancellation mechanism dropped as prior round021 duplicate; no workbook obtained"},
+    {"url": "https://github.com/stanford-star/relbench", "version": "live main", "read_extent": "indexed README source overview", "status": "discovery only; not a pinned execution artifact"},
+    {"url": "https://github.com/stanford-star/relbench/blob/main/provenance/README.md", "version": "live main", "read_extent": "returned page navigation; no decisive code finding", "status": "not evidence of exact source payload"},
+    {"url": "https://github.com/f1db/f1db", "version": "live main", "read_extent": "214-369", "status": "alternative source discovery only; not proposed or confused with Ergast rel-f1"},
+    {"url": "https://github.com/f1db/f1db/releases", "version": "displayed v2026.17.0 shortcommit3c980fd", "read_extent": "137-305 and rendered later release lines", "status": "alternative source identity/checksum metadata; no asset fetched"}
+  ],
+  "primary_errors_and_limits": [
+    "GitHub v3.0.2 relbench/datasets/f1.py and tasks/f1.py cache miss; Ergast terms404; no retry or conclusions from absence.",
+    "HF direct immutable rel-stack README/schema/task URLs intermittently inaccessible; immutable commit DIFF pages succeeded and are the cited evidence.",
+    "HF LICENSE.md and fullfcaafe3 commit unavailable; exact downstream license closure UNKNOWN, no blanket CC BY-SA4 claim.",
+    "Search returned third-party material, not used as supporting evidence. Search-indexed HF blanket license disagreed with current first-party README; retained as dated observation only.",
+    "No PDF screenshot inspected; PDF claims are parsed-text observations. No unavailable Hippasus PDF lookup repeated."
+  ],
+  "planned_only": {"proposal_count": 2, "logical_input_rows_combined": 28, "comparisons_combined": 34, "cpu_seconds": 2, "wall_seconds": 10, "rss_bytes": 67108864, "input_io_bytes_max": 32768, "output_io_bytes_max": 16384, "spill_bytes": 0, "fits": 0, "tests": "UNRUN", "adequacy": "UNKNOWN", "allocation": "NONE; proposed caps are not grants"},
+  "dedup": {"match": "HYP-002; TLAB-005/016; round013 identity/multiplicity; round052 AST capability; transfer-adapter-conformance namespaces", "disposition": "SOURCE_SPECIFIC_REFINEMENTS_PROPOSED; ROOT_AND_SEPARATE_SKEPTIC_DECIDE", "new_ids": 0, "admissions": 0, "mandatory_gates": 0, "exhaustiveness": "UNKNOWN; bounded and partly truncated discovery"}
+}
