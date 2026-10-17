@@ -1,0 +1,38 @@
+{
+  "schema": "tlab-source-first-pins-v1",
+  "wave": 102,
+  "author": "/root/wave102_seed_coverage_blind",
+  "observed_utc": "2026-10-17T11:15:56Z",
+  "read_only_head": "e3f1bd2400b851cbab3578b1f335277578f1dad9",
+  "first": {"path": "/tmp/tlab-wave102-A-FIRST.md", "bytes": 14121, "sha256": "8439e42b486d3490db1edf70cd72a7815304f5522109ff1ebded049f64217b2a"},
+  "local_inputs": [
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md", "sha256": "cef94624ea3fd0f73bad6fd1b266d13a11ad39d2862014c7544eb55d48b38e3a", "extent": "Current prefixes and targeted TLAB004/012/013/016, HYP001/004 and candidate/seed/ItemCF keyword matches; not whole file"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md", "sha256": "dd5afba9ddd468417ec800fe5592b9d4b531aa43dfec902ebf6769fb6d1a084e", "extent": "Targeted seed, HYP061, support, empty, guard, refill matches"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/index.md", "sha256": "bd49a1768b05aa9577da8a2ea7e123aa80c45be44a54b8a7bf9bbcc903fe10bb", "extent": "Whole"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/03-recent-repeat.md", "sha256": "7b8d1c207eb6ab3ad535e5cd2261b0ade7356814a5171fc1597c22e8fd2256d9", "extent": "Whole"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/05-itemcf.md", "sha256": "f8a35655402279d89d86586a310d4166aa11a2ffdffe83b07123d5710bd8a21a", "extent": "Whole"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/06-usercf-audience.md", "sha256": "ab3d94b157c099420aaf7c08172c17b5879076f3ad97714a4cd240765dc547da", "extent": "Whole"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/12-evaluation-budget.md", "sha256": "f31e14393c2a7a1c289678882925a2ecb92c52dfb2701bcc06f1ea70300cde8e", "extent": "Whole"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/11-fusion.md", "sha256": "181a40fdbe3a19da5b93cde3b5aaf84cf4d03631b2d57f04c02b333b8cc35794", "extent": "Partial displayed text and contextual references; tool output truncated"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/review-05-08.md", "sha256": "108bad3e53bed1df06f2dbc5fcf6d0693b253c1ed80b8401fad912e8418f2b35", "extent": "Partial displayed text; tool output truncated"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-rb001.md", "sha256": "29af80fffc3249dc2c743f518d1c6577fb787dcbd5004c3ba0aae8a271063050", "extent": "RB3 and RB4 including disposition; other sections partial"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave098-synthesis.md", "sha256": "42852dbfc585102d50fe8510cf8347d788f49b35c214ff859df0c4f9a3f378b1", "extent": "Whole"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave099-synthesis.md", "sha256": "662d3d98803e8e723b0a1e98139340d1bc65e42f47b9f42c38c11215f9f615f3", "extent": "Whole; fresh full readback after initial keyword scan"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave100-synthesis.md", "sha256": "e64829f0b082a8713b3893db2512408698be5963b92c0419300d6242fe24141b", "extent": "Whole; fresh full readback after initial keyword scan"},
+    {"path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave101-synthesis.md", "sha256": "79cecd7d04ad99d3508ddc6262ab179c8cbfdbcc9625ec0b3142c610fb4b6958", "extent": "Whole; fresh full readback after initial keyword scan; archived FIRST A dedup paragraph also read"},
+    {"path": "/tmp/tlab-hyp061-discovery-proposal-v2/discovery.py", "sha256": "a903a30f06b83314eb1f83dcb6693237d59f814d09a9e8956bb35f4345e45d4b", "extent": "Lines135-188 and seed/guard/degree keyword matches only; no import/execution"}
+  ],
+  "primary_source": {
+    "url": "https://cs.stanford.edu/people/jure/pubs/pixie-www18.pdf",
+    "doi": "https://doi.org/10.1145/3178876.3186046",
+    "version": "WWW2018 author-hosted PDF, 10 pages",
+    "root_author_extent": "Web-extracted lines192-231,259-289,318-375,408-469,565-619; partial sections3.1,3.2,4.1, no entire-paper claim",
+    "helper_extent_declared": "Sections3.1-3.2,Algorithms1-3,4.1; not entire paper",
+    "local_pdf_download": false,
+    "content_sha256": "UNKNOWN: remote web extraction was not persisted"
+  },
+  "independence": {"peer102B_read": false, "future_skeptic_read": false, "helper_role": "Primary-source-only delegated reading with no repository/data access"},
+  "actual_operations": {"data_reads": 0, "sql": 0, "imports": 0, "experiments": 0, "tests": 0, "fits": 0, "predictions": 0, "canonical_writes": 0, "git_writes": 0, "network_mutations": 0},
+  "disposition": {"new": 0, "refinement": 1, "existing_id": "HYP-061", "scientific_admission": 0, "mandatory_prerequisites_added": 0},
+  "next_due_utc": "2026-10-17T12:00:00Z"
+}

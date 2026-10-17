@@ -1,0 +1,336 @@
+{
+  "created_utc": "2026-10-17T11:15:57.255098+00:00",
+  "author": "/root/wave102_transfer_automation_blind",
+  "wave": 102,
+  "status": "FIRST_SOURCE_ONLY_UNREVIEWED",
+  "root_sole_coordinator": true,
+  "planned_due_utc": "2026-10-17T11:15:00Z",
+  "next_due_utc": "2026-10-17T12:00:00Z",
+  "cadence_minutes": 45,
+  "individual_start": "UNKNOWN",
+  "first_clock_observation_utc": "2026-10-17T11:13:37Z",
+  "decisions": {
+    "new": 0,
+    "refine": 1,
+    "proposed_merge": 1,
+    "admit": 0
+  },
+  "local_sources": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "sha256": "cef94624ea3fd0f73bad6fd1b266d13a11ad39d2862014c7544eb55d48b38e3a",
+      "bytes": 255764,
+      "mode": "0o644",
+      "mtime_ns": 1792234945995302384,
+      "read_extent": "Read first72 lines and535–555 plus targeted rg transfer/dataset/grammar/action/IDs; not whole-file semantic review",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "sha256": "dd5afba9ddd468417ec800fe5592b9d4b531aa43dfec902ebf6769fb6d1a084e",
+      "bytes": 95956,
+      "mode": "0o644",
+      "mtime_ns": 1792234945996736925,
+      "read_extent": "Read first60 lines plus targeted rg transfer/dataset/grammar; not whole-file semantic review",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "mode": "0o644",
+      "mtime_ns": 1792023685938484300,
+      "read_extent": "Complete file text read; later re-read lines75–154; never imported/executed",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/automation-pool.json",
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+      "bytes": 2713,
+      "mode": "0o644",
+      "mtime_ns": 1792023685938791509,
+      "read_extent": "Complete JSON text read; no source API calls",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/automation-walkthrough.md",
+      "sha256": "e64341e24a9ed62e8854db734f869f1b11b5614b738673e7e9d0578b09fabe2c",
+      "bytes": 2824,
+      "mode": "0o644",
+      "mtime_ns": 1792037342137406804,
+      "read_extent": "Complete text read; historical demo not rerun",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/transfer-adapter-conformance.md",
+      "sha256": "e4acafde25405e6aee63ec1357916f7071a4ae6adee74736bd5e3ae214bbcdea",
+      "bytes": 14633,
+      "mode": "0o644",
+      "mtime_ns": 1792037342136715970,
+      "read_extent": "Complete note text read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-004.md",
+      "sha256": "8f085fc35eae11951d1bc6a8909784ab1d2de62ac1756849c65778b8c1d1cb6e",
+      "bytes": 15770,
+      "mode": "0o644",
+      "mtime_ns": 1792017398581113456,
+      "read_extent": "Targeted rg lines about UCI/RetailRocket/grammar/provenance/semantics, not whole file",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-013.md",
+      "sha256": "8974e352c842d1f320d99618d47939c08805b58034adbee4eacb341cdcf81f6d",
+      "bytes": 12741,
+      "mode": "0o644",
+      "mtime_ns": 1792020991363693966,
+      "read_extent": "Complete substantive note and critic appendix read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-021.md",
+      "sha256": "f91c0c72aede11b82620957c8af09b7feaa9cb7189a359f2e58488f459fcd6dc",
+      "bytes": 9724,
+      "mode": "0o644",
+      "mtime_ns": 1792022961231998577,
+      "read_extent": "Complete note read in separate untruncated source batch",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-031.md",
+      "sha256": "0a97f976cee67d0703ce5bfeee02db028944116637d3a0c9ad9b25f0d8fe405c",
+      "bytes": 10831,
+      "mode": "0o644",
+      "mtime_ns": 1792023792737611855,
+      "read_extent": "Targeted rg schema/time/action/availability sections",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-036.md",
+      "sha256": "3967e06634d5f17246d0f2a4cc841e1aa1244650868cd4c1fc23b24879ee7614",
+      "bytes": 10563,
+      "mode": "0o644",
+      "mtime_ns": 1792025370857730927,
+      "read_extent": "Substantive compatibility sections visible in concatenated return; some middle omitted by tool truncation; whole-file hash not whole-file read claim",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-040.md",
+      "sha256": "9c8801d238f5b61fb14c4c219a96a5b7eb9efdfd82dac747781adacd5558b903",
+      "bytes": 10799,
+      "mode": "0o644",
+      "mtime_ns": 1792025370858687344,
+      "read_extent": "Complete note text visible in returned source batch",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave075-synthesis.md",
+      "sha256": "56e0a13ff3674c0be0178a99aea3b39bf1d90f4a7c1a3156e88bdf8a16908810",
+      "bytes": 3800,
+      "mode": "0o644",
+      "mtime_ns": 1792172598403535017,
+      "read_extent": "Complete text read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave075/originals/tlab-wave075-dressipi-b-FIRST.md",
+      "sha256": "6d7bc8202b73a97cc6573ad8ee1db484c905147804c0d97f85b85c8113124029",
+      "bytes": 2747,
+      "mode": "0o644",
+      "mtime_ns": 1792172598401784728,
+      "read_extent": "Complete text read in first batch",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave075/originals/tlab-wave075-otto-a-FIRST.md",
+      "sha256": "8e2ce24b165ecb2c8f8294814824bc465f1bb9a86c82a722bd959209ed416d46",
+      "bytes": 2828,
+      "mode": "0o644",
+      "mtime_ns": 1792172598402276019,
+      "read_extent": "Substantive first part of note read; concatenated tool output truncated near final paragraphs",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave075/originals/tlab-wave075-coveo-c-FIRST.md",
+      "sha256": "85a93afecb06f0859675e376032ee21ae06eead3e9e6fc0da81c642e48ed969b",
+      "bytes": 2589,
+      "mode": "0o644",
+      "mtime_ns": 1792172598401290687,
+      "read_extent": "Complete text read in later untruncated prefix",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave085-synthesis.md",
+      "sha256": "dc258efe29ed267bf9eb3fb8786702e95af06571dde30d4772df8612ce927c0c",
+      "bytes": 3026,
+      "mode": "0o644",
+      "mtime_ns": 1792200585537689554,
+      "read_extent": "Complete text read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave088-synthesis.md",
+      "sha256": "692a5075de0d5f8f66bd643ca3f6b0d9a240d9530fd6cd1978a0e06724580f5e",
+      "bytes": 3504,
+      "mode": "0o644",
+      "mtime_ns": 1792205776778514724,
+      "read_extent": "Complete text read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave093-synthesis.md",
+      "sha256": "9c1b0f2a0b425537373a4e9050588bcbc1e8f00da6e64bade57e3b6fb35ae0ed",
+      "bytes": 5138,
+      "mode": "0o644",
+      "mtime_ns": 1792218150902517822,
+      "read_extent": "Complete text read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave100-synthesis.md",
+      "sha256": "e64829f0b082a8713b3893db2512408698be5963b92c0419300d6242fe24141b",
+      "bytes": 5100,
+      "mode": "0o644",
+      "mtime_ns": 1792232852379091365,
+      "read_extent": "Complete text read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave100/tlab-wave100-B-FIRST.md",
+      "sha256": "0ee361668a5e46d82d9313dbd1229039bf440527b308893cdd966ec4ff58639e",
+      "bytes": 15735,
+      "mode": "0o644",
+      "mtime_ns": 1792232852377805949,
+      "read_extent": "Complete text read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    }
+  ],
+  "skills": [
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2",
+      "bytes": 22428,
+      "mode": "0o644",
+      "mtime_ns": 1792045396972191405,
+      "read_extent": "Complete skill text read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+      "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34",
+      "bytes": 2480,
+      "mode": "0o644",
+      "mtime_ns": 1792045438826565441,
+      "read_extent": "Complete skill text read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    }
+  ],
+  "web_sources": [
+    {
+      "url": "https://archive.ics.uci.edu/dataset/352/online%2Bretail",
+      "received_representation_sha256": "217dd0ac251a8512bcf1923a8c41c6174b646e7f9eb85a0c65806b52af313c51",
+      "received_representation_bytes": 7743,
+      "read_extent": "All extracted lines0–194; substantive17/34–50/58–79/153–177",
+      "hash_scope": "exact UTF-8 web.run returned string including renderer/header; NOT original HTML/data/legal-code bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "received_representation_sha256": "6f4af241d1e0bec47aa4a952622a360a7374535ce493519442fd454187c2e757",
+      "received_representation_bytes": 6827,
+      "read_extent": "All extracted lines0–108; substantive48–64",
+      "hash_scope": "exact UTF-8 web.run returned string including renderer/header; NOT original HTML/data/legal-code bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    }
+  ],
+  "helper": [
+    {
+      "path": "/tmp/tlab-wave102-B-helper-UCI.md",
+      "sha256": "f02621a8ce7b84c2392a6194edae4cfc2c86c64a3db2c9a995ebc987847601a6",
+      "bytes": 3170,
+      "mode": "0o644",
+      "mtime_ns": 1792235648100511730,
+      "read_extent": "Complete helper note read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/tmp/tlab-wave102-B-helper-UCI-pins.json",
+      "sha256": "84cfe1d94861992548495dc99d929576103f8b113205fdd4d8eeac482995d13d",
+      "bytes": 1951,
+      "mode": "0o644",
+      "mtime_ns": 1792235648100673021,
+      "read_extent": "Complete helper pins read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    },
+    {
+      "path": "/tmp/tlab-wave102-B-helper-UCI-freeze.json",
+      "sha256": "c8229b3813cd3c2754ea42e6abe9246b65e216632c7445699fce54e3395b4924",
+      "bytes": 428,
+      "mode": "0o644",
+      "mtime_ns": 1792235648100847813,
+      "read_extent": "Complete helper freeze read",
+      "hash_scope": "complete file bytes",
+      "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+    }
+  ],
+  "report": {
+    "path": "/tmp/tlab-wave102-B-FIRST.md",
+    "sha256": "10de5f3f8ac2ddeb9b2682a6674552f6cbb21a712afbe327d88eb5e44c25c989",
+    "bytes": 14136,
+    "mode": "0o644",
+    "mtime_ns": 1792235725179115680,
+    "read_extent": "Entire authored text checked before freeze",
+    "hash_scope": "complete file bytes",
+    "observed_utc": "2026-10-17T11:15:57.255098+00:00"
+  },
+  "independence": {
+    "peer102A_read": false,
+    "current_or_future_skeptic_read": false,
+    "helper_is_not_independent_author": true,
+    "proof_limit": "Self-declaration and read log; hashes cannot independently prove non-reading"
+  },
+  "operations": {
+    "dataset_downloads": 0,
+    "actual_raw_or_db_qcy_or_jsonl_bodies": 0,
+    "project_imports": 0,
+    "sql": 0,
+    "tests": 0,
+    "fits": 0,
+    "predicts": 0,
+    "canonical_or_git_mutations": 0,
+    "network_mutations": 0
+  },
+  "limitations": [
+    "Web extraction/card statements do not verify payload",
+    "UCI physical schema/keys/missing/time/coverage unknown against file",
+    "All verdicts/source-derived bundle table UNRUN; source review inference only",
+    "No actual data/runtime/science accepted by this author",
+    "CC deed read; legal-code body not read"
+  ]
+}

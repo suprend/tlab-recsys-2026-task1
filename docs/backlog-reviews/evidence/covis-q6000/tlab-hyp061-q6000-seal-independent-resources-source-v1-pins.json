@@ -1,0 +1,353 @@
+{
+  "checks": {
+    "7_unique_test_methods": [
+      "test_all6000_exact_global_order_prefix_and_duplicate_rejection",
+      "test_prior_pairs_all_types_full_history_outside_C0_and_degree33",
+      "test_JSONL_guard_fault_retains_prefix_and_closes",
+      "test_finalizer_attempts_all_closes_and_retains_primary_secondary_receipt",
+      "test_matched_seal_equal_cardinality_and_kzero",
+      "test_request_rejects_extra_paths_and_reference_hash_is_exact",
+      "test_full6000_invented_caller_few_files_complete_seal_and_reference"
+    ],
+    "JSONL_exclusive_unbuffered_constant_file_count": true,
+    "Q100_private_acceptance_hash_match": true,
+    "WAL": "No explicit WAL absence/locking guard; sidecar immutability not established statically",
+    "analysis_changes": "SOURCE specification only, no bootstrap/coverage/runtime proof",
+    "authenticated_core_raw_before_exec": true,
+    "caller_test_AST_only_parse": "PASS",
+    "completeD_no_truncation": true,
+    "completed_profile_edge_bound": 393216000,
+    "core_SHA": "a903a30f06b83314eb1f83dcb6693237d59f814d09a9e8956bb35f4345e45d4b",
+    "engine": "2GB/two threads, not hard processRSS",
+    "fresh_scoped_hash_readback_unchanged": true,
+    "full_prior_history_relation": "All event types [Oct1,anchor), distinct pairs including outsideC0/D/heavyusers",
+    "future_verifier_proposal_CPU_wall": [
+      600,
+      900
+    ],
+    "guard_cost_qualification": "Few persistent files plus spill; no output-file growth with6000; not a bound on native work or arbitrary spill-file count",
+    "guarded_old_core_CLI_not_called": true,
+    "independent_writer_DBclose_latepins_outputhashes": true,
+    "logical_projection": "Q3/C7 + typed9 read-only DB, noY/model reader",
+    "new_source_diff_actual_exact": true,
+    "no_model_imports_in_source": true,
+    "old32GiB_screen": "NOT_PASSED_UNKNOWN",
+    "old_core_suite_reruns_claimed": 0,
+    "original_core14_files_unchanged": true,
+    "output_report_reserve_bytes": 2097152,
+    "output_resolved_new_private_TMP0700": true,
+    "partial_or_missing_receipt_not_success": true,
+    "physical_IO": "UNKNOWN",
+    "plan_V1_to_V2_diff_actual_exact": true,
+    "primary_secondary_receipt_retained": true,
+    "producer_MAX_CPU_wall_RSS_spill_output_edges": [
+      1200,
+      1800,
+      6442450944,
+      8589934592,
+      268435456,
+      10000000
+    ],
+    "proposal15_descriptors_match": true,
+    "recorded_peakRSS": 188891136,
+    "recorded_synthetic_attempts": 1,
+    "recorded_tests7_zero_failures_errors_skips_terminal0": true,
+    "recorded_whole_child_CPU": 6.28018,
+    "recorded_whole_wall": 6.4347125830000005,
+    "request_bytes_cap": 131072,
+    "safe_aggregate_next6000_admission": false,
+    "source_metadata_failures_preserved": 2,
+    "source_relations_reserved": "3 globalgraphs +1 allpast history; descriptor count not physicalIO",
+    "successful_persistent_outputs": [
+      "Q6000.jsonl",
+      "candidates.jsonl",
+      "prior-pairs.jsonl",
+      "seal.json"
+    ],
+    "template_NULL_unrunnable_before_native": true,
+    "tested_snapshot_and_CHECKS_current_sha_match": true
+  },
+  "helper": {
+    "agent": "cold_v2_worker_resources",
+    "result": "No supported blocker; independent closes, primary/secondary preservation and partial-failure non-success confirmed",
+    "scope": "Same frozen sealer/footer/resources only, no outputs/data/runtime"
+  },
+  "inputs": [
+    {
+      "bytes": 3974,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/freeze.json",
+      "sha256": "3305b1d38fa1068f5879c744fa5949836861b0adc9f65179c1adabe431acc73f"
+    },
+    {
+      "bytes": 1636,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/CHECKS.json",
+      "sha256": "497cc655b0d4c654b59d759a7c0c7fc7aa672657325c6cce161fe4a111beac47"
+    },
+    {
+      "bytes": 997,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/CORE-CLOSURE.json",
+      "sha256": "fcdc2b63c4f496f71370043564bce2c3b2476b87b5aa5924871a306dd44cdd4f"
+    },
+    {
+      "bytes": 27333,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/NEW-SOURCE.diff",
+      "sha256": "cdfc3947373b081616c8f54dbac874018f579775d376ea874cf03fb2c585c0fe"
+    },
+    {
+      "bytes": 5708,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/NEXTSTAGE-PLAN-v2.md",
+      "sha256": "b8896d7f7ee7a12593cdfdfe4f7f3fc4a58bddbd9e3f7312b96de895a104565f"
+    },
+    {
+      "bytes": 7501,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/README.md",
+      "sha256": "04be2338495810b24205c4cc563b6247fe133954ae42780549512cfeb918eb3f"
+    },
+    {
+      "bytes": 314,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/REQUEST-UNBOUND.json",
+      "sha256": "338f5820264ad5b3c099c94cf93630dc0bb25ecd8b0b34d544e212570faa1309"
+    },
+    {
+      "bytes": 2405,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/SOURCE-PINS.json",
+      "sha256": "4ff9956e2421ed5baf9f06add57eaf0ca4c25c2b5f29801582d350a554ef4d36"
+    },
+    {
+      "bytes": 12096,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/V1-plan-to-V2.diff",
+      "sha256": "448e81fb5688544f42e12f94ad200b2a953aa2b38bc66ed25ebafcd4a095ae26"
+    },
+    {
+      "bytes": 258,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/attempt1-sources.json",
+      "sha256": "1a478f8a278b4802099c2caea188f656274b25769292f46c85d79283afd45130"
+    },
+    {
+      "bytes": 13792,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/seal6000.py",
+      "sha256": "2d43f10d66241a7fe9bd53731757649ef71c997af1a474860d4e25544d636383"
+    },
+    {
+      "bytes": 410,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/source-metadata-attempt1.log",
+      "sha256": "5c440518c14d2e86262fc1e8ed704bf403b8565306df7078b64049ecee6de10b"
+    },
+    {
+      "bytes": 361,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/source-metadata-attempt2.log",
+      "sha256": "71c1d336af555635ba119815f94b69128c30afd976510a3c757047388e816413"
+    },
+    {
+      "bytes": 187,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/synthetic-attempt1-terminal.json",
+      "sha256": "9686a340020cd58cd9c4b1f9b47c9ceba3def07e0e51d8df0ed6cf1891577eec"
+    },
+    {
+      "bytes": 1367,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/synthetic-attempt1.log",
+      "sha256": "8cc261290a2bee67b4a254cc7991c7b00af41f109ae3c97e4fecc8fb60838cd3"
+    },
+    {
+      "bytes": 12521,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/test_seal6000.py",
+      "sha256": "815d8aa2affb1dcb0625ba7ca77370ffdce28487e2cfaea745978f13c4315d2d"
+    },
+    {
+      "bytes": 3198,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/freeze.json",
+      "sha256": "c3d6e976a9a8716d1247b0c887dbece53b3e7de285338c16aef7f1733b648890"
+    },
+    {
+      "bytes": 2724,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/CHECKS.json",
+      "sha256": "50ea91d28402066119a57e3ca140fedd82fbd38540ee7f0ae64e72a49930c7f1"
+    },
+    {
+      "bytes": 9789,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/README.md",
+      "sha256": "dd6fcf94c3ab992ffe7d30cd619c6e05b1406e175327b04bcbabfcff69d746aa"
+    },
+    {
+      "bytes": 247,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/REQUEST-UNBOUND.json",
+      "sha256": "32975674b3dc49980c599e28476e43f43ef5a21fc0b27c9877ab134124259297"
+    },
+    {
+      "bytes": 3463,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/SOURCE-PINS.json",
+      "sha256": "33175a206948fca490e5a8b27e19c0d013d795c4d4340bb25bf421ec88ca1abd"
+    },
+    {
+      "bytes": 8994,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/V1-to-V2.diff",
+      "sha256": "9d73b6c4b7f8cacad1cbe564258b22ed9e04eb0440e6de45a901e77ae845f5f3"
+    },
+    {
+      "bytes": 21921,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/discovery.py",
+      "sha256": "a903a30f06b83314eb1f83dcb6693237d59f814d09a9e8956bb35f4345e45d4b"
+    },
+    {
+      "bytes": 181,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/synthetic-attempt1-terminal.json",
+      "sha256": "f6d6762f9004835419c49871aaa20ef654dd62d59ba9332994110760c04b0d9b"
+    },
+    {
+      "bytes": 3646,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/synthetic-attempt1.log",
+      "sha256": "5089f8ef1a01945157c5abc87840294b2ab997996c17366a50ae8c5d6178362e"
+    },
+    {
+      "bytes": 181,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/synthetic-attempt2-terminal.json",
+      "sha256": "4d0d907edb7b3476c1bc1331d0e092aa792ef99407dbd5750d673c5eeae4814c"
+    },
+    {
+      "bytes": 3106,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/synthetic-attempt2.log",
+      "sha256": "349858812f0e39f56071252b9a13151dddad61250b68f3f925754da3107e7ae2"
+    },
+    {
+      "bytes": 19405,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/test_discovery-attempt1.py",
+      "sha256": "1e01955f36111a8e92ffce23792e31bba0bc1999ed3f06d793ee85b8aad2753e"
+    },
+    {
+      "bytes": 19516,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/test_discovery.py",
+      "sha256": "1247a838dad2a1a8aef47f00fdb34db5c73d7ba956dd40df5d72bd2f01385b2b"
+    },
+    {
+      "bytes": 2469,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/v1-synthetic-attempt1.log",
+      "sha256": "802c948f0a374de0f2e5696f83a1b4baf73076b5f0e4201c7bf697f2550ccb28"
+    },
+    {
+      "bytes": 2628,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/v1-synthetic-attempt2.log",
+      "sha256": "79219775e7fdbe83dc6e67989a6032b57753885b7ec65692028e2f38fc27f873"
+    },
+    {
+      "bytes": 2307,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-root-hyp061-q100-final-actual-acceptance-v1.json",
+      "sha256": "22490681e0a4adb9b883fe1b480adfd51fea2e3524289ec6a9fc81e84f9f3100"
+    },
+    {
+      "bytes": 3846,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-root-hyp061-q100-public-aggregate-v1.json",
+      "sha256": "aaf51d35ae2b187ae968c91e23bb5cbe3987c7961c03865289410cdbb1ff1085"
+    },
+    {
+      "bytes": 6233,
+      "is_symlink": false,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-nextstage-plan-v1.md",
+      "sha256": "6693638c00adda8c117276de1776c7dbad3cb58069861c9d0c29f827dd309b8f"
+    }
+  ],
+  "qualifications": [
+    "Real inputs/reference and runtime admission remainUNBOUND/UNRUN. Static PASS grants no execution.",
+    "Absolute input-path authority/bridge semantics and immutable DB/WAL state must come from later Root binding; content hash is not authority.",
+    "Startup/native operations/full-record serialization/allocation/receipt tail remain cooperative/unmeasured; no universal hard aggregateRSS/disk/wall containment.",
+    "Guard peakRSS/output/spill and engine settings do not prove fullscale cost, adequacy, physicalIO,32GiBscreen or modelquality.",
+    "Partial streams/partialseal/no receipt require nonzero/originalterminal and independent complete-seal acceptance.",
+    "Prospective analysis/bootstrap definitions were read, not executed or validated on actualY."
+  ],
+  "read_extents": {
+    "full": [
+      "seal6000.py237lines",
+      "test_seal6000.py182lines",
+      "README/NEXTSTAGE-PLAN-v2/CHECKS/coreclosure/unboundrequest/Sourcepins",
+      "one suite log/terminal/testedsource snapshot/two metadata-writer error logs",
+      "V1→V2 plan diff and exact new-source diff",
+      "Root safe Q100 aggregate"
+    ],
+    "hash_only": [
+      "Root private Q100 acceptance22490681; body not parsed/displayed/copied",
+      "old core14file closure; previously reviewed core remains identical"
+    ],
+    "not_read": [
+      "Actual DB/Q/C/Y/model/private query-result bodies",
+      "Current correctness reviewer conclusions",
+      "Imports/execution/tests/SQL/native/network/canonical/Git mutation"
+    ]
+  },
+  "report": {
+    "bytes": 4946,
+    "is_symlink": false,
+    "mode": "0644",
+    "path": "/tmp/tlab-hyp061-q6000-seal-independent-resources-source-v1.md",
+    "sha256": "e9850f3280b2b8b4f73f4263c24654a9ff856fa30dd1e3d84a663629fb8393b7"
+  },
+  "reviewed_utc": "2026-10-17T10:46:23.398799+00:00",
+  "reviewer": "/root/wave092_integration_correctness",
+  "schema": "q6000_seal_independent_resources_source_v1",
+  "verdict": "QUALIFIED_SOURCE_PASS_NO_SUPPORTED_RESOURCE_LIFECYCLE_BLOCKER"
+}

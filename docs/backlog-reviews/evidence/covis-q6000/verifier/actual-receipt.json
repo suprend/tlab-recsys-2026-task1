@@ -1,0 +1,38 @@
+{
+  "RSS_scope": "Single child cooperative6GiB plus engine2GB; sum of per-process kernel highwaters afterreap, not hard aggregateRSS",
+  "attempts": 1,
+  "caps": {
+    "RSS_cooperative": 6442450944,
+    "engine_memory": "2GB",
+    "inclusive_CPU": 600,
+    "inclusive_wall": 900,
+    "outputs": 67108864,
+    "spill": 8589934592,
+    "threads": 2
+  },
+  "child_exit": 0,
+  "child_reaped": true,
+  "resource_prefix": {
+    "child_CPU_scope": "Exactly one independent verifier child; no ps/proc census",
+    "children_CPU_seconds": 30.166491999999998,
+    "combined_CPU_seconds": 30.205216999999998,
+    "owner_CPU_seconds": 0.038725,
+    "wall_seconds": 26.34954320799443
+  },
+  "result": {
+    "bytes": 3697331,
+    "mode": "0600",
+    "path": "/private/tmp/tlab-hyp061-q6000-independent-correctness-runtime-v1-once/oracle-results.json",
+    "sha256": "bdca5be94002217e56b3f5d33a1db8853a1b187a0f359d8deeea5b28d2901c0a"
+  },
+  "retry": false,
+  "sample_scope": "After child reap/cleanup and before final receipt/print: CPU/wall PREFIX, not exact process-tail total; Root original-tool terminal required; hard CPU 7+591<600 and wall owner895<900 reserve.",
+  "source": {
+    "bytes": 37100,
+    "mode": "0600",
+    "path": "/private/tmp/tlab-hyp061-q6000-independent-correctness-proposal-v1/verify.py",
+    "sha256": "c169e54c7121592a7584ff4e9351075f642165745697fe4120b5b44c74afcf61"
+  },
+  "status": "PASS_CLOSED_PENDING_ROOT_OUTER_TERMINAL",
+  "sum_of_process_peak_RSS_bytes": 1338212352
+}

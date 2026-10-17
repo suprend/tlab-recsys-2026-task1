@@ -1,0 +1,131 @@
+{
+  "all_reviewed_Source_hashes_fresh": true,
+  "bundle": [
+    {
+      "actual_read_extent": "complete README/contract/freeze/input-pin text",
+      "bytes": 5667,
+      "mode": "0600",
+      "path": "/tmp/tlab-hyp061-q6000-independent-correctness-proposal-v1/README.md",
+      "sha256": "00b80b7f1b02b1e26d9534898f8b25a5448d7a4d9860dcf2c96c03c2673f5f2b"
+    },
+    {
+      "actual_read_extent": "byte/hash metadata only; no referenced actual inputs read",
+      "bytes": 66362,
+      "mode": "0600",
+      "path": "/tmp/tlab-hyp061-q6000-independent-correctness-proposal-v1/V3-to-SEALED6000.diff",
+      "sha256": "843d0175e6f290e769648cc391701c690f0861a0b849e4533e5cbb4319edf1f3"
+    },
+    {
+      "actual_read_extent": "complete README/contract/freeze/input-pin text",
+      "bytes": 1704,
+      "mode": "0600",
+      "path": "/tmp/tlab-hyp061-q6000-independent-correctness-proposal-v1/freeze.json",
+      "sha256": "08e7978abbf97d318cb4c41cfbb04b63cb24fe7a5d1c3d79694a57be16c09134"
+    },
+    {
+      "actual_read_extent": "complete README/contract/freeze/input-pin text",
+      "bytes": 3871,
+      "mode": "0600",
+      "path": "/tmp/tlab-hyp061-q6000-independent-correctness-proposal-v1/literal-protocol.json",
+      "sha256": "1b15480e1b215c249f4e44abc6f952e192cb979f9abad4e4d30f9612c3c1abdc"
+    },
+    {
+      "actual_read_extent": "byte/hash metadata only; no referenced actual inputs read",
+      "bytes": 32438,
+      "mode": "0600",
+      "path": "/tmp/tlab-hyp061-q6000-independent-correctness-proposal-v1/prospective-inputs.json",
+      "sha256": "171dda1b9f952b73f0afdfc00dfc3878cf1cbce925bc077792b74e537a3b22bf"
+    },
+    {
+      "actual_read_extent": "complete README/contract/freeze/input-pin text",
+      "bytes": 3095,
+      "mode": "0600",
+      "path": "/tmp/tlab-hyp061-q6000-independent-correctness-proposal-v1/source-input-pins.json",
+      "sha256": "c9a8e424f3856e60d6b767b819808686cbdb857f3b2b1cc2b1928781e1640791"
+    },
+    {
+      "actual_read_extent": "complete verifier484lines",
+      "bytes": 37100,
+      "mode": "0600",
+      "path": "/tmp/tlab-hyp061-q6000-independent-correctness-proposal-v1/verify.py",
+      "sha256": "c169e54c7121592a7584ff4e9351075f642165745697fe4120b5b44c74afcf61"
+    }
+  ],
+  "checkpoints": {
+    "Q6000_schema_order_typed_IDs": "SOURCE_PASS",
+    "actual_input_correctness": "UNRUN",
+    "all100_entire_nested_core_plus_LF": "SOURCE_PASS",
+    "complete_all_action_strict_prior_relation": "SOURCE_PASS",
+    "global_graphs_fullD_self_norms_ties": "SOURCE_PASS",
+    "native_and_common_k_controls": "SOURCE_PASS",
+    "producer_implementation_not_called": "SOURCE_PASS",
+    "resource_adequacy": "UNKNOWN"
+  },
+  "comparison_sources": [
+    {
+      "actual_read_extent": "relevant prior worker/score/global-graph block lines170–345; full-source AST/hash; independent helper Source comparison",
+      "bytes": 31556,
+      "mode": "0600",
+      "path": "/tmp/tlab-hyp061-independent-correctness-actual-v3/verify.py",
+      "sha256": "af45aae63e919b20dda289e695814ac0b59beecd41852e1ddab9b303a1729161"
+    },
+    {
+      "actual_read_extent": "complete237-line source only",
+      "bytes": 13792,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-q6000-seal-proposal-v1/seal6000.py",
+      "sha256": "2d43f10d66241a7fe9bd53731757649ef71c997af1a474860d4e25544d636383"
+    },
+    {
+      "actual_read_extent": "lines1–288 incl pure graph/extraction/discover/schema/canonical contracts; full-source AST/hash, no import",
+      "bytes": 21921,
+      "mode": "0644",
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/discovery.py",
+      "sha256": "a903a30f06b83314eb1f83dcb6693237d59f814d09a9e8956bb35f4345e45d4b"
+    }
+  ],
+  "final_readback_utc": "2026-10-17T11:08:13.544705+00:00",
+  "helper": {
+    "agent": "/root/wave093_transfer_semantics_blind/wave099_archive_static_review",
+    "execution": 0,
+    "finding": "no supported P-level defect; additional independent graph/prior reader agreed",
+    "real_payload_reads": 0,
+    "role": "non-author static fullD/graph/prior/control axis",
+    "writes": 0
+  },
+  "instructions": [
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+      "read_extent": "full current text",
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+      "read_extent": "full text earlier in this ongoing conversation; applicable file-scoped workflow retained",
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43"
+    }
+  ],
+  "limitations": [
+    "No real data/body validation or timing/memory measurement.",
+    "No runtime admission or actual PASS inferred.",
+    "No generic source truth/online serving/global leak-freedom/quality claim."
+  ],
+  "operations": {
+    "SQL_tests_runtime": 0,
+    "Source_import_or_execution": 0,
+    "active_coverage_proposal_read": false,
+    "canonical_Git_network_mutations": 0,
+    "functions_or_literal_checks_called": 0,
+    "real_DB_QC_JSONL_old100_bodies_Y_models_read": 0,
+    "source_mutations": 0,
+    "static_AST_parse_only": true
+  },
+  "report": {
+    "bytes": 5486,
+    "path": "/tmp/tlab-hyp061-q6000-verifier-independent-correctness-source-v1.md",
+    "sha256": "a8f13de9c40863111ebafacec55db56916c9edecaaa2ab77c99108b397d52291"
+  },
+  "started_clock_utc": "2026-10-17T11:03:43Z",
+  "state": "FROZEN_NONAUTHOR_SOURCE_CORRECTNESS_PASS_STOP",
+  "verdict": "NO_SUPPORTED_CORRECTNESS_FINDING"
+}

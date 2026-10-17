@@ -1,0 +1,52 @@
+{
+  "DB_QC_once": {
+    "all_SHA_match": true,
+    "body_reads_each": 1,
+    "bytes": 1512112379,
+    "files": 7
+  },
+  "JSONL": {
+    "bytes": 174216282,
+    "files": 3,
+    "only_SHA_LF_no_decoding": true
+  },
+  "Q100_references": {
+    "all_SHA_match": true,
+    "body_decoding": false,
+    "files": 100
+  },
+  "chosen_caps": {
+    "CPU_seconds": 45,
+    "RSS_bytes": 268435456,
+    "each_own_output_bytes": 2097152,
+    "wall_seconds": 60
+  },
+  "controls": {
+    "RLIMIT_CPU": [
+      45,
+      45
+    ],
+    "RSS": "self peak sampled per1MiB chunk, not OS hardRSS",
+    "chunk_bytes": 1048576,
+    "cooperative_read_guard_seconds": 50,
+    "wall_alarm_seconds": 55
+  },
+  "limits": "Samples are not fabricated exact final whole-process totals; terminal exit must be observed from tool completion.",
+  "no_SQL_imported_project_controller_tests_fits_models_retries": true,
+  "observed_prefix": {
+    "CPU_seconds": 0.709837,
+    "before_final_own_receipt_pins_exit": true,
+    "peak_RSS_bytes": 24526848,
+    "total_hash_bytes": 1688497521,
+    "unique_hashed_files": 150,
+    "wall_seconds": 0.7142297500104178
+  },
+  "outputs": [
+    "/tmp/tlab-hyp061-q6000-seal-independent-resources-actual-v1.md",
+    "/tmp/tlab-hyp061-q6000-seal-independent-resources-actual-v1-pins.json",
+    "/tmp/tlab-hyp061-q6000-seal-independent-resources-actual-v1-own-bounded-receipt.json"
+  ],
+  "schema": "own_bounded_readonly_audit_receipt_v1",
+  "scope": "This stdlib opaque-hash/LF/metadata audit process; initial tiny metadata inspection and helper separate/unprofiled, model reasoning excluded",
+  "status": "ALL_MAIN_CHECKS_COMPLETE_PREFIX_SAMPLE_BEFORE_FINAL_RECEIPT_AND_PINS"
+}

@@ -1,0 +1,47 @@
+# Wave102 B FIRST — переносимый примитив не переносит frozen search pool
+
+Независимый автор B102; SOURCE-only. Плановая точка волны — 17 октября 2026, 11:15 UTC; Root отправил задание раньше после существенного outcome-blind результата Q6000. Точное время начала UNKNOWN; первое полученное мной clock observation — 11:13:37 UTC. Следующая точка остаётся **12:00 UTC / 15:00 МСК**, шаг 45 минут без reset. Peer102A и нынешний/будущий скептик не читались. Один узкий helper перечитал официальные UCI/CC страницы; это помощь по источнику, а не третий независимый автор. Root остаётся единственным координатором и владельцем canonical/Git.
+
+**NEW 0 / REFINE 1 / proposed MERGE 1 / ADMIT 0.** Это одно уточнение существующих HYP-002 и transfer conformance, TLAB-014/016/018, особенно round021/036. Новый HYP, dataset benchmark, framework, обязательный gate или execution queue не предлагаются. Ни один нижеследующий synthetic verdict не исполнялся. Raw/DB/Q/C/Y, реальные JSONL/Parquet/NPZ/model bodies, SQL, проектные imports, fits/predicts, скачивание корпуса, canonical/Git и сетевые записи: **0**. Читались документы, исходный код как текст, JSON-конфигурация и официальные HTML через web extraction; stdlib применён только для собственного документирования и hashes.
+
+## B102-1 — сертификат совместимости должен называть единицу переноса
+
+**Первичный источник и границы.** [Официальная UCI Online Retail card](https://archive.ics.uci.edu/dataset/352/online%2Bretail), извлечённые строки 0–194, сообщает 541909 записей, файл XLSX 22.6 MB и CC BY 4.0. В схеме InvoiceNo задаёт транзакцию, StockCode — товар, Quantity — количество товара в транзакции, InvoiceDate — время её генерации; префикс c означает отмену. Строка как товарная позиция — обоснованный вывод из полей, а не проверенный PK. Отсутствие пропусков заявлено карточкой, не удостоверено файлом. Схема не документирует view/cart, ingestion clock, timezone, полное окно будущих покупок или item taxonomy. Связь отмены с продажей и обработка отрицательных Quantity также не установлены. Payload не запрашивался; актуальная загрузка и его hash UNKNOWN. [Официальный CC deed](https://creativecommons.org/licenses/by/4.0/), строки 48–64, подтверждает условия attribution/link/изменения; юридический текст не читался. Лицензия и наблюдаемость — разные вопросы.
+
+**Наблюдение в нашем SOURCE, не runtime.** Прочитаны целиком `scripts/feature_programs.py` и `configs/features/automation-pool.json`. `_validate_contract` требует точные canonical fields и **ровно** `['view','cart','purchase']`. `generate_pool` дополнительно фиксирует base41/manual18, восемь шаблонов, отсутствие aliases, три новых физических поля у целого bundle; нарушение любой closure останавливает предложение. Не вызывая API, из literal `expected_bindings` и порядка добавления recipes получается таблица:
+
+| Frozen bundle | Обязательные action capabilities |
+|---|---|
+| L01–L03: action-counts | view, cart, purchase |
+| L04–L05: action-distinct | view, cart, purchase |
+| L06: pair cart recency + item cart count | cart |
+| L07: user cart recency + user purchase distinct | cart, purchase |
+| L08: item cart recency + item cart distinct | cart |
+
+Следовательно, **все восемь целых bundles требуют cart**, первые пять также view. Это текстовый вывод из зафиксированных шаблонов, не результат materialization. У честно объявленного purchase-only adapter нет ни одного drop-in целого bundle; текущий generator должен отказать ещё на contract check. Это ожидаемый отказ ограниченного интерфейса, а не обнаруженный production-баг. Другие проблемы UCI (keys/time/category/base/protocol) от этого не исчезают.
+
+**Механизм.** Есть разные единицы переноса: отдельный оператор/typed feature; целая группа с closure; замороженный pool и allocation; source-local baseline и evaluation protocol. Наличие потенциально переносимого purchase COUNT или DISTINCT не делает переносимыми целые трёхполевые bundles и B41. Если удалить unsupported cart/view definitions и сохранить прежние bundle IDs, pool identity и «тот же бюджет», изменятся программы, closure, alias-check относительно нового control и sampling distribution. Если вместо удаления дописать вымышленные нулевые каналы, строковое schema equality перестанет описывать наблюдаемый источник. Validator не может сам разоблачить ложную человеческую capability-аннотацию.
+
+**Контргипотеза.** Round021 уже говорит о purchase-only subset и отказе unsupported view/cart; round036 прямо предупреждает, что целые016 bundles автоматически не открываются. Значит, механизм не новый: достаточно этой конкретной таблицы к существующей conformance записи, без нового test suite или расширения generator. Более слабое утверждение «арифметический COUNT применим к объявленному invoice-line bag» может быть верным и полезным. Отказ нынешнего frozen pool не опровергает такой subset, не означает невозможность другого заранее спроектированного pool и ничего не говорит о его качестве.
+
+## Проверяемое предсказание и ближайший ограниченный falsifier
+
+Предлагается при следующем уже запланированном transfer review заполнить **четыре Source-only admission клетки**, а не запускать датасет или переписывать API. Два reviewer читают исходные clauses и независимо выдают verdict + место основания:
+
+1. Существующий точный REES contract/base и восемь исходных templates: symbolic construction capability условно supported; это не допуск runtime и не утверждение истинности исходных data annotations.
+2. Honest purchase-only manifest, даже если отдельно решены keys/time: frozen016 pool **UNSUPPORTED**; cart capability нет у всех восьми groups. Никакого fill-zero.
+3. Тот же источник с фиктивно объявленными view/cart: semantic admission **REJECT ложную capability-аннотацию** до переноса. Не предсказывается, что текущая syntactic функция сама обнаружит её ложность.
+4. Purchase-only projection с удалёнными definitions, но старым pool/bundle identity: **REJECT reuse frozen identity**; возможен лишь отдельно reviewed version с новым source-local control/closure/selection law. Это не разрешение сейчас создать такую версию.
+
+Это четыре человеческих contract-verdict, а не исполненный тест `_validate_contract`, не проверка чисел feature и не реальная compatibility. Область будущей проверки конечная: один source file + один config + существующий round021; максимум **15 минут ручного чтения на автора и 15 минут на отдельное review, 0 fits/data downloads/SQL/API calls**. Нужен один маленький verdict JSON или таблица и Source references. Исполнение кода не предлагается; его CPU/RSS не измерены и лимит runtime не выдан. Если уже существующий conformance suite выражает все четыре verdict, исход — **MERGED, no new task**, без создания ещё одного runner. Любое расхождение reviewer сначала объясняется по фактическим definitions, не лечится подбором quality результата.
+
+**Критерий принятия уточнения.** Все четыре вердикта должны различать syntax, source semantics и конкретную единицу переносимости; независимый reviewer подтверждает action-таблицу всех восьми bundles и место merge. Если хотя бы один текущий целый bundle не требует cart, конкретное утверждение «0/8 drop-in» отклоняется; исходный текст/ошибка сохраняются. Отказ честному purchase-only manifest должен считаться успешным ограничением unsupported scope, а не недостатком метрики. Никакого cross-dataset gain или превосходства automation из такого PASS не следует.
+
+**Польза исходной Task1.** Это делает финальный рассказ точнее: переносимы проверенные typed/window/operator механизмы при явных source contracts; нынешняя реализация и search procedure ограничены объявленным schema/action/base contract. Для внешнего корпуса сперва проверяются provenance/license/semantics и выбранная единица переноса; B41/W44 и восемь групп не обещаются как готовая универсальная система. Основной работающий pipeline, negative2027 и имеющееся inconclusive качество остаются приоритетом; новая реализация для UCI не становится условием сдачи.
+
+## Дедуп, наблюдённый scope и неизменённая цель
+
+- `docs/backlog.md` и `docs/research-lab/index.md`: прочитаны текущие начала и targeted поиск transfer/dataset/grammar, не заявляется сплошное чтение всех исторических строк. HYP-002 остаётся канонической family; rounds004/013/021/031/036/040, wave075/085/088/093/100 и существующий transfer-adapter-conformance использованы для дедупликации.
+- Round021 уже содержит invoice-line count против invoices/units, cancellation as-of, missing IDs, explicit purchase predicate и четыре механически выразимые purchase cores. Они не выдаются за мои новые идеи и здесь не исполняются повторно. Round013 закрывает join fanout и raw bag; wave100 — availability против occurrence order. Эти проверки не расширены.
+- Базовое состояние — сообщение Root при dispatch: B41/W44 reproduction accepted, устойчивый quality gain не доказан, seed2027 отрицательный. Q6000 sealed безY; independent SQL закрыт exit0, Root final acceptance на момент dispatch pending. Я не читал actual sealing/SQL/Y artifacts и самостоятельно не принимал их. Датированный canonical top 10:41 ещё говорит Q6000 UNRUN: это прежний срез, не повод объявить новое выполнение или переписать историю.
+- До FIRST freeze не читались результаты peer102A/скептика. Собственные три файла и три narrow-helper файла имеют отдельные pins/freeze; helper проверяет только primary-source scope. Автор после freeze останавливается. Решение merge/admit, canonical запись и последующая публикация принадлежат Root.

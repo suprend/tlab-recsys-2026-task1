@@ -1,0 +1,19 @@
+{
+  "schema": "tlab-independent-first-freeze-v1",
+  "wave": 102,
+  "author": "/root/wave102_seed_coverage_blind",
+  "frozen_utc": "2026-10-17T11:16:08Z",
+  "scheduled_wave_utc": "2026-10-17T11:15:00Z",
+  "early_dispatch_trigger": "Material Q6000 outcome-blind verification result supplied by Root",
+  "next_due_utc": "2026-10-17T12:00:00Z",
+  "coordinator": "/root",
+  "files": [
+    {"path": "/tmp/tlab-wave102-A-FIRST.md", "bytes": 14121, "sha256": "8439e42b486d3490db1edf70cd72a7815304f5522109ff1ebded049f64217b2a"},
+    {"path": "/tmp/tlab-wave102-A-pins.json", "bytes": 4867, "sha256": "ae7c5c86114edc9646030ece358b3840618c287875e546f31a7a920d519bee34"}
+  ],
+  "independence": {"peer102B_read_before_freeze": false, "future_skeptic_read_before_freeze": false, "source_only_helper": "/root/wave102_seed_coverage_blind/primary_seed_reading"},
+  "disposition": {"new": 0, "refinement": 1, "proposed_merge": "HYP-061", "admitted": 0},
+  "scientific_runtime_performed": false,
+  "scope": "Source reasoning and future optional diagnostic only; no actual data, SQL, imports, tests, fits, predictions or canonical/Git writes",
+  "state": "FROZEN_STOP"
+}

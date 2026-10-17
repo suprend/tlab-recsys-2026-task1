@@ -1,0 +1,496 @@
+{
+  "schema": "tlab-wave102-separate-skeptic-pins-v1",
+  "created_utc": "2026-10-17T11:20:34.757054+00:00",
+  "owner": "/root/wave102_skeptic_fresh",
+  "root_sole_coordinator": true,
+  "read_only_head": "e3f1bd2400b851cbab3578b1f335277578f1dad9",
+  "git_status_short": "",
+  "scope": "SOURCE/docs/primary-source review only, no active coverage Source/reviews",
+  "report": {
+    "path": "/private/tmp/tlab-wave102-skeptic-v1.md",
+    "sha256": "753d462f9caba8b10f46321a5212401f86e23fa6a6c09ebc5c0d3eb62e3599e1",
+    "bytes": 14886,
+    "mode": "0o644",
+    "mtime_ns": 1792236034716309154,
+    "semantic_read_extent": "Whole authored report readback pending below"
+  },
+  "inputs": [
+    {
+      "path": "/private/tmp/tlab-wave102-A-FIRST.md",
+      "sha256": "8439e42b486d3490db1edf70cd72a7815304f5522109ff1ebded049f64217b2a",
+      "bytes": 14121,
+      "mode": "0o644",
+      "mtime_ns": 1792235756251468270,
+      "semantic_read_extent": "Entire text; frozen expected SHA matched"
+    },
+    {
+      "path": "/private/tmp/tlab-wave102-A-pins.json",
+      "sha256": "ae7c5c86114edc9646030ece358b3840618c287875e546f31a7a920d519bee34",
+      "bytes": 4867,
+      "mode": "0o644",
+      "mtime_ns": 1792235768467824553,
+      "semantic_read_extent": "Entire text; frozen expected SHA matched"
+    },
+    {
+      "path": "/private/tmp/tlab-wave102-A-freeze.json",
+      "sha256": "a14fc48bf7e2543b119919f31fb0dc535f635b9092d23a47dbe578f8c1b7b6e1",
+      "bytes": 1151,
+      "mode": "0o644",
+      "mtime_ns": 1792235779261581295,
+      "semantic_read_extent": "Entire text; frozen expected SHA matched"
+    },
+    {
+      "path": "/private/tmp/tlab-wave102-B-FIRST.md",
+      "sha256": "10de5f3f8ac2ddeb9b2682a6674552f6cbb21a712afbe327d88eb5e44c25c989",
+      "bytes": 14136,
+      "mode": "0o644",
+      "mtime_ns": 1792235725179115680,
+      "semantic_read_extent": "Entire text; frozen expected SHA matched"
+    },
+    {
+      "path": "/private/tmp/tlab-wave102-B-pins.json",
+      "sha256": "c5e4d0eee0453c83cea093060b6a093a4446531cb7150d80c310efeae18723f3",
+      "bytes": 14365,
+      "mode": "0o644",
+      "mtime_ns": 1792235757256573545,
+      "semantic_read_extent": "Entire text; frozen expected SHA matched"
+    },
+    {
+      "path": "/private/tmp/tlab-wave102-B-freeze.json",
+      "sha256": "f696b2d19ac9e63de5424fc93d9db1aa94fed1d5bcb7d10dc5b77aa46d3f62f6",
+      "bytes": 1079,
+      "mode": "0o644",
+      "mtime_ns": 1792235757256792878,
+      "semantic_read_extent": "Entire text; frozen expected SHA matched"
+    },
+    {
+      "path": "/private/tmp/tlab-root-wave102-dispatch-v1.json",
+      "sha256": "3d0107ddddefce52fb969c043870a3758b6c5c12974e568cdfe77290f6cdddce",
+      "bytes": 547,
+      "mode": "0o644",
+      "mtime_ns": 1792235559890357499,
+      "semantic_read_extent": "Entire metadata"
+    },
+    {
+      "path": "/private/tmp/tlab-root-hyp061-q6000-public-aggregate-v1.json",
+      "sha256": "bee15f23838f5fb8b58fd2bd089d7539a6709414f2c0a8e06bc8d2b8eacd11ea",
+      "bytes": 3855,
+      "mode": "0o644",
+      "mtime_ns": 1792235807985781712,
+      "semantic_read_extent": "Entire safe public aggregate; not underlying runtime/data bodies"
+    },
+    {
+      "path": "/private/tmp/tlab-hyp061-discovery-proposal-v2/discovery.py",
+      "sha256": "a903a30f06b83314eb1f83dcb6693237d59f814d09a9e8956bb35f4345e45d4b",
+      "bytes": 21921,
+      "mode": "0o644",
+      "mtime_ns": 1792231524413076066,
+      "semantic_read_extent": "Lines90–220; relevant discover138–186, graph110–135, extraction195–215; text only"
+    },
+    {
+      "path": "/private/tmp/tlab-hyp061-q6000-seal-proposal-v1/seal6000.py",
+      "sha256": "2d43f10d66241a7fe9bd53731757649ef71c997af1a474860d4e25544d636383",
+      "bytes": 13792,
+      "mode": "0o644",
+      "mtime_ns": 1792233339354391893,
+      "semantic_read_extent": "Targeted source rg plus lines112–210; no imports/execution"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "mode": "0o644",
+      "mtime_ns": 1792023685938484300,
+      "semantic_read_extent": "All1–195 lines, 132–195 separately reread after combined-output truncation"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/automation-pool.json",
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+      "bytes": 2713,
+      "mode": "0o644",
+      "mtime_ns": 1792023685938791509,
+      "semantic_read_extent": "Complete JSON source"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-021.md",
+      "sha256": "f91c0c72aede11b82620957c8af09b7feaa9cb7189a359f2e58488f459fcd6dc",
+      "bytes": 9724,
+      "mode": "0o644",
+      "mtime_ns": 1792022961231998577,
+      "semantic_read_extent": "Complete note"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-036.md",
+      "sha256": "3967e06634d5f17246d0f2a4cc841e1aa1244650868cd4c1fc23b24879ee7614",
+      "bytes": 10563,
+      "mode": "0o644",
+      "mtime_ns": 1792025370857730927,
+      "semantic_read_extent": "Targeted rg matches, visible initial batch and complete lines30–41; no whole-note reading claim"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/transfer-adapter-conformance.md",
+      "sha256": "e4acafde25405e6aee63ec1357916f7071a4ae6adee74736bd5e3ae214bbcdea",
+      "bytes": 14633,
+      "mode": "0o644",
+      "mtime_ns": 1792037342136715970,
+      "semantic_read_extent": "Targeted rg and complete lines1–34,58–69"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/05-itemcf.md",
+      "sha256": "f8a35655402279d89d86586a310d4166aa11a2ffdffe83b07123d5710bd8a21a",
+      "bytes": 11258,
+      "mode": "0o644",
+      "mtime_ns": 1792016370057777360,
+      "semantic_read_extent": "Complete lines1–48; appendix remainder not needed"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave098-synthesis.md",
+      "sha256": "42852dbfc585102d50fe8510cf8347d788f49b35c214ff859df0c4f9a3f378b1",
+      "bytes": 8197,
+      "mode": "0o644",
+      "mtime_ns": 1792230154097526214,
+      "semantic_read_extent": "Complete1–17"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-rb001.md",
+      "sha256": "29af80fffc3249dc2c743f518d1c6577fb787dcbd5004c3ba0aae8a271063050",
+      "bytes": 13121,
+      "mode": "0o644",
+      "mtime_ns": 1792043112145695527,
+      "semantic_read_extent": "Targeted rg plus complete47–59/RB4/disposition"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "sha256": "cef94624ea3fd0f73bad6fd1b266d13a11ad39d2862014c7544eb55d48b38e3a",
+      "bytes": 255764,
+      "mode": "0o644",
+      "mtime_ns": 1792234945995302384,
+      "semantic_read_extent": "Targeted HYP061/HYP002/empty/seed/capability/bundle matches and current prefixes; not whole file"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "sha256": "dd5afba9ddd468417ec800fe5592b9d4b531aa43dfec902ebf6769fb6d1a084e",
+      "bytes": 95956,
+      "mode": "0o644",
+      "mtime_ns": 1792234945996736925,
+      "semantic_read_extent": "Targeted HYP061/HYP002/empty/seed/capability/bundle matches; not whole file"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2",
+      "bytes": 22428,
+      "mode": "0o644",
+      "mtime_ns": 1792045396972191405,
+      "semantic_read_extent": "Sections1–5 visible in initial batch; later runtime remainder truncated, not used"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/code-review/SKILL.md",
+      "sha256": "84f988125294bdc5eec794e06d49d9296b3a31a2ef1daff28a4332788dbb5a43",
+      "bytes": 10077,
+      "mode": "0o644",
+      "mtime_ns": 1792043117884121712,
+      "semantic_read_extent": "Whole"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+      "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34",
+      "bytes": 2480,
+      "mode": "0o644",
+      "mtime_ns": 1792045438826565441,
+      "semantic_read_extent": "Whole"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md",
+      "sha256": "0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb",
+      "bytes": 5230,
+      "mode": "0o644",
+      "mtime_ns": 1792043349842050550,
+      "semantic_read_extent": "Whole"
+    }
+  ],
+  "author_declared_local_hash_checks": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "sha256": "cef94624ea3fd0f73bad6fd1b266d13a11ad39d2862014c7544eb55d48b38e3a",
+      "bytes": 255764,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "sha256": "dd5afba9ddd468417ec800fe5592b9d4b531aa43dfec902ebf6769fb6d1a084e",
+      "bytes": 95956,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/index.md",
+      "sha256": "bd49a1768b05aa9577da8a2ea7e123aa80c45be44a54b8a7bf9bbcc903fe10bb",
+      "bytes": 4548,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/03-recent-repeat.md",
+      "sha256": "7b8d1c207eb6ab3ad535e5cd2261b0ade7356814a5171fc1597c22e8fd2256d9",
+      "bytes": 10611,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/05-itemcf.md",
+      "sha256": "f8a35655402279d89d86586a310d4166aa11a2ffdffe83b07123d5710bd8a21a",
+      "bytes": 11258,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/06-usercf-audience.md",
+      "sha256": "ab3d94b157c099420aaf7c08172c17b5879076f3ad97714a4cd240765dc547da",
+      "bytes": 11091,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/12-evaluation-budget.md",
+      "sha256": "f31e14393c2a7a1c289678882925a2ecb92c52dfb2701bcc06f1ea70300cde8e",
+      "bytes": 11205,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/11-fusion.md",
+      "sha256": "181a40fdbe3a19da5b93cde3b5aaf84cf4d03631b2d57f04c02b333b8cc35794",
+      "bytes": 11088,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/review-05-08.md",
+      "sha256": "108bad3e53bed1df06f2dbc5fcf6d0693b253c1ed80b8401fad912e8418f2b35",
+      "bytes": 13682,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-rb001.md",
+      "sha256": "29af80fffc3249dc2c743f518d1c6577fb787dcbd5004c3ba0aae8a271063050",
+      "bytes": 13121,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave098-synthesis.md",
+      "sha256": "42852dbfc585102d50fe8510cf8347d788f49b35c214ff859df0c4f9a3f378b1",
+      "bytes": 8197,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave099-synthesis.md",
+      "sha256": "662d3d98803e8e723b0a1e98139340d1bc65e42f47b9f42c38c11215f9f615f3",
+      "bytes": 6513,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave100-synthesis.md",
+      "sha256": "e64829f0b082a8713b3893db2512408698be5963b92c0419300d6242fe24141b",
+      "bytes": 5100,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave101-synthesis.md",
+      "sha256": "79cecd7d04ad99d3508ddc6262ab179c8cbfdbcc9625ec0b3142c610fb4b6958",
+      "bytes": 5255,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/tmp/tlab-hyp061-discovery-proposal-v2/discovery.py",
+      "sha256": "a903a30f06b83314eb1f83dcb6693237d59f814d09a9e8956bb35f4345e45d4b",
+      "bytes": 21921,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "sha256": "cef94624ea3fd0f73bad6fd1b266d13a11ad39d2862014c7544eb55d48b38e3a",
+      "bytes": 255764,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "sha256": "dd5afba9ddd468417ec800fe5592b9d4b531aa43dfec902ebf6769fb6d1a084e",
+      "bytes": 95956,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/automation-pool.json",
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+      "bytes": 2713,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experiments/automation-walkthrough.md",
+      "sha256": "e64341e24a9ed62e8854db734f869f1b11b5614b738673e7e9d0578b09fabe2c",
+      "bytes": 2824,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/transfer-adapter-conformance.md",
+      "sha256": "e4acafde25405e6aee63ec1357916f7071a4ae6adee74736bd5e3ae214bbcdea",
+      "bytes": 14633,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-004.md",
+      "sha256": "8f085fc35eae11951d1bc6a8909784ab1d2de62ac1756849c65778b8c1d1cb6e",
+      "bytes": 15770,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-013.md",
+      "sha256": "8974e352c842d1f320d99618d47939c08805b58034adbee4eacb341cdcf81f6d",
+      "bytes": 12741,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-021.md",
+      "sha256": "f91c0c72aede11b82620957c8af09b7feaa9cb7189a359f2e58488f459fcd6dc",
+      "bytes": 9724,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-031.md",
+      "sha256": "0a97f976cee67d0703ce5bfeee02db028944116637d3a0c9ad9b25f0d8fe405c",
+      "bytes": 10831,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-036.md",
+      "sha256": "3967e06634d5f17246d0f2a4cc841e1aa1244650868cd4c1fc23b24879ee7614",
+      "bytes": 10563,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-040.md",
+      "sha256": "9c8801d238f5b61fb14c4c219a96a5b7eb9efdfd82dac747781adacd5558b903",
+      "bytes": 10799,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave075-synthesis.md",
+      "sha256": "56e0a13ff3674c0be0178a99aea3b39bf1d90f4a7c1a3156e88bdf8a16908810",
+      "bytes": 3800,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave075/originals/tlab-wave075-dressipi-b-FIRST.md",
+      "sha256": "6d7bc8202b73a97cc6573ad8ee1db484c905147804c0d97f85b85c8113124029",
+      "bytes": 2747,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave075/originals/tlab-wave075-otto-a-FIRST.md",
+      "sha256": "8e2ce24b165ecb2c8f8294814824bc465f1bb9a86c82a722bd959209ed416d46",
+      "bytes": 2828,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave075/originals/tlab-wave075-coveo-c-FIRST.md",
+      "sha256": "85a93afecb06f0859675e376032ee21ae06eead3e9e6fc0da81c642e48ed969b",
+      "bytes": 2589,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave085-synthesis.md",
+      "sha256": "dc258efe29ed267bf9eb3fb8786702e95af06571dde30d4772df8612ce927c0c",
+      "bytes": 3026,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave088-synthesis.md",
+      "sha256": "692a5075de0d5f8f66bd643ca3f6b0d9a240d9530fd6cd1978a0e06724580f5e",
+      "bytes": 3504,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave093-synthesis.md",
+      "sha256": "9c1b0f2a0b425537373a4e9050588bcbc1e8f00da6e64bade57e3b6fb35ae0ed",
+      "bytes": 5138,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave100-synthesis.md",
+      "sha256": "e64829f0b082a8713b3893db2512408698be5963b92c0419300d6242fe24141b",
+      "bytes": 5100,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave100/tlab-wave100-B-FIRST.md",
+      "sha256": "0ee361668a5e46d82d9313dbd1229039bf440527b308893cdd966ec4ff58639e",
+      "bytes": 15735,
+      "semantic_read": "only if separately listed in inputs; otherwise opaque whole-source hashing"
+    }
+  ],
+  "author_declared_descriptors": 36,
+  "distinct_author_declared_paths": 33,
+  "disposition": {
+    "new": 0,
+    "refine": 2,
+    "merge": 2,
+    "merge_same_two": true,
+    "reject_proposals": 0,
+    "scientific_admit": 0,
+    "runtime_admit": 0,
+    "new_mandatory_gates": 0,
+    "existing_ids": [
+      "HYP-061",
+      "HYP-002",
+      "TLAB-014",
+      "TLAB-016",
+      "TLAB-018"
+    ]
+  },
+  "web_sources": [
+    {
+      "url": "https://cs.stanford.edu/people/jure/pubs/pixie-www18.pdf",
+      "extent": "Extracted192–375,388–469,565–614; incidental earlier/implementation lines not independent basis",
+      "sha256": "UNKNOWN: original PDF/extraction not locally persisted",
+      "payload_download": false
+    },
+    {
+      "url": "https://archive.ics.uci.edu/dataset/352/online%2Bretail",
+      "extent": "Extracted0–116 and74–194",
+      "sha256": "UNKNOWN: original HTML/extraction not locally persisted",
+      "payload_download": false
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "extent": "Extracted0–99, substantive48–64; legal code not read",
+      "sha256": "UNKNOWN: original HTML/extraction not locally persisted"
+    }
+  ],
+  "helper": {
+    "name": "/root/wave102_skeptic_fresh/primary_scope_check",
+    "role": "Narrow primary-reading helper, not author; no local/peer artifacts",
+    "result": "Completed; agrees on source scope/limitations; message only, no file"
+  },
+  "independence": {
+    "separate_from_authors": true,
+    "started_after_both_FIRST_freezes": true,
+    "author_blindness_evidence": "Author declarations plus chronological freezes, not proof of no hidden reads"
+  },
+  "observed_operations": {
+    "actual_data_payload_reads": 0,
+    "sql": 0,
+    "project_imports": 0,
+    "tests": 0,
+    "scientific_experiments": 0,
+    "fits": 0,
+    "predicts": 0,
+    "canonical_writes": 0,
+    "git_mutations": 0,
+    "network_mutations": 0
+  },
+  "next_due_utc": "2026-10-17T12:00:00Z",
+  "limitations": [
+    "SOURCE reasoning is not runtime proof or admission",
+    "No causal causes/quality inferred from empty/nonempty counts",
+    "No whole-history semantic dedup claim",
+    "Only source hash freshness, not truth of source capability annotations"
+  ]
+}

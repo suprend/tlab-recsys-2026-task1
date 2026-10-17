@@ -1,0 +1,117 @@
+{
+  "B_range": [
+    180,
+    200
+  ],
+  "Q": 6000,
+  "Q_per_day": [
+    2000,
+    2000,
+    2000
+  ],
+  "UTC": "2026-10-17T11:16:47.985565+00:00",
+  "accepted_Q100_nested_core_matches": 100,
+  "analysis_plan_SHA256": "b8896d7f7ee7a12593cdfdfe4f7f3fc4a58bddbd9e3f7312b96de895a104565f",
+  "complete_graphs": [
+    {
+      "anchor": "2019-10-08T00:00:00Z",
+      "identity": "fd161de7a9f958de3b095b166e2909c26effa0e6b1c56395333227164687f4e5",
+      "statistics": {
+        "admitted_edges": 4246824,
+        "admitted_users": 940514,
+        "excluded_profiles": 16975,
+        "max_raw_degree": 448,
+        "raw_edges": 5130488,
+        "raw_users": 957489
+      }
+    },
+    {
+      "anchor": "2019-10-09T00:00:00Z",
+      "identity": "89a370ead2c8b5572d65692aa8a3d615c4b21ca61f08bc5615526d2e0628848c",
+      "statistics": {
+        "admitted_edges": 4336507,
+        "admitted_users": 964710,
+        "excluded_profiles": 16823,
+        "max_raw_degree": 457,
+        "raw_edges": 5209665,
+        "raw_users": 981533
+      }
+    },
+    {
+      "anchor": "2019-10-10T00:00:00Z",
+      "identity": "7282225e2b4e6482e891c1135b7269495522b5e82bf5e3fe1e2dbd3089451005",
+      "statistics": {
+        "admitted_edges": 4425321,
+        "admitted_users": 985305,
+        "excluded_profiles": 17099,
+        "max_raw_degree": 509,
+        "raw_edges": 5311434,
+        "raw_users": 1002404
+      }
+    }
+  ],
+  "dates": [
+    "2019-10-08",
+    "2019-10-09",
+    "2019-10-10"
+  ],
+  "different_count_cosine_top20_sets_Q": 3065,
+  "empty_prior_Q": 0,
+  "empty_source_Q": 2501,
+  "fits": 0,
+  "floating_diagnostic": {
+    "diagnostic_fsum_changed_values": 9975,
+    "diagnostic_fsum_top20_order_changes": 1,
+    "diagnostic_fsum_top20_set_changes": 0,
+    "exact_adjacent_ties": 347928,
+    "exact_boundary_ties": 1471,
+    "min_positive_boundary_gap_ulps": 36835767206.0,
+    "minimum_positive_adjacent_gap_ulps": 1.0,
+    "nonzero_boundary_gaps_le4ulp": 0
+  },
+  "independent_prepost_inputs": 125,
+  "matched_k0_Q": 2501,
+  "model_loads": 0,
+  "native_C_range": [
+    180,
+    220
+  ],
+  "nonempty_source_Q": 3499,
+  "outcome_logical_reads": 0,
+  "predictions": 0,
+  "prior_Q_raw_degree_over32": 183,
+  "prior_pairs_all_actions_strict_past": 44172,
+  "prior_pairs_outside_C0": 8591,
+  "prior_pairs_outside_D": 31698,
+  "producer_resources": {
+    "reaped_direct_child_CPU": 31.387608,
+    "retained_bytes": 174245604,
+    "sampled_child_peak_RSS_bytes": 1309114368,
+    "wrapper_wall_prefix": 29.99629191699205
+  },
+  "quality": "NOT_MEASURED; no continuation/ranker admission",
+  "resource_limits": "Physical IO UNKNOWN; old32GiB screen notpassed. Chosen prospective observable envelope revised explicitly before Y. Exact whole-wrapper CPU/wall and hard aggregate RSS/transient spill not measured. Samples are qualified.",
+  "schema": "hyp061_finite_q6000_public_aggregate_v1",
+  "scope_limits": [
+    "same accepted processed DB and fixed historical6000 cohort; no new raw/formula oracle",
+    "outside C0 is not equivalent to a new user-item pair; complete all-past relation separately verified",
+    "no serving availability/general leak-freedom/quality/generalization proof",
+    "diagnostic fsum does not replace frozen ordered binary64 scoring",
+    "Source P3 secondary diagnostic persistence caveat retained; not triggered in this successful run"
+  ],
+  "shared_profile_edge_visits": 12858875,
+  "source_range": [
+    0,
+    20
+  ],
+  "status": "ROOT_ACCEPTED_FINITE_OUTCOME_BLIND_COMPUTATION",
+  "verifier_resources": {
+    "owner_plus_child_CPU_prefix": 30.205216999999998,
+    "reaped_direct_child_CPU": 30.166491999999998,
+    "retained_bytes": 3699266,
+    "sum_process_RSS_highwaters_bytes": 1338212352,
+    "wall_prefix": 26.34954320799443
+  },
+  "whole_candidate_records_equal": 6000,
+  "whole_canonical_Q_candidate_prior_streams_equal": true
+}
