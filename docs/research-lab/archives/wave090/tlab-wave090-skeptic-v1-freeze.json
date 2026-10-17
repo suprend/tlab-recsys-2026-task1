@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "role": "wave090 separate skeptic freeze",
+  "reviewer": "/root/wave090_skeptic",
+  "frozen_host_utc": "2026-10-17T03:58:09.773921+00:00",
+  "status": "READY_SOURCE_ONLY_STOP",
+  "HEAD": "7cc04e02b5169583a08dc790b3d823925fd80199",
+  "CLEAN": true,
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-wave090-skeptic-v1.md",
+      "sha256": "271ae85642272988c133efafeca34020382a500925253e879c13ef1433036dd1",
+      "bytes": 17507,
+      "mode": "0644",
+      "file_type": "regular"
+    },
+    {
+      "path": "/tmp/tlab-wave090-skeptic-v1-pins.json",
+      "sha256": "f9ef05e4414703b51e971eef511b53f0e07f1a8e8bd10b32cec6690322c6a4a1",
+      "bytes": 29104,
+      "mode": "0644",
+      "file_type": "regular"
+    }
+  ],
+  "all_author_digests_checked": true,
+  "all_author_local_pin_entries_checked": 83,
+  "disposition": {
+    "new": 0,
+    "refine": 5,
+    "merge_into_existing": 5,
+    "proposal_reject": 0,
+    "admit": 0
+  },
+  "qualifications": [
+    "C Oct11 idle anchor requires separately reviewed synthetic protocol; symbolic keys require BIGINT mapping",
+    "C finite package omits direct candidate-duplicate-at-tau and NULL-peer fixture cases",
+    "B firstObserved pin/hash timestamp is distinct from first tool-clock timestamp; exact starts UNKNOWN"
+  ],
+  "no_execution_or_grant": true,
+  "all_090_experiments": "UNRUN",
+  "cost_adequacy": "UNKNOWN",
+  "write_scope": [
+    "/tmp/tlab-wave090-skeptic-v1.md",
+    "/tmp/tlab-wave090-skeptic-v1-pins.json",
+    "/tmp/tlab-wave090-skeptic-v1-freeze.json"
+  ]
+}

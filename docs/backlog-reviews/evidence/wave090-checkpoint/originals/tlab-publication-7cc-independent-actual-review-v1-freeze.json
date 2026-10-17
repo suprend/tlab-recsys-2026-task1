@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "UTC": "2026-10-17T03:43:32.304063+00:00",
+  "verdict": "ACTUAL_RECEIPT_SOURCE_CONSISTENCY_PASS_EXACT7CC",
+  "base": "5195391350fd7abf8cb5f345059f9816b8d21eb2",
+  "head": "7cc04e02b5169583a08dc790b3d823925fd80199",
+  "inputs": [
+    {
+      "path": "/tmp/tlab-root-publication-7cc-actual-pass-v1.json",
+      "sha256": "73978ba96e67f20bc702a1e4a4e246d37678fd0dd932e54b4584bb1e9834506f",
+      "bytes": 1826,
+      "mode": 420
+    },
+    {
+      "path": "/tmp/tlab-publication-7cc-actual-v1/preflight.json",
+      "sha256": "d1a8b00a2fed0380b0772cb00bc5c54880f4deb00f4855aa587b02ce75f4e61b",
+      "bytes": 2919,
+      "mode": 420
+    },
+    {
+      "path": "/tmp/tlab-publication-7cc-actual-v1/remote-readback.json",
+      "sha256": "5111323958d8e33bee57f984e43f4618933bec4dd0ccd9d378cb023b00829b49",
+      "bytes": 3611,
+      "mode": 420
+    },
+    {
+      "path": "/tmp/tlab-publication-7cc-independent-source-review-v1-freeze.json",
+      "sha256": "90725fca566218130b5a7480e0a6901be534862579a79b4482094bb4308e084b",
+      "bytes": 1636,
+      "mode": 420
+    },
+    {
+      "path": "/tmp/tlab-publication-7cc-proposal-v1/freeze.json",
+      "sha256": "ad623a29ea4bd084e688f0928522f8fe3057af2392a350f6ebeeaa3264770365",
+      "bytes": 3212,
+      "mode": 420
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/tmp/tlab-publication-7cc-independent-actual-review-v1.md",
+      "sha256": "39592d5fb301b0720bf5a1d537af703d734b88c50a657e611e2c5221ebad05e6",
+      "bytes": 3157,
+      "mode": 420
+    },
+    {
+      "path": "/tmp/tlab-publication-7cc-independent-actual-review-v1-pins.json",
+      "sha256": "47ce64f54a32098a266d4f5128d11ae0a5ae5c279ab42b35d81efaa012f70496",
+      "bytes": 8581,
+      "mode": 420
+    }
+  ],
+  "title": {
+    "path": "/tmp/tlab-publication-7cc-proposal-v1/pr-title.txt",
+    "sha256": "cc1d3a8c70362713f53c00d34f500d2488ea76ca64ed21b5636948ef2682bb12",
+    "bytes": 59,
+    "mode": 420
+  },
+  "body": {
+    "path": "/tmp/tlab-publication-7cc-proposal-v1/pr-body.md",
+    "sha256": "72944ef14311ba9ec72ab70e29052a3a73436e9eaef608fb3c0d9d5e4b3bf1c2",
+    "bytes": 2458,
+    "mode": 420
+  },
+  "metadata_checks": 35,
+  "failed_checks": [],
+  "findings": [],
+  "execution_authority": false,
+  "external_facts_provenance": "Actual external returned values, PR1 identity, original-session CLOSED0/reaped/no-replay and normalauto_review approval/no-rejection are supplied Root tool-service observations. Reviewer independently reads receipts/source bindings and current local Git only; no network/tool-session replay.",
+  "reviewer_network_mutations_projectimports_runtime_tests_native_data_issues": 0
+}

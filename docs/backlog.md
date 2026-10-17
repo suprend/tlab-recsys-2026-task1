@@ -1,5 +1,18 @@
 # Единый рабочий backlog T-Lab
 
+## Опубликованный результат и уточнения исследования — 2026-10-17 04:03:19 UTC
+
+[Код и предыдущие документы опубликованы](backlog-reviews/wave090-checkpoint-status.md) в private repository: точный commit `7cc04e0`, OPEN draft PR №1 обновлён, main не изменён; checkout CLEAN. Новый пакет волны 090 пока SOURCE-only, без установки или новой публикации.
+
+Исправленный ordinary native CLI и callback-abort UNRUN. Native V2 принят только по SOURCE; human question на одну synthetic попытку 50 CPU / 65 wall / один fit≤8 деревьев ожидает ответа. Issue/allocation/runtime/fit нет; прежние science/native allocations CLOSED, remainder UNKNOWN.
+
+[Волна 090](research-lab/brainstorm-wave090-synthesis.md) принята: три independent FIRST, затем отдельный скептик; NEW 0 / REFINE 5 / MERGE 5 / REJECT_PROPOSALS 0 / ADMIT 0. REFINE/MERGE — те же пять предложений, не десять; будущие опыты UNRUN/cost UNKNOWN. Приняты 14 из 19 задач; TLAB-014 продолжается, TLAB-010–013 — четыре optional/deferred опыта. Новых IDs, задач, gates или grants нет.
+
+Root dispatch bracket 03:42:00–03:43:25.818115 предшествует исходному due 03:45; individual starts UNKNOWN. Следующий исходный срок — 04:30 UTC / 07:30 МСК 17 октября. Сетка 45 минут и deadline 25 Oct 23:59 с UNKNOWN timezone сохранены.
+
+Весь прежний текст ниже сохранён побайтно; ранние pending/unpublished статусы относятся к своим датам.
+
+
 ## Опубликованный результат и уточнения исследования — 2026-10-17 03:18:32 UTC
 
 [Предыдущий checkpoint опубликован](backlog-reviews/wave089-checkpoint-status.md) в private repository: точный commit `5195391`, OPEN draft PR №1 обновлён, main не изменён; локальный checkout CLEAN. Этот новый пакет волны 089 ещё SOURCE-only, без установки или нового push.
