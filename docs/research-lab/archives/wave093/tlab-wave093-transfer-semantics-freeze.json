@@ -1,0 +1,16 @@
+{
+  "wave": "093",
+  "author": "C-transfer-semantics-blind",
+  "state": "READY",
+  "freeze_utc_bracket": "after observed 2026-10-17 05:56:50 UTC; exact file creation time not asserted",
+  "common_frontier_sha256_verified": "daa91e31e43c1f9758861e812b9120a064d6b94daa0d2e9459ef6eda40110e48",
+  "artifacts": [
+    {"path":"/tmp/tlab-wave093-transfer-semantics-FIRST.md","sha256":"0c0b8bed8b428c84263a3fc22575fd7948c4a22849cd788ae38454e33535b7db","words_wc":671,"readback":"complete cat; manually reviewed"},
+    {"path":"/tmp/tlab-wave093-transfer-semantics-pins.json","sha256":"9956709bd9e45bf875d4ce3d81e91c76d50db1d53aba1dd7896e1e72942bcf97","readback":"complete cat; JSON.parse succeeded; metadata only"}
+  ],
+  "independence": {"current093_peers_read_before_freeze":0,"helpers":0,"claim_limit":"author declaration; not independently attested"},
+  "scope": {"proposals":1,"new_ids":0,"proposed_admissions":0,"proposed_checks":"UNRUN","adequacy":"UNKNOWN","legalreleaseclosure":"UNKNOWN","science_execution":0,"data_acquisition":0,"canonical_writes":0,"git":0,"network_writes":0},
+  "dedup": ["HYP-002","HYP-046","TLAB-005","TLAB-016","transfer-adapter-conformance"],
+  "timing": {"original_due_utc":"2026-10-17T06:00:00Z","original_due_msk":"2026-10-17T09:00:00+03:00","next_due_utc":"2026-10-17T06:45:00Z","next_due_msk":"2026-10-17T09:45:00+03:00","grid_reset":false},
+  "stop": "READY then STOP; Root sole canonical writer/publisher; no downstream action authorized"
+}

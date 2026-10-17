@@ -1,0 +1,39 @@
+{
+  "wave": "093",
+  "author": "C-transfer-semantics-blind",
+  "mode": "SOURCE_ONLY",
+  "observed_clock_utc": "2026-10-17 05:55:38 UTC",
+  "first_freeze_independence": {"current093_peer_reads": 0, "helpers": 0, "prior_waves_read": ["091", "092"]},
+  "statuses": {"proposed_checks": "UNRUN", "adequacy": "UNKNOWN", "legalreleaseclosure": "UNKNOWN", "actual_data_execution": false},
+  "local_pins": [
+    {"path":"/tmp/tlab-wave093-common-frontier-v1.md","sha256":"daa91e31e43c1f9758861e812b9120a064d6b94daa0d2e9459ef6eda40110e48","read_extent":"all 19 lines","literal":"Proposed experiments remain UNRUN, adequacy UNKNOWN."},
+    {"path":"/Users/mdpospelov/personal-agent-system/AGENTS.md","sha256":"25076d696b7550f423f0a19a151585ef12a2ac2444eee6677b1e00c95b7fa8b1","read_extent":"all 101 lines","literal":"Все проверки и обзоры по умолчанию должны быть read-only."},
+    {"path":"/Users/mdpospelov/personal-agent-system/docs/agents/coordination.md","sha256":"0396d99b46adc00857f9b2f5623f8beb5e50acaed2aeb9acfed7d1b2dfa772fb","read_extent":"all 25 lines","literal":"Запись в один файл выполняет один владелец; предложения остальных интегрирует он."},
+    {"path":"/Users/mdpospelov/personal-agent-system/docs/agents/verification.md","sha256":"d84015a05b7ebc9c4bdc570e75e0a62fbcbe134217a367715fbf5e2acc1e69ec","read_extent":"all 25 lines","literal":"Статическое ревью не требует платных запросов, генерации, сети или запуска чужого кода."},
+    {"path":"/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md","sha256":"97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2","read_extent":"all 88 lines","literal":"Нулевая новизна — допустимый результат."},
+    {"path":"/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md","sha256":"452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34","read_extent":"all 19 lines","literal":"Separate observed facts, inference and unresolved questions."},
+    {"path":"/Users/mdpospelov/personal-agent-system/.agents/skills/research/ITERATIVE.md","sha256":"9cb7d4969fea1c621ccb9995b008579807335b9aab511ca9d5b30b2ce233c5fb","read_extent":"all 33 lines","literal":"Include failed and inconclusive experiments"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md","sha256":"88d090fc56c75fabc893dc0a52d4ed748674ccadf32e40cd6f01ae6f77cb251c","read_extent":"targeted rg matches; sed 390-441 and 900-925; initial combined rg output truncated, not a full backlog read","literal":"Новые датасеты сначала schema/license/size compatibility matrix, без массовой загрузки."},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave092-synthesis.md","sha256":"975ee95767bdeada29fa4f5159f82af236b847035a8f92f2f309c9ae5a5c6609","read_extent":"all 11 lines","literal":"Релиз, преобразования, права, completeness и ingestion RelBench неизвестны"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave091-synthesis.md","sha256":"4b89009e654aeaea6047075bf71d450fbc3ecd916ca166b026a21f077d075727","read_extent":"all 13 lines","literal":"Все опыты пока не запускались"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/transfer-adapter-conformance.md","sha256":"e4acafde25405e6aee63ec1357916f7071a4ae6adee74736bd5e3ae214bbcdea","read_extent":"all 71 lines","literal":"Unsupported capability отличается от known empty, conditional unknown и partial coverage."},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-002.md","sha256":"d08a13621e1a973dd9e3bd02a332d986bc666e8112e550508eab8e1ddbf9c139","read_extent":"HYP-046 rg matches; sed 41-68","literal":"В provenance входят AST hash, input/version, multiplicity, support, window, availability и metadata policy."}
+  ],
+  "dedup_searches": [
+    {"scope":"docs/research-lab/brainstorm-*synthesis.md; transfer-adapter-conformance.md; round-0*.md","query":"MovieLens|grouplens|H&M|rel-hm|rel-trial|Last.fm|MIMIC|GDELT|ICEWS|Wikimedia|clickstream|Diginetica|Yoochoose|RecSys Challenge","extent":"matching lines only; no current093 peer files"},
+    {"scope":"docs/research-lab/brainstorm-*.md; transfer-adapter-conformance.md","query":"Wikimedia|clickstream|threshold.?10|censor|цензур|interval.?time","extent":"matching lines only; only historic matches returned; no current093 peer content read"}
+  ],
+  "primary_sources": [
+    {"url":"https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream","tool_ref":"turn2210view0","read_extent":"rendered 295 lines; decision claims at 143-190; footer262-274","version_literal":"oldid=31171776","literal_pin":"any `(referrer, resource)` pair with 10 or fewer observations was removed from the dataset.","limits":"accessible current page footer supplies oldid; separate oldid body inaccessible; no independent immutable-byte hash"},
+    {"url":"https://dumps.wikimedia.org/other/clickstream/readme.html","tool_ref":"turn2210view2","read_extent":"all 13 rendered lines","literal_pin":"All Analytics datasets are available under the","license_link":"https://creativecommons.org/publicdomain/zero/1.0/","limits":"dataset-family declaration, not verified payload-license binding"},
+    {"url":"https://dumps.wikimedia.org/other/clickstream/","tool_ref":"turn2212view0","read_extent":"all 113 rendered index lines; relevant line27 and111","literal_pin":"2019-10/ 11-Nov-2019 04:47","limits":"directory reference only; no payload read"}
+  ],
+  "incidental_search_only_sources": ["https://github.com/wikimedia/analytics-refinery-source", "https://github.com/wikimedia/analytics-refinery-source/blob/master/refinery-job/src/main/scala/org/wikimedia/analytics/refinery/job/mediawikihistory/page/PageHistoryBuilder.scala", "https://github.com/wikimedia/citolytics", "https://github.com/wikimedia-research/Discovery-Hiring-Analyst-2016", "https://meta.wikimedia.org/wiki/Research_talk%3AWikipedia_clickstream", "https://meta.wikimedia.org/wiki/Research%3ACharacterizing_Readers_Navigation/Comparing-webrequest-logs-and-clickstream-data", "https://gist.github.com/ottomata/26e35c39ff4025d73238fba87c4e8e68", "https://github.com/wikimedia/wmfdata-python", "https://github.com/wikimedia/analytics-wmf-product/blob/master/.gitreview", "https://github.com/wikimedia/operations-mediawiki-config/blob/master/wmf-config/InitialiseSettings-labs.php", "https://github.com/ewulczyn/wiki-clickstream"],
+  "source_failures": [
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/AGENTS.md","result":"No such file or directory; read-only rg --files -g AGENTS.md over target docs/scripts also found none"},
+    {"url":"https://dumps.wikimedia.org/other/clickstream/2019-10/","attempts":2,"results":["direct open Cache miss turn2210view1","click existing index link24 Cache miss turn2214view0"],"consequence":"release payload identity/size/digest UNKNOWN; stopped"},
+    {"url":"https://wikitech.wikimedia.org/wiki/Analytics/Data_Lake/Traffic/Clickstream","attempts":1,"result":"not accessible turn2212view1","consequence":"not used as evidence"},
+    {"url":"https://meta.wikimedia.org/w/index.php?title=Research:Wikipedia_clickstream&oldid=31171776","attempts":2,"results":["direct open not accessible turn2212view2","click permanent link39 Cache miss turn2214view1"],"consequence":"oldid observed only in accessible page footer; no exact revision body independently fetched"}
+  ],
+  "scope_limits": {"writes":"only own three /tmp outputs","data_downloads":0,"installs":0,"test_or_science_execution":0,"models":0,"source_imports":0,"sql":0,"git":0,"network_writes":0,"native_grants":0,"Hippasus_retries":0,"canonical_project_mutations":0,"independent_review":"Root to assign after FIRST; not claimed here"}
+}
