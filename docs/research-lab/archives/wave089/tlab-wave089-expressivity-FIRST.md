@@ -1,0 +1,27 @@
+# Wave089 B FIRST — expressivity versus deterministic representation
+
+Independent SOURCE-only author B. First observed clock 2026-10-17 03:00:42 UTC; exact research-start UNKNOWN. Original due03:00 UTC17Oct was already late; next03:45 UTC/06:45MSK and original45-minute grid unchanged. Current089 peers/discussions/helpers:0. Only these three TMP artifacts written; no raw/DB/Parquet/models, project/backend imports, SQL, tests, experiments, Git, issue, approvals or canonical/network mutation.
+
+**NEW0 / REFINE2 / proposed MERGE2 / ADMIT0.** Refine HYP-002/046, TLAB-005/016/018 and FB-02; no new ID or prerequisite. Wave086 tests compiler discrimination,087 measures maintenance,088 distinguishes contribution grains. Here the added question is which functions the frozen language and existing row representation can express.
+
+**Observed boundary.** `feature_programs.py` fixes count/distinct/recency, exact eight bindings, windows24/168; `manual_features.py` admits only two named category-share ratios, not arbitrary pair/user division. Its aggregates consume raw events, not intermediate aggregates. Increasing a conceptual DFS depth cannot change this contract. [Featuretools1.31 primitives](https://docs.featuretools.com/en/stable/getting_started/primitives.html#aggregation-vs-transform-primitive) separates aggregation over related instances from row transforms; custom primitives require declared types/functions/applicability. This supports an explicit operator/relation boundary, not a promise that our implementation inherits DFS expressivity.
+
+## A — whole-actor weights need a nested relation
+
+**Mechanism/inference:** retain wave088's `J_i=Σ_u n_ui min(1,2/N_u)`, `N_u=Σ_j n_uj` over all strict-past7d views, including off-C items. [Mayfly§4](https://arxiv.org/html/2412.07962v1#S4) clips each whole user histogram before cross-user summation; our unnoised feature is an adaptation, with no DP or quality claim.
+
+**Prediction/witness:** Q is actorV atT, C={A}. WorldS has V:A and U:A; worldS′ additionally U:B,U:C. All events occur T−1h; A has categoryK, B/C categoryL≠K; coverage, capabilities, Q/C and retrieval context are fixed. V's history, A's audience/count/recencies and categoryK aggregates are unchanged. Therefore the current B41 plus union of all eight legal bundles'24 distinct physical additions has identical65 row values, including masks. Yet J_A changes2→5/3. No deterministic row function of those65 values can recover both results. A separately declared actor-item aggregation, whole-actor denominator relation, weighted transform and cross-actor sum are required; naming a new feature is insufficient.
+
+**Counterhypothesis:** some existing field actually changes, invalidating the indistinguishability premise; or a supplied intermediate relation already exposes every actor's N_u. The latter is additional input/state, not frozen primitive closure. Legitimate broad interest may make clipping harmful regardless of correct implementation.
+
+**Nearest UNRUN test:** seal the two worlds,6 input-event occurrences total, one Q/C row/world, then two independently authored list evaluators return65 old values plusJ. Exact264 scalar results/132 paired comparisons. This proposed all-pool mechanical test borrows neither selected016's12-column allowance nor fits. Any old-field mismatch rejects this particular witness; any J mismatch rejects the new evaluator. Passing establishes only a finite separation and semantic example.
+
+## B — non-additive representation can add zero information
+
+The local contribution `d_ui=n_ui min(1,2/N_u)` is already determined by existing pair_view7d and user_view7d on complete positive support. Emitting it still requires a new transform: frozen005 ratios do not admit pair/user or clipping. It is not an equal-valued semantic alias of either input; it adds no information conditional on both. Wave088's `q=(Nh−1)/(N−1)` is the same distinction for an already available h,N and remains merged, not another feature family.
+
+**Prediction:** at(n,N)=(1,2),(2,2),(1,4),(2,4), d=(1,2,1/2,1). Mixed difference d(2,4)−d(1,4)−d(2,2)+d(1,2)=−1/2; every additive scorer g(n)+h(N) has zero difference. A linear score using d reproduces it exactly. This proves a restricted representation advantage for that function, not ranking improvement or an advantage for CatBoost's interacting trees.
+
+**Counterhypothesis:** the actual learner already models this dependency; quantization, missingness or finite training make the added representation neutral/harmful. Nearest UNRUN test: two independent calculators on precisely those four complete inputs emit eight d values plus two mixed differences:10 scalar results/5 paired comparisons. This excludes empty/unknown-support production closure; no general implementation is accepted by it.
+
+**Shared proposed inclusive budget, NOT GRANTED:**180person-min for implementation/oracles/review;15CPU-s/30wall-s,128MiB RSS/10MiB output,274 scalar results/137 paired comparisons,0SQL/source-data/Y/fits/native/API. Actual cost/adequacy UNKNOWN; exhaustion=incomplete. Task1 utility: separate genuinely absent relational information from deterministic re-encoding before automation claims. Predictive utility remains UNKNOWN and needs a separately frozen, paid comparison. ScienceCLOSED/remainderUNKNOWN; new native-budget questionPENDING/grants0. Queue14/19,014continuous,010–013optional; deadline25Oct23:59 timezoneUNKNOWN; current519 local Rootactual pending-peer/f87published/codeunchanged retained as supplied context, not independently verified.

@@ -1,0 +1,738 @@
+{
+  "wave": "089",
+  "role": "separate skeptic",
+  "owner": "/root/wave089_skeptic",
+  "created_at_utc": "2026-10-17T03:12:14.973141+00:00",
+  "first_observed_os_clock_utc": "2026-10-17T03:07:35Z",
+  "exact_dispatch_or_start_utc": "UNKNOWN",
+  "report": {
+    "path": "/tmp/tlab-wave089-skeptic-v1.md",
+    "bytes": 9815,
+    "sha256": "5f86b344a92e2aa9e7f22545c5a34a764d7b26010a831673d238530bda73970d"
+  },
+  "word_count_whitespace": 1043,
+  "author_artifacts": [
+    {
+      "path": "/tmp/tlab-wave089-population-FIRST.md",
+      "bytes": 5502,
+      "sha256": "e610f0d8bba7c3aac9422a6daacc2e513dd3ff524f11dfaf1662d9d7aa2cfa34"
+    },
+    {
+      "path": "/tmp/tlab-wave089-population-pins.json",
+      "bytes": 6457,
+      "sha256": "5aa14e5ecc2fba671de78ac60dbaa896a0b03bd407e82adf770ee9e50c02a488"
+    },
+    {
+      "path": "/tmp/tlab-wave089-population-freeze.json",
+      "bytes": 772,
+      "sha256": "574ef6908a05e9bfb034d9c5ef4080d4f38eff1dd25c0bdef94bf4d1756fcff9"
+    },
+    {
+      "path": "/tmp/tlab-wave089-expressivity-FIRST.md",
+      "bytes": 5572,
+      "sha256": "0df79e29883d62cafcc38056924e26a2193cd9e08cad3fa5235d6a9cbfaf4423"
+    },
+    {
+      "path": "/tmp/tlab-wave089-expressivity-pins.json",
+      "bytes": 9325,
+      "sha256": "3c54939aa92d0fa93f9d8fad350c30de7497ad6862f1415344113316a7b6fa4c"
+    },
+    {
+      "path": "/tmp/tlab-wave089-expressivity-freeze.json",
+      "bytes": 890,
+      "sha256": "bb96f3d189725a9e7332d134390dfca82c32c0bd1373a1a564d39f8ced93a623"
+    },
+    {
+      "path": "/tmp/tlab-wave089-uncertainty-FIRST.md",
+      "bytes": 5212,
+      "sha256": "77a55a1a66eac5b9ff5c07a754da336c69d07a49aa0bbd3fae3c044d87e18fbf"
+    },
+    {
+      "path": "/tmp/tlab-wave089-uncertainty-pins.json",
+      "bytes": 5523,
+      "sha256": "8499b3d9afeb7211c9b9e3760c9af8aa7eba6a9ac4520c875505ae7e9efc79a2"
+    },
+    {
+      "path": "/tmp/tlab-wave089-uncertainty-freeze.json",
+      "bytes": 1031,
+      "sha256": "34c6a1ca3be496cedb0895b292494c2b7a46d0a4b30784c1b1ee0bac9330f45c"
+    }
+  ],
+  "author_verification": [
+    {
+      "author": "population",
+      "source_pin_entries": 18,
+      "all_match": true,
+      "freeze": {
+        "wave": "089",
+        "author": "/root/wave089_training_population_blind",
+        "frozen_at_utc": "2026-10-17T03:04:01.642681+00:00",
+        "first": {
+          "path": "/tmp/tlab-wave089-population-FIRST.md",
+          "bytes": 5502,
+          "sha256": "e610f0d8bba7c3aac9422a6daacc2e513dd3ff524f11dfaf1662d9d7aa2cfa34",
+          "word_count_whitespace": 670
+        },
+        "pins": {
+          "path": "/tmp/tlab-wave089-population-pins.json",
+          "bytes": 6457,
+          "sha256": "5aa14e5ecc2fba671de78ac60dbaa896a0b03bd407e82adf770ee9e50c02a488"
+        },
+        "readback_verified": true,
+        "independence_attestation": "No wave089 peer read/contact and no helper before frozen FIRST; self-report, not external proof.",
+        "status": "FROZEN_FIRST_STOP",
+        "experiments": "UNRUN",
+        "cost_adequacy": "UNKNOWN",
+        "grant": false
+      }
+    },
+    {
+      "author": "expressivity",
+      "source_pin_entries": 20,
+      "all_match": true,
+      "freeze": {
+        "version": 1,
+        "wave": "089",
+        "author": "B expressivity blind",
+        "frozen_at_utc": "2026-10-17T03:04:21.036917+00:00",
+        "first_observed_clock_utc": "2026-10-17T03:00:42Z",
+        "actual_research_start_utc": null,
+        "readback_verified": true,
+        "files": [
+          {
+            "path": "/tmp/tlab-wave089-expressivity-FIRST.md",
+            "bytes": 5572,
+            "sha256": "0df79e29883d62cafcc38056924e26a2193cd9e08cad3fa5235d6a9cbfaf4423"
+          },
+          {
+            "path": "/tmp/tlab-wave089-expressivity-pins.json",
+            "bytes": 9325,
+            "sha256": "3c54939aa92d0fa93f9d8fad350c30de7497ad6862f1415344113316a7b6fa4c"
+          }
+        ],
+        "current_wave_peers_read_before_freeze": false,
+        "helpers_before_freeze": 0,
+        "write_scope": [
+          "/tmp/tlab-wave089-expressivity-FIRST.md",
+          "/tmp/tlab-wave089-expressivity-pins.json",
+          "/tmp/tlab-wave089-expressivity-freeze.json"
+        ],
+        "frozen_first_stop": true
+      }
+    },
+    {
+      "author": "uncertainty",
+      "source_pin_entries": 16,
+      "all_match": true,
+      "freeze": {
+        "wave": "089",
+        "phase": "FIRST_FROZEN_STOP",
+        "freeze_observed_os_clock_utc": "2026-10-17T03:03:41.759764+00:00",
+        "first": {
+          "path": "/tmp/tlab-wave089-uncertainty-FIRST.md",
+          "bytes": 5212,
+          "sha256": "77a55a1a66eac5b9ff5c07a754da336c69d07a49aa0bbd3fae3c044d87e18fbf"
+        },
+        "pins": {
+          "path": "/tmp/tlab-wave089-uncertainty-pins.json",
+          "bytes": 5523,
+          "sha256": "8499b3d9afeb7211c9b9e3760c9af8aa7eba6a9ac4520c875505ae7e9efc79a2"
+        },
+        "word_count_whitespace": 603,
+        "readback": "FIRST bytes read back and hash matched pins; pins JSON parsed and hashes verified before freeze write. Freeze readback is reported separately by caller.",
+        "nonreading_attestation": "No wave089 peer drafts/discussion/helpers before FIRST freeze; no peer messages used. This is author attestation, not independently proven reading history.",
+        "later_modification_policy": "Do not revise frozen FIRST; later critique separate.",
+        "experiments": "UNRUN",
+        "budget_adequacy": "UNKNOWN",
+        "authority": "NONE_GRANTED"
+      }
+    }
+  ],
+  "author_local_source_verification": [
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "bytes": 218703,
+      "sha256": "01ea6c0f1befc9d74cec47c093a95ab8125b3efa7f05c1d2e4507b793434fe7f",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "bytes": 59000,
+      "sha256": "8ef0959a96876ce8b12a37518b9204f06adb097f6353dea763297fa0884e3cb8",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "bytes": 35812,
+      "sha256": "b25dc30cc7265dddb3cbf910edff12cc4bcf220161c86c59a7d3fa33cf129bed",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "bytes": 5590,
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "bytes": 9971,
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave086-synthesis.md",
+      "bytes": 3384,
+      "sha256": "202ac3ab8ae01f255e038c2b7d6b627364a3313bbdd40c297bcbcfdf543735f1",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave087-synthesis.md",
+      "bytes": 3775,
+      "sha256": "6dba3482fdfa28d2f3ab5366bdacf52fb929f19f68457c87fdf44e7a35b529d4",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave088-synthesis.md",
+      "bytes": 3504,
+      "sha256": "692a5075de0d5f8f66bd643ca3f6b0d9a240d9530fd6cd1978a0e06724580f5e",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-072.md",
+      "bytes": 9028,
+      "sha256": "527609ceb4d350a3c804a84b5b1e5d5f3e6e9d986178398f651feccf071a303b",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave088/tlab-wave088-candidates-FIRST.md",
+      "bytes": 6401,
+      "sha256": "daca8f775ae05e8d041d7cd3fdd792ebe43a4cc97a5e9fb78129910f1c302d49",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/waves041045/wave041/tlab-brainstorm-training-weight-models-b-wave041-ledger.json",
+      "bytes": 6624,
+      "sha256": "5fa30bd19470a56ddbd47547e57b1e5a5c3af2b0af467aa4805b8245a223542c",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/waves041045/wave041/tlab-brainstorm-loss-accounting-retrieval-a-wave041-ledger.json",
+      "bytes": 7527,
+      "sha256": "f9fe43e4269e33e205257d2d2a9b4267a10840b585a6d943994a233dacd9f853",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/loss-selection/01-pointwise.md",
+      "bytes": 10762,
+      "sha256": "aa5fafcd22bf33511892ba0f891361eadffd3c75a30b75e0731f883f8b85a174",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/loss-selection/index.md",
+      "bytes": 3699,
+      "sha256": "f9523740ff85fff91e49092fe6f0e165523c88b1056dff64953f4fc79f6b119d",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/model-selection/index.md",
+      "bytes": 4066,
+      "sha256": "c43ed840e827ddcc5fa4ac6cd2e7fd0def47bbae28baf561bfc280bd6a2bbd7a",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-004-008-review.md",
+      "bytes": 15087,
+      "sha256": "eafccc2ff4e92a104178dac3abcdcc830a55cb31dbe730c68f964cb772c7ca67",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ma001.md",
+      "bytes": 14076,
+      "sha256": "b9673900c65a704655556497b58548342aa2f2fb0ea79ec05d3cda3606eae174",
+      "matches_author_pin": true
+    },
+    {
+      "author": "population",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ma001-review-by-b.md",
+      "bytes": 14782,
+      "sha256": "cf124ccdbe976d83d34a703232071f6cb6ab8974193553a34ee2d260f566de4e",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+      "bytes": 22428,
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+      "bytes": 2480,
+      "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "bytes": 218703,
+      "sha256": "01ea6c0f1befc9d74cec47c093a95ab8125b3efa7f05c1d2e4507b793434fe7f",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "bytes": 59000,
+      "sha256": "8ef0959a96876ce8b12a37518b9204f06adb097f6353dea763297fa0884e3cb8",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "bytes": 14019,
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "bytes": 26364,
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+      "bytes": 3631,
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/automation-pool.json",
+      "bytes": 2713,
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave086-synthesis.md",
+      "bytes": 3384,
+      "sha256": "202ac3ab8ae01f255e038c2b7d6b627364a3313bbdd40c297bcbcfdf543735f1",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave087-synthesis.md",
+      "bytes": 3775,
+      "sha256": "6dba3482fdfa28d2f3ab5366bdacf52fb929f19f68457c87fdf44e7a35b529d4",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave088-synthesis.md",
+      "bytes": 3504,
+      "sha256": "692a5075de0d5f8f66bd643ca3f6b0d9a240d9530fd6cd1978a0e06724580f5e",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-automation-FIRST.md",
+      "bytes": 7062,
+      "sha256": "d619ba70ea960a72c0f1f0e977babf15bc0fb1cc1847c1b924c43508dd23d6c9",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave087/tlab-wave087-automation-FIRST.md",
+      "bytes": 7893,
+      "sha256": "c60eea8289363c58c98e1317aae8e0c4cc665d4763d5d3d527aec363132feba3",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave088/tlab-wave088-automation-FIRST.md",
+      "bytes": 5913,
+      "sha256": "b34e4b88a4e64ec0840bde447d0b6fca23bd0c294b2be280b37555c00567de6b",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave088/tlab-wave088-robustness-FIRST.md",
+      "bytes": 4620,
+      "sha256": "3e9577413899efddc030c1773b37e2b8906dcb7a4bba8dc211c254bd3480b1b6",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave088/tlab-wave088-automation-pins.json",
+      "bytes": 10105,
+      "sha256": "bce1ed4d8b8238613a6fe6ac30161ac7ee961e4c4c552e315d7acd18fb2ebb74",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave088/tlab-wave088-automation-freeze.json",
+      "bytes": 757,
+      "sha256": "750606f694a755b78f33b0bcef5b188bf3db16dd90a053e766067784a26dae1c",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-044.md",
+      "bytes": 9878,
+      "sha256": "9a403b0d928e44f45b0b27da6b3ba06107709f0514c3cb408ff13f75087621f6",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-071.md",
+      "bytes": 9344,
+      "sha256": "9dfb940fad9988ebd49695230005d3929d346d5bc203db385258e080a05f3eee",
+      "matches_author_pin": true
+    },
+    {
+      "author": "expressivity",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-fb001.md",
+      "bytes": 12218,
+      "sha256": "9f7242ddc81e3d58c005682c79353a5bdbd62e99e16ceb88148ba6938352d731",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+      "bytes": 22428,
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "bytes": 218703,
+      "sha256": "01ea6c0f1befc9d74cec47c093a95ab8125b3efa7f05c1d2e4507b793434fe7f",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "bytes": 59000,
+      "sha256": "8ef0959a96876ce8b12a37518b9204f06adb097f6353dea763297fa0884e3cb8",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "bytes": 46054,
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "bytes": 48982,
+      "sha256": "5a24403a7a75f5cadd5e3fd36b72ddcc619ffa2655bdc1beeff9bc2ff8155f6d",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave086-synthesis.md",
+      "bytes": 3384,
+      "sha256": "202ac3ab8ae01f255e038c2b7d6b627364a3313bbdd40c297bcbcfdf543735f1",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave087-synthesis.md",
+      "bytes": 3775,
+      "sha256": "6dba3482fdfa28d2f3ab5366bdacf52fb929f19f68457c87fdf44e7a35b529d4",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave088-synthesis.md",
+      "bytes": 3504,
+      "sha256": "692a5075de0d5f8f66bd643ca3f6b0d9a240d9530fd6cd1978a0e06724580f5e",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-selection-FIRST.md",
+      "bytes": 4946,
+      "sha256": "830b1eb5d95513fd87032a13d6497e70466852685a959fa8a8da0a8997ec855e",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave087/tlab-wave087-validation-FIRST.md",
+      "bytes": 7458,
+      "sha256": "8b5045ce5ed8a6698978c2cb3e6955fb1365068b69806c820db2d44d2613bc96",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave088/tlab-wave088-robustness-FIRST.md",
+      "bytes": 4620,
+      "sha256": "3e9577413899efddc030c1773b37e2b8906dcb7a4bba8dc211c254bd3480b1b6",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave073/originals/tlab-wave073-uncertainty-a-FIRST.md",
+      "bytes": 2678,
+      "sha256": "ef32b78f0f95d9fda11c370cdc018eb2c8424f2d4f97ab2257e844847a083e86",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave056/tlab-wave056-validation-signal-b-FIRST.md",
+      "bytes": 5338,
+      "sha256": "5f02008410383537e4dedb347cf6bf8a601312355a164a9f6ed32d43923b1dbf",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave071/tlab-wave071-validation-a-FIRST.md",
+      "bytes": 2765,
+      "sha256": "d247e52708a3112ebc65a7093ac63eb9443d3b88a08d48d726e75a1acfeea8c7",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-019.md",
+      "bytes": 11153,
+      "sha256": "ce4925063dc3b62200018ec1f87cc12d549853f3d8269fe2d0f2e972f835bbad",
+      "matches_author_pin": true
+    },
+    {
+      "author": "uncertainty",
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/target-research/06-temporal-protocol.md",
+      "bytes": 10857,
+      "sha256": "b276740dfe165834251a666cbef41ceb9465f847da6a023cd85f20ade9b87cc7",
+      "matches_author_pin": true
+    }
+  ],
+  "total_author_pin_entries_verified": 54,
+  "additional_source_pins": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "bytes": 218703,
+      "sha256": "01ea6c0f1befc9d74cec47c093a95ab8125b3efa7f05c1d2e4507b793434fe7f"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "bytes": 59000,
+      "sha256": "8ef0959a96876ce8b12a37518b9204f06adb097f6353dea763297fa0884e3cb8"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave088-synthesis.md",
+      "bytes": 3504,
+      "sha256": "692a5075de0d5f8f66bd643ca3f6b0d9a240d9530fd6cd1978a0e06724580f5e"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave088/tlab-wave088-skeptic-v1.md",
+      "bytes": 12948,
+      "sha256": "719b4cdaa4169a3c0a02e4fc7f1fff25087ebff69f30528cff8ab3ecca7de628"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "bytes": 35812,
+      "sha256": "b25dc30cc7265dddb3cbf910edff12cc4bcf220161c86c59a7d3fa33cf129bed"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "bytes": 5590,
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "bytes": 9971,
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "bytes": 14019,
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "bytes": 26364,
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+      "bytes": 3631,
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/automation-pool.json",
+      "bytes": 2713,
+      "sha256": "ef34f45d244bb0458c2af7928c0dad7f57d178d397abee1a9e87e419457cbbb3"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-069.md",
+      "bytes": 9770,
+      "sha256": "a3d236948c71df49d33ea98edb310d7201350bb4e94d3f1d4e0250c660803b63"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-072.md",
+      "bytes": 9028,
+      "sha256": "527609ceb4d350a3c804a84b5b1e5d5f3e6e9d986178398f651feccf071a303b"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave028-synthesis.md",
+      "bytes": 2588,
+      "sha256": "04b25c06ce85b6b8eab83ec3a6404d9aee4479e5055b34815637239a76beba8a"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-002.md",
+      "bytes": 19489,
+      "sha256": "d08a13621e1a973dd9e3bd02a332d986bc666e8112e550508eab8e1ddbf9c139"
+    },
+    {
+      "path": "/tmp/tlab-root-publication-519-final-actual-acceptance-v1.json",
+      "bytes": 1369,
+      "sha256": "2c3f5ca18c549f91e6dc6738b63bdc03e2f18fd76b6be24b53efb68777f63eca"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md",
+      "bytes": 22428,
+      "sha256": "97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2"
+    }
+  ],
+  "semantic_read_scope": "Full frozen FIRST/pins/freezes; current queue/index overlays and stable-ID excerpts; cited local source sections; prior-wave excerpts/syntheses. Broad initial combined output truncated; no claim every hashed source fully read.",
+  "primary_sources": [
+    {
+      "url": "https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/docs/en/concepts/loss-functions-classification.md",
+      "scope": "weighted BCE formula",
+      "read_utc": "2026-10-17",
+      "content_hash": null,
+      "pin_limit": "tool text, no saved body hash"
+    },
+    {
+      "url": "https://proceedings.mlr.press/v15/ravikumar11a/ravikumar11a.pdf",
+      "scope": "Lemma4 normalized expected gains",
+      "read_utc": "2026-10-17",
+      "content_hash": null,
+      "pin_limit": "tool text, no saved body hash"
+    },
+    {
+      "url": "https://catboost.ai/docs/en/concepts/loss-functions-ranking",
+      "scope": "pair support and weights",
+      "read_utc": "2026-10-17",
+      "content_hash": null,
+      "pin_limit": "tool text, no saved body hash"
+    },
+    {
+      "url": "https://docs.featuretools.com/en/stable/getting_started/primitives.html",
+      "scope": "1.31.0 aggregation/transform distinction",
+      "read_utc": "2026-10-17",
+      "content_hash": null,
+      "pin_limit": "tool text, no saved body hash"
+    },
+    {
+      "url": "https://docs.featuretools.com/en/stable/guides/tuning_dfs.html",
+      "scope": "1.31.0 seed features and primitive config",
+      "read_utc": "2026-10-17",
+      "content_hash": null,
+      "pin_limit": "tool text, no saved body hash"
+    },
+    {
+      "url": "https://arxiv.org/html/2412.07962v1#S4",
+      "scope": "whole-histogram clipping/sum/noise",
+      "read_utc": "2026-10-17",
+      "content_hash": null,
+      "pin_limit": "tool text, no saved body hash"
+    },
+    {
+      "url": "https://jmlr.org/papers/v11/cawley10a.html",
+      "scope": "official abstract finite criterion overfitting",
+      "read_utc": "2026-10-17",
+      "content_hash": null,
+      "pin_limit": "tool text, no saved body hash"
+    },
+    {
+      "url": "https://jmlr.org/papers/v18/17-514.html",
+      "scope": "official abstract preference stability",
+      "read_utc": "2026-10-17",
+      "content_hash": null,
+      "pin_limit": "tool text, no saved body hash"
+    },
+    {
+      "url": "https://jmlr.org/papers/v5/grandvalet04a.html",
+      "scope": "official abstract overlap/covariance warning",
+      "read_utc": "2026-10-17",
+      "content_hash": null,
+      "pin_limit": "tool text, no saved body hash"
+    },
+    {
+      "url": "https://duckdb.org/docs/current/sql/functions/window_functions.html",
+      "scope": "1.5 current aggregate windows, not installed-version assertion",
+      "read_utc": "2026-10-17",
+      "content_hash": null,
+      "pin_limit": "tool text, no saved body hash"
+    },
+    {
+      "url": "https://duckdb.org/docs/current/sql/expressions/subqueries.html",
+      "scope": "official subquery capabilities",
+      "read_utc": "2026-10-17",
+      "content_hash": null,
+      "pin_limit": "tool text, no saved body hash"
+    }
+  ],
+  "helper": {
+    "name": "/root/wave089_skeptic/expressivity_source_audit",
+    "scope": "read-only B source/units audit",
+    "files_written": 0,
+    "author_contact": false,
+    "decisive_findings_independently_rechecked": true
+  },
+  "disposition": {
+    "new": 0,
+    "refine": 6,
+    "proposed_merge": 6,
+    "admit": 0
+  },
+  "authority": "Root sole coordinator/final adopter; no grant",
+  "status": "SOURCE_REVIEW_ONLY",
+  "all_future_experiments": "UNRUN",
+  "cost_adequacy": "UNKNOWN",
+  "schedule": {
+    "original_due_utc": "2026-10-17T03:00:00Z",
+    "next_original_due_utc": "2026-10-17T03:45:00Z",
+    "next_msk": "2026-10-17 06:45 MSK",
+    "grid_minutes": 45
+  },
+  "attestation": {
+    "canonical_writes": 0,
+    "Git_operations": 0,
+    "DB_raw_Parquet_model_reads": 0,
+    "project_ML_backend_imports": 0,
+    "SQL_execution": 0,
+    "subject_tests_experiments_fits_predictions": 0,
+    "network_mutations": 0,
+    "approval_issue_actions": 0,
+    "only_mutations": [
+      "/tmp/tlab-wave089-skeptic-v1.md",
+      "/tmp/tlab-wave089-skeptic-v1-pins.json",
+      "/tmp/tlab-wave089-skeptic-v1-freeze.json"
+    ],
+    "stdio_hash_wordcount_JSON_metadata_only": true
+  }
+}
