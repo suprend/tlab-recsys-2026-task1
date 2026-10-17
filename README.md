@@ -1,5 +1,7 @@
 # T-Lab RecSys 2026
 
+Краткий обзор задачи, признаков и результатов: [что готово для T-Lab](docs/task1-overview.md).
+
 ## Пересчёт текущих коллекций принят — 17 октября 2026
 
 [Текущий код пересоздал 15 коллекций из той же принятой processed DB](docs/backlog-reviews/current-collection-refresh-results.md): все 75 новых Parquet побайтно равны историческим,45Q/C/Y независимо проверены. Это закрытый обычный MATCH без raw import, независимого formula oracle, Prepared или новых моделей; injected DRIFT/fault не проверены. Отрицательный seed2027 и frozen final с прежним CI не изменились. UNRUN пересчёта в предыдущем дополнении теперь исторический.
