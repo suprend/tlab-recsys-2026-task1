@@ -1,0 +1,1933 @@
+{
+  "version": 1,
+  "status": "QUALIFIED_ACTUAL_RESOURCE_LIFECYCLE_POLICY_PASS",
+  "axis": "resource_lifecycle_policy",
+  "requirements_source": "Direct Root dispatch plus trusted human grant72365a...; Root sole issuer/executor; allowed closed runtime metadata only after explicit READY.",
+  "inputs": [
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/manifest.json",
+      "sha256": "efb95f770a61ea2cfe6f5c45fa000db41eb6af8d0bd1fda8c2b3bd27f39fc097",
+      "bytes": 5007,
+      "mode": "0600",
+      "read_extent": "Metadata/SOURCE bytes only"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/plan.json",
+      "sha256": "0c6fa5e1a845e732e9e6524dbcf935f522a41b6d7f86b9f03c0b73ea669d68b8",
+      "bytes": 10724,
+      "mode": "0600",
+      "read_extent": "Full owner/plan/HANDOFF/review notes; worker1–220,475–end/resource keyword hits; other SOURCE structured metadata/hashes"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/freeze.json",
+      "sha256": "215cb1a0e191c6573cc36617d9fa8b7275f5a92105cbc6a3afaf602bd6dd616f",
+      "bytes": 1190,
+      "mode": "0600",
+      "read_extent": "Metadata/SOURCE bytes only"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-human-authority-v1.json",
+      "sha256": "72365a0310babc4401e7bee7f7e22a0bfd73c4ef1bed234bf5d6f77478a17e56",
+      "bytes": 1026,
+      "mode": "0600",
+      "read_extent": "Full authorized trusted grant receipt read"
+    },
+    {
+      "path": "/tmp/tlab-root-native-V2-source-acceptance-v1.json",
+      "sha256": "74bad2a74e58b10fa60008e4d374ba864071cea078eabc858b151b672f878710",
+      "bytes": 1931,
+      "mode": "0644",
+      "read_extent": "Full prior SOURCE acceptance read"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/HANDOFF.md",
+      "sha256": "141da90d56cd333fa9dc407dc5f5fd753201954797e8afaf5f14794b264d47d4",
+      "bytes": 6348,
+      "mode": "0600",
+      "read_extent": "Full owner/plan/HANDOFF/review notes; worker1–220,475–end/resource keyword hits; other SOURCE structured metadata/hashes"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/SOURCE-REVIEW-NOTES.md",
+      "sha256": "7e55d9820805f90bad01faf6ab3392f1e3d438e5d99f467e3f00dfa5d086e156",
+      "bytes": 1804,
+      "mode": "0600",
+      "read_extent": "Full owner/plan/HANDOFF/review notes; worker1–220,475–end/resource keyword hits; other SOURCE structured metadata/hashes"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/basepins.json",
+      "sha256": "4cd32acb495971db0c0ceb8e36df8015c5c8083f27671b53f2c7b605096d759a",
+      "bytes": 6477,
+      "mode": "0600",
+      "read_extent": "Full owner/plan/HANDOFF/review notes; worker1–220,475–end/resource keyword hits; other SOURCE structured metadata/hashes"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/callgraph-source.json",
+      "sha256": "fece807e77b233cc074162959615b173a76b68cb5827ca7156030a32d4f20a8e",
+      "bytes": 8120,
+      "mode": "0600",
+      "read_extent": "Full owner/plan/HANDOFF/review notes; worker1–220,475–end/resource keyword hits; other SOURCE structured metadata/hashes"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/input-map.json",
+      "sha256": "0fea8b18f017b50f9d72e3f39eef5a7b439e100842b72b24886811b8206db0ad",
+      "bytes": 3554,
+      "mode": "0600",
+      "read_extent": "Full owner/plan/HANDOFF/review notes; worker1–220,475–end/resource keyword hits; other SOURCE structured metadata/hashes"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/inputs-120.json",
+      "sha256": "f682dc85d90527112f6b2ef1d8b523fe6a5f337cd5282eec8ebe4be897877d0a",
+      "bytes": 50584,
+      "mode": "0600",
+      "read_extent": "Full structured metadata:120 references and55 CLI fingerprints; no referenced DB/Parquet/array/model body read"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/owner-source.diff",
+      "sha256": "981d6f12fcd6dd7e39f6ea5cd2b47ecd089a275ab446d33a1421085cc2b00ca5",
+      "bytes": 1054,
+      "mode": "0600",
+      "read_extent": "Full owner/plan/HANDOFF/review notes; worker1–220,475–end/resource keyword hits; other SOURCE structured metadata/hashes"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/owner.py",
+      "sha256": "a5ca62d1e95e23856bea91c42db9a272ca142d8add0f69e22b24f5551f788977",
+      "bytes": 12358,
+      "mode": "0600",
+      "read_extent": "Complete owner1–189 read; V1 first168/main AST compared; no execution"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/pins.json",
+      "sha256": "f92c4bd4fc3ce0f792bfa9be1373d153002ca6f3ae03df7dbcf0126f73975c92",
+      "bytes": 2460,
+      "mode": "0600",
+      "read_extent": "Full owner/plan/HANDOFF/review notes; worker1–220,475–end/resource keyword hits; other SOURCE structured metadata/hashes"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/source-delta.json",
+      "sha256": "d44c7b0d16e3498c1c584ce9e091a372aa8567971aa0039109e974e608ce7181",
+      "bytes": 1437,
+      "mode": "0600",
+      "read_extent": "Full owner/plan/HANDOFF/review notes; worker1–220,475–end/resource keyword hits; other SOURCE structured metadata/hashes"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/source-verification.json",
+      "sha256": "cd92f993f85664e84ef1a7c68df8ddce6d23a2ef2fa0127da40870a287e9ac0c",
+      "bytes": 4465,
+      "mode": "0600",
+      "read_extent": "Full owner/plan/HANDOFF/review notes; worker1–220,475–end/resource keyword hits; other SOURCE structured metadata/hashes"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/worker-source.diff",
+      "sha256": "48617d7a8d13a554ad9c2492a2a64319150cf0c071456d3911f33d07c72b8b23",
+      "bytes": 35286,
+      "mode": "0600",
+      "read_extent": "Full owner/plan/HANDOFF/review notes; worker1–220,475–end/resource keyword hits; other SOURCE structured metadata/hashes"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v2/worker.py",
+      "sha256": "4f26beec704f62878085a6f87a4f8d3fb9b48820a00a4bb3cda4cdae0c002296",
+      "bytes": 35126,
+      "mode": "0600",
+      "read_extent": "Worker1–220,475–end and resource/lifecycle/fit/profile keyword hits; source hash only beyond inspected ranges; no execution"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-source-review-v2.md",
+      "sha256": "bdd434fd14e3e0a85d9b6eb17ba9e454ddf93c2de400feefdf9d5ed2c0d82221",
+      "bytes": 3053,
+      "mode": "0600",
+      "read_extent": "Prior V2 SOURCE review full report/structured pins/freeze, no current actual peer output"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-source-review-v2-pins.json",
+      "sha256": "8d0924e96dc8a6bbf62b95f94c56e03aa4a4ff2b2a3d9e127704703122620594",
+      "bytes": 6235,
+      "mode": "0600",
+      "read_extent": "Prior V2 SOURCE review full report/structured pins/freeze, no current actual peer output"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-source-review-v2-freeze.json",
+      "sha256": "3515aab66d61166a9d670e366567964962e97d41122a5e12f5665b2fb720c1e6",
+      "bytes": 692,
+      "mode": "0600",
+      "read_extent": "Prior V2 SOURCE review full report/structured pins/freeze, no current actual peer output"
+    },
+    {
+      "path": "/private/tmp/tlab-root-post-audit-Prepared-final-artifact-acceptance-v1.json",
+      "sha256": "135d26bbdbb84ec040e57fa15c62fd89d5d9b0df167f0628b81265e4f1885839",
+      "bytes": 2046,
+      "mode": "0644",
+      "read_extent": "Full Prepared acceptance metadata only; raw matrix/pins bodies not read"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v1/owner.py",
+      "sha256": "f11a85c5213674921e16fa867a4ac86708749e50649c8ce483a267732ac75c42",
+      "bytes": 11743,
+      "mode": "0600",
+      "read_extent": "Historical V1 SOURCE bytes for prefix/AST delta only"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v1/worker.py",
+      "sha256": "4f26beec704f62878085a6f87a4f8d3fb9b48820a00a4bb3cda4cdae0c002296",
+      "bytes": 35126,
+      "mode": "0600",
+      "read_extent": "Historical worker SOURCE byte-equality only"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v1/inputs-120.json",
+      "sha256": "f682dc85d90527112f6b2ef1d8b523fe6a5f337cd5282eec8ebe4be897877d0a",
+      "bytes": 50584,
+      "mode": "0600",
+      "read_extent": "Full structured metadata:120 references and55 CLI fingerprints; no referenced DB/Parquet/array/model body read"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-proposal-v1/plan.json",
+      "sha256": "2b72ee8fa8e203c32bf6955053d7e0b6ee285c861af8f90694633d0474bf3c5d",
+      "bytes": 10146,
+      "mode": "0600",
+      "read_extent": "Metadata/SOURCE bytes only"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/actual-receipt.json",
+      "sha256": "ff6a4731e3ffde4ed8c7c6ff20c77a2a420005b303087657185cf460c6ed0f0b",
+      "bytes": 8451,
+      "mode": "0644",
+      "read_extent": "Full bounded receipt/metadata read"
+    },
+    {
+      "path": "/tmp/tlab-native-cli-post-audit-native-root-tool-terminal-v1.json",
+      "sha256": "2bdd60d8840744380aa6baeaadfafa69b8a66e08610bfd2b323348bf4f045177",
+      "bytes": 1460,
+      "mode": "0600",
+      "read_extent": "Full bounded receipt/metadata read"
+    },
+    {
+      "path": "/tmp/tlab-root-native-V2-preissue-fresh-source-gate-v1.json",
+      "sha256": "0e61c655181493a50adbbede44e0af8625466e7a26d20bd75c9d7496bfe4bee3",
+      "bytes": 20699,
+      "mode": "0644",
+      "read_extent": "Full bounded receipt/metadata read"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-native-proposal-v2/issue.json",
+      "sha256": "aad48909269b96c6263ee1511fb4dd875685adba62b4f7701a46379625c330ee",
+      "bytes": 577,
+      "mode": "0600",
+      "read_extent": "Full bounded receipt/metadata read"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-native-proposal-v2/plan.json",
+      "sha256": "0c6fa5e1a845e732e9e6524dbcf935f522a41b6d7f86b9f03c0b73ea669d68b8",
+      "bytes": 10724,
+      "mode": "0600",
+      "read_extent": "Full bounded receipt/metadata read"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-native-proposal-v2/inputs-120.json",
+      "sha256": "f682dc85d90527112f6b2ef1d8b523fe6a5f337cd5282eec8ebe4be897877d0a",
+      "bytes": 50584,
+      "mode": "0600",
+      "read_extent": "Full structured metadata:120 references and55 CLI fingerprints; no referenced DB/Parquet/array/model body read"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker-result.json",
+      "sha256": "0f9761afe4af82bd0398040982b5cd83faedf0dd94beb34d06fb717997a1ed53",
+      "bytes": 4079,
+      "mode": "0600",
+      "read_extent": "Full bounded receipt/metadata read"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/owner-consumed.json",
+      "sha256": "ca22515dc0fe618ee743ae1e1441e4d091d4aff2d1da6476536688b0357c01a8",
+      "bytes": 385,
+      "mode": "0644",
+      "read_extent": "Full bounded receipt/metadata read"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker-consumed.json",
+      "sha256": "18690a738331a9e46e8cd42be081af2b5466047d2292ff3bf8346f39c0aaac0d",
+      "bytes": 314,
+      "mode": "0600",
+      "read_extent": "Full bounded receipt/metadata read"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/cli/report.json",
+      "sha256": "9b9874c5525c32388986eeb01479ce5bad0ffc5d501d4b5c9b43b38e725689de",
+      "bytes": 6101,
+      "mode": "0644",
+      "read_extent": "Full bounded receipt/metadata read"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/cli/recipe.json",
+      "sha256": "80dd21a50e7aeac53df6abcaef080006a6fef5f07f9b852b9b973072a9343e3c",
+      "bytes": 11676,
+      "mode": "0644",
+      "read_extent": "Full bounded receipt/metadata read"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/development/selection.json",
+      "sha256": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36",
+      "bytes": 643,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/development/selection.json",
+      "sha256": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36",
+      "bytes": 643,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/development/train.json",
+      "sha256": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8",
+      "bytes": 637,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/development/train.json",
+      "sha256": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8",
+      "bytes": 637,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "bytes": 3631,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/features/manual-18.json",
+      "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+      "bytes": 3631,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml",
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+      "bytes": 367,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/pyproject.toml",
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+      "bytes": 367,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "bytes": 18580,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/adaptive_tree_selection.py",
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+      "bytes": 18580,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "bytes": 20747,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/anchor_pilot.py",
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "bytes": 20747,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "bytes": 19102,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/candidate_pilot.py",
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "bytes": 19102,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+      "sha256": "0aaf7a53236863540a86a77730215d1c5e106bf29f9440402a8527a03e717736",
+      "bytes": 36058,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/development_collection.py",
+      "sha256": "0aaf7a53236863540a86a77730215d1c5e106bf29f9440402a8527a03e717736",
+      "bytes": 36058,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/development_training.py",
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+      "bytes": 5590,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heuristic_baselines.py",
+      "sha256": "b13cc9056bf856b3aa3eb04db9de96e871cbdcbc41ab236bb80ab9c20a06c191",
+      "bytes": 23423,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/heuristic_baselines.py",
+      "sha256": "b13cc9056bf856b3aa3eb04db9de96e871cbdcbc41ab236bb80ab9c20a06c191",
+      "bytes": 23423,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_collection.py",
+      "sha256": "59565643f58a3b34bb716c6cc071d7e1802d79aaf0b707e1537459b0a5377afa",
+      "bytes": 37105,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/metadata_price_collection.py",
+      "sha256": "59565643f58a3b34bb716c6cc071d7e1802d79aaf0b707e1537459b0a5377afa",
+      "bytes": 37105,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_features.py",
+      "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+      "bytes": 36920,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/metadata_price_features.py",
+      "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+      "bytes": 36920,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+      "sha256": "b25dc30cc7265dddb3cbf910edff12cc4bcf220161c86c59a7d3fa33cf129bed",
+      "bytes": 35812,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/train_baselines.py",
+      "sha256": "b25dc30cc7265dddb3cbf910edff12cc4bcf220161c86c59a7d3fa33cf129bed",
+      "bytes": 35812,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py",
+      "sha256": "16248901e80d9f13d58c08261d1b108844452f6c459311d657790a511d9db968",
+      "bytes": 12908,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/train_development.py",
+      "sha256": "16248901e80d9f13d58c08261d1b108844452f6c459311d657790a511d9db968",
+      "bytes": 12908,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/verify_development.py",
+      "sha256": "60519794c8c5b8bc7ac04f960e554f13ab3e125043c2a0e46d53f67ea0810ee0",
+      "bytes": 39362,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/verify_development.py",
+      "sha256": "60519794c8c5b8bc7ac04f960e554f13ab3e125043c2a0e46d53f67ea0810ee0",
+      "bytes": 39362,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "bytes": 300283,
+      "mode": "0644",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-project-v4-once/uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "bytes": 300283,
+      "mode": "0600",
+      "read_extent": "Source/config/lock hash-only; no execution/backend/data/model"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker.stdout",
+      "sha256": "d8e9dfc58db8a0cecfa65e9bca952485baa903c132b8509b4201d025d2607d04",
+      "bytes": 199,
+      "mode": "0644",
+      "read_extent": "Status-only raw streams; no array/model body"
+    },
+    {
+      "path": "/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0644",
+      "read_extent": "Status-only raw streams; no array/model body"
+    },
+    {
+      "path": "/tmp/tlab-root-native-V2-allowance-CLOSED-SPENT-v1.json",
+      "sha256": "ecd14715ca6a6a62223ebef7a789d00297d3414d10f57606e17f13c25047b85d",
+      "bytes": 1622,
+      "mode": "0644",
+      "read_extent": "Full Root closure or resource/policy/inventory metadata; no matrix/model body read"
+    },
+    {
+      "path": "/tmp/tlab-root-native-V2-actual-audit-proof-v1.json",
+      "sha256": "ce9a118f2a40f5c2945983bbadbe84c809c2e15f08085da2981c29cf6c70743c",
+      "bytes": 14438,
+      "mode": "0644",
+      "read_extent": "Full Root closure or resource/policy/inventory metadata; no matrix/model body read"
+    }
+  ],
+  "checks": [
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/manifest.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/manifest.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/plan.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/plan.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/freeze.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/freeze.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-human-authority-v1.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-human-authority-v1.json",
+    "regular:/tmp/tlab-root-native-V2-source-acceptance-v1.json",
+    "hash:/tmp/tlab-root-native-V2-source-acceptance-v1.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/HANDOFF.md",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/HANDOFF.md",
+    "mode_size:HANDOFF.md",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/SOURCE-REVIEW-NOTES.md",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/SOURCE-REVIEW-NOTES.md",
+    "mode_size:SOURCE-REVIEW-NOTES.md",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/basepins.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/basepins.json",
+    "mode_size:basepins.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/callgraph-source.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/callgraph-source.json",
+    "mode_size:callgraph-source.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/input-map.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/input-map.json",
+    "mode_size:input-map.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/inputs-120.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/inputs-120.json",
+    "mode_size:inputs-120.json",
+    "oracle_metadata_only",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/owner-source.diff",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/owner-source.diff",
+    "mode_size:owner-source.diff",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/owner.py",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/owner.py",
+    "mode_size:owner.py",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/pins.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/pins.json",
+    "mode_size:pins.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/plan.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/plan.json",
+    "mode_size:plan.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/source-delta.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/source-delta.json",
+    "mode_size:source-delta.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/source-verification.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/source-verification.json",
+    "mode_size:source-verification.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/worker-source.diff",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/worker-source.diff",
+    "mode_size:worker-source.diff",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v2/worker.py",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v2/worker.py",
+    "mode_size:worker.py",
+    "authority_exact",
+    "regular:/tmp/tlab-native-cli-post-audit-native-source-review-v2.md",
+    "hash:/tmp/tlab-native-cli-post-audit-native-source-review-v2.md",
+    "regular:/tmp/tlab-native-cli-post-audit-native-source-review-v2-pins.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-source-review-v2-pins.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-source-review-v2-freeze.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-source-review-v2-freeze.json",
+    "regular:/private/tmp/tlab-root-post-audit-Prepared-final-artifact-acceptance-v1.json",
+    "hash:/private/tmp/tlab-root-post-audit-Prepared-final-artifact-acceptance-v1.json",
+    "120_55_21",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v1/owner.py",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v1/owner.py",
+    "owner168prefix_identical",
+    "owner_main_AST_identical",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v1/worker.py",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v1/worker.py",
+    "worker_unchanged",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v1/inputs-120.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v1/inputs-120.json",
+    "input_metadata120_unchanged",
+    "regular:/tmp/tlab-native-cli-post-audit-native-proposal-v1/plan.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-proposal-v1/plan.json",
+    "plan_only_delta_and_owner",
+    "resource_limits",
+    "regular:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/actual-receipt.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/actual-receipt.json",
+    "regular:/tmp/tlab-native-cli-post-audit-native-root-tool-terminal-v1.json",
+    "hash:/tmp/tlab-native-cli-post-audit-native-root-tool-terminal-v1.json",
+    "regular:/tmp/tlab-root-native-V2-preissue-fresh-source-gate-v1.json",
+    "hash:/tmp/tlab-root-native-V2-preissue-fresh-source-gate-v1.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-native-proposal-v2/issue.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-native-proposal-v2/issue.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-native-proposal-v2/plan.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-native-proposal-v2/plan.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-native-proposal-v2/inputs-120.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-native-proposal-v2/inputs-120.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker-result.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker-result.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/owner-consumed.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/owner-consumed.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker-consumed.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker-consumed.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/cli/report.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/cli/report.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/cli/recipe.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/cli/recipe.json",
+    "issue_exact_fields",
+    "issue50_65_onefit8",
+    "all_plan_issue_bindings",
+    "consumption_once",
+    "outer_closed0",
+    "root_wall9_754",
+    "direct_noexternalwrapper",
+    "terminal_stdout_binding",
+    "ownerpass_reaped",
+    "no_auto_or_new_authority",
+    "worker_exact_owner_childresult",
+    "singlefit_full8_selected1",
+    "25_helpers_exact",
+    "CLI_limits_and_qualification",
+    "nested_CPU_scopes",
+    "nested_wall_scopes",
+    "RSS_under512MiB",
+    "no_callbackabort_or_quality",
+    "hard_limits",
+    "CLI55_preserved",
+    "artifact_reference_metadata",
+    "source_authenticated_immutability120",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/configs/development/selection.json",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/configs/development/selection.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/development/selection.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/development/selection.json",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/configs/development/train.json",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/configs/development/train.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/development/train.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/development/train.json",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/configs/features/manual-18.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/features/manual-18.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/features/manual-18.json",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/configs/protocols/clock-48h.json",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/protocols/clock-48h.json",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/configs/protocols/clock-48h.json",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/pyproject.toml",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/pyproject.toml",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/pyproject.toml",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/pyproject.toml",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/adaptive_tree_selection.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/adaptive_tree_selection.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/anchor_pilot.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/anchor_pilot.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/candidate_pilot.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/candidate_pilot.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/development_collection.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/development_collection.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/development_training.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/development_training.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/heuristic_baselines.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/heuristic_baselines.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/heuristic_baselines.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/heuristic_baselines.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/manual_features.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/manual_features.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_collection.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_collection.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/metadata_price_collection.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/metadata_price_collection.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_features.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_features.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/metadata_price_features.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/metadata_price_features.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/protocol_manifest.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/protocol_manifest.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/ranking_metrics.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/ranking_metrics.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/temporal_contract.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/temporal_contract.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/train_baselines.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/train_baselines.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/train_development.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/train_development.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/train_development.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/scripts/verify_development.py",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/scripts/verify_development.py",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/verify_development.py",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/scripts/verify_development.py",
+    "regular:/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+    "hash:/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+    "regular:/private/tmp/tlab-native-cli-post-audit-project-v4-once/uv.lock",
+    "hash:/private/tmp/tlab-native-cli-post-audit-project-v4-once/uv.lock",
+    "rootgate21_matches_projectcanonical_source",
+    "project_no_symlink:artifacts",
+    "project_no_symlink:uv.lock",
+    "project_no_symlink:plans",
+    "project_no_symlink:pyproject.toml",
+    "project_no_symlink:fixture-bindings.json",
+    "project_no_symlink:configs",
+    "project_no_symlink:scripts",
+    "project_no_symlink:approvals",
+    "project_no_symlink:data",
+    "project_no_symlink:artifacts/development",
+    "project_no_symlink:plans/selection.plan.json",
+    "project_no_symlink:plans/train.plan.json",
+    "project_no_symlink:configs/development",
+    "project_no_symlink:configs/features",
+    "project_no_symlink:configs/protocols",
+    "project_no_symlink:scripts/train_development.py",
+    "project_no_symlink:scripts/heuristic_baselines.py",
+    "project_no_symlink:scripts/train_baselines.py",
+    "project_no_symlink:scripts/development_collection.py",
+    "project_no_symlink:scripts/adaptive_tree_selection.py",
+    "project_no_symlink:scripts/candidate_pilot.py",
+    "project_no_symlink:scripts/temporal_contract.py",
+    "project_no_symlink:scripts/protocol_manifest.py",
+    "project_no_symlink:scripts/metadata_price_collection.py",
+    "project_no_symlink:scripts/manual_features.py",
+    "project_no_symlink:scripts/development_training.py",
+    "project_no_symlink:scripts/verify_development.py",
+    "project_no_symlink:scripts/metadata_price_features.py",
+    "project_no_symlink:scripts/ranking_metrics.py",
+    "project_no_symlink:scripts/anchor_pilot.py",
+    "project_no_symlink:approvals/shards",
+    "project_no_symlink:approvals/producers",
+    "project_no_symlink:approvals/collections",
+    "project_no_symlink:data/tiny-cli.duckdb",
+    "project_no_symlink:approvals/shards/train",
+    "project_no_symlink:approvals/shards/selection",
+    "project_no_symlink:approvals/producers/train.json",
+    "project_no_symlink:approvals/producers/selection.json",
+    "project_no_symlink:approvals/collections/train.json",
+    "project_no_symlink:approvals/collections/selection.json",
+    "project_no_symlink:approvals/shards/train/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3.json",
+    "project_no_symlink:approvals/shards/selection/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a.json",
+    "project_no_symlink:configs/development/tiny-cli-train.json",
+    "project_no_symlink:configs/development/train.json",
+    "project_no_symlink:configs/development/selection.json",
+    "project_no_symlink:configs/development/tiny-cli-selection.json",
+    "project_no_symlink:configs/features/manual-18.json",
+    "project_no_symlink:configs/protocols/tiny-cli-clock48h.json",
+    "project_no_symlink:configs/protocols/clock-48h.json",
+    "project_no_symlink:artifacts/development/train",
+    "project_no_symlink:artifacts/development/selection",
+    "project_no_symlink:artifacts/development/train/attempt-8d0f70f4e37b480e99d8b596e880ba33",
+    "project_no_symlink:artifacts/development/train/attempt-c82ae1ac3b674a448538c26765f84e59",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b",
+    "project_no_symlink:artifacts/development/selection/attempt-76b8f6ca5e104a1090bbd652f58392aa",
+    "project_no_symlink:artifacts/development/selection/attempt-6d3e15998de948b6be0a881f3e3930fa",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/state.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/plan.json",
+    "project_no_symlink:artifacts/development/selection/attempt-76b8f6ca5e104a1090bbd652f58392aa/report.json",
+    "project_no_symlink:artifacts/development/selection/attempt-76b8f6ca5e104a1090bbd652f58392aa/profiles",
+    "project_no_symlink:artifacts/development/selection/attempt-6d3e15998de948b6be0a881f3e3930fa/report.json",
+    "project_no_symlink:artifacts/development/selection/attempt-6d3e15998de948b6be0a881f3e3930fa/profiles",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/protocol.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/report.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/queries.parquet",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/labels.parquet",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/run.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/target_first_sightings.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/eligibility_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/export_labels.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/sample_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/export_queries.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/purchase_labels.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/target_pair_history.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/selections",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/selections/8ff536b795c8859a865c36b997d10369752ea28e795a64a109b40868027c189b.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/report.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/features.parquet",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/run.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/user_first_seen_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/user_category_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/category_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/export_features.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/item_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/metadata_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/join_features_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/load_fixed_candidates.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/load_selected_queries.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/user_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/pair_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/item_category_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/report.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/candidates.parquet",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/run.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/query_coverage.parquet",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/candidate_catalog_verification.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/popular_counts_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/union_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/export_query_coverage.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/export_candidates.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/coverage_after_generation.profile.json",
+    "project_no_symlink:artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/recent_2019-10-18.profile.json",
+    "project_no_symlink:artifacts/development/train/attempt-8d0f70f4e37b480e99d8b596e880ba33/report.json",
+    "project_no_symlink:artifacts/development/train/attempt-8d0f70f4e37b480e99d8b596e880ba33/profiles",
+    "project_no_symlink:artifacts/development/train/attempt-c82ae1ac3b674a448538c26765f84e59/report.json",
+    "project_no_symlink:artifacts/development/train/attempt-c82ae1ac3b674a448538c26765f84e59/profiles",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/state.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/plan.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/protocol.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/report.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/queries.parquet",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/labels.parquet",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/run.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/target_first_sightings.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/sample_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/export_labels.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/export_queries.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/purchase_labels.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/eligibility_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/target_pair_history.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/selections",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/report.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/features.parquet",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/run.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/selections/8f3eb2e12f9e54dfb5cbad2e5f4c1f86e7f443292a9ec6374c7ff3d5a2f41eb6.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/item_category_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/pair_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/user_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/export_features.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/join_features_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/item_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/load_fixed_candidates.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/metadata_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/load_selected_queries.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/user_category_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/user_first_seen_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/category_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/report.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/candidates.parquet",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/run.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/query_coverage.parquet",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/candidate_catalog_verification.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/recent_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/export_query_coverage.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/export_candidates.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/union_2019-10-08.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/coverage_after_generation.profile.json",
+    "project_no_symlink:artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/popular_counts_2019-10-08.profile.json",
+    "project120_exact_names_sizes_modes",
+    "runtime_no_symlink:worker-consumed.json",
+    "runtime_no_symlink:owner-consumed.json",
+    "runtime_no_symlink:prepared-and-pool.json",
+    "runtime_no_symlink:cli",
+    "runtime_no_symlink:worker-result.json",
+    "runtime_no_symlink:worker.stdout",
+    "runtime_no_symlink:independent-prefixes.json",
+    "runtime_no_symlink:actual-receipt.json",
+    "runtime_no_symlink:worker.stderr",
+    "runtime_no_symlink:caches",
+    "runtime_no_symlink:cli/full.cbm",
+    "runtime_no_symlink:cli/report.json",
+    "runtime_no_symlink:cli/recipe.json",
+    "runtime_no_symlink:cli/selected.cbm",
+    "runtime_no_symlink:cli/validation-scores.npz",
+    "runtime_no_symlink:caches/matplotlib",
+    "runtime_no_symlink:caches/numba",
+    "runtime_no_symlink:caches/python-eggs",
+    "runtime_no_symlink:caches/tmp",
+    "runtime_no_symlink:caches/xdg",
+    "runtime13_32MiB_4MiB",
+    "private_runtime0700",
+    "inventories11_12_13",
+    "owner_inventory_stat_matches",
+    "regular:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker.stdout",
+    "hash:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker.stdout",
+    "stream_metadata:worker.stdout",
+    "regular:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker.stderr",
+    "hash:/private/tmp/tlab-native-cli-post-audit-native-runtime-v1-once/worker.stderr",
+    "stream_metadata:worker.stderr",
+    "stdout199_stderr0_no_failure",
+    "hash:/tmp/tlab-root-native-V2-allowance-CLOSED-SPENT-v1.json",
+    "hash:/tmp/tlab-root-native-V2-actual-audit-proof-v1.json",
+    "CLOSED_SPENT",
+    "no_remaining_attempt",
+    "same_human_question",
+    "same_receipt_issue_terminal",
+    "grant_gate_terminal_close_time",
+    "Rootproof_binds_close",
+    "Rootproof_resources_match",
+    "prefix_not_exactfinal",
+    "Rootproof_scope_kept",
+    "Root13_inventory_same_owner_metadata",
+    "root_raw120_qualification",
+    "root_no_heap_decode_upgrade"
+  ],
+  "findings": [],
+  "verification_counts": {
+    "source_preparation": 77,
+    "actual_metadata_and_source": 338,
+    "closure_binding": 14,
+    "total": 429
+  },
+  "source_scope": {
+    "manifest": "efb95f770a61ea2cfe6f5c45fa000db41eb6af8d0bd1fda8c2b3bd27f39fc097",
+    "plan": "0c6fa5e1a845e732e9e6524dbcf935f522a41b6d7f86b9f03c0b73ea669d68b8",
+    "owner": "a5ca62d1e95e23856bea91c42db9a272ca142d8add0f69e22b24f5551f788977",
+    "worker": "4f26beec704f62878085a6f87a4f8d3fb9b48820a00a4bb3cda4cdae0c002296",
+    "V1_owner168_main_unchanged": true,
+    "worker_unchanged": true,
+    "manual_oracle_body_read": false
+  },
+  "actual": {
+    "root_wall_upper_seconds": 9.754,
+    "owner_wall_prefix_seconds": 1.7698227080109064,
+    "worker_wall_prefix_seconds": 1.5935493749857415,
+    "CLI_wall_observation_seconds": 0.7495496250048745,
+    "child_final_cpu_seconds": 1.3040699999999998,
+    "owner_cpu_prefix_seconds": 0.091713,
+    "combined_cpu_prefix_seconds": 1.3957829999999998,
+    "child_peak_rss_bytes": 150028288,
+    "fits": 1,
+    "trained_ceiling": 8,
+    "selected_trees": 1,
+    "owner_pid": 11417,
+    "child_pid": 11433
+  },
+  "runtime_inventory_stat": {
+    "worker-consumed.json": {
+      "bytes": 314,
+      "mode": "0600"
+    },
+    "owner-consumed.json": {
+      "bytes": 385,
+      "mode": "0644"
+    },
+    "prepared-and-pool.json": {
+      "bytes": 6186,
+      "mode": "0600"
+    },
+    "worker-result.json": {
+      "bytes": 4079,
+      "mode": "0600"
+    },
+    "worker.stdout": {
+      "bytes": 199,
+      "mode": "0644"
+    },
+    "independent-prefixes.json": {
+      "bytes": 11192,
+      "mode": "0600"
+    },
+    "actual-receipt.json": {
+      "bytes": 8451,
+      "mode": "0644"
+    },
+    "worker.stderr": {
+      "bytes": 0,
+      "mode": "0644"
+    },
+    "cli/full.cbm": {
+      "bytes": 9752,
+      "mode": "0644"
+    },
+    "cli/report.json": {
+      "bytes": 6101,
+      "mode": "0644"
+    },
+    "cli/recipe.json": {
+      "bytes": 11676,
+      "mode": "0644"
+    },
+    "cli/selected.cbm": {
+      "bytes": 9344,
+      "mode": "0644"
+    },
+    "cli/validation-scores.npz": {
+      "bytes": 1093,
+      "mode": "0644"
+    }
+  },
+  "runtime_total_bytes": 68772,
+  "project120_stat": {
+    "uv.lock": {
+      "bytes": 300283,
+      "mode": "0600"
+    },
+    "pyproject.toml": {
+      "bytes": 367,
+      "mode": "0600"
+    },
+    "fixture-bindings.json": {
+      "bytes": 1002,
+      "mode": "0600"
+    },
+    "plans/selection.plan.json": {
+      "bytes": 4314,
+      "mode": "0600"
+    },
+    "plans/train.plan.json": {
+      "bytes": 4298,
+      "mode": "0600"
+    },
+    "scripts/train_development.py": {
+      "bytes": 12908,
+      "mode": "0600"
+    },
+    "scripts/heuristic_baselines.py": {
+      "bytes": 23423,
+      "mode": "0600"
+    },
+    "scripts/train_baselines.py": {
+      "bytes": 35812,
+      "mode": "0600"
+    },
+    "scripts/development_collection.py": {
+      "bytes": 36058,
+      "mode": "0600"
+    },
+    "scripts/adaptive_tree_selection.py": {
+      "bytes": 18580,
+      "mode": "0600"
+    },
+    "scripts/candidate_pilot.py": {
+      "bytes": 19102,
+      "mode": "0600"
+    },
+    "scripts/temporal_contract.py": {
+      "bytes": 6184,
+      "mode": "0600"
+    },
+    "scripts/protocol_manifest.py": {
+      "bytes": 11864,
+      "mode": "0600"
+    },
+    "scripts/metadata_price_collection.py": {
+      "bytes": 37105,
+      "mode": "0600"
+    },
+    "scripts/manual_features.py": {
+      "bytes": 26364,
+      "mode": "0600"
+    },
+    "scripts/development_training.py": {
+      "bytes": 5590,
+      "mode": "0600"
+    },
+    "scripts/verify_development.py": {
+      "bytes": 39362,
+      "mode": "0600"
+    },
+    "scripts/metadata_price_features.py": {
+      "bytes": 36920,
+      "mode": "0600"
+    },
+    "scripts/ranking_metrics.py": {
+      "bytes": 9971,
+      "mode": "0600"
+    },
+    "scripts/anchor_pilot.py": {
+      "bytes": 20747,
+      "mode": "0600"
+    },
+    "data/tiny-cli.duckdb": {
+      "bytes": 798720,
+      "mode": "0644"
+    },
+    "approvals/producers/train.json": {
+      "bytes": 1633,
+      "mode": "0600"
+    },
+    "approvals/producers/selection.json": {
+      "bytes": 1637,
+      "mode": "0600"
+    },
+    "approvals/collections/train.json": {
+      "bytes": 6130,
+      "mode": "0600"
+    },
+    "approvals/collections/selection.json": {
+      "bytes": 6202,
+      "mode": "0600"
+    },
+    "approvals/shards/train/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3.json": {
+      "bytes": 3299,
+      "mode": "0600"
+    },
+    "approvals/shards/selection/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a.json": {
+      "bytes": 3331,
+      "mode": "0600"
+    },
+    "configs/development/tiny-cli-train.json": {
+      "bytes": 531,
+      "mode": "0600"
+    },
+    "configs/development/train.json": {
+      "bytes": 637,
+      "mode": "0600"
+    },
+    "configs/development/selection.json": {
+      "bytes": 643,
+      "mode": "0600"
+    },
+    "configs/development/tiny-cli-selection.json": {
+      "bytes": 539,
+      "mode": "0600"
+    },
+    "configs/features/manual-18.json": {
+      "bytes": 3631,
+      "mode": "0600"
+    },
+    "configs/protocols/tiny-cli-clock48h.json": {
+      "bytes": 1075,
+      "mode": "0600"
+    },
+    "configs/protocols/clock-48h.json": {
+      "bytes": 1403,
+      "mode": "0600"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/state.json": {
+      "bytes": 6769,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/plan.json": {
+      "bytes": 4314,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/attempt-76b8f6ca5e104a1090bbd652f58392aa/report.json": {
+      "bytes": 6433,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/attempt-6d3e15998de948b6be0a881f3e3930fa/report.json": {
+      "bytes": 2011,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/protocol.json": {
+      "bytes": 1075,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/report.json": {
+      "bytes": 12361,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/queries.parquet": {
+      "bytes": 2016,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/labels.parquet": {
+      "bytes": 1415,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/run.json": {
+      "bytes": 2503,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/target_first_sightings.profile.json": {
+      "bytes": 19386,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/eligibility_2019-10-18.profile.json": {
+      "bytes": 13984,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/export_labels.profile.json": {
+      "bytes": 7053,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/sample_2019-10-18.profile.json": {
+      "bytes": 17193,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/export_queries.profile.json": {
+      "bytes": 7625,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/purchase_labels.profile.json": {
+      "bytes": 20213,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/temp/target_pair_history.profile.json": {
+      "bytes": 19702,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/selections/8ff536b795c8859a865c36b997d10369752ea28e795a64a109b40868027c189b.json": {
+      "bytes": 236,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/report.json": {
+      "bytes": 14185,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/features.parquet": {
+      "bytes": 7435,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/run.json": {
+      "bytes": 6142,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/user_first_seen_2019-10-18.profile.json": {
+      "bytes": 11406,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/user_category_2019-10-18.profile.json": {
+      "bytes": 19884,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/category_2019-10-18.profile.json": {
+      "bytes": 21934,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/export_features.profile.json": {
+      "bytes": 14816,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/item_2019-10-18.profile.json": {
+      "bytes": 17282,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/metadata_2019-10-18.profile.json": {
+      "bytes": 34559,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/join_features_2019-10-18.profile.json": {
+      "bytes": 62041,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/load_fixed_candidates.profile.json": {
+      "bytes": 5650,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/load_selected_queries.profile.json": {
+      "bytes": 3043,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/user_2019-10-18.profile.json": {
+      "bytes": 17362,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/pair_2019-10-18.profile.json": {
+      "bytes": 20994,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/temp/item_category_2019-10-18.profile.json": {
+      "bytes": 14474,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/report.json": {
+      "bytes": 18149,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/candidates.parquet": {
+      "bytes": 1550,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/run.json": {
+      "bytes": 3846,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/query_coverage.parquet": {
+      "bytes": 3073,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/candidate_catalog_verification.profile.json": {
+      "bytes": 19308,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/popular_counts_2019-10-18.profile.json": {
+      "bytes": 8310,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/union_2019-10-18.profile.json": {
+      "bytes": 29535,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/export_query_coverage.profile.json": {
+      "bytes": 9445,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/export_candidates.profile.json": {
+      "bytes": 7398,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/coverage_after_generation.profile.json": {
+      "bytes": 14666,
+      "mode": "0644"
+    },
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/temp/recent_2019-10-18.profile.json": {
+      "bytes": 30956,
+      "mode": "0644"
+    },
+    "artifacts/development/train/attempt-8d0f70f4e37b480e99d8b596e880ba33/report.json": {
+      "bytes": 1994,
+      "mode": "0644"
+    },
+    "artifacts/development/train/attempt-c82ae1ac3b674a448538c26765f84e59/report.json": {
+      "bytes": 6405,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/state.json": {
+      "bytes": 6688,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/plan.json": {
+      "bytes": 4298,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/protocol.json": {
+      "bytes": 1075,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/report.json": {
+      "bytes": 12102,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/queries.parquet": {
+      "bytes": 1983,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/labels.parquet": {
+      "bytes": 1341,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/run.json": {
+      "bytes": 2491,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/target_first_sightings.profile.json": {
+      "bytes": 21239,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/sample_2019-10-08.profile.json": {
+      "bytes": 17210,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/export_labels.profile.json": {
+      "bytes": 7056,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/export_queries.profile.json": {
+      "bytes": 7653,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/purchase_labels.profile.json": {
+      "bytes": 20250,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/eligibility_2019-10-08.profile.json": {
+      "bytes": 13933,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/temp/target_pair_history.profile.json": {
+      "bytes": 19335,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/report.json": {
+      "bytes": 14170,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/features.parquet": {
+      "bytes": 7506,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/run.json": {
+      "bytes": 6094,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/selections/8f3eb2e12f9e54dfb5cbad2e5f4c1f86e7f443292a9ec6374c7ff3d5a2f41eb6.json": {
+      "bytes": 236,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/item_category_2019-10-08.profile.json": {
+      "bytes": 14383,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/pair_2019-10-08.profile.json": {
+      "bytes": 20993,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/user_2019-10-08.profile.json": {
+      "bytes": 17317,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/export_features.profile.json": {
+      "bytes": 14778,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/join_features_2019-10-08.profile.json": {
+      "bytes": 62072,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/item_2019-10-08.profile.json": {
+      "bytes": 17199,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/load_fixed_candidates.profile.json": {
+      "bytes": 5581,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/metadata_2019-10-08.profile.json": {
+      "bytes": 34800,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/load_selected_queries.profile.json": {
+      "bytes": 3027,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/user_category_2019-10-08.profile.json": {
+      "bytes": 19874,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/user_first_seen_2019-10-08.profile.json": {
+      "bytes": 13243,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/temp/category_2019-10-08.profile.json": {
+      "bytes": 21875,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/report.json": {
+      "bytes": 18153,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/candidates.parquet": {
+      "bytes": 1630,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/run.json": {
+      "bytes": 3818,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/query_coverage.parquet": {
+      "bytes": 3011,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/candidate_catalog_verification.profile.json": {
+      "bytes": 19399,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/recent_2019-10-08.profile.json": {
+      "bytes": 30892,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/export_query_coverage.profile.json": {
+      "bytes": 9479,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/export_candidates.profile.json": {
+      "bytes": 7378,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/union_2019-10-08.profile.json": {
+      "bytes": 29588,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/coverage_after_generation.profile.json": {
+      "bytes": 14595,
+      "mode": "0644"
+    },
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/temp/popular_counts_2019-10-08.profile.json": {
+      "bytes": 8364,
+      "mode": "0644"
+    }
+  },
+  "source21": [
+    {
+      "relative_path": "configs/development/selection.json",
+      "canonical": {
+        "sha256": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36",
+        "bytes": 643,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "f448a9569235cdaaefa4233b41ecac4310364c805b9361019fd1791ec33a2b36",
+        "bytes": 643,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "configs/development/train.json",
+      "canonical": {
+        "sha256": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8",
+        "bytes": 637,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "c19e5aed176e151cd166af373a1de6efa7d8f3a08938b3a34a7aa2484f808ae8",
+        "bytes": 637,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "configs/features/manual-18.json",
+      "canonical": {
+        "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+        "bytes": 3631,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "44587dd2106ab9bbfc9ec1faa0c496703969ca401894eea73f84a93700b41d9c",
+        "bytes": 3631,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "configs/protocols/clock-48h.json",
+      "canonical": {
+        "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+        "bytes": 1403,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+        "bytes": 1403,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "pyproject.toml",
+      "canonical": {
+        "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+        "bytes": 367,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+        "bytes": 367,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/adaptive_tree_selection.py",
+      "canonical": {
+        "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+        "bytes": 18580,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6",
+        "bytes": 18580,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/anchor_pilot.py",
+      "canonical": {
+        "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+        "bytes": 20747,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+        "bytes": 20747,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/candidate_pilot.py",
+      "canonical": {
+        "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+        "bytes": 19102,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+        "bytes": 19102,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/development_collection.py",
+      "canonical": {
+        "sha256": "0aaf7a53236863540a86a77730215d1c5e106bf29f9440402a8527a03e717736",
+        "bytes": 36058,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "0aaf7a53236863540a86a77730215d1c5e106bf29f9440402a8527a03e717736",
+        "bytes": 36058,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/development_training.py",
+      "canonical": {
+        "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+        "bytes": 5590,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9",
+        "bytes": 5590,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/heuristic_baselines.py",
+      "canonical": {
+        "sha256": "b13cc9056bf856b3aa3eb04db9de96e871cbdcbc41ab236bb80ab9c20a06c191",
+        "bytes": 23423,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "b13cc9056bf856b3aa3eb04db9de96e871cbdcbc41ab236bb80ab9c20a06c191",
+        "bytes": 23423,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/manual_features.py",
+      "canonical": {
+        "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+        "bytes": 26364,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+        "bytes": 26364,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/metadata_price_collection.py",
+      "canonical": {
+        "sha256": "59565643f58a3b34bb716c6cc071d7e1802d79aaf0b707e1537459b0a5377afa",
+        "bytes": 37105,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "59565643f58a3b34bb716c6cc071d7e1802d79aaf0b707e1537459b0a5377afa",
+        "bytes": 37105,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/metadata_price_features.py",
+      "canonical": {
+        "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+        "bytes": 36920,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+        "bytes": 36920,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/protocol_manifest.py",
+      "canonical": {
+        "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+        "bytes": 11864,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+        "bytes": 11864,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/ranking_metrics.py",
+      "canonical": {
+        "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+        "bytes": 9971,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+        "bytes": 9971,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/temporal_contract.py",
+      "canonical": {
+        "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+        "bytes": 6184,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+        "bytes": 6184,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/train_baselines.py",
+      "canonical": {
+        "sha256": "b25dc30cc7265dddb3cbf910edff12cc4bcf220161c86c59a7d3fa33cf129bed",
+        "bytes": 35812,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "b25dc30cc7265dddb3cbf910edff12cc4bcf220161c86c59a7d3fa33cf129bed",
+        "bytes": 35812,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/train_development.py",
+      "canonical": {
+        "sha256": "16248901e80d9f13d58c08261d1b108844452f6c459311d657790a511d9db968",
+        "bytes": 12908,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "16248901e80d9f13d58c08261d1b108844452f6c459311d657790a511d9db968",
+        "bytes": 12908,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "scripts/verify_development.py",
+      "canonical": {
+        "sha256": "60519794c8c5b8bc7ac04f960e554f13ab3e125043c2a0e46d53f67ea0810ee0",
+        "bytes": 39362,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "60519794c8c5b8bc7ac04f960e554f13ab3e125043c2a0e46d53f67ea0810ee0",
+        "bytes": 39362,
+        "mode": "0600"
+      }
+    },
+    {
+      "relative_path": "uv.lock",
+      "canonical": {
+        "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+        "bytes": 300283,
+        "mode": "0644"
+      },
+      "clone": {
+        "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+        "bytes": 300283,
+        "mode": "0600"
+      }
+    }
+  ],
+  "root_closure": {
+    "status": "ROOT_CLOSED_SPENT_RESOURCE_POLICY_RECONCILED",
+    "inputs": [
+      {
+        "path": "/tmp/tlab-root-native-V2-allowance-CLOSED-SPENT-v1.json",
+        "sha256": "ecd14715ca6a6a62223ebef7a789d00297d3414d10f57606e17f13c25047b85d",
+        "bytes": 1622,
+        "mode": "0644",
+        "read_extent": "Full Root closure or resource/policy/inventory metadata; no matrix/model body read"
+      },
+      {
+        "path": "/tmp/tlab-root-native-V2-actual-audit-proof-v1.json",
+        "sha256": "ce9a118f2a40f5c2945983bbadbe84c809c2e15f08085da2981c29cf6c70743c",
+        "bytes": 14438,
+        "mode": "0644",
+        "read_extent": "Full Root closure or resource/policy/inventory metadata; no matrix/model body read"
+      }
+    ],
+    "checks": [
+      "hash:/tmp/tlab-root-native-V2-allowance-CLOSED-SPENT-v1.json",
+      "hash:/tmp/tlab-root-native-V2-actual-audit-proof-v1.json",
+      "CLOSED_SPENT",
+      "no_remaining_attempt",
+      "same_human_question",
+      "same_receipt_issue_terminal",
+      "grant_gate_terminal_close_time",
+      "Rootproof_binds_close",
+      "Rootproof_resources_match",
+      "prefix_not_exactfinal",
+      "Rootproof_scope_kept",
+      "Root13_inventory_same_owner_metadata",
+      "root_raw120_qualification",
+      "root_no_heap_decode_upgrade"
+    ],
+    "closure_status": "CLOSED_SPENT_SINGLE_ATTEMPT_NO_RETRY",
+    "remaining_attempts": 0,
+    "unused_seconds_reusable": false,
+    "Root_proof_SHA256": "ce9a118f2a40f5c2945983bbadbe84c809c2e15f08085da2981c29cf6c70743c",
+    "observed_UTC": "2026-10-17T06:49:53.938550+00:00"
+  },
+  "opaque_bodies_not_read": [
+    "manual-oracle.json",
+    "prepared-and-pool.json",
+    "independent-prefixes.json",
+    "cli/full.cbm",
+    "cli/selected.cbm",
+    "cli/validation-scores.npz",
+    "DB/Parquet/other project data/arrays",
+    "installed backend/venv bodies"
+  ],
+  "limitations": [
+    "No native reexecution/imports/tests/SQL/model/array/data/backend body reads or project/Git/network mutation.",
+    "Models, matrices, raw arrays and oracle body remain opaque; body hashes taken from authenticated owner/Root metadata.",
+    "The ps probe was denied; historic child reap and outer live-session closure are Root/source-authenticated evidence.",
+    "Owner CPU/wall values are prefixes; outer Root 9.754 seconds is a conservative observation bracket.",
+    "Static V2 fault-contract review is not fault injection, callback-abort or timeout testing."
+  ],
+  "ps_probe": "One bounded ps denied by sandbox PermissionError before ps start; no retry/escalation. Reap/session closure attributed to Root receipts.",
+  "reviewer_check_correction": "First rootgate equality omitted descriptor path fields in own normalized records; corrected comparison selects sha/bytes/mode explicitly. Full rerun passed; no source/runtime mutation.",
+  "no_current_peer_outputs_read": true,
+  "no_reexecution_or_new_grant": true,
+  "freshness": {
+    "observed_UTC": "2026-10-17T06:51:15.165032+00:00",
+    "input_descriptors_rehashed": 83,
+    "unique_resolved_inputs": 81,
+    "mismatches": 0,
+    "runtime13_stat_inventory_unchanged": true,
+    "project120_stat_inventory_unchanged": true,
+    "opaque_bodies_rehashed_by_reviewer": false
+  }
+}
