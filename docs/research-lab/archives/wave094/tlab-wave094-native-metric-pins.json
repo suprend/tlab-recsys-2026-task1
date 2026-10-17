@@ -1,0 +1,55 @@
+{
+  "schema":"wave094-native-metric-source-pins-v1",
+  "author":"A native metric route",
+  "mode":"SOURCE_ONLY",
+  "first_observed_utc":"2026-10-17 06:48:04 UTC",
+  "later_observed_utc":"2026-10-17 06:49:58 UTC",
+  "original_due_utc":"2026-10-17 06:45:00 UTC",
+  "next_due_utc":"2026-10-17 07:30:00 UTC",
+  "current094_peers_read_or_contacted":false,
+  "helpers":0,
+  "experiments":"UNRUN",
+  "budget_adequacy":"UNKNOWN",
+  "native_authority":"Parent announced a separate newly granted native execution; no details, consumption or result inferred. This author authorized source-only and consumed none.",
+  "local_root":"/Users/mdpospelov/tlab-recsys-2026",
+  "local_pins":[
+    {"path":"/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md","sha256":"452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34","extent":"full; research-campaign/ITERATIVE retained from prior093 reading"},
+    {"path":"docs/backlog.md","sha256":"84d430b5a9359b9d1851d460a9cd50c06231ed13955ccd2a3e5e0958166dc386","extent":"lines1-45 only; dated06:11:53 before parent's newer native-grant announcement"},
+    {"path":"docs/research-lab/brainstorm-wave093-synthesis.md","sha256":"9c1b0f2a0b425537373a4e9050588bcbc1e8f00da6e64bade57e3b6fb35ae0ed","extent":"full"},
+    {"path":"docs/research-lab/archives/wave093/tlab-wave093-skeptic-pins.json","sha256":"b64acb6183b1caa6349999bf7b916aea5ec9858674d95867e281ab774cb3e9a7","extent":"targeted select_features/custom/descriptor matches and lines1-80; no full read"},
+    {"path":"docs/experiments/feature-program-selection.md","sha256":"1f7ac673560f4191152b1647210fd09e40997e00099a97e1624dec69418ab843","extent":"lines1-18; full body returned"},
+    {"path":"scripts/ranking_metrics.py","sha256":"90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9","extent":"lines113-195; earlier093 source read retained"}
+  ],
+  "local_search_extent":"Targeted select_features/CustomMetricDescriptor/custom metric/recursive/selection in wave093 archives only, not094. Matches observed own093B,093A,093skeptic and root adoption. Missing brainstorm-wave093-synthesis.json reported, not read. No raw data/model/artifact payload reads.",
+  "version_scope":"All successful remote source paths explicitly tag v1.2.10. Commit SHA and web-body SHA256 UNKNOWN; these are source observations at tagged URLs, not proof of installed binary identity. No downloads or dependency imports.",
+  "sources":[
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/python-package/catboost/_catboost.pyx","extent":"find/open excerpts1210-1221,1430-1575,1712-1955,5479-5569; relevant exact1458-1486,1747-1759,1833-1889,5520-5542","literal_pins":["params_to_json[k] = \"PythonUserDefinedPerObject\"","prep_params.customMetricDescriptor","metricObject.evaluate(approxes, targets, weights)"],"supports":"descriptor build/forward and Python metric argument interface"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/libs/features_selection/select_features.cpp","extent":"open returned350lines; relevant200-298,310-347 and fstr pool221-228","literal_pins":["TMaybe<TCustomMetricDescriptor>& evalMetricDescriptor","TDataProviderPtr srcPool = pools.Test.empty() ? pools.Learn : pools.Test[0]","GetSubsetForFstrCalc(srcPool, executor)","DoRecursiveFeaturesElimination"],"supports":"descriptor passed to RFE, test-or-learn source and fstr subset"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/libs/features_selection/recursive_features_elimination.cpp","extent":"initial0-307; subsequent overlapping excerpts244-811; final open750 unexpectedly returned161-810. Decisive128-184,244-430,433-570,641-808 observed; no claim all811lines continuously read","literal_pins":["const TLossDescription lossDescription = catBoostOptions.MetricOptions->ObjectiveMetric.Get()","CreateMetricFromDescription(lossDescription, approxDimension)[0]","double result = calcLoss(approx, model) - selectSet->CurrentLossValue","/*objectiveDescriptor*/ Nothing()","if (featuresSelectOptions.TrainFinalModel.Get() ||"],"supports":"training descriptor separate from objective elimination/curve; SHAP perturbation, graph adaptation, fit count and forced PVC final fit"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/private/libs/options/catboost_options.cpp","extent":"initial open0-564; find ObjectiveMetric excerpt582-1106; relied789-887 and1093-1106","literal_pins":["MetricOptions->ObjectiveMetric.Set(LossFunctionDescription.Get())","LossFunctionDescription(\"loss_function\", TLossDescription())"],"supports":"Logloss ObjectiveMetric binding; exceptional ranking objectives have own native mappings"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/private/libs/options/metric_options.cpp","extent":"full97lines via find excerpt","literal_pins":["EvalMetric(\"eval_metric\", TLossDescription())","ObjectiveMetric(\"objective_metric\", TLossDescription())"],"supports":"separate options"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/private/libs/options/plain_options_helper.cpp","extent":"open metadata984lines then find excerpts106-325,421-610; relied226-260","literal_pins":["trainOptions[\"metrics\"][\"eval_metric\"]","auto& lossFunctionRef = trainOptions[\"loss_function\"]"],"supports":"public loss/eval mappings separate"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/libs/fstr/loss_change_fstr.cpp","extent":"overlapping find/open0-343 observed; relied79-140,151-179,208-278,292-324","literal_pins":["TryGetObjectiveMetric(model, metricDescription)","CreateMetricFromDescription(*metricDescription, model.ModelTrees->GetDimensionsCount())[0]","LossFunctionChange support only additive metric","return Min(objectCount, Max(i64(2e5), i64(2e9 / featureCount)))"],"supports":"LossFunctionChange model-objective criterion and fstr subset limits"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/libs/fstr/util.cpp","extent":"open metadata152lines; find excerpt0-151 full body observed","literal_pins":["params[\"metrics\"].Has(\"objective_metric\")","return TryGetLossDescription(model, lossDescription)"],"supports":"TryGetObjectiveMetric reads model objective metric, falls back loss, not eval metric"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/libs/fstr/calc_fstr.cpp","extent":"open metadata609lines; find excerpts98-325,377-579; relied156-178,280-290","literal_pins":["return CalcFeatureEffectLossChange(model, dataset, localExecutor, calcType)"],"supports":"LossFunctionChange dispatch; PVC alternate prediction-effect route"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/python-package/catboost/core.py","extent":"open4350 returned4265-4525; relied4321-4390; earlier0934224-4400 retained","literal_pins":["Custom objective is not supported for features selection","Multiple eval sets are not supported for features selection"],"supports":"custom objective rejection, tags/config boundary, eval object forwarding"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/libs/model/model.cpp","extent":"open metadata1912lines; find TryGetObjectiveMetric no match; no technical content relied","supports":"none"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/libs/model/model.h","extent":"open metadata1305lines; find TryGetObjectiveMetric no match; no technical content relied","supports":"none"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/private/libs/options/defaults_helper.cpp","extent":"open metadata44lines; find InitializeEvalMetricIfNotSet no match; no technical content relied","supports":"none"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/private/libs/options/features_select_options.cpp","extent":"full89lines; relied4-14,73-87","literal_pins":["TrainFinalModel(\"train_final_model\", false)","Algorithm(\"features_selection_algorithm\", NCB::EFeaturesSelectionAlgorithm::RecursiveByShapValues)"],"supports":"SHAP false final model no extra fit; step reduction does not change proposed2-to1 one-step test"},
+    {"url":"https://raw.githubusercontent.com/catboost/catboost/v1.2.10/catboost/private/libs/options/features_select_options.h","extent":"full36lines","supports":"option declarations cross-check only"}
+  ],
+  "failures":[
+    "brainstorm-wave093-synthesis.json absent; rg error disclosed; synthesis.md used",
+    "_catboost.pyx find 'def _select_features' no match because actual declaration cpdef; later exact cpdef route found",
+    "metric_options.h,loss_change_fstr.h,model/model_utils.cpp,fstr/util.h returned Internal Error; no inference from failed bodies",
+    "official GitHub scoped search for TryGetObjectiveMetric empty; exact function subsequently found in successful fstr/util.cpp",
+    "web open line offsets sometimes expanded dramatically; extents above describe observed output, not requested offsets alone"
+  ],
+  "limits":[
+    "All conclusions are static source observations/inference. No installed binary equivalence, actual callback order/number, model behavior or speed measured.",
+    "FullY custom-monitor sidecar mapping remains unimplemented/unverified; no claim that candidate-only arrays identify fullQ/emptyC/offC targets.",
+    "Future native proposal specifies16 eval feature cells and row identities; actual transport/mapping still requires authentication. Current note does not make it execution-ready or request a gate/grant.",
+    "No code execution/import/fit/data/model/SQL/download/install/Git/project/network writes or helpers; only the three authorized/tmp outputs written."
+  ]
+}

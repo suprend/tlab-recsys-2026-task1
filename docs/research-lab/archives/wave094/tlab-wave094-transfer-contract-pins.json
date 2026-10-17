@@ -1,0 +1,37 @@
+{
+  "wave":"094",
+  "author":"C-transfer-contract-blind",
+  "mode":"SOURCE_ONLY",
+  "first_observed_tool_clock":"2026-10-17 06:48:22 UTC",
+  "later_observed_clock":"2026-10-17 06:49:06 UTC",
+  "timing":{"original_due_utc":"2026-10-17T06:45:00Z","next_due_utc":"2026-10-17T07:30:00Z","grid_reset":false,"exact_start":"UNKNOWN"},
+  "independence":{"094_peer_reads":0,"helpers":0,"prior093_read":true,"claim_limit":"author declaration only"},
+  "local_pins":[
+    {"path":"/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md","sha256":"452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34","actual_read_extent":"all19lines this task","literal":"Separate observed facts, inference and unresolved questions."},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md","sha256":"84d430b5a9359b9d1851d460a9cd50c06231ed13955ccd2a3e5e0958166dc386","actual_read_extent":"sed1-38 this task; hash observed later, no atomic snapshot claimed","literal":"Для C до реализации нужно явно задать три per-request вердикта arm A и annotations arm B."},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave093-synthesis.md","sha256":"9c1b0f2a0b425537373a4e9050588bcbc1e8f00da6e64bade57e3b6fb35ae0ed","actual_read_extent":"all11lines this task","literal":"Binder не реализован и не проверен; пилот или purchase fullY не предлагаются."},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py","sha256":"afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7","actual_read_extent":"rg class/def/bind/capabil/unit/support/weight/distinct/window/schema/missing/count/actor matches; sed1-140 of195lines","literal":"All declared actions must be observed capabilities, not invented zeros"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-052.md","sha256":"f48d4868109ae81034fcd38d380b00e44a6cc0958ede9cd6bf50e0c0b75d6ba5","actual_read_extent":"all58lines this task plus targeted binder/capability search","literal":"capability decision по каждой requested AST"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-013.md","sha256":"8974e352c842d1f320d99618d47939c08805b58034adbee4eacb341cdcf81f6d","actual_read_extent":"sed1-44 this task plus targeted binder/capability search","literal":"RATIO требует одинакового event/window/availability и numerator⊆denominator **в одной measure space**."},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/transfer-adapter-conformance.md","sha256":"e4acafde25405e6aee63ec1357916f7071a4ae6adee74736bd5e3ae214bbcdea","actual_read_extent":"targeted binder/capabilit/weighted/interval/censor/empty/known0/unsupported matches this task; full71lines previously read in093","literal":"Unsupported capability отличается от known empty, conditional unknown и partial coverage."},
+    {"path":"/tmp/tlab-wave093-transfer-semantics-FIRST.md","sha256":"0c0b8bed8b428c84263a3fc22575fd7948c4a22849cd788ae38454e33535b7db","actual_read_extent":"all17lines this task","literal":"Missing edge means suppressed/absent/out-of-domain unknown"}
+  ],
+  "inherited_applicable_instruction_pins":[
+    {"path":"/Users/mdpospelov/personal-agent-system/AGENTS.md","sha256_at093":"25076d696b7550f423f0a19a151585ef12a2ac2444eee6677b1e00c95b7fa8b1","actual_read_extent":"all101lines in093; instructions retained in context"},
+    {"path":"/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md","sha256_at093":"97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2","actual_read_extent":"all88lines in093; not reread"},
+    {"path":"/Users/mdpospelov/personal-agent-system/.agents/skills/research/ITERATIVE.md","sha256_at093":"9cb7d4969fea1c621ccb9995b008579807335b9aab511ca9d5b30b2ce233c5fb","actual_read_extent":"all33lines in093; not reread"}
+  ],
+  "primary_sources":[
+    {"url":"https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream","tool_ref":"turn2246view0","actual_read_extent":"all295 rendered lines returned; decision-bearing147,160-187,262-274","version_observed":"footeroldid31171776; lastedited15October2026 19:18","literal":"any `(referrer, resource)` pair with 10 or fewer observations was removed from the dataset.","limits":"oldid body not fetched; actual release transformations and payload remain unverified; documentation logical schema only"},
+    {"url":"https://dumps.wikimedia.org/other/clickstream/readme.html","tool_ref":"turn2246view1","actual_read_extent":"all13renderedlines; decision-bearing2,5,12","literal":"The data is a monthly-generated clickstream","license_link":"https://creativecommons.org/publicdomain/zero/1.0/","limits":"family-levelCC0; no exact payload-binding verification"}
+  ],
+  "source_failures_this_task":[],
+  "prior093_failures_not_retried":[
+    {"url":"https://dumps.wikimedia.org/other/clickstream/2019-10/","prior_result":"two Cache miss reads","current_action":"none; payload remainsUNKNOWN"},
+    {"url":"https://meta.wikimedia.org/w/index.php?title=Research:Wikipedia_clickstream&oldid=31171776","prior_result":"not accessible/Cache miss","current_action":"none; accessible current footer version only"},
+    {"url":"https://wikitech.wikimedia.org/wiki/Analytics/Data_Lake/Traffic/Clickstream","prior_result":"not accessible","current_action":"none; not relied on"}
+  ],
+  "expected_cells":{"arms":2,"requests":5,"verdict_cells":10,"hand_arithmetic_paths":2,"A":["REJECT_INCOMPATIBLE_CONTRACT","REJECT_INCOMPATIBLE_CONTRACT","REJECT_INCOMPATIBLE_CONTRACT","REJECT_INCOMPATIBLE_CONTRACT","REJECT_INCOMPATIBLE_CONTRACT"],"B_if_obligations_satisfied":["ACCEPT_PUBLISHED_SUM_11","REJECT_EVENT_CLOCK","REJECT_ACTOR_KEY","REJECT_CENSORED_RAW_MEASURE","ACCEPT_PUBLISHED_SUM_0"],"B_if_accept_dependencies_unknown":"NOT_READY for R1 and R5","implementation_claim":"none; A statically inferred; B proposed only"},
+  "status":{"proposed_checks":"UNRUN","cost":"UNKNOWN","adequacy":"UNKNOWN","legalreleaseclosure":"UNKNOWN","new_ids":0,"proposed_admissions":0},
+  "scope":{"writes":"only three own/tmp files","code_changes":0,"data_downloads":0,"sql":0,"imports":0,"native":0,"fits":0,"tests":0,"science_execution":0,"git":0,"network_writes":0,"extra_budget":0,"optional_transfer_is_gate":false}
+}
