@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "wave": "087",
+  "author": "B automation blind",
+  "freeze_clock_sample_utc": "2026-10-17 01:36:42 UTC",
+  "freeze_status": "FIRST_FROZEN_BEFORE_PEER087_OR_SKEPTIC_READ",
+  "artifacts": [
+    {
+      "path": "/tmp/tlab-wave087-automation-FIRST.md",
+      "sha256": "c60eea8289363c58c98e1317aae8e0c4cc665d4763d5d3d527aec363132feba3",
+      "words_wc": 623
+    },
+    {
+      "path": "/tmp/tlab-wave087-automation-pins.json",
+      "sha256": "1e0eb41229ba9ab7e2b2c169a96e34a796efd472d61a3291c24f4b832aa098c7"
+    }
+  ],
+  "readback": {
+    "first": "Full cat readback completed before freeze; exact final SHA256 verified after readback.",
+    "pins": "Full cat and exact SHA256 readback scheduled immediately after writing this freeze; no contents will change afterward."
+  },
+  "independence": {
+    "peer087A_C_read": false,
+    "peer087A_C_discussed": false,
+    "brainstorm_helpers_spawned": 0
+  },
+  "executed_subject_work": {
+    "imports": 0,
+    "SQL": 0,
+    "tests": 0,
+    "experiments": 0,
+    "models": 0,
+    "raw_or_DB_access": 0,
+    "approvals": 0,
+    "canonical_mutations": 0,
+    "Git_mutations": 0
+  },
+  "disposition": {
+    "NEW": 0,
+    "REFINE": 1,
+    "MERGE": 0,
+    "ADMIT": 0,
+    "new_mandatory_IDs": 0
+  },
+  "future_experiment": {
+    "status": "UNRUN",
+    "cost": "UNKNOWN",
+    "authority": "NOT_GRANTED"
+  },
+  "next_original_due_utc": "2026-10-17T02:15:00Z",
+  "stop": "STOP after metadata readback and delivery to Root; no peer inspection or further subject work."
+}

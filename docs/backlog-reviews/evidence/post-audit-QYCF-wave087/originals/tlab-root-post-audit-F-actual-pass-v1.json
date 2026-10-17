@@ -1,0 +1,472 @@
+{
+  "version": 1,
+  "UTC": "2026-10-17T01:33:16.922986+00:00",
+  "status": "ROOT_F_ACTUAL_PASS_PENDING_INDEPENDENT_PHYSICAL_SEMANTIC_COLLECTION_REVIEW",
+  "direct_owner_tool_initial_chunk": "8a1ff7",
+  "direct_owner_session": 74878,
+  "direct_owner_final_chunk": "18ae8b",
+  "direct_owner_exit": 0,
+  "direct_owner_session_closed": true,
+  "whole_dispatch_to_known_terminal_upper_seconds": 5.022,
+  "child_exit": 0,
+  "child_reaped": true,
+  "CPU_prefix_seconds": 1.06011,
+  "exact_final_whole_CPU_not_claimed": true,
+  "input_file_count": 84,
+  "actual_project_file_count": 118,
+  "all_actual_SHA_bytes_modes_verified": true,
+  "immutable82_preserved": true,
+  "mutable_state_paths": [
+    "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/state.json",
+    "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/state.json"
+  ],
+  "actual_calls": {
+    "scripts.development_collection._check_cached": 10,
+    "scripts.development_collection._verify_candidate_lineage": 4,
+    "scripts.development_collection._verify_feature_lineage": 4,
+    "scripts.development_collection._verify_run": 12,
+    "scripts.development_collection.aggregate_collection": 2,
+    "scripts.development_collection.prepare_execution_plan": 4,
+    "scripts.development_collection.run_phase": 2,
+    "scripts.development_collection.verify_producer_approval": 4,
+    "scripts.heuristic_baselines.verify_accepted_inputs": 6,
+    "scripts.manual_features.create_manual_features": 2,
+    "scripts.manual_features.run": 2
+  },
+  "roles": {
+    "selection": {
+      "collection": {
+        "artifact_refs": {
+          "candidates": [
+            "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/candidates.parquet"
+          ],
+          "features": [
+            "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/features.parquet"
+          ],
+          "labels": [
+            "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/labels.parquet"
+          ],
+          "queries": [
+            "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/queries.parquet"
+          ]
+        },
+        "counts": {
+          "candidates": 3,
+          "features": 3,
+          "labels": 3,
+          "queries": 3
+        },
+        "daily_anchors": [
+          "2019-10-18T00:00:00Z"
+        ],
+        "feature_columns": [
+          "query_id",
+          "product_id",
+          "from_popular",
+          "from_recent",
+          "popularity_distinct_users",
+          "popular_source_rank",
+          "recent_source_rank",
+          "last_user_event_time",
+          "user_id",
+          "anchor",
+          "candidate_category_id",
+          "candidate_category_ambiguous",
+          "candidate_category_missing",
+          "item_has_observed_history",
+          "user_has_observed_history",
+          "item_observed_age_seconds",
+          "user_observed_age_seconds",
+          "user_view_7d",
+          "user_cart_7d",
+          "user_purchase_7d",
+          "user_distinct_viewed_items_7d",
+          "pair_view_7d",
+          "pair_cart_7d",
+          "pair_purchase_7d",
+          "pair_view_recency_seconds",
+          "pair_purchase_recency_seconds",
+          "item_view_24h",
+          "item_purchase_24h",
+          "item_distinct_viewers_7d",
+          "user_category_view_7d",
+          "user_category_view_recency_seconds",
+          "item_category_view_7d",
+          "category_view_7d",
+          "source_coverage_24h",
+          "source_coverage_168h",
+          "user_category_view_share_7d",
+          "item_category_view_share_7d",
+          "pair_view_recency_seconds_missing",
+          "pair_purchase_recency_seconds_missing",
+          "user_category_view_7d_missing",
+          "user_category_view_share_7d_missing",
+          "user_category_view_recency_seconds_missing",
+          "item_category_view_7d_missing",
+          "category_view_7d_missing",
+          "item_category_view_share_7d_missing"
+        ],
+        "scope": "mechanical_integrity_only_pending_independent_semantic_acceptance"
+      },
+      "collection_id": "352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b",
+      "state": {
+        "attempts": [
+          "artifacts/development/selection/attempt-6d3e15998de948b6be0a881f3e3930fa/report.json",
+          "artifacts/development/selection/attempt-76b8f6ca5e104a1090bbd652f58392aa/report.json"
+        ],
+        "collection_id": "352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b",
+        "compute_seconds": 0.24493850002181716,
+        "producer_approval_sha256": "1343a39d32cef8348756cdd356b5ef1f01f1599a864124b6b286a17d93650b49",
+        "shards": [
+          {
+            "acceptance": {
+              "path": "approvals/shards/selection/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a.json",
+              "sha256": "c0673a4e2ee21065a54e14c117e4c76fcb138ae0ac4ae3b2f38766af9a2684ee"
+            },
+            "anchor": {
+              "directory": "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8",
+              "fingerprints": {
+                "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/labels.parquet": "268dbbc81c95dd1fb7507993518135198ab620c241e4996386367c2e27df0e14",
+                "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/queries.parquet": "3320705779d8148e34011563351b980ad157d3975a8edbc9e1a668b3292b5b27",
+                "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/report.json": "e5ab5e8d21a8a50a60f5395651477c4e4328c0266d32f9db7e7e3c18618e0d4c",
+                "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af/64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8/run.json": "53ff6dd60a5be0f2ac36c470a30ac85bca386927bd52367e092db143af3d5f2b"
+              },
+              "run_id": "64811657c60873fc0c4a2a4a04805218341da5bd357a0314bcdd8beda83336e8"
+            },
+            "candidate": {
+              "directory": "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a",
+              "fingerprints": {
+                "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/candidates.parquet": "3c8140046848a8f0388503fa06260cd0382833896354b81a40c83794e1f27079",
+                "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/query_coverage.parquet": "694aaf80c971ef1364306a5f0b4f826319638ce830e1174302c9e02efe9db308",
+                "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/report.json": "af19c0f215cad63075daf90af349d413e0ca60aff44ae838698db878b2147e9b",
+                "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b/a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a/run.json": "c5421c8d6e5c4b0b4dd8e8f3d94ec74a92802ffebbe2d8d6ff80c2ece054c45c"
+              },
+              "run_id": "a2bde8f4fbdf2cc235207049437741ffb43271aa221145d79568af9086644e3a"
+            },
+            "features": {
+              "directory": "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6",
+              "fingerprints": {
+                "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/features.parquet": "7b568c0743a9efad2b611aa9b412ad79b4d5b08ad38c0f63dd75214c55a33979",
+                "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/report.json": "e4727f1286608c13aca86cb00d5653c5da89314c33d4f57bdab9400c56611730",
+                "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe/3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6/run.json": "97564164e12f5060c705e9ad7fbcd26ecb0fed8bccc942aa13f44c49e4debfbe"
+              },
+              "run_id": "3296e0e9eda2fff1aaa4d100abb4fde438f8c116f40cb83b75aee16e929fa4d6"
+            },
+            "index": 0,
+            "producer_attempts": [
+              {
+                "kind": "anchor",
+                "output_root": "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/anchor/invocation-167bcc5ede294778907b81bc9631d9af"
+              },
+              {
+                "kind": "candidate",
+                "output_root": "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/candidate/invocation-5b9041ccfd664cfcb127eecbc330898b"
+              },
+              {
+                "kind": "features",
+                "output_root": "artifacts/development/selection/352d66f8d43e27b54c6e3d39c14d68f2ad5589d0f952962175a371651b8c677b/shards/0/features/invocation-6bcd11cc91e64fd7844adb0a093ad9fe"
+              }
+            ],
+            "protocol": {
+              "budget": {
+                "max_anchors": 3,
+                "max_candidate_pairs": 12
+              },
+              "candidates": {
+                "catalog": "products_seen_strictly_before_query",
+                "deduplicate": "product_id",
+                "max_unique": 4,
+                "popular_event_type": "purchase",
+                "popular_limit": 2,
+                "popular_unit": "distinct_users",
+                "popular_window_hours": 168,
+                "recent_event_types": [
+                  "view",
+                  "cart",
+                  "purchase"
+                ],
+                "recent_limit": 2,
+                "recent_window_hours": 168
+              },
+              "history": {
+                "duplicates": "raw",
+                "metadata": "last_strict_past_ambiguity_preserved",
+                "ties": "global_read_before_update"
+              },
+              "pilot": {
+                "end": "2019-10-19T00:00:00Z",
+                "start": "2019-10-18T00:00:00Z"
+              },
+              "query": {
+                "eligibility_event_types": [
+                  "view",
+                  "cart",
+                  "purchase"
+                ],
+                "eligibility_hours": 48,
+                "hour_utc": 0,
+                "kind": "daily_clock",
+                "max_users_per_day": 3,
+                "sample_seed": 2026,
+                "sampling": "sha256_user_day_seed_before_labels"
+              },
+              "source": {
+                "end": "2019-11-01T00:00:00Z",
+                "start": "2019-10-01T00:00:00Z"
+              },
+              "status": "provisional_pilot",
+              "target": {
+                "availability_delay_seconds": 0,
+                "event_type": "purchase",
+                "horizon_hours": 24,
+                "include_anchor": true,
+                "include_end": false,
+                "maturity": "full_horizon",
+                "relevance": "distinct_binary_products"
+              },
+              "timezone": "UTC",
+              "version": 1
+            }
+          }
+        ],
+        "status": "complete_produced_unreviewed",
+        "version": 1
+      }
+    },
+    "train": {
+      "collection": {
+        "artifact_refs": {
+          "candidates": [
+            "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/candidates.parquet"
+          ],
+          "features": [
+            "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/features.parquet"
+          ],
+          "labels": [
+            "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/labels.parquet"
+          ],
+          "queries": [
+            "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/queries.parquet"
+          ]
+        },
+        "counts": {
+          "candidates": 3,
+          "features": 3,
+          "labels": 1,
+          "queries": 2
+        },
+        "daily_anchors": [
+          "2019-10-08T00:00:00Z"
+        ],
+        "feature_columns": [
+          "query_id",
+          "product_id",
+          "from_popular",
+          "from_recent",
+          "popularity_distinct_users",
+          "popular_source_rank",
+          "recent_source_rank",
+          "last_user_event_time",
+          "user_id",
+          "anchor",
+          "candidate_category_id",
+          "candidate_category_ambiguous",
+          "candidate_category_missing",
+          "item_has_observed_history",
+          "user_has_observed_history",
+          "item_observed_age_seconds",
+          "user_observed_age_seconds",
+          "user_view_7d",
+          "user_cart_7d",
+          "user_purchase_7d",
+          "user_distinct_viewed_items_7d",
+          "pair_view_7d",
+          "pair_cart_7d",
+          "pair_purchase_7d",
+          "pair_view_recency_seconds",
+          "pair_purchase_recency_seconds",
+          "item_view_24h",
+          "item_purchase_24h",
+          "item_distinct_viewers_7d",
+          "user_category_view_7d",
+          "user_category_view_recency_seconds",
+          "item_category_view_7d",
+          "category_view_7d",
+          "source_coverage_24h",
+          "source_coverage_168h",
+          "user_category_view_share_7d",
+          "item_category_view_share_7d",
+          "pair_view_recency_seconds_missing",
+          "pair_purchase_recency_seconds_missing",
+          "user_category_view_7d_missing",
+          "user_category_view_share_7d_missing",
+          "user_category_view_recency_seconds_missing",
+          "item_category_view_7d_missing",
+          "category_view_7d_missing",
+          "item_category_view_share_7d_missing"
+        ],
+        "scope": "mechanical_integrity_only_pending_independent_semantic_acceptance"
+      },
+      "collection_id": "04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27",
+      "state": {
+        "attempts": [
+          "artifacts/development/train/attempt-8d0f70f4e37b480e99d8b596e880ba33/report.json",
+          "artifacts/development/train/attempt-c82ae1ac3b674a448538c26765f84e59/report.json"
+        ],
+        "collection_id": "04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27",
+        "compute_seconds": 0.9158931259880774,
+        "producer_approval_sha256": "fb8d45596d513e2295cc5c10b9502e59b85b098ed41b372ffee0aa5d6b2fe826",
+        "shards": [
+          {
+            "acceptance": {
+              "path": "approvals/shards/train/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3.json",
+              "sha256": "7a8bb8e4d27f041df4fad14ccb57ad1b102d1e4eba85dd5b3899cfa89aa8ae4a"
+            },
+            "anchor": {
+              "directory": "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43",
+              "fingerprints": {
+                "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/labels.parquet": "df0859126bbb077dbd6f5c13c14f340e666a8e5f5dc84ce8d77a9a95652fd643",
+                "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/queries.parquet": "877bda3f9540bc42bd85bee66dd4818d50bc0443d677c8b728a87ae4ce5a0cbf",
+                "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/report.json": "d35d455d015decf1a26889efe336136c5426f2cf10078a59b1e951ff2d42a6a7",
+                "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf/7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43/run.json": "ca62614f312763d48b604e9984835740f4f81380f60216bdb3ef2d60a8540c51"
+              },
+              "run_id": "7053366ecd45dcde86c71ff89e17ceb5b3c85cd651f8a561e2b292eb15f29e43"
+            },
+            "candidate": {
+              "directory": "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3",
+              "fingerprints": {
+                "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/candidates.parquet": "edc7ded0b7483d989ef45939a0405f76a6bb69483d7f8d44c58b2c7dc0860333",
+                "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/query_coverage.parquet": "e391d1df21a1004e6430aa5e492fe8c02e29c84ada87f3fcdb4932d0be644149",
+                "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/report.json": "3c0d14860b7d7f172b980e4772b378e292d1f89338711aec93c882d777d1fde1",
+                "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d/c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3/run.json": "7ab1cec7292d79de649c485343701704fa820cb41f1694445470799f8aadde96"
+              },
+              "run_id": "c9681ec3d6a706515ef6425a77378c6187f500e85d61ca36921e038dd245d6c3"
+            },
+            "features": {
+              "directory": "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b",
+              "fingerprints": {
+                "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/features.parquet": "14b0b3588b9ef5ca62a4f2861ea90a7ec215ec1c530847f1fd929167150ef61f",
+                "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/report.json": "3071dfd821001c053ac1ab8a6ba821e33b47859c98903eec4e81d527d94c8ba5",
+                "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980/9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b/run.json": "c48b801b413fc7dd8d93cba967af6a1d253f6c22b32e72a65189bd1ce3163064"
+              },
+              "run_id": "9814b1b8e92f939453f89b8d6475552ef330db68cec22582f11756c3af5ad95b"
+            },
+            "index": 0,
+            "producer_attempts": [
+              {
+                "kind": "anchor",
+                "output_root": "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/anchor/invocation-f1f8056f88b54706aa263fbaba6512cf"
+              },
+              {
+                "kind": "candidate",
+                "output_root": "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/candidate/invocation-882ba004fc8346f8ad9d5d46a60fe85d"
+              },
+              {
+                "kind": "features",
+                "output_root": "artifacts/development/train/04c4092c2649e833b410ef149c65b6934f2089577f8c21afc44acf8c22e00c27/shards/0/features/invocation-d4ebb31a3d214a77b5e26b1d8e466980"
+              }
+            ],
+            "protocol": {
+              "budget": {
+                "max_anchors": 3,
+                "max_candidate_pairs": 12
+              },
+              "candidates": {
+                "catalog": "products_seen_strictly_before_query",
+                "deduplicate": "product_id",
+                "max_unique": 4,
+                "popular_event_type": "purchase",
+                "popular_limit": 2,
+                "popular_unit": "distinct_users",
+                "popular_window_hours": 168,
+                "recent_event_types": [
+                  "view",
+                  "cart",
+                  "purchase"
+                ],
+                "recent_limit": 2,
+                "recent_window_hours": 168
+              },
+              "history": {
+                "duplicates": "raw",
+                "metadata": "last_strict_past_ambiguity_preserved",
+                "ties": "global_read_before_update"
+              },
+              "pilot": {
+                "end": "2019-10-09T00:00:00Z",
+                "start": "2019-10-08T00:00:00Z"
+              },
+              "query": {
+                "eligibility_event_types": [
+                  "view",
+                  "cart",
+                  "purchase"
+                ],
+                "eligibility_hours": 48,
+                "hour_utc": 0,
+                "kind": "daily_clock",
+                "max_users_per_day": 3,
+                "sample_seed": 2026,
+                "sampling": "sha256_user_day_seed_before_labels"
+              },
+              "source": {
+                "end": "2019-11-01T00:00:00Z",
+                "start": "2019-10-01T00:00:00Z"
+              },
+              "status": "provisional_pilot",
+              "target": {
+                "availability_delay_seconds": 0,
+                "event_type": "purchase",
+                "horizon_hours": 24,
+                "include_anchor": true,
+                "include_end": false,
+                "maturity": "full_horizon",
+                "relevance": "distinct_binary_products"
+              },
+              "timezone": "UTC",
+              "version": 1
+            }
+          }
+        ],
+        "status": "complete_produced_unreviewed",
+        "version": 1
+      }
+    }
+  },
+  "native_fits": 0,
+  "collection_approvals_issued": false,
+  "Prepared_native": "UNRUN/no authority",
+  "ordinary90_120_budget": "attempted CLOSED, no reuse",
+  "refs": [
+    {
+      "path": "/private/tmp/tlab-native-post-audit-F-runtime-v1-once/actual-receipt.json",
+      "sha256": "745e82633bcdb01bbce49f29ac36c5fbb79c7c1175b369187b8532e4ddaaeb85",
+      "bytes": 101232,
+      "mode": "0644"
+    },
+    {
+      "path": "/private/tmp/tlab-native-post-audit-F-runtime-v1-once/worker/features/result.json",
+      "sha256": "a03c31e9ca534198340411198b652a0e7cab5e7db32a3285cfe1a8228277642b",
+      "bytes": 97070,
+      "mode": "0600"
+    },
+    {
+      "path": "/private/tmp/tlab-native-post-audit-F-runtime-v1-once/owner-consumed.json",
+      "sha256": "59197b2c45849391248dfad8af95c2a0e22e279a5f9dc433fc31f916fcc2caac",
+      "bytes": 322,
+      "mode": "0644"
+    },
+    {
+      "path": "/private/tmp/tlab-native-post-audit-F-runtime-v1-once/worker.stdout",
+      "sha256": "0e700c0ab44a7dbd857fccf74fa93ac918ca3d9bf95739b0313240b84cde7653",
+      "bytes": 998,
+      "mode": "0644"
+    },
+    {
+      "path": "/private/tmp/tlab-native-post-audit-F-runtime-v1-once/worker.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0644"
+    }
+  ]
+}

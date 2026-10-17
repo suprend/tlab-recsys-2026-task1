@@ -1,5 +1,16 @@
 # Единый рабочий backlog T-Lab
 
+## Проверенные артефакты и остающаяся работа — 2026-10-17 01:49:08 UTC
+
+[QYC/F и LOCAL40](backlog-reviews/post-audit-QYCF-local40-status.md) приняты в своих пределах. Семь исправлений установлены в 13ce92d, 89 синтетических методов приняты ранее; документальный checkpoint 429da06 принят фактически и CLEAN. Для десяти synthetic events приняты QYC 20 физических строк и F 270 literal cells/15 aggregate QYC rows. B41 Prepared, исправленный ordinary native CLI E2E и callback-abort UNRUN; это не новый научный/native результат или grant.
+
+[Волна 087](research-lab/brainstorm-wave087-synthesis.md) принята после трёх независимых FIRST и отдельной критики: NEW 0 / REFINE 3 / MERGE 3 / ADMIT 0, четыре claim upgrades отвергнуты; все будущие опыты UNRUN/cost UNKNOWN. Due 01:30 и next 02:15 UTC / 05:15 МСК 17 октября сохраняют исходную 45-минутную сетку. Приняты 14 из 19 задач; 014 continuous, 010–013 — четыре optional/deferred. Единственная очередь и deadline 25 октября 23:59 с UNKNOWN timezone сохранены.
+
+Exact429 code/previous docs опубликованы в private repo, draft PR1 обновлён и принят Root; main не изменён. Поздние QYC/F118 и 087 в 429 не входили. Новый checkpoint остаётся SOURCE-only до отдельной локальной установки; новые публикационные/native полномочия не выданы. Private worker/owner/issuer/consumed/policy/grant bodies, DB и модели исключены.
+
+Весь прежний документ ниже сохранён побайтно; ранние dated pending статусы относятся к прежним срезам.
+
+
 ## Локальные исправления и следующий шаг — 2026-10-17 00:59:13 UTC
 
 Семь исправлений pipeline установлены локально в `13ce92d`; 89 уникальных синтетических методов и R3 ранее приняты с ограничениями. [Приёмка и остающиеся границы](backlog-reviews/local192-and-source-plan-status.md) подтверждают фактическую установку. Это не новый native/full-raw повтор или quality gain. Приняты 14 из 19 задач; TLAB-014 continuous, TLAB-010–013 — четыре optional/deferred эксперимента. Единственная очередь и научный scope сохранены.

@@ -1,0 +1,1665 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/audit_next_candidates_blind",
+  "UTC": "2026-10-17T01:35:06.146295+00:00",
+  "scope": "Actual LOCAL40 receipt/terminal/canonical/Git read-only acceptance",
+  "supported_findings": 0,
+  "Root_proof_SHA": "540b98d940083457bb8f94f5ea3e6321a3a7a74457d083d3bb3fa710a91249d3",
+  "phase_command_counts": {
+    "apply": 14,
+    "stage": 18,
+    "commit": 22,
+    "verify": 12
+  },
+  "commands_closed_reaped": 66,
+  "phase_terminals_exact": [
+    "a58b69",
+    "5677cf",
+    "954485",
+    "aa20c5"
+  ],
+  "normal_cached_check_actual_exit": 0,
+  "read_only_Git_observation_tool_chunk": "bb685e",
+  "independent_Git_readback": {
+    "errors": [],
+    "HEAD": "429da06ef766f2c326824e8747179cf3b3da0c01",
+    "branch": "refs/heads/codex/research-features-and-targets",
+    "parent": [
+      "13ce92d650a59794d1a503063c23e9fc9529bcbc"
+    ],
+    "tree": "04622ed9d32582dedce801a01cd08a58ba2769ff",
+    "full_parent_entries": 3312,
+    "full_committed_entries": 3348,
+    "delta_M": 4,
+    "delta_A": 36,
+    "other_old_entries_unchanged": 3308,
+    "raw40_worktree_committed_SHA_bytes_modes_exact": true,
+    "CLEAN": true,
+    "index_SHA": "59375791d81d6bf077a884409f3c5f8258a1ade1684709b91453b819e50edeea",
+    "guards15_and_attributes_unchanged": true,
+    "policy_hash_unchanged": true,
+    "active_hooks": [],
+    "applicable_filters": [],
+    "main_unchanged": true,
+    "read_only_Git_observations": [
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit": 0,
+        "stdout_bytes": 41,
+        "stdout_SHA": "45db4fc1c5e0725bb15ac1673205ab5b3819499140b0b33adbe8a53b46706708",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "symbolic-ref",
+          "HEAD"
+        ],
+        "exit": 0,
+        "stdout_bytes": 47,
+        "stdout_SHA": "46b3a174b372ef67218e76e22b63f81915993c3d43fb7cdb8f846cd296946849",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "status",
+          "--porcelain=v1",
+          "-z",
+          "--untracked-files=all"
+        ],
+        "exit": 0,
+        "stdout_bytes": 0,
+        "stdout_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "cat-file",
+          "commit",
+          "429da06ef766f2c326824e8747179cf3b3da0c01"
+        ],
+        "exit": 0,
+        "stdout_bytes": 325,
+        "stdout_SHA": "2bd9b3b54c167c1a8c44e42ec0e058d9bdbb780393e6afe66b2700f987c6cacb",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "rev-parse",
+          "HEAD^{tree}"
+        ],
+        "exit": 0,
+        "stdout_bytes": 41,
+        "stdout_SHA": "5d89614575e6c8c00c0711fc8f79bca4cbdd022dbf163449c5bfcf7177025e05",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "ls-tree",
+          "-r",
+          "-z",
+          "--full-tree",
+          "13ce92d650a59794d1a503063c23e9fc9529bcbc"
+        ],
+        "exit": 0,
+        "stdout_bytes": 440110,
+        "stdout_SHA": "d6f48472b0a1fba27336db6824b779301080e993faef7363889ab4dd6ab77bed",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "ls-tree",
+          "-r",
+          "-z",
+          "--full-tree",
+          "429da06ef766f2c326824e8747179cf3b3da0c01"
+        ],
+        "exit": 0,
+        "stdout_bytes": 444960,
+        "stdout_SHA": "e6fb187f8ca53414eabce35bebc31eca7bdd30e1e2bb98040f4f93ea88d8d199",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "ls-files",
+          "--stage",
+          "-z"
+        ],
+        "exit": 0,
+        "stdout_bytes": 434916,
+        "stdout_SHA": "26bf787061a6f8e1bb95d6582c1917c22fc3189eb6418aeb84baad6d0fb06dfc",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "diff",
+          "--cached",
+          "--name-only",
+          "-z"
+        ],
+        "exit": 0,
+        "stdout_bytes": 0,
+        "stdout_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "rev-parse",
+          "--git-path",
+          "index"
+        ],
+        "exit": 0,
+        "stdout_bytes": 11,
+        "stdout_SHA": "742e1586a644af64934a892663d03c75415bfb01edafdfdd924a8627573bfb9c",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "cat-file",
+          "--batch"
+        ],
+        "exit": 0,
+        "stdout_bytes": 900193,
+        "stdout_SHA": "9da77a770a558bb1da71632a05453c17f16bb02dd98a783fea48219ce19bdae7",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "config",
+          "--null",
+          "--get-regexp",
+          "^(filter\\.|core\\.|commit\\.|gpg\\.)"
+        ],
+        "exit": 0,
+        "stdout_bytes": 285,
+        "stdout_SHA": "404afc57ef7afff2e9546158ad9e0415b6b123ad3ff1150c1659f2ed769ac5bf",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "check-attr",
+          "--all",
+          "-z",
+          "--stdin"
+        ],
+        "exit": 0,
+        "stdout_bytes": 0,
+        "stdout_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-optional-locks",
+          "rev-parse",
+          "refs/heads/main"
+        ],
+        "exit": 0,
+        "stdout_bytes": 41,
+        "stdout_SHA": "45472ec2e493d6d0c5991cd0ed7bf00cf8cce98bea43719b73e0112c2014e9dd",
+        "stderr_bytes": 0,
+        "stderr_SHA": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "raw_commit_SHA256": "2bd9b3b54c167c1a8c44e42ec0e058d9bdbb780393e6afe66b2700f987c6cacb",
+    "message_SHA256": "3a3d0419bd1304ac6f4cc0cf77c0a503f3f573e20ced7d888d0aee8e7a23a9ef"
+  },
+  "project_runtime_SQL_native_network_canonical_Git_mutations": 0,
+  "references": [
+    {
+      "path": "/tmp/tlab-root-LOCAL40-actual-pass-v1.json",
+      "sha256": "540b98d940083457bb8f94f5ea3e6321a3a7a74457d083d3bb3fa710a91249d3",
+      "bytes": 685,
+      "mode": 420,
+      "purpose": "Root actual tool-closure proof"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-local-operation-proposal-v1/operation.py",
+      "sha256": "1f59b98ed842d2056677c6ed3fa91a8e89db9d03452dd056f65670021dc4ee6d",
+      "bytes": 22453,
+      "mode": 420,
+      "purpose": "actual issued runner"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-local-operation-proposal-v1/plan.json",
+      "sha256": "6d5ae0e332f71415fca014a4b571cafeacd2fa40c9776e92a55cbf9b990c82a8",
+      "bytes": 29749,
+      "mode": 420,
+      "purpose": "actual issued plan"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-local-operation-proposal-v1/manifest.json",
+      "sha256": "4b9f28e3d205d4b6a4de45897d642601dcf68719e9a4dbb216384529819859a3",
+      "bytes": 2637,
+      "mode": 420,
+      "purpose": "Source operation manifest"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-local-operation-proposal-v1/freeze.json",
+      "sha256": "1d674a0efd90cad568deb21200431bd6e35d70fc35fa87e96e68e8f0b1702bee",
+      "bytes": 670,
+      "mode": 420,
+      "purpose": "Source operation freeze"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-local-operation-proposal-v1/commit-message.txt",
+      "sha256": "3a3d0419bd1304ac6f4cc0cf77c0a503f3f573e20ced7d888d0aee8e7a23a9ef",
+      "bytes": 55,
+      "mode": 420,
+      "purpose": "committed message pin"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-local-operation-proposal-v1/paths.nul",
+      "sha256": "494684b5bd74cb7ba0f758c9e3e72bc9d4813de72fdc47a5f8c750e112cda256",
+      "bytes": 3045,
+      "mode": 420,
+      "purpose": "ordinary exact stage pathspec"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-issued-v1.json",
+      "sha256": "8c49f526e2e425b786e56316767da3f9dd90f82d5c8a30d83ca8420ab568af9b",
+      "bytes": 939,
+      "mode": 420,
+      "purpose": "genuine existing Root issue reference only"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-002.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-007.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-010.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-011.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-014.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-003.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-006.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-010.stdout",
+      "sha256": "eb09cbcd9ba2136b74d1a38f67a22a288e36762e305a8f72e92ac6399d7c6c54",
+      "bytes": 420696,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-007.stdout",
+      "sha256": "9da77a770a558bb1da71632a05453c17f16bb02dd98a783fea48219ce19bdae7",
+      "bytes": 900193,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-002.stdout",
+      "sha256": "301174d4cf0ea7c30aaf4d82e398b1462082a16fe849aaa64061f141cec78e2c",
+      "bytes": 41,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-006.stdout",
+      "sha256": "26bf787061a6f8e1bb95d6582c1917c22fc3189eb6418aeb84baad6d0fb06dfc",
+      "bytes": 434916,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-003.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-014.stdout",
+      "sha256": "2bd9b3b54c167c1a8c44e42ec0e058d9bdbb780393e6afe66b2700f987c6cacb",
+      "bytes": 325,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-011.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-005.stdout",
+      "sha256": "5d89614575e6c8c00c0711fc8f79bca4cbdd022dbf163449c5bfcf7177025e05",
+      "bytes": 41,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-009.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-020.stdout",
+      "sha256": "26bf787061a6f8e1bb95d6582c1917c22fc3189eb6418aeb84baad6d0fb06dfc",
+      "bytes": 434916,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-016.stdout",
+      "sha256": "e6fb187f8ca53414eabce35bebc31eca7bdd30e1e2bb98040f4f93ea88d8d199",
+      "bytes": 444960,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-013.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-008.stdout",
+      "sha256": "9da77a770a558bb1da71632a05453c17f16bb02dd98a783fea48219ce19bdae7",
+      "bytes": 900193,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-004.stdout",
+      "sha256": "742e1586a644af64934a892663d03c75415bfb01edafdfdd924a8627573bfb9c",
+      "bytes": 11,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-001.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/binding.json",
+      "sha256": "07bd7362ffadf582e73f07b21f0ff067a38ed2b410f71a48023d483a3b1504b4",
+      "bytes": 326,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-012.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-009.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-005.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-001.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-004.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify.tool-terminal.json",
+      "sha256": "87aa3806122adea79089060b298563ea240d05cb47a36efc0731251f2628c4b7",
+      "bytes": 211,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-008.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-016.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-005.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-012.stdout",
+      "sha256": "742e1586a644af64934a892663d03c75415bfb01edafdfdd924a8627573bfb9c",
+      "bytes": 11,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-009.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-008.stdout",
+      "sha256": "494684b5bd74cb7ba0f758c9e3e72bc9d4813de72fdc47a5f8c750e112cda256",
+      "bytes": 3045,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-016.stdout",
+      "sha256": "742e1586a644af64934a892663d03c75415bfb01edafdfdd924a8627573bfb9c",
+      "bytes": 11,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-004.stdout",
+      "sha256": "742e1586a644af64934a892663d03c75415bfb01edafdfdd924a8627573bfb9c",
+      "bytes": 11,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-001.stdout",
+      "sha256": "46b3a174b372ef67218e76e22b63f81915993c3d43fb7cdb8f846cd296946849",
+      "bytes": 47,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-009.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-020.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit.tool-terminal.json",
+      "sha256": "05fbad619b0f9447dfa764779af0917462dac8691046e546bde10ddc0fae56ad",
+      "bytes": 211,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-005.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-001.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-004.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-013.stdout",
+      "sha256": "6e6cf407211034aec73501ec7638da20d6494666cc68a537eea56f69f591fa26",
+      "bytes": 3165,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-016.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-008.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-002.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-007.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-010.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-011.stdout",
+      "sha256": "46b3a174b372ef67218e76e22b63f81915993c3d43fb7cdb8f846cd296946849",
+      "bytes": 47,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-014.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-003.stdout",
+      "sha256": "46b3a174b372ef67218e76e22b63f81915993c3d43fb7cdb8f846cd296946849",
+      "bytes": 47,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-006.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-010.stdout",
+      "sha256": "45db4fc1c5e0725bb15ac1673205ab5b3819499140b0b33adbe8a53b46706708",
+      "bytes": 41,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify.events.jsonl",
+      "sha256": "1b0acf9a7a3ddee540b22fd84fc92c306b33058af22e6c93189b0e31290f2555",
+      "bytes": 11437,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply.events.jsonl",
+      "sha256": "7888b10e08c0cbeff52a50d9b6aa2a93d29b4afb12098716eb8d2463bf72ad0a",
+      "bytes": 29934,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-007.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-002.stdout",
+      "sha256": "301174d4cf0ea7c30aaf4d82e398b1462082a16fe849aaa64061f141cec78e2c",
+      "bytes": 41,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-006.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify.started.json",
+      "sha256": "956ab6b028d22c121f0c01a66e830a0365804bb0e1fd256f1aa5bc1ce9e4a6cd",
+      "bytes": 767,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-003.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply.started.json",
+      "sha256": "9b400eea6e8005d0c539456b4ce2950d65e1c92bb2825b6d16ba8a01022db37b",
+      "bytes": 506,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-014.stdout",
+      "sha256": "301174d4cf0ea7c30aaf4d82e398b1462082a16fe849aaa64061f141cec78e2c",
+      "bytes": 41,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-011.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply.tool-terminal.json",
+      "sha256": "5c94118b70601f02ca7559a1a9026f71fe3199b0f04f34716c7c81e6eb916ed1",
+      "bytes": 210,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-002.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-007.stdout",
+      "sha256": "494684b5bd74cb7ba0f758c9e3e72bc9d4813de72fdc47a5f8c750e112cda256",
+      "bytes": 3045,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-019.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-010.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-015.stdout",
+      "sha256": "5d89614575e6c8c00c0711fc8f79bca4cbdd022dbf163449c5bfcf7177025e05",
+      "bytes": 41,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-011.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-003.stdout",
+      "sha256": "46b3a174b372ef67218e76e22b63f81915993c3d43fb7cdb8f846cd296946849",
+      "bytes": 47,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-006.stdout",
+      "sha256": "e6fb187f8ca53414eabce35bebc31eca7bdd30e1e2bb98040f4f93ea88d8d199",
+      "bytes": 444960,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage.started.json",
+      "sha256": "03c55bdf82bf3a29591ffce98e13f8110266c6b09d31ff56e814b231718c8151",
+      "bytes": 765,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-015.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-010.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-007.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-002.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-006.stdout",
+      "sha256": "d6f48472b0a1fba27336db6824b779301080e993faef7363889ab4dd6ab77bed",
+      "bytes": 440110,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-003.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-011.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage.events.jsonl",
+      "sha256": "dd48365c87bee6882e4c5f672d5122273b34d7b2e584a209bfdeefbd7d6c19f2",
+      "bytes": 17186,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-005.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-000.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-017.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-009.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply.result.json",
+      "sha256": "ff20c97afd4eaa55d609a0758de9712e6360907022355de5fd2b04fddc1c775a",
+      "bytes": 23575,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-013.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-004.stdout",
+      "sha256": "742e1586a644af64934a892663d03c75415bfb01edafdfdd924a8627573bfb9c",
+      "bytes": 11,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-001.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-009.stdout",
+      "sha256": "31a2c43a92cf8f81743395909f7f9d7be3dd78e88cedfc1ec33ff2955a7c1f34",
+      "bytes": 4274,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-012.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-017.stdout",
+      "sha256": "9da77a770a558bb1da71632a05453c17f16bb02dd98a783fea48219ce19bdae7",
+      "bytes": 900193,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/operation-receipt.json",
+      "sha256": "0f01e0c8feacd14eafa6eeafe48c121c004b45e3cbd995761831e18a0fff7835",
+      "bytes": 1624,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-005.stdout",
+      "sha256": "071325284150bcedec1182a72fb1bb9ca08039c45a4beba95b2f6e8d6c14e850",
+      "bytes": 3165,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-001.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-004.stdout",
+      "sha256": "2bd9b3b54c167c1a8c44e42ec0e058d9bdbb780393e6afe66b2700f987c6cacb",
+      "bytes": 325,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-013.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-021.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit.started.json",
+      "sha256": "3c976f3194529abd3221214cc571cf4fb8e4b171eeaca849e865e32ccdb6d75f",
+      "bytes": 766,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-005.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-009.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-017.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-012.stdout",
+      "sha256": "742e1586a644af64934a892663d03c75415bfb01edafdfdd924a8627573bfb9c",
+      "bytes": 11,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-013.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-021.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-004.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-001.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit.events.jsonl",
+      "sha256": "18d6a8c3dfd36883cb04bba7450d482c0132a348c134dbf70a1816bda8fae2ef",
+      "bytes": 21001,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-017.stdout",
+      "sha256": "071325284150bcedec1182a72fb1bb9ca08039c45a4beba95b2f6e8d6c14e850",
+      "bytes": 3165,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-009.stdout",
+      "sha256": "9da77a770a558bb1da71632a05453c17f16bb02dd98a783fea48219ce19bdae7",
+      "bytes": 900193,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-000.stdout",
+      "sha256": "45db4fc1c5e0725bb15ac1673205ab5b3819499140b0b33adbe8a53b46706708",
+      "bytes": 41,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-005.stdout",
+      "sha256": "6e6cf407211034aec73501ec7638da20d6494666cc68a537eea56f69f591fa26",
+      "bytes": 3165,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-001.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-004.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-013.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-002.stdout",
+      "sha256": "742e1586a644af64934a892663d03c75415bfb01edafdfdd924a8627573bfb9c",
+      "bytes": 11,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-007.stdout",
+      "sha256": "26bf787061a6f8e1bb95d6582c1917c22fc3189eb6418aeb84baad6d0fb06dfc",
+      "bytes": 434916,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-010.stdout",
+      "sha256": "26bf787061a6f8e1bb95d6582c1917c22fc3189eb6418aeb84baad6d0fb06dfc",
+      "bytes": 434916,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-015.stdout",
+      "sha256": "46b3a174b372ef67218e76e22b63f81915993c3d43fb7cdb8f846cd296946849",
+      "bytes": 47,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-011.stdout",
+      "sha256": "46b3a174b372ef67218e76e22b63f81915993c3d43fb7cdb8f846cd296946849",
+      "bytes": 47,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-003.stdout",
+      "sha256": "46b3a174b372ef67218e76e22b63f81915993c3d43fb7cdb8f846cd296946849",
+      "bytes": 47,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-006.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage.tool-terminal.json",
+      "sha256": "1348ece451be31a4519e73364c29bc7ab1dc39ef3cffcde8136d0e204e65c525",
+      "bytes": 210,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit.result.json",
+      "sha256": "3f7084e3751f1fc5c167bc484e6edcf455f5b8d50c7a7ebc29ca9da5b8c4a03d",
+      "bytes": 17754,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-015.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify.result.json",
+      "sha256": "8d10b00ae24269c98de4e318e2f4c5de96cf4ec272cc1e8a979b91f128db7578",
+      "bytes": 10434,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-010.stdout",
+      "sha256": "301174d4cf0ea7c30aaf4d82e398b1462082a16fe849aaa64061f141cec78e2c",
+      "bytes": 41,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage.result.json",
+      "sha256": "063b5692b103d9c39b0f60a690ae698148ab16fee7fd84f01c6e5a1a64f9fb92",
+      "bytes": 18065,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-007.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/apply-002.stdout",
+      "sha256": "301174d4cf0ea7c30aaf4d82e398b1462082a16fe849aaa64061f141cec78e2c",
+      "bytes": 41,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/commit-019.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/full-cached.diff",
+      "sha256": "eb09cbcd9ba2136b74d1a38f67a22a288e36762e305a8f72e92ac6399d7c6c54",
+      "bytes": 420696,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/verify-006.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-003.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/tmp/tlab-wave085086-LOCAL-execution-v1/stage-011.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420,
+      "purpose": "existing actual phase receipt/event/command evidence"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/local192-followup/originals/tlab-LOCAL192-independent-actual-review-v1-freeze.json",
+      "sha256": "f2f183e66ff69bab1d5343c7214b75c20b8f71e7fbca7959769b142d470c8a4b",
+      "bytes": 1615,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/local192-followup/originals/tlab-LOCAL192-independent-actual-review-v1-pins.json",
+      "sha256": "325302877599ee335a646ba84d560f916d7c3cc9b2e1701982071b8c8df9f443",
+      "bytes": 197362,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/local192-followup/originals/tlab-LOCAL192-independent-actual-review-v1.md",
+      "sha256": "d130b6ba506e456b3acce9afe2995a4a9080e8408ffe7bb5ef3f4d7dc120cad1",
+      "bytes": 4891,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/local192-followup/originals/tlab-native-post-audit-source-plan-independent-actual-review-v2-freeze.json",
+      "sha256": "73b8d78e5f20b734437ab4e9c7d1d2498b633d19c3b1242f032252ed0ac4f380",
+      "bytes": 761,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/local192-followup/originals/tlab-native-post-audit-source-plan-independent-actual-review-v2-pins.json",
+      "sha256": "a6fd0f02f8f94d49de21debb1c6083788348f5eca5b0b68134eec30c9b3e1006",
+      "bytes": 25311,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/local192-followup/originals/tlab-native-post-audit-source-plan-independent-actual-review-v2.md",
+      "sha256": "99848840646518a8fb3aec5ea4556126e7c84cdd56c0c6bd29005af847cd0d2a",
+      "bytes": 3376,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/local192-followup/originals/tlab-root-LOCAL192-final-actual-acceptance-v1.json",
+      "sha256": "01e68b6a1d4939c62c2d97ce49a516d03f27ee0e9f6bae4a111580dea013ddca",
+      "bytes": 2410,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/local192-followup/originals/tlab-root-post-audit-source-plan-actual-pass-v2.json",
+      "sha256": "4570e4aef8e55a3961c1aa378dc59580fc44aa67db4dc6a480c32504b8c5deb5",
+      "bytes": 2151,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/local192-followup/originals/tlab-root-post-audit-source-plan-final-artifact-acceptance-v2.json",
+      "sha256": "298d5ebe2541218d8c2baaba391e04a06b412f1ae22b658772293a0fb654ad89",
+      "bytes": 2343,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/local192-followup/originals/tlab-root-post-audit-source-plan-wrapper-failure-v1.json",
+      "sha256": "522f71072c9c51746fba039de61e21429a13f404d8242a49e9b72f60ebe2c605",
+      "bytes": 2189,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/local192-followup/publication.json",
+      "sha256": "685a73c5895392fba163784eaf3347f6b8355272614e7541b324ce124f18db6f",
+      "bytes": 18723,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/local192-and-source-plan-status.md",
+      "sha256": "fbfffb4b9687e519706c165817f9ef9dbf835e1944200c152343bb4e21e2c963",
+      "bytes": 4624,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "sha256": "2cbdbdd5891582e0ef95734ada14c1f7ecc66f5491d6d44c36229ca71623963f",
+      "bytes": 213048,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-report.md",
+      "sha256": "5a7cd9f79085162c380ee015d111aec46333bc50829e212953f65b24a12e66c4",
+      "bytes": 41957,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave085/tlab-wave085-transfer-a-FIRST.md",
+      "sha256": "336f3ebbe14427aceac80e5baa12115d0b6aa4219a16fde206eb6bce338368fb",
+      "bytes": 7743,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave085/tlab-wave085-transfer-a-freeze.json",
+      "sha256": "02141b53f386a375a4376301af1e0bc7da0276ab6c88d9f268691c485471d303",
+      "bytes": 524,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave085/tlab-wave085-transfer-a-pins.json",
+      "sha256": "fa281f349db597992f6440547ccea904a1c6d0af6e57b14a449f0d4b5470f43d",
+      "bytes": 6547,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave085/tlab-wave085-transfer-b-FIRST.md",
+      "sha256": "321cd94918f4ec150a5e72924bd64762171f94f4dc825fe44af108946c7fe7de",
+      "bytes": 7317,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave085/tlab-wave085-transfer-b-freeze.json",
+      "sha256": "449a89932631335d96d2f30b97a90f023ba7542eae7c98f15427a407b39b3ff7",
+      "bytes": 1390,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave085/tlab-wave085-transfer-b-pins.json",
+      "sha256": "c08bb67ccf98e0aeb137cd23a14f79de93ac881121411e064ecf77ad633cffcb",
+      "bytes": 6339,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave085/tlab-wave085-transfer-skeptic-v1-freeze.json",
+      "sha256": "37ac8b5a20612000c041e2b3d03303bccda0be9c807fa35d4bc0f284f69fcd9d",
+      "bytes": 644,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave085/tlab-wave085-transfer-skeptic-v1-pins.json",
+      "sha256": "41b53576a166379dad7a0313c9e6b286baade3222ecd822ec24886761b5e60b3",
+      "bytes": 12856,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave085/tlab-wave085-transfer-skeptic-v1.md",
+      "sha256": "1ade87293a710b892f04d7faed3e5981f24faa769c21f85db7241dbde884a273",
+      "bytes": 6605,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-root-wave086-source-adoption-v1.json",
+      "sha256": "917dcf335ac356fc833ce205419d39e9102c5bca4cea9b3d115d7f7fe76c8d24",
+      "bytes": 3988,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-automation-FIRST.md",
+      "sha256": "d619ba70ea960a72c0f1f0e977babf15bc0fb1cc1847c1b924c43508dd23d6c9",
+      "bytes": 7062,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-automation-freeze.json",
+      "sha256": "ab26ccff41151b0b1a355540142fb27014b300b2e8d1bb43951094dc07f5ab5b",
+      "bytes": 684,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-automation-pins.json",
+      "sha256": "97eac3efbeacc28b7b95b5a7c56a7ea66c7c5ffb4fd41f46e19f60258f0e1cc3",
+      "bytes": 5412,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-retrieval-FIRST.md",
+      "sha256": "b3b4e498cabd56d3daaa0858ff3b03ec8e4ab6bc80c834868cf80f04bd7930cf",
+      "bytes": 4655,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-retrieval-freeze.json",
+      "sha256": "e885138305bce506b288b0bb909b84909dfdd438b239f8cfd31d791f40d2ce7a",
+      "bytes": 639,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-retrieval-pins.json",
+      "sha256": "6d1547dd54c9778f042c7e8e076fd293836637ff2a92f3c3679e4193d75f8f31",
+      "bytes": 6959,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-selection-FIRST.md",
+      "sha256": "830b1eb5d95513fd87032a13d6497e70466852685a959fa8a8da0a8997ec855e",
+      "bytes": 4946,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-selection-freeze.json",
+      "sha256": "cb27a9422d6229776864b56a1af3c675d45fa4c918e3f14a88a6ddfa247bd5b5",
+      "bytes": 653,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-selection-pins.json",
+      "sha256": "c852c4d4064534e127eda72d86bce1832ec931e4a4537edf96f8bd120953975f",
+      "bytes": 5296,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-skeptic-v1-freeze.json",
+      "sha256": "0f5138f4d414943d8015ed5f944851bf5564862c71b5a00fca098d95ed61e6e4",
+      "bytes": 547,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-skeptic-v1-pins.json",
+      "sha256": "78daf4b79da16acec3a979eccede33b567e9cb57114dd36ce4e900bbc55c99c5",
+      "bytes": 16257,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/archives/wave086/tlab-wave086-skeptic-v1.md",
+      "sha256": "b99c7ee3f77e088f1eb7f92adc8708ac6165f8d4398e2e83749df576866fc625",
+      "bytes": 5151,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-log.md",
+      "sha256": "da7341bdcf032f167b5b6deb82985a1380eaed01892626363b3e3cb56bb7fa98",
+      "bytes": 205361,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave085-synthesis.md",
+      "sha256": "dc258efe29ed267bf9eb3fb8786702e95af06571dde30d4772df8612ce927c0c",
+      "bytes": 3026,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave086-synthesis.md",
+      "sha256": "202ac3ab8ae01f255e038c2b7d6b627364a3313bbdd40c297bcbcfdf543735f1",
+      "bytes": 3384,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "sha256": "1cd5461311f961ce3bd00b8fa45f23da70c9fb1f999ed9be008a7fc8db22a39b",
+      "bytes": 53362,
+      "mode": 420,
+      "purpose": "actual canonical40 byte/mode readback"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml",
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a",
+      "bytes": 367,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_contract.py",
+      "sha256": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc",
+      "bytes": 14058,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py",
+      "sha256": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4",
+      "bytes": 10946,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/inference_data.py",
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd",
+      "bytes": 9074,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_features.py",
+      "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4",
+      "bytes": 36920,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/model_data.py",
+      "sha256": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f",
+      "bytes": 13774,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/program_model_data.py",
+      "sha256": "1ee9c2fdbec93984e71f0edd055dbbf9046c2d4805eaa0c80f3f0e29bd5c06b1",
+      "bytes": 10122,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py",
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0",
+      "bytes": 11864,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py",
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+      "bytes": 14444,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/uv.lock",
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab",
+      "bytes": 300283,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/experimental-report.md",
+      "sha256": "7d343be6370d84b3794addf01d7221af104963d028edadf467865c1c620fb5b9",
+      "bytes": 46054,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/progress-history-through-20261015-2006.md",
+      "sha256": "7d9e69d0e2dc36f10c267fd34849c4c8877f6db27513e147d430eeaa95994e9e",
+      "bytes": 72056,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/.gitattributes",
+      "sha256": "c863ee3ba591692f7c5704772ae99f771e2a4113df6176242f012d07032c5a8a",
+      "bytes": 4273,
+      "mode": 420,
+      "purpose": "unchanged canonical guard/attribute"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/.git/index",
+      "sha256": "59375791d81d6bf077a884409f3c5f8258a1ade1684709b91453b819e50edeea",
+      "bytes": 499676,
+      "mode": 420,
+      "purpose": "actual unchanged postverify index"
+    }
+  ]
+}

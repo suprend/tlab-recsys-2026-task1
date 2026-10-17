@@ -1,0 +1,47 @@
+{
+  "schema":"tlab.research-skeptic-pins.v1",
+  "wave":"087",
+  "role":"new separate skeptic; SOURCE-only",
+  "report_path":"/tmp/tlab-wave087-skeptic-v1.md",
+  "first_observed_clock_utc":"2026-10-17T01:39:18Z",
+  "individual_research_start_utc":null,
+  "input_first_and_pins":[
+    {"first":"/tmp/tlab-wave087-retrieval-FIRST.md","sha256":"d4613737bd85a2d36fe555610849ffd5c6680a34eb1ef937bdb85cf994810e4e","pins":"/tmp/tlab-wave087-retrieval-pins.json","pins_sha256":"e2371a2f1df65cad55d7901217239bf0db6a3787095a7a3e04eea2618cf30a02"},
+    {"first":"/tmp/tlab-wave087-automation-FIRST.md","sha256":"c60eea8289363c58c98e1317aae8e0c4cc665d4763d5d3d527aec363132feba3","pins":"/tmp/tlab-wave087-automation-pins.json","pins_sha256":"1e0eb41229ba9ab7e2b2c169a96e34a796efd472d61a3291c24f4b832aa098c7"},
+    {"first":"/tmp/tlab-wave087-validation-FIRST.md","sha256":"8b5045ce5ed8a6698978c2cb3e6955fb1365068b69806c820db2d44d2613bc96","pins":"/tmp/tlab-wave087-validation-pins.json","pins_sha256":"74c8c8e4a8ff73ab63c313ee5c1a1371c176b6de23b79fb02817a2d032c365d9"}
+  ],
+  "author_local_source_pins_check":{"unique_paths":41,"mismatches":0,"method":"Read-only sed extraction of local path fields, sorted unique, shasum -a 256, compared with author pins","meaning":"Identity only; whole-file substantive review not claimed"},
+  "own_decisive_local_inputs":[
+    {"path":"/Users/mdpospelov/personal-agent-system/.agents/skills/research-campaign/SKILL.md","sha256":"97d443dffbbeb10c56318b1c49d75e0a9fe7f737cbdd3777748b11bc312ae6c2","read":"full with tail readback"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/task1-requirements.md","sha256":"643de5b7a11ccb5b6bb0f1b862b96457dbdf1d9342626ac5e015ef2547b53aeb","read":"full authorized-page paraphrase; no new education-site access"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md","sha256":"2cbdbdd5891582e0ef95734ada14c1f7ecc66f5491d6d44c36229ca71623963f","read":"1-190,225-305 and targeted searches; broad combined output truncated"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md","sha256":"1cd5461311f961ce3bd00b8fa45f23da70c9fb1f999ed9be008a7fc8db22a39b","read":"1-85 current overlays; broad initial output truncated"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave086-synthesis.md","sha256":"202ac3ab8ae01f255e038c2b7d6b627364a3313bbdd40c297bcbcfdf543735f1","read":"full"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave085-synthesis.md","sha256":"dc258efe29ed267bf9eb3fb8786702e95af06571dde30d4772df8612ce927c0c","read":"full"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave073-synthesis.md","sha256":"368263530cea56186a30abc1e99484f2e15481c68025e719e5afcd374192197e","read":"full"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave070-synthesis.md","sha256":"5689442db81b9a0c0ede4173b66f78bc78b0569396cd5c12b9a0cdb999a5be40","read":"full"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave071-synthesis.md","sha256":"76afb3cec28042a5406bd4ad98a11685f906ae5e66094ada507d5713ac28c2b7","read":"full"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ta001.md","sha256":"8f79d90c6fac66eaa8d0ce142a4cda417a67e0113a367a128f896192835dc9fb","read":"full incl TA-02"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py","sha256":"afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7","read":"source1-115; no execution"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py","sha256":"3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175","read":"source1-155; no execution"},
+    {"path":"/Users/mdpospelov/tlab-recsys-2026/docs/target-research/02-purchase-target.md","sha256":"8d460e92a5ceae9d886ee8d8e64f6564208fb3bc435f8fb9eabe6d013101cbfa","read":"full"}
+  ],
+  "primary_web_sources":[
+    {"url":"https://research.google/pubs/deep-neural-networks-for-youtube-recommendations/","version":"RecSys2016 publisher abstract","read":"abstract lines96-111","supports":"two stages only","external_bytes_sha256":null},
+    {"url":"https://www.ijcai.org/proceedings/2021/0651.pdf","version":"IJCAI2021 extended abstract","read":"sections1-3 PDF pages0-2","supports":"random sampled-negative metrics can reverse model comparisons; deterministic knockout not theorem","external_bytes_sha256":null},
+    {"url":"https://groups.csail.mit.edu/EVO-DesignOpt/groupWebSite/uploads/Site/DSAA_DSM_2015.pdf","version":"DFS2015 author-hosted paper","read":"sectionsII-III, especially manual schema conversion lines459-505","supports":"composition plus manual schema/function setup; no our productivity result","external_bytes_sha256":null},
+    {"url":"https://docs.featuretools.com/en/stable/getting_started/primitives.html#defining-custom-primitives","version":"Featuretools1.31.0 displayed on2026-10-17","read":"lines220-275","supports":"type/function/application constraint declarations","external_bytes_sha256":null},
+    {"url":"https://docs.featuretools.com/en/stable/getting_started/using_entitysets.html#adding-a-relationship","version":"Featuretools1.31.0 displayed on2026-10-17","read":"lines197-224","supports":"explicit parent/child relation and one-to-many requirement","external_bytes_sha256":null},
+    {"url":"https://vldb.org/pvldb/vol14/p3135-begoli.pdf","version":"PVLDB14(12),2021,3135-3147","read":"sections2.1,4.3,5.2; conformant/heuristic and minimum input watermarks","supports":"timestamp insufficiency absent source ordering/completeness guarantees; genuine global conformant bound can suffice","external_bytes_sha256":null},
+    {"url":"https://beam.apache.org/documentation/basics/#watermark","version":"official docs accessed2026-10-17","read":"lines407-423","supports":"event/processing time, watermark estimate and late data","external_bytes_sha256":null}
+  ],
+  "auxiliary_review":{"agent":"/root/wave087_skeptic/completeness_check","scope":"Read-only primary PVLDB/Beam source check, no writes/experiments; independent consistency check only","finding":"Insufficiency claim supported; genuine conformant global watermark can suffice; no real missing-events inference"},
+  "classification":{"NEW":0,"REFINE":3,"MERGE":3,"REJECT_proposals":0,"REJECT_expanded_interpretations":4,"ADMIT":0},
+  "status":"all proposed subject experiments UNRUN; measured cost and adequacy UNKNOWN; no execution grant",
+  "executed_subject_work":{"DB_Parquet_raw_models":0,"project_imports_SQL_tests_runtime":0,"canonical_Git_network_mutations":0,"approvals":0},
+  "writes":"own /tmp/tlab-wave087-skeptic-v1.md, -pins.json, -freeze.json only",
+  "original_due_utc":"2026-10-17T01:30:00Z",
+  "next_original_due_utc":"2026-10-17T02:15:00Z",
+  "deadline":"2026-10-25 23:59 timezone UNKNOWN",
+  "acceptance_owner":"Root only; agent report is not acceptance"
+}

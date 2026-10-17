@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "UTC": "2026-10-17T01:27:02.002911+00:00",
+  "status": "ROOT_ACCEPTED_FINITE_SYNTHETIC_QYC_ARTIFACTS",
+  "execution_proof": {
+    "path": "/tmp/tlab-root-post-audit-QYC-actual-pass-v1.json",
+    "sha256": "8f66cd3131159c6d815a418da319273fda5b328954065f877e457cb1c1fe9515",
+    "bytes": 10642,
+    "mode": "0644"
+  },
+  "independent_actual_review": [
+    {
+      "path": "/tmp/tlab-native-post-audit-QYC-independent-actual-review-v2.md",
+      "sha256": "11ecf5e6c07ad319acc37b4021fab6b45191e6aa67df83d6953ac77e1dbb0d97",
+      "bytes": 3829,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-native-post-audit-QYC-independent-actual-review-v2-pins.json",
+      "sha256": "9e003f7caa2f48c4e11c9277a699ea2c18d81df2a663ff0f1f327f2684b14de7",
+      "bytes": 82601,
+      "mode": "0644"
+    },
+    {
+      "path": "/tmp/tlab-native-post-audit-QYC-independent-actual-review-v2-freeze.json",
+      "sha256": "1226177bc5c480ec96464e667603763c1788d64286db73adbe0c2ee10f4927d9",
+      "bytes": 657,
+      "mode": "0644"
+    }
+  ],
+  "current82_SHA_bytes_modes_verified": true,
+  "all20_typed_rows_and8_schemas_independently_checked": true,
+  "offC99_77_and_positive_emptyC_preserved": true,
+  "direct_owner_tool_chunk": "9202c4",
+  "direct_owner_exit": 0,
+  "child_exit": 0,
+  "child_reaped": true,
+  "whole_wall_upper_seconds": 0.989,
+  "native_fits": 0,
+  "source_DB_engine_opened_by_review": false,
+  "genuine_shard_acceptances_issued": false,
+  "F_Prepared_native": "UNRUN; separate Source review and finite issuance required",
+  "limitations": [
+    "finite10event synthetic case",
+    "no universal leak-freedom",
+    "no duplicate/boundary/overflow proof"
+  ]
+}
