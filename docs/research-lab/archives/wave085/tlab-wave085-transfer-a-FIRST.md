@@ -1,0 +1,27 @@
+# Wave085 FIRST — RetailRocket: перенос арифметики, отдельный source contract
+
+17 октября 2026, 03:00 МСК — исходная точка волны. Независимый FIRST; новые материалы других авторов этой волны не читались. SOURCE-only: данные, download endpoints, SQL, тесты, ML и Git не запускались. **NEW0 / REFINE existing HYP-002, TLAB-018 / ADMIT0.** Это уточнение round036/043/052 и reviewed transfer004, а не новый обязательный этап задания.
+
+**Сначала источник и права.** [Карточка publisher Retailrocket](https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset/home) описывает неназванный реальный ecommerce-сайт; namespace — retailrocket, автор карточки Roman Zykov. Сегодня прочитан индексированный текст именно этого URL; прямое открытие перенаправляется на /datasets/ и даёт ноль строк. Архив/version digest и доступность скачивания не проверены.
+
+| Relation | Заявленная схема / смысл | Предлагаемый binding |
+|---|---|---|
+| Events | timestamp, visitorid, event, itemid, transactionid; view/addtocart/transaction | Номинальные U/I; view/cart/purchase; raw event bag |
+| Properties | timestamp,itemid,property,value; сжатые последовательные weekly snapshots | Отдельный per-property as-of resolver |
+| Tree | child category/parent IDs | Только nominal edges; historical availability неизвестна |
+
+Карточка раскрывает categoryid и available; остальные значения обфусцированы. `available=1` описывает наблюдённую доступность в snapshot, не доказывает текущий stock или показ. Timestamp-пример имеет 13 цифр: milliseconds остаются явно проверяемым inference, не формальной гарантией единицы. Session ID не заявлен; transactionid не session/event ID и не количество товара. Числа размера/строк здесь не используются. [Publisher](https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset/home).
+
+Карточка показывает **CC BY-NC-SA 4.0**; [официальный legal code, §§2–4](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en) предусматривает noncommercial использование, attribution при распространении и условия ShareAlike для распространяемых адаптаций. Это license screening, не заключение о допустимости конкретной будущей коммерческой/учебной публикации; отдельные права и применимые условия требуют проверки до получения/распространения данных.
+
+**Наблюдаемая граница текущего кода.** В frozen combined-R3 `source_import.py:42–70` разрешает только REES46/synthetic typed9 profile, ровно девять полей и literal UTC до секунды. RetailRocket нельзя объявить поддержанным простой заменой field names или production profile. `feature_programs.py:71–99,105–115` требует точные semantic roles, все три actions, manual18/B41 и закреплённые шаблоны. Поэтому перенос отдельных count/distinct/recency формул ещё не означает generic import или drop-in всей автоматизации. `temporal_contract.py:66–112` переносит interval/maturity арифметику; календарь, completeness и knowledge clock остаются source-local.
+
+**Механизм и предсказание.** Явный raw→EventFact adapter сохраняет integer IDs, исходную точность времени, bag multiplicity и action meanings. Затем неизменные noncategory operators должны дать те же keyed values на одинаковой canonical истории. Контргипотеза: «совместимость» достигается потерей subsecond precision, dedup transaction rows, property fanout, заменой цели next-click либо zero-fill отсутствующего канала.
+
+Истории/eligibility/C используют `[t−W,t)`; все global peers ровно t исключены без произвольного порядка. Q — past-only daily eligibility и hash sample до Y, а не посетители, которые купили позже. Полный Y — distinct purchased items в `[t,t+24h)` после maturity; будущая покупка вне C остаётся промахом. P200∪R20 перестраивается по новой истории без target/stock filtering. Sessionization здесь не нужна. Event/property timestamps не дают arrival clock: late/backfilled записи неотличимы; event-time-as-availability остаётся допущением, не доказательством отсутствия knowledge leakage.
+
+Категории: historical event получает только ранее наблюдённое property state. Для сохранения frozen manual18 candidate category берётся из последнего past **event** bucket; update между event и query её не меняет. Query-current-property semantics — другой протокол. Property rows не становятся views; latest known+NULL конфликт не backfills старым значением. Static tree не устанавливает прошлую taxonomy.
+
+**Ближайший опыт, только предложение.** Один literal no-fit conformance drill: ≤32 суммарных input rows, например 12 events+8 properties+3Q+4C. Независимые expected tables фиксируются до adapter/compiler output. Witnesses: t−1ms versus t; lower-window endpoint; два одинаковых cart дают count2/distinct1; categoryA→view→categoryB; future suffix/peer permutation invariance; emptyY/emptyC/censored Q сохранены. Для positive Q с двумя fullY и одним returned hit: Recall=.5, NDCG=1/(1+1/log2(3)); вне-C positive не удаляется из ideal DCG. Должны отклоняться неподдержанный source profile/action capability и silent precision loss.
+
+Pass — exact keys/types/NULL/values и ожидаемые refusals; любой mismatch отвергает данный adapter claim. Это не quality transfer. Символический бюджет простого oracle: O(ElogE+PlogP+K(E+P+C+Y)), память O(E+P+Q+C+Y); measured CPU/wall/RSS **UNKNOWN**, compiler cost отдельно неизвестен. Fits0; прежние science/native grants CLOSED, новый запуск не допущен. Польза Task1: проверяемо отделить reusable primitives от ручной schema/protocol работы; обязательное исправление и воспроизводимость текущего REES46 результата имеют приоритет.

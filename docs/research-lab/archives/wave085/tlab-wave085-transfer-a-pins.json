@@ -1,0 +1,152 @@
+{
+  "version": 1,
+  "author": "/root/wave085_transfer_a_blind",
+  "wave": "085",
+  "frozen_UTC": "2026-10-17T00:03:25.676780+00:00",
+  "independent_FIRST": true,
+  "peer_wave085_read": false,
+  "status": "SOURCE_ONLY_PROPOSAL_UNRUN",
+  "new_hypotheses": 0,
+  "admitted_tasks": 0,
+  "local_sources": [
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/backlog.md",
+      "sha256": "62bbaff8f19d2860ee849075b379a0fa7f7967c0c05b4c700655377541147305",
+      "bytes": 209404,
+      "read_scope": "rg RetailRocket/transfer/HYP; lines280–325 and current queue excerpts"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/index.md",
+      "sha256": "3a07a80af1b0698626427332fc7710d784897db18d7340846a4a410a9b85e20d",
+      "bytes": 49445,
+      "read_scope": "rg RetailRocket/transfer/portability"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-036.md",
+      "sha256": "3967e06634d5f17246d0f2a4cc841e1aa1244650868cd4c1fc23b24879ee7614",
+      "bytes": 10563,
+      "read_scope": "publisher/clock/property seam and prospective drill"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-043.md",
+      "sha256": "6ea9d108e4cc5f362be600549eca09eb5737699a5f5f03a79f3896d2a2861598",
+      "bytes": 10951,
+      "read_scope": "schema and prospective correctness-only pilot"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/round-052.md",
+      "sha256": "f48d4868109ae81034fcd38d380b00e44a6cc0958ede9cd6bf50e0c0b75d6ba5",
+      "bytes": 11686,
+      "read_scope": "capability contract and adversarial drill"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-ra004.md",
+      "sha256": "3c199e03ce8c373f2a14faaa15c900f41177cc2cd0d71559b692968564a913ee",
+      "bytes": 15716,
+      "read_scope": "FIRST body and post-freeze appendix excerpt; terminal output truncated explicitly"
+    },
+    {
+      "path": "/Users/mdpospelov/tlab-recsys-2026/docs/research-lab/brainstorm-wave004-skeptic-review.md",
+      "sha256": "b4457b71c55bd90810ad7514a98ada5ffb068931376842237df417e4863755e7",
+      "bytes": 21124,
+      "read_scope": "combined prior-note read output truncated; not relied on for new factual claims"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-R3-v1/manifest.json",
+      "sha256": "c75b9fcc0c7a16f7a7f6be9454c2d60585d39f29de48feea42f4e70041a5b5c7",
+      "bytes": 149780,
+      "read_scope": "lines1–70, frozen scope/version"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-R3-v1/repository/scripts/source_import.py",
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236",
+      "bytes": 14444,
+      "read_scope": "lines1–115"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-R3-v1/repository/scripts/feature_programs.py",
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7",
+      "bytes": 14019,
+      "read_scope": "lines1–180"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-R3-v1/repository/scripts/temporal_contract.py",
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66",
+      "bytes": 6184,
+      "read_scope": "lines1–150"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-R3-v1/repository/scripts/anchor_pilot.py",
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de",
+      "bytes": 20747,
+      "read_scope": "lines1–235"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-R3-v1/repository/scripts/candidate_pilot.py",
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f",
+      "bytes": 19102,
+      "read_scope": "lines1–140 and targeted rg"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-R3-v1/repository/scripts/manual_features.py",
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175",
+      "bytes": 26364,
+      "read_scope": "targeted rg category/current/bucket semantics"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-R3-v1/repository/scripts/train_baselines.py",
+      "sha256": "b25dc30cc7265dddb3cbf910edff12cc4bcf220161c86c59a7d3fa33cf129bed",
+      "bytes": 35812,
+      "read_scope": "lines1–60 and targeted rg"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-R3-v1/repository/scripts/ranking_metrics.py",
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9",
+      "bytes": 9971,
+      "read_scope": "lines1–195"
+    },
+    {
+      "path": "/tmp/tlab-full-pipeline-audit-combined-R3-v1/repository/configs/protocols/clock-48h.json",
+      "sha256": "c985f552fa8a935122adaac9856b4c95bdfbbf390a099afee589124b50304ed9",
+      "bytes": 1403,
+      "read_scope": "whole config"
+    },
+    {
+      "path": "/Users/mdpospelov/personal-agent-system/.agents/skills/research/SKILL.md",
+      "sha256": "452334717864a950b44ec991b96bf65edeb2e263a2c098560e0b6d9fd31b2e34",
+      "bytes": 2480,
+      "read_scope": "whole skill"
+    }
+  ],
+  "primary_web_sources": [
+    {
+      "url": "https://www.kaggle.com/retailrocket/ecommerce-dataset/home",
+      "redirect_url": "https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset/home",
+      "checked_UTC_date": "2026-10-17",
+      "readback": "Search indexed primary publisher card returned schema/actions/snapshots/categoryid/available and displayed CC BY-NC-SA4.0; direct open returns0lines; no archive requested",
+      "formal_epoch_unit_guarantee_found": false
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "checked_UTC_date": "2026-10-17",
+      "read_scope": "lines36–86"
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en",
+      "checked_UTC_date": "2026-10-17",
+      "read_scope": "sections1–4, lines80–141"
+    }
+  ],
+  "read_errors": [
+    "Mistyped configs/protocol/purchase-ranking-v1.json and scripts/metrics.py did not exist; corrected by actual rg inventory to configs/protocols/clock-48h.json and scripts/ranking_metrics.py; no execution dependent on missing paths"
+  ],
+  "note": {
+    "path": "/tmp/tlab-wave085-transfer-a-FIRST.md",
+    "sha256": "336f3ebbe14427aceac80e5baa12115d0b6aa4219a16fde206eb6bce338368fb",
+    "bytes": 7743
+  },
+  "word_count_whitespace": 625,
+  "actual_runtime_evidence": false,
+  "data_downloaded": false,
+  "SQL_or_tests_or_ML_or_Git_executed": false
+}

@@ -1,5 +1,20 @@
 # Журнал новых исследовательских идей
 
+## Локальные исправления и следующий шаг — 2026-10-17 00:59:13 UTC
+
+Семь исправлений pipeline установлены локально в `13ce92d`; 89 уникальных синтетических методов и R3 ранее приняты с ограничениями. [Приёмка и остающиеся границы](../backlog-reviews/local192-and-source-plan-status.md) подтверждают фактическую установку. Это не новый native/full-raw повтор или quality gain. Приняты 14 из 19 задач; TLAB-014 continuous, TLAB-010–013 — четыре optional/deferred эксперимента. Единственная очередь и научный scope сохранены.
+
+Волны [085](brainstorm-wave085-synthesis.md) и [086](brainstorm-wave086-synthesis.md) завершены как SOURCE refinements; exact FIRST/критика и qualifications включены в этот пакет, без admissions. Для 086 три независимых FIRST предшествуют отдельному скептику; research starts 00:45:07 / 00:45:25 / 00:45:06 UTC. Следующий срок — 01:30 UTC / 04:30 МСК 17 октября, без сброса сетки.
+
+Source-plan V1 остаётся FAILED внешнего wrapper. Отдельный V2 source с 10 synthetic typed9 строками и два producer plan фактически приняты после независимой artifact review; owner/child exit0/reaped, fits0. Genuine approvals ещё не выданы; QYC/F/Prepared/native в новом scope UNRUN. Исправленный обычный native CLI E2E и callback-abort UNRUN. Exact476 опубликован ранее; нового push/native разрешения нет.
+
+085: NEW 0 / REFINE 2 / MERGE 2 / ADMIT 0, три claim upgrades отвергнуты. 086: NEW 0 / REFINE 3 / MERGE 3 / proposal-REJECT 0 / ADMIT 0, четыре claim upgrades отвергнуты. Все будущие toys UNRUN, cost/adequacy UNKNOWN.
+
+Каждая платная операция сохраняет собственные reviewed конечные пределы CPU/wall/memory/I/O/label/fit/API и fail-closed поведение. Гипотезы не prerequisites TLAB-015/018; B/W и reserved 25–31 неизменны. Deadline не продлён; полезность оценивается закрытой неопределённостью и исправлением, а не числом агентов.
+
+Ниже сохранён весь прежний текст побайтно; ранние prepared/pending статусы относятся к своим датам.
+
+
 ## Итог полного pipeline-аудита — 2026-10-17 00:13:55 UTC
 
 13 независимых FIRST, затем 13 crossed R2 выявили семь source-supported проблем существующих задач. Подготовлены 27 code/test изменений; 57 + 32 = 89 уникальных синтетических методов и [итоговый R3](../backlog-reviews/pipeline-audit-20261016/global-R3-v2/report.md) приняты. Это не 89 независимых экспериментов и не semantic review всех 643 файлов. Подтверждённой temporal leakage в просмотренных статических путях нет; общего доказательства leak-freedom также нет.
