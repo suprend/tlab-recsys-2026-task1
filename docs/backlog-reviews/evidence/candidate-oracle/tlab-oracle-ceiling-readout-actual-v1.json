@@ -1,0 +1,153 @@
+{
+  "status": "COMPLETE_DIAGNOSTIC_ORACLE_CARD_PENDING_REVIEW",
+  "utc": "2026-10-17T09:22:29.811211+00:00",
+  "formula": "Oq=sum(1/log2(r+1),r=1..min(hq,20))/sum(1/log2(r+1),r=1..min(mq,20)); zeroY excluded conditionally, zero all-query",
+  "cards": {
+    "category_native_C0": {
+      "queries": 6000,
+      "positive_queries": 104,
+      "targets": 121,
+      "hits": 92,
+      "max_targets_per_query": 4,
+      "positive_fraction": 0.017333333333333333,
+      "positive_query_macro_recall": 0.7836538461538461,
+      "positive_query_oracle_NDCG20": 0.7893199154787948,
+      "all_query_zero_oracle_NDCG20": 0.013681545201632443,
+      "positive_ordering_loss": "UNKNOWN_without_same_cohort_scorer"
+    },
+    "category_native_C1": {
+      "queries": 6000,
+      "positive_queries": 104,
+      "targets": 121,
+      "hits": 93,
+      "max_targets_per_query": 4,
+      "positive_fraction": 0.017333333333333333,
+      "positive_query_macro_recall": 0.7932692307692307,
+      "positive_query_oracle_NDCG20": 0.7989353000941795,
+      "all_query_zero_oracle_NDCG20": 0.01384821186829911,
+      "positive_ordering_loss": "UNKNOWN_without_same_cohort_scorer"
+    },
+    "category_matched_C0": {
+      "queries": 6000,
+      "positive_queries": 104,
+      "targets": 121,
+      "hits": 90,
+      "max_targets_per_query": 4,
+      "positive_fraction": 0.017333333333333333,
+      "positive_query_macro_recall": 0.7644230769230769,
+      "positive_query_oracle_NDCG20": 0.7700891462480256,
+      "all_query_zero_oracle_NDCG20": 0.01334821186829911,
+      "positive_ordering_loss": "UNKNOWN_without_same_cohort_scorer"
+    },
+    "category_matched_C1": {
+      "queries": 6000,
+      "positive_queries": 104,
+      "targets": 121,
+      "hits": 93,
+      "max_targets_per_query": 4,
+      "positive_fraction": 0.017333333333333333,
+      "positive_query_macro_recall": 0.7932692307692307,
+      "positive_query_oracle_NDCG20": 0.7989353000941795,
+      "all_query_zero_oracle_NDCG20": 0.01384821186829911,
+      "positive_ordering_loss": "UNKNOWN_without_same_cohort_scorer"
+    },
+    "selection_C0_same_4000Q": {
+      "queries": 4000,
+      "positive_queries": 73,
+      "targets": 96,
+      "hits": 65,
+      "max_targets_per_query": 7,
+      "positive_fraction": 0.01825,
+      "positive_query_macro_recall": 0.684931506849315,
+      "positive_query_oracle_NDCG20": 0.6942312761177089,
+      "all_query_zero_oracle_NDCG20": 0.012669720789148187,
+      "positive_ordering_loss": "UNKNOWN_without_same_cohort_scorer",
+      "scorers_seed2027": {
+        "B": {
+          "positive_NDCG": 0.45040127767495736,
+          "positive_candidate_loss": 0.30576872388229115,
+          "positive_ordering_residual": 0.2438299984427515,
+          "all_query_NDCG": 0.008219823317567971,
+          "all_query_candidate_loss": 0.005580279210851812,
+          "all_query_ordering_residual": 0.004449897471580215
+        },
+        "W": {
+          "positive_NDCG": 0.43325580108319933,
+          "positive_candidate_loss": 0.30576872388229115,
+          "positive_ordering_residual": 0.2609754750345095,
+          "all_query_NDCG": 0.007906918369768388,
+          "all_query_candidate_loss": 0.005580279210851812,
+          "all_query_ordering_residual": 0.004762802419379798
+        }
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/private/tmp/tlab-category-pilot-runtime-v1-once/producer/query-coverage.parquet",
+      "bytes": 261919,
+      "sha256": "717c593d87c3cda6cd628aa34657404fd1cad3de9670585cb82c936a74c6a014"
+    },
+    {
+      "path": "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/report.json",
+      "sha256": "e62b1f47d6db808f6f5235f63a1b207970ac2f8487c09d9273902c4fbc864a9b",
+      "bytes": 52763
+    },
+    {
+      "path": "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-22/queries.parquet",
+      "sha256": "066b550c0a523010666f75ec598ad8e71ab58bf210d75f398f9f4b7edfa1bbbf",
+      "bytes": 101688
+    },
+    {
+      "path": "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-22/candidates.parquet",
+      "sha256": "d0e7a2d7d29aac77ea0d04f1f295ae5315278323471814d968f32e8700333b3f",
+      "bytes": 344325
+    },
+    {
+      "path": "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-22/labels.parquet",
+      "sha256": "8ac8a3cdc5fb83bb7102ddaa011215176a6901cbf3f21c3f95bddc13e6d1a32b",
+      "bytes": 3097
+    },
+    {
+      "path": "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-23/queries.parquet",
+      "sha256": "5145ba614525675c4a0cdbaa3950a26f03d50f94ccd955a4b969d3cc26baca92",
+      "bytes": 101983
+    },
+    {
+      "path": "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-23/candidates.parquet",
+      "sha256": "16044822fc8a3dac34a54a32fe00abb223698224ae13d502039ece215f03f880",
+      "bytes": 348998
+    },
+    {
+      "path": "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-23/labels.parquet",
+      "sha256": "9ec3507a69df5ed4cb6a592fc0d3d77ce8633dc0a81d3931446577d41401a599",
+      "bytes": 3352
+    },
+    {
+      "path": "/tmp/tlab-root-seed2027-final-actual-acceptance-v1.json",
+      "sha256": "048a6a07898047ff9437b89180f194ed6cb4183c9eb77b0115ebc5107bc86e54",
+      "bytes": 8061
+    }
+  ],
+  "fits": 0,
+  "new_model_predictions": 0,
+  "scope": "Derived fixed-cohort counts only. Category8-10 and selection22-23 reported separately. No claim oracle achievable without futureY; no causal attribution, fresh-final, CI or primary-criterion override.",
+  "resources_prefix": {
+    "CPU_seconds": 0.261364,
+    "wall_seconds": 0.35605800000485033,
+    "maxRSS_bytes": 107855872
+  },
+  "limits": {
+    "CPU_hard": 15,
+    "wall_alarm": 20,
+    "RSS_observed": 536870912,
+    "DuckDB": "256MiB/1thread/0spill"
+  },
+  "arithmetic_witnesses": [
+    "m100h20 =>O1",
+    "zeroY conditional undefined",
+    "m2h1 =>1/(1+1/log2(3))",
+    "positive and all-query loss identities checked"
+  ],
+  "source_allocation": "/tmp/tlab-root-wave098-adoption-v1.json"
+}

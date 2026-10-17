@@ -1,0 +1,267 @@
+{
+  "all_inputs_fresh": true,
+  "calls": {
+    "dependent_prefix_points": 2400,
+    "fits": 0,
+    "full_predictions": 4,
+    "loads": 4,
+    "positive_staged_streams": 2
+  },
+  "files": {
+    "/Users/mdpospelov/tlab-recsys-2026/configs/reproduction/frozen-bw-oct2019.json": {
+      "bytes": 19412,
+      "sha256": "ac904c0eb906fb6ccef9418aba5a2e298f5fc03655655ca3221de3bba44f7579"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/evidence/adaptive-tree-results/originals/result.json": {
+      "bytes": 56368,
+      "sha256": "9126386add408b9b4c76a626b8512cb78074f6570dd8b26937a12c49700cf26f"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/pyproject.toml": {
+      "bytes": 367,
+      "sha256": "416cef16f91689db9f244c9c178c86bebb0f7e8140b2081372bd2324148a816a"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/adaptive_tree_selection.py": {
+      "bytes": 18580,
+      "sha256": "4adcde3add3bf878a16831c109b8dc3ee141932dbb7c50ab663adc8e6ad2ecf6"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/anchor_pilot.py": {
+      "bytes": 20747,
+      "sha256": "496488465efacabd851a9e9705c4384d051fcc7f6a01606774cbeb8d9b5b96de"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/candidate_pilot.py": {
+      "bytes": 19102,
+      "sha256": "69b79a82f2f3d1e4695acffc34da8bc1372eb0ac30ba9484046e0c49b033567f"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/development_collection.py": {
+      "bytes": 36058,
+      "sha256": "0aaf7a53236863540a86a77730215d1c5e106bf29f9440402a8527a03e717736"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/development_training.py": {
+      "bytes": 5590,
+      "sha256": "9f7d9ab7c1f69fd0726d657791059b4a0c5270bf7a32da898602eaf84ccffcc9"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/feature_programs.py": {
+      "bytes": 14019,
+      "sha256": "afaefd6b2a608870d952c0782d2ca9fcbd685f9650afe6229ee74772bab92bf7"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_contract.py": {
+      "bytes": 14058,
+      "sha256": "fc50d11d3b6dfdc2906522472f5b66138424bc4586e7833b43c6fc4e6c4f1abc"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/heldout_predictions.py": {
+      "bytes": 10946,
+      "sha256": "437a054be9b7d47072c240b73b3b713ddef943cb3b04e96d88c8279b41f56af4"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/inference_data.py": {
+      "bytes": 9074,
+      "sha256": "3ed9e1c2d06d77302d1d39dbe2604fb7d778e18a4dcb583d3eb7ddd30236f8dd"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/manual_features.py": {
+      "bytes": 26364,
+      "sha256": "3df97b397f7318c7e96d89d89f8a2f18af86df1b57129a8492c29eeb58268175"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/metadata_price_features.py": {
+      "bytes": 36920,
+      "sha256": "596f137e5f41649c99c568f03333e1517bc1a72b9e1dfbf7d51d8a881fa652b4"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/model_data.py": {
+      "bytes": 13774,
+      "sha256": "89766e3a07a631caac91ec007849aaf4ecc5176caa911764372e10da0678108f"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/program_model_data.py": {
+      "bytes": 10122,
+      "sha256": "1ee9c2fdbec93984e71f0edd055dbbf9046c2d4805eaa0c80f3f0e29bd5c06b1"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/protocol_manifest.py": {
+      "bytes": 11864,
+      "sha256": "0a8aa0fe4213226665d1f7ff61393dd7b7aacfe0df094c3f22a781982929ffc0"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/ranking_metrics.py": {
+      "bytes": 9971,
+      "sha256": "90c3a02d69bb7850eda24a61526978e53e70ffc3856f44c5204e6409b833c9a9"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/reproduce_frozen_comparison.py": {
+      "bytes": 40847,
+      "sha256": "018e5762ff899e612a497b6cf4e00e0025b7b3012930ef8654cb4a0f2807039f"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/source_import.py": {
+      "bytes": 14444,
+      "sha256": "7d7ed34b336294bd18d822b9798a7b644f45dc72f8c1f6edeb6d518b55284236"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/strong_baseline.py": {
+      "bytes": 48659,
+      "sha256": "209f03d114aed5fa93bf860b40cabdd69f5040ae7a81e45c0788ae590ebd03c6"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/temporal_contract.py": {
+      "bytes": 6184,
+      "sha256": "c85adccbd861463051c479b96f9dffdc8dfd920326e08c55ddefe6b5bbd41d66"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/scripts/train_baselines.py": {
+      "bytes": 35812,
+      "sha256": "b25dc30cc7265dddb3cbf910edff12cc4bcf220161c86c59a7d3fa33cf129bed"
+    },
+    "/Users/mdpospelov/tlab-recsys-2026/uv.lock": {
+      "bytes": 300283,
+      "sha256": "4675021f74063889ffb596325b9e608a3a5776a29f967d052b86923e40485eab"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/report.json": {
+      "bytes": 52763,
+      "sha256": "e62b1f47d6db808f6f5235f63a1b207970ac2f8487c09d9273902c4fbc864a9b"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-22/base.parquet": {
+      "bytes": 1138041,
+      "sha256": "5dabd5d50840b9d271a27c126916913611986e2b20648f7733137f0aca342c02"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-22/candidates.parquet": {
+      "bytes": 344325,
+      "sha256": "d0e7a2d7d29aac77ea0d04f1f295ae5315278323471814d968f32e8700333b3f"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-22/extra.parquet": {
+      "bytes": 293865,
+      "sha256": "fb5ccf1e83f04685a9fb90d19468c4b6c03d521ca2620b58e9661f16c35d7667"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-22/labels.parquet": {
+      "bytes": 3097,
+      "sha256": "8ac8a3cdc5fb83bb7102ddaa011215176a6901cbf3f21c3f95bddc13e6d1a32b"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-22/manifest.json": {
+      "bytes": 2443,
+      "sha256": "43b48e2b7edc9be9ee141a957933afc90953cc8c4a5e636543e2aedebe5e9372"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-22/queries.parquet": {
+      "bytes": 101688,
+      "sha256": "066b550c0a523010666f75ec598ad8e71ab58bf210d75f398f9f4b7edfa1bbbf"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-23/base.parquet": {
+      "bytes": 1160705,
+      "sha256": "26c159a52c3737200d47ba0c3b0e735c2bdbfa38d0dc0e0cc7b9cf1dd2967ad8"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-23/candidates.parquet": {
+      "bytes": 348998,
+      "sha256": "16044822fc8a3dac34a54a32fe00abb223698224ae13d502039ece215f03f880"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-23/extra.parquet": {
+      "bytes": 298961,
+      "sha256": "f8d8436f1f9ba2a1fe345b76eb979596e53e9a5d721737519ad0e0d3cb8bd2a3"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-23/labels.parquet": {
+      "bytes": 3352,
+      "sha256": "9ec3507a69df5ed4cb6a592fc0d3d77ce8633dc0a81d3931446577d41401a599"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-23/manifest.json": {
+      "bytes": 2443,
+      "sha256": "a749d3e60391729b8c0d207dc6e27cf5f868d24c0829a55bac5b1c7334473580"
+    },
+    "/private/tmp/tlab-public018-clean-20261015-once/artifacts/reproduction/public-frozen-bw-once/selection/2019-10-23/queries.parquet": {
+      "bytes": 101983,
+      "sha256": "5145ba614525675c4a0cdbaa3950a26f03d50f94ccd955a4b969d3cc26baca92"
+    },
+    "/private/tmp/tlab-seed2027-replication-proposal-v1/caller.py": {
+      "bytes": 17053,
+      "sha256": "bb2fe7c9bbfbb9c3e1c71c352108f0fd6426eb90fa4da94096ba22f61261296c"
+    },
+    "/private/tmp/tlab-seed2027-replication-proposal-v1/request-v2.json": {
+      "bytes": 5429,
+      "sha256": "bf196214c206d99c1cfd18cc2d42036da7fd0343c8c4ed3ff3788b843075a5d1"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/producer/B.full.cbm": {
+      "bytes": 610360,
+      "sha256": "60b713074ef5b5ab692798dd4a872a26ab6ad93a1d2b7983216d78d607324e02"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/producer/B.recipe.json": {
+      "bytes": 3298,
+      "sha256": "9d096812e9b9a140486fd7135b229e07402285a6bb7e3c9bb175130ede62300b"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/producer/B.selected-scores.npz": {
+      "bytes": 2718795,
+      "sha256": "4e9462d59a23183b39cc98db02724e28da8f2cac62aeeb4a4b28d82cc8e5ae5b"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/producer/B.selected.cbm": {
+      "bytes": 156536,
+      "sha256": "bd2a534a9c467032032e239ad3f58f7f605a49368cd9c80caebdcc7114100e7c"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/producer/W.full.cbm": {
+      "bytes": 482920,
+      "sha256": "e8efaaad1a2292117e4697f1b878a1e8acfd004d51dfd36d405bee4aed670324"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/producer/W.recipe.json": {
+      "bytes": 3450,
+      "sha256": "742a1d1b75dd3e4bd9e141bc3e064afcc1903cfb6dd70b9257485f3854a8b11b"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/producer/W.selected-scores.npz": {
+      "bytes": 3642074,
+      "sha256": "1666d55fa978026f9a84d882cb77958823a235cff62c7a2f19a7e4b8d79370c3"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/producer/W.selected.cbm": {
+      "bytes": 195816,
+      "sha256": "5730deaf741327a328cbf1f109d420172ea01b589e87b825efb7851e57a30880"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/producer/both-recipes-sealed.json": {
+      "bytes": 231,
+      "sha256": "98455f913db5c79627174ee3e647e20e58c85451801b45f075d72263a55301be"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/producer/produced-unreviewed.json": {
+      "bytes": 92047,
+      "sha256": "a6b6f87d2c316fc049ce03a4c4912df8ad56b13d0f346d7d5bcea30da6682be5"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/producer/request.json": {
+      "bytes": 5429,
+      "sha256": "bf196214c206d99c1cfd18cc2d42036da7fd0343c8c4ed3ff3788b843075a5d1"
+    },
+    "/private/tmp/tlab-seed2027-runtime-v1/receipt.json": {
+      "bytes": 1365,
+      "sha256": "fef3f64f11a3be90821161d9f5e4924fedb57bbaecc25184746f7de967da93f2"
+    },
+    "/tmp/tlab-root-seed2027-original-terminal-v1.json": {
+      "bytes": 1893,
+      "sha256": "4b87a43c88fbacfd53f6744cedb79a957679efc77207e8a8086e71b146ab9251"
+    },
+    "/tmp/tlab-seed2027-independent-actual/PLAN.md": {
+      "bytes": 2022,
+      "sha256": "ac10927466d1440b03479e493cdfbaa368e265df8205aa10f75084bf801ad956"
+    },
+    "/tmp/tlab-seed2027-independent-actual/counts.json": {
+      "bytes": 110,
+      "sha256": "cb8eb8e928cb78298a84168de3108dfc3eaefd594fefa92a9b4c70102d80ed6b"
+    },
+    "/tmp/tlab-seed2027-independent-actual/postcheck.json": {
+      "bytes": 429,
+      "sha256": "db34d175121767b83b87118b78c3ad3b3cfcb6083d38280306d8a174daacc9f2"
+    },
+    "/tmp/tlab-seed2027-independent-actual/receipt.json": {
+      "bytes": 630,
+      "sha256": "05f906585868a9ae41eb20de94d4ae2ec2a50b844f9390a8cc0c3a56b48199e9"
+    },
+    "/tmp/tlab-seed2027-independent-actual/result.json": {
+      "bytes": 95504,
+      "sha256": "2f796c85a5f07f49cc58d6191a5ea006e05d31be25003624ccf0541511db46e4"
+    },
+    "/tmp/tlab-seed2027-independent-actual/source-freeze.json": {
+      "bytes": 471,
+      "sha256": "aa88b91855dd91aba320c65a18c3128e78b1f3f91a827685c158398e407be7a6"
+    },
+    "/tmp/tlab-seed2027-independent-actual/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/tlab-seed2027-independent-actual/stdout.log": {
+      "bytes": 383,
+      "sha256": "6dcd489a277fe66887c4403860c0eddf66031024c06c2b5bfc37c3238646eb5a"
+    },
+    "/tmp/tlab-seed2027-independent-actual/supervise.py": {
+      "bytes": 2723,
+      "sha256": "3fd7bae1926947eec0655b0841c17a240d4e83b374a6511b648df0b4618fdf56"
+    },
+    "/tmp/tlab-seed2027-independent-actual/verify.py": {
+      "bytes": 16722,
+      "sha256": "7fda71c3275b436e52fcee1031441779506ac5b2f1d9d8e571128dde24fffbf5"
+    },
+    "/tmp/tlab-seed2027-independent-correctness-actual-v1.md": {
+      "bytes": 8589,
+      "sha256": "a10ed5b5ecb2ff3d463fd0d7f3e15347f203f5ff5e2d974727d881b95f39d206"
+    }
+  },
+  "scope": "four model loads, four full-cohort direct predicts, two positive-only staged streams, zero fits; selection-only exports; no train bodies/raw/final",
+  "status": "INDEPENDENT_ACTUAL_PASS_FINITE_CRITERION_FALSE",
+  "utc": "2026-10-17T09:18:31.160141+00:00"
+}

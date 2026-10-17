@@ -1,5 +1,18 @@
 # Единый рабочий backlog T-Lab
 
+## Волна 098 и отрицательный повтор — 2026-10-17 09:30:38 UTC
+
+[098](research-lab/brainstorm-wave098-synthesis.md): NEW 0, три уточнения существующих направлений, scientific ADMIT 0; новых обязательных задач нет.
+
+[Seed2027 принят отрицательным](backlog-reviews/seed-replication-results.md): NDCG B 0.450401 / W 0.433256, Δ −0.017145; собственные префиксы 98/134. Знак seed2026 сменился на тех же 73 положительных validation-запросах; это исторические экспорты d35, не свежий final. Frozen final и его CI неизменны. Пересчёт 15 коллекций текущим кодом из принятой processed DB — UNRUN.
+
+Категории inconclusive, C0 сохраняется; [oracle-карточка](backlog-reviews/candidate-oracle-diagnostic.md) принята только диагностикой. HYP-061 optional, activity weighting HYP-062 не проверено.
+
+14/19 принято; TLAB-014 продолжается, 010–013 optional. Следующий срок 09:45 UTC / 12:45 МСК, далее 10:30 UTC, шаг 45 минут.
+
+Старое тело сохранено побайтно.
+
+
 ## Волна 097 — 2026-10-17 08:59:50 UTC
 
 [097](research-lab/brainstorm-wave097-synthesis.md): NEW 0 / REFINE 1 / MERGE 2 пересекаются; scientific ADMIT 0, новых обязательных задач нет.

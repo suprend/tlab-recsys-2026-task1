@@ -1,0 +1,255 @@
+{
+  "status": "ROOT_ACCEPTED_NEGATIVE_SEED2027_REPLICATION",
+  "utc": "2026-10-17T09:20:02.873391+00:00",
+  "scope": "historical_d35cfb6_frozen_exports_seed2027_not_current_raw_pipeline",
+  "source_commit": "6309c6bf63d3d411258ef4e318fd819843566594",
+  "original_process": {
+    "session": 18199,
+    "terminal": "2b7d6c",
+    "exit": 0,
+    "reaped": true,
+    "CPU_seconds": 2062.730529,
+    "wall_seconds": 1073.3100026249886,
+    "maxRSS_bytes": 5968969728,
+    "retry": false
+  },
+  "verification_process": {
+    "session": 70123,
+    "terminal": "987671",
+    "exit": 0,
+    "reaped": true,
+    "receipt": {
+      "child_cpu_seconds": 6.0305670000000005,
+      "cleanup_errors": [],
+      "command": [
+        "/Users/mdpospelov/tlab-recsys-2026/.venv/bin/python",
+        "-I",
+        "-B",
+        "/private/tmp/tlab-seed2027-independent-actual/verify.py"
+      ],
+      "limits": {
+        "child_cpu": 168,
+        "fit": 0,
+        "kill_reap_grace": 3,
+        "parent_cpu": 6,
+        "rss_cooperative": 6442450944,
+        "term_grace": 2,
+        "wait_wall": 170
+      },
+      "parent_cpu_seconds": 0.036247,
+      "peak_child_rss_bytes": 1519534080,
+      "pid": 46090,
+      "primary_error": null,
+      "reaped": true,
+      "retries": 0,
+      "returncode": 0,
+      "signals": [],
+      "wall_seconds": 4.705101667001145
+    }
+  },
+  "Root_fresh_input_checks": 199,
+  "Root_curve_values_compared": 2400,
+  "Root_max_curve_absolute_error": {
+    "B": 2.220446049250313e-16,
+    "W": 1.1102230246251565e-16
+  },
+  "results": {
+    "B": {
+      "selected_trees": 98,
+      "evaluation": {
+        "all_query_zero": {
+          "average_precision": 0.007187916133359245,
+          "ndcg": 0.008219823317567971,
+          "recall": 0.010803571428571428,
+          "reciprocal_rank": 0.007927922399023405
+        },
+        "all_user_macro_zero": {
+          "average_precision": 0.007196912273701372,
+          "ndcg": 0.008230110956263302,
+          "recall": 0.010817092794564635,
+          "reciprocal_rank": 0.007937844704904535
+        },
+        "censored_query_count": 0,
+        "conditional_macro_query": {
+          "average_precision": 0.39385841826626,
+          "ndcg": 0.45040127767495736,
+          "recall": 0.5919765166340509,
+          "reciprocal_rank": 0.434406706795803
+        },
+        "conditional_user_macro": {
+          "average_precision": 0.39385841826626,
+          "ndcg": 0.45040127767495736,
+          "recall": 0.5919765166340509,
+          "reciprocal_rank": 0.434406706795803
+        },
+        "k": 20,
+        "mature_query_count": 4000,
+        "mature_user_count": 3995,
+        "nonempty_fraction": 0.01825,
+        "nonempty_query_count": 73,
+        "positive_user_count": 73,
+        "query_count": 4000
+      }
+    },
+    "W": {
+      "selected_trees": 134,
+      "evaluation": {
+        "all_query_zero": {
+          "average_precision": 0.007015366789428322,
+          "ndcg": 0.007906918369768388,
+          "recall": 0.010017857142857143,
+          "reciprocal_rank": 0.007710621889075836
+        },
+        "all_user_macro_zero": {
+          "average_precision": 0.007024146973144753,
+          "ndcg": 0.007916814387753079,
+          "recall": 0.010030395136778116,
+          "reciprocal_rank": 0.00772027222936254
+        },
+        "censored_query_count": 0,
+        "conditional_macro_query": {
+          "average_precision": 0.3844036596947026,
+          "ndcg": 0.43325580108319933,
+          "recall": 0.5489236790606653,
+          "reciprocal_rank": 0.422499829538402
+        },
+        "conditional_user_macro": {
+          "average_precision": 0.3844036596947026,
+          "ndcg": 0.43325580108319933,
+          "recall": 0.5489236790606653,
+          "reciprocal_rank": 0.422499829538402
+        },
+        "k": 20,
+        "mature_query_count": 4000,
+        "mature_user_count": 3995,
+        "nonempty_fraction": 0.01825,
+        "nonempty_query_count": 73,
+        "positive_user_count": 73,
+        "query_count": 4000
+      }
+    }
+  },
+  "comparison": {
+    "delta_ndcg": -0.017145476591758024,
+    "delta_recall": -0.04305283757338563,
+    "finite_criterion_met": false
+  },
+  "seed_comparison": {
+    "2026": {
+      "Dselected": 0.005437964705512333,
+      "matched_ndcg": {
+        "1200": {
+          "B": 0.45515245774593477,
+          "W": 0.46381544258293805,
+          "delta": 0.008662984837003285
+        },
+        "300": {
+          "B": 0.4586107284411232,
+          "W": 0.46470287738416133,
+          "delta": 0.0060921489430381115
+        },
+        "600": {
+          "B": 0.4569773633373079,
+          "W": 0.46201688714227074,
+          "delta": 0.005039523804962864
+        }
+      },
+      "T": -0.0006541842375257789
+    },
+    "2027": {
+      "Dselected": -0.017145476591758024,
+      "matched_ndcg": {
+        "1200": {
+          "B": 0.4395036832840946,
+          "W": 0.4293254838315463,
+          "delta": -0.010178199452548331
+        },
+        "300": {
+          "B": 0.44058213152131637,
+          "W": 0.42802721336150945,
+          "delta": -0.012554918159806916
+        },
+        "600": {
+          "B": 0.4395036832840946,
+          "W": 0.4293254838315463,
+          "delta": -0.010178199452548331
+        }
+      },
+      "T": -0.004590558431951108
+    }
+  },
+  "original_accounting": {
+    "dependent_prefix_points": 2400,
+    "fits": 2,
+    "full_parity_prediction_calls": 6,
+    "no_final_access": true,
+    "parity_score_values": 4902894,
+    "persisted_score_values": 1634298,
+    "positive_prefix_streams": 2,
+    "source_scope": "historical_d35cfb6_frozen_exports_seed2027_not_current_raw_pipeline"
+  },
+  "independent_accounting": {
+    "dependent_prefix_points": 2400,
+    "fits": 0,
+    "full_predictions": 4,
+    "loads": 4,
+    "positive_staged_streams": 2
+  },
+  "matrix_scope": "full selection independently rebuilt; all train array/weight provenance hash equality only, no training bodies decoded",
+  "interpretation": "Observed sign reversal on same reused validation. Automation works; positive feature effect not stable across these two fixed seeds. No universal harm/superiority, fresh final, CV or seed-distribution inference. No third seed scheduled.",
+  "historical_final_unchanged": {
+    "B_ndcg": 0.459825,
+    "W_ndcg": 0.464947,
+    "CI95_delta": [
+      -0.010433,
+      0.018561
+    ]
+  },
+  "evidence": [
+    {
+      "path": "/tmp/tlab-seed2027-independent-correctness-actual-v1.md",
+      "sha256": "a10ed5b5ecb2ff3d463fd0d7f3e15347f203f5ff5e2d974727d881b95f39d206",
+      "bytes": 8589
+    },
+    {
+      "path": "/tmp/tlab-seed2027-independent-correctness-actual-v1-pins.json",
+      "sha256": "b3f46649acf78b63233b94e31570bc2a8a3f5683acd0c5c724db95bbaeb91863",
+      "bytes": 12780
+    },
+    {
+      "path": "/tmp/tlab-seed2027-independent-resources-actual-v1.md",
+      "sha256": "e751d92f9d9a77c128ae4a65806e15a8618a9ed0e576afcf4c007a0f222112f1",
+      "bytes": 5126
+    },
+    {
+      "path": "/tmp/tlab-seed2027-independent-resources-actual-v1-pins.json",
+      "sha256": "54aa02631a268a37cd32c4e3c76f4ede4bde7e11427628e95de35c55977bdbf0",
+      "bytes": 90982
+    },
+    {
+      "path": "/tmp/tlab-seed2027-independent-actual/result.json",
+      "sha256": "2f796c85a5f07f49cc58d6191a5ea006e05d31be25003624ccf0541511db46e4",
+      "bytes": 95504
+    },
+    {
+      "path": "/tmp/tlab-seed2027-independent-actual/receipt.json",
+      "sha256": "05f906585868a9ae41eb20de94d4ae2ec2a50b844f9390a8cc0c3a56b48199e9",
+      "bytes": 630
+    },
+    {
+      "path": "/tmp/tlab-root-seed2027-original-terminal-v1.json",
+      "sha256": "4b87a43c88fbacfd53f6744cedb79a957679efc77207e8a8086e71b146ab9251",
+      "bytes": 1893
+    },
+    {
+      "path": "/tmp/tlab-root-seed2027-actual-checks-v1.json",
+      "sha256": "b07f772fe91d1c5c16e21fbabda9a16203a59167a7553b2fd2051182abc5da70",
+      "bytes": 7508
+    },
+    {
+      "path": "/tmp/tlab-root-seed2027-canonical-local-actual-v1.json",
+      "sha256": "2afe6d174091d3db871b14c2d87d61dafdf097e5f3f7cf517f0760451a44d556",
+      "bytes": 1482
+    }
+  ]
+}

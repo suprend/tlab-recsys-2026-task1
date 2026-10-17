@@ -1,0 +1,67 @@
+# Волна 098 A — точное локальное co-visitation retrieval под HYP-061/062
+
+FIRST, source-only. Начальная clock: **2026-10-17 08:55:31 UTC**; freeze clock — в отдельной квитанции. Это extra event-driven волна после категорийного результата: **next_scheduled_check 09:45 UTC, following_grid 10:30 UTC, interval 45 min**. Ранняя freeze не снимает слот 09:45 и не меняет Root next_due.
+
+**Рекомендация: MERGE/REFINE существующей HYP-061, с контрольной нормировкой HYP-062; NEW 0.** Один необучаемый источник проверяет, найдёт ли точное ограниченное расширение по общей аудитории новые user–item товары за 20 замен популярных кандидатов. Не строить полный item×item граф и не начинать с нейронного retriever. Это предложение после текущих работ Root, а не новый обязательный gate Task1 или разрешение его исполнения.
+
+## Что изменило решение
+
+Root передал новый результат HYP-053 на прежних 6000 queries 8–10 октября: full Y 121 pairs / 104 positive queries; C0 P200+R20 — 92 hits = 21/48 new + 71/73 repeat; категория C1 P140+R20+3×20 — 93 = 20 new + 73 repeat. Macro delta +0.009615, CI [−0.047619,+0.067961]. Арифметика проверена Root, два ACTUAL review ещё pending. Я не читал actual outputs и не считаю результат принятым вместо Root.
+
+Прирост одного суммарного попадания вместе с потерей одного new-pair не оправдывает продвижение категорий. Он делает полезным источник, который может выйти за собственную историю и категорию. Но 27 new-pair misses C0 не доказывают существование внешней аудитории или доступного co-vis пути. Результат B/W и его пересекающий ноль historical final CI остаются прежними; target25–31 закрыт. Работа seed2027 и nofit-refresh 15 collections принадлежит другим исполнителям и здесь не повторяется.
+
+## Основание из первичных источников и граница переноса
+
+[Sarwar et al., WWW2001, §3.1/§3.3](https://www.ra.ethz.ch/CDstore/www10/papers/519/) отделяют similarity между item-векторами в пространстве пользователей от агрегации рекомендаций; хранение top-k относится к готовой таблице. Для бинарных distinct-user векторов cosine получается как c/sqrt(dh·dj). Это перенос формулы, не доказательство эффективности view-source на REES46. В статье другой task и явные рейтинги.
+
+[Linden–Smith–York, 2003, How It Works, pp.78–79](https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf) обходят пользователей seed-товара и другие товары этих пользователей, затем агрегируют similarities. Такой обход избегает нулевых catalog pairs, однако offline построение прямо названо дорогим. Их purchase/rating и online-serving результаты не дают местного бюджетного или quality обещания.
+
+[Ludewig–Jannach, 2018, §3.2.1](https://arxiv.org/pdf/1803.09587) определяют binary session co-occurrence и cosine; §3.1.1 содержит простой co-count источник. Это полезный primary control, но session-next-click отличается от нашего next24h distinct-purchase target. Поэтому в этом первом тесте grain остаётся **user7d**, без нового session parsing, chronological transitions или tuned recency. Не создаётся второй эксперимент только потому, что существует session-based статья.
+
+Нет impressions/stock/orderID: co-view не означает показ, доступность, dislike, взаимозаменяемость или комплементарность. Невыбранные items не являются подтверждёнными negatives; propensity correction из этих данных не идентифицируется. Поддержка графа является наблюдаемой поддержкой, не полной торговой доступностью.
+
+## Один различающий тест с двумя оценками источника
+
+**Механизм.** Общая distinct-user view-аудитория переносит интерес на ранее не встречавшиеся пользователю товары. Cosine при одинаковых support/shrink должен отличать специфические связи от большого совместного счётчика популярных items. Сырые supported co-counts — нужный сильный контроль: если они лучше, нормировка могла удалить полезную head-demand.
+
+Для каждого исторического daily anchor b 8/9/10 октября создать отдельный complete binary view graph на [b−7d,b), глобально исключая timestamp b и более поздние события. Это retrospectively reconstructed event-time состояние; нет received_at, поэтому доказательства реальной исторической ingestion/serving availability нет. Начальный октябрь имеет сокращённую наблюдаемую историю, которая фиксируется в provenance.
+
+1. Посчитать полную distinct-item view-degree m(v) каждого пользователя в окне. **Весь пользователь допускается только при m(v)≤32**; не обрезать его историю до первых32. Все нормы и пары ниже принадлежат этому объявленному фильтрованному графу. Его результат не называется exact полного исходного графа.
+2. Seeds H(q) — первые четыре товара канонического R20 до source gate, без добора rejected seeds. R20 использует свой уже принятый all-event grain; view-support seed может отсутствовать.
+3. Удалить query user u из обеих аудиторий **до** degree gate, support и норм. Для seed h с 1≤d_h≤512 обойти полные профили всех оставшихся пользователей; d_h>512 даёт пустой вклад с причиной audience_guard, не первые512 человек. Требовать c_hj≥3 distinct других пользователей. Все c и item degrees d_j точны внутри admitted graph; глобальные d_j не заменять числом пользователей, попавших в текущий seed expansion.
+4. Использовать один и тот же discovery pool D и support floor. Для j≠h определить a(h,j)=1[c_hj≥3]·c_hj²/(c_hj+10). Контроль S_count(j)=sum_h a(h,j); treatment S_cos(j)=sum_h a(h,j)/sqrt(d_h d_j). Отличие только в cosine denominator; support/shrink, seeds, graph и расходы discovery одинаковы. Предельные значения32/512/4/3/10/20 — заранее фиксированные инженерные choices, не найденные по Y параметры.
+5. **До source top20** исключить original C0=dedup(P200∪R20) из полного D. Не взять top100, затем удалить overlap: это может ошибочно скрыть допустимые новые endpoints. Технические ties — тот же stable product-ID hash/ID, одинаковый в обеих ветвях. Затем взять до20 distinct по каждому score. Каждый результат должен принадлежать strict-past U; неизвестное/неполное adjacency — ошибка, не ноль. Source пуст при отсутствии поддержки; никаких fallback/refill и автоматического снятия guards.
+
+Политики: исторический C0 P200+R20; C_count P180+R20+S_count20; C_cos P180+R20+S_cos20. Union/dedup, **без refill, ≤220**, bought items сохраняются. Новые source items действительно вне original200+20 union. Совпадение output cap не считается совпадением actual |C|. Категорийная политика остаётся описанным historical comparator, её заново не подбираем и не объединяем со source.
+
+**Контргипотеза.** Общая аудитория отражает глобальную популярность/витрину; cosine упирается в редкую поддержку, guards выбрасывают полезные head-seeds и активных покупателей. Даже хорошие новые предложения могут потерять больше full-Y hits в P181–P200, чем добавить. A source item, отсутствующий в C0, не обязательно является new user–item: он мог быть в более старой истории, поэтому new/repeat определяется прежним протоколом, а не source membership.
+
+**Предсказание, которое может не сбыться.** S_count и S_cos должны давать отличающиеся nonempty new-out-C списки на общем Q. Если distinct-user support почти отсутствует либо оба источника возвращают пустые/тождественные списки, локальный механизм не различён. Если C_cos добавляет new-pair hits, но native lost hits или общая macro delta хуже C_count/C0, механизм не продвигается. Статья не задаёт ожидаемый положительный effect size.
+
+## Минимальный протокол и честный бюджет
+
+Сначала source-only первые100 **bottom-hash query IDs из тех же6000 Q**, определённые до Y, без отбора покупателей/положительных queries/историй с успешными seeds. Никакой label look на этих100. Gate измеряет только полноту, ресурсы, раздельные rejected-seed причины и долю Q с новым source endpoint; предложенный минимальный рабочий сигнал — ≥20/100 Q с ≥1 source item. Он практический и произвольный, не power calculation. Его провал оставляет отрицательную feasibility-запись; не разрешает менять thresholds или увеличивать fanout по этому результату.
+
+Полная source-bank construction оплачивается даже для100Q. Маленький query prefix не ограничивает стоимость сканирования/дедупликации глобальных degree и норм. Допустим single-snapshot-at-a-time, без materializing all item-pairs. Один seed посещает ≤512·32=16384 profile edges; четыре — ≤65536 на query, 6000 — ≤393216000 edge visits. Это **общая для двух scores discovery**, не два независимых обхода. Подсчёт всех исходных degrees, item norms, scans, validation, hashing, dedup/top20, scores и сохранение выходов оплачиваются сверх этой арифметики. Число уникальных discovered IDs≤65536/query; отсутствие repeated-event votes существенно для границы.
+
+Предложение для Root до запуска: **0 ML fits; 2 threads; inclusive1200 CPU seconds /1800 wall seconds; peak process-tree RSS≤6GiB; DuckDB2GiB; spill≤8GiB; physical reads≤32GiB; ≤10M admitted unique graph edges одновременно; ≤4 authenticated full-source passes**. Для historical descriptor S=42448764 это4S=169795056 raw-row visits; актуальный S/coverage/bytes надо подтвердить до dispatch, это не мой просмотр source и не прогноз throughput. При отсутствии полного authenticated source plan или preflight превышении limits — STOP. Нельзя выдавать SQL LIMIT/частичный graph за полный. Все failed attempts и временные native-state затраты включаются; только новый Root finite allocation может разрешить retry. На Mac36GB это предложенный лимит, не доказанная конкурентная доступность рядом с текущими fits.
+
+Если источник complete и стоимость выдержана, одна frozen оценка всех6000 Q с прежними fullY/Q/C provenance; повторное использование этих уже виденных development labels явно exploratory, не fresh confirmation. Можно переиспользовать accepted immutable Q/fullY/C0 артефакты **после** identity/source closure; не делать новый raw-label scan просто для этого исследования. Три native C дают≤3×6000×220=3960000 candidate positions до dedup; исторический C0 не требует его повторного построения. Новые persisted rows/проверочные чтения и обе source-score суммы отдельно учитываются. Ни original18199, ни fresh nofit15collection owner не затрагиваются.
+
+## Оценка tradeoff и решение
+
+Сохранить mature zero-Y Q. Основной estimand — paired positive-query macro full-Y Recall на общем Q; рядом pooled hits/121, supported-U coverage, actual |C| distribution, source-empty/rejection rates, new/repeat denominators и по дням. Для каждого сравнения явно G=|Y∩(C_new\C0)| и L=|Y∩(C0\C_new)|, отдельно new/repeat; G само по себе не успех. Не исключать targets вне D/U, query без supported seed или неудобные dates. Парный user-cluster interval — описательная uncertainty на reused development, без заявления unbiased post-selection inference.
+
+Второй дешёвый **диагностический** тест actual-size сохраняет common candidates: I=C0∩C_x, A=C0\C_x, B=C_x\C0, k=min(|A|,|B|); retain I и по k items из A/B по одинаковому frozen query-item hash, до Y. Обе ветви имеют |I|+k, общий I не прореживается. Он показывает paired replacement при одинаковом actual C, но является отдельной диагностической политикой и не заменяет native результат. Если k=0, диагностический contrast пуст; не добавлять refill для спасения теста. Это уточнение честного budget comparison, не новая HYP и не quality estimate.
+
+- Неполнота/дорогой build/низкий support/вырожденный contrast: закрыть этот bounded вариант как infeasible/inconclusive, оставить C0. Полный граф/большие caps не следуют автоматически.
+- В native и matched diagnostic нет net gains new-pair либо normalization проигрывает count: не продвигать cosine; сохранить разложение новых/потерянных и source ceiling. Не маскировать repeat выигрыши словами «discovery».
+- Есть совместимые net gains без ущерба full-Y total/macro и в пределах cost: это основание предложить **отдельный** fixed-recipe downstream new-C contrast, с двумя одинаковыми ranker recipes и отдельным finite training budget. Retrieval Recall не обещает NDCG20. Это не изменяет frozen B/W C и не доказывает преимущество feature automation.
+
+**Польза Task1:** быстро выяснить, имеет ли небольшой автоматический co-vis source полезный coverage сверх сильного P/R без дорогого representation fit. Отрицательный результат ограничивает альтернативные методы и удерживает effort на автоматизации признаков против tuned boosting. Положительный создаёт более сильный candidate control для отдельного будущего pipeline сравнения. Автоматически превращать retrieval probe в новую обязательную часть исходной задачи нельзя.
+
+## Scope / provenance / независимость
+
+Применены research-campaign и research. Прочитаны Task1 requirements, координация, целевые candidate05/12/index, ItemCF extraction/projection summaries, текущие верхние строки backlog, wave095/096 context и выбранные прежние RA001–003 для dedup; источники ниже закреплены в pins. Исторические общие index/evidence-map ссылки просматривались целево, огромный old journal не читался. Отдельный known-hypotheses canonical file отсутствует по Root clarification: backlog является каноническим.
+
+Peer098/critic до FIRST не читались. Узкий primary-reading helper проверил Sarwar/Amazon независимо и ничего не писал; это помощь с источниками, не второй автор текущей волны. Первое попытанное относительное docs/task1-requirements.md было в PersonalOS cwd и не существовало; path discovery нашёл рабочий repo. Это не было чтением данных. Git status перед /tmp записью чистый; canonical/Git writes —0. Project imports, real rows, raw SQL, fits, tests, model/weight/data downloads, платные операции —0. Только три назначенных /tmp артефакта. Все эксперименты выше **UNRUN**, оценка их фактической стоимости **UNKNOWN**.

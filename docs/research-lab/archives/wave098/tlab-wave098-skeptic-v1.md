@@ -1,0 +1,51 @@
+# Волна098 — независимый скептик
+
+Первое фактическое clock-наблюдение скептика: **2026-10-17 09:03:06 UTC**, не заявленный process start. Проверены оба FIRST после freeze: A —20147 bytes/67 lines, B —18666 bytes/59 lines. Первый общий ответ инструмента был обрезан; последующие раздельные чтения FIRST были полными. FIRST/pins соответствуют freeze; все20 локальных pins A и26 B совпали с bytes при первом freshness-наблюдении09:04:22. Это подтверждает identities, не независимо доказывает заявленное авторами nonreading. Исследование read-only, research-campaign/research; отдельный source-only помощник проверил B, автором098 он не был.
+
+Финальный freshness выявил **два изменившихся документа/три pin references**: backlog у A/B и index у A. Root подтвердил commit4128d9bf в09:06:27 и отдельно разрешил read-only historical Git check. Исторические pins точно совпали с3c04a795; текущие файлы сохраняют прежний H1 и побайтно всё прежнее тело после него, добавив1188/1178 bytes097-prefix. Префиксы прочитаны: category accepted/inconclusive,C0 сохранён,2027 на frozen exports без результатов,09:45 next. Это current-vs-historical drift, не мутация FIRST и не изменение HYP semantics. Остальные43 pin references fresh. Первые checker assumptions «current=historical» и «old whole file suffix» дали ожидаемые отказы; после проверки provenance и расположения вставки причины устранены, ложный zero-mismatch не заявляется.
+
+**Итог: NEW0, три существующих уточнения сохранить; scientific ADMIT0.** Приоритет — закончить текущую paired replication, затем сделать дешёвые readouts B2/B1. A полезен как ограниченный следующий альтернативный retrieval probe, но его runtime остаётся optional/deferred до конкретного исполнения Root. Никакого нового обязательного gate или человеческого per-attempt вопроса это ревью не создаёт. Общее разрешение пользователя сохраняется; конкретная операция нуждается в конечном Root allocation и единственном владельце.
+
+## Актуальность категорийного результата
+
+[Root ACTUAL acceptance](/tmp/tlab-root-category-pilot-final-actual-acceptance-v1.json) принят в08:57:37 UTC:6000 Q/104 positive/121 targets, native C0 hits92 (new21/repeat71), C1 hits93 (new20/repeat73), macro delta≈+.009615, CI[−.047619,+.067961],0 fits. Advancement не выполнен: **inconclusive/non-promotion, C0 сохраняется**, без общего опровержения категорий. Pending-review язык FIRST исторический и в синтезе должен получить это обновление. Дельта +1 не определяет полный gained/lost churn. Приёмку читаю как квитанцию Root; повторной raw-реконструкции я не проводил. Исторический final B/W CI crossing0 и статус исходной Task1 от этих0-fit данных не меняются.
+
+## A — REFINE/MERGE HYP-061; runtime DEFER как optional
+
+Механизм состоятельный: exact обход полных профилей аудитории seed расширяет множество за original C0, оставляя support/shrink/seeds/discovery одинаковыми в count/cosine ветвях. Исключение C0 **до** top20, whole-user degree admission вместо первых32 items, whole-seed refusal при audience>512 и query-user subtraction до норм/guards устраняют конкретные ложные упрощения. Это exact **объявленного filtered graph**, не исходного полного графа. Self-included past сам по себе не temporal leakage; исключение u здесь нужно для заявленного other-user механизма. No-refill и common-preserving matched diagnostic честно отделены от native policy.
+
+Уточнения до implementation:
+
+1. Canonical [HYP-062](/Users/mdpospelov/tlab-recsys-2026/docs/candidate-generation/05-itemcf.md) — activity weighting. A сравнивает cosine denominator со **shrunk co-count** `c²/(c+10)`, не raw count и не activity weighting. Поместить это в HYP-061; HYP-062 оставить контекстом, без заявления, что его механизм проверен. Нового ID/arm не нужно.
+2. Заморозить один точный tie rule вместо «hash/ID»: encoding/hash/order и exact integer fallback. Own removal может изменить seed degree513→512 и support3→2; norms должны учитывать u даже когда он смотрел candidate без seed. Это маленькие различающие witnesses существующего контракта, не отдельная исследовательская лестница.
+3. Accepted [extraction](/Users/mdpospelov/tlab-recsys-2026/docs/experiments/itemcf-extraction.md) и [projection](/Users/mdpospelov/tlab-recsys-2026/docs/experiments/itemcf-projection.md) обслуживают **заданные C∪H postings** и fixed-C scalar. Они не извлекают все другие items аудитории seed. Их CODE acceptance не делает новый retriever SOURCE/ACTUAL-ready; повторно использовать можно проверенные части, не приписывать им discovery coverage.
+
+Стоимость:4×512×32=65536 visits/query и393216000 на6000Q — корректные worst-case **локальные edge visits** при указанных guards. Они не ограничивают global source scan/dedup/degrees/norms, internal sort/hash state, source-bank validation либо IO. Construction оплачивается и для100Q. ≤4 raw passes/10M admitted edges/32GiB physical reads/1200CPU/1800wall/6GiB RSS — только prospective proposal; adequacy UNKNOWN. Последний IO-предел нельзя объявить hard-contained без определённого измерителя; memory_limit не равен process-tree RSS. Из стоимости другого category producer throughput не переносится.
+
+Следующий bounded шаг — source-only recipe и явный complete-source access plan с reuse immutable Q/C0, после освобождения владельца/ресурсов Root. Затем предложенный100 bottom-hash Q feasibility:0fits, до Y, тот же finite cap, без снятия guards. ≥20/100 nonempty — произвольный operational screen, не power или quality evidence. Провал отвергает только этот bounded вариант; последующий6000Q contrast остаётся exploratory. Наперёд назвать primary cosine−C0, count−C0 и cosine−count secondary, без выбора удобной политики после Y. Два scores не получают два независимых discovery budgets. Положительный Recall не гарантирует NDCG и не закрывает feature-automation requirement: здесь возможное отвлечение наиболее дорого.
+
+[Sarwar cosine](https://www.ra.ethz.ch/CDstore/www10/papers/519/node12.html) поддерживает user-space similarity, но не наши guards/quality. [Amazon2003, pp78–79](https://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf) разделяет затратное offline построение и быстрый lookup; локальный query-dependent construction к опубликованному serving-time обещанию не приравнивается.
+
+## B1 — REFINE/MERGE существующего ceiling readout
+
+Формула binary oracle NDCG верна; m/h должны быть **per query**, fullY/empty-C сохранены.92/121 и93/121 сами по себе не определяют O0/O1 или их дельту. Ordering residual остаётся UNKNOWN при отсутствии scorer на этих же Q/C/Y; final26–31 или validation22–23 подставлять нельзя.
+
+Существенное уточнение интерпретации FIRST27: `1−M=(1−O)+(O−M)` как retrieval/ordering loss использовать **только для positive-query macro**. При all-query-zero convention верхняя граница равна p=104/6000, поэтому `p−M_all=(p−O_all)+(O_all−M_all)`. Иначе1−O ошибочно включает отсутствие positive Y. Это следует из [принятой семантики усреднения](/Users/mdpospelov/tlab-recsys-2026/docs/target-research/05-evaluation.md:31).
+
+Общее «низкий Recall создаёт потерю NDCG» заменить на «может создавать»: m100/h20 даёт oracle@20=1. Точный критерий — h<min(20,m). Для текущих104 positive/121 targets каждый m≤18, поэтому cutoff20 здесь не связывает; поправка нужна reusable wording, а не опровергает этот cohort.
+
+Следующий bounded шаг: одна свёртка уже accepted m/h, без DB/models/new predictions/bootstrap. Предложение30CPU/60wall/512MiB/≤1MiB output остаётся prospective, adequacy UNKNOWN. Принять арифметически согласованную **диагностическую** карточку; при несовпадающих population/denominator reject карточку. Oracle не заменяет primary criterion и не продвигает C1. Это дешёвая польза для Task1, если не превратить UNKNOWN ordering residual в новый fit prerequisite.
+
+## B2 — MERGE/REFINE уже выбранной paired replication
+
+Два контраста и T корректны. [Принятая таблица](/Users/mdpospelov/tlab-recsys-2026/docs/backlog-reviews/adaptive-tree-results.md) даёт D300=.006092, Dsel=.005438,T=−.000654.300 здесь — prefix **того же1200-tree fit**; seed2027 брать из его собственных curves, а historical fixed300 final хранить отдельно. «Depth stopping» заменить на выбор числа деревьев: depth модели здесь не меняется.
+
+Parent подтвердил2027 на frozen старых exports. До accepted outputs никаких текущих моделей/data/run18199 не читать. При readout проверить одинаковые Q/C/fullY/order/weights/metric/recipe, общий selector и что300 входит в его range; discrepancy в пределах принятого tolerance не превращать в новый scoring run. Own-best на reused73-positive validation — выбранный рецепт, не independent generalization estimate. Два seeds характеризуют conditional seed stability. T<0 не доказывает causal undertraining B; **B1189/1200 оставляет headroom**, глобальная достаточность контроля UNKNOWN. Выбранный L05 из random arm не доказывает superiority guided search. [Cawley–Talbot2010](https://jmlr.org/papers/v11/cawley10a.html) поддерживает риск finite-sample model-selection overfit, не диагноз причины наших чисел.
+
+Следующий bounded шаг: после обычной Root acceptance4 уже сохранённых curves×≤1200 points, два контраста/T на seed.0 новых fits/predictions/source access; proposal30CPU/60wall/512MiB/1MiB, adequacy UNKNOWN. Missing fields→UNKNOWN, без расширения работающего caller/третьего seed. Это наиболее прямое продолжение Task1; ни положительный descriptive readout, ни отрицательный результат сами не устанавливают superiority над хорошо настроенным boosting.
+
+## Решение и остановка
+
+A: сохранить refinement HYP-061, optional runtime defer; B1: сохранить после явного positive/all-query boundary; B2: сохранить как readout ongoing comparison. Отвергнуть расширенные интерпретации «category useless», «A tests HYP-062 weighting», «oracle proves achievable gain», «two seeds prove generalization». Это не reject самих трёх предложений.
+
+Следующий scheduled check **09:45 UTC**, следующий grid **10:30 UTC**,45min неизменно; event098 не сдвигает сроки. Models/data/raw/currentrun18199 не читались; SQL/tests/fits/project imports/Git mutations/canonical changes0. Три явно разрешённых read-only git-show обращения проверяли только два исторических документа. Неуспешная read-команда использовала неверное имя05-itemcf-covisitation.md; исправлена чтением05-itemcf.md, зависимых execution действий не было. После freshness/readback — **READY_STOP**.
