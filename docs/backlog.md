@@ -1,5 +1,20 @@
 # Единый рабочий backlog T-Lab
 
+## H&M v2: активная диагностика и улучшение — 2026-10-18T13:27:46.654222+00:00
+
+Новый явный запрос пользователя возобновил исследование после завершённого v1. [Протокол и evidence v2](hm-auto-v2.md), [конфиг](../configs/datasets/hm-auto-v2.json). V1 source/config/lock/report сохраняются побайтно. Общий лимит пользователь не задавал; первый проход≤30dev/4customer-test fits, один heavy root, без remote/paid/schedule.
+
+| ID | Статус | Вопрос / следующий тест |
+|---|---|---|
+| HM-008 | accepted | HM-R009:6prefix fits, source/metrics и независимый replay AP/Recall/14CI≤1e-12; none positive BOTH |
+| HM-009 | running | Conditionalgroup1:10fits OP013–022, затем2audits+22fixedcontrasts OP023–026; root36231 |
+| HM-010 | ready | Devrunner и независимое review PASS; симметричные L2{10,50} realfits только после nonemptyexpansion |
+| HM-011 | accepted | Actualreservation20k/excluded23979/overlap0; independentfile+IDhash/order/oldQdisjointPASS; NOtestY |
+| HM-012 | candidate | Новыйdecisionlock→4customer-test fits/audit/report при developmentpromotion gate |
+
+Checkpoint13:48UTC: HM-R009 accepted; OP001–012succeeded. Rootsession36231 запустил reviewedconditional OP013–022→023–026, одинheavyworker; дубликаты не запускать. Groupdecisionmodule d4c60f и14tests прошли independentreview29tests5.672s; реальныеgroupdecision ещёUNRUN. FullH&M179testsPASS41.759s, logs D:/hm-auto-v2-test-temp-20261018 (optional local). Initialsuite179had1error because TEMP underartifacts violated oldoutside-artifactfixtureassumption; no sourcechange, rerunTEMPoutsideartifactsD passed. Sourcev1/report/config/lock unchanged. B-Y/features/counts untouched. W007counter1,next_due2026-10-18T14:12:46.654222+00:00 ornextacceptedround. Старые COMPLETE/pausedниже — история.
+
+
 ## Текущая кампания H&M — 18 октября 2026
 
 Конечный проход завершён по новому запросу пользователя: `research-campaign`, предел — «нет пределп». [Контракт/checkpoint](hm-pilot.md#контракт-кампании-hm--18-октября-2026), [независимая волна HM-W001](research-lab/hm-wave001.md). Эта секция фиксирует итог очереди H&M; нижние остановленные REES46 READY/leases/deadlines — история и не восстанавливаются этим запуском. Единственный coordinator/DB/compute owner — root текущего чата; общая time/round граница не задана, отдельные операции ограничиваются и получают receipts.

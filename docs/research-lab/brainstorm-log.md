@@ -1,5 +1,13 @@
 # Журнал новых исследовательских идей
 
+## HM-R009 accepted: fixed-ranking widths — 2026-10-18T13:48:05+00:00
+
+SixGPUfits, twooriginal-sourceQY/metricsauditsPASS, sevenpairedcontrastsperweek andindependentall10savedtop12/fullY AP/Recall/14bootstrapreplay≤1e-12. Prefix1Δ +.00016755/−.00136016; prefix3−.00390829/+.00041493; prefix6−.00222806/−.00086792. Automaticmetadata decision null/groupfallback accepted; no stablewidthgain/no solecausalclaim. Reservation20k/excluded23979/overlap0/IDs+hash+order independentlyconfirmed, noB-Y/cache/countsaccess. [Evidence](../hm-auto-v2.md). W007counter1,nextdue14:12:46UTC ornextacceptedround. Root36231 conditionalgroup10fits013–022→audit/contrasts023–026; oneheavyworker, unchanged84fprotocolandv1bytes. Full179H&MtestsPASS41.759s afterTEMPfixture-locationcorrection, no sourcefix needed. Groupdecisioncode independentlyreviewed; no realgroupdecisionyet.
+
+## HM-W007: новая авторизованная v2 — 2026-10-18T13:27:46.654222+00:00
+
+User requests diagnose auto-underperformance and improveautomation. IndependentA/B + skeptic admitted finiteprefix6,conditionalgroupselector,conditional symmetricL2; [protocol](../hm-auto-v2.md). Fixedv1 evidence/source/config/lock preserved. No newB-Y untilnewlock; customerB20k disjointold/v2supervisedQ, sameknownweeklimitation. Firstpass≤30dev+4test; no searchuntilpositive. Nextdue2026-10-18T14:12:46.654222+00:00or2acceptedrounds,counter0. Update13:34UTC: readinessreview PASS; session61067 runs OP001–006, first2succeeded, noaccepted empiricalroundyet. NewL2runner/reservation independently reviewed, root22synthetics PASS3.599s; realL2/reservationqueriesunrun.
+
 ## HM-R008 accepted; finite H&M study complete — 2026-10-18T13:16:15.309456+00:00
 
 Frozenfinal4GPUfits/auditPASS/independent savedtop12+fullY AP/Recall and3contrast replay≤1e-12. Primarydelta−.00177646505 CI[−.00375880761;+.00007830807]; no supportedgain/no significantharm/equivalenceclaim. [Humanreport](../hm-report.md), [evidence](../hm-pilot.md). HM001–007done; source/config/lockunchanged; all049–055succeeded/no pending/noheavyprocesses. W006counter1; nextdue13:41:08.432579UTC cancelled becausefinitecorecompleted. No newmandatoryquestions, no additionalfits/nightlyautomation, no externalwrites. Lasteditorialchecks/localcommit close theturn.

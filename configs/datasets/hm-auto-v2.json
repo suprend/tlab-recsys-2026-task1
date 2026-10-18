@@ -1,0 +1,171 @@
+{
+  "version": 2,
+  "declared_at": "2026-10-18T13:25:49.783203+00:00",
+  "goal": "Diagnose frozen PVC12 quality loss and improve automation vs symmetrically tuned manual; no promised positive outcome",
+  "authorization": "User explicitly requested improve automation; prior overall no-limit preference retained; local GPU/data/code/docs only; no remote/paid/submission",
+  "execution": {
+    "owner": "root active chat",
+    "overall_limit": null,
+    "heavy_workers": 1,
+    "dev_fits_maximum": 30,
+    "final_fits_maximum": 4,
+    "each_gpu_job_seconds": 1860,
+    "outer_seconds": 1920,
+    "threads": 4,
+    "sql_memory": "2GB",
+    "gpu_ram_part": 0.5,
+    "hard_rss_cap": false,
+    "reserve_for_review": "25% intended"
+  },
+  "v1_frozen": {
+    "commit": "280560f",
+    "campaign_sha256": "63db1ea3137bd7d353036f210caa7cd9d11a145629db22964625f97159c709a2",
+    "lock_sha256": "d47df2aca05311a0e56aa645dbd5c20097ca9bcf656256dc4db8120059a05e80",
+    "source": {
+      "hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+      "hm_contrasts.py": "d17acc98837a8939ee00c08369a04597b8f70d008b507867330ffcb698f503c7",
+      "hm_download.py": "4e3b210c30b82d7f302e33d09e63a29ea8413f814d4f751657cf29105cae7a47",
+      "hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+      "hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+      "hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+      "hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+      "hm_job.py": "a8ca33c389aad356ea2bd8b0a2ab43276a0af85029934888ebeca9f132c541a0",
+      "hm_result_audit.py": "e65720250ed95ab444848af8008adecb3564161736e0ff02df76fc732cc0a9b1",
+      "hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+      "hm_select_features.py": "a4ce7d5678af547577c7739a13d2bc008ddf89e4340d86393722ea74fc7bb055"
+    }
+  },
+  "development": {
+    "anchors": [
+      "2020-09-02",
+      "2020-09-09"
+    ],
+    "train_anchors": [
+      [
+        "2020-08-12",
+        "2020-08-19",
+        "2020-08-26"
+      ],
+      [
+        "2020-08-12",
+        "2020-08-19",
+        "2020-08-26",
+        "2020-09-02"
+      ]
+    ],
+    "known_v1_final": "2020-09-16 historical evidence only, not reused as pristine test",
+    "recipe": {
+      "iterations": 500,
+      "depth": 8,
+      "l2_leaf_reg": 10,
+      "seed": 2026,
+      "task_type": "GPU",
+      "training_users": 20000,
+      "negative_sample": 20,
+      "sampling_seed": 2026
+    },
+    "references": [
+      "artifacts/hm-campaign/gpu-manual-grid/manual_pilot500d8",
+      "artifacts/hm-campaign/confirmation/M"
+    ]
+  },
+  "prefix_diagnostic": {
+    "widths": [
+      1,
+      3,
+      6
+    ],
+    "files": {
+      "1": {
+        "path": "artifacts/hm-auto-v2/prefix1_names.json",
+        "sha256": "3802aaf2e3d62842c5d20c035e092f1dbbac8d9fe6bf86234f09d981aef8148f",
+        "width": 1
+      },
+      "3": {
+        "path": "artifacts/hm-auto-v2/prefix3_names.json",
+        "sha256": "13174d7776b649192863deaac5055fbfc54f4ddac9fe1db3fc5ae930f663d116",
+        "width": 3
+      },
+      "6": {
+        "path": "artifacts/hm-auto-v2/prefix6_names.json",
+        "sha256": "0da3efbe47625982808bb9fa7610642b99889f54822601c000f63135e6c82f62",
+        "width": 6
+      }
+    },
+    "source_selection_sha256": "b735c9e554a8cbff5c1ffbfdfc064104b56c9a2ae107f4c0cb416aa809327832",
+    "ranking": [
+      "auto_product_type_no_share90",
+      "auto_index_code_recency90",
+      "auto_product_type_no_distinct_items90",
+      "affinity_type_recency90",
+      "auto_index_code_share28",
+      "auto_product_type_no_count90",
+      "auto_index_code_recency28",
+      "auto_index_code_distinct_items7",
+      "auto_department_no_distinct_items90",
+      "auto_garment_group_no_share90",
+      "auto_garment_group_no_distinct_items7",
+      "auto_product_type_no_share7"
+    ],
+    "interpretation": "fixed earlier ranking on both weeks; width diagnostic, not refreshed fold-specific selector",
+    "eligibility": "point deltaMAP>0 on BOTH weeks",
+    "winner": "max minimum weekly delta, then max mean delta, then fewer added features, then name ASC"
+  },
+  "group_fallback": {
+    "trigger": "no prefix eligible",
+    "dimensions": [
+      "product_type_no",
+      "colour_group_code",
+      "department_no",
+      "garment_group_no",
+      "index_code"
+    ],
+    "step1_fits": 10,
+    "step2_fits_max": 8,
+    "step2_trigger": "one first-step group accepted",
+    "eligibility": "strictly positive marginal MAP on BOTH weeks vs current bundle",
+    "winner": "max minimum weekly marginal delta, then mean marginal delta, then fewer features, then name ASC",
+    "widths": "11 or12 features per group after exactM dedup; two groups22to24; no equal-width claim",
+    "zero_fallback": "reuse exact M predictions/models; no separate stochastic empty-expansion fit"
+  },
+  "regularization": {
+    "trigger": "ALWAYS if nonempty expansion selected; skip otherwise",
+    "grid": [
+      10,
+      50
+    ],
+    "additional_fits": 4,
+    "arms": [
+      "M",
+      "selected_expansion"
+    ],
+    "tuning": "each arm choose L2 maximizing mean weekly conditional MAP; ties lowerL2; final compares equally tuned procedures",
+    "no_expansion_case": "no auto gain claim; retain untouched B"
+  },
+  "customer_holdout": {
+    "anchor": "2020-09-16",
+    "users": 20000,
+    "history_days": 90,
+    "salt": "hm-v2-customer-test-20261018",
+    "exclude": "union ALL v1 sampled/train Q plus all v2 supervised query IDs; include reconstructible Aug05 pilot cohort if not exported",
+    "reservation": "past-only eligibility+hash ordering; reserve concrete IDs before any test-target access; historical global counts may include their past",
+    "strict_boundary": "no test Y, target counts/coverage or labeled cache until concrete new decision lock",
+    "label": "new customer holdout on previously observed calendar week, not independent temporal final",
+    "seeds": [
+      2026,
+      2027
+    ],
+    "primary": "per-user meanAP across two modelseeds perarm, paired positive-user bootstrap2000/seed2026; gain iff lower95>0; no test-driven changes",
+    "promotion_gate": "Build test labels only if nonempty chosen expansion after symmetric L2 tuning has strictly positive point delta vs equally tuned M on BOTH development weeks; otherwise preserve untouched B and close this tranche without gain claim."
+  },
+  "brainstorm": {
+    "wave": "HM-W007",
+    "independent_authors": [
+      "hm_wave003_mechanism",
+      "hm_wave003_validity"
+    ],
+    "critic": "hm_wave003_skeptic",
+    "cadence": "after2accepted rounds or45minutes",
+    "new_questions_only_with_distinguishing_test": true
+  }
+}
