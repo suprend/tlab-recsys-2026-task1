@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "status": "predeclared_before_campaign_model_fits",
+  "purpose": "strong manual vs generated feature experiment, exploratory development and one frozen final",
+  "cohort": {
+    "seed": 2026,
+    "history_days": 90,
+    "users_evaluation": 20000,
+    "order": "sha256(customer_id + :2026),customer_id",
+    "eligibility": "past transactions only"
+  },
+  "selection": {
+    "anchor": "2020-09-02",
+    "train_anchors": [
+      "2020-08-12",
+      "2020-08-19",
+      "2020-08-26"
+    ]
+  },
+  "confirmation": {
+    "anchor": "2020-09-09",
+    "train_anchors": [
+      "2020-08-12",
+      "2020-08-19",
+      "2020-08-26",
+      "2020-09-02"
+    ],
+    "already_seen_in_pilot": true,
+    "decision_rule": "diagnostic only; no changes to Mrecipe,hyperparameters,trainingpolicy,selectednames,seeds orfinalarms based on scores; negative result allowed"
+  },
+  "final": {
+    "anchor": "2020-09-16",
+    "train_anchors": [
+      "2020-08-12",
+      "2020-08-19",
+      "2020-08-26",
+      "2020-09-02",
+      "2020-09-09"
+    ],
+    "requires_separate_decision_lock": true,
+    "arms": [
+      "frozen_manual_winner_M",
+      "M_plus_selected12"
+    ],
+    "model_seeds": [
+      2026,
+      2027
+    ],
+    "optional_comparisons": "none; random control evidence development only",
+    "primary_aggregation": "peruser mean AP across2modelseeds ineacharm, then paired userdelta and userbootstrap; also reportseed-specific; not pooleduserxseed and not scoreensemble"
+  },
+  "metric": {
+    "primary": "conditional MAP@12 among future purchasers in historyeligible cohort",
+    "all_query_empty_zero": "also reported",
+    "full_Y": "distinct targets incl off-candidate purchases; denominator min(12,|Y|)",
+    "uncertainty": "paired positive-user percentile bootstrap,2000draws seed2026; fixed models/week"
+  },
+  "retrieval": {
+    "primary_contrast": "C1-Q120 minus C0-Q120",
+    "diagnostic_gate": "oracleAP12 paired95lower>0 and point new90 microcoverage delta>0",
+    "ranking_promotion": "actual MAP paired95lower>0 using identical pilot23/150tree fits; otherwise C0-Q120",
+    "historical_C0": "secondary; no same-quota claim"
+  },
+  "training_support": {
+    "arms": [
+      {
+        "users": 5000,
+        "negatives_per_query": 0
+      },
+      {
+        "users": 5000,
+        "negatives_per_query": 20
+      },
+      {
+        "users": 20000,
+        "negatives_per_query": 20
+      }
+    ],
+    "positive_policy": "all naturally retrieved positives; no injection",
+    "weights": "positive 1/C; negative1/(C*pi), pi=min(20,Nneg)/Nneg",
+    "budget": "3fits150depth6 pilotfeatures per frozenC",
+    "default_after_diagnostic": "removed: no unclear no-harm fallback",
+    "select": "highest Sep02 pointMAP among3arms; ties fewer fitrows then listed arm order; CI descriptive, not equivalence",
+    "negative_sample_zero_means": "all negatives",
+    "selection_train_anchors": [
+      "2020-08-12",
+      "2020-08-19",
+      "2020-08-26"
+    ],
+    "evaluation": "fullC and fullY; fixedcohort2026 and negativesampler2026 for all modelseeds"
+  },
+  "manual_tuning": {
+    "candidate_configs": [
+      {
+        "name": "manual_pilot150d6",
+        "features": "manual_pilot",
+        "iterations": 150,
+        "depth": 6
+      },
+      {
+        "name": "manual_pilot500d6",
+        "features": "manual_pilot",
+        "iterations": 500,
+        "depth": 6
+      },
+      {
+        "name": "manual_pilot500d8",
+        "features": "manual_pilot",
+        "iterations": 500,
+        "depth": 8
+      },
+      {
+        "name": "strong_manual150d6",
+        "features": "strong_manual",
+        "iterations": 150,
+        "depth": 6
+      },
+      {
+        "name": "strong_manual500d6",
+        "features": "strong_manual",
+        "iterations": 500,
+        "depth": 6
+      },
+      {
+        "name": "strong_manual500d8",
+        "features": "strong_manual",
+        "iterations": 500,
+        "depth": 8
+      }
+    ],
+    "select": "highest selectionSep02 MAP; ties fewerfeatures, fewer trees, shallowerdepth, name ASC",
+    "reference": "manual_pilot150d6 eligiblewinner; reuse HM004 result only exact input/modelidentity",
+    "fixed": {
+      "learning_rate": 0.05,
+      "l2_leaf_reg": 10,
+      "loss_function": "Logloss",
+      "thread_count": 2,
+      "seed": 2026
+    },
+    "no_early_stopping": true
+  },
+  "automation": {
+    "schema_dimensions": [
+      "product_type_no",
+      "colour_group_code",
+      "department_no",
+      "garment_group_no",
+      "index_code"
+    ],
+    "windows": [
+      7,
+      28,
+      90
+    ],
+    "operations": [
+      "count",
+      "share",
+      "recency",
+      "distinct_items"
+    ],
+    "semantic_dedup_against_manual": "exactly frozen chosen M; all60 aggregate definitions already registered beforevalues; nonselected manual aggregate aliases canenterpool",
+    "selection": "one M+all fit using chosen manual params on selectiontraining only; explicit PredictionValuesChange; top12 eligible aggregate program importances, feature-name tie; names frozen before confirmation",
+    "bundle_size": 12,
+    "random_bundles": {
+      "count": 3,
+      "seeds": [
+        101,
+        102,
+        103
+      ],
+      "sampler": "numpy default_rng(seed).choice(sorted generated names,12,replace=False), output sorted",
+      "freeze": "persist sorted names/digests before generatedfit scores; compareeachandmean3, never choosebestrandom"
+    },
+    "selection_arms": [
+      "M",
+      "M+all",
+      "M+selected",
+      "M+random101",
+      "M+random102",
+      "M+random103"
+    ],
+    "confirmation_arms": [
+      "M",
+      "M+selected",
+      "M+random101",
+      "M+random102",
+      "M+random103"
+    ],
+    "model_seed": 2026,
+    "claim_scope": "generated pool effect and selector effect separated; three random draws not universal selector superiority",
+    "pool_size_guard": "fail/replan beforefit if fewerthan12 after semanticdedup"
+  },
+  "execution": {
+    "one_heavy_process": true,
+    "threads": 2,
+    "duckdb_memory": "2GB",
+    "per_operation_wall": 1800,
+    "external_timeout": 1860,
+    "rss_target_gib": 8,
+    "rss_hard_limit": false,
+    "overall_time_round_limit": null,
+    "receipt_before_launch": true,
+    "duckdb_memory_campaign_maximum": "4GB",
+    "collection_fit_memory_override_reason": "2GB reviewed before firstcollection; preserve headroom for pandas beyond SQL cap",
+    "fixed_capacity_operation_overrides": {
+      "iterations500_depth8": {
+        "cooperative_wall_seconds": 3600,
+        "external_tree_timeout_seconds": 3660,
+        "reason": "Before remaining depth8 fits: observed exact500d6 wall751.234s; depth8 upper cost uncertain, up to4xleafcount; fixed500trees/fullchecks unchanged, no validation-prefix selection. Existing operation outputs never reused."
+      }
+    },
+    "cpu_scope_note": "Explicit2 training/prediction/SQL threads; CatBoost.fit internal autoPVC uses installed default -1; no hard aggregateCPU or RSS containment claimed."
+  },
+  "amended_before_any_campaign_fit_at": "2026-10-18T09:46:00.709468+00:00"
+}
