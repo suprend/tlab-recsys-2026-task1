@@ -1,5 +1,36 @@
 # Журнал новых исследовательских идей
 
+## HM-R013 accepted: конечная проверка без подтверждённого прироста — 2026-10-18
+
+OP050–056 succeeded/root2840 EXIT0; OP001–056 без pending. Commit ed6ec35 в 14:56:07 UTC с exact lock a04ef5 и 19 source bytes предшествует OP050 prepared14:56:37.142274. Actual source audit PASS: независимое восстановление 7 cohorts/exclusion/reserved-Q/C0/fullY и saved-model metadata. Отдельный own-math raw top12/fullY replay четырёх AP/Recall и трёх CI≤1e-12 PASS4.313s. 20 000Q/1 862Q+/5 680fullY/849retrievedY; primary mean AP M=.03306032646185483, E=.03182877237150937, Δ=−.0012315540903454624, 95% CI[−.0031042859151498964; +.0006203520925216481]. Gain gate FALSE; CI через0 не доказывает вред или эквивалентность. Ручной M23 сохраняется. Same known Sep16 calendar week, customer holdout only; не rerun всего feature search и не равный полный search budget.
+
+28 новых development+4customer fits завершены, 2manual references reused. Условный HM013 superseded/0fits. Конечный проход закрыт с отрицательной точечной оценкой; цель получить подтверждённый прирост для T-Lab остаётся открытой. W009counter2, future_due отменён по finite completion; новых моделей, волн или расписаний нет. V1 bytes/v2 protocol/actual lock/source19 неизменны. [Итоговый отчёт](../hm-auto-v2-report.md), [полные evidence и SHAs](../hm-auto-v2.md). Все более ранние next_due ниже исторические.
+
+
+## HM-R012 accepted: симметричный L2 — 2026-10-18,14:54UTC
+
+OP041–049success/root74723EXIT0; actualprospectivef42cd4 зафиксирован доfirstfit иво всех4receipts. Два source/metric auditsPASS; independent8savedtop12/fullYAPRecall/12bootstrapmeansCI≤1e-12,5.984s, identicaltrainingpops/inputs/runtime/source/report/modelbytepins. BothM/EchooseL210: mean .03244816/.03346645 vsL250 .02780742/.02974894; tunedΔ+.00061049/+.00142608 positiveBOTH. InteractionD mixed +.00246043/−.00061396 descriptive/no veto. DecisionSHA2a58403d10f7250dcdba65659f91905632a5eb58f8824fbd5984c3d266ca8df2; holdoutauthorizedfalse. Root создал metadata-only concreteJSONa04ef587b05c37f33694175d172ef47dc981242b84edf7cd0f4fd5f5b02ce3a1 после приёмки; review/commitещёrequired, Btargets/cache0. W009counter1,nextdue15:27:01UTC ornextacceptedround. [Evidence](../hm-auto-v2.md).
+
+## HM-W009 accepted — 2026-10-18T14:42:01+00:00
+
+[Два независимых FIRST и отдельный critic](hm-wave009.md): NEW0/REFINE1/MERGE2/REJECT0, новыхadmissions0. Уточнены уже существующие HM010/012: primaryseedmean lower95>0 единственныйgain gate; mixedseedpoints ограничиваютустойчивость, но не создаютvetо;2fixedlisttrainings не rerunfeaturesearch, sameL2grid не equalallsearchbudget,knownweekcustomerholdout не newtemporal. Дополнительныхfits/контрастов/gates0. R011accepted доreset; W009counter0,nextdue15:27:01UTC or2acceptedrounds. Root74723 исполняетonlyoriginalsymL2; B-Y/lock отсутствуют,84funchanged.
+
+## HM-R011 accepted: greedy group extension — 2026-10-18,14:41UTC
+
+Все8fixedfits028–035,source/metricsaudits036/037PASS,18fixedcontrasts038/039 и automaticdecision040 приняты. Independent12savedtop12/fullYAPRecall/18bootstrap replay≤1e-12,8.782s; metadata/modelbytes/runtime/QCY/receiptsPASS. ЕдинственныйpositiveBOTH marginalкindex12 — colour11: MAP.0342861231/.0326467703, Δcurrent+.0002112870/+.0006225057; ΔM+.0006104921/+.0014260814. Все4winnerCIcross0, descriptiveaftersearch. Chosen23additions/46total,decisionSHA9f118eba7d34dfb3c0ae0226f86d634dd54b2649b9469978ff2ccbbcba7a9522. Следующийoriginalstep symmetricL2; новойтретьейгруппы/search нет. [Evidence](../hm-auto-v2.md).
+
+## HM-R010 accepted: один semanticgroup — 2026-10-18T14:19:00+00:00
+
+Все10groupfits/sourceauditsPASS/22fixedcontrasts + independent14savedtop12/fullY APRecall/22bootstrap replay≤1e-12. Толькоindex_code12 eligibleBOTH: MAP.0340748361/.0320242645, Δ+.0003992051/+.0008035756; CIs[−.00184875,+.00268029]/[−.00105623,+.00289974]cross0. Actualautomaticdecision027SHA55095814df83d0076bf4eb38fea3b10ad20bd8b65a895a66775aa225271869df выбранпоfrozenrule. Samewidth12asoldPVC12, новыеизмерениянеявляютсяindependentgainproof. HM013conditionalprobe superseded/nonempty,0fits. Root47871 начинаетсяreviewedgreedy stage2fixed8fits→audit/contrasts/decision040; source/config84f frozen,Buntouched. W008counter1,nextdue14:58:02UTC ornextacceptedround. Finalsourcepreparationconditionalparallel:3writersdisjointnewlock/collector/auditor, onlyinventedfixtures, noactualB. [Evidence](../hm-auto-v2.md).
+
+## HM-W008 accepted — 2026-10-18T14:13:02+00:00
+
+[Два независимых FIRST и отдельная критика](hm-wave008.md): NEW0/REFINE1/MERGE2; scientificfamilyNEW0, один conditional finiteprobe HM013. При nonempty толькоoriginalsymL2; при auditedwidth0 сначалаclose84f/Buntouched, затем отдельный prospective4fitcontractfixedoldPVC12/M×L250, неbestloser и неunusedbudgetreuse. InteractionD иequally-tunedgate разведены по counterexampleкритика; будущийB всёравнотолькоconcretelock. Source/config84f unchanged. Currentroot36231 OP022pending→023–026, никакого новогоprobe/budgetextensionactual. W008counter0,nextdue14:58:02UTC or2acceptedrounds. L2validator3e1e31 code/42tests independentPASS16.235s/root42PASS14.985s; realL2plan/fits ещёUNRUN.
+
+## HM-W008 FIRST preparation — 2026-10-18T14:00:00+00:00
+
+Плановая nextdue14:12:46UTC сохраняется; волна ещё не принята и timer/budget не меняет. Root подготовил общий rawpacket SHAe67c0f3d4dc08d8e3c27ccebbcac0fb41665bf9108559f234ba4c7e80803cadd: acceptedprefix R009 + первые4group producerpoints (без исходов второй недели),84fprotocol/Buntouched. FIRST A=hm_wave003_mechanism и B=hm_final_support работают независимо без чтения текущего синтеза/чужихпакетов; critic=hm_wave003_skeptic. Вопрос: при width0 есть ли один полезный различающий prospective test либо завершить отрицательный проход; nonempty обязует прежнийsymL2. No newfits/admissions/изменений84f; root36231 продолжает fixedgroups.
+
 ## HM-R009 accepted: fixed-ranking widths — 2026-10-18T13:48:05+00:00
 
 SixGPUfits, twooriginal-sourceQY/metricsauditsPASS, sevenpairedcontrastsperweek andindependentall10savedtop12/fullY AP/Recall/14bootstrapreplay≤1e-12. Prefix1Δ +.00016755/−.00136016; prefix3−.00390829/+.00041493; prefix6−.00222806/−.00086792. Automaticmetadata decision null/groupfallback accepted; no stablewidthgain/no solecausalclaim. Reservation20k/excluded23979/overlap0/IDs+hash+order independentlyconfirmed, noB-Y/cache/countsaccess. [Evidence](../hm-auto-v2.md). W007counter1,nextdue14:12:46UTC ornextacceptedround. Root36231 conditionalgroup10fits013–022→audit/contrasts023–026; oneheavyworker, unchanged84fprotocolandv1bytes. Full179H&MtestsPASS41.759s afterTEMPfixture-locationcorrection, no sourcefix needed. Groupdecisioncode independentlyreviewed; no realgroupdecisionyet.

@@ -1,0 +1,186 @@
+{
+  "format": "hm-auto-recipe-probe-contract-v1",
+  "declared_at": "2026-10-18T14:14:08.575105+00:00",
+  "scope": "One prospective refinement of recipe-dependence after a closed width0 v2; not a search-until-positive extension",
+  "authorization": "Same explicit user improve-automation research request; local only, no overall user cap; no remote/paid/submission/schedule",
+  "v2_protocol": {
+    "path": "configs/datasets/hm-auto-v2.json",
+    "sha256": "84f3e2db341358a72ae7938c90af0696f5926b91faba746f61b801a7f7cd8b8b"
+  },
+  "prerequisite": {
+    "group_decision": "artifacts/hm-auto-v2/decisions/group1/report.json",
+    "required_width": 0,
+    "required_next_action": "retain_M_no_test",
+    "must_replay_accepted_decision": true,
+    "v2_closed_no_pending_operations": true,
+    "v2_group2_and_l2_outputs_absent": true,
+    "test_targets_features_counts_unopened": true
+  },
+  "budget": {
+    "new_dev_fits": 4,
+    "customer_test_fits": 0,
+    "heavy_workers": 1,
+    "gpu_job_seconds": 1860,
+    "outer_seconds": 1920,
+    "threads": 4,
+    "sql_memory": "2GB",
+    "spill_cap": "8GB",
+    "hard_rss_cap": false
+  },
+  "arms": {
+    "M": "frozen exact manual23",
+    "PVC": "frozen original PVC12 expansion, no best-losing-group/prefix substitution"
+  },
+  "feature_names": {
+    "M": {
+      "path": "artifacts/hm-campaign/feature-study/M_names.json",
+      "sha256": "550e6ddce8dcea1e0d68972a9544ec62d5f7a20c2a55073edfc660a54aaf5832",
+      "names": [
+        "u_tx7",
+        "u_tx28",
+        "u_tx90",
+        "i_buyers7",
+        "i_buyers28",
+        "i_buyers90",
+        "ui_tx7",
+        "ui_tx28",
+        "ui_tx90",
+        "u_recency",
+        "i_recency",
+        "ui_recency",
+        "item_price28",
+        "user_price28",
+        "affinity_type28",
+        "affinity_colour28",
+        "global_rank",
+        "user_recent_rank",
+        "product_type_no",
+        "colour_group_code",
+        "department_no",
+        "index_code",
+        "garment_group_no"
+      ]
+    },
+    "PVC": {
+      "path": "artifacts/hm-campaign/feature-selection/selected_names.json",
+      "sha256": "0b2a92cb546abacb368c60e237ac5fa136387189f0244545a2c233396fdc56be",
+      "names": [
+        "u_tx7",
+        "u_tx28",
+        "u_tx90",
+        "i_buyers7",
+        "i_buyers28",
+        "i_buyers90",
+        "ui_tx7",
+        "ui_tx28",
+        "ui_tx90",
+        "u_recency",
+        "i_recency",
+        "ui_recency",
+        "item_price28",
+        "user_price28",
+        "affinity_type28",
+        "affinity_colour28",
+        "global_rank",
+        "user_recent_rank",
+        "product_type_no",
+        "colour_group_code",
+        "department_no",
+        "index_code",
+        "garment_group_no",
+        "auto_product_type_no_share90",
+        "auto_index_code_recency90",
+        "auto_product_type_no_distinct_items90",
+        "affinity_type_recency90",
+        "auto_index_code_share28",
+        "auto_product_type_no_count90",
+        "auto_index_code_recency28",
+        "auto_index_code_distinct_items7",
+        "auto_department_no_distinct_items90",
+        "auto_garment_group_no_share90",
+        "auto_garment_group_no_distinct_items7",
+        "auto_product_type_no_share7"
+      ]
+    }
+  },
+  "references_L2_10": [
+    {
+      "anchor": "2020-09-02",
+      "M10": {
+        "path": "artifacts/hm-campaign/gpu-manual-grid/manual_pilot500d8/report.json",
+        "sha256": "5e5aeb2bd00a7cd31aa79c64bae2f5c6d795c65be5a33655d2843ea09d44e003"
+      },
+      "PVC10": {
+        "path": "artifacts/hm-campaign/generated/selected/report.json",
+        "sha256": "da87709d9af3390d07072818d0f2c0f2f87642a6f694bbf883821a647f89f895"
+      }
+    },
+    {
+      "anchor": "2020-09-09",
+      "M10": {
+        "path": "artifacts/hm-campaign/confirmation/M/report.json",
+        "sha256": "e5677098d221512d788ea570956d9719797f77b3c3ea3f95a920e8dfe4d98625"
+      },
+      "PVC10": {
+        "path": "artifacts/hm-campaign/confirmation/selected/report.json",
+        "sha256": "190d0c0c0d92af49bb22ac6bb9b2b9a540b33ee349ffee5cb06c071b6ad09151"
+      }
+    }
+  ],
+  "development": {
+    "anchors": [
+      "2020-09-02",
+      "2020-09-09"
+    ],
+    "train_anchors": [
+      [
+        "2020-08-12",
+        "2020-08-19",
+        "2020-08-26"
+      ],
+      [
+        "2020-08-12",
+        "2020-08-19",
+        "2020-08-26",
+        "2020-09-02"
+      ]
+    ],
+    "known_v1_final": "2020-09-16 historical evidence only, not reused as pristine test",
+    "recipe": {
+      "iterations": 500,
+      "depth": 8,
+      "l2_leaf_reg": 10,
+      "seed": 2026,
+      "task_type": "GPU",
+      "training_users": 20000,
+      "negative_sample": 20,
+      "sampling_seed": 2026
+    },
+    "references": [
+      "artifacts/hm-campaign/gpu-manual-grid/manual_pilot500d8",
+      "artifacts/hm-campaign/confirmation/M"
+    ]
+  },
+  "new_fits": {
+    "l2_leaf_reg": 50,
+    "task_type": "GPU",
+    "iterations": 500,
+    "depth": 8,
+    "seed": 2026,
+    "sampling_seed": 2026,
+    "train_users": 20000,
+    "negative_sample": 20,
+    "producer": "scripts.hm_auto_fit",
+    "producer_sha256": "50b1d1cb48c04b823f3a73d802669c6770a37fc2c16ebf3cd1a77bca4caaa3e5",
+    "decision_pure_function": "scripts.hm_auto_regularization.choose_l2",
+    "decision_source_sha256": "3e1e31791c45bd4404b5a77cab243c2b2c80284bf39da6b67478d7e6e0003754"
+  },
+  "tuning": "each arm independently maximizes unweighted mean of two weekly MAP values over L2{10,50}; ties10",
+  "diagnostics": "D_week=(PVC50-M50)-(PVC10-M10), descriptive interaction pattern only; mixed D does not veto a candidate",
+  "candidate_gate": "strict positive tunedPVC-tunedM point delta on BOTH known development weeks; not proof of gain",
+  "evaluation": "same fullQ/C/Y, full distinct weekly Y, conditional MAP12; fixed paired contrasts descriptive after search",
+  "final_access": "NO B labels/target counts/coverage/features/fits are authorized by this probe; any customer evaluation requires a separate concrete frozen decision lock",
+  "stop": "After exactly4new fits and independent audits/decision, no further L2/seeds/features selected by their outcomes; failed jobs stop dependencies and require technical diagnosis",
+  "implementation_readiness": "New metadata adapter/operation plan must pin this contract, actual width0 decision, source bytes, exact new outputs and audit order before first L2=50 fit; originalv2 validator intentionally rejects width0",
+  "outputs_root": "artifacts/hm-auto-recipe-v3"
+}

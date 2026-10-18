@@ -1,18 +1,19 @@
 # Единый рабочий backlog T-Lab
 
-## H&M v2: активная диагностика и улучшение — 2026-10-18T13:27:46.654222+00:00
+## H&M v2: конечная проверка завершена — 2026-10-18
 
-Новый явный запрос пользователя возобновил исследование после завершённого v1. [Протокол и evidence v2](hm-auto-v2.md), [конфиг](../configs/datasets/hm-auto-v2.json). V1 source/config/lock/report сохраняются побайтно. Общий лимит пользователь не задавал; первый проход≤30dev/4customer-test fits, один heavy root, без remote/paid/schedule.
+Новый запрос пользователя разрешил отдельный диагностический проход после v1. [Отчёт](hm-auto-v2-report.md), [протокол и evidence](hm-auto-v2.md), [конфиг](../configs/datasets/hm-auto-v2.json). Общий лимит пользователь не задавал; конечный первый проход предусматривал ≤30 development и четыре customer-test fits. Фактически выполнены 28+4 новых обучения, два точных ручных контроля переиспользованы. **Прирост для T-Lab остаётся нерешённой задачей; этот конечный тест завершён с отрицательной точечной оценкой и CI через ноль.**
 
-| ID | Статус | Вопрос / следующий тест |
+| ID | Статус | Проверенный результат |
 |---|---|---|
-| HM-008 | accepted | HM-R009:6prefix fits, source/metrics и независимый replay AP/Recall/14CI≤1e-12; none positive BOTH |
-| HM-009 | running | Conditionalgroup1:10fits OP013–022, затем2audits+22fixedcontrasts OP023–026; root36231 |
-| HM-010 | ready | Devrunner и независимое review PASS; симметричные L2{10,50} realfits только после nonemptyexpansion |
-| HM-011 | accepted | Actualreservation20k/excluded23979/overlap0; independentfile+IDhash/order/oldQdisjointPASS; NOtestY |
-| HM-012 | candidate | Новыйdecisionlock→4customer-test fits/audit/report при developmentpromotion gate |
+| HM-008 | accepted | HM-R009: шесть prefix fits; ни один набор не дал положительную разницу на обеих неделях |
+| HM-009 | accepted | HM-R011: index12+colour11, 23 дополнения/46 входов; положительные development-разницы на обеих неделях, CI через ноль |
+| HM-010 | accepted | HM-R012: четыре L2=50 fits, обе модели выбрали L2=10; условие допуска к итоговому тесту выполнено |
+| HM-011 | accepted | Зарезервированы 20 000 пользователей, исключены 23 979 прежних; пересечение ноль, независимое восстановление семи исходных когорт в финальном аудите PASS |
+| HM-012 | accepted | HM-R013: lock commit ed6ec35 до целей; четыре fixed fits, source audit и независимый AP/Recall/3CI replay PASS; условие выигрыша не выполнено |
+| HM-013 | superseded | Условие width0 не выполнено: принят index12; условный recipe probe не запускался, ноль его fits |
 
-Checkpoint13:48UTC: HM-R009 accepted; OP001–012succeeded. Rootsession36231 запустил reviewedconditional OP013–022→023–026, одинheavyworker; дубликаты не запускать. Groupdecisionmodule d4c60f и14tests прошли independentreview29tests5.672s; реальныеgroupdecision ещёUNRUN. FullH&M179testsPASS41.759s, logs D:/hm-auto-v2-test-temp-20261018 (optional local). Initialsuite179had1error because TEMP underartifacts violated oldoutside-artifactfixtureassumption; no sourcechange, rerunTEMPoutsideartifactsD passed. Sourcev1/report/config/lock unchanged. B-Y/features/counts untouched. W007counter1,next_due2026-10-18T14:12:46.654222+00:00 ornextacceptedround. Старые COMPLETE/pausedниже — история.
+Финальный checkpoint: OP001–056 succeeded, pending операций нет, root2840 EXIT0. M MAP=0.03306032646185483, E=0.03182877237150937, Δ=−0.0012315540903454624, 95% CI[−0.0031042859151498964; +0.0006203520925216481]. Это среднее AP двух фиксированных seeds по пользователю и парный bootstrap 2000/seed2026 на 1 862 покупателях новой когорты известной Sep16-недели; статистически доказанный вред/эквивалентность не установлены. Основным остаётся M23. Source19, v2 protocol/actual lock и v1 code/config/lock/report сохранены. W009counter2; finite completion отменяет future_due. Новых fits, волн или расписаний нет. Старые COMPLETE/paused ниже — история.
 
 
 ## Текущая кампания H&M — 18 октября 2026
