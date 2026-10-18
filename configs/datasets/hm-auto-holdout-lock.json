@@ -1,0 +1,327 @@
+{
+  "format": "hm-auto-holdout-lock-v2",
+  "protocol": {
+    "path": "configs/datasets/hm-auto-v2.json",
+    "sha256": "84f3e2db341358a72ae7938c90af0696f5926b91faba746f61b801a7f7cd8b8b"
+  },
+  "l2_plan": {
+    "path": "artifacts/hm-auto-v2/l2-plan.json",
+    "sha256": "f42cd4222e320ff8c658fa9e422385f831999acb37b34f402c5006ed75aff778"
+  },
+  "l2_decision": {
+    "path": "artifacts/hm-auto-v2/decisions/l2/report.json",
+    "sha256": "2a58403d10f7250dcdba65659f91905632a5eb58f8824fbd5984c3d266ca8df2"
+  },
+  "reservation": {
+    "manifest": {
+      "path": "artifacts/hm-auto-v2/reservation/manifest.json",
+      "sha256": "424eace8c378caf7d10d98af364ba1a7f99f7d17177e7b41c19ccb9bc0f53e89"
+    },
+    "files": {
+      "reserved-users.parquet": {
+        "path": "artifacts/hm-auto-v2/reservation/reserved-users.parquet",
+        "sha256": "ea94af090ab2f2ca8c387ecf90ea01a65d34f9feb3ee75b58c997354e118bfcb",
+        "bytes": 1423499
+      },
+      "excluded-users.parquet": {
+        "path": "artifacts/hm-auto-v2/reservation/excluded-users.parquet",
+        "sha256": "ba176719fcf18c22301819925ddf7471bd1d57f75e1b0f4b70a9bc79b4a43fca",
+        "bytes": 832360
+      }
+    },
+    "reserved_ordered_ids_sha256": "8e0e9be43e28b4f86d610b1bfef7f0bf3403a98088efe8d8a8ca2b13d2776f5e",
+    "excluded_ordered_ids_sha256": "bd9619130506619a18ee881e7c32b51c7f74a026039802057a93d1e9db0a22fe"
+  },
+  "train_collections": [
+    {
+      "anchor": "2020-08-12",
+      "manifest": {
+        "path": "artifacts/hm-campaign/collections/2020-08-12-c0q120/manifest.json",
+        "sha256": "be6fe6ea2fe6f64bc36e2dc9b4dcaaa2cf3aab949af3fb9ff4b9f5deefdae8fb"
+      },
+      "users": {
+        "path": "artifacts/hm-campaign/collections/2020-08-12-c0q120/users.parquet",
+        "sha256": "d974ea14573b4d590ad68f667d3fbe8beb31480fd69e70452f17bce9f03be28d",
+        "bytes": 2538455
+      }
+    },
+    {
+      "anchor": "2020-08-19",
+      "manifest": {
+        "path": "artifacts/hm-campaign/collections/2020-08-19-c0q120/manifest.json",
+        "sha256": "319c04d32834ec2a356182ec0583f9b4649452348a0c323721e5e2fcb70e2977"
+      },
+      "users": {
+        "path": "artifacts/hm-campaign/collections/2020-08-19-c0q120/users.parquet",
+        "sha256": "e642ebb53b4b918b065f52687a3652aaf885957d009b3f7d50d59ed1e14a1c36",
+        "bytes": 2542040
+      }
+    },
+    {
+      "anchor": "2020-08-26",
+      "manifest": {
+        "path": "artifacts/hm-campaign/collections/2020-08-26-c0q120/manifest.json",
+        "sha256": "620b2d04c990de942ab932c7c5f25f37ea519687e4f46931d516375dbd3b9e01"
+      },
+      "users": {
+        "path": "artifacts/hm-campaign/collections/2020-08-26-c0q120/users.parquet",
+        "sha256": "a12649a5deaf1b40addb110e032839f5df82d641cbe98660df2c40766bd4ba5c",
+        "bytes": 2542478
+      }
+    },
+    {
+      "anchor": "2020-09-02",
+      "manifest": {
+        "path": "artifacts/hm-campaign/collections/2020-09-02-c0q120/manifest.json",
+        "sha256": "5b0047adc76eae460f8f8ec97894b7b271a51f246dc0ede5ec2cc5a827b3689c"
+      },
+      "users": {
+        "path": "artifacts/hm-campaign/collections/2020-09-02-c0q120/users.parquet",
+        "sha256": "acce41e622d13a4981f6bcb8703f96ee00343c8e23d1f078347bf901f9e20cf5",
+        "bytes": 2542482
+      }
+    },
+    {
+      "anchor": "2020-09-09",
+      "manifest": {
+        "path": "artifacts/hm-campaign/collections/2020-09-09-c0q120/manifest.json",
+        "sha256": "640ad4f4da7045b8364dc485d7713eec7df6b2a677edfe24f283654f8218550f"
+      },
+      "users": {
+        "path": "artifacts/hm-campaign/collections/2020-09-09-c0q120/users.parquet",
+        "sha256": "97fba0e458956765b82d0391c507116acb693485501f73e48f3f531b05b2cc7a",
+        "bytes": 2544832
+      }
+    }
+  ],
+  "database": {
+    "path": "artifacts/hm-eda-20261018/audit.duckdb",
+    "sha256": "cc346f6c680c915936c0f50c1ff80ed36bd9a7c21a6cd5e2d41f005d0f2a1579",
+    "bytes": 1164980224
+  },
+  "features": {
+    "M": {
+      "numeric": [
+        "u_tx7",
+        "u_tx28",
+        "u_tx90",
+        "i_buyers7",
+        "i_buyers28",
+        "i_buyers90",
+        "ui_tx7",
+        "ui_tx28",
+        "ui_tx90",
+        "u_recency",
+        "i_recency",
+        "ui_recency",
+        "item_price28",
+        "user_price28",
+        "affinity_type28",
+        "affinity_colour28",
+        "global_rank",
+        "user_recent_rank"
+      ],
+      "categorical": [
+        "product_type_no",
+        "colour_group_code",
+        "department_no",
+        "index_code",
+        "garment_group_no"
+      ]
+    },
+    "E": {
+      "numeric": [
+        "u_tx7",
+        "u_tx28",
+        "u_tx90",
+        "i_buyers7",
+        "i_buyers28",
+        "i_buyers90",
+        "ui_tx7",
+        "ui_tx28",
+        "ui_tx90",
+        "u_recency",
+        "i_recency",
+        "ui_recency",
+        "item_price28",
+        "user_price28",
+        "affinity_type28",
+        "affinity_colour28",
+        "global_rank",
+        "user_recent_rank",
+        "auto_index_code_count28",
+        "auto_index_code_count7",
+        "auto_index_code_count90",
+        "auto_index_code_distinct_items28",
+        "auto_index_code_distinct_items7",
+        "auto_index_code_distinct_items90",
+        "auto_index_code_recency28",
+        "auto_index_code_recency7",
+        "auto_index_code_recency90",
+        "auto_index_code_share28",
+        "auto_index_code_share7",
+        "auto_index_code_share90",
+        "affinity_colour_share28",
+        "auto_colour_group_code_count7",
+        "auto_colour_group_code_count90",
+        "auto_colour_group_code_distinct_items28",
+        "auto_colour_group_code_distinct_items7",
+        "auto_colour_group_code_distinct_items90",
+        "auto_colour_group_code_recency28",
+        "auto_colour_group_code_recency7",
+        "auto_colour_group_code_recency90",
+        "auto_colour_group_code_share7",
+        "auto_colour_group_code_share90"
+      ],
+      "categorical": [
+        "product_type_no",
+        "colour_group_code",
+        "department_no",
+        "index_code",
+        "garment_group_no"
+      ]
+    }
+  },
+  "hyperparameters": {
+    "M": {
+      "iterations": 500,
+      "depth": 8,
+      "learning_rate": 0.05,
+      "l2_leaf_reg": 10,
+      "loss_function": "Logloss",
+      "thread_count": 4,
+      "task_type": "GPU",
+      "verbose": false,
+      "allow_writing_files": false,
+      "devices": "0",
+      "gpu_ram_part": 0.5,
+      "pinned_memory_size": "256mb",
+      "bootstrap_type": "Bayesian",
+      "bagging_temperature": 1,
+      "border_count": 128,
+      "boosting_type": "Plain"
+    },
+    "E": {
+      "iterations": 500,
+      "depth": 8,
+      "learning_rate": 0.05,
+      "l2_leaf_reg": 10,
+      "loss_function": "Logloss",
+      "thread_count": 4,
+      "task_type": "GPU",
+      "verbose": false,
+      "allow_writing_files": false,
+      "devices": "0",
+      "gpu_ram_part": 0.5,
+      "pinned_memory_size": "256mb",
+      "bootstrap_type": "Bayesian",
+      "bagging_temperature": 1,
+      "border_count": 128,
+      "boosting_type": "Plain"
+    }
+  },
+  "training": {
+    "train_users": 20000,
+    "negative_sample": 20,
+    "sampling_seed": 2026,
+    "model_seeds": [
+      2026,
+      2027
+    ]
+  },
+  "cohort": {
+    "kind": "reserved_customer_holdout",
+    "anchor": "2020-09-16",
+    "horizon_days": 7,
+    "users": 20000,
+    "history_days": 90,
+    "salt": "hm-v2-customer-test-20261018",
+    "policy": "C0-Q120"
+  },
+  "implementation": {
+    "code": {
+      "hm_auto_fit.py": "50b1d1cb48c04b823f3a73d802669c6770a37fc2c16ebf3cd1a77bca4caaa3e5",
+      "hm_auto_groups.py": "d4c60ffce9548ef4d1acb0e7f0d5b916511a1376c68c344dfcd282fc3812b9f8",
+      "hm_auto_holdout.py": "5e937c9b3058838fddde4eee25cd1c5df55a5f4249bd672c840e59c3df2faf49",
+      "hm_auto_holdout_audit.py": "33788d7de9c74fb94061b50a764c15dc79c27901f288e794bdf684afe5d89464",
+      "hm_auto_holdout_lock.py": "f1ca8215c2a65deaca45a2f91dbb7d288d40175627921ff39ad3c7214be32ebf",
+      "hm_auto_regularization.py": "3e1e31791c45bd4404b5a77cab243c2b2c80284bf39da6b67478d7e6e0003754",
+      "hm_auto_reserve.py": "d396817aac00967f644afbae248c64dd862b69c3cacf872ee16f63d48ff872be",
+      "hm_auto_select.py": "87af0a872bc7662ddab9f8fbb988b8224b83992c1abb38c7c0447a5fb596c190",
+      "hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+      "hm_contrasts.py": "d17acc98837a8939ee00c08369a04597b8f70d008b507867330ffcb698f503c7",
+      "hm_download.py": "4e3b210c30b82d7f302e33d09e63a29ea8413f814d4f751657cf29105cae7a47",
+      "hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+      "hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+      "hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+      "hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+      "hm_job.py": "a8ca33c389aad356ea2bd8b0a2ab43276a0af85029934888ebeca9f132c541a0",
+      "hm_result_audit.py": "e65720250ed95ab444848af8008adecb3564161736e0ff02df76fc732cc0a9b1",
+      "hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+      "hm_select_features.py": "a4ce7d5678af547577c7739a13d2bc008ddf89e4340d86393722ea74fc7bb055"
+    },
+    "runtime": {
+      "python": "3.12.14",
+      "platform": "Windows-10-10.0.19045-SP0",
+      "packages": {
+        "duckdb": "1.5.6",
+        "numpy": "2.5.4",
+        "pandas": "3.0.6",
+        "catboost": "1.2.10"
+      },
+      "threads": 4,
+      "duckdb_memory_limit": "2GB"
+    }
+  },
+  "outputs": {
+    "collection": "artifacts/hm-auto-v2/customer-test/collection",
+    "fits": [
+      "artifacts/hm-auto-v2/customer-test/fits/M2026",
+      "artifacts/hm-auto-v2/customer-test/fits/M2027",
+      "artifacts/hm-auto-v2/customer-test/fits/E2026",
+      "artifacts/hm-auto-v2/customer-test/fits/E2027"
+    ],
+    "audit": "artifacts/hm-auto-v2/customer-test/audit",
+    "contrasts": "artifacts/hm-auto-v2/customer-test/contrasts"
+  },
+  "inference": {
+    "contrasts": [
+      {
+        "name": "E_minus_M_seed_mean",
+        "positive": [
+          "arm-02",
+          "arm-03"
+        ],
+        "negative": [
+          "arm-00",
+          "arm-01"
+        ]
+      },
+      {
+        "name": "E_minus_M_seed2026",
+        "positive": [
+          "arm-02"
+        ],
+        "negative": [
+          "arm-00"
+        ]
+      },
+      {
+        "name": "E_minus_M_seed2027",
+        "positive": [
+          "arm-03"
+        ],
+        "negative": [
+          "arm-01"
+        ]
+      }
+    ],
+    "bootstrap": {
+      "draws": 2000,
+      "seed": 2026,
+      "interval": "percentile95"
+    },
+    "gain_if_lower95_gt": 0,
+    "interpretation": "Customer holdout on the known calendar week; not an independent temporal holdout"
+  }
+}
