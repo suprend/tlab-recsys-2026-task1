@@ -313,5 +313,47 @@
     "gate": "native<=60s,total<=180s,full100,savedreload/PVC_PASS,noOOM; noqualitymetric",
     "decision": "UseGPU for sixmanualgrid and all remaining models regardless qualityrelativeCPU; no CPU/GPU cherry-pick",
     "source_cpu_commit": "58440f6"
+  },
+  "post_manual_gpu_execution": {
+    "manual_recipe": "manual_pilot500d8",
+    "manual_features": "manual_pilot",
+    "iterations": 500,
+    "depth": 8,
+    "seed": 2026,
+    "threads": 4,
+    "frozen_at": "2026-10-18T12:20:43.957810+00:00",
+    "grid_audit_sha256": "b8530c31107b6a1a07cbfa1aba86b35c0759239a6d9ce1a4a64365a86483968b",
+    "grid_code_commit": "c46912d",
+    "manual_fit_path": "artifacts/hm-campaign/gpu-manual-grid/manual_pilot500d8",
+    "historical_fit_identity": "1580d00433f323ae659f3f484b60c094ecb7a501a45d30c8c3fc0f5bd981021e",
+    "historical_fit_report_sha256": "5e5aeb2bd00a7cd31aa79c64bae2f5c6d795c65be5a33655d2843ea09d44e003",
+    "numeric_features": [
+      "u_tx7",
+      "u_tx28",
+      "u_tx90",
+      "i_buyers7",
+      "i_buyers28",
+      "i_buyers90",
+      "ui_tx7",
+      "ui_tx28",
+      "ui_tx90",
+      "u_recency",
+      "i_recency",
+      "ui_recency",
+      "item_price28",
+      "user_price28",
+      "affinity_type28",
+      "affinity_colour28",
+      "global_rank",
+      "user_recent_rank"
+    ],
+    "categorical_features": [
+      "product_type_no",
+      "colour_group_code",
+      "department_no",
+      "index_code",
+      "garment_group_no"
+    ],
+    "reference_rule": "Reuse exact audited OP027 GPU winner as M; preserve500d8/23features/GPUrecipe/20ksample20; no parameter or name changes from subsequent scores"
   }
 }

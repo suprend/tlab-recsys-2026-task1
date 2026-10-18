@@ -1,5 +1,122 @@
 # Журнал новых исследовательских идей
 
+## HM-R006 accepted — 2026-10-18T12:36:39.455322+00:00
+
+Generator/selector/control comparison complete; independent audit and separate seven-contrast replay PASS. Selected−M CI crosses0; selected−meanrandom3≈0; all−M negative. No selector/names/params/seeds/final changes. [Evidence](../hm-pilot.md#hm-r006-автоматизация-на-selection--принятый-отрицательныйнеопределённый-результат). HM006done/HM007running; OP041 diagnosticSep09collection pending, final untouched. W005counter1; nextdue13:05:43.957810UTC or afterconfirmationaccepted. C0free→onlynewchildTEMP/TMP/CUDAcacheD, source/config frozen/no deletes/globalchanges.
+
+## HM-R003 accepted; operational4thread amendment — 2026-10-18T11:35:04.450936+00:00
+
+SixmanualgridauditPASS17.797s; Mstrong34/500d8 MAP.0345144793 (CIvsbestpilot includes0, vsrecencypositive/descriptive). [Evidence](../hm-pilot.md). Source2committed22c99b4+7f69656,106testsPASS; notpushed. Postmanual4threads approvedindependentreviewbeforegeneratedoutcomes, freshfixedMreference regardlessMAP, samefuturearms4source; no manualrecipe reselection. Rootconfigpost_manual_execution recordsamendment; finalguardwiring combinedbeforefreshM tofreezeonefutureimplementation, noactualfinallock/finalYscores. HM005done/HM006running, heavyPendingnonebeforecodework. W003counter1,nextdue11:43:22UTC/14:43MSKor1acceptedround.
+
+
+## HM005 5/6 complete — 2026-10-18T11:19:41.419570+00:00
+
+OP016pilot500d8 completed842.297s/500trees/peak4641529856B/MAP.0330983841. OP017strong500d8 submitted11:17:52.706513UTC, root54743/oneheavy/source99, remaininglastrecipe beforeindependentfullgridaudit. Mnotselected, bestpointsofarpilot150.03389372. Noqualityadaptation/extraMLfits, finaluntouched, W003counter0/nextdue11:43:22UTC.
+
+
+## HM005 4/6 complete — 2026-10-18T11:04:51.283982+00:00
+
+OP015strong500d6 completed698.250s/MAP.0332369584; fourcompletedrecipes awaitingfullgridaudit. OP016pilot500d8 submitted11:03:50.304606UTC, then017strong500d8, root54743/source99/harnessc750/3600+3660s. Mnotselected/finaluntouched. OptionalHM-AN0013.015s/6selftests/review/PRELIMINARYPASS mathreconstruction; noretraining/nogates. W003accepted,nextdue11:43:22.210762UTC/14:43:22MSKor2acceptedrounds,counter0.
+
+
+## HM-W003 accepted — 2026-10-18T10:58:22.210762+00:00
+
+[Wave](hm-wave003.md): independentFIRSTA/B+separatecritic,NEW0/REFINE2/MERGE3(overlap)/extraMLfits0/gates0. Optional rank/fullY-sizeAP/Recall bookkeeping HM005/007; fixedpool/selector/random interpretation HM006/007; primaryMAP preserved. Nooutcome-drivenfinalarmswap; negative/inconclusivecompletionvalid. Nextdue2026-10-18T11:43:22.210762+00:00 / 2026-10-18T14:43:22.210762+03:00 or2acceptedempiricalrounds,counter0. RootoneheavyOP015→016→017/session54743/source99, finaluntouched.
+
+
+## Final integration DRAFT reviewed, source99 сохранён — 2026-10-18T10:54:55.238990+00:00
+
+Optional local drafts artifacts/hm-campaign/final-support-draft/: runner742b084a, audite6572025, tests5ccfcdc8, integration.patch5d774831. Independent snapshotreview безfindings,19testsPASS(14guard+5integration,5.11s), onlytinyDuckDB/FakeML, no realDB/nativefinal. Explicitlockpreflightbeforemkdir/SQL/Pool, defaultdevguard/finalnottraining, exactfourseedarmreports/identity, nofinalheuristic/firstarmcontrasts. Successdevidentitypreserved; privatefailedreport теперьtype/message<=2048/traceback<=8192. **НЕприменятьдоокончанияselection/confirmationfitsнаsource99**; затемrootcopysources/tests, runfullH&Mtests/reviewactualbytes, freezeconcretelockbeforefinalquality. Draftpath machine-localoptional; требуемаялогикаописаназдесь, actualmoduleисточниквscripts/hm_final_lock.py.
+
+
+## HM005 восстановлен: первый полный 500d6, оставшиеся fits — 2026-10-18T10:52:34.602947+00:00
+
+OP019 completed751.234s/peak4556374016B/500trees, MAP.03197486442/Recall.06538850. Полныйfit_identityf84cebef совпадает сOP014; observerтолькоprogress/traceback, noRNG/params/datachanges. Независимыйread-onlyreview rawreports/source/receipt подтвердилidentity и допустимость первогоcompleteкакисходногоrecipeпослеmetric audit. OP014nativecauseunknown, успешныйповторнеобъявляетсядоказаннымисправлением. OP018отдельноеtoolinterruptionбезрезультата, процессыпроверены/pendingresolved. Mневыбран, HM005неaccepted.
+
+Rootsubmittedremainingfinitebatch OP015strong500d6→016pilot500d8→017strong500d8, session54743, source99/harnessc750, seed2026/policyC fixed. Передdepth8 назначенfinitewall3600/external3660: наблюдавшийся500d6=751.234s, глубина8имеет4xleaves/uncertaincost;500treesfixed/fullcheck/noearlystop. LocalJobwrapper единственнаяdelta max1860→3660 (5a5dc209), configd9be47ca задаётoverride иCPUscope. Independentreviewбезfindings; RSStarget8GiBнеhardcap, internalCatBoostautoPVCdefault−1раскрыт. Currentpendingreceiptsoleauthority.
+
+
+## Final guard SOURCE готов, исполнение ещё закрыто — 2026-10-18T10:47:30.406828+00:00
+
+hm_final_lock.py6ae1f556 / tests65bf73da:14stdlibfixtures PASS (root1.715s), независимый reviewer безfindings на фактическом snapshot. Immutable portablepath plan фиксирует5existingtrainmanifest/code/runtime, exactM/selected+12/params/fourseedfits/finalcollection/contrastgroups. FuturefinalY/cachehashes не вписаны заднимчислом; producedreceipt будетattachlockSHA. Runner/audit НЕинтегрированы, source99cb/ff6e unchanged, lockJSON ещёнесоздан, finaltargets неоценены. Это SOURCE-подготовка, неэмпирическийраунд.
+
+Техническое уточнение установленного CatBoost1.2.10: fit после native_train автоматически вызывает PredictionValuesChange без thread_count (default−1). Поэтому explicit2 в train/predict не является hardcap каждого внутреннегоэтапа; общая CPUизоляция не заявляется. OP019instrumentation пишетlastiteration/fittedstate/fulltraceback приerror дляразличения train/postfitimportance, причинаOP014 покаunknown. Oneheavyroot; pendingOP019, diagnostic300trees observed, no qualitymetrics.
+
+
+## H&M: диагностика прерванного запуска — 2026-10-18T10:38:36.792819+00:00
+
+Сетка ручных моделей ещё не завершена, M не выбран. Pilot150d6 дал MAP@12 0.03389372, strong150d6 — 0.03287392. HM-OP014500d6 завершился CatBoostError; сообщение исключения потеряно старым runner. HM-OP018 с диагностикой был прерван: tool session исчезла, lastlog50trees, результат/модель отсутствуют; root проверил отсутствие соответствующих процессов и закрыл pending как interrupted_unknown_exit. Причина прерывания не установлена и не называется ошибкой CatBoost. Активен один новый диагностический HM-OP019, session6610, outputpilot500d6-diagnostic2, harnessc750a381, unchangedrunner99/recipe2threads. Остальные OP015–017 ещё не запускались. Неизвестный результат не используется как успех; final untouched. Следующая исследовательская волна10:59:14UTC/13:59:14МСК или2acceptedrounds sinceW002, counter0.
+
+
+## HM005: техническая ошибка, зависимые fits остановлены — 2026-10-18T10:27:08.041058+00:00
+
+OP012 pilot150d6 completed187.766s MAP.03389372; OP013 strong150d6 completed193.937s MAP.03287392. OP014 pilot500d6 failed454.922s / CatBoostError, peak3036712960B; fit_count1, actual_trees/model/predictions отсутствуют. Runner потерял текст nativeexception, поэтому причина пока неизвестна. Batch45516 завершён exit1, OP015–017 не отправлялись; receipt pendingfalse, leader135896/child208584 завершены. Общий предел пользователя отсутствует, CPU2 сохраняется. Следующий шаг — bounded synthetic reproduction и reviewed diagnostic callback/traceback harness в новом ignoredoutput; никакого выбора M по неполной grid. Final untouched, acceptedroundcounter0 sinceW002.
+
+
+## HM-W002 synthesis accepted — 2026-10-18T10:14:14.067240+00:00
+
+[Wave](hm-wave002.md):2independentFIRSTauthors+separatecritic;NEW0/refine2/extra fits0/gates0. A feature/capacitypairedinterpretation mergedHM005/HM007 withnoncausalwording; BoptionalAPrepeat/newdecompositionHM007 notrequiredforcompletion. Coreautomationprioritypreserved, no gridexpansion/newretrieval. Nextdue2026-10-18T10:59:14.067240+00:00/2026-10-18T13:59:14.067240+03:00or2acceptedempiricalrounds;counter0. HM0056fitbatchactive/session45516/rootowner; pendingcurrentopreceipt, otherssequentialplanned.
+
+
+## HM-W002 FIRST complete / HM005 running — 2026-10-18T10:12:31.150116+00:00
+
+[Twoindependentproposals](hm-wave002.md):A refinement existinggridpairedinterpretation, B optionalrepeat/new APdecomposition; newmandatorybranches0, separatecriticpending. HM005submittedfinite6manualgrid batchHMOP012–017, current012,session45516, rootoneheavyowner. Allsource99/policy20ksample20/commonC0-Q120 frozen; nofinalaccess. Receiptsperstep+completedreportcheck, no blindretry.
+
+
+## HM-R002 accepted — 2026-10-18T10:11:03.246994+00:00
+
+HM004 independentauditPASS; C20ksampled MAP.03389372 vsB5ksampled.03094879 (ΔCI[.00071009;.00523355]) andrecency.02910562 (ΔCI[.00202140;.00744776]), fixedsingledevweek/noequivalenceclaim. Cpolicyfrozen;6manualgridnext withwrapper99predictionthreads2. First3supportfits count3, no generatedfits/final. HM-W002 triggeredafter2acceptedempiricalrounds,2independentFIRSTauthorsnow; rootowner/pendingnonebeforelaunch. [Evidence](../hm-pilot.md).
+
+
+## HM004 three fits complete, audit pending — 2026-10-18T10:09:38.987905+00:00
+
+SupportA5000full MAP.03070694/wall178.5s; B5000sample20 MAP.03094879/78.922s; C20000sample20 MAP.03389372/206.047s. Everyval same20kQ/2111Q+/6654Y/C120; A/Bpositive548, C2434, negatives20/Q inverseπweightsverified inreports. HMOP008–010 succeeded, all150trees; no winneracceptedbeforeaudit. HMOP011 submitted session98352: independentrawQY/savedpred metrics+recency/pop comparisons, codeff6e14f9 independentlyreviewed12tests+NULLregression. Pendingproduction1/rootowner. After supportfits sourcewrapper99cb85fb explicitly predictsthread2 (one-linefixreviewed11tests); all6manualgridfitswilluse99, historicalcache3d preserved andpinnedpureengine47. Selector bdbdc788 prepared/reviewed17tests nofits/modelreads yet. Acceptedempiricalrounds remains1untilHM004audited; wave002afteracceptance or10:23:51UTC.
+
+
+## HM004 collections complete; fits running — 2026-10-18T10:03:13.999605+00:00
+
+HMOP004/005/006/007 completed67.344/70.046/69.313/65.391s. Three20ktraincollections contain750+774+910=2434naturalpositiveCrows; Sep02val20kQ/2111positive/6654fullY/947positiveCrows. Common87feature/cache identities checked. HMOP008 firstmodel success178.5s,5000users/anchor allC,548positive rows/1.8mfitrows, fixed150d6pilot23 MAP.03070694; resultnotyetindependentlyaudited, no winnerchoice. HMOP009→010 finite supportfits sequential, session61138; currentreceiptsoleauthority. No acceptedempiricalround increment yet. Modelaudit NULLmetadatafinding fixed+negativefixture/reviewpassed, ready after3fits; selectorsource preparation disjoint. Config memory explicit2GB with4GBcampaignmax synchronized232cf4b4...; olderreceipts4GBdenotedeclaredmaximum, actualcollectionmanifests2GB. Training/SQL2threads; supportpredict call usesCatBoostdefaultautothreads (foundinstalledsource), willsetexplicit2aftercurrent3samecodearms; no hardoverallCPU/RSSclaim.
+
+
+## HM004 first collection complete — 2026-10-18T09:56:01.483347+00:00
+
+HMOP004 succeeded67.344s,20kAug12Q/2.4mcandidates/750retrievedpositive rows/6412fullY;87features manifest3a475c62..35ee, frame53.1MB. Largestprocesspeak7,514,451,968B WindowsJob (notRSSlimit). 2GBDuckDBcap retained, singleheavyprocess. Rootcheckedcompletedmanifest/code/database/featureidentities. Finite next3collections Aug19/Aug26/Sep02 submittedsequentially withperopreceipts HMOP005→006→007; current005running, session28507; nofit. Aftereach completedmanifestcheck before next. Pendingcurrentreceipt soleauthority; no duplicates. HM004trainingarms unchanged.
+
+
+## HM-R001 принят — 2026-10-18T09:53:35.840066+00:00
+
+HM003accepted independent91checks; C1oracleΔ−.00580244 CI[−.01442813;+.00198348],new90coverageworse. Gatefailed→C0-Q120frozen, no C1fits/retuning. HM004admitted4collections+3supportfits; cap2GBSQLreviewed,1800/1860s2threads8GBspill. Acceptedrounds1; HM-W002dueafterHM004or10:23:51UTC. Pendingnone beforelaunch, rootowner.
+
+
+## HM-OP002 submitted — 2026-10-18T09:51:01.885238+00:00
+
+Root rerun afterV4 independentreview: two provenance joins→HASH_JOIN;11tests+independent680row allcolumn equivalencePASS. No candidatepolicy/gate changes. HMOP001failedoutputpreserved; newoutput artifacts/hm-retrieval-20261018-v4; receipt HMOP002.json, session81138. Reviewedmachine-localJobwrapper smoke HMOP000 succeeded0.109s, fixesatomicadmission/exclusiveIDcreation; operationsnowownWindowsJob incldescendantcleanup and1860s externaltree timeout. Pendingproduction1/rootowner; nofit. Auditchecker independentlyreviewedprepared, nextHMOP003afterresult.
+
+
+## HM-003 technical failure; not quality evidence — 2026-10-18T09:50:08.956947+00:00
+
+HM-OP001 failed/root-stopped after384.469s, exit4294967295; noqualityresults. EXPLAIN tinyfixture revealed2BLOCKWISE_NL_JOIN finalprovenance attachment caused by left-only sourceconstants inLEFTJOIN. hm_baseline prepares equivalenthashjoinrewrite+planregression; policies/quotas/gates unchanged. RawDB/code/configsource retained, failedoutput preserved. Receiptpendingfalse; actualchild stopped/redirector exit observed; noheavyjob until reviewedrerun HMOP002 atnewoutput. Initialexternaltimeout scope was redirectoronly; futureops use reviewed PASWindowsJobownership. Costpeak observedOS4.107GB; nohardRSSclaim. Independent checker prepared, not run. Empiricalacceptedrounds0; next_due unchanged10:23:51UTC.
+
+
+## HM-003 RUNNING — 2026-10-18T09:43:27.903934+00:00
+
+Root submitted HM-OP001, session48943,20kQ Sep02 no-fit; receipt ignored artifacts/hm-campaign/operations/HM-OP001.json, statuscheck receipt/process/report. Code V3 independently reviewed,10tests+CLI smoke passed. Memory4GB/spill8GB/threads2/wall1800external1860, Dfree>10GiB checked. Active pendingproduction1; do not duplicate. HMfeatureengine independentreviewpassed12tests+201pair exactpilotparity; runner preparation no fits.
+
+
+## H&M HM-W001 synthesis — 2026-10-18T09:38:51.446582+00:00
+
+Two independentauthors + separatecritic completed; [exact admitted contract](hm-wave001.md). A01→HM005newcandidate,A02→HM006newcandidate,A03/B02merged→HM004candidate,B01→HM003admitted. Acceptance independent of positiveoutcome. Corrected missingquota/novel90 details and selectionSep02 trainleakage. Contract snapshot independently reviewed: no findings. FirstproductiontestSep02 nofits; root owner, receiptpending, activeproduction none. Retrieval+engine preparation disjoint. Nextdue 2026-10-18T10:23:51.446582+00:00 / 2026-10-18T13:23:51.446582+03:00 or2accepted empiricalrounds; current0.
+
+
+## H&M HM-W001 — 2026-10-18T09:35:05.493126+00:00
+
+- Причина: после принятого HMpilot пользователь явно вызвал campaign и отказался задавать общий предел. Activechat/root owner, goalnull, расписание нового запуска отсутствует.
+- Авторы: `/root/hm_wave1_features` (A), `/root/hm_wave1_retrieval` (B), independent first proposals completed. Оба получили raw pilotfacts и goal, не выводы другого автора. [Замороженный нормализованный след предложений](hm-wave001.md).
+- A01manualsemantics, A02typedgenerator, A03positive-support; B01fixedquota personalised retrieval, B02positive-support+sampler. Научные outcomes pending skeptic; A03/B02 preliminarymerge only, не дублируют ready.
+- Code/data/model ops этой волны: none. Исторические HM001 outputs complete/independentlychecked. Pending operations: no production; skeptic ещё не dispatched.
+- Следующий разрешённый шаг: отдельная критика→synthesis→HM003 test admission. После synthesis следующая волна по двум accepted rounds или45минUTC/MSK whicheverfirst; точный next_due фиксируется в synthesis, предел запуска не продлевается новыми идеями.
+
+
 ## ОСТАНОВЛЕНО ПО ЗАПРОСУ ПОЛЬЗОВАТЕЛЯ — 17 октября 2026
 
 Цель `paused`, heartbeat `t-lab-backlog` — `PAUSED`; действовавшие агенты прерваны. Новых запусков и запланированных волн нет. Все нижние READY/next_due исторические и не разрешают продолжение. [Итоговый снимок](../stop-report-2026-10-17.md) фиксирует работающий pipeline, отсутствие устойчивого gain и незавершённые материалы. C0/B41/W44/frozen final сохранены;14/19 принято, исследованиеTLAB014 остановлено,010–013 optional. Продолжение — только по новому явному поручению пользователя.
@@ -1292,3 +1409,18 @@ Root в10:08:47UTC принял066 после чтения полного542-с�
 Goal-tool наблюдался **BLOCKED**; последнее heartbeat разрешает доступную работу, metadata-resume не поддерживается. Goal-tools не вызывались и статус цели не менялся. Original19queue/14done,014continuous,010–013optionaldeferred, рабочий018fixed-300 scope и научная таблица неизменны: CIcross0/B1189W403/sharedreused73Q/fullytrained1200, без CV/сэкономленного обучения/доказанного превосходства. ScienceCLOSED/remainderUNKNOWN и разовый native50CPU/65wallgrantCLOSED сохраняются.
 
 b286privateOPENdraft/remotehead последний раз подтверждён09:23:44UTC; точное разрешение на b286/подготовленныйPR исполнено. Локальный2d49неотправлен, этот пакетнеопубликован; будущая отправка не разрешена автоматически. Next original **12:45UTC/15:45МСК16 октября**, прежняя45-минутная сетка;deadline25 октября2026 23:59/timezoneunknown. Этот один SOURCE-срез замораживается; новые фактические milestones — отдельные датированные append-only записи с review.
+
+
+## HM-W004 — 2026-10-18T11:40:24.344850+00:00
+
+2 independent FIRST + separate skeptic; NEW0/REFINE1/MERGE3(overlapB1)/scientificADMIT0,0fits/gates. Optional selector PVC explanation from existing JSON, zeros only eligible53/selected12, exact12/13tie. A capacity pattern/B2M4 reference duplicates merged. [Synthesis](hm-wave004.md). Next_due 2026-10-18T12:25:24.344850+00:00 or2acceptedrounds; counter0. OP021 only heavy worker/root, source58440f6, final untouched.
+
+
+## HM-R004 — GPU cost/compatibility accepted before quality
+
+OP021CPU4 completed500/721.172s, audit022PASS13.344/MAPsamehistoricalM2. UserGPUsteering; OP023 failedparserbeforefit, same256MiB serializedstringfix independentreviewPASS; OP024GPU100 native12.062/total73.344/external73.671, savedreload/PVC_PASS, report01185a83...3d12d. Rootexactgateassertions+separateskepticrawsource/receipt/modelhashreviewPASS. BackendGPU fixed bycost/noquality, same6finiteGPUrecipes prospectiveconfig at11:58:48.872283UTC beforeGPUYscores, M_GPU maydifferCPU; allfuturecomparisonsGPUregardlessrelativequality. HM005reopenedfor6GPU, HM006code/supervisortestsinprogress, noheavypending/generated0/finaluntouched. W004acceptedempiricalcounter1, next_due12:25:24.344850UTC or1furtheracceptedempiricalround.
+
+
+## HM-W005 / HM-R005 — 2026-10-18T12:20:43.957810+00:00
+
+GPUmanual6auditPASS b8530c31...3968b/18.109s +independentreviewPASS; M_GPU Pilot23/500d8/.03367563 frozenpostmanual/directOP027. Counts pool58/all81/selected35. W005twoindependentFIRST+critic acceptedNEW0/REFINE1/MERGE3(overlap),0fits/gates: lineageof5Strong34aliases inplannedselected/PVCtable. [Synthesis](hm-wave005.md). Nextdue2026-10-18T13:05:43.957810+00:00 or2acceptedrounds,counter0. Pendingnonebeforeprepare/allfit; rootonlyheavy, sourcec46912d fixed/finaluntouched.

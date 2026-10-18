@@ -1,5 +1,73 @@
 # Автоматизация признаков для ранжирования покупок
 
+## H&M: ручной GPU-контроль принят, автоматизация проверяется
+
+Независимый six-grid audit и отдельное review PASS. M_GPU=Pilot23/500d8, MAP@12 **.03367563** на selection2–8 сентября; recency **.02910562**. Генератор58программ после exactM-dedup, all81, selected/random35. Имена random3 зафиксированы до allfit, selected12 получены training-only PVC и независимо воспроизведены изCBM. Sourcec46912d/config63db1ea3 заморожены.
+
+Selectionaudit и отдельный exactcontrast replay PASS. MAP all=.02954207, selected=.03096309; selected−M−.00271254 CI[−.00529108;+.00008395], selected−meanrandom3+.00002840 CI[−.00217110;+.00234514]. Выигрыш selector не подтверждён; решения заморожены. Затем диагностическая confirmation и фиксированный finalM/selected×2026/27. Final ещё не оценён. [Протокол/evidence](hm-pilot.md), [воспроизведение](hm-reproduce.md), [очередь](backlog.md).
+
+
+## H&M: переход на GPU после проверки стоимости — 18 октября 2026
+
+По предложению пользователя проверена RTX3070/8ГБ:100 деревьев на1.2млн обучающих строк заняли12.062с внутри CatBoost, весь проход73.344с. Save/reload/PVC PASS, validation/предсказаний/оценки качества в probe нет. Отдельная ошибка формата pinned-memory в первом запуске сохранена и исправлена; это не GPU OOM.
+
+GPU backend выбран до quality fits, независимо от будущего MAP относительно CPU. Повторяется та же конечная сетка6ручных recipes, после неё M_GPU замораживается и все generated/confirmation/final fits используют общий backend. Обвязка/тесты/независимое ревью сейчас готовятся. CPU results ниже исторические; generated0/final untouched. [Протокол и evidence](hm-pilot.md), [очередь](backlog.md).
+
+
+## H&M: ручная сетка принята, рецепт M зафиксирован — 18 октября 2026
+
+Все шесть вариантов прошли независимый аудит OP020. На selection-неделе 2–8 сентября лучший из этой сетки — Strong34/500 деревьев/глубина8: MAP@12 **0.03451448**. Разность с Pilot23/150d6 +0.00062076, 95% описательный интервал [−0.00179401; +0.00304568]; с recency +0.00540886 [0.00268669; 0.00818414]. Это development: выбор сделан на этой неделе.
+
+HM006 выполняется: перед generated fits объявлен переход runner на4 потока с новым M того же фиксированного рецепта независимо от его MAP. 113 H&M tests PASS; независимое ревью интеграции PASS, исходники заморожены commit58440f6. Затем полный pool53, training-only PVC top12 и три заранее фиксированных random controls. Confirmation диагностическая; final M/selected×2026/2027 ещё не оценивался. Историческая двухпоточная сетка сохранена локальным commit7f69656, push не выполнялся. [Протокол и evidence](hm-pilot.md), [исполняемая очередь](backlog.md).
+
+
+## H&M: пять ручных вариантов завершены, M ещё не выбран — 2026-10-18T11:04:51.283982+00:00
+
+На одинаковой selection-неделе 2–8 сентября и frozen C0-Q120/training20k+sample20:
+
+| Набор | Деревья / глубина | MAP@12 |
+|---|---:|---:|
+| Pilot23 |150 /6|.03389372|
+| Strong34 |150 /6|.03287392|
+| Pilot23 |500 /6|.03197486|
+| Strong34 |500 /6|.03323696|
+| Pilot23 |500 /8|.03309838|
+
+Это producer-результаты до общего независимого аудита сетки. Сейчас последний OP017 strong500d8, root/session54743/oneheavyworker; OP016 completed842.297s. OP015 завершён698.250s; прежний OP014 nativeerrorнеповторился приполномнаблюдаемомOP019, причинаостаётсяunknown. После двух depth8 — audit→выбор M прежним MAP/tie rule→автоматические признаки. [Источник и протокол](hm-pilot.md), [волна HM-W003](research-lab/hm-wave003.md), [очередь](backlog.md).
+
+Optional analysis сохранённых top12 за3.015s восстановил AP/Recall: дополнительный Recall pilot500 приходится преимущественно наранги7–12, отрицательный AP-вклад —1–3/стратаоднойцели. Это posthocописаниебезпричинныхвыводов и безсменыprimaryMAP; C-membershipпроверитосновнойaudit. Finalguard+draftintegration пройдены14+5synthetictests/review, productionsource99сохранён, finalнеоценён.
+
+
+## H&M: диагностика прерванного запуска — 2026-10-18T10:38:36.792819+00:00
+
+Сетка ручных моделей ещё не завершена, M не выбран. Pilot150d6 дал MAP@12 0.03389372, strong150d6 — 0.03287392. HM-OP014500d6 завершился CatBoostError; сообщение исключения потеряно старым runner. HM-OP018 с диагностикой был прерван: tool session исчезла, lastlog50trees, результат/модель отсутствуют; root проверил отсутствие соответствующих процессов и закрыл pending как interrupted_unknown_exit. Причина прерывания не установлена и не называется ошибкой CatBoost. Активен один новый диагностический HM-OP019, session6610, outputpilot500d6-diagnostic2, harnessc750a381, unchangedrunner99/recipe2threads. Остальные OP015–017 ещё не запускались. Неизвестный результат не используется как успех; final untouched. Следующая исследовательская волна10:59:14UTC/13:59:14МСК или2acceptedrounds sinceW002, counter0.
+
+
+## HM-R002 accepted — 2026-10-18T10:11:03.246994+00:00
+
+HM004 independentauditPASS; C20ksampled MAP.03389372 vsB5ksampled.03094879 (ΔCI[.00071009;.00523355]) andrecency.02910562 (ΔCI[.00202140;.00744776]), fixedsingledevweek/noequivalenceclaim. Cpolicyfrozen;6manualgridnext withwrapper99predictionthreads2. First3supportfits count3, no generatedfits/final. HM-W002 triggeredafter2acceptedempiricalrounds,2independentFIRSTauthorsnow; rootowner/pendingnonebeforelaunch. [Evidence](hm-pilot.md).
+
+
+## HM-R001 принят — 2026-10-18T09:53:35.840066+00:00
+
+HM003 принят: C1coverage14.01%<C0-Q12014.23%;oracleCIincludes0. C0-Q120фиксирован, personalexpansionнепродвигается. Independent91checksPASS. ДалееHM004: объёмположительныхпримеров/sampling приобщемC, до сильногоM/autofeatures. Моделейкампании0,finalнеоценён.
+
+
+## H&M: исправление стоимости SQL — 2026-10-18T09:50:08.956947+00:00
+
+Первый no-fit HM003 остановлен384.469s безqualityresults: DuckDB выбрал вложенные соединения при attribution. Оптимизация заменяет форму join, не состав кандидатов; повтор только после independentreview и вновыйoutput. Моделей кампании пока0; финальная неделя не оценивалась.
+
+
+## H&M HM-W001 принят — 2026-10-18T09:38:51.446582+00:00
+
+Первый диагностический опыт заморожен: Sep02,20kQ,C1vsC0-Q120,безfit. Code preparation идёт; production ещё не запускался. Скептик потребовал exactquota/novel90 правила и исключение Sep02 из selectiontrain. [Контракт/приёмка](research-lab/hm-wave001.md). Общий предел не задан; отдельный SQL1800/1860s,2threads,4GB. Финальная неделя не оценивалась.
+
+
+## Текущий H&M — 18 октября 2026
+
+По новому запросу начата активная [исследовательская кампания](hm-pilot.md#контракт-кампании-hm--18-октября-2026) без общего лимита времени/раундов. [Очередь HM-001…007](backlog.md#текущая-кампания-hm--18-октября-2026) — единственная исполнимая; старые REES46-срезы ниже исторические. Первый H&M pilot принят: MAP.03064532 vs recency.02980929, CI разницы включает0; C coverage12.877% и734trainpositive — диагностические факты, не доказательство одного доминирующего bottleneck. HM-W001: два независимых автора завершили предложения, отдельная критика pending. Новые fits/данные в этой кампании пока не запускались.
+
+
 ## ОСТАНОВЛЕНО ПО ЗАПРОСУ ПОЛЬЗОВАТЕЛЯ — 17 октября 2026
 
 Цель `paused`, heartbeat `t-lab-backlog` — `PAUSED`; действовавшие агенты прерваны. Новых запусков и запланированных волн нет. Все нижние READY/next_due исторические и не разрешают продолжение. [Итоговый снимок](stop-report-2026-10-17.md) фиксирует работающий pipeline, отсутствие устойчивого gain и незавершённые материалы. C0/B41/W44/frozen final сохранены;14/19 принято, исследованиеTLAB014 остановлено,010–013 optional. Продолжение — только по новому явному поручению пользователя.
