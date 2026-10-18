@@ -437,18 +437,32 @@ def private_relative(path):
     return Path(path).resolve().relative_to(ROOT.resolve()).as_posix()
 
 
-def fixed_parameters(iterations, depth, seed):
-    return dict(iterations=iterations, depth=depth, learning_rate=0.05, l2_leaf_reg=10,
-                loss_function='Logloss', random_seed=seed, thread_count=4, task_type='CPU',
+def fixed_parameters(iterations, depth, seed, task_type='CPU'):
+    if task_type not in ('CPU', 'GPU'):
+        raise ValueError('Task type must be CPU or GPU')
+    params=dict(iterations=iterations, depth=depth, learning_rate=0.05, l2_leaf_reg=10,
+                loss_function='Logloss', random_seed=seed, thread_count=4, task_type=task_type,
                 verbose=False, allow_writing_files=False)
+    if task_type == 'GPU':
+        params.update(devices='0', gpu_ram_part=0.5, pinned_memory_size='256mb',
+                      bootstrap_type='Bayesian', bagging_temperature=1, border_count=128,
+                      boosting_type='Plain')
+    return params
 
 
 def fit(train_paths,validation_path,output,feature_set='pilot',feature_names=None,
-        iterations=150,depth=6,seed=SEED,train_users=None,negative_sample=0,wall_seconds=1800,decision_lock=None):
+        iterations=150,depth=6,seed=SEED,train_users=None,negative_sample=0,wall_seconds=1800,decision_lock=None,
+        task_type='CPU',external_job_timeout_seconds=None):
     if not train_paths or len(set(map(str,train_paths)))!=len(train_paths):
         raise ValueError('Distinct training collection paths required')
     if iterations<1 or not 1<=depth<=12 or negative_sample not in (0,20):
         raise ValueError('Invalid fixed-fit parameters')
+    parameters=fixed_parameters(iterations,depth,seed,task_type)
+    if external_job_timeout_seconds is not None and (isinstance(external_job_timeout_seconds,bool) or
+            not math.isfinite(external_job_timeout_seconds) or external_job_timeout_seconds<=0):
+        raise ValueError('External Job timeout declaration must be finite and positive')
+    if task_type == 'GPU' and external_job_timeout_seconds is None:
+        raise ValueError('GPU requires a declared external Job timeout; native fit has no cooperative callback')
     deadline=Deadline(wall_seconds)
     final_lock = final_arm = None
     if decision_lock is not None:
@@ -465,7 +479,7 @@ def fit(train_paths,validation_path,output,feature_set='pilot',feature_names=Non
             for p, m in zip(train_paths, train_manifests)]
         final_arm = gate.authorize_fit(final_lock, dict(output=private_relative(output),
             validation=private_relative(validation_path), numeric=numeric, categorical=categorical,
-            hyperparameters=fixed_parameters(iterations, depth, seed), train_users=train_users,
+            hyperparameters=parameters, train_users=train_users,
             negative_sample=negative_sample, sampling_seed=SEED), train_inputs, validation_path/'manifest.json')
     output=new_private_output(output)
     report=dict(format='hm-experiment-fit-v1',status='running',fit_count=0,
@@ -476,6 +490,10 @@ def fit(train_paths,validation_path,output,feature_set='pilot',feature_names=Non
     con=timer=None
     try:
         report['resources']=resource_preflight(output)
+        if task_type == 'GPU':
+            report['resources'].update(external_job_timeout_seconds=external_job_timeout_seconds,
+                native_training_deadline='External Job required; declaration is not enforcement by this runner',
+                prediction_task_type='CPU', gpu_training_nondeterministic=True)
         import duckdb
         import numpy as np
         from catboost import CatBoostClassifier
@@ -498,7 +516,6 @@ def fit(train_paths,validation_path,output,feature_set='pilot',feature_names=Non
                           for p,m in zip(train_paths+[validation_path],manifests+[val_manifest])]
         report['runtime']=runtime_identity()
         report['code']={p.name:sha256_file(p,deadline) for p in (Path(__file__),ROOT/'scripts/hm_baseline.py')}
-        parameters=fixed_parameters(iterations,depth,seed)
         report['hyperparameters']=parameters
         identity_payload=dict(inputs=report['inputs'],features=report['features'],
             hyperparameters=parameters,train_users=train_users,negative_sample=negative_sample,sampling_seed=SEED,
@@ -543,8 +560,20 @@ def fit(train_paths,validation_path,output,feature_set='pilot',feature_names=Non
                 return time.monotonic()<deadline.expires
         model=CatBoostClassifier(**parameters)
         report['fit_count']=1
-        report['last_training_iteration']=0
-        model.fit(pool,callbacks=[WallCallback()])
+        if task_type == 'GPU':
+            # Native GPU training rejects Python callbacks. The caller's owned
+            # external Job must enforce its declared finite lifetime.
+            model.fit(pool)
+            report['actual_trees']=model.tree_count_
+            if model.tree_count_!=iterations:
+                raise RuntimeError('Fixed-tree GPU fit incomplete')
+            report['resolved_model_parameters']=model.get_all_params()
+            if report['resolved_model_parameters'].get('task_type')!='GPU':
+                raise RuntimeError('Resolved GPU model reports a different backend')
+            report['last_training_iteration']=model.tree_count_
+        else:
+            report['last_training_iteration']=0
+            model.fit(pool,callbacks=[WallCallback()])
         deadline.check()
         if model.tree_count_!=iterations:
             raise RuntimeError('Fixed-tree fit incomplete')
@@ -604,6 +633,8 @@ def main(argv=None):
     fit_parser.add_argument('--wall-seconds',type=float,default=1800)
     collect_parser.add_argument('--decision-lock',type=Path)
     fit_parser.add_argument('--decision-lock',type=Path)
+    fit_parser.add_argument('--task-type',choices=('CPU','GPU'),default='CPU')
+    fit_parser.add_argument('--external-job-timeout-seconds',type=float)
     args=parser.parse_args(argv)
     try:
         if args.command=='collect':
@@ -613,7 +644,8 @@ def main(argv=None):
             if names is not None and (not isinstance(names,list) or not all(isinstance(n,str) for n in names)):
                 raise ValueError('Feature names file must contain a JSON string list')
             result=fit(args.train,args.validation,args.output,args.feature_set,names,args.iterations,args.depth,
-                       args.seed,args.train_users,args.negative_sample,args.wall_seconds,args.decision_lock)
+                       args.seed,args.train_users,args.negative_sample,args.wall_seconds,args.decision_lock,
+                       args.task_type,args.external_job_timeout_seconds)
     except Exception as exc:
         print(json.dumps(dict(status='failed',error_type=type(exc).__name__,output=args.output.as_posix())))
         return 1

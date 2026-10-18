@@ -114,6 +114,39 @@ class FinalLockTests(unittest.TestCase):
         self.assertEqual(gate.authorize_audit(lock, manifest, paths), self.root / 'artifacts/final/audit')
         self.assertEqual(lock.data['contrasts'][0]['positive'], ['arm-02', 'arm-03'])
 
+    def test_gpu_lock_keeps_four_seed_arms_and_rejects_recipe_or_cpu_substitution(self):
+        extras=dict(devices='0',gpu_ram_part=.5,pinned_memory_size='256mb',bootstrap_type='Bayesian',
+                    bagging_temperature=1,border_count=128,boosting_type='Plain')
+        self.plan['hyperparameters'].update(task_type='GPU',**extras)
+        lock=self.save_lock()
+        manifest=self.final_manifest(lock)
+        for number,arm in enumerate(('M','M','selected','selected')):
+            self.assertEqual(gate.authorize_fit(lock,self.fit_request(number),self.trainidentities(),manifest),arm)
+        paths=self.fit_reports(lock,manifest)
+        self.assertEqual(gate.authorize_audit(lock,manifest,paths),self.root/'artifacts/final/audit')
+        cpu_request=self.fit_request(0)
+        cpu_request['hyperparameters']={k:v for k,v in cpu_request['hyperparameters'].items() if k not in extras}
+        cpu_request['hyperparameters']['task_type']='CPU'
+        with self.assertRaises(ValueError): gate.authorize_fit(lock,cpu_request,self.trainidentities(),manifest)
+        original=deepcopy(self.plan['hyperparameters'])
+        for key,value in (('devices','1'),('gpu_ram_part',.9),('pinned_memory_size','512mb'),
+                          ('bootstrap_type','MVS'),('bagging_temperature',0),('border_count',254),('boosting_type','Ordered')):
+            self.plan['hyperparameters']=dict(original,**{key:value})
+            with self.subTest(key=key),self.assertRaises(ValueError): self.save_lock()
+        self.plan['hyperparameters']=original
+
+    def test_active_gpu_campaign_rejects_cpu_lock_and_accepts_matching_gpu(self):
+        campaign=self.root/self.plan['campaign']['path']
+        write(campaign,{'execution':{'task_type':'GPU'}})
+        self.plan['campaign']['sha256']=gate.digest(campaign)
+        with self.assertRaisesRegex(ValueError,'active campaign backend'):
+            self.save_lock()
+        self.plan['hyperparameters'].update(task_type='GPU',devices='0',gpu_ram_part=.5,
+            pinned_memory_size='256mb',bootstrap_type='Bayesian',bagging_temperature=1,border_count=128,boosting_type='Plain')
+        lock=self.save_lock()
+        self.assertEqual(lock.data['hyperparameters']['task_type'],'GPU')
+
+
     def test_duplicate_json_and_nonfinite_constants_rejected(self):
         for text in ('{"format":1,"format":2}', '{"outer":{"x":1,"x":2}}', '{"x":NaN}', '{"x":Infinity}'):
             self.lockpath.write_text(text, encoding='utf-8')

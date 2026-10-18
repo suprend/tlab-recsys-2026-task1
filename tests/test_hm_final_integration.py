@@ -259,6 +259,89 @@ class DraftIntegrationTests(unittest.TestCase):
         self.assertNotIn('validation_metrics',report)
         self.assertFalse((output/'model.cbm').exists())
 
+    def test_four_gpu_final_fits_omit_callbacks_preserve_cpu_prediction_and_pass_existing_audit(self):
+        self.plan['hyperparameters']=dict(experiment.fixed_parameters(500,6,2026,'GPU'))
+        self.plan['hyperparameters'].pop('random_seed')
+        self.lock=self.fixture.save_lock()
+        final=self.collect()
+        original_nested=experiment.nested_users
+        calls=[]
+        class GPUClassifier:
+            def __init__(self,**params): self.params=params; self.tree_count_=params['iterations']
+            # Deliberately no callbacks argument: the real GPU backend rejects it.
+            def fit(self,pool): calls.append(self.params); return self
+            def get_all_params(self): return dict(self.params,fixture_resolved=True)
+            def save_model(self,path): Path(path).write_bytes(b'GPU fixture never parsed')
+            def predict_proba(self,pool,thread_count):
+                if thread_count!=4: raise AssertionError('CPU inference thread budget changed')
+                scores=np.linspace(.99,.01,pool.num_row())
+                return np.column_stack((1-scores,scores))
+        fits=[]
+        for number in range(4):
+            request=self.fixture.fit_request(number)
+            output=self.root/request['output'];fits.append(output)
+            with (patch('catboost.CatBoostClassifier',GPUClassifier),
+                  patch.object(experiment,'model_pool',side_effect=lambda numbers,*args,**kwargs:SimpleNamespace(num_row=lambda:len(numbers))),
+                  patch.object(experiment,'nested_users',side_effect=lambda users,limit=None:original_nested(users,min(limit,len(users)) if limit is not None else None))):
+                result=experiment.fit([self.root/ref['path'].rsplit('/',1)[0] for ref in self.plan['train_collections']],final,output,
+                    feature_names=request['numeric']+request['categorical'],iterations=500,depth=6,
+                    seed=request['hyperparameters']['random_seed'],train_users=20000,negative_sample=20,wall_seconds=30,
+                    decision_lock=self.fixture.lockpath,task_type='GPU',external_job_timeout_seconds=60)
+            self.assertEqual(result['actual_trees'],500)
+            self.assertEqual(result['last_training_iteration'],500)
+            self.assertEqual(result['resolved_model_parameters']['task_type'],'GPU')
+            self.assertTrue(result['resources']['gpu_training_nondeterministic'])
+            self.assertEqual(result['resources']['prediction_task_type'],'CPU')
+            self.assertNotIn('external_job_timeout_seconds',result['hyperparameters'])
+        self.assertEqual([p['random_seed'] for p in calls],[2026,2027,2026,2027])
+        report=audit.audit(final,fits,self.root/self.plan['outputs']['audit'],self.database,30,self.fixture.lockpath)
+        self.assertEqual(report['status'],'PASS')
+        self.assertEqual(report['frozen_contrasts'][0]['positive'],['arm-02','arm-03'])
+
+    def test_incomplete_gpu_fit_cannot_claim_last_iteration_or_success(self):
+        final=self.collect()
+        original_nested=experiment.nested_users
+        class PartialGPU:
+            def __init__(self,**params): self.tree_count_=499
+            def fit(self,pool): pass
+        output=self.root/'artifacts/partial-gpu'
+        training=[self.root/ref['path'].rsplit('/',1)[0] for ref in self.plan['train_collections'][:3]]
+        validation=self.root/self.plan['train_collections'][3]['path'].rsplit('/',1)[0]
+        with (patch('catboost.CatBoostClassifier',PartialGPU),
+              patch.object(experiment,'model_pool',side_effect=lambda numbers,*args,**kwargs:SimpleNamespace(num_row=lambda:len(numbers))),
+              patch.object(experiment,'nested_users',side_effect=lambda users,limit=None:original_nested(users,min(limit,len(users)) if limit is not None else None))):
+            with self.assertRaisesRegex(RuntimeError,'GPU fit incomplete'):
+                experiment.fit(training,validation,output,feature_names=['x','c'],iterations=500,depth=6,
+                    train_users=20000,negative_sample=20,wall_seconds=30,task_type='GPU',external_job_timeout_seconds=60)
+        report=gate.read_json(output/'report.json')
+        self.assertEqual(report['status'],'failed')
+        self.assertEqual(report['actual_trees'],499)
+        self.assertNotIn('last_training_iteration',report)
+        self.assertNotIn('resolved_model_parameters',report)
+        self.assertFalse((output/'model.cbm').exists())
+
+    def test_resolved_gpu_backend_mismatch_fails_before_validation_and_model_export(self):
+        original_nested=experiment.nested_users
+        class WrongBackend:
+            def __init__(self,**params): self.tree_count_=500
+            def fit(self,pool): pass
+            def get_all_params(self): return {'task_type':'CPU'}
+        output=self.root/'artifacts/wrong-gpu-backend'
+        training=[self.root/ref['path'].rsplit('/',1)[0] for ref in self.plan['train_collections'][:3]]
+        validation=self.root/self.plan['train_collections'][3]['path'].rsplit('/',1)[0]
+        with (patch('catboost.CatBoostClassifier',WrongBackend),
+              patch.object(experiment,'model_pool',side_effect=lambda numbers,*args,**kwargs:SimpleNamespace(num_row=lambda:len(numbers))),
+              patch.object(experiment,'nested_users',side_effect=lambda users,limit=None:original_nested(users,min(limit,len(users)) if limit is not None else None))):
+            with self.assertRaisesRegex(RuntimeError,'different backend'):
+                experiment.fit(training,validation,output,feature_names=['x','c'],iterations=500,depth=6,
+                    train_users=20000,negative_sample=20,wall_seconds=30,task_type='GPU',external_job_timeout_seconds=60)
+        report=gate.read_json(output/'report.json')
+        self.assertEqual(report['status'],'failed')
+        self.assertEqual(report['resolved_model_parameters']['task_type'],'CPU')
+        self.assertNotIn('validation_metrics',report)
+        self.assertNotIn('last_training_iteration',report)
+        self.assertFalse((output/'model.cbm').exists())
+
 
 if __name__=='__main__':
     unittest.main()

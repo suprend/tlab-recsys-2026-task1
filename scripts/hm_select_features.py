@@ -248,10 +248,19 @@ def _prepare_plan(manual_fit_dir, validation_collection_dir):
         raise ValueError("M must be exactly one declared manual feature set")
     manual_set = matches[0]
     params = recipe["hyperparameters"]
-    candidate = [entry for entry in config["manual_tuning"]["candidate_configs"]
+    task_type = params.get("task_type")
+    if task_type not in ("CPU", "GPU"):
+        raise ValueError("Manual backend must be CPU or GPU")
+    active_backend = config.get("execution", {}).get("task_type")
+    if active_backend is not None and active_backend != task_type:
+        raise ValueError("Manual backend differs from the active campaign backend")
+    tuning = config["manual_tuning_gpu" if task_type == "GPU" else "manual_tuning"]
+    candidate = [entry for entry in tuning["candidate_configs"]
                  if entry["features"] == manual_set and entry["iterations"] == params["iterations"] and entry["depth"] == params["depth"]]
-    fixed = config["manual_tuning"]["fixed"]
-    amendment = config.get("post_manual_execution")
+    fixed = tuning["fixed"]
+    amendment = config.get("post_manual_gpu_execution" if task_type == "GPU" else "post_manual_execution")
+    if task_type == "GPU" and amendment is None:
+        raise ValueError("Freeze GPU winner in post_manual_gpu_execution before preparing generated programs")
     model_threads = fixed["thread_count"]
     if amendment is not None:
         model_threads = amendment["threads"]
@@ -265,7 +274,12 @@ def _prepare_plan(manual_fit_dir, validation_collection_dir):
     expected_params = dict(iterations=params["iterations"], depth=params["depth"],
                            learning_rate=fixed["learning_rate"], l2_leaf_reg=fixed["l2_leaf_reg"],
                            loss_function=fixed["loss_function"], random_seed=fixed["seed"],
-                           thread_count=model_threads, task_type="CPU", verbose=False, allow_writing_files=False)
+                           thread_count=model_threads, task_type=task_type, verbose=False, allow_writing_files=False)
+    if task_type == "GPU":
+        if fixed.get("task_type", "GPU") != "GPU":
+            raise ValueError("GPU manual tuning must declare the GPU backend")
+        expected_params.update({name: fixed[name] for name in ("devices", "gpu_ram_part", "pinned_memory_size",
+            "bootstrap_type", "bagging_temperature", "border_count", "boosting_type")})
     if len(candidate) != 1 or params != expected_params:
         raise ValueError("M hyperparameters differ from the declared manual candidates")
     pool = enumerate_pool(names, manifest)

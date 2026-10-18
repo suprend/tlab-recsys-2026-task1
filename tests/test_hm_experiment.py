@@ -89,6 +89,22 @@ class SamplingTests(unittest.TestCase):
 
 
 class ContractTests(unittest.TestCase):
+    def test_gpu_recipe_is_explicit_and_requires_external_job_before_output_or_data(self):
+        gpu=experiment.fixed_parameters(500,8,2026,'GPU')
+        self.assertEqual(gpu,dict(iterations=500,depth=8,learning_rate=.05,l2_leaf_reg=10,
+            loss_function='Logloss',random_seed=2026,thread_count=4,task_type='GPU',verbose=False,
+            allow_writing_files=False,devices='0',gpu_ram_part=.5,pinned_memory_size='256mb',
+            bootstrap_type='Bayesian',bagging_temperature=1,border_count=128,boosting_type='Plain'))
+        self.assertNotIn('devices',experiment.fixed_parameters(500,8,2026))
+        with tempfile.TemporaryDirectory() as temp:
+            output=Path(temp)/'not-created'
+            for timeout in (None,0,-1,float('nan'),float('inf'),True):
+                with self.subTest(timeout=timeout),patch.object(experiment,'new_private_output',side_effect=AssertionError('mkdir reached')):
+                    with self.assertRaises(ValueError):
+                        experiment.fit([Path(temp)/'missing-train'],Path(temp)/'missing-validation',output,
+                            task_type='GPU',external_job_timeout_seconds=timeout)
+                self.assertFalse(output.exists())
+
     def test_post_manual_runtime_model_sql_and_inference_share_four_thread_budget(self):
         self.assertEqual(experiment.fixed_parameters(500,8,2026)['thread_count'],4)
         self.assertEqual(experiment.runtime_identity()['threads'],4)

@@ -209,7 +209,13 @@
         "reason": "Before remaining depth8 fits: observed exact500d6 wall751.234s; depth8 upper cost uncertain, up to4xleafcount; fixed500trees/fullchecks unchanged, no validation-prefix selection. Existing operation outputs never reused."
       }
     },
-    "cpu_scope_note": "PostmanualrunnerSQL/train/predict4; independentmetricsaudit/selectorPVC2; CatBoost.fit internalautoPVC default-1; no hard aggregateCPU/RSScontainment"
+    "cpu_scope_note": "CPU prep/SQL/predict4, audit/selectorPVC2; GPU trainingdevice0, gpu_ram_part.5 target not hardVRAMreservation; internalautoPVC default-1, no hard aggregateCPU/RSScontainment",
+    "task_type": "GPU",
+    "gpu_device": "0",
+    "gpu_ram_part": 0.5,
+    "pinned_memory_size": "256mb",
+    "gpu_native_callback": "unsupported; finite external WindowsJob required; cooperative deadline only before/after native fit",
+    "gpu_determinism": "GPU floating reductions nondeterministic even with fixed seed; report actual saved models, no bitwise reproduction promise"
   },
   "amended_before_any_campaign_fit_at": "2026-10-18T09:46:00.709468+00:00",
   "post_manual_execution": {
@@ -226,5 +232,86 @@
     "reference_rule": "Use frozen34features/500d8/seed2026/20ksample20 withnew4threadsource for all future comparisons regardless referenceMAP; no manualrecipe reselection",
     "declared_before_any_generated_fit_at": "2026-10-18T11:35:04.450936+00:00",
     "reason": "Observed winning500d8 requires774.594s at2threads,14remainingfixedfits withlargertrainsets; use4of8physicalcores ononeheavyworker for efficiency; no speedup/bitwiseguarantee"
+  },
+  "manual_tuning_gpu": {
+    "candidate_configs": [
+      {
+        "name": "manual_pilot150d6",
+        "features": "manual_pilot",
+        "iterations": 150,
+        "depth": 6
+      },
+      {
+        "name": "manual_pilot500d6",
+        "features": "manual_pilot",
+        "iterations": 500,
+        "depth": 6
+      },
+      {
+        "name": "manual_pilot500d8",
+        "features": "manual_pilot",
+        "iterations": 500,
+        "depth": 8
+      },
+      {
+        "name": "strong_manual150d6",
+        "features": "strong_manual",
+        "iterations": 150,
+        "depth": 6
+      },
+      {
+        "name": "strong_manual500d6",
+        "features": "strong_manual",
+        "iterations": 500,
+        "depth": 6
+      },
+      {
+        "name": "strong_manual500d8",
+        "features": "strong_manual",
+        "iterations": 500,
+        "depth": 8
+      }
+    ],
+    "select": "highest selectionSep02 MAP; ties fewerfeatures, fewer trees, shallowerdepth, name ASC",
+    "reference": "Best of these six GPU fits on Sep02; fixed predeclared MAP/tie rule; reuse exact chosen full fit as M_GPU, no extra reference fit needed",
+    "fixed": {
+      "learning_rate": 0.05,
+      "l2_leaf_reg": 10,
+      "loss_function": "Logloss",
+      "thread_count": 4,
+      "seed": 2026,
+      "task_type": "GPU",
+      "devices": "0",
+      "gpu_ram_part": 0.5,
+      "pinned_memory_size": "256mb",
+      "bootstrap_type": "Bayesian",
+      "bagging_temperature": 1,
+      "border_count": 128,
+      "boosting_type": "Plain"
+    },
+    "no_early_stopping": true,
+    "declared_before_any_gpu_quality_fit_at": "2026-10-18T11:58:48.872283+00:00",
+    "reason": "User GPU steering; training-only OP024 cost gate PASS before quality; CPU2/4 histories preserved, GPU backend retained regardless quality relative CPU; no search beyond same six recipes",
+    "training_policy": {
+      "users_per_anchor": 20000,
+      "negative_sample": 20,
+      "sampling_seed": 2026
+    },
+    "operation_limits": {
+      "cooperative_wall_seconds": 1800,
+      "external_job_timeout_seconds": 1860,
+      "reason": "Training-onlyGPU100 cost73.344s total; largerframes/500trees uncertain but finite1800; unchangedfulltreebudget; historicalCPUdepth8override doesnotapply"
+    }
+  },
+  "gpu_backend_decision": {
+    "declared_before_any_gpu_quality_fit_at": "2026-10-18T11:58:48.872283+00:00",
+    "user_steering": "ты на чем обучаешь? мб на видюхе надо?",
+    "probe": "HM-OP024",
+    "probe_report_sha256": "01185a83e9fb94669dcc963a952234b97f1d10e0d99549c471adfecc6273d12d",
+    "native100_seconds": 12.062,
+    "total_seconds": 73.344,
+    "gate": "native<=60s,total<=180s,full100,savedreload/PVC_PASS,noOOM; noqualitymetric",
+    "decision": "UseGPU for sixmanualgrid and all remaining models regardless qualityrelativeCPU; no CPU/GPU cherry-pick",
+    "source_cpu_commit": "58440f6"
   }
 }

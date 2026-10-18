@@ -197,10 +197,22 @@ def load_lock(path):
     require(all(contract == contracts[0] for contract in contracts), 'Training feature schemas differ')
     _schema(value, contracts[0])
     params = value['hyperparameters']
-    keys(params, 'iterations depth learning_rate l2_leaf_reg loss_function thread_count task_type verbose allow_writing_files', 'Unexpected fixed hyperparameter schema')
+    gpu = dict(devices='0', gpu_ram_part=0.5, pinned_memory_size='256mb', bootstrap_type='Bayesian',
+               bagging_temperature=1, border_count=128, boosting_type='Plain')
+    task_type = params.get('task_type') if isinstance(params,dict) else None
+    require(task_type in ('CPU','GPU'), 'Final backend must be CPU or GPU')
+    campaign = read_json(reference(value['campaign']))
+    active_backend = campaign.get('execution', {}).get('task_type')
+    require(active_backend is None or active_backend == task_type, 'Final backend differs from active campaign backend')
+    fields = 'iterations depth learning_rate l2_leaf_reg loss_function thread_count task_type verbose allow_writing_files'
+    if task_type == 'GPU':
+        fields += ' ' + ' '.join(gpu)
+    keys(params, fields, 'Unexpected fixed hyperparameter schema')
     require(type(params['iterations']) is int and params['iterations'] in (150, 500) and type(params['depth']) is int and params['depth'] in (6, 8), 'Manual grid capacity required')
     require(not (params['iterations'] == 150 and params['depth'] == 8), 'Capacity is outside the frozen manual grid')
-    require(params['learning_rate'] == .05 and params['l2_leaf_reg'] == 10 and params['loss_function'] == 'Logloss' and type(params['thread_count']) is int and params['thread_count'] == 4 and params['task_type'] == 'CPU' and params['verbose'] is False and params['allow_writing_files'] is False, 'Fixed CatBoost parameters changed')
+    require(params['learning_rate'] == .05 and params['l2_leaf_reg'] == 10 and params['loss_function'] == 'Logloss' and type(params['thread_count']) is int and params['thread_count'] == 4 and params['verbose'] is False and params['allow_writing_files'] is False, 'Fixed CatBoost parameters changed')
+    if task_type == 'GPU':
+        require(same({name:params[name] for name in gpu},gpu), 'Fixed GPU execution parameters changed')
     keys(value['outputs'], 'collection fits audit', 'Collection, four fit and audit output paths required')
     fits = value['outputs']['fits']
     require(isinstance(fits, list) and len(fits) == 4, 'Exactly four ordered fit outputs required')

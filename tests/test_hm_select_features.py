@@ -94,6 +94,7 @@ class ArtifactTests(unittest.TestCase):
         # Historical fixture witnesses retain the original two-thread contract.
         self.config = deepcopy(selector._campaign())
         self.config.pop("post_manual_execution", None)
+        self.config["execution"].pop("task_type", None)
         campaign_patch = patch.object(selector, "_campaign", return_value=self.config)
         campaign_patch.start()
         self.addCleanup(campaign_patch.stop)
@@ -217,6 +218,42 @@ class ArtifactTests(unittest.TestCase):
         self.assertEqual(result["plan"]["manual_fit"]["path"],fresh.resolve().as_posix())
         with self.assertRaisesRegex(ValueError,"frozen winning"):
             selector.prepare_study(self.manual,self.cache,self.root/"wrong-recipe")
+
+    def test_gpu_pilot_winner_uses_its_own_grid_and_frozen_recipe_without_hardcoded34(self):
+        self.config['execution']['task_type']='GPU'
+        with self.assertRaisesRegex(ValueError,'active campaign backend'):
+            selector.prepare_study(self.manual,self.cache,self.study)
+        self.assertFalse(self.study.exists())
+        tuning=deepcopy(self.config['manual_tuning'])
+        tuning['fixed'].update(thread_count=4,task_type='GPU',devices='0',gpu_ram_part=.5,
+            pinned_memory_size='256mb',bootstrap_type='Bayesian',bagging_temperature=1,border_count=128,boosting_type='Plain')
+        self.config['manual_tuning_gpu']=tuning
+        self.config['post_manual_gpu_execution']=dict(threads=4,manual_features='manual_pilot',iterations=150,depth=6,seed=2026)
+        report=selector._read_json(self.manual/'report.json')
+        report['hyperparameters'].update({k:v for k,v in tuning['fixed'].items() if k!='seed'})
+        report['training_user_limit']=20000
+        report['runtime']={'threads':4,'environment':'GPU fixture'}
+        self._finish_report(self.manual,report)
+        changed=deepcopy(report)
+        changed['hyperparameters']['border_count']=254
+        self._finish_report(self.manual,changed)
+        with self.assertRaisesRegex(ValueError,'hyperparameters'):
+            selector.prepare_study(self.manual,self.cache,self.study)
+        self.assertFalse(self.study.exists())
+        self._finish_report(self.manual,report)
+        amendment=self.config.pop('post_manual_gpu_execution')
+        with self.assertRaisesRegex(ValueError,'Freeze GPU winner'):
+            selector.prepare_study(self.manual,self.cache,self.study)
+        self.assertFalse(self.study.exists())
+        self.config['post_manual_gpu_execution']=amendment
+        prepared=selector.prepare_study(self.manual,self.cache,self.study)
+        self.assertEqual(len(prepared['plan']['pool']),58)
+        self.assertEqual(len(prepared['plan']['names']['all_names.json']),81)
+        all_report=self._write_fit(self.all,prepared['plan']['names']['all_names.json'],changes=dict(
+            hyperparameters=report['hyperparameters'],training_user_limit=20000,runtime=report['runtime']))
+        selected=selector.select_study(self.study,self.all,self.selected,model_factory=lambda:self.fake(prepared,all_report))
+        self.assertEqual(len(selected['names']),35)
+        self.assertEqual(selected['protocol']['importance_thread_count'],2)
 
     def test_strong_manual_preparation_has53_pool_and_never_injects_manual_transforms(self):
         strong = self.root/"strong"
