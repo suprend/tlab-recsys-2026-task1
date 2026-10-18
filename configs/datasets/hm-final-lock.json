@@ -1,0 +1,214 @@
+{
+  "format": "hm-final-decision-lock-v1",
+  "campaign": {
+    "path": "configs/datasets/hm-campaign.json",
+    "sha256": "63db1ea3137bd7d353036f210caa7cd9d11a145629db22964625f97159c709a2"
+  },
+  "provenance": {
+    "manual": {
+      "path": "artifacts/hm-campaign/gpu-manual-grid/manual_pilot500d8/report.json",
+      "sha256": "5e5aeb2bd00a7cd31aa79c64bae2f5c6d795c65be5a33655d2843ea09d44e003"
+    },
+    "selection": {
+      "path": "artifacts/hm-campaign/feature-selection/manifest.json",
+      "sha256": "b735c9e554a8cbff5c1ffbfdfc064104b56c9a2ae107f4c0cb416aa809327832"
+    },
+    "confirmation": {
+      "path": "artifacts/hm-campaign/audits/confirmation/report.json",
+      "sha256": "ef712ae71179fbf93e7ce862f7c343c9d2ec744ba1552686f52fe3d038353bd3"
+    }
+  },
+  "database": {
+    "sha256": "cc346f6c680c915936c0f50c1ff80ed36bd9a7c21a6cd5e2d41f005d0f2a1579",
+    "bytes": 1164980224
+  },
+  "feature_digest": "3a475c62bd2ac1b39803e6d5599da20ceb49892cec3f57ebcabcb7ea708b35ee",
+  "implementation": {
+    "code": {
+      "hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+      "hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+      "hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+      "hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+      "hm_result_audit.py": "e65720250ed95ab444848af8008adecb3564161736e0ff02df76fc732cc0a9b1",
+      "hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+      "hm_select_features.py": "a4ce7d5678af547577c7739a13d2bc008ddf89e4340d86393722ea74fc7bb055",
+      "hm_contrasts.py": "d17acc98837a8939ee00c08369a04597b8f70d008b507867330ffcb698f503c7",
+      "hm_job.py": "a8ca33c389aad356ea2bd8b0a2ab43276a0af85029934888ebeca9f132c541a0"
+    },
+    "runtime": {
+      "python": "3.12.14",
+      "platform": "Windows-10-10.0.19045-SP0",
+      "packages": {
+        "duckdb": "1.5.6",
+        "numpy": "2.5.4",
+        "pandas": "3.0.6",
+        "catboost": "1.2.10"
+      },
+      "threads": 4,
+      "duckdb_memory_limit": "2GB"
+    }
+  },
+  "final": {
+    "anchor": "2020-09-16",
+    "horizon_days": 7,
+    "policy": "C0-Q120",
+    "users": 20000,
+    "cohort_seed": 2026,
+    "sampling_seed": 2026,
+    "train_users": 20000,
+    "negative_sample": 20
+  },
+  "train_collections": [
+    {
+      "path": "artifacts/hm-campaign/collections/2020-08-12-c0q120/manifest.json",
+      "sha256": "be6fe6ea2fe6f64bc36e2dc9b4dcaaa2cf3aab949af3fb9ff4b9f5deefdae8fb"
+    },
+    {
+      "path": "artifacts/hm-campaign/collections/2020-08-19-c0q120/manifest.json",
+      "sha256": "319c04d32834ec2a356182ec0583f9b4649452348a0c323721e5e2fcb70e2977"
+    },
+    {
+      "path": "artifacts/hm-campaign/collections/2020-08-26-c0q120/manifest.json",
+      "sha256": "620b2d04c990de942ab932c7c5f25f37ea519687e4f46931d516375dbd3b9e01"
+    },
+    {
+      "path": "artifacts/hm-campaign/collections/2020-09-02-c0q120/manifest.json",
+      "sha256": "5b0047adc76eae460f8f8ec97894b7b271a51f246dc0ede5ec2cc5a827b3689c"
+    },
+    {
+      "path": "artifacts/hm-campaign/collections/2020-09-09-c0q120/manifest.json",
+      "sha256": "640ad4f4da7045b8364dc485d7713eec7df6b2a677edfe24f283654f8218550f"
+    }
+  ],
+  "features": {
+    "M": {
+      "numeric": [
+        "u_tx7",
+        "u_tx28",
+        "u_tx90",
+        "i_buyers7",
+        "i_buyers28",
+        "i_buyers90",
+        "ui_tx7",
+        "ui_tx28",
+        "ui_tx90",
+        "u_recency",
+        "i_recency",
+        "ui_recency",
+        "item_price28",
+        "user_price28",
+        "affinity_type28",
+        "affinity_colour28",
+        "global_rank",
+        "user_recent_rank"
+      ],
+      "categorical": [
+        "product_type_no",
+        "colour_group_code",
+        "department_no",
+        "index_code",
+        "garment_group_no"
+      ]
+    },
+    "selected": {
+      "numeric": [
+        "u_tx7",
+        "u_tx28",
+        "u_tx90",
+        "i_buyers7",
+        "i_buyers28",
+        "i_buyers90",
+        "ui_tx7",
+        "ui_tx28",
+        "ui_tx90",
+        "u_recency",
+        "i_recency",
+        "ui_recency",
+        "item_price28",
+        "user_price28",
+        "affinity_type28",
+        "affinity_colour28",
+        "global_rank",
+        "user_recent_rank",
+        "auto_product_type_no_share90",
+        "auto_index_code_recency90",
+        "auto_product_type_no_distinct_items90",
+        "affinity_type_recency90",
+        "auto_index_code_share28",
+        "auto_product_type_no_count90",
+        "auto_index_code_recency28",
+        "auto_index_code_distinct_items7",
+        "auto_department_no_distinct_items90",
+        "auto_garment_group_no_share90",
+        "auto_garment_group_no_distinct_items7",
+        "auto_product_type_no_share7"
+      ],
+      "categorical": [
+        "product_type_no",
+        "colour_group_code",
+        "department_no",
+        "index_code",
+        "garment_group_no"
+      ]
+    }
+  },
+  "hyperparameters": {
+    "iterations": 500,
+    "depth": 8,
+    "learning_rate": 0.05,
+    "l2_leaf_reg": 10,
+    "loss_function": "Logloss",
+    "thread_count": 4,
+    "task_type": "GPU",
+    "verbose": false,
+    "allow_writing_files": false,
+    "devices": "0",
+    "gpu_ram_part": 0.5,
+    "pinned_memory_size": "256mb",
+    "bootstrap_type": "Bayesian",
+    "bagging_temperature": 1,
+    "border_count": 128,
+    "boosting_type": "Plain"
+  },
+  "outputs": {
+    "collection": "artifacts/hm-campaign/collections/2020-09-16-c0q120",
+    "fits": [
+      "artifacts/hm-campaign/final/M2026",
+      "artifacts/hm-campaign/final/M2027",
+      "artifacts/hm-campaign/final/selected2026",
+      "artifacts/hm-campaign/final/selected2027"
+    ],
+    "audit": "artifacts/hm-campaign/audits/final"
+  },
+  "contrasts": [
+    {
+      "name": "selected_minus_M_seed_mean",
+      "positive": [
+        "arm-02",
+        "arm-03"
+      ],
+      "negative": [
+        "arm-00",
+        "arm-01"
+      ]
+    },
+    {
+      "name": "selected_minus_M_seed2026",
+      "positive": [
+        "arm-02"
+      ],
+      "negative": [
+        "arm-00"
+      ]
+    },
+    {
+      "name": "selected_minus_M_seed2027",
+      "positive": [
+        "arm-03"
+      ],
+      "negative": [
+        "arm-01"
+      ]
+    }
+  ]
+}

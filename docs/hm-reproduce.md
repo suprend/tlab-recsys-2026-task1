@@ -192,6 +192,7 @@ for phase, selected, randoms in [('selection', 'arm-02', ['arm-03','arm-04','arm
     if read_json(audit_path)['status'] != 'PASS':
         raise ValueError('PASS audit required')
     contrasts = [dict(name='selected_minus_M', positive=[selected], negative=['arm-00']),
+                 dict(name='mean_random3_minus_M', positive=randoms, negative=['arm-00']),
                  dict(name='selected_minus_mean_random3', positive=[selected], negative=randoms)]
     contrasts += [dict(name=f'selected_minus_random{seed}', positive=[selected], negative=[arm])
                   for seed, arm in zip((101,102,103), randoms)]
@@ -212,12 +213,12 @@ Bootstrap — paired positive-user percentile95,2000 draws seed2026, услов�
 
 ## 6. Decision lock до любого final collection/fit
 
-Сначала завершите и проверьте все development audits. Затем заморозьте текущий campaign config, исходники и окружение на весь final. Следующий bounded metadata-only snippet читает JSON и потоковые SHA файлов; не соединяется с DB и не загружает модели. Он сохраняет **полную** схему, проверяемую `hm_final_lock.load_lock`. При отсутствии входов, не-PASS audit, изменённом study или существующих final outputs останавливается. Это создание нового локального контракта данного повтора, не восстановление отсутствующих исторических файлов.
+Сначала завершите и проверьте все development audits. Затем заморозьте текущий campaign config, исходники и окружение на весь final. Исторический `configs/datasets/hm-final-lock.json`, когда он присутствует в clone, сохраняется как свидетельство исходного запуска. Для нового повтора ниже создаётся отдельный `hm-final-lock-repro.json`; он не перезаписывает исторический контракт и также должен отсутствовать. Следующий bounded metadata-only snippet читает JSON и потоковые SHA файлов; не соединяется с DB и не загружает модели. Он сохраняет **полную** схему, проверяемую `hm_final_lock.load_lock`. При отсутствии входов, не-PASS audit, изменённом study или существующих final outputs останавливается. Это создание нового локального контракта данного повтора, не восстановление отсутствующих исторических файлов.
 
 Список M берётся из report победителя GPU-сетки, порядок selected numeric/categorical — из фактически обученного selected report и сверяется с selected names/registry. Параметры берутся из M_GPU, model seed исключается из общего recipe; два final seeds фиксируются отдельно. Будущие final cache hashes ещё неизвестны: lock фиксирует source/schema/paths; produced manifest позже прикрепит actual Q/C/Y hashes и SHA lock, сам lock не переписывается.
 
 ```powershell
-$DecisionLock = 'configs/datasets/hm-final-lock.json'
+$DecisionLock = 'configs/datasets/hm-final-lock-repro.json'
 $LockCode = @'
 from copy import deepcopy
 from pathlib import Path
@@ -303,14 +304,15 @@ document = dict(format='hm-final-decision-lock-v1', campaign=ref(campaign_path),
     train_collections=[ref(name) for name in collections],
     features=dict(M=manual_features, selected=selected_features), hyperparameters=params,
     outputs=outputs, contrasts=deepcopy(gate.CONTRASTS))
-destination = root/'configs/datasets/hm-final-lock.json'
+destination = (root/sys.argv[2]).resolve()
+need(destination.is_relative_to(root/'configs/datasets'), 'New lock must stay in configs/datasets')
 with destination.open('x', encoding='utf-8', newline='\n') as stream:
     json.dump(document, stream, ensure_ascii=False, indent=2, allow_nan=False)
     stream.write('\n')
 lock = gate.load_lock(destination)
 print(json.dumps(dict(status='locked', path=destination.relative_to(root).as_posix(), sha256=lock.sha256)))
 '@
-Invoke-Hm -ProjectArgs @('-c',$LockCode,$Database)
+Invoke-Hm -ProjectArgs @('-c',$LockCode,$Database,$DecisionLock)
 ```
 
 Не исправляйте не прошедший lock по увиденным final scores. До final доступа ошибки входов исправляются с явным объяснением, сохранением неуспешного файла и новым контрактом/output-набором. После lock не меняйте закреплённые config/code/provenance files; даже изменение их байтов приведёт к отказу. Документирование результатов в других файлах разрешённые identities не меняет.
