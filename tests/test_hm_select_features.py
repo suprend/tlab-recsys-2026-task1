@@ -91,6 +91,12 @@ class PoolTests(unittest.TestCase):
 
 class ArtifactTests(unittest.TestCase):
     def setUp(self):
+        # Historical fixture witnesses retain the original two-thread contract.
+        self.config = deepcopy(selector._campaign())
+        self.config.pop("post_manual_execution", None)
+        campaign_patch = patch.object(selector, "_campaign", return_value=self.config)
+        campaign_patch.start()
+        self.addCleanup(campaign_patch.stop)
         self.tmp = tempfile.TemporaryDirectory(prefix="hm-selection-unit-")
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
@@ -187,6 +193,30 @@ class ArtifactTests(unittest.TestCase):
             self.assertEqual(selector._read_json(self.study/filename), names)
         with self.assertRaises(FileExistsError):
             selector.prepare_study(self.manual, self.cache, self.study)
+
+    def test_four_thread_amendment_requires_fresh_M_and_preserves_frozen_recipe(self):
+        self.config["post_manual_execution"] = dict(threads=4, manual_features="strong_manual", iterations=500, depth=8, seed=2026)
+        strong = self.root/"strong"
+        report = self._write_fit(strong, self.manifest["feature_sets"]["strong_manual"])
+        report["hyperparameters"].update(iterations=500,depth=8)
+        report["actual_trees"]=500
+        report["training_user_limit"]=20000
+        self._finish_report(strong, report)
+        with self.assertRaisesRegex(ValueError,"hyperparameters"):
+            selector.prepare_study(strong,self.cache,self.study)
+        self.assertFalse(self.study.exists())
+        fresh = self.root/"fresh-M4"
+        fresh_params=dict(report["hyperparameters"],thread_count=4)
+        self._write_fit(fresh,self.manifest["feature_sets"]["strong_manual"],
+            changes=dict(hyperparameters=fresh_params,actual_trees=500,training_user_limit=20000,
+                         runtime={"threads":4,"environment":"fresh synthetic reference"}))
+        result=selector.prepare_study(fresh,self.cache,self.study)
+        self.assertEqual(result["plan"]["manual_set"],"strong_manual")
+        self.assertEqual(result["plan"]["recipe"]["hyperparameters"]["thread_count"],4)
+        self.assertEqual(self.config["manual_tuning"]["fixed"]["thread_count"],2)
+        self.assertEqual(result["plan"]["manual_fit"]["path"],fresh.resolve().as_posix())
+        with self.assertRaisesRegex(ValueError,"frozen winning"):
+            selector.prepare_study(self.manual,self.cache,self.root/"wrong-recipe")
 
     def test_strong_manual_preparation_has53_pool_and_never_injects_manual_transforms(self):
         strong = self.root/"strong"

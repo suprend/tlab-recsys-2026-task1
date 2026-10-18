@@ -89,6 +89,19 @@ class SamplingTests(unittest.TestCase):
 
 
 class ContractTests(unittest.TestCase):
+    def test_post_manual_runtime_model_sql_and_inference_share_four_thread_budget(self):
+        self.assertEqual(experiment.fixed_parameters(500,8,2026)['thread_count'],4)
+        self.assertEqual(experiment.runtime_identity()['threads'],4)
+        statements=[]
+        fake=SimpleNamespace(execute=lambda *args:statements.append(args))
+        with tempfile.TemporaryDirectory() as temp:
+            output=Path(temp)
+            with patch.dict('sys.modules',{'duckdb':SimpleNamespace(connect=lambda *args,**kwargs:fake)}):
+                experiment.connection_for(output/'synthetic.db',output)
+            self.assertIn(('SET threads=4',),statements)
+            with patch.object(experiment.shutil,'disk_usage',return_value=SimpleNamespace(free=20*1024**3)):
+                self.assertEqual(experiment.resource_preflight(output)['threads'],4)
+
     def test_collect_final_guard_occurs_before_output_or_source_access(self):
         with tempfile.TemporaryDirectory() as temp:
             out=Path(temp)/'must-not-exist'

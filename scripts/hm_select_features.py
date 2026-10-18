@@ -251,10 +251,21 @@ def _prepare_plan(manual_fit_dir, validation_collection_dir):
     candidate = [entry for entry in config["manual_tuning"]["candidate_configs"]
                  if entry["features"] == manual_set and entry["iterations"] == params["iterations"] and entry["depth"] == params["depth"]]
     fixed = config["manual_tuning"]["fixed"]
+    amendment = config.get("post_manual_execution")
+    model_threads = fixed["thread_count"]
+    if amendment is not None:
+        model_threads = amendment["threads"]
+        if type(model_threads) is not int or model_threads != 4:
+            raise ValueError("Post-manual execution requires the declared four-thread reference")
+        if (manual_set != amendment["manual_features"] or params["iterations"] != amendment["iterations"]
+                or params["depth"] != amendment["depth"] or params["random_seed"] != amendment["seed"]):
+            raise ValueError("Post-manual execution must preserve the frozen winning manual recipe")
+        if limit != 20000 or recipe["negative_sample"] != 20:
+            raise ValueError("Post-manual reference must retain the frozen 20000-user sampled training policy")
     expected_params = dict(iterations=params["iterations"], depth=params["depth"],
                            learning_rate=fixed["learning_rate"], l2_leaf_reg=fixed["l2_leaf_reg"],
                            loss_function=fixed["loss_function"], random_seed=fixed["seed"],
-                           thread_count=fixed["thread_count"], task_type="CPU", verbose=False, allow_writing_files=False)
+                           thread_count=model_threads, task_type="CPU", verbose=False, allow_writing_files=False)
     if len(candidate) != 1 or params != expected_params:
         raise ValueError("M hyperparameters differ from the declared manual candidates")
     pool = enumerate_pool(names, manifest)

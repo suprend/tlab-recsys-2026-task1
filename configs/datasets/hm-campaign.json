@@ -192,7 +192,7 @@
   },
   "execution": {
     "one_heavy_process": true,
-    "threads": 2,
+    "threads": 4,
     "duckdb_memory": "2GB",
     "per_operation_wall": 1800,
     "external_timeout": 1860,
@@ -209,7 +209,22 @@
         "reason": "Before remaining depth8 fits: observed exact500d6 wall751.234s; depth8 upper cost uncertain, up to4xleafcount; fixed500trees/fullchecks unchanged, no validation-prefix selection. Existing operation outputs never reused."
       }
     },
-    "cpu_scope_note": "Explicit2 training/prediction/SQL threads; CatBoost.fit internal autoPVC uses installed default -1; no hard aggregateCPU or RSS containment claimed."
+    "cpu_scope_note": "PostmanualrunnerSQL/train/predict4; independentmetricsaudit/selectorPVC2; CatBoost.fit internalautoPVC default-1; no hard aggregateCPU/RSScontainment"
   },
-  "amended_before_any_campaign_fit_at": "2026-10-18T09:46:00.709468+00:00"
+  "amended_before_any_campaign_fit_at": "2026-10-18T09:46:00.709468+00:00",
+  "post_manual_execution": {
+    "manual_recipe": "strong_manual500d8",
+    "manual_features": "strong_manual",
+    "iterations": 500,
+    "depth": 8,
+    "seed": 2026,
+    "grid_model_threads": 2,
+    "grid_audit_sha256": "7d3f58f26ba69b7b1b9b02ede5b3e262ba0adfe90cf28547324a98d8eda401c6",
+    "grid_code_commit": "7f69656",
+    "threads": 4,
+    "require_fresh_reference": true,
+    "reference_rule": "Use frozen34features/500d8/seed2026/20ksample20 withnew4threadsource for all future comparisons regardless referenceMAP; no manualrecipe reselection",
+    "declared_before_any_generated_fit_at": "2026-10-18T11:35:04.450936+00:00",
+    "reason": "Observed winning500d8 requires774.594s at2threads,14remainingfixedfits withlargertrainsets; use4of8physicalcores ononeheavyworker for efficiency; no speedup/bitwiseguarantee"
+  }
 }

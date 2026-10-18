@@ -1,4 +1,4 @@
-"""Audit saved H&M development predictions independently; never fit or predict.
+"""Audit saved H&M predictions independently; final dates need a decision lock.
 
 Full cached Q/C/Y and optional original source are checked. Saved top12 scores
 prove ordering within that export; scores for omitted candidates are unavailable,
@@ -153,11 +153,21 @@ def heuristic_predictions(connection, frame_path, method, deadline):
     return predictions
 
 
-def audit(validation, fits, output, database=None, wall_seconds=1800):
+def audit(validation, fits, output, database=None, wall_seconds=1800, decision_lock=None):
     import duckdb
     import pandas as pd
     deadline=Deadline(wall_seconds)
     output=Path(output).resolve()
+    final_lock = None
+    if decision_lock is not None:
+        from scripts import hm_final_lock as gate
+        final_lock = gate.load_lock(decision_lock)
+        expected_output = gate.authorize_audit(final_lock, Path(validation)/'manifest.json',
+            [Path(fit)/'report.json' for fit in fits])
+        require(output == expected_output, 'Final audit output differs from decision lock')
+        for index, fit in enumerate(fits):
+            require(gate.read_json(Path(fit)/'report.json').get('final_arm') == ('M' if index < 2 else 'selected'),
+                    'Final fit arm differs from locked order')
     allowed=(ROOT/'artifacts').resolve()
     require(output!=allowed and output.is_relative_to(allowed), 'New output must be inside checkout artifacts/')
     output.mkdir(parents=True,exist_ok=False)
@@ -165,6 +175,8 @@ def audit(validation, fits, output, database=None, wall_seconds=1800):
                 scope='Independent cached fullQ/C/Y and saved-top12 metrics; optional source Q/Y rebuild; no model fit/prediction',
                 limitation='Ordering is checked inside saved top12 only; omitted model scores and feature formulas are not re-evaluated.',
                 tolerance=TOLERANCE)
+    if final_lock is not None:
+        report.update(final_lock_sha256=final_lock.sha256, frozen_contrasts=final_lock.data['contrasts'])
     con=timer=None
     try:
         require(shutil.disk_usage(output).free>=10*1024**3, 'At least10GiB output free space required')
@@ -172,8 +184,9 @@ def audit(validation, fits, output, database=None, wall_seconds=1800):
         manifest_path=validation/'manifest.json'
         manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
         require(manifest.get('format')=='hm-experiment-collection-v1' and manifest.get('status')=='completed', 'Completed collection required')
-        require(manifest['anchor'] in ('2020-09-02','2020-09-09') and manifest['horizon_days']==7 and manifest['cohort_seed']==2026,
-                'Audit accepts frozen development anchors Sep02/Sep09 only')
+        allowed_anchors = ('2020-09-16',) if final_lock is not None else ('2020-09-02','2020-09-09')
+        require(manifest['anchor'] in allowed_anchors and manifest['horizon_days']==7 and manifest['cohort_seed']==2026,
+                'Audit requires frozen development anchor or explicitly locked final anchor')
         for name in ('frame.parquet','users.parquet','targets.parquet'):
             require(file_digest(validation/name,deadline)==manifest['files'][name], 'Collection artifact SHA256 mismatch')
         require(canonical_digest({name:manifest['files'][name] for name in ('users.parquet','targets.parquet')})==manifest['qcy_identity'], 'Collection Q/Y identity mismatch')
@@ -253,7 +266,9 @@ def audit(validation, fits, output, database=None, wall_seconds=1800):
             return {'file':filename,'sha256':file_digest(output/filename,deadline)}
         heuristic_values={}
         report['heuristics']={'status':'unavailable','reason':'Cached frame does not contain both global_rank and user_recent_rank'}
-        for method in ('recency','popularity'):
+        if final_lock is not None:
+            report['heuristics']={'status':'excluded','reason':'Final arms and contrasts are fixed by decision lock'}
+        for method in (() if final_lock is not None else ('recency','popularity')):
             predicted=heuristic_predictions(con,validation/'frame.parquet',method,deadline)
             if predicted is None:
                 break
@@ -284,6 +299,10 @@ def audit(validation, fits, output, database=None, wall_seconds=1800):
             payload=dict(inputs=producer['inputs'],features=producer['features'],hyperparameters=producer['hyperparameters'],
                          train_users=producer['training_user_limit'],negative_sample=producer['negative_sample'],sampling_seed=producer['sampling_seed'],
                          code=producer['code'],runtime=producer['runtime'])
+            if final_lock is not None:
+                expected_arm = 'M' if index < 2 else 'selected'
+                require(producer.get('final_arm') == expected_arm, 'Final fit arm differs from locked order')
+                payload.update(final_lock_sha256=final_lock.sha256, final_arm=expected_arm)
             require(canonical_digest(payload)==producer['fit_identity'],'Fit provenance identity mismatch')
             require(producer['features']['contract_digest']==manifest['features']['digest'],'Feature contract provenance mismatch')
             for name in ('model.cbm','query-metrics.parquet','predictions-top12.parquet'):
@@ -318,7 +337,7 @@ def audit(validation, fits, output, database=None, wall_seconds=1800):
             if 'recency' in heuristic_values:
                 report['fit_vs_recency'].append(dict(reference='recency',alternative_arm=index,
                     **paired_bootstrap(heuristic_values['recency'],per_query,deadline)))
-        for index in range(1,len(all_query_values)):
+        for index in (() if final_lock is not None else range(1,len(all_query_values))):
             report['comparisons'].append(dict(reference_arm=0,alternative_arm=index,
                 **paired_bootstrap(all_query_values[0],all_query_values[index],deadline)))
         if database is not None:
@@ -351,9 +370,10 @@ def main(argv=None):
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--database',type=Path)
     parser.add_argument('--wall-seconds',type=float,default=1800)
+    parser.add_argument('--decision-lock',type=Path)
     args=parser.parse_args(argv)
     try:
-        report=audit(args.validation,args.fits,args.output,args.database,args.wall_seconds)
+        report=audit(args.validation,args.fits,args.output,args.database,args.wall_seconds,args.decision_lock)
     except Exception as error:
         print(json.dumps({'status':'FAIL','error_type':type(error).__name__,'output':args.output.as_posix()}))
         return 1

@@ -1,6 +1,6 @@
 """Reusable bounded development collection and single-fit runner for H&M.
 
-No command reads target dates from the reserved final period. All row-level
+Reserved final dates require an explicit immutable decision lock. All row-level
 outputs are restricted to this checkout's ignored artifacts/ tree.
 """
 from __future__ import annotations
@@ -15,8 +15,10 @@ import math
 from pathlib import Path
 import platform
 import shutil
+import sys
 import threading
 import time
+import traceback
 
 from scripts import hm_baseline as pilot
 
@@ -98,7 +100,7 @@ def check_anchor(anchor):
 def connection_for(database, output):
     import duckdb
     con = duckdb.connect(str(Path(database).resolve()), read_only=True)
-    con.execute('SET threads=2')
+    con.execute('SET threads=4')
     con.execute("SET memory_limit='2GB'")
     con.execute('SET preserve_insertion_order=false')
     temp = output/'duckdb-temp'
@@ -113,14 +115,14 @@ def resource_preflight(output):
     if free<10*1024**3:
         raise OSError('Output filesystem requires at least10GiB free for bounded spill')
     return dict(output_disk_free_bytes=free,min_free_bytes=10*1024**3,
-                max_temp_directory_size='8GB',duckdb_memory_limit='2GB',threads=2)
+                max_temp_directory_size='8GB',duckdb_memory_limit='2GB',threads=4)
 
 
 def runtime_identity():
     return dict(python=platform.python_version(), platform=platform.platform(),
                 packages={name:importlib.metadata.version(name) for name in
                           ('duckdb', 'numpy', 'pandas', 'catboost')},
-                threads=2, duckdb_memory_limit='2GB')
+                threads=4, duckdb_memory_limit='2GB')
 
 
 def quote(name):
@@ -163,8 +165,19 @@ def feature_contract(result):
     return {'registry': list(specs.values()), 'feature_sets': sets, 'digest': result.digest}
 
 
-def collect(database, output, anchor, users, policy, wall_seconds=1800):
-    cutoff = check_anchor(anchor)
+def collect(database, output, anchor, users, policy, wall_seconds=1800, decision_lock=None):
+    final_lock = None
+    if decision_lock is None:
+        cutoff = check_anchor(anchor)
+    else:
+        from scripts import hm_final_lock as gate
+        from scripts.hm_feature_engine import feature_manifest
+        final_lock = gate.load_lock(decision_lock)
+        source = Path(database).resolve()
+        gate.authorize_collect(final_lock, dict(output=private_relative(output), anchor=str(anchor),
+            users=users, policy=policy, cohort_seed=SEED, horizon_days=7),
+            dict(sha256=sha256_file(source), bytes=source.stat().st_size), feature_manifest()['digest'])
+        cutoff = date.fromisoformat(str(anchor))
     if users < 1 or policy not in POLICIES:
         raise ValueError('Positive user count and supported policy required')
     deadline = Deadline(wall_seconds)
@@ -173,6 +186,8 @@ def collect(database, output, anchor, users, policy, wall_seconds=1800):
                   policy=policy, requested_users=users, cohort_seed=SEED, horizon_days=7,
                   history='[anchor-90d,anchor)', target='[anchor,anchor+7d)',
                   private_data='All parquet files contain real IDs; ignored artifacts only.')
+    if final_lock is not None:
+        report['final_lock_sha256'] = final_lock.sha256
     con = timer = None
     try:
         report['resources']=resource_preflight(output)
@@ -181,6 +196,8 @@ def collect(database, output, anchor, users, policy, wall_seconds=1800):
         source = Path(database).resolve()
         stat = source.stat()
         report['database'] = dict(sha256=sha256_file(source, deadline), bytes=stat.st_size)
+        if final_lock is not None and report['database'] != final_lock.data['database']:
+            raise ValueError('Final database changed since lock authorization')
         report['runtime'] = runtime_identity()
         report['code'] = {p.name:sha256_file(p, deadline) for p in (
             Path(__file__), ROOT/'scripts/hm_retrieval.py', ROOT/'scripts/hm_feature_engine.py',
@@ -238,7 +255,8 @@ def collect(database, output, anchor, users, policy, wall_seconds=1800):
         report['status'] = 'completed'
     except Exception as exc:
         report['status'] = 'failed'
-        report['error'] = {'type':type(exc).__name__}
+        report['error'] = dict(type=type(exc).__name__, message=str(exc)[:2048],
+                               traceback=traceback.format_exc(limit=12)[-8192:])
         raise
     finally:
         if timer:
@@ -300,12 +318,17 @@ def sample_training_rows(frame, anchor, negative_sample=0):
     return output.sort_values(['customer_id','article_id']).reset_index(drop=True)
 
 
-def read_manifest(path, deadline):
+def read_manifest(path, deadline, final_lock=None):
     path=Path(path).resolve()
     manifest=json.loads((path/'manifest.json').read_text(encoding='utf-8'))
     if manifest.get('format')!='hm-experiment-collection-v1' or manifest.get('status')!='completed':
         raise ValueError('Completed collection manifest required')
-    check_anchor(manifest['anchor'])
+    if final_lock is None or manifest['anchor'] <= LAST_ANCHOR.isoformat():
+        check_anchor(manifest['anchor'])
+    elif (manifest['anchor'] != '2020-09-16' or
+          path != (ROOT/final_lock.data['outputs']['collection']).resolve() or
+          manifest.get('final_lock_sha256') != final_lock.sha256):
+        raise ValueError('Final evaluation manifest differs from validated decision lock')
     if manifest.get('cohort_seed')!=SEED or manifest.get('policy') not in POLICIES:
         raise ValueError('Collection policy/cohort mismatch')
     for name in ('frame.parquet','users.parquet','targets.parquet'):
@@ -410,17 +433,46 @@ def write_private_predictions(con,output,collection,scores):
         con.sql('SELECT * FROM _hm_private_export ORDER BY customer_id').write_parquet(str(output/filename))
 
 
+def private_relative(path):
+    return Path(path).resolve().relative_to(ROOT.resolve()).as_posix()
+
+
+def fixed_parameters(iterations, depth, seed):
+    return dict(iterations=iterations, depth=depth, learning_rate=0.05, l2_leaf_reg=10,
+                loss_function='Logloss', random_seed=seed, thread_count=4, task_type='CPU',
+                verbose=False, allow_writing_files=False)
+
+
 def fit(train_paths,validation_path,output,feature_set='pilot',feature_names=None,
-        iterations=150,depth=6,seed=SEED,train_users=None,negative_sample=0,wall_seconds=1800):
+        iterations=150,depth=6,seed=SEED,train_users=None,negative_sample=0,wall_seconds=1800,decision_lock=None):
     if not train_paths or len(set(map(str,train_paths)))!=len(train_paths):
         raise ValueError('Distinct training collection paths required')
     if iterations<1 or not 1<=depth<=12 or negative_sample not in (0,20):
         raise ValueError('Invalid fixed-fit parameters')
     deadline=Deadline(wall_seconds)
+    final_lock = final_arm = None
+    if decision_lock is not None:
+        from scripts import hm_final_lock as gate
+        final_lock = gate.load_lock(decision_lock)
+        train_paths = [Path(p).resolve() for p in train_paths]
+        validation_path = Path(validation_path).resolve()
+        # Training caches always use the development guard, even with a lock.
+        train_manifests = [read_manifest(p, deadline) for p in train_paths]
+        validation_manifest = read_manifest(validation_path, deadline, final_lock)
+        numeric, categorical = choose_features(validation_manifest, feature_set, feature_names)
+        train_inputs = [dict(anchor=m['anchor'], manifest_sha256=sha256_file(p/'manifest.json', deadline),
+            qcy_identity=m['qcy_identity'], candidate_identity=m['candidate_identity'])
+            for p, m in zip(train_paths, train_manifests)]
+        final_arm = gate.authorize_fit(final_lock, dict(output=private_relative(output),
+            validation=private_relative(validation_path), numeric=numeric, categorical=categorical,
+            hyperparameters=fixed_parameters(iterations, depth, seed), train_users=train_users,
+            negative_sample=negative_sample, sampling_seed=SEED), train_inputs, validation_path/'manifest.json')
     output=new_private_output(output)
     report=dict(format='hm-experiment-fit-v1',status='running',fit_count=0,
                 selection='One fixed-tree fit; no eval_set, early stopping or parameter search',
                 training_user_limit=train_users,negative_sample=negative_sample,sampling_seed=SEED)
+    if final_lock is not None:
+        report.update(final_lock_sha256=final_lock.sha256, final_arm=final_arm)
     con=timer=None
     try:
         report['resources']=resource_preflight(output)
@@ -430,7 +482,7 @@ def fit(train_paths,validation_path,output,feature_set='pilot',feature_names=Non
         train_paths=[Path(p).resolve() for p in train_paths]
         validation_path=Path(validation_path).resolve()
         manifests=[read_manifest(p,deadline) for p in train_paths]
-        val_manifest=read_manifest(validation_path,deadline)
+        val_manifest=read_manifest(validation_path,deadline,final_lock)
         anchors=[date.fromisoformat(m['anchor']) for m in manifests]
         val_anchor=date.fromisoformat(val_manifest['anchor'])
         if len(set(anchors))!=len(anchors) or any(a+timedelta(days=7)>val_anchor for a in anchors):
@@ -446,16 +498,17 @@ def fit(train_paths,validation_path,output,feature_set='pilot',feature_names=Non
                           for p,m in zip(train_paths+[validation_path],manifests+[val_manifest])]
         report['runtime']=runtime_identity()
         report['code']={p.name:sha256_file(p,deadline) for p in (Path(__file__),ROOT/'scripts/hm_baseline.py')}
-        parameters=dict(iterations=iterations,depth=depth,learning_rate=0.05,l2_leaf_reg=10,
-                        loss_function='Logloss',random_seed=seed,thread_count=2,task_type='CPU',
-                        verbose=False,allow_writing_files=False)
+        parameters=fixed_parameters(iterations,depth,seed)
         report['hyperparameters']=parameters
-        report['fit_identity']=canonical_digest(dict(inputs=report['inputs'],features=report['features'],
+        identity_payload=dict(inputs=report['inputs'],features=report['features'],
             hyperparameters=parameters,train_users=train_users,negative_sample=negative_sample,sampling_seed=SEED,
-            code=report['code'],runtime=report['runtime']))
+            code=report['code'],runtime=report['runtime'])
+        if final_lock is not None:
+            identity_payload.update(final_lock_sha256=final_lock.sha256, final_arm=final_arm)
+        report['fit_identity']=canonical_digest(identity_payload)
         # An in-memory DB is enough for cached parquet scans; its spills remain ignored.
         con=duckdb.connect(':memory:')
-        con.execute('SET threads=2')
+        con.execute('SET threads=4')
         con.execute("SET memory_limit='2GB'")
         temp=output/'duckdb-temp'
         temp.mkdir()
@@ -482,9 +535,15 @@ def fit(train_paths,validation_path,output,feature_set='pilot',feature_names=Non
         pool=model_pool(numbers,cats,numeric_names,cat_names,labels,weights)
         class WallCallback:
             def after_iteration(self, info):
+                report['last_training_iteration']=int(info.iteration)
+                if info.iteration % 50 == 0:
+                    print(json.dumps(dict(iteration=int(info.iteration),
+                        elapsed_seconds=round(time.monotonic()-deadline.started,3)),ensure_ascii=True),
+                        file=sys.stderr,flush=True)
                 return time.monotonic()<deadline.expires
         model=CatBoostClassifier(**parameters)
         report['fit_count']=1
+        report['last_training_iteration']=0
         model.fit(pool,callbacks=[WallCallback()])
         deadline.check()
         if model.tree_count_!=iterations:
@@ -497,7 +556,7 @@ def fit(train_paths,validation_path,output,feature_set='pilot',feature_names=Non
         validation=pilot.Collection(numbers,cats,frame['label'].to_numpy(),frame['query_weight'].to_numpy(),
             frame['customer_id'].to_numpy(),frame['article_id'].to_numpy(),targets,summary)
         deadline.check()
-        scores=model.predict_proba(model_pool(numbers,cats,numeric_names,cat_names),thread_count=2)[:,1]
+        scores=model.predict_proba(model_pool(numbers,cats,numeric_names,cat_names),thread_count=4)[:,1]
         report['validation_population']=summary
         report['validation_metrics']=pilot.rank_collection(validation,scores=scores)
         write_private_predictions(con,output,validation,scores)
@@ -507,7 +566,8 @@ def fit(train_paths,validation_path,output,feature_set='pilot',feature_names=Non
         report['status']='completed'
     except Exception as exc:
         report['status']='failed'
-        report['error']={'type':type(exc).__name__}
+        report['error']=dict(type=type(exc).__name__, message=str(exc)[:2048],
+                             traceback=traceback.format_exc(limit=12)[-8192:])
         raise
     finally:
         if timer:
@@ -542,16 +602,18 @@ def main(argv=None):
     fit_parser.add_argument('--train-users',type=int)
     fit_parser.add_argument('--negative-sample',type=int,choices=(0,20),default=0)
     fit_parser.add_argument('--wall-seconds',type=float,default=1800)
+    collect_parser.add_argument('--decision-lock',type=Path)
+    fit_parser.add_argument('--decision-lock',type=Path)
     args=parser.parse_args(argv)
     try:
         if args.command=='collect':
-            result=collect(args.database,args.output,args.anchor,args.users,args.policy,args.wall_seconds)
+            result=collect(args.database,args.output,args.anchor,args.users,args.policy,args.wall_seconds,args.decision_lock)
         else:
             names=json.loads(args.feature_names_file.read_text(encoding='utf-8')) if args.feature_names_file else None
             if names is not None and (not isinstance(names,list) or not all(isinstance(n,str) for n in names)):
                 raise ValueError('Feature names file must contain a JSON string list')
             result=fit(args.train,args.validation,args.output,args.feature_set,names,args.iterations,args.depth,
-                       args.seed,args.train_users,args.negative_sample,args.wall_seconds)
+                       args.seed,args.train_users,args.negative_sample,args.wall_seconds,args.decision_lock)
     except Exception as exc:
         print(json.dumps(dict(status='failed',error_type=type(exc).__name__,output=args.output.as_posix())))
         return 1

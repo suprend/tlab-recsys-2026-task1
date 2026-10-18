@@ -23,7 +23,7 @@ class FinalLockTests(unittest.TestCase):
         self.patcher.start()
         self.addCleanup(self.patcher.stop)
         self.database = dict(sha256='a' * 64, bytes=123)
-        self.runtime = dict(python='3.12.14', packages={'fixture': '1.0'}, threads=2)
+        self.runtime = dict(python='3.12.14', packages={'fixture': '1.0'}, threads=4)
         runtime_patch = patch.object(gate, 'runtime_identity', return_value=deepcopy(self.runtime))
         runtime_patch.start()
         self.addCleanup(runtime_patch.stop)
@@ -47,7 +47,7 @@ class FinalLockTests(unittest.TestCase):
             train_collections=[], features=dict(M=dict(numeric=['x'], categorical=['c']),
                 selected=dict(numeric=['x'] + ['g' + str(i) for i in range(12)], categorical=['c'])),
             hyperparameters=dict(iterations=500, depth=6, learning_rate=.05, l2_leaf_reg=10,
-                loss_function='Logloss', thread_count=2, task_type='CPU', verbose=False, allow_writing_files=False),
+                loss_function='Logloss', thread_count=4, task_type='CPU', verbose=False, allow_writing_files=False),
             outputs=dict(collection='artifacts/final/collection',
                 fits=['artifacts/final/' + a for a in ('M2026', 'M2027', 'selected2026', 'selected2027')],
                 audit='artifacts/final/audit'), contrasts=deepcopy(gate.CONTRASTS))
@@ -155,7 +155,7 @@ class FinalLockTests(unittest.TestCase):
             path.write_bytes(previous + b' ')
             with self.assertRaises(ValueError): gate.authorize_collect(lock, self.collect_request(), self.database, 'b' * 64)
             path.write_bytes(previous)
-        with patch.object(gate, 'runtime_identity', return_value=dict(self.runtime, threads=4)):
+        with patch.object(gate, 'runtime_identity', return_value=dict(self.runtime, threads=2)):
             with self.assertRaises(ValueError): gate.authorize_collect(lock, self.collect_request(), self.database, 'b' * 64)
 
     def test_portable_disjoint_artifact_paths_required(self):
@@ -228,11 +228,14 @@ class FinalLockTests(unittest.TestCase):
         path = self.root / ref['path']
         manifest = gate.read_json(path)
         manifest['code'] = dict(manifest['code'], **{'hm_experiment.py': 'f' * 64})
-        manifest['runtime'] = {'historical': 'runtime'}
+        manifest['runtime'] = dict(self.runtime, threads=2)
         write(path, manifest)
         ref['sha256'] = gate.digest(path)
         lock = self.save_lock()
         final = self.final_manifest(lock)
+        self.assertEqual(gate.read_json(path)['runtime']['threads'],2)
+        self.assertEqual(gate.read_json(final)['runtime']['threads'],4)
+        self.assertEqual(lock.data['hyperparameters']['thread_count'],4)
         self.assertEqual(gate.authorize_fit(lock, self.fit_request(0), self.trainidentities(), final), 'M')
 
     def test_audit_requires_all_fits_exact_order_seed_and_frozen_final_identity(self):

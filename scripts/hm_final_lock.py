@@ -108,7 +108,7 @@ def feature_names(value):
 def runtime_identity():
     return dict(python=platform.python_version(), platform=platform.platform(),
                 packages={name: importlib.metadata.version(name) for name in ('duckdb', 'numpy', 'pandas', 'catboost')},
-                threads=2, duckdb_memory_limit='2GB')
+                threads=4, duckdb_memory_limit='2GB')
 
 
 def _schema(plan, contract):
@@ -200,7 +200,7 @@ def load_lock(path):
     keys(params, 'iterations depth learning_rate l2_leaf_reg loss_function thread_count task_type verbose allow_writing_files', 'Unexpected fixed hyperparameter schema')
     require(type(params['iterations']) is int and params['iterations'] in (150, 500) and type(params['depth']) is int and params['depth'] in (6, 8), 'Manual grid capacity required')
     require(not (params['iterations'] == 150 and params['depth'] == 8), 'Capacity is outside the frozen manual grid')
-    require(params['learning_rate'] == .05 and params['l2_leaf_reg'] == 10 and params['loss_function'] == 'Logloss' and type(params['thread_count']) is int and params['thread_count'] == 2 and params['task_type'] == 'CPU' and params['verbose'] is False and params['allow_writing_files'] is False, 'Fixed CatBoost parameters changed')
+    require(params['learning_rate'] == .05 and params['l2_leaf_reg'] == 10 and params['loss_function'] == 'Logloss' and type(params['thread_count']) is int and params['thread_count'] == 4 and params['task_type'] == 'CPU' and params['verbose'] is False and params['allow_writing_files'] is False, 'Fixed CatBoost parameters changed')
     keys(value['outputs'], 'collection fits audit', 'Collection, four fit and audit output paths required')
     fits = value['outputs']['fits']
     require(isinstance(fits, list) and len(fits) == 4, 'Exactly four ordered fit outputs required')
