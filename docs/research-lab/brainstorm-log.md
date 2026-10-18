@@ -1,5 +1,21 @@
 # Журнал новых исследовательских идей
 
+## HM-R008 accepted; finite H&M study complete — 2026-10-18T13:16:15.309456+00:00
+
+Frozenfinal4GPUfits/auditPASS/independent savedtop12+fullY AP/Recall and3contrast replay≤1e-12. Primarydelta−.00177646505 CI[−.00375880761;+.00007830807]; no supportedgain/no significantharm/equivalenceclaim. [Humanreport](../hm-report.md), [evidence](../hm-pilot.md). HM001–007done; source/config/lockunchanged; all049–055succeeded/no pending/noheavyprocesses. W006counter1; nextdue13:41:08.432579UTC cancelled becausefinitecorecompleted. No newmandatoryquestions, no additionalfits/nightlyautomation, no externalwrites. Lasteditorialchecks/localcommit close theturn.
+
+## Final2/4 complete — 2026-10-18T13:06:40.569786+00:00
+
+OP050M2026 MAP.033396600580/237.187s; OP051M2027 MAP.035461266265/217.860s. Source/config/lock unchanged. Rootsession4383 continues fixedselected2026/2027 then audit/contrasts; no outcomeadaptation, no newwaves/fits beyondplan. Producermetrics preliminary untilfullfinalaudit. W006counter0/nextdue13:41:08.432579UTC.
+
+## Final locked and started — 2026-10-18T12:57:57.318106+00:00
+
+Concreteindependentlockreview load_lock/authorize_collectPASS, SHAd47df2aca05311a0e56aa645dbd5c20097ca9bcf656256dc4db8120059a05e80; localcommit78a4d3d beforefinalcollection. OP049completed61.204s, producedmanifestlockSHAmatches. Rootsession4383 fixed050M2026→051M2027→052selected2026→053selected2027→054audit→055frozencontrasts. Soleheavyroot; source/config63dbunchanged/newchildtempCUDAonD. W006counter0/nextdue13:41:08.432579UTC; negative/inconclusivevalidcompletion.
+
+## HM-R007 и HM-W006 accepted — 2026-10-18T12:56:08.432579+00:00
+
+Diagnosticconfirmation auditPASS + independent6contrast exactreplay≤1e-12; selected−M−.002038CIcross0, selected−meanrandom+.000948CIcross0. No retuning. [Wave006](hm-wave006.md): independentFIRSTA/B+critic, NEW0REFINE1MERGE5(overlapB1), scientificADMIT0/extrafits0. Reportingwinneroptimismmaycontribute/unmeasuredcause; fixedrecipe/jointtuningdeferredoutsidecore. Nextdue2026-10-18T13:41:08.432579+00:00or2acceptedrounds,counter0. Actualdecisionlockd47df2ac…9a05e80load_lockPASS, concreteindependentreviewpending/finaluntouched. Rootsoleowner; noheavypending.
+
 ## HM-R006 accepted — 2026-10-18T12:36:39.455322+00:00
 
 Generator/selector/control comparison complete; independent audit and separate seven-contrast replay PASS. Selected−M CI crosses0; selected−meanrandom3≈0; all−M negative. No selector/names/params/seeds/final changes. [Evidence](../hm-pilot.md#hm-r006-автоматизация-на-selection--принятый-отрицательныйнеопределённый-результат). HM006done/HM007running; OP041 diagnosticSep09collection pending, final untouched. W005counter1; nextdue13:05:43.957810UTC or afterconfirmationaccepted. C0free→onlynewchildTEMP/TMP/CUDAcacheD, source/config frozen/no deletes/globalchanges.

@@ -2,17 +2,17 @@
 
 Дата начала: 18 октября 2026. Пользователь выбрал H&M как второй датасет для первой задачи T-Lab. REES46 и его исторические результаты сохранены отдельно. Ветка: `codex/hm-pilot`.
 
-## Текущее состояние кампании
+## Итог кампании — 2026-10-18T13:16:15.309456+00:00
 
-Обучение переведено на **RTX3070, 8ГБ**. Заново выполнена и независимо проверена та же конечная сетка шести GPU-вариантов. Зафиксирован **M_GPU:23 ручных признака,500 деревьев,глубина8**. На selection-неделе2–8 сентября MAP@12 **0.03367563**, recency **0.02910562**; описательный95% интервал разницы [0.00198921;0.00731419]. Это development после выбора на этой неделе, не final и не сравнение с Kaggle leaderboard.
+Конечный H&M эксперимент завершён. На отложенной неделе16–22 сентября средний AP двух model seeds2026/2027 дал MAP@12 **M0.03442893 / selected0.03265247**. Δ selected−M **−0.00177647**, paired95% CI **[−0.00375881; +0.00007831]**. Выигрыш не установлен; интервал включает0, поэтому значимое ухудшение тоже не установлено. Точечный знак отрицателен на двух final seeds и двух development-срезах; это не доказательство универсальной бесполезности генератора или причин неудачи.
 
-Генератор создал60 агрегатных программ и исключил2 точных эквивалента признаков M;58 допустимых программ и три random12 набора были зафиксированы до generated fit. M+all81 завершён; training-only PVC выбрал12 программ. Independent fresh-reload/PVC воспроизведение полностью совпало. Все58 importance ненулевые, tie12/13 отсутствует; это проверка исполнения, не доказательство качества или стабильности. Один выбранный агрегат уже входил в проверенный Strong34, остальные11 — другие программы объявленной грамматики.
+[Читаемый итоговый отчёт](hm-report.md) содержит метод, результаты, ограничения и сравнение с первичными чужими решениями. [Воспроизведение](hm-reproduce.md), [определения выбранных программ](hm-generated-programs.md), [очередь](backlog.md). Ниже сохранена история протокола и проверок.
 
-Selection-аудит и отдельный пересчёт семи contrasts приняты. MAP@12: M **0.03367563**, all **0.02954207**, selected **0.03096309**, random101/102/103 **0.03328206 / 0.03148655 / 0.02803546**. Selected−M = −0.00271254, 95% CI [−0.00529108; +0.00008395]; selected−среднее random3 = +0.00002840 [−0.00217110; +0.00234514]. Выигрыш отбора не подтверждён; значимое ухудшение selected относительно M тоже не установлено. All−M отрицателен: −0.00413356 [−0.00678723; −0.00162314]. Имена, параметры, seeds и final arms сохраняются. [Точные определения выбранных программ](hm-generated-programs.md).
+Генератор60 программ→exactM-dedup58, all81, training-only PVC12, selected/random35; M23 выбран из конечной шестерки GPU-рецептов. Selection и диагностическая confirmation не показали выигрыша selector. Параметры выбраны для M и перенесены на расширенные модели без отдельного tuning. Final decision lockd47df2ac проверен/commit78a4d3d до final collection; sourcec46912d/config63db1ea3 оставались побайтно неизменными.
 
-Далее диагностическая confirmation9–15 сентября и один final16–22 сентября: M/selected ×model seeds2026/2027, среднее AP двух seeds внутри пользователя перед paired bootstrap. Confirmation уже встречалась в пилоте; final ещё не оценивался моделями. Отрицательный либо неопределённый final — допустимое завершение исследования.
+Все четыре final fits GPU500d8 завершены, source/metrics auditPASS и независимый saved-top12/fullY AP/Recall/three-CI replay≤1e-12. Q20000/Q+1905/Y5962; native omitted candidate scores заново не пересчитывались. 128 тестов H&M PASS; свежий clone/full repeat пока не проверен. Raw/DB/CBM/построчные outputs — необязательные локальные дополнения; необходимые определения/команды/выводы находятся в tracked материалах.
 
-Общий time/round лимит пользователь не задавал; один heavy worker, операции конечны. GPU backend выбран по training-only cost до quality scores, CPU результаты ниже — история. Pipeline source заморожен commitc46912d; baseline recipe и текущий config закреплены до generated fits. [Протокол](../configs/datasets/hm-campaign.json), [очередь](backlog.md), [команды воспроизведения](hm-reproduce.md). Raw data, модели и receipts остаются локальными ignored дополнениями; необходимые выводы, определения и команды доступны в tracked материалах.
+Тяжёлых процессов и pending receipts нет, новых моделей/волн не запланировано. Остановка обусловлена завершением конечного исследования, не достижением положительного результата. Изменения локальны, push/submission не выполнялись.
 
 ## Вопрос
 
@@ -307,3 +307,36 @@ OP039 independent raw validation/cache/labels/weights/identity/top12/per-user au
 AuditSHA f5e2985dcad3f069b68ad5e65bea949588bc36b124f4f9b4fda8e63ea43d997a; contrastsSHA9e1f2f47fae063c96012d8e89498fe410d85955d5d783d762e099994e1d73ea2. Локальные необязательные inputs/results: artifacts/hm-campaign/{feature-study,feature-selection,generated,audits/selection,contrasts/selection}; команды и необходимые определения находятся в tracked [воспроизведении](hm-reproduce.md) и [program table](hm-generated-programs.md). Native omitted candidate scores аудитор не пересчитывает.
 
 Операционное уточнение: C: заполнен на12:31UTC; модели, DB, данные — на D:. НачинаяOP039 TEMP/TMP и CUDA_CACHE_PATH задаются только дочерним процессам на D:/tlab-recsys-2026/artifacts/hm-campaign/{tmp,cuda-cache}. Source/config/параметры моделей не менялись; системные настройки и чужие файлы не затрагивались. Причина заполнения C полностью не установлена: pagefile30.93GB, recentTemp главным образом другая работа, нашиhm-*Temp3.55MB. Это не доказанный GPU/ML дефект.
+
+
+## HM-R007: diagnostic confirmation принята — 2026-10-18T12:56:08.432579+00:00
+
+OP041 collection64.235s, затем пять fixed GPU fits OP042–046: M196.515s,selected226.265s,random101205.250s,random102196.843s,random103217.422s. Train anchors12/19/26 августа и2 сентября,20k/sample20/cohort2026; все500 деревьев/depth8/GPU, source/config прежние. OP047 source/metrics auditPASS20.641s; OP048 six fixed contrastscompleted1.906s. Независимый reviewer воспроизвёл все6 contrasts/CI из hashed exports≤1e-12; Root сверил backend/trees/4anchors/chronology/config/no pending.
+
+Q20000/Q+1957/Y6197; coverage0.1374858803, oracleMAP0.1533134285. MAP: M.031220688912; selected.029182691772; random101.028393695941; random102.029390474753; random103.026918951665. Selected−M−.002037997140 CI[−.004779038829;+.000618398083]; meanrandom3−M−.002986314793 CI[−.005234558083;−.000879516763]; selected−meanrandom3+.000948317652 CI[−.001736167599;+.003558416998]. Остальные три seed-specific random contrasts сохранены в полном report; ни один не используется для выбора лучшего random. Установленного выигрыша selected нет. Bootstrap2000/seed2026/pairedpositiveuser; diagnostic single-week/fixed-model scope, не независимый final.
+
+AuditSHA ef712ae71179fbf93e7ce862f7c343c9d2ec744ba1552686f52fe3d038353bd3; contrastsSHA50af1e1c7aa2f0522f8b7ec157508a0a8e7bd978e606312c4d49782cc7d7a4ff. Shared new collection manifestSHA640ad4f4da7045b8364dc485d7713eec7df6b2a677edfe24f283654f8218550f; originalDB unchanged. Никаких пересмотров рецепта/списков/seeds по этим scores. [W006](research-lab/hm-wave006.md) принята после двух раундов, новые эксперименты0.
+
+Дословный documented LockCode после PASSconfirmation создал configs/datasets/hm-final-lock.json; полный load_lockPASS, SHA d47df2aca05311a0e56aa645dbd5c20097ca9bcf656256dc4db8120059a05e80. Конкретное независимое ревью lock PASS: load_lock/authorize_collect, code/runtime/5trainrefs/featureorder/contrasts/outputabsence; безSQL/моделей/finalY. Локальный commit78a4d3d сохранён доfinalдоступа. OP049 finalcollectioncompleted61.204s, manifest прикрепил тот жеSHA lock; затем начат fixed4fitbatch OP050–055/session4383. Production source/configbytefrozen с начала generated study. Инструкция нового повтора использует отдельный hm-final-lock-repro.json; historical lock не перезаписывается.
+
+
+## HM-R008: frozen final принят — 2026-10-18T13:16:15.309456+00:00
+
+OP049 finalcollection61.204s, manifestSHA942fb1b6fc70735fea3974f12049df87514aeb2aa91ac2eee0f22155e857b2d4, прикреплён lockd47df2aca05311a0e56aa645dbd5c20097ca9bcf656256dc4db8120059a05e80. Lock/source/runtime/train identities повторно загружены Root после выполнения: PASS. Все049–055succeeded/pendingfalse, session4383exit0; процессов hm_experiment/hm_job/audit/contrasts при проверке не обнаружено.
+
+| Final arm | MAP@12 | external s |
+|---|---:|---:|
+| M2026 |0.033396600580|237.187|
+| M2027 |0.035461266265|217.860|
+| selected2026 |0.032236435408|235.469|
+| selected2027 |0.033068501328|230.719|
+
+Основной per-user seed-mean: M0.0344289334226139 / selected0.03265246836780082; Δ−0.0017764650548130736, CI[−0.0037588076126727544;+0.00007830806703740478]. Seed2026Δ−0.0011601651720543112 CI[−0.0034024045312337397;+.0010497155756263978]; seed2027Δ−0.002392764937571837 CI[−.005416657565809625;+.0004495190973978777]. Bootstrap2000/2026 по1905положительным пользователям после среднего AP внутри пользователя. Не score ensemble/не user×seed pooled N; не распределение новых training/time seeds.
+
+Q20000/Q+1905/fullY5962; C-positive894/5962=0.1499496813, oracleMAP0.1735293694. Средний RecallM0.06684442099/selected0.06626923015; all-query-zeroMAPM0.003279355909/selected0.003110147612. Train5anchors/20k/sample20/cohort2026,4233 естественных positive rows;500fulltrees/GPU commonparams, names/config/source unchanged.
+
+OP054 auditPASS12.937s, SHA721c90494072656b1b1b4a92a9ab2c9535698ba4c7dfa363f879aa88fd68b772; raw history-only hashedQ/full distinctY rebuildPASS. OP055 contrastscompleted1.578s, SHAfd4cd34c176360250bcc1acfb3d7e609eab0c24e0139b87b65f40834e83559aa; spec ровно lock.CONTRASTS. Независимый reviewer заново посчитал AP/Recall из четырёх hashed saved-top12+fullY и все3 intervals из per-user exports≤1e-12; metadata/chronology/source/runtime/params/order/PASS. Root сверил actualJSON/identities/spec/pending/processes. Ограничение аудита: omitted native scores не пересчитываются, global ranking из них независимо не строится.
+
+Четыре final fits921.235s внешнего времени;20 завершённых GPU quality fits3481.685s. Это не весь campaign cost: cachecollections/разработка/проверки/probe/CPUhistory исключены. Итог selected gain не подтверждён; истинная эквивалентность/универсальный вред не утверждаются. HM001–007done; W006counter1 после final, next_due отменён при завершении core, никакого поиска до положительного результата.
+
+Диски на13:14:52UTC: Cfree11,903,180,800B,Dfree46,810,824,704B. Наших удалений/перемещений не было; причины изменения свободного места C не установлены. TEMP/TMP/CUDA cache будущих исполнявшихся child jobs перенаправлялись на D сOP039 без системных env изменений.

@@ -1,10 +1,18 @@
 # Автоматизация признаков для ранжирования покупок
 
+## H&M: финальное сравнение завершено
+
+На отложенной неделе16–22 сентября средний AP двух seeds: **M0.03442893 / selected0.03265247**, Δ **−0.00177647**,95% CI **[−0.00375881; +0.00007831]**. Выигрыш автоматизации не подтверждён; значимый вред также не установлен. Оба seed-specific эффекта отрицательны точечно, их интервалы включают0. Новых моделей не запланировано.
+
+Четыре GPU500d8 fit, source/metrics audit и независимый AP/Recall/three-CI replay PASS. Q20k/Q+1905/Y5962, source/config/decisionlock сохранены;128H&MtestsPASS. [Читаемый отчёт](hm-report.md), [определения программ](hm-generated-programs.md), [воспроизведение](hm-reproduce.md), [подробное evidence](hm-pilot.md). Все изменения локальны, push/submission не выполнялись; fresh-clone полный повтор не проверен.
+
+## Предыдущие обновления: история H&M и REES46
+
 ## H&M: ручной GPU-контроль принят, автоматизация проверяется
 
 Независимый six-grid audit и отдельное review PASS. M_GPU=Pilot23/500d8, MAP@12 **.03367563** на selection2–8 сентября; recency **.02910562**. Генератор58программ после exactM-dedup, all81, selected/random35. Имена random3 зафиксированы до allfit, selected12 получены training-only PVC и независимо воспроизведены изCBM. Sourcec46912d/config63db1ea3 заморожены.
 
-Selectionaudit и отдельный exactcontrast replay PASS. MAP all=.02954207, selected=.03096309; selected−M−.00271254 CI[−.00529108;+.00008395], selected−meanrandom3+.00002840 CI[−.00217110;+.00234514]. Выигрыш selector не подтверждён; решения заморожены. Затем диагностическая confirmation и фиксированный finalM/selected×2026/27. Final ещё не оценён. [Протокол/evidence](hm-pilot.md), [воспроизведение](hm-reproduce.md), [очередь](backlog.md).
+Selectionaudit и отдельный exactcontrast replay PASS. MAP all=.02954207, selected=.03096309; selected−M−.00271254 CI[−.00529108;+.00008395], selected−meanrandom3+.00002840 CI[−.00217110;+.00234514]. Выигрыш selector не подтверждён; решения заморожены. Диагностическая confirmation audit/replay PASS, selected−M−.00203800 CI[−.00477904;+.00061840], gainнеподтверждён. Actualdecisionlockd47df2ac отдельно проверен/commit78a4d3d доfinalY; collectionOP049completed, fixedfinalM/selected×2026/27 выполняется (session4383). [Протокол/evidence](hm-pilot.md), [воспроизведение](hm-reproduce.md), [очередь](backlog.md).
 
 
 ## H&M: переход на GPU после проверки стоимости — 18 октября 2026

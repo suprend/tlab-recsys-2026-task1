@@ -2,7 +2,7 @@
 
 ## Текущая кампания H&M — 18 октября 2026
 
-ACTIVE по новому запросу пользователя: `research-campaign`, предел — «нет пределп». [Контракт/checkpoint](hm-pilot.md#контракт-кампании-hm--18-октября-2026), [независимая волна HM-W001](research-lab/hm-wave001.md). Эта секция задаёт текущую исполнимую очередь H&M; нижние остановленные REES46 READY/leases/deadlines — история и не восстанавливаются этим запуском. Единственный coordinator/DB/compute owner — root текущего чата; общая time/round граница не задана, отдельные операции ограничиваются и получают receipts.
+Конечный проход завершён по новому запросу пользователя: `research-campaign`, предел — «нет пределп». [Контракт/checkpoint](hm-pilot.md#контракт-кампании-hm--18-октября-2026), [независимая волна HM-W001](research-lab/hm-wave001.md). Эта секция фиксирует итог очереди H&M; нижние остановленные REES46 READY/leases/deadlines — история и не восстанавливаются этим запуском. Единственный coordinator/DB/compute owner — root текущего чата; общая time/round граница не задана, отдельные операции ограничиваются и получают receipts.
 
 | ID | Статус | Вопрос/результат | Зависимости и критерий |
 |---|---|---|---|
@@ -12,9 +12,9 @@ ACTIVE по новому запросу пользователя: `research-camp
 | HM-004 | done | 734positive support: объём и train-only sampling | freezeC; paired5000/all vs5000sample vs20000sample, exactweights/source identity |
 | HM-005 | done | CPU history + audited finite6 GPU grid; frozen M_GPU Pilot23/500d8 | freezeC/training policy, predeclared feature formulas/grid, temporal selection |
 | HM-006 | done | H&M typed generator+fair selection | HM-005; registry/alias/schema/scalar checks; M vs M+selected/random with matched C/Y |
-| HM-007 | running | Frozen confirmation/final/report | full decision lock; independent saved predictions/metrics, seeds/uncertainty,reproduction |
+| HM-007 | done | Frozen confirmation/final/report | full decision lock; independent saved predictions/metrics, seeds/uncertainty,reproduction |
 
-WIP: HM006 accepted after OP039 auditPASS and separate exact seven-contrast replay≤1e-12. Selected−M−.00271254 CI[−.00529108;+.00008395], selected−meanrandom+.00002840 CI[−.00217110;+.00234514]; no supported gain/no retuning. HM007 checkpoint12:38UTC: OP041 Sep09 diagnostic collection succeeded64.235s; session99946 runs five fixed GPU fits OP042–046 then audit047/contrasts048. At checkpoint OP042 M pending; actual receipts are authoritative. Root only heavy owner. Config63db1ea3/sourcec46912d frozen, final untouched/no actual lock. New child TEMP/TMP/CUDA cache on D fromOP039 (C0free), no deletes/global changes. W005counter1,next_due13:05:43.957810UTC or one more accepted round.
+COMPLETE checkpoint2026-10-18T13:16:15.309456+00:00: HM001–007 done. Frozen final audit+independent AP/Recall/3contrast replay PASS≤1e-12. Primary M.03442893/selected.03265247, delta−.00177647 CI[−.00375881;+.00007831], gain not established/no equivalence or significant harm claim. All049–055succeeded/no pending/no heavyprocesses. Source/config63db/lockd47 unchanged; final lockcommit78a4d3d predates collection. W006counter1; nextdue cancelled becausefinitecorefinished, no furthermodels/waves/scheduledwork. Humanreport/readablemethod/repro ready; finaleditorialcheck/localcommit closing. Negative/inconclusive completion allowed bycontract. All belowpausedREES46/oldH&Mcheckpoints historical.
 
 
 ## ОСТАНОВЛЕНО ПО ЗАПРОСУ ПОЛЬЗОВАТЕЛЯ — 17 октября 2026
