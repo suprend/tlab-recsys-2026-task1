@@ -2,13 +2,17 @@
 
 Protocol (docs/task1-baseline-features.md). Anchor t = 00:00 UTC. Queries are users active in
 [t-48h, t) with at least one target. A target is the user's first cart or purchase, in [t, t+24h),
-of a product the user never touched before t (history starts 2019-10-01). Candidates come from four
+of a product the user never touched before t (history starts 2019-10-01). Candidates come from six
 sources and exclude every product the user touched before t:
   1. the 100 products with most distinct cart/purchase users in [t-7d, t);
   2. the top 30 of each of the user's 3 heaviest categories (decayed weight over [t-14d, t));
-  3. the top 20 of each of the user's 2 heaviest brands;
-  4. the 10 strongest session co-view neighbours (n_ab >= 2, [t-14d, t)) of the user's 10 latest views.
-Source ranks are taken before the exclusion of touched products.
+  3. the top 40 of each of the user's 2 heaviest brands (by cart/purchase users, then viewers, 7d);
+  4. the 30 strongest session co-view neighbours (n_ab >= 2, [t-14d, t)) of each of the user's 10 latest views;
+  5. the top 100 by co-view score summed over the user's 20 latest views, sum n_ab/(n_a+5)*exp(-age/1d);
+  6. the top 30 by transition score summed over the 20 latest views, sum n(A->B)/(viewers(A)+10)*exp(-age/1d),
+     where n(A->B) counts users whose acquisition of B (first touch and first cart/purchase on one day, inside
+     [t-14d, t)) had A among their 20 latest distinct views in the 3 days before it.
+Ranks of sources 1-4 are taken before the exclusion of touched products, of the per-user sources 5-6 after it.
 
 Every feature reads only schema `fs`: `hist` (events strictly before t), `pf` (pair_first as of t)
 and the item tables; `labels` and `queries` read `src` in [t, t+24h) only to choose who is ranked and
@@ -112,8 +116,8 @@ CREATE OR REPLACE TEMP TABLE catpop AS SELECT a.cat, it.product_id,
   row_number() OVER (PARTITION BY a.cat ORDER BY it.a7 DESC, it.product_id) cat_rank
   FROM it JOIN iattr a USING(product_id) WHERE it.a7 > 0 QUALIFY cat_rank <= 30;
 CREATE OR REPLACE TEMP TABLE brandpop AS SELECT a.brand, it.product_id,
-  row_number() OVER (PARTITION BY a.brand ORDER BY it.a7 DESC, it.product_id) brand_rank
-  FROM it JOIN iattr a USING(product_id) WHERE it.a7 > 0 AND a.brand IS NOT NULL QUALIFY brand_rank <= 20;
+  row_number() OVER (PARTITION BY a.brand ORDER BY it.a7 DESC, it.v7 DESC, it.product_id) brand_rank
+  FROM it JOIN iattr a USING(product_id) WHERE a.brand IS NOT NULL QUALIFY brand_rank <= 40;
 CREATE OR REPLACE TEMP TABLE rv AS SELECT user_id, product_id, max(event_time) last_ts,
   arg_max(price, (event_time, price)) price_seen,
   row_number() OVER (PARTITION BY user_id ORDER BY max(event_time) DESC, product_id) k
@@ -127,31 +131,60 @@ CREATE OR REPLACE TEMP TABLE nb AS
   SELECT x.product_id a, y.product_id b, count(*) n_ab,
     row_number() OVER (PARTITION BY x.product_id ORDER BY count(*) DESC, y.product_id) rk
   FROM s2 x JOIN s2 y ON x.s = y.s AND x.product_id <> y.product_id
-  WHERE x.product_id IN (SELECT product_id FROM rv WHERE k <= 10)
+  WHERE x.product_id IN (SELECT product_id FROM rv WHERE k <= 20)
   GROUP BY 1, 2;
 CREATE OR REPLACE TEMP TABLE cor AS SELECT * FROM nb WHERE n_ab >= 2;
+-- transitions to acquisitions: up to 20 latest views of other products in the 3 days before the first cp
+CREATE OR REPLACE TEMP TABLE acq_all AS SELECT user_id, product_id, first_ts, first_cp_ts FROM pf
+  WHERE first_ts >= {T} - INTERVAL 14 DAY AND first_cp_ts IS NOT NULL AND first_ts::DATE = first_cp_ts::DATE;
+CREATE OR REPLACE TEMP TABLE prior AS SELECT q.user_id, q.product_id b, v.product_id a
+  FROM acq_all q JOIN w v ON v.user_id = q.user_id AND v.event_type = 'view' AND v.product_id <> q.product_id
+    AND v.event_time < q.first_cp_ts AND v.event_time >= q.first_cp_ts - INTERVAL 3 DAY
+  GROUP BY q.user_id, q.product_id, v.product_id
+  QUALIFY row_number() OVER (PARTITION BY q.user_id, q.product_id ORDER BY max(v.event_time) DESC, v.product_id) <= 20;
+CREATE OR REPLACE TEMP TABLE tr AS SELECT a, b, count(DISTINCT user_id) n FROM prior
+  WHERE a IN (SELECT product_id FROM rv WHERE k <= 20) GROUP BY 1, 2;
+-- per-user aggregated scores over the 20 latest views (touched products excluded before ranking)
+CREATE OR REPLACE TEMP TABLE cvs AS SELECT r.user_id, c.b product_id,
+  sum(c.n_ab / (ns.n + 5) * exp(-epoch({T} - r.last_ts) / 86400)) score
+  FROM rv r JOIN cor c ON c.a = r.product_id JOIN ns ON ns.product_id = r.product_id
+  WHERE r.k <= 20 AND NOT EXISTS (SELECT 1 FROM touched x WHERE x.user_id = r.user_id AND x.product_id = c.b)
+  GROUP BY 1, 2;
+CREATE OR REPLACE TEMP TABLE cvr AS SELECT user_id, product_id,
+  row_number() OVER (PARTITION BY user_id ORDER BY round(score, 12) DESC, product_id) cvagg_rank FROM cvs QUALIFY cvagg_rank <= 100;
+CREATE OR REPLACE TEMP TABLE trs AS SELECT r.user_id, t.b product_id,
+  sum(t.n / (it.v14 + 10) * exp(-epoch({T} - r.last_ts) / 86400)) score
+  FROM rv r JOIN tr t ON t.a = r.product_id JOIN it ON it.product_id = r.product_id
+  WHERE r.k <= 20 AND NOT EXISTS (SELECT 1 FROM touched x WHERE x.user_id = r.user_id AND x.product_id = t.b)
+  GROUP BY 1, 2;
+CREATE OR REPLACE TEMP TABLE trr AS SELECT user_id, product_id,
+  row_number() OVER (PARTITION BY user_id ORDER BY round(score, 12) DESC, product_id) tr_rank FROM trs QUALIFY tr_rank <= 30;
 CREATE OR REPLACE TEMP TABLE candidates AS
   WITH s AS (
-    SELECT q.user_id, p.product_id, p.pop_rank, NULL::BIGINT cat_rank, NULL::BIGINT brand_rank, 0 src4 FROM queries q CROSS JOIN pop p
+    SELECT q.user_id, p.product_id, p.pop_rank, NULL::BIGINT cat_rank, NULL::BIGINT brand_rank, 0 src4,
+      NULL::BIGINT cvagg_rank, NULL::BIGINT tr_rank FROM queries q CROSS JOIN pop p
     UNION ALL
-    SELECT c.user_id, cp.product_id, NULL, cp.cat_rank, NULL, 0 FROM
+    SELECT c.user_id, cp.product_id, NULL, cp.cat_rank, NULL, 0, NULL, NULL FROM
       (SELECT user_id, cat FROM ucw QUALIFY row_number() OVER (PARTITION BY user_id ORDER BY w DESC, cat) <= 3) c
       JOIN catpop cp USING(cat)
     UNION ALL
-    SELECT b.user_id, bp.product_id, NULL, NULL, bp.brand_rank, 0 FROM
+    SELECT b.user_id, bp.product_id, NULL, NULL, bp.brand_rank, 0, NULL, NULL FROM
       (SELECT user_id, brand FROM ubw QUALIFY row_number() OVER (PARTITION BY user_id ORDER BY w DESC, brand) <= 2) b
       JOIN brandpop bp USING(brand)
     UNION ALL
-    SELECT r.user_id, c.b, NULL, NULL, NULL, 1 FROM rv r JOIN cor c ON c.a = r.product_id AND c.rk <= 10 WHERE r.k <= 10)
-  SELECT user_id, product_id, min(pop_rank) pop_rank, min(cat_rank) cat_rank, min(brand_rank) brand_rank, max(src4) src4
+    SELECT r.user_id, c.b, NULL, NULL, NULL, 1, NULL, NULL FROM rv r JOIN cor c ON c.a = r.product_id AND c.rk <= 30 WHERE r.k <= 10
+    UNION ALL
+    SELECT user_id, product_id, NULL, NULL, NULL, 0, cvagg_rank, NULL FROM cvr
+    UNION ALL
+    SELECT user_id, product_id, NULL, NULL, NULL, 0, NULL, tr_rank FROM trr)
+  SELECT user_id, product_id, min(pop_rank) pop_rank, min(cat_rank) cat_rank, min(brand_rank) brand_rank, max(src4) src4,
+    min(cvagg_rank) cvagg_rank, min(tr_rank) tr_rank
   FROM s WHERE NOT EXISTS (SELECT 1 FROM touched x WHERE x.user_id = s.user_id AND x.product_id = s.product_id)
   GROUP BY 1, 2;
 """
 
 FEATURES = """
 -- global normalisers (all products, all users of the window)
-CREATE OR REPLACE TEMP TABLE acq_all AS SELECT user_id, product_id, first_ts, first_cp_ts FROM pf
-  WHERE first_ts >= {T} - INTERVAL 14 DAY AND first_cp_ts IS NOT NULL AND first_ts::DATE = first_cp_ts::DATE;
 CREATE OR REPLACE TEMP TABLE iacq AS SELECT p.product_id, count(*) new_users,
   count(*) FILTER (p.first_cp_ts IS NOT NULL AND p.first_ts::DATE = p.first_cp_ts::DATE) acq,
   count(*) FILTER (p.first_cp_ts IS NOT NULL AND p.first_ts::DATE = p.first_cp_ts::DATE AND p.first_ts >= {T} - INTERVAL 1 DAY) acq1,
@@ -310,14 +343,7 @@ CREATE OR REPLACE TEMP TABLE jc AS SELECT k.user_id, k.product_id,
   JOIN rva r ON r.user_id = k.user_id AND r.cat = a.cat AND r.k <= 50 AND r.price_seen > 0
   WHERE pc.p_last > 0 GROUP BY k.user_id, k.product_id, pc.p_last;
 
--- transitions to acquisitions: up to 20 latest views of other products in the 3 days before the first cp
-CREATE OR REPLACE TEMP TABLE prior AS SELECT q.user_id, q.product_id b, v.product_id a
-  FROM acq_all q JOIN w v ON v.user_id = q.user_id AND v.event_type = 'view' AND v.product_id <> q.product_id
-    AND v.event_time < q.first_cp_ts AND v.event_time >= q.first_cp_ts - INTERVAL 3 DAY
-  GROUP BY q.user_id, q.product_id, v.product_id
-  QUALIFY row_number() OVER (PARTITION BY q.user_id, q.product_id ORDER BY max(v.event_time) DESC, v.product_id) <= 20;
-CREATE OR REPLACE TEMP TABLE tr AS SELECT a, b, count(DISTINCT user_id) n FROM prior
-  WHERE a IN (SELECT product_id FROM rv WHERE k <= 10) GROUP BY 1, 2;
+-- transitions between categories (prior, tr: see ANCHOR)
 CREATE OR REPLACE TEMP TABLE trc AS SELECT aa.cat ca, ab.cat cb, count(DISTINCT p.user_id) n FROM prior p
   JOIN iattr aa ON aa.product_id = p.a JOIN iattr ab ON ab.product_id = p.b WHERE aa.cat <> ab.cat GROUP BY 1, 2;
 CREATE OR REPLACE TEMP TABLE nca AS SELECT a.cat, count(DISTINCT q.user_id) n FROM acq_all q JOIN iattr a USING(product_id) GROUP BY 1;
@@ -354,7 +380,9 @@ SELECT {D} AS anchor, k.user_id, k.product_id,
   (l.user_id IS NOT NULL)::INT AS label, coalesce(l.is_purchase, 0) label_purchase, q.n_targets, q.n_targets_purchase,
   -- s_: candidate source
   k.pop_rank s_pop_rank, k.cat_rank s_cat_rank, k.brand_rank s_brand_rank,
-  (k.pop_rank IS NOT NULL)::INT + (k.cat_rank IS NOT NULL)::INT + (k.brand_rank IS NOT NULL)::INT + k.src4 s_n_sources,
+  (k.pop_rank IS NOT NULL)::INT + (k.cat_rank IS NOT NULL)::INT + (k.brand_rank IS NOT NULL)::INT + k.src4
+    + (k.cvagg_rank IS NOT NULL)::INT + (k.tr_rank IS NOT NULL)::INT s_n_sources,
+  k.cvagg_rank s_cvagg_rank, k.tr_rank s_tr_rank,
   -- u_: user
   u.* EXCLUDE (user_id),
   -- i_: item
@@ -387,9 +415,10 @@ SELECT {D} AS anchor, k.user_id, k.product_id,
   i.i_price_pct_in_cat - u.u_price_tier up_tier_diff,
   jc.in_range up_cat_in_range,
   ln(1 + coalesce(it.a7, 0)) - u.u_pop_taste_14d ui_pop_gap,
-  -- cf_: item-item from the user's 10 latest views (NULL when the user has no views)
+  -- cf_: item-item from the user's 10 latest views, the *20 columns from 20 (NULL when the user has no views)
   f.cf_cv_cos_max, f.cf_cv_cos_last, f.cf_cv_cond_tdecay, f.cf_tr_p_tdecay, f.cf_src4_best_rank,
-  f.cf_cv_cos_same_cat_max, f.cf_tr_p_diff_cat_max, f.cf_tr_lift_max
+  f.cf_cv_cos_same_cat_max, f.cf_tr_p_diff_cat_max, f.cf_tr_lift_max,
+  coalesce(cvs.score, 0) cf_cv_cond_tdecay20, coalesce(trs.score, 0) cf_tr_p_tdecay20
 FROM candidates k
 JOIN queries q USING(user_id)
 LEFT JOIN labels l USING(user_id, product_id)
@@ -408,6 +437,8 @@ LEFT JOIN rvb rb ON rb.user_id = k.user_id AND rb.brand = a.brand
 LEFT JOIN jc ON jc.user_id = k.user_id AND jc.product_id = k.product_id
 LEFT JOIN ctl ON ctl.user_id = k.user_id AND ctl.product_id = k.product_id
 LEFT JOIN cff f ON f.user_id = k.user_id AND f.product_id = k.product_id
+LEFT JOIN cvs ON cvs.user_id = k.user_id AND cvs.product_id = k.product_id
+LEFT JOIN trs ON trs.user_id = k.user_id AND trs.product_id = k.product_id
 ORDER BY k.user_id, k.product_id
 """
 
@@ -430,11 +461,12 @@ def build_day(con, day, max_queries=None, out=OUT):
     s = con.execute(f"""SELECT count(DISTINCT user_id), count(*), sum(label), sum(label_purchase),
         (SELECT sum(n_targets) FROM queries), (SELECT sum(n_targets_purchase) FROM queries),
         count(*) FILTER (s_pop_rank IS NOT NULL), count(*) FILTER (s_cat_rank IS NOT NULL),
-        count(*) FILTER (s_brand_rank IS NOT NULL), (SELECT count(*) FROM candidates WHERE src4 = 1)
+        count(*) FILTER (s_brand_rank IS NOT NULL), (SELECT count(*) FROM candidates WHERE src4 = 1),
+        count(*) FILTER (s_cvagg_rank IS NOT NULL), count(*) FILTER (s_tr_rank IS NOT NULL)
         FROM read_parquet('{path}')""").fetchone()
     return dict(day=day.isoformat(), queries=s[0], pairs=s[1], hits=s[2], targets=s[4],
                 recall=round(s[2] / s[4], 3), recall_purchase=round(s[3] / max(s[5], 1), 3),
-                rows_by_source=dict(pop=s[6], cat=s[7], brand=s[8], coview=s[9]),
+                rows_by_source=dict(pop=s[6], cat=s[7], brand=s[8], coview=s[9], coview_agg=s[10], transition=s[11]),
                 seconds=dict(anchor=round(t1 - t0, 1), features=round(t2 - t1, 1), write=round(time.time() - t2, 1)))
 
 
