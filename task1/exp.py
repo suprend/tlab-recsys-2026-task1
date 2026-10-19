@@ -36,7 +36,7 @@ def half(user_id):
 
 
 def _read(split, days_dir):
-    """Validation: every candidate. Train: a pool per query with all positives, 100 random negatives
+    """Validation and test: every candidate. Train and refit: a pool per query with all positives, 100 random negatives
     (rank rr) and the 30 hardest by cf_cv_cond_tdecay20 (rank hr); configs sample from it."""
     key = (split, days_dir)
     if key in _cache:
@@ -46,7 +46,7 @@ def _read(split, days_dir):
     files = [str(Path(days_dir) / f'{d}.parquet') for d in M.days(split)]
     cols = duckdb.sql(f"DESCRIBE SELECT * FROM read_parquet('{files[0]}')").df().column_name.tolist()
     hard = 'cf_cv_cond_tdecay20' if 'cf_cv_cond_tdecay20' in cols else 'cf_cv_cond_tdecay'
-    pool = 'WHERE label = 1 OR rr <= 100 OR hr <= 30' if split == 'train' else ''
+    pool = 'WHERE label = 1 OR rr <= 100 OR hr <= 30' if split in ('train', 'refit') else ''
     df = duckdb.sql(f"""SELECT * FROM (
       SELECT d.*, d.anchor::VARCHAR || ':' || d.user_id::VARCHAR qid,
         row_number() OVER (PARTITION BY d.anchor, d.user_id ORDER BY hash(d.product_id, d.user_id, 7)) rr,
@@ -152,6 +152,7 @@ def compare(ref, new, on='A', metric='ndcg'):
     """Paired bootstrap of new - ref over the queries of one half ('A', 'B' or 'all')."""
     a, b = metrics(ref), metrics(new)
     idx = a.index if on == 'all' else a.index[a.half == on]
+    idx = idx[a.loc[idx, metric].notna().to_numpy()]  # purchase metrics: queries with a purchase target only
     d, lo, hi = M.bootstrap_diff(a.loc[idx, metric], b.loc[idx, metric])
     return {'ref': ref, 'new': new, 'half': on, 'd': round(d, 5), 'ci': [round(lo, 5), round(hi, 5)]}
 

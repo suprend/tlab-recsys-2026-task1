@@ -77,7 +77,7 @@ def sandbox(t, threads=8):
     if not files:
         raise FeatureError(f'no event files before {day} in {EVENTS}')
     con = duckdb.connect()
-    con.execute(f"SET threads={threads}; SET memory_limit='{MEMORY}'")
+    con.execute(f"SET threads={threads}; SET memory_limit='{MEMORY}'; SET enable_progress_bar=false")
     con.execute(f"SET temp_directory='{tempfile.mkdtemp(prefix='tlab-sbx-')}'")  # else <cwd>/.tmp is allowed
     con.execute(f"SET allowed_directories={[str(p) + '/' for p in dirs]}")
     con.execute(f"""CREATE VIEW hist AS SELECT {COLUMNS} FROM read_parquet({files}, hive_partitioning=false)

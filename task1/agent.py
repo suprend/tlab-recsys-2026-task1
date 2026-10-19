@@ -26,7 +26,7 @@ import duckdb
 
 from task1 import exp
 from task1.extra import FeatureError, compute
-from task1.model import GROUPS, ROOT, base_features
+from task1.model import EXTRA, GROUPS, ROOT, base_features
 
 RUNS = ROOT / 'task1/runs'
 LLM_DIR = Path('/tmp/tlab-agent-llm')  # empty working directory; no built-in tools, no MCP servers
@@ -61,7 +61,7 @@ Write the anchor as TIMESTAMP '{{t}}' (literally, with the braces), e.g.
 
 Features already in the model, by prefix (s_ candidate source, u_ user, i_ item, uc_ candidate's category
 in the user's history, ub_ brand, up_ price vs user, ui_ popularity vs user, cf_ item-item from recent
-views, f_x_ accepted earlier in this run):
+views, f_x_ SQL features: hand-written ones of the base and those accepted earlier in this run):
 {features}
 
 Rules for a feature query:
@@ -109,6 +109,11 @@ def day_features(days_dir):
     """Feature columns of the day tables, read from the schema of one file."""
     f = min(Path(days_dir).glob('*.parquet'))
     return base_features(duckdb.read_parquet(str(f)))
+
+
+def extra_columns(name):
+    f = min((EXTRA / name).glob('[0-9]*.parquet'))
+    return [c for c in duckdb.read_parquet(str(f)).columns if c.startswith('f_x_')]
 
 
 def list_features(names):
@@ -171,7 +176,8 @@ def main():
     closed = [r for r in records if 'accepted_set' in r]
     accepted = list(closed[-1]['accepted_set']) if closed else []
     llm_calls = sum(1 for r in records if 'llm' in r or 'llm_error' in r)
-    base_cols = day_features(cfg['days'])
+    fixed = list(cfg.get('extra', []))  # extra tables of the frozen base (hand-written), always in the model
+    base_cols = day_features(cfg['days']) + [c for n in fixed for c in extra_columns(n)]
 
     def close_round(rnd):
         ok = [a for a in attempts if a['round'] == rnd and 'd2' in a and min(a['ci'][0], a['ci2'][0]) > 0
@@ -184,7 +190,7 @@ def main():
         (run / 'summary.json').write_text(json.dumps({
             'run': rid, 'config': cfg, 'proxy': proxy, 'rounds': rnd, 'llm_calls': llm_calls,
             'llm_cost_usd': round(sum((r['llm'].get('cost_usd') or 0) for r in records if 'llm' in r), 4),
-            'extra': accepted,
+            'extra': fixed + accepted,  # the agent arm's full extra list (base tables first)
             'accepted': [{k: a.get(k) for k in ('name', 'round', 'idea', 'columns', 'd', 'ci', 'd2', 'ci2', 'sql')}
                          for a in acc],
             'test_command': f".venv/bin/python -m task1.extra {' '.join(accepted)} --splits test"
@@ -205,7 +211,7 @@ def main():
             if taken & set(rec['columns']):
                 raise FeatureError(f'column names already used: {sorted(taken & set(rec["columns"]))}')
             t0 = time.time()
-            r = exp.run(rec['name'], **search | {'extra': accepted + [rec['name']]})
+            r = exp.run(rec['name'], **search | {'extra': fixed + accepted + [rec['name']]})
             rec['fit_s'] = round(time.time() - t0, 1)
             if r['features'] != base['features'] + len(rec['columns']):
                 raise JoinError(f"task1.exp trained on {r['features']} features, expected "
@@ -216,8 +222,8 @@ def main():
                 seed2 = {'seed': search['seed'] + 1, 'neg_seed': search['neg_seed'] + 1}
                 b2 = f'{tag}_r{rnd}_base2'
                 if not (exp.OUT / f'{b2}.parquet').exists():
-                    exp.run(b2, **search | seed2 | {'extra': accepted})
-                exp.run(rec['name'] + '_s2', **search | seed2 | {'extra': accepted + [rec['name']]})
+                    exp.run(b2, **search | seed2 | {'extra': fixed + accepted})
+                exp.run(rec['name'] + '_s2', **search | seed2 | {'extra': fixed + accepted + [rec['name']]})
                 c2 = exp.compare(b2, rec['name'] + '_s2', on='A')
                 rec.update(d2=c2['d'], ci2=c2['ci'])
         except JoinError:
@@ -244,7 +250,7 @@ def main():
             continue
         write({'round': rnd, 'prompt_hash': phash, 'llm': meta, 'proposals': len(proposals)})
         t0 = time.time()
-        base = exp.run(f'{tag}_r{rnd}_base', **search | {'extra': accepted})
+        base = exp.run(f'{tag}_r{rnd}_base', **search | {'extra': fixed + accepted})
         if base['features'] != len(cols):
             write({'round': rnd, 'fatal': f"task1.exp base trained on {base['features']} features, expected {len(cols)}"})
             raise JoinError(records[-1]['fatal'])
