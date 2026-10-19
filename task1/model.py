@@ -5,6 +5,7 @@ only), test Nov 18-28 (final model refit on Oct 15 - Nov 13 with settings chosen
 Nov 13 end at Nov 14 00:00, so the refit sees nothing from the test window). Nov 14-17 are not anchors.
 """
 import argparse
+import os
 import json
 from datetime import date, timedelta
 from pathlib import Path
@@ -15,7 +16,7 @@ import pandas as pd
 from catboost import CatBoostClassifier, CatBoostRanker, Pool
 
 ROOT = Path(__file__).resolve().parents[1]
-DAYS = ROOT / 'artifacts/task1/v2/days'
+DAYS = Path(os.environ.get('TASK1_DAYS', ROOT / 'artifacts/task1/v2/days'))  # override to compare day sets
 EXTRA = ROOT / 'artifacts/task1/v2/extra'
 K = 20
 SPLITS = {
@@ -26,7 +27,7 @@ SPLITS = {
 }
 META = {'anchor', 'user_id', 'product_id', 'label', 'label_purchase', 'n_targets', 'n_targets_purchase', 'qid'}
 CAT = ['i_cat_l1']
-GROUPS = ('s_', 'u_', 'i_', 'uc_', 'ub_', 'up_', 'ui_', 'cf_')
+GROUPS = ('s_', 'u_', 'i_', 'uc_', 'ub_', 'up_', 'ui_', 'cf_', 'f_x_')  # f_x_: sandbox features
 
 
 def days(split):
