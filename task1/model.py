@@ -1,8 +1,8 @@
 """Train CatBoost on day tables and evaluate NDCG@20 / Recall@20 against the full target set.
 
-Splits: train anchors Oct 8-20, validation Oct 22-25 (model fit on train only),
-test Oct 26-31 (final model refit on Oct 8-25 with settings chosen on validation;
-labels of Oct 25 end at Oct 26 00:00, so the refit sees nothing from the test window).
+Splits by anchor day (see task1.build): train Oct 15 - Nov 7, validation Nov 8-13 (model fit on train
+only), test Nov 18-28 (final model refit on Oct 15 - Nov 13 with settings chosen on validation; labels of
+Nov 13 end at Nov 14 00:00, so the refit sees nothing from the test window). Nov 14-17 are not anchors.
 """
 import argparse
 import json
@@ -15,15 +15,18 @@ import pandas as pd
 from catboost import CatBoostClassifier, CatBoostRanker, Pool
 
 ROOT = Path(__file__).resolve().parents[1]
-DAYS = ROOT / 'artifacts/task1/days'
-EXTRA = ROOT / 'artifacts/task1/extra'
+DAYS = ROOT / 'artifacts/task1/v2/days'
+EXTRA = ROOT / 'artifacts/task1/v2/extra'
 K = 20
 SPLITS = {
-    'train': ('2019-10-08', '2019-10-20'),
-    'val': ('2019-10-22', '2019-10-25'),
-    'refit': ('2019-10-08', '2019-10-25'),
-    'test': ('2019-10-26', '2019-10-31'),
+    'train': ('2019-10-15', '2019-11-07'),
+    'val': ('2019-11-08', '2019-11-13'),
+    'refit': ('2019-10-15', '2019-11-13'),
+    'test': ('2019-11-18', '2019-11-28'),
 }
+META = {'anchor', 'user_id', 'product_id', 'label', 'label_purchase', 'n_targets', 'n_targets_purchase', 'qid'}
+CAT = ['i_cat_l1']
+GROUPS = ('s_', 'u_', 'i_', 'uc_', 'ub_', 'up_', 'ui_', 'cf_')
 
 
 def days(split):
@@ -31,8 +34,9 @@ def days(split):
     return [a + timedelta(n) for n in range((b - a).days + 1)]
 
 
-def base_features(df):
-    return [c for c in df.columns if c.startswith('f_')]
+def base_features(df, drop_groups=()):
+    """All feature columns of the day tables, optionally without whole prefix groups (ablations)."""
+    return [c for c in df.columns if c.startswith(GROUPS) and not c.startswith(tuple(drop_groups))]
 
 
 def load(split, extra=(), neg_per_query=None, seed=0):
@@ -55,10 +59,12 @@ def load(split, extra=(), neg_per_query=None, seed=0):
     return df.sort_values(['qid', 'product_id'], kind='stable').reset_index(drop=True)
 
 
-def fit(df, features, loss='Logloss', iterations=500, depth=6, lr=0.08, l2=10, seed=2026, threads=10, verbose=0):
+def fit(df, features, loss='Logloss', iterations=500, depth=6, lr=0.08, l2=10, seed=2026, threads=10, verbose=0,
+        label='label'):
     params = dict(iterations=iterations, depth=depth, learning_rate=lr, l2_leaf_reg=l2,
                   random_seed=seed, thread_count=threads, verbose=verbose)
-    pool = Pool(df[features], df.label, group_id=df.qid if loss != 'Logloss' else None)
+    pool = Pool(df[features], df[label], group_id=df.qid if loss != 'Logloss' else None,
+                cat_features=[c for c in CAT if c in features])
     model = (CatBoostClassifier(loss_function='Logloss', **params) if loss == 'Logloss'
              else CatBoostRanker(loss_function=loss, **params))
     model.fit(pool)
@@ -74,10 +80,13 @@ def predict(model, df, features):
 IDCG = np.cumsum(1 / np.log2(np.arange(2, K + 2)))
 
 
-def per_query(df, score):
-    """NDCG@K and Recall@K per query; targets outside candidates count via n_targets."""
+def per_query(df, score, purchase=False):
+    """NDCG@K and Recall@K per query; targets outside candidates count via n_targets.
+    purchase=True scores only purchased targets, over queries that have at least one."""
+    y, n = ('label_purchase', 'n_targets_purchase') if purchase else ('label', 'n_targets')
+    keep = (df[n] > 0).to_numpy()
     d = pd.DataFrame({'qid': df.qid.values, 'pid': df.product_id.values, 's': score,
-                      'y': df.label.values, 'n': df.n_targets.values})
+                      'y': df[y].values, 'n': df[n].values.astype(int)})[keep]
     d = d.sort_values(['qid', 's', 'pid'], ascending=[True, False, True], kind='stable')
     d['rank'] = d.groupby('qid').cumcount()
     top = d[d['rank'] < K]
@@ -108,13 +117,16 @@ def main():
     ap.add_argument('--depth', type=int, default=6)
     ap.add_argument('--lr', type=float, default=0.08)
     ap.add_argument('--neg', type=int, default=50)
+    ap.add_argument('--drop', nargs='*', default=[], help='feature prefix groups to leave out, e.g. cf_ up_')
     args = ap.parse_args()
     train = load('train' if args.eval == 'val' else 'refit', args.extra, args.neg)
     test = load(args.eval, args.extra)
-    features = base_features(train)
+    features = base_features(train, args.drop)
     model = fit(train, features, args.loss, args.iterations, args.depth, args.lr)
-    m = per_query(test, predict(model, test, features))
-    print(json.dumps(summary(m) | {'features': len(features), 'train_rows': len(train)}))
+    score = predict(model, test, features)
+    print(json.dumps(summary(per_query(test, score)) | {
+        'purchase': summary(per_query(test, score, purchase=True)),
+        'features': len(features), 'train_rows': len(train)}))
 
 
 if __name__ == '__main__':
