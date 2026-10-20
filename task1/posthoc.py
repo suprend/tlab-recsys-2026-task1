@@ -3,8 +3,9 @@
 grid: does automation replace the hand-made features? R = (F1 - F0) / (H - F0) on val half B with a paired
 bootstrap CI, paired differences F1 - H and H+ - H (the latter per seed too), and the reading rules of the spec.
 edge: depth 10 and YetiRank at depth 8 against q2_d8 on half A; arms that pass get a second seed and one look at B.
-Decisions use unrounded values; numbers are rounded for output only. Every run read must have the config of
-the queue it was declared in (grid.json, edge2.json) with the stand's defaults.
+Decisions use unrounded values; numbers are rounded for output only. Every grid and edge run read must have the
+config of the queue it was declared in (grid.json, edge2.json) with the stand's defaults; the H pair comes from
+earlier queues and is not checked here.
 
 Run: .venv/bin/python -m task1.posthoc   (prints the result and writes task1/runs/grid-2026-10-20/result.json)
 """
