@@ -1,8 +1,8 @@
 """The one test command: refit every frozen arm on train + validation and score the test days once.
 
 task1/runs/final.json (written at the end of the night run, before any test label is read):
-  {"reference": "hand", "seeds": [[2026, 0], [7, 1]],
-   "arms": [{"name": "hand", "config": {...exp config...}}, {"name": "agent", "config": {..., "extra": [...]}}, ...]}
+  {"reference": "base", "seeds": [[2026, 0], [7, 1]], "dfs_selected": [...],
+   "arms": [{"name": "base", "config": {...exp config...}}, {"name": "dfs", "config": {..., "extra": [...]}}, ...]}
 For every arm and seed pair (seed, neg_seed) the model is fit on the refit split (anchors 10-15..11-13; labels
 of 11-13 end at 11-14 00:00) and scores every candidate of the evaluation split. Per-query metrics are
 averaged over seeds; each arm is compared with the reference by a paired bootstrap over queries.
@@ -86,6 +86,7 @@ def main():
             features = M.base_features(tr, c['drop'])
             models.append(exp.fit(tr, features, c))
             del tr
+        exp._cache.clear()  # a refit pool is ~9 GB; never hold two of them while the next arm reads its own
         runs = [[] for _ in models]
         for d in M.days(args.eval):
             ev = read_day(d, cfg['days'], cfg['extra'])
