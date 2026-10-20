@@ -35,6 +35,16 @@
      "dfs_b_top"
     ]
    }
+  },
+  {
+   "name": "agent",
+   "config": {
+    "days": "artifacts/task1/v2/days6",
+    "depth": 8,
+    "extra": [
+     "agent_night20_r5p5_cf_considered_seed_coview"
+    ]
+   }
   }
  ],
  "dfs_selected": [
@@ -59,5 +69,5 @@
   "f_x_dfs_p_view_n_3d",
   "f_x_dfs_p_buy_per_view_3d"
  ],
- "notes": "Frozen 2026-10-20 night run. Agent arm omitted: 20 proposals, none accepted, so it equals base."
+ "notes": "Frozen 2026-10-20 by the user's choice after the night run: final.json (written 06:36, committed 6fe96b3) plus the agent arm = base + the one accepted feature (A: +0.0013/+0.0017; B: -0.0002/+0.0009, not confirmed)."
 }
