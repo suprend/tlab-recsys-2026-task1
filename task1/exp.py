@@ -60,12 +60,27 @@ def _read(split, days_dir):
     return df
 
 
+def read_day(d, days_dir):
+    """One day of validation or test with every candidate, as `_read` gives it without the pool ranks."""
+    df = duckdb.sql(f"""SELECT *, anchor::VARCHAR || ':' || user_id::VARCHAR qid
+                        FROM read_parquet('{Path(days_dir) / f'{d}.parquet'}') ORDER BY qid, product_id""").df()
+    for c in df.columns:
+        if df[c].dtype == np.float64:
+            df[c] = df[c].astype(np.float32)
+    return df
+
+
 def with_extra(df, extra):
-    """Left-join sandbox feature tables artifacts/task1/v2/extra/<name>/<day>.parquet by (anchor, keys)."""
+    """Left-join sandbox feature tables artifacts/task1/v2/extra/<name>/<day>.parquet by (anchor, keys).
+    Only the days present in df are read."""
+    days = sorted(pd.to_datetime(df.anchor.unique()).strftime('%Y-%m-%d'))
     for name in extra:
+        files = [M.EXTRA / name / f'{d}.parquet' for d in days]
+        if not all(f.exists() for f in files):
+            raise ValueError(f'extra {name} lacks days {[f.stem for f in files if not f.exists()][:3]}...')
         x = duckdb.sql(f"""SELECT * EXCLUDE (filename),
             regexp_extract(filename, '(\\d{{4}}-\\d{{2}}-\\d{{2}})\\.parquet$', 1)::DATE anchor
-            FROM read_parquet('{M.EXTRA / name}/[0-9]*.parquet', filename=true)""").df()
+            FROM read_parquet({[str(f) for f in files]}, filename=true)""").df()
         keys = ['anchor'] + [c for c in ('user_id', 'product_id') if c in x.columns]
         x['anchor'] = pd.to_datetime(x.anchor).astype(df.anchor.dtype)
         missing = set(df.anchor.unique()) - set(x.anchor.unique())
@@ -119,22 +134,26 @@ def run(name, **over):
     cfg = DEFAULT | over
     t0 = time.time()
     train = with_extra(sample_train(_read('train', cfg['days']), cfg), cfg['extra'])
-    val = with_extra(_read('val', cfg['days']), cfg['extra'])
     features = M.base_features(train, cfg['drop'])
+    train_rows = len(train)
     t1 = time.time()
     m = fit(train, features, cfg)
+    del train
     t2 = time.time()
-    score = M.predict(m, val, features)
+    parts = []  # validation is scored a day at a time: with every extra table it does not fit in memory whole
+    for d in M.days('val'):
+        val = with_extra(read_day(d, cfg['days']), cfg['extra'])
+        score = M.predict(m, val, features)
+        pq = M.per_query(val, score)
+        users = val.drop_duplicates('qid').set_index('qid').user_id
+        pq['half'] = half(users.reindex(pq.index).to_numpy())
+        parts.append(pq.join(M.per_query(val, score, purchase=True).add_prefix('purchase_'), how='left'))
     t3 = time.time()
-    pq = M.per_query(val, score)
-    pp = M.per_query(val, score, purchase=True)
-    users = val.drop_duplicates('qid').set_index('qid').user_id
-    pq['half'] = half(users.reindex(pq.index).to_numpy())
-    res = pq.join(pp.add_prefix('purchase_'), how='left').reset_index()
+    res = pd.concat(parts).sort_index().reset_index()
     OUT.mkdir(parents=True, exist_ok=True)
     duckdb.sql(f"COPY (SELECT * FROM res) TO '{OUT / name}.parquet' (FORMAT PARQUET)")
     a = res[res.half == 'A']  # selection sees half A only; half B is read by `compare(..., on='B')`
-    rec = {'name': name, 'cfg': cfg, 'features': len(features), 'train_rows': len(train),
+    rec = {'name': name, 'cfg': cfg, 'features': len(features), 'train_rows': train_rows,
            'ndcg_A': round(float(a.ndcg.mean()), 6), 'recall_A': round(float(a.recall.mean()), 6),
            'purchase_ndcg_A': round(float(a.purchase_ndcg.mean()), 6),
            'seconds': {'prepare': round(t1 - t0), 'fit': round(t2 - t1), 'predict': round(t3 - t2)}}
