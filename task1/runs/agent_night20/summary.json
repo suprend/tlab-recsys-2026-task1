@@ -1,0 +1,27 @@
+{
+ "run": "agent_night20",
+ "config": {
+  "loss": "Logloss",
+  "iterations": 500,
+  "depth": 8,
+  "lr": 0.08,
+  "l2": 10,
+  "seed": 2026,
+  "neg": 50,
+  "neg_mode": "random",
+  "neg_seed": 0,
+  "half_life": null,
+  "train_frac": 1.0,
+  "drop": [],
+  "extra": [],
+  "days": "/Users/mdpospelov/tlab-recsys-2026/artifacts/task1/v2/days6",
+  "threads": 10
+ },
+ "proxy": {},
+ "rounds": 4,
+ "llm_calls": 4,
+ "llm_cost_usd": 1.5929,
+ "extra": [],
+ "accepted": [],
+ "test_command": null
+}

@@ -15,6 +15,7 @@ Test, once:                         .venv/bin/python -m task1.final --eval test
 import argparse
 import json
 import time
+from pathlib import Path
 
 import duckdb
 import pandas as pd
@@ -59,8 +60,11 @@ def read_day(d, days_dir, extra):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--eval', choices=['val', 'test'], required=True)
+    ap.add_argument('--spec', default=str(FINAL), help='another spec, for a quick check of the path on val')
     args = ap.parse_args()
-    spec = json.loads(FINAL.read_text())
+    spec = json.loads(Path(args.spec).read_text())
+    if args.eval == 'test' and Path(args.spec) != FINAL:
+        raise SystemExit('test is evaluated only with the frozen task1/runs/final.json')
     started = OUT / f'{args.eval}.started'
     if args.eval == 'test' and started.exists():
         raise SystemExit(f'test was already evaluated (or started): {started}')

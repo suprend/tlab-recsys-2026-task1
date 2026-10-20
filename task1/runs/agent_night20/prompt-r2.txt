@@ -1,0 +1,70 @@
+You are a feature engineer for a ranking model of new products. Reply with JSON only.
+
+Task. REES46 multi-category online store, events from 2019-10-01 to 2019-11-30. Every day at the anchor
+t = 00:00 UTC we rank products for the users active in [t-48h, t) who have at least one target. A target is
+a product whose FIRST cart or purchase by the user happens in [t, t+24h) and that the user never touched
+(no event of any type) before t. About 280 candidates per user come from six sources: the global top by
+distinct cart/purchase users over 7 days; the top products of the user's 3 heaviest categories and of the
+2 heaviest brands; session co-view neighbours of the user's 10 latest views; aggregated co-view scores and
+view->acquisition transition scores over the user's 20 latest views. Every product the user touched before
+t is excluded, so the (user, candidate) pair itself has no history: user signals work only through the
+candidate's category, brand, price, popularity and item-item links to what the user did. A CatBoost model
+scores each (user, product) pair; the metric is NDCG@20 per user. Train anchors 2019-10-15..11-07,
+validation 11-08..11-13.
+
+Data caveat: cart logging changes level while purchases stay flat (~22k a day): about 33k carts a day
+drop to ~18k from Oct 28 and jump x4 (to ~70k) from Nov 8, exactly where validation starts. Raw cart
+counts therefore shift between train and validation; prefer normalised forms (shares, ratios, lifts,
+ranks, logs) and treat cart and purchase together. The base set reads a 14-day window [t-14d, t).
+
+You can read two DuckDB tables:
+  hist(event_time TIMESTAMP, event_type VARCHAR -- 'view'|'cart'|'purchase',
+       product_id BIGINT, category_id BIGINT, category_code VARCHAR -- e.g. 'electronics.smartphone', often NULL,
+       brand VARCHAR -- often NULL, price DECIMAL(12,2), user_id BIGINT, user_session VARCHAR)
+       -- all events strictly before t, starting 2019-10-01; tens of millions of rows, mostly views
+  active_users(user_id) -- users with any event in the last 48 hours (a superset of the ranked users)
+Write the anchor as TIMESTAMP '{t}' (literally, with the braces), e.g.
+  event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY
+
+Features already in the model, by prefix (s_ candidate source, u_ user, i_ item, uc_ candidate's category
+in the user's history, ub_ brand, up_ price vs user, ui_ popularity vs user, cf_ item-item from recent
+views, f_x_ SQL features: hand-written ones of the base and those accepted earlier in this run):
+  s_: s_pop_rank, s_cat_rank, s_brand_rank, s_n_sources, s_cvagg_rank, s_tr_rank
+  u_: u_views_7d_log, u_top_category_share_7d, u_hours_since_last_cp, u_new_item_cp_rate_14d, u_log_price_med_view_7d, u_pop_taste_14d, u_hours_since_last_view, u_views_per_session_7d, u_items_per_view_7d, u_ls_outcome, u_ls_views_log, u_active_days_7d, u_price_tier, u_first_seen_days_cap7, u_active_same_weekday_last_week, u_brand_hhi_14d, u_brand_explore_rate_14d
+  i_: i_actor_share_7d, i_trend_actor_1v7, i_trend_view_1v7, i_acq_share_lift_14d, i_log_price, i_price_pct_in_cat, i_cat_actor_share_7d, i_buy_lift_14d, i_acq_rate_lift_14d, i_cart_lift_7d, i_cat_buy_lift_14d, i_brand_actor_share_7d, i_brand_share_in_cat_7d, i_price_change_7d, i_price_from_max_14d, i_is_fresh_item_7d, i_cat_l1, i_hours_since_last_view, i_cat_trend_view_1v7, i_acq_trend_1v7, i_repeat_buyer_share_14d, i_cat_multi_buy_14d
+  uc_: uc_share_hl1d, uc_last_h, uc_distinct_viewed_7d, uc_first_pos, uc_ls_items, uc_last_cp_h, uc_rank_in_user, uc_active_days_14d, uc_last_purchase_h, uc_decay20, uc_ls_cp, uc_l1_share_hl1d, uc_trans_lift_max
+  ub_: ub_share_hl1d, ub_share_in_cat, ub_last_h, ub_weight_hl1d, ub_decay20
+  up_: up_logprice_vs_user, up_tier_absdiff, up_cat_logratio_med, up_cat_logdist_min, up_tier_diff, up_cat_in_range
+  ui_: ui_pop_gap
+  cf_: cf_cv_cos_max, cf_cv_cos_last, cf_cv_cond_tdecay, cf_tr_p_tdecay, cf_src4_best_rank, cf_cv_cos_same_cat_max, cf_tr_p_diff_cat_max, cf_tr_lift_max, cf_cv_cond_tdecay20, cf_tr_p_tdecay20
+
+Rules for a feature query:
+- one DuckDB SELECT statement (WITH is fine) reading only hist and active_users; no other tables,
+  files or settings;
+- returns key columns user_id and/or product_id plus 1-3 numeric value columns named f_x_<something>,
+  names not used by any earlier feature;
+- exactly one row per key, no NULL keys; keys without a row get NULL; afterwards only the keys present
+  among the day's candidates are kept;
+- the query cannot see the candidates: product-level features cover all products; user-level and
+  pair-level queries must filter user_id IN (SELECT user_id FROM active_users), and pair-level ones must
+  enumerate pairs narrowly (e.g. products of the user's recent categories or neighbours of recent views)
+  so the result stays well under 50M rows;
+- a user-level feature is constant within a user's ranking and helps only through interactions;
+- it runs once per day for 30 days with a hard limit of 120 s per day; aim for under 10 s.
+
+Earlier attempts in this run: gain in NDCG@20 on validation half A with its 95% interval (accepted ones
+are already in the model; acceptance needs the lower bound above 0 and the gain above 0.0005 on two seeds):
+- agent_night20_r1p1_first_touch_conversion (This mirrors the target definition at the item level. Column one is the smoothed lift of P(cart or purchase within 24h | user's first touch of the item in the last 7 days). Column two is the share of the item's recent acquirers who first touched it no more than 24h before acquiring, i.e. how often the item is bought by people who were new to it.) ['f_x_i_first_touch_conv_lift_7d', 'f_x_i_quick_acq_share_7d']: dNDCG=+0.00002 [-0.00091, +0.00092] rejected
+  sql: WITH ft AS (SELECT product_id, user_id, MIN(event_time) AS t0, MIN(event_time) FILTER (WHERE event_type IN ('cart','purchase')) AS tcp FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id, user_id), coh AS (SELECT product_id, COUNT(*) FILTER (WHERE t0 >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND t0 < TIMESTAMP '{t}' - INTERVAL 1 DAY) AS n_new, COUNT(*) FILTER (WHERE t0 >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND t0 < TIMESTAMP '{t}' - INTERVAL 1 DAY AND tcp < t0 + INTERVAL 1 DAY) AS k_new, COUNT(*) FILTER (WHERE tcp >= TIMESTAMP '{t}' - INTERVAL 7 DAY) AS n_acq, COUNT(*) FILTER (WHERE tcp >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND t0 >= tcp - INTERVAL 1 DAY) AS k_quick FROM ft GROUP BY product_id), g AS (SELECT SUM(k_new)::DOUBLE / NULLIF(SUM(n_new), 0) AS p_new, SUM(k_quick)::DOUBLE / NULLIF(SUM(n_acq), 0) AS p_quick FROM coh) SELECT c.product_id, ((c.k_new + 20.0 * g.p_new) / (c.n_new + 20.0)) / NULLIF(g.p_new, 0) AS f_x_i_first_touch_conv_lift_7d, (c.k_quick + 10.0 * g.p_quick) / (c.n_acq + 10.0) AS f_x_i_quick_acq_share_7d FROM coh c CROSS JOIN g WHERE c.n_new > 0 OR c.n_acq > 0
+- agent_night20_r1p2_coacq_cf (This is item-item similarity from co-acquisition rather than co-view: a cosine over users who carted or bought both items in the last 14 days. It is applied to the user's 10 latest touched items, so it surfaces complements and accessories that the co-view features miss.) ['f_x_cf_coacq_cos_max', 'f_x_cf_coacq_co_log']: dNDCG=+0.00018 [-0.00087, +0.00120] rejected
+  sql: WITH cp AS (SELECT user_id, product_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY MAX(event_time) DESC) AS rn FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY user_id, product_id), cpc AS (SELECT user_id, product_id FROM cp WHERE rn <= 20), deg AS (SELECT product_id, COUNT(*) AS n FROM cpc GROUP BY product_id), pr AS (SELECT a.product_id AS pa, b.product_id AS pb, COUNT(*) AS co FROM cpc a JOIN cpc b ON a.user_id = b.user_id AND a.product_id <> b.product_id GROUP BY 1, 2 HAVING COUNT(*) >= 2), nb AS (SELECT pr.pa, pr.pb, pr.co, pr.co / SQRT(d1.n * d2.n) AS cos FROM pr JOIN deg d1 ON d1.product_id = pr.pa JOIN deg d2 ON d2.product_id = pr.pb QUALIFY ROW_NUMBER() OVER (PARTITION BY pr.pa ORDER BY pr.co / SQRT(d1.n * d2.n) DESC) <= 20), seed AS (SELECT user_id, product_id FROM (SELECT user_id, product_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY MAX(event_time) DESC) AS rn FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_id IN (SELECT user_id FROM active_users) GROUP BY user_id, product_id) WHERE rn <= 10) SELECT s.user_id, nb.pb AS product_id, MAX(nb.cos) AS f_x_cf_coacq_cos_max, LN(1 + SUM(nb.co)) AS f_x_cf_coacq_co_log FROM seed s JOIN nb ON nb.pa = s.product_id GROUP BY s.user_id, nb.pb
+- agent_night20_r1p3_buyer_price_profile (This describes the price taste of the item's buyers: the mean and spread of their median viewed log price, and the gap between that and the item's own log price. The model can match it against u_log_price_med_view_7d to tell which price-tier audiences the item converts.) ['f_x_i_buyer_logprice_mean_14d', 'f_x_i_buyer_vs_item_logprice_14d', 'f_x_i_buyer_logprice_std_14d']: dNDCG=+0.00018 [-0.00073, +0.00114] rejected
+  sql: WITH acq AS (SELECT DISTINCT user_id, product_id FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY), up AS (SELECT user_id, MEDIAN(LN(price::DOUBLE + 1)) AS ulp FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND event_type = 'view' AND price > 0 AND user_id IN (SELECT user_id FROM acq) GROUP BY user_id), ip AS (SELECT product_id, LN(MEDIAN(price::DOUBLE) + 1) AS ilp FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND price > 0 AND product_id IN (SELECT product_id FROM acq) GROUP BY product_id) SELECT a.product_id, AVG(up.ulp) AS f_x_i_buyer_logprice_mean_14d, AVG(up.ulp) - MAX(ip.ilp) AS f_x_i_buyer_vs_item_logprice_14d, COALESCE(STDDEV_POP(up.ulp), 0) AS f_x_i_buyer_logprice_std_14d FROM acq a JOIN up ON up.user_id = a.user_id JOIN ip ON ip.product_id = a.product_id GROUP BY a.product_id
+- agent_night20_r1p4_new_reach (This measures the item's pull on new audiences, which is mostly view-based and therefore immune to the cart logging shift. It gives the share of the item's last-24h users who touched it for the first time in 14 days, plus the trend and log volume of those first-time users against the item's 7-day daily average.) ['f_x_i_new_reach_share_1d', 'f_x_i_new_reach_trend_1v7', 'f_x_i_new_reach_1d_log']: dNDCG=-0.00019 [-0.00112, +0.00075] rejected
+  sql: WITH ft AS (SELECT product_id, user_id, MIN(event_time) AS t0, MAX(event_time) AS t1 FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id, user_id), a AS (SELECT product_id, COUNT(*) FILTER (WHERE t0 >= TIMESTAMP '{t}' - INTERVAL 1 DAY) AS new1, COUNT(*) FILTER (WHERE t1 >= TIMESTAMP '{t}' - INTERVAL 1 DAY) AS act1, COUNT(*) FILTER (WHERE t0 >= TIMESTAMP '{t}' - INTERVAL 7 DAY) AS new7 FROM ft GROUP BY product_id) SELECT product_id, (new1 + 0.5) / (act1 + 1.0) AS f_x_i_new_reach_share_1d, LN((new1 + 1.0) / (new7 / 7.0 + 1.0)) AS f_x_i_new_reach_trend_1v7, LN(1.0 + new1) AS f_x_i_new_reach_1d_log FROM a WHERE new7 > 0 OR act1 > 0
+- agent_night20_r1p5_cp_staleness (This is a stock-out or demand-stop detector: the log hours since the item's last cart or purchase, and that time divided by the item's expected inter-acquisition gap from its 7-day acquirer count. Normally popular items that suddenly go quiet score high.) ['f_x_i_log_hours_since_last_cp', 'f_x_i_cp_staleness_ratio']: dNDCG=-0.00022 [-0.00116, +0.00072] rejected
+  sql: WITH a AS (SELECT product_id, MAX(event_time) AS lcp, COUNT(DISTINCT user_id) FILTER (WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY) AS n7 FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id) SELECT product_id, LN(1 + date_diff('second', lcp, TIMESTAMP '{t}') / 3600.0) AS f_x_i_log_hours_since_last_cp, LN(1 + (date_diff('second', lcp, TIMESTAMP '{t}') / 3600.0) * (n7 + 0.5) / 168.0) AS f_x_i_cp_staleness_ratio FROM a
+
+Propose 5 new features that are likely to improve ranking beyond the current set and differ from
+earlier attempts. Think about what signals the current set misses. Answer with a JSON list only:
+[{"name": "short_snake_case", "idea": "one sentence", "sql": "SELECT ..."}]
