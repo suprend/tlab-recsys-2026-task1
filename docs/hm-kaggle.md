@@ -172,7 +172,7 @@ done
 
 Только после этого `.part` переименовывается. После ошибки `.part` остаётся для разбора; повторный `assemble` с тем же именем откажется работать, пока файл не убран вручную. В квитанции `<model>.json` — счётчики, популярный список, provenance DB и SHA-256 файла. Gzip детерминирован: одинаковые входы дают одинаковые байты.
 
-Файлы отправляются через Late Submission: из залогиненного Kaggle CLI (`kaggle competitions submit -c h-and-m-personalized-fashion-recommendations -f <файл> -m <описание>`) или на странице соревнования. Каждую посылку подтверждает владелец аккаунта. Лимит — 5 посылок в сутки Kaggle (UTC). Если Kaggle не примет `.csv.gz`, распакуйте его (`gunzip -k`) и отправьте CSV размером около 270 MB.
+Файлы отправляются через Late Submission: из залогиненного Kaggle CLI (`kaggle competitions submit -c h-and-m-personalized-fashion-recommendations -f <файл> -m <описание>`) или на странице соревнования. Каждую посылку подтверждает владелец аккаунта. Для late submission CLI показал лимит 100 посылок в сутки Kaggle (UTC), а не 5 активной фазы. Kaggle принимает `.csv.gz` (около 59 MB) напрямую.
 
 ## 9. Результаты
 
@@ -205,15 +205,15 @@ done
 
 | Модель | Public | Private | SHA-256 файла |
 |---|---:|---:|---|
-| M2026 | — | — | `5e5c08fb3f9a12bdd829d6a65c3d74a76cc4fd108b7271beadf728dcded3844b` |
-| M2027 | — | — | `9826af542a2a83c1a55e632fa32530a40bf4c565752f100cbdcd54c7780e2d8a` |
-| E2026 | — | — | `da427b9c77eb772483ed8b3e531ced2f167c2b5d35dd96066e8714a696899a95` |
-| E2027 | — | — | `736c2c5aa8e1c704acfe72b6f6e7165dfd94552d933aea5312b6bab88e20280b` |
+| M2026 | 0.02361 | 0.02308 | `5e5c08fb3f9a12bdd829d6a65c3d74a76cc4fd108b7271beadf728dcded3844b` |
+| M2027 | 0.02315 | 0.02284 | `9826af542a2a83c1a55e632fa32530a40bf4c565752f100cbdcd54c7780e2d8a` |
+| E2026 | 0.02357 | 0.02327 | `da427b9c77eb772483ed8b3e531ced2f167c2b5d35dd96066e8714a696899a95` |
+| E2027 | 0.02345 | 0.02313 | `736c2c5aa8e1c704acfe72b6f6e7165dfd94552d933aea5312b6bab88e20280b` |
 
 ## Ограничения и открытые вопросы
 
 - CPU повторяет все явные параметры GPU-рецепта, но backend другой, а GPU-обучение недетерминировано. CPU defaults для незаданных параметров могут отличаться от GPU: `sampling_frequency`, CTR (`simple_ctr`, `combinations_ctr`, `max_ctr_complexity`), `one_hot_max_size`, `model_size_reg`. Отличие проверяется только разделом 5 и сравнением `params.json` с GPU-отчётами на Windows.
 - Байты Kaggle совпали с зеркалом: `verify` дал `complete` по всем трём файлам.
 - Local MAP@12 условный: он усредняется по покупателям недели среди 20 000 клиентов с историей (1 905 на 09-16), а не по всем 20 000. Kaggle считает и покупателей без истории, которые получают популярный список, поэтому оценка Kaggle, скорее всего, будет ниже локальной. Числа разделов 5 и 9 напрямую не сравниваются.
-- kaggle CLI сохранил файлы как `<name>.zip` (`kaggle-verify.json`). Приём Kaggle-ом `.csv.gz` проверяется первой посылкой.
+- kaggle CLI сохранил файлы как `<name>.zip` (`kaggle-verify.json`). `.csv.gz` Kaggle принял.
 - Блокировка `score.lock` на Windows (`msvcrt.locking`) тестами не проверена; тесты идут на macOS с `fcntl.flock`.
