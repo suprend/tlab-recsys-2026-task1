@@ -27,6 +27,7 @@ from catboost import Pool
 
 from task1 import exp
 from task1 import model as M
+from task1 import period as P
 from task1.extra import compute
 
 WINDOWS = (1, 3, 7, 14)
@@ -66,6 +67,7 @@ SELECTION = M.ROOT / 'task1/runs/dfs-select.json'   # for predicting how many po
 
 def select(k, cfg):
     """Pick the top-k generated columns on train only and materialise them; the list is frozen in SELECTION."""
+    P.only_2019('DFS column selection')
     cfg = exp.DEFAULT | cfg
     tr = exp.with_extra(exp.sample_train(exp._read('train', cfg['days']), cfg), SELECTABLE)
     gen = [c for c in tr.columns if c.startswith('f_x_dfs_')]
@@ -111,14 +113,15 @@ def main():
     ap.add_argument('--compute', action='store_true')
     ap.add_argument('--select', type=int)
     ap.add_argument('--materialize', action='store_true')
-    ap.add_argument('--config', default='{"days": "artifacts/task1/v2/days6"}')
+    ap.add_argument('--config', default=json.dumps({'days': str((P.ART / 'days6').relative_to(M.ROOT))}))
+    ap.add_argument('--splits', nargs='+', default=['train', 'val'], help='days that --compute covers')
     ap.add_argument('--threads', type=int, default=8)
     args = ap.parse_args()
     cfg = json.loads(args.config)
     if args.compute:
         for name, sql in queries().items():
             t0 = time.time()
-            cols = compute(name, sql, ('train', 'val'), args.threads, days_dir=M.ROOT / cfg['days'])
+            cols = compute(name, sql, tuple(args.splits), args.threads, days_dir=M.ROOT / cfg['days'])
             print(json.dumps({'name': name, 'columns': len(cols), 'seconds': round(time.time() - t0)}), flush=True)
     if args.select:
         print(json.dumps(select(args.select, cfg)), flush=True)

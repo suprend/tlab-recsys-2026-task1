@@ -13,6 +13,7 @@ from pathlib import Path
 
 import duckdb
 
+from task1 import period as P
 from task1.model import GROUPS, ROOT, base_features, bootstrap_diff, fit, load, per_query, predict, summary
 
 OUT = ROOT / 'artifacts/task1/v2/val'
@@ -34,6 +35,7 @@ def report(name, m, mp, ref=None, extra=None):
 
 
 def main():
+    P.only_2019('task1.baseline')
     ap = argparse.ArgumentParser()
     ap.add_argument('--ablate', action='store_true')
     ap.add_argument('--iterations', type=int, default=500)

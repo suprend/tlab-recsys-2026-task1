@@ -3,6 +3,7 @@
 Splits by anchor day (see task1.build): train Oct 15 - Nov 7, validation Nov 8-13 (model fit on train
 only), test Nov 18-28 (final model refit on Oct 15 - Nov 13 with settings chosen on validation; labels of
 Nov 13 end at Nov 14 00:00, so the refit sees nothing from the test window). Nov 14-17 are not anchors.
+The replication period (TASK1_PERIOD=2020, see task1.period) has its own splits and directories.
 """
 import argparse
 import os
@@ -15,16 +16,13 @@ import numpy as np
 import pandas as pd
 from catboost import CatBoostClassifier, CatBoostRanker, Pool
 
+from task1 import period as P
+
 ROOT = Path(__file__).resolve().parents[1]
-DAYS = Path(os.environ.get('TASK1_DAYS', ROOT / 'artifacts/task1/v2/days'))  # override to compare day sets
-EXTRA = ROOT / 'artifacts/task1/v2/extra'
+DAYS = Path(os.environ.get('TASK1_DAYS', P.ART / 'days'))  # override to compare day sets
+EXTRA = P.ART / 'extra'
 K = 20
-SPLITS = {
-    'train': ('2019-10-15', '2019-11-07'),
-    'val': ('2019-11-08', '2019-11-13'),
-    'refit': ('2019-10-15', '2019-11-13'),
-    'test': ('2019-11-18', '2019-11-28'),
-}
+SPLITS = P.SPLITS
 META = {'anchor', 'user_id', 'product_id', 'label', 'label_purchase', 'n_targets', 'n_targets_purchase', 'qid'}
 CAT = ['i_cat_l1']
 GROUPS = ('s_', 'u_', 'i_', 'uc_', 'ub_', 'up_', 'ui_', 'cf_', 'f_x_')  # f_x_: sandbox features
@@ -120,6 +118,8 @@ def main():
     ap.add_argument('--neg', type=int, default=50)
     ap.add_argument('--drop', nargs='*', default=[], help='feature prefix groups to leave out, e.g. cf_ up_')
     args = ap.parse_args()
+    if args.eval == 'test' and P.PERIOD != '2019':
+        raise SystemExit('the 2020 test runs through task1.replicate only')
     train = load('train' if args.eval == 'val' else 'refit', args.extra, args.neg)
     test = load(args.eval, args.extra)
     features = base_features(train, args.drop)

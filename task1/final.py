@@ -22,6 +22,7 @@ import pandas as pd
 
 from task1 import dfs, exp
 from task1 import model as M
+from task1 import period as P
 from task1.extra import compute
 
 FINAL = M.ROOT / 'task1/runs/final.json'
@@ -58,6 +59,7 @@ def read_day(d, days_dir, extra):
 
 
 def main():
+    P.only_2019('task1.final (the 2020 replication runs through task1.replicate)')
     ap = argparse.ArgumentParser()
     ap.add_argument('--eval', choices=['val', 'test'], required=True)
     ap.add_argument('--spec', default=str(FINAL), help='another spec, for a quick check of the path on val')

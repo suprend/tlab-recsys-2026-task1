@@ -29,18 +29,19 @@ from pathlib import Path
 
 import duckdb
 
+from task1 import period as P
 from task1.build import DB
-from task1.model import EXTRA, ROOT, days as split_days
+from task1.model import EXTRA, days as split_days
 
-DAYS = ROOT / 'artifacts/task1/v2/days6'
-EVENTS = ROOT / 'artifacts/task1/v2/events_by_day'
+DAYS = P.ART / 'days6'
+EVENTS = P.ART / 'events_by_day'
 FORBIDDEN = re.compile(
     r'\b(rees46|fs|src|labels|queries|candidates|n_targets|events|pair_first|item_static|item_brand_day|'
     r'read_\w+|parquet_\w+|json_\w+|pragma_\w+|\w*_execute\w*|glob|getenv|query|query_table|duckdb_\w+|'
     r'information_schema|pg_catalog|sqlite_master|'
     r'attach|detach|copy|export|import|install|load|pragma|set|reset|use|call|create|drop|insert|update|delete|alter)\b',
     re.I)
-TIMEOUT_S = 120
+TIMEOUT_S = P.SANDBOX_TIMEOUT_S
 MEMORY = '8GB'
 
 

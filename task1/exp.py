@@ -23,8 +23,9 @@ import pandas as pd
 from catboost import CatBoostClassifier, CatBoostRanker, Pool
 
 from task1 import model as M
+from task1 import period as P
 
-OUT = M.ROOT / 'artifacts/task1/v2/exp'
+OUT = P.ART / 'exp'
 DEFAULT = dict(loss='Logloss', iterations=500, depth=6, lr=0.08, l2=10, seed=2026, neg=50, neg_mode='random',
                neg_seed=0, half_life=None, train_frac=1.0, drop=[], extra=[], days=str(M.DAYS), threads=10)
 _cache = {}
@@ -35,10 +36,12 @@ def half(user_id):
     return np.where(((np.asarray(user_id, dtype=np.uint64) * np.uint64(2654435761)) >> np.uint64(7)) % np.uint64(2) == 0, 'A', 'B')
 
 
-def _read(split, days_dir):
+def _read(split, days_dir, cap=None):
     """Validation and test: every candidate. Train and refit: a pool per query with all positives, 100 random negatives
-    (rank rr) and the 30 hardest by cf_cv_cond_tdecay20 (rank hr); configs sample from it."""
-    key = (split, days_dir)
+    (rank rr) and the 30 hardest by cf_cv_cond_tdecay20 (rank hr); configs sample from it.
+    cap keeps the first `cap` queries in the order hash(user_id, 2026), user_id, anchor (whole users but the last one)
+    before anything else is computed; task1.replicate uses it to train on as many queries as the 2019 refit."""
+    key = (split, days_dir, cap)
     if key in _cache:
         return _cache[key]
     if len(_cache) >= 2:
@@ -47,11 +50,15 @@ def _read(split, days_dir):
     cols = duckdb.sql(f"DESCRIBE SELECT * FROM read_parquet('{files[0]}')").df().column_name.tolist()
     hard = 'cf_cv_cond_tdecay20' if 'cf_cv_cond_tdecay20' in cols else 'cf_cv_cond_tdecay'
     pool = 'WHERE label = 1 OR rr <= 100 OR hr <= 30' if split in ('train', 'refit') else ''
+    src = f'read_parquet({files})'
+    if cap:
+        src = (f'(SELECT * FROM {src} SEMI JOIN (SELECT anchor, user_id FROM (SELECT DISTINCT anchor, user_id FROM {src}) '
+               f'ORDER BY hash(user_id, 2026), user_id, anchor LIMIT {int(cap)}) q USING (anchor, user_id))')
     df = duckdb.sql(f"""SELECT * FROM (
       SELECT d.*, d.anchor::VARCHAR || ':' || d.user_id::VARCHAR qid,
         row_number() OVER (PARTITION BY d.anchor, d.user_id ORDER BY hash(d.product_id, d.user_id, 7)) rr,
         row_number() OVER (PARTITION BY d.anchor, d.user_id ORDER BY d.{hard} DESC, d.product_id) hr
-      FROM read_parquet({files}) d) {pool}
+      FROM {src} d) {pool}
       ORDER BY qid, product_id""").df()
     for c in df.columns:
         if df[c].dtype == np.float64:

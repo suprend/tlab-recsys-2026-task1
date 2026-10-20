@@ -1,4 +1,5 @@
-"""Import REES46 October + November 2019 into one DuckDB for task 1 (new-item target).
+"""Import REES46 October + November 2019 into one DuckDB for task 1 (new-item target); TASK1_PERIOD=2020 imports
+January + February 2020 into its own database (task1.period).
 
 Tables:
   events          all events of both months, exact duplicate rows removed, ordered by event_time
@@ -18,10 +19,12 @@ from pathlib import Path
 
 import duckdb
 
+from task1 import period as P
+
 ROOT = Path(__file__).resolve().parents[1]
-RAW = ROOT / 'data/raw'
-DB = ROOT / 'data/processed/rees46.duckdb'
-MONTHS = ['2019-Oct', '2019-Nov']
+RAW = P.RAW
+DB = P.DB
+MONTHS = P.MONTHS
 SCHEMA = {
     'event_time': 'TIMESTAMP', 'event_type': 'VARCHAR', 'product_id': 'BIGINT',
     'category_id': 'BIGINT', 'category_code': 'VARCHAR', 'brand': 'VARCHAR',
@@ -65,7 +68,7 @@ def main():
         sources.append((m, str(path), digest, manifest['source']))
         print(m, 'verified', digest, flush=True)
 
-    tmp = ROOT / 'data/tmp/duckdb'
+    tmp = P.TMP
     tmp.mkdir(parents=True, exist_ok=True)
     con = duckdb.connect(str(DB))
     con.execute("SET threads=10; SET memory_limit='24GB'")

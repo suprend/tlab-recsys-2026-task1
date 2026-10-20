@@ -15,6 +15,7 @@ import numpy as np
 
 from task1 import exp
 from task1 import model as M
+from task1 import period as P
 
 DIR = M.ROOT / 'task1/runs/grid-2026-10-20'
 H = ['q2_d8', 'q3_d8_s1']
@@ -142,6 +143,7 @@ def edge():
 
 
 def main():
+    P.only_2019('task1.posthoc')  # reads the 2019 grid runs and writes their result; replicate imports only the rules
     res = {'edge': edge()}
     names = [n for v in ARMS.values() for n in runs(v)]
     missing = [n for n in names if not done(n)]

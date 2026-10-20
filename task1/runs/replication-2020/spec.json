@@ -1,0 +1,238 @@
+{
+ "reference": "base",
+ "seeds": [
+  [
+   2026,
+   0
+  ],
+  [
+   7,
+   1
+  ]
+ ],
+ "cap": 140680,
+ "excluded": [
+  "2020-02-27",
+  "2020-02-28"
+ ],
+ "splits": {
+  "train": [
+   "2020-01-15",
+   "2020-02-07"
+  ],
+  "val": [
+   "2020-02-08",
+   "2020-02-13"
+  ],
+  "refit": [
+   "2020-01-15",
+   "2020-02-13"
+  ],
+  "test": [
+   "2020-02-14",
+   "2020-02-29"
+  ]
+ },
+ "sandbox_timeout_s": 600,
+ "data": {
+  "2020-Jan.csv.gz": {
+   "source": "https://data.rees46.com/datasets/marketplace/2020-Jan.csv.gz",
+   "compressed_bytes": 2390063923,
+   "sha256": "5fa680c3c1951ab323b521392fa8413ac5440a21e629cc6df54d1889dd54d951"
+  },
+  "2020-Feb.csv.gz": {
+   "source": "https://data.rees46.com/datasets/marketplace/2020-Feb.csv.gz",
+   "compressed_bytes": 2347087112,
+   "sha256": "e156cce8dce56957622e2bf5efa180daed8827e1bb123a713e09864a77086345"
+  }
+ },
+ "days6": "artifacts/task1/v2020/days6",
+ "arms": [
+  {
+   "name": "base",
+   "config": {
+    "days": "artifacts/task1/v2020/days6",
+    "depth": 8
+   }
+  },
+  {
+   "name": "base_4src",
+   "config": {
+    "days": "artifacts/task1/v2020/days"
+   }
+  },
+  {
+   "name": "base_4src_d8",
+   "config": {
+    "days": "artifacts/task1/v2020/days",
+    "depth": 8
+   }
+  },
+  {
+   "name": "dfs",
+   "config": {
+    "days": "artifacts/task1/v2020/days6",
+    "depth": 8,
+    "extra": [
+     "dfs_p_top",
+     "dfs_c_top",
+     "dfs_b_top"
+    ]
+   }
+  },
+  {
+   "name": "agent",
+   "config": {
+    "days": "artifacts/task1/v2020/days6",
+    "depth": 8,
+    "extra": [
+     "agent_night20_r5p5_cf_considered_seed_coview"
+    ]
+   }
+  },
+  {
+   "name": "F0",
+   "config": {
+    "days": "artifacts/task1/v2020/days6",
+    "depth": 8,
+    "drop": [
+     "u_",
+     "i_",
+     "uc_",
+     "ub_",
+     "up_",
+     "ui_",
+     "cf_"
+    ]
+   }
+  },
+  {
+   "name": "F1",
+   "config": {
+    "days": "artifacts/task1/v2020/days6",
+    "depth": 8,
+    "drop": [
+     "u_",
+     "i_",
+     "uc_",
+     "ub_",
+     "up_",
+     "ui_",
+     "cf_"
+    ],
+    "extra": [
+     "dfs_p",
+     "dfs_c",
+     "dfs_b",
+     "dfs_u",
+     "agent_night20_r1p1_first_touch_conversion",
+     "agent_night20_r1p2_coacq_cf",
+     "agent_night20_r1p3_buyer_price_profile",
+     "agent_night20_r1p4_new_reach",
+     "agent_night20_r1p5_cp_staleness",
+     "agent_night20_r2p1_cmp_session_win_lift",
+     "agent_night20_r2p2_cp_category_complement",
+     "agent_night20_r2p3_acq_seed_coview_cf",
+     "agent_night20_r2p4_revisit_consideration",
+     "agent_night20_r2p5_view_dwell_time",
+     "agent_night20_r3p1_view_session_last_choice",
+     "agent_night20_r3p2_intraday_momentum_12h",
+     "agent_night20_r3p3_user_user_cf_acq",
+     "agent_night20_r3p4_brand_cat_price_sibling",
+     "agent_night20_r3p5_category_search_depth",
+     "agent_night20_r4p1_acq_regularity_7d",
+     "agent_night20_r4p2_cat_acq_concentration",
+     "agent_night20_r4p3_weekday_seasonality_14d",
+     "agent_night20_r4p4_cat_to_item_transition",
+     "agent_night20_r4p5_brand_switch_transition",
+     "agent_night20_r5p1_cf_xday_new_acq_transition",
+     "agent_night20_r5p2_cf_next_view_adjacency",
+     "agent_night20_r5p3_cf_converting_session_coview",
+     "agent_night20_r5p4_uc_nextday_continuation",
+     "agent_night20_r5p5_cf_considered_seed_coview",
+     "agent_night20_r6p1_older_view_seed_coview",
+     "agent_night20_r6p2_dwell_seed_coview",
+     "agent_night20_r6p3_abandoned_cart_seed_coview",
+     "agent_night20_r6p4_user_level_cooccurrence_cf",
+     "agent_night20_r6p5_fresh_2d_coview_graph"
+    ]
+   }
+  },
+  {
+   "name": "Hp",
+   "config": {
+    "days": "artifacts/task1/v2020/days6",
+    "depth": 8,
+    "extra": [
+     "dfs_p",
+     "dfs_c",
+     "dfs_b",
+     "dfs_u",
+     "agent_night20_r1p1_first_touch_conversion",
+     "agent_night20_r1p2_coacq_cf",
+     "agent_night20_r1p3_buyer_price_profile",
+     "agent_night20_r1p4_new_reach",
+     "agent_night20_r1p5_cp_staleness",
+     "agent_night20_r2p1_cmp_session_win_lift",
+     "agent_night20_r2p2_cp_category_complement",
+     "agent_night20_r2p3_acq_seed_coview_cf",
+     "agent_night20_r2p4_revisit_consideration",
+     "agent_night20_r2p5_view_dwell_time",
+     "agent_night20_r3p1_view_session_last_choice",
+     "agent_night20_r3p2_intraday_momentum_12h",
+     "agent_night20_r3p3_user_user_cf_acq",
+     "agent_night20_r3p4_brand_cat_price_sibling",
+     "agent_night20_r3p5_category_search_depth",
+     "agent_night20_r4p1_acq_regularity_7d",
+     "agent_night20_r4p2_cat_acq_concentration",
+     "agent_night20_r4p3_weekday_seasonality_14d",
+     "agent_night20_r4p4_cat_to_item_transition",
+     "agent_night20_r4p5_brand_switch_transition",
+     "agent_night20_r5p1_cf_xday_new_acq_transition",
+     "agent_night20_r5p2_cf_next_view_adjacency",
+     "agent_night20_r5p3_cf_converting_session_coview",
+     "agent_night20_r5p4_uc_nextday_continuation",
+     "agent_night20_r5p5_cf_considered_seed_coview",
+     "agent_night20_r6p1_older_view_seed_coview",
+     "agent_night20_r6p2_dwell_seed_coview",
+     "agent_night20_r6p3_abandoned_cart_seed_coview",
+     "agent_night20_r6p4_user_level_cooccurrence_cf",
+     "agent_night20_r6p5_fresh_2d_coview_graph"
+    ]
+   }
+  }
+ ],
+ "features": {
+  "base": 80,
+  "base_4src": 76,
+  "base_4src_d8": 76,
+  "dfs": 100,
+  "agent": 82,
+  "F0": 6,
+  "F1": 200,
+  "Hp": 274
+ },
+ "dfs_selected": [
+  "f_x_dfs_p_cart_u_14d",
+  "f_x_dfs_p_buy_per_view_14d",
+  "f_x_dfs_p_cart_n_7d",
+  "f_x_dfs_p_view_u_1d",
+  "f_x_dfs_b_cart_per_view_14d",
+  "f_x_dfs_b_cart_n_7d",
+  "f_x_dfs_p_view_u_14d",
+  "f_x_dfs_p_purchase_u_3d",
+  "f_x_dfs_p_purchase_n_7d",
+  "f_x_dfs_p_purchase_n_14d",
+  "f_x_dfs_b_purchase_n_1d",
+  "f_x_dfs_b_cart_n_3d",
+  "f_x_dfs_p_view_n_1d",
+  "f_x_dfs_c_cart_per_view_1d",
+  "f_x_dfs_b_view_u_7d",
+  "f_x_dfs_b_cart_u_3d",
+  "f_x_dfs_b_purchase_u_14d",
+  "f_x_dfs_b_view_u_1d",
+  "f_x_dfs_p_view_n_3d",
+  "f_x_dfs_p_buy_per_view_3d"
+ ],
+ "notes": "Frozen 2026-10-20 before any 2020 model (task1/runs/replication-2020/spec.md). Arms base..agent repeat task1/runs/final.json on 2020 day tables, base_4src_d8 separates sources from depth, F0/F1/Hp repeat the grid. After the code review of 2026-10-20, still before any table or model: the test ends on 02-29, the sandbox limit is 600 s, the splits and data hashes are frozen here."
+}

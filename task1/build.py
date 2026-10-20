@@ -26,7 +26,8 @@ stay at 20-31k. The history before the first anchors has more jumps (10-04, 10-0
 Run (anchor days only):
   .venv/bin/python -m task1.build --start 2019-10-15 --end 2019-11-13 --out artifacts/task1/v2/days6
   .venv/bin/python -m task1.build --start 2019-11-18 --end 2019-11-28 --out artifacts/task1/v2/days6
-The four-source tables (artifacts/task1/v2/days) are built by the code of commit e875b84.
+The four-source tables (artifacts/task1/v2/days) are built by the code of commit e875b84 (task1.build4).
+TASK1_PERIOD=2020 reads the January-February database instead (task1.period).
 """
 import argparse
 import time
@@ -35,8 +36,10 @@ from pathlib import Path
 
 import duckdb
 
+from task1 import period as P
+
 ROOT = Path(__file__).resolve().parents[1]
-DB = ROOT / 'data/processed/rees46.duckdb'
+DB = P.DB
 
 
 FS_TABLES = ['events', 'pair_first', 'item_static', 'item_brand_day']

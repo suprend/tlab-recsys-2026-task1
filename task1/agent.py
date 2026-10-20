@@ -25,6 +25,7 @@ from pathlib import Path
 import duckdb
 
 from task1 import exp
+from task1 import period as P
 from task1.extra import FeatureError, compute
 from task1.model import EXTRA, GROUPS, ROOT, base_features
 
@@ -142,6 +143,7 @@ def render(features, attempts, accepted, n, min_gain):
 
 
 def main():
+    P.only_2019('the feature agent')
     ap = argparse.ArgumentParser()
     ap.add_argument('--config', default='{"days": "artifacts/task1/v2/days6"}', help='JSON over exp.DEFAULT')
     ap.add_argument('--proxy', default='{}', help='JSON over --config for the search fits')
