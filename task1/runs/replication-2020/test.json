@@ -1,0 +1,738 @@
+{
+ "spec": {
+  "reference": "base",
+  "seeds": [
+   [
+    2026,
+    0
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "cap": 140680,
+  "excluded": [
+   "2020-02-27",
+   "2020-02-28"
+  ],
+  "splits": {
+   "train": [
+    "2020-01-15",
+    "2020-02-07"
+   ],
+   "val": [
+    "2020-02-08",
+    "2020-02-13"
+   ],
+   "refit": [
+    "2020-01-15",
+    "2020-02-13"
+   ],
+   "test": [
+    "2020-02-14",
+    "2020-02-29"
+   ]
+  },
+  "sandbox_timeout_s": 600,
+  "data": {
+   "2020-Jan.csv.gz": {
+    "source": "https://data.rees46.com/datasets/marketplace/2020-Jan.csv.gz",
+    "compressed_bytes": 2390063923,
+    "sha256": "5fa680c3c1951ab323b521392fa8413ac5440a21e629cc6df54d1889dd54d951"
+   },
+   "2020-Feb.csv.gz": {
+    "source": "https://data.rees46.com/datasets/marketplace/2020-Feb.csv.gz",
+    "compressed_bytes": 2347087112,
+    "sha256": "e156cce8dce56957622e2bf5efa180daed8827e1bb123a713e09864a77086345"
+   }
+  },
+  "days6": "artifacts/task1/v2020/days6",
+  "arms": [
+   {
+    "name": "base",
+    "config": {
+     "days": "artifacts/task1/v2020/days6",
+     "depth": 8
+    }
+   },
+   {
+    "name": "base_4src",
+    "config": {
+     "days": "artifacts/task1/v2020/days"
+    }
+   },
+   {
+    "name": "base_4src_d8",
+    "config": {
+     "days": "artifacts/task1/v2020/days",
+     "depth": 8
+    }
+   },
+   {
+    "name": "dfs",
+    "config": {
+     "days": "artifacts/task1/v2020/days6",
+     "depth": 8,
+     "extra": [
+      "dfs_p_top",
+      "dfs_c_top",
+      "dfs_b_top"
+     ]
+    }
+   },
+   {
+    "name": "agent",
+    "config": {
+     "days": "artifacts/task1/v2020/days6",
+     "depth": 8,
+     "extra": [
+      "agent_night20_r5p5_cf_considered_seed_coview"
+     ]
+    }
+   },
+   {
+    "name": "F0",
+    "config": {
+     "days": "artifacts/task1/v2020/days6",
+     "depth": 8,
+     "drop": [
+      "u_",
+      "i_",
+      "uc_",
+      "ub_",
+      "up_",
+      "ui_",
+      "cf_"
+     ]
+    }
+   },
+   {
+    "name": "F1",
+    "config": {
+     "days": "artifacts/task1/v2020/days6",
+     "depth": 8,
+     "drop": [
+      "u_",
+      "i_",
+      "uc_",
+      "ub_",
+      "up_",
+      "ui_",
+      "cf_"
+     ],
+     "extra": [
+      "dfs_p",
+      "dfs_c",
+      "dfs_b",
+      "dfs_u",
+      "agent_night20_r1p1_first_touch_conversion",
+      "agent_night20_r1p2_coacq_cf",
+      "agent_night20_r1p3_buyer_price_profile",
+      "agent_night20_r1p4_new_reach",
+      "agent_night20_r1p5_cp_staleness",
+      "agent_night20_r2p1_cmp_session_win_lift",
+      "agent_night20_r2p2_cp_category_complement",
+      "agent_night20_r2p3_acq_seed_coview_cf",
+      "agent_night20_r2p4_revisit_consideration",
+      "agent_night20_r2p5_view_dwell_time",
+      "agent_night20_r3p1_view_session_last_choice",
+      "agent_night20_r3p2_intraday_momentum_12h",
+      "agent_night20_r3p3_user_user_cf_acq",
+      "agent_night20_r3p4_brand_cat_price_sibling",
+      "agent_night20_r3p5_category_search_depth",
+      "agent_night20_r4p1_acq_regularity_7d",
+      "agent_night20_r4p2_cat_acq_concentration",
+      "agent_night20_r4p3_weekday_seasonality_14d",
+      "agent_night20_r4p4_cat_to_item_transition",
+      "agent_night20_r4p5_brand_switch_transition",
+      "agent_night20_r5p1_cf_xday_new_acq_transition",
+      "agent_night20_r5p2_cf_next_view_adjacency",
+      "agent_night20_r5p3_cf_converting_session_coview",
+      "agent_night20_r5p4_uc_nextday_continuation",
+      "agent_night20_r5p5_cf_considered_seed_coview",
+      "agent_night20_r6p1_older_view_seed_coview",
+      "agent_night20_r6p2_dwell_seed_coview",
+      "agent_night20_r6p3_abandoned_cart_seed_coview",
+      "agent_night20_r6p4_user_level_cooccurrence_cf",
+      "agent_night20_r6p5_fresh_2d_coview_graph"
+     ]
+    }
+   },
+   {
+    "name": "Hp",
+    "config": {
+     "days": "artifacts/task1/v2020/days6",
+     "depth": 8,
+     "extra": [
+      "dfs_p",
+      "dfs_c",
+      "dfs_b",
+      "dfs_u",
+      "agent_night20_r1p1_first_touch_conversion",
+      "agent_night20_r1p2_coacq_cf",
+      "agent_night20_r1p3_buyer_price_profile",
+      "agent_night20_r1p4_new_reach",
+      "agent_night20_r1p5_cp_staleness",
+      "agent_night20_r2p1_cmp_session_win_lift",
+      "agent_night20_r2p2_cp_category_complement",
+      "agent_night20_r2p3_acq_seed_coview_cf",
+      "agent_night20_r2p4_revisit_consideration",
+      "agent_night20_r2p5_view_dwell_time",
+      "agent_night20_r3p1_view_session_last_choice",
+      "agent_night20_r3p2_intraday_momentum_12h",
+      "agent_night20_r3p3_user_user_cf_acq",
+      "agent_night20_r3p4_brand_cat_price_sibling",
+      "agent_night20_r3p5_category_search_depth",
+      "agent_night20_r4p1_acq_regularity_7d",
+      "agent_night20_r4p2_cat_acq_concentration",
+      "agent_night20_r4p3_weekday_seasonality_14d",
+      "agent_night20_r4p4_cat_to_item_transition",
+      "agent_night20_r4p5_brand_switch_transition",
+      "agent_night20_r5p1_cf_xday_new_acq_transition",
+      "agent_night20_r5p2_cf_next_view_adjacency",
+      "agent_night20_r5p3_cf_converting_session_coview",
+      "agent_night20_r5p4_uc_nextday_continuation",
+      "agent_night20_r5p5_cf_considered_seed_coview",
+      "agent_night20_r6p1_older_view_seed_coview",
+      "agent_night20_r6p2_dwell_seed_coview",
+      "agent_night20_r6p3_abandoned_cart_seed_coview",
+      "agent_night20_r6p4_user_level_cooccurrence_cf",
+      "agent_night20_r6p5_fresh_2d_coview_graph"
+     ]
+    }
+   }
+  ],
+  "features": {
+   "base": 80,
+   "base_4src": 76,
+   "base_4src_d8": 76,
+   "dfs": 100,
+   "agent": 82,
+   "F0": 6,
+   "F1": 200,
+   "Hp": 274
+  },
+  "dfs_selected": [
+   "f_x_dfs_p_cart_u_14d",
+   "f_x_dfs_p_buy_per_view_14d",
+   "f_x_dfs_p_cart_n_7d",
+   "f_x_dfs_p_view_u_1d",
+   "f_x_dfs_b_cart_per_view_14d",
+   "f_x_dfs_b_cart_n_7d",
+   "f_x_dfs_p_view_u_14d",
+   "f_x_dfs_p_purchase_u_3d",
+   "f_x_dfs_p_purchase_n_7d",
+   "f_x_dfs_p_purchase_n_14d",
+   "f_x_dfs_b_purchase_n_1d",
+   "f_x_dfs_b_cart_n_3d",
+   "f_x_dfs_p_view_n_1d",
+   "f_x_dfs_c_cart_per_view_1d",
+   "f_x_dfs_b_view_u_7d",
+   "f_x_dfs_b_cart_u_3d",
+   "f_x_dfs_b_purchase_u_14d",
+   "f_x_dfs_b_view_u_1d",
+   "f_x_dfs_p_view_n_3d",
+   "f_x_dfs_p_buy_per_view_3d"
+  ],
+  "notes": "Frozen 2026-10-20 before any 2020 model (task1/runs/replication-2020/spec.md). Arms base..agent repeat task1/runs/final.json on 2020 day tables, base_4src_d8 separates sources from depth, F0/F1/Hp repeat the grid. After the code review of 2026-10-20, still before any table or model: the test ends on 02-29, the sandbox limit is 600 s, the splits and data hashes are frozen here."
+ },
+ "run": {
+  "eval": "test",
+  "over": {},
+  "seeds": [
+   [
+    2026,
+    0
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "log": [
+   {
+    "event": "start",
+    "stamp": {
+     "files": {
+      "task1/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "task1/agent.py": "cab3bb715d1beda3b7a58e0619be57593e69536c006f46fffabf51e6f7be07ef",
+      "task1/baseline.py": "6a34b9be72ffc092be35487632f26abdb62ed69407c54a51e12dfe68c7d142de",
+      "task1/build.py": "417d96bda0b9fe91bd8704fc247dcd0dae0d1481f7c8f756f1d20ea31c0fee2c",
+      "task1/build4.py": "1cc6ba14aca7ab68fd05851d1123d24e08da5622b893c744837e1e717f0d220f",
+      "task1/data.py": "e48d099c96ae4a402bffbaf4eede39f3752467e6bc3dd50e888a4320e64991cd",
+      "task1/dfs.py": "a2f39f553e273f09bb46dd3fdc1f2a04ab2e999a1556010b2b595d5c6298d12b",
+      "task1/exp.py": "94c1dc883654766d5ba4e24f7d81fdd10ab711ad3df1e40cd845b47147d1c957",
+      "task1/extra.py": "3fd58746f8c69672aef1af1ff92f90ed0d8f517560886711525a5518b752c630",
+      "task1/final.py": "d3530528bfe1e0b55770068b43c4851517544c7ac1d54df3cf0a661541f95fb5",
+      "task1/leakcheck.py": "671ea0c3953dac2ac1c2bc5d156bbdc799aeb74bbf431b1ce80e4e8f6157360d",
+      "task1/model.py": "33b7b2cf483bce77c2472acd5571d2937a76890096f682b2d56dd2b6899e3a74",
+      "task1/period.py": "fdeb16b9d0b39ece02499b4bf0a9f5809a795d0d08db17c3b7ca74c77a42944e",
+      "task1/posthoc.py": "60a187edf3306ef3e9b9cc8b77ba094a2e9d319550d5330c06aa67204400d11d",
+      "task1/replicate.py": "f7ed7216b9b6af67410d0a79e4e3e46368cc95759cce2304c41e469aa20e84d4",
+      "task1/runs/replication-2020/spec.json": "8862505e9cc8000d2484a5228458550dd984881019c9f237d3335e89ba22d8a8",
+      "task1/runs/dfs-select.json": "d9a95d7314d997b46ab0f6f217e9a3ee3e65b6a12f6d13e1ff9b963652a3af42",
+      "task1/runs/agent_night20/log.jsonl": "dda770a57b4e3bf2676f93656c1aaccd226f60e49cfdcb4d460182e36c98384b",
+      "task1/runs/grid-2026-10-20/result.json": "97a16c786c3b045a6f50dd94ccfae473a78a753c1b0c9c1587e33d170d024065"
+     },
+     "inputs": "7406587de5c3ec61c1a4d5447935a99f028b5ab88b713af32cd6ac51ee1b908c",
+     "libs": {
+      "duckdb": "1.5.6",
+      "catboost": "1.2.10",
+      "numpy": "2.5.4",
+      "pandas": "3.0.6"
+     }
+    },
+    "at": "2026-10-20 18:58:28"
+   }
+  ]
+ },
+ "broken_days": [
+  "2020-01-01",
+  "2020-01-02",
+  "2020-02-27"
+ ],
+ "fit_queries": 140680,
+ "arms": [
+  {
+   "arm": "base",
+   "features": 80,
+   "fits": [
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    },
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    }
+   ],
+   "peak_rss_gb": 23.1,
+   "seconds": 1250
+  },
+  {
+   "arm": "base_4src",
+   "features": 76,
+   "fits": [
+    {
+     "fit_queries": 140680,
+     "train_rows": 7121010
+    },
+    {
+     "fit_queries": 140680,
+     "train_rows": 7121010
+    }
+   ],
+   "peak_rss_gb": 23.1,
+   "seconds": 1016
+  },
+  {
+   "arm": "base_4src_d8",
+   "features": 76,
+   "fits": [
+    {
+     "fit_queries": 140680,
+     "train_rows": 7121010
+    },
+    {
+     "fit_queries": 140680,
+     "train_rows": 7121010
+    }
+   ],
+   "peak_rss_gb": 23.1,
+   "seconds": 1176
+  },
+  {
+   "arm": "dfs",
+   "features": 100,
+   "fits": [
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    },
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    }
+   ],
+   "peak_rss_gb": 23.1,
+   "seconds": 1338
+  },
+  {
+   "arm": "agent",
+   "features": 82,
+   "fits": [
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    },
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    }
+   ],
+   "peak_rss_gb": 23.1,
+   "seconds": 1290
+  },
+  {
+   "arm": "F0",
+   "features": 6,
+   "fits": [
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    },
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    }
+   ],
+   "peak_rss_gb": 23.1,
+   "seconds": 415
+  },
+  {
+   "arm": "F1",
+   "features": 200,
+   "fits": [
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    },
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    }
+   ],
+   "peak_rss_gb": 23.1,
+   "seconds": 1001
+  },
+  {
+   "arm": "Hp",
+   "features": 274,
+   "fits": [
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    },
+    {
+     "fit_queries": 140680,
+     "train_rows": 7136760
+    }
+   ],
+   "peak_rss_gb": 24.7,
+   "seconds": 1980
+  }
+ ],
+ "primary": {
+  "anchors": 14,
+  "queries": 97656,
+  "metrics": {
+   "base": {
+    "ndcg": 0.14623,
+    "recall": 0.28322,
+    "purchase_ndcg": 0.16168,
+    "purchase_recall": 0.31572
+   },
+   "base_4src": {
+    "ndcg": 0.14362,
+    "recall": 0.27622,
+    "purchase_ndcg": 0.15939,
+    "purchase_recall": 0.30963
+   },
+   "base_4src_d8": {
+    "ndcg": 0.14415,
+    "recall": 0.27687,
+    "purchase_ndcg": 0.16007,
+    "purchase_recall": 0.31
+   },
+   "dfs": {
+    "ndcg": 0.1459,
+    "recall": 0.28287,
+    "purchase_ndcg": 0.16191,
+    "purchase_recall": 0.31647
+   },
+   "agent": {
+    "ndcg": 0.14705,
+    "recall": 0.28442,
+    "purchase_ndcg": 0.16243,
+    "purchase_recall": 0.31689
+   },
+   "F0": {
+    "ndcg": 0.12958,
+    "recall": 0.25675,
+    "purchase_ndcg": 0.14391,
+    "purchase_recall": 0.28699
+   },
+   "F1": {
+    "ndcg": 0.14511,
+    "recall": 0.28121,
+    "purchase_ndcg": 0.16098,
+    "purchase_recall": 0.31418
+   },
+   "Hp": {
+    "ndcg": 0.14922,
+    "recall": 0.28757,
+    "purchase_ndcg": 0.16513,
+    "purchase_recall": 0.32066
+   }
+  },
+  "ndcg_by_seed": {
+   "base": [
+    0.14626,
+    0.1462
+   ],
+   "base_4src": [
+    0.1436,
+    0.14363
+   ],
+   "base_4src_d8": [
+    0.14395,
+    0.14436
+   ],
+   "dfs": [
+    0.14608,
+    0.14572
+   ],
+   "agent": [
+    0.14696,
+    0.14713
+   ],
+   "F0": [
+    0.12962,
+    0.12954
+   ],
+   "F1": [
+    0.14501,
+    0.14521
+   ],
+   "Hp": [
+    0.14934,
+    0.14911
+   ]
+  },
+  "diff": {
+   "base-base_4src_d8": [
+    0.00208,
+    0.00163,
+    0.0025
+   ],
+   "agent-base": [
+    0.00081,
+    0.00047,
+    0.00116
+   ],
+   "dfs-base": [
+    -0.00033,
+    -0.00062,
+    -1e-05
+   ],
+   "base-base_4src": [
+    0.00262,
+    0.00216,
+    0.00305
+   ],
+   "base_4src_d8-base_4src": [
+    0.00054,
+    0.00026,
+    0.00083
+   ]
+  },
+  "grid": {
+   "H-F0": [
+    0.01665,
+    0.01593,
+    0.01737
+   ],
+   "F1-H": [
+    -0.00112,
+    -0.00174,
+    -0.00053
+   ],
+   "Hp-H_by_seed": [
+    [
+     0.00307,
+     0.00249,
+     0.00364
+    ],
+    [
+     0.0029,
+     0.00233,
+     0.00347
+    ]
+   ],
+   "R_F1": [
+    0.93259,
+    0.89728,
+    0.96775
+   ]
+  },
+  "rules": {
+   "candidates": "повторён",
+   "agent": "опровергнут: прирост с CI > 0",
+   "dfs": "повторён: прирост от +0.0008 исключён",
+   "grid": {
+    "R": "автоматика воспроизводит большую часть вклада ручных признаков, но уступает им",
+    "H+": "гипотеза: пошаговый приём терял совместный сигнал, проверять на январе–феврале"
+   },
+   "grid_same_as_2019": true
+  }
+ },
+ "all_days": {
+  "anchors": 16,
+  "queries": 105164,
+  "metrics": {
+   "base": {
+    "ndcg": 0.14612,
+    "recall": 0.28328,
+    "purchase_ndcg": 0.1611,
+    "purchase_recall": 0.31441
+   },
+   "base_4src": {
+    "ndcg": 0.14351,
+    "recall": 0.27629,
+    "purchase_ndcg": 0.15887,
+    "purchase_recall": 0.3084
+   },
+   "base_4src_d8": {
+    "ndcg": 0.14411,
+    "recall": 0.27708,
+    "purchase_ndcg": 0.15963,
+    "purchase_recall": 0.30909
+   },
+   "dfs": {
+    "ndcg": 0.14576,
+    "recall": 0.2828,
+    "purchase_ndcg": 0.16129,
+    "purchase_recall": 0.31493
+   },
+   "agent": {
+    "ndcg": 0.14694,
+    "recall": 0.28453,
+    "purchase_ndcg": 0.16188,
+    "purchase_recall": 0.31569
+   },
+   "F0": {
+    "ndcg": 0.1295,
+    "recall": 0.25709,
+    "purchase_ndcg": 0.14344,
+    "purchase_recall": 0.28636
+   },
+   "F1": {
+    "ndcg": 0.14506,
+    "recall": 0.28164,
+    "purchase_ndcg": 0.16047,
+    "purchase_recall": 0.31346
+   },
+   "Hp": {
+    "ndcg": 0.14928,
+    "recall": 0.28805,
+    "purchase_ndcg": 0.16477,
+    "purchase_recall": 0.31997
+   }
+  },
+  "ndcg_by_seed": {
+   "base": [
+    0.14611,
+    0.14613
+   ],
+   "base_4src": [
+    0.14349,
+    0.14354
+   ],
+   "base_4src_d8": [
+    0.14397,
+    0.14425
+   ],
+   "dfs": [
+    0.14594,
+    0.14559
+   ],
+   "agent": [
+    0.14681,
+    0.14707
+   ],
+   "F0": [
+    0.12953,
+    0.12946
+   ],
+   "F1": [
+    0.14493,
+    0.14519
+   ],
+   "Hp": [
+    0.14943,
+    0.14914
+   ]
+  },
+  "diff": {
+   "base-base_4src_d8": [
+    0.00201,
+    0.00162,
+    0.00242
+   ],
+   "agent-base": [
+    0.00082,
+    0.00046,
+    0.00115
+   ],
+   "dfs-base": [
+    -0.00035,
+    -0.00065,
+    -6e-05
+   ],
+   "base-base_4src": [
+    0.0026,
+    0.00222,
+    0.00302
+   ],
+   "base_4src_d8-base_4src": [
+    0.0006,
+    0.00032,
+    0.00088
+   ]
+  },
+  "grid": {
+   "H-F0": [
+    0.01662,
+    0.01594,
+    0.0173
+   ],
+   "F1-H": [
+    -0.00105,
+    -0.00167,
+    -0.00048
+   ],
+   "Hp-H_by_seed": [
+    [
+     0.00332,
+     0.00277,
+     0.00386
+    ],
+    [
+     0.00301,
+     0.00242,
+     0.00355
+    ]
+   ],
+   "R_F1": [
+    0.93657,
+    0.90148,
+    0.97115
+   ]
+  },
+  "rules": {
+   "candidates": "повторён",
+   "agent": "опровергнут: прирост с CI > 0",
+   "dfs": "повторён: прирост от +0.0008 исключён",
+   "grid": {
+    "R": "автоматика воспроизводит большую часть вклада ручных признаков, но уступает им",
+    "H+": "гипотеза: пошаговый приём терял совместный сигнал, проверять на январе–феврале"
+   },
+   "grid_same_as_2019": true
+  }
+ },
+ "grid_2019": {
+  "R": "автоматика воспроизводит большую часть вклада ручных признаков, но уступает им",
+  "H+": "гипотеза: пошаговый приём терял совместный сигнал, проверять на январе–феврале"
+ }
+}
