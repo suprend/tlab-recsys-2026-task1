@@ -16,6 +16,7 @@ is off except for exactly those day directories, and the configuration is locked
 labels, queries and candidates are therefore unreachable; candidate keys are applied afterwards in a
 second connection that reads them from the day table. FORBIDDEN is a second layer.
 
+Export the event files once: .venv/bin/python -m task1.extra --export-events
 Run test days for accepted features: .venv/bin/python -m task1.extra NAME [NAME ...] --splits test
 """
 import argparse
@@ -150,11 +151,20 @@ def compute(name, sql, splits=('train', 'val'), threads=8, days=None, days_dir=D
 
 def main():
     ap = argparse.ArgumentParser(description='Compute saved features (EXTRA/NAME/feature.sql) for more days.')
-    ap.add_argument('names', nargs='+')
+    ap.add_argument('names', nargs='*')
+    ap.add_argument('--export-events', action='store_true',
+                    help='first write the event files the sandbox reads (artifacts/task1/v2/events_by_day)')
     ap.add_argument('--splits', nargs='+', default=['test'])
     ap.add_argument('--days-dir', default=str(DAYS))
     ap.add_argument('--threads', type=int, default=8)
     args = ap.parse_args()
+    if not args.names and not args.export_events:
+        ap.error('give feature names and/or --export-events')
+    if args.export_events:
+        t0 = time.time()
+        EVENTS.parent.mkdir(parents=True, exist_ok=True)  # DuckDB creates only the last directory
+        export_events()
+        print('events', EVENTS, f'{time.time() - t0:.0f}s', flush=True)
     for name in args.names:
         t0 = time.time()
         cols = compute(name, (EXTRA / name / 'feature.sql').read_text(), args.splits, args.threads, days_dir=args.days_dir)

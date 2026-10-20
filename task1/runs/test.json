@@ -1,0 +1,159 @@
+{
+ "spec": {
+  "reference": "base",
+  "seeds": [
+   [
+    2026,
+    0
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "arms": [
+   {
+    "name": "base",
+    "config": {
+     "days": "artifacts/task1/v2/days6",
+     "depth": 8
+    }
+   },
+   {
+    "name": "base_4src",
+    "config": {
+     "days": "artifacts/task1/v2/days"
+    }
+   },
+   {
+    "name": "dfs",
+    "config": {
+     "days": "artifacts/task1/v2/days6",
+     "depth": 8,
+     "extra": [
+      "dfs_p_top",
+      "dfs_c_top",
+      "dfs_b_top"
+     ]
+    }
+   },
+   {
+    "name": "agent",
+    "config": {
+     "days": "artifacts/task1/v2/days6",
+     "depth": 8,
+     "extra": [
+      "agent_night20_r5p5_cf_considered_seed_coview"
+     ]
+    }
+   }
+  ],
+  "dfs_selected": [
+   "f_x_dfs_p_cart_u_14d",
+   "f_x_dfs_p_buy_per_view_14d",
+   "f_x_dfs_p_cart_n_7d",
+   "f_x_dfs_p_view_u_1d",
+   "f_x_dfs_b_cart_per_view_14d",
+   "f_x_dfs_b_cart_n_7d",
+   "f_x_dfs_p_view_u_14d",
+   "f_x_dfs_p_purchase_u_3d",
+   "f_x_dfs_p_purchase_n_7d",
+   "f_x_dfs_p_purchase_n_14d",
+   "f_x_dfs_b_purchase_n_1d",
+   "f_x_dfs_b_cart_n_3d",
+   "f_x_dfs_p_view_n_1d",
+   "f_x_dfs_c_cart_per_view_1d",
+   "f_x_dfs_b_view_u_7d",
+   "f_x_dfs_b_cart_u_3d",
+   "f_x_dfs_b_purchase_u_14d",
+   "f_x_dfs_b_view_u_1d",
+   "f_x_dfs_p_view_n_3d",
+   "f_x_dfs_p_buy_per_view_3d"
+  ],
+  "notes": "Frozen 2026-10-20 by the user's choice after the night run: final.json (written 06:36, committed 6fe96b3) plus the agent arm = base + the one accepted feature (A: +0.0013/+0.0017; B: -0.0002/+0.0009, not confirmed)."
+ },
+ "results": [
+  {
+   "arm": "base",
+   "features": 80,
+   "queries": 72709,
+   "ndcg": 0.1442,
+   "recall": 0.27922,
+   "purchase_ndcg": 0.15542,
+   "seeds": [
+    0.14402,
+    0.14437
+   ],
+   "seconds": 1139
+  },
+  {
+   "arm": "base_4src",
+   "features": 76,
+   "queries": 72709,
+   "ndcg": 0.14062,
+   "recall": 0.2693,
+   "purchase_ndcg": 0.15213,
+   "seeds": [
+    0.14028,
+    0.14095
+   ],
+   "seconds": 923,
+   "d_ndcg_vs_base": [
+    -0.00358,
+    -0.00412,
+    -0.00301
+   ],
+   "d_purchase_ndcg_vs_base": [
+    -0.00329,
+    -0.00408,
+    -0.00251
+   ]
+  },
+  {
+   "arm": "dfs",
+   "features": 100,
+   "queries": 72709,
+   "ndcg": 0.14345,
+   "recall": 0.27727,
+   "purchase_ndcg": 0.15503,
+   "seeds": [
+    0.14318,
+    0.14372
+   ],
+   "seconds": 1210,
+   "d_ndcg_vs_base": [
+    -0.00075,
+    -0.00116,
+    -0.00035
+   ],
+   "d_purchase_ndcg_vs_base": [
+    -0.00039,
+    -0.00099,
+    0.00019
+   ]
+  },
+  {
+   "arm": "agent",
+   "features": 82,
+   "queries": 72709,
+   "ndcg": 0.14455,
+   "recall": 0.27952,
+   "purchase_ndcg": 0.15586,
+   "seeds": [
+    0.14452,
+    0.14458
+   ],
+   "seconds": 1162,
+   "d_ndcg_vs_base": [
+    0.00035,
+    -8e-05,
+    0.00079
+   ],
+   "d_purchase_ndcg_vs_base": [
+    0.00043,
+    -0.00021,
+    0.00107
+   ]
+  }
+ ]
+}

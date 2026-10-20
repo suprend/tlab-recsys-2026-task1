@@ -19,10 +19,14 @@ and the item tables; `labels` and `queries` read `src` in [t, t+24h) only to cho
 what is correct. task1.leakcheck verifies this by pointing `fs` at a database cut at t.
 
 Splits (by anchor day): train 2019-10-15..11-07, val 11-08..11-13, test 11-18..11-28. Days 11-14..11-17
-are not anchors: a sale (views x3) and 11-15 has no purchase events at all. Cart logging changes level
-on 10-28 (~33k -> ~18k a day) and on 11-08 (-> ~70k); purchases stay at 21-25k.
+are not anchors: a sale (views x3) and 11-15 has no purchase events at all. Cart logging changes level;
+on anchor days carts are 33-48k a day until 10-27, 16-21k from 10-28 and 63-81k from 11-08, purchases
+stay at 20-31k. The history before the first anchors has more jumps (10-04, 10-07, 10-14).
 
-Run: .venv/bin/python -m task1.build --start 2019-10-15 --end 2019-11-28
+Run (anchor days only):
+  .venv/bin/python -m task1.build --start 2019-10-15 --end 2019-11-13 --out artifacts/task1/v2/days6
+  .venv/bin/python -m task1.build --start 2019-11-18 --end 2019-11-28 --out artifacts/task1/v2/days6
+The four-source tables (artifacts/task1/v2/days) are built by the code of commit e875b84.
 """
 import argparse
 import time
@@ -33,7 +37,6 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parents[1]
 DB = ROOT / 'data/processed/rees46.duckdb'
-OUT = ROOT / 'artifacts/task1/v2/days'
 
 
 FS_TABLES = ['events', 'pair_first', 'item_static', 'item_brand_day']
@@ -448,7 +451,7 @@ def set_anchor(con, t, max_queries=None):
     con.execute(sql(ANCHOR, t).replace('{LIMIT}', f'LIMIT {max_queries}' if max_queries else ''))
 
 
-def build_day(con, day, max_queries=None, out=OUT):
+def build_day(con, day, out, max_queries=None):
     t = datetime.combine(day, datetime.min.time()).isoformat(sep=' ')
     t0 = time.time()
     set_anchor(con, t, max_queries)
@@ -475,13 +478,14 @@ def main():
     ap.add_argument('--start', required=True, type=date.fromisoformat)
     ap.add_argument('--end', required=True, type=date.fromisoformat, help='inclusive')
     ap.add_argument('--max-queries', type=int, help='cap of queries per day (default: all)')
-    ap.add_argument('--out', type=Path, default=OUT)
+    ap.add_argument('--out', type=Path, required=True,
+                    help='directory of day tables, e.g. artifacts/task1/v2/days6')
     ap.add_argument('--threads', type=int, default=10)
     args = ap.parse_args()
     con = connect(args.threads)
     day = args.start
     while day <= args.end:
-        print(build_day(con, day, args.max_queries, args.out), flush=True)
+        print(build_day(con, day, args.out, args.max_queries), flush=True)
         day += timedelta(days=1)
 
 

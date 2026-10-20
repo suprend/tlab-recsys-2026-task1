@@ -145,11 +145,18 @@ def run(name, **over):
 
 
 def metrics(name):
+    """Per-query metrics of a run; a list of runs (e.g. two seeds) gives their per-query mean."""
+    if isinstance(name, (list, tuple)):
+        ms = [metrics(n) for n in name]
+        if not all(m.index.equals(ms[0].index) for m in ms):
+            raise ValueError(f'runs {name} differ in queries')
+        return ms[0][['half']].join(sum(m.drop(columns='half') for m in ms) / len(ms))
     return duckdb.sql(f"SELECT * FROM '{OUT / name}.parquet'").df().set_index('qid')
 
 
 def compare(ref, new, on='A', metric='ndcg'):
-    """Paired bootstrap of new - ref over the queries of one half ('A', 'B' or 'all')."""
+    """Paired bootstrap of new - ref over the queries of one half ('A', 'B' or 'all').
+    ref and new are run names or lists of runs averaged per query; the CI covers queries, not seeds."""
     a, b = metrics(ref), metrics(new)
     idx = a.index if on == 'all' else a.index[a.half == on]
     idx = idx[a.loc[idx, metric].notna().to_numpy()]  # purchase metrics: queries with a purchase target only
