@@ -1,0 +1,113 @@
+{
+  "round": 2,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "attempts": [
+    {
+      "round": 2,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 39.6,
+      "cost_usd": 0.15178599999999998,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-vn3vd8vu",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5,
+      "text": "[{\"name\": \"same_code_sibling_recency\", \"idea\": \"Days since the user last bought a different article with the same product_code (same model in another colour or size), kept as a single column to avoid the redundant pair rejected in r1p4.\", \"level\": \"pair\", \"sql\": \"WITH ut AS (SELECT t.customer_id, t.article_id, a.product_code, t.t_dat FROM tx t JOIN users u ON t.customer_id = u.customer_id JOIN articles a ON t.article_id = a.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 90 DAY), ca AS (SELECT c.customer_id, c.article_id, a.product_code FROM cand c JOIN articles a ON c.article_id = a.article_id) SELECT ca.customer_id, ca.article_id, COALESCE(MIN(date_diff('day', ut.t_dat, DATE '{A}')), 91) AS ag_sibling_recency FROM ca LEFT JOIN ut ON ut.customer_id = ca.customer_id AND ut.product_code = ca.product_code AND ut.article_id <> ca.article_id GROUP BY ca.customer_id, ca.article_id;\"}, {\"name\": \"basket_copurchase28\", \"idea\": \"Sum over the user's 28-day articles of how many full-population same-day baskets also contained the candidate, an item-to-item signal that personalizes the global candidates.\", \"level\": \"pair\", \"sql\": \"WITH ua AS (SELECT DISTINCT t.customer_id, t.article_id FROM tx t JOIN users u ON t.customer_id = u.customer_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 28 DAY), src AS (SELECT DISTINCT article_id FROM ua), b AS (SELECT DISTINCT customer_id, t_dat, article_id FROM tx WHERE t_dat >= DATE '{A}' - INTERVAL 28 DAY), co AS (SELECT x.article_id AS a1, y.article_id AS a2, COUNT(*) AS n FROM b x JOIN src s ON x.article_id = s.article_id JOIN b y ON x.customer_id = y.customer_id AND x.t_dat = y.t_dat AND x.article_id <> y.article_id GROUP BY x.article_id, y.article_id) SELECT c.customer_id, c.article_id, COALESCE(SUM(co.n), 0) AS ag_copurch28 FROM cand c LEFT JOIN ua ON ua.customer_id = c.customer_id LEFT JOIN co ON co.a1 = ua.article_id AND co.a2 = c.article_id GROUP BY c.customer_id, c.article_id;\"}, {\"name\": \"ui_old_history\", \"idea\": \"User-item transaction rows between 90 and 365 days ago, capturing seasonal repurchase of items that fall outside every existing 90-day window.\", \"level\": \"pair\", \"sql\": \"WITH ut AS (SELECT t.customer_id, t.article_id, COUNT(*) AS n FROM tx t JOIN users u ON t.customer_id = u.customer_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 365 DAY AND t.t_dat < DATE '{A}' - INTERVAL 90 DAY GROUP BY t.customer_id, t.article_id) SELECT c.customer_id, c.article_id, COALESCE(ut.n, 0) AS ag_ui_tx90_365 FROM cand c LEFT JOIN ut ON ut.customer_id = c.customer_id AND ut.article_id = c.article_id;\"}, {\"name\": \"item_price_drop\", \"idea\": \"Ratio of the article's mean price in the last 7 days to its mean price 8-90 days ago, flagging markdowns that drive next-week sales.\", \"level\": \"article\", \"sql\": \"WITH p AS (SELECT article_id, AVG(CASE WHEN t_dat >= DATE '{A}' - INTERVAL 7 DAY THEN price END) AS p7, AVG(CASE WHEN t_dat < DATE '{A}' - INTERVAL 7 DAY THEN price END) AS pold FROM tx WHERE t_dat >= DATE '{A}' - INTERVAL 90 DAY GROUP BY article_id) SELECT article_id, p7 / pold AS ag_price_ratio7_90 FROM p WHERE p7 IS NOT NULL AND pold IS NOT NULL AND pold > 0;\"}, {\"name\": \"product_code_buyers7\", \"idea\": \"Distinct buyers in the last 7 days of the article's whole product_code family, so low-volume colourways of a hot model get credit that i_buyers7 misses.\", \"level\": \"article\", \"sql\": \"WITH pc AS (SELECT a2.product_code, COUNT(DISTINCT t.customer_id) AS n FROM tx t JOIN articles a2 ON t.article_id = a2.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 7 DAY GROUP BY a2.product_code) SELECT a.article_id, COALESCE(pc.n, 0) AS ag_code_buyers7 FROM articles a LEFT JOIN pc ON pc.product_code = a.product_code;\"}]",
+      "meta": {
+        "model": "claude-opus-5-5",
+        "seconds": 39.6,
+        "returncode": 0,
+        "result": {
+          "subtype": "success",
+          "is_error": false,
+          "total_cost_usd": 0.15178599999999998,
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 8563,
+            "cache_read_input_tokens": 1170,
+            "output_tokens": 4152,
+            "output_tokens_details": {
+              "thinking_tokens": 2323
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 8563,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard"
+          },
+          "modelUsage": {
+            "claude-opus-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 4152,
+              "cacheReadInputTokens": 1170,
+              "cacheCreationInputTokens": 8563,
+              "webSearchRequests": 0,
+              "costUSD": 0.15178599999999998,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 2323,
+              "canonicalModel": "claude-opus-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "duration_ms": 39348,
+          "num_turns": 1,
+          "stop_reason": "end_turn"
+        },
+        "cost_usd": 0.15178599999999998,
+        "models": [
+          "claude-opus-5-5"
+        ]
+      }
+    }
+  ],
+  "kept": 5
+}

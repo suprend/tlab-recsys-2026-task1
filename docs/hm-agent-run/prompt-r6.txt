@@ -1,0 +1,364 @@
+You are a feature engineer for a ranking model. Reply with JSON only.
+
+TASK
+H&M Personalized Fashion Recommendations. Transactions cover 2018-09-20..2020-09-22. Every anchor A is a
+Wednesday. The label of a (customer, article) pair is whether the customer buys the article in [A, A+7 days);
+the customer's distinct purchased articles count once each. The metric is MAP@12 over the customers who buy
+something in that week.
+
+CANDIDATES (policy C0-Q120)
+Per customer: the last 20 distinct articles the customer bought in [A-90 days, A), by latest purchase date
+descending, then article_id; then the global top 200 by distinct buyers in [A-7 days, A) (ties by article_id),
+skipping articles already listed, until exactly 120 candidates.
+
+TRAINING
+CatBoost Logloss, 500 trees, depth 8. Weekly anchors 2020-08-12..2020-09-16 with 20 000 customers each: all
+positive pairs plus 20 hash-sampled negatives per customer, with weights. The final model scores anchor
+2020-09-23 for every customer with a purchase in the 90 days before it.
+
+FEATURES ALREADY IN THE MODEL: M23 (name: formula; missing). A window of w days is [A - w days, A).
+numeric (18):
+- u_tx7: all user transaction rows in prior 7 days; missing: explicit in formula
+- u_tx28: all user transaction rows in prior 28 days; missing: explicit in formula
+- u_tx90: all user transaction rows in prior 90 days; missing: explicit in formula
+- i_buyers7: distinct historical buyers of item in prior 7 days, full population; missing: explicit in formula
+- i_buyers28: distinct historical buyers of item in prior 28 days, full population; missing: explicit in formula
+- i_buyers90: distinct historical buyers of item in prior 90 days, full population; missing: explicit in formula
+- ui_tx7: user-item transaction rows in prior 7 days; missing: explicit in formula
+- ui_tx28: user-item transaction rows in prior 28 days; missing: explicit in formula
+- ui_tx90: user-item transaction rows in prior 90 days; missing: explicit in formula
+- u_recency: days since latest user transaction in prior90d; absent=91; missing: explicit in formula
+- i_recency: days since latest item transaction in prior90d; absent=91; missing: explicit in formula
+- ui_recency: days since latest user-item transaction in prior90d; absent=91; missing: explicit in formula
+- item_price28: mean price over full-population item transaction rows in prior28d; absent=0; missing: explicit in formula
+- user_price28: mean price over user transaction rows in prior28d; absent=0; missing: explicit in formula
+- affinity_type28: transaction rows for user with attribute equal to candidate attribute (attribute product_type_no, window 28 days); missing: zero
+- affinity_colour28: transaction rows for user with attribute equal to candidate attribute (attribute colour_group_code, window 28 days); missing: zero
+- global_rank: buyers7d descending, article_id ascending; only top100 retained; absent=101; missing: explicit in formula
+- user_recent_rank: latest user-item date descending, article_id ascending; only top20 retained; absent=21; missing: explicit in formula
+categorical (5):
+- product_type_no: undated article semantic snapshot; missing: __MISSING__
+- colour_group_code: undated article semantic snapshot; missing: __MISSING__
+- department_no: undated article semantic snapshot; missing: __MISSING__
+- index_code: undated article semantic snapshot; missing: __MISSING__
+- garment_group_no: undated article semantic snapshot; missing: __MISSING__
+Agent columns accepted earlier in this run, also in the model: ag_buyers3, ag_trend7_14, ag_age_days, ag_repeat_share90, ag_online_share90, ag_dept_share90, ag_idxgroup_share90, ag_sibling_recency, ag_copurch28, ag_ui_tx90_365, ag_price_ratio7_90, ag_code_buyers7, ag_price_rel90, ag_type_recency365, ag_cobuy_conf28, ag_u_new_share90, ag_code_buyers_ly, ag_decay_pop28, ag_section_share90, ag_graphic_share90, ag_reprice_ratio, ag_u_days365, ag_u_gap365, ag_dept_pop_share7, ag_seg_pop7, ag_channel_match90, ag_u_repeat_share365, ag_type_season_ly, ag_dept_decay90
+
+TABLES (DuckDB; a query sees only these four)
+tx(t_dat DATE, customer_id VARCHAR, article_id VARCHAR, price DOUBLE, sales_channel_id VARCHAR)
+  every transaction row with t_dat < A, duplicates kept
+articles: all VARCHAR, one row per article bought before A, no free text: article_id, product_code,
+  product_type_no, product_type_name, product_group_name, graphical_appearance_no, graphical_appearance_name,
+  colour_group_code, colour_group_name, perceived_colour_value_id, perceived_colour_value_name,
+  perceived_colour_master_id, perceived_colour_master_name, department_no, department_name, index_code,
+  index_name, index_group_no, index_group_name, section_no, section_name, garment_group_no, garment_group_name
+cand(customer_id VARCHAR, article_id VARCHAR): the candidate pairs of the current batch, keys only
+users(customer_id VARCHAR): the distinct customers of cand
+There is no customer table.
+
+QUERY RULES
+- Exactly one SELECT or WITH statement; ';' only at the very end; no comments (-- or /* */).
+- Write the anchor only as DATE '{A}', literally with the braces, e.g. t_dat >= DATE '{A}' - INTERVAL 28 DAY.
+  No other {...} placeholders and no date literals 'YYYY-MM-DD'.
+- Forbidden whole words, in any case: transactions, customers, frame, label, labels, target, targets, hm_*,
+  _hm_*; read_*, parquet_*, csv, json*, glob, getenv, query, query_table, duckdb_*, information_schema,
+  pg_catalog, sqlite_master, pragma*; attach, detach, copy, export, import, install, load, set, reset, use,
+  call, create, drop, insert, update, delete, alter; random, setseed, uuid, gen_random_uuid, now, today,
+  current_date, current_time, current_timestamp, get_current_time, sample, tablesample, current_setting,
+  sniff_*, checkpoint, force_checkpoint, which_secret; the functions error() and strptime().
+- An article-level query must not mention cand or users: its values do not depend on the batch and are cached.
+
+OUTPUT OF A QUERY
+- level "pair": key columns customer_id, article_id (pairs of cand); level "customer": customer_id (of users);
+  level "article": article_id (of articles). Keys are VARCHAR, never NULL and unique. A key outside its set is
+  an error, not a silent filter, so keep queries narrow.
+- 1 to 3 value columns named by ^ag_[a-z][a-z0-9_]{1,38}$, unique among the accepted columns and different
+  from every feature name above; integer, DECIMAL, FLOAT, DOUBLE or BOOLEAN. VARCHAR, DATE and TIMESTAMP values
+  are errors: turn dates into days before {A}. No other columns.
+- Values are cast to DOUBLE and left-joined to the batch keys of the level. No row, NULL, a non-finite value or
+  a float32 overflow mean "no data": NaN in the model, which CatBoost treats as the minimum. Put your own
+  defaults with COALESCE.
+- Batch invariance: a value depends only on tx, articles and its own key; cand and users only filter. A window
+  PARTITION BY customer_id over cand is allowed (all 120 candidates of a customer are always in one batch);
+  aggregates over cand across customers are not. Windows need a full tie-break (..., article_id). Violations
+  are caught mechanically.
+- Limits on the probe: timeout 20 s for pair and customer queries, 60 s for article queries; at most 20 million
+  output rows. Budget of the whole set on the probe: valid pair and customer proposals together at most 90 s,
+  valid article proposals at most 180 s; a proposal that does not fit into what is left gets status budget.
+
+VALIDITY
+A proposal is accepted or rejected as a whole. It is invalid on an SQL error, a broken rule or a timeout; when
+a column has fewer than 2 distinct non-NULL values or fewer than 100 non-NULL rows; when a column has
+|Spearman rho| >= 0.999 with an M23 column, an accepted column or another column of the same proposal; or when
+batch invariance fails.
+
+PROBE STATISTICS (history before 2020-09-09 only)
+anchor: 2020-09-09
+history: {first_day: 2018-09-20, last_day: 2020-09-08}
+windows:
+  7_days: {rows: 264657, customers: 75822, articles: 19362}
+  28_days: {rows: 1069693, customers: 234989, articles: 29278}
+  90_days: {rows: 4214587, customers: 537556, articles: 42597}
+  365_days: {rows: 14848190, customers: 990155, articles: 70305}
+  all_history: {rows: 31292772, customers: 1351314, articles: 102967}
+purchases_per_customer_90_days: {customers: 537556, mean: 7.84, p10: 1, p25: 2, p50: 5, p75: 10, p90: 17, p99: 45, max: 345}
+customers_with_2_or_more_purchase_days_90_days_share: 0.5161
+price_all_history: {min: 1.7e-05, p01: 0.003559, p10: 0.009983, p25: 0.01558, p50: 0.02541, p75: 0.03388, p90: 0.05083, p99: 0.09958, max: 0.5915}
+sales_channel_share: {1: 0.2958, 2: 0.7042}
+attributes:
+  product_code: {cardinality: 46179}
+  product_type_no:
+    cardinality: 130
+    top_28_days:
+      - [272, Trousers, 159700]
+      - [265, Dress, 99218]
+      - [252, Sweater, 86606]
+      - [255, T-shirt, 76421]
+      - [254, Top, 64437]
+      - [258, Blouse, 46163]
+      - [306, Bra, 46060]
+      - [253, Vest top, 39717]
+      - [286, Underwear bottom, 39295]
+      - [275, Skirt, 32311]
+  product_group_name:
+    cardinality: 19
+    top_28_days:
+      - [Garment Upper body, 457657]
+      - [Garment Lower body, 245011]
+      - [Garment Full body, 107406]
+      - [Underwear, 88946]
+      - [Accessories, 55667]
+      - [Swimwear, 48618]
+      - [Socks & Tights, 23779]
+      - [Shoes, 19224]
+      - [Unknown, 13244]
+      - [Nightwear, 8387]
+  graphical_appearance_no:
+    cardinality: 30
+    top_28_days:
+      - [1010016, Solid, 667868]
+      - [1010001, All over pattern, 92022]
+      - [1010023, Denim, 80462]
+      - [1010010, Melange, 73024]
+      - [1010017, Stripe, 28653]
+      - [1010004, Check, 24750]
+      - [1010026, Other structure, 20891]
+      - [1010007, Embroidery, 15899]
+      - [1010014, Placement print, 12955]
+      - [1010021, Lace, 11739]
+  colour_group_code:
+    cardinality: 50
+    top_28_days:
+      - [09, Black, 377821]
+      - [10, White, 114021]
+      - [12, Light Beige, 51682]
+      - [73, Dark Blue, 47679]
+      - [13, Beige, 44407]
+      - [72, Blue, 44185]
+      - [11, Off White, 34521]
+      - [07, Grey, 32442]
+      - [51, Light Pink, 32076]
+      - [71, Light Blue, 29526]
+  perceived_colour_value_id:
+    cardinality: 8
+    top_28_days:
+      - [4, Dark, 486877]
+      - [1, Dusty Light, 218053]
+      - [3, Light, 158787]
+      - [2, Medium Dusty, 150825]
+      - [5, Bright, 32469]
+      - [7, Medium, 21968]
+      - [6, Undefined, 710]
+      - [-1, Unknown, 4]
+  perceived_colour_master_id:
+    cardinality: 20
+    top_28_days:
+      - [5, Black, 378277]
+      - [9, White, 148647]
+      - [2, Blue, 122509]
+      - [11, Beige, 83679]
+      - [12, Grey, 72168]
+      - [4, Pink, 59130]
+      - [20, Khaki green, 30910]
+      - [19, Green, 26636]
+      - [3, Orange, 26223]
+      - [1, Mole, 20431]
+  department_no:
+    cardinality: 299
+    top_28_days:
+      - [1676, Jersey Basic, 52599]
+      - [1643, Basic 1, 49697]
+      - [4242, Swimwear, 47123]
+      - [1626, Knitwear, 43388]
+      - [1722, Trouser, 36636]
+      - [1636, Jersey fancy, 36162]
+      - [1747, Trousers, 34737]
+      - [8316, Ladies Sport Bras, 33985]
+      - [1772, Denim Trousers, 31260]
+      - [1522, Blouse, 30444]
+  index_code:
+    cardinality: 10
+    top_28_days:
+      - [A, Ladieswear, 460069]
+      - [D, Divided, 241283]
+      - [B, Lingeries/Tights, 154066]
+      - [F, Menswear, 64546]
+      - [C, Ladies Accessories, 62652]
+      - [S, Sport, 62369]
+      - [G, Baby Sizes 50-98, 8959]
+      - [I, Children Sizes 134-170, 8244]
+      - [H, Children Sizes 92-140, 6053]
+      - [J, Children Accessories, Swimwear, 1452]
+  index_group_no:
+    cardinality: 5
+    top_28_days:
+      - [1, Ladieswear, 676787]
+      - [2, Divided, 241283]
+      - [3, Menswear, 64546]
+      - [26, Sport, 62369]
+      - [4, Baby/Children, 24708]
+  section_no:
+    cardinality: 57
+    top_28_days:
+      - [15, Womens Everyday Collection, 197452]
+      - [53, Divided Collection, 121081]
+      - [11, Womens Tailoring, 84072]
+      - [61, Womens Lingerie, 79576]
+      - [5, Ladies H&M Sport, 59394]
+      - [51, Divided Basics, 54422]
+      - [16, Womens Everyday Basics, 53275]
+      - [60, Womens Swimwear, beachwear, 47123]
+      - [62, Womens Nightwear, Socks & Tigh, 43750]
+      - [57, Ladies Denim, 41734]
+  garment_group_no:
+    cardinality: 21
+    top_28_days:
+      - [1005, Jersey Fancy, 178656]
+      - [1002, Jersey Basic, 130403]
+      - [1017, Under-, Nightwear, 111697]
+      - [1009, Trousers, 104860]
+      - [1003, Knitwear, 91346]
+      - [1010, Blouses, 86529]
+      - [1013, Dresses Ladies, 61355]
+      - [1019, Accessories, 58738]
+      - [1016, Trousers Denim, 49321]
+      - [1018, Swimwear, 48125]
+candidates: {users: 5000, rows: 600000, recent_per_user_mean: 6.29, global_share: 0.9476}
+
+WARNING
+All valid columns will enter the model without selection. Superfluous and noisy columns hurt: a few strong, non-redundant signals are needed. Customer-level columns work only through interactions.
+
+EARLIER ATTEMPTS IN THIS RUN (validity and coverage on the probe; effects on labels are not shown)
+r1p1 item_trend [article]: valid (2^-4–2^-3 s, 2^14–2^15 rows)
+  idea: Short-term momentum: distinct buyers in the last 3 days and the ratio of buyers in the last 7 days to the 7 days before, to separate rising items from fading ones that i_buyers7 alone ranks equally.
+  ag_buyers3: non-null 1.00, recent 0.94, global 1.00, distinct 2^7–2^8, max |rho| 0.7, nearest i_buyers7
+  ag_trend7_14: non-null 1.00, recent 0.94, global 1.00, distinct 2^10–2^11, max |rho| 0.6, nearest i_buyers90
+  sql: SELECT article_id, COUNT(DISTINCT CASE WHEN t_dat >= DATE '{A}' - INTERVAL 3 DAY THEN customer_id END) AS ag_buyers3, (COUNT(DISTINCT CASE WHEN t_dat >= DATE '{A}' - INTERVAL 7 DAY THEN customer_id END) + 1.0) / (COUNT(DISTINCT CASE WHEN t_dat < DATE '{A}' - INTERVAL 7 DAY THEN customer_id END) + 1.0) AS ag_trend7_14 FROM tx WHERE t_dat >= DATE '{A}' - INTERVAL 14 DAY GROUP BY article_id;
+r1p2 item_age [article]: valid (2^-2–2^-1 s, 2^16–2^17 rows)
+  idea: Days since the article's first sale in all history, to capture the new-arrival effect that drives next-week purchases.
+  ag_age_days: non-null 1.00, recent 1.00, global 1.00, distinct 2^9–2^10, max |rho| 0.7, nearest i_buyers90
+  sql: SELECT article_id, date_diff('day', MIN(t_dat), DATE '{A}') AS ag_age_days FROM tx GROUP BY article_id;
+r1p3 item_repeat_online [article]: valid (2^-1–2^0 s, 2^15–2^16 rows)
+  idea: Share of 90-day buyers who bought the article on 2 or more distinct days, which marks repurchasable basics, plus the article's online-channel share.
+  ag_repeat_share90: non-null 1.00, recent 1.00, global 1.00, distinct 2^11–2^12, max |rho| 0.5, nearest i_buyers90
+  ag_online_share90: non-null 1.00, recent 1.00, global 1.00, distinct 2^12–2^13, max |rho| 0.4, nearest ag_age_days
+  sql: WITH b AS (SELECT article_id, customer_id, COUNT(DISTINCT t_dat) AS d, AVG(CASE WHEN sales_channel_id = '2' THEN 1.0 ELSE 0.0 END) AS o FROM tx WHERE t_dat >= DATE '{A}' - INTERVAL 90 DAY GROUP BY article_id, customer_id) SELECT article_id, AVG(CASE WHEN d >= 2 THEN 1.0 ELSE 0.0 END) AS ag_repeat_share90, AVG(o) AS ag_online_share90 FROM b GROUP BY article_id;
+r1p4 same_product_code [pair]: invalid (2^-2–2^-1 s, 2^19–2^20 rows)
+  idea: The user's 90-day transaction rows and recency on other articles with the same product_code (the same model in another colour or size), a strong signal for H&M purchases.
+  reason: ag_samecode_tx90: |Spearman| with ag_samecode_recency reaches 0.999; ag_samecode_recency: |Spearman| with ag_samecode_tx90 reaches 0.999
+  ag_samecode_tx90: non-null 1.00, recent 1.00, global 1.00, distinct 2^4–2^5, max |rho| 1.0, nearest ag_samecode_recency
+  ag_samecode_recency: non-null 1.00, recent 1.00, global 1.00, distinct 2^6–2^7, max |rho| 1.0, nearest ag_samecode_tx90
+  sql: WITH ut AS (SELECT t.customer_id, t.article_id, a.product_code, t.t_dat FROM tx t JOIN users u ON t.customer_id = u.customer_id JOIN articles a ON t.article_id = a.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 90 DAY), ca AS (SELECT c.customer_id, c.article_id, a.product_code FROM cand c JOIN articles a ON c.article_id = a.article_id) SELECT ca.customer_id, ca.article_id, COUNT(ut.t_dat) AS ag_samecode_tx90, COALESCE(MIN(date_diff('day', ut.t_dat, DATE '{A}')), 91) AS ag_samecode_recency FROM ca LEFT JOIN ut ON ut.customer_id = ca.customer_id AND ut.product_code = ca.product_code AND ut.article_id <> ca.article_id GROUP BY ca.customer_id, ca.article_id;
+r1p5 user_dept_index_share [pair]: valid (2^-2–2^-1 s, 2^19–2^20 rows)
+  idea: Normalized 90-day share of the user's rows in the candidate's department and index group (a proxy for gender and age segment), to filter out mismatched global candidates.
+  ag_dept_share90: non-null 1.00, recent 1.00, global 1.00, distinct 2^8–2^9, max |rho| 0.6, nearest user_recent_rank
+  ag_idxgroup_share90: non-null 1.00, recent 1.00, global 1.00, distinct 2^8–2^9, max |rho| 0.2, nearest ag_dept_share90
+  sql: WITH ut AS (SELECT t.customer_id, a.department_no, a.index_group_no FROM tx t JOIN users u ON t.customer_id = u.customer_id JOIN articles a ON t.article_id = a.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 90 DAY), tot AS (SELECT customer_id, COUNT(*) AS n FROM ut GROUP BY customer_id), dep AS (SELECT customer_id, department_no, COUNT(*) AS n FROM ut GROUP BY customer_id, department_no), ig AS (SELECT customer_id, index_group_no, COUNT(*) AS n FROM ut GROUP BY customer_id, index_group_no), ca AS (SELECT c.customer_id, c.article_id, a.department_no, a.index_group_no FROM cand c JOIN articles a ON c.article_id = a.article_id) SELECT ca.customer_id, ca.article_id, COALESCE(dep.n, 0) * 1.0 / tot.n AS ag_dept_share90, COALESCE(ig.n, 0) * 1.0 / tot.n AS ag_idxgroup_share90 FROM ca JOIN tot ON tot.customer_id = ca.customer_id LEFT JOIN dep ON dep.customer_id = ca.customer_id AND dep.department_no = ca.department_no LEFT JOIN ig ON ig.customer_id = ca.customer_id AND ig.index_group_no = ca.index_group_no;
+r2p1 same_code_sibling_recency [pair]: valid (2^-2–2^-1 s, 2^19–2^20 rows)
+  idea: Days since the user last bought a different article with the same product_code (same model in another colour or size), kept as a single column to avoid the redundant pair rejected in r1p4.
+  ag_sibling_recency: non-null 1.00, recent 1.00, global 1.00, distinct 2^6–2^7, max |rho| 0.3, nearest ui_tx90
+  sql: WITH ut AS (SELECT t.customer_id, t.article_id, a.product_code, t.t_dat FROM tx t JOIN users u ON t.customer_id = u.customer_id JOIN articles a ON t.article_id = a.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 90 DAY), ca AS (SELECT c.customer_id, c.article_id, a.product_code FROM cand c JOIN articles a ON c.article_id = a.article_id) SELECT ca.customer_id, ca.article_id, COALESCE(MIN(date_diff('day', ut.t_dat, DATE '{A}')), 91) AS ag_sibling_recency FROM ca LEFT JOIN ut ON ut.customer_id = ca.customer_id AND ut.product_code = ca.product_code AND ut.article_id <> ca.article_id GROUP BY ca.customer_id, ca.article_id;
+r2p2 basket_copurchase28 [pair]: valid (2^-1–2^0 s, 2^19–2^20 rows)
+  idea: Sum over the user's 28-day articles of how many full-population same-day baskets also contained the candidate, an item-to-item signal that personalizes the global candidates.
+  ag_copurch28: non-null 1.00, recent 1.00, global 1.00, distinct 2^8–2^9, max |rho| 0.7, nearest u_tx28
+  sql: WITH ua AS (SELECT DISTINCT t.customer_id, t.article_id FROM tx t JOIN users u ON t.customer_id = u.customer_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 28 DAY), src AS (SELECT DISTINCT article_id FROM ua), b AS (SELECT DISTINCT customer_id, t_dat, article_id FROM tx WHERE t_dat >= DATE '{A}' - INTERVAL 28 DAY), co AS (SELECT x.article_id AS a1, y.article_id AS a2, COUNT(*) AS n FROM b x JOIN src s ON x.article_id = s.article_id JOIN b y ON x.customer_id = y.customer_id AND x.t_dat = y.t_dat AND x.article_id <> y.article_id GROUP BY x.article_id, y.article_id) SELECT c.customer_id, c.article_id, COALESCE(SUM(co.n), 0) AS ag_copurch28 FROM cand c LEFT JOIN ua ON ua.customer_id = c.customer_id LEFT JOIN co ON co.a1 = ua.article_id AND co.a2 = c.article_id GROUP BY c.customer_id, c.article_id;
+r2p3 ui_old_history [pair]: valid (2^-2–2^-1 s, 2^19–2^20 rows)
+  idea: User-item transaction rows between 90 and 365 days ago, capturing seasonal repurchase of items that fall outside every existing 90-day window.
+  ag_ui_tx90_365: non-null 1.00, recent 1.00, global 1.00, distinct 2^3–2^4, max |rho| 0.1, nearest ag_age_days
+  sql: WITH ut AS (SELECT t.customer_id, t.article_id, COUNT(*) AS n FROM tx t JOIN users u ON t.customer_id = u.customer_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 365 DAY AND t.t_dat < DATE '{A}' - INTERVAL 90 DAY GROUP BY t.customer_id, t.article_id) SELECT c.customer_id, c.article_id, COALESCE(ut.n, 0) AS ag_ui_tx90_365 FROM cand c LEFT JOIN ut ON ut.customer_id = c.customer_id AND ut.article_id = c.article_id;
+r2p4 item_price_drop [article]: valid (2^-4–2^-3 s, 2^14–2^15 rows)
+  idea: Ratio of the article's mean price in the last 7 days to its mean price 8-90 days ago, flagging markdowns that drive next-week sales.
+  ag_price_ratio7_90: non-null 0.91, recent 0.88, global 0.91, distinct 2^13–2^14, max |rho| 0.4, nearest ag_age_days
+  sql: WITH p AS (SELECT article_id, AVG(CASE WHEN t_dat >= DATE '{A}' - INTERVAL 7 DAY THEN price END) AS p7, AVG(CASE WHEN t_dat < DATE '{A}' - INTERVAL 7 DAY THEN price END) AS pold FROM tx WHERE t_dat >= DATE '{A}' - INTERVAL 90 DAY GROUP BY article_id) SELECT article_id, p7 / pold AS ag_price_ratio7_90 FROM p WHERE p7 IS NOT NULL AND pold IS NOT NULL AND pold > 0;
+r2p5 product_code_buyers7 [article]: valid (2^-4–2^-3 s, 2^16–2^17 rows)
+  idea: Distinct buyers in the last 7 days of the article's whole product_code family, so low-volume colourways of a hot model get credit that i_buyers7 misses.
+  ag_code_buyers7: non-null 1.00, recent 1.00, global 1.00, distinct 2^8–2^9, max |rho| 0.4, nearest i_buyers28
+  sql: WITH pc AS (SELECT a2.product_code, COUNT(DISTINCT t.customer_id) AS n FROM tx t JOIN articles a2 ON t.article_id = a2.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 7 DAY GROUP BY a2.product_code) SELECT a.article_id, COALESCE(pc.n, 0) AS ag_code_buyers7 FROM articles a LEFT JOIN pc ON pc.product_code = a.product_code;
+r3p1 price_rel_user90 [pair]: valid (2^-2–2^-1 s, 2^19–2^20 rows)
+  idea: Ratio of the candidate's 90-day mean price to the user's 90-day median paid price, so the model can rank items in the user's own price band instead of learning it from two separate absolute prices.
+  ag_price_rel90: non-null 1.00, recent 1.00, global 1.00, distinct 2^16–2^17, max |rho| 0.6, nearest item_price28
+  sql: WITH ip AS (SELECT article_id, AVG(price) AS p FROM tx WHERE t_dat >= DATE '{A}' - INTERVAL 90 DAY GROUP BY article_id), up AS (SELECT t.customer_id, MEDIAN(t.price) AS p FROM tx t JOIN users u ON t.customer_id = u.customer_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 90 DAY GROUP BY t.customer_id) SELECT c.customer_id, c.article_id, ip.p / up.p AS ag_price_rel90 FROM cand c JOIN ip ON ip.article_id = c.article_id JOIN up ON up.customer_id = c.customer_id WHERE up.p > 0;
+r3p2 type_recency365 [pair]: valid (2^-1–2^0 s, 2^19–2^20 rows)
+  idea: Days since the user last bought any article of the candidate's product_type_no within 365 days, a recency signal for the category that the 28-day affinity counts do not give.
+  ag_type_recency365: non-null 1.00, recent 1.00, global 1.00, distinct 2^8–2^9, max |rho| 0.5, nearest affinity_type28
+  sql: WITH ut AS (SELECT t.customer_id, a.product_type_no, MAX(t.t_dat) AS d FROM tx t JOIN users u ON t.customer_id = u.customer_id JOIN articles a ON t.article_id = a.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 365 DAY GROUP BY t.customer_id, a.product_type_no) SELECT c.customer_id, c.article_id, COALESCE(date_diff('day', ut.d, DATE '{A}'), 366) AS ag_type_recency365 FROM cand c LEFT JOIN articles a ON a.article_id = c.article_id LEFT JOIN ut ON ut.customer_id = c.customer_id AND ut.product_type_no = a.product_type_no;
+r3p3 cobuy_confidence28 [pair]: valid (2^-1–2^0 s, 2^19–2^20 rows)
+  idea: Sum over the user's 28-day articles of the smoothed share of each article's buyers who also bought the candidate within the same 28 days. This customer-level association rule is normalized by source popularity, unlike the raw same-day basket count.
+  ag_cobuy_conf28: non-null 1.00, recent 1.00, global 1.00, distinct 2^16–2^17, max |rho| 0.9, nearest ag_copurch28
+  sql: WITH ua AS (SELECT DISTINCT t.customer_id, t.article_id FROM tx t JOIN users u ON t.customer_id = u.customer_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 28 DAY), src AS (SELECT DISTINCT article_id FROM ua), b AS (SELECT DISTINCT customer_id, article_id FROM tx WHERE t_dat >= DATE '{A}' - INTERVAL 28 DAY), nb AS (SELECT b.article_id, COUNT(*) AS n FROM b JOIN src s ON b.article_id = s.article_id GROUP BY b.article_id), co AS (SELECT x.article_id AS a1, y.article_id AS a2, COUNT(*) AS n FROM b x JOIN src s ON x.article_id = s.article_id JOIN b y ON x.customer_id = y.customer_id AND x.article_id <> y.article_id GROUP BY x.article_id, y.article_id) SELECT c.customer_id, c.article_id, COALESCE(SUM(co.n * 1.0 / (nb.n + 5)), 0) AS ag_cobuy_conf28 FROM cand c LEFT JOIN ua ON ua.customer_id = c.customer_id LEFT JOIN co ON co.a1 = ua.article_id AND co.a2 = c.article_id LEFT JOIN nb ON nb.article_id = co.a1 GROUP BY c.customer_id, c.article_id;
+r3p4 user_new_arrival_share90 [customer]: valid (2^-2–2^-1 s, 2^12–2^13 rows)
+  idea: Share of the user's 90-day transaction rows on articles at most 28 days past their first sale, a novelty-seeking trait that interacts with ag_age_days to rank fresh arrivals for trend-followers.
+  ag_u_new_share90: non-null 1.00, recent 1.00, global 1.00, distinct 2^7–2^8, max |rho| 0.3, nearest user_price28
+  sql: WITH fs AS (SELECT article_id, MIN(t_dat) AS f FROM tx GROUP BY article_id), ut AS (SELECT t.customer_id, t.t_dat, fs.f FROM tx t JOIN users u ON t.customer_id = u.customer_id JOIN fs ON fs.article_id = t.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 90 DAY) SELECT customer_id, AVG(CASE WHEN date_diff('day', f, t_dat) <= 28 THEN 1.0 ELSE 0.0 END) AS ag_u_new_share90 FROM ut GROUP BY customer_id;
+r3p5 code_buyers_last_year [article]: valid (2^-4–2^-3 s, 2^16–2^17 rows)
+  idea: Distinct buyers of the article's product_code family in the same calendar week one year earlier ([A-364, A-357)), a seasonal prior for the target week that no recent window captures.
+  ag_code_buyers_ly: non-null 1.00, recent 1.00, global 1.00, distinct 2^8–2^9, max |rho| 0.5, nearest ag_age_days
+  sql: WITH pc AS (SELECT a2.product_code, COUNT(DISTINCT t.customer_id) AS n FROM tx t JOIN articles a2 ON t.article_id = a2.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 364 DAY AND t.t_dat < DATE '{A}' - INTERVAL 357 DAY GROUP BY a2.product_code) SELECT a.article_id, COALESCE(pc.n, 0) AS ag_code_buyers_ly FROM articles a LEFT JOIN pc ON pc.product_code = a.product_code;
+r4p1 item_decay_popularity [article]: valid (2^-4–2^-3 s, 2^14–2^15 rows)
+  idea: Exponentially time-decayed transaction count over 28 days (factor 0.85 per day), a smooth momentum score that weights yesterday's sales far more than the fixed 7- and 28-day buyer windows.
+  ag_decay_pop28: non-null 1.00, recent 0.98, global 1.00, distinct 2^13–2^14, max |rho| 0.9, nearest i_buyers7
+  sql: SELECT article_id, SUM(POWER(0.85, date_diff('day', t_dat, DATE '{A}') - 1)) AS ag_decay_pop28 FROM tx WHERE t_dat >= DATE '{A}' - INTERVAL 28 DAY GROUP BY article_id;
+r4p2 user_section_graphic_share [pair]: valid (2^-2–2^-1 s, 2^19–2^20 rows)
+  idea: Normalized 90-day share of the user's rows in the candidate's section and graphical appearance, a style-level affinity between the department and index-group shares and orthogonal to colour and type.
+  ag_section_share90: non-null 1.00, recent 1.00, global 1.00, distinct 2^8–2^9, max |rho| 0.6, nearest ag_dept_share90
+  ag_graphic_share90: non-null 1.00, recent 1.00, global 1.00, distinct 2^8–2^9, max |rho| 0.2, nearest ag_age_days
+  sql: WITH ut AS (SELECT t.customer_id, a.section_no, a.graphical_appearance_no FROM tx t JOIN users u ON t.customer_id = u.customer_id JOIN articles a ON t.article_id = a.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 90 DAY), tot AS (SELECT customer_id, COUNT(*) AS n FROM ut GROUP BY customer_id), sec AS (SELECT customer_id, section_no, COUNT(*) AS n FROM ut GROUP BY customer_id, section_no), gr AS (SELECT customer_id, graphical_appearance_no, COUNT(*) AS n FROM ut GROUP BY customer_id, graphical_appearance_no), ca AS (SELECT c.customer_id, c.article_id, a.section_no, a.graphical_appearance_no FROM cand c JOIN articles a ON c.article_id = a.article_id) SELECT ca.customer_id, ca.article_id, COALESCE(sec.n, 0) * 1.0 / tot.n AS ag_section_share90, COALESCE(gr.n, 0) * 1.0 / tot.n AS ag_graphic_share90 FROM ca JOIN tot ON tot.customer_id = ca.customer_id LEFT JOIN sec ON sec.customer_id = ca.customer_id AND sec.section_no = ca.section_no LEFT JOIN gr ON gr.customer_id = ca.customer_id AND gr.graphical_appearance_no = ca.graphical_appearance_no;
+r4p3 repurchase_price_ratio [pair]: valid (2^-3–2^-2 s, 2^14–2^15 rows)
+  idea: Ratio of the article's current 14-day mean price to the mean price this user paid for it in the last 90 days, so a markdown on an item the user already bought can trigger a repurchase.
+  ag_reprice_ratio: non-null 0.05, recent 0.94, global 0.00, distinct 2^13–2^14, max |rho| 0.4, nearest ag_price_ratio7_90
+  sql: WITH ip AS (SELECT article_id, AVG(price) AS p FROM tx WHERE t_dat >= DATE '{A}' - INTERVAL 14 DAY GROUP BY article_id), uip AS (SELECT t.customer_id, t.article_id, AVG(t.price) AS p FROM tx t JOIN users u ON t.customer_id = u.customer_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 90 DAY GROUP BY t.customer_id, t.article_id) SELECT c.customer_id, c.article_id, ip.p / uip.p AS ag_reprice_ratio FROM cand c JOIN uip ON uip.customer_id = c.customer_id AND uip.article_id = c.article_id JOIN ip ON ip.article_id = c.article_id WHERE uip.p > 0;
+r4p4 user_purchase_cadence [customer]: valid (2^-3–2^-2 s, 2^12–2^13 rows)
+  idea: Number of distinct purchase days in 365 days and the mean gap between them, so that together with u_recency the model knows whether a user is due to shop and how much to trust their own history over global items.
+  ag_u_days365: non-null 1.00, recent 1.00, global 1.00, distinct 2^5–2^6, max |rho| 0.6, nearest ag_u_gap365
+  ag_u_gap365: non-null 0.84, recent 0.92, global 0.83, distinct 2^10–2^11, max |rho| 0.6, nearest ag_u_days365
+  sql: WITH d AS (SELECT t.customer_id, COUNT(DISTINCT t.t_dat) AS n, MIN(t.t_dat) AS f, MAX(t.t_dat) AS l FROM tx t JOIN users u ON t.customer_id = u.customer_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 365 DAY GROUP BY t.customer_id) SELECT customer_id, n AS ag_u_days365, CASE WHEN n >= 2 THEN date_diff('day', f, l) * 1.0 / (n - 1) END AS ag_u_gap365 FROM d;
+r4p5 dept_popularity_share7 [article]: valid (2^-4–2^-3 s, 2^14–2^15 rows)
+  idea: The article's share of its department's 7-day distinct buyers, a within-category popularity that separates the leader of a small department from a mid-ranked item in a huge one.
+  ag_dept_pop_share7: non-null 0.99, recent 0.89, global 1.00, distinct 2^11–2^12, max |rho| 0.4, nearest i_buyers7
+  sql: WITH ib AS (SELECT t.article_id, a.department_no, COUNT(DISTINCT t.customer_id) AS n FROM tx t JOIN articles a ON t.article_id = a.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 7 DAY GROUP BY t.article_id, a.department_no), d AS (SELECT department_no, SUM(n) AS s FROM ib GROUP BY department_no) SELECT ib.article_id, ib.n * 1.0 / d.s AS ag_dept_pop_share7 FROM ib JOIN d ON d.department_no = ib.department_no WHERE d.s > 0;
+r5p1 segment_popularity7 [pair]: valid (2^-2–2^-1 s, 2^19–2^20 rows)
+  idea: Article's share of 7-day distinct buyers among customers whose dominant 90-day index group matches the user's, giving a segment-specific popularity (ladies, menswear, kids) that the global buyer counts cannot give to the mostly global candidate list.
+  ag_seg_pop7: non-null 1.00, recent 1.00, global 1.00, distinct 2^8–2^9, max |rho| 0.6, nearest ag_idxgroup_share90
+  sql: WITH ig AS (SELECT t.customer_id, a.index_group_no, COUNT(*) AS n FROM tx t JOIN articles a ON t.article_id = a.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 90 DAY GROUP BY t.customer_id, a.index_group_no), dom AS (SELECT customer_id, index_group_no FROM (SELECT customer_id, index_group_no, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY n DESC, index_group_no) AS r FROM ig) z WHERE r = 1), sp AS (SELECT d.index_group_no, t.article_id, COUNT(DISTINCT t.customer_id) AS n FROM tx t JOIN dom d ON d.customer_id = t.customer_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 7 DAY GROUP BY d.index_group_no, t.article_id), st AS (SELECT index_group_no, SUM(n) AS s FROM sp GROUP BY index_group_no) SELECT c.customer_id, c.article_id, COALESCE(sp.n, 0) * 1000.0 / st.s AS ag_seg_pop7 FROM cand c JOIN dom d ON d.customer_id = c.customer_id JOIN st ON st.index_group_no = d.index_group_no LEFT JOIN sp ON sp.index_group_no = d.index_group_no AND sp.article_id = c.article_id WHERE st.s > 0;
+r5p2 channel_match90 [pair]: valid (2^-2–2^-1 s, 2^19–2^20 rows)
+  idea: One minus the absolute difference between the user's 90-day online share and the article's 90-day online share, so online-only shoppers are steered away from articles that sell mainly in stores and vice versa.
+  ag_channel_match90: non-null 1.00, recent 1.00, global 1.00, distinct 2^15–2^16, max |rho| 0.1, nearest ag_u_new_share90
+  sql: WITH uc AS (SELECT t.customer_id, AVG(CASE WHEN t.sales_channel_id = '2' THEN 1.0 ELSE 0.0 END) AS o FROM tx t JOIN users u ON t.customer_id = u.customer_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 90 DAY GROUP BY t.customer_id), ic AS (SELECT article_id, AVG(CASE WHEN sales_channel_id = '2' THEN 1.0 ELSE 0.0 END) AS o FROM tx WHERE t_dat >= DATE '{A}' - INTERVAL 90 DAY GROUP BY article_id) SELECT c.customer_id, c.article_id, 1.0 - ABS(uc.o - ic.o) AS ag_channel_match90 FROM cand c JOIN uc ON uc.customer_id = c.customer_id JOIN ic ON ic.article_id = c.article_id;
+r5p3 user_repeat_propensity365 [customer]: valid (2^-2–2^-1 s, 2^12–2^13 rows)
+  idea: Share of the user's distinct 365-day articles that they bought on two or more distinct days, a repurchase trait that tells the model how much to trust ui_tx and user_recent_rank for this user.
+  ag_u_repeat_share365: non-null 1.00, recent 1.00, global 1.00, distinct 2^8–2^9, max |rho| 0.5, nearest ag_u_days365
+  sql: WITH ua AS (SELECT t.customer_id, t.article_id, COUNT(DISTINCT t.t_dat) AS d FROM tx t JOIN users u ON t.customer_id = u.customer_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 365 DAY GROUP BY t.customer_id, t.article_id) SELECT customer_id, AVG(CASE WHEN d >= 2 THEN 1.0 ELSE 0.0 END) AS ag_u_repeat_share365 FROM ua GROUP BY customer_id;
+r5p4 type_seasonal_shift_ly [article]: valid (2^-4–2^-3 s, 2^16–2^17 rows)
+  idea: Smoothed ratio of the product type's distinct buyers in the target-aligned week one year earlier to the week before it, a seasonal momentum prior showing which categories rise into the coming week (e.g. knitwear into autumn).
+  ag_type_season_ly: non-null 1.00, recent 1.00, global 1.00, distinct 2^6–2^7, max |rho| 0.3, nearest item_price28
+  sql: WITH ty AS (SELECT a2.product_type_no, COUNT(DISTINCT CASE WHEN t.t_dat >= DATE '{A}' - INTERVAL 364 DAY THEN t.customer_id END) AS n1, COUNT(DISTINCT CASE WHEN t.t_dat < DATE '{A}' - INTERVAL 364 DAY THEN t.customer_id END) AS n0 FROM tx t JOIN articles a2 ON t.article_id = a2.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 371 DAY AND t.t_dat < DATE '{A}' - INTERVAL 357 DAY GROUP BY a2.product_type_no) SELECT a.article_id, COALESCE((ty.n1 + 10.0) / (ty.n0 + 10.0), 1.0) AS ag_type_season_ly FROM articles a LEFT JOIN ty ON ty.product_type_no = a.product_type_no;
+r5p5 dept_decay_affinity90 [pair]: valid (2^-2–2^-1 s, 2^19–2^20 rows)
+  idea: Exponentially time-decayed count (0.9 per day) of the user's 90-day rows in the candidate's department, a short-term shopping-intent signal that weights last week's category far above the flat 90-day department share.
+  ag_dept_decay90: non-null 1.00, recent 1.00, global 1.00, distinct 2^11–2^12, max |rho| 1.0, nearest ag_dept_share90
+  sql: WITH ut AS (SELECT t.customer_id, a.department_no, SUM(POWER(0.9, date_diff('day', t.t_dat, DATE '{A}') - 1)) AS w FROM tx t JOIN users u ON t.customer_id = u.customer_id JOIN articles a ON t.article_id = a.article_id WHERE t.t_dat >= DATE '{A}' - INTERVAL 90 DAY GROUP BY t.customer_id, a.department_no) SELECT c.customer_id, c.article_id, COALESCE(ut.w, 0.0) AS ag_dept_decay90 FROM cand c LEFT JOIN articles a ON a.article_id = c.article_id LEFT JOIN ut ON ut.customer_id = c.customer_id AND ut.department_no = a.department_no;
+Probe time budget left (rounded down to 10 s): pair+customer about 80 s of 90 s; article about 170 s of 180 s.
+
+REQUEST
+Propose 5 new features that are likely to improve the ranking beyond M23 and the accepted columns and that
+differ from earlier attempts. Answer with a JSON list only:
+[{"name": "short_snake_case", "idea": "one sentence", "level": "pair|customer|article", "sql": "SELECT ..."}]

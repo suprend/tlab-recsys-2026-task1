@@ -1,0 +1,113 @@
+{
+  "format": "hm-agent-prereg-v1",
+  "contract": {
+    "path": "docs/hm-agent-design.md",
+    "sha256": "208b32b38964159f144d3c7773ba31eb94861761b30332928976121f86366601"
+  },
+  "agent_set": {
+    "path": "configs/datasets/hm-agent-set.json",
+    "sha256": "7ba8338dd7bc69791296633aa12c50f76e0ad02f7b3e058f96b4df2dcc394a91",
+    "digest": "860184a9a74f5547226e771f5e960493db5b291341731940629f259b76f5f391",
+    "columns": 34,
+    "run": {
+      "id": "20261021-0145",
+      "model": "claude-opus-5-5",
+      "rounds": 6,
+      "proposals_per_round": 5,
+      "calls": 6,
+      "cost_usd": 1.16699
+    }
+  },
+  "export_digest": "98a7707b35245b3110917226f6e56cc09b8f58f5d85f97deb6c7bdef1762e640",
+  "database": {
+    "sha256": "a98b3dc9cf29da87c608dd615792bcae75c87238f645987c2b73435383df8f90",
+    "bytes": 1165504512
+  },
+  "sources": {
+    "record_sha256": "b0de0891897ff8326fcb0050cd65b6cfadd99a8eb25f141806398ea4994e37b3",
+    "pinned_sources": true,
+    "allow_unpinned": false
+  },
+  "code": {
+    "hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+    "hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+    "hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "hm_agent_kaggle.py": "6eda6631513cea9a2f840f55dddc20202b78314177cf12b382157009b32ae2ae",
+    "hm_result_audit.py": "e65720250ed95ab444848af8008adecb3564161736e0ff02df76fc732cc0a9b1"
+  },
+  "threads": 8,
+  "score": {
+    "threads": 4,
+    "chunk_users": 15000,
+    "anchor": "2020-09-23",
+    "control": "M2026"
+  },
+  "arms": {
+    "M": "M23 из lock",
+    "E": "E46 из lock",
+    "MA": "M23 + все колонки agent_set в замороженном порядке"
+  },
+  "seeds": [
+    2026,
+    2027
+  ],
+  "anchors": {
+    "sidecars": [
+      "2020-08-12",
+      "2020-08-19",
+      "2020-08-26",
+      "2020-09-02",
+      "2020-09-09",
+      "2020-09-16"
+    ],
+    "port_train": [
+      "2020-08-12",
+      "2020-08-19",
+      "2020-08-26",
+      "2020-09-02",
+      "2020-09-09"
+    ],
+    "port_validation": "2020-09-16",
+    "final_train": [
+      "2020-08-19",
+      "2020-08-26",
+      "2020-09-02",
+      "2020-09-09",
+      "2020-09-16"
+    ],
+    "leakcheck": [
+      "2020-08-19",
+      "2020-09-16"
+    ],
+    "leakcheck_users": 2000
+  },
+  "fits": [
+    "port/M2026",
+    "port/M2027",
+    "port/E2026",
+    "port/MA2026",
+    "port/MA2027",
+    "final/M2026",
+    "final/M2027",
+    "final/E2026",
+    "final/E2027",
+    "final/MA2026",
+    "final/MA2027"
+  ],
+  "dev_contrast": "docs/hm-agent-design.md §4 «Дев-контраст»",
+  "gate": "docs/hm-agent-design.md §4 «Гейт отправки MA»",
+  "first_number": "docs/hm-agent-design.md §4 «Первое число MA»",
+  "refusal": "docs/hm-agent-design.md §4 «Правило отказа»",
+  "deviations": "docs/hm-agent-design.md §4, configs/datasets/hm-agent-deviations.json",
+  "kaggle_reading": "docs/hm-agent-design.md §4 «Чтение Kaggle» и «Сколько seeds»",
+  "fallbacks": "docs/hm-agent-design.md §4 «Правило отказа», §7 «Запасные варианты»",
+  "limitations": [
+    "docs/hm-agent-design.md §2: обратная связь агенту — только валидность и покрытие, в REES46 агент видел dNDCG (D9)",
+    "docs/hm-agent-design.md §5: знание LLM о решениях соревнования H&M принимается и не отделяется (D8)"
+  ]
+}
