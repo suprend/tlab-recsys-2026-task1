@@ -277,6 +277,38 @@ class TestLogTest(unittest.TestCase):
             self.assertFalse((out / 'test.started').exists())
 
 
+class CategoryAsOfTest(unittest.TestCase):
+    """The 2020 leak check: a category whose category_code first appears after t has no l1 at t."""
+
+    def iattr(self, module, t):
+        from task1 import data
+        con = duckdb.connect()
+        con.execute(f"CREATE TABLE events ({', '.join(f'{k} {v}' for k, v in data.SCHEMA.items())})")
+        con.executemany('INSERT INTO events VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+            ('2020-01-10 10:00:00', 'view', 11, 1, None, 'a', 1.0, 100, 's1'),  # category 1: no code until 02-01
+            ('2020-01-10 11:00:00', 'cart', 21, 2, 'kids.toys', 'b', 2.0, 100, 's1'),
+            ('2020-01-21 12:00:00', 'view', 11, 1, None, 'a', 1.0, 101, 's2'),
+            ('2020-02-01 09:00:00', 'view', 11, 1, 'electronics.audio', 'a', 1.0, 101, 's3'),
+            ('2020-02-01 09:05:00', 'cart', 21, 2, 'kids.toys', 'b', 2.0, 101, 's3')])
+        data.derive(con)
+        for schema in ('src', 'fs'):
+            con.execute(f'CREATE SCHEMA {schema}')
+            for table in ('events', 'pair_first', 'item_static', 'item_brand_day'):
+                con.execute(f'CREATE VIEW {schema}.{table} AS SELECT * FROM main.{table}')
+        module.set_anchor(con, t)
+        return (dict(con.execute('SELECT product_id, l1 FROM iattr').fetchall()),
+                dict(con.execute('SELECT product_id, l1 FROM item_static').fetchall()))
+
+    def test_l1_is_read_as_of_the_anchor(self):
+        from task1 import build, build4
+        for module in (build, build4):
+            got, static = self.iattr(module, '2020-01-22 00:00:00')
+            self.assertEqual(static, {11: 'electronics', 21: 'kids'})  # item_static sees the whole period
+            self.assertEqual(got, {11: None, 21: 'kids'}, module.__name__)
+            got, _ = self.iattr(module, '2020-02-02 00:00:00')
+            self.assertEqual(got, {11: 'electronics', 21: 'kids'}, module.__name__)
+
+
 class CapTest(unittest.TestCase):
     def test_cap_keeps_whole_queries_in_hash_order(self):
         from task1 import exp, model as M

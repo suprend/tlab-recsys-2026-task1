@@ -85,8 +85,13 @@ CREATE OR REPLACE TEMP TABLE uev AS SELECT * FROM w SEMI JOIN queries USING(user
 CREATE OR REPLACE TEMP TABLE touched AS SELECT user_id, product_id FROM pf SEMI JOIN queries USING(user_id);
 CREATE OR REPLACE TEMP TABLE ibrand AS
   SELECT product_id, arg_max(brand, d) brand FROM fs.item_brand_day WHERE d < {D} GROUP BY 1;
+CREATE OR REPLACE TEMP TABLE ccode AS  -- the first category_code of a category before t: item_static.l1 takes the
+  SELECT category_id,                     -- first over all data, and in 2020 19 categories get one only on 02-01..05
+    nullif(split_part(arg_min(category_code, (event_time, category_code)), '.', 1), '') l1
+  FROM hist WHERE category_code IS NOT NULL GROUP BY 1;
 CREATE OR REPLACE TEMP TABLE iattr AS
-  SELECT s.product_id, s.category_id cat, s.l1, b.brand FROM fs.item_static s LEFT JOIN ibrand b USING(product_id);
+  SELECT s.product_id, s.category_id cat, c.l1, b.brand
+  FROM fs.item_static s LEFT JOIN ccode c USING(category_id) LEFT JOIN ibrand b USING(product_id);
 
 -- item counters over the 14-day window (all products, all users)
 CREATE OR REPLACE TEMP TABLE it AS SELECT product_id,
