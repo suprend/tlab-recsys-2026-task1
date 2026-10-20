@@ -1,0 +1,73 @@
+{
+ "reference": "base",
+ "seeds": [
+  [
+   2026,
+   0
+  ],
+  [
+   7,
+   1
+  ]
+ ],
+ "arms": [
+  {
+   "name": "base",
+   "config": {
+    "days": "artifacts/task1/v2/days6",
+    "depth": 8
+   }
+  },
+  {
+   "name": "base_4src",
+   "config": {
+    "days": "artifacts/task1/v2/days"
+   }
+  },
+  {
+   "name": "dfs",
+   "config": {
+    "days": "artifacts/task1/v2/days6",
+    "depth": 8,
+    "extra": [
+     "dfs_p_top",
+     "dfs_c_top",
+     "dfs_b_top"
+    ]
+   }
+  },
+  {
+   "name": "agent",
+   "config": {
+    "days": "artifacts/task1/v2/days6",
+    "depth": 8,
+    "extra": [
+     "agent_night20_r5p5_cf_considered_seed_coview"
+    ]
+   }
+  }
+ ],
+ "dfs_selected": [
+  "f_x_dfs_p_cart_u_14d",
+  "f_x_dfs_p_buy_per_view_14d",
+  "f_x_dfs_p_cart_n_7d",
+  "f_x_dfs_p_view_u_1d",
+  "f_x_dfs_b_cart_per_view_14d",
+  "f_x_dfs_b_cart_n_7d",
+  "f_x_dfs_p_view_u_14d",
+  "f_x_dfs_p_purchase_u_3d",
+  "f_x_dfs_p_purchase_n_7d",
+  "f_x_dfs_p_purchase_n_14d",
+  "f_x_dfs_b_purchase_n_1d",
+  "f_x_dfs_b_cart_n_3d",
+  "f_x_dfs_p_view_n_1d",
+  "f_x_dfs_c_cart_per_view_1d",
+  "f_x_dfs_b_view_u_7d",
+  "f_x_dfs_b_cart_u_3d",
+  "f_x_dfs_b_purchase_u_14d",
+  "f_x_dfs_b_view_u_1d",
+  "f_x_dfs_p_view_n_3d",
+  "f_x_dfs_p_buy_per_view_3d"
+ ],
+ "notes": "PROPOSAL 2026-10-20 08:57, not adopted unless copied over final.json before the test. Same arms as final.json (written 06:36, committed 6fe96b3 at 06:58) plus agent = base + the one accepted feature (A: +0.0013/+0.0017; B: -0.0002/+0.0009, not confirmed)."
+}

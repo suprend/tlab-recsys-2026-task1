@@ -18,10 +18,33 @@
   "threads": 10
  },
  "proxy": {},
- "rounds": 4,
- "llm_calls": 4,
- "llm_cost_usd": 1.5929,
- "extra": [],
- "accepted": [],
- "test_command": null
+ "rounds": 6,
+ "llm_calls": 6,
+ "llm_cost_usd": 2.8923,
+ "extra": [
+  "agent_night20_r5p5_cf_considered_seed_coview"
+ ],
+ "accepted": [
+  {
+   "name": "agent_night20_r5p5_cf_considered_seed_coview",
+   "round": 5,
+   "idea": "Long-memory co-view seeds. It uses the user's 5 items with the most distinct revisit sessions over 14 days (at least 2), i.e. products they kept coming back to, which often fall outside the 20-latest-views window. It takes their 7d session co-view neighbours and weights them by log revisit count and a 96h recency decay. This extends the near-miss acquisition-seed idea to strong, uncommitted consideration.",
+   "columns": [
+    "f_x_cf_consid_cv_cos_max",
+    "f_x_cf_consid_cv_wsum"
+   ],
+   "d": 0.00128,
+   "ci": [
+    0.00014,
+    0.00239
+   ],
+   "d2": 0.00168,
+   "ci2": [
+    0.00059,
+    0.00275
+   ],
+   "sql": "WITH seed AS (SELECT user_id, product_id, COUNT(DISTINCT user_session) AS ns, MAX(event_time) AS lt FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND user_session IS NOT NULL AND user_id IN (SELECT user_id FROM active_users) GROUP BY user_id, product_id HAVING COUNT(DISTINCT user_session) >= 2 QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY COUNT(DISTINCT user_session) DESC, MAX(event_time) DESC) <= 5), sp AS (SELECT DISTINCT user_session, product_id FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_session IS NOT NULL), ss AS (SELECT user_session FROM sp GROUP BY user_session HAVING COUNT(*) BETWEEN 2 AND 30), spf AS (SELECT sp.user_session, sp.product_id FROM sp JOIN ss ON ss.user_session = sp.user_session), deg AS (SELECT product_id, COUNT(*)::DOUBLE AS n FROM spf GROUP BY product_id), pr AS (SELECT a.product_id AS pa, b.product_id AS pb, COUNT(*) AS co FROM spf a JOIN spf b ON a.user_session = b.user_session AND a.product_id <> b.product_id WHERE a.product_id IN (SELECT DISTINCT product_id FROM seed) GROUP BY 1, 2 HAVING COUNT(*) >= 2), nb AS (SELECT pa, pb, cosv FROM (SELECT pr.pa, pr.pb, pr.co / SQRT(d1.n * d2.n) AS cosv FROM pr JOIN deg d1 ON d1.product_id = pr.pa JOIN deg d2 ON d2.product_id = pr.pb) QUALIFY ROW_NUMBER() OVER (PARTITION BY pa ORDER BY cosv DESC) <= 30) SELECT s.user_id, nb.pb AS product_id, MAX(nb.cosv) AS f_x_cf_consid_cv_cos_max, SUM(nb.cosv * LN(1.0 + s.ns) * EXP(-date_diff('second', s.lt, TIMESTAMP '{t}') / 3600.0 / 96.0)) AS f_x_cf_consid_cv_wsum FROM seed s JOIN nb ON nb.pa = s.product_id GROUP BY s.user_id, nb.pb"
+  }
+ ],
+ "test_command": ".venv/bin/python -m task1.extra agent_night20_r5p5_cf_considered_seed_coview --splits test"
 }
