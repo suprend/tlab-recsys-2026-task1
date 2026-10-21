@@ -1,0 +1,294 @@
+{
+ "question": "agent gain on val-2020-08-19 by recency of the last purchase (min up_days_since_last over candidates; bands d<7, 7<=d<30, d>=30) and by membership in the Kaggle test users",
+ "inputs": {
+  "artifacts/xfer/sber/fits/dev/B2026/metrics-val-2020-08-19.parquet": "6bca5914848c1149e0f81b5c7904389426a32278ad17cd59609296ddee2810e1",
+  "artifacts/xfer/sber/fits/dev/B2027/metrics-val-2020-08-19.parquet": "b995c26de31e2ac2a04c6816344dc29fc4e3c84d27a12898df64e91ee64ce52a",
+  "artifacts/xfer/sber/fits/dev/BA2026/metrics-val-2020-08-19.parquet": "5969e48ad56785070719e65337da07ff0e8b7b2050a3652f4dced7c571384418",
+  "artifacts/xfer/sber/fits/dev/BA2027/metrics-val-2020-08-19.parquet": "9e63bb59b1d5033825d4d0efb59d887cee9e8d21995710683a3a1c567995df2c",
+  "artifacts/xfer/sber/fits/dev/BApl2026/metrics-val-2020-08-19.parquet": "1c8ab256908daf2184e81d3d75a0422a1034229022eac8d039628fbca10eb9aa",
+  "artifacts/xfer/sber/fits/dev/BApl2027/metrics-val-2020-08-19.parquet": "6f196d560bf5440c264a82462d2434b3c9064e2f5fef7e6005c10d5e93bf0a92",
+  "artifacts/xfer/sber/collections/val-2020-08-19/frame.parquet": "69f30a510c87469d3ba9d528f9780e55580b0df5a068d4adc1cc770c81c1bdcb",
+  "artifacts/xfer/sber/collections/kaggle-2020-09-17/frame.parquet": "92cce3b180018574b87d7da2fb73e8a78ee5616cc19187b097306890123649d6",
+  "artifacts/xfer/sber/collections/kaggle-2020-09-17/fallback.parquet": "04486116c9681b7d2c9a5e1180427eec24595b3b4ec803cb4801060de42066b6"
+ },
+ "val_mix": {
+  "<7": 0.4456,
+  "7-30": 0.37625,
+  ">=30": 0.17815
+ },
+ "kaggle_mix_scoring_users": {
+  "<7": 0.10604015196806356,
+  "7-30": 0.44102559157618654,
+  ">=30": 0.4529342564557499
+ },
+ "groups": {
+  "<7": {
+   "queries": 8912,
+   "B2026": 0.11846240329057145,
+   "D2026": {
+    "queries": 8912,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.002888131840622011,
+    "ci": [
+     0.002347106523773615,
+     0.0033947708883579333
+    ],
+    "covers_zero": false
+   },
+   "P2026": {
+    "queries": 8912,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0028896470015583576,
+    "ci": [
+     0.00231239118171284,
+     0.0034404990749338322
+    ],
+    "covers_zero": false
+   },
+   "B2027": 0.1184205519056235,
+   "D2027": {
+    "queries": 8912,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0029237010873551794,
+    "ci": [
+     0.0024003562163228023,
+     0.0034275539585444186
+    ],
+    "covers_zero": false
+   },
+   "P2027": {
+    "queries": 8912,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0028574320571548065,
+    "ci": [
+     0.0023111274387061175,
+     0.0033918507288430806
+    ],
+    "covers_zero": false
+   }
+  },
+  "7-30": {
+   "queries": 7525,
+   "B2026": 0.10142617621715187,
+   "D2026": {
+    "queries": 7525,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.003115906116453196,
+    "ci": [
+     0.0025857424060250185,
+     0.0036603620079852122
+    ],
+    "covers_zero": false
+   },
+   "P2026": {
+    "queries": 7525,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0031560608615744754,
+    "ci": [
+     0.0026208318674419786,
+     0.0037135369327335045
+    ],
+    "covers_zero": false
+   },
+   "B2027": 0.10120162615131474,
+   "D2027": {
+    "queries": 7525,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0031506484964219047,
+    "ci": [
+     0.0026365231143951,
+     0.003697031848877826
+    ],
+    "covers_zero": false
+   },
+   "P2027": {
+    "queries": 7525,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.002976282822779563,
+    "ci": [
+     0.002466102461056729,
+     0.0035259002211894277
+    ],
+    "covers_zero": false
+   }
+  },
+  ">=30": {
+   "queries": 3563,
+   "B2026": 0.07407413733112304,
+   "D2026": {
+    "queries": 3563,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0013304438763571866,
+    "ci": [
+     0.000499843369538858,
+     0.002189007175639028
+    ],
+    "covers_zero": false
+   },
+   "P2026": {
+    "queries": 3563,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0014633977062641643,
+    "ci": [
+     0.0005454221621672554,
+     0.00236735682384099
+    ],
+    "covers_zero": false
+   },
+   "B2027": 0.07395970457455553,
+   "D2027": {
+    "queries": 3563,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0010914841184647714,
+    "ci": [
+     0.0002540217817033214,
+     0.0019058476348595135
+    ],
+    "covers_zero": false
+   },
+   "P2027": {
+    "queries": 3563,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0011269971714581537,
+    "ci": [
+     0.00031411502563428973,
+     0.0019159570423584365
+    ],
+    "covers_zero": false
+   }
+  }
+ },
+ "test_split": {
+  "kaggle_test": {
+   "queries": 12103,
+   "B2026": 0.11271366791359573,
+   "D2026": {
+    "queries": 12103,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0029144564042266584,
+    "ci": [
+     0.0024659065943854336,
+     0.0033864551002206734
+    ],
+    "covers_zero": false
+   },
+   "P2026": {
+    "queries": 12103,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0029594736872980147,
+    "ci": [
+     0.0024914561372415206,
+     0.0034201963413715065
+    ],
+    "covers_zero": false
+   },
+   "B2027": 0.11262275309958178,
+   "D2027": {
+    "queries": 12103,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0028352722108559774,
+    "ci": [
+     0.0023802780189892832,
+     0.003299458724497663
+    ],
+    "covers_zero": false
+   },
+   "P2027": {
+    "queries": 12103,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.002776843563849219,
+    "ci": [
+     0.0022989222428015134,
+     0.0032418794671235244
+    ],
+    "covers_zero": false
+   }
+  },
+  "other": {
+   "queries": 7897,
+   "B2026": 0.09101197197824275,
+   "D2026": {
+    "queries": 7897,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0023620273725514845,
+    "ci": [
+     0.0018149581643252322,
+     0.0028841517819916686
+    ],
+    "covers_zero": false
+   },
+   "P2026": {
+    "queries": 7897,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.0023929932950851407,
+    "ci": [
+     0.0017955523228167468,
+     0.0029782915842731373
+    ],
+    "covers_zero": false
+   },
+   "B2027": 0.09083847562447299,
+   "D2027": {
+    "queries": 7897,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.002448817572772481,
+    "ci": [
+     0.001897835193171281,
+     0.0029898176452045617
+    ],
+    "covers_zero": false
+   },
+   "P2027": {
+    "queries": 7897,
+    "draws": 2000,
+    "seed": 2026,
+    "mean": 0.002313450171383836,
+    "ci": [
+     0.0017523742462000726,
+     0.002882972531585711
+    ],
+    "covers_zero": false
+   }
+  }
+ },
+ "kaggle_weighted": {
+  "D2026": 0.0022830558854819378,
+  "D2027": 0.0021939168722255303
+ },
+ "coverage": {
+  "column": "ag_up_gap_cv",
+  "note": "non-NULL share over sidecar rows, per recency band; reweighting uses the user mix (rows per user are 200)",
+  "val": {
+   "<7": 0.08821083931777379,
+   "7-30": 0.050858471760797344,
+   ">=30": 0.013613527925905136,
+   "all": 0.0608675
+  },
+  "kaggle": {
+   "<7": 0.059191597708465944,
+   "7-30": 0.046492445940923104,
+   ">=30": 0.009604125862215788,
+   "all": 0.03113108209746784
+  },
+  "val_reweighted_to_kaggle_mix": 0.037949811550313024
+ }
+}

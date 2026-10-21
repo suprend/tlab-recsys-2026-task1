@@ -1,0 +1,44 @@
+{
+  "format": "xfer-kaggle-submissions-v1",
+  "dataset": "sber",
+  "competition": "test-recsys",
+  "authorization": {
+    "status": "pending",
+    "note": "contract §6: explicit «да» in chat for the specific files is required"
+  },
+  "gate2": [
+    "artifacts/xfer/sber/gate/stage2-20261021T135151437711Z/gate.json",
+    "artifacts/xfer/sber/gate/stage2-20261021T140329522758Z/gate.json"
+  ],
+  "reading": "not computed: BA not sent",
+  "submissions": [
+    {
+      "arm": "B2026",
+      "file": "artifacts/xfer/sber/kaggle/B2026/B2026.csv",
+      "sha256": "310112d35527b8451bcfa92a3039fc9d15cbd78ca1ece8019f5796ad9ff2dbdb",
+      "status": "not sent yet"
+    },
+    {
+      "arm": "B2027",
+      "file": "artifacts/xfer/sber/kaggle/B2027/B2027.csv",
+      "sha256": "1a6687f3e096c22438ef618483f1d672bfe8d313df3a4b0904a941fd151f3dbb",
+      "status": "not sent yet"
+    },
+    {
+      "arm": "BA2026",
+      "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
+    },
+    {
+      "arm": "BA2027",
+      "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
+    },
+    {
+      "arm": "BApl2026",
+      "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
+    },
+    {
+      "arm": "BApl2027",
+      "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
+    }
+  ]
+}
