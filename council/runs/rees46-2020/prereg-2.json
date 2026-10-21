@@ -1,0 +1,499 @@
+{
+ "families": {
+  "F1": "G1-1",
+  "F2": "G2-1",
+  "F3": "G3-1",
+  "F4": "G4-1",
+  "F5": "G1-3",
+  "F6": "G2-2",
+  "F7": "G3-4",
+  "F8": "G4-5",
+  "F9": "G1-5",
+  "F10": "G2-5",
+  "F11": "G3-6",
+  "F12": "G4-6"
+ },
+ "twins": {
+  "T1": {
+   "family": "F1",
+   "card": "G1-1"
+  },
+  "T2": {
+   "family": "F2",
+   "card": "G2-1"
+  },
+  "T3": {
+   "family": "F7",
+   "card": "G3-4"
+  },
+  "T4": {
+   "family": "F4",
+   "card": "G4-1"
+  }
+ },
+ "placebo": {
+  "columns": [
+   "f_x_c1_cset_drift_align",
+   "f_x_c2_life_days_since_peak_log",
+   "f_x_c4_i_pband_acq_lift_7d",
+   "f_x_c2_pchg_age_h_log"
+  ],
+  "tables": [
+   "council_g1_3",
+   "council_g2_1",
+   "council_g4_1",
+   "council_g2_2"
+  ]
+ },
+ "empty": [
+  "E1",
+  "E2",
+  "E3",
+  "E4",
+  "E5",
+  "E6"
+ ],
+ "columns": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5",
+  "F6",
+  "F7",
+  "F8",
+  "F9",
+  "F10",
+  "F11",
+  "F12",
+  "T1",
+  "T2",
+  "T3",
+  "T4",
+  "PL",
+  "E1",
+  "E2",
+  "E3",
+  "E4",
+  "E5",
+  "E6"
+ ],
+ "matrix_sha256": "dc36824963e06a5c4db3bdd6039c3514a728da487af78c1ebe048c1c02c22358",
+ "seeds": {
+  "plan_r01": [
+   1001,
+   1
+  ],
+  "plan_r02": [
+   1002,
+   2
+  ],
+  "plan_r03": [
+   1003,
+   3
+  ],
+  "plan_r04": [
+   1004,
+   4
+  ],
+  "plan_r05": [
+   1005,
+   5
+  ],
+  "plan_r06": [
+   1006,
+   6
+  ],
+  "plan_r07": [
+   1007,
+   7
+  ],
+  "plan_r08": [
+   1008,
+   8
+  ],
+  "plan_r09": [
+   1009,
+   9
+  ],
+  "plan_r10": [
+   1010,
+   10
+  ],
+  "plan_r11": [
+   1011,
+   11
+  ],
+  "plan_r12": [
+   1012,
+   12
+  ],
+  "plan_r13": [
+   1013,
+   13
+  ],
+  "plan_r14": [
+   1014,
+   14
+  ],
+  "plan_r15": [
+   1015,
+   15
+  ],
+  "plan_r16": [
+   1016,
+   16
+  ],
+  "plan_r17": [
+   1017,
+   17
+  ],
+  "plan_r18": [
+   1018,
+   18
+  ],
+  "plan_r19": [
+   1019,
+   19
+  ],
+  "plan_r20": [
+   1020,
+   20
+  ],
+  "plan_r21": [
+   1021,
+   21
+  ],
+  "plan_r22": [
+   1022,
+   22
+  ],
+  "plan_r23": [
+   1023,
+   23
+  ],
+  "plan_r24": [
+   1024,
+   24
+  ],
+  "plan_r25": [
+   1025,
+   25
+  ],
+  "plan_r26": [
+   1026,
+   26
+  ],
+  "plan_r27": [
+   1027,
+   27
+  ],
+  "plan_r28": [
+   1028,
+   28
+  ],
+  "plan_r29": [
+   1029,
+   29
+  ],
+  "plan_r30": [
+   1030,
+   30
+  ],
+  "plan_r31": [
+   1031,
+   31
+  ],
+  "plan_r32": [
+   1032,
+   32
+  ],
+  "plan_r33": [
+   1033,
+   33
+  ],
+  "plan_r34": [
+   1034,
+   34
+  ],
+  "plan_r35": [
+   1035,
+   35
+  ],
+  "plan_r36": [
+   1036,
+   36
+  ],
+  "plan_r37": [
+   1037,
+   37
+  ],
+  "plan_r38": [
+   1038,
+   38
+  ],
+  "plan_r39": [
+   1039,
+   39
+  ],
+  "plan_r40": [
+   1040,
+   40
+  ],
+  "plan_r41": [
+   1041,
+   41
+  ],
+  "plan_r42": [
+   1042,
+   42
+  ],
+  "plan_r43": [
+   1043,
+   43
+  ],
+  "plan_r44": [
+   1044,
+   44
+  ],
+  "plan_r45": [
+   1045,
+   45
+  ],
+  "plan_r46": [
+   1046,
+   46
+  ],
+  "plan_r47": [
+   1047,
+   47
+  ],
+  "plan_r48": [
+   1048,
+   48
+  ]
+ },
+ "arms": {
+  "Hr": [
+   "dfs_p",
+   "dfs_c",
+   "dfs_b",
+   "dfs_u",
+   "agent_night20_r1p1_first_touch_conversion",
+   "agent_night20_r1p2_coacq_cf",
+   "agent_night20_r1p3_buyer_price_profile",
+   "agent_night20_r1p4_new_reach",
+   "agent_night20_r1p5_cp_staleness",
+   "agent_night20_r2p1_cmp_session_win_lift",
+   "agent_night20_r2p2_cp_category_complement",
+   "agent_night20_r2p3_acq_seed_coview_cf",
+   "agent_night20_r2p4_revisit_consideration",
+   "agent_night20_r2p5_view_dwell_time",
+   "agent_night20_r3p1_view_session_last_choice",
+   "agent_night20_r3p2_intraday_momentum_12h",
+   "agent_night20_r3p3_user_user_cf_acq",
+   "agent_night20_r3p4_brand_cat_price_sibling",
+   "agent_night20_r3p5_category_search_depth",
+   "agent_night20_r4p1_acq_regularity_7d",
+   "agent_night20_r4p2_cat_acq_concentration",
+   "agent_night20_r4p3_weekday_seasonality_14d",
+   "agent_night20_r4p4_cat_to_item_transition",
+   "agent_night20_r4p5_brand_switch_transition",
+   "agent_night20_r5p1_cf_xday_new_acq_transition",
+   "agent_night20_r5p2_cf_next_view_adjacency",
+   "agent_night20_r5p3_cf_converting_session_coview",
+   "agent_night20_r5p4_uc_nextday_continuation",
+   "agent_night20_r5p5_cf_considered_seed_coview",
+   "agent_night20_r6p1_older_view_seed_coview",
+   "agent_night20_r6p2_dwell_seed_coview",
+   "agent_night20_r6p3_abandoned_cart_seed_coview",
+   "agent_night20_r6p4_user_level_cooccurrence_cf",
+   "agent_night20_r6p5_fresh_2d_coview_graph"
+  ],
+  "Hrp": [
+   "dfs_p",
+   "dfs_c",
+   "dfs_b",
+   "dfs_u",
+   "agent_night20_r1p1_first_touch_conversion",
+   "agent_night20_r1p2_coacq_cf",
+   "agent_night20_r1p3_buyer_price_profile",
+   "agent_night20_r1p4_new_reach",
+   "agent_night20_r1p5_cp_staleness",
+   "agent_night20_r2p1_cmp_session_win_lift",
+   "agent_night20_r2p2_cp_category_complement",
+   "agent_night20_r2p3_acq_seed_coview_cf",
+   "agent_night20_r2p4_revisit_consideration",
+   "agent_night20_r2p5_view_dwell_time",
+   "agent_night20_r3p1_view_session_last_choice",
+   "agent_night20_r3p2_intraday_momentum_12h",
+   "agent_night20_r3p3_user_user_cf_acq",
+   "agent_night20_r3p4_brand_cat_price_sibling",
+   "agent_night20_r3p5_category_search_depth",
+   "agent_night20_r4p1_acq_regularity_7d",
+   "agent_night20_r4p2_cat_acq_concentration",
+   "agent_night20_r4p3_weekday_seasonality_14d",
+   "agent_night20_r4p4_cat_to_item_transition",
+   "agent_night20_r4p5_brand_switch_transition",
+   "agent_night20_r5p1_cf_xday_new_acq_transition",
+   "agent_night20_r5p2_cf_next_view_adjacency",
+   "agent_night20_r5p3_cf_converting_session_coview",
+   "agent_night20_r5p4_uc_nextday_continuation",
+   "agent_night20_r5p5_cf_considered_seed_coview",
+   "agent_night20_r6p1_older_view_seed_coview",
+   "agent_night20_r6p2_dwell_seed_coview",
+   "agent_night20_r6p3_abandoned_cart_seed_coview",
+   "agent_night20_r6p4_user_level_cooccurrence_cf",
+   "agent_night20_r6p5_fresh_2d_coview_graph",
+   "council_rb1_landing_direct_buy",
+   "council_rb1_price_vs_compared_alternatives",
+   "council_rb1_user_newacq_continuity",
+   "council_rb1_user_discount_affinity",
+   "council_rb1_cf_price_advantage",
+   "council_rb1_pricebin_position",
+   "council_rb1_viewer_intent_lift",
+   "council_rb2_pid_rank_adjacency",
+   "council_rb2_cat_brand_newcomer_acq"
+  ],
+  "ALLP": [
+   "dfs_p",
+   "dfs_c",
+   "dfs_b",
+   "dfs_u",
+   "agent_night20_r1p1_first_touch_conversion",
+   "agent_night20_r1p2_coacq_cf",
+   "agent_night20_r1p3_buyer_price_profile",
+   "agent_night20_r1p4_new_reach",
+   "agent_night20_r1p5_cp_staleness",
+   "agent_night20_r2p1_cmp_session_win_lift",
+   "agent_night20_r2p2_cp_category_complement",
+   "agent_night20_r2p3_acq_seed_coview_cf",
+   "agent_night20_r2p4_revisit_consideration",
+   "agent_night20_r2p5_view_dwell_time",
+   "agent_night20_r3p1_view_session_last_choice",
+   "agent_night20_r3p2_intraday_momentum_12h",
+   "agent_night20_r3p3_user_user_cf_acq",
+   "agent_night20_r3p4_brand_cat_price_sibling",
+   "agent_night20_r3p5_category_search_depth",
+   "agent_night20_r4p1_acq_regularity_7d",
+   "agent_night20_r4p2_cat_acq_concentration",
+   "agent_night20_r4p3_weekday_seasonality_14d",
+   "agent_night20_r4p4_cat_to_item_transition",
+   "agent_night20_r4p5_brand_switch_transition",
+   "agent_night20_r5p1_cf_xday_new_acq_transition",
+   "agent_night20_r5p2_cf_next_view_adjacency",
+   "agent_night20_r5p3_cf_converting_session_coview",
+   "agent_night20_r5p4_uc_nextday_continuation",
+   "agent_night20_r5p5_cf_considered_seed_coview",
+   "agent_night20_r6p1_older_view_seed_coview",
+   "agent_night20_r6p2_dwell_seed_coview",
+   "agent_night20_r6p3_abandoned_cart_seed_coview",
+   "agent_night20_r6p4_user_level_cooccurrence_cf",
+   "agent_night20_r6p5_fresh_2d_coview_graph",
+   "council_g1_1",
+   "council_g2_1",
+   "council_g3_1",
+   "council_g4_1",
+   "council_g1_3",
+   "council_g2_2",
+   "council_g3_4",
+   "council_g4_5",
+   "council_g1_5",
+   "council_g2_5",
+   "council_g3_6",
+   "council_g4_6"
+  ],
+  "Rb1": [
+   "dfs_p",
+   "dfs_c",
+   "dfs_b",
+   "dfs_u",
+   "agent_night20_r1p1_first_touch_conversion",
+   "agent_night20_r1p2_coacq_cf",
+   "agent_night20_r1p3_buyer_price_profile",
+   "agent_night20_r1p4_new_reach",
+   "agent_night20_r1p5_cp_staleness",
+   "agent_night20_r2p1_cmp_session_win_lift",
+   "agent_night20_r2p2_cp_category_complement",
+   "agent_night20_r2p3_acq_seed_coview_cf",
+   "agent_night20_r2p4_revisit_consideration",
+   "agent_night20_r2p5_view_dwell_time",
+   "agent_night20_r3p1_view_session_last_choice",
+   "agent_night20_r3p2_intraday_momentum_12h",
+   "agent_night20_r3p3_user_user_cf_acq",
+   "agent_night20_r3p4_brand_cat_price_sibling",
+   "agent_night20_r3p5_category_search_depth",
+   "agent_night20_r4p1_acq_regularity_7d",
+   "agent_night20_r4p2_cat_acq_concentration",
+   "agent_night20_r4p3_weekday_seasonality_14d",
+   "agent_night20_r4p4_cat_to_item_transition",
+   "agent_night20_r4p5_brand_switch_transition",
+   "agent_night20_r5p1_cf_xday_new_acq_transition",
+   "agent_night20_r5p2_cf_next_view_adjacency",
+   "agent_night20_r5p3_cf_converting_session_coview",
+   "agent_night20_r5p4_uc_nextday_continuation",
+   "agent_night20_r5p5_cf_considered_seed_coview",
+   "agent_night20_r6p1_older_view_seed_coview",
+   "agent_night20_r6p2_dwell_seed_coview",
+   "agent_night20_r6p3_abandoned_cart_seed_coview",
+   "agent_night20_r6p4_user_level_cooccurrence_cf",
+   "agent_night20_r6p5_fresh_2d_coview_graph",
+   "council_rb1_landing_direct_buy",
+   "council_rb1_price_vs_compared_alternatives",
+   "council_rb1_user_newacq_continuity",
+   "council_rb1_user_discount_affinity",
+   "council_rb1_cf_price_advantage",
+   "council_rb1_pricebin_position",
+   "council_rb1_viewer_intent_lift"
+  ],
+  "Rb2": [
+   "dfs_p",
+   "dfs_c",
+   "dfs_b",
+   "dfs_u",
+   "agent_night20_r1p1_first_touch_conversion",
+   "agent_night20_r1p2_coacq_cf",
+   "agent_night20_r1p3_buyer_price_profile",
+   "agent_night20_r1p4_new_reach",
+   "agent_night20_r1p5_cp_staleness",
+   "agent_night20_r2p1_cmp_session_win_lift",
+   "agent_night20_r2p2_cp_category_complement",
+   "agent_night20_r2p3_acq_seed_coview_cf",
+   "agent_night20_r2p4_revisit_consideration",
+   "agent_night20_r2p5_view_dwell_time",
+   "agent_night20_r3p1_view_session_last_choice",
+   "agent_night20_r3p2_intraday_momentum_12h",
+   "agent_night20_r3p3_user_user_cf_acq",
+   "agent_night20_r3p4_brand_cat_price_sibling",
+   "agent_night20_r3p5_category_search_depth",
+   "agent_night20_r4p1_acq_regularity_7d",
+   "agent_night20_r4p2_cat_acq_concentration",
+   "agent_night20_r4p3_weekday_seasonality_14d",
+   "agent_night20_r4p4_cat_to_item_transition",
+   "agent_night20_r4p5_brand_switch_transition",
+   "agent_night20_r5p1_cf_xday_new_acq_transition",
+   "agent_night20_r5p2_cf_next_view_adjacency",
+   "agent_night20_r5p3_cf_converting_session_coview",
+   "agent_night20_r5p4_uc_nextday_continuation",
+   "agent_night20_r5p5_cf_considered_seed_coview",
+   "agent_night20_r6p1_older_view_seed_coview",
+   "agent_night20_r6p2_dwell_seed_coview",
+   "agent_night20_r6p3_abandoned_cart_seed_coview",
+   "agent_night20_r6p4_user_level_cooccurrence_cf",
+   "agent_night20_r6p5_fresh_2d_coview_graph",
+   "council_rb2_pid_rank_adjacency",
+   "council_rb2_cat_brand_newcomer_acq"
+  ]
+ },
+ "tables_over_hplus": {
+  "Hr": 0,
+  "Hrp": 9,
+  "ALLP": 12,
+  "Rb1": 7,
+  "Rb2": 2
+ },
+ "curation_sha256": "48c5ede38ceba52a347d48b112d046b3deb30f5aca054682ccd2d8ea76ed8dee",
+ "rule": "SEL = ALL_P (prereg-0: power 0.52 < 0.8); calibration and beta descriptive; twins by design.mechanism",
+ "twin_arm": "ALL_P with the family of the largest t(beta_g - beta_twin) replaced by its twin, chosen by analyze",
+ "h1": "design.h1 on C_test, SEL vs H+r+ over seeds [[2026, 0], [7, 1], [11, 2], [13, 3]]"
+}

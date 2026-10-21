@@ -8,6 +8,8 @@ Except council/fit.py and council/broker.py, no module of council/ (every counci
   - imports task1.exp or task1.placebo (whole or their _read, read_day, run, *) or names them in a string;
   - builds a path to the directory of fits: a string 'fits' as a path segment.
 council/roles.py defines FITS and its path and is exempt from the last two FITS rules only.
+council/memory.py trains (the memory trial of contract §2) and may import task1.exp and task1.placebo, nothing more of
+the rules above; it never predicts.
 
 Run: TASK1_PERIOD=2020 .venv/bin/python -m unittest council.tests.test_boundary
 """
@@ -19,6 +21,8 @@ from pathlib import Path
 
 PKG = Path(__file__).resolve().parents[1]
 EXEMPT = {'fit.py', 'broker.py'}
+TRAINS_ONLY = {'memory.py'}
+TRAIN_IMPORT = re.compile(r'^\d+: from task1 import (exp|placebo)$')
 DEFINES_FITS = {'roles.py'}
 WORDS = ('label', 'n_targets', 'ndcg', 'recall')
 NAME = re.compile(r'^(label\w*|n_targets\w*|\w*ndcg\w*|\w*recall\w*|per_query|_read|read_day)$')
@@ -97,7 +101,9 @@ class BoundaryTest(unittest.TestCase):
     def test_every_council_module_keeps_the_boundary(self):
         files = modules()
         self.assertIn('roles.py', [p.name for p in files])
-        bad = {p.name: v for p in files if (v := violations(p.read_text(encoding='utf-8'), p.name))}
+        bad = {p.name: v for p in files
+               if (v := [x for x in violations(p.read_text(encoding='utf-8'), p.name)
+                         if not (p.name in TRAINS_ONLY and TRAIN_IMPORT.match(x))])}
         self.assertEqual(bad, {}, 'modules of council/ outside fit.py and broker.py cross the label boundary')
 
     def test_the_exempt_modules_exist(self):
@@ -153,6 +159,12 @@ class CheckerTest(unittest.TestCase):
     def test_roles_may_define_fits_but_not_the_rest(self):
         self.assertEqual(violations("FITS = OUT / 'fits'\n", 'roles.py'), [])
         self.bad("x = 'label'\n", 'roles.py')
+
+    def test_the_training_module_never_predicts(self):
+        for name in TRAINS_ONLY:
+            text = (PKG / name).read_text(encoding='utf-8')
+            self.assertTrue(any(TRAIN_IMPORT.match(x) for x in violations(text, name)), name)
+            self.assertNotRegex(text, r'\bpredict\b|\.eval\b|days\(s\[.eval.\]\)')
 
     def test_the_real_exempt_modules_would_fail(self):
         """fit.py and broker.py read metrics; the checker would catch them, so the exemption is what lets them."""
