@@ -13,14 +13,22 @@ Run: TASK1_PERIOD=2020 .venv/bin/python -m council.agents <stage> [--k 1]
 
 The prompts carry no outcome of any model and no number outside the declared sources (council.llm checks
 the substitutions before the call). The functions of council.evidence are imported inside the stages.
+
+`context` (a Context, keyword) gives the prompt, parsing and stage functions another dataset: templates,
+number sources, lenses, the features/tried texts, the run directory, the council.llm.Context of the calls, card
+levels, the names of Rb columns and tables, masking, hiding, the SQL probe of Rb proposals and its
+check, the hashed code of prereg-1 (council/runs/xfer/contract.md §3). None, and every field left None, is REES46:
+the module constants and functions, roles.RUNS read at call time, council.llm without a context.
 """
 import argparse
 import hashlib
 import inspect
 import json
 import re
+from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
+from typing import Callable
 
 from council import llm, roles
 
@@ -280,6 +288,63 @@ TEMPLATES = dict(reference=REFERENCE, reference_fix=REFERENCE_FIX, generator=GEN
                  skeptic=SKEPTIC, auditor=AUDITOR, author=AUTHOR)
 
 
+@dataclass(frozen=True)
+class Context:
+    """Another dataset of the stages (module docstring); a field left None is the REES46 one."""
+    templates: dict | None = None           # TEMPLATES (same keys and placeholders)
+    constants: dict | None = None           # CONSTANTS: the first number source
+    lenses: dict | None = None              # LENSES (keys G1-G4)
+    texts: Callable | None = None           # () -> (subs, sources) of the features and tried slots: context()
+    runs: Path | None = None                # the run files: roles.RUNS
+    llm: object = None                      # council.llm.Context of the calls: council.llm without a context
+    levels: tuple | None = None             # levels of cards and proposals; None: neither carries a level
+    rb_prefix: Callable | None = None       # k -> column prefix of Rb<k>: f'f_x_rb{k}_'
+    rb_table: Callable | None = None        # (k, name) -> table of a proposal: f'council_rb{k}_{name}'
+    family_table: Callable | None = None    # card id -> table of the family: table()
+    mask: Callable | None = None            # evidence -> the same without the probe days: mask_days
+    hide: Callable | None = None            # text -> the text without its author: _hide
+    show: Callable | None = None            # a card, critique or failed proposal of a model -> the object a prompt
+                                            # shows: itself
+    bad_sql: Callable | None = None         # SQL of a reply -> why it is unusable (a placeholder of show), or None
+    name_ok: Callable | None = None         # name of a new card or proposal -> whether show leaves it as it is; if
+                                            # not, the name is replaced by a neutral one
+    probe: Callable | None = None           # (proposal, threads) -> raw SQL probe: council.evidence.probe
+    problems: Callable | None = None        # (raw probe, prefix) -> check problems: probe_problems
+    code: Callable | None = None            # () -> {name: sha256} of the code in prereg-1
+    prereg: dict | None = None              # extra fields of prereg-1
+
+
+def _opt(context, name, default):
+    value = None if context is None else getattr(context, name)
+    return default if value is None else value
+
+
+def _template(name, context):
+    return _opt(context, 'templates', TEMPLATES)[name]
+
+
+def _lenses(context):
+    return _opt(context, 'lenses', LENSES)
+
+
+def _runs(context):
+    return _opt(context, 'runs', roles.RUNS)
+
+
+def _ask(prompt, role, stage, context, **kw):
+    """council.llm.ask, with the llm context of a dataset when it has one (REES46 passes none)."""
+    if context is not None and context.llm is not None:
+        kw['context'] = context.llm
+    return llm.ask(prompt, role, stage, **kw)
+
+
+def card_fields(context=None):
+    """The fields of a card shown to the roles: CARD_FIELDS, with level after name when cards carry one."""
+    if context is None or not context.levels:
+        return CARD_FIELDS
+    return ('name', 'level') + CARD_FIELDS[1:]
+
+
 # ---------------------------------------------------------------- rendering
 
 def render(template, **subs):
@@ -344,20 +409,29 @@ def context():
     return dict(features=features_text(schema), tried=tried_text(records)), [schema, records]
 
 
-def _sources(*extra):
-    return [CONSTANTS, LENSES, *extra]
+def _texts(c):
+    """(subs, sources) of the features and tried slots: the context's, else context()."""
+    return c.texts() if c is not None and c.texts is not None else context()
 
 
-def reference_prompt(k, ctx=None):
-    subs, src = ctx or context()
-    subs = dict(subs, prefix=f'f_x_rb{k}_', n=PROPOSALS)
-    return render(REFERENCE, **subs), subs, _sources(*src)
+def _sources(*extra, context=None):
+    return [_opt(context, 'constants', CONSTANTS), _lenses(context), *extra]
 
 
-def generator_prompt(lens, ctx=None):
-    subs, src = ctx or context()
-    subs = dict(subs, lens=lens, lens_text=LENSES[lens], prefix=f'f_x_c{lens[1]}_', n=CARDS_PER_LENS)
-    return render(GENERATOR, **subs), subs, _sources(*src)
+def rb_prefix(k, context=None):
+    return _opt(context, 'rb_prefix', lambda k: f'f_x_rb{k}_')(k)
+
+
+def reference_prompt(k, ctx=None, *, context=None):
+    subs, src = ctx or _texts(context)
+    subs = dict(subs, prefix=rb_prefix(k, context), n=PROPOSALS)
+    return render(_template('reference', context), **subs), subs, _sources(*src, context=context)
+
+
+def generator_prompt(lens, ctx=None, *, context=None):
+    subs, src = ctx or _texts(context)
+    subs = dict(subs, lens=lens, lens_text=_lenses(context)[lens], prefix=f'f_x_c{lens[1]}_', n=CARDS_PER_LENS)
+    return render(_template('generator', context), **subs), subs, _sources(*src, context=context)
 
 
 # ---------------------------------------------------------------- parsing
@@ -379,10 +453,21 @@ def _str(value, field):
 SIGNS = {'+': '+', 'plus': '+', 'positive': '+', '-': '-', '−': '-', 'minus': '-', 'negative': '-'}
 
 
-def parse_card(item, cid, lens):
-    """A card of the §3.4 schema with the id and lens given by the code; ValueError when unusable."""
+def parse_level(item, levels):
+    """The level of a card or proposal, one of levels; ValueError otherwise."""
+    level = str(item.get('level', '')).strip().lower()
+    if level not in levels:
+        raise ValueError(f"level must be one of {', '.join(levels)}, got {item.get('level')!r}")
+    return level
+
+
+def parse_card(item, cid, lens, *, context=None):
+    """A card of the §3.4 schema with the id and lens given by the code (and its level, when the context's
+    cards carry one); ValueError when unusable."""
     if not isinstance(item, dict):
         raise ValueError('a card must be an object')
+    levels = None if context is None else context.levels
+    level = parse_level(item, levels) if levels else None
     sign = SIGNS.get(str(item.get('sign', '')).strip().lower()[:8].split(' ')[0])
     if sign is None:
         raise ValueError(f"sign must be + or -, got {item.get('sign')!r}")
@@ -397,8 +482,18 @@ def parse_card(item, cid, lens):
         raise ValueError('rival must be an object with explanation and stratum')
     if not str(rival.get('stratum') or '').strip():
         raise ValueError('rival.stratum must be non-empty text')
-    return dict(id=cid, lens=lens, name=slug(item.get('name') or cid),
-                mechanism=_str(item.get('mechanism'), 'mechanism'), sign=sign,
+    out = dict(id=cid, lens=lens, name=slug(item.get('name') or cid))
+    if context is not None and context.name_ok is not None and not context.name_ok(out['name']):
+        out['name'] = slug(cid)                # a name the prompts would not show as it is: one from the id
+    if levels:
+        out['level'] = level
+    bad = None if context is None else context.bad_sql
+    if bad is not None:
+        for field, sql in (('sql', item.get('sql')), ('twin.sql', twin.get('sql'))):
+            why = bad(sql) if isinstance(sql, str) else None
+            if why:
+                raise ValueError(f'{field}: {why}')
+    return out | dict(mechanism=_str(item.get('mechanism'), 'mechanism'), sign=sign,
                 stratum=_str(item.get('stratum'), 'stratum'), null_stratum=_str(item.get('null_stratum'), 'null_stratum'),
                 sql=_str(item.get('sql'), 'sql'),
                 twin=dict(how=how, sql=_str(twin.get('sql'), 'twin.sql')),
@@ -414,13 +509,13 @@ def _items(value, key):
     return value
 
 
-def parse_cards(value, lens, n=CARDS_PER_LENS):
+def parse_cards(value, lens, n=CARDS_PER_LENS, *, context=None):
     """{'cards': [...], 'rejected': [...]}: ids G<l>-<position>; ValueError when no card is usable."""
     cards, rejected, used = [], [], set()
     for i, item in enumerate(_items(value, 'cards')[:n], 1):
         cid = f'{lens}-{i}'
         try:
-            card = parse_card(item, cid, lens)
+            card = parse_card(item, cid, lens, context=context)
             clash = output_columns(card) & used
             if clash:
                 raise ValueError(f'column names {sorted(clash)} repeat an earlier card')
@@ -439,26 +534,58 @@ def output_columns(card):
     return {t.lower() for t in re.findall(r'\bf_x_\w+', card['sql'], re.I)}
 
 
-def table(card_id):
-    """Table of a family: council_<card id>, e.g. council_g3_2."""
-    return 'council_' + slug(card_id)
+def table(card_id, context=None):
+    """Table of a family: council_<card id>, e.g. council_g3_2 (a context may name it otherwise)."""
+    fn = None if context is None else context.family_table
+    return fn(card_id) if fn is not None else 'council_' + slug(card_id)
 
 
-def parse_proposals(value, k, n=PROPOSALS, names=None):
-    """Reference proposals [{name, idea, sql, table}]; with names, only those (a fix reply)."""
+def prefixed_columns(sql, prefix):
+    """The names of the SQL that start with the prefix, in the order of their first appearance."""
+    out = []
+    for t in re.findall(r'\b' + re.escape(prefix) + r'\w+', sql, re.I):
+        if t.lower() not in out:
+            out.append(t.lower())
+    return out
+
+
+def parse_proposals(value, k, n=PROPOSALS, names=None, *, context=None):
+    """Reference proposals [{name, idea, sql, table}]; with names, only those (a fix reply). When the context's
+    proposals carry a level, each also has level and columns (the names with the Rb prefix in its SQL), and one
+    without a valid level is skipped."""
+    levels = None if context is None else context.levels
     out, seen = [], set()
     for item in _items(value, 'proposals'):
         if not isinstance(item, dict) or not isinstance(item.get('sql'), str) or not item['sql'].strip():
             continue
+        extra = {}
+        if levels:
+            try:
+                extra = dict(level=parse_level(item, levels),
+                             columns=prefixed_columns(item['sql'], rb_prefix(k, context)))
+            except ValueError:
+                continue
         name = slug(item.get('name') or f'p{len(out) + 1}', 30)
         if names is not None:
             if name not in names or name in seen:
                 continue
         elif name in seen:
             name = f'{name}_{len(out) + 1}'
+        if names is None and context is not None and context.name_ok is not None and not context.name_ok(name):
+            i = len(out) + 1                   # a name the prompts would not show as it is: p<i>, unique
+            while f'p{i}' in seen:
+                i += 1
+            name = f'p{i}'
+        why = context.bad_sql(item['sql']) if context is not None and context.bad_sql is not None else None
+        if why:                                # a fix keeps the failed proposal, with the reason; a new one is skipped
+            if names is not None:
+                seen.add(name)
+                out.append(dict(name=name, unusable=why))
+            continue
         seen.add(name)
+        tname = _opt(context, 'rb_table', lambda k, name: f'council_rb{k}_{name}')(k, name)
         out.append(dict(name=name, idea=str(item.get('idea', '')).strip(), sql=item['sql'].strip(),
-                        table=f'council_rb{k}_{name}'))
+                        table=tname) | extra)
         if len(out) == n:
             break
     if not out:
@@ -483,7 +610,7 @@ def parse_critiques(value, aliases, critic):
     return out
 
 
-def parse_replies(value, own):
+def parse_replies(value, own, *, context=None):
     """Author answers {card, action, card_new | reason} for the author's own cards."""
     by_id = {c['id']: c for c in own}
     out, seen = [], set()
@@ -499,7 +626,8 @@ def parse_replies(value, own):
         elif action == 'revise':
             new = item.get('new') or item.get('card_new') or item.get('revised')
             try:
-                out.append(dict(card=cid, action='revise', new=parse_card(new, cid, by_id[cid]['lens'])))
+                out.append(dict(card=cid, action='revise',
+                                new=parse_card(new, cid, by_id[cid]['lens'], context=context)))
             except ValueError as e:
                 out.append(dict(card=cid, action='unusable', reason=str(e)))
         else:
@@ -512,8 +640,8 @@ def parse_replies(value, own):
 
 # ---------------------------------------------------------------- files
 
-def _load(name):
-    p = roles.RUNS / name
+def _load(name, context=None):
+    p = _runs(context) / name
     return json.loads(p.read_text()) if p.exists() else None
 
 
@@ -531,8 +659,8 @@ def _plain(x):
     return json.loads(json.dumps(x, default=_default))
 
 
-def _save(name, obj):
-    p = roles.RUNS / name
+def _save(name, obj, context=None):
+    p = _runs(context) / name
     p.parent.mkdir(parents=True, exist_ok=True)
     tmp = p.with_name(f'.{p.name}.tmp')
     tmp.write_text(json.dumps(obj, indent=1, ensure_ascii=False, default=_default) + '\n')
@@ -564,7 +692,7 @@ def _round(x):
     return x
 
 
-def probe_view(p):
+def probe_view(p, context=None):
     """A SQL probe of council.evidence as shown to the roles: the summary fields and the non-NULL share per
     day; no SQL, no per-day statistics, rounded to 3 significant digits."""
     if not isinstance(p, dict):
@@ -574,7 +702,7 @@ def probe_view(p):
     if parity.get('columns'):
         out['non_null_share_by_day'] = {c: v.get('shares') for c, v in parity['columns'].items()}
         out['parity_ok'] = parity.get('ok')
-    return mask_days(_round(_plain(out)))
+    return _opt(context, 'mask', mask_days)(_round(_plain(out)))
 
 
 def mask_days(obj):
@@ -586,15 +714,16 @@ def mask_days(obj):
     return json.loads(text)
 
 
-def evidence_view(entry):
+def evidence_view(entry, context=None):
     """The evidence of a card (council.evidence.probe of the card) as shown to the roles."""
     if not entry:
         return {'note': 'not measured'}
     tc = entry.get('twin_check') or {}
-    return mask_days(dict(schema_problems=entry.get('problems') or [], card=probe_view(entry.get('card')),
-                          twin=probe_view(entry.get('twin')),
-                          twin_check=_round(_plain(dict(verdict=tc.get('verdict'), reasons=tc.get('reasons') or []))),
-                          machine_red=entry.get('machine_red') or []))
+    mask = _opt(context, 'mask', mask_days)
+    return mask(dict(schema_problems=entry.get('problems') or [], card=probe_view(entry.get('card'), context),
+                     twin=probe_view(entry.get('twin'), context),
+                     twin_check=_round(_plain(dict(verdict=tc.get('verdict'), reasons=tc.get('reasons') or []))),
+                     machine_red=entry.get('machine_red') or []))
 
 
 def _hide(text):
@@ -611,9 +740,9 @@ def aliases_for(role, cards):
     return {f'C{n:02d}': i for n, i in enumerate(ids, 1)}
 
 
-def critic_assignment(cards):
+def critic_assignment(cards, context=None):
     """{critic role: cards}: every card to the two generators of CRITICS[lens], the skeptic and the auditor."""
-    out = {g: [] for g in LENSES} | {'skeptic': list(cards), 'auditor': list(cards)}
+    out = {g: [] for g in _lenses(context)} | {'skeptic': list(cards), 'auditor': list(cards)}
     for c in cards:
         for g in CRITICS[c['lens']]:
             out[g].append(c)
@@ -623,65 +752,73 @@ def critic_assignment(cards):
 CARD_FIELDS = ('name', 'mechanism', 'sign', 'stratum', 'null_stratum', 'sql', 'twin', 'rival')
 
 
-def cards_block(cards, aliases, evidence, fields=CARD_FIELDS, hide=True):
+def cards_block(cards, aliases, evidence, fields=CARD_FIELDS, hide=True, *, context=None):
     """Cards for a prompt and the objects shown (the number sources)."""
     by_id = {c['id']: c for c in cards}
+    hider = _opt(context, 'hide', _hide)
     parts, shown = [], []
     for alias, cid in aliases.items():
         c = by_id[cid]
         body = {k: c[k] for k in fields}
-        ev = evidence_view(evidence.get(cid))
+        if context is not None and context.show is not None:
+            body = context.show(body)
+        ev = evidence_view(evidence.get(cid), context)
         text = json.dumps(body, ensure_ascii=False, indent=1)
         evt = json.dumps(ev, ensure_ascii=False)
         if hide:
-            text, evt = _hide(text), _hide(evt)
+            text, evt = hider(text), hider(evt)
         parts.append(f'--- {alias}\ncard: {text}\nmeasurements: {evt}')
         shown.append(dict(alias=alias, card=text, measurements=evt))
     return '\n'.join(parts), shown
 
 
-def critic_prompt(role, cards, evidence, ctx=None):
-    subs, src = ctx or context()
+def critic_prompt(role, cards, evidence, ctx=None, *, context=None):
+    subs, src = ctx or _texts(context)
     aliases = aliases_for(role, cards)
+    fields = card_fields(context)
     if role == 'auditor':
-        block, shown = cards_block(cards, aliases, evidence, fields=('sql', 'twin'))
+        sql_fields = ('level', 'sql', 'twin') if 'level' in fields else ('sql', 'twin')
+        block, shown = cards_block(cards, aliases, evidence, fields=sql_fields, context=context)
         subs = dict(prefix=HIDDEN_PREFIX, n=len(cards), cards=block)
-        template = AUDITOR
+        template = _template('auditor', context)
     else:
-        block, shown = cards_block(cards, aliases, evidence)
+        block, shown = cards_block(cards, aliases, evidence, fields=fields, context=context)
         if role == 'skeptic':
             subs = dict(subs, prefix=HIDDEN_PREFIX, n=len(cards), cards=block)
-            template = SKEPTIC
+            template = _template('skeptic', context)
         else:
-            subs = dict(features=subs['features'], lens=role, lens_text=LENSES[role], prefix=HIDDEN_PREFIX,
+            subs = dict(features=subs['features'], lens=role, lens_text=_lenses(context)[role], prefix=HIDDEN_PREFIX,
                         n=len(cards), cards=block)
-            template = CRITIC
-    return render(template, **subs), subs, _sources(*src, shown, dict(cards_shown=len(cards))), aliases
+            template = _template('critic', context)
+    sources = _sources(*src, shown, dict(cards_shown=len(cards)), context=context)
+    return render(template, **subs), subs, sources, aliases
 
 
-def author_prompt(lens, cards, critiques, evidence, ctx=None):
-    subs, src = ctx or context()
+def author_prompt(lens, cards, critiques, evidence, ctx=None, *, context=None):
+    subs, src = ctx or _texts(context)
     parts, shown = [], []
     for c in cards:
         mine = [dict(type=q['type'], text=q['text'], kill_test=q['kill_test'],
                      by='skeptic' if q['critic'] == 'skeptic' else 'auditor' if q['critic'] == 'auditor' else 'critic')
                 for q in critiques if q['card'] == c['id']]
-        body = {k: c[k] for k in ('id',) + CARD_FIELDS}
-        item = dict(card=body, measurements=evidence_view(evidence.get(c['id'])), critiques=mine)
+        body = {k: c[k] for k in ('id',) + card_fields(context)}
+        if context is not None and context.show is not None:
+            body, mine = context.show(body), [context.show(q) for q in mine]
+        item = dict(card=body, measurements=evidence_view(evidence.get(c['id']), context), critiques=mine)
         parts.append(f"--- {c['id']}\ncard: {json.dumps(body, ensure_ascii=False, indent=1)}\n"
                      f"measurements: {json.dumps(item['measurements'], ensure_ascii=False)}\n"
                      f"critiques: {json.dumps(mine, ensure_ascii=False, indent=1)}")
         shown.append(item)
-    subs = dict(features=subs['features'], lens=lens, lens_text=LENSES[lens], prefix=f'f_x_c{lens[1]}_',
+    subs = dict(features=subs['features'], lens=lens, lens_text=_lenses(context)[lens], prefix=f'f_x_c{lens[1]}_',
                 cards='\n'.join(parts), example=cards[0]['id'])
-    return render(AUTHOR, **subs), subs, _sources(*src, shown)
+    return render(_template('author', context), **subs), subs, _sources(*src, shown, context=context)
 
 
 # ---------------------------------------------------------------- stages
 
-def clean(card):
+def clean(card, context=None):
     """The card with exactly the fields of the §3.4 schema (council.evidence.validate_card)."""
-    return {k: card[k] for k in ('id', 'lens') + CARD_FIELDS if k in card}
+    return {k: card[k] for k in ('id', 'lens') + card_fields(context) if k in card}
 
 
 def probe_problems(probe, prefix):
@@ -709,30 +846,36 @@ def probe_problems(probe, prefix):
     return out
 
 
-def reference(k, threads=8, ctx=None):
+def _rees46_probe(proposal, threads):
+    return _evidence().probe(proposal['sql'], roles.PROBE_DAYS, threads)
+
+
+def reference(k, threads=8, ctx=None, *, context=None):
     """Blind reference agent Rb<k>: one call for 12 proposals, sandbox probes, one fix call for the failed."""
     name = f'reference-rb{k}.json'
-    state = _load(name) or dict(k=k)
+    state = _load(name, context) or dict(k=k)
     if state.get('done'):
         return state
-    prefix = f'f_x_rb{k}_'
+    prefix = rb_prefix(k, context)
     if 'proposals' not in state:
-        prompt, subs, sources = reference_prompt(k, ctx)
-        props, meta = llm.ask(prompt, f'rb{k}', 'reference', subs=subs, sources=sources,
-                              check=lambda v: parse_proposals(v, k))
+        prompt, subs, sources = reference_prompt(k, ctx, context=context)
+        props, meta = _ask(prompt, f'rb{k}', 'reference', context, subs=subs, sources=sources,
+                           check=lambda v: parse_proposals(v, k, context=context))
         state.update(proposals=props, llm=[meta])
-        _save(name, state)
-    ev = _evidence()
+        _save(name, state, context)
+    probe, check = _opt(context, 'probe', _rees46_probe), _opt(context, 'problems', probe_problems)
+    mask = _opt(context, 'mask', mask_days)
     probes = state.setdefault('probes', {})
 
     def measure():
         for p in state['proposals']:
-            h = sha(p['sql'])
-            if probes.get(p['table'], {}).get('sql_sha256') != h:
-                raw = _plain(ev.probe(p['sql'], roles.PROBE_DAYS, threads))
-                probes[p['table']] = dict(sql_sha256=h, columns=raw.get('columns') or [], view=probe_view(raw),
-                                          problems=mask_days(probe_problems(raw, prefix)))
-                _save(name, state)
+            key = dict(sql_sha256=sha(p['sql'])) | ({'level': p['level']} if 'level' in p else {})
+            got = probes.get(p['table'], {})
+            if any(got.get(k) != v for k, v in key.items()):    # a context's proposal: its SQL at its level
+                raw = _plain(probe(p, threads))
+                probes[p['table']] = key | dict(columns=raw.get('columns') or [],
+                                                view=probe_view(raw, context), problems=mask(check(raw, prefix)))
+                _save(name, state, context)
 
     def problems(p):
         """Stored check problems, plus column names that an earlier proposal of this run already has."""
@@ -754,41 +897,50 @@ def reference(k, threads=8, ctx=None):
         if failed:
             listing = [dict(name=p['name'], idea=p['idea'], sql=p['sql'], check=probes[p['table']]['view'],
                             problems=problems(p)) for p in failed]
-            subs, src = ctx or context()
+            if context is not None and context.show is not None:
+                listing = [context.show(item) for item in listing]
+            subs, src = ctx or _texts(context)
             subs = dict(features=subs['features'], prefix=prefix,
                         failed=json.dumps(listing, ensure_ascii=False, indent=1))
             names = {p['name'] for p in failed}
-            fixed, meta = llm.ask(render(REFERENCE_FIX, **subs), f'rb{k}', 'reference-fix', subs=subs, free=('failed',),
-                                  sources=_sources(*src, listing), check=lambda v: parse_proposals(v, k, names=names))
-            by_name = {p['name']: p for p in fixed}
+            fixed, meta = _ask(render(_template('reference_fix', context), **subs), f'rb{k}', 'reference-fix', context,
+                               subs=subs, free=('failed',), sources=_sources(*src, listing, context=context),
+                               check=lambda v: parse_proposals(v, k, names=names, context=context))
+            unusable = [dict(name=p['name'], reason=p['unusable']) for p in fixed if 'unusable' in p]
+            if unusable:                       # a context's reply whose SQL copies a placeholder: the proposal stays
+                state['fix'].update(unusable=unusable)
+            by_name = {p['name']: p for p in fixed if 'unusable' not in p}
             for p in state['proposals']:
                 if p['name'] in by_name:
                     p.update(first_sql=p['sql'], sql=by_name[p['name']]['sql'],
                              idea=by_name[p['name']]['idea'] or p['idea'])
+                    for key in ('level', 'columns'):   # a context whose proposals carry a level
+                        if key in by_name[p['name']]:
+                            p[key] = by_name[p['name']][key]
             state['fix'].update(answered=sorted(by_name))
             state['llm'].append(meta)
-        _save(name, state)
+        _save(name, state, context)
     measure()
     state['tables'] = [p['table'] for p in state['proposals'] if not problems(p)]
     state['widths'] = [[t, len(probes[t]['columns'])] for t in state['tables']]
     state['width'] = sum(w for _, w in state['widths'])
     state['done'] = True
-    _save(name, state)
+    _save(name, state, context)
     return state
 
 
-def wave1(ctx=None):
+def wave1(ctx=None, *, context=None):
     """Blind wave: 8 cards per lens, one call per generator; cards-wave1.json {lens: {cards, rejected, llm}}."""
-    state = _load('cards-wave1.json') or {}
-    for lens in LENSES:
+    state = _load('cards-wave1.json', context) or {}
+    for lens in _lenses(context):
         if lens in state:
             continue
-        prompt, subs, sources = generator_prompt(lens, ctx)
-        got, meta = llm.ask(prompt, lens, 'wave1', subs=subs, sources=sources,
-                            check=lambda v, lens=lens: parse_cards(v, lens))
+        prompt, subs, sources = generator_prompt(lens, ctx, context=context)
+        got, meta = _ask(prompt, lens, 'wave1', context, subs=subs, sources=sources,
+                         check=lambda v, lens=lens: parse_cards(v, lens, context=context))
         state[lens] = got | dict(llm=meta)
-        _save('cards-wave1.json', state)
-    return [c for lens in LENSES for c in state[lens]['cards']]
+        _save('cards-wave1.json', state, context)
+    return [c for lens in _lenses(context) for c in state[lens]['cards']]
 
 
 def evidence_stage(cards, threads=8):
@@ -823,35 +975,35 @@ def card_evidence(cards, store=None):
 CRITIC_ORDER = ('G1', 'G2', 'G3', 'G4', 'skeptic', 'auditor')
 
 
-def cross_exam(cards, probes, ctx=None):
+def cross_exam(cards, probes, ctx=None, *, context=None):
     """Two foreign-lens critics per card (one call per critic), the skeptic and the auditor (one call each);
     critiques.json {role: {aliases, critiques, llm}}. Returns the flat list of critiques."""
-    state = _load('critiques.json') or {}
-    assignment = critic_assignment(cards)
+    state = _load('critiques.json', context) or {}
+    assignment = critic_assignment(cards, context)
     for role in CRITIC_ORDER:
         if role in state or not assignment[role]:
             continue
-        prompt, subs, sources, aliases = critic_prompt(role, assignment[role], probes, ctx)
-        got, meta = llm.ask(prompt, role if role in ('skeptic', 'auditor') else f'critic-{role}', 'cross',
-                            subs=subs, free=('cards',), sources=sources, check=lambda v, a=aliases, r=role: parse_critiques(v, a, r))
+        prompt, subs, sources, aliases = critic_prompt(role, assignment[role], probes, ctx, context=context)
+        got, meta = _ask(prompt, role if role in ('skeptic', 'auditor') else f'critic-{role}', 'cross', context,
+                         subs=subs, free=('cards',), sources=sources, check=lambda v, a=aliases, r=role: parse_critiques(v, a, r))
         state[role] = dict(aliases=aliases, critiques=got, llm=meta)
-        _save('critiques.json', state)
+        _save('critiques.json', state, context)
     return [q for role in CRITIC_ORDER if role in state for q in state[role]['critiques']]
 
 
-def author_replies(cards, critiques, probes, ctx=None):
+def author_replies(cards, critiques, probes, ctx=None, *, context=None):
     """One call per lens: revise or withdraw every own card. cards-final.json {replies, cards, withdrawn,
     revised, unanswered}. A card without a usable answer stays as it was."""
-    state = _load('cards-final.json') or dict(replies={})
-    for lens in LENSES:
+    state = _load('cards-final.json', context) or dict(replies={})
+    for lens in _lenses(context):
         own = [c for c in cards if c['lens'] == lens]
         if lens in state['replies'] or not own:
             continue
-        prompt, subs, sources = author_prompt(lens, own, critiques, probes, ctx)
-        got, meta = llm.ask(prompt, lens, 'authors', subs=subs, sources=sources, free=('cards',),
-                            check=lambda v, own=own: parse_replies(v, own))
+        prompt, subs, sources = author_prompt(lens, own, critiques, probes, ctx, context=context)
+        got, meta = _ask(prompt, lens, 'authors', context, subs=subs, sources=sources, free=('cards',),
+                         check=lambda v, own=own: parse_replies(v, own, context=context))
         state['replies'][lens] = dict(answers=got, llm=meta)
-        _save('cards-final.json', state)
+        _save('cards-final.json', state, context)
     answers = {a['card']: a for lens in state['replies'] for a in state['replies'][lens]['answers']}
     final, withdrawn, revised, unanswered = [], [], [], []
 
@@ -869,32 +1021,38 @@ def author_replies(cards, critiques, probes, ctx=None):
         if a and a['action'] == 'withdraw':
             withdrawn.append(dict(id=c['id'], reason=a['reason']))
         elif a and a['action'] == 'revise' and not output_columns(a['new']) & taken(c['id']):
-            final.append(clean(a['new']))
+            final.append(clean(a['new'], context))
             if sha(a['new']['sql']) != sha(c['sql']) or sha(a['new']['twin']['sql']) != sha(c['twin']['sql']):
                 revised.append(c['id'])
         else:
-            final.append(clean(c))
+            final.append(clean(c, context))
             unanswered.append(c['id'])
     state.update(cards=final, withdrawn=withdrawn, revised=revised, unanswered=unanswered)
-    _save('cards-final.json', state)
+    _save('cards-final.json', state, context)
     return final
 
 
-def prereg1(cards, critiques):
+def _code():
+    return {f: sha((roles.ROOT / 'council' / f).read_text()) for f in ('agents.py', 'llm.py', 'evidence.py', 'design.py')}
+
+
+def prereg1(cards, critiques, *, context=None):
     """prereg-1.json: SQL hashes, sign, strata, rival and kill tests of the final cards. Written once."""
-    done = _load('prereg-1.json')
+    done = _load('prereg-1.json', context)
     if done:
         return done
-    out = dict(cards=[dict(id=c['id'], lens=c['lens'], name=c['name'], table=table(c['id']),
+    level = context is not None and bool(context.levels)
+    out = dict(cards=[dict(id=c['id'], lens=c['lens'], name=c['name'], table=table(c['id'], context),
+                           **({'level': c['level']} if level else {}),
                            sql_sha256=sha(c['sql']), twin_sha256=sha(c['twin']['sql']), twin_how=c['twin']['how'],
                            sign=c['sign'], stratum=c['stratum'], null_stratum=c['null_stratum'], rival=c['rival'],
                            kill_tests=[dict(critic=q['critic'], type=q['type'], kill_test=q['kill_test'])
                                        for q in critiques if q['card'] == c['id'] and q['type'] != 'OK'])
                       for c in cards],
-               withdrawn=(_load('cards-final.json') or {}).get('withdrawn', []),
-               code_sha256={f: sha((roles.ROOT / 'council' / f).read_text())
-                            for f in ('agents.py', 'llm.py', 'evidence.py', 'design.py')})
-    _save('prereg-1.json', out)
+               withdrawn=(_load('cards-final.json', context) or {}).get('withdrawn', []),
+               code_sha256=_opt(context, 'code', _code)())
+    out |= _opt(context, 'prereg', {})
+    _save('prereg-1.json', out, context)
     return out
 
 
@@ -1042,20 +1200,20 @@ def compute_stage(threads=8):
 
 # ---------------------------------------------------------------- CLI
 
-def _wave1_cards():
-    s = _load('cards-wave1.json')
-    if not s or not all(lens in s for lens in LENSES):
+def _wave1_cards(context=None):
+    s = _load('cards-wave1.json', context)
+    if not s or not all(lens in s for lens in _lenses(context)):
         raise SystemExit('run wave1 first')
-    return [c for lens in LENSES for c in s[lens]['cards']]
+    return [c for lens in _lenses(context) for c in s[lens]['cards']]
 
 
-def _critiques():
-    s = _load('critiques.json') or {}
+def _critiques(context=None):
+    s = _load('critiques.json', context) or {}
     return [q for role in CRITIC_ORDER if role in s for q in s[role]['critiques']]
 
 
-def _final_cards():
-    s = _load('cards-final.json')
+def _final_cards(context=None):
+    s = _load('cards-final.json', context)
     if not s or 'cards' not in s:
         raise SystemExit('run authors first')
     return s['cards']
