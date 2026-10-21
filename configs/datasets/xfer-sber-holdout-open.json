@@ -1,0 +1,45 @@
+{
+  "format": "xfer-holdout-open-v1",
+  "dataset": "sber",
+  "gate": {
+    "path": "artifacts/xfer/sber/gate/stage1-20261021T130240221720Z/gate.json",
+    "sha256": "299b7eb682c4b1c17fe7a869d3f79a8fba7a1160247dc8443c9f6e9f358d76b5"
+  },
+  "gate_ok": true,
+  "status": {
+    "B": true,
+    "BA": true,
+    "BApl": true
+  },
+  "arms": [
+    "Pop",
+    "B",
+    "BA",
+    "BApl"
+  ],
+  "score_files": {
+    "artifacts/xfer/sber/fits/holdout/B2026/scores-holdout-2020-09-02.parquet": "42411e4b246947879e1cae2eb9be9f6b64596a7f9b88ba15ec82660cbc4a5580",
+    "artifacts/xfer/sber/fits/holdout/B2027/scores-holdout-2020-09-02.parquet": "ad360104ccdefb9780461374d81d098de206479a7fe4c8dfbb70eab475d9426c",
+    "artifacts/xfer/sber/fits/holdout/BA2026/scores-holdout-2020-09-02.parquet": "9920a16eab13fbbbbbc26a2bdad24b8ba242b5bc6a9db36c0e226961186ead60",
+    "artifacts/xfer/sber/fits/holdout/BA2027/scores-holdout-2020-09-02.parquet": "db20bcc4503d4be2b7042cc3ca19d9b430e96cff32ebb8497797be526b0ff5b0",
+    "artifacts/xfer/sber/fits/holdout/BApl2026/scores-holdout-2020-09-02.parquet": "3f8b58cae71deec65d98b1b4a0d2c19e2cbed6474f90aedb7e03d827448e3dc5",
+    "artifacts/xfer/sber/fits/holdout/BApl2027/scores-holdout-2020-09-02.parquet": "7ae8127089a9c03d80e4e93e14d28a9f0da8723865aabe9da1efa7d0e47c6e54"
+  },
+  "fit_reports": {
+    "artifacts/xfer/sber/fits/dev/B2026/report.json": "5ff36b1a51c4db527ea528444e963d3d68fbf9d7b0b5fade7af333bbe83b3b4d",
+    "artifacts/xfer/sber/fits/dev/B2027/report.json": "b70531304ceb52040437e533719538fe8bd5b81444a4fa34713ea315a5bc5941",
+    "artifacts/xfer/sber/fits/dev/BA2026/report.json": "78e459be8b37d59e63c372bb6c49c12b7e886c8522e22d8125b5d1100753ee86",
+    "artifacts/xfer/sber/fits/dev/BA2027/report.json": "3136880089266588db981c9f3e652256e20ffb3210b48888dac2a4d054bdf8de",
+    "artifacts/xfer/sber/fits/dev/BApl2026/report.json": "d0e852d883317213e4fcae8f9bbe6dab717a53ca3e7f8c027c30f70d865454a2",
+    "artifacts/xfer/sber/fits/dev/BApl2027/report.json": "363498eb851ddc7a93108ff4d82f1d49811143e8a536e70e2d7b232f1238321d",
+    "artifacts/xfer/sber/fits/holdout/B2026/report.json": "0f3ec0bb0206b163542e188cc83355744997a7e099681774b40d7ef7ddbf79b7",
+    "artifacts/xfer/sber/fits/holdout/B2027/report.json": "b8208928cda8b4054c44353779e4c43dbc5bac1076b246dd704eb52a85ed467d",
+    "artifacts/xfer/sber/fits/holdout/BA2026/report.json": "1ce2919105a4b28a7365a09efff0ea41284d2243ac7d72dfd213c9ed89e38693",
+    "artifacts/xfer/sber/fits/holdout/BA2027/report.json": "1880662cfff2230d7184209ffa638ca4a72ecc88ee3641e85440da3f013674ac",
+    "artifacts/xfer/sber/fits/holdout/BApl2026/report.json": "855cab652a9a8482e7ba53b2e19ce9446f245c9e828b88fb0ead78039f5c1e26",
+    "artifacts/xfer/sber/fits/holdout/BApl2027/report.json": "aa97873ddb3f65762bc50d64a40ef5ab9ec27188dbfbc8ca34eb169fba520919"
+  },
+  "prereg_sha256": "939593e3c4a2962f654ede43e20a5e27fd915ee93fab43b3ae04784b8c3eae73",
+  "opened_utc": "2026-10-21T13:02:55Z",
+  "quote": "да реализуй и обучай модели и все тестируй, эксперементируй, не останавливайся, меня ни о чем не спрашивай"
+}

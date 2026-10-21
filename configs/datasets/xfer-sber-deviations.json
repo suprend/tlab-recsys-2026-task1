@@ -1,0 +1,15 @@
+{
+  "format": "xfer-deviations-v1",
+  "dataset": "sber",
+  "records": [
+    {
+      "id": "d1",
+      "date": "2026-10-21",
+      "step": "leakcheck, sidecar",
+      "what": "DuckDB memory_limit 20GB (dataset doc §8: <= 12GB) for leakcheck and all sidecars; batch_rows 400000 for every collection",
+      "why": "carried over from Tinkoff d1, where a self-join feature ran out of memory at 4GB and val/holdout needed 400k batches; set before the first S sidecar to avoid a rerun",
+      "effect": "none on values: sidecar output is batch-invariant by contract (§3) and memory is not a parameter of the set; batch_rows is recorded in sidecars/<c>/report.json (400000 everywhere); the memory limit is a CLI argument and is recorded only here",
+      "timing": "decided after the S prereg (b5c9240) and before leakcheck and every S sidecar, i.e. before any S number; kaggle-2020-09-17 uses the same parameters"
+    }
+  ]
+}
