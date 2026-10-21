@@ -2,6 +2,7 @@
 
 Run: TASK1_PERIOD=2020 .venv/bin/python -m unittest council.tests.test_evidence -v"""
 import json
+from datetime import date
 import random
 import shutil
 import tempfile
@@ -197,6 +198,19 @@ class Synthetic(unittest.TestCase):
         r = self.probe('SELECT product_id, nonexistent AS f_x_c2_r FROM hist')
         self.assertTrue(r['error'])
         self.assertTrue(E.machine_red(r))
+
+    def test_answer_too_large_is_red_not_a_crash(self):
+        sql = 'SELECT DISTINCT product_id, 2.0 AS f_x_c2_big FROM hist'
+        self.addCleanup(lambda: E.probe_path(sql).unlink(missing_ok=True))
+        with mock.patch.object(E, 'MAX_ANSWER_CELLS', PRODUCTS):              # 2 columns x PRODUCTS rows
+            p = self.probe(sql)
+            self.assertIn('not restricted to candidates', p['error'])
+            self.assertTrue(E.machine_red(p))
+            plain = X.sandbox
+            with mock.patch.object(X, 'EXTRA', self.root / 'extra'), E.capped_extra(), \
+                    self.assertRaisesRegex(X.FeatureError, 'not restricted'):
+                X.compute('council_test_big', sql, days=[date.fromisoformat(DAYS[0])], threads=2, days_dir=self.root / 'days6')
+            self.assertIs(X.sandbox, plain)
 
     def test_cache(self):
         sql = 'SELECT DISTINCT product_id, (product_id % 4)::DOUBLE AS f_x_c2_cache FROM hist'

@@ -2,6 +2,7 @@
 
 Run: TASK1_PERIOD=2020 .venv/bin/python -m unittest council.tests.test_agents -v
 """
+import contextlib
 import json
 import re
 import subprocess
@@ -49,6 +50,12 @@ class FakeEvidence:
 
     def __init__(self):
         self.probed, self.curated, self.fail = [], None, None
+        self.capped = 0
+
+    @contextlib.contextmanager
+    def capped_extra(self):
+        self.capped += 1
+        yield
 
     def probe(self, card_or_sql, days=roles.PROBE_DAYS, threads=10):
         if isinstance(card_or_sql, dict):
@@ -612,6 +619,7 @@ class TestStages(TmpRuns):
         self.assertEqual((kw['days_dir'], kw['threads']), (roles.DAYS6, 3))
         self.assertEqual(st['council_g1_2_tw']['columns'], ['f_x_c1_s2_tw'])
         self.assertEqual({e['status'] for e in st.values()}, {'done'})
+        self.assertEqual(self.ev.capped, 1)                 # under the answer cap of council.evidence
         agents.compute_stage(threads=3)
         self.assertEqual(self.extra.compute.call_count, 10)  # everything is on disk
 

@@ -28,6 +28,7 @@ NULL policy of rho_wq and R2_wq (decided here, before any numbers):
   reference rank, ranked again across queries; plain Spearman and R2 with an intercept.
 - i_cat_l1 (VARCHAR) is not a reference: only numeric columns of the base enter (79 of the 80).
 """
+import contextlib
 import hashlib
 import json
 import os
@@ -67,6 +68,8 @@ CHUNK = 16                        # reference columns per vectorised step
 RANK_THREADS = 10
 MEMORY = '4GB'                    # DuckDB limit of the own connections (it spills beyond)
 BLOCK = 50_000                     # rows per block of the normal equations
+MAX_ANSWER_CELLS = 600_000_000     # rows x columns of one day's answer: beyond it task1.extra fetches it into pandas
+                                   # and dies; a change of the cap needs a VERSION bump (cached probes)
 
 # Curator thresholds (contract 3.4 step 6).
 MAX_SECONDS = 60.0
@@ -104,12 +107,43 @@ def sandbox(t, threads=8, half=None):
     return con
 
 
+class _Capped:
+    """A sandbox connection for task1.extra.run_query that sizes the answer before anything else reads it:
+    an answer over MAX_ANSWER_CELLS is a FeatureError instead of a crash of the process."""
+
+    def __init__(self, con, t):
+        self._con, self._t = con, t
+
+    def execute(self, query, *args):
+        if query == 'DESCRIBE _x':
+            n = self._con.execute('SELECT count(*) FROM _x').fetchone()[0]
+            w = len(self._con.execute('DESCRIBE _x').fetchall())
+            if n * w > MAX_ANSWER_CELLS:
+                raise X.FeatureError(f'answer of {n} rows x {w} columns on {self._t[:10]}, over '
+                                     f'{MAX_ANSWER_CELLS} cells: not restricted to candidates')
+        return self._con.execute(query, *args)
+
+    def __getattr__(self, name):
+        return getattr(self._con, name)
+
+
+@contextlib.contextmanager
+def capped_extra():
+    """task1.extra.compute under the same cap: its sandbox connections are _Capped while the block runs."""
+    plain = X.sandbox
+    X.sandbox = lambda t, threads=8: _Capped(plain(t, threads), t)
+    try:
+        yield
+    finally:
+        X.sandbox = plain
+
+
 def _run(sql, t, threads, half=None):
     """(keys, values, frame, seconds of the query) of one sandbox run."""
     con = sandbox(t, threads, half)
     try:
         t0 = time.perf_counter()
-        keys, values, x = X.run_query(con, sql, t)
+        keys, values, x = X.run_query(_Capped(con, t), sql, t)
         return keys, values, x, time.perf_counter() - t0
     finally:
         con.close()
@@ -448,6 +482,7 @@ def _probe_day(sql, day, threads):
     t = f'{day} 00:00:00'
     keys, values, raw, seconds = _run(sql, t, threads)
     x = _numeric(raw, keys, values)
+    del raw
     rec = dict(seconds=round(seconds, 3), rows=len(x), keys=keys, columns=values, level=_level(keys))
     rec['candidate_rows'], rec['coverage'] = _coverage(x, keys, values, day, threads)
     rec['coverage'] = {c: round(v, 6) for c, v in rec['coverage'].items()}

@@ -1011,31 +1011,32 @@ def compute_stage(threads=8):
             raise SystemExit(f'{f} is not the SQL of the plan: stop, the table belongs to another version')
         return {p.stem for p in d.glob('[0-9]*.parquet')}
 
-    for name, sql in plan:
-        e = state.get(name, {})
-        if e.get('status') == 'failed_stress' and e.get('sql_sha256') == sha(sql):
-            raise SystemExit(f"{name} failed the stress day ({e.get('error')}): rebuild the curation without it")
-        if STRESS_DAY.isoformat() in present(name, sql):
-            continue
-        try:
-            extra.compute(name, sql, days=[STRESS_DAY], threads=threads, days_dir=roles.DAYS6)
-        except Exception as ex:
-            state[name] = dict(sql_sha256=sha(sql), status='failed_stress', day=STRESS_DAY.isoformat(),
-                               error=f'{type(ex).__name__}: {str(ex)[:500]}')
+    with _evidence().capped_extra():                  # an answer not restricted to candidates is an error
+        for name, sql in plan:
+            e = state.get(name, {})
+            if e.get('status') == 'failed_stress' and e.get('sql_sha256') == sha(sql):
+                raise SystemExit(f"{name} failed the stress day ({e.get('error')}): rebuild the curation without it")
+            if STRESS_DAY.isoformat() in present(name, sql):
+                continue
+            try:
+                extra.compute(name, sql, days=[STRESS_DAY], threads=threads, days_dir=roles.DAYS6)
+            except Exception as ex:
+                state[name] = dict(sql_sha256=sha(sql), status='failed_stress', day=STRESS_DAY.isoformat(),
+                                   error=f'{type(ex).__name__}: {str(ex)[:500]}')
+                _save('compute.json', state)
+                raise SystemExit(f'{name} failed on the stress day {STRESS_DAY}: {state[name]["error"]}; '
+                                 'rebuild the curation without it') from None
+            state[name] = dict(sql_sha256=sha(sql), status='stress_ok')
             _save('compute.json', state)
-            raise SystemExit(f'{name} failed on the stress day {STRESS_DAY}: {state[name]["error"]}; '
-                             'rebuild the curation without it') from None
-        state[name] = dict(sql_sha256=sha(sql), status='stress_ok')
-        _save('compute.json', state)
-    for name, sql in plan:
-        have = present(name, sql)
-        missing = [d for d in days if d.isoformat() not in have]
-        got = state.get(name, {}).get('columns')
-        if missing:
-            got = list(extra.compute(name, sql, days=missing, threads=threads, days_dir=roles.DAYS6))
-        state[name] = dict(sql_sha256=sha(sql), status='done', columns=got, days=len(days),
-                           computed=[d.isoformat() for d in missing])
-        _save('compute.json', state)
+        for name, sql in plan:
+            have = present(name, sql)
+            missing = [d for d in days if d.isoformat() not in have]
+            got = state.get(name, {}).get('columns')
+            if missing:
+                got = list(extra.compute(name, sql, days=missing, threads=threads, days_dir=roles.DAYS6))
+            state[name] = dict(sql_sha256=sha(sql), status='done', columns=got, days=len(days),
+                               computed=[d.isoformat() for d in missing])
+            _save('compute.json', state)
     return state
 
 
