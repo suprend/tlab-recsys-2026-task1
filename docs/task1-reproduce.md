@@ -17,7 +17,8 @@
 3. проверка утечек;
 4. таблицы дополнительных признаков: пакет из брейншторма, DFS, признак агента;
 5. прогоны на валидации и числа половины B;
-6. проверка финального пути на val. Тест — только один раз.
+6. проверка финального пути на val. Тест — только один раз;
+7. после теста: сетка, повтор на 2020, плацебо, перенос на H&M, Tinkoff и СберМаркет (раздел «После теста»).
 
 Термины. Якорь t — 00:00 UTC дня, от которого ранжируются товары следующих 24 часов. Train — якоря 15.10–7.11, val — 8–13.11, test — 18–28.11 (2019). Val делится по хешу `user_id` на половины A (выбор) и B (подтверждение). Песочница — отдельное подключение DuckDB для дополнительных признаков (`task1/extra.py`): SQL признака видит в нём только события до якоря и пользователей, активных за 48 часов до него.
 
@@ -146,7 +147,7 @@ git switch -
 
 Печатаются и пишутся в журнал только метрики половины A. Половина B читается только через `exp.compare(..., on='B')` (следующий раздел). Исключение — первые 11 строк журнала (q1 и q2): они записаны до этого правила и содержат метрики всей val. Повтор имени перезаписывает parquet и добавляет строку в журнал. Без ключа `days` прогон читает `model.DAYS`: таблицы на 4 источниках в `artifacts/task1/v2/days`, если не задана переменная `TASK1_DAYS`.
 
-`task1/runs/exp-runs.jsonl` — журнал автора под Git: те же 70 строк в том же порядке, абсолютный путь к корню репозитория заменён относительным. Так же исправлен путь к таблицам дней в `task1/runs/agent_night20/summary.json`; `log.jsonl` агента оставлен как записан. Три строки `smoke_agent_*` — проверка цикла агента на уменьшенных таблицах в `/tmp`. В отчёт они не входят.
+`task1/runs/exp-runs.jsonl` — журнал автора под Git, 83 строки в том же порядке, абсолютный путь к корню репозитория заменён относительным. Строки 1–70 — прогоны до теста. Строки 71–83 добавлены коммитом 2c1e0ad: 13 прогонов сетки после теста (раздел «Сетка F0/F1/H/H+ и край настройки»). Прогоны плацебо `pl19_*` в журнал автора дописаны позже, в копию под Git не входят, `pl20_*` пишутся в `artifacts/task1/v2020/exp/runs.jsonl`. Выдержки из записей обоих — поле `fits` в `task1/runs/placebo-2026-10-21/result.json`. Так же исправлен путь к таблицам дней в `task1/runs/agent_night20/summary.json`; `log.jsonl` агента оставлен как записан. Три строки `smoke_agent_*` — проверка цикла агента на уменьшенных таблицах в `/tmp`. В отчёт они не входят.
 
 Зёрна `(seed, neg_seed)`: s0 — (2026, 0), s1 — (7, 1), s2 — (11, 2).
 
@@ -399,6 +400,158 @@ EOF
 Результат — `artifacts/task1/v2/final/test.json` и `test_<ветка>.parquet`. Поля `d_ndcg_vs_base` и `d_purchase_ndcg_vs_base` — разность «ветка минус база» и 95% CI. Копия под Git — `task1/runs/test.json`.
 
 Тест запущен один раз, 20.10.2026. На новой машине маркера нет, и команда запустится. Для проверки отчёта повторять её не нужно: числа теста — в `task1/runs/test.json`, путь целиком проверяет `--eval val`.
+
+## После теста
+
+Ниже — пути к разделам отчёта после теста 2019. Одноразовые шаги уже выполнены: тест 2020, открытие holdout и final-модели переноса, посылки Kaggle H&M и Tinkoff. Повтор прочитал бы закрытые метки заново, поэтому числа отчёта берутся из названных файлов. LLM-агент платный и недетерминирован, поэтому путь везде идёт от закоммиченного SQL или замороженного набора.
+
+### Сетка F0/F1/H/H+ и край настройки
+
+Разделы отчёта «Заменяет ли автоматика ручные признаки» и «Край настройки», правила — [предрегистрация](../task1/runs/grid-2026-10-20/spec.md). Нужны `days6`, таблицы DFS после `task1.dfs --compute` и все 30 таблиц агента на днях train и val. SQL таблиц агента — в `log.jsonl`:
+
+```bash
+.venv/bin/python - > /tmp/agent-tables.txt <<'EOF'
+import json
+from pathlib import Path
+
+P5 = 'agent_night20_r5p5_cf_considered_seed_coview'  # построен в разделе «Агент»
+todo = []
+for line in Path('task1/runs/agent_night20/log.jsonl').read_text().splitlines():
+    r = json.loads(line)
+    if 'sql' not in r or r['name'] == P5:
+        continue
+    sql, f = r['sql'].strip() + '\n', Path('artifacts/task1/v2/extra') / r['name'] / 'feature.sql'
+    if not f.exists():
+        todo.append((f, sql))
+    elif f.read_text() != sql:
+        raise SystemExit(f'{f} differs from log.jsonl')
+for f, sql in todo:
+    f.parent.mkdir(parents=True, exist_ok=True)
+    f.write_text(sql)
+    print(f.parent.name)
+EOF
+.venv/bin/python -m task1.extra $(cat /tmp/agent-tables.txt) --splits train val
+.venv/bin/python -m task1.exp task1/runs/grid-2026-10-20/check.json
+.venv/bin/python -m task1.exp task1/runs/grid-2026-10-20/grid.json
+.venv/bin/python -m task1.posthoc
+git diff task1/runs/grid-2026-10-20/result.json
+```
+
+- Скрипт пишет `feature.sql` только у таблиц, которых ещё нет. Таблица с `feature.sql`, но без parquet дней, им пропускается молча, и `task1.exp` потом остановится на отсутствующих днях: такие таблицы добавьте в список `task1.extra` вручную. Если на месте другой SQL, он останавливается до записи. `task1.extra` перезаписывает parquet дней всех перечисленных таблиц. Пустой список значит, что все таблицы уже есть; тогда `task1.extra` откажет, и строку можно пропустить.
+- `check.json` — `grid_check_q2_d8`: проверка, что новый стенд повторяет `q2_d8`. `grid.json` — 12 прогонов: край `grid_d10_s0` и `grid_yeti8_s0`, по два зерна F0, F1, H+, F1-DFS и F1-агент. Ветку H дают готовые `q2_d8` и `q3_d8_s1`.
+- `task1.posthoc` перезаписывает закоммиченный `result.json`, отсюда `git diff`. Если diff не пуст, оставьте свой файл до плацебо, а после него верните закоммиченный: `git checkout -- task1/runs/grid-2026-10-20/result.json`. Причина: `read` плацебо сверяет H+ − H своих прогонов 2019 с ним. Край не прошёл порог на A, поэтому очередь второго зерна `edge2.json` не создавалась.
+- Совпадение пересчитанных таблиц агента с таблицами автора не проверялось. У p5 побитовое совпадение не гарантируется (раздел «Что воспроизводится точно, а что нет»).
+
+### Повтор на январе–феврале 2020
+
+Правила и замороженные входы — [спецификация](../task1/runs/replication-2020/spec.md) и `spec.json`. `task1.replicate` требует квитанции скачивания со `status: verified` и SHA-256 из `spec.json`:
+
+```bash
+mkdir -p data/raw2020
+for m in 2020-Jan 2020-Feb; do
+  curl --fail --location --continue-at - --output data/raw2020/$m.csv.gz https://data.rees46.com/datasets/marketplace/$m.csv.gz
+done
+.venv/bin/python - <<'EOF'
+import hashlib
+import json
+from pathlib import Path
+
+for name, f in json.loads(Path('task1/runs/replication-2020/spec.json').read_text())['data'].items():
+    path, h = Path('data/raw2020') / name, hashlib.sha256()
+    with path.open('rb') as s:
+        for block in iter(lambda: s.read(1 << 20), b''):
+            h.update(block)
+    ok = h.hexdigest() == f['sha256'] and path.stat().st_size == f['compressed_bytes']
+    receipt = path.with_name(name.replace('.csv.gz', '.download.json'))
+    if ok and not receipt.exists():
+        receipt.write_text(json.dumps(f | {'status': 'verified'}, indent=1) + '\n')
+    print(name, 'verified' if ok else 'MISMATCH')
+EOF
+```
+
+Дальше идут по порядку команды раздела [«Как воспроизвести»](../task1/runs/replication-2020/spec.md#как-воспроизвести) кроме последней:
+- импорт;
+- выгрузка событий;
+- дни на 6 и 4 источниках; вывод сборки дней теста уходит в `artifacts/task1/v2020/sealed/` и не читается;
+- `leakcheck`;
+- `--prepare`, `--rehearse`, `--eval val` с флагами из спецификации.
+
+`--eval test` не запускайте: тест открыт один раз, 20.10. Его журнал и числа отчёта — `task1/runs/replication-2020/test.started` и `test.json`. Защита смотрит на `artifacts/task1/v2020/replication/`, а не на Git: на новой машине команда запустится.
+
+### Плацебо
+
+Раздел «Плацебо и состав прироста H+». Команды — [«Порядок и команды»](../task1/runs/placebo-2026-10-21/spec.md#порядок-и-команды): тесты, очередь 2019, очередь 2020 с `TASK1_PERIOD=2020`. Входы — таблицы сетки 2019 и таблицы 2020 после `--prepare`. `run` и `read` не запускаются, пока код плацебо не закоммичен. `read` сравнивает новый итог с имеющимся `result.json` целиком, вместе с временем, коммитом и памятью прогонов и версиями библиотек. На новых прогонах он остановится. Поэтому `read` — так:
+
+```bash
+mv task1/runs/placebo-2026-10-21/result.json /tmp/placebo-result-git.json
+.venv/bin/python -m task1.placebo read
+.venv/bin/python - <<'EOF'
+import json
+
+new = json.load(open('task1/runs/placebo-2026-10-21/result.json'))
+old = json.load(open('/tmp/placebo-result-git.json'))
+for k in ('2019', '2020', 'claim'):
+    print(k, 'совпадает' if new[k] == old[k] else 'расходится')
+EOF
+git checkout -- task1/runs/placebo-2026-10-21/result.json
+```
+
+### Перенос на H&M
+
+Отчёт, [Перенос на другие наборы](task1-v2-report.md#перенос-на-другие-наборы), H&M.
+1. M23 и E46 — [hm-kaggle.md](hm-kaggle.md), разделы 0–8, с двумя поправками к командам: в §5–6 `--threads 8`, как у всех fits автора (`thread_count` входит в identity fit, и с 4 потоками `ma contrast` откажет «not paired»); в §5 ещё и `--seed 2027`, потому что port `M2027` нужен шагу 10 hm-agent и плацебо MA. Скачивание требует принятых правил соревнования и токена пользователя в `~/.kaggle/kaggle.json`.
+2. Рука MA — [hm-agent.md](hm-agent.md). Без LLM: шаги 0–1, затем 7–15 по закоммиченным `configs/datasets/hm-agent-set.json` и `hm-agent-prereg.json`. Шаги 2–4 дали бы новый набор: завершённый прогон агента не повторяется, `freeze` набор не перезаписывает.
+3. Плацебо MA — блок [«Команды»](hm-ma-placebo.md#команды). Его последнюю строку `cp … docs/hm-ma-placebo-result.json` замените на `diff "$A/placebo/result.json" docs/hm-ma-placebo-result.json`: `cp` перезаписал бы закоммиченный итог.
+
+Файлы заново не отправляйте. Gzip детерминирован, поэтому достаточно сравнить SHA-256 собранных файлов с таблицами [hm-kaggle.md](hm-kaggle.md), раздел 9, и [hm-agent.md](hm-agent.md), «Результаты 21.10.2026»; там же счёт Kaggle. Квитанции сборки — `artifacts/hm-kaggle/submissions/{M,E}{2026,2027}.json` и `artifacts/hm-agent/submissions/MA{2026,2027}.json`, вне Git.
+
+### Перенос на Tinkoff и СберМаркет
+
+Отчёт, [Перенос на другие наборы](task1-v2-report.md#перенос-на-другие-наборы), Tinkoff и СберМаркет. Порядок — [контракт, §8](xfer-design.md#8-порядок-и-ресурсы), якоря ролей — §2 документов [Tinkoff](xfer-tinkoff-design.md) и [СберМаркета](xfer-sber-design.md). Запуск — `.venv/bin/python -I scripts/<модуль>.py <команда>`; аргументы — `--help` команды. `xfer_agent.py` и `xfer_model.py` требуют `--dataset tinkoff` или `--dataset sber`. Адаптер набора — `xfer_tinkoff.py` или `xfer_sber.py`.
+
+Порядок на машине автора:
+1. Адаптер `load` из `data/raw-tinkoff-kaggle/` или `data/raw-sbermarket-kaggle/`.
+2. Адаптер `collect --role train|val --anchor --base --output` по начальной базе.
+3. `xfer_model.py fit --base-dev --base --output`: итерации базы, затем заморозка `base.json`.
+4. Пересборка train и val из `base.json`.
+5. `xfer_agent.py export`, адаптер `collect --role probe`, `xfer_agent.py probe`, `run` (LLM, пишет `artifacts/xfer/<x>/run/run-<id>/`), `freeze`. `freeze` пишет `configs/datasets/xfer-<x>-set.json` с `audit: null`. Поле `audit` после независимого аудита SQL заполняется вручную, команды для этого нет; без него `sidecar` откажет. Затем `xfer_model.py prereg`.
+6. Адаптер `collect --role holdout`: метки уходят в `sealed/`, в stdout их нет.
+7. `xfer_agent.py leakcheck`, `sidecar --collection` на каждую коллекцию.
+8. `xfer_model.py fit --series dev --arm B|BA|BApl --seed 2026|2027`, `contrast`.
+9. `fit --series holdout`, `gate --stage 1 --leakcheck`.
+10. После «да» пользователя (цитата — в квитанции открытия) `holdout-open --gate --quote`, затем `holdout`.
+11. Адаптер `collect --role kaggle`, сайдкар, `fit --series final`, `score`: гейт 2 и сборка файлов прошедших рук.
+12. Посылки — только пользователем, его учётными данными, после «да» на конкретные файлы; затем `reading --private`.
+
+Одноразовые шаги — `holdout-open`, `holdout` (обе отказывают, если квитанция уже закоммичена) и `fit --series final`: он учится на закрытых метках holdout.
+
+**Квитанция скачивания.** `load` требует `kaggle-verify.json` рядом с CSV, но ни одна команда репозитория его не пишет. Форматы:
+- Tinkoff (`xfer_tinkoff.load`): `{"status": "complete", "files": [{"name", "size", "sha256"}, …]}` с `data_train.csv`, `test_users.csv` и `baseline.csv`.
+- СберМаркет (`xfer_sber._verify_entries`, `load`): `{"files": [{"name", "sha256"}, …]}` со всеми CSV под путями архива. Поле `matches`, если есть, должно быть `true`. Список `sbermarket_tab_2_*/tab_2_products_*.csv` должен совпасть с диском.
+
+Самописная квитанция удостоверяет только собственную загрузку читателя. Полных хешей файлов автора под Git нет, у Tinkoff в §0 документа набора — только их начала.
+
+**На клоне** `base.json`, набор и prereg уже в Git. `base.json` и `docs/xfer-<x>-run/` — закоммиченные вручную копии.
+- Шаг 3 не нужен: train и val собираются сразу с `--base configs/datasets/xfer-<x>-base.json`.
+- Из шага 5 — только `export`. `probe`, `run`, `freeze` и `prereg` не запускайте: `run` — новый платный прогон LLM, `prereg` откажет, потому что файл уже есть.
+- Holdout-коллекцию клон не соберёт: закоммиченная квитанция открытия закрывает окно `collect-holdout` (`xfer_common.holdout_window_open`). Поэтому `leakcheck`, holdout-модели, гейты и final на клоне не повторяются.
+- Остаются dev-часть: train и val, их сайдкары, dev-модели, `contrast`. Коллекцию kaggle и её сайдкар клон собрать может: их окно открывает закоммиченная квитанция результата.
+
+**Где числа отчёта.** Holdout и вердикты — `configs/datasets/xfer-<x>-holdout.json`, рядом `xfer-<x>-holdout-open.json` и `xfer-<x>-deviations.json`. Пути гейтов и сайдкаров — таблицы «Цепочка» в [xfer-tinkoff.md](xfer-tinkoff.md) и [xfer-sber.md](xfer-sber.md).
+
+Посылки Tinkoff, public и private — `docs/xfer-tinkoff-run/kaggle-submissions.json`. СберМаркет на Kaggle ничего не отправлял, статус — в `docs/xfer-sber-run/kaggle-submissions.json`:
+- BA и BApl не прошли гейт 2;
+- B2026 и B2027 собраны, но не отправлены: ждут «да»;
+- чтение Kaggle не вычислено.
+
+Post-hoc СберМаркета читает dev-модели, коллекции `val-2020-08-19` и `kaggle-2020-09-17` и их сайдкары:
+
+```bash
+.venv/bin/python -I docs/xfer-sber-run/posthoc_recency.py > /tmp/posthoc-recency.json
+diff /tmp/posthoc-recency.json docs/xfer-sber-run/posthoc-recency.json
+```
+
+У post-hoc Tinkoff скрипта в репозитории нет, его числа есть только в `xfer-tinkoff.md`.
 
 ## Время шагов
 
