@@ -1,0 +1,195 @@
+# command: ["claude", "-p", "<prompt>", "--model", "opus", "--output-format", "json", "--tools", "", "--strict-mcp-config"]
+# cwd: /tmp/tlab-council-llm-a
+# prompt_sha256: 250bac431e32d9be12cb00bf38e6eeb921f5dabeddc9c93c4b6544277bb96e78
+
+You are generator G4 of a feature council for a ranking model.
+Your lens: misses of the base: what the current columns describe poorly; reason from the column list about cold items, users with short histories, groups where many columns are NULL, candidates far from the latest interactions, and design signals for them. No error tables are given. Other generators work through other lenses; stay inside yours. Reply with JSON only.
+
+TASK
+An online store. The data are interactions (user, item, time step): time is an integer step of unknown unit,
+and every (user, item) pair occurs at most once. For an anchor A the history is every interaction with t < A.
+The label of a (user, item) pair is whether the user interacts with the item in [A, A+30); the task is to
+recommend 20 items the user has not interacted with before A. The metric is binary NDCG@20 over the users
+with at least one new item in that window.
+
+CANDIDATES
+For a user u at anchor A every source lists items with an event before A that u has not interacted with before A; ties go to the smaller item_id.
+- pop30: items by distinct users in [A-30, A), descending; the first 100.
+- cooc: E = interactions in [A-180, A); n(i) = distinct users of i in E; co(i, j) = distinct users with both i and j in E; sim(i, j) = co(i, j) / sqrt(n(i) n(j)); L(u) = the last 20 distinct items of u before A by time step descending, then item_id; score(j) = sum of sim(i, j) over i in L(u), rounded to 9 decimals; items with a positive score by score descending; the first 100.
+- fill: items by distinct users before A, descending.
+Union: the sources in this order, each skipping items already taken, up to 200 candidates per user (all unseen items when fewer). Each source position is a feature below.
+
+TRAINING
+CatBoost Logloss, 500 trees, depth 8, learning rate 0.05, L2 10, 128
+borders. Anchors every 30 steps with up to 5000 users each; every candidate of a user enters with weight 1.
+
+FEATURES ALREADY IN THE MODEL: base B (name [level]: formula; missing). A window of w steps is [A-w, A);
+j is the candidate item, u the user.
+- users_7 [item]: distinct users with an event on item j in [A-7, A); missing: 0
+- users_30 [item]: distinct users with an event on item j in [A-30, A); missing: 0
+- users_90 [item]: distinct users with an event on item j in [A-90, A); missing: 0
+- users_all [item]: distinct users with an event on item j before A; missing: never: j has an event before A
+- trend [item]: users_7 / users_30; missing: NULL when users_30 = 0
+- item_age [item]: A - first time step of item j before A; missing: never
+- item_last [item]: A - last time step of item j before A; missing: never
+- n_items_all [user]: distinct items of user u before A; missing: never: a query has history
+- n_items_30 [user]: distinct items of user u in [A-30, A); missing: 0
+- user_recency [user]: A - last time step of user u before A; missing: never
+- user_age [user]: A - first time step of user u before A; missing: never
+- cooc_score [pair]: sum of sim(i, j) over i in L(u) of source cooc, rounded to 9 decimals; missing: 0
+- cooc_rank [pair]: position of j in candidate source cooc; missing: NULL outside source cooc
+- cooc_max [pair]: max of sim(i, j) over i in L(u) of source cooc; missing: 0
+- cooc_hits [pair]: number of i in L(u) of source cooc with sim(i, j) > 0; missing: 0
+- pop30_rank [pair]: position of j in candidate source pop30; missing: NULL outside source pop30
+- global_rank [pair]: rank of j among the items with an event before A by users_all descending, then item_id; the same for every user; missing: never
+- cooc_last5 [pair]: sum of sim(i, j) over the 5 most recent items of L(u) of source cooc; missing: 0
+- cooc_wsum [pair]: sum over positions p = 1..|L(u)| of L(u) of source cooc (p = 1 most recent) of 0.8^(p-1) * sim(L_p, j); missing: 0
+- cooc_mean [pair]: sum of sim(i, j) over i in L(u) of source cooc, rounded to 9 decimals, divided by the number of i in L(u) of source cooc with n(i) > 0; missing: NULL when no i in L(u) of source cooc has n(i) > 0
+- cooc_n_last [pair]: number of i among the 5 most recent items of L(u) of source cooc with sim(i, j) > 0; missing: 0
+- users_14 [item]: distinct users with an event on item j in [A-14, A); missing: 0
+- pop_share_30 [item]: users_30 / users_all; missing: never: users_all >= 1
+- user_rate [user]: n_items_all / max(user_age, 1); missing: never
+- n_items_7 [user]: distinct items of user u in [A-7, A); missing: 0
+
+TABLES (DuckDB; a query sees only these three)
+ev(user_id BIGINT, item_id BIGINT, t INTEGER)
+  every interaction with t < A; each (user_id, item_id) pair occurs at most once
+cand(user_id BIGINT, item_id BIGINT): the candidate pairs of the current batch, keys only
+users(user_id BIGINT): the distinct users of cand
+There is no user or item attribute table.
+
+Columns of an earlier feature agent, in the model besides the base above (proposal name [level]: columns):
+  item_momentum_30_60 [item]: ag_mom_30_60
+  cooc_recent30 [pair]: ag_cooc30
+  next_item_transition [pair]: ag_next_tr
+  user_pop_pref [user]: ag_user_pop_pref
+  user_cf_recent [pair]: ag_ucf30
+  season_yoy_growth [item]: ag_season_yoy
+  adoption_rate_eligible [item]: ag_adopt_rate
+  item_age_gap [pair]: ag_age_gap
+  session_cooc [pair]: ag_sess_cooc
+  pop_gap [pair]: ag_pop_gap
+  item_peak_lifecycle [item]: ag_peak_ratio, ag_peak_age
+  item_pop_decay3 [item]: ag_pop_decay3
+  cond_prob_decay_lift [pair]: ag_cond_decay, ag_lift_max
+  user_recency_ratio [user]: ag_recency_ratio
+  adopter_depth [item]: ag_adopter_depth
+  longterm_profile_cooc [pair]: ag_lt_cooc
+  iuf_weighted_cooc [pair]: ag_iuf_cooc
+  user_visit_rhythm [user]: ag_steps_30, ag_gap_90
+  item_burstiness30 [item]: ag_burst30
+  neighbor_recent7_adoption [pair]: ag_nbr_recent7
+  timed_transition [pair]: ag_timed_tr
+  adopter_depth_gap [pair]: ag_depth_gap
+  cooc30_relative [pair]: ag_cooc30_rel
+  lastyear_share_gap [item]: ag_ly_share_gap
+  segment_pop30 [pair]: ag_seg_pop30
+  id_rank_proximity_all [pair]: ag_id_dist_all, ag_id_cnt10
+  id_neighbourhood_trend [item]: ag_idnb_pop30, ag_idnb_trend
+  recent_event_mean_age [item]: ag_rec_mean_age
+  id_rank_proximity_recent [pair]: ag_id_prox_rec
+  audience_still_active [item]: ag_aud_active7
+
+Ideas of that agent, all of them in the model above (name: idea):
+  item_momentum_30_60: Growth of an item's audience: distinct users in the last 30 steps divided by distinct users in the 30 steps before that, plus one; this captures a longer-horizon trend than users_7/users_30.
+  cooc_recent30: Item-item cosine co-occurrence computed only on the last 30 steps and summed over the user's last 10 items, so it reflects current co-purchase patterns rather than 180-step ones.
+  next_item_transition: Directed sequential signal: across all users in the last 180 steps, the share of users of each of u's last 3 items who took item j within the following 10 steps, summed over those items.
+  user_pop_pref: How mainstream the user is: the mean of ln(1 + users_30) over the user's last 20 items, so the model can match candidate popularity to user taste.
+  user_cf_recent: User-based collaborative filtering: the summed cosine similarity of u's top-50 neighbours (by item overlap in the last 90 steps) who interacted with item j in the last 30 steps.
+  season_yoy_growth: Seasonal signal: the item's audience growth in the same period one cycle (365 steps) earlier, measured as distinct users in [A-365, A-335) over distinct users in [A-395, A-365), so the model can anticipate recurring demand in the label window.
+  adoption_rate_eligible: Penetration-adjusted demand: the item's distinct users in the last 30 steps divided by the active users of the last 30 steps who had not already taken the item before A-30, because a pair can occur only once and saturated items have less remaining potential.
+  item_age_gap: Taste for fresh versus established items: the absolute difference between ln(1 + current age of candidate j) and the user's mean ln(1 + age of the item at interaction time) over their last 20 items.
+  session_cooc: Tight-session similarity: cosine co-occurrence over the last 90 steps that counts only item pairs taken by the same user within 1 step of each other, summed over the user's 5 most recent items.
+  pop_gap: Signed popularity match: ln(1 + recent-30 audience of candidate j) minus the user's mean of the same quantity over their last 20 items, giving trees a direct measure of how far the candidate lies from the user's mainstream level.
+  item_peak_lifecycle: Lifecycle position of an item: its distinct users in the last 30 steps relative to its best 30-step bucket ever, plus how many buckets ago that peak was, so the model can tell rising items from fading ones independent of absolute popularity.
+  item_pop_decay3: Exponentially time-decayed audience over the last 30 steps with a 3-step scale, emphasizing the very latest demand more sharply than the fixed users_7 window.
+  cond_prob_decay_lift: Directional co-occurrence P(j|i) over 180 steps summed over the user's up to 15 items of the last 60 steps with exponential recency weights, plus the maximum lift co(i,j)*N/(n(i)n(j)), giving normalizations that differ from the cosine scores.
+  user_recency_ratio: Recency relative to the user's own rhythm: steps since the last activity times the number of active-step gaps divided by the active span, so a long pause is judged against the user's usual inter-visit gap.
+  adopter_depth: Breadth of appeal: the mean ln(total items) of the item's adopters in the last 90 steps, since items taken by light users tend to be broadly appealing while items driven by heavy users are niche.
+  longterm_profile_cooc: Cosine co-occurrence over the last 180 steps summed over the user's older items (positions 21 to 60 by recency), capturing long-term taste that the last-20 cooc source ignores.
+  iuf_weighted_cooc: Item-item cosine over the last 90 steps where each co-occurring user is down-weighted by 1/ln(2 + activity), so heavy users do not dominate similarity, summed over the user's last 10 items.
+  user_visit_rhythm: Visit frequency rather than item volume: the number of distinct active steps in the last 30 steps and the mean gap between distinct active steps over the last 90 steps.
+  item_burstiness30: Coefficient of variation of the item's per-step event counts over the last 30 steps, separating steady demand from one-off bursts that are less likely to persist into the label window.
+  neighbor_recent7_adoption: Fresh co-adoption: among users who took one of u's last 5 items in the last 90 steps, the share who took candidate j in the last 7 steps, summed over those items, so the signal tracks what similar users are adopting right now.
+  timed_transition: Timing-aware sequential signal: for each of u's last 5 items i, taken o = A - t steps ago (o <= 60), sum the share of i's adopters in the last 180 steps who took j at a gap g after i with o <= g < o + 30, so it estimates how likely j is to fall exactly in the label window.
+  adopter_depth_gap: Signed match between the candidate's typical adopter activity (mean ln total items of its adopters in the last 90 steps) and the user's own ln total items, so heavy users get niche items and light users broad ones.
+  cooc30_relative: Within-user normalized recent co-occurrence: the 30-step cosine score over the user's last 10 items divided by the maximum of that score over the user's candidates, making the signal comparable across users with different history strength.
+  lastyear_share_gap: Seasonal level: the item's log audience share in the window one cycle before the label window [A-365, A-335) minus its log audience share in the last 30 steps, so items that were relatively bigger at this time last cycle are flagged for a rebound.
+  segment_pop30: Popularity within the user's activity segment: the share of users in the same log2 bucket of last-30-step item count who took item j in the last 30 steps, since light and heavy users favour different items.
+  id_rank_proximity_all: Catalog-neighbourhood affinity: item ids are mapped to their rank among all items, then the rank distance from candidate j to the nearest item in the user's whole history and the number of history items within 10 ranks of j are computed, since adjacent ids often belong to the same product family or colour variants.
+  id_neighbourhood_trend: Product-family demand: the log audience of the last 30 steps summed over the 10 items with adjacent id ranks (excluding j itself) and that neighbourhood's 7-to-30-step ratio, capturing family-level trends that a single item's counts miss.
+  recent_event_mean_age: Within-window timing of demand: the mean age A - t of the item's events in the last 30 steps, a smooth indicator of whether its recent activity is concentrated near the anchor or fading.
+  id_rank_proximity_recent: Recency-weighted catalog proximity: the sum over the user's last 20 items of 0.8^(position-1) times exp(-id-rank distance / 3) to candidate j, so variants of what the user just took score high.
+  audience_still_active: Whether an item's community is still engaged: the share of its distinct adopters from [A-90, A-7) who are active in the last 7 steps, since items whose audience is currently active tend to keep spreading through co-adoption.
+
+QUERY RULES
+- Exactly one SELECT or WITH statement; ';' only at the very end; no comments (-- or /* */).
+- Write the anchor only as {A}, literally with the braces; it becomes the integer anchor step,
+  e.g. t >= {A} - 30. No other {...} placeholders.
+- The column t always stands on the left of a comparison: t >= {A} - 30, never {A} - 30 <= t. Never compare
+  t with a number (t < 400 is an error); write ages as {A} - t.
+- Forbidden whole words, in any case: transactions, customers, frame, label, labels, target, targets, hm_*,
+  _hm_*; read_*, parquet_*, csv, json*, glob, getenv, query, query_table, duckdb_*, information_schema,
+  pg_catalog, sqlite_master, pragma*; attach, detach, copy, export, import, install, load, set, reset, use,
+  call, create, drop, insert, update, delete, alter; random, setseed, uuid, gen_random_uuid, now, today,
+  current_date, current_time, current_timestamp, get_current_time, sample, tablesample, current_setting,
+  sniff_*, checkpoint, force_checkpoint, which_secret; ev_* and the names of the raw data; the functions
+  error() and strptime().
+- An item-level query must not mention cand or users: its values do not depend on the batch and are cached.
+
+OUTPUT OF A QUERY
+- level "pair": key columns user_id, item_id (pairs of cand); level "user": user_id (of users); level "item":
+  item_id (of the items in ev). Keys are BIGINT, never NULL and unique. A key outside its set is an error, not
+  a silent filter, so keep queries narrow.
+- 1 to 3 value columns named by f_x_c4_<slug>, unique among the accepted columns and different
+  from every feature name above; integer, DECIMAL, FLOAT, DOUBLE or BOOLEAN. VARCHAR, DATE and TIMESTAMP values
+  are errors. No other columns.
+- Values are cast to DOUBLE and left-joined to the batch keys of the level. No row, NULL, a non-finite value or
+  a float32 overflow mean "no data": NaN in the model, which CatBoost treats as the minimum. Put your own
+  defaults with COALESCE.
+- Batch invariance: a value depends only on ev and its own key; cand and users only filter. A window
+  PARTITION BY user_id over cand is allowed (all candidates of a user are always in one batch); aggregates
+  over cand across users are not. Windows need a full tie-break (..., item_id). Violations are caught
+  mechanically.
+- Limits on the probe: timeout 20 s for pair and user queries, 60 s for item queries; at most 20 million
+  output rows.
+
+COUNCIL RULES
+- The value columns of a query are the names with the prefix f_x_c4_ in its SELECT; the sandbox runs the
+  query with exactly these output columns. Use the prefix only for output columns, never for intermediate
+  aliases; the part after the prefix is lower-case snake_case of at most 30 characters.
+- Every query states its level (pair, user or item); the level fixes its keys.
+- The probe runs every query at two anchors, named probe_day_1 and probe_day_2 in what you see.
+- All valid columns enter the model without selection by outcome. Superfluous and noisy columns hurt: a few
+  strong, non-redundant signals are needed.
+
+How cards are judged before any outcome is seen: validity in the sandbox, seconds per probe anchor,
+coverage (the share of candidate rows with a non-NULL value), invariance to the batch of users, the rank
+correlation rho and R2 within queries to the existing columns (a family with R2 >= 0.9 or |rho| >= 0.95 to
+an existing column is a duplicate and is dropped), a stable non-NULL share across the probe anchors, and the shape
+of the knockout twin. Other generators, a skeptic and a leak auditor critique the cards with the authors hidden;
+every author answers them once.
+
+Write 8 cards. A card is one feature family together with the experiment that could refute it:
+{"name": "short_snake_case",
+ "level": "pair | user | item: the level of the query and of its twin",
+ "mechanism": "which behaviour of users or items the family measures and why it should raise the rank of
+               the candidates the user turns to next",
+ "sign": "+ if adding the family should improve ranking quality, - if you expect it to hurt",
+ "stratum": "in words and as an SQL predicate over the tables before {A} (user or user x item): where the gain
+             should be",
+ "null_stratum": "where the gain should not be, in words and as an SQL predicate",
+ "sql": "SELECT <the keys of the level>, ... AS f_x_c4_..., ... FROM ...",
+ "twin": {"how": "time_shuffle | neighbour_shuffle | seeds_removed",
+          "sql": "the same query with the mechanism destroyed: same level, keys and coverage, columns named as
+                  yours plus the suffix _tw"},
+ "rival": {"explanation": "another reason why the family could help", "stratum": "where the rival predicts
+           the gain"}}
+Twin forms: time_shuffle permutes interaction times (e.g. within a user, ordered by hash(...) of keys);
+neighbour_shuffle replaces neighbours by others of similar popularity (and category, where the data have one)
+chosen by hash(...); seeds_removed drops the seed interactions that carry the mechanism. The twin keeps the shape
+of the family (similar non-NULL share) and must not be a near copy of it.
+Columns: 1-3 per card, named f_x_c4_<slug>, unique across your cards; use the prefix only for the output
+columns of the card (and their _tw copies in the twin), never for intermediate aliases.
+
+Answer with a JSON list of 8 cards only.
