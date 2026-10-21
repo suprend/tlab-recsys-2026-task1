@@ -1,0 +1,56 @@
+{
+ "explore_queries": 15759,
+ "select_queries_expected": 15605,
+ "sigma_q": 0.06343734562906587,
+ "deff": 1.0006500333218926,
+ "seed_mean_shift_abs": 0.0003197985104647725,
+ "users": 13958,
+ "rehearsal": {
+  "power": 0.5235,
+  "sd_t_interval": [
+   0.36671250100979474,
+   0.8476491696069466
+  ],
+  "sd_t_median": 0.6783036199998306,
+  "false_rate": 0.0105,
+  "calib_fail_rate": 0.05,
+  "gate": false,
+  "n_q": 15605,
+  "n_sim": 2000,
+  "beta_harm": -0.0005,
+  "exact": false,
+  "seed": 2026,
+  "sigma_fit": 0.0,
+  "deff": 1.0006500333218926,
+  "se_boot": 0.00014664376430808653
+ },
+ "sensitivity": {
+  "deff1": {
+   "power": 0.524,
+   "sd_t_interval": [
+    0.36671250100979474,
+    0.8476491696069465
+   ],
+   "false_rate": 0.0105,
+   "gate": false
+  },
+  "sigma_fit_1": {
+   "power": 0.34,
+   "sd_t_interval": [
+    0.4869032377877047,
+    0.9144400079117535
+   ],
+   "false_rate": 0.054,
+   "gate": false
+  },
+  "beta_-0.001": {
+   "power": 0.9985,
+   "sd_t_interval": [
+    0.36671250100979474,
+    0.8476491696069466
+   ],
+   "false_rate": 0.0105,
+   "gate": true
+  }
+ }
+}
