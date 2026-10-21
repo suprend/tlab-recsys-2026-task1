@@ -1,0 +1,158 @@
+{
+  "format": "xfer-base-v1",
+  "dataset": "tinkoff",
+  "candidates": {
+    "total": 200,
+    "sources": [
+      {
+        "name": "pop30",
+        "kind": "pop",
+        "window": 30,
+        "depth": 100
+      },
+      {
+        "name": "cooc",
+        "kind": "cooc",
+        "window": 180,
+        "last": 20,
+        "depth": 100,
+        "decimals": 9
+      },
+      {
+        "name": "fill",
+        "kind": "pop",
+        "window": null,
+        "depth": null
+      }
+    ]
+  },
+  "features": [
+    {
+      "name": "users_7",
+      "formula": "distinct users with an event on item j in [A-7, A)",
+      "missing": "0"
+    },
+    {
+      "name": "users_30",
+      "formula": "distinct users with an event on item j in [A-30, A)",
+      "missing": "0"
+    },
+    {
+      "name": "users_90",
+      "formula": "distinct users with an event on item j in [A-90, A)",
+      "missing": "0"
+    },
+    {
+      "name": "users_all",
+      "formula": "distinct users with an event on item j before A",
+      "missing": "never: j has an event before A"
+    },
+    {
+      "name": "trend",
+      "formula": "users_7 / users_30",
+      "missing": "NULL when users_30 = 0"
+    },
+    {
+      "name": "item_age",
+      "formula": "A - first time step of item j before A",
+      "missing": "never"
+    },
+    {
+      "name": "item_last",
+      "formula": "A - last time step of item j before A",
+      "missing": "never"
+    },
+    {
+      "name": "n_items_all",
+      "formula": "distinct items of user u before A",
+      "missing": "never: a query has history"
+    },
+    {
+      "name": "n_items_30",
+      "formula": "distinct items of user u in [A-30, A)",
+      "missing": "0"
+    },
+    {
+      "name": "user_recency",
+      "formula": "A - last time step of user u before A",
+      "missing": "never"
+    },
+    {
+      "name": "user_age",
+      "formula": "A - first time step of user u before A",
+      "missing": "never"
+    },
+    {
+      "name": "cooc_score",
+      "formula": "sum of sim(i, j) over i in L(u) of source cooc, rounded to 9 decimals",
+      "missing": "0"
+    },
+    {
+      "name": "cooc_rank",
+      "formula": "position of j in candidate source cooc",
+      "missing": "NULL outside source cooc"
+    },
+    {
+      "name": "cooc_max",
+      "formula": "max of sim(i, j) over i in L(u) of source cooc",
+      "missing": "0"
+    },
+    {
+      "name": "cooc_hits",
+      "formula": "number of i in L(u) of source cooc with sim(i, j) > 0",
+      "missing": "0"
+    },
+    {
+      "name": "pop30_rank",
+      "formula": "position of j in candidate source pop30",
+      "missing": "NULL outside source pop30"
+    },
+    {
+      "name": "global_rank",
+      "formula": "rank of j among the items with an event before A by users_all descending, then item_id; the same for every user",
+      "missing": "never"
+    },
+    {
+      "name": "cooc_last5",
+      "formula": "sum of sim(i, j) over the 5 most recent items of L(u) of source cooc",
+      "missing": "0"
+    },
+    {
+      "name": "cooc_wsum",
+      "formula": "sum over positions p = 1..|L(u)| of L(u) of source cooc (p = 1 most recent) of 0.8^(p-1) * sim(L_p, j)",
+      "missing": "0"
+    },
+    {
+      "name": "cooc_mean",
+      "formula": "sum of sim(i, j) over i in L(u) of source cooc, rounded to 9 decimals, divided by the number of i in L(u) of source cooc with n(i) > 0",
+      "missing": "NULL when no i in L(u) of source cooc has n(i) > 0"
+    },
+    {
+      "name": "cooc_n_last",
+      "formula": "number of i among the 5 most recent items of L(u) of source cooc with sim(i, j) > 0",
+      "missing": "0"
+    },
+    {
+      "name": "users_14",
+      "formula": "distinct users with an event on item j in [A-14, A)",
+      "missing": "0"
+    },
+    {
+      "name": "pop_share_30",
+      "formula": "users_30 / users_all",
+      "missing": "never: users_all >= 1"
+    },
+    {
+      "name": "user_rate",
+      "formula": "n_items_all / max(user_age, 1)",
+      "missing": "never"
+    },
+    {
+      "name": "n_items_7",
+      "formula": "distinct items of user u in [A-7, A)",
+      "missing": "0"
+    }
+  ],
+  "categorical": [],
+  "digest": "31df26fda92d8e08ab072a8a629cad3f1318b1c748bd134db5e16254cf1c6c77"
+}
