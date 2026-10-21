@@ -45,6 +45,26 @@ item_id), anchors are ints on T and ISO dates (``YYYY-MM-DD`` strings) on S:
 ``assemble(scores, output) -> dict``
     Kaggle file from ``user_id, item_id, score`` of the kaggle frame.
 ``PROMPT_CONSTANTS`` (dict) and ``PROMPT_TEMPLATE`` (str).
+    The template is the whole English prompt (dataset task and the H&M sandbox
+    rules) with ``str.format`` slots; xfer_agent fills it with
+    ``prompt_substitutions(...)`` and runs the number test on substitutions only.
+``prompt_substitutions(stats, base, history, round_index, budget) -> dict``
+    Slot values: task constants from PROMPT_CONSTANTS, candidate policy and base
+    formulas from ``base``, view schemas, ``stats`` (stats.json of the probe),
+    and ``history`` (feedback text rendered by xfer_agent).
+``probe_pool() -> list[int]``
+    Users with history before the probe anchor, first P in query order.
+``probe_stats(A, users) -> dict``
+    Label-free aggregates of history before A for stats.json.
+``coverage_sources() -> dict(recent=[...], global=[...])``
+    Source-rank columns of the frame behind the H&M coverage fields.
+
+Sidecars (xfer_agent -> xfer_model): ``sidecars/<collection name>/agent.parquet``
+with ``user_id, item_id`` and the agent columns in frozen order, one row per
+frame row in frame order, plus manifest.json (``write_sidecar_manifest``).
+
+Parquet goes through DuckDB (``write_parquet``/``read_parquet``): pyarrow is not
+installed.
 """
 from __future__ import annotations
 
