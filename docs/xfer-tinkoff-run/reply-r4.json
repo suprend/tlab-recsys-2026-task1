@@ -1,0 +1,113 @@
+{
+  "round": 4,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "attempts": [
+    {
+      "round": 4,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 65.1,
+      "cost_usd": 0.22821400000000003,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-lrgb76ua",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5,
+      "text": "[{\"name\": \"longterm_profile_cooc\", \"idea\": \"Cosine co-occurrence over the last 180 steps summed over the user's older items (positions 21 to 60 by recency), capturing long-term taste that the last-20 cooc source ignores.\", \"level\": \"pair\", \"sql\": \"WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 180), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn > 20 AND rn <= 60), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e GROUP BY item_id), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN e b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(co.c / sqrt(n1.c * n2.c)) AS ag_lt_cooc FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni n1 ON n1.item_id = co.i JOIN ni n2 ON n2.item_id = co.j GROUP BY 1, 2;\"}, {\"name\": \"iuf_weighted_cooc\", \"idea\": \"Item-item cosine over the last 90 steps where each co-occurring user is down-weighted by 1/ln(2 + activity), so heavy users do not dominate similarity, summed over the user's last 10 items.\", \"level\": \"pair\", \"sql\": \"WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 90), du AS (SELECT user_id, COUNT(*) AS d FROM e GROUP BY user_id), ew AS (SELECT e.user_id, e.item_id, 1.0 / LN(2 + du.d) AS w FROM e JOIN du ON du.user_id = e.user_id), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 10), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, SUM(w) AS c FROM ew GROUP BY item_id), co AS (SELECT a.item_id AS i, b.item_id AS j, SUM(a.w) AS c FROM ew a JOIN ew b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(co.c / sqrt(n1.c * n2.c)) AS ag_iuf_cooc FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni n1 ON n1.item_id = co.i JOIN ni n2 ON n2.item_id = co.j GROUP BY 1, 2;\"}, {\"name\": \"user_visit_rhythm\", \"idea\": \"Visit frequency rather than item volume: the number of distinct active steps in the last 30 steps and the mean gap between distinct active steps over the last 90 steps.\", \"level\": \"user\", \"sql\": \"WITH s AS (SELECT DISTINCT user_id, t FROM ev WHERE user_id IN (SELECT user_id FROM users) AND t >= {A} - 90) SELECT user_id, CAST(COUNT(CASE WHEN t >= {A} - 30 THEN 1 END) AS DOUBLE) AS ag_steps_30, CASE WHEN COUNT(*) > 1 THEN CAST(MAX(t) - MIN(t) AS DOUBLE) / (COUNT(*) - 1) END AS ag_gap_90 FROM s GROUP BY user_id;\"}, {\"name\": \"item_burstiness30\", \"idea\": \"Coefficient of variation of the item's per-step event counts over the last 30 steps, separating steady demand from one-off bursts that are less likely to persist into the label window.\", \"level\": \"item\", \"sql\": \"WITH s AS (SELECT item_id, t, COUNT(*) AS c FROM ev WHERE t >= {A} - 30 GROUP BY item_id, t) SELECT item_id, SQRT(GREATEST(CAST(SUM(c * c) AS DOUBLE) / 30.0 - POWER(CAST(SUM(c) AS DOUBLE) / 30.0, 2), 0)) / (CAST(SUM(c) AS DOUBLE) / 30.0) AS ag_burst30 FROM s GROUP BY item_id;\"}, {\"name\": \"neighbor_recent7_adoption\", \"idea\": \"Fresh co-adoption: among users who took one of u's last 5 items in the last 90 steps, the share who took candidate j in the last 7 steps, summed over those items, so the signal tracks what similar users are adopting right now.\", \"level\": \"pair\", \"sql\": \"WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 90), r7 AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 7), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 5), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e WHERE item_id IN (SELECT item_id FROM src) GROUP BY item_id), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN r7 b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(CAST(co.c AS DOUBLE) / ni.c) AS ag_nbr_recent7 FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni ON ni.item_id = co.i GROUP BY 1, 2;\"}]",
+      "meta": {
+        "model": "claude-opus-5-5",
+        "seconds": 65.1,
+        "returncode": 0,
+        "result": {
+          "subtype": "success",
+          "is_error": false,
+          "total_cost_usd": 0.22821400000000003,
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 11919,
+            "cache_read_input_tokens": 1170,
+            "output_tokens": 6631,
+            "output_tokens_details": {
+              "thinking_tokens": 4146
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 11919,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard"
+          },
+          "modelUsage": {
+            "claude-opus-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 6631,
+              "cacheReadInputTokens": 1170,
+              "cacheCreationInputTokens": 11919,
+              "webSearchRequests": 0,
+              "costUSD": 0.22821400000000003,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 4146,
+              "canonicalModel": "claude-opus-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "duration_ms": 64775,
+          "num_turns": 1,
+          "stop_reason": "end_turn"
+        },
+        "cost_usd": 0.22821400000000003,
+        "models": [
+          "claude-opus-5-5"
+        ]
+      }
+    }
+  ],
+  "kept": 5
+}

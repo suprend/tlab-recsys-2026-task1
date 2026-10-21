@@ -1,0 +1,488 @@
+{
+  "format": "xfer-run-v1",
+  "dataset": "tinkoff",
+  "status": "completed",
+  "id": "t1",
+  "model": "claude-opus-5-5",
+  "retry_of": null,
+  "reason": null,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "rounds": 6,
+  "proposals_per_round": 5,
+  "max_calls": 12,
+  "threads": 3,
+  "probe": {
+    "path": "artifacts/xfer/tinkoff/probe/probe-641",
+    "anchor": 641,
+    "users": 3000,
+    "rows": 600000,
+    "collection": {
+      "name": "probe-641",
+      "path": "artifacts/xfer/tinkoff/collections/probe-641",
+      "manifest_sha256": "96880c470adb04c15169cd03ce5f17e563d194864a516bce4f674ed4cfe68a29"
+    },
+    "probe_sha256": "47374a9c3ce1afd4b3144e09e19f9f79e637bbb2b65e9acdbe28708ff69d900c",
+    "stats_sha256": "5b18f5d936394e270ea2bbc51a75caa1f14d0bf8c8c99431084c56a7dc72ea56",
+    "base_digest": "31df26fda92d8e08ab072a8a629cad3f1318b1c748bd134db5e16254cf1c6c77"
+  },
+  "base_digest": "31df26fda92d8e08ab072a8a629cad3f1318b1c748bd134db5e16254cf1c6c77",
+  "prompt": {
+    "template_sha256": "501ebdd34ec16b0322f7a3fbe2e4c487e81b00bcc476645f07ce5e9873fada9f",
+    "constants_digest": "302d96343b0dee8abd330f1115b6779ea5cc393937154421515eba11104cc448",
+    "digest": "ccf381ed2ba739cecaca151a18f6f14fdec931cd37625e1fbb8914cbd1f43ae6"
+  },
+  "budget": {
+    "limits": {
+      "pair_user_seconds": 90.0,
+      "item_seconds": 180.0
+    },
+    "used": {
+      "pair_user_seconds": 25.491,
+      "item_seconds": 0.26000000000000006
+    }
+  },
+  "calls": 6,
+  "cost_usd": 1.460774,
+  "cost_unknown_calls": 0,
+  "rounds_run": 6,
+  "stop": "rounds",
+  "attempts": 30,
+  "valid": 30,
+  "columns": [
+    "ag_mom_30_60",
+    "ag_cooc30",
+    "ag_next_tr",
+    "ag_user_pop_pref",
+    "ag_ucf30",
+    "ag_season_yoy",
+    "ag_adopt_rate",
+    "ag_age_gap",
+    "ag_sess_cooc",
+    "ag_pop_gap",
+    "ag_peak_ratio",
+    "ag_peak_age",
+    "ag_pop_decay3",
+    "ag_cond_decay",
+    "ag_lift_max",
+    "ag_recency_ratio",
+    "ag_adopter_depth",
+    "ag_lt_cooc",
+    "ag_iuf_cooc",
+    "ag_steps_30",
+    "ag_gap_90",
+    "ag_burst30",
+    "ag_nbr_recent7",
+    "ag_timed_tr",
+    "ag_depth_gap",
+    "ag_cooc30_rel",
+    "ag_ly_share_gap",
+    "ag_seg_pop30",
+    "ag_id_dist_all",
+    "ag_id_cnt10",
+    "ag_idnb_pop30",
+    "ag_idnb_trend",
+    "ag_rec_mean_age",
+    "ag_id_prox_rec",
+    "ag_aud_active7"
+  ],
+  "call_log": [
+    {
+      "round": 1,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 55.2,
+      "cost_usd": 0.16170400000000001,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-35a0p_gg",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 2,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 69.5,
+      "cost_usd": 0.19549400000000003,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-w734thcd",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 3,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 69.6,
+      "cost_usd": 0.20733000000000001,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-fwd4zujs",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 4,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 65.1,
+      "cost_usd": 0.22821400000000003,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-lrgb76ua",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 5,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 115.6,
+      "cost_usd": 0.347586,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-n1aii5v9",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 6,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 91.6,
+      "cost_usd": 0.320446,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-tuxc1f88",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    }
+  ],
+  "prompts": {
+    "r1": "31c812501f14b17ed79c0879317652d281684c8be84095476f2997f3dcd39b1e",
+    "r2": "deff4487d72345f11907d9e70ba06ccd50f00a187c0b2a0986c3f0a91b5c7e7b",
+    "r3": "83a8e73b176d1fbe471ecdaddc44ff69ea61f086b63aaa7400c92f17078e0577",
+    "r4": "7722ee49d5423be7b7942a591a0dc2635bef934670215305af386c5235ad3bf7",
+    "r5": "97ad414a8d61359ca8dfef8a7e913a91032ef80b453f713bb8db7e207bfc08ce",
+    "r6": "b96df0b8d14da65f0a06c8bd05f3d63385e5a482293808a1fc2582ff66829b9f"
+  },
+  "values": {
+    "r1p1": {
+      "rows": 3175,
+      "sha256": "86c81b0ce05de642093a092d5b88ad4b55166e41e1fcb7afe41904b9446ff605"
+    },
+    "r1p2": {
+      "rows": 539603,
+      "sha256": "86c7a782ba1428d3619646bcecc30a379616bb5d77cfbc0618600b966e222294"
+    },
+    "r1p3": {
+      "rows": 430350,
+      "sha256": "1585637bfda617b024f827e5957a132658be672301eb2f31e8c39101d386a9bd"
+    },
+    "r1p4": {
+      "rows": 3000,
+      "sha256": "2ac84e7cb54801eeb4470c8364d6b5c94c62b277b624bf2d7653793b94de1943"
+    },
+    "r1p5": {
+      "rows": 123440,
+      "sha256": "8133652e5d41e7e52b7e0a4207250bdd9305ba3eddde7a862fc97a1332f12380"
+    },
+    "r2p1": {
+      "rows": 3177,
+      "sha256": "1a71d3a771699cb83a987dc60fd6beff6c6cecd309e7aa4394270a6c0ce5f098"
+    },
+    "r2p2": {
+      "rows": 3178,
+      "sha256": "c7b6322e07fb2a8c6c411a3c94be89df50e5b4b24dc636d78f6d6ac17caf7b84"
+    },
+    "r2p3": {
+      "rows": 600000,
+      "sha256": "e9ff8293f79d161dc824fb72384cb17710ddcc499d9f48bbc602c2073d56beeb"
+    },
+    "r2p4": {
+      "rows": 423989,
+      "sha256": "9969abee16bbd4bd5f8a7492d29eb41db119d6856a11a43afba5463e0bc0cd90"
+    },
+    "r2p5": {
+      "rows": 600000,
+      "sha256": "20836fbbd7b937b91e445d54d1e20736bf15236cf88d3b614ac5f01f49b7eea3"
+    },
+    "r3p1": {
+      "rows": 3178,
+      "sha256": "fa5708f0d0f490aa55b63abaf6184e8db398fd69cbd3ed0502c0b05098c3afbb"
+    },
+    "r3p2": {
+      "rows": 3178,
+      "sha256": "4d79dff459d22fab7bae57c6d6f64e519bd418019783540516384b446a1165d4"
+    },
+    "r3p3": {
+      "rows": 597117,
+      "sha256": "05d943e2242cda6db91cec8bbd0ed5e61f8e1191165c95b3ceec9f682b830913"
+    },
+    "r3p4": {
+      "rows": 3000,
+      "sha256": "76d34f2499f832510fc97f9052fe7772aa758e1782ea637cbb3165ff709d168a"
+    },
+    "r3p5": {
+      "rows": 3176,
+      "sha256": "27e4e4c494ec47179e056bb22e332426decc124f89ceca9b1058aa5065acf6d7"
+    },
+    "r4p1": {
+      "rows": 600000,
+      "sha256": "b2e6b39a299c7602fd68f50d72af4bdf89c887c1cb5899e12cb4d3f17aa4a6d4"
+    },
+    "r4p2": {
+      "rows": 599896,
+      "sha256": "ec250d62c817d824befaf66d507ed4e75f451a3e520da82e6f953e394355a353"
+    },
+    "r4p3": {
+      "rows": 2997,
+      "sha256": "91f4540b31662e1c81b6186b778a214b032f31bba9410282104dd0f1456c0e4b"
+    },
+    "r4p4": {
+      "rows": 3160,
+      "sha256": "1c74f4141252c497b969d03b36a636a02b2629ea4374f0e9cac8bac11debc7e8"
+    },
+    "r4p5": {
+      "rows": 351411,
+      "sha256": "131a2b8f24b19cf9ccf7bea87ba20b1a013082b42c55a0d8ee3b0bb523da9f31"
+    },
+    "r5p1": {
+      "rows": 584650,
+      "sha256": "44192134c860424c5ac888a005943184c3670677f5229990b792c4fc3e0057b2"
+    },
+    "r5p2": {
+      "rows": 600000,
+      "sha256": "459a36fe56034bc7af7ea748d7037635ff0909c2722c57aff0ff0842addbde88"
+    },
+    "r5p3": {
+      "rows": 539603,
+      "sha256": "dc44da1bcb61c3ba35b413b16427f6dceb649baacdc38413d1a1a4ffe7ee7c8c"
+    },
+    "r5p4": {
+      "rows": 3178,
+      "sha256": "a6479886c1bd29f76d052c6d3a7f814390cdf02b263a07cd714ef4ec0122b014"
+    },
+    "r5p5": {
+      "rows": 574600,
+      "sha256": "da4289945de080c82e4f62a868c4c9d20d41eb85edf167cb8c6baeb5bdfad1f0"
+    },
+    "r6p1": {
+      "rows": 600000,
+      "sha256": "82b9b86f93d1b1b997425eb68c30663ee7cabd4040f1447fe7c526d26c3402c8"
+    },
+    "r6p2": {
+      "rows": 3178,
+      "sha256": "b1fd9269a800e59ff6458adfba63bad2d2c673da05c3a4a6b620ae98982ebcce"
+    },
+    "r6p3": {
+      "rows": 3160,
+      "sha256": "e14e543c458bd5b66c5b2bcc7a60dbf0377620b5eb99be79b39324872f425987"
+    },
+    "r6p4": {
+      "rows": 600000,
+      "sha256": "62c8c849acf0f17d13d9e9d03a2b89d87902d66b022a411910a679fa681b9fc5"
+    },
+    "r6p5": {
+      "rows": 3176,
+      "sha256": "d4dc13d3f599a0d2c5f4a462b589aa69f749fbe8d9a1907736e070f812f49b2f"
+    }
+  },
+  "probe_seconds": {
+    "r1p1": 0.012,
+    "r1p2": 0.273,
+    "r1p3": 0.216,
+    "r1p4": 0.046,
+    "r1p5": 1.033,
+    "r2p1": 0.013,
+    "r2p2": 0.074,
+    "r2p3": 0.082,
+    "r2p4": 0.186,
+    "r2p5": 0.079,
+    "r3p1": 0.029,
+    "r3p2": 0.012,
+    "r3p3": 3.114,
+    "r3p4": 0.02,
+    "r3p5": 0.016,
+    "r4p1": 15.183,
+    "r4p2": 3.209,
+    "r4p3": 0.006,
+    "r4p4": 0.009,
+    "r4p5": 0.15,
+    "r5p1": 0.917,
+    "r5p2": 0.044,
+    "r5p3": 0.282,
+    "r5p4": 0.017,
+    "r5p5": 0.044,
+    "r6p1": 0.368,
+    "r6p2": 0.057,
+    "r6p3": 0.007,
+    "r6p4": 0.239,
+    "r6p5": 0.014
+  },
+  "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "79ba57acaadf97a0ce515be684fa238b0579c9015954345229db9af0e60a733b",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+  },
+  "started_at_utc": "2026-10-21T09:39:46Z",
+  "log_sha256": "ac4b5f3c6ca731f78bc87d42dad0b8f2d792b62e2a976132dd65b15df8444ec7",
+  "finished_at_utc": "2026-10-21T09:48:30Z"
+}

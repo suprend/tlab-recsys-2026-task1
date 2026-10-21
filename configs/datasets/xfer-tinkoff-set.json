@@ -1,0 +1,642 @@
+{
+  "format": "xfer-set-v1",
+  "dataset": "tinkoff",
+  "run": {
+    "id": "t1",
+    "model": "claude-opus-5-5",
+    "rounds": 6,
+    "proposals_per_round": 5,
+    "calls": 6,
+    "cost_usd": 1.460774,
+    "log_sha256": "ac4b5f3c6ca731f78bc87d42dad0b8f2d792b62e2a976132dd65b15df8444ec7"
+  },
+  "probe": {
+    "anchor": 641,
+    "users": 3000,
+    "collection": {
+      "name": "probe-641",
+      "path": "artifacts/xfer/tinkoff/collections/probe-641",
+      "manifest_sha256": "96880c470adb04c15169cd03ce5f17e563d194864a516bce4f674ed4cfe68a29"
+    },
+    "probe_sha256": "47374a9c3ce1afd4b3144e09e19f9f79e637bbb2b65e9acdbe28708ff69d900c",
+    "stats_sha256": "5b18f5d936394e270ea2bbc51a75caa1f14d0bf8c8c99431084c56a7dc72ea56"
+  },
+  "run_sha256": "6d44882999b91914d27f911f8f9099c573dd497f5037c02e17f0b02673433478",
+  "base_digest": "31df26fda92d8e08ab072a8a629cad3f1318b1c748bd134db5e16254cf1c6c77",
+  "prompt": {
+    "template_sha256": "501ebdd34ec16b0322f7a3fbe2e4c487e81b00bcc476645f07ce5e9873fada9f",
+    "constants_digest": "302d96343b0dee8abd330f1115b6779ea5cc393937154421515eba11104cc448",
+    "digest": "ccf381ed2ba739cecaca151a18f6f14fdec931cd37625e1fbb8914cbd1f43ae6"
+  },
+  "prompt_digest": "ccf381ed2ba739cecaca151a18f6f14fdec931cd37625e1fbb8914cbd1f43ae6",
+  "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "79ba57acaadf97a0ce515be684fa238b0579c9015954345229db9af0e60a733b",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+  },
+  "proposals": [
+    {
+      "id": "r1p1",
+      "round": 1,
+      "index": 1,
+      "name": "item_momentum_30_60",
+      "idea": "Growth of an item's audience: distinct users in the last 30 steps divided by distinct users in the 30 steps before that, plus one; this captures a longer-horizon trend than users_7/users_30.",
+      "level": "item",
+      "sql": "SELECT item_id, CAST(COUNT(DISTINCT CASE WHEN t >= {A} - 30 THEN user_id END) AS DOUBLE) / (COUNT(DISTINCT CASE WHEN t < {A} - 30 THEN user_id END) + 1) AS ag_mom_30_60 FROM ev WHERE t >= {A} - 60 GROUP BY item_id;",
+      "columns": [
+        "ag_mom_30_60"
+      ],
+      "probe_seconds": "2^-7–2^-6"
+    },
+    {
+      "id": "r1p2",
+      "round": 1,
+      "index": 2,
+      "name": "cooc_recent30",
+      "idea": "Item-item cosine co-occurrence computed only on the last 30 steps and summed over the user's last 10 items, so it reflects current co-purchase patterns rather than 180-step ones.",
+      "level": "pair",
+      "sql": "WITH r AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 30), n AS (SELECT item_id, COUNT(*) AS c FROM r GROUP BY item_id), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 10), src AS (SELECT DISTINCT item_id FROM lu), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM r a JOIN r b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(co.c / sqrt(ni.c * nj.c)) AS ag_cooc30 FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN n ni ON ni.item_id = co.i JOIN n nj ON nj.item_id = co.j GROUP BY 1, 2;",
+      "columns": [
+        "ag_cooc30"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r1p3",
+      "round": 1,
+      "index": 3,
+      "name": "next_item_transition",
+      "idea": "Directed sequential signal: across all users in the last 180 steps, the share of users of each of u's last 3 items who took item j within the following 10 steps, summed over those items.",
+      "level": "pair",
+      "sql": "WITH e AS (SELECT user_id, item_id, t FROM ev WHERE t >= {A} - 180), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 3), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e WHERE item_id IN (SELECT item_id FROM src) GROUP BY item_id), tr AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN e b ON a.user_id = b.user_id AND b.t > a.t AND b.t <= a.t + 10 WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(CAST(tr.c AS DOUBLE) / ni.c) AS ag_next_tr FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN tr ON tr.i = lu.item_id AND tr.j = c.item_id JOIN ni ON ni.item_id = tr.i GROUP BY 1, 2;",
+      "columns": [
+        "ag_next_tr"
+      ],
+      "probe_seconds": "2^-3–2^-2"
+    },
+    {
+      "id": "r1p4",
+      "round": 1,
+      "index": 4,
+      "name": "user_pop_pref",
+      "idea": "How mainstream the user is: the mean of ln(1 + users_30) over the user's last 20 items, so the model can match candidate popularity to user taste.",
+      "level": "user",
+      "sql": "WITH ip AS (SELECT item_id, COUNT(*) AS c FROM ev WHERE t >= {A} - 30 GROUP BY item_id), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 20) SELECT lu.user_id, AVG(LN(1 + COALESCE(ip.c, 0))) AS ag_user_pop_pref FROM lu LEFT JOIN ip ON ip.item_id = lu.item_id GROUP BY lu.user_id;",
+      "columns": [
+        "ag_user_pop_pref"
+      ],
+      "probe_seconds": "2^-5–2^-4"
+    },
+    {
+      "id": "r1p5",
+      "round": 1,
+      "index": 5,
+      "name": "user_cf_recent",
+      "idea": "User-based collaborative filtering: the summed cosine similarity of u's top-50 neighbours (by item overlap in the last 90 steps) who interacted with item j in the last 30 steps.",
+      "level": "pair",
+      "sql": "WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 90), du AS (SELECT user_id, COUNT(*) AS c FROM e GROUP BY user_id), uu AS (SELECT a.user_id AS u, b.user_id AS v, COUNT(*) AS c FROM e a JOIN e b ON a.item_id = b.item_id AND a.user_id <> b.user_id WHERE a.user_id IN (SELECT user_id FROM users) GROUP BY 1, 2), nb AS (SELECT u, v, s FROM (SELECT uu.u, uu.v, uu.c / sqrt(d1.c * d2.c) AS s, ROW_NUMBER() OVER (PARTITION BY uu.u ORDER BY uu.c / sqrt(d1.c * d2.c) DESC, uu.v) AS rn FROM uu JOIN du d1 ON d1.user_id = uu.u JOIN du d2 ON d2.user_id = uu.v) x WHERE rn <= 50), r AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 30) SELECT c.user_id, c.item_id, SUM(nb.s) AS ag_ucf30 FROM cand c JOIN nb ON nb.u = c.user_id JOIN r ON r.user_id = nb.v AND r.item_id = c.item_id GROUP BY 1, 2;",
+      "columns": [
+        "ag_ucf30"
+      ],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r2p1",
+      "round": 2,
+      "index": 1,
+      "name": "season_yoy_growth",
+      "idea": "Seasonal signal: the item's audience growth in the same period one cycle (365 steps) earlier, measured as distinct users in [A-365, A-335) over distinct users in [A-395, A-365), so the model can anticipate recurring demand in the label window.",
+      "level": "item",
+      "sql": "SELECT item_id, CAST(COUNT(DISTINCT CASE WHEN t >= {A} - 365 THEN user_id END) + 1 AS DOUBLE) / (COUNT(DISTINCT CASE WHEN t < {A} - 365 THEN user_id END) + 1) AS ag_season_yoy FROM ev WHERE t >= {A} - 395 AND t < {A} - 335 GROUP BY item_id;",
+      "columns": [
+        "ag_season_yoy"
+      ],
+      "probe_seconds": "2^-7–2^-6"
+    },
+    {
+      "id": "r2p2",
+      "round": 2,
+      "index": 2,
+      "name": "adoption_rate_eligible",
+      "idea": "Penetration-adjusted demand: the item's distinct users in the last 30 steps divided by the active users of the last 30 steps who had not already taken the item before A-30, because a pair can occur only once and saturated items have less remaining potential.",
+      "level": "item",
+      "sql": "WITH au AS (SELECT DISTINCT user_id FROM ev WHERE t >= {A} - 30), na AS (SELECT COUNT(*) AS n FROM au), it AS (SELECT e.item_id, COUNT(DISTINCT CASE WHEN e.t >= {A} - 30 THEN e.user_id END) AS r, COUNT(DISTINCT CASE WHEN e.t < {A} - 30 AND au.user_id IS NOT NULL THEN e.user_id END) AS o FROM ev e LEFT JOIN au ON au.user_id = e.user_id GROUP BY e.item_id) SELECT it.item_id, CAST(it.r AS DOUBLE) / GREATEST(na.n - it.o, 1) AS ag_adopt_rate FROM it CROSS JOIN na;",
+      "columns": [
+        "ag_adopt_rate"
+      ],
+      "probe_seconds": "2^-4–2^-3"
+    },
+    {
+      "id": "r2p3",
+      "round": 2,
+      "index": 3,
+      "name": "item_age_gap",
+      "idea": "Taste for fresh versus established items: the absolute difference between ln(1 + current age of candidate j) and the user's mean ln(1 + age of the item at interaction time) over their last 20 items.",
+      "level": "pair",
+      "sql": "WITH fi AS (SELECT item_id, MIN(t) AS f FROM ev GROUP BY item_id), lu AS (SELECT user_id, item_id, t FROM (SELECT user_id, item_id, t, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 20), ua AS (SELECT lu.user_id, AVG(LN(1 + lu.t - fi.f)) AS m FROM lu JOIN fi ON fi.item_id = lu.item_id GROUP BY lu.user_id) SELECT c.user_id, c.item_id, ABS(LN(1 + {A} - fi.f) - ua.m) AS ag_age_gap FROM cand c JOIN ua ON ua.user_id = c.user_id JOIN fi ON fi.item_id = c.item_id;",
+      "columns": [
+        "ag_age_gap"
+      ],
+      "probe_seconds": "2^-4–2^-3"
+    },
+    {
+      "id": "r2p4",
+      "round": 2,
+      "index": 4,
+      "name": "session_cooc",
+      "idea": "Tight-session similarity: cosine co-occurrence over the last 90 steps that counts only item pairs taken by the same user within 1 step of each other, summed over the user's 5 most recent items.",
+      "level": "pair",
+      "sql": "WITH e AS (SELECT user_id, item_id, t FROM ev WHERE t >= {A} - 90), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 5), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e GROUP BY item_id), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN e b ON a.user_id = b.user_id AND a.item_id <> b.item_id AND b.t >= a.t - 1 AND b.t <= a.t + 1 WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(co.c / sqrt(n1.c * n2.c)) AS ag_sess_cooc FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni n1 ON n1.item_id = co.i JOIN ni n2 ON n2.item_id = co.j GROUP BY 1, 2;",
+      "columns": [
+        "ag_sess_cooc"
+      ],
+      "probe_seconds": "2^-3–2^-2"
+    },
+    {
+      "id": "r2p5",
+      "round": 2,
+      "index": 5,
+      "name": "pop_gap",
+      "idea": "Signed popularity match: ln(1 + recent-30 audience of candidate j) minus the user's mean of the same quantity over their last 20 items, giving trees a direct measure of how far the candidate lies from the user's mainstream level.",
+      "level": "pair",
+      "sql": "WITH ip AS (SELECT item_id, COUNT(*) AS c FROM ev WHERE t >= {A} - 30 GROUP BY item_id), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 20), up AS (SELECT lu.user_id, AVG(LN(1 + COALESCE(ip.c, 0))) AS m FROM lu LEFT JOIN ip ON ip.item_id = lu.item_id GROUP BY lu.user_id) SELECT c.user_id, c.item_id, LN(1 + COALESCE(ip.c, 0)) - up.m AS ag_pop_gap FROM cand c JOIN up ON up.user_id = c.user_id LEFT JOIN ip ON ip.item_id = c.item_id;",
+      "columns": [
+        "ag_pop_gap"
+      ],
+      "probe_seconds": "2^-4–2^-3"
+    },
+    {
+      "id": "r3p1",
+      "round": 3,
+      "index": 1,
+      "name": "item_peak_lifecycle",
+      "idea": "Lifecycle position of an item: its distinct users in the last 30 steps relative to its best 30-step bucket ever, plus how many buckets ago that peak was, so the model can tell rising items from fading ones independent of absolute popularity.",
+      "level": "item",
+      "sql": "WITH b AS (SELECT item_id, FLOOR(({A} - 1 - t) / 30) AS k, COUNT(*) AS c FROM ev GROUP BY 1, 2), p AS (SELECT item_id, k AS pk, c AS pc FROM (SELECT item_id, k, c, ROW_NUMBER() OVER (PARTITION BY item_id ORDER BY c DESC, k) AS rn FROM b) x WHERE rn = 1) SELECT p.item_id, CAST(COALESCE(b.c, 0) AS DOUBLE) / p.pc AS ag_peak_ratio, CAST(p.pk AS DOUBLE) AS ag_peak_age FROM p LEFT JOIN b ON b.item_id = p.item_id AND b.k = 0;",
+      "columns": [
+        "ag_peak_ratio",
+        "ag_peak_age"
+      ],
+      "probe_seconds": "2^-6–2^-5"
+    },
+    {
+      "id": "r3p2",
+      "round": 3,
+      "index": 2,
+      "name": "item_pop_decay3",
+      "idea": "Exponentially time-decayed audience over the last 30 steps with a 3-step scale, emphasizing the very latest demand more sharply than the fixed users_7 window.",
+      "level": "item",
+      "sql": "SELECT item_id, SUM(CASE WHEN t >= {A} - 30 THEN EXP(-({A} - 1 - t) / 3.0) ELSE 0 END) AS ag_pop_decay3 FROM ev GROUP BY item_id;",
+      "columns": [
+        "ag_pop_decay3"
+      ],
+      "probe_seconds": "2^-7–2^-6"
+    },
+    {
+      "id": "r3p3",
+      "round": 3,
+      "index": 3,
+      "name": "cond_prob_decay_lift",
+      "idea": "Directional co-occurrence P(j|i) over 180 steps summed over the user's up to 15 items of the last 60 steps with exponential recency weights, plus the maximum lift co(i,j)*N/(n(i)n(j)), giving normalizations that differ from the cosine scores.",
+      "level": "pair",
+      "sql": "WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 180), lu AS (SELECT user_id, item_id, t FROM (SELECT user_id, item_id, t, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users) AND t >= {A} - 60) x WHERE rn <= 15), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e GROUP BY item_id), nu AS (SELECT COUNT(DISTINCT user_id) AS n FROM e), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN e b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(EXP(-({A} - lu.t) / 20.0) * CAST(co.c AS DOUBLE) / n1.c) AS ag_cond_decay, MAX(CAST(co.c AS DOUBLE) * nu.n / (CAST(n1.c AS DOUBLE) * n2.c)) AS ag_lift_max FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni n1 ON n1.item_id = co.i JOIN ni n2 ON n2.item_id = co.j CROSS JOIN nu GROUP BY 1, 2;",
+      "columns": [
+        "ag_cond_decay",
+        "ag_lift_max"
+      ],
+      "probe_seconds": "2^1–2^2"
+    },
+    {
+      "id": "r3p4",
+      "round": 3,
+      "index": 4,
+      "name": "user_recency_ratio",
+      "idea": "Recency relative to the user's own rhythm: steps since the last activity times the number of active-step gaps divided by the active span, so a long pause is judged against the user's usual inter-visit gap.",
+      "level": "user",
+      "sql": "WITH s AS (SELECT DISTINCT user_id, t FROM ev WHERE user_id IN (SELECT user_id FROM users)) SELECT user_id, CAST({A} - MAX(t) AS DOUBLE) * (COUNT(*) - 1) / GREATEST(MAX(t) - MIN(t), 1) AS ag_recency_ratio FROM s GROUP BY user_id HAVING COUNT(*) > 1;",
+      "columns": [
+        "ag_recency_ratio"
+      ],
+      "probe_seconds": "2^-6–2^-5"
+    },
+    {
+      "id": "r3p5",
+      "round": 3,
+      "index": 5,
+      "name": "adopter_depth",
+      "idea": "Breadth of appeal: the mean ln(total items) of the item's adopters in the last 90 steps, since items taken by light users tend to be broadly appealing while items driven by heavy users are niche.",
+      "level": "item",
+      "sql": "WITH un AS (SELECT user_id, COUNT(*) AS n FROM ev GROUP BY user_id) SELECT e.item_id, AVG(LN(un.n)) AS ag_adopter_depth FROM ev e JOIN un ON un.user_id = e.user_id WHERE e.t >= {A} - 90 GROUP BY e.item_id;",
+      "columns": [
+        "ag_adopter_depth"
+      ],
+      "probe_seconds": "2^-6–2^-5"
+    },
+    {
+      "id": "r4p1",
+      "round": 4,
+      "index": 1,
+      "name": "longterm_profile_cooc",
+      "idea": "Cosine co-occurrence over the last 180 steps summed over the user's older items (positions 21 to 60 by recency), capturing long-term taste that the last-20 cooc source ignores.",
+      "level": "pair",
+      "sql": "WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 180), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn > 20 AND rn <= 60), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e GROUP BY item_id), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN e b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(co.c / sqrt(n1.c * n2.c)) AS ag_lt_cooc FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni n1 ON n1.item_id = co.i JOIN ni n2 ON n2.item_id = co.j GROUP BY 1, 2;",
+      "columns": [
+        "ag_lt_cooc"
+      ],
+      "probe_seconds": "2^3–2^4"
+    },
+    {
+      "id": "r4p2",
+      "round": 4,
+      "index": 2,
+      "name": "iuf_weighted_cooc",
+      "idea": "Item-item cosine over the last 90 steps where each co-occurring user is down-weighted by 1/ln(2 + activity), so heavy users do not dominate similarity, summed over the user's last 10 items.",
+      "level": "pair",
+      "sql": "WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 90), du AS (SELECT user_id, COUNT(*) AS d FROM e GROUP BY user_id), ew AS (SELECT e.user_id, e.item_id, 1.0 / LN(2 + du.d) AS w FROM e JOIN du ON du.user_id = e.user_id), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 10), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, SUM(w) AS c FROM ew GROUP BY item_id), co AS (SELECT a.item_id AS i, b.item_id AS j, SUM(a.w) AS c FROM ew a JOIN ew b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(co.c / sqrt(n1.c * n2.c)) AS ag_iuf_cooc FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni n1 ON n1.item_id = co.i JOIN ni n2 ON n2.item_id = co.j GROUP BY 1, 2;",
+      "columns": [
+        "ag_iuf_cooc"
+      ],
+      "probe_seconds": "2^1–2^2"
+    },
+    {
+      "id": "r4p3",
+      "round": 4,
+      "index": 3,
+      "name": "user_visit_rhythm",
+      "idea": "Visit frequency rather than item volume: the number of distinct active steps in the last 30 steps and the mean gap between distinct active steps over the last 90 steps.",
+      "level": "user",
+      "sql": "WITH s AS (SELECT DISTINCT user_id, t FROM ev WHERE user_id IN (SELECT user_id FROM users) AND t >= {A} - 90) SELECT user_id, CAST(COUNT(CASE WHEN t >= {A} - 30 THEN 1 END) AS DOUBLE) AS ag_steps_30, CASE WHEN COUNT(*) > 1 THEN CAST(MAX(t) - MIN(t) AS DOUBLE) / (COUNT(*) - 1) END AS ag_gap_90 FROM s GROUP BY user_id;",
+      "columns": [
+        "ag_steps_30",
+        "ag_gap_90"
+      ],
+      "probe_seconds": "2^-8–2^-7"
+    },
+    {
+      "id": "r4p4",
+      "round": 4,
+      "index": 4,
+      "name": "item_burstiness30",
+      "idea": "Coefficient of variation of the item's per-step event counts over the last 30 steps, separating steady demand from one-off bursts that are less likely to persist into the label window.",
+      "level": "item",
+      "sql": "WITH s AS (SELECT item_id, t, COUNT(*) AS c FROM ev WHERE t >= {A} - 30 GROUP BY item_id, t) SELECT item_id, SQRT(GREATEST(CAST(SUM(c * c) AS DOUBLE) / 30.0 - POWER(CAST(SUM(c) AS DOUBLE) / 30.0, 2), 0)) / (CAST(SUM(c) AS DOUBLE) / 30.0) AS ag_burst30 FROM s GROUP BY item_id;",
+      "columns": [
+        "ag_burst30"
+      ],
+      "probe_seconds": "2^-7–2^-6"
+    },
+    {
+      "id": "r4p5",
+      "round": 4,
+      "index": 5,
+      "name": "neighbor_recent7_adoption",
+      "idea": "Fresh co-adoption: among users who took one of u's last 5 items in the last 90 steps, the share who took candidate j in the last 7 steps, summed over those items, so the signal tracks what similar users are adopting right now.",
+      "level": "pair",
+      "sql": "WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 90), r7 AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 7), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 5), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e WHERE item_id IN (SELECT item_id FROM src) GROUP BY item_id), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN r7 b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(CAST(co.c AS DOUBLE) / ni.c) AS ag_nbr_recent7 FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni ON ni.item_id = co.i GROUP BY 1, 2;",
+      "columns": [
+        "ag_nbr_recent7"
+      ],
+      "probe_seconds": "2^-3–2^-2"
+    },
+    {
+      "id": "r5p1",
+      "round": 5,
+      "index": 1,
+      "name": "timed_transition",
+      "idea": "Timing-aware sequential signal: for each of u's last 5 items i, taken o = A - t steps ago (o <= 60), sum the share of i's adopters in the last 180 steps who took j at a gap g after i with o <= g < o + 30, so it estimates how likely j is to fall exactly in the label window.",
+      "level": "pair",
+      "sql": "WITH e AS (SELECT user_id, item_id, t FROM ev WHERE t >= {A} - 180), lu AS (SELECT user_id, item_id, o FROM (SELECT user_id, item_id, {A} - t AS o, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 5 AND o <= 60), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e WHERE item_id IN (SELECT item_id FROM src) GROUP BY item_id), tr AS (SELECT a.item_id AS i, b.item_id AS j, b.t - a.t AS g, COUNT(*) AS c FROM e a JOIN e b ON a.user_id = b.user_id AND b.t > a.t AND b.t <= a.t + 90 WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2, 3) SELECT c.user_id, c.item_id, SUM(CAST(tr.c AS DOUBLE) / ni.c) AS ag_timed_tr FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN tr ON tr.i = lu.item_id AND tr.j = c.item_id AND tr.g >= lu.o AND tr.g < lu.o + 30 JOIN ni ON ni.item_id = tr.i GROUP BY 1, 2;",
+      "columns": [
+        "ag_timed_tr"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r5p2",
+      "round": 5,
+      "index": 2,
+      "name": "adopter_depth_gap",
+      "idea": "Signed match between the candidate's typical adopter activity (mean ln total items of its adopters in the last 90 steps) and the user's own ln total items, so heavy users get niche items and light users broad ones.",
+      "level": "pair",
+      "sql": "WITH un AS (SELECT user_id, COUNT(*) AS n FROM ev GROUP BY user_id), idp AS (SELECT e.item_id, AVG(LN(un.n)) AS d FROM ev e JOIN un ON un.user_id = e.user_id WHERE e.t >= {A} - 90 GROUP BY e.item_id) SELECT c.user_id, c.item_id, idp.d - LN(un.n) AS ag_depth_gap FROM cand c JOIN un ON un.user_id = c.user_id JOIN idp ON idp.item_id = c.item_id;",
+      "columns": [
+        "ag_depth_gap"
+      ],
+      "probe_seconds": "2^-5–2^-4"
+    },
+    {
+      "id": "r5p3",
+      "round": 5,
+      "index": 3,
+      "name": "cooc30_relative",
+      "idea": "Within-user normalized recent co-occurrence: the 30-step cosine score over the user's last 10 items divided by the maximum of that score over the user's candidates, making the signal comparable across users with different history strength.",
+      "level": "pair",
+      "sql": "WITH r AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 30), n AS (SELECT item_id, COUNT(*) AS c FROM r GROUP BY item_id), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 10), src AS (SELECT DISTINCT item_id FROM lu), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM r a JOIN r b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2), s AS (SELECT c.user_id, c.item_id, SUM(co.c / sqrt(ni.c * nj.c)) AS v FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN n ni ON ni.item_id = co.i JOIN n nj ON nj.item_id = co.j GROUP BY 1, 2) SELECT user_id, item_id, v / MAX(v) OVER (PARTITION BY user_id) AS ag_cooc30_rel FROM s;",
+      "columns": [
+        "ag_cooc30_rel"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r5p4",
+      "round": 5,
+      "index": 4,
+      "name": "lastyear_share_gap",
+      "idea": "Seasonal level: the item's log audience share in the window one cycle before the label window [A-365, A-335) minus its log audience share in the last 30 steps, so items that were relatively bigger at this time last cycle are flagged for a rebound.",
+      "level": "item",
+      "sql": "WITH w AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 365 AND t < {A} - 335), tot AS (SELECT COUNT(DISTINCT user_id) AS n FROM w), ly AS (SELECT item_id, COUNT(DISTINCT user_id) AS c FROM w GROUP BY item_id), r AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 30), curt AS (SELECT COUNT(DISTINCT user_id) AS n FROM r), cur AS (SELECT item_id, COUNT(DISTINCT user_id) AS c FROM r GROUP BY item_id), it AS (SELECT DISTINCT item_id FROM ev) SELECT it.item_id, LN((COALESCE(ly.c, 0) + 1.0) / GREATEST(tot.n, 1)) - LN((COALESCE(cur.c, 0) + 1.0) / GREATEST(curt.n, 1)) AS ag_ly_share_gap FROM it LEFT JOIN ly ON ly.item_id = it.item_id LEFT JOIN cur ON cur.item_id = it.item_id CROSS JOIN tot CROSS JOIN curt;",
+      "columns": [
+        "ag_ly_share_gap"
+      ],
+      "probe_seconds": "2^-6–2^-5"
+    },
+    {
+      "id": "r5p5",
+      "round": 5,
+      "index": 5,
+      "name": "segment_pop30",
+      "idea": "Popularity within the user's activity segment: the share of users in the same log2 bucket of last-30-step item count who took item j in the last 30 steps, since light and heavy users favour different items.",
+      "level": "pair",
+      "sql": "WITH a AS (SELECT user_id, COUNT(*) AS n FROM ev WHERE t >= {A} - 30 GROUP BY user_id), b AS (SELECT user_id, LEAST(CAST(FLOOR(LOG2(1 + n)) AS INTEGER), 4) AS k FROM a), bs AS (SELECT k, COUNT(*) AS s FROM b GROUP BY k), ip AS (SELECT b.k, e.item_id, COUNT(*) AS c FROM ev e JOIN b ON b.user_id = e.user_id WHERE e.t >= {A} - 30 GROUP BY 1, 2) SELECT c.user_id, c.item_id, CAST(COALESCE(ip.c, 0) AS DOUBLE) / bs.s AS ag_seg_pop30 FROM cand c JOIN b ON b.user_id = c.user_id JOIN bs ON bs.k = b.k LEFT JOIN ip ON ip.k = b.k AND ip.item_id = c.item_id;",
+      "columns": [
+        "ag_seg_pop30"
+      ],
+      "probe_seconds": "2^-5–2^-4"
+    },
+    {
+      "id": "r6p1",
+      "round": 6,
+      "index": 1,
+      "name": "id_rank_proximity_all",
+      "idea": "Catalog-neighbourhood affinity: item ids are mapped to their rank among all items, then the rank distance from candidate j to the nearest item in the user's whole history and the number of history items within 10 ranks of j are computed, since adjacent ids often belong to the same product family or colour variants.",
+      "level": "pair",
+      "sql": "WITH ir AS (SELECT item_id, ROW_NUMBER() OVER (ORDER BY item_id) AS r FROM (SELECT DISTINCT item_id FROM ev) x), h AS (SELECT DISTINCT user_id, item_id FROM ev WHERE user_id IN (SELECT user_id FROM users)), u AS (SELECT h.user_id, h.item_id, ir.r, 1 AS h FROM h JOIN ir ON ir.item_id = h.item_id UNION ALL SELECT c.user_id, c.item_id, ir.r, 0 AS h FROM cand c JOIN ir ON ir.item_id = c.item_id), w AS (SELECT user_id, item_id, r, h, SUM(h) OVER (PARTITION BY user_id ORDER BY r RANGE BETWEEN 10 PRECEDING AND 10 FOLLOWING) AS cnt, MAX(CASE WHEN h = 1 THEN r END) OVER (PARTITION BY user_id ORDER BY r, item_id ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING) AS lo, MIN(CASE WHEN h = 1 THEN r END) OVER (PARTITION BY user_id ORDER BY r, item_id ROWS BETWEEN 1 FOLLOWING AND UNBOUNDED FOLLOWING) AS hi FROM u) SELECT user_id, item_id, LN(1 + LEAST(COALESCE(r - lo, 100000), COALESCE(hi - r, 100000))) AS ag_id_dist_all, CAST(cnt AS DOUBLE) AS ag_id_cnt10 FROM w WHERE h = 0;",
+      "columns": [
+        "ag_id_dist_all",
+        "ag_id_cnt10"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r6p2",
+      "round": 6,
+      "index": 2,
+      "name": "id_neighbourhood_trend",
+      "idea": "Product-family demand: the log audience of the last 30 steps summed over the 10 items with adjacent id ranks (excluding j itself) and that neighbourhood's 7-to-30-step ratio, capturing family-level trends that a single item's counts miss.",
+      "level": "item",
+      "sql": "WITH it AS (SELECT item_id, COUNT(DISTINCT CASE WHEN t >= {A} - 30 THEN user_id END) AS u30, COUNT(DISTINCT CASE WHEN t >= {A} - 7 THEN user_id END) AS u7 FROM ev GROUP BY item_id), ir AS (SELECT item_id, u30, u7, ROW_NUMBER() OVER (ORDER BY item_id) AS r FROM it) SELECT a.item_id, LN(1 + SUM(b.u30)) AS ag_idnb_pop30, (SUM(b.u7) + 1.0) / (SUM(b.u30) + 1.0) AS ag_idnb_trend FROM ir a JOIN ir b ON b.r >= a.r - 5 AND b.r <= a.r + 5 AND b.r <> a.r GROUP BY a.item_id;",
+      "columns": [
+        "ag_idnb_pop30",
+        "ag_idnb_trend"
+      ],
+      "probe_seconds": "2^-5–2^-4"
+    },
+    {
+      "id": "r6p3",
+      "round": 6,
+      "index": 3,
+      "name": "recent_event_mean_age",
+      "idea": "Within-window timing of demand: the mean age A - t of the item's events in the last 30 steps, a smooth indicator of whether its recent activity is concentrated near the anchor or fading.",
+      "level": "item",
+      "sql": "SELECT item_id, AVG(CAST({A} - t AS DOUBLE)) AS ag_rec_mean_age FROM ev WHERE t >= {A} - 30 GROUP BY item_id;",
+      "columns": [
+        "ag_rec_mean_age"
+      ],
+      "probe_seconds": "2^-8–2^-7"
+    },
+    {
+      "id": "r6p4",
+      "round": 6,
+      "index": 4,
+      "name": "id_rank_proximity_recent",
+      "idea": "Recency-weighted catalog proximity: the sum over the user's last 20 items of 0.8^(position-1) times exp(-id-rank distance / 3) to candidate j, so variants of what the user just took score high.",
+      "level": "pair",
+      "sql": "WITH ir AS (SELECT item_id, ROW_NUMBER() OVER (ORDER BY item_id) AS r FROM (SELECT DISTINCT item_id FROM ev) x), lu AS (SELECT user_id, item_id, rn FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 20) SELECT c.user_id, c.item_id, SUM(POWER(0.8, lu.rn - 1) * EXP(-ABS(CAST(a.r AS DOUBLE) - b.r) / 3.0)) AS ag_id_prox_rec FROM cand c JOIN ir a ON a.item_id = c.item_id JOIN lu ON lu.user_id = c.user_id JOIN ir b ON b.item_id = lu.item_id GROUP BY 1, 2;",
+      "columns": [
+        "ag_id_prox_rec"
+      ],
+      "probe_seconds": "2^-3–2^-2"
+    },
+    {
+      "id": "r6p5",
+      "round": 6,
+      "index": 5,
+      "name": "audience_still_active",
+      "idea": "Whether an item's community is still engaged: the share of its distinct adopters from [A-90, A-7) who are active in the last 7 steps, since items whose audience is currently active tend to keep spreading through co-adoption.",
+      "level": "item",
+      "sql": "WITH act AS (SELECT DISTINCT user_id FROM ev WHERE t >= {A} - 7), e AS (SELECT DISTINCT user_id, item_id FROM ev WHERE t >= {A} - 90 AND t < {A} - 7) SELECT e.item_id, AVG(CASE WHEN act.user_id IS NOT NULL THEN 1.0 ELSE 0.0 END) AS ag_aud_active7 FROM e LEFT JOIN act ON act.user_id = e.user_id GROUP BY e.item_id;",
+      "columns": [
+        "ag_aud_active7"
+      ],
+      "probe_seconds": "2^-7–2^-6"
+    }
+  ],
+  "attempts": [
+    {
+      "id": "r1p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r1p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r1p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r1p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r1p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p5",
+      "status": "valid",
+      "error": null
+    }
+  ],
+  "columns": [
+    "ag_mom_30_60",
+    "ag_cooc30",
+    "ag_next_tr",
+    "ag_user_pop_pref",
+    "ag_ucf30",
+    "ag_season_yoy",
+    "ag_adopt_rate",
+    "ag_age_gap",
+    "ag_sess_cooc",
+    "ag_pop_gap",
+    "ag_peak_ratio",
+    "ag_peak_age",
+    "ag_pop_decay3",
+    "ag_cond_decay",
+    "ag_lift_max",
+    "ag_recency_ratio",
+    "ag_adopter_depth",
+    "ag_lt_cooc",
+    "ag_iuf_cooc",
+    "ag_steps_30",
+    "ag_gap_90",
+    "ag_burst30",
+    "ag_nbr_recent7",
+    "ag_timed_tr",
+    "ag_depth_gap",
+    "ag_cooc30_rel",
+    "ag_ly_share_gap",
+    "ag_seg_pop30",
+    "ag_id_dist_all",
+    "ag_id_cnt10",
+    "ag_idnb_pop30",
+    "ag_idnb_trend",
+    "ag_rec_mean_age",
+    "ag_id_prox_rec",
+    "ag_aud_active7"
+  ],
+  "budget": {
+    "pair_user_seconds": 20,
+    "item_seconds": 0
+  },
+  "digest": "29b75013a0e3425ab029812e886cd89e6941a38bc62fea19a6dacbe0784a3e60",
+  "audit": {
+    "verdict": "CLEAN",
+    "path": "docs/xfer-tinkoff-run/audit.md",
+    "sha256": "78953c591b631bd7a3f584621bec3ef7f1a4092a008b9e66d1219db6ae4ab2c9",
+    "date": "2026-10-21",
+    "auditor": "independent read-only agent"
+  }
+}

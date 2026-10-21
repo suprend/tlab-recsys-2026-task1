@@ -1,0 +1,270 @@
+You are a feature engineer for a ranking model. Reply with JSON only.
+
+TASK
+An online store. The data are interactions (user, item, time step): time is an integer step of unknown unit,
+and every (user, item) pair occurs at most once. For an anchor A the history is every interaction with t < A.
+The label of a (user, item) pair is whether the user interacts with the item in [A, A+30); the task is to
+recommend 20 items the user has not interacted with before A. The metric is binary NDCG@20 over the users
+with at least one new item in that window.
+
+CANDIDATES
+For a user u at anchor A every source lists items with an event before A that u has not interacted with before A; ties go to the smaller item_id.
+- pop30: items by distinct users in [A-30, A), descending; the first 100.
+- cooc: E = interactions in [A-180, A); n(i) = distinct users of i in E; co(i, j) = distinct users with both i and j in E; sim(i, j) = co(i, j) / sqrt(n(i) n(j)); L(u) = the last 20 distinct items of u before A by time step descending, then item_id; score(j) = sum of sim(i, j) over i in L(u), rounded to 9 decimals; items with a positive score by score descending; the first 100.
+- fill: items by distinct users before A, descending.
+Union: the sources in this order, each skipping items already taken, up to 200 candidates per user (all unseen items when fewer). Each source position is a feature below.
+
+TRAINING
+CatBoost Logloss, 500 trees, depth 8, learning rate 0.05, L2 10, 128
+borders. Anchors every 30 steps with up to 5000 users each; every candidate of a user enters with weight 1.
+
+FEATURES ALREADY IN THE MODEL: base B (name [level]: formula; missing). A window of w steps is [A-w, A);
+j is the candidate item, u the user.
+- users_7 [item]: distinct users with an event on item j in [A-7, A); missing: 0
+- users_30 [item]: distinct users with an event on item j in [A-30, A); missing: 0
+- users_90 [item]: distinct users with an event on item j in [A-90, A); missing: 0
+- users_all [item]: distinct users with an event on item j before A; missing: never: j has an event before A
+- trend [item]: users_7 / users_30; missing: NULL when users_30 = 0
+- item_age [item]: A - first time step of item j before A; missing: never
+- item_last [item]: A - last time step of item j before A; missing: never
+- n_items_all [user]: distinct items of user u before A; missing: never: a query has history
+- n_items_30 [user]: distinct items of user u in [A-30, A); missing: 0
+- user_recency [user]: A - last time step of user u before A; missing: never
+- user_age [user]: A - first time step of user u before A; missing: never
+- cooc_score [pair]: sum of sim(i, j) over i in L(u) of source cooc, rounded to 9 decimals; missing: 0
+- cooc_rank [pair]: position of j in candidate source cooc; missing: NULL outside source cooc
+- cooc_max [pair]: max of sim(i, j) over i in L(u) of source cooc; missing: 0
+- cooc_hits [pair]: number of i in L(u) of source cooc with sim(i, j) > 0; missing: 0
+- pop30_rank [pair]: position of j in candidate source pop30; missing: NULL outside source pop30
+- global_rank [pair]: rank of j among the items with an event before A by users_all descending, then item_id; the same for every user; missing: never
+- cooc_last5 [pair]: sum of sim(i, j) over the 5 most recent items of L(u) of source cooc; missing: 0
+- cooc_wsum [pair]: sum over positions p = 1..|L(u)| of L(u) of source cooc (p = 1 most recent) of 0.8^(p-1) * sim(L_p, j); missing: 0
+- cooc_mean [pair]: sum of sim(i, j) over i in L(u) of source cooc, rounded to 9 decimals, divided by the number of i in L(u) of source cooc with n(i) > 0; missing: NULL when no i in L(u) of source cooc has n(i) > 0
+- cooc_n_last [pair]: number of i among the 5 most recent items of L(u) of source cooc with sim(i, j) > 0; missing: 0
+- users_14 [item]: distinct users with an event on item j in [A-14, A); missing: 0
+- pop_share_30 [item]: users_30 / users_all; missing: never: users_all >= 1
+- user_rate [user]: n_items_all / max(user_age, 1); missing: never
+- n_items_7 [user]: distinct items of user u in [A-7, A); missing: 0
+
+TABLES (DuckDB; a query sees only these three)
+ev(user_id BIGINT, item_id BIGINT, t INTEGER)
+  every interaction with t < A; each (user_id, item_id) pair occurs at most once
+cand(user_id BIGINT, item_id BIGINT): the candidate pairs of the current batch, keys only
+users(user_id BIGINT): the distinct users of cand
+There is no user or item attribute table.
+
+QUERY RULES
+- Exactly one SELECT or WITH statement; ';' only at the very end; no comments (-- or /* */).
+- Write the anchor only as {A}, literally with the braces; it becomes the integer anchor step,
+  e.g. t >= {A} - 30. No other {...} placeholders.
+- The column t always stands on the left of a comparison: t >= {A} - 30, never {A} - 30 <= t. Never compare
+  t with a number (t < 400 is an error); write ages as {A} - t.
+- Forbidden whole words, in any case: transactions, customers, frame, label, labels, target, targets, hm_*,
+  _hm_*; read_*, parquet_*, csv, json*, glob, getenv, query, query_table, duckdb_*, information_schema,
+  pg_catalog, sqlite_master, pragma*; attach, detach, copy, export, import, install, load, set, reset, use,
+  call, create, drop, insert, update, delete, alter; random, setseed, uuid, gen_random_uuid, now, today,
+  current_date, current_time, current_timestamp, get_current_time, sample, tablesample, current_setting,
+  sniff_*, checkpoint, force_checkpoint, which_secret; ev_* and the names of the raw data; the functions
+  error() and strptime().
+- An item-level query must not mention cand or users: its values do not depend on the batch and are cached.
+
+OUTPUT OF A QUERY
+- level "pair": key columns user_id, item_id (pairs of cand); level "user": user_id (of users); level "item":
+  item_id (of the items in ev). Keys are BIGINT, never NULL and unique. A key outside its set is an error, not
+  a silent filter, so keep queries narrow.
+- 1 to 3 value columns named by ^ag_[a-z][a-z0-9_]{1,38}$, unique among the accepted columns and different
+  from every feature name above; integer, DECIMAL, FLOAT, DOUBLE or BOOLEAN. VARCHAR, DATE and TIMESTAMP values
+  are errors. No other columns.
+- Values are cast to DOUBLE and left-joined to the batch keys of the level. No row, NULL, a non-finite value or
+  a float32 overflow mean "no data": NaN in the model, which CatBoost treats as the minimum. Put your own
+  defaults with COALESCE.
+- Batch invariance: a value depends only on ev and its own key; cand and users only filter. A window
+  PARTITION BY user_id over cand is allowed (all candidates of a user are always in one batch); aggregates
+  over cand across users are not. Windows need a full tie-break (..., item_id). Violations are caught
+  mechanically.
+- Limits on the probe: timeout 20 s for pair and user queries, 60 s for item queries; at most 20 million
+  output rows. Budget of the whole set on the probe: valid pair and user proposals together at most 90 s,
+  valid item proposals at most 180 s; a proposal that does not fit into what is left gets status budget.
+
+VALIDITY
+A proposal is accepted or rejected as a whole. It is invalid on an SQL error, a broken rule or a timeout; when
+a column has fewer than 2 distinct non-NULL values or fewer than 100 non-NULL rows; when a column has
+|Spearman rho| >= 0.999 with a base column, an accepted column or another column of the same proposal; or when
+batch invariance fails.
+
+PROBE STATISTICS (history before the probe anchor only)
+events_by_window:
+  last_7_steps:
+    events: 17899
+    users: 6372
+    items: 2956
+  last_30_steps:
+    events: 74709
+    users: 10581
+    items: 3160
+  last_90_steps:
+    events: 240101
+    users: 11035
+    items: 3176
+  last_180_steps:
+    events: 496115
+    users: 11047
+    items: 3178
+  all_history:
+    events: 2655606
+    users: 11047
+    items: 3178
+events_per_user_all_history:
+  count: 11047
+  mean: 240.39
+  p10: 112
+  p25: 161
+  p50: 229
+  p75: 308
+  p90: 381
+  p99: 526.54
+  max: 800
+events_per_user_last_30_steps:
+  count: 10581
+  mean: 7.06
+  p10: 2
+  p25: 3
+  p50: 6
+  p75: 10
+  p90: 14
+  p99: 22
+  max: 47
+users_with_2_or_more_steps_last_30_steps_share: 0.8568
+events_per_item_all_history:
+  count: 3178
+  mean: 835.62
+  p10: 309
+  p25: 390
+  p50: 580
+  p75: 989.75
+  p90: 1578.3
+  p99: 4188.3
+  max: 10184
+candidates:
+  users: 3000
+  per_user_mean: 200
+  added_per_user_mean_by_source:
+    pop30: 100
+    cooc: 63.55
+    fill: 36.45
+
+WARNING
+All valid columns will enter the model without selection. Superfluous and noisy columns hurt: a few strong, non-redundant signals are needed. User-level columns work only through interactions.
+
+EARLIER ATTEMPTS IN THIS RUN (validity and coverage on the probe; effects on labels are not shown)
+Agent columns accepted earlier in this run, also in the model: ag_mom_30_60, ag_cooc30, ag_next_tr, ag_user_pop_pref, ag_ucf30, ag_season_yoy, ag_adopt_rate, ag_age_gap, ag_sess_cooc, ag_pop_gap, ag_peak_ratio, ag_peak_age, ag_pop_decay3, ag_cond_decay, ag_lift_max, ag_recency_ratio, ag_adopter_depth, ag_lt_cooc, ag_iuf_cooc, ag_steps_30, ag_gap_90, ag_burst30, ag_nbr_recent7, ag_timed_tr, ag_depth_gap, ag_cooc30_rel, ag_ly_share_gap, ag_seg_pop30
+r1p1 item_momentum_30_60 [item]: valid (2^-7–2^-6 s, 2^11–2^12 rows)
+  idea: Growth of an item's audience: distinct users in the last 30 steps divided by distinct users in the 30 steps before that, plus one; this captures a longer-horizon trend than users_7/users_30.
+  ag_mom_30_60: non-null 1.00, recent 1.00, global 1.00, distinct 2^9–2^10, max |rho| 0.8, nearest pop_share_30
+  sql: SELECT item_id, CAST(COUNT(DISTINCT CASE WHEN t >= {A} - 30 THEN user_id END) AS DOUBLE) / (COUNT(DISTINCT CASE WHEN t < {A} - 30 THEN user_id END) + 1) AS ag_mom_30_60 FROM ev WHERE t >= {A} - 60 GROUP BY item_id;
+r1p2 cooc_recent30 [pair]: valid (2^-2–2^-1 s, 2^19–2^20 rows)
+  idea: Item-item cosine co-occurrence computed only on the last 30 steps and summed over the user's last 10 items, so it reflects current co-purchase patterns rather than 180-step ones.
+  ag_cooc30: non-null 0.90, recent 0.87, global 0.93, distinct 2^18–2^19, max |rho| 0.4, nearest pop30_rank
+  sql: WITH r AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 30), n AS (SELECT item_id, COUNT(*) AS c FROM r GROUP BY item_id), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 10), src AS (SELECT DISTINCT item_id FROM lu), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM r a JOIN r b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(co.c / sqrt(ni.c * nj.c)) AS ag_cooc30 FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN n ni ON ni.item_id = co.i JOIN n nj ON nj.item_id = co.j GROUP BY 1, 2;
+r1p3 next_item_transition [pair]: valid (2^-3–2^-2 s, 2^18–2^19 rows)
+  idea: Directed sequential signal: across all users in the last 180 steps, the share of users of each of u's last 3 items who took item j within the following 10 steps, summed over those items.
+  ag_next_tr: non-null 0.72, recent 0.79, global 0.70, distinct 2^15–2^16, max |rho| 0.2, nearest cooc_score
+  sql: WITH e AS (SELECT user_id, item_id, t FROM ev WHERE t >= {A} - 180), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 3), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e WHERE item_id IN (SELECT item_id FROM src) GROUP BY item_id), tr AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN e b ON a.user_id = b.user_id AND b.t > a.t AND b.t <= a.t + 10 WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(CAST(tr.c AS DOUBLE) / ni.c) AS ag_next_tr FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN tr ON tr.i = lu.item_id AND tr.j = c.item_id JOIN ni ON ni.item_id = tr.i GROUP BY 1, 2;
+r1p4 user_pop_pref [user]: valid (2^-5–2^-4 s, 2^11–2^12 rows)
+  idea: How mainstream the user is: the mean of ln(1 + users_30) over the user's last 20 items, so the model can match candidate popularity to user taste.
+  ag_user_pop_pref: non-null 1.00, recent 1.00, global 1.00, distinct 2^11–2^12, max |rho| 0.3, nearest cooc_score
+  sql: WITH ip AS (SELECT item_id, COUNT(*) AS c FROM ev WHERE t >= {A} - 30 GROUP BY item_id), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 20) SELECT lu.user_id, AVG(LN(1 + COALESCE(ip.c, 0))) AS ag_user_pop_pref FROM lu LEFT JOIN ip ON ip.item_id = lu.item_id GROUP BY lu.user_id;
+r1p5 user_cf_recent [pair]: valid (2^0–2^1 s, 2^16–2^17 rows)
+  idea: User-based collaborative filtering: the summed cosine similarity of u's top-50 neighbours (by item overlap in the last 90 steps) who interacted with item j in the last 30 steps.
+  ag_ucf30: non-null 0.21, recent 0.20, global 0.23, distinct 2^13–2^14, max |rho| 0.3, nearest user_rate
+  sql: WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 90), du AS (SELECT user_id, COUNT(*) AS c FROM e GROUP BY user_id), uu AS (SELECT a.user_id AS u, b.user_id AS v, COUNT(*) AS c FROM e a JOIN e b ON a.item_id = b.item_id AND a.user_id <> b.user_id WHERE a.user_id IN (SELECT user_id FROM users) GROUP BY 1, 2), nb AS (SELECT u, v, s FROM (SELECT uu.u, uu.v, uu.c / sqrt(d1.c * d2.c) AS s, ROW_NUMBER() OVER (PARTITION BY uu.u ORDER BY uu.c / sqrt(d1.c * d2.c) DESC, uu.v) AS rn FROM uu JOIN du d1 ON d1.user_id = uu.u JOIN du d2 ON d2.user_id = uu.v) x WHERE rn <= 50), r AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 30) SELECT c.user_id, c.item_id, SUM(nb.s) AS ag_ucf30 FROM cand c JOIN nb ON nb.u = c.user_id JOIN r ON r.user_id = nb.v AND r.item_id = c.item_id GROUP BY 1, 2;
+r2p1 season_yoy_growth [item]: valid (2^-7–2^-6 s, 2^11–2^12 rows)
+  idea: Seasonal signal: the item's audience growth in the same period one cycle (365 steps) earlier, measured as distinct users in [A-365, A-335) over distinct users in [A-395, A-365), so the model can anticipate recurring demand in the label window.
+  ag_season_yoy: non-null 1.00, recent 1.00, global 1.00, distinct 2^9–2^10, max |rho| 0.2, nearest trend
+  sql: SELECT item_id, CAST(COUNT(DISTINCT CASE WHEN t >= {A} - 365 THEN user_id END) + 1 AS DOUBLE) / (COUNT(DISTINCT CASE WHEN t < {A} - 365 THEN user_id END) + 1) AS ag_season_yoy FROM ev WHERE t >= {A} - 395 AND t < {A} - 335 GROUP BY item_id;
+r2p2 adoption_rate_eligible [item]: valid (2^-4–2^-3 s, 2^11–2^12 rows)
+  idea: Penetration-adjusted demand: the item's distinct users in the last 30 steps divided by the active users of the last 30 steps who had not already taken the item before A-30, because a pair can occur only once and saturated items have less remaining potential.
+  ag_adopt_rate: non-null 1.00, recent 1.00, global 1.00, distinct 2^10–2^11, max |rho| 1.0, nearest users_30
+  sql: WITH au AS (SELECT DISTINCT user_id FROM ev WHERE t >= {A} - 30), na AS (SELECT COUNT(*) AS n FROM au), it AS (SELECT e.item_id, COUNT(DISTINCT CASE WHEN e.t >= {A} - 30 THEN e.user_id END) AS r, COUNT(DISTINCT CASE WHEN e.t < {A} - 30 AND au.user_id IS NOT NULL THEN e.user_id END) AS o FROM ev e LEFT JOIN au ON au.user_id = e.user_id GROUP BY e.item_id) SELECT it.item_id, CAST(it.r AS DOUBLE) / GREATEST(na.n - it.o, 1) AS ag_adopt_rate FROM it CROSS JOIN na;
+r2p3 item_age_gap [pair]: valid (2^-4–2^-3 s, 2^19–2^20 rows)
+  idea: Taste for fresh versus established items: the absolute difference between ln(1 + current age of candidate j) and the user's mean ln(1 + age of the item at interaction time) over their last 20 items.
+  ag_age_gap: non-null 1.00, recent 1.00, global 1.00, distinct 2^14–2^15, max |rho| 0.8, nearest n_items_30
+  sql: WITH fi AS (SELECT item_id, MIN(t) AS f FROM ev GROUP BY item_id), lu AS (SELECT user_id, item_id, t FROM (SELECT user_id, item_id, t, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 20), ua AS (SELECT lu.user_id, AVG(LN(1 + lu.t - fi.f)) AS m FROM lu JOIN fi ON fi.item_id = lu.item_id GROUP BY lu.user_id) SELECT c.user_id, c.item_id, ABS(LN(1 + {A} - fi.f) - ua.m) AS ag_age_gap FROM cand c JOIN ua ON ua.user_id = c.user_id JOIN fi ON fi.item_id = c.item_id;
+r2p4 session_cooc [pair]: valid (2^-3–2^-2 s, 2^18–2^19 rows)
+  idea: Tight-session similarity: cosine co-occurrence over the last 90 steps that counts only item pairs taken by the same user within 1 step of each other, summed over the user's 5 most recent items.
+  ag_sess_cooc: non-null 0.71, recent 0.76, global 0.70, distinct 2^17–2^18, max |rho| 0.2, nearest ag_cooc30
+  sql: WITH e AS (SELECT user_id, item_id, t FROM ev WHERE t >= {A} - 90), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 5), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e GROUP BY item_id), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN e b ON a.user_id = b.user_id AND a.item_id <> b.item_id AND b.t >= a.t - 1 AND b.t <= a.t + 1 WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(co.c / sqrt(n1.c * n2.c)) AS ag_sess_cooc FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni n1 ON n1.item_id = co.i JOIN ni n2 ON n2.item_id = co.j GROUP BY 1, 2;
+r2p5 pop_gap [pair]: valid (2^-4–2^-3 s, 2^19–2^20 rows)
+  idea: Signed popularity match: ln(1 + recent-30 audience of candidate j) minus the user's mean of the same quantity over their last 20 items, giving trees a direct measure of how far the candidate lies from the user's mainstream level.
+  ag_pop_gap: non-null 1.00, recent 1.00, global 1.00, distinct 2^18–2^19, max |rho| 0.9, nearest users_30
+  sql: WITH ip AS (SELECT item_id, COUNT(*) AS c FROM ev WHERE t >= {A} - 30 GROUP BY item_id), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 20), up AS (SELECT lu.user_id, AVG(LN(1 + COALESCE(ip.c, 0))) AS m FROM lu LEFT JOIN ip ON ip.item_id = lu.item_id GROUP BY lu.user_id) SELECT c.user_id, c.item_id, LN(1 + COALESCE(ip.c, 0)) - up.m AS ag_pop_gap FROM cand c JOIN up ON up.user_id = c.user_id LEFT JOIN ip ON ip.item_id = c.item_id;
+r3p1 item_peak_lifecycle [item]: valid (2^-6–2^-5 s, 2^11–2^12 rows)
+  idea: Lifecycle position of an item: its distinct users in the last 30 steps relative to its best 30-step bucket ever, plus how many buckets ago that peak was, so the model can tell rising items from fading ones independent of absolute popularity.
+  ag_peak_ratio: non-null 1.00, recent 1.00, global 1.00, distinct 2^9–2^10, max |rho| 1.0, nearest pop_share_30
+  ag_peak_age: non-null 1.00, recent 1.00, global 1.00, distinct 2^4–2^5, max |rho| 0.6, nearest users_all
+  sql: WITH b AS (SELECT item_id, FLOOR(({A} - 1 - t) / 30) AS k, COUNT(*) AS c FROM ev GROUP BY 1, 2), p AS (SELECT item_id, k AS pk, c AS pc FROM (SELECT item_id, k, c, ROW_NUMBER() OVER (PARTITION BY item_id ORDER BY c DESC, k) AS rn FROM b) x WHERE rn = 1) SELECT p.item_id, CAST(COALESCE(b.c, 0) AS DOUBLE) / p.pc AS ag_peak_ratio, CAST(p.pk AS DOUBLE) AS ag_peak_age FROM p LEFT JOIN b ON b.item_id = p.item_id AND b.k = 0;
+r3p2 item_pop_decay3 [item]: valid (2^-7–2^-6 s, 2^11–2^12 rows)
+  idea: Exponentially time-decayed audience over the last 30 steps with a 3-step scale, emphasizing the very latest demand more sharply than the fixed users_7 window.
+  ag_pop_decay3: non-null 1.00, recent 1.00, global 1.00, distinct 2^10–2^11, max |rho| 1.0, nearest users_7
+  sql: SELECT item_id, SUM(CASE WHEN t >= {A} - 30 THEN EXP(-({A} - 1 - t) / 3.0) ELSE 0 END) AS ag_pop_decay3 FROM ev GROUP BY item_id;
+r3p3 cond_prob_decay_lift [pair]: valid (2^1–2^2 s, 2^19–2^20 rows)
+  idea: Directional co-occurrence P(j|i) over 180 steps summed over the user's up to 15 items of the last 60 steps with exponential recency weights, plus the maximum lift co(i,j)*N/(n(i)n(j)), giving normalizations that differ from the cosine scores.
+  ag_cond_decay: non-null 1.00, recent 1.00, global 1.00, distinct 2^19–2^20, max |rho| 0.8, nearest n_items_30
+  ag_lift_max: non-null 1.00, recent 1.00, global 1.00, distinct 2^16–2^17, max |rho| 0.4, nearest users_all
+  sql: WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 180), lu AS (SELECT user_id, item_id, t FROM (SELECT user_id, item_id, t, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users) AND t >= {A} - 60) x WHERE rn <= 15), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e GROUP BY item_id), nu AS (SELECT COUNT(DISTINCT user_id) AS n FROM e), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN e b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(EXP(-({A} - lu.t) / 20.0) * CAST(co.c AS DOUBLE) / n1.c) AS ag_cond_decay, MAX(CAST(co.c AS DOUBLE) * nu.n / (CAST(n1.c AS DOUBLE) * n2.c)) AS ag_lift_max FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni n1 ON n1.item_id = co.i JOIN ni n2 ON n2.item_id = co.j CROSS JOIN nu GROUP BY 1, 2;
+r3p4 user_recency_ratio [user]: valid (2^-6–2^-5 s, 2^11–2^12 rows)
+  idea: Recency relative to the user's own rhythm: steps since the last activity times the number of active-step gaps divided by the active span, so a long pause is judged against the user's usual inter-visit gap.
+  ag_recency_ratio: non-null 1.00, recent 1.00, global 1.00, distinct 2^11–2^12, max |rho| 0.9, nearest user_recency
+  sql: WITH s AS (SELECT DISTINCT user_id, t FROM ev WHERE user_id IN (SELECT user_id FROM users)) SELECT user_id, CAST({A} - MAX(t) AS DOUBLE) * (COUNT(*) - 1) / GREATEST(MAX(t) - MIN(t), 1) AS ag_recency_ratio FROM s GROUP BY user_id HAVING COUNT(*) > 1;
+r3p5 adopter_depth [item]: valid (2^-6–2^-5 s, 2^11–2^12 rows)
+  idea: Breadth of appeal: the mean ln(total items) of the item's adopters in the last 90 steps, since items taken by light users tend to be broadly appealing while items driven by heavy users are niche.
+  ag_adopter_depth: non-null 1.00, recent 1.00, global 1.00, distinct 2^10–2^11, max |rho| 0.7, nearest users_all
+  sql: WITH un AS (SELECT user_id, COUNT(*) AS n FROM ev GROUP BY user_id) SELECT e.item_id, AVG(LN(un.n)) AS ag_adopter_depth FROM ev e JOIN un ON un.user_id = e.user_id WHERE e.t >= {A} - 90 GROUP BY e.item_id;
+r4p1 longterm_profile_cooc [pair]: valid (2^3–2^4 s, 2^19–2^20 rows)
+  idea: Cosine co-occurrence over the last 180 steps summed over the user's older items (positions 21 to 60 by recency), capturing long-term taste that the last-20 cooc source ignores.
+  ag_lt_cooc: non-null 1.00, recent 1.00, global 1.00, distinct 2^19–2^20, max |rho| 0.7, nearest cooc_score
+  sql: WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 180), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn > 20 AND rn <= 60), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e GROUP BY item_id), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN e b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(co.c / sqrt(n1.c * n2.c)) AS ag_lt_cooc FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni n1 ON n1.item_id = co.i JOIN ni n2 ON n2.item_id = co.j GROUP BY 1, 2;
+r4p2 iuf_weighted_cooc [pair]: valid (2^1–2^2 s, 2^19–2^20 rows)
+  idea: Item-item cosine over the last 90 steps where each co-occurring user is down-weighted by 1/ln(2 + activity), so heavy users do not dominate similarity, summed over the user's last 10 items.
+  ag_iuf_cooc: non-null 1.00, recent 1.00, global 1.00, distinct 2^19–2^20, max |rho| 0.6, nearest users_90
+  sql: WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 90), du AS (SELECT user_id, COUNT(*) AS d FROM e GROUP BY user_id), ew AS (SELECT e.user_id, e.item_id, 1.0 / LN(2 + du.d) AS w FROM e JOIN du ON du.user_id = e.user_id), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 10), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, SUM(w) AS c FROM ew GROUP BY item_id), co AS (SELECT a.item_id AS i, b.item_id AS j, SUM(a.w) AS c FROM ew a JOIN ew b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(co.c / sqrt(n1.c * n2.c)) AS ag_iuf_cooc FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni n1 ON n1.item_id = co.i JOIN ni n2 ON n2.item_id = co.j GROUP BY 1, 2;
+r4p3 user_visit_rhythm [user]: valid (2^-8–2^-7 s, 2^11–2^12 rows)
+  idea: Visit frequency rather than item volume: the number of distinct active steps in the last 30 steps and the mean gap between distinct active steps over the last 90 steps.
+  ag_steps_30: non-null 1.00, recent 1.00, global 1.00, distinct 2^4–2^5, max |rho| 0.8, nearest n_items_30
+  ag_gap_90: non-null 0.99, recent 0.99, global 0.99, distinct 2^9–2^10, max |rho| 0.7, nearest ag_age_gap
+  sql: WITH s AS (SELECT DISTINCT user_id, t FROM ev WHERE user_id IN (SELECT user_id FROM users) AND t >= {A} - 90) SELECT user_id, CAST(COUNT(CASE WHEN t >= {A} - 30 THEN 1 END) AS DOUBLE) AS ag_steps_30, CASE WHEN COUNT(*) > 1 THEN CAST(MAX(t) - MIN(t) AS DOUBLE) / (COUNT(*) - 1) END AS ag_gap_90 FROM s GROUP BY user_id;
+r4p4 item_burstiness30 [item]: valid (2^-7–2^-6 s, 2^11–2^12 rows)
+  idea: Coefficient of variation of the item's per-step event counts over the last 30 steps, separating steady demand from one-off bursts that are less likely to persist into the label window.
+  ag_burst30: non-null 1.00, recent 1.00, global 1.00, distinct 2^9–2^10, max |rho| 0.6, nearest ag_adopt_rate
+  sql: WITH s AS (SELECT item_id, t, COUNT(*) AS c FROM ev WHERE t >= {A} - 30 GROUP BY item_id, t) SELECT item_id, SQRT(GREATEST(CAST(SUM(c * c) AS DOUBLE) / 30.0 - POWER(CAST(SUM(c) AS DOUBLE) / 30.0, 2), 0)) / (CAST(SUM(c) AS DOUBLE) / 30.0) AS ag_burst30 FROM s GROUP BY item_id;
+r4p5 neighbor_recent7_adoption [pair]: valid (2^-3–2^-2 s, 2^18–2^19 rows)
+  idea: Fresh co-adoption: among users who took one of u's last 5 items in the last 90 steps, the share who took candidate j in the last 7 steps, summed over those items, so the signal tracks what similar users are adopting right now.
+  ag_nbr_recent7: non-null 0.59, recent 0.55, global 0.63, distinct 2^16–2^17, max |rho| 0.4, nearest users_7
+  sql: WITH e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 90), r7 AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 7), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 5), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e WHERE item_id IN (SELECT item_id FROM src) GROUP BY item_id), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM e a JOIN r7 b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2) SELECT c.user_id, c.item_id, SUM(CAST(co.c AS DOUBLE) / ni.c) AS ag_nbr_recent7 FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN ni ON ni.item_id = co.i GROUP BY 1, 2;
+r5p1 timed_transition [pair]: valid (2^-1–2^0 s, 2^19–2^20 rows)
+  idea: Timing-aware sequential signal: for each of u's last 5 items i, taken o = A - t steps ago (o <= 60), sum the share of i's adopters in the last 180 steps who took j at a gap g after i with o <= g < o + 30, so it estimates how likely j is to fall exactly in the label window.
+  ag_timed_tr: non-null 0.97, recent 0.98, global 0.97, distinct 2^18–2^19, max |rho| 0.4, nearest ag_cond_decay
+  sql: WITH e AS (SELECT user_id, item_id, t FROM ev WHERE t >= {A} - 180), lu AS (SELECT user_id, item_id, o FROM (SELECT user_id, item_id, {A} - t AS o, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 5 AND o <= 60), src AS (SELECT DISTINCT item_id FROM lu), ni AS (SELECT item_id, COUNT(*) AS c FROM e WHERE item_id IN (SELECT item_id FROM src) GROUP BY item_id), tr AS (SELECT a.item_id AS i, b.item_id AS j, b.t - a.t AS g, COUNT(*) AS c FROM e a JOIN e b ON a.user_id = b.user_id AND b.t > a.t AND b.t <= a.t + 90 WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2, 3) SELECT c.user_id, c.item_id, SUM(CAST(tr.c AS DOUBLE) / ni.c) AS ag_timed_tr FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN tr ON tr.i = lu.item_id AND tr.j = c.item_id AND tr.g >= lu.o AND tr.g < lu.o + 30 JOIN ni ON ni.item_id = tr.i GROUP BY 1, 2;
+r5p2 adopter_depth_gap [pair]: valid (2^-5–2^-4 s, 2^19–2^20 rows)
+  idea: Signed match between the candidate's typical adopter activity (mean ln total items of its adopters in the last 90 steps) and the user's own ln total items, so heavy users get niche items and light users broad ones.
+  ag_depth_gap: non-null 1.00, recent 1.00, global 1.00, distinct 2^17–2^18, max |rho| 1.0, nearest n_items_all
+  sql: WITH un AS (SELECT user_id, COUNT(*) AS n FROM ev GROUP BY user_id), idp AS (SELECT e.item_id, AVG(LN(un.n)) AS d FROM ev e JOIN un ON un.user_id = e.user_id WHERE e.t >= {A} - 90 GROUP BY e.item_id) SELECT c.user_id, c.item_id, idp.d - LN(un.n) AS ag_depth_gap FROM cand c JOIN un ON un.user_id = c.user_id JOIN idp ON idp.item_id = c.item_id;
+r5p3 cooc30_relative [pair]: valid (2^-2–2^-1 s, 2^19–2^20 rows)
+  idea: Within-user normalized recent co-occurrence: the 30-step cosine score over the user's last 10 items divided by the maximum of that score over the user's candidates, making the signal comparable across users with different history strength.
+  ag_cooc30_rel: non-null 0.90, recent 0.87, global 0.93, distinct 2^19–2^20, max |rho| 0.9, nearest ag_cooc30
+  sql: WITH r AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 30), n AS (SELECT item_id, COUNT(*) AS c FROM r GROUP BY item_id), lu AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn <= 10), src AS (SELECT DISTINCT item_id FROM lu), co AS (SELECT a.item_id AS i, b.item_id AS j, COUNT(*) AS c FROM r a JOIN r b ON a.user_id = b.user_id AND a.item_id <> b.item_id WHERE a.item_id IN (SELECT item_id FROM src) GROUP BY 1, 2), s AS (SELECT c.user_id, c.item_id, SUM(co.c / sqrt(ni.c * nj.c)) AS v FROM cand c JOIN lu ON lu.user_id = c.user_id JOIN co ON co.i = lu.item_id AND co.j = c.item_id JOIN n ni ON ni.item_id = co.i JOIN n nj ON nj.item_id = co.j GROUP BY 1, 2) SELECT user_id, item_id, v / MAX(v) OVER (PARTITION BY user_id) AS ag_cooc30_rel FROM s;
+r5p4 lastyear_share_gap [item]: valid (2^-6–2^-5 s, 2^11–2^12 rows)
+  idea: Seasonal level: the item's log audience share in the window one cycle before the label window [A-365, A-335) minus its log audience share in the last 30 steps, so items that were relatively bigger at this time last cycle are flagged for a rebound.
+  ag_ly_share_gap: non-null 1.00, recent 1.00, global 1.00, distinct 2^9–2^10, max |rho| 0.8, nearest pop_share_30
+  sql: WITH w AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 365 AND t < {A} - 335), tot AS (SELECT COUNT(DISTINCT user_id) AS n FROM w), ly AS (SELECT item_id, COUNT(DISTINCT user_id) AS c FROM w GROUP BY item_id), r AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 30), curt AS (SELECT COUNT(DISTINCT user_id) AS n FROM r), cur AS (SELECT item_id, COUNT(DISTINCT user_id) AS c FROM r GROUP BY item_id), it AS (SELECT DISTINCT item_id FROM ev) SELECT it.item_id, LN((COALESCE(ly.c, 0) + 1.0) / GREATEST(tot.n, 1)) - LN((COALESCE(cur.c, 0) + 1.0) / GREATEST(curt.n, 1)) AS ag_ly_share_gap FROM it LEFT JOIN ly ON ly.item_id = it.item_id LEFT JOIN cur ON cur.item_id = it.item_id CROSS JOIN tot CROSS JOIN curt;
+r5p5 segment_pop30 [pair]: valid (2^-5–2^-4 s, 2^19–2^20 rows)
+  idea: Popularity within the user's activity segment: the share of users in the same log2 bucket of last-30-step item count who took item j in the last 30 steps, since light and heavy users favour different items.
+  ag_seg_pop30: non-null 0.96, recent 0.96, global 0.96, distinct 2^7–2^8, max |rho| 0.6, nearest n_items_30
+  sql: WITH a AS (SELECT user_id, COUNT(*) AS n FROM ev WHERE t >= {A} - 30 GROUP BY user_id), b AS (SELECT user_id, LEAST(CAST(FLOOR(LOG2(1 + n)) AS INTEGER), 4) AS k FROM a), bs AS (SELECT k, COUNT(*) AS s FROM b GROUP BY k), ip AS (SELECT b.k, e.item_id, COUNT(*) AS c FROM ev e JOIN b ON b.user_id = e.user_id WHERE e.t >= {A} - 30 GROUP BY 1, 2) SELECT c.user_id, c.item_id, CAST(COALESCE(ip.c, 0) AS DOUBLE) / bs.s AS ag_seg_pop30 FROM cand c JOIN b ON b.user_id = c.user_id JOIN bs ON bs.k = b.k LEFT JOIN ip ON ip.k = b.k AND ip.item_id = c.item_id;
+Probe time budget left (rounded down to 10 s): pair+user about 60 s of 90 s; item about
+170 s of 180 s.
+
+REQUEST
+This is round 6 of 6. Propose 5 new features that are likely to improve the ranking
+beyond base B and the accepted columns and that differ from earlier attempts. Answer with a JSON list only:
+[{"name": "short_snake_case", "idea": "one sentence", "level": "pair|user|item", "sql": "SELECT ..."}]
