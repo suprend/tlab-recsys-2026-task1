@@ -1,0 +1,45 @@
+{
+  "format": "xfer-holdout-open-v1",
+  "dataset": "tinkoff",
+  "gate": {
+    "path": "artifacts/xfer/tinkoff/gate/stage1-20261021T105136557159Z/gate.json",
+    "sha256": "95a53142f25653f3cfb3ffdcaeeed0484646d31871d341835cfaeaedd0dc7fa6"
+  },
+  "gate_ok": true,
+  "status": {
+    "B": true,
+    "BA": true,
+    "BApl": true
+  },
+  "arms": [
+    "Pop",
+    "B",
+    "BA",
+    "BApl"
+  ],
+  "score_files": {
+    "artifacts/xfer/tinkoff/fits/holdout/B2026/scores-holdout-671.parquet": "6e8b557e3c5385e8ef25d76ce91686375028e1d19559d058dd6507a4ed4a52d4",
+    "artifacts/xfer/tinkoff/fits/holdout/B2027/scores-holdout-671.parquet": "fefcfb69c77d93d6c5af0b4574ec5ddc9f20af666c983a90974f50b1c5c7e56c",
+    "artifacts/xfer/tinkoff/fits/holdout/BA2026/scores-holdout-671.parquet": "0f70d6a7b24bd53d50d65e0fd7c4073ad078650be37e209ea38057d9e6371bee",
+    "artifacts/xfer/tinkoff/fits/holdout/BA2027/scores-holdout-671.parquet": "8668b591ecc2f30ea21ec4fdee758fabcce41a9922c85d2667da989148432d63",
+    "artifacts/xfer/tinkoff/fits/holdout/BApl2026/scores-holdout-671.parquet": "5b2e9121dab247d79d34e76a798faadec6b56cfb45f0757a30e8b38371152fe5",
+    "artifacts/xfer/tinkoff/fits/holdout/BApl2027/scores-holdout-671.parquet": "e41256abe9bfdac465bd83399a856d4a322e6c29991a9e73ce4272af140c226e"
+  },
+  "fit_reports": {
+    "artifacts/xfer/tinkoff/fits/dev/B2026/report.json": "0a0e3d94de25cab47814447e088f2f2b36e272cd5e925036bebf9e7e9b7897b6",
+    "artifacts/xfer/tinkoff/fits/dev/B2027/report.json": "82a20b45af2cf31b1803f8c3085eaebfbcf1369aecc454e872c562719f068c04",
+    "artifacts/xfer/tinkoff/fits/dev/BA2026/report.json": "6e422f44d7a4dd40f9666dcfcdc9537311c354cec7b177cfec40c9abe0b312f1",
+    "artifacts/xfer/tinkoff/fits/dev/BA2027/report.json": "7545a97a44ca89b1d2412902649514059d5bfa4d86f813a9cf6e277a81f53364",
+    "artifacts/xfer/tinkoff/fits/dev/BApl2026/report.json": "f38adb67d51bb5d39c741ceb23265c59efbeb32aab3f5ff536919ccb66920e4d",
+    "artifacts/xfer/tinkoff/fits/dev/BApl2027/report.json": "0e6dc74987e86ace6ec2e2176a8c8a01bd5eb2aa3fbb480a06f0ce0216d18d9d",
+    "artifacts/xfer/tinkoff/fits/holdout/B2026/report.json": "69e0d391ec04d4c98346f2712ca80b05cd78f86bef296174c7209490f402c92d",
+    "artifacts/xfer/tinkoff/fits/holdout/B2027/report.json": "64cf34e5b5312dfdd1b8abdda858d15e0134645b7895f82a907c9d7aafcf494b",
+    "artifacts/xfer/tinkoff/fits/holdout/BA2026/report.json": "80319c689211e86181f002b8097847e428f8dbfd4df1526fbb97b9639382af76",
+    "artifacts/xfer/tinkoff/fits/holdout/BA2027/report.json": "8df74930f130236e12c3a66dc87a79adebac98b5369a23893c3dcedd89e50e2e",
+    "artifacts/xfer/tinkoff/fits/holdout/BApl2026/report.json": "38aa582301f3709b69e9d1f1f3c69fb24cf10da3def06865e993a7f6db9ef106",
+    "artifacts/xfer/tinkoff/fits/holdout/BApl2027/report.json": "60c87d989966f8f90b63cf9e5c6a5f767712440635bcbe4ef66e642eb30a733e"
+  },
+  "prereg_sha256": "954f68ee372d55a2e3fe6602b3498f07dbf180bf29d2486d7d0a69c3e3712506",
+  "opened_utc": "2026-10-21T10:51:45Z",
+  "quote": "да реализуй и обучай модели и все тестируй, эксперементируй, не останавливайся, меня ни о чем не спрашивай"
+}
