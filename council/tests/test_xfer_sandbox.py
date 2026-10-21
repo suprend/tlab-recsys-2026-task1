@@ -2,13 +2,15 @@
 
 The world lives in /tmp/tlab-council-test-*: an events parquet, collections train-100, train-110, probe-115,
 val-120 and the C_test collection at 130 (frame.parquet + manifest.json), a fake adapter (xc.adapter is patched:
-the real adapters never load in this process), a fake agent set and base names; queue.heavy is a recording
-stub. DuckDB runs with 2 threads on a few hundred rows. Nothing under artifacts/ or council/runs/ is touched.
+the real adapters never load in this process), a fake agent set and base names; queue.heavy and
+sandbox.reference_step are recording stubs. DuckDB runs with 2 threads on a few hundred rows. Nothing under
+artifacts/ or council/runs/ is touched.
 
 Run: TASK1_PERIOD=2020 .venv/bin/python -m unittest council.tests.test_xfer_sandbox -v
 """
 import builtins
 import contextlib
+import fcntl
 import io
 import json
 import os
@@ -109,6 +111,7 @@ class World:
         for role, anchor in [('train', a) for a in TRAIN] + [('probe', PROBE), ('val', S0), (test_role, TEST)]:
             self.collections[anchor] = self.make_collection(role, anchor)
         self.heavy_calls = []
+        self.reference_calls = []
         self.stack = contextlib.ExitStack()
 
     # ---------------------------------------------------------------- fake adapter
@@ -148,6 +151,11 @@ class World:
         self.heavy_calls.append((what, dataset, kw.get('log')))
         yield
 
+    @contextlib.contextmanager
+    def reference_step(self, what, ds, lock):
+        self.reference_calls.append((what, ds.name, lock))
+        yield
+
     def trapped(self, fn):
         def f(path, *a, **k):
             if isinstance(path, (str, os.PathLike)) and Path(os.fspath(path)).name in TRAP:
@@ -165,6 +173,7 @@ class World:
             s.enter_context(mock.patch.object(mod, name, self.trapped(getattr(mod, name))))
         s.enter_context(mock.patch.object(xc, 'adapter', lambda dataset: self.adapter))
         s.enter_context(mock.patch.object(queue, 'heavy', self.heavy))
+        s.enter_context(mock.patch.object(sandbox, 'reference_step', self.reference_step))
         s.enter_context(mock.patch.object(sandbox, 'identity', lambda ds: dict(self.ident)))
         s.enter_context(mock.patch.object(sandbox, 'agent_set', lambda ds: {
             'proposals': [dict(id='p1', level='user', sql=AGENT_SQL, columns=['ag_ucnt'])], 'columns': ['ag_ucnt']}))
@@ -297,8 +306,10 @@ class ProbeData(Base):
     def test_rows_reference_and_cache(self):
         data = self.data()
         self.assertEqual([d['anchor'] for d in data], [PROBE, TRAIN[-1]])
-        self.assertEqual(len(self.w.heavy_calls), 2)
-        self.assertTrue(all(c[0].startswith('probe reference') and c[1] == 'tinkoff' for c in self.w.heavy_calls))
+        self.assertEqual(len(self.w.reference_calls), 2)
+        self.assertTrue(all(c[0].startswith('probe reference') and c[1] == 'tinkoff' for c in self.w.reference_calls))
+        self.assertEqual([c[2] for c in self.w.reference_calls],
+                         [self.ds.paths.probe_ref(d['anchor']).with_suffix('.lock') for d in data])
         for d in data:
             self.assertEqual(d['names'], ['f1', 'f2', 'ag_ucnt'])
             self.assertEqual(list(d['cohort']), xc.cap_queries(d['cohort'], None))
@@ -314,7 +325,7 @@ class ProbeData(Base):
         sandbox._DATA.clear()
         with mock.patch.object(xa, 'agent_columns', side_effect=AssertionError('recomputed')):
             again = self.data()
-        self.assertEqual(len(self.w.heavy_calls), 2)
+        self.assertEqual(len(self.w.reference_calls), 2)
         for a, b in zip(data, again):
             pd.testing.assert_frame_equal(a['ref'], b['ref'])
 
@@ -410,11 +421,11 @@ class Probes(Base):
 
     def test_reference_cache_follows_identity_and_set(self):
         self.data()
-        self.assertEqual(len(self.w.heavy_calls), 2)
+        self.assertEqual(len(self.w.reference_calls), 2)
         sandbox._DATA.clear()
         self.w.ident = {'code': 'changed'}
         self.data()
-        self.assertEqual(len(self.w.heavy_calls), 4)
+        self.assertEqual(len(self.w.reference_calls), 4)
         stamp = json.loads(self.ds.paths.probe_ref(PROBE).with_suffix('.json').read_text())
         self.assertEqual(stamp['identity'], {'code': 'changed'})
         sandbox._DATA.clear()
@@ -422,7 +433,7 @@ class Probes(Base):
                  'columns': ['ag_ucnt']}
         with mock.patch.object(sandbox, 'agent_set', lambda ds: other):
             self.data()
-        self.assertEqual(len(self.w.heavy_calls), 6)
+        self.assertEqual(len(self.w.reference_calls), 6)
 
     def test_values_match_compute(self):
         """The probe of a card and compute.py on the same keys (the last train collection) give the same values."""
@@ -504,6 +515,69 @@ class Stage(Base):
 
     def test_gate_none_never_waits(self):
         self.assertEqual(sandbox.wait_gate(None, 1.0, sleep=lambda s: self.fail('slept')), 0)
+
+
+class ReferenceStep(unittest.TestCase):
+    """The real reference_step (§13.1): a light step under light_wait('probe') over both journals, never the heavy
+    lock; the anchor lock is held across the gate and the body and released on errors; light-start/light-end in the
+    queue journal of the dataset."""
+
+    def setUp(self):
+        tmp = tempfile.TemporaryDirectory(prefix='tlab-council-test-', dir='/tmp')
+        self.addCleanup(tmp.cleanup)
+        self.root = tmp.name
+        self.ds = types.SimpleNamespace(name='tinkoff', paths=roles.paths('tinkoff', self.root))
+        self.lock = Path(self.root) / 'ref' / 'probe-641.lock'
+        self.waits = []
+        for target, name, fn in ((queue, 'light_wait', self.wait),
+                                 (queue, 'heavy', lambda *a, **k: self.fail('heavy lock taken'))):
+            p = mock.patch.object(target, name, fn)
+            p.start()
+            self.addCleanup(p.stop)
+
+    def wait(self, kind, journals, **kw):
+        self.waits.append((kind, journals, self.held()))
+
+    def held(self) -> bool:
+        with open(self.lock, 'a+') as f:
+            try:
+                fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                return True
+            fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+            return False
+
+    def events(self):
+        return queue.entries(self.ds.paths.queue_log)
+
+    def test_light_step_journals_and_holds_the_anchor_lock(self):
+        with sandbox.reference_step('probe reference 641', self.ds, self.lock):
+            self.assertTrue(self.held())
+            self.assertEqual([e['event'] for e in self.events()], ['light-start'])
+        self.assertFalse(self.held())
+        self.assertEqual(self.waits, [('probe', [roles.paths(x, self.root).queue_log for x in roles.DATASETS], True)])
+        done = self.events()
+        self.assertEqual([e['event'] for e in done], ['light-start', 'light-end'])
+        self.assertTrue(done[1]['ok'])
+        self.assertIsInstance(done[1]['peak_gb'], float)
+        self.assertIsInstance(done[1]['seconds'], float)
+
+    def test_an_error_journals_not_ok_and_releases_the_lock(self):
+        with self.assertRaises(RuntimeError):
+            with sandbox.reference_step('probe reference 641', self.ds, self.lock):
+                raise RuntimeError('boom')
+        self.assertFalse(self.held())
+        self.assertEqual([(e['event'], e.get('ok')) for e in self.events()], [('light-start', None), ('light-end', False)])
+
+    def test_a_refused_gate_releases_the_lock_without_journal(self):
+        def busy(*a, **k):
+            raise queue.Busy('probe: REES46 full fit')
+        with mock.patch.object(queue, 'light_wait', busy):
+            with self.assertRaises(queue.Busy):
+                with sandbox.reference_step('probe reference 641', self.ds, self.lock):
+                    self.fail('body ran')
+        self.assertFalse(self.held())
+        self.assertEqual(self.events(), [])
 
 
 if __name__ == '__main__':

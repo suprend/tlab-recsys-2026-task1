@@ -722,6 +722,11 @@ class QueueTest(unittest.TestCase):
             unknown = Q.light_gate('probe', procs=[], own=set(), heavy={'what': 'compute', 'peak_gb': None})
             self.assertEqual(len(unknown), 1)
             self.assertIn('no journalled peak', unknown[0])
+            for cmd in ('python -m council.memory full_test', 'python -m council.agents run compute'):
+                found = Q.light_gate('probe', procs=[(999999, 1, cmd)], own=set())
+                self.assertEqual(len(found), 1, cmd)
+                self.assertIn('no known peak', found[0])
+            self.assertEqual(Q.light_gate('llm', procs=[(999999, 1, 'python -m council.memory')], own=set()), [])
             with self.assertRaises(ValueError):
                 Q.light_gate('compute', procs=[], own=set())
 

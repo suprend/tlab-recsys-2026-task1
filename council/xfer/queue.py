@@ -13,7 +13,8 @@ council.xfer processes never match; editors, grep and git on those files do not 
 
 Light step = an LLM stage or a probe (threads=4, DuckDB 4 GB). light_gate() says whether it may run next to the
 heavy step of the moment (heavy_now): an LLM call always; a probe not next to a REES46 full_val/full_test fit (peak
-~21 GB), nor next to a heavy step whose journalled peak exceeds PEAK_LIMIT_GB or is unknown (contract §8.6).
+~21 GB) or a REES46 council.memory / council.agents compute run (§13.2), nor next to a heavy step whose
+journalled peak exceeds PEAK_LIMIT_GB or is unknown (contract §8.6).
 run.probe_gate wraps it as the `gate` of sandbox.probe_stage (asked before every probe, §8.7); light_wait()
 is the blocking form.
 
@@ -49,6 +50,7 @@ FOREIGN = (
     re.compile(r'(^|/)python[\w.]*\s(.*\s)?-m\s*scripts\.xfer_\w+', re.I),
 )
 REES46_FIT = re.compile(r'-m council\.fit\b')
+REES46_UNKNOWN = re.compile(r'-m council\.memory\b|-m council\.agents\b.*\bcompute\b')   # REES46 heavy, peak unknown
 SPEC_ARG = re.compile(r'--spec[ =](\S+)')
 FULL_RECIPES = ('full_val', 'full_test')        # REES46 recipes of ~21 GB peak: they run alone
 PEAK_LIMIT_GB = 20.0                            # contract §4: probes run next to a heavy step peaking <= 20 GB
@@ -165,7 +167,8 @@ def entries(path: Path) -> list[dict]:
 
 
 def peaks(path: Path) -> dict:
-    """what -> the largest journalled peak (GB) of a heavy step of that name."""
+    """what -> the largest journalled peak (GB) of a step of that name (heavy `end` and light `light-end`; heavy_now
+    looks only at the kind of the heavy lock holder, 'fit' or 'compute')."""
     out = {}
     for r in entries(path):
         if isinstance(r.get('peak_gb'), (int, float)) and not isinstance(r.get('peak_gb'), bool):
@@ -249,7 +252,7 @@ def lock_holder(lock_path: Path = LOCK_PATH) -> dict | None:
 
 
 def kind_of(what: str) -> str:
-    """The kind of a heavy step for peak lookups: the first word of `what` ('fit', 'compute', 'reference')."""
+    """The kind of a step for peak lookups: the first word of `what` ('fit', 'compute'; light: 'probe')."""
     return str(what or '').split(' ', 1)[0]
 
 
@@ -266,13 +269,17 @@ def heavy_now(journals, lock_path: Path = LOCK_PATH) -> dict | None:
 
 def light_gate(kind: str, *, procs=None, own=None, heavy: dict | None = None) -> list[str]:
     """Reasons a light step may not run now ([] = it may). kind 'llm': never refused. kind 'probe': refused next
-    to a REES46 full fit, and next to a heavy step (heavy = heavy_now(...), None when none runs) whose peak is
+    to a REES46 full fit or a REES46 memory/compute run (council.memory, council.agents compute: peak unknown),
+    and next to a heavy step (heavy = heavy_now(...), None when none runs) whose peak is
     unknown or exceeds PEAK_LIMIT_GB."""
     if kind not in LIGHT_KINDS:
         raise ValueError(f'light kind {kind!r} not in {LIGHT_KINDS}')
     if kind == 'llm':
         return []
+    procs = processes() if procs is None else procs
     out = [f'REES46 full fit {pid} runs alone' for pid, _ in rees46_full(procs, own)]
+    out += [f'REES46 heavy step {pid} has no known peak' for pid, cmd in foreign(procs, own)
+            if REES46_UNKNOWN.search(cmd)]
     if heavy is not None:
         peak = heavy.get('peak_gb')
         if peak is None:

@@ -20,7 +20,8 @@ Probe data (only frame.parquet and manifest.json of a collection, no target colu
 manifest.json of the collection (Dataset.collection('probe') / Dataset.collection('fit', last); of the manifest
 only anchor, base_digest, features and the frame hash are read, §8.9); users = the first Dataset.probe_users users
 by xc.query_order_key; the reference columns = base + the xfer agent set computed by the council with
-xa.agent_columns on those keys -> roles.Paths.probe_ref(anchor), a heavy step under queue.heavy (§8.10). The user
+xa.agent_columns on those keys -> roles.Paths.probe_ref(anchor), a light step (§13.1: queue.light_wait 'probe'
+and a lock of its own per anchor). The user
 set of the train frame is conditional on a target in its window (prereg-1 records the limitation). No probe runs
 on the C_test frame. Rows of the probe data are ordered by (query order of the user, item_id): q (the query index)
 is sorted, and the first R2_QUERIES / CROSS_QUERIES queries are the first in query order (REES46: hash order).
@@ -37,6 +38,8 @@ anchors; whatever goes to an LLM passes mask_anchors() first (§8.9, the analogu
 """
 from __future__ import annotations
 
+import contextlib
+import fcntl
 import hashlib
 import json
 import os
@@ -73,7 +76,7 @@ MAX_SLUG = 36                       # roles.CARD_COLUMN
 MAX_SLUG_TWIN = MAX_SLUG - len(roles.TWIN_SUFFIX)
 MASK = 'probe_day_{}'               # the anchors of the probes as an LLM sees them
 
-_DATA: dict = {}                    # probe data per (dataset, probe dir, threads): heavy only the first time
+_DATA: dict = {}                    # probe data per (dataset, probe dir, threads): computed only the first time
 
 
 # ---------------------------------------------------------------- small helpers
@@ -233,11 +236,38 @@ def probe_frame(ds: roles.Dataset, anchor, threads: int = THREADS) -> pd.DataFra
     return frame.astype({'user_id': 'int64', 'item_id': 'int64'})
 
 
+@contextlib.contextmanager
+def reference_step(what: str, ds: roles.Dataset, lock: Path):
+    """The reference columns of a probe anchor: a light step (contract §13.1; 3000 probe users, DuckDB 4 GB,
+    threads=4). Takes a blocking flock on `lock` first (one writer per anchor), then waits under it for
+    queue.light_gate('probe') over the queue journals of both datasets, so the gate answer is fresh when the body
+    starts; journals light-start and light-end (ok, seconds, peak) in the queue journal of the dataset."""
+    journals = [roles.paths(x, ds.paths.root).queue_log for x in roles.DATASETS]
+    lock.parent.mkdir(parents=True, exist_ok=True)
+    with open(lock, 'a+') as f:
+        fcntl.flock(f.fileno(), fcntl.LOCK_EX)
+        try:
+            queue.light_wait('probe', journals, log=ds.paths.queue_log, dataset=ds.name)
+            t0 = time.time()
+            queue.journal(ds.paths.queue_log, {'event': 'light-start', 'what': what, 'dataset': ds.name,
+                                               'pid': os.getpid()})
+            ok = False
+            try:
+                yield
+                ok = True
+            finally:
+                queue.journal(ds.paths.queue_log, {'event': 'light-end', 'what': what, 'dataset': ds.name, 'ok': ok,
+                                                   'seconds': round(time.time() - t0, 1),
+                                                   'peak_gb': queue.peak_rss_gb()})
+        finally:
+            fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+
+
 def reference(ds: roles.Dataset, anchor, frame: pd.DataFrame, threads: int = THREADS,
               views: dict | None = None) -> pd.DataFrame:
     """frame + the xfer agent set columns at `anchor` (xa.agent_columns, purpose 'probe', the frozen set of
     configs/datasets/xfer-<x>-set.json), cached in roles.Paths.probe_ref(anchor); the cache is reused only if
-    its keys and column list match. Computing it is a heavy step (queue.heavy, §8.10). Writes only under
+    its keys and column list match. Computing it is a light step (reference_step, §13.1). Writes only under
     artifacts/council/xfer-<x>/probes/."""
     aset = agent_set(ds)
     columns = list(frame.columns) + [c for c in aset['columns'] if c not in frame.columns]
@@ -259,7 +289,7 @@ def reference(ds: roles.Dataset, anchor, frame: pd.DataFrame, threads: int = THR
     got = cached()
     if got is not None:
         return got
-    with queue.heavy(f'probe reference {xc.anchor_text(anchor)}', ds.name, log=ds.paths.queue_log):
+    with reference_step(f'probe reference {xc.anchor_text(anchor)}', ds, path.with_suffix('.lock')):
         got = cached()               # another process may have written it while this one waited
         if got is not None:
             return got
@@ -289,7 +319,7 @@ def probe_data(ds: roles.Dataset, threads: int = THREADS) -> list[dict]:
     """One dict per anchor of Dataset.probe_anchors: {anchor, keys (DataFrame user_id, item_id), cohort (users in
     query order), ref (DataFrame of reference columns aligned with keys), names (reference names), q (query index
     per row), ranks (reference ranks as evidence.column_stats wants them), views (xa views spec of the anchor),
-    limits (xa.limits(ds.name))}. Heavy only the first time (reference())."""
+    limits (xa.limits(ds.name))}. A light step only the first time (reference_step)."""
     key = (ds.name, str(ds.paths.probes), int(threads))
     if key in _DATA:
         return _DATA[key]
