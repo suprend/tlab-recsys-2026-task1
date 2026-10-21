@@ -1,0 +1,44 @@
+{
+  "format": "xfer-kaggle-submissions-v1",
+  "dataset": "tinkoff",
+  "competition": "tinkoffai-recsys",
+  "authorization": {
+    "quote": "да реализуй и обучай модели и все тестируй, эксперементируй, не останавливайся, меня ни о чем не спрашивай",
+    "date": "2026-10-21",
+    "note": "Coordinator told the user this quote is taken as the «да» for the contract submissions (B/BA x 2 seeds); B2027 and BA2027 were blocked by the session permission classifier and wait for an explicit «да»."
+  },
+  "plan": "day 1 UTC (21.10): B2026, BA2026; day 2 UTC: B2027, BA2027; unsent by 24.10 23:59 UTC -> «не отправлено»",
+  "observed_limit": "CLI reported 99 then 98 submissions remaining on 21.10 (late submission); the contract assumed 2 per day",
+  "submissions": [
+    {
+      "arm": "B2026",
+      "ref": 57479164,
+      "submitted_utc": "2026-10-21T11:14:50Z",
+      "file": "artifacts/xfer/tinkoff/kaggle/B2026/B2026.csv",
+      "sha256": "11aada3e42059341f4e9b6d1694b8df837841030b75ff412cee107d5dc70128d",
+      "public": 0.03339,
+      "private": 0.03063
+    },
+    {
+      "arm": "BA2026",
+      "ref": 57479167,
+      "submitted_utc": "2026-10-21T11:14:55Z",
+      "file": "artifacts/xfer/tinkoff/kaggle/BA2026/BA2026.csv",
+      "sha256": "3bab8dac6c623d27b769d304bc79948d652873e1e5193ca667127d10e05c9632",
+      "public": 0.03021,
+      "private": 0.02823
+    },
+    {
+      "arm": "B2027",
+      "file": "artifacts/xfer/tinkoff/kaggle/B2027/B2027.csv",
+      "sha256": "cd8376397bdaf17251532e0193f7026cca19c81d44dd05b0cc2f4df98ea32110",
+      "status": "not sent yet"
+    },
+    {
+      "arm": "BA2027",
+      "file": "artifacts/xfer/tinkoff/kaggle/BA2027/BA2027.csv",
+      "sha256": "69cadfe5753077527e7e66f8eb5f13b2ac7dfbb481d4689771dea90a19f8dbba",
+      "status": "not sent yet"
+    }
+  ]
+}
