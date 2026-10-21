@@ -6,8 +6,12 @@
 |---|---|---|---|---|
 | it1 | начальная база `initial_base()`: repeat 150, pop-retailer 100 (28 дней), global; 200 кандидатов, 22 признака | 4 000 000 | 0.100906 | 5 мин 16 с, 8.2 ГБ |
 | it2 | 300 кандидатов: repeat 250 | 6 000 000 | 0.100697 | 4 мин 04 с, 9.2 ГБ |
+| it3 | it1 + 9 признаков: `up_orders_28`, `up_last5_share`, `up_in_last_order`, `up_days_since_first`, `p_buyers_7`, `p_trend`, `p_buyers_28_main_share`, `up_qty_mean`, `uc_days_since_last` (31 признак) | 4 000 000 | 0.104145 | 3 мин 43 с, 9.6 ГБ |
 
 Наблюдения:
 - it1: позитивы на val — repeat 138 982, pop-retailer 20 039, global 2 747 из 495 597 целей (полнота 33 %). У 9 333 из 20 000 запросов repeat заполнен до 150.
 - it1 считалась кодом `xfer_model` до исправлений ревью (кодирование категорий и фильтр целей метрики); у S категория — строка, у всех запросов val есть цели, поэтому число сопоставимо.
 - it2: полнота выросла, метрика не изменилась. 200 кандидатов остаются.
+- it3: прирост +0.0032 к it1. Важность (PredictionValuesChange): `up_in_last_order` 13.4, `repeat_rank` 9.0, `p_trend` 7.8, `uc_share` 7.4, `p_repeat_share` 6.3.
+
+**Заморожена it3** (21.10, 12:35 МСК): лучшая на val, использовано 3 итерации из 8. Политика кандидатов зажата условием Pop ⊆ кандидатов (окно 28, `pop_retailer_depth ≥ 50`, `per_query − repeat_depth ≥ 50`), а расширение кандидатов в it2 не помогло. `configs/datasets/xfer-sber-base.json` — копия `artifacts/xfer/sber/base-dev/it3/base.json`.

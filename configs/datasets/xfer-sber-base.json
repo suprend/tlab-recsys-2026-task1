@@ -1,0 +1,197 @@
+{
+  "format": "xfer-base-v1",
+  "dataset": "sber",
+  "candidates": {
+    "name": "S-R150-P100-G200",
+    "per_query": 200,
+    "window_days": 28,
+    "repeat_depth": 150,
+    "pop_retailer_depth": 100,
+    "sources": [
+      {
+        "name": "repeat",
+        "rank": "repeat_rank",
+        "depth": 150
+      },
+      {
+        "name": "pop_retailer",
+        "rank": "popr_rank",
+        "depth": 100
+      },
+      {
+        "name": "global",
+        "rank": "glob_rank",
+        "depth": null
+      }
+    ],
+    "text": [
+      "Up to 200 candidates per query, all statistics from the history before A.",
+      "Main retailer of the user: the retailer with the most distinct orders of the user; ties by the later last order of the user there, then by retailer code.",
+      "(a) repeat: the distinct products the user bought before A, by the number of distinct orders with the product descending, then the time of the latest such order descending, then product_id; the first 150.",
+      "(b) pop-retailer: products by distinct buyers at the main retailer in [A - 28 days, A) descending, then product_id; the first 100.",
+      "(c) global: products by distinct buyers over all orders in [A - 28 days, A) descending, then product_id.",
+      "Union: (a) in its order, then (b) without (a), then (c) without (a) and (b), until exactly 200 candidates. Source ranks repeat_rank, popr_rank and glob_rank are positions in the full orders."
+    ]
+  },
+  "features": [
+    {
+      "name": "up_orders",
+      "formula": "number of distinct orders of the user before A that contain the product (repeated lines of an order count once)",
+      "missing": "0 when none"
+    },
+    {
+      "name": "up_share",
+      "formula": "up_orders / u_orders",
+      "missing": "0 when none"
+    },
+    {
+      "name": "up_days_since_last",
+      "formula": "days from the latest order of the user with the product to A (fractional, from seconds)",
+      "missing": "NULL when the user never bought the product"
+    },
+    {
+      "name": "up_mean_interval",
+      "formula": "(time of the latest minus time of the earliest order of the user with the product) / (up_orders - 1), in days",
+      "missing": "NULL when up_orders < 2"
+    },
+    {
+      "name": "up_due",
+      "formula": "up_days_since_last / up_mean_interval",
+      "missing": "NULL when either is NULL or up_mean_interval = 0"
+    },
+    {
+      "name": "up_qty_total",
+      "formula": "sum of quantity over all lines of the product of the user before A, repeated lines included",
+      "missing": "0 when none"
+    },
+    {
+      "name": "up_last_price",
+      "formula": "price of the product line in the latest order of the user with the product (latest ts, then largest order_id; with several lines, the largest line_item_id)",
+      "missing": "NULL when none"
+    },
+    {
+      "name": "up_discount_share",
+      "formula": "mean of discount / (price + discount) over the lines of the product of the user with price + discount > 0 (negative discounts kept)",
+      "missing": "NULL when there are no such lines"
+    },
+    {
+      "name": "repeat_rank",
+      "formula": "position of the product in the full repeat order of the user (source a, without its depth cut)",
+      "missing": "NULL when the user never bought the product"
+    },
+    {
+      "name": "popr_rank",
+      "formula": "position of the product in the full pop-retailer order of the main retailer of the user (source b, without its depth cut)",
+      "missing": "NULL when nobody bought the product at that retailer in the window"
+    },
+    {
+      "name": "glob_rank",
+      "formula": "position of the product in the full global order (source c)",
+      "missing": "NULL when nobody bought the product in the window"
+    },
+    {
+      "name": "u_orders",
+      "formula": "number of distinct orders of the user before A",
+      "missing": "never missing"
+    },
+    {
+      "name": "u_orders_28",
+      "formula": "orders of the user in [A - 28 days, A)",
+      "missing": "0 when none"
+    },
+    {
+      "name": "u_days_since_last",
+      "formula": "days from the latest order of the user to A",
+      "missing": "never missing"
+    },
+    {
+      "name": "u_mean_basket",
+      "formula": "mean over the orders of the user of the number of distinct products in the order",
+      "missing": "never missing"
+    },
+    {
+      "name": "u_mean_gap",
+      "formula": "(time of the latest minus time of the earliest order of the user) / (u_orders - 1), in days",
+      "missing": "NULL when u_orders < 2"
+    },
+    {
+      "name": "u_main_share",
+      "formula": "orders of the user at the main retailer / u_orders",
+      "missing": "never missing"
+    },
+    {
+      "name": "p_buyers_28",
+      "formula": "distinct users who bought the product in the global window of source c",
+      "missing": "0 when none"
+    },
+    {
+      "name": "p_buyers_28_main",
+      "formula": "distinct users who bought the product at the main retailer of the user in the window of source b",
+      "missing": "0 when none"
+    },
+    {
+      "name": "p_repeat_share",
+      "formula": "among users who bought the product in [A - 90 days, A), the share with at least 2 distinct orders containing it in that interval",
+      "missing": "NULL when nobody bought it in the interval"
+    },
+    {
+      "name": "uc_share",
+      "formula": "orders of the user that contain a product of the same category as the product / u_orders; the category of a product is its non-NULL master_category_id in the history before A",
+      "missing": "NULL when the product has no category; 0 when no such order"
+    },
+    {
+      "name": "main_retailer",
+      "formula": "code of the main retailer of the user (categorical)",
+      "missing": "never missing"
+    },
+    {
+      "name": "up_orders_28",
+      "formula": "number of distinct orders of the user in [A - 28 days, A) that contain the product",
+      "missing": "0 when none"
+    },
+    {
+      "name": "up_last5_share",
+      "formula": "share of the last 5 orders of the user before A (by time descending, then order_id descending) that contain the product; the denominator is min(5, u_orders)",
+      "missing": "0 when none"
+    },
+    {
+      "name": "up_in_last_order",
+      "formula": "1 when the latest order of the user before A (latest time, then largest order_id) contains the product, else 0",
+      "missing": "0 when none"
+    },
+    {
+      "name": "up_days_since_first",
+      "formula": "days from the earliest order of the user with the product to A (fractional, from seconds)",
+      "missing": "NULL when the user never bought the product"
+    },
+    {
+      "name": "p_buyers_7",
+      "formula": "distinct users who bought the product over all orders in [A - 7 days, A)",
+      "missing": "0 when none"
+    },
+    {
+      "name": "p_trend",
+      "formula": "p_buyers_7 / p_buyers_28",
+      "missing": "NULL when p_buyers_28 = 0"
+    },
+    {
+      "name": "p_buyers_28_main_share",
+      "formula": "p_buyers_28_main / p_buyers_28",
+      "missing": "NULL when p_buyers_28 = 0"
+    },
+    {
+      "name": "up_qty_mean",
+      "formula": "up_qty_total / number of lines of the product of the user before A (repeated lines included)",
+      "missing": "NULL when there are no such lines"
+    },
+    {
+      "name": "uc_days_since_last",
+      "formula": "days from the latest order of the user with a line of a product of the same category as the product to A (fractional, from seconds); categories as in uc_share",
+      "missing": "NULL when the product has no category or there is no such order"
+    }
+  ],
+  "categorical": [
+    "main_retailer"
+  ],
+  "digest": "4bc8a554d0bb159013371f9020e5bec20010e8cd8d5c5da8bda6b88f0860b92e"
+}
