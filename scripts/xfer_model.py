@@ -1097,18 +1097,24 @@ def holdout_command(ctx):
 # ---------------------------------------------------------------- score, reading, prereg
 
 def score(ctx):
-    """Gate 2 first; the Kaggle files are assembled only when it passes, otherwise exit 1."""
+    """Gate 2 first; files of the arms that pass it are assembled (contract: a failed arm is not sent).
+
+    Without B passing nothing is assembled and the command exits 1: B is the reference of the Kaggle
+    reading (BA against B), and a failed B leaves nothing to read."""
     spec = ctx.series('final')
     gate = run_gate(ctx, 2)
-    xc.require(gate['gate_ok'], f"Gate 2 failed {gate['status']}; nothing assembled; see {gate['output']}")
+    xc.require(gate['status'].get('B', False), f"Gate 2 failed {gate['status']}; nothing assembled; see {gate['output']}")
     fits = load_fits(ctx, 'final', spec['arms'])
     check_pairing(fits)
     files = {}
     for (arm, seed), (directory, report) in fits.items():
+        if not gate['status'][arm]:
+            continue
         output = xc.new_output(xc.output_dir(ctx.dataset, 'kaggle', f'{arm}{seed}'))/f'{arm}{seed}.csv'
         receipt = ctx.adapter.assemble(read_scores(directory, report), output)
         files[f'{arm}{seed}'] = dict(output=rel(output), receipt=normalized(receipt))
-    return dict(files=files, gate=gate)
+    skipped = sorted(arm for arm, ok in gate['status'].items() if not ok)
+    return dict(files=files, gate=gate, skipped_arms=skipped)
 
 
 def reading(ctx, private):

@@ -714,7 +714,7 @@ class Flow(World):
                          [(self.A(20), 'train', 12), (self.A(30), 'val', 12), (self.A(40), 'holdout', 12)])
 
         # gate 2 fails: nothing assembled, exit 1
-        restore = self.nan_scores('final', 'BA', 2026)
+        restore = self.nan_scores('final', 'B', 2027)
         out = io.StringIO()
         with mock.patch('sys.stdout', out):
             code = xm.main(['score', '--dataset', self.ds])
@@ -723,8 +723,26 @@ class Flow(World):
         self.assertIn('Gate 2 failed', line['error'])
         self.assertFalse(xc.output_dir(self.ds, 'kaggle').exists())
         gates = sorted(xc.output_dir(self.ds, 'gate').glob('stage2-*/gate.json'))
-        self.assertEqual(xc.read_json(gates[-1])['status'], dict(B=True, BA=False))
+        self.assertEqual(xc.read_json(gates[-1])['status'], dict(B=False, BA=True))
         restore()
+
+        # gate 2 fails for BA only: B is assembled, BA is not (contract: a failed arm is not sent)
+        restore = self.nan_scores('final', 'BA', 2026)
+        buffer = io.StringIO()
+        with mock.patch('sys.stdout', buffer):
+            code = xm.main(['score', '--dataset', self.ds])
+        out = json.loads(buffer.getvalue())
+        self.assertEqual((code, out['ok']), (0, True))
+        self.assertFalse(out['gate']['gate_ok'])
+        gates = sorted(xc.output_dir(self.ds, 'gate').glob('stage2-*/gate.json'))
+        self.assertFalse(xc.read_json(gates[-1])['ok'])
+        self.assertEqual(sorted(out['files']), ['B2026', 'B2027'])
+        self.assertEqual(out['skipped_arms'], ['BA'])
+        self.assertEqual(out['gate']['status'], dict(B=True, BA=False))
+        self.assertFalse(xc.output_dir(self.ds, 'kaggle', 'BA2026').exists())
+        self.assertFalse(xc.output_dir(self.ds, 'kaggle', 'BA2027').exists())
+        restore()
+        shutil.rmtree(xc.output_dir(self.ds, 'kaggle'))
 
         out = self.cli('score')
         self.assertEqual(sorted(out['files']), ['B2026', 'B2027', 'BA2026', 'BA2027'])

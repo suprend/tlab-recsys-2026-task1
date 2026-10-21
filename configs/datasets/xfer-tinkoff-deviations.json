@@ -34,6 +34,31 @@
         "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
       },
       "timing": "after the holdout result and gate 2; before any Kaggle file"
+    },
+    {
+      "id": "d3",
+      "date": "2026-10-21",
+      "step": "score",
+      "what": "xfer_model.score assembled nothing when any arm failed gate 2; now it assembles the files of the arms that pass; it still refuses (exit 1, nothing assembled) when B fails, because B is the reference of the Kaggle reading (BA against B) and the contract's «Не прошли B. Набор не читается»; output lists skipped_arms",
+      "why": "contract (xfer-design.md, gate section): «Не пройден гейт 2. Посылки не прошедшей руки не делаются; вердикты holdout остаются в силе» — only the failed arm is withheld; the code withheld all arms",
+      "effect": "only which Kaggle files are assembled; gate 2 checks, fits, scores and holdout results unchanged; a failed arm is still never assembled",
+      "changed_files": [
+        "scripts/xfer_model.py",
+        "tests/test_xfer_model.py"
+      ],
+      "code": {
+        "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+        "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+        "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+        "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+        "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+        "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+        "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+        "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+        "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+        "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+      },
+      "timing": "after the Tinkoff Kaggle submissions and reading; Tinkoff gate 2 passed for all arms, so nothing in Tinkoff changes; recorded because the code is shared"
     }
   ]
 }

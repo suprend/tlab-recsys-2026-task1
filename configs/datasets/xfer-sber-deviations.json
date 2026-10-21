@@ -10,6 +10,31 @@
       "why": "carried over from Tinkoff d1, where a self-join feature ran out of memory at 4GB and val/holdout needed 400k batches; set before the first S sidecar to avoid a rerun",
       "effect": "none on values: sidecar output is batch-invariant by contract (§3) and memory is not a parameter of the set; batch_rows is recorded in sidecars/<c>/report.json (400000 everywhere); the memory limit is a CLI argument and is recorded only here",
       "timing": "decided after the S prereg (b5c9240) and before leakcheck and every S sidecar, i.e. before any S number; kaggle-2020-09-17 uses the same parameters"
+    },
+    {
+      "id": "d2",
+      "date": "2026-10-21",
+      "step": "score",
+      "what": "xfer_model.score assembled nothing when any arm failed gate 2; now it assembles the files of the arms that pass; it still refuses (exit 1, nothing assembled) when B fails, because B is the reference of the Kaggle reading (BA against B) and the contract's «Не прошли B. Набор не читается»; output lists skipped_arms",
+      "why": "contract (xfer-design.md, gate section): «Не пройден гейт 2. Посылки не прошедшей руки не делаются; вердикты holdout остаются в силе» — only the failed arm is withheld; the code withheld all arms; the technical cause of the S gate 2 failure was searched first (contract): the kaggle sidecar is built at 2020-09-17 with the frozen set, the non-NULL profile over user_id quintiles matches val at about half the level, and the drop follows the Kaggle population (median days since the last purchase 26.4 vs 8.4 on val) on top of the comparison with negative-sampled training rows; no technical cause, the gate rule is unchanged, so BA and BApl are not sent",
+      "effect": "only which Kaggle files are assembled; gate 2 checks, fits, scores and holdout results unchanged; a failed arm is still never assembled",
+      "changed_files": [
+        "scripts/xfer_model.py",
+        "tests/test_xfer_model.py"
+      ],
+      "code": {
+        "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+        "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+        "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+        "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+        "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+        "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+        "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+        "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+        "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+        "scripts/xfer_sber.py": "e538de9f4429414aa4a104c9e38710bc53dd6866d2591519b91361b6b5a0ee1f"
+      },
+      "timing": "after the S holdout result and the failed S gate 2 (artifacts/xfer/sber/gate/stage2-20261021T135151437711Z: B ok, BA and BApl parity fail); before any S Kaggle file"
     }
   ]
 }
