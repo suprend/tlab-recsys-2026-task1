@@ -76,8 +76,9 @@ class FakeAdapter:
         return pd.DataFrame([(u, i, i+1) for u in users for i in range(k)], columns=['user_id', 'item_id', 'rank'])
 
     def assemble(self, scores, output):
+        path = Path(output)  # the adapter interface: output is the target .csv path
+        xc.require(path.suffix == '.csv' and path.parent.is_dir() and not path.exists(), 'The output is a new .csv path')
         top = xm.top_k(scores, K)
-        path = Path(output)/'submission.csv'
         top[KEYS].to_csv(path, index=False)
         return dict(rows=len(top), sha256=xc.sha256_file(path))
 
@@ -727,6 +728,9 @@ class Flow(World):
 
         out = self.cli('score')
         self.assertEqual(sorted(out['files']), ['B2026', 'B2027', 'BA2026', 'BA2027'])
+        for name, entry in out['files'].items():
+            self.assertTrue(entry['output'].endswith(f'kaggle/{name}/{name}.csv'))
+            self.assertTrue((xc.ROOT/entry['output']).is_file())
         self.assertEqual(out['gate']['stage'], 2)
         self.assertEqual(out['gate']['status'], dict(B=True, BA=True))
         reading = self.cli('reading', '--private', json.dumps(dict(B2026=0.2, B2027=0.21, BA2026=0.3, BA2027=0.31)))

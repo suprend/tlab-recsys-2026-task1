@@ -1,0 +1,39 @@
+{
+  "format": "xfer-deviations-v1",
+  "dataset": "tinkoff",
+  "records": [
+    {
+      "id": "d1",
+      "date": "2026-10-21",
+      "step": "sidecar",
+      "what": "DuckDB memory_limit 4GB -> 20GB for all sidecars; batch_rows 1.5M -> 400k for val-641, holdout-671, kaggle-701",
+      "why": "r4p1 (longterm_profile_cooc, self-join over 180 steps) ran out of memory at 4GB; train collections passed at 20GB/1.5M (peak 21.6GB), val/holdout needed smaller batches",
+      "effect": "none on values: sidecar output is batch-invariant by contract (§3) and memory is not a parameter of the set; batch_rows is recorded in sidecars/<c>/report.json (train 1500000, val/holdout/kaggle 400000); the memory limit is a CLI argument and is recorded only here",
+      "timing": "decided before the first BA number (train, val, holdout sidecars); kaggle-701 built with the same parameters after the holdout result"
+    },
+    {
+      "id": "d2",
+      "date": "2026-10-21",
+      "step": "score",
+      "what": "xfer_model.score passed the kaggle output directory to adapter.assemble, which takes the target .csv path; now passes kaggle/<arm><seed>/<arm><seed>.csv; test fake adapter follows the interface",
+      "why": "score failed with ContractError: The output is a .csv path, after gate 2 passed; nothing was assembled",
+      "effect": "only the file path of the assembled submission; fits, scores, gates and holdout result unchanged",
+      "changed_files": [
+        "scripts/xfer_model.py"
+      ],
+      "code": {
+        "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+        "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+        "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+        "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+        "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+        "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+        "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+        "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+        "scripts/xfer_model.py": "6180e9074266e30099ad7215461058a3c3b87c9a5645039131a39ece0b7d7b9c",
+        "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+      },
+      "timing": "after the holdout result and gate 2; before any Kaggle file"
+    }
+  ]
+}

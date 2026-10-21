@@ -1105,7 +1105,7 @@ def score(ctx):
     check_pairing(fits)
     files = {}
     for (arm, seed), (directory, report) in fits.items():
-        output = xc.new_output(xc.output_dir(ctx.dataset, 'kaggle', f'{arm}{seed}'))
+        output = xc.new_output(xc.output_dir(ctx.dataset, 'kaggle', f'{arm}{seed}'))/f'{arm}{seed}.csv'
         receipt = ctx.adapter.assemble(read_scores(directory, report), output)
         files[f'{arm}{seed}'] = dict(output=rel(output), receipt=normalized(receipt))
     return dict(files=files, gate=gate)
