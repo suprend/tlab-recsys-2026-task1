@@ -1,0 +1,363 @@
+{
+ "families": [
+  "G1-1",
+  "G2-1",
+  "G3-1",
+  "G4-1",
+  "G1-3",
+  "G2-2",
+  "G3-4",
+  "G4-5",
+  "G1-5",
+  "G2-5",
+  "G3-6",
+  "G4-6"
+ ],
+ "columns": {
+  "G1-1": [
+   "f_x_c1_retacq_prior48_catlift_14d"
+  ],
+  "G2-1": [
+   "f_x_c2_life_days_since_peak_log",
+   "f_x_c2_life_share_vs_peak"
+  ],
+  "G3-1": [
+   "f_x_c3_sknn_view_share",
+   "f_x_c3_sknn_acq_norm"
+  ],
+  "G4-1": [
+   "f_x_c4_i_pband_acq_lift_7d"
+  ],
+  "G1-3": [
+   "f_x_c1_cset_drift_align"
+  ],
+  "G2-2": [
+   "f_x_c2_pchg_age_h_log",
+   "f_x_c2_pchg_last_dlogp"
+  ],
+  "G3-4": [
+   "f_x_c3_flow_fwd_excess",
+   "f_x_c3_flow_net_slog"
+  ],
+  "G4-5": [
+   "f_x_c4_i_id_pct_in_cat",
+   "f_x_c4_i_id_pct_in_brandcat"
+  ],
+  "G1-5": [
+   "f_x_c1_cat_fresh_share_48h"
+  ],
+  "G2-5": [
+   "f_x_c2_tr_view_r2_7d",
+   "f_x_c2_tr_view_resid_1d"
+  ],
+  "G3-6": [
+   "f_x_c3_revnb_recall"
+  ],
+  "G4-6": [
+   "f_x_c4_i_return_visit_acq_lift_7d",
+   "f_x_c4_i_long_gap_acq_lift_7d"
+  ]
+ },
+ "width": 19,
+ "twins": [
+  "G1-1",
+  "G2-1",
+  "G3-4",
+  "G4-1"
+ ],
+ "twin_checks": {
+  "G1-1": "ok",
+  "G2-1": "ok",
+  "G3-1": "TWIN-BROKEN",
+  "G4-1": "ok",
+  "G1-3": "ok",
+  "G2-2": "ok",
+  "G3-4": "ok",
+  "G4-5": "ok",
+  "G1-5": "TWIN-BROKEN",
+  "G2-5": "ok",
+  "G3-6": "ok",
+  "G4-6": "ok"
+ },
+ "placebo": [
+  "f_x_c1_cset_drift_align",
+  "f_x_c2_life_days_since_peak_log",
+  "f_x_c4_i_pband_acq_lift_7d",
+  "f_x_c2_pchg_age_h_log"
+ ],
+ "placebo_families": [
+  "G1-3",
+  "G2-1",
+  "G4-1",
+  "G2-2"
+ ],
+ "removed": [
+  {
+   "id": "G1-2",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G1-4",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G1-8",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G2-3",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G2-4",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G2-6",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G2-8",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G3-2",
+   "step": 1,
+   "reason": "machine test red: error: 2020-01-20: OutOfMemoryException on 2020-01-20: Out of Memory Error: failed to offload data block of size 256.0 KiB (182.1 GiB/182.1 GiB used).\nThis limit was set by the 'max_temp_directory_size' setting.\nBy default, this setting utilizes the available disk space on the drive where the 'temp_directory' is located.\nYou can adjust this setting, by using (for example) PRAGMA max_temp_directory_size='10GiB'\n\nPossible solutions:\n* Reducing the numbe"
+  },
+  {
+   "id": "G3-3",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G3-5",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G3-8",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G4-2",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G4-3",
+   "step": 1,
+   "reason": "invalid: sql: query references a forbidden table or command: fs; twin.sql: query references a forbidden table or command: fs; sql: query references a forbidden table or command: fs"
+  },
+  {
+   "id": "G4-7",
+   "step": 1,
+   "reason": "machine test red: batch: the answer depends on the batch of active_users ({\"2020-01-20\": \"values differ: 1256 candidate keys have other values in their half\", \"2020-02-05\": \"keys differ: 502 candidate keys are answered in one run only; values differ: 71296 candidate keys have other values in their half\", \"2020-02-10\": \"keys differ: 9 candidate keys are answered in one run only; values differ: 56509 candidate keys have other values in their half\"})"
+  },
+  {
+   "id": "G4-8",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G4-4",
+   "step": 2,
+   "reason": "duplicate of H+: f_x_c4_uc_reacq_cat_excess R2_wq 0.9221, max|rho_wq| 0.9248 (i_cat_multi_buy_14d)"
+  },
+  {
+   "id": "G1-6",
+   "step": 3,
+   "reason": "quota: 3 per lens, 12 in all"
+  },
+  {
+   "id": "G1-7",
+   "step": 3,
+   "reason": "quota: 3 per lens, 12 in all"
+  },
+  {
+   "id": "G2-7",
+   "step": 3,
+   "reason": "quota: 3 per lens, 12 in all"
+  },
+  {
+   "id": "G3-7",
+   "step": 3,
+   "reason": "quota: 3 per lens, 12 in all"
+  }
+ ],
+ "parity": {
+  "w_council": 19,
+  "w_reference": 34,
+  "cut": [
+   "reference"
+  ],
+  "council_removed": [],
+  "reference_drop": [
+   "council_rb2_brand_in_cat_conversion",
+   "council_rb2_viewer_focus_audience",
+   "council_rb2_acquisition_context",
+   "council_rb2_viewing_session_buy_context",
+   "council_rb2_session_breadth_specificity",
+   "council_rb2_price_band_conversion",
+   "council_rb2_acquirer_profile"
+  ],
+  "w_council_after": 19,
+  "w_reference_after": 19,
+  "ok": true
+ },
+ "reference_removed": [
+  {
+   "table": "council_rb1_lag_target_share",
+   "step": 2,
+   "reason": "duplicate of H+: f_x_rb1_i_tgt_share_1d_log R2_wq 0.9945, max|rho_wq| 0.992 (f_x_dfs_p_cart_u_1d)"
+  },
+  {
+   "table": "council_rb1_cat_brand_target_rate",
+   "step": 2,
+   "reason": "duplicate of H+: f_x_rb1_c_tgt_per_viewer_lift_7d R2_wq 0.9946, max|rho_wq| 0.9875 (f_x_dfs_c_cart_per_view_7d)"
+  },
+  {
+   "table": "council_rb1_acquirer_novelty_profile",
+   "step": 2,
+   "reason": "duplicate of H+: f_x_rb1_c_newcat_acq_share_7d R2_wq 0.9372, max|rho_wq| 0.8827 (f_x_dfs_c_purchase_n_3d)"
+  },
+  {
+   "table": "council_rb1_brandcat_position",
+   "step": 2,
+   "reason": "duplicate of H+: f_x_rb1_i_acq_share_in_brandcat_7d R2_wq 0.9022, max|rho_wq| 0.7085 (f_x_i_acq_rank_in_cat_log_7d)"
+  },
+  {
+   "table": "council_rb1_uc_price_trajectory",
+   "step": 2,
+   "reason": "duplicate of H+: f_x_rb1_uc_logp_vs_last_view R2_wq 0.91, max|rho_wq| 0.9466 (up_cat_logratio_med)"
+  },
+  {
+   "table": "council_rb2_view_landing_exit_lift",
+   "step": 2,
+   "reason": "duplicate of council_rb1_landing_direct_buy: max|rho_wq| 0.9594, R2_wq 0.9220573901423212"
+  },
+  {
+   "table": "council_rb2_session_price_advantage",
+   "step": 2,
+   "reason": "duplicate of council_rb1_price_vs_compared_alternatives: max|rho_wq| 1.0, R2_wq 0.999999831162994"
+  },
+  {
+   "table": "council_rb2_audience_category_match",
+   "step": 1,
+   "reason": "machine test red: error: 2020-01-20: OutOfMemoryException on 2020-01-20: Out of Memory Error: failed to allocate data of size 8.0 GiB (898.5 MiB/7.4 GiB used)\n\nPossible solutions:\n* Reducing the number of threads (SET threads=X)\n* Disabling insertion-order preservation (SET preserve_insertion_order=false)\n* Increasing the memory limit (SET memory_limit='...GB')\n\nSee also https://duckdb.org/docs/stable/guides/performance/how_to_tune_workloads"
+  }
+ ],
+ "reference": [
+  "council_rb1_landing_direct_buy",
+  "council_rb1_price_vs_compared_alternatives",
+  "council_rb1_user_newacq_continuity",
+  "council_rb1_user_discount_affinity",
+  "council_rb1_cf_price_advantage",
+  "council_rb1_pricebin_position",
+  "council_rb1_viewer_intent_lift",
+  "council_rb2_pid_rank_adjacency",
+  "council_rb2_cat_brand_newcomer_acq"
+ ],
+ "warnings": [],
+ "critiques": {
+  "G1-1": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK",
+   "SHIFT"
+  ],
+  "G2-1": [
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL"
+  ],
+  "G3-1": [
+   "COST",
+   "OK",
+   "SHIFT"
+  ],
+  "G4-1": [
+   "DUPLICATE",
+   "LEAK",
+   "MECHANISM_DOUBT",
+   "SHIFT"
+  ],
+  "G1-3": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK",
+   "SHIFT"
+  ],
+  "G2-2": [
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL"
+  ],
+  "G3-4": [
+   "OK",
+   "RIVAL"
+  ],
+  "G4-5": [
+   "COST",
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL",
+   "SHIFT"
+  ],
+  "G1-5": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL"
+  ],
+  "G2-5": [
+   "DUPLICATE",
+   "OK",
+   "RIVAL"
+  ],
+  "G3-6": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK"
+  ],
+  "G4-6": [
+   "DUPLICATE",
+   "OK",
+   "SHIFT"
+  ]
+ },
+ "reference_order": [
+  "council_rb1_lag_target_share",
+  "council_rb1_cat_brand_target_rate",
+  "council_rb1_acquirer_novelty_profile",
+  "council_rb1_landing_direct_buy",
+  "council_rb1_price_vs_compared_alternatives",
+  "council_rb1_brandcat_position",
+  "council_rb1_user_newacq_continuity",
+  "council_rb1_user_discount_affinity",
+  "council_rb1_cf_price_advantage",
+  "council_rb1_uc_price_trajectory",
+  "council_rb1_pricebin_position",
+  "council_rb1_viewer_intent_lift",
+  "council_rb2_view_landing_exit_lift",
+  "council_rb2_pid_rank_adjacency",
+  "council_rb2_cat_brand_newcomer_acq",
+  "council_rb2_acquirer_profile",
+  "council_rb2_session_price_advantage",
+  "council_rb2_price_band_conversion",
+  "council_rb2_session_breadth_specificity",
+  "council_rb2_viewing_session_buy_context",
+  "council_rb2_acquisition_context",
+  "council_rb2_audience_category_match",
+  "council_rb2_viewer_focus_audience",
+  "council_rb2_brand_in_cat_conversion"
+ ]
+}

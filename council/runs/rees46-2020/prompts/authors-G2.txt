@@ -1,0 +1,586 @@
+# command: ["claude", "-p", "<prompt>", "--model", "opus", "--output-format", "json", "--tools", "", "--strict-mcp-config"]
+# cwd: /tmp/tlab-council-llm
+# prompt_sha256: 42bf972592aa7e4e40d16363797b9dad9275bd2d53f050799bd1c621d1f56a59
+
+You are generator G2 of a feature council for a ranking model of new products. Your lens:
+product, time and shift: the life cycle of a product, freshness, price changes, stock-outs, trends, weekly rhythm, and robustness to shifts of traffic and logging between days. Reply with JSON only.
+
+Task. REES46 multi-category online store, events from 2020-01-01 on. Every day at the anchor
+t = 00:00 UTC we rank products for the users active in [t-48h, t) who have at least one target. A target is
+a product whose FIRST cart or purchase by the user happens in [t, t+24h) and that the user never touched
+(no event of any type) before t. About 280 candidates per user come from six sources: the global top by
+distinct cart/purchase users over 7 days; the top products of the user's 3 heaviest categories and of the
+2 heaviest brands; session co-view neighbours of the user's 10 latest views; aggregated co-view scores and
+view->acquisition transition scores over the user's 20 latest views. Every product the user touched before
+t is excluded, so the (user, candidate) pair itself has no history: user signals work only through the
+candidate's category, brand, price, popularity and item-item links to what the user did. A CatBoost model
+scores each (user, product) pair; quality is a position-discounted gain over the top 20 products of each
+user. Training anchors are 2020-01-15..2020-02-07; the earliest anchors see only two weeks of history.
+
+The level of carts relative to views and purchases may change between days; prefer normalised forms
+(shares, ratios, lifts, ranks, logs) and treat cart and purchase together. The base set reads a 14-day
+window [t-14d, t).
+
+You can read two DuckDB tables:
+  hist(event_time TIMESTAMP, event_type VARCHAR -- 'view'|'cart'|'purchase',
+       product_id BIGINT, category_id BIGINT, category_code VARCHAR -- e.g. 'electronics.smartphone', often NULL,
+       brand VARCHAR -- often NULL, price DECIMAL(12,2), user_id BIGINT, user_session VARCHAR)
+       -- all events strictly before t, starting 2020-01-01; tens of millions of rows, mostly views
+  active_users(user_id) -- users with any event in the last 48 hours (a superset of the ranked users)
+Write the anchor as TIMESTAMP '{t}' (literally, with the braces), e.g.
+  event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY
+
+Columns already in the model. Base set by prefix (s_ candidate source, u_ user, i_ item, uc_
+candidate's category in the user's history, ub_ brand, up_ price vs user, ui_ popularity vs user, cf_
+item-item from recent views), then the tables of the automation (f_x_ columns):
+  base:
+    s_: s_pop_rank, s_cat_rank, s_brand_rank, s_n_sources, s_cvagg_rank, s_tr_rank
+    u_: u_views_7d_log, u_top_category_share_7d, u_hours_since_last_cp, u_new_item_cp_rate_14d, u_log_price_med_view_7d, u_pop_taste_14d, u_hours_since_last_view, u_views_per_session_7d, u_items_per_view_7d, u_ls_outcome, u_ls_views_log, u_active_days_7d, u_price_tier, u_first_seen_days_cap7, u_active_same_weekday_last_week, u_brand_hhi_14d, u_brand_explore_rate_14d
+    i_: i_actor_share_7d, i_trend_actor_1v7, i_trend_view_1v7, i_acq_share_lift_14d, i_log_price, i_price_pct_in_cat, i_cat_actor_share_7d, i_buy_lift_14d, i_acq_rate_lift_14d, i_cart_lift_7d, i_cat_buy_lift_14d, i_brand_actor_share_7d, i_brand_share_in_cat_7d, i_price_change_7d, i_price_from_max_14d, i_is_fresh_item_7d, i_cat_l1, i_hours_since_last_view, i_cat_trend_view_1v7, i_acq_trend_1v7, i_repeat_buyer_share_14d, i_cat_multi_buy_14d
+    uc_: uc_share_hl1d, uc_last_h, uc_distinct_viewed_7d, uc_first_pos, uc_ls_items, uc_last_cp_h, uc_rank_in_user, uc_active_days_14d, uc_last_purchase_h, uc_decay20, uc_ls_cp, uc_l1_share_hl1d, uc_trans_lift_max
+    ub_: ub_share_hl1d, ub_share_in_cat, ub_last_h, ub_weight_hl1d, ub_decay20
+    up_: up_logprice_vs_user, up_tier_absdiff, up_cat_logratio_med, up_cat_logdist_min, up_tier_diff, up_cat_in_range
+    ui_: ui_pop_gap
+    cf_: cf_cv_cos_max, cf_cv_cos_last, cf_cv_cond_tdecay, cf_tr_p_tdecay, cf_src4_best_rank, cf_cv_cos_same_cat_max, cf_tr_p_diff_cat_max, cf_tr_lift_max, cf_cv_cond_tdecay20, cf_tr_p_tdecay20
+  dfs_p: f_x_dfs_p_view_n_1d, f_x_dfs_p_view_u_1d, f_x_dfs_p_cart_n_1d, f_x_dfs_p_cart_u_1d, f_x_dfs_p_purchase_n_1d, f_x_dfs_p_purchase_u_1d, f_x_dfs_p_cart_per_view_1d, f_x_dfs_p_buy_per_view_1d, f_x_dfs_p_view_n_3d, f_x_dfs_p_view_u_3d, f_x_dfs_p_cart_n_3d, f_x_dfs_p_cart_u_3d, f_x_dfs_p_purchase_n_3d, f_x_dfs_p_purchase_u_3d, f_x_dfs_p_cart_per_view_3d, f_x_dfs_p_buy_per_view_3d, f_x_dfs_p_view_n_7d, f_x_dfs_p_view_u_7d, f_x_dfs_p_cart_n_7d, f_x_dfs_p_cart_u_7d, f_x_dfs_p_purchase_n_7d, f_x_dfs_p_purchase_u_7d, f_x_dfs_p_cart_per_view_7d, f_x_dfs_p_buy_per_view_7d, f_x_dfs_p_view_n_14d, f_x_dfs_p_view_u_14d, f_x_dfs_p_cart_n_14d, f_x_dfs_p_cart_u_14d, f_x_dfs_p_purchase_n_14d, f_x_dfs_p_purchase_u_14d, f_x_dfs_p_cart_per_view_14d, f_x_dfs_p_buy_per_view_14d
+  dfs_c: f_x_dfs_c_view_n_1d, f_x_dfs_c_view_u_1d, f_x_dfs_c_cart_n_1d, f_x_dfs_c_cart_u_1d, f_x_dfs_c_purchase_n_1d, f_x_dfs_c_purchase_u_1d, f_x_dfs_c_cart_per_view_1d, f_x_dfs_c_buy_per_view_1d, f_x_dfs_c_view_n_3d, f_x_dfs_c_view_u_3d, f_x_dfs_c_cart_n_3d, f_x_dfs_c_cart_u_3d, f_x_dfs_c_purchase_n_3d, f_x_dfs_c_purchase_u_3d, f_x_dfs_c_cart_per_view_3d, f_x_dfs_c_buy_per_view_3d, f_x_dfs_c_view_n_7d, f_x_dfs_c_view_u_7d, f_x_dfs_c_cart_n_7d, f_x_dfs_c_cart_u_7d, f_x_dfs_c_purchase_n_7d, f_x_dfs_c_purchase_u_7d, f_x_dfs_c_cart_per_view_7d, f_x_dfs_c_buy_per_view_7d, f_x_dfs_c_view_n_14d, f_x_dfs_c_view_u_14d, f_x_dfs_c_cart_n_14d, f_x_dfs_c_cart_u_14d, f_x_dfs_c_purchase_n_14d, f_x_dfs_c_purchase_u_14d, f_x_dfs_c_cart_per_view_14d, f_x_dfs_c_buy_per_view_14d
+  dfs_b: f_x_dfs_b_view_n_1d, f_x_dfs_b_view_u_1d, f_x_dfs_b_cart_n_1d, f_x_dfs_b_cart_u_1d, f_x_dfs_b_purchase_n_1d, f_x_dfs_b_purchase_u_1d, f_x_dfs_b_cart_per_view_1d, f_x_dfs_b_buy_per_view_1d, f_x_dfs_b_view_n_3d, f_x_dfs_b_view_u_3d, f_x_dfs_b_cart_n_3d, f_x_dfs_b_cart_u_3d, f_x_dfs_b_purchase_n_3d, f_x_dfs_b_purchase_u_3d, f_x_dfs_b_cart_per_view_3d, f_x_dfs_b_buy_per_view_3d, f_x_dfs_b_view_n_7d, f_x_dfs_b_view_u_7d, f_x_dfs_b_cart_n_7d, f_x_dfs_b_cart_u_7d, f_x_dfs_b_purchase_n_7d, f_x_dfs_b_purchase_u_7d, f_x_dfs_b_cart_per_view_7d, f_x_dfs_b_buy_per_view_7d, f_x_dfs_b_view_n_14d, f_x_dfs_b_view_u_14d, f_x_dfs_b_cart_n_14d, f_x_dfs_b_cart_u_14d, f_x_dfs_b_purchase_n_14d, f_x_dfs_b_purchase_u_14d, f_x_dfs_b_cart_per_view_14d, f_x_dfs_b_buy_per_view_14d
+  dfs_u: f_x_dfs_u_view_n_1d, f_x_dfs_u_view_u_1d, f_x_dfs_u_cart_n_1d, f_x_dfs_u_cart_u_1d, f_x_dfs_u_purchase_n_1d, f_x_dfs_u_purchase_u_1d, f_x_dfs_u_cart_per_view_1d, f_x_dfs_u_buy_per_view_1d, f_x_dfs_u_view_n_3d, f_x_dfs_u_view_u_3d, f_x_dfs_u_cart_n_3d, f_x_dfs_u_cart_u_3d, f_x_dfs_u_purchase_n_3d, f_x_dfs_u_purchase_u_3d, f_x_dfs_u_cart_per_view_3d, f_x_dfs_u_buy_per_view_3d, f_x_dfs_u_view_n_7d, f_x_dfs_u_view_u_7d, f_x_dfs_u_cart_n_7d, f_x_dfs_u_cart_u_7d, f_x_dfs_u_purchase_n_7d, f_x_dfs_u_purchase_u_7d, f_x_dfs_u_cart_per_view_7d, f_x_dfs_u_buy_per_view_7d, f_x_dfs_u_view_n_14d, f_x_dfs_u_view_u_14d, f_x_dfs_u_cart_n_14d, f_x_dfs_u_cart_u_14d, f_x_dfs_u_purchase_n_14d, f_x_dfs_u_purchase_u_14d, f_x_dfs_u_cart_per_view_14d, f_x_dfs_u_buy_per_view_14d
+  r1p1_first_touch_conversion: f_x_i_first_touch_conv_lift_7d, f_x_i_quick_acq_share_7d
+  r1p2_coacq_cf: f_x_cf_coacq_cos_max, f_x_cf_coacq_co_log
+  r1p3_buyer_price_profile: f_x_i_buyer_logprice_mean_14d, f_x_i_buyer_vs_item_logprice_14d, f_x_i_buyer_logprice_std_14d
+  r1p4_new_reach: f_x_i_new_reach_share_1d, f_x_i_new_reach_trend_1v7, f_x_i_new_reach_1d_log
+  r1p5_cp_staleness: f_x_i_log_hours_since_last_cp, f_x_i_cp_staleness_ratio
+  r2p1_cmp_session_win_lift: f_x_i_cmp_win_lift_14d, f_x_i_cmp_sessions_log_14d
+  r2p2_cp_category_complement: f_x_uc_cp_complement_lift_max, f_x_uc_cp_complement_co_log
+  r2p3_acq_seed_coview_cf: f_x_cf_acqseed_cv_cos_max, f_x_cf_acqseed_cv_cos_tdecay
+  r2p4_revisit_consideration: f_x_i_revisit_lift_cat_7d, f_x_i_views_per_viewer_7d
+  r2p5_view_dwell_time: f_x_i_dwell_log_mean_7d, f_x_i_dwell_vs_cat_7d
+  r3p1_view_session_last_choice: f_x_i_last_viewed_lift_7d, f_x_i_last_vs_first_7d, f_x_i_view_cmp_sessions_log_7d
+  r3p2_intraday_momentum_12h: f_x_i_view_mom_12h_vs_yday, f_x_i_acq_share_12h_vs_7d
+  r3p3_user_user_cf_acq: f_x_uu_acq_wshare, f_x_uu_acq_rank
+  r3p4_brand_cat_price_sibling: f_x_ubc_price_dist_min, f_x_ubc_sibling_kernel
+  r3p5_category_search_depth: f_x_i_cat_search_depth_14d, f_x_i_search_depth_vs_cat_14d
+  r4p1_acq_regularity_7d: f_x_i_acq_active_days_7d, f_x_i_acq_share_cv_7d
+  r4p2_cat_acq_concentration: f_x_i_cat_acq_hhi_7d, f_x_i_acq_share_in_cat_7d, f_x_i_acq_rank_in_cat_log_7d
+  r4p3_weekday_seasonality_14d: f_x_i_acq_weekday_lift_14d, f_x_i_cat_acq_weekday_lift_14d
+  r4p4_cat_to_item_transition: f_x_ucp_cat2item_lift_max, f_x_ucp_cat2item_lift_tdecay
+  r4p5_brand_switch_transition: f_x_ubt_brand_trans_lift_max, f_x_ubt_brand_trans_lift_tdecay
+  r5p1_cf_xday_new_acq_transition: f_x_cf_xday_newacq_lift_max, f_x_cf_xday_newacq_lift_tdecay, f_x_cf_xday_newacq_nseeds
+  r5p2_cf_next_view_adjacency: f_x_cf_nextview_p_pos, f_x_cf_nextview_lift_max
+  r5p3_cf_converting_session_coview: f_x_cf_convsess_cos_max, f_x_cf_convsess_cos_tdecay
+  r5p4_uc_nextday_continuation: f_x_uc_nextday_cont_lift, f_x_uc_nextday_cont_cat_excess
+  r5p5_cf_considered_seed_coview: f_x_cf_consid_cv_cos_max, f_x_cf_consid_cv_wsum
+  r6p1_older_view_seed_coview: f_x_cf_oldview_cv_cos_max, f_x_cf_oldview_cv_wsum, f_x_cf_oldview_cv_nseeds
+  r6p2_dwell_seed_coview: f_x_cf_dwell_cv_cos_max, f_x_cf_dwell_cv_wsum
+  r6p3_abandoned_cart_seed_coview: f_x_cf_abandon_cv_cos_max, f_x_cf_abandon_cv_tdecay
+  r6p4_user_level_cooccurrence_cf: f_x_cf_uco_cos_max, f_x_cf_uco_cos_tdecay
+  r6p5_fresh_2d_coview_graph: f_x_cf_cv2d_cos_max, f_x_cf_cv2d_cos_tdecay
+
+Rules for a feature query:
+- one DuckDB SELECT statement (WITH is fine) reading only hist and active_users; no other tables,
+  files or settings;
+- returns key columns user_id and/or product_id plus 1-4 numeric value columns named f_x_c2_<something>,
+  names not used by any existing column;
+- exactly one row per key, no NULL keys; keys without a row get NULL; afterwards only the keys present
+  among the day's candidates are kept;
+- the query cannot see the candidates: product-level features cover all products; user-level and
+  pair-level queries must filter user_id IN (SELECT user_id FROM active_users), and pair-level ones must
+  enumerate pairs narrowly (e.g. products of the user's recent categories or neighbours of recent views)
+  so the result stays well under 50M rows;
+- the value for a user must not depend on which other users are in active_users: the sandbox compares the
+  answer on all active users with the union of the answers on two halves of them;
+- deterministic: no random(), setseed(), now() or anything similar; any permutation is ordered by hash(...)
+  of keys;
+- a user-level feature is constant within a user's ranking and helps only through interactions;
+- it runs once per anchor day; the median time must stay under 60 s per day, aim for under 20 s;
+- the sandbox refuses a query containing any of these words, matched as whole words in any case anywhere in
+  the text, also as aliases, column names or inside strings (* is any continuation):
+  rees46, fs, src, labels, queries, candidates, n_targets, events, pair_first, item_static, item_brand_day,
+  read_*, parquet_*, json_*, pragma_*, *_execute*, glob, getenv, query, query_table, duckdb_*,
+  information_schema, pg_catalog, sqlite_master, attach, detach, copy, export, import, install, load, pragma,
+  set, reset, use, call, create, drop, insert, update, delete, alter
+All valid columns enter the model without selection by outcome. Superfluous and noisy columns hurt: a few
+strong, non-redundant signals are needed.
+
+A card is one feature family together with the experiment that could refute it:
+{"name": "short_snake_case",
+ "mechanism": "which behaviour of users or products the family measures and why it should raise the rank of
+               the products that become targets",
+ "sign": "+ if adding the family should improve ranking quality, - if you expect it to hurt",
+ "stratum": "in words and as an SQL predicate over hist before t (user or user x product): where the gain
+             should be",
+ "null_stratum": "where the gain should not be, in words and as an SQL predicate",
+ "sql": "SELECT user_id, product_id, ... AS f_x_c2_..., ... FROM hist ...",
+ "twin": {"how": "time_shuffle | neighbour_shuffle | seeds_removed",
+          "sql": "the same query with the mechanism destroyed: same keys and coverage, columns named as yours
+                  plus the suffix _tw"},
+ "rival": {"explanation": "another reason why the family could help", "stratum": "where the rival predicts
+           the gain"}}
+Twin forms: time_shuffle permutes event times (e.g. within user and day, ordered by hash(...));
+neighbour_shuffle replaces neighbours by others of the same category and popularity decile chosen by
+hash(...); seeds_removed drops the seed events that carry the mechanism. The twin keeps the shape of the
+family (similar non-NULL share) and must not be a near copy of it.
+Columns: 1-4 per card, named f_x_c2_<slug>, unique across your cards; use the f_x_ prefix only for
+the output columns of the card (and their _tw copies in the twin), never for intermediate aliases.
+
+You wrote the cards below. Each comes with its sandbox measurements (no model outcome) and the critiques of
+anonymous critics, a skeptic and a leak auditor. Answer every card once:
+- revise: return the full card in the same schema, corrected; it may stay unchanged if the critiques do not
+  call for a change. A revised card is measured again.
+- withdraw: drop the card, with a reason.
+There is no vote; an unresolved critique stays on record as a kill_test.
+--- G2-1
+card: {
+ "id": "G2-1",
+ "name": "lifecycle_phase",
+ "mechanism": "Products follow a life cycle: launch, ramp-up, peak, then decline. The existing trend columns compare the last day with a 7-day average, and i_is_fresh_item_7d is only a binary flag. This family places each item on its own curve. It gives the item's continuous age in hours since its first event in the 14-day window, how many days ago its traffic-normalised daily viewer share peaked, and how far yesterday's share sits below that peak (log gap). Shares are distinct viewers over global distinct users per day, so traffic and cart-logging shifts cancel. Items that are young or at their peak should become next-day first acquisitions more often than items of the same popularity that peaked a week ago and are fading.",
+ "sign": "+",
+ "stratum": "Candidates whose traffic is not flat: young items or items that peaked earlier in the window. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id HAVING min(event_time) >= TIMESTAMP '{t}' - INTERVAL 7 DAY OR max(event_time) < TIMESTAMP '{t}' - INTERVAL 2 DAY)",
+ "null_stratum": "Old, steady items seen every day of the window, whose peak is arbitrary. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id HAVING count(DISTINCT CAST(event_time AS DATE)) = 14)",
+ "sql": "WITH w AS (SELECT product_id, user_id, event_time, date_diff('day', CAST(event_time AS DATE), CAST(TIMESTAMP '{t}' AS DATE)) AS d FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY), g AS (SELECT d, count(DISTINCT user_id) AS gu FROM w GROUP BY d), pd AS (SELECT product_id, d, count(DISTINCT user_id) AS nu FROM w GROUP BY product_id, d), fs AS (SELECT product_id, min(event_time) AS first_ts FROM w GROUP BY product_id), sh AS (SELECT pd.product_id, pd.d, ln((pd.nu + 0.5) / g.gu) AS ls FROM pd JOIN g ON g.d = pd.d), pk AS (SELECT product_id, d AS peak_d, ls AS peak_ls FROM (SELECT product_id, d, ls, row_number() OVER (PARTITION BY product_id ORDER BY ls DESC, d ASC) AS rn FROM sh) WHERE rn = 1), l1 AS (SELECT product_id, ls AS ls1 FROM sh WHERE d = 1), g1 AS (SELECT gu AS gu1 FROM g WHERE d = 1) SELECT fs.product_id, ln(1 + least(date_diff('minute', fs.first_ts, TIMESTAMP '{t}') / 60.0, 336)) AS f_x_c2_life_age_h_log, ln(pk.peak_d) AS f_x_c2_life_days_since_peak_log, coalesce(l1.ls1, ln(0.5 / g1.gu1)) - pk.peak_ls AS f_x_c2_life_share_vs_peak FROM fs JOIN pk ON pk.product_id = fs.product_id CROSS JOIN g1 LEFT JOIN l1 ON l1.product_id = fs.product_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH w AS (SELECT product_id, user_id, event_time, date_diff('day', CAST(event_time AS DATE), CAST(TIMESTAMP '{t}' AS DATE)) AS d FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY), g AS (SELECT d, count(DISTINCT user_id) AS gu FROM w GROUP BY d), pd AS (SELECT product_id, d, count(DISTINCT user_id) AS nu FROM w GROUP BY product_id, d), perm AS (SELECT product_id, d, row_number() OVER (PARTITION BY product_id ORDER BY d) AS rn_d, row_number() OVER (PARTITION BY product_id ORDER BY hash(product_id, d)) AS rn_h FROM pd), mp AS (SELECT a.product_id, a.d AS d_orig, b.d AS d_new FROM perm a JOIN perm b ON a.product_id = b.product_id AND a.rn_h = b.rn_d), sh AS (SELECT mp.product_id, mp.d_new AS d, ln((pd.nu + 0.5) / g.gu) AS ls FROM mp JOIN pd ON pd.product_id = mp.product_id AND pd.d = mp.d_orig JOIN g ON g.d = mp.d_orig), fa AS (SELECT mp.product_id, mp.d_new AS d_first_new FROM mp JOIN (SELECT product_id, max(d) AS dmax FROM pd GROUP BY product_id) m ON m.product_id = mp.product_id AND mp.d_orig = m.dmax), pk AS (SELECT product_id, d AS peak_d, ls AS peak_ls FROM (SELECT product_id, d, ls, row_number() OVER (PARTITION BY product_id ORDER BY ls DESC, d ASC) AS rn FROM sh) WHERE rn = 1), l1 AS (SELECT product_id, ls AS ls1 FROM sh WHERE d = 1), g1 AS (SELECT gu AS gu1 FROM g WHERE d = 1) SELECT fa.product_id, ln(1 + least(24.0 * fa.d_first_new - 12, 336)) AS f_x_c2_life_age_h_log_tw, ln(pk.peak_d) AS f_x_c2_life_days_since_peak_log_tw, coalesce(l1.ls1, ln(0.5 / g1.gu1)) - pk.peak_ls AS f_x_c2_life_share_vs_peak_tw FROM fa JOIN pk ON pk.product_id = fa.product_id CROSS JOIN g1 LEFT JOIN l1 ON l1.product_id = fa.product_id"
+ },
+ "rival": {
+  "explanation": "The gain comes only from the share-vs-peak column acting as a better-smoothed popularity level for yesterday, not from the life-cycle shape. In that case age and days-since-peak add nothing.",
+  "stratum": "Low-traffic candidates (under 5 distinct viewers yesterday), where smoothing matters most: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 1 DAY GROUP BY product_id HAVING count(DISTINCT user_id) < 5)"
+ }
+}
+measurements: {"schema_problems": ["sql: query references a forbidden table or command: fs"], "card": {"check": "query references a forbidden table or command: fs", "coverage": {}, "max_abs_rho": {}, "nearest": {}, "r2": {}}, "twin": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_life_age_h_log_tw", "f_x_c2_life_days_since_peak_log_tw", "f_x_c2_life_share_vs_peak_tw"], "seconds_median": 0.674, "coverage": {"f_x_c2_life_age_h_log_tw": 1.0, "f_x_c2_life_days_since_peak_log_tw": 1.0, "f_x_c2_life_share_vs_peak_tw": 1.0}, "max_abs_rho": {"f_x_c2_life_age_h_log_tw": 0.105, "f_x_c2_life_days_since_peak_log_tw": 0.159, "f_x_c2_life_share_vs_peak_tw": 0.465}, "nearest": {"f_x_c2_life_age_h_log_tw": "i_is_fresh_item_7d", "f_x_c2_life_days_since_peak_log_tw": "s_cat_rank", "f_x_c2_life_share_vs_peak_tw": "f_x_dfs_p_view_n_1d"}, "r2": {"f_x_c2_life_age_h_log_tw": 0.0791, "f_x_c2_life_days_since_peak_log_tw": 0.133, "f_x_c2_life_share_vs_peak_tw": 0.31}, "non_null_share_by_day": {"f_x_c2_life_age_h_log_tw": {"probe_day_1": 1.0, "probe_day_2": 1.0, "probe_day_3": 1.0}, "f_x_c2_life_days_since_peak_log_tw": {"probe_day_1": 1.0, "probe_day_2": 1.0, "probe_day_3": 1.0}, "f_x_c2_life_share_vs_peak_tw": {"probe_day_1": 1.0, "probe_day_2": 1.0, "probe_day_3": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["card machine test red: invalid: query references a forbidden table or command: fs"]}, "machine_red": ["invalid: query references a forbidden table or command: fs"]}
+critiques: [
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The card is invalid: the CTE alias `fs` is a forbidden word, so the card produced no measurements, only the twin. Renaming is required before evaluation. In addition, f_x_c_life_age_h_log uses the first event within the 14d window and therefore saturates for all old items. That makes it close to i_is_fresh_item_7d.",
+  "kill_test": "Twin as a factor, after renaming fs: if age and days_since_peak add no gain beyond the twin, only share_vs_peak matters, which is the card's rival (smoothed popularity).",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "f_x_c_life_share_vs_peak is yesterday's normalised share minus the 14-day maximum. The twin's version already has R2 0.31 to f_x_dfs_p_view_n_1d, so the card's version is likely a 1-day-vs-max trend overlapping i_trend_view_1v7 and i_price_from_max_14d-style 'from max' features. That would make the life-cycle shape irrelevant.",
+  "kill_test": "Difference of differences: compare the stratum (young or peaked-earlier items) against the null stratum (old steady items). The mechanism predicts gain mainly in the former. Equal gain refutes the life-cycle reading.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The card is invalid as submitted: the CTE alias `fs` is a forbidden word, so the card itself was never measured and no rho or R2 exists. Through my lens, age is left-censored at 336h. It resolves only items younger than 14 days, which i_is_fresh_item_7d already flags.",
+  "kill_test": "After renaming the alias, a difference of differences: gain among items first seen within 7 days, versus old steady items seen every day. If all the gain sits in fresh items and vanishes with i_is_fresh_item_7d as a control, the life-cycle shape is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "share_vs_peak may act only as a smoothed level of yesterday's popularity. The twin's share_vs_peak still has R2 0.31 to f_x_dfs_p_view_n_1d.",
+  "kill_test": "Twin as a factor: if the time-shuffled twin's share_vs_peak gives the same gain among candidates with fewer than 5 viewers yesterday, the life-cycle mechanism is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "Invalid: the CTE alias 'fs' is refused, so only the twin ran. The age column duplicates the signature of C08's first-seen column and C13's age percentile, and it is censored at the 14d window start. The share-vs-peak column is a smoothed 1d popularity level (the twin's column has R2 0.31 with f_x_dfs_p_view_n_1d), which is the card's own rival.",
+  "kill_test": "After renaming: twin as factor (shuffled day order). The mechanism is refuted if the gain is concentrated in low-traffic items (under 5 viewers yesterday) and the twin matches it there.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. Product-level and reads [t-14d, t); first_ts and peak come from the past window. However, the card is INVALID: the CTE alias 'fs' is forbidden, and the machine test is red for validity only. Rename fs (e.g. firsts).",
+  "kill_test": "staleness: compute at t-24h; if days-since-peak and share-vs-peak keep the same gain, lifecycle phase is not the mechanism.",
+  "by": "auditor"
+ }
+]
+--- G2-2
+card: {
+ "id": "G2-2",
+ "name": "price_change_timing",
+ "mechanism": "Price moves trigger purchases: a fresh markdown converts waiting users within a day or two, and a fresh price rise (a promo ending) suppresses demand. The existing columns i_price_change_7d and i_price_from_max_14d give the size of the move over fixed windows, but not when the latest change happened or how often the price flips. This family builds an hourly median-price series per item over 14 days and detects changes of at least 2% in log price. It returns the log hours since the last change, the signed size of that last change, and the log count of changes. Prices are not logged by the cart logger, so this is immune to the cart shift.",
+ "sign": "+",
+ "stratum": "Candidates whose price changed in the last 72 hours. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY GROUP BY product_id HAVING max(price) > 1.02 * min(price))",
+ "null_stratum": "Candidates with a constant price over the 14 days. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id HAVING max(price) = min(price))",
+ "sql": "WITH w AS (SELECT product_id, date_trunc('hour', event_time) AS h, median(CAST(price AS DOUBLE)) AS p FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND price > 0 GROUP BY product_id, date_trunc('hour', event_time)), s AS (SELECT product_id, h, ln(p) - ln(lag(p) OVER (PARTITION BY product_id ORDER BY h)) AS dl FROM w), c AS (SELECT product_id, max(h) AS lh, arg_max(dl, h) AS ldl, count(*) AS nc FROM s WHERE abs(dl) >= 0.02 GROUP BY product_id), items AS (SELECT DISTINCT product_id FROM w) SELECT items.product_id, ln(1 + coalesce(date_diff('hour', c.lh, TIMESTAMP '{t}'), 336)) AS f_x_c2_pchg_age_h_log, coalesce(c.ldl, 0.0) AS f_x_c2_pchg_last_dlogp, ln(1 + coalesce(c.nc, 0)) AS f_x_c2_pchg_n_14d_log FROM items LEFT JOIN c ON c.product_id = items.product_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH w AS (SELECT product_id, date_trunc('hour', event_time) AS h, median(CAST(price AS DOUBLE)) AS p FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND price > 0 GROUP BY product_id, date_trunc('hour', event_time)), s AS (SELECT product_id, h, ln(p) - ln(lag(p) OVER (PARTITION BY product_id ORDER BY hash(product_id, h))) AS dl FROM w), c AS (SELECT product_id, max(h) AS lh, arg_max(dl, h) AS ldl, count(*) AS nc FROM s WHERE abs(dl) >= 0.02 GROUP BY product_id), items AS (SELECT DISTINCT product_id FROM w) SELECT items.product_id, ln(1 + coalesce(date_diff('hour', c.lh, TIMESTAMP '{t}'), 336)) AS f_x_c2_pchg_age_h_log_tw, coalesce(c.ldl, 0.0) AS f_x_c2_pchg_last_dlogp_tw, ln(1 + coalesce(c.nc, 0)) AS f_x_c2_pchg_n_14d_log_tw FROM items LEFT JOIN c ON c.product_id = items.product_id"
+ },
+ "rival": {
+  "explanation": "The change count acts as a proxy for traffic volume and seller multiplicity (busier items get more hourly price observations and more noise flips), so any gain is really popularity.",
+  "stratum": "High-traffic candidates with many observed price hours: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id HAVING count(DISTINCT date_trunc('hour', event_time)) >= 100)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_pchg_age_h_log", "f_x_c2_pchg_last_dlogp", "f_x_c2_pchg_n_14d_log"], "seconds_median": 0.679, "coverage": {"f_x_c2_pchg_age_h_log": 1.0, "f_x_c2_pchg_last_dlogp": 1.0, "f_x_c2_pchg_n_14d_log": 1.0}, "max_abs_rho": {"f_x_c2_pchg_age_h_log": 0.355, "f_x_c2_pchg_last_dlogp": 0.451, "f_x_c2_pchg_n_14d_log": 0.374}, "nearest": {"f_x_c2_pchg_age_h_log": "i_price_from_max_14d", "f_x_c2_pchg_last_dlogp": "i_price_from_max_14d", "f_x_c2_pchg_n_14d_log": "i_price_from_max_14d"}, "r2": {"f_x_c2_pchg_age_h_log": 0.391, "f_x_c2_pchg_last_dlogp": 0.352, "f_x_c2_pchg_n_14d_log": 0.414}, "non_null_share_by_day": {"f_x_c2_pchg_age_h_log": {"probe_day_1": 0.999, "probe_day_2": 1.0, "probe_day_3": 1.0}, "f_x_c2_pchg_last_dlogp": {"probe_day_1": 0.999, "probe_day_2": 1.0, "probe_day_3": 1.0}, "f_x_c2_pchg_n_14d_log": {"probe_day_1": 0.999, "probe_day_2": 1.0, "probe_day_3": 1.0}}, "parity_ok": true}, "twin": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_pchg_age_h_log_tw", "f_x_c2_pchg_last_dlogp_tw", "f_x_c2_pchg_n_14d_log_tw"], "seconds_median": 0.664, "coverage": {"f_x_c2_pchg_age_h_log_tw": 1.0, "f_x_c2_pchg_last_dlogp_tw": 1.0, "f_x_c2_pchg_n_14d_log_tw": 1.0}, "max_abs_rho": {"f_x_c2_pchg_age_h_log_tw": 0.596, "f_x_c2_pchg_last_dlogp_tw": 0.622, "f_x_c2_pchg_n_14d_log_tw": 0.607}, "nearest": {"f_x_c2_pchg_age_h_log_tw": "i_price_from_max_14d", "f_x_c2_pchg_last_dlogp_tw": "i_price_from_max_14d", "f_x_c2_pchg_n_14d_log_tw": "i_price_from_max_14d"}, "r2": {"f_x_c2_pchg_age_h_log_tw": 0.535, "f_x_c2_pchg_last_dlogp_tw": 0.508, "f_x_c2_pchg_n_14d_log_tw": 0.574}, "non_null_share_by_day": {"f_x_c2_pchg_age_h_log_tw": {"probe_day_1": 0.999, "probe_day_2": 1.0, "probe_day_3": 1.0}, "f_x_c2_pchg_last_dlogp_tw": {"probe_day_1": 0.999, "probe_day_2": 1.0, "probe_day_3": 1.0}, "f_x_c2_pchg_n_14d_log_tw": {"probe_day_1": 0.999, "probe_day_2": 1.0, "probe_day_3": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The twin is not a null for the count. Ordering the hourly series by hash turns any price dispersion into many flips, and the twin's R2 to i_price_from_max_14d (0.535-0.574) is higher than the card's (0.391-0.414). Hourly medians over multi-seller or variant prices also flip without any real price change. So f_x_c_pchg_n_14d_log measures dispersion and traffic (the card's rival).",
+  "kill_test": "Difference of differences: compare the stratum (change in the last 72h) against the null stratum (constant price), restricted to items with >=100 active hours versus <30. If the gain sits only in the high-traffic group regardless of change recency, timing is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "OK",
+  "text": "f_x_c_pchg_age_h_log and f_x_c_pchg_last_dlogp have modest redundancy (R2 0.391/0.352 to i_price_from_max_14d), no cart dependence, and a cost of 0.68s.",
+  "kill_test": "Staleness: the same query at t - 24h should lose most of the age column's gain if fresh markdowns matter. Equal gain refutes the timing mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "coalesce(..., 336) and coalesce(..., 0) give a cold item with few priced hours the same values as a truly stable-priced item, so 'no data' and 'no change' are mixed. The change count grows with observed hours (traffic). The twin's columns relate more to i_price_from_max_14d (R2 0.535-0.574) than the card's do (0.35-0.41), which shows that noise flips carry popularity structure.",
+  "kill_test": "Difference of differences: gain among items with a price change in 72h, versus constant-price items, within matched bins of active hours. If the gain disappears within bins, the popularity rival holds.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "No duplicate: the highest R2 is 0.414 (age), 0.352 (signed size) and 0.414 (count), all with i_price_from_max_14d, so timing is new beyond i_price_change_7d. However, a change of at least 2% in an hourly median is triggered by seller mix and observation density. f_x_c_pchg_n_14d_log counts flips in an hourly series, so it grows with the number of observed hours, i.e. traffic. The twin's hash ordering creates even more spurious flips, and its R2 to i_price_from_max_14d rises to about 0.54, so the twin is close to the existing price columns. The count column is the weakest and should be dropped.",
+  "kill_test": "Difference of differences: (card minus twin) gain in the stratum with a price change in the last 72h, minus the same in the constant-price null stratum. The mechanism is refuted if that difference is no larger than in the rival stratum (at least 100 observed hours), or if the gain sits in f_x_c_pchg_n_14d_log alone.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. Product-level, hourly median prices in [t-14d, t). lag is ordered by h, and arg_max(dl, h) has a unique h per product. Deterministic.",
+  "kill_test": "staleness: compute at t-24h; if price-change age and size keep their gain, recency of the change is not the mechanism.",
+  "by": "auditor"
+ }
+]
+--- G2-3
+card: {
+ "id": "G2-3",
+ "name": "category_sale_wave",
+ "mechanism": "Store-wide or category-wide promotions lower prices across many items at once and pull users into buying anything in the category, not only the discounted item. This family compares each item's median price over the last 48 hours with its median over days 3 to 9. It aggregates per category the smoothed shares of items whose price dropped or rose by at least 3%, and gives the item's own log price change relative to the category median change. The last column tells a genuine relative discount apart from category-wide repricing. No existing column describes category-level price movement.",
+ "sign": "+",
+ "stratum": "Candidates in categories where at least 20% of priced items dropped by 3% or more in the last 48 hours (computed as in the query). Approximate predicate: category_id IN (SELECT category_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 2 DAY GROUP BY category_id HAVING count(DISTINCT product_id) >= 10)",
+ "null_stratum": "Categories with no price movement, where drop and rise shares are near zero and the relative change equals the item's own change. Predicate: category_id IN (SELECT category_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 9 DAY GROUP BY category_id HAVING count(DISTINCT price) = count(DISTINCT product_id))",
+ "sql": "WITH w AS (SELECT product_id, category_id, CAST(price AS DOUBLE) AS p, event_time >= TIMESTAMP '{t}' - INTERVAL 2 DAY AS rec FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 9 DAY AND price > 0 AND category_id IS NOT NULL), ip AS (SELECT product_id, max(category_id) AS cat, median(p) FILTER (WHERE rec) AS pr, median(p) FILTER (WHERE NOT rec) AS pb FROM w GROUP BY product_id), id AS (SELECT product_id, cat, ln(pr) - ln(pb) AS dl FROM ip WHERE pr IS NOT NULL AND pb IS NOT NULL), cs AS (SELECT cat, count(*) AS n, sum(CASE WHEN dl <= -0.03 THEN 1 ELSE 0 END) AS nd, sum(CASE WHEN dl >= 0.03 THEN 1 ELSE 0 END) AS nr, median(dl) AS mdl FROM id GROUP BY cat) SELECT ip.product_id, (cs.nd + 0.1) / (cs.n + 2.0) AS f_x_c2_wave_cat_drop_share, (cs.nr + 0.1) / (cs.n + 2.0) AS f_x_c2_wave_cat_rise_share, id.dl - cs.mdl AS f_x_c2_wave_dlogp_vs_cat FROM ip JOIN cs ON cs.cat = ip.cat LEFT JOIN id ON id.product_id = ip.product_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH w AS (SELECT product_id, category_id, CAST(price AS DOUBLE) AS p, (hash(product_id, CAST(event_time AS DATE)) % 9) < 2 AS rec FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 9 DAY AND price > 0 AND category_id IS NOT NULL), ip AS (SELECT product_id, max(category_id) AS cat, median(p) FILTER (WHERE rec) AS pr, median(p) FILTER (WHERE NOT rec) AS pb FROM w GROUP BY product_id), id AS (SELECT product_id, cat, ln(pr) - ln(pb) AS dl FROM ip WHERE pr IS NOT NULL AND pb IS NOT NULL), cs AS (SELECT cat, count(*) AS n, sum(CASE WHEN dl <= -0.03 THEN 1 ELSE 0 END) AS nd, sum(CASE WHEN dl >= 0.03 THEN 1 ELSE 0 END) AS nr, median(dl) AS mdl FROM id GROUP BY cat) SELECT ip.product_id, (cs.nd + 0.1) / (cs.n + 2.0) AS f_x_c2_wave_cat_drop_share_tw, (cs.nr + 0.1) / (cs.n + 2.0) AS f_x_c2_wave_cat_rise_share_tw, id.dl - cs.mdl AS f_x_c2_wave_dlogp_vs_cat_tw FROM ip JOIN cs ON cs.cat = ip.cat LEFT JOIN id ON id.product_id = ip.product_id"
+ },
+ "rival": {
+  "explanation": "Drop and rise shares mostly encode category price volatility, which is a stable property of the category (for example marketplace-like categories with many sellers). That property correlates with category conversion level, so the columns could work as a category identifier rather than a wave detector.",
+  "stratum": "Categories with many sellers and constant price churn regardless of date: category_id IN (SELECT category_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY category_id HAVING count(DISTINCT price) > 3 * count(DISTINCT product_id))"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_wave_cat_drop_share", "f_x_c2_wave_cat_rise_share", "f_x_c2_wave_dlogp_vs_cat"], "seconds_median": 0.307, "coverage": {"f_x_c2_wave_cat_drop_share": 0.999, "f_x_c2_wave_cat_rise_share": 0.999, "f_x_c2_wave_dlogp_vs_cat": 0.982}, "max_abs_rho": {"f_x_c2_wave_cat_drop_share": 0.705, "f_x_c2_wave_cat_rise_share": 0.669, "f_x_c2_wave_dlogp_vs_cat": 0.838}, "nearest": {"f_x_c2_wave_cat_drop_share": "f_x_dfs_c_cart_per_view_3d", "f_x_c2_wave_cat_rise_share": "f_x_dfs_c_cart_per_view_1d", "f_x_c2_wave_dlogp_vs_cat": "i_price_change_7d"}, "r2": {"f_x_c2_wave_cat_drop_share": 0.692, "f_x_c2_wave_cat_rise_share": 0.648, "f_x_c2_wave_dlogp_vs_cat": 0.744}, "non_null_share_by_day": {"f_x_c2_wave_cat_drop_share": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.999}, "f_x_c2_wave_cat_rise_share": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.999}, "f_x_c2_wave_dlogp_vs_cat": {"probe_day_1": 0.986, "probe_day_2": 0.982, "probe_day_3": 0.977}}, "parity_ok": true}, "twin": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_wave_cat_drop_share_tw", "f_x_c2_wave_cat_rise_share_tw", "f_x_c2_wave_dlogp_vs_cat_tw"], "seconds_median": 0.324, "coverage": {"f_x_c2_wave_cat_drop_share_tw": 0.999, "f_x_c2_wave_cat_rise_share_tw": 0.999, "f_x_c2_wave_dlogp_vs_cat_tw": 0.88}, "max_abs_rho": {"f_x_c2_wave_cat_drop_share_tw": 0.561, "f_x_c2_wave_cat_rise_share_tw": 0.52, "f_x_c2_wave_dlogp_vs_cat_tw": 0.21}, "nearest": {"f_x_c2_wave_cat_drop_share_tw": "f_x_dfs_c_buy_per_view_7d", "f_x_c2_wave_cat_rise_share_tw": "f_x_dfs_c_cart_per_view_3d", "f_x_c2_wave_dlogp_vs_cat_tw": "s_pop_rank"}, "r2": {"f_x_c2_wave_cat_drop_share_tw": 0.613, "f_x_c2_wave_cat_rise_share_tw": 0.593, "f_x_c2_wave_dlogp_vs_cat_tw": 0.149}, "non_null_share_by_day": {"f_x_c2_wave_cat_drop_share_tw": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.999}, "f_x_c2_wave_cat_rise_share_tw": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.999}, "f_x_c2_wave_dlogp_vs_cat_tw": {"probe_day_1": 0.903, "probe_day_2": 0.875, "probe_day_3": 0.861}}, "parity_ok": true}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["f_x_c2_wave_dlogp_vs_cat: coverage 0.9816, twin 0.8797, outside +-10%"]}, "machine_red": []}
+critiques: [
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_wave_cat_drop_share has R2 0.692 to f_x_dfs_c_cart_per_view_3d and rise_share 0.648 to f_x_dfs_c_cart_per_view_1d. The time_shuffle twin keeps R2 0.613/0.593, so these columns are category identity. f_x_c_wave_dlogp_vs_cat has R2 0.744 to i_price_change_7d. The twin is TWIN-BROKEN on coverage (0.982 vs 0.880).",
+  "kill_test": "Twin as a factor: if the shares give no gain over the twin shares, the wave timing is refuted in favour of the rival (category volatility as identity).",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "If a promotion pulls users into buying 'anything in the category', the pull should travel along co-view and transition edges from discounted items to their neighbours. A category-uniform scalar cannot rank items within a category for a given user.",
+  "kill_test": "Difference of differences: within wave categories, compare the gain for candidates that are 48h co-view neighbours of a dropped item against non-neighbours. No difference refutes a wave spillover beyond the item's own price change.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_wave_dlogp_vs_cat has rho 0.838 and R2 0.744 to i_price_change_7d. The drop and rise shares have R2 0.692 and 0.648 to f_x_dfs_c_cart_per_view_3d/1d, so they work as a category identifier. The stratum predicate (10 or more products in 48h) does not select drop waves at all.",
+  "kill_test": "Difference of differences: gain in categories with a drop share of at least 0.2 in the last 48h, versus the null stratum of categories with stable prices. No excess refutes the wave mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The twin breaks coverage (0.98 vs 0.88), so it is no valid control. Cold items without price observations on days 3-9 get a NULL dlogp, and medians over all events mix several sellers' listings.",
+  "kill_test": "Staleness: the same query at t - 24h. Equal gain refutes a 48h wave effect.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_wave_dlogp_vs_cat has R2 0.744 (rho 0.838) with i_price_change_7d, and its twin is TWIN-BROKEN on coverage (0.982 versus 0.880). The category shares have R2 0.692 and 0.648 with f_x_dfs_c_cart_per_view_3d and _1d. The twin with random days keeps R2 0.61 and 0.59, so the shares behave like a stable category property, which is the rival.",
+  "kill_test": "Staleness: run the same query at t-24h. The mechanism is refuted if the lagged drop share predicts as well in categories with at least 20% drops, or if the gain is the same in the rival stratum of high price churn.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. Product-level, prices in [t-9d, t), and the 'recent' split is [t-2d, t). Nothing depends on active_users. The twin splits days by hash.",
+  "kill_test": "difference of differences: compare the gain in categories with drop share in the top decile against the rest. No difference refutes the price-wave mechanism (rival: f_x_dfs_c_cart_per_view_3d, R2 0.69).",
+  "by": "auditor"
+ }
+]
+--- G2-4
+card: {
+ "id": "G2-4",
+ "name": "restock_bounce",
+ "mechanism": "Stock-outs and delistings show up as hours-long holes in an item's event timeline. When the item comes back, pent-up demand from users who waited (and from substitute seekers) produces a burst of first acquisitions. The existing r1p5 and i_hours_since_last_view only describe the current silence. This family finds the longest internal gap in the item's 14-day hourly activity, normalised by its typical inter-activity spacing. It returns that relative gap, the log hours since the item returned from it, and the change in viewers per hour after the return versus before the gap.",
+ "sign": "+",
+ "stratum": "Items that came back in the last 72 hours after at least 48 hours without any event. Predicate: product_id IN (SELECT product_id FROM (SELECT product_id, event_time, lag(event_time) OVER (PARTITION BY product_id ORDER BY event_time) AS pt FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY) WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY AND pt < event_time - INTERVAL 48 HOUR)",
+ "null_stratum": "Items active in every hour-of-day block of every day (no holes beyond 6 hours), where the relative gap is near its floor. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id HAVING count(DISTINCT date_trunc('hour', event_time)) >= 280)",
+ "sql": "WITH hh AS (SELECT product_id, date_trunc('hour', event_time) AS h, count(DISTINCT user_id) AS nu FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id, date_trunc('hour', event_time)), g AS (SELECT product_id, h, nu, date_diff('hour', lag(h) OVER (PARTITION BY product_id ORDER BY h), h) AS gap FROM hh), st AS (SELECT product_id, count(*) AS n_h, max(gap) AS max_gap, arg_max(h, CASE WHEN gap IS NULL THEN -1 ELSE gap * 1000000 + epoch(h) / 3600 END) AS gap_end, min(h) AS h0 FROM g GROUP BY product_id HAVING count(*) >= 2), ab AS (SELECT g.product_id, sum(CASE WHEN g.h >= st.gap_end THEN g.nu ELSE 0 END) AS nu_after, sum(CASE WHEN g.h < st.gap_end THEN g.nu ELSE 0 END) AS nu_before FROM g JOIN st ON st.product_id = g.product_id GROUP BY g.product_id) SELECT st.product_id, ln((st.max_gap + 1.0) * st.n_h / 336.0) AS f_x_c2_rs_max_gap_rel, ln(1 + date_diff('hour', st.gap_end, TIMESTAMP '{t}')) AS f_x_c2_rs_h_since_return_log, ln((ab.nu_after + 0.5) / (date_diff('hour', st.gap_end, TIMESTAMP '{t}') + 1.0)) - ln((ab.nu_before + 0.5) / (greatest(date_diff('hour', st.h0, st.gap_end) - st.max_gap, 0) + 1.0)) AS f_x_c2_rs_rate_after_vs_before FROM st JOIN ab ON ab.product_id = st.product_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH hh AS (SELECT product_id, TIMESTAMP '{t}' - INTERVAL 14 DAY + to_hours(CAST(hash(product_id, date_trunc('hour', event_time)) % 336 AS BIGINT)) AS h, count(DISTINCT user_id) AS nu FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id, TIMESTAMP '{t}' - INTERVAL 14 DAY + to_hours(CAST(hash(product_id, date_trunc('hour', event_time)) % 336 AS BIGINT))), g AS (SELECT product_id, h, nu, date_diff('hour', lag(h) OVER (PARTITION BY product_id ORDER BY h), h) AS gap FROM hh), st AS (SELECT product_id, count(*) AS n_h, max(gap) AS max_gap, arg_max(h, CASE WHEN gap IS NULL THEN -1 ELSE gap * 1000000 + epoch(h) / 3600 END) AS gap_end, min(h) AS h0 FROM g GROUP BY product_id HAVING count(*) >= 2), ab AS (SELECT g.product_id, sum(CASE WHEN g.h >= st.gap_end THEN g.nu ELSE 0 END) AS nu_after, sum(CASE WHEN g.h < st.gap_end THEN g.nu ELSE 0 END) AS nu_before FROM g JOIN st ON st.product_id = g.product_id GROUP BY g.product_id) SELECT st.product_id, ln((st.max_gap + 1.0) * st.n_h / 336.0) AS f_x_c2_rs_max_gap_rel_tw, ln(1 + date_diff('hour', st.gap_end, TIMESTAMP '{t}')) AS f_x_c2_rs_h_since_return_log_tw, ln((ab.nu_after + 0.5) / (date_diff('hour', st.gap_end, TIMESTAMP '{t}') + 1.0)) - ln((ab.nu_before + 0.5) / (greatest(date_diff('hour', st.h0, st.gap_end) - st.max_gap, 0) + 1.0)) AS f_x_c2_rs_rate_after_vs_before_tw FROM st JOIN ab ON ab.product_id = st.product_id"
+ },
+ "rival": {
+  "explanation": "Large relative gaps simply flag sparse, niche items, and the after-versus-before rate is a disguised short-term trend that overlaps i_trend_view_1v7. Under this rival, the gain is not about restocks.",
+  "stratum": "Low-traffic items with fewer than 30 active hours in 14 days: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id HAVING count(DISTINCT date_trunc('hour', event_time)) < 30)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_rs_max_gap_rel", "f_x_c2_rs_h_since_return_log", "f_x_c2_rs_rate_after_vs_before"], "seconds_median": 0.531, "coverage": {"f_x_c2_rs_max_gap_rel": 0.998, "f_x_c2_rs_h_since_return_log": 0.998, "f_x_c2_rs_rate_after_vs_before": 0.998}, "max_abs_rho": {"f_x_c2_rs_max_gap_rel": 0.653, "f_x_c2_rs_h_since_return_log": 0.63, "f_x_c2_rs_rate_after_vs_before": 0.639}, "nearest": {"f_x_c2_rs_max_gap_rel": "f_x_dfs_p_purchase_u_1d", "f_x_c2_rs_h_since_return_log": "f_x_dfs_p_view_n_14d", "f_x_c2_rs_rate_after_vs_before": "f_x_cf_xday_newacq_lift_max"}, "r2": {"f_x_c2_rs_max_gap_rel": 0.728, "f_x_c2_rs_h_since_return_log": 0.577, "f_x_c2_rs_rate_after_vs_before": 0.681}, "non_null_share_by_day": {"f_x_c2_rs_max_gap_rel": {"probe_day_1": 0.999, "probe_day_2": 0.997, "probe_day_3": 0.998}, "f_x_c2_rs_h_since_return_log": {"probe_day_1": 0.999, "probe_day_2": 0.997, "probe_day_3": 0.998}, "f_x_c2_rs_rate_after_vs_before": {"probe_day_1": 0.999, "probe_day_2": 0.997, "probe_day_3": 0.998}}, "parity_ok": true}, "twin": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_rs_max_gap_rel_tw", "f_x_c2_rs_h_since_return_log_tw", "f_x_c2_rs_rate_after_vs_before_tw"], "seconds_median": 0.543, "coverage": {"f_x_c2_rs_max_gap_rel_tw": 0.998, "f_x_c2_rs_h_since_return_log_tw": 0.998, "f_x_c2_rs_rate_after_vs_before_tw": 0.998}, "max_abs_rho": {"f_x_c2_rs_max_gap_rel_tw": 0.183, "f_x_c2_rs_h_since_return_log_tw": 0.13, "f_x_c2_rs_rate_after_vs_before_tw": 0.113}, "nearest": {"f_x_c2_rs_max_gap_rel_tw": "f_x_dfs_p_view_u_3d", "f_x_c2_rs_h_since_return_log_tw": "s_pop_rank", "f_x_c2_rs_rate_after_vs_before_tw": "s_brand_rank"}, "r2": {"f_x_c2_rs_max_gap_rel_tw": 0.182, "f_x_c2_rs_h_since_return_log_tw": 0.101, "f_x_c2_rs_rate_after_vs_before_tw": 0.074}, "non_null_share_by_day": {"f_x_c2_rs_max_gap_rel_tw": {"probe_day_1": 0.999, "probe_day_2": 0.997, "probe_day_3": 0.998}, "f_x_c2_rs_h_since_return_log_tw": {"probe_day_1": 0.999, "probe_day_2": 0.997, "probe_day_3": 0.998}, "f_x_c2_rs_rate_after_vs_before_tw": {"probe_day_1": 0.999, "probe_day_2": 0.997, "probe_day_3": 0.998}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "RIVAL",
+  "text": "f_x_c_rs_max_gap_rel has R2 0.728 to f_x_dfs_p_purchase_u_1d and h_since_return_log 0.577 to f_x_dfs_p_view_n_14d. The twin destroys this (R2 0.18), but the destroyed part is the popularity and sparsity structure of hourly activity, as the card's rival says. A restock should show as returning viewers from before the gap, a user-item re-link, and none of the columns tests that.",
+  "kill_test": "Difference of differences: compare the stratum (return after a >=48h hole in the last 72h) against the low-traffic stratum (<30 active hours) matched on f_x_dfs_p_view_u_7d. If the gain is equal, restock is refuted and sparsity explains it.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "On items active fewer than ~50 hours of 336, the 'longest internal gap' at hourly resolution is dominated by overnight and low-traffic randomness. f_x_c_rs_rate_after_vs_before is then a disguised short trend (R2 0.681 to f_x_cf_xday_newacq_lift_max).",
+  "kill_test": "Staleness: rerun at t - 24h. If gap_end jumps between days for most items rather than staying fixed, the 'return' is noise and not a stock event.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_rs_max_gap_rel has R2 0.728 to f_x_dfs_p_purchase_u_1d, and h_since_return has R2 0.577 to f_x_dfs_p_view_n_14d. The relative gap is mostly a sparsity/traffic level. For the cold items in my lens, a fresh item's first event is h0, so a 'return' is indistinguishable from a launch and a niche item with three active hours looks like a restock.",
+  "kill_test": "Difference of differences: gain among items with at least 48h of internal silence that returned in 72h, versus items with fewer than 30 active hours that never had a 48h hole. Equal gains refute the restock story.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "For the earliest anchors (2020-01-15 to about 01-20), the 14-day window includes the New-Year holiday trough of January 1-8. Low-traffic items then get long holes that are calendar effects rather than stock-outs. The non-NULL share is flat (0.997-0.999) and does not show this, but the value distribution moves with anchor date.",
+  "kill_test": "Staleness: run the same query at t - 24h. If the gap columns' gain is the same, the 'bounce in the last 72h' mechanism is refuted, because the restock signal should decay within days.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "f_x_c_rs_max_gap_rel has R2 0.728 with f_x_dfs_p_purchase_u_1d. Its value is gap × active hours / 336, so it mainly encodes traffic sparsity. f_x_c_rs_rate_after_vs_before has R2 0.681 with f_x_cf_xday_newacq_lift_max, and the rival reads it as a short-term trend. It overlaps r1p5 (f_x_i_cp_staleness_ratio).",
+  "kill_test": "Difference of differences: card minus twin in the restock stratum (back within 72h after at least 48h of silence), minus the same in the low-traffic rival stratum (under 30 active hours). The mechanism is refuted if the difference is not positive.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. Product-level, hourly user counts in [t-14d, t). lag is ordered by h, and the arg_max key is unique per product. Deterministic.",
+  "kill_test": "staleness: compute at t-24h; if hours-since-return keeps its gain, the 'comeback' timing is not the mechanism.",
+  "by": "auditor"
+ }
+]
+--- G2-5
+card: {
+ "id": "G2-5",
+ "name": "trend_slope_7d",
+ "mechanism": "One-day-versus-seven-day ratios are noisy and react to single spiky days, such as a logging glitch or a one-off promotion. A least-squares slope of the item's daily log share over the last 7 days, with its R2, separates sustained growth (rising, consistent) from a single spike. Viewer shares are divided by global daily distinct users and acquirer shares by global daily distinct cart/purchase users, so day-level shifts in traffic or cart logging cancel exactly. Consistently rising items keep rising into the target day, which raises their chance of new first acquisitions.",
+ "sign": "+",
+ "stratum": "Mid-popularity items active on at least 4 of the last 7 days, where a slope is estimable and the 1v7 ratio is noisy. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id HAVING count(DISTINCT CAST(event_time AS DATE)) >= 4 AND count(DISTINCT user_id) BETWEEN 20 AND 2000)",
+ "null_stratum": "Items seen on only 1 or 2 days, where the slope is driven by smoothing. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id HAVING count(DISTINCT CAST(event_time AS DATE)) <= 2)",
+ "sql": "WITH w AS (SELECT product_id, user_id, event_type, date_diff('day', CAST(event_time AS DATE), CAST(TIMESTAMP '{t}' AS DATE)) AS d FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY), g AS (SELECT d, count(DISTINCT user_id) AS gu, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN user_id END) AS ga FROM w GROUP BY d), pd AS (SELECT product_id, d, count(DISTINCT user_id) AS nu, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN user_id END) AS na FROM w GROUP BY product_id, d), pa AS (SELECT product_id, sum(na) AS na7 FROM pd GROUP BY product_id), grid AS (SELECT pa.product_id, g.d, g.gu, g.ga, pa.na7 FROM pa CROSS JOIN g), x AS (SELECT grid.product_id, grid.d, ln((coalesce(pd.nu, 0) + 0.5) / grid.gu) AS lv, CASE WHEN grid.na7 > 0 THEN ln((coalesce(pd.na, 0) + 0.5) / greatest(grid.ga, 1)) END AS la FROM grid LEFT JOIN pd ON pd.product_id = grid.product_id AND pd.d = grid.d) SELECT product_id, regr_slope(lv, -d) AS f_x_c2_tr_view_slope_7d, regr_r2(lv, -d) AS f_x_c2_tr_view_r2_7d, regr_slope(la, -d) AS f_x_c2_tr_acq_slope_7d FROM x GROUP BY product_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH w AS (SELECT product_id, user_id, event_type, date_diff('day', CAST(event_time AS DATE), CAST(TIMESTAMP '{t}' AS DATE)) AS d FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY), g AS (SELECT d, count(DISTINCT user_id) AS gu, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN user_id END) AS ga FROM w GROUP BY d), pd AS (SELECT product_id, d, count(DISTINCT user_id) AS nu, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN user_id END) AS na FROM w GROUP BY product_id, d), pa AS (SELECT product_id, sum(na) AS na7 FROM pd GROUP BY product_id), grid AS (SELECT pa.product_id, g.d, g.gu, g.ga, pa.na7 FROM pa CROSS JOIN g), x AS (SELECT grid.product_id, row_number() OVER (PARTITION BY grid.product_id ORDER BY hash(grid.product_id, grid.d)) AS d, ln((coalesce(pd.nu, 0) + 0.5) / grid.gu) AS lv, CASE WHEN grid.na7 > 0 THEN ln((coalesce(pd.na, 0) + 0.5) / greatest(grid.ga, 1)) END AS la FROM grid LEFT JOIN pd ON pd.product_id = grid.product_id AND pd.d = grid.d) SELECT product_id, regr_slope(lv, -d) AS f_x_c2_tr_view_slope_7d_tw, regr_r2(lv, -d) AS f_x_c2_tr_view_r2_7d_tw, regr_slope(la, -d) AS f_x_c2_tr_acq_slope_7d_tw FROM x GROUP BY product_id"
+ },
+ "rival": {
+  "explanation": "The slope mostly re-encodes item freshness: items that first appeared mid-window get a strong positive slope from zero-filled early days. The gain would then duplicate i_is_fresh_item_7d rather than sustained momentum.",
+  "stratum": "Items first seen within the last 5 days: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id HAVING min(event_time) >= TIMESTAMP '{t}' - INTERVAL 5 DAY)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_tr_view_slope_7d", "f_x_c2_tr_view_r2_7d", "f_x_c2_tr_acq_slope_7d"], "seconds_median": 0.413, "coverage": {"f_x_c2_tr_view_slope_7d": 0.999, "f_x_c2_tr_view_r2_7d": 0.999, "f_x_c2_tr_acq_slope_7d": 0.933}, "max_abs_rho": {"f_x_c2_tr_view_slope_7d": 0.746, "f_x_c2_tr_view_r2_7d": 0.285, "f_x_c2_tr_acq_slope_7d": 0.687}, "nearest": {"f_x_c2_tr_view_slope_7d": "i_trend_view_1v7", "f_x_c2_tr_view_r2_7d": "s_pop_rank", "f_x_c2_tr_acq_slope_7d": "i_trend_actor_1v7"}, "r2": {"f_x_c2_tr_view_slope_7d": 0.742, "f_x_c2_tr_view_r2_7d": 0.284, "f_x_c2_tr_acq_slope_7d": 0.788}, "non_null_share_by_day": {"f_x_c2_tr_view_slope_7d": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}, "f_x_c2_tr_view_r2_7d": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}, "f_x_c2_tr_acq_slope_7d": {"probe_day_1": 0.927, "probe_day_2": 0.945, "probe_day_3": 0.928}}, "parity_ok": true}, "twin": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_tr_view_slope_7d_tw", "f_x_c2_tr_view_r2_7d_tw", "f_x_c2_tr_acq_slope_7d_tw"], "seconds_median": 0.409, "coverage": {"f_x_c2_tr_view_slope_7d_tw": 0.999, "f_x_c2_tr_view_r2_7d_tw": 0.999, "f_x_c2_tr_acq_slope_7d_tw": 0.933}, "max_abs_rho": {"f_x_c2_tr_view_slope_7d_tw": 0.0997, "f_x_c2_tr_view_r2_7d_tw": 0.115, "f_x_c2_tr_acq_slope_7d_tw": 0.105}, "nearest": {"f_x_c2_tr_view_slope_7d_tw": "s_pop_rank", "f_x_c2_tr_view_r2_7d_tw": "f_x_i_search_depth_vs_cat_14d", "f_x_c2_tr_acq_slope_7d_tw": "s_pop_rank"}, "r2": {"f_x_c2_tr_view_slope_7d_tw": 0.0542, "f_x_c2_tr_view_r2_7d_tw": 0.12, "f_x_c2_tr_acq_slope_7d_tw": 0.0612}, "non_null_share_by_day": {"f_x_c2_tr_view_slope_7d_tw": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}, "f_x_c2_tr_view_r2_7d_tw": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}, "f_x_c2_tr_acq_slope_7d_tw": {"probe_day_1": 0.927, "probe_day_2": 0.945, "probe_day_3": 0.928}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_tr_view_slope_7d has R2 0.742 to i_trend_view_1v7, and f_x_c_tr_acq_slope_7d has R2 0.788 to i_trend_actor_1v7. Only f_x_c_tr_view_r2_7d is new (R2 0.284 to s_pop_rank). Acq slopes on mostly-zero days are driven by the +0.5 smoothing.",
+  "kill_test": "Difference of differences: compare the stratum (>=4 active days, 20-2000 viewers) against the null stratum (<=2 days), after conditioning on i_trend_view_1v7. Gain in the stratum only via view_r2 supports keeping r2 alone. No gain refutes the family.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "Zero-filled early days give items that appeared mid-window a steep positive slope, so the slope may proxy freshness (i_is_fresh_item_7d). From a sequence-graph view, sustained growth fed by new transition in-edges (new co-view neighbours) is the stronger version. Plain counts cannot tell organic spread from a single external push.",
+  "kill_test": "Difference of differences: compare items first seen within 5 days against older items with an equal slope. If the gain is only in the fresh stratum, sustained momentum is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "View slope has R2 0.742 to i_trend_view_1v7, and acq slope has R2 0.788 to i_trend_actor_1v7. The acq slope is NULL for the roughly 7% of items with no 7d acquirer, which is exactly the cold tail of my lens.",
+  "kill_test": "Difference of differences: gain among items active on 4 or more of 7 days with 20-2000 users, versus items active on 2 or fewer days. A gain concentrated in the low-day items means it is a freshness proxy, not momentum.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "Zero-filled early days (+0.5 smoothing) give items that launched mid-window a large positive slope with high R2. For cold items the column re-encodes age and duplicates i_is_fresh_item_7d.",
+  "kill_test": "Difference of differences: gain among items first seen within 5 days, versus items older than 7 days. A gain only in the fresh stratum confirms the rival.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_tr_view_slope_7d has R2 0.742 with i_trend_view_1v7, and f_x_c_tr_acq_slope_7d has R2 0.788 with i_trend_actor_1v7. Smoothing the existing 1v7 trend is the same mechanism. Only f_x_c_tr_view_r2_7d (R2 0.284) is new. Zero-filled early days make the slope a freshness flag (the rival, i_is_fresh_item_7d).",
+  "kill_test": "Difference of differences: card minus twin among mid-popularity items active on at least 4 days, minus the same among items seen on 1-2 days. The mechanism is refuted if the gain concentrates in items first seen within 5 days.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. Product-level, and d runs from 1 to 7 days before the midnight anchor, so the anchor day is excluded. The global per-day denominators come from the same past window. The twin permutes days by hash(product_id, d).",
+  "kill_test": "staleness: the same query at t-24h; if the slope keeps its gain, it does not capture current momentum.",
+  "by": "auditor"
+ }
+]
+--- G2-6
+card: {
+ "id": "G2-6",
+ "name": "sibling_succession",
+ "mechanism": "Within one category and brand, products succeed each other: a new model or colour version takes demand from its predecessors. The existing brand and category share columns are static over 7 days. This family measures, within each (category, brand) sibling group, how the item's share of the group's viewers and acquirers moved in the last 3 days versus 14 days. It also gives the item's age percentile among its siblings (newest = 1). Both are within-group shares, so global traffic and cart-logging shifts cancel. A young sibling gaining group share is the one new buyers pick next.",
+ "sign": "+",
+ "stratum": "Branded candidates in (category, brand) groups with at least 5 active items. Predicate: (category_id, brand) IN (SELECT category_id, brand FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND brand IS NOT NULL GROUP BY category_id, brand HAVING count(DISTINCT product_id) >= 5)",
+ "null_stratum": "Unbranded items, and single-item groups, which get NULL or degenerate values. Predicate: brand IS NULL",
+ "sql": "WITH w AS (SELECT product_id, category_id, brand, user_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND brand IS NOT NULL AND category_id IS NOT NULL), ip AS (SELECT product_id, max(category_id) AS cat, max(brand) AS br, min(event_time) AS first_ts, count(DISTINCT user_id) FILTER (WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY) AS v3, count(DISTINCT user_id) AS v14, count(DISTINCT user_id) FILTER (WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY) AS a3, count(DISTINCT user_id) FILTER (WHERE event_type IN ('cart','purchase')) AS a14 FROM w GROUP BY product_id), grp AS (SELECT cat, br, count(*) AS n, sum(v3) AS sv3, sum(v14) AS sv14, sum(a3) AS sa3, sum(a14) AS sa14 FROM ip GROUP BY cat, br HAVING count(*) >= 2) SELECT ip.product_id, ln((ip.v3 + 0.5) / (grp.sv3 + 0.5 * grp.n)) - ln((ip.v14 + 0.5) / (grp.sv14 + 0.5 * grp.n)) AS f_x_c2_sib_view_share_3v14, ln((ip.a3 + 0.5) / (grp.sa3 + 0.5 * grp.n)) - ln((ip.a14 + 0.5) / (grp.sa14 + 0.5 * grp.n)) AS f_x_c2_sib_acq_share_3v14, percent_rank() OVER (PARTITION BY ip.cat, ip.br ORDER BY ip.first_ts, ip.product_id) AS f_x_c2_sib_age_pct FROM ip JOIN grp ON grp.cat = ip.cat AND grp.br = ip.br",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH w AS (SELECT product_id, category_id, brand, user_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND brand IS NOT NULL AND category_id IS NOT NULL), ip0 AS (SELECT product_id, max(category_id) AS cat, max(brand) AS br, min(event_time) AS first_ts, count(DISTINCT user_id) FILTER (WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY) AS v3, count(DISTINCT user_id) AS v14, count(DISTINCT user_id) FILTER (WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY) AS a3, count(DISTINCT user_id) FILTER (WHERE event_type IN ('cart','purchase')) AS a14 FROM w GROUP BY product_id), nb AS (SELECT cat, count(DISTINCT br) AS nbr FROM ip0 GROUP BY cat), ip AS (SELECT ip0.product_id, ip0.cat, ip0.first_ts, ip0.v3, ip0.v14, ip0.a3, ip0.a14, ntile(10) OVER (PARTITION BY ip0.cat ORDER BY ip0.v14, ip0.product_id) AS dc, hash(ip0.product_id) % CAST(ceil(nb.nbr / 10.0) AS UBIGINT) AS hb FROM ip0 JOIN nb ON nb.cat = ip0.cat), grp AS (SELECT cat, dc, hb, count(*) AS n, sum(v3) AS sv3, sum(v14) AS sv14, sum(a3) AS sa3, sum(a14) AS sa14 FROM ip GROUP BY cat, dc, hb HAVING count(*) >= 2) SELECT ip.product_id, ln((ip.v3 + 0.5) / (grp.sv3 + 0.5 * grp.n)) - ln((ip.v14 + 0.5) / (grp.sv14 + 0.5 * grp.n)) AS f_x_c2_sib_view_share_3v14_tw, ln((ip.a3 + 0.5) / (grp.sa3 + 0.5 * grp.n)) - ln((ip.a14 + 0.5) / (grp.sa14 + 0.5 * grp.n)) AS f_x_c2_sib_acq_share_3v14_tw, percent_rank() OVER (PARTITION BY ip.cat, ip.dc, ip.hb ORDER BY ip.first_ts, ip.product_id) AS f_x_c2_sib_age_pct_tw FROM ip JOIN grp ON grp.cat = ip.cat AND grp.dc = ip.dc AND grp.hb = ip.hb"
+ },
+ "rival": {
+  "explanation": "The share-trend columns are just the item's own 3d-vs-14d trend, because group totals are nearly flat. The gain would then come from momentum that the 1v7 trend columns already carry, and the sibling structure would be irrelevant.",
+  "stratum": "Large sibling groups, where group totals are stable: (category_id, brand) IN (SELECT category_id, brand FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND brand IS NOT NULL GROUP BY category_id, brand HAVING count(DISTINCT product_id) >= 30)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_sib_view_share_3v14", "f_x_c2_sib_acq_share_3v14", "f_x_c2_sib_age_pct"], "seconds_median": 0.522, "coverage": {"f_x_c2_sib_view_share_3v14": 0.906, "f_x_c2_sib_acq_share_3v14": 0.906, "f_x_c2_sib_age_pct": 0.906}, "max_abs_rho": {"f_x_c2_sib_view_share_3v14": 0.538, "f_x_c2_sib_acq_share_3v14": 0.408, "f_x_c2_sib_age_pct": 0.4}, "nearest": {"f_x_c2_sib_view_share_3v14": "i_trend_view_1v7", "f_x_c2_sib_acq_share_3v14": "i_trend_actor_1v7", "f_x_c2_sib_age_pct": "f_x_i_last_vs_first_7d"}, "r2": {"f_x_c2_sib_view_share_3v14": 0.634, "f_x_c2_sib_acq_share_3v14": 0.698, "f_x_c2_sib_age_pct": 0.391}, "non_null_share_by_day": {"f_x_c2_sib_view_share_3v14": {"probe_day_1": 0.909, "probe_day_2": 0.901, "probe_day_3": 0.909}, "f_x_c2_sib_acq_share_3v14": {"probe_day_1": 0.909, "probe_day_2": 0.901, "probe_day_3": 0.909}, "f_x_c2_sib_age_pct": {"probe_day_1": 0.909, "probe_day_2": 0.901, "probe_day_3": 0.909}}, "parity_ok": true}, "twin": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_sib_view_share_3v14_tw", "f_x_c2_sib_acq_share_3v14_tw", "f_x_c2_sib_age_pct_tw"], "seconds_median": 0.52, "coverage": {"f_x_c2_sib_view_share_3v14_tw": 0.913, "f_x_c2_sib_acq_share_3v14_tw": 0.913, "f_x_c2_sib_age_pct_tw": 0.913}, "max_abs_rho": {"f_x_c2_sib_view_share_3v14_tw": 0.518, "f_x_c2_sib_acq_share_3v14_tw": 0.409, "f_x_c2_sib_age_pct_tw": 0.302}, "nearest": {"f_x_c2_sib_view_share_3v14_tw": "i_trend_view_1v7", "f_x_c2_sib_acq_share_3v14_tw": "i_trend_actor_1v7", "f_x_c2_sib_age_pct_tw": "f_x_i_acq_rank_in_cat_log_7d"}, "r2": {"f_x_c2_sib_view_share_3v14_tw": 0.623, "f_x_c2_sib_acq_share_3v14_tw": 0.707, "f_x_c2_sib_age_pct_tw": 0.276}, "non_null_share_by_day": {"f_x_c2_sib_view_share_3v14_tw": {"probe_day_1": 0.919, "probe_day_2": 0.907, "probe_day_3": 0.914}, "f_x_c2_sib_acq_share_3v14_tw": {"probe_day_1": 0.919, "probe_day_2": 0.907, "probe_day_3": 0.914}, "f_x_c2_sib_age_pct_tw": {"probe_day_1": 0.919, "probe_day_2": 0.907, "probe_day_3": 0.914}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The neighbour_shuffle twin regroups items into random pseudo-groups, yet keeps the same R2 (0.623 vs 0.634 to i_trend_view_1v7; 0.707 vs 0.698 to i_trend_actor_1v7). So the share trend is the item's own 3v14 momentum, and sibling structure contributes nothing measurable. Succession is a directional transition (viewers of the old sibling move to the new one), which a share delta does not express.",
+  "kill_test": "Twin as a factor: if the card's columns give no gain over the neighbour_shuffle twin, the sibling grouping is refuted and the rival (plain momentum) stands.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "f_x_c_sib_age_pct uses first_ts within the 14d window. Old items all tie near the window start, so the column mostly ranks low-traffic items whose first event in the window is late by chance (rho 0.4 to f_x_i_last_vs_first_7d). A graph version is a sibling->sibling view transition lift within (category, brand): the share of the old sibling's viewers whose next same-group view is this item. That would test succession directly.",
+  "kill_test": "Difference of differences: restrict to items with >=30 14d viewers (stable first_ts) versus fewer. If age_pct gain concentrates in the sparse stratum, it reflects sampling noise, not succession.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The twin regroups items by popularity decile and hash instead of (category, brand), and keeps nearly the same fit: R2 0.623/0.707 vs the card's 0.634/0.698 to i_trend_view_1v7 and i_trend_actor_1v7. The sibling structure is therefore irrelevant and the columns are the item's own 3v14 trend.",
+  "kill_test": "Twin as a factor: an equal gain from the twin among large brand groups refutes sibling succession.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_sib_acq_share_3v14 has R2 0.698 to i_trend_actor_1v7. The family also drops brand IS NULL items, which are the group where the ub_ columns are already NULL and the base is weakest. It leaves those items uncovered.",
+  "kill_test": "Difference of differences: gain among branded items in groups of 5 or more, versus the null stratum where brand is NULL. If there is no excess over the trend columns, the duplicate is confirmed.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "The share-trend columns have R2 0.634 with i_trend_view_1v7 and 0.698 with i_trend_actor_1v7. The twin with random groups is just as close (R2 0.623 and 0.707), so the sibling structure contributes nothing measurable. It is the item's own trend, the card's rival. f_x_c_sib_age_pct uses the first event in the 14d window, which is censored and ties for old items. The signature overlaps r3p4 (brand_cat_price_sibling) and i_brand_share_in_cat_7d.",
+  "kill_test": "Twin as factor: the mechanism is refuted if the twin's gain equals the card's in branded groups of at least 5 items, or if the gain stays the same in large groups (at least 30 items) where totals are flat.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. Product-level and reads [t-14d, t). percent_rank is ordered by first_ts, then product_id, so it is deterministic. Nothing depends on active_users.",
+  "kill_test": "twin as a factor: the twin (popularity-decile pseudo-siblings) has nearly the same nearest-column R2 (0.62/0.71). If it gives the same gain, brand-category siblings are not the mechanism.",
+  "by": "auditor"
+ }
+]
+--- G2-7
+card: {
+ "id": "G2-7",
+ "name": "category_news_since_visit",
+ "mechanism": "A returning user acts on what changed in a category since they last looked at it: new arrivals and items whose attention surged while they were away. They have not seen these items, which matches the never-touched target. For the user's 3 most recently viewed categories and the top 40 items of each by 7-day actors, this family returns two pair-level columns. The first is the signed log hours between the item's first appearance in the window and the user's last view in that category (positive means the item appeared after the user's last visit). The second is the item's share of category viewers since the user's last visit day versus its 14-day share. This is a trend personalised to each user's absence. It is view-based and therefore robust to the cart shift.",
+ "sign": "+",
+ "stratum": "Users whose last view in one of their top categories was 2 or more days ago, i.e. returning after an absence. Predicate (user x category): (user_id, category_id) IN (SELECT user_id, category_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND event_type = 'view' GROUP BY user_id, category_id HAVING max(event_time) < TIMESTAMP '{t}' - INTERVAL 2 DAY)",
+ "null_stratum": "Users who viewed the category in the last 12 hours, for whom 'since visit' collapses to yesterday's share and nothing is new. Predicate: (user_id, category_id) IN (SELECT user_id, category_id FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 12 HOUR)",
+ "sql": "WITH w AS (SELECT user_id, product_id, category_id, event_type, event_time, date_diff('day', CAST(event_time AS DATE), CAST(TIMESTAMP '{t}' AS DATE)) AS d FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND category_id IS NOT NULL), uc AS (SELECT user_id, category_id, max(event_time) AS last_ts FROM w WHERE event_type = 'view' AND user_id IN (SELECT user_id FROM active_users) GROUP BY user_id, category_id), uc3 AS (SELECT user_id, category_id, last_ts, date_diff('day', CAST(last_ts AS DATE), CAST(TIMESTAMP '{t}' AS DATE)) AS dl FROM (SELECT user_id, category_id, last_ts, row_number() OVER (PARTITION BY user_id ORDER BY last_ts DESC, category_id) AS rn FROM uc) WHERE rn <= 3), cats AS (SELECT DISTINCT category_id FROM uc3), it AS (SELECT product_id, max(category_id) AS category_id, min(event_time) AS first_ts, count(DISTINCT user_id) FILTER (WHERE d <= 7) AS u7 FROM w WHERE category_id IN (SELECT category_id FROM cats) GROUP BY product_id), top AS (SELECT product_id, category_id, first_ts FROM (SELECT product_id, category_id, first_ts, row_number() OVER (PARTITION BY category_id ORDER BY u7 DESC, product_id) AS rn FROM it) WHERE rn <= 40), days AS (SELECT range AS d FROM range(1, 15)), idd AS (SELECT w.product_id, w.d, count(DISTINCT w.user_id) AS nu FROM w JOIN top ON top.product_id = w.product_id GROUP BY w.product_id, w.d), cdd AS (SELECT category_id, d, count(DISTINCT user_id) AS nu FROM w WHERE category_id IN (SELECT category_id FROM cats) GROUP BY category_id, d), icum AS (SELECT top.product_id, days.d, sum(coalesce(idd.nu, 0)) OVER (PARTITION BY top.product_id ORDER BY days.d) AS cnu FROM top CROSS JOIN days LEFT JOIN idd ON idd.product_id = top.product_id AND idd.d = days.d), ccum AS (SELECT cats.category_id, days.d, sum(coalesce(cdd.nu, 0)) OVER (PARTITION BY cats.category_id ORDER BY days.d) AS cnu FROM cats CROSS JOIN days LEFT JOIN cdd ON cdd.category_id = cats.category_id AND cdd.d = days.d) SELECT uc3.user_id, top.product_id, sign(date_diff('minute', uc3.last_ts, top.first_ts)) * ln(1 + abs(date_diff('minute', uc3.last_ts, top.first_ts)) / 60.0) AS f_x_c2_nv_item_after_visit_h, ln((ia.cnu + 0.5) / (ca.cnu + 1.0)) - ln((i14.cnu + 0.5) / (c14.cnu + 1.0)) AS f_x_c2_nv_share_since_visit_lift FROM uc3 JOIN top ON top.category_id = uc3.category_id JOIN icum ia ON ia.product_id = top.product_id AND ia.d = uc3.dl JOIN ccum ca ON ca.category_id = uc3.category_id AND ca.d = uc3.dl JOIN icum i14 ON i14.product_id = top.product_id AND i14.d = 14 JOIN ccum c14 ON c14.category_id = uc3.category_id AND c14.d = 14",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH w AS (SELECT user_id, product_id, category_id, event_type, event_time, date_diff('day', CAST(event_time AS DATE), CAST(TIMESTAMP '{t}' AS DATE)) AS d FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND category_id IS NOT NULL), uc AS (SELECT user_id, category_id, max(event_time) AS last_ts FROM w WHERE event_type = 'view' AND user_id IN (SELECT user_id FROM active_users) GROUP BY user_id, category_id), uc3r AS (SELECT user_id, category_id, TIMESTAMP '{t}' - to_minutes(CAST(1 + hash(user_id, category_id) % 20159 AS BIGINT)) AS last_ts FROM (SELECT user_id, category_id, last_ts, row_number() OVER (PARTITION BY user_id ORDER BY last_ts DESC, category_id) AS rn FROM uc) WHERE rn <= 3), uc3 AS (SELECT user_id, category_id, last_ts, date_diff('day', CAST(last_ts AS DATE), CAST(TIMESTAMP '{t}' AS DATE)) AS dl FROM uc3r), cats AS (SELECT DISTINCT category_id FROM uc3), it AS (SELECT product_id, max(category_id) AS category_id, min(event_time) AS first_ts, count(DISTINCT user_id) FILTER (WHERE d <= 7) AS u7 FROM w WHERE category_id IN (SELECT category_id FROM cats) GROUP BY product_id), top AS (SELECT product_id, category_id, first_ts FROM (SELECT product_id, category_id, first_ts, row_number() OVER (PARTITION BY category_id ORDER BY u7 DESC, product_id) AS rn FROM it) WHERE rn <= 40), days AS (SELECT range AS d FROM range(1, 15)), idd AS (SELECT w.product_id, w.d, count(DISTINCT w.user_id) AS nu FROM w JOIN top ON top.product_id = w.product_id GROUP BY w.product_id, w.d), cdd AS (SELECT category_id, d, count(DISTINCT user_id) AS nu FROM w WHERE category_id IN (SELECT category_id FROM cats) GROUP BY category_id, d), icum AS (SELECT top.product_id, days.d, sum(coalesce(idd.nu, 0)) OVER (PARTITION BY top.product_id ORDER BY days.d) AS cnu FROM top CROSS JOIN days LEFT JOIN idd ON idd.product_id = top.product_id AND idd.d = days.d), ccum AS (SELECT cats.category_id, days.d, sum(coalesce(cdd.nu, 0)) OVER (PARTITION BY cats.category_id ORDER BY days.d) AS cnu FROM cats CROSS JOIN days LEFT JOIN cdd ON cdd.category_id = cats.category_id AND cdd.d = days.d) SELECT uc3.user_id, top.product_id, sign(date_diff('minute', uc3.last_ts, top.first_ts)) * ln(1 + abs(date_diff('minute', uc3.last_ts, top.first_ts)) / 60.0) AS f_x_c2_nv_item_after_visit_h_tw, ln((ia.cnu + 0.5) / (ca.cnu + 1.0)) - ln((i14.cnu + 0.5) / (c14.cnu + 1.0)) AS f_x_c2_nv_share_since_visit_lift_tw FROM uc3 JOIN top ON top.category_id = uc3.category_id JOIN icum ia ON ia.product_id = top.product_id AND ia.d = uc3.dl JOIN ccum ca ON ca.category_id = uc3.category_id AND ca.d = uc3.dl JOIN icum i14 ON i14.product_id = top.product_id AND i14.d = 14 JOIN ccum c14 ON c14.category_id = uc3.category_id AND c14.d = 14"
+ },
+ "rival": {
+  "explanation": "Most active users visited their latest categories yesterday, so the lift reduces to the item's 1-day-vs-14-day within-category share trend. That is an item-level momentum signal, and personalisation adds nothing.",
+  "stratum": "Users whose 3 latest categories were all viewed within the last 24 hours: user_id IN (SELECT user_id FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 1 DAY GROUP BY user_id HAVING count(DISTINCT category_id) >= 3)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c2_nv_item_after_visit_h", "f_x_c2_nv_share_since_visit_lift"], "seconds_median": 8.37, "coverage": {"f_x_c2_nv_item_after_visit_h": 0.223, "f_x_c2_nv_share_since_visit_lift": 0.223}, "batch_invariant": false, "max_abs_rho": {"f_x_c2_nv_item_after_visit_h": 0.915, "f_x_c2_nv_share_since_visit_lift": 0.683}, "nearest": {"f_x_c2_nv_item_after_visit_h": "uc_last_h", "f_x_c2_nv_share_since_visit_lift": "i_trend_view_1v7"}, "r2": {"f_x_c2_nv_item_after_visit_h": 0.891, "f_x_c2_nv_share_since_visit_lift": 0.721}, "non_null_share_by_day": {"f_x_c2_nv_item_after_visit_h": {"probe_day_1": 0.232, "probe_day_2": 0.217, "probe_day_3": 0.22}, "f_x_c2_nv_share_since_visit_lift": {"probe_day_1": 0.232, "probe_day_2": 0.217, "probe_day_3": 0.22}}, "parity_ok": true}, "twin": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c2_nv_item_after_visit_h_tw", "f_x_c2_nv_share_since_visit_lift_tw"], "seconds_median": 7.99, "coverage": {"f_x_c2_nv_item_after_visit_h_tw": 0.223, "f_x_c2_nv_share_since_visit_lift_tw": 0.223}, "batch_invariant": false, "max_abs_rho": {"f_x_c2_nv_item_after_visit_h_tw": 0.27, "f_x_c2_nv_share_since_visit_lift_tw": 0.33}, "nearest": {"f_x_c2_nv_item_after_visit_h_tw": "f_x_uc_cp_complement_lift_max", "f_x_c2_nv_share_since_visit_lift_tw": "i_trend_view_1v7"}, "r2": {"f_x_c2_nv_item_after_visit_h_tw": 0.109, "f_x_c2_nv_share_since_visit_lift_tw": 0.508}, "non_null_share_by_day": {"f_x_c2_nv_item_after_visit_h_tw": {"probe_day_1": 0.232, "probe_day_2": 0.217, "probe_day_3": 0.22}, "f_x_c2_nv_share_since_visit_lift_tw": {"probe_day_1": 0.232, "probe_day_2": 0.217, "probe_day_3": 0.22}}, "parity_ok": true}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["card machine test red: batch: the answer depends on the batch of active_users ({\"probe_day_2\": \"keys differ: 5 candidate keys are answered in one run only\", \"probe_day_3\": \"keys differ: 9 candidate keys are answered in one run only\"})", "twin machine test red: batch: the answer depends on the batch of active_users ({\"probe_day_2\": \"keys differ: 5 candidate keys are answered in one run only\", \"probe_day_3\": \"keys differ: 9 candidate keys are answered in one run only\"})"]}, "machine_red": ["batch: the answer depends on the batch of active_users ({\"probe_day_2\": \"keys differ: 5 candidate keys are answered in one run only\", \"probe_day_3\": \"keys differ: 9 candidate keys are answered in one run only\"})"]}
+critiques: [
+ {
+  "type": "LEAK",
+  "text": "batch_invariant is false (5 and 9 keys differ on probe days 2 and 3). The clause at fault is `it AS (... max(category_id) ... FROM w WHERE category_id IN (SELECT category_id FROM cats) GROUP BY product_id)`. cats is the union of the categories of the batch's users, so a product's assigned category and its top-40 membership depend on which other users are in active_users.",
+  "kill_test": "Key level: compute `it` and `top` over all categories (product-level, batch-free), then join to uc3. If the key mismatch disappears, the clause is confirmed.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_nv_item_after_visit_h has rho 0.915 and R2 0.891 to uc_last_h. Item first_ts within 14d is nearly constant for top-40 items, so the column is the user's category recency. f_x_c_nv_share_since_visit_lift has R2 0.721 to i_trend_view_1v7, which is the card's own rival.",
+  "kill_test": "Difference of differences: compare the stratum (last category view >= 2 days ago) against the null stratum (viewed in last 12h). If share_since_visit_lift gains equally in both, personalisation to absence is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "LEAK",
+  "text": "This card fails batch invariance (5 and 9 keys differ). The cause is that it takes max(category_id) per product only over categories in `cats`, which are derived from the active_users batch. A multi-category product's category, and therefore its top-40 membership and values, depends on the other users in the batch.",
+  "kill_test": "Key level: compute `it` over all categories, without the cats filter, and rerun the split-half check. If parity holds and the values change for multi-category products, the batch leak is confirmed.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_nv_item_after_visit_h has rho 0.915 and R2 0.891 to uc_last_h, and the share lift has R2 0.721 to i_trend_view_1v7. The card also contradicts its own lens: it keeps only the top 40 items by 7-day actors per category, so the fresh 'new arrivals' the mechanism targets are mostly cut.",
+  "kill_test": "Difference of differences: gain in user-category pairs last viewed 2 or more days ago, versus pairs viewed in the last 12h. No excess in the absence stratum refutes the personalisation.",
+  "by": "critic"
+ },
+ {
+  "type": "LEAK",
+  "text": "The machine test is red on batch invariance (keys differ on probe days 2-3). The CTE it filters w by category_id IN cats, which are the active users' categories, and then takes max(category_id). Products with several category ids therefore change category and top-40 membership with the batch. f_x_c_nv_item_after_visit_h also has R2 0.891 (rho 0.915) with uc_last_h (DUPLICATE).",
+  "kill_test": "Difference of differences, after computing it over all categories: gain where the user was absent from the category for at least 2 days, minus gain where the category was viewed within 12h. The mechanism is refuted if the share-lift gain is the same in the rival stratum (3 categories all viewed within 24h).",
+  "by": "skeptic"
+ },
+ {
+  "type": "LEAK",
+  "text": "Veto: the batch machine test is red for card and twin (5-9 keys answered in one run only). Clause: it = ... FROM w WHERE category_id IN (SELECT category_id FROM cats) GROUP BY product_id with max(category_id). cats comes from the active users' recent categories, so a multi-category product's assigned category, and therefore the top-40 per category, depends on which other users are in the batch. Compute it over all categories, then filter top by cats. Also 8.37 s median.",
+  "kill_test": "key level: after computing 'it' over all categories, the batch test must go green. If the gain changes materially, part of it came from batch-dependent top sets.",
+  "by": "auditor"
+ }
+]
+--- G2-8
+card: {
+ "id": "G2-8",
+ "name": "substitute_stockout_spillover",
+ "mechanism": "When a category's established sellers suddenly vanish (stock-out or delisting), their demand spills over to the remaining items of the category the next day. r1p5 flags the stalled item itself, but nothing tells the surviving candidates that a leader in their category went dark. This family defines a stalled item as one with at least 21 distinct viewers over 7 days (3 or more a day on average) and none in the last 24 hours. It returns the share of the category's 7-day acquirers and of its 7-day viewers held by stalled items. These are within-category ratios, so the cart-logging level cancels. Live candidates in categories with a high stalled share should gain new acquirers.",
+ "sign": "+",
+ "stratum": "Candidates in categories where a previously active item (21 or more 7-day viewers) had no event in the last 24 hours. Predicate: category_id IN (SELECT category_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY category_id, product_id HAVING count(DISTINCT user_id) >= 21 AND max(event_time) < TIMESTAMP '{t}' - INTERVAL 1 DAY)",
+ "null_stratum": "Categories where every item with 21 or more 7-day viewers was also active in the last 24 hours (stalled share is zero). Predicate: NOT (category_id IN the stratum subquery above)",
+ "sql": "WITH w AS (SELECT product_id, category_id, user_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND category_id IS NOT NULL), ip AS (SELECT product_id, max(category_id) AS cat, count(DISTINCT user_id) AS v7, count(DISTINCT user_id) FILTER (WHERE event_type IN ('cart','purchase')) AS a7, count(DISTINCT user_id) FILTER (WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 1 DAY) AS v1 FROM w GROUP BY product_id), cs AS (SELECT cat, sum(a7) AS a, sum(v7) AS v, sum(CASE WHEN v7 >= 21 AND v1 = 0 THEN a7 ELSE 0 END) AS sa, sum(CASE WHEN v7 >= 21 AND v1 = 0 THEN v7 ELSE 0 END) AS sv FROM ip GROUP BY cat) SELECT ip.product_id, cs.sa / (cs.a + 1.0) AS f_x_c2_so_cat_stalled_acq_share, cs.sv / (cs.v + 1.0) AS f_x_c2_so_cat_stalled_view_share FROM ip JOIN cs ON cs.cat = ip.cat",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH w AS (SELECT product_id, category_id, user_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND category_id IS NOT NULL), ip AS (SELECT product_id, max(category_id) AS cat, count(DISTINCT user_id) AS v7, count(DISTINCT user_id) FILTER (WHERE event_type IN ('cart','purchase')) AS a7, count(DISTINCT user_id) FILTER (WHERE date_diff('day', CAST(event_time AS DATE), CAST(TIMESTAMP '{t}' AS DATE)) = 2 + hash(category_id) % 6) AS v1 FROM w GROUP BY product_id), cs AS (SELECT cat, sum(a7) AS a, sum(v7) AS v, sum(CASE WHEN v7 >= 21 AND v1 = 0 THEN a7 ELSE 0 END) AS sa, sum(CASE WHEN v7 >= 21 AND v1 = 0 THEN v7 ELSE 0 END) AS sv FROM ip GROUP BY cat) SELECT ip.product_id, cs.sa / (cs.a + 1.0) AS f_x_c2_so_cat_stalled_acq_share_tw, cs.sv / (cs.v + 1.0) AS f_x_c2_so_cat_stalled_view_share_tw FROM ip JOIN cs ON cs.cat = ip.cat"
+ },
+ "rival": {
+  "explanation": "A high stalled share mainly marks categories in seasonal decline or with fast catalogue turnover (many items rotating out). These categories convert worse overall, so any gain would come from down-weighting them, not from spillover to substitutes.",
+  "stratum": "Categories whose 1-day viewer count fell below 70% of their 7-day daily average: category_id IN (SELECT category_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY category_id HAVING count(DISTINCT user_id) FILTER (WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 1 DAY) < 0.7 * count(DISTINCT user_id) / 7.0)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_so_cat_stalled_acq_share", "f_x_c2_so_cat_stalled_view_share"], "seconds_median": 0.224, "coverage": {"f_x_c2_so_cat_stalled_acq_share": 0.999, "f_x_c2_so_cat_stalled_view_share": 0.999}, "max_abs_rho": {"f_x_c2_so_cat_stalled_acq_share": 0.475, "f_x_c2_so_cat_stalled_view_share": 0.62}, "nearest": {"f_x_c2_so_cat_stalled_acq_share": "f_x_dfs_b_buy_per_view_7d", "f_x_c2_so_cat_stalled_view_share": "f_x_dfs_c_buy_per_view_7d"}, "r2": {"f_x_c2_so_cat_stalled_acq_share": 0.532, "f_x_c2_so_cat_stalled_view_share": 0.622}, "non_null_share_by_day": {"f_x_c2_so_cat_stalled_acq_share": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}, "f_x_c2_so_cat_stalled_view_share": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}}, "parity_ok": true}, "twin": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c2_so_cat_stalled_acq_share_tw", "f_x_c2_so_cat_stalled_view_share_tw"], "seconds_median": 0.243, "coverage": {"f_x_c2_so_cat_stalled_acq_share_tw": 0.999, "f_x_c2_so_cat_stalled_view_share_tw": 0.999}, "max_abs_rho": {"f_x_c2_so_cat_stalled_acq_share_tw": 0.403, "f_x_c2_so_cat_stalled_view_share_tw": 0.501}, "nearest": {"f_x_c2_so_cat_stalled_acq_share_tw": "f_x_dfs_c_cart_per_view_7d", "f_x_c2_so_cat_stalled_view_share_tw": "f_x_dfs_c_cart_per_view_7d"}, "r2": {"f_x_c2_so_cat_stalled_acq_share_tw": 0.538, "f_x_c2_so_cat_stalled_view_share_tw": 0.561}, "non_null_share_by_day": {"f_x_c2_so_cat_stalled_acq_share_tw": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}, "f_x_c2_so_cat_stalled_view_share_tw": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_so_cat_stalled_view_share has R2 0.622 to f_x_dfs_c_buy_per_view_7d, and the acq share has R2 0.532 to f_x_dfs_b_buy_per_view_7d. The time-shuffle twin keeps R2 0.538/0.561 to f_x_dfs_c_cart_per_view_7d. So most of the column is a category identity / category conversion level that the twin does not destroy.",
+  "kill_test": "Twin as a factor: add the time_shuffle twin alongside the card. If the card's columns add no gain over the twin, the stalled-leader timing carries nothing.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "Substitute spillover should flow along item-item co-view edges from the stalled item to its actual substitutes. It should not be spread uniformly over the whole category. Broadcasting one category scalar to all ~30 candidates of the category cannot rank substitutes inside the category, which is what NDCG needs. The rival (category decline) explains a uniform category shift equally well.",
+  "kill_test": "Difference of differences: within stratum categories, compare the gain for candidates that are 7d co-view neighbours (session co-view cosine > 0) of a stalled item against non-neighbour items of the same category. If the uplift is equal, spillover is refuted and the rival (category decline) stands.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The twin replaces 'no viewers in the last 24h' with a random earlier day and keeps the same structure: R2 0.538/0.561 vs 0.532/0.622, with the nearest column still category cart_per_view. The columns are constant within a category and act as a category conversion identifier. The rule v7 >= 21 with absolute counts also moves with daily traffic.",
+  "kill_test": "Staleness: the same query at t - 24h. If it carries the same gain, the next-day spillover mechanism is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "A high stalled share marks declining categories or categories with high catalogue turnover. Any gain may come from down-weighting those categories. The values are also identical for every candidate in a category, so they cannot rank within the user's main category, which is where the base is weakest.",
+  "kill_test": "Difference of differences: gain in categories whose 1d viewers fell below 70% of the 7d daily average, versus stable categories. A gain only in the declining stratum supports the rival.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "The stalled shares have R2 0.532 and 0.622 with f_x_dfs_b_buy_per_view_7d and f_x_dfs_c_buy_per_view_7d. The twin, using a random day per category, reaches about the same R2 (0.538 and 0.561), so the last-24h timing adds little beyond a category property. For an item averaging 3 viewers a day, a silent day happens about 5% of the time by Poisson chance, so 'stalled' is largely noise. It overlaps r1p5 (cp staleness) moved to the category level.",
+  "kill_test": "Staleness: run the same query at t-24h. The mechanism is refuted if the lagged version predicts as well, or if the gain sits in the rival stratum (category 1d viewers below 70% of the 7d average) and not in the stalled-item stratum.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. Product-level, [t-7d, t); v1 is [t-1d, t). No active_users dependence. The twin's day choice uses hash(category_id).",
+  "kill_test": "staleness: compute at t-24h; if the stalled-share gain is unchanged, it is only a stable category trait.",
+  "by": "auditor"
+ }
+]
+
+Answer with a JSON list only:
+[{"card": "G2-1", "action": "revise", "new": {"name": "...", "mechanism": "...", ...}},
+ {"card": "...", "action": "withdraw", "reason": "..."}]

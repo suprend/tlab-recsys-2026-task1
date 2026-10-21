@@ -1,0 +1,131 @@
+You are a feature engineer for a ranking model of new products. Reply with JSON only.
+
+Task. REES46 multi-category online store, events from 2020-01-01 on. Every day at the anchor
+t = 00:00 UTC we rank products for the users active in [t-48h, t) who have at least one target. A target is
+a product whose FIRST cart or purchase by the user happens in [t, t+24h) and that the user never touched
+(no event of any type) before t. About 280 candidates per user come from six sources: the global top by
+distinct cart/purchase users over 7 days; the top products of the user's 3 heaviest categories and of the
+2 heaviest brands; session co-view neighbours of the user's 10 latest views; aggregated co-view scores and
+view->acquisition transition scores over the user's 20 latest views. Every product the user touched before
+t is excluded, so the (user, candidate) pair itself has no history: user signals work only through the
+candidate's category, brand, price, popularity and item-item links to what the user did. A CatBoost model
+scores each (user, product) pair; quality is a position-discounted gain over the top 20 products of each
+user. Training anchors are 2020-01-15..2020-02-07; the earliest anchors see only two weeks of history.
+
+The level of carts relative to views and purchases may change between days; prefer normalised forms
+(shares, ratios, lifts, ranks, logs) and treat cart and purchase together. The base set reads a 14-day
+window [t-14d, t).
+
+You can read two DuckDB tables:
+  hist(event_time TIMESTAMP, event_type VARCHAR -- 'view'|'cart'|'purchase',
+       product_id BIGINT, category_id BIGINT, category_code VARCHAR -- e.g. 'electronics.smartphone', often NULL,
+       brand VARCHAR -- often NULL, price DECIMAL(12,2), user_id BIGINT, user_session VARCHAR)
+       -- all events strictly before t, starting 2020-01-01; tens of millions of rows, mostly views
+  active_users(user_id) -- users with any event in the last 48 hours (a superset of the ranked users)
+Write the anchor as TIMESTAMP '{t}' (literally, with the braces), e.g.
+  event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY
+
+Columns already in the model. Base set by prefix (s_ candidate source, u_ user, i_ item, uc_
+candidate's category in the user's history, ub_ brand, up_ price vs user, ui_ popularity vs user, cf_
+item-item from recent views), then the tables of the automation (f_x_ columns):
+  base:
+    s_: s_pop_rank, s_cat_rank, s_brand_rank, s_n_sources, s_cvagg_rank, s_tr_rank
+    u_: u_views_7d_log, u_top_category_share_7d, u_hours_since_last_cp, u_new_item_cp_rate_14d, u_log_price_med_view_7d, u_pop_taste_14d, u_hours_since_last_view, u_views_per_session_7d, u_items_per_view_7d, u_ls_outcome, u_ls_views_log, u_active_days_7d, u_price_tier, u_first_seen_days_cap7, u_active_same_weekday_last_week, u_brand_hhi_14d, u_brand_explore_rate_14d
+    i_: i_actor_share_7d, i_trend_actor_1v7, i_trend_view_1v7, i_acq_share_lift_14d, i_log_price, i_price_pct_in_cat, i_cat_actor_share_7d, i_buy_lift_14d, i_acq_rate_lift_14d, i_cart_lift_7d, i_cat_buy_lift_14d, i_brand_actor_share_7d, i_brand_share_in_cat_7d, i_price_change_7d, i_price_from_max_14d, i_is_fresh_item_7d, i_cat_l1, i_hours_since_last_view, i_cat_trend_view_1v7, i_acq_trend_1v7, i_repeat_buyer_share_14d, i_cat_multi_buy_14d
+    uc_: uc_share_hl1d, uc_last_h, uc_distinct_viewed_7d, uc_first_pos, uc_ls_items, uc_last_cp_h, uc_rank_in_user, uc_active_days_14d, uc_last_purchase_h, uc_decay20, uc_ls_cp, uc_l1_share_hl1d, uc_trans_lift_max
+    ub_: ub_share_hl1d, ub_share_in_cat, ub_last_h, ub_weight_hl1d, ub_decay20
+    up_: up_logprice_vs_user, up_tier_absdiff, up_cat_logratio_med, up_cat_logdist_min, up_tier_diff, up_cat_in_range
+    ui_: ui_pop_gap
+    cf_: cf_cv_cos_max, cf_cv_cos_last, cf_cv_cond_tdecay, cf_tr_p_tdecay, cf_src4_best_rank, cf_cv_cos_same_cat_max, cf_tr_p_diff_cat_max, cf_tr_lift_max, cf_cv_cond_tdecay20, cf_tr_p_tdecay20
+  dfs_p: f_x_dfs_p_view_n_1d, f_x_dfs_p_view_u_1d, f_x_dfs_p_cart_n_1d, f_x_dfs_p_cart_u_1d, f_x_dfs_p_purchase_n_1d, f_x_dfs_p_purchase_u_1d, f_x_dfs_p_cart_per_view_1d, f_x_dfs_p_buy_per_view_1d, f_x_dfs_p_view_n_3d, f_x_dfs_p_view_u_3d, f_x_dfs_p_cart_n_3d, f_x_dfs_p_cart_u_3d, f_x_dfs_p_purchase_n_3d, f_x_dfs_p_purchase_u_3d, f_x_dfs_p_cart_per_view_3d, f_x_dfs_p_buy_per_view_3d, f_x_dfs_p_view_n_7d, f_x_dfs_p_view_u_7d, f_x_dfs_p_cart_n_7d, f_x_dfs_p_cart_u_7d, f_x_dfs_p_purchase_n_7d, f_x_dfs_p_purchase_u_7d, f_x_dfs_p_cart_per_view_7d, f_x_dfs_p_buy_per_view_7d, f_x_dfs_p_view_n_14d, f_x_dfs_p_view_u_14d, f_x_dfs_p_cart_n_14d, f_x_dfs_p_cart_u_14d, f_x_dfs_p_purchase_n_14d, f_x_dfs_p_purchase_u_14d, f_x_dfs_p_cart_per_view_14d, f_x_dfs_p_buy_per_view_14d
+  dfs_c: f_x_dfs_c_view_n_1d, f_x_dfs_c_view_u_1d, f_x_dfs_c_cart_n_1d, f_x_dfs_c_cart_u_1d, f_x_dfs_c_purchase_n_1d, f_x_dfs_c_purchase_u_1d, f_x_dfs_c_cart_per_view_1d, f_x_dfs_c_buy_per_view_1d, f_x_dfs_c_view_n_3d, f_x_dfs_c_view_u_3d, f_x_dfs_c_cart_n_3d, f_x_dfs_c_cart_u_3d, f_x_dfs_c_purchase_n_3d, f_x_dfs_c_purchase_u_3d, f_x_dfs_c_cart_per_view_3d, f_x_dfs_c_buy_per_view_3d, f_x_dfs_c_view_n_7d, f_x_dfs_c_view_u_7d, f_x_dfs_c_cart_n_7d, f_x_dfs_c_cart_u_7d, f_x_dfs_c_purchase_n_7d, f_x_dfs_c_purchase_u_7d, f_x_dfs_c_cart_per_view_7d, f_x_dfs_c_buy_per_view_7d, f_x_dfs_c_view_n_14d, f_x_dfs_c_view_u_14d, f_x_dfs_c_cart_n_14d, f_x_dfs_c_cart_u_14d, f_x_dfs_c_purchase_n_14d, f_x_dfs_c_purchase_u_14d, f_x_dfs_c_cart_per_view_14d, f_x_dfs_c_buy_per_view_14d
+  dfs_b: f_x_dfs_b_view_n_1d, f_x_dfs_b_view_u_1d, f_x_dfs_b_cart_n_1d, f_x_dfs_b_cart_u_1d, f_x_dfs_b_purchase_n_1d, f_x_dfs_b_purchase_u_1d, f_x_dfs_b_cart_per_view_1d, f_x_dfs_b_buy_per_view_1d, f_x_dfs_b_view_n_3d, f_x_dfs_b_view_u_3d, f_x_dfs_b_cart_n_3d, f_x_dfs_b_cart_u_3d, f_x_dfs_b_purchase_n_3d, f_x_dfs_b_purchase_u_3d, f_x_dfs_b_cart_per_view_3d, f_x_dfs_b_buy_per_view_3d, f_x_dfs_b_view_n_7d, f_x_dfs_b_view_u_7d, f_x_dfs_b_cart_n_7d, f_x_dfs_b_cart_u_7d, f_x_dfs_b_purchase_n_7d, f_x_dfs_b_purchase_u_7d, f_x_dfs_b_cart_per_view_7d, f_x_dfs_b_buy_per_view_7d, f_x_dfs_b_view_n_14d, f_x_dfs_b_view_u_14d, f_x_dfs_b_cart_n_14d, f_x_dfs_b_cart_u_14d, f_x_dfs_b_purchase_n_14d, f_x_dfs_b_purchase_u_14d, f_x_dfs_b_cart_per_view_14d, f_x_dfs_b_buy_per_view_14d
+  dfs_u: f_x_dfs_u_view_n_1d, f_x_dfs_u_view_u_1d, f_x_dfs_u_cart_n_1d, f_x_dfs_u_cart_u_1d, f_x_dfs_u_purchase_n_1d, f_x_dfs_u_purchase_u_1d, f_x_dfs_u_cart_per_view_1d, f_x_dfs_u_buy_per_view_1d, f_x_dfs_u_view_n_3d, f_x_dfs_u_view_u_3d, f_x_dfs_u_cart_n_3d, f_x_dfs_u_cart_u_3d, f_x_dfs_u_purchase_n_3d, f_x_dfs_u_purchase_u_3d, f_x_dfs_u_cart_per_view_3d, f_x_dfs_u_buy_per_view_3d, f_x_dfs_u_view_n_7d, f_x_dfs_u_view_u_7d, f_x_dfs_u_cart_n_7d, f_x_dfs_u_cart_u_7d, f_x_dfs_u_purchase_n_7d, f_x_dfs_u_purchase_u_7d, f_x_dfs_u_cart_per_view_7d, f_x_dfs_u_buy_per_view_7d, f_x_dfs_u_view_n_14d, f_x_dfs_u_view_u_14d, f_x_dfs_u_cart_n_14d, f_x_dfs_u_cart_u_14d, f_x_dfs_u_purchase_n_14d, f_x_dfs_u_purchase_u_14d, f_x_dfs_u_cart_per_view_14d, f_x_dfs_u_buy_per_view_14d
+  r1p1_first_touch_conversion: f_x_i_first_touch_conv_lift_7d, f_x_i_quick_acq_share_7d
+  r1p2_coacq_cf: f_x_cf_coacq_cos_max, f_x_cf_coacq_co_log
+  r1p3_buyer_price_profile: f_x_i_buyer_logprice_mean_14d, f_x_i_buyer_vs_item_logprice_14d, f_x_i_buyer_logprice_std_14d
+  r1p4_new_reach: f_x_i_new_reach_share_1d, f_x_i_new_reach_trend_1v7, f_x_i_new_reach_1d_log
+  r1p5_cp_staleness: f_x_i_log_hours_since_last_cp, f_x_i_cp_staleness_ratio
+  r2p1_cmp_session_win_lift: f_x_i_cmp_win_lift_14d, f_x_i_cmp_sessions_log_14d
+  r2p2_cp_category_complement: f_x_uc_cp_complement_lift_max, f_x_uc_cp_complement_co_log
+  r2p3_acq_seed_coview_cf: f_x_cf_acqseed_cv_cos_max, f_x_cf_acqseed_cv_cos_tdecay
+  r2p4_revisit_consideration: f_x_i_revisit_lift_cat_7d, f_x_i_views_per_viewer_7d
+  r2p5_view_dwell_time: f_x_i_dwell_log_mean_7d, f_x_i_dwell_vs_cat_7d
+  r3p1_view_session_last_choice: f_x_i_last_viewed_lift_7d, f_x_i_last_vs_first_7d, f_x_i_view_cmp_sessions_log_7d
+  r3p2_intraday_momentum_12h: f_x_i_view_mom_12h_vs_yday, f_x_i_acq_share_12h_vs_7d
+  r3p3_user_user_cf_acq: f_x_uu_acq_wshare, f_x_uu_acq_rank
+  r3p4_brand_cat_price_sibling: f_x_ubc_price_dist_min, f_x_ubc_sibling_kernel
+  r3p5_category_search_depth: f_x_i_cat_search_depth_14d, f_x_i_search_depth_vs_cat_14d
+  r4p1_acq_regularity_7d: f_x_i_acq_active_days_7d, f_x_i_acq_share_cv_7d
+  r4p2_cat_acq_concentration: f_x_i_cat_acq_hhi_7d, f_x_i_acq_share_in_cat_7d, f_x_i_acq_rank_in_cat_log_7d
+  r4p3_weekday_seasonality_14d: f_x_i_acq_weekday_lift_14d, f_x_i_cat_acq_weekday_lift_14d
+  r4p4_cat_to_item_transition: f_x_ucp_cat2item_lift_max, f_x_ucp_cat2item_lift_tdecay
+  r4p5_brand_switch_transition: f_x_ubt_brand_trans_lift_max, f_x_ubt_brand_trans_lift_tdecay
+  r5p1_cf_xday_new_acq_transition: f_x_cf_xday_newacq_lift_max, f_x_cf_xday_newacq_lift_tdecay, f_x_cf_xday_newacq_nseeds
+  r5p2_cf_next_view_adjacency: f_x_cf_nextview_p_pos, f_x_cf_nextview_lift_max
+  r5p3_cf_converting_session_coview: f_x_cf_convsess_cos_max, f_x_cf_convsess_cos_tdecay
+  r5p4_uc_nextday_continuation: f_x_uc_nextday_cont_lift, f_x_uc_nextday_cont_cat_excess
+  r5p5_cf_considered_seed_coview: f_x_cf_consid_cv_cos_max, f_x_cf_consid_cv_wsum
+  r6p1_older_view_seed_coview: f_x_cf_oldview_cv_cos_max, f_x_cf_oldview_cv_wsum, f_x_cf_oldview_cv_nseeds
+  r6p2_dwell_seed_coview: f_x_cf_dwell_cv_cos_max, f_x_cf_dwell_cv_wsum
+  r6p3_abandoned_cart_seed_coview: f_x_cf_abandon_cv_cos_max, f_x_cf_abandon_cv_tdecay
+  r6p4_user_level_cooccurrence_cf: f_x_cf_uco_cos_max, f_x_cf_uco_cos_tdecay
+  r6p5_fresh_2d_coview_graph: f_x_cf_cv2d_cos_max, f_x_cf_cv2d_cos_tdecay
+
+Rules for a feature query:
+- one DuckDB SELECT statement (WITH is fine) reading only hist and active_users; no other tables,
+  files or settings;
+- returns key columns user_id and/or product_id plus 1-4 numeric value columns named f_x_rb2_<something>,
+  names not used by any existing column;
+- exactly one row per key, no NULL keys; keys without a row get NULL; afterwards only the keys present
+  among the day's candidates are kept;
+- the query cannot see the candidates: product-level features cover all products; user-level and
+  pair-level queries must filter user_id IN (SELECT user_id FROM active_users), and pair-level ones must
+  enumerate pairs narrowly (e.g. products of the user's recent categories or neighbours of recent views)
+  so the result stays well under 50M rows;
+- the value for a user must not depend on which other users are in active_users: the sandbox compares the
+  answer on all active users with the union of the answers on two halves of them;
+- deterministic: no random(), setseed(), now() or anything similar; any permutation is ordered by hash(...)
+  of keys;
+- a user-level feature is constant within a user's ranking and helps only through interactions;
+- it runs once per anchor day; the median time must stay under 60 s per day, aim for under 20 s.
+All valid columns enter the model without selection by outcome. Superfluous and noisy columns hurt: a few
+strong, non-redundant signals are needed.
+
+Your proposals below failed the sandbox check. The check output is all you get; no model was fitted.
+[
+ {
+  "name": "acquirer_profile",
+  "idea": "Describes who acquires the item. Column one is the share of 7d acquirers first seen in the store less than 48h before acquiring, as a lift; it interacts with u_first_seen_days_cap7. Column two is the share of bulk acquirers (10 or more distinct carted products in 7d), as a lift, which flags reseller- or bot-driven items. Column three is the gap in browsing breadth between acquirers and viewers, which interacts with the user's activity level.",
+  "sql": "WITH fs AS (SELECT user_id, min(event_time) AS fseen FROM hist GROUP BY user_id), w AS (SELECT user_id, product_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY), ua AS (SELECT user_id, ln(1 + count(DISTINCT product_id)) AS act, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN product_id END) AS ncp FROM w GROUP BY user_id), acq AS (SELECT user_id, product_id, min(event_time) AS tcp FROM w WHERE event_type IN ('cart','purchase') GROUP BY user_id, product_id), vw AS (SELECT DISTINCT user_id, product_id FROM w WHERE event_type = 'view'), ai AS (SELECT a.product_id, count(*) AS n, sum(CASE WHEN fs.fseen >= a.tcp - INTERVAL 48 HOUR THEN 1 ELSE 0 END) AS nnew, sum(CASE WHEN ua.ncp >= 10 THEN 1 ELSE 0 END) AS nbulk, sum(ua.act) AS sact FROM acq a JOIN fs ON fs.user_id = a.user_id JOIN ua ON ua.user_id = a.user_id GROUP BY a.product_id), vi AS (SELECT v.product_id, count(*) AS n, sum(ua.act) AS sact FROM vw v JOIN ua ON ua.user_id = v.user_id GROUP BY v.product_id), g AS (SELECT sum(nnew) * 1.0 / sum(n) AS gnew, sum(nbulk) * 1.0 / sum(n) AS gbulk, sum(sact) / sum(n) AS gact FROM ai), gv AS (SELECT sum(sact) / sum(n) AS gvact FROM vi) SELECT coalesce(vi.product_id, ai.product_id) AS product_id, ln(((coalesce(ai.nnew, 0) + 10 * g.gnew) / (coalesce(ai.n, 0) + 10.0) + 1e-4) / (g.gnew + 1e-4)) AS f_x_rb2_i_newuser_acq_lift_7d, ln(((coalesce(ai.nbulk, 0) + 10 * g.gbulk) / (coalesce(ai.n, 0) + 10.0) + 1e-4) / (g.gbulk + 1e-4)) AS f_x_rb2_i_bulk_acq_lift_7d, (coalesce(ai.sact, 0) + 10 * g.gact) / (coalesce(ai.n, 0) + 10.0) - (coalesce(vi.sact, 0) + 10 * gv.gvact) / (coalesce(vi.n, 0) + 10.0) AS f_x_rb2_i_acq_vs_view_breadth_7d FROM vi FULL OUTER JOIN ai ON ai.product_id = vi.product_id CROSS JOIN g CROSS JOIN gv",
+  "check": {
+   "check": "query references a forbidden table or command: fs",
+   "coverage": {},
+   "max_abs_rho": {},
+   "nearest": {},
+   "r2": {}
+  },
+  "problems": [
+   "invalid: query references a forbidden table or command: fs"
+  ]
+ },
+ {
+  "name": "audience_category_match",
+  "idea": "Audience-profile matching: each item's 7d acquirers get a smoothed log-lift profile over the 23 most viewed categories plus an 'other' bucket, computed from their 14d views. The feature is its dot product with the user's own 14d category-view share vector, evaluated for the top 20 acquired items of the user's 2 heaviest categories. It ranks items within a category by how much their buyers' wider interests resemble the user's.",
+  "sql": "WITH w AS (SELECT user_id, product_id, category_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY), dims AS (SELECT category_id, d FROM (SELECT category_id, row_number() OVER (ORDER BY count(DISTINCT user_id) DESC, category_id) AS d FROM w WHERE event_type = 'view' GROUP BY category_id) WHERE d <= 23), dd AS (SELECT unnest(range(1, 25)) AS d), uvs AS (SELECT w.user_id, coalesce(dims.d, 24) AS d, count(*) AS n FROM w LEFT JOIN dims ON dims.category_id = w.category_id WHERE w.event_type = 'view' GROUP BY w.user_id, coalesce(dims.d, 24)), ush AS (SELECT user_id, d, n * 1.0 / sum(n) OVER (PARTITION BY user_id) AS s FROM uvs), acq AS (SELECT DISTINCT user_id, product_id FROM w WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_id IN (SELECT user_id FROM uvs)), au AS (SELECT DISTINCT user_id FROM acq), nacq AS (SELECT count(*) AS n FROM au), g AS (SELECT ush.d, sum(ush.s) / max(nacq.n) AS gs FROM ush JOIN au ON au.user_id = ush.user_id CROSS JOIN nacq GROUP BY ush.d), pc AS (SELECT product_id, min(category_id) AS category_id FROM w GROUP BY product_id), ia AS (SELECT acq.product_id, pc.category_id, count(*) AS na, row_number() OVER (PARTITION BY pc.category_id ORDER BY count(*) DESC, acq.product_id) AS rk FROM acq JOIN pc ON pc.product_id = acq.product_id GROUP BY acq.product_id, pc.category_id), top AS (SELECT product_id, category_id, na FROM ia WHERE rk <= 20 AND na >= 3), isum AS (SELECT acq.product_id, ush.d, sum(ush.s) AS ss FROM acq JOIN top ON top.product_id = acq.product_id JOIN ush ON ush.user_id = acq.user_id GROUP BY acq.product_id, ush.d), ivec AS (SELECT top.product_id, top.category_id, list(ln(((coalesce(isum.ss, 0) + 5 * coalesce(g.gs, 1e-4)) / (top.na + 5.0)) / coalesce(g.gs, 1e-4)) ORDER BY dd.d) AS v FROM top CROSS JOIN dd LEFT JOIN isum ON isum.product_id = top.product_id AND isum.d = dd.d LEFT JOIN g ON g.d = dd.d GROUP BY top.product_id, top.category_id), utc AS (SELECT user_id, category_id FROM (SELECT user_id, category_id, row_number() OVER (PARTITION BY user_id ORDER BY count(*) DESC, category_id) AS r FROM w WHERE event_type = 'view' AND user_id IN (SELECT user_id FROM active_users) GROUP BY user_id, category_id) WHERE r <= 2), uvec AS (SELECT u.user_id, list(coalesce(ush.s, 0.0) ORDER BY dd.d) AS v FROM (SELECT DISTINCT user_id FROM utc) u CROSS JOIN dd LEFT JOIN ush ON ush.user_id = u.user_id AND ush.d = dd.d GROUP BY u.user_id) SELECT utc.user_id, ivec.product_id, list_dot_product(uvec.v, ivec.v) AS f_x_rb2_aud_match_dot FROM utc JOIN ivec ON ivec.category_id = utc.category_id JOIN uvec ON uvec.user_id = utc.user_id",
+  "check": {
+   "error": "probe_day_1: OutOfMemoryException on probe_day_1: Out of Memory Error: failed to allocate data of size 16.0 KiB (7.4 GiB/7.4 GiB used)\n\nPossible solutions:\n* Reducing the number of threads (SET threads=X)\n* Disabling insertion-order preservation (SET preserve_insertion_order=false)\n* Increasing the memory limit (SET memory_limit='...GB')\n\nSee also https://duckdb.org/docs/stable/guides/performance/how_to_tune_workloads",
+   "coverage": {},
+   "max_abs_rho": {},
+   "nearest": {},
+   "r2": {}
+  },
+  "problems": [
+   "error: probe_day_1: OutOfMemoryException on probe_day_1: Out of Memory Error: failed to allocate data of size 16.0 KiB (7.4 GiB/7.4 GiB used)\n\nPossible solutions:\n* Reducing the number of threads (SET threads=X)\n* Disabling insertion-order preservation (SET preserve_insertion_order=false)\n* Increasing the memory limit (SET memory_limit='...GB')\n\nSee also https://duckdb.org/docs/stable/guides/performance/how_to_tune_workloads"
+  ]
+ }
+]
+
+Fix every failed proposal, keeping its name, or replace it by another query under the same name.
+Answer with a JSON list only:
+[{"name": "the same name", "idea": "one sentence", "sql": "SELECT ..."}]

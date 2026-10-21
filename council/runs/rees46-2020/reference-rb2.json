@@ -1,0 +1,721 @@
+{
+ "k": 2,
+ "proposals": [
+  {
+   "name": "view_landing_exit_lift",
+   "idea": "View-only session position of the item over 7 days: how often its view opens a session (landing from search, ads or external links) and how often it is the last event of a multi-event session (exit), each as a smoothed lift over its category; these are traffic-source and abandonment signals that no popularity or conversion feature encodes.",
+   "sql": "WITH ev AS (SELECT product_id, category_id, event_type, row_number() OVER (PARTITION BY user_session ORDER BY event_time, event_type, product_id) AS rn, count(*) OVER (PARTITION BY user_session) AS n FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_session IS NOT NULL), v AS (SELECT product_id, min(category_id) AS category_id, count(*) AS nv, sum(CASE WHEN rn = 1 THEN 1 ELSE 0 END) AS nland, sum(CASE WHEN n >= 2 THEN 1 ELSE 0 END) AS nv2, sum(CASE WHEN n >= 2 AND rn = n THEN 1 ELSE 0 END) AS nexit FROM ev WHERE event_type = 'view' GROUP BY product_id), c AS (SELECT category_id, (sum(nland) + 1.0) / (sum(nv) + 10.0) AS lr, (sum(nexit) + 1.0) / (sum(nv2) + 10.0) AS er FROM v GROUP BY category_id) SELECT v.product_id, ln(((v.nland + 20 * c.lr) / (v.nv + 20.0)) / c.lr) AS f_x_rb2_i_land_lift_7d, ln(((v.nexit + 20 * c.er) / (v.nv2 + 20.0)) / c.er) AS f_x_rb2_i_exit_lift_7d FROM v JOIN c ON c.category_id = v.category_id",
+   "table": "council_rb2_view_landing_exit_lift"
+  },
+  {
+   "name": "pid_rank_adjacency",
+   "idea": "Catalogue-ID neighbourhood: products with adjacent product_id ranks (within 3) inside the same category as the user's 8 latest touched items of the last 3 days. Neighbouring ids are often variants or sibling models added together, so this is a content-like link that needs no co-view data and also covers fresh items. The columns are the minimum rank distance and a sum weighted by 24h recency decay and inverse distance.",
+   "sql": "WITH pr AS (SELECT product_id, category_id, row_number() OVER (PARTITION BY category_id ORDER BY product_id) AS r FROM (SELECT product_id, min(category_id) AS category_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id)), sd AS (SELECT user_id, product_id, lt, row_number() OVER (PARTITION BY user_id ORDER BY lt DESC, product_id) AS k FROM (SELECT user_id, product_id, max(event_time) AS lt FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY AND user_id IN (SELECT user_id FROM active_users) GROUP BY user_id, product_id)), sr AS (SELECT sd.user_id, pr.category_id, pr.r, date_diff('second', sd.lt, TIMESTAMP '{t}') / 3600.0 AS age_h FROM sd JOIN pr ON pr.product_id = sd.product_id WHERE sd.k <= 8), pairs AS (SELECT sr.user_id, p.product_id, abs(o.off) AS d, sr.age_h FROM sr CROSS JOIN (SELECT unnest([-3, -2, -1, 1, 2, 3]) AS off) o JOIN pr p ON p.category_id = sr.category_id AND p.r = sr.r + o.off) SELECT user_id, product_id, CAST(min(d) AS DOUBLE) AS f_x_rb2_pidadj_min_rankdist, sum(exp(-age_h / 24.0) / d) AS f_x_rb2_pidadj_wsum FROM pairs GROUP BY user_id, product_id",
+   "table": "council_rb2_pid_rank_adjacency"
+  },
+  {
+   "name": "cat_brand_newcomer_acq",
+   "idea": "Measures how often the candidate's category and brand win buyers who were new to them. Each column is the share of the category's (brand's) 7d first acquirers who first touched it less than 24h before acquiring, as a smoothed lift over the global share; this matters because every target is a cold pair, and these values are informative even when the uc_/ub_ features are empty.",
+   "sql": "WITH w AS (SELECT user_id, product_id, category_id, brand, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY), uc AS (SELECT user_id, category_id, min(event_time) AS ft, min(CASE WHEN event_type IN ('cart','purchase') THEN event_time END) AS fcp FROM w GROUP BY user_id, category_id), ub AS (SELECT user_id, brand, min(event_time) AS ft, min(CASE WHEN event_type IN ('cart','purchase') THEN event_time END) AS fcp FROM w WHERE brand IS NOT NULL GROUP BY user_id, brand), ca AS (SELECT category_id, count(*) AS n, sum(CASE WHEN ft >= fcp - INTERVAL 24 HOUR THEN 1 ELSE 0 END) AS nn FROM uc WHERE fcp >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY category_id), ba AS (SELECT brand, count(*) AS n, sum(CASE WHEN ft >= fcp - INTERVAL 24 HOUR THEN 1 ELSE 0 END) AS nn FROM ub WHERE fcp >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY brand), cg AS (SELECT sum(nn) * 1.0 / sum(n) AS g FROM ca), bg AS (SELECT sum(nn) * 1.0 / sum(n) AS g FROM ba), p AS (SELECT product_id, min(category_id) AS category_id, min(brand) AS brand FROM w GROUP BY product_id) SELECT p.product_id, ln(((coalesce(ca.nn, 0) + 20 * cg.g) / (coalesce(ca.n, 0) + 20.0)) / cg.g) AS f_x_rb2_cat_newcomer_acq_lift_7d, CASE WHEN p.brand IS NOT NULL THEN ln(((coalesce(ba.nn, 0) + 20 * bg.g) / (coalesce(ba.n, 0) + 20.0)) / bg.g) END AS f_x_rb2_brand_newcomer_acq_lift_7d FROM p LEFT JOIN ca ON ca.category_id = p.category_id LEFT JOIN ba ON ba.brand = p.brand CROSS JOIN cg CROSS JOIN bg",
+   "table": "council_rb2_cat_brand_newcomer_acq"
+  },
+  {
+   "name": "acquirer_profile",
+   "idea": "Describes who acquires the item over 7 days, each column smoothed toward the global value: the lift in the share of acquirers first seen less than 48h before acquiring, the lift in the share of bulk acquirers (10 or more distinct carted products in 7d), and the gap in browsing breadth between the item's acquirers and its viewers.",
+   "sql": "WITH win7 AS (SELECT user_id, product_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY), user_act AS (SELECT user_id, ln(1 + count(DISTINCT product_id)) AS act, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN product_id END) AS ncp FROM win7 GROUP BY user_id), acq_ev AS (SELECT user_id, product_id, min(event_time) AS tcp FROM win7 WHERE event_type IN ('cart','purchase') GROUP BY user_id, product_id), first_seen AS (SELECT user_id, min(event_time) AS fseen FROM hist WHERE user_id IN (SELECT user_id FROM acq_ev) GROUP BY user_id), view_pairs AS (SELECT DISTINCT user_id, product_id FROM win7 WHERE event_type = 'view'), acq_item AS (SELECT a.product_id, count(*) AS n, sum(CASE WHEN first_seen.fseen >= a.tcp - INTERVAL 48 HOUR THEN 1 ELSE 0 END) AS nnew, sum(CASE WHEN user_act.ncp >= 10 THEN 1 ELSE 0 END) AS nbulk, sum(user_act.act) AS sact FROM acq_ev a JOIN first_seen ON first_seen.user_id = a.user_id JOIN user_act ON user_act.user_id = a.user_id GROUP BY a.product_id), view_item AS (SELECT v.product_id, count(*) AS n, sum(user_act.act) AS sact FROM view_pairs v JOIN user_act ON user_act.user_id = v.user_id GROUP BY v.product_id), glob_acq AS (SELECT sum(nnew) * 1.0 / sum(n) AS gnew, sum(nbulk) * 1.0 / sum(n) AS gbulk, sum(sact) / sum(n) AS gact FROM acq_item), glob_view AS (SELECT sum(sact) / sum(n) AS gvact FROM view_item) SELECT coalesce(view_item.product_id, acq_item.product_id) AS product_id, ln(((coalesce(acq_item.nnew, 0) + 10 * glob_acq.gnew) / (coalesce(acq_item.n, 0) + 10.0) + 1e-4) / (glob_acq.gnew + 1e-4)) AS f_x_rb2_i_newuser_acq_lift_7d, ln(((coalesce(acq_item.nbulk, 0) + 10 * glob_acq.gbulk) / (coalesce(acq_item.n, 0) + 10.0) + 1e-4) / (glob_acq.gbulk + 1e-4)) AS f_x_rb2_i_bulk_acq_lift_7d, (coalesce(acq_item.sact, 0) + 10 * glob_acq.gact) / (coalesce(acq_item.n, 0) + 10.0) - (coalesce(view_item.sact, 0) + 10 * glob_view.gvact) / (coalesce(view_item.n, 0) + 10.0) AS f_x_rb2_i_acq_vs_view_breadth_7d FROM view_item FULL OUTER JOIN acq_item ON acq_item.product_id = view_item.product_id CROSS JOIN glob_acq CROSS JOIN glob_view",
+   "table": "council_rb2_acquirer_profile",
+   "first_sql": "WITH fs AS (SELECT user_id, min(event_time) AS fseen FROM hist GROUP BY user_id), w AS (SELECT user_id, product_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY), ua AS (SELECT user_id, ln(1 + count(DISTINCT product_id)) AS act, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN product_id END) AS ncp FROM w GROUP BY user_id), acq AS (SELECT user_id, product_id, min(event_time) AS tcp FROM w WHERE event_type IN ('cart','purchase') GROUP BY user_id, product_id), vw AS (SELECT DISTINCT user_id, product_id FROM w WHERE event_type = 'view'), ai AS (SELECT a.product_id, count(*) AS n, sum(CASE WHEN fs.fseen >= a.tcp - INTERVAL 48 HOUR THEN 1 ELSE 0 END) AS nnew, sum(CASE WHEN ua.ncp >= 10 THEN 1 ELSE 0 END) AS nbulk, sum(ua.act) AS sact FROM acq a JOIN fs ON fs.user_id = a.user_id JOIN ua ON ua.user_id = a.user_id GROUP BY a.product_id), vi AS (SELECT v.product_id, count(*) AS n, sum(ua.act) AS sact FROM vw v JOIN ua ON ua.user_id = v.user_id GROUP BY v.product_id), g AS (SELECT sum(nnew) * 1.0 / sum(n) AS gnew, sum(nbulk) * 1.0 / sum(n) AS gbulk, sum(sact) / sum(n) AS gact FROM ai), gv AS (SELECT sum(sact) / sum(n) AS gvact FROM vi) SELECT coalesce(vi.product_id, ai.product_id) AS product_id, ln(((coalesce(ai.nnew, 0) + 10 * g.gnew) / (coalesce(ai.n, 0) + 10.0) + 1e-4) / (g.gnew + 1e-4)) AS f_x_rb2_i_newuser_acq_lift_7d, ln(((coalesce(ai.nbulk, 0) + 10 * g.gbulk) / (coalesce(ai.n, 0) + 10.0) + 1e-4) / (g.gbulk + 1e-4)) AS f_x_rb2_i_bulk_acq_lift_7d, (coalesce(ai.sact, 0) + 10 * g.gact) / (coalesce(ai.n, 0) + 10.0) - (coalesce(vi.sact, 0) + 10 * gv.gvact) / (coalesce(vi.n, 0) + 10.0) AS f_x_rb2_i_acq_vs_view_breadth_7d FROM vi FULL OUTER JOIN ai ON ai.product_id = vi.product_id CROSS JOIN g CROSS JOIN gv"
+  },
+  {
+   "name": "session_price_advantage",
+   "idea": "Price against the real consideration set rather than the whole category. The first column is the shrunk mean gap between the item's log price and the mean log price of the other same-category items viewed in the same 7d sessions. The second is how often the item was the cheapest of those alternatives, against the uniform expectation.",
+   "sql": "WITH sv AS (SELECT user_session, category_id, product_id, avg(ln(CAST(price AS DOUBLE) + 1)) AS lp FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND event_type = 'view' AND price > 0 AND user_session IS NOT NULL GROUP BY user_session, category_id, product_id), sc AS (SELECT product_id, lp, count(*) OVER w AS k, sum(lp) OVER w AS s, min(lp) OVER w AS mn FROM sv WINDOW w AS (PARTITION BY user_session, category_id)) SELECT product_id, sum(lp - (s - lp) / (k - 1)) / (count(*) + 5.0) AS f_x_rb2_i_price_vs_session_alts_7d, ln((sum(CASE WHEN lp <= mn + 1e-9 THEN 1.0 ELSE 0.0 END) + 1.0) / (sum(1.0 / k) + 1.0)) AS f_x_rb2_i_cheapest_in_session_lift_7d FROM sc WHERE k BETWEEN 2 AND 30 GROUP BY product_id",
+   "table": "council_rb2_session_price_advantage"
+  },
+  {
+   "name": "price_band_conversion",
+   "idea": "Conversion of price points within a category: products are split into within-category price quintiles. Column one is the smoothed acquirer-per-viewer lift of the item's quintile over the category. Column two is the item's own lift over its quintile, which separates the item's own appeal from the demand for its price point.",
+   "sql": "WITH w AS (SELECT product_id, category_id, event_type, user_id, price FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY), p AS (SELECT product_id, min(category_id) AS category_id, median(price) AS pr, count(DISTINCT CASE WHEN event_type = 'view' THEN user_id END) AS nv, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN user_id END) AS na FROM w GROUP BY product_id), b AS (SELECT product_id, category_id, nv, na, ntile(5) OVER (PARTITION BY category_id ORDER BY pr, product_id) AS band, count(*) OVER (PARTITION BY category_id) AS ncat FROM p), cb AS (SELECT category_id, band, sum(nv) AS v, sum(na) AS a FROM b GROUP BY category_id, band), ct AS (SELECT category_id, (sum(a) + 1.0) / (sum(v) + 20.0) AS r FROM cb GROUP BY category_id), x AS (SELECT b.product_id, b.nv, b.na, ct.r, (cb.a + 50 * ct.r) / (cb.v + 50.0) AS br FROM b JOIN cb ON cb.category_id = b.category_id AND cb.band = b.band JOIN ct ON ct.category_id = b.category_id WHERE b.ncat >= 10) SELECT product_id, ln(br / r) AS f_x_rb2_cat_priceband_conv_lift_7d, ln(((na + 20 * br) / (nv + 20.0)) / br) AS f_x_rb2_i_conv_vs_priceband_7d FROM x",
+   "table": "council_rb2_price_band_conversion"
+  },
+  {
+   "name": "session_breadth_specificity",
+   "idea": "The browsing context in which the item is viewed, from views only. Column one is the mean log number of distinct items in the item's 7d viewing sessions, which separates narrow targeted visits from broad browsing. Column two is the share of its session co-views that fall in the same category, as a lift over the global share, which separates substitute-shopping items from cross-category ones.",
+   "sql": "WITH sv AS (SELECT DISTINCT user_session, category_id, product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND event_type = 'view' AND user_session IS NOT NULL), x AS (SELECT product_id, count(*) OVER (PARTITION BY user_session) AS k, count(*) OVER (PARTITION BY user_session, category_id) AS kc FROM sv), g AS (SELECT sum(kc - 1) * 1.0 / sum(k - 1) AS gs FROM x WHERE k BETWEEN 2 AND 50) SELECT x.product_id, avg(ln(least(x.k, 50))) AS f_x_rb2_i_session_breadth_log_7d, ln(((sum(CASE WHEN x.k BETWEEN 2 AND 50 THEN x.kc - 1 ELSE 0 END) + 20 * max(g.gs)) / (sum(CASE WHEN x.k BETWEEN 2 AND 50 THEN x.k - 1 ELSE 0 END) + 20.0)) / max(g.gs)) AS f_x_rb2_i_cv_same_cat_lift_7d FROM x CROSS JOIN g GROUP BY x.product_id",
+   "table": "council_rb2_session_breadth_specificity"
+  },
+  {
+   "name": "viewing_session_buy_context",
+   "idea": "Whether the item is browsed by people in buying mode. Column one is the share of its 7d viewing sessions in which some other item was carted or bought. Column two is the share in which an item of a different category was acquired (basket-building context). Both are smoothed lifts over the category, so the daily cart level cancels.",
+   "sql": "WITH w AS (SELECT user_session, product_id, category_id, event_type FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_session IS NOT NULL), cp AS (SELECT DISTINCT user_session, product_id, category_id FROM w WHERE event_type IN ('cart','purchase')), sn AS (SELECT user_session, count(DISTINCT product_id) AS n FROM cp GROUP BY user_session), scn AS (SELECT user_session, category_id, count(DISTINCT product_id) AS n FROM cp GROUP BY user_session, category_id), own AS (SELECT DISTINCT user_session, product_id FROM cp), iv AS (SELECT DISTINCT user_session, product_id, category_id FROM w WHERE event_type = 'view'), x AS (SELECT iv.product_id, iv.category_id, CASE WHEN coalesce(sn.n, 0) - CASE WHEN own.product_id IS NULL THEN 0 ELSE 1 END > 0 THEN 1 ELSE 0 END AS ctx, CASE WHEN coalesce(sn.n, 0) - coalesce(scn.n, 0) > 0 THEN 1 ELSE 0 END AS xctx FROM iv LEFT JOIN sn ON sn.user_session = iv.user_session LEFT JOIN scn ON scn.user_session = iv.user_session AND scn.category_id = iv.category_id LEFT JOIN own ON own.user_session = iv.user_session AND own.product_id = iv.product_id), c AS (SELECT category_id, (sum(ctx) + 1.0) / (count(*) + 20.0) AS rc, (sum(xctx) + 1.0) / (count(*) + 20.0) AS rx FROM x GROUP BY category_id), i AS (SELECT product_id, min(category_id) AS category_id, count(*) AS n, sum(ctx) AS sc, sum(xctx) AS sx FROM x GROUP BY product_id) SELECT i.product_id, ln(((i.sc + 20 * c.rc) / (i.n + 20.0)) / c.rc) AS f_x_rb2_i_buyctx_lift_7d, ln(((i.sx + 20 * c.rx) / (i.n + 20.0)) / c.rx) AS f_x_rb2_i_xcat_buyctx_lift_7d FROM i JOIN c ON c.category_id = i.category_id",
+   "table": "council_rb2_viewing_session_buy_context"
+  },
+  {
+   "name": "acquisition_context",
+   "idea": "How the item gets acquired, as two lifts over the global share. Column one is the share of 7d first acquisitions with no view of the item by that user in the preceding 24h, i.e. carted directly from a listing or widget, which is a low-friction path for users new to the item. Column two is the share preceded within 2h by an acquisition of a different-category item, which marks add-on items.",
+   "sql": "WITH w AS (SELECT user_id, product_id, category_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 8 DAY), a AS (SELECT user_id, product_id, min(category_id) AS category_id, min(event_time) AS tcp FROM w WHERE event_type IN ('cart','purchase') GROUP BY user_id, product_id), aw AS (SELECT user_id, product_id, tcp, count(*) OVER (PARTITION BY user_id ORDER BY tcp RANGE BETWEEN INTERVAL 2 HOUR PRECEDING AND CURRENT ROW) - count(*) OVER (PARTITION BY user_id, category_id ORDER BY tcp RANGE BETWEEN INTERVAL 2 HOUR PRECEDING AND CURRENT ROW) AS nother FROM a), a7 AS (SELECT * FROM aw WHERE tcp >= TIMESTAMP '{t}' - INTERVAL 7 DAY), hv AS (SELECT a7.user_id, a7.product_id, max(CASE WHEN v.event_time >= a7.tcp - INTERVAL 24 HOUR AND v.event_time <= a7.tcp THEN 1 ELSE 0 END) AS hv FROM a7 LEFT JOIN w v ON v.user_id = a7.user_id AND v.product_id = a7.product_id AND v.event_type = 'view' GROUP BY a7.user_id, a7.product_id), x AS (SELECT a7.product_id, 1 - coalesce(hv.hv, 0) AS nv, CASE WHEN a7.nother > 0 THEN 1 ELSE 0 END AS ad FROM a7 JOIN hv ON hv.user_id = a7.user_id AND hv.product_id = a7.product_id), g AS (SELECT avg(nv) AS gnv, avg(ad) AS gad FROM x) SELECT x.product_id, ln(((sum(x.nv) + 10 * max(g.gnv)) / (count(*) + 10.0) + 1e-4) / (max(g.gnv) + 1e-4)) AS f_x_rb2_i_noview_acq_lift_7d, ln(((sum(x.ad) + 10 * max(g.gad)) / (count(*) + 10.0) + 1e-4) / (max(g.gad) + 1e-4)) AS f_x_rb2_i_addon_acq_lift_7d FROM x CROSS JOIN g GROUP BY x.product_id",
+   "table": "council_rb2_acquisition_context"
+  },
+  {
+   "name": "audience_category_match",
+   "idea": "Gives each top-10 acquired item of the user's 2 heaviest categories a smoothed log-lift profile of its 7d acquirers' 14d category-view shares over the 23 most viewed categories plus an 'other' bucket, then takes a sparse dot product with the user's own share vector, joined only on the user's nonzero dimensions instead of dense lists to avoid running out of memory.",
+   "sql": "WITH views14 AS (SELECT user_id, category_id FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY), dims AS (SELECT category_id, d FROM (SELECT category_id, row_number() OVER (ORDER BY count(*) DESC, category_id) AS d FROM views14 GROUP BY category_id) WHERE d <= 23), dd AS (SELECT unnest(range(1, 25)) AS d), acq AS (SELECT user_id, product_id, min(category_id) AS cat FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY user_id, product_id), needed AS (SELECT user_id FROM acq UNION SELECT user_id FROM active_users), uvs AS (SELECT v.user_id, coalesce(dims.d, 24) AS d, count(*) AS n FROM views14 v LEFT JOIN dims ON dims.category_id = v.category_id WHERE v.user_id IN (SELECT user_id FROM needed) GROUP BY v.user_id, coalesce(dims.d, 24)), utot AS (SELECT user_id, sum(n) AS tot FROM uvs GROUP BY user_id), ush AS (SELECT uvs.user_id, uvs.d, uvs.n * 1.0 / utot.tot AS s FROM uvs JOIN utot ON utot.user_id = uvs.user_id), acqv AS (SELECT user_id, product_id, cat FROM acq WHERE user_id IN (SELECT user_id FROM utot)), nacq AS (SELECT count(DISTINCT user_id) AS n FROM acqv), gprof AS (SELECT ush.d, sum(ush.s) / max(nacq.n) AS gs FROM ush CROSS JOIN nacq WHERE ush.user_id IN (SELECT user_id FROM acqv) GROUP BY ush.d), ia AS (SELECT product_id, min(cat) AS cat, count(*) AS na FROM acqv GROUP BY product_id), top AS (SELECT product_id, cat, na FROM (SELECT product_id, cat, na, row_number() OVER (PARTITION BY cat ORDER BY na DESC, product_id) AS rk FROM ia WHERE na >= 3) WHERE rk <= 10), isum AS (SELECT a.product_id, ush.d, sum(ush.s) AS ss FROM acqv a JOIN top ON top.product_id = a.product_id JOIN ush ON ush.user_id = a.user_id GROUP BY a.product_id, ush.d), ilift AS (SELECT top.product_id, top.cat, dd.d, ln(((coalesce(isum.ss, 0) + 5 * coalesce(gprof.gs, 0)) / (top.na + 5.0) + 1e-4) / (coalesce(gprof.gs, 0) + 1e-4)) AS l FROM top CROSS JOIN dd LEFT JOIN isum ON isum.product_id = top.product_id AND isum.d = dd.d LEFT JOIN gprof ON gprof.d = dd.d), utc AS (SELECT user_id, category_id FROM (SELECT user_id, category_id, row_number() OVER (PARTITION BY user_id ORDER BY count(*) DESC, category_id) AS r FROM views14 WHERE user_id IN (SELECT user_id FROM active_users) GROUP BY user_id, category_id) WHERE r <= 2) SELECT utc.user_id, ilift.product_id, sum(ush.s * ilift.l) AS f_x_rb2_aud_match_dot FROM utc JOIN ush ON ush.user_id = utc.user_id JOIN ilift ON ilift.cat = utc.category_id AND ilift.d = ush.d GROUP BY utc.user_id, ilift.product_id",
+   "table": "council_rb2_audience_category_match",
+   "first_sql": "WITH w AS (SELECT user_id, product_id, category_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY), dims AS (SELECT category_id, d FROM (SELECT category_id, row_number() OVER (ORDER BY count(DISTINCT user_id) DESC, category_id) AS d FROM w WHERE event_type = 'view' GROUP BY category_id) WHERE d <= 23), dd AS (SELECT unnest(range(1, 25)) AS d), uvs AS (SELECT w.user_id, coalesce(dims.d, 24) AS d, count(*) AS n FROM w LEFT JOIN dims ON dims.category_id = w.category_id WHERE w.event_type = 'view' GROUP BY w.user_id, coalesce(dims.d, 24)), ush AS (SELECT user_id, d, n * 1.0 / sum(n) OVER (PARTITION BY user_id) AS s FROM uvs), acq AS (SELECT DISTINCT user_id, product_id FROM w WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_id IN (SELECT user_id FROM uvs)), au AS (SELECT DISTINCT user_id FROM acq), nacq AS (SELECT count(*) AS n FROM au), g AS (SELECT ush.d, sum(ush.s) / max(nacq.n) AS gs FROM ush JOIN au ON au.user_id = ush.user_id CROSS JOIN nacq GROUP BY ush.d), pc AS (SELECT product_id, min(category_id) AS category_id FROM w GROUP BY product_id), ia AS (SELECT acq.product_id, pc.category_id, count(*) AS na, row_number() OVER (PARTITION BY pc.category_id ORDER BY count(*) DESC, acq.product_id) AS rk FROM acq JOIN pc ON pc.product_id = acq.product_id GROUP BY acq.product_id, pc.category_id), top AS (SELECT product_id, category_id, na FROM ia WHERE rk <= 20 AND na >= 3), isum AS (SELECT acq.product_id, ush.d, sum(ush.s) AS ss FROM acq JOIN top ON top.product_id = acq.product_id JOIN ush ON ush.user_id = acq.user_id GROUP BY acq.product_id, ush.d), ivec AS (SELECT top.product_id, top.category_id, list(ln(((coalesce(isum.ss, 0) + 5 * coalesce(g.gs, 1e-4)) / (top.na + 5.0)) / coalesce(g.gs, 1e-4)) ORDER BY dd.d) AS v FROM top CROSS JOIN dd LEFT JOIN isum ON isum.product_id = top.product_id AND isum.d = dd.d LEFT JOIN g ON g.d = dd.d GROUP BY top.product_id, top.category_id), utc AS (SELECT user_id, category_id FROM (SELECT user_id, category_id, row_number() OVER (PARTITION BY user_id ORDER BY count(*) DESC, category_id) AS r FROM w WHERE event_type = 'view' AND user_id IN (SELECT user_id FROM active_users) GROUP BY user_id, category_id) WHERE r <= 2), uvec AS (SELECT u.user_id, list(coalesce(ush.s, 0.0) ORDER BY dd.d) AS v FROM (SELECT DISTINCT user_id FROM utc) u CROSS JOIN dd LEFT JOIN ush ON ush.user_id = u.user_id AND ush.d = dd.d GROUP BY u.user_id) SELECT utc.user_id, ivec.product_id, list_dot_product(uvec.v, ivec.v) AS f_x_rb2_aud_match_dot FROM utc JOIN ivec ON ivec.category_id = utc.category_id JOIN uvec ON uvec.user_id = utc.user_id"
+  },
+  {
+   "name": "viewer_focus_audience",
+   "idea": "View-only audience focus: the smoothed lift over its category of the mean share of the item's 7d viewers' views spent in the item's category (specialist vs drive-by audience), and of the share of viewers for whom it was the only item viewed in that category (decisive single-item visits).",
+   "sql": "WITH w AS (SELECT user_id, product_id, category_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND event_type = 'view'), uc AS (SELECT user_id, category_id, count(*) AS n, count(DISTINCT product_id) AS np FROM w GROUP BY user_id, category_id), ut AS (SELECT user_id, sum(n) AS tot FROM uc GROUP BY user_id), ui AS (SELECT DISTINCT user_id, product_id, category_id FROM w), x AS (SELECT ui.product_id, ui.category_id, uc.n * 1.0 / ut.tot AS focus, CASE WHEN uc.np = 1 THEN 1.0 ELSE 0.0 END AS single FROM ui JOIN uc ON uc.user_id = ui.user_id AND uc.category_id = ui.category_id JOIN ut ON ut.user_id = ui.user_id), c AS (SELECT category_id, avg(focus) AS cf, avg(single) + 0.01 AS cs FROM x GROUP BY category_id), i AS (SELECT product_id, min(category_id) AS category_id, count(*) AS n, sum(focus) AS sf, sum(single) AS ss FROM x GROUP BY product_id) SELECT i.product_id, ln(((i.sf + 10 * c.cf) / (i.n + 10.0)) / c.cf) AS f_x_rb2_i_viewer_focus_lift_7d, ln(((i.ss + 10 * c.cs) / (i.n + 10.0)) / c.cs) AS f_x_rb2_i_single_visit_lift_7d FROM i JOIN c ON c.category_id = i.category_id",
+   "table": "council_rb2_viewer_focus_audience"
+  },
+  {
+   "name": "brand_in_cat_conversion",
+   "idea": "Brand strength inside the candidate's own category rather than store-wide. Column one is the smoothed acquirer-per-viewer lift of the brand within the category over the category rate. Column two is the brand's 1d share of the category's acquirers against its 7d share, a share ratio so the cart level cancels.",
+   "sql": "WITH w AS (SELECT product_id, category_id, brand, user_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY), bc AS (SELECT category_id, brand, count(DISTINCT CASE WHEN event_type = 'view' THEN user_id END) AS v, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN user_id END) AS a, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 1 DAY THEN user_id END) AS a1 FROM w WHERE brand IS NOT NULL GROUP BY category_id, brand), cc AS (SELECT category_id, count(DISTINCT CASE WHEN event_type = 'view' THEN user_id END) AS v, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN user_id END) AS a, count(DISTINCT CASE WHEN event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 1 DAY THEN user_id END) AS a1 FROM w GROUP BY category_id), p AS (SELECT product_id, min(category_id) AS category_id, min(brand) AS brand FROM w GROUP BY product_id), x AS (SELECT p.product_id, bc.v, bc.a, bc.a1, cc.a1 AS ca1, (cc.a + 1.0) / (cc.v + 20.0) AS cr, (bc.a + 1.0) / (cc.a + 10.0) AS s7 FROM p JOIN bc ON bc.category_id = p.category_id AND bc.brand = p.brand JOIN cc ON cc.category_id = p.category_id) SELECT product_id, ln(((a + 20 * cr) / (v + 20.0)) / cr) AS f_x_rb2_bc_conv_lift_7d, ln(((a1 + 10 * s7) / (ca1 + 10.0)) / s7) AS f_x_rb2_bc_acq_share_trend_1v7 FROM x",
+   "table": "council_rb2_brand_in_cat_conversion"
+  }
+ ],
+ "llm": [
+  {
+   "seconds": 514.9,
+   "cost_usd": 1.2022320000000002,
+   "attempts": 1,
+   "prompt_sha256": "10e5455201aa1a841963fd87f634be79f3f469742ec88bb4d156b8cc976f9729"
+  },
+  {
+   "seconds": 63.7,
+   "cost_usd": 0.22001600000000004,
+   "attempts": 1,
+   "prompt_sha256": "4e933358528b3af729761243eb0d00974beea01f14def4355af8aa6f5b0e79c9"
+  }
+ ],
+ "probes": {
+  "council_rb2_view_landing_exit_lift": {
+   "sql_sha256": "23d7df77a1f47cb04a644be7233d2ce344a7be806db336c054986442aeeda33e",
+   "columns": [
+    "f_x_rb2_i_land_lift_7d",
+    "f_x_rb2_i_exit_lift_7d"
+   ],
+   "view": {
+    "keys": [
+     "product_id"
+    ],
+    "level": "product",
+    "columns": [
+     "f_x_rb2_i_land_lift_7d",
+     "f_x_rb2_i_exit_lift_7d"
+    ],
+    "seconds_median": 1.76,
+    "coverage": {
+     "f_x_rb2_i_land_lift_7d": 0.997,
+     "f_x_rb2_i_exit_lift_7d": 0.997
+    },
+    "max_abs_rho": {
+     "f_x_rb2_i_land_lift_7d": 0.636,
+     "f_x_rb2_i_exit_lift_7d": 0.412
+    },
+    "nearest": {
+     "f_x_rb2_i_land_lift_7d": "f_x_i_last_vs_first_7d",
+     "f_x_rb2_i_exit_lift_7d": "f_x_i_search_depth_vs_cat_14d"
+    },
+    "r2": {
+     "f_x_rb2_i_land_lift_7d": 0.697,
+     "f_x_rb2_i_exit_lift_7d": 0.551
+    },
+    "non_null_share_by_day": {
+     "f_x_rb2_i_land_lift_7d": {
+      "probe_day_1": 0.999,
+      "probe_day_2": 0.996,
+      "probe_day_3": 0.996
+     },
+     "f_x_rb2_i_exit_lift_7d": {
+      "probe_day_1": 0.999,
+      "probe_day_2": 0.996,
+      "probe_day_3": 0.996
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "council_rb2_pid_rank_adjacency": {
+   "sql_sha256": "2a4021dd88b652a9fa7df34e8b0073290d09b4b886c0d516cac95a1697bc5300",
+   "columns": [
+    "f_x_rb2_pidadj_min_rankdist",
+    "f_x_rb2_pidadj_wsum"
+   ],
+   "view": {
+    "keys": [
+     "user_id",
+     "product_id"
+    ],
+    "level": "pair",
+    "columns": [
+     "f_x_rb2_pidadj_min_rankdist",
+     "f_x_rb2_pidadj_wsum"
+    ],
+    "seconds_median": 15.3,
+    "coverage": {
+     "f_x_rb2_pidadj_min_rankdist": 0.0315,
+     "f_x_rb2_pidadj_wsum": 0.0315
+    },
+    "batch_invariant": true,
+    "max_abs_rho": {
+     "f_x_rb2_pidadj_min_rankdist": 0.212,
+     "f_x_rb2_pidadj_wsum": 0.354
+    },
+    "nearest": {
+     "f_x_rb2_pidadj_min_rankdist": "f_x_cf_coacq_cos_max",
+     "f_x_rb2_pidadj_wsum": "uc_last_h"
+    },
+    "r2": {
+     "f_x_rb2_pidadj_min_rankdist": 0.139,
+     "f_x_rb2_pidadj_wsum": 0.271
+    },
+    "non_null_share_by_day": {
+     "f_x_rb2_pidadj_min_rankdist": {
+      "probe_day_1": 0.0325,
+      "probe_day_2": 0.0315,
+      "probe_day_3": 0.0304
+     },
+     "f_x_rb2_pidadj_wsum": {
+      "probe_day_1": 0.0325,
+      "probe_day_2": 0.0315,
+      "probe_day_3": 0.0304
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "council_rb2_cat_brand_newcomer_acq": {
+   "sql_sha256": "1a92e70f7513f472adb9a566d78a5d381831f175fedf5c7b5039d11fb7949a60",
+   "columns": [
+    "f_x_rb2_cat_newcomer_acq_lift_7d",
+    "f_x_rb2_brand_newcomer_acq_lift_7d"
+   ],
+   "view": {
+    "keys": [
+     "product_id"
+    ],
+    "level": "product",
+    "columns": [
+     "f_x_rb2_cat_newcomer_acq_lift_7d",
+     "f_x_rb2_brand_newcomer_acq_lift_7d"
+    ],
+    "seconds_median": 1.36,
+    "coverage": {
+     "f_x_rb2_cat_newcomer_acq_lift_7d": 1.0,
+     "f_x_rb2_brand_newcomer_acq_lift_7d": 0.927
+    },
+    "max_abs_rho": {
+     "f_x_rb2_cat_newcomer_acq_lift_7d": 0.779,
+     "f_x_rb2_brand_newcomer_acq_lift_7d": 0.75
+    },
+    "nearest": {
+     "f_x_rb2_cat_newcomer_acq_lift_7d": "f_x_dfs_c_view_n_14d",
+     "f_x_rb2_brand_newcomer_acq_lift_7d": "f_x_dfs_b_cart_n_14d"
+    },
+    "r2": {
+     "f_x_rb2_cat_newcomer_acq_lift_7d": 0.865,
+     "f_x_rb2_brand_newcomer_acq_lift_7d": 0.824
+    },
+    "non_null_share_by_day": {
+     "f_x_rb2_cat_newcomer_acq_lift_7d": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0,
+      "probe_day_3": 1.0
+     },
+     "f_x_rb2_brand_newcomer_acq_lift_7d": {
+      "probe_day_1": 0.931,
+      "probe_day_2": 0.922,
+      "probe_day_3": 0.927
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "council_rb2_acquirer_profile": {
+   "sql_sha256": "3095db5fad419cc233cf458279bea19ed49341f5910461d4c5f0de6d5113eeee",
+   "columns": [
+    "f_x_rb2_i_newuser_acq_lift_7d",
+    "f_x_rb2_i_bulk_acq_lift_7d",
+    "f_x_rb2_i_acq_vs_view_breadth_7d"
+   ],
+   "view": {
+    "keys": [
+     "product_id"
+    ],
+    "level": "product",
+    "columns": [
+     "f_x_rb2_i_newuser_acq_lift_7d",
+     "f_x_rb2_i_bulk_acq_lift_7d",
+     "f_x_rb2_i_acq_vs_view_breadth_7d"
+    ],
+    "seconds_median": 0.832,
+    "coverage": {
+     "f_x_rb2_i_newuser_acq_lift_7d": 0.999,
+     "f_x_rb2_i_bulk_acq_lift_7d": 0.999,
+     "f_x_rb2_i_acq_vs_view_breadth_7d": 0.999
+    },
+    "max_abs_rho": {
+     "f_x_rb2_i_newuser_acq_lift_7d": 0.359,
+     "f_x_rb2_i_bulk_acq_lift_7d": 0.426,
+     "f_x_rb2_i_acq_vs_view_breadth_7d": 0.592
+    },
+    "nearest": {
+     "f_x_rb2_i_newuser_acq_lift_7d": "f_x_i_quick_acq_share_7d",
+     "f_x_rb2_i_bulk_acq_lift_7d": "s_pop_rank",
+     "f_x_rb2_i_acq_vs_view_breadth_7d": "f_x_dfs_p_cart_u_14d"
+    },
+    "r2": {
+     "f_x_rb2_i_newuser_acq_lift_7d": 0.444,
+     "f_x_rb2_i_bulk_acq_lift_7d": 0.326,
+     "f_x_rb2_i_acq_vs_view_breadth_7d": 0.578
+    },
+    "non_null_share_by_day": {
+     "f_x_rb2_i_newuser_acq_lift_7d": {
+      "probe_day_1": 0.999,
+      "probe_day_2": 0.999,
+      "probe_day_3": 0.998
+     },
+     "f_x_rb2_i_bulk_acq_lift_7d": {
+      "probe_day_1": 0.999,
+      "probe_day_2": 0.999,
+      "probe_day_3": 0.998
+     },
+     "f_x_rb2_i_acq_vs_view_breadth_7d": {
+      "probe_day_1": 0.999,
+      "probe_day_2": 0.999,
+      "probe_day_3": 0.998
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "council_rb2_session_price_advantage": {
+   "sql_sha256": "c0443472af8e3f37b1c82b123a169711f6e0465229ebb50271beab689256d14a",
+   "columns": [
+    "f_x_rb2_i_price_vs_session_alts_7d",
+    "f_x_rb2_i_cheapest_in_session_lift_7d"
+   ],
+   "view": {
+    "keys": [
+     "product_id"
+    ],
+    "level": "product",
+    "columns": [
+     "f_x_rb2_i_price_vs_session_alts_7d",
+     "f_x_rb2_i_cheapest_in_session_lift_7d"
+    ],
+    "seconds_median": 1.08,
+    "coverage": {
+     "f_x_rb2_i_price_vs_session_alts_7d": 0.986,
+     "f_x_rb2_i_cheapest_in_session_lift_7d": 0.986
+    },
+    "max_abs_rho": {
+     "f_x_rb2_i_price_vs_session_alts_7d": 0.797,
+     "f_x_rb2_i_cheapest_in_session_lift_7d": 0.653
+    },
+    "nearest": {
+     "f_x_rb2_i_price_vs_session_alts_7d": "i_price_pct_in_cat",
+     "f_x_rb2_i_cheapest_in_session_lift_7d": "i_price_pct_in_cat"
+    },
+    "r2": {
+     "f_x_rb2_i_price_vs_session_alts_7d": 0.788,
+     "f_x_rb2_i_cheapest_in_session_lift_7d": 0.602
+    },
+    "non_null_share_by_day": {
+     "f_x_rb2_i_price_vs_session_alts_7d": {
+      "probe_day_1": 0.992,
+      "probe_day_2": 0.982,
+      "probe_day_3": 0.984
+     },
+     "f_x_rb2_i_cheapest_in_session_lift_7d": {
+      "probe_day_1": 0.992,
+      "probe_day_2": 0.982,
+      "probe_day_3": 0.984
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "council_rb2_price_band_conversion": {
+   "sql_sha256": "29f182e36e5d5ce3d1b21480acbd81d745b5ad32471e05e04663892b01c33c0c",
+   "columns": [
+    "f_x_rb2_cat_priceband_conv_lift_7d",
+    "f_x_rb2_i_conv_vs_priceband_7d"
+   ],
+   "view": {
+    "keys": [
+     "product_id"
+    ],
+    "level": "product",
+    "columns": [
+     "f_x_rb2_cat_priceband_conv_lift_7d",
+     "f_x_rb2_i_conv_vs_priceband_7d"
+    ],
+    "seconds_median": 0.533,
+    "coverage": {
+     "f_x_rb2_cat_priceband_conv_lift_7d": 0.996,
+     "f_x_rb2_i_conv_vs_priceband_7d": 0.996
+    },
+    "max_abs_rho": {
+     "f_x_rb2_cat_priceband_conv_lift_7d": 0.464,
+     "f_x_rb2_i_conv_vs_priceband_7d": 0.708
+    },
+    "nearest": {
+     "f_x_rb2_cat_priceband_conv_lift_7d": "i_price_pct_in_cat",
+     "f_x_rb2_i_conv_vs_priceband_7d": "f_x_i_first_touch_conv_lift_7d"
+    },
+    "r2": {
+     "f_x_rb2_cat_priceband_conv_lift_7d": 0.417,
+     "f_x_rb2_i_conv_vs_priceband_7d": 0.796
+    },
+    "non_null_share_by_day": {
+     "f_x_rb2_cat_priceband_conv_lift_7d": {
+      "probe_day_1": 0.995,
+      "probe_day_2": 0.996,
+      "probe_day_3": 0.996
+     },
+     "f_x_rb2_i_conv_vs_priceband_7d": {
+      "probe_day_1": 0.995,
+      "probe_day_2": 0.996,
+      "probe_day_3": 0.996
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "council_rb2_session_breadth_specificity": {
+   "sql_sha256": "ccdc41135b0533dae82ba64200f03c30a92135323c793eac0c06b65533463244",
+   "columns": [
+    "f_x_rb2_i_session_breadth_log_7d",
+    "f_x_rb2_i_cv_same_cat_lift_7d"
+   ],
+   "view": {
+    "keys": [
+     "product_id"
+    ],
+    "level": "product",
+    "columns": [
+     "f_x_rb2_i_session_breadth_log_7d",
+     "f_x_rb2_i_cv_same_cat_lift_7d"
+    ],
+    "seconds_median": 1.29,
+    "coverage": {
+     "f_x_rb2_i_session_breadth_log_7d": 0.997,
+     "f_x_rb2_i_cv_same_cat_lift_7d": 0.997
+    },
+    "max_abs_rho": {
+     "f_x_rb2_i_session_breadth_log_7d": 0.672,
+     "f_x_rb2_i_cv_same_cat_lift_7d": 0.802
+    },
+    "nearest": {
+     "f_x_rb2_i_session_breadth_log_7d": "f_x_dfs_p_cart_u_7d",
+     "f_x_rb2_i_cv_same_cat_lift_7d": "f_x_dfs_c_cart_per_view_14d"
+    },
+    "r2": {
+     "f_x_rb2_i_session_breadth_log_7d": 0.736,
+     "f_x_rb2_i_cv_same_cat_lift_7d": 0.893
+    },
+    "non_null_share_by_day": {
+     "f_x_rb2_i_session_breadth_log_7d": {
+      "probe_day_1": 0.999,
+      "probe_day_2": 0.996,
+      "probe_day_3": 0.996
+     },
+     "f_x_rb2_i_cv_same_cat_lift_7d": {
+      "probe_day_1": 0.999,
+      "probe_day_2": 0.996,
+      "probe_day_3": 0.996
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "council_rb2_viewing_session_buy_context": {
+   "sql_sha256": "7aec51d333097ad0ba1f34cd0801127b7f25a00f55a622576561988953b46db8",
+   "columns": [
+    "f_x_rb2_i_buyctx_lift_7d",
+    "f_x_rb2_i_xcat_buyctx_lift_7d"
+   ],
+   "view": {
+    "keys": [
+     "product_id"
+    ],
+    "level": "product",
+    "columns": [
+     "f_x_rb2_i_buyctx_lift_7d",
+     "f_x_rb2_i_xcat_buyctx_lift_7d"
+    ],
+    "seconds_median": 1.0,
+    "coverage": {
+     "f_x_rb2_i_buyctx_lift_7d": 0.997,
+     "f_x_rb2_i_xcat_buyctx_lift_7d": 0.997
+    },
+    "max_abs_rho": {
+     "f_x_rb2_i_buyctx_lift_7d": 0.409,
+     "f_x_rb2_i_xcat_buyctx_lift_7d": 0.288
+    },
+    "nearest": {
+     "f_x_rb2_i_buyctx_lift_7d": "up_cat_logratio_med",
+     "f_x_rb2_i_xcat_buyctx_lift_7d": "f_x_i_last_vs_first_7d"
+    },
+    "r2": {
+     "f_x_rb2_i_buyctx_lift_7d": 0.55,
+     "f_x_rb2_i_xcat_buyctx_lift_7d": 0.317
+    },
+    "non_null_share_by_day": {
+     "f_x_rb2_i_buyctx_lift_7d": {
+      "probe_day_1": 0.999,
+      "probe_day_2": 0.996,
+      "probe_day_3": 0.996
+     },
+     "f_x_rb2_i_xcat_buyctx_lift_7d": {
+      "probe_day_1": 0.999,
+      "probe_day_2": 0.996,
+      "probe_day_3": 0.996
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "council_rb2_acquisition_context": {
+   "sql_sha256": "4b6b123ad842b9e7824540681a9819e656f6316787ece78cc0b0bb7709ad087a",
+   "columns": [
+    "f_x_rb2_i_noview_acq_lift_7d",
+    "f_x_rb2_i_addon_acq_lift_7d"
+   ],
+   "view": {
+    "keys": [
+     "product_id"
+    ],
+    "level": "product",
+    "columns": [
+     "f_x_rb2_i_noview_acq_lift_7d",
+     "f_x_rb2_i_addon_acq_lift_7d"
+    ],
+    "seconds_median": 0.411,
+    "coverage": {
+     "f_x_rb2_i_noview_acq_lift_7d": 0.933,
+     "f_x_rb2_i_addon_acq_lift_7d": 0.933
+    },
+    "max_abs_rho": {
+     "f_x_rb2_i_noview_acq_lift_7d": 0.534,
+     "f_x_rb2_i_addon_acq_lift_7d": 0.673
+    },
+    "nearest": {
+     "f_x_rb2_i_noview_acq_lift_7d": "f_x_i_search_depth_vs_cat_14d",
+     "f_x_rb2_i_addon_acq_lift_7d": "f_x_dfs_c_cart_per_view_14d"
+    },
+    "r2": {
+     "f_x_rb2_i_noview_acq_lift_7d": 0.8,
+     "f_x_rb2_i_addon_acq_lift_7d": 0.737
+    },
+    "non_null_share_by_day": {
+     "f_x_rb2_i_noview_acq_lift_7d": {
+      "probe_day_1": 0.926,
+      "probe_day_2": 0.944,
+      "probe_day_3": 0.927
+     },
+     "f_x_rb2_i_addon_acq_lift_7d": {
+      "probe_day_1": 0.926,
+      "probe_day_2": 0.944,
+      "probe_day_3": 0.927
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "council_rb2_audience_category_match": {
+   "sql_sha256": "5946c8ea32d9ff5882f29c5104739c60e661343edaea05c38c831bc10fbaf8ba",
+   "columns": [],
+   "view": {
+    "error": "probe_day_1: OutOfMemoryException on probe_day_1: Out of Memory Error: failed to allocate data of size 8.0 GiB (899.0 MiB/7.4 GiB used)\n\nPossible solutions:\n* Reducing the number of threads (SET threads=X)\n* Disabling insertion-order preservation (SET preserve_insertion_order=false)\n* Increasing the memory limit (SET memory_limit='...GB')\n\nSee also https://duckdb.org/docs/stable/guides/performance/how_to_tune_workloads",
+    "coverage": {},
+    "max_abs_rho": {},
+    "nearest": {},
+    "r2": {}
+   },
+   "problems": [
+    "error: probe_day_1: OutOfMemoryException on probe_day_1: Out of Memory Error: failed to allocate data of size 8.0 GiB (899.0 MiB/7.4 GiB used)\n\nPossible solutions:\n* Reducing the number of threads (SET threads=X)\n* Disabling insertion-order preservation (SET preserve_insertion_order=false)\n* Increasing the memory limit (SET memory_limit='...GB')\n\nSee also https://duckdb.org/docs/stable/guides/performance/how_to_tune_workloads"
+   ]
+  },
+  "council_rb2_viewer_focus_audience": {
+   "sql_sha256": "d31a8e9dcce47c33f53c6ffadc282aeb4ee2de93c73aee4e7269909d3ad1c730",
+   "columns": [
+    "f_x_rb2_i_viewer_focus_lift_7d",
+    "f_x_rb2_i_single_visit_lift_7d"
+   ],
+   "view": {
+    "keys": [
+     "product_id"
+    ],
+    "level": "product",
+    "columns": [
+     "f_x_rb2_i_viewer_focus_lift_7d",
+     "f_x_rb2_i_single_visit_lift_7d"
+    ],
+    "seconds_median": 1.2,
+    "coverage": {
+     "f_x_rb2_i_viewer_focus_lift_7d": 0.997,
+     "f_x_rb2_i_single_visit_lift_7d": 0.997
+    },
+    "max_abs_rho": {
+     "f_x_rb2_i_viewer_focus_lift_7d": 0.334,
+     "f_x_rb2_i_single_visit_lift_7d": 0.708
+    },
+    "nearest": {
+     "f_x_rb2_i_viewer_focus_lift_7d": "f_x_i_search_depth_vs_cat_14d",
+     "f_x_rb2_i_single_visit_lift_7d": "f_x_i_search_depth_vs_cat_14d"
+    },
+    "r2": {
+     "f_x_rb2_i_viewer_focus_lift_7d": 0.389,
+     "f_x_rb2_i_single_visit_lift_7d": 0.759
+    },
+    "non_null_share_by_day": {
+     "f_x_rb2_i_viewer_focus_lift_7d": {
+      "probe_day_1": 0.999,
+      "probe_day_2": 0.996,
+      "probe_day_3": 0.996
+     },
+     "f_x_rb2_i_single_visit_lift_7d": {
+      "probe_day_1": 0.999,
+      "probe_day_2": 0.996,
+      "probe_day_3": 0.996
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "council_rb2_brand_in_cat_conversion": {
+   "sql_sha256": "970ea10800edeebdb535ee7fa03e4ef2fe3ea02c8c3511f70258bb6dca83e9de",
+   "columns": [
+    "f_x_rb2_bc_conv_lift_7d",
+    "f_x_rb2_bc_acq_share_trend_1v7"
+   ],
+   "view": {
+    "keys": [
+     "product_id"
+    ],
+    "level": "product",
+    "columns": [
+     "f_x_rb2_bc_conv_lift_7d",
+     "f_x_rb2_bc_acq_share_trend_1v7"
+    ],
+    "seconds_median": 0.939,
+    "coverage": {
+     "f_x_rb2_bc_conv_lift_7d": 0.914,
+     "f_x_rb2_bc_acq_share_trend_1v7": 0.914
+    },
+    "max_abs_rho": {
+     "f_x_rb2_bc_conv_lift_7d": 0.77,
+     "f_x_rb2_bc_acq_share_trend_1v7": 0.33
+    },
+    "nearest": {
+     "f_x_rb2_bc_conv_lift_7d": "i_brand_share_in_cat_7d",
+     "f_x_rb2_bc_acq_share_trend_1v7": "i_brand_share_in_cat_7d"
+    },
+    "r2": {
+     "f_x_rb2_bc_conv_lift_7d": 0.818,
+     "f_x_rb2_bc_acq_share_trend_1v7": 0.426
+    },
+    "non_null_share_by_day": {
+     "f_x_rb2_bc_conv_lift_7d": {
+      "probe_day_1": 0.93,
+      "probe_day_2": 0.92,
+      "probe_day_3": 0.893
+     },
+     "f_x_rb2_bc_acq_share_trend_1v7": {
+      "probe_day_1": 0.93,
+      "probe_day_2": 0.92,
+      "probe_day_3": 0.893
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  }
+ },
+ "fix": {
+  "asked": [
+   "acquirer_profile",
+   "audience_category_match"
+  ],
+  "answered": [
+   "acquirer_profile",
+   "audience_category_match"
+  ]
+ },
+ "tables": [
+  "council_rb2_view_landing_exit_lift",
+  "council_rb2_pid_rank_adjacency",
+  "council_rb2_cat_brand_newcomer_acq",
+  "council_rb2_acquirer_profile",
+  "council_rb2_session_price_advantage",
+  "council_rb2_price_band_conversion",
+  "council_rb2_session_breadth_specificity",
+  "council_rb2_viewing_session_buy_context",
+  "council_rb2_acquisition_context",
+  "council_rb2_viewer_focus_audience",
+  "council_rb2_brand_in_cat_conversion"
+ ],
+ "widths": [
+  [
+   "council_rb2_view_landing_exit_lift",
+   2
+  ],
+  [
+   "council_rb2_pid_rank_adjacency",
+   2
+  ],
+  [
+   "council_rb2_cat_brand_newcomer_acq",
+   2
+  ],
+  [
+   "council_rb2_acquirer_profile",
+   3
+  ],
+  [
+   "council_rb2_session_price_advantage",
+   2
+  ],
+  [
+   "council_rb2_price_band_conversion",
+   2
+  ],
+  [
+   "council_rb2_session_breadth_specificity",
+   2
+  ],
+  [
+   "council_rb2_viewing_session_buy_context",
+   2
+  ],
+  [
+   "council_rb2_acquisition_context",
+   2
+  ],
+  [
+   "council_rb2_viewer_focus_audience",
+   2
+  ],
+  [
+   "council_rb2_brand_in_cat_conversion",
+   2
+  ]
+ ],
+ "width": 23,
+ "done": true
+}

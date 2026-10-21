@@ -1,0 +1,797 @@
+{
+ "cards": [
+  {
+   "id": "G1-1",
+   "lens": "G1",
+   "name": "returning_new_acquirer_profile",
+   "table": "council_g1_1",
+   "sql_sha256": "9dce268e703ae5e711116eadf61567ac1433a0a8ad09aca48946bcb840d16e9d",
+   "twin_sha256": "af0d599fe66d8e3a91e77456bedd09077e068f6d72d82268cf4cd0b7030a9ade",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Light recent browsers, whose ranking leans on popularity and category sources rather than item-item links: (SELECT COUNT(*) FROM hist h WHERE h.user_id = u.user_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) <= 10",
+   "null_stratum": "Heavy recent browsers whose candidates are dominated by co-view neighbours: (SELECT COUNT(*) FROM hist h WHERE h.user_id = u.user_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) > 40",
+   "rival": {
+    "explanation": "Within a category, a high share of returning acquirers may simply mark cheap, low-risk items that regulars add on top of other orders. The column would then proxy relative price (i_price_pct_in_cat) rather than funnel-stage matching.",
+    "stratum": "Cheap candidates, i_price_pct_in_cat below 0.3; the gain would concentrate there regardless of the user's recent activity."
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness or anchor split: ga per anchor day. A rise from Jan 15 to Feb 7 shows the lift is a censoring artifact, which refutes the mechanism."
+    },
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: light browsers (<=10 views in 48h) vs heavy browsers (>40). No difference refutes the mechanism."
+    },
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor: if f_x_c_retacq_priorcat_lift_14d gives no gain beyond its twin, the returning-acquirer profile is refuted and it is category->item transition structure."
+    },
+    {
+     "critic": "G3",
+     "type": "SHIFT",
+     "kill_test": "Staleness: compare the column at the earliest anchors (Jan 15-17) with the same items at Jan 20+ restricted to 14d windows fully after Jan 3. A drift in the item ranks beyond ordinary day-to-day variation indicates a truncation artefact."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as factor on the priorcat column: if the twin's gain equals the card's, the column is a category effect. Also a difference of differences between light browsers (at most 10 views in 48h) and heavy browsers (over 40). The mechanism is refuted if the difference is near zero."
+    }
+   ]
+  },
+  {
+   "id": "G1-3",
+   "lens": "G1",
+   "name": "consideration_set_price_drift",
+   "table": "council_g1_3",
+   "sql_sha256": "b81fc0b3ebfcaddb4fa63d5579323972e1a9ee35c1deda48b08af9c1947db16e",
+   "twin_sha256": "353d8c3f4e8f02a6b8feecd929b42b121ddb4f49cbcefcc4d0f33799e23e2204",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "User x candidate where the user compared at least 4 priced items of the candidate's category in the last 48h: (SELECT COUNT(DISTINCT h.product_id) FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'view' AND h.price > 0 AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) >= 4",
+   "null_stratum": "Exactly one viewed item in the category in 48h, where the drift is 0 by construction: (SELECT COUNT(DISTINCT h.product_id) FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'view' AND h.price > 0 AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) = 1",
+   "rival": {
+    "explanation": "The drift may only re-encode the gap between the user's 48h category price level and their 14d median (recency of price taste), not the direction of movement within the comparison sequence.",
+    "stratum": "Users whose 48h category mean log price differs from their 14d category median by more than 0.3, regardless of the order in which the items were viewed; the twin, which keeps the set but destroys the order, would gain equally there."
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: the gain in the >=4-items stratum minus the gain in the 1-item null stratum, with up_cat_logratio_med and up_cat_in_range already in the model. A difference near 0 refutes a comparison-phase effect beyond the static price distance."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness: recompute at t-24h. If the gain survives mainly on candidates with |i_price_change_7d| > 0, it reflects price change, not set position, and the mechanism is refuted."
+    },
+    {
+     "critic": "G3",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: compute the stratum (>=4 priced items in 48h) minus null-stratum gain for pct_above after conditioning on up_cat_logratio_med deciles. If the residual gain is not above the twin's, the percentile is a duplicate. Drop it and keep only drift_align."
+    },
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Key level: restrict the evaluation to candidates with cf_src4_best_rank non-NULL. If the gain from the family is zero on co-view-sourced candidates and present only on category top-30 ones, the consideration-set mechanism is refuted in favour of category price taste."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: the drift column's gain in users with at least 4 compared items, minus the gain in users with one viewed item (drift 0). The mechanism is refuted if the difference is not positive, or if the gain matches the rival stratum (48h mean versus 14d median, gap over 0.3)."
+    }
+   ]
+  },
+  {
+   "id": "G1-5",
+   "lens": "G1",
+   "name": "category_exploration_freshness",
+   "table": "council_g1_5",
+   "sql_sha256": "c8b1919e284ae3138df263ffb612256096c86560cdfedd69836355aad0acdef0",
+   "twin_sha256": "f041215f44d585c6766564ea715f0a900dc974012dff243db0b571c2f55cf091",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "User x category visited before 48h and with at least 3 distinct items viewed in the last 48h: (SELECT COUNT(DISTINCT h.product_id) FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) >= 3",
+   "null_stratum": "User x category with only one distinct item in 48h, where the share is near-binary and phase cannot be read: (SELECT COUNT(DISTINCT h.product_id) FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) = 1",
+   "rival": {
+    "explanation": "Within returning categories, the fresh share may still just track browsing breadth (uc_distinct_viewed_7d): users who view many items necessarily view many new ones, so the gain would come from intensity rather than from the exploring versus narrowing phase.",
+    "stratum": "User x category in the top quartile of uc_distinct_viewed_7d, irrespective of the fresh share; after conditioning on uc_distinct_viewed_7d deciles the card would add nothing."
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: the >=3-items stratum vs the null stratum of users whose whole history is in 48h. Equal gain refutes exploration."
+    },
+    {
+     "critic": "G3",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: if the card does not beat the shuffled-first-touch twin, the exploring vs narrowing mechanism is refuted."
+    },
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: for high- versus low-fresh-share user x category pairs, compare the gain on co-view-sourced versus pop-sourced candidates. No interaction means exploration does not change which item wins."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: gain in user x category with at least 3 distinct 48h items, minus gain where the first category view was within 48h. The mechanism is refuted if the gain sits only in the latter."
+    }
+   ]
+  },
+  {
+   "id": "G1-6",
+   "lens": "G1",
+   "name": "acquirer_tenure_match",
+   "table": "council_g1_6",
+   "sql_sha256": "3ca35c061d66811f884e47c8c8c1a35a8213a59638b5b8b2867f59e6f9c6ebc4",
+   "twin_sha256": "f76d91ea0a810aa318826e40be480e02129da7c2950ca4623d9264a151008d19",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "User x category where the user's tenure exceeds 24h, so that impulse and considered items can be separated: (SELECT MIN(h.event_time) FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY) < TIMESTAMP '{t}' - INTERVAL 24 HOUR",
+   "null_stratum": "Categories with very few acquisitions, where item tenure collapses to the category prior: (SELECT COUNT(DISTINCT h.user_id) FROM hist h WHERE h.category_id = p.category_id AND h.event_type IN ('cart','purchase') AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY) < 20",
+   "rival": {
+    "explanation": "The absolute gap may be dominated by the user's tenure term: long-tenure users get large gaps for most items. It would then act as a user x category recency feature close to uc_active_days_14d, without item-specific matching.",
+    "stratum": "Gain spread evenly over items within a user x category, the same for the card and its within-category shuffled twin, rather than concentrated on items with |gap| < 0.5."
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness or anchor split: the mean of i.im per anchor. A rise from Jan 15 to Feb 7 shows censoring, and a gain concentrated in early anchors would refute the mechanism."
+    },
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: the twin shuffles item tenure within the category. Equal gain means the user tenure term alone carries it, which refutes item matching."
+    },
+    {
+     "critic": "G3",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: the neighbour_shuffle twin reassigns im within the category. If the card beats the twin only through item_tenure_vs_cat and not through the user-item match (tenure_gap_log), the pair mechanism is refuted."
+    },
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: within a user x category, compare the gain for items with |tenure_gap_log| < 0.5 against items with > 1.5. If the gain is flat across the gap (the card's rival stratum), the matching mechanism is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as factor (item tenure shuffled within the category). The mechanism is refuted if the twin's gap column gains as much, i.e. the gain is spread evenly over items within user x category."
+    }
+   ]
+  },
+  {
+   "id": "G1-7",
+   "lens": "G1",
+   "name": "category_attention_vs_bounce",
+   "table": "council_g1_7",
+   "sql_sha256": "0ec3555ddd1f54d8422368960924bb77c89a7c10158fd64948f1387f5cdea7ac",
+   "twin_sha256": "de69743af2186d2f7ba51d553526550d01b05f59f337e9377193db3117bcb759",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Users active in at least 2 categories in 48h, where the within-user excess varies: (SELECT COUNT(DISTINCT h.category_id) FROM hist h WHERE h.user_id = u.user_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) >= 2",
+   "null_stratum": "Users with a single category in 48h, where the excess is 0 by construction: (SELECT COUNT(DISTINCT h.category_id) FROM hist h WHERE h.user_id = u.user_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) = 1",
+   "rival": {
+    "explanation": "Users read longer on the pricier items of a category. The excess may then mark the user's high-price categories and act through price taste (up_logprice_vs_user, u_price_tier) rather than through evaluation intensity.",
+    "stratum": "User x category where the user's 48h mean viewed log price in the category exceeds the category's median by more than 0.3; the rival predicts the gain only there."
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor: compute the lift using only views with non-NULL dwell in both numerator and denominator. If the gain disappears, the session-end artifact explains it and the mechanism is refuted."
+    },
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: in the stratum (>=2 categories in 48h), compare the gain on candidates that are co-view neighbours of the bounced items against other category items. A positive interaction with cf_cv_cos_max would contradict the 'rejection' reading."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences between users with 2 or more categories in 48h and single-category users, after conditioning on i_cat_l1. The mechanism is refuted if the card's gain over the twin vanishes within i_cat_l1 strata."
+    }
+   ]
+  },
+  {
+   "id": "G2-1",
+   "lens": "G2",
+   "name": "lifecycle_phase",
+   "table": "council_g2_1",
+   "sql_sha256": "c6d41db6f46e9e163858d3ff416ab141a21fb1dae53fb42d15ef95be83162cb2",
+   "twin_sha256": "805c8466a991ed53bdca706f675dc60d9c0959fa04eddb69f7ab6cc597a642d6",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Items whose traffic is not flat: items first seen within 7 days, or items that peaked earlier and went quiet. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id HAVING min(event_time) >= TIMESTAMP '{t}' - INTERVAL 7 DAY OR max(event_time) < TIMESTAMP '{t}' - INTERVAL 2 DAY)",
+   "null_stratum": "Old, steady items seen on every day of the window, where the peak day is arbitrary. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id HAVING count(DISTINCT CAST(event_time AS DATE)) = 14)",
+   "rival": {
+    "explanation": "The gain comes only from share_vs_peak acting as a better-smoothed level of yesterday's popularity, not from the life-cycle shape. Under this rival, days_since_peak adds nothing and the time-shuffled twin, which keeps the set of active days, gains as much.",
+    "stratum": "Low-traffic items (under 5 distinct viewers yesterday), where smoothing matters most: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 1 DAY GROUP BY product_id HAVING count(DISTINCT user_id) < 5)"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor, after renaming fs: if age and days_since_peak add no gain beyond the twin, only share_vs_peak matters, which is the card's rival (smoothed popularity)."
+    },
+    {
+     "critic": "G3",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: compare the stratum (young or peaked-earlier items) against the null stratum (old steady items). The mechanism predicts gain mainly in the former. Equal gain refutes the life-cycle reading."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "After renaming the alias, a difference of differences: gain among items first seen within 7 days, versus old steady items seen every day. If all the gain sits in fresh items and vanishes with i_is_fresh_item_7d as a control, the life-cycle shape is refuted."
+    },
+    {
+     "critic": "G4",
+     "type": "RIVAL",
+     "kill_test": "Twin as a factor: if the time-shuffled twin's share_vs_peak gives the same gain among candidates with fewer than 5 viewers yesterday, the life-cycle mechanism is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "After renaming: twin as factor (shuffled day order). The mechanism is refuted if the gain is concentrated in low-traffic items (under 5 viewers yesterday) and the twin matches it there."
+    }
+   ]
+  },
+  {
+   "id": "G2-2",
+   "lens": "G2",
+   "name": "price_change_timing",
+   "table": "council_g2_2",
+   "sql_sha256": "3afeabe211eb0e0f412db381f0ac5d72f4449413bdc1d1dad92236f970c9457f",
+   "twin_sha256": "2a35bde2dc2817b4f03088ee3eb9ecaf32b52d13c6ea26b265d43e09f92c8cd8",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Items whose price changed in the last 72 hours. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY GROUP BY product_id HAVING max(price) > 1.02 * min(price))",
+   "null_stratum": "Items with a constant price over the 14 days and at least 3 priced hours. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND price > 0 GROUP BY product_id HAVING max(price) = min(price) AND count(DISTINCT date_trunc('hour', event_time)) >= 3)",
+   "rival": {
+    "explanation": "Busy items are observed in more hours, so changes are detected sooner and more often, and the age column is a disguised traffic level. Under this rival the gain vanishes within bins of observed price hours.",
+    "stratum": "High-traffic items with many observed price hours: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY product_id HAVING count(DISTINCT date_trunc('hour', event_time)) >= 100)"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: compare the stratum (change in the last 72h) against the null stratum (constant price), restricted to items with >=100 active hours versus <30. If the gain sits only in the high-traffic group regardless of change recency, timing is refuted."
+    },
+    {
+     "critic": "G4",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: gain among items with a price change in 72h, versus constant-price items, within matched bins of active hours. If the gain disappears within bins, the popularity rival holds."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: (card minus twin) gain in the stratum with a price change in the last 72h, minus the same in the constant-price null stratum. The mechanism is refuted if that difference is no larger than in the rival stratum (at least 100 observed hours), or if the gain sits in f_x_c_pchg_n_14d_log alone."
+    }
+   ]
+  },
+  {
+   "id": "G2-5",
+   "lens": "G2",
+   "name": "trend_shape_7d",
+   "table": "council_g2_5",
+   "sql_sha256": "a620060129cfa6794436c1a89dd3bb8acb4b7eed46df7bf6b96fbd92a6f6b8bd",
+   "twin_sha256": "18bd8f74ab2b795880c79359eb6877f802bd857661b00fea25225f1aa5a9a10b",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Established mid-popularity items active on at least 4 of the last 7 days. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id HAVING count(DISTINCT CAST(event_time AS DATE)) >= 4 AND count(DISTINCT user_id) BETWEEN 20 AND 2000) AND product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND event_time < TIMESTAMP '{t}' - INTERVAL 7 DAY)",
+   "null_stratum": "Items seen on only 1 or 2 of the last 7 days, where the fit is driven by smoothing. Predicate: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id HAVING count(DISTINCT CAST(event_time AS DATE)) <= 2)",
+   "rival": {
+    "explanation": "The fit R2 is a traffic proxy, because busy items have smooth daily series, and the residual is just yesterday's spike as already captured by i_trend_view_1v7. Under this rival the gain concentrates in high-traffic items and disappears after conditioning on the 1v7 trend.",
+    "stratum": "High-traffic items: product_id IN (SELECT product_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id HAVING count(DISTINCT user_id) > 2000)"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: compare the stratum (>=4 active days, 20-2000 viewers) against the null stratum (<=2 days), after conditioning on i_trend_view_1v7. Gain in the stratum only via view_r2 supports keeping r2 alone. No gain refutes the family."
+    },
+    {
+     "critic": "G3",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: compare items first seen within 5 days against older items with an equal slope. If the gain is only in the fresh stratum, sustained momentum is refuted."
+    },
+    {
+     "critic": "G4",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: gain among items active on 4 or more of 7 days with 20-2000 users, versus items active on 2 or fewer days. A gain concentrated in the low-day items means it is a freshness proxy, not momentum."
+    },
+    {
+     "critic": "G4",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: gain among items first seen within 5 days, versus items older than 7 days. A gain only in the fresh stratum confirms the rival."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: card minus twin among mid-popularity items active on at least 4 days, minus the same among items seen on 1-2 days. The mechanism is refuted if the gain concentrates in items first seen within 5 days."
+    }
+   ]
+  },
+  {
+   "id": "G2-7",
+   "lens": "G2",
+   "name": "category_news_since_visit",
+   "table": "council_g2_7",
+   "sql_sha256": "b0628a1aa5d8b695a32698ca6a5fe549e1b263a4c66f53774c71b2708916d9a3",
+   "twin_sha256": "05d473637c371ebcae317eb0d14cbc5cb75ed926a6f3645e893227fc54718310",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "User-category pairs whose last view was 2 or more days ago (returning users). Predicate: (user_id, category_id) IN (SELECT user_id, category_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND event_type = 'view' GROUP BY user_id, category_id HAVING max(event_time) < TIMESTAMP '{t}' - INTERVAL 2 DAY)",
+   "null_stratum": "User-category pairs viewed in the last 12 hours, where 'since visit' collapses to yesterday's share. Predicate: (user_id, category_id) IN (SELECT user_id, category_id FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 12 HOUR)",
+   "rival": {
+    "explanation": "Most active users visited their latest categories yesterday, so the lift reduces to the item's 1-day-vs-14-day within-category share trend. That is item-level momentum, and the personalisation to absence adds nothing.",
+    "stratum": "Users whose 3 latest categories were all viewed within the last 24 hours: user_id IN (SELECT user_id FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 1 DAY GROUP BY user_id HAVING count(DISTINCT category_id) >= 3)"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "LEAK",
+     "kill_test": "Key level: compute `it` and `top` over all categories (product-level, batch-free), then join to uc3. If the key mismatch disappears, the clause is confirmed."
+    },
+    {
+     "critic": "G3",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: compare the stratum (last category view >= 2 days ago) against the null stratum (viewed in last 12h). If share_since_visit_lift gains equally in both, personalisation to absence is refuted."
+    },
+    {
+     "critic": "G4",
+     "type": "LEAK",
+     "kill_test": "Key level: compute `it` over all categories, without the cats filter, and rerun the split-half check. If parity holds and the values change for multi-category products, the batch leak is confirmed."
+    },
+    {
+     "critic": "G4",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: gain in user-category pairs last viewed 2 or more days ago, versus pairs viewed in the last 12h. No excess in the absence stratum refutes the personalisation."
+    },
+    {
+     "critic": "skeptic",
+     "type": "LEAK",
+     "kill_test": "Difference of differences, after computing it over all categories: gain where the user was absent from the category for at least 2 days, minus gain where the category was viewed within 12h. The mechanism is refuted if the share-lift gain is the same in the rival stratum (3 categories all viewed within 24h)."
+    },
+    {
+     "critic": "auditor",
+     "type": "LEAK",
+     "kill_test": "key level: after computing 'it' over all categories, the batch test must go green. If the gain changes materially, part of it came from batch-dependent top sets."
+    }
+   ]
+  },
+  {
+   "id": "G3-1",
+   "lens": "G3",
+   "name": "session_knn_neighbour_sessions",
+   "table": "council_g3_1",
+   "sql_sha256": "835ec564e1a29760cc1b4cbc8a70330c657099d2540d5735c45fe598f5fc4cd4",
+   "twin_sha256": "bd01f29934cbcd2818263a257eb1071d9ee33d2c0f9c3920802e21193a0d86b3",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "users whose recent session is multi-item, where the set match carries more than pairwise links: user_id IN (SELECT user_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR GROUP BY user_id, user_session HAVING count(DISTINCT product_id) >= 3)",
+   "null_stratum": "users whose latest 48h session holds exactly 2 items, where the set cosine reduces to nearly pairwise co-view: user_id IN (SELECT user_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR GROUP BY user_id, user_session HAVING count(DISTINCT product_id) = 2) AND user_id NOT IN (SELECT user_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR GROUP BY user_id, user_session HAVING count(DISTINCT product_id) >= 3)",
+   "rival": {
+    "explanation": "Neighbour sessions are dominated by popular items, so the vote share may act as a category-local popularity score rather than a set-intent match. The twin keeps the user's real neighbour sessions and similarities but moves every vote to a random product of the same category and popularity decile, so this rival predicts it keeps most of the gain.",
+    "stratum": "popular candidates in the top 100 by 7d distinct cart/purchase users, where the gain would match that of i_actor_share_7d"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "COST",
+     "kill_test": "Time the query on the busiest training day (largest active_users). Over 60 s fails it. Pre-filtering ps2 to products in cur_items before the window should cut time several-fold without changing values."
+    },
+    {
+     "critic": "G4",
+     "type": "COST",
+     "kill_test": "Key level: restrict to users whose current session has 3 or more items. If the gain stays the same in that stratum, the query should be narrowed and the cost cut."
+    },
+    {
+     "critic": "G4",
+     "type": "SHIFT",
+     "kill_test": "Staleness: the same query at t - 24h. If acq_share's mean shifts by day and its gain follows that shift, the cart-level dependence is confirmed."
+    },
+    {
+     "critic": "skeptic",
+     "type": "COST",
+     "kill_test": "Difference of differences: card minus twin in users with a session of 3 or more items in 48h, minus the same in single-product users. The mechanism is refuted if the gain is equal in both, or if it concentrates on the top-100 popular candidates and matches i_actor_share_7d."
+    }
+   ]
+  },
+  {
+   "id": "G3-2",
+   "lens": "G3",
+   "name": "coview_pure_two_hop_diffusion",
+   "table": "council_g3_2",
+   "sql_sha256": "5a6442fef5a00d09e760d56f77b2fdd7a20c173669593d1b85a94c60cd586b48",
+   "twin_sha256": "87ad871eee8e66549990c5d8431b8891efd808a06421d48f59153b050a950277",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "users whose latest views include niche items with thin direct neighbourhoods: user_id IN (SELECT h.user_id FROM hist h WHERE h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR AND h.product_id IN (SELECT product_id FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id HAVING count(DISTINCT user_session) < 30))",
+   "null_stratum": "users whose 48h views are all on hub items with 200+ sessions, where the direct neighbourhood is already dense and two-hop-only items are noise: user_id NOT IN (SELECT h.user_id FROM hist h WHERE h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR AND h.product_id IN (SELECT product_id FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id HAVING count(DISTINCT user_session) < 200))",
+   "rival": {
+    "explanation": "Two-hop-only mass may still concentrate on high-degree items within the seed's category, so the family would re-encode category popularity rather than cluster structure. The twin keeps the seed's category and the popularity of the intermediates but breaks the actual paths.",
+    "stratum": "candidates in the top popularity decile of their category, where i_cat_actor_share_7d already carries the signal"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences between users whose 48h seeds have <30 sessions in 7d (niche) and users with only hub seeds. If there is no extra gain in the niche stratum, the second hop adds nothing."
+    },
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Fix the twin's ordering ties and use it as a factor. If the substituted-mid twin keeps >80% of the card's gain, the gain is category popularity (rival), not cluster centrality."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: gain for users whose 48h seeds have fewer than 30 sessions in 7d, versus users whose seeds are all hubs. No excess gain in the niche stratum refutes the two-hop mechanism."
+    },
+    {
+     "critic": "G4",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: gain in the top popularity decile within category versus the bottom five deciles. A gain only in the top decile supports the popularity rival."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences between users with niche seeds (under 30 sessions) and users with only hub seeds. The mechanism is refuted if the gain is equal, or concentrated in the top category-popularity decile where i_cat_actor_share_7d explains it."
+    },
+    {
+     "critic": "auditor",
+     "type": "LEAK",
+     "kill_test": "key level: rerun card and twin on the two halves after rounding the sort key. If the key mismatch disappears, it was float-order nondeterminism and not a batch leak; if it persists, look for a real cross-user path."
+    }
+   ]
+  },
+  {
+   "id": "G3-4",
+   "lens": "G3",
+   "name": "session_forward_flow_direction",
+   "table": "council_g3_4",
+   "sql_sha256": "157b1389864309acd0cad6db3549e5b23a71acb2c65ea3171b006db2b5009a74",
+   "twin_sha256": "0a6c1ad97a4d93d5f01bc553db0d5c5647276a8a0d09764aebfada9d3c879d22",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "users in comparison mode with 4+ items of one category in a recent session: user_id IN (SELECT user_id FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR GROUP BY user_id, user_session, category_id HAVING count(DISTINCT product_id) >= 4)",
+   "null_stratum": "users whose recent sessions each hold a single viewed item, where the user's own path has no order: user_id IN (SELECT user_id FROM (SELECT user_id, user_session, count(DISTINCT product_id) AS k FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR GROUP BY user_id, user_session) x GROUP BY user_id HAVING max(k) = 1)",
+   "rival": {
+    "explanation": "Items reached late after a given seed may be pages linked from that seed's recommendation widget, so the pair excess may proxy widget placement rather than user intent.",
+    "stratum": "candidates with high f_x_cf_nextview_p_pos, where the immediate-click link already captures the widget path"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences within s_pop_rank deciles: compare the comparison-mode stratum (>=4 same-category items in a session) with single-item-session users. If the gain disappears within popularity deciles, flow direction is a popularity proxy."
+    },
+    {
+     "critic": "G4",
+     "type": "RIVAL",
+     "kill_test": "Twin as a factor: the in-session order shuffle keeps co-occurrence. If the card adds no gain over the twin among users with 4 or more same-category items in a session, the direction mechanism is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences between comparison-mode users (at least 4 items of one category in a session) and single-item-session users. The mechanism is refuted if the gain is equal across them, or vanishes after conditioning on s_pop_rank and f_x_cf_nextview_p_pos."
+    }
+   ]
+  },
+  {
+   "id": "G3-6",
+   "lens": "G3",
+   "name": "reverse_neighbour_recall",
+   "table": "council_g3_6",
+   "sql_sha256": "b5602ddf3d2b1ff5bafd32a29a9dc0c352ba29b5fb5fe8f806d030f6aca74f2c",
+   "twin_sha256": "5f9f58b695594ecd3a75468fa92bf6f5f84193f8be0ac6f0109f86aac86853a2",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "users with a broad 14-day history that extends beyond the latest views: user_id IN (SELECT user_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY user_id HAVING count(DISTINCT product_id) >= 8 AND min(event_time) < TIMESTAMP '{t}' - INTERVAL 48 HOUR)",
+   "null_stratum": "users with at most 2 distinct touched products in 14 days, where recall is near-binary and duplicates the one-hop links: user_id IN (SELECT user_id FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY user_id HAVING count(DISTINCT product_id) <= 2)",
+   "rival": {
+    "explanation": "High recall may just mean the candidate sits in a small category the user explored exhaustively, so the gain would come from category depth (uc_distinct_viewed_7d) rather than from the item's own neighbourhood. The twin keeps the category, because the substitute shares it, so this rival predicts the twin keeps most of the gain.",
+    "stratum": "candidates in categories with fewer than 50 distinct viewed products in 7d"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "DUPLICATE",
+     "kill_test": "Use the twin as a factor: if the hours column keeps the same importance under the twin (whose hours_log keeps R2 0.40 to uc_last_h), it carries no neighbourhood information. Drop it."
+    },
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences of the gain between users with >=8 items over more than 48h and users with <=2 items. If there is no extra gain in the broad-history stratum, the recall normalisation adds nothing."
+    },
+    {
+     "critic": "G4",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: gain among users with 8 or more items and history older than 48h, versus users with 2 or fewer items. A gain only from hours_log, or no excess in the broad stratum, refutes neighbourhood recall."
+    },
+    {
+     "critic": "skeptic",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as factor, restricted to rows that are non-NULL in both. The mechanism is refuted if the recall gain is no larger in users with a broad history than in the rival stratum of small categories (under 50 viewed products), where uc_distinct_viewed_7d explains it."
+    }
+   ]
+  },
+  {
+   "id": "G3-7",
+   "lens": "G3",
+   "name": "lag_matched_view_to_acq_transition",
+   "table": "council_g3_7",
+   "sql_sha256": "48323183e67556c09f90fc6e5c9c85d50383a847c7130a1bb54c25cfe455933d",
+   "twin_sha256": "908d9fa40cab5cd0dbf3eec0b2df34aadf810f151fda1c39ed2a5249860cc577",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "users whose recent views are spread over time, so seed ages differ: user_id IN (SELECT user_id FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 72 HOUR GROUP BY user_id HAVING max(event_time) - min(event_time) >= INTERVAL 12 HOUR)",
+   "null_stratum": "users whose 72h views all fall within 2 hours, where the kernel is nearly constant across seeds: user_id IN (SELECT user_id FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 72 HOUR GROUP BY user_id HAVING max(event_time) - min(event_time) < INTERVAL 2 HOUR)",
+   "rival": {
+    "explanation": "The kernel-weighted share may act only as another view->acquisition strength score, with the timing part adding nothing beyond cf_tr_p_tdecay. The twin keeps every pair and share but gives each pair a lag drawn from another pair, so this rival predicts the twin matches the card.",
+    "stratum": "candidates with high cf_tr_p_tdecay, where both would rank alike if the lag adds nothing"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "COST",
+     "kill_test": "After adding a per-seed top-k (e.g. QUALIFY row_number() OVER (PARTITION BY a ORDER BY n/(nv+5) DESC, b) <= 30 in pst), use the twin as a factor in the stratum of users whose 72h views span >=12h. If the real mu beats the shuffled mu by no more than it does in the <2h-span null stratum, the timing adds nothing over cf_tr_p_tdecay and the mechanism is refuted."
+    },
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Staleness: run the same query at t-24h. If the gap_min column predicts targets no worse when every seed's age is off by 24h, the kernel is not matching any real schedule."
+    },
+    {
+     "critic": "G4",
+     "type": "COST",
+     "kill_test": "Key level: cap at the top 30 b per seed by n and rerun. If kernel_max then has R2 above 0.7 to cf_tr_p_tdecay, the timing adds nothing."
+    },
+    {
+     "critic": "skeptic",
+     "type": "COST",
+     "kill_test": "After capping each seed at its top 20 b by rate: twin as factor (mu shuffled). The mechanism is refuted if the twin matches the card among candidates with high cf_tr_p_tdecay."
+    },
+    {
+     "critic": "auditor",
+     "type": "COST",
+     "kill_test": "twin as a factor: once the row count fits, if the mu-shuffled twin gives the same gain, lag matching adds nothing beyond the pst counts."
+    }
+   ]
+  },
+  {
+   "id": "G4-1",
+   "lens": "G4",
+   "name": "cold_item_price_band_shrinkage",
+   "table": "council_g4_1",
+   "sql_sha256": "e1f1cf6ea7c706bbe8a4c8f8632358f19cb6845dcc88ff4b3781f2598e9960a4",
+   "twin_sha256": "59c4891ff780b91dcf68e8d2a967427c905ab1b05bd064c86bfec9555c351f11",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Candidates with few 7d actors: (SELECT count(DISTINCT h.user_id) FROM hist h WHERE h.product_id = c.product_id AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY) < 30",
+   "null_stratum": "Heavily trafficked candidates, whose own rate dominates any prior: (SELECT count(DISTINCT h.user_id) FROM hist h WHERE h.product_id = c.product_id AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY) >= 300",
+   "rival": {
+    "explanation": "The band lift may only re-express a generic 'cheaper items convert more' slope that holds in every category, which i_price_pct_in_cat and i_log_price already give. The gain would then appear equally for warm and cold items and would not depend on category-specific band rates.",
+    "stratum": "Candidates in categories whose band lift falls monotonically with price, warm and cold alike"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences between candidates with <30 7d actors and those with >=300. If the gain is no larger for cold items, the band prior is not working."
+    },
+    {
+     "critic": "G2",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor: train with the twin's column 2 in place of the card's. Equal gain refutes the claim that the band prior is what helps."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Difference of differences: gain for candidates with <30 actors minus gain for those with >=300 actors. A difference <=0, or a gain that holds only among items whose band changed between t-24h and t, refutes the cold-item prior."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences on the pband column: card minus twin among cold candidates (under 30 actors), minus the same among warm ones (at least 300). The mechanism is refuted if the difference is not positive."
+    },
+    {
+     "critic": "auditor",
+     "type": "LEAK",
+     "kill_test": "staleness: run the query twice on the same anchor and also at t-24h. If products change band between the two same-day runs, the column is nondeterministic. If the gain remains with min(category_id), the price-band mechanism stands."
+    }
+   ]
+  },
+  {
+   "id": "G4-4",
+   "lens": "G4",
+   "name": "uc_category_reacquisition_hazard",
+   "table": "council_g4_4",
+   "sql_sha256": "dc29e922cc6a6836e484a27d04959f450a6a1d86566b16277cea301c400d44ec",
+   "twin_sha256": "74900392170319556620e1a54273d689f3cf6b4879447de7ad91dce9e17116a6",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "User x candidate category where the user acquired in the category in 14d but did not touch it in the last 24h: EXISTS (SELECT 1 FROM hist h WHERE h.user_id = u.user_id AND h.category_id = c.category_id AND h.event_type IN ('cart','purchase') AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY) AND NOT EXISTS (SELECT 1 FROM hist h WHERE h.user_id = u.user_id AND h.category_id = c.category_id AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 24 HOUR)",
+   "null_stratum": "User x category with no acquisition in 14d (feature NULL by construction): NOT EXISTS (SELECT 1 FROM hist h WHERE h.user_id = u.user_id AND h.category_id = c.category_id AND h.event_type IN ('cart','purchase') AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY)",
+   "rival": {
+    "explanation": "The non-NULL indicator alone ('user acquired in this category, candidate is a top-30 acquired item') may carry the gain, since it overlaps uc_last_cp_h and s_cat_rank. The lag-specific hazard values would then add nothing, and the twin with a hashed lag bucket would match.",
+    "stratum": "User x category acquired in the last 24h (lag bucket 1), where category re-entry is already captured by uc_ recency"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "COST",
+     "kill_test": "After renaming, use the twin (lag bucket hashed) as a factor in the stratum 'acquired in category >=1 day ago, no touch in 24h'. If it matches the card, the lag-specific hazard adds nothing over the non-NULL indicator plus uc_last_cp_h."
+    },
+    {
+     "critic": "G1",
+     "type": "SHIFT",
+     "kill_test": "Staleness: at t-24h, if f_x_c_uc_reacq_cat_excess per (category, bucket) has rank correlation < 0.5 with today's value, the category hazard is noise."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Twin as a factor (hashed lag bucket): equal gain refutes lag-specific hazard. Also staleness: if the hazard per bucket varies with the anchor's cart/purchase ratio, the column rests on cart level."
+    },
+    {
+     "critic": "skeptic",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "After renaming: twin as factor (hashed lag bucket). The mechanism is refuted if the twin matches the card, which would mean only the NULL indicator for 'acquired in the category' carries the gain."
+    }
+   ]
+  },
+  {
+   "id": "G4-5",
+   "lens": "G4",
+   "name": "catalog_id_launch_recency",
+   "table": "council_g4_5",
+   "sql_sha256": "058398ce0560377b685bf7b24867a3d5f34f3d4b64683fa351d616f4e31d529f",
+   "twin_sha256": "5f3430040ffe50911d7f8e1a6e2c5b695f5a3b3b2391a39088236f04d44c3d27",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Candidates first seen in the last 3 days or in the top id decile of their category: (SELECT min(h.event_time) FROM hist h WHERE h.product_id = c.product_id) >= TIMESTAMP '{t}' - INTERVAL 3 DAY OR c.product_id >= (SELECT quantile_cont(h.product_id, 0.9) FROM hist h WHERE h.category_id = c.category_id AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY)",
+   "null_stratum": "Candidates present since the start of the 14d window and below the category's median id: (SELECT min(h.event_time) FROM hist h WHERE h.product_id = c.product_id) < TIMESTAMP '{t}' - INTERVAL 13 DAY AND c.product_id < (SELECT quantile_cont(h.product_id, 0.5) FROM hist h WHERE h.category_id = c.category_id AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY)",
+   "rival": {
+    "explanation": "Id blocks may encode supplier, sub-type or price line rather than age, so the id rank could act as a hidden sub-category or price proxy that helps through category-mix effects even for old items.",
+    "stratum": "Old items (first seen more than 13 days ago) in the top id decile of mixed categories"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "COST",
+     "kill_test": "After renaming, use the twin (id rank shuffled within category) as a factor on candidates first seen <3 days ago. If the twin matches the card, id order carries no launch information."
+    },
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Staleness / key level: correlate f_x_c_i_id_pct_in_cat with the item's first event date among items first seen after 2020-01-08. A Spearman |rho| < 0.2 refutes 'id = launch order'."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness or anchor split: compare the column's distribution for items with <30 actors at anchors Jan 15-20 vs Feb 1-7. A large shift, or a gain that appears only at early anchors, refutes the launch reading."
+    },
+    {
+     "critic": "G2",
+     "type": "RIVAL",
+     "kill_test": "Key level: within category, items in the top 10% of id rank but with first-seen >13d ago (the null stratum). Equal gain there refutes recency."
+    },
+    {
+     "critic": "skeptic",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as factor, with the hashed id rank: the mechanism is refuted if the twin gains as much in the stratum of items first seen within 3 days. Staleness, the same query at t-24h, should lose gain only in that stratum."
+    }
+   ]
+  },
+  {
+   "id": "G4-6",
+   "lens": "G4",
+   "name": "return_visit_acquisition_composition",
+   "table": "council_g4_6",
+   "sql_sha256": "bd209193045439215d208465dd51b9d90c627a9eb9607a73c098025ba680cd4c",
+   "twin_sha256": "cbad0df93611b1d3a88d723fbc33dcf0a6174d29cf6f1d3606f022da912836df",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Users whose last event before t is at least 12h old, so their next acquisitions are likely in a new session after a pause: (SELECT max(h.event_time) FROM hist h WHERE h.user_id = u.user_id) < TIMESTAMP '{t}' - INTERVAL 12 HOUR",
+   "null_stratum": "Users still browsing at the anchor, whose targets mostly fall in a continuing session: EXISTS (SELECT 1 FROM hist h WHERE h.user_id = u.user_id AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 2 HOUR)",
+   "rival": {
+    "explanation": "Return-session acquisitions may just mark promoted or ad-landing items, which f_x_i_new_reach_*, f_x_i_quick_acq_share_7d and i_trend_actor_1v7 already describe. The gain would then appear for all users as an item promo score, not specifically for users returning after a pause.",
+    "stratum": "Users still browsing at the anchor (event in the last 2h), equally with paused users"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences between the stratum (category untouched for 72h or user idle >24h) and the null stratum (category browsed in the last 6h). If the gain is the same in both, the columns are item-level impulse proxies (rival)."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness: gl.pr and gl.pc per anchor. A trend over Jan 15..Feb 7 driven by censoring refutes a stable item trait."
+    },
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: the gain in the idle/72h-cold stratum minus the gain in the null stratum (category browsed in the last 6h). A difference <=0 refutes the mechanism."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences between category-cold or idle users and users browsing the category in the last 6h. The mechanism is refuted if the gain is equal across them, i.e. the impulse-item rival (r3p5, r1p1) is confirmed."
+    }
+   ]
+  }
+ ],
+ "withdrawn": [
+  {
+   "id": "G1-2",
+   "reason": "TWIN-BROKEN with rho 0.90/0.95 to the twin. Most sessions hold a single item, so 'landing' equals presence, and the conversion column is i_cart_lift_7d (R2 0.847). Restricting to multi-item sessions would make the landing share a copy of f_x_i_last_vs_first_7d (R2 0.706). No distinct, testable signal remains."
+  },
+  {
+   "id": "G1-4",
+   "reason": "f_x_c1_opencart_hours_log is an exact copy of uc_last_cp_h (R2 1.0), and the item count is R2 0.916 to uc_distinct_viewed_7d. The 'unresolved' flag rests on the cart-vs-purchase split, which the brief warns is unstable across days. The co-view route for abandoned carts is already covered by r6p3."
+  },
+  {
+   "id": "G1-8",
+   "reason": "f_x_c1_cat_return_episodes_log duplicates uc_active_days_14d (R2 0.972), and the gap column is R2 0.788 to the same column. Gaps of at least 12h mostly encode the overnight and weekend rhythm. What remains is a user x category constant that does not reorder items within a category."
+  },
+  {
+   "id": "G2-3",
+   "reason": "Both category shares are category identity: R2 0.69 and 0.65 to category cart_per_view, and the day-shuffled twin keeps R2 0.61 and 0.59. f_x_c2_wave_dlogp_vs_cat duplicates i_price_change_7d (R2 0.744). The twin is broken on coverage. A scalar that is uniform within a category also cannot rank items inside the user's main category. A wave effect that spreads along co-view edges would need a different family."
+  },
+  {
+   "id": "G2-4",
+   "reason": "At hourly resolution the longest gap is set by traffic sparsity, not by stock-outs. f_x_c2_rs_max_gap_rel has R2 0.728 to f_x_dfs_p_purchase_u_1d, and after_vs_before reads as a short trend. The New-Year trough also adds calendar holes for the earliest anchors. A restock signal that survives these objections needs established items, a gap of at least 48h and returning viewers from before the gap. That would cover too few items to justify three columns."
+  },
+  {
+   "id": "G2-6",
+   "reason": "The neighbour_shuffle twin uses random pseudo-groups and fits as closely as the card: R2 0.623 and 0.707 against 0.634 and 0.698 to i_trend_view_1v7 and i_trend_actor_1v7. The share columns are therefore the item's own 3v14 momentum, and the (category, brand) structure adds nothing measurable. The age percentile is censored at the window start and ties for old items. Testing succession properly would need a directional sibling-to-sibling transition, which is a different family."
+  },
+  {
+   "id": "G2-8",
+   "reason": "The stalled shares are constant within a category and act as category conversion identity: R2 0.53 and 0.62 to category and brand buy_per_view. The time-shuffled twin keeps the same R2 (0.54 and 0.56), so the last-24h timing adds nothing measurable. For an item averaging 3 viewers a day, a silent day happens by Poisson chance alone. Substitute spillover would have to flow along co-view edges from the stalled item, which a category scalar cannot express."
+  },
+  {
+   "id": "G3-3",
+   "reason": "Three problems, none of which a revision fixes. (1) The family is a co-view expansion of long-memory seeds, close to r5p5 and r6p1 (R2 0.31-0.33 to f_x_cf_consid_cv_wsum). (2) The persistence count is confounded with the user's number of sessions, which is the heavy-user rival. The session-reassigning twin even raised coverage, showing that spreading items over sessions alone creates the signal. (3) I see no twin that holds the support fixed while destroying cross-visit recurrence. Coverage is 3.6% and limited to heavy users, so the column is more likely to add noise than a distinct signal."
+  },
+  {
+   "id": "G3-5",
+   "reason": "The time_shuffle twin moves each acquisition to a random event of the same user, yet it keeps rho_wq 0.88 and 0.87 with the card and nearly the same R2 (0.59 vs 0.61) to cf_tr_lift_max. The claimed post-acquisition anchoring therefore carries almost nothing. What remains is co-touch by the same acquirers within 14d, which duplicates cf_tr_lift_max and the co-acquisition families r1p2 and r2p3."
+  },
+  {
+   "id": "G3-8",
+   "reason": "Four problems. (1) The family correlates at rho 0.969 with uc_rank_in_user and at R2 0.74 with uc_last_h, so on the ranked rows it does not isolate untouched categories as claimed; it mostly re-encodes the user-category columns. (2) Coverage is only 1.4% and falls 40% over three probe days, because the entry definition rests on a cart within 24h of the first touch, which follows the shifting cart level. (3) The category-substitution twin collapses coverage tenfold, and I see no shape-preserving control. (4) The top-30-per-category emission mostly flags impulse bestsellers."
+  },
+  {
+   "id": "G4-2",
+   "reason": "The twin destroys price adjacency within the category x brand cell, yet keeps rho 0.847 with the card. The main column has R2 0.868 to f_x_i_cmp_sessions_log_14d. The family therefore measures cell-level brand-in-category demand, which is the card's own rival and is already covered by dfs_b, i_brand_share_in_cat_7d and r2p1. It is not price-sibling inheritance, and no fix to the window would change that."
+  },
+  {
+   "id": "G4-3",
+   "reason": "The 'newcomer' definition was censored at the window start, and the debut column was censored by the missing lookback. The corrected version, acquisitions after a fully observed silence of 5 or more days, is an acquisition-composition by inactivity gap. It is folded into revised G4-6 as its long-gap column so that two near-collinear item lifts do not enter as separate families. The remaining overlap with promo and new-reach columns (r1p4, r1p1) is tested there."
+  },
+  {
+   "id": "G4-7",
+   "reason": "The batch test is red because of any_value(). That could be fixed, but the substance does not survive. The loyalty lift is a per-brand constant with R2 0.773 to f_x_dfs_b_buy_per_view_1d. The recency column has R2 0.609 to ub_weight_hl1d. The pair-level part, 'user acquired this brand elsewhere', is largely what the ub_ columns already encode. With 3.9% coverage and a twin whose coverage collapses to 0.16%, the family cannot be tested cleanly and would add mostly brand-popularity noise."
+  },
+  {
+   "id": "G4-8",
+   "reason": "Coverage is only about 3%, and the twin's coverage differs by about 30% (TWIN-BROKEN), so the comparison cannot isolate the path signal. The score has R2 0.50 to f_x_cf_cv2d_cos_max. The same two-hop co-view diffusion is proposed for all users at about 14% coverage by C09/C23, which makes this short-history subset redundant. Only one two-hop family should go forward, and the broader one is the better candidate."
+  }
+ ],
+ "code_sha256": {
+  "agents.py": "060255f5b81b482abfb034c40f9c8c7b68e02098b67975c3061e529163cdfde3",
+  "llm.py": "c931923964956e1c95838e256a724a56bf7b9537f3f30fccdcc0c7cb780888db",
+  "evidence.py": "e2f2aece62996aaaf83dd6ac12c16bbb46978ba7656c05eb48e29f91c7afb96d",
+  "design.py": "ea197327add1bed0b87f2eac37b459e77138cbb12c541d653bac1934d1752c8a"
+ }
+}

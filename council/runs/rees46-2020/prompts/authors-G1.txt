@@ -1,0 +1,580 @@
+# command: ["claude", "-p", "<prompt>", "--model", "opus", "--output-format", "json", "--tools", "", "--strict-mcp-config"]
+# cwd: /tmp/tlab-council-llm
+# prompt_sha256: 2e5e5d048fc86420bf05faac600cf1641f5e69905f648952eef2401f910e006e
+
+You are generator G1 of a feature council for a ranking model of new products. Your lens:
+intent and sessions: what the user is trying to do right now; session structure, search and comparison phases, dwell, revisits, abandoned carts, the stage of the buying funnel. Reply with JSON only.
+
+Task. REES46 multi-category online store, events from 2020-01-01 on. Every day at the anchor
+t = 00:00 UTC we rank products for the users active in [t-48h, t) who have at least one target. A target is
+a product whose FIRST cart or purchase by the user happens in [t, t+24h) and that the user never touched
+(no event of any type) before t. About 280 candidates per user come from six sources: the global top by
+distinct cart/purchase users over 7 days; the top products of the user's 3 heaviest categories and of the
+2 heaviest brands; session co-view neighbours of the user's 10 latest views; aggregated co-view scores and
+view->acquisition transition scores over the user's 20 latest views. Every product the user touched before
+t is excluded, so the (user, candidate) pair itself has no history: user signals work only through the
+candidate's category, brand, price, popularity and item-item links to what the user did. A CatBoost model
+scores each (user, product) pair; quality is a position-discounted gain over the top 20 products of each
+user. Training anchors are 2020-01-15..2020-02-07; the earliest anchors see only two weeks of history.
+
+The level of carts relative to views and purchases may change between days; prefer normalised forms
+(shares, ratios, lifts, ranks, logs) and treat cart and purchase together. The base set reads a 14-day
+window [t-14d, t).
+
+You can read two DuckDB tables:
+  hist(event_time TIMESTAMP, event_type VARCHAR -- 'view'|'cart'|'purchase',
+       product_id BIGINT, category_id BIGINT, category_code VARCHAR -- e.g. 'electronics.smartphone', often NULL,
+       brand VARCHAR -- often NULL, price DECIMAL(12,2), user_id BIGINT, user_session VARCHAR)
+       -- all events strictly before t, starting 2020-01-01; tens of millions of rows, mostly views
+  active_users(user_id) -- users with any event in the last 48 hours (a superset of the ranked users)
+Write the anchor as TIMESTAMP '{t}' (literally, with the braces), e.g.
+  event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY
+
+Columns already in the model. Base set by prefix (s_ candidate source, u_ user, i_ item, uc_
+candidate's category in the user's history, ub_ brand, up_ price vs user, ui_ popularity vs user, cf_
+item-item from recent views), then the tables of the automation (f_x_ columns):
+  base:
+    s_: s_pop_rank, s_cat_rank, s_brand_rank, s_n_sources, s_cvagg_rank, s_tr_rank
+    u_: u_views_7d_log, u_top_category_share_7d, u_hours_since_last_cp, u_new_item_cp_rate_14d, u_log_price_med_view_7d, u_pop_taste_14d, u_hours_since_last_view, u_views_per_session_7d, u_items_per_view_7d, u_ls_outcome, u_ls_views_log, u_active_days_7d, u_price_tier, u_first_seen_days_cap7, u_active_same_weekday_last_week, u_brand_hhi_14d, u_brand_explore_rate_14d
+    i_: i_actor_share_7d, i_trend_actor_1v7, i_trend_view_1v7, i_acq_share_lift_14d, i_log_price, i_price_pct_in_cat, i_cat_actor_share_7d, i_buy_lift_14d, i_acq_rate_lift_14d, i_cart_lift_7d, i_cat_buy_lift_14d, i_brand_actor_share_7d, i_brand_share_in_cat_7d, i_price_change_7d, i_price_from_max_14d, i_is_fresh_item_7d, i_cat_l1, i_hours_since_last_view, i_cat_trend_view_1v7, i_acq_trend_1v7, i_repeat_buyer_share_14d, i_cat_multi_buy_14d
+    uc_: uc_share_hl1d, uc_last_h, uc_distinct_viewed_7d, uc_first_pos, uc_ls_items, uc_last_cp_h, uc_rank_in_user, uc_active_days_14d, uc_last_purchase_h, uc_decay20, uc_ls_cp, uc_l1_share_hl1d, uc_trans_lift_max
+    ub_: ub_share_hl1d, ub_share_in_cat, ub_last_h, ub_weight_hl1d, ub_decay20
+    up_: up_logprice_vs_user, up_tier_absdiff, up_cat_logratio_med, up_cat_logdist_min, up_tier_diff, up_cat_in_range
+    ui_: ui_pop_gap
+    cf_: cf_cv_cos_max, cf_cv_cos_last, cf_cv_cond_tdecay, cf_tr_p_tdecay, cf_src4_best_rank, cf_cv_cos_same_cat_max, cf_tr_p_diff_cat_max, cf_tr_lift_max, cf_cv_cond_tdecay20, cf_tr_p_tdecay20
+  dfs_p: f_x_dfs_p_view_n_1d, f_x_dfs_p_view_u_1d, f_x_dfs_p_cart_n_1d, f_x_dfs_p_cart_u_1d, f_x_dfs_p_purchase_n_1d, f_x_dfs_p_purchase_u_1d, f_x_dfs_p_cart_per_view_1d, f_x_dfs_p_buy_per_view_1d, f_x_dfs_p_view_n_3d, f_x_dfs_p_view_u_3d, f_x_dfs_p_cart_n_3d, f_x_dfs_p_cart_u_3d, f_x_dfs_p_purchase_n_3d, f_x_dfs_p_purchase_u_3d, f_x_dfs_p_cart_per_view_3d, f_x_dfs_p_buy_per_view_3d, f_x_dfs_p_view_n_7d, f_x_dfs_p_view_u_7d, f_x_dfs_p_cart_n_7d, f_x_dfs_p_cart_u_7d, f_x_dfs_p_purchase_n_7d, f_x_dfs_p_purchase_u_7d, f_x_dfs_p_cart_per_view_7d, f_x_dfs_p_buy_per_view_7d, f_x_dfs_p_view_n_14d, f_x_dfs_p_view_u_14d, f_x_dfs_p_cart_n_14d, f_x_dfs_p_cart_u_14d, f_x_dfs_p_purchase_n_14d, f_x_dfs_p_purchase_u_14d, f_x_dfs_p_cart_per_view_14d, f_x_dfs_p_buy_per_view_14d
+  dfs_c: f_x_dfs_c_view_n_1d, f_x_dfs_c_view_u_1d, f_x_dfs_c_cart_n_1d, f_x_dfs_c_cart_u_1d, f_x_dfs_c_purchase_n_1d, f_x_dfs_c_purchase_u_1d, f_x_dfs_c_cart_per_view_1d, f_x_dfs_c_buy_per_view_1d, f_x_dfs_c_view_n_3d, f_x_dfs_c_view_u_3d, f_x_dfs_c_cart_n_3d, f_x_dfs_c_cart_u_3d, f_x_dfs_c_purchase_n_3d, f_x_dfs_c_purchase_u_3d, f_x_dfs_c_cart_per_view_3d, f_x_dfs_c_buy_per_view_3d, f_x_dfs_c_view_n_7d, f_x_dfs_c_view_u_7d, f_x_dfs_c_cart_n_7d, f_x_dfs_c_cart_u_7d, f_x_dfs_c_purchase_n_7d, f_x_dfs_c_purchase_u_7d, f_x_dfs_c_cart_per_view_7d, f_x_dfs_c_buy_per_view_7d, f_x_dfs_c_view_n_14d, f_x_dfs_c_view_u_14d, f_x_dfs_c_cart_n_14d, f_x_dfs_c_cart_u_14d, f_x_dfs_c_purchase_n_14d, f_x_dfs_c_purchase_u_14d, f_x_dfs_c_cart_per_view_14d, f_x_dfs_c_buy_per_view_14d
+  dfs_b: f_x_dfs_b_view_n_1d, f_x_dfs_b_view_u_1d, f_x_dfs_b_cart_n_1d, f_x_dfs_b_cart_u_1d, f_x_dfs_b_purchase_n_1d, f_x_dfs_b_purchase_u_1d, f_x_dfs_b_cart_per_view_1d, f_x_dfs_b_buy_per_view_1d, f_x_dfs_b_view_n_3d, f_x_dfs_b_view_u_3d, f_x_dfs_b_cart_n_3d, f_x_dfs_b_cart_u_3d, f_x_dfs_b_purchase_n_3d, f_x_dfs_b_purchase_u_3d, f_x_dfs_b_cart_per_view_3d, f_x_dfs_b_buy_per_view_3d, f_x_dfs_b_view_n_7d, f_x_dfs_b_view_u_7d, f_x_dfs_b_cart_n_7d, f_x_dfs_b_cart_u_7d, f_x_dfs_b_purchase_n_7d, f_x_dfs_b_purchase_u_7d, f_x_dfs_b_cart_per_view_7d, f_x_dfs_b_buy_per_view_7d, f_x_dfs_b_view_n_14d, f_x_dfs_b_view_u_14d, f_x_dfs_b_cart_n_14d, f_x_dfs_b_cart_u_14d, f_x_dfs_b_purchase_n_14d, f_x_dfs_b_purchase_u_14d, f_x_dfs_b_cart_per_view_14d, f_x_dfs_b_buy_per_view_14d
+  dfs_u: f_x_dfs_u_view_n_1d, f_x_dfs_u_view_u_1d, f_x_dfs_u_cart_n_1d, f_x_dfs_u_cart_u_1d, f_x_dfs_u_purchase_n_1d, f_x_dfs_u_purchase_u_1d, f_x_dfs_u_cart_per_view_1d, f_x_dfs_u_buy_per_view_1d, f_x_dfs_u_view_n_3d, f_x_dfs_u_view_u_3d, f_x_dfs_u_cart_n_3d, f_x_dfs_u_cart_u_3d, f_x_dfs_u_purchase_n_3d, f_x_dfs_u_purchase_u_3d, f_x_dfs_u_cart_per_view_3d, f_x_dfs_u_buy_per_view_3d, f_x_dfs_u_view_n_7d, f_x_dfs_u_view_u_7d, f_x_dfs_u_cart_n_7d, f_x_dfs_u_cart_u_7d, f_x_dfs_u_purchase_n_7d, f_x_dfs_u_purchase_u_7d, f_x_dfs_u_cart_per_view_7d, f_x_dfs_u_buy_per_view_7d, f_x_dfs_u_view_n_14d, f_x_dfs_u_view_u_14d, f_x_dfs_u_cart_n_14d, f_x_dfs_u_cart_u_14d, f_x_dfs_u_purchase_n_14d, f_x_dfs_u_purchase_u_14d, f_x_dfs_u_cart_per_view_14d, f_x_dfs_u_buy_per_view_14d
+  r1p1_first_touch_conversion: f_x_i_first_touch_conv_lift_7d, f_x_i_quick_acq_share_7d
+  r1p2_coacq_cf: f_x_cf_coacq_cos_max, f_x_cf_coacq_co_log
+  r1p3_buyer_price_profile: f_x_i_buyer_logprice_mean_14d, f_x_i_buyer_vs_item_logprice_14d, f_x_i_buyer_logprice_std_14d
+  r1p4_new_reach: f_x_i_new_reach_share_1d, f_x_i_new_reach_trend_1v7, f_x_i_new_reach_1d_log
+  r1p5_cp_staleness: f_x_i_log_hours_since_last_cp, f_x_i_cp_staleness_ratio
+  r2p1_cmp_session_win_lift: f_x_i_cmp_win_lift_14d, f_x_i_cmp_sessions_log_14d
+  r2p2_cp_category_complement: f_x_uc_cp_complement_lift_max, f_x_uc_cp_complement_co_log
+  r2p3_acq_seed_coview_cf: f_x_cf_acqseed_cv_cos_max, f_x_cf_acqseed_cv_cos_tdecay
+  r2p4_revisit_consideration: f_x_i_revisit_lift_cat_7d, f_x_i_views_per_viewer_7d
+  r2p5_view_dwell_time: f_x_i_dwell_log_mean_7d, f_x_i_dwell_vs_cat_7d
+  r3p1_view_session_last_choice: f_x_i_last_viewed_lift_7d, f_x_i_last_vs_first_7d, f_x_i_view_cmp_sessions_log_7d
+  r3p2_intraday_momentum_12h: f_x_i_view_mom_12h_vs_yday, f_x_i_acq_share_12h_vs_7d
+  r3p3_user_user_cf_acq: f_x_uu_acq_wshare, f_x_uu_acq_rank
+  r3p4_brand_cat_price_sibling: f_x_ubc_price_dist_min, f_x_ubc_sibling_kernel
+  r3p5_category_search_depth: f_x_i_cat_search_depth_14d, f_x_i_search_depth_vs_cat_14d
+  r4p1_acq_regularity_7d: f_x_i_acq_active_days_7d, f_x_i_acq_share_cv_7d
+  r4p2_cat_acq_concentration: f_x_i_cat_acq_hhi_7d, f_x_i_acq_share_in_cat_7d, f_x_i_acq_rank_in_cat_log_7d
+  r4p3_weekday_seasonality_14d: f_x_i_acq_weekday_lift_14d, f_x_i_cat_acq_weekday_lift_14d
+  r4p4_cat_to_item_transition: f_x_ucp_cat2item_lift_max, f_x_ucp_cat2item_lift_tdecay
+  r4p5_brand_switch_transition: f_x_ubt_brand_trans_lift_max, f_x_ubt_brand_trans_lift_tdecay
+  r5p1_cf_xday_new_acq_transition: f_x_cf_xday_newacq_lift_max, f_x_cf_xday_newacq_lift_tdecay, f_x_cf_xday_newacq_nseeds
+  r5p2_cf_next_view_adjacency: f_x_cf_nextview_p_pos, f_x_cf_nextview_lift_max
+  r5p3_cf_converting_session_coview: f_x_cf_convsess_cos_max, f_x_cf_convsess_cos_tdecay
+  r5p4_uc_nextday_continuation: f_x_uc_nextday_cont_lift, f_x_uc_nextday_cont_cat_excess
+  r5p5_cf_considered_seed_coview: f_x_cf_consid_cv_cos_max, f_x_cf_consid_cv_wsum
+  r6p1_older_view_seed_coview: f_x_cf_oldview_cv_cos_max, f_x_cf_oldview_cv_wsum, f_x_cf_oldview_cv_nseeds
+  r6p2_dwell_seed_coview: f_x_cf_dwell_cv_cos_max, f_x_cf_dwell_cv_wsum
+  r6p3_abandoned_cart_seed_coview: f_x_cf_abandon_cv_cos_max, f_x_cf_abandon_cv_tdecay
+  r6p4_user_level_cooccurrence_cf: f_x_cf_uco_cos_max, f_x_cf_uco_cos_tdecay
+  r6p5_fresh_2d_coview_graph: f_x_cf_cv2d_cos_max, f_x_cf_cv2d_cos_tdecay
+
+Rules for a feature query:
+- one DuckDB SELECT statement (WITH is fine) reading only hist and active_users; no other tables,
+  files or settings;
+- returns key columns user_id and/or product_id plus 1-4 numeric value columns named f_x_c1_<something>,
+  names not used by any existing column;
+- exactly one row per key, no NULL keys; keys without a row get NULL; afterwards only the keys present
+  among the day's candidates are kept;
+- the query cannot see the candidates: product-level features cover all products; user-level and
+  pair-level queries must filter user_id IN (SELECT user_id FROM active_users), and pair-level ones must
+  enumerate pairs narrowly (e.g. products of the user's recent categories or neighbours of recent views)
+  so the result stays well under 50M rows;
+- the value for a user must not depend on which other users are in active_users: the sandbox compares the
+  answer on all active users with the union of the answers on two halves of them;
+- deterministic: no random(), setseed(), now() or anything similar; any permutation is ordered by hash(...)
+  of keys;
+- a user-level feature is constant within a user's ranking and helps only through interactions;
+- it runs once per anchor day; the median time must stay under 60 s per day, aim for under 20 s;
+- the sandbox refuses a query containing any of these words, matched as whole words in any case anywhere in
+  the text, also as aliases, column names or inside strings (* is any continuation):
+  rees46, fs, src, labels, queries, candidates, n_targets, events, pair_first, item_static, item_brand_day,
+  read_*, parquet_*, json_*, pragma_*, *_execute*, glob, getenv, query, query_table, duckdb_*,
+  information_schema, pg_catalog, sqlite_master, attach, detach, copy, export, import, install, load, pragma,
+  set, reset, use, call, create, drop, insert, update, delete, alter
+All valid columns enter the model without selection by outcome. Superfluous and noisy columns hurt: a few
+strong, non-redundant signals are needed.
+
+A card is one feature family together with the experiment that could refute it:
+{"name": "short_snake_case",
+ "mechanism": "which behaviour of users or products the family measures and why it should raise the rank of
+               the products that become targets",
+ "sign": "+ if adding the family should improve ranking quality, - if you expect it to hurt",
+ "stratum": "in words and as an SQL predicate over hist before t (user or user x product): where the gain
+             should be",
+ "null_stratum": "where the gain should not be, in words and as an SQL predicate",
+ "sql": "SELECT user_id, product_id, ... AS f_x_c1_..., ... FROM hist ...",
+ "twin": {"how": "time_shuffle | neighbour_shuffle | seeds_removed",
+          "sql": "the same query with the mechanism destroyed: same keys and coverage, columns named as yours
+                  plus the suffix _tw"},
+ "rival": {"explanation": "another reason why the family could help", "stratum": "where the rival predicts
+           the gain"}}
+Twin forms: time_shuffle permutes event times (e.g. within user and day, ordered by hash(...));
+neighbour_shuffle replaces neighbours by others of the same category and popularity decile chosen by
+hash(...); seeds_removed drops the seed events that carry the mechanism. The twin keeps the shape of the
+family (similar non-NULL share) and must not be a near copy of it.
+Columns: 1-4 per card, named f_x_c1_<slug>, unique across your cards; use the f_x_ prefix only for
+the output columns of the card (and their _tw copies in the twin), never for intermediate aliases.
+
+You wrote the cards below. Each comes with its sandbox measurements (no model outcome) and the critiques of
+anonymous critics, a skeptic and a leak auditor. Answer every card once:
+- revise: return the full card in the same schema, corrected; it may stay unchanged if the critiques do not
+  call for a change. A revised card is measured again.
+- withdraw: drop the card, with a reason.
+There is no vote; an unresolved critique stays on record as a kill_test.
+--- G1-1
+card: {
+ "id": "G1-1",
+ "name": "returning_new_acquirer_profile",
+ "mechanism": "Ranked users are, by construction, returning visitors: they were active in the 48h before the target day. Many of an item's first-touch acquirers are instead one-shot visitors arriving from ads or search, and popularity features count them all. Per item, over 14 days, the family takes the acquisitions where the user first touched and carted/bought the item on the same day. It then measures the smoothed share of those acquirers who had viewed anything in the two previous days, and the share who had viewed the item's own category then, each as a lift over the global share. Items that convert returning users who were already browsing the category are the items that become next-day targets for exactly the ranked population. Both columns are shares within acquirers, so the cart logging level cancels.",
+ "sign": "+",
+ "stratum": "Users whose ranking leans on popularity and category sources rather than item-item links, i.e. light recent browsers with at most 10 views in the last 48h: (SELECT COUNT(*) FROM hist h WHERE h.user_id = u.user_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) <= 10",
+ "null_stratum": "Heavy recent browsers whose candidates are dominated by co-view neighbours: (SELECT COUNT(*) FROM hist h WHERE h.user_id = u.user_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) > 40",
+ "sql": "WITH h AS (SELECT user_id, product_id, category_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 16 DAY), fp AS (SELECT user_id, product_id, MIN(category_id) AS category_id, MIN(event_time) AS ft, MIN(CASE WHEN event_type IN ('cart','purchase') THEN event_time END) AS fcp FROM h GROUP BY 1, 2), acq AS (SELECT user_id, product_id, category_id, date_trunc('day', fcp) AS d FROM fp WHERE fcp >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND date_trunc('day', ft) = date_trunc('day', fcp)), ud AS (SELECT DISTINCT user_id, category_id, date_trunc('day', event_time) AS d FROM h WHERE event_type = 'view'), fl AS (SELECT a.user_id, a.product_id, MAX(CASE WHEN u.user_id IS NOT NULL THEN 1 ELSE 0 END) AS pa, MAX(CASE WHEN u.category_id = a.category_id THEN 1 ELSE 0 END) AS pc FROM acq a LEFT JOIN ud u ON u.user_id = a.user_id AND u.d >= a.d - INTERVAL 2 DAY AND u.d < a.d GROUP BY a.user_id, a.product_id), ip AS (SELECT product_id, COUNT(*) AS n, SUM(pa) AS sa, SUM(pc) AS sc FROM fl GROUP BY 1), g AS (SELECT GREATEST(SUM(sa)::DOUBLE / SUM(n), 1e-4) AS ga, GREATEST(SUM(sc)::DOUBLE / SUM(n), 1e-4) AS gc FROM ip) SELECT product_id, ((sa + 10 * ga) / (n + 10.0)) / ga AS f_x_c1_retacq_prior48_lift_14d, ((sc + 10 * gc) / (n + 10.0)) / gc AS f_x_c1_retacq_priorcat_lift_14d FROM ip CROSS JOIN g",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH h AS (SELECT user_id, product_id, category_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 16 DAY), fp AS (SELECT user_id, product_id, MIN(category_id) AS category_id, MIN(event_time) AS ft, MIN(CASE WHEN event_type IN ('cart','purchase') THEN event_time END) AS fcp FROM h GROUP BY 1, 2), acq AS (SELECT user_id, product_id, category_id, date_trunc('day', fcp) AS d FROM fp WHERE fcp >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND date_trunc('day', ft) = date_trunc('day', fcp)), acq_s AS (SELECT a.product_id, a.category_id, a.d, a.r, b.user_id FROM (SELECT product_id, category_id, d, ROW_NUMBER() OVER (PARTITION BY d ORDER BY hash(user_id, product_id)) AS r FROM acq) a JOIN (SELECT user_id, d, ROW_NUMBER() OVER (PARTITION BY d ORDER BY hash(product_id, user_id, 17)) AS r FROM acq) b ON a.d = b.d AND a.r = b.r), ud AS (SELECT DISTINCT user_id, category_id, date_trunc('day', event_time) AS d FROM h WHERE event_type = 'view'), fl AS (SELECT a.product_id, MAX(CASE WHEN u.user_id IS NOT NULL THEN 1 ELSE 0 END) AS pa, MAX(CASE WHEN u.category_id = a.category_id THEN 1 ELSE 0 END) AS pc FROM acq_s a LEFT JOIN ud u ON u.user_id = a.user_id AND u.d >= a.d - INTERVAL 2 DAY AND u.d < a.d GROUP BY a.d, a.r, a.product_id), ip AS (SELECT product_id, COUNT(*) AS n, SUM(pa) AS sa, SUM(pc) AS sc FROM fl GROUP BY 1), g AS (SELECT GREATEST(SUM(sa)::DOUBLE / SUM(n), 1e-4) AS ga, GREATEST(SUM(sc)::DOUBLE / SUM(n), 1e-4) AS gc FROM ip) SELECT product_id, ((sa + 10 * ga) / (n + 10.0)) / ga AS f_x_c1_retacq_prior48_lift_14d_tw, ((sc + 10 * gc) / (n + 10.0)) / gc AS f_x_c1_retacq_priorcat_lift_14d_tw FROM ip CROSS JOIN g"
+ },
+ "rival": {
+  "explanation": "Items with a high share of returning acquirers may simply be cheap, low-risk repeat-category goods such as consumables. The lift would then proxy price and category type, already covered by i_log_price and i_cat_l1, rather than funnel-stage matching.",
+  "stratum": "Cheap candidates, i_log_price below the median of its category; the gain would concentrate there regardless of the user's recent activity."
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c1_retacq_prior48_lift_14d", "f_x_c1_retacq_priorcat_lift_14d"], "seconds_median": 0.799, "coverage": {"f_x_c1_retacq_prior48_lift_14d": 0.953, "f_x_c1_retacq_priorcat_lift_14d": 0.953}, "max_abs_rho": {"f_x_c1_retacq_prior48_lift_14d": 0.533, "f_x_c1_retacq_priorcat_lift_14d": 0.669}, "nearest": {"f_x_c1_retacq_prior48_lift_14d": "f_x_i_search_depth_vs_cat_14d", "f_x_c1_retacq_priorcat_lift_14d": "i_cat_multi_buy_14d"}, "r2": {"f_x_c1_retacq_prior48_lift_14d": 0.494, "f_x_c1_retacq_priorcat_lift_14d": 0.764}, "non_null_share_by_day": {"f_x_c1_retacq_prior48_lift_14d": {"probe_day_1": 0.949, "probe_day_2": 0.955, "probe_day_3": 0.956}, "f_x_c1_retacq_priorcat_lift_14d": {"probe_day_1": 0.949, "probe_day_2": 0.955, "probe_day_3": 0.956}}, "parity_ok": true}, "twin": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c1_retacq_prior48_lift_14d_tw", "f_x_c1_retacq_priorcat_lift_14d_tw"], "seconds_median": 0.784, "coverage": {"f_x_c1_retacq_prior48_lift_14d_tw": 0.953, "f_x_c1_retacq_priorcat_lift_14d_tw": 0.953}, "max_abs_rho": {"f_x_c1_retacq_prior48_lift_14d_tw": 0.207, "f_x_c1_retacq_priorcat_lift_14d_tw": 0.741}, "nearest": {"f_x_c1_retacq_prior48_lift_14d_tw": "s_pop_rank", "f_x_c1_retacq_priorcat_lift_14d_tw": "f_x_ucp_cat2item_lift_max"}, "r2": {"f_x_c1_retacq_prior48_lift_14d_tw": 0.0829, "f_x_c1_retacq_priorcat_lift_14d_tw": 0.844}, "non_null_share_by_day": {"f_x_c1_retacq_prior48_lift_14d_tw": {"probe_day_1": 0.949, "probe_day_2": 0.955, "probe_day_3": 0.956}, "f_x_c1_retacq_priorcat_lift_14d_tw": {"probe_day_1": 0.949, "probe_day_2": 0.955, "probe_day_3": 0.956}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "SHIFT",
+  "text": "The query reads a 16-day window, but at the Jan 15 anchor only 14 days of history exist. 'First touch' is therefore censored. Acquisitions on Jan 1-2 also have no two-day prior window, so pa and pc are forced to 0. The global ga and gc shift between early and late anchors.",
+  "kill_test": "Staleness or anchor split: ga per anchor day. A rise from Jan 15 to Feb 7 shows the lift is a censoring artifact, which refutes the mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_retacq_priorcat_lift_14d has R2 0.764 to i_cat_multi_buy_14d. Its twin keeps R2 0.844 to f_x_ucp_cat2item_lift_max, which shows the column is category-driven, not acquirer-driven.",
+  "kill_test": "Difference of differences: light browsers (<=10 views in 48h) vs heavy browsers (>40). No difference refutes the mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The neighbour_shuffle twin swaps acquirers within a day but keeps the product's category. Its priorcat column still has max rho 0.741 and R2 0.844, to f_x_ucp_cat2item_lift_max. 'Acquirer viewed the item's category before' is a category->item transition already in r4p4. The card's priorcat column is also close to i_cat_multi_buy_14d (R2 0.764).",
+  "kill_test": "Twin as a factor: if f_x_c_retacq_priorcat_lift_14d gives no gain beyond its twin, the returning-acquirer profile is refuted and it is category->item transition structure.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "The 16-day read with a 2-day prior lookback reaches before 2020-01-01 for the earliest anchors (2020-01-15..17). There, acquisitions on 1-2 Jan have no prior days, so pa and pc are forced to 0. The 'first touch' ft is also left-truncated, which inflates same-day acquisitions. The global normalisation by ga and gc cancels the level only partly, because the truncated days hit item groups unevenly.",
+  "kill_test": "Staleness: compare the column at the earliest anchors (Jan 15-17) with the same items at Jan 20+ restricted to 14d windows fully after Jan 3. A drift in the item ranks beyond ordinary day-to-day variation indicates a truncation artefact.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_retacq_priorcat_lift_14d has R2 0.764 (rho 0.669) with i_cat_multi_buy_14d. Its twin, with acquirers shuffled within the day, still has R2 0.844 with f_x_ucp_cat2item_lift_max, so the column is mainly a category property, not funnel matching. Only f_x_c_retacq_prior48_lift_14d (R2 0.494) is new. The signature also mirrors C25: both describe the browsing context of acquirers before acquisition.",
+  "kill_test": "Twin as factor on the priorcat column: if the twin's gain equals the card's, the column is a category effect. Also a difference of differences between light browsers (at most 10 views in 48h) and heavy browsers (over 40). The mechanism is refuted if the difference is near zero.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. Product-level and reads [t-16d, t) of hist only. Acquisitions fcp < t, and prior-48h views come strictly before the acquisition day. No active_users dependence. The twin's user permutation is ordered by hash.",
+  "kill_test": "staleness: compute at t-24h; if the gain is unchanged, the 'retargeted acquisition' lift is only a stable item trait (rival: i_cat_multi_buy_14d, R2 0.764).",
+  "by": "auditor"
+ }
+]
+--- G1-2
+card: {
+ "id": "G1-2",
+ "name": "session_landing_conversion",
+ "mechanism": "The first item viewed in a session is where the user lands from an external search, an ad, an e-mail or a bookmark, so it carries the clearest declared intent. The family measures how often the item is the landing page of the sessions that contain it, relative to its category; this is view-only, so it is immune to the cart shift. It also measures how often a session that lands on the item ends with that item carted or bought, as a lift over the global landing conversion. Targets are new items acquired on first contact the next day, which is exactly a session that lands on a product and converts. This is distinct from r3p1, which covers last versus first position inside multi-item comparison sessions, and from r1p1, which covers 24h first-touch conversion regardless of how the user arrived.",
+ "sign": "+",
+ "stratum": "Users with short, direct sessions, where a median session of at most 3 views in 7 days means landings dominate: (SELECT MEDIAN(c) FROM (SELECT COUNT(*) AS c FROM hist h WHERE h.user_id = u.user_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY h.user_session)) <= 3",
+ "null_stratum": "Long-session browsers, where in-site navigation rather than landing drives discovery: (SELECT MEDIAN(c) FROM (SELECT COUNT(*) AS c FROM hist h WHERE h.user_id = u.user_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY h.user_session)) >= 10",
+ "sql": "WITH s AS (SELECT user_session, product_id, category_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_session IS NOT NULL), first_ev AS (SELECT user_session, product_id AS land_pid FROM s WHERE event_type = 'view' QUALIFY ROW_NUMBER() OVER (PARTITION BY user_session ORDER BY event_time, hash(product_id)) = 1), sp AS (SELECT user_session, product_id, MIN(category_id) AS category_id, MAX(CASE WHEN event_type IN ('cart','purchase') THEN 1 ELSE 0 END) AS acq FROM s GROUP BY 1, 2), x AS (SELECT sp.product_id, sp.category_id, sp.acq, CASE WHEN f.land_pid = sp.product_id THEN 1 ELSE 0 END AS land FROM sp LEFT JOIN first_ev f ON f.user_session = sp.user_session), ip AS (SELECT product_id, MIN(category_id) AS category_id, COUNT(*) AS ns, SUM(land) AS nl, SUM(land * acq) AS nla FROM x GROUP BY 1), cp AS (SELECT category_id, GREATEST(SUM(nl)::DOUBLE / SUM(ns), 1e-4) AS cl FROM ip GROUP BY 1), g AS (SELECT GREATEST(SUM(nla)::DOUBLE / GREATEST(SUM(nl), 1), 1e-6) AS gc FROM ip) SELECT ip.product_id, ((ip.nl + 20 * cp.cl) / (ip.ns + 20.0)) / cp.cl AS f_x_c1_landing_share_lift_7d, ((ip.nla + 20 * g.gc) / (ip.nl + 20.0)) / g.gc AS f_x_c1_landing_conv_lift_7d FROM ip JOIN cp ON cp.category_id = ip.category_id CROSS JOIN g",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH s AS (SELECT user_session, product_id, category_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_session IS NOT NULL), first_ev AS (SELECT user_session, product_id AS land_pid FROM s WHERE event_type = 'view' QUALIFY ROW_NUMBER() OVER (PARTITION BY user_session ORDER BY hash(user_session, product_id, event_time)) = 1), sp AS (SELECT user_session, product_id, MIN(category_id) AS category_id, MAX(CASE WHEN event_type IN ('cart','purchase') THEN 1 ELSE 0 END) AS acq FROM s GROUP BY 1, 2), x AS (SELECT sp.product_id, sp.category_id, sp.acq, CASE WHEN f.land_pid = sp.product_id THEN 1 ELSE 0 END AS land FROM sp LEFT JOIN first_ev f ON f.user_session = sp.user_session), ip AS (SELECT product_id, MIN(category_id) AS category_id, COUNT(*) AS ns, SUM(land) AS nl, SUM(land * acq) AS nla FROM x GROUP BY 1), cp AS (SELECT category_id, GREATEST(SUM(nl)::DOUBLE / SUM(ns), 1e-4) AS cl FROM ip GROUP BY 1), g AS (SELECT GREATEST(SUM(nla)::DOUBLE / GREATEST(SUM(nl), 1), 1e-6) AS gc FROM ip) SELECT ip.product_id, ((ip.nl + 20 * cp.cl) / (ip.ns + 20.0)) / cp.cl AS f_x_c1_landing_share_lift_7d_tw, ((ip.nla + 20 * g.gc) / (ip.nl + 20.0)) / g.gc AS f_x_c1_landing_conv_lift_7d_tw FROM ip JOIN cp ON cp.category_id = ip.category_id CROSS JOIN g"
+ },
+ "rival": {
+  "explanation": "Landing share may just flag items promoted in external campaigns, so the gain would come from promotion timing that is correlated with i_trend_view_1v7, not from a session intent structure.",
+  "stratum": "Candidates with a rising view trend, i_trend_view_1v7 > 1.5; the gain would sit there for all user types."
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c1_landing_share_lift_7d", "f_x_c1_landing_conv_lift_7d"], "seconds_median": 1.02, "coverage": {"f_x_c1_landing_share_lift_7d": 0.999, "f_x_c1_landing_conv_lift_7d": 0.999}, "max_abs_rho": {"f_x_c1_landing_share_lift_7d": 0.674, "f_x_c1_landing_conv_lift_7d": 0.88}, "nearest": {"f_x_c1_landing_share_lift_7d": "f_x_i_last_vs_first_7d", "f_x_c1_landing_conv_lift_7d": "i_cart_lift_7d"}, "r2": {"f_x_c1_landing_share_lift_7d": 0.706, "f_x_c1_landing_conv_lift_7d": 0.847}, "non_null_share_by_day": {"f_x_c1_landing_share_lift_7d": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}, "f_x_c1_landing_conv_lift_7d": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}}, "parity_ok": true}, "twin": {"keys": ["product_id"], "level": "product", "columns": ["f_x_c1_landing_share_lift_7d_tw", "f_x_c1_landing_conv_lift_7d_tw"], "seconds_median": 0.679, "coverage": {"f_x_c1_landing_share_lift_7d_tw": 0.999, "f_x_c1_landing_conv_lift_7d_tw": 0.999}, "max_abs_rho": {"f_x_c1_landing_share_lift_7d_tw": 0.561, "f_x_c1_landing_conv_lift_7d_tw": 0.909}, "nearest": {"f_x_c1_landing_share_lift_7d_tw": "f_x_i_acq_rank_in_cat_log_7d", "f_x_c1_landing_conv_lift_7d_tw": "i_cart_lift_7d"}, "r2": {"f_x_c1_landing_share_lift_7d_tw": 0.611, "f_x_c1_landing_conv_lift_7d_tw": 0.886}, "non_null_share_by_day": {"f_x_c1_landing_share_lift_7d_tw": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}, "f_x_c1_landing_conv_lift_7d_tw": {"probe_day_1": 0.999, "probe_day_2": 0.999, "probe_day_3": 0.998}}, "parity_ok": true}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["f_x_c1_landing_share_lift_7d: |rho_wq| with the twin 0.902 > 0.8", "f_x_c1_landing_conv_lift_7d: |rho_wq| with the twin 0.949 > 0.8"]}, "machine_red": []}
+critiques: [
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The twin has twin rho 0.902 and 0.949 to the card (TWIN-BROKEN), so the hashed landing order barely changes either column. f_x_c_landing_conv_lift_7d has R2 0.847 to i_cart_lift_7d. Contrary to the card's claim, column 2 counts carts and is not 'immune to the cart shift'. Session boundaries also depend on how user_session is logged.",
+  "kill_test": "Twin as a factor: equal gain refutes the claim that landing structure matters.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The card is TWIN-BROKEN: landing_share_lift has rho 0.902 with its twin and landing_conv_lift has 0.949. A random first event in a session is still an event of the session, so the twin preserves session membership and conversion. landing_conv_lift has R2 0.847 to i_cart_lift_7d, so in practice it is the item's session conversion rate.",
+  "kill_test": "Twin as a factor: with the hash-ordered landing twin included, the true landing columns should still add gain. If they do not, entry-node position is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "In the transition graph, a high landing share means low in-degree from other items (few internal arrivals). Such items are reachable mainly via external links, and the co-view and transition candidate sources rarely surface them. The gain may be candidate-source composition, not intent. The relevant stratum is candidates whose only source is s_pop_rank or s_cat_rank versus those from cf sources.",
+  "kill_test": "Difference of differences: compare the gain for candidates with s_n_sources = 1 from popularity sources against cf-sourced candidates. If the gain sits only in pop-sourced candidates, the landing feature is acting as a source-type proxy.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_landing_conv_lift_7d has R2 0.847 with i_cart_lift_7d, and its twin is even closer (R2 0.886). The twin keeps rho_wq 0.902 and 0.949 with the card (TWIN-BROKEN), because most sessions hold a single item, so landing equals presence. f_x_c_landing_share_lift_7d has R2 0.706 with f_x_i_last_vs_first_7d (r3p1).",
+  "kill_test": "Twin as factor: the measured rho of 0.9-0.95 with the twin predicts equal gain, which refutes landing order. A difference of differences between short-session users and long-session users should also be null.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. Product-level and reads [t-7d, t). The landing view is ordered by event_time, then hash(product_id), so it is deterministic. Nothing depends on active_users.",
+  "kill_test": "twin as a factor: the twin is already rho 0.90/0.95 with the card. If adding the twin alone recovers the gain, landing position is not the mechanism.",
+  "by": "auditor"
+ }
+]
+--- G1-3
+card: {
+ "id": "G1-3",
+ "name": "consideration_set_price_position",
+ "mechanism": "During the comparison phase the user's own consideration set in a category defines the live price frame. The first column places the candidate inside the set of distinct items the user viewed in that category in the last 48h, as the share of considered items priced above it; this is a personal price percentile, not the catalogue percentile i_price_pct_in_cat. The second column tests whether the candidate lies in the direction the user is drifting: the mean log price of the 3 latest considered items minus the set mean, multiplied by the candidate's offset from the set mean and scaled by the set's spread. Users trading up or down usually finish on an item past their latest views, which a static median distance (up_cat_logratio_med) cannot express.",
+ "sign": "+",
+ "stratum": "User x candidate where the user compared at least 4 priced items of the candidate's category in the last 48h: (SELECT COUNT(DISTINCT h.product_id) FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'view' AND h.price > 0 AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) >= 4",
+ "null_stratum": "Exactly one viewed item in the category in 48h, where the percentile is 0, 0.5 or 1 and the drift is 0: (SELECT COUNT(DISTINCT h.product_id) FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) = 1",
+ "sql": "WITH v AS (SELECT user_id, category_id, product_id, ln(1 + CAST(price AS DOUBLE)) AS lp, event_time FROM hist WHERE event_type = 'view' AND price > 0 AND event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR AND user_id IN (SELECT user_id FROM active_users)), ui AS (SELECT user_id, category_id, product_id, AVG(lp) AS lp, MAX(event_time) AS lt FROM v GROUP BY 1, 2, 3), ucs AS (SELECT * FROM (SELECT user_id, category_id, MAX(lt) AS last_t, AVG(lp) AS m, COALESCE(STDDEV_POP(lp), 0) AS sd FROM ui GROUP BY 1, 2) QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY last_t DESC, category_id) <= 3), l3 AS (SELECT user_id, category_id, AVG(lp) AS m3 FROM (SELECT user_id, category_id, lp, ROW_NUMBER() OVER (PARTITION BY user_id, category_id ORDER BY lt DESC, product_id) AS r FROM ui) WHERE r <= 3 GROUP BY 1, 2), prod AS (SELECT product_id, category_id, lp FROM (SELECT product_id, MIN(category_id) AS category_id, ln(1 + CAST(arg_max(price, event_time) AS DOUBLE)) AS lp, COUNT(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN user_id END) AS na FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND price > 0 GROUP BY product_id) WHERE na >= 1 QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30), pr AS (SELECT u.user_id, u.category_id, p.product_id, p.lp, u.m, u.sd, l3.m3 FROM ucs u JOIN l3 ON l3.user_id = u.user_id AND l3.category_id = u.category_id JOIN prod p ON p.category_id = u.category_id) SELECT pr.user_id, pr.product_id, AVG(CASE WHEN ui.lp > pr.lp + 0.01 THEN 1.0 WHEN ui.lp >= pr.lp - 0.01 THEN 0.5 ELSE 0.0 END) AS f_x_c1_cset_price_pct_above, ANY_VALUE((pr.lp - pr.m) * (pr.m3 - pr.m) / ((pr.sd + 0.15) * (pr.sd + 0.15))) AS f_x_c1_cset_drift_align FROM pr JOIN ui ON ui.user_id = pr.user_id AND ui.category_id = pr.category_id GROUP BY pr.user_id, pr.product_id",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH v AS (SELECT user_id, category_id, product_id, ln(1 + CAST(price AS DOUBLE)) AS lp, event_time FROM hist WHERE event_type = 'view' AND price > 0 AND event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR AND user_id IN (SELECT user_id FROM active_users)), ui AS (SELECT user_id, category_id, product_id, AVG(lp) AS lp, MAX(event_time) AS lt FROM v GROUP BY 1, 2, 3), ucs AS (SELECT * FROM (SELECT user_id, category_id, MAX(lt) AS last_t, AVG(lp) AS m, COALESCE(STDDEV_POP(lp), 0) AS sd FROM ui GROUP BY 1, 2) QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY last_t DESC, category_id) <= 3), l3 AS (SELECT user_id, category_id, AVG(lp) AS m3 FROM (SELECT user_id, category_id, lp, ROW_NUMBER() OVER (PARTITION BY user_id, category_id ORDER BY lt DESC, product_id) AS r FROM ui) WHERE r <= 3 GROUP BY 1, 2), prod0 AS (SELECT product_id, category_id, lp FROM (SELECT product_id, MIN(category_id) AS category_id, ln(1 + CAST(arg_max(price, event_time) AS DOUBLE)) AS lp, COUNT(DISTINCT CASE WHEN event_type IN ('cart','purchase') THEN user_id END) AS na FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND price > 0 GROUP BY product_id) WHERE na >= 1 QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30), pr0 AS (SELECT product_id, category_id, lp, ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY hash(product_id)) AS r, COUNT(*) OVER (PARTITION BY category_id) AS n FROM prod0), prod AS (SELECT a.product_id, a.category_id, b.lp FROM pr0 a JOIN pr0 b ON a.category_id = b.category_id AND b.r = (a.r % a.n) + 1), pr AS (SELECT u.user_id, u.category_id, p.product_id, p.lp, u.m, u.sd, l3.m3 FROM ucs u JOIN l3 ON l3.user_id = u.user_id AND l3.category_id = u.category_id JOIN prod p ON p.category_id = u.category_id) SELECT pr.user_id, pr.product_id, AVG(CASE WHEN ui.lp > pr.lp + 0.01 THEN 1.0 WHEN ui.lp >= pr.lp - 0.01 THEN 0.5 ELSE 0.0 END) AS f_x_c1_cset_price_pct_above_tw, ANY_VALUE((pr.lp - pr.m) * (pr.m3 - pr.m) / ((pr.sd + 0.15) * (pr.sd + 0.15))) AS f_x_c1_cset_drift_align_tw FROM pr JOIN ui ON ui.user_id = pr.user_id AND ui.category_id = pr.category_id GROUP BY pr.user_id, pr.product_id"
+ },
+ "rival": {
+  "explanation": "The percentile may mostly re-encode the candidate's distance to the user's typical category price (up_cat_logratio_med, up_cat_in_range) at a 48h rather than 14d horizon. Any gain would then be pure recency of the price taste, not comparison-phase dynamics.",
+  "stratum": "Users whose 48h category price mean differs from their 14d category median by more than 0.3 in log price, regardless of set size."
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_cset_price_pct_above", "f_x_c1_cset_drift_align"], "seconds_median": 2.65, "coverage": {"f_x_c1_cset_price_pct_above": 0.15, "f_x_c1_cset_drift_align": 0.15}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_cset_price_pct_above": 0.848, "f_x_c1_cset_drift_align": 0.108}, "nearest": {"f_x_c1_cset_price_pct_above": "up_cat_logratio_med", "f_x_c1_cset_drift_align": "f_x_uc_cp_complement_co_log"}, "r2": {"f_x_c1_cset_price_pct_above": 0.735, "f_x_c1_cset_drift_align": 0.0484}, "non_null_share_by_day": {"f_x_c1_cset_price_pct_above": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}, "f_x_c1_cset_drift_align": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}}, "parity_ok": true}, "twin": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_cset_price_pct_above_tw", "f_x_c1_cset_drift_align_tw"], "seconds_median": 2.34, "coverage": {"f_x_c1_cset_price_pct_above_tw": 0.15, "f_x_c1_cset_drift_align_tw": 0.15}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_cset_price_pct_above_tw": 0.164, "f_x_c1_cset_drift_align_tw": 0.0832}, "nearest": {"f_x_c1_cset_price_pct_above_tw": "up_cat_logratio_med", "f_x_c1_cset_drift_align_tw": "f_x_uc_cp_complement_co_log"}, "r2": {"f_x_c1_cset_price_pct_above_tw": 0.137, "f_x_c1_cset_drift_align_tw": 0.0255}, "non_null_share_by_day": {"f_x_c1_cset_price_pct_above_tw": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}, "f_x_c1_cset_drift_align_tw": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_cset_price_pct_above has max |rho| 0.848 and R2 0.735 to up_cat_logratio_med. The neighbour-shuffle twin drops this to rho 0.164 and R2 0.137, so the overlap comes from the candidate's real price. In other words, the column is mostly the existing user-vs-category price distance measured at 48h instead of 14d. Only f_x_c_cset_drift_align (R2 0.048) is new.",
+  "kill_test": "Difference of differences: the gain in the >=4-items stratum minus the gain in the 1-item null stratum, with up_cat_logratio_med and up_cat_in_range already in the model. A difference near 0 refutes a comparison-phase effect beyond the static price distance.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "The candidate price is arg_max(price, event_time) over 7d, the last observed price. The user's set uses the average of prices seen in the 48h views. When a top item changes price (promo starts or ends), the percentile moves even though the user's frame did not. Part of the column then re-encodes i_price_change_7d and i_price_from_max_14d rather than a position in the consideration set. Non-NULL share is stable (0.160/0.147/0.144), so the risk is meaning drift, not coverage.",
+  "kill_test": "Staleness: recompute at t-24h. If the gain survives mainly on candidates with |i_price_change_7d| > 0, it reflects price change, not set position, and the mechanism is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_cset_price_pct_above has rho 0.848 and R2 0.735 to up_cat_logratio_med. Its twin falls to R2 0.137, so what the card measures is mostly the user's category price centre at a 48h rather than 14d horizon. That is the card's own rival. Only f_x_c_cset_drift_align is new (R2 0.048 to f_x_uc_cp_complement_co_log).",
+  "kill_test": "Difference of differences: compute the stratum (>=4 priced items in 48h) minus null-stratum gain for pct_above after conditioning on up_cat_logratio_med deciles. If the residual gain is not above the twin's, the percentile is a duplicate. Drop it and keep only drift_align.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "Pairs are enumerated only as the top-30 acquired items of the user's 3 latest categories (coverage 0.15). Candidates arriving via the session co-view and view->acquisition transition sources are mostly outside that set and get NULL. Those are exactly the items where an in-consideration price position matters. The comparison frame is the user's local co-view subgraph, but the feature is broadcast to category best-sellers.",
+  "kill_test": "Key level: restrict the evaluation to candidates with cf_src4_best_rank non-NULL. If the gain from the family is zero on co-view-sourced candidates and present only on category top-30 ones, the consideration-set mechanism is refuted in favour of category price taste.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_cset_price_pct_above has rho 0.848 (R2 0.735) with up_cat_logratio_med, which is the rival's 48h re-encoding of price distance. Only f_x_c_cset_drift_align (R2 0.048) is new, and it should be kept alone.",
+  "kill_test": "Difference of differences: the drift column's gain in users with at least 4 compared items, minus the gain in users with one viewed item (drift 0). The mechanism is refuted if the difference is not positive, or if the gain matches the rival stratum (48h mean versus 14d median, gap over 0.3).",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. Active users' views in [t-48h, t); product price is arg_max(price, event_time) in [t-7d, t). Minor caveat: equal event_time with different prices makes arg_max tie-dependent; adding a key tiebreak is advised. Batch test green.",
+  "kill_test": "twin as a factor: if the neighbour-shuffled price twin gives the same gain, the user's price position within the consideration set is not the mechanism.",
+  "by": "auditor"
+ }
+]
+--- G1-4
+card: {
+ "id": "G1-4",
+ "name": "open_cart_category_need",
+ "mechanism": "A cart that was never followed by a purchase in the same category marks an open, unresolved need at the decision stage of the funnel. The user has already decided to buy something in that category but has not committed to this product; abandoned or compared carts are often closed with a different, not yet touched item the next day. Pairs are the user's latest 3 categories that hold an unresolved cart in 7 days, crossed with the top acquired products of each. The family gives the log hours since the latest unresolved cart and the log number of distinct unresolved items. This differs from uc_last_cp_h, which counts resolved carts and purchases alike (a purchase usually closes the need), and from r6p3, which reaches only co-view neighbours of the abandoned item rather than the category's best sellers.",
+ "sign": "+",
+ "stratum": "User x category with a 7d cart and no later purchase in that category: EXISTS (SELECT 1 FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'cart' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND NOT EXISTS (SELECT 1 FROM hist h2 WHERE h2.user_id = h.user_id AND h2.category_id = h.category_id AND h2.event_type = 'purchase' AND h2.event_time > h.event_time))",
+ "null_stratum": "User x category whose every 7d cart was followed by a purchase in the category (need closed): EXISTS (SELECT 1 FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'purchase' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY) AND NOT EXISTS (SELECT 1 FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'cart' AND h.event_time > (SELECT MAX(h3.event_time) FROM hist h3 WHERE h3.user_id = u.user_id AND h3.category_id = p.category_id AND h3.event_type = 'purchase'))",
+ "sql": "WITH e AS (SELECT user_id, product_id, category_id, event_type, event_time FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_id IN (SELECT user_id FROM active_users)), lb AS (SELECT user_id, category_id, MAX(event_time) AS lbt FROM e WHERE event_type = 'purchase' GROUP BY 1, 2), oc AS (SELECT * FROM (SELECT e.user_id, e.category_id, MAX(e.event_time) AS lo, COUNT(DISTINCT e.product_id) AS n_open FROM e LEFT JOIN lb ON lb.user_id = e.user_id AND lb.category_id = e.category_id WHERE e.event_type = 'cart' AND (lb.lbt IS NULL OR lb.lbt < e.event_time) GROUP BY 1, 2) QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY lo DESC, category_id) <= 3), prod AS (SELECT product_id, category_id FROM (SELECT product_id, MIN(category_id) AS category_id, COUNT(DISTINCT user_id) AS na FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id) QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30) SELECT o.user_id, p.product_id, ln(1 + date_diff('second', o.lo, TIMESTAMP '{t}') / 3600.0) AS f_x_c1_opencart_hours_log, ln(1 + o.n_open) AS f_x_c1_opencart_items_log FROM oc o JOIN prod p ON p.category_id = o.category_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH e0 AS (SELECT user_id, product_id, category_id, event_type, event_time FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_id IN (SELECT user_id FROM active_users)), e AS (SELECT a.user_id, a.product_id, a.category_id, a.event_type, b.event_time FROM (SELECT user_id, product_id, category_id, event_type, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY hash(user_id, product_id, event_type, event_time)) AS r FROM e0) a JOIN (SELECT user_id, event_time, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY event_time, hash(product_id, event_type)) AS r FROM e0) b ON a.user_id = b.user_id AND a.r = b.r), lb AS (SELECT user_id, category_id, MAX(event_time) AS lbt FROM e WHERE event_type = 'purchase' GROUP BY 1, 2), oc AS (SELECT * FROM (SELECT e.user_id, e.category_id, MAX(e.event_time) AS lo, COUNT(DISTINCT e.product_id) AS n_open FROM e LEFT JOIN lb ON lb.user_id = e.user_id AND lb.category_id = e.category_id WHERE e.event_type = 'cart' AND (lb.lbt IS NULL OR lb.lbt < e.event_time) GROUP BY 1, 2) QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY lo DESC, category_id) <= 3), prod AS (SELECT product_id, category_id FROM (SELECT product_id, MIN(category_id) AS category_id, COUNT(DISTINCT user_id) AS na FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id) QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30) SELECT o.user_id, p.product_id, ln(1 + date_diff('second', o.lo, TIMESTAMP '{t}') / 3600.0) AS f_x_c1_opencart_hours_log_tw, ln(1 + o.n_open) AS f_x_c1_opencart_items_log_tw FROM oc o JOIN prod p ON p.category_id = o.category_id"
+ },
+ "rival": {
+  "explanation": "The gain may come merely from flagging any category with recent cart activity, a recency-of-acquisition signal already partly in uc_last_cp_h and uc_ls_cp, not from whether the need is unresolved.",
+  "stratum": "Categories with a cart in the last 24h whether or not it was followed by a purchase; the rival predicts equal gain for resolved and unresolved ones."
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_opencart_hours_log", "f_x_c1_opencart_items_log"], "seconds_median": 0.18, "coverage": {"f_x_c1_opencart_hours_log": 0.0328, "f_x_c1_opencart_items_log": 0.0328}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_opencart_hours_log": 0.999, "f_x_c1_opencart_items_log": 0.451}, "nearest": {"f_x_c1_opencart_hours_log": "uc_last_cp_h", "f_x_c1_opencart_items_log": "uc_distinct_viewed_7d"}, "r2": {"f_x_c1_opencart_hours_log": 1.0, "f_x_c1_opencart_items_log": 0.916}, "non_null_share_by_day": {"f_x_c1_opencart_hours_log": {"probe_day_1": 0.0317, "probe_day_2": 0.0371, "probe_day_3": 0.0297}, "f_x_c1_opencart_items_log": {"probe_day_1": 0.0317, "probe_day_2": 0.0371, "probe_day_3": 0.0297}}, "parity_ok": true}, "twin": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_opencart_hours_log_tw", "f_x_c1_opencart_items_log_tw"], "seconds_median": 0.235, "coverage": {"f_x_c1_opencart_hours_log_tw": 0.0589, "f_x_c1_opencart_items_log_tw": 0.0589}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_opencart_hours_log_tw": 0.345, "f_x_c1_opencart_items_log_tw": 0.483}, "nearest": {"f_x_c1_opencart_hours_log_tw": "uc_l1_share_hl1d", "f_x_c1_opencart_items_log_tw": "uc_distinct_viewed_7d"}, "r2": {"f_x_c1_opencart_hours_log_tw": 0.463, "f_x_c1_opencart_items_log_tw": 0.54}, "non_null_share_by_day": {"f_x_c1_opencart_hours_log_tw": {"probe_day_1": 0.0572, "probe_day_2": 0.0638, "probe_day_3": 0.0557}, "f_x_c1_opencart_items_log_tw": {"probe_day_1": 0.0572, "probe_day_2": 0.0638, "probe_day_3": 0.0557}}, "parity_ok": true}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["f_x_c1_opencart_hours_log: coverage 0.0328, twin 0.0589, outside +-10%", "f_x_c1_opencart_items_log: coverage 0.0328, twin 0.0589, outside +-10%", "f_x_c1_opencart_items_log: |rho_wq| with the twin 0.944 > 0.8"]}, "machine_red": []}
+critiques: [
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_opencart_hours_log has max |rho| 0.999 and R2 1.0 to uc_last_cp_h, so it is the same column. f_x_c_opencart_items_log has R2 0.916 to uc_distinct_viewed_7d, and its twin rho is 0.944.",
+  "kill_test": "Key level: the gain should come only from pairs where the uc_last_cp_h category also had a later purchase (resolved). Zero difference between resolved and unresolved categories refutes the mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "An 'open cart' is a cart without a later purchase, so the family depends directly on the cart-to-purchase ratio, which the brief says changes between days. Non-NULL share is 0.0317/0.0371/0.0297, about ±12%. The twin's coverage differs by 80%.",
+  "kill_test": "Staleness: recompute at t-24h. If the open-cart share per day tracks the global cart/purchase ratio of that day, the column measures logging level rather than need.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_opencart_hours_log has rho 0.999 and R2 1.0 to uc_last_cp_h, which makes it an exact duplicate. f_x_c_opencart_items_log has R2 0.916 to uc_distinct_viewed_7d. The twin is also TWIN-BROKEN: coverage is 0.0328 vs 0.0589, and items_log has rho 0.944 with its twin.",
+  "kill_test": "Difference of differences: compare the unresolved-cart stratum against the resolved stratum while holding uc_last_cp_h fixed. If the gains are equal, the 'open need' adds nothing over cart recency.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "The family rests on separating 'cart' from 'purchase', which is exactly the cart level the brief warns can move between days. Non-NULL share swings 0.0317 / 0.0371 / 0.0297, and coverage is ~3% of pairs. On graph grounds, abandoned-cart needs are better served by the cart item's co-view neighbours (already r6p3) than by category best-sellers.",
+  "kill_test": "Staleness: rerun at t - 24h. If the set of 'open' categories largely flips with the daily cart-to-purchase level rather than per user, the signal reflects logging and not need.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_opencart_hours_log has rho 0.999 and R2 1.0 with uc_last_cp_h, an exact duplicate. f_x_c_opencart_items_log has R2 0.916 with uc_distinct_viewed_7d and rho_wq 0.944 with its own twin (TWIN-BROKEN, with coverage 0.0328 versus 0.0589). The family also rests directly on the cart level ('cart without purchase'), so it is exposed to the cart-shift (SHIFT).",
+  "kill_test": "Difference of differences: unresolved-cart categories minus resolved ones, conditioning on uc_last_cp_h. The mechanism is refuted if there is no residual gain, i.e. the rival 'any recent cart' explains it.",
+  "by": "skeptic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "No leak found: carts and purchases are in [t-7d, t) for active users only. But f_x_c_opencart_hours_log has rho 0.999 and R2 1.0 with uc_last_cp_h, and f_x_c_opencart_items_log has R2 0.916 with uc_distinct_viewed_7d. It also rests on cart counts (cart level).",
+  "kill_test": "key level: drop the opencart columns, keep uc_last_cp_h; if the gain is unchanged, the card is redundant.",
+  "by": "auditor"
+ }
+]
+--- G1-5
+card: {
+ "id": "G1-5",
+ "name": "category_exploration_freshness",
+ "mechanism": "In a category the user is browsing, there are two search phases. In an exploring phase most items viewed in the last 48h are new to the user (first touched in the last 48h); in a narrowing phase the user keeps re-viewing items they already knew. Narrowing users will mostly buy an item they already touched, which is excluded from targets. Exploring users are still sampling the catalogue and are the ones whose next-day acquisition is a never-touched product. The family gives the smoothed fresh-item share among the user's 48h distinct items in the category, and the log of 48h views per distinct item (re-view intensity), broadcast to the category's top acquired products.",
+ "sign": "+",
+ "stratum": "User x category with at least 3 distinct items viewed in the last 48h, where the share is informative: (SELECT COUNT(DISTINCT h.product_id) FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) >= 3",
+ "null_stratum": "Users whose whole 14d history lies inside the last 48h, so every item is fresh by definition: NOT EXISTS (SELECT 1 FROM hist h WHERE h.user_id = u.user_id AND h.event_time < TIMESTAMP '{t}' - INTERVAL 48 HOUR AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY)",
+ "sql": "WITH h AS (SELECT user_id, product_id, category_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND user_id IN (SELECT user_id FROM active_users)), up AS (SELECT user_id, product_id, MIN(category_id) AS category_id, MIN(event_time) AS ft, MAX(event_time) AS lt, SUM(CASE WHEN event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR THEN 1 ELSE 0 END) AS v48 FROM h GROUP BY 1, 2), uc AS (SELECT user_id, category_id, COUNT(*) AS n48, SUM(CASE WHEN ft >= TIMESTAMP '{t}' - INTERVAL 48 HOUR THEN 1 ELSE 0 END) AS nf, SUM(v48) AS vv, MAX(lt) AS last_t FROM up WHERE v48 > 0 GROUP BY 1, 2), ucs AS (SELECT * FROM uc QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY last_t DESC, category_id) <= 3), prod AS (SELECT product_id, category_id FROM (SELECT product_id, MIN(category_id) AS category_id, COUNT(DISTINCT user_id) AS na FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id) QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30) SELECT u.user_id, p.product_id, (u.nf + 0.5) / (u.n48 + 1.0) AS f_x_c1_cat_fresh_share_48h, ln(u.vv::DOUBLE / u.n48) AS f_x_c1_cat_reviews_per_item_48h FROM ucs u JOIN prod p ON p.category_id = u.category_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH h AS (SELECT user_id, product_id, category_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND user_id IN (SELECT user_id FROM active_users)), up AS (SELECT user_id, product_id, MIN(category_id) AS category_id, MIN(event_time) AS ft, MAX(event_time) AS lt, SUM(CASE WHEN event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR THEN 1 ELSE 0 END) AS v48 FROM h GROUP BY 1, 2), upr AS (SELECT user_id, product_id, ft, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY hash(user_id, product_id)) AS r, COUNT(*) OVER (PARTITION BY user_id) AS n FROM up), fts AS (SELECT a.user_id, a.product_id, b.ft AS fts FROM upr a JOIN upr b ON a.user_id = b.user_id AND b.r = (a.r % a.n) + 1), w AS (SELECT user_id, product_id, v48, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY hash(product_id, user_id)) AS r, COUNT(*) OVER (PARTITION BY user_id) AS n FROM up WHERE v48 > 0), vs AS (SELECT a.user_id, a.product_id, b.v48 AS v48s FROM w a JOIN w b ON a.user_id = b.user_id AND b.r = (a.r % a.n) + 1), uc AS (SELECT a.user_id, a.category_id, COUNT(*) AS n48, SUM(CASE WHEN f.fts >= TIMESTAMP '{t}' - INTERVAL 48 HOUR THEN 1 ELSE 0 END) AS nf, SUM(s.v48s) AS vv, MAX(a.lt) AS last_t FROM up a JOIN fts f ON f.user_id = a.user_id AND f.product_id = a.product_id JOIN vs s ON s.user_id = a.user_id AND s.product_id = a.product_id GROUP BY a.user_id, a.category_id), ucs AS (SELECT * FROM uc QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY last_t DESC, category_id) <= 3), prod AS (SELECT product_id, category_id FROM (SELECT product_id, MIN(category_id) AS category_id, COUNT(DISTINCT user_id) AS na FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id) QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30) SELECT u.user_id, p.product_id, (u.nf + 0.5) / (u.n48 + 1.0) AS f_x_c1_cat_fresh_share_48h_tw, ln(u.vv::DOUBLE / u.n48) AS f_x_c1_cat_reviews_per_item_48h_tw FROM ucs u JOIN prod p ON p.category_id = u.category_id"
+ },
+ "rival": {
+  "explanation": "The fresh share may simply track how recently the user started on the category (u_first_seen_days_cap7, uc_active_days_14d). Any gain would then come from category novelty rather than from item-level exploration within the category.",
+  "stratum": "User x category where the user's first category view in 14d is within the last 48h; the rival predicts the gain only there."
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_cat_fresh_share_48h", "f_x_c1_cat_reviews_per_item_48h"], "seconds_median": 1.06, "coverage": {"f_x_c1_cat_fresh_share_48h": 0.15, "f_x_c1_cat_reviews_per_item_48h": 0.15}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_cat_fresh_share_48h": 0.51, "f_x_c1_cat_reviews_per_item_48h": 0.625}, "nearest": {"f_x_c1_cat_fresh_share_48h": "uc_distinct_viewed_7d", "f_x_c1_cat_reviews_per_item_48h": "uc_share_hl1d"}, "r2": {"f_x_c1_cat_fresh_share_48h": 0.685, "f_x_c1_cat_reviews_per_item_48h": 0.649}, "non_null_share_by_day": {"f_x_c1_cat_fresh_share_48h": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}, "f_x_c1_cat_reviews_per_item_48h": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}}, "parity_ok": true}, "twin": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_cat_fresh_share_48h_tw", "f_x_c1_cat_reviews_per_item_48h_tw"], "seconds_median": 1.78, "coverage": {"f_x_c1_cat_fresh_share_48h_tw": 0.15, "f_x_c1_cat_reviews_per_item_48h_tw": 0.15}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_cat_fresh_share_48h_tw": 0.491, "f_x_c1_cat_reviews_per_item_48h_tw": 0.237}, "nearest": {"f_x_c1_cat_fresh_share_48h_tw": "f_x_uc_cp_complement_lift_max", "f_x_c1_cat_reviews_per_item_48h_tw": "uc_distinct_viewed_7d"}, "r2": {"f_x_c1_cat_fresh_share_48h_tw": 0.136, "f_x_c1_cat_reviews_per_item_48h_tw": 0.21}, "non_null_share_by_day": {"f_x_c1_cat_fresh_share_48h_tw": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}, "f_x_c1_cat_reviews_per_item_48h_tw": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "DUPLICATE",
+  "text": "The fresh share has R2 0.685 to uc_distinct_viewed_7d, and reviews per item has R2 0.649 to uc_share_hl1d. 'Fresh' means first touched within the 14d window, so re-visits of items last seen more than 14 days ago count as fresh. This also shifts with censoring at early anchors.",
+  "kill_test": "Difference of differences: the >=3-items stratum vs the null stratum of users whose whole history is in 48h. Equal gain refutes exploration.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_cat_fresh_share_48h has R2 0.685 to uc_distinct_viewed_7d, and f_x_c_cat_reviews_per_item_48h has R2 0.649 to uc_share_hl1d. The twin brings both down to ~0.14/0.21, so the card mostly re-expresses breadth and intensity of category browsing.",
+  "kill_test": "Twin as a factor: if the card does not beat the shuffled-first-touch twin, the exploring vs narrowing mechanism is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "Through the graph lens, an exploring user is walking outward on the co-view graph, so the value should interact with cf_ neighbour strength. Instead it is broadcast as a user x category constant to category best-sellers, and co-view-sourced candidates get NULL. 'Fresh' is also first-touch within 14d only, so items touched earlier count as fresh.",
+  "kill_test": "Difference of differences: for high- versus low-fresh-share user x category pairs, compare the gain on co-view-sourced versus pop-sourced candidates. No interaction means exploration does not change which item wins.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "f_x_c_cat_fresh_share_48h has R2 0.685 with uc_distinct_viewed_7d, and f_x_c_cat_reviews_per_item_48h has R2 0.649 with uc_share_hl1d. Broadcast to the top 30 of the category, both act as uc_ columns. The fresh share largely tracks recent category entry, which is the rival. Re-view intensity overlaps r2p4 (f_x_i_views_per_viewer_7d) at the user level.",
+  "kill_test": "Difference of differences: gain in user x category with at least 3 distinct 48h items, minus gain where the first category view was within 48h. The mechanism is refuted if the gain sits only in the latter.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. User events are in [t-14d, t) for active users only, and values are per user. prod uses global carts in [t-7d, t) with ties broken by product_id. The twin's permutations are ordered by hash within the user. Batch test green.",
+  "kill_test": "key level: replace the pair key by the user-category key (drop the product join); if the gain is the same, the feature is only a category-interest proxy.",
+  "by": "auditor"
+ }
+]
+--- G1-6
+card: {
+ "id": "G1-6",
+ "name": "acquirer_tenure_match",
+ "mechanism": "Products differ in how long their buyers deliberate. Impulse items are bought by people who discovered the category hours ago; considered items such as appliances are bought after days of category browsing. For each item, over 14 days, the family takes its acquirers' log hours between their first view of the item's category in the preceding 7 days and the cart/purchase (capped at 168h), smoothed towards the category mean. It compares this with the user's current tenure in the category at the anchor, plus 12h to reach mid-target-day. A small gap means the user is at the funnel stage at which this item is usually bought. The second column says whether the item is a slow or a fast pick within its category. This differs from r3p5, which uses item counts (search depth) and no time, and from r5p4, which is category-level.",
+ "sign": "+",
+ "stratum": "User x category where the user's tenure exceeds 24h, so that impulse and considered items can be separated: (SELECT MIN(h.event_time) FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY) < TIMESTAMP '{t}' - INTERVAL 24 HOUR",
+ "null_stratum": "Categories with very few acquisitions, where item tenure collapses to the category prior: (SELECT COUNT(DISTINCT h.user_id) FROM hist h WHERE h.category_id = p.category_id AND h.event_type IN ('cart','purchase') AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY) < 20",
+ "sql": "WITH ucd AS (SELECT user_id, category_id, date_trunc('day', event_time) AS d, MIN(event_time) AS ft FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 21 DAY GROUP BY 1, 2, 3), acq AS (SELECT user_id, product_id, MIN(category_id) AS category_id, MIN(event_time) AS at FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY 1, 2), ten AS (SELECT a.product_id, a.category_id, ln(1 + LEAST(168.0, date_diff('second', COALESCE(MIN(u.ft), a.at), a.at) / 3600.0)) AS lten FROM acq a LEFT JOIN ucd u ON u.user_id = a.user_id AND u.category_id = a.category_id AND u.d >= date_trunc('day', a.at) - INTERVAL 7 DAY AND u.ft <= a.at GROUP BY a.user_id, a.product_id, a.category_id, a.at), ct AS (SELECT category_id, AVG(lten) AS cm FROM ten GROUP BY 1), it AS (SELECT tn.product_id, (SUM(tn.lten) + 5 * AVG(c.cm)) / (COUNT(*) + 5.0) AS im, AVG(c.cm) AS cm FROM ten tn JOIN ct c ON c.category_id = tn.category_id GROUP BY tn.product_id), uf AS (SELECT user_id, category_id, MIN(event_time) AS uft, MAX(event_time) AS ult FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_id IN (SELECT user_id FROM active_users) GROUP BY 1, 2), ucs AS (SELECT * FROM uf WHERE ult >= TIMESTAMP '{t}' - INTERVAL 48 HOUR QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY ult DESC, category_id) <= 3), prod AS (SELECT product_id, category_id FROM (SELECT product_id, MIN(category_id) AS category_id, COUNT(DISTINCT user_id) AS na FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id) QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30) SELECT u.user_id, p.product_id, ln(1 + LEAST(168.0, date_diff('second', u.uft, TIMESTAMP '{t}') / 3600.0 + 12)) - i.im AS f_x_c1_tenure_gap_log, i.im - i.cm AS f_x_c1_item_tenure_vs_cat FROM ucs u JOIN prod p ON p.category_id = u.category_id JOIN it i ON i.product_id = p.product_id",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH ucd AS (SELECT user_id, category_id, date_trunc('day', event_time) AS d, MIN(event_time) AS ft FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 21 DAY GROUP BY 1, 2, 3), acq AS (SELECT user_id, product_id, MIN(category_id) AS category_id, MIN(event_time) AS at FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY GROUP BY 1, 2), ten AS (SELECT a.product_id, a.category_id, ln(1 + LEAST(168.0, date_diff('second', COALESCE(MIN(u.ft), a.at), a.at) / 3600.0)) AS lten FROM acq a LEFT JOIN ucd u ON u.user_id = a.user_id AND u.category_id = a.category_id AND u.d >= date_trunc('day', a.at) - INTERVAL 7 DAY AND u.ft <= a.at GROUP BY a.user_id, a.product_id, a.category_id, a.at), ct AS (SELECT category_id, AVG(lten) AS cm FROM ten GROUP BY 1), it AS (SELECT tn.product_id, (SUM(tn.lten) + 5 * AVG(c.cm)) / (COUNT(*) + 5.0) AS im, AVG(c.cm) AS cm FROM ten tn JOIN ct c ON c.category_id = tn.category_id GROUP BY tn.product_id), uf AS (SELECT user_id, category_id, MIN(event_time) AS uft, MAX(event_time) AS ult FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY AND user_id IN (SELECT user_id FROM active_users) GROUP BY 1, 2), ucs AS (SELECT * FROM uf WHERE ult >= TIMESTAMP '{t}' - INTERVAL 48 HOUR QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY ult DESC, category_id) <= 3), prod AS (SELECT product_id, category_id FROM (SELECT product_id, MIN(category_id) AS category_id, COUNT(DISTINCT user_id) AS na FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id) QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30), itp AS (SELECT p.product_id, p.category_id, i.im, i.cm, ROW_NUMBER() OVER (PARTITION BY p.category_id ORDER BY hash(p.product_id)) AS r, COUNT(*) OVER (PARTITION BY p.category_id) AS n FROM prod p JOIN it i ON i.product_id = p.product_id), its AS (SELECT a.product_id, a.category_id, b.im, b.cm FROM itp a JOIN itp b ON a.category_id = b.category_id AND b.r = (a.r % a.n) + 1) SELECT u.user_id, s.product_id, ln(1 + LEAST(168.0, date_diff('second', u.uft, TIMESTAMP '{t}') / 3600.0 + 12)) - s.im AS f_x_c1_tenure_gap_log_tw, s.im - s.cm AS f_x_c1_item_tenure_vs_cat_tw FROM ucs u JOIN its s ON s.category_id = u.category_id"
+ },
+ "rival": {
+  "explanation": "The gap is driven mostly by the user's tenure term, which is a user x category recency feature close to uc_last_h and uc_active_days_14d. The gain could then come from that alone, without any item-specific matching.",
+  "stratum": "Gain spread evenly over items within a user x category, rather than concentrated on the items whose tenure lies close to the user's."
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_tenure_gap_log", "f_x_c1_item_tenure_vs_cat"], "seconds_median": 1.52, "coverage": {"f_x_c1_tenure_gap_log": 0.15, "f_x_c1_item_tenure_vs_cat": 0.15}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_tenure_gap_log": 0.407, "f_x_c1_item_tenure_vs_cat": 0.665}, "nearest": {"f_x_c1_tenure_gap_log": "f_x_i_search_depth_vs_cat_14d", "f_x_c1_item_tenure_vs_cat": "f_x_i_search_depth_vs_cat_14d"}, "r2": {"f_x_c1_tenure_gap_log": 0.626, "f_x_c1_item_tenure_vs_cat": 0.639}, "non_null_share_by_day": {"f_x_c1_tenure_gap_log": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}, "f_x_c1_item_tenure_vs_cat": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}}, "parity_ok": true}, "twin": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_tenure_gap_log_tw", "f_x_c1_item_tenure_vs_cat_tw"], "seconds_median": 1.44, "coverage": {"f_x_c1_tenure_gap_log_tw": 0.15, "f_x_c1_item_tenure_vs_cat_tw": 0.15}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_tenure_gap_log_tw": 0.343, "f_x_c1_item_tenure_vs_cat_tw": 0.136}, "nearest": {"f_x_c1_tenure_gap_log_tw": "uc_active_days_14d", "f_x_c1_item_tenure_vs_cat_tw": "f_x_i_cat_acq_hhi_7d"}, "r2": {"f_x_c1_tenure_gap_log_tw": 0.378, "f_x_c1_item_tenure_vs_cat_tw": 0.131}, "non_null_share_by_day": {"f_x_c1_tenure_gap_log_tw": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}, "f_x_c1_item_tenure_vs_cat_tw": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "SHIFT",
+  "text": "Item tenure looks back up to 7d before each acquisition (ucd over 21d), but history begins on 2020-01-01. At the Jan 15 anchor, acquisitions from Jan 1-7 have tenure truncated to at most 0-6 days. At Feb 7 none are truncated. Every item therefore looks 'faster' at early anchors, and the user-item gap shifts by anchor date.",
+  "kill_test": "Staleness or anchor split: the mean of i.im per anchor. A rise from Jan 15 to Feb 7 shows censoring, and a gain concentrated in early anchors would refute the mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_item_tenure_vs_cat has R2 0.639 and f_x_c_tenure_gap_log has R2 0.626 to f_x_i_search_depth_vs_cat_14d. The deliberation axis already exists.",
+  "kill_test": "Twin as a factor: the twin shuffles item tenure within the category. Equal gain means the user tenure term alone carries it, which refutes item matching.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_item_tenure_vs_cat has R2 0.639 to f_x_i_search_depth_vs_cat_14d (r3p5). Days of deliberation and the number of items searched are the same consideration-depth axis. f_x_c_tenure_gap_log has R2 0.626 to the same column, so its item part dominates.",
+  "kill_test": "Twin as a factor: the neighbour_shuffle twin reassigns im within the category. If the card beats the twin only through item_tenure_vs_cat and not through the user-item match (tenure_gap_log), the pair mechanism is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The gap is (user x category tenure) minus (item tenure). Both terms are already separable, and CatBoost can split on uc_active_days_14d and the item term independently. The pair column adds value only if the specific match matters. Tenure is also taken from the first view of the category, not from the path through co-viewed items. Acquirers who arrived via a co-view chain from another category get tenure 0, which biases im towards impulse.",
+  "kill_test": "Difference of differences: within a user x category, compare the gain for items with |tenure_gap_log| < 0.5 against items with > 1.5. If the gain is flat across the gap (the card's rival stratum), the matching mechanism is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "Both columns are closest to f_x_i_search_depth_vs_cat_14d (r3p5), with R2 0.626 and 0.639. Deliberation measured in time largely repeats deliberation measured in item count. The twin's gap column is still close to uc_active_days_14d (R2 0.378), which supports the rival that the user tenure term carries the gap.",
+  "kill_test": "Twin as factor (item tenure shuffled within the category). The mechanism is refuted if the twin's gap column gains as much, i.e. the gain is spread evenly over items within user x category.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. All reads are before t. active_users only selects uf. However, ucd reads 21 days, beyond the 14-day base. On anchors before 2020-01-22 that window is truncated at 2020-01-01, so the tenure values for early anchors are biased short. This is a shift risk, not a leak.",
+  "kill_test": "staleness: compare the feature distribution for anchors 01-15..01-21 with later anchors. A level jump with no gain change means the tenure signal is a window artefact.",
+  "by": "auditor"
+ }
+]
+--- G1-7
+card: {
+ "id": "G1-7",
+ "name": "category_attention_vs_bounce",
+ "mechanism": "View counts treat a 2-second bounce and a 4-minute read the same way. From page dwell in the last 48h (time to the next event in the session, capped at 300s), the family measures for each of the user's latest 3 categories two things. The first is the attention lift: the log ratio of the category's share of the user's dwell to its share of the user's views. The second is the bounce excess: the smoothed rate of sub-10s views followed by a view of another product, minus the user's overall bounce rate. High attention marks evaluation in earnest (the comparison phase ripe to convert). Fast bouncing marks scanning or rejection of what the category shows, which predicts a lower next-day acquisition there. This is a user x category signal, unlike the item-level dwell of r2p5 and the dwell seeds of r6p2.",
+ "sign": "+",
+ "stratum": "Users active in at least 2 categories in 48h with some measured dwell, where the share ratios vary: (SELECT COUNT(DISTINCT h.category_id) FROM hist h WHERE h.user_id = u.user_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) >= 2",
+ "null_stratum": "Users with a single category in 48h, where the attention lift is identically 0: (SELECT COUNT(DISTINCT h.category_id) FROM hist h WHERE h.user_id = u.user_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR) = 1",
+ "sql": "WITH ev AS (SELECT user_id, user_session, product_id, category_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR AND user_session IS NOT NULL AND user_id IN (SELECT user_id FROM active_users)), dw AS (SELECT user_id, category_id, product_id, event_type, event_time, LEAST(300.0, date_diff('second', event_time, LEAD(event_time) OVER w)) AS dsec, LEAD(product_id) OVER w AS np, LEAD(event_type) OVER w AS nt FROM ev WINDOW w AS (PARTITION BY user_session ORDER BY event_time, hash(product_id, event_type))), uc AS (SELECT user_id, category_id, MAX(event_time) AS lt, COUNT(*) AS nv, SUM(COALESCE(dsec, 0)) AS dt, SUM(CASE WHEN dsec IS NOT NULL THEN 1 ELSE 0 END) AS nd, SUM(CASE WHEN dsec < 10 AND nt = 'view' AND np <> product_id THEN 1 ELSE 0 END) AS nb FROM dw WHERE event_type = 'view' GROUP BY 1, 2), uu AS (SELECT user_id, SUM(nv) AS tv, SUM(dt) AS td, SUM(nd) AS tnd, SUM(nb) AS tb FROM uc GROUP BY 1), ucs AS (SELECT * FROM uc QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY lt DESC, category_id) <= 3), prod AS (SELECT product_id, category_id FROM (SELECT product_id, MIN(category_id) AS category_id, COUNT(DISTINCT user_id) AS na FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id) QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30) SELECT u.user_id, p.product_id, ln((u.dt / GREATEST(tt.td, 1) + 0.02) / (u.nv::DOUBLE / tt.tv + 0.02)) AS f_x_c1_cat_attention_lift_48h, (u.nb + 2.0 * tt.tb / GREATEST(tt.tnd, 1)) / (u.nd + 2.0) - tt.tb::DOUBLE / GREATEST(tt.tnd, 1) AS f_x_c1_cat_bounce_excess_48h FROM ucs u JOIN uu tt ON tt.user_id = u.user_id JOIN prod p ON p.category_id = u.category_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH ev0 AS (SELECT user_id, user_session, product_id, category_id, event_type, event_time FROM hist WHERE event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR AND user_session IS NOT NULL AND user_id IN (SELECT user_id FROM active_users)), ev AS (SELECT a.user_id, a.user_session, a.product_id, a.category_id, a.event_type, b.event_time FROM (SELECT user_id, user_session, product_id, category_id, event_type, date_trunc('day', event_time) AS dd, ROW_NUMBER() OVER (PARTITION BY user_id, date_trunc('day', event_time) ORDER BY hash(user_session, product_id, event_type, event_time)) AS r FROM ev0) a JOIN (SELECT user_id, date_trunc('day', event_time) AS dd, event_time, ROW_NUMBER() OVER (PARTITION BY user_id, date_trunc('day', event_time) ORDER BY event_time, hash(product_id, event_type)) AS r FROM ev0) b ON a.user_id = b.user_id AND a.dd = b.dd AND a.r = b.r), dw AS (SELECT user_id, category_id, product_id, event_type, LEAST(300.0, date_diff('second', event_time, LEAD(event_time) OVER w)) AS dsec, LEAD(product_id) OVER w AS np, LEAD(event_type) OVER w AS nt FROM ev WINDOW w AS (PARTITION BY user_session ORDER BY event_time, hash(product_id, event_type))), uc AS (SELECT user_id, category_id, COUNT(*) AS nv, SUM(COALESCE(dsec, 0)) AS dt, SUM(CASE WHEN dsec IS NOT NULL THEN 1 ELSE 0 END) AS nd, SUM(CASE WHEN dsec < 10 AND nt = 'view' AND np <> product_id THEN 1 ELSE 0 END) AS nb FROM dw WHERE event_type = 'view' GROUP BY 1, 2), uu AS (SELECT user_id, SUM(nv) AS tv, SUM(dt) AS td, SUM(nd) AS tnd, SUM(nb) AS tb FROM uc GROUP BY 1), ks AS (SELECT * FROM (SELECT user_id, category_id, MAX(event_time) AS lt FROM ev0 WHERE event_type = 'view' GROUP BY 1, 2) QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY lt DESC, category_id) <= 3), prod AS (SELECT product_id, category_id FROM (SELECT product_id, MIN(category_id) AS category_id, COUNT(DISTINCT user_id) AS na FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id) QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30) SELECT k.user_id, p.product_id, ln((u.dt / GREATEST(tt.td, 1) + 0.02) / (u.nv::DOUBLE / tt.tv + 0.02)) AS f_x_c1_cat_attention_lift_48h_tw, (u.nb + 2.0 * tt.tb / GREATEST(tt.tnd, 1)) / (u.nd + 2.0) - tt.tb::DOUBLE / GREATEST(tt.tnd, 1) AS f_x_c1_cat_bounce_excess_48h_tw FROM ks k JOIN uc u ON u.user_id = k.user_id AND u.category_id = k.category_id JOIN uu tt ON tt.user_id = k.user_id JOIN prod p ON p.category_id = k.category_id"
+ },
+ "rival": {
+  "explanation": "Dwell share may simply reflect the category's page type: long spec pages for electronics, short ones for accessories. The gain would then be a category-type effect that i_cat_l1 and the category dwell (f_x_i_dwell_vs_cat_7d) already supply.",
+  "stratum": "The gain would be explained by category level 1 alone and vanish after conditioning on i_cat_l1."
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_cat_attention_lift_48h", "f_x_c1_cat_bounce_excess_48h"], "seconds_median": 1.18, "coverage": {"f_x_c1_cat_attention_lift_48h": 0.15, "f_x_c1_cat_bounce_excess_48h": 0.15}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_cat_attention_lift_48h": 0.267, "f_x_c1_cat_bounce_excess_48h": 0.482}, "nearest": {"f_x_c1_cat_attention_lift_48h": "uc_l1_share_hl1d", "f_x_c1_cat_bounce_excess_48h": "f_x_uc_cp_complement_lift_max"}, "r2": {"f_x_c1_cat_attention_lift_48h": 0.431, "f_x_c1_cat_bounce_excess_48h": 0.26}, "non_null_share_by_day": {"f_x_c1_cat_attention_lift_48h": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}, "f_x_c1_cat_bounce_excess_48h": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}}, "parity_ok": true}, "twin": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_cat_attention_lift_48h_tw", "f_x_c1_cat_bounce_excess_48h_tw"], "seconds_median": 4.13, "coverage": {"f_x_c1_cat_attention_lift_48h_tw": 0.15, "f_x_c1_cat_bounce_excess_48h_tw": 0.15}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_cat_attention_lift_48h_tw": 0.276, "f_x_c1_cat_bounce_excess_48h_tw": 0.38}, "nearest": {"f_x_c1_cat_attention_lift_48h_tw": "f_x_uc_cp_complement_lift_max", "f_x_c1_cat_bounce_excess_48h_tw": "f_x_uc_cp_complement_lift_max"}, "r2": {"f_x_c1_cat_attention_lift_48h_tw": 0.177, "f_x_c1_cat_bounce_excess_48h_tw": 0.246}, "non_null_share_by_day": {"f_x_c1_cat_attention_lift_48h_tw": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}, "f_x_c1_cat_bounce_excess_48h_tw": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The last event of every session has dsec NULL. It adds 0 to dt but 1 to nv. A user's most recent category, the one where the session ends close to t, therefore gets systematically lower attention. This mixes recency (uc_last_h, uc_share_hl1d) into the lift with an inverted sign. The time-shuffle twin keeps session ends in place, so it does not destroy this artifact. Attention lift R2 is 0.431 to uc_l1_share_hl1d.",
+  "kill_test": "Twin as a factor: compute the lift using only views with non-NULL dwell in both numerator and denominator. If the gain disappears, the session-end artifact explains it and the mechanism is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "OK",
+  "text": "Within my lens the family is fine: it is view-only, uses a 48h window, and is independent of cart level. Non-NULL share is stable (0.160/0.147/0.144) and the query runs in 1.18s.",
+  "kill_test": "Difference of differences: users with >=2 categories in 48h vs the single-category null stratum, where the lift is 0. No extra gain in the multi-category stratum refutes the mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The sign of the bounce excess is ambiguous. A sub-10s view followed by a different product is the session co-view hop itself, the very behaviour that builds the comparison graph and precedes acquiring a new neighbour. Rapid hopping can mark active comparison, not rejection. The column is also user x category, constant across the top-30 broadcast, and NULL for co-view-sourced candidates outside it.",
+  "kill_test": "Difference of differences: in the stratum (>=2 categories in 48h), compare the gain on candidates that are co-view neighbours of the bounced items against other category items. A positive interaction with cf_cv_cos_max would contradict the 'rejection' reading.",
+  "by": "critic"
+ },
+ {
+  "type": "OK",
+  "text": "Redundancy is low: attention_lift has R2 0.431 to uc_l1_share_hl1d and bounce_excess 0.26. The time_shuffle twin is valid and the cost is 1.18s. Dwell is view-based and robust to the cart level.",
+  "kill_test": "Twin as a factor: if the time_shuffle twin gives the same gain, dwell timing carries nothing beyond the count of views per category.",
+  "by": "critic"
+ },
+ {
+  "type": "RIVAL",
+  "text": "f_x_c_cat_attention_lift_48h has R2 0.431 with uc_l1_share_hl1d. The twin's bounce column keeps R2 0.246 against the card's 0.26, so the bounce signal is mostly not about timing. Dwell share can encode page type per category, which i_cat_l1 and f_x_i_dwell_vs_cat_7d (r2p5) already carry. The sign is also inconsistent: the stated sign is '+', but the bounce excess predicts lower acquisition. The value is broadcast to the top 30 of each category, so it acts as one more uc_ column.",
+  "kill_test": "Difference of differences between users with 2 or more categories in 48h and single-category users, after conditioning on i_cat_l1. The mechanism is refuted if the card's gain over the twin vanishes within i_cat_l1 strata.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found. Active users' events in [t-48h, t). LEAD is over a user_session window ordered by event_time, then hash(product_id, event_type), so it is deterministic. The user totals uu are per user. Batch test green.",
+  "kill_test": "twin as a factor: if the within-day time-shuffled twin gives the same gain, dwell and bounce timing are not the mechanism.",
+  "by": "auditor"
+ }
+]
+--- G1-8
+card: {
+ "id": "G1-8",
+ "name": "category_return_after_gap",
+ "mechanism": "Coming back to a category after a pause is a classic sign of renewed, deliberate purchase intent. The user left, thought or compared elsewhere, and returned, which is the mid-to-late funnel stage that precedes a next-day buy. For each of the user's latest 3 categories, the family gives the log of the longest gap (in hours) that preceded any of their views in the category in the last 48h, with 0 for continuous browsing or a category new within the window. It also gives the log number of return episodes (gaps of at least 12h) in 14 days. Neither active days nor recency encodes the length of the pause right before the current visit.",
+ "sign": "+",
+ "stratum": "User x category viewed in the last 48h after a pause of at least 24h: EXISTS (SELECT 1 FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_type = 'view' AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR AND NOT EXISTS (SELECT 1 FROM hist h2 WHERE h2.user_id = h.user_id AND h2.category_id = h.category_id AND h2.event_type = 'view' AND h2.event_time < h.event_time AND h2.event_time >= h.event_time - INTERVAL 24 HOUR) AND EXISTS (SELECT 1 FROM hist h3 WHERE h3.user_id = h.user_id AND h3.category_id = h.category_id AND h3.event_type = 'view' AND h3.event_time < h.event_time - INTERVAL 24 HOUR AND h3.event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY))",
+ "null_stratum": "User x category first viewed within the last 48h (no previous visit in 14d): NOT EXISTS (SELECT 1 FROM hist h WHERE h.user_id = u.user_id AND h.category_id = p.category_id AND h.event_time < TIMESTAMP '{t}' - INTERVAL 48 HOUR AND h.event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY)",
+ "sql": "WITH v AS (SELECT user_id, category_id, event_time FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND user_id IN (SELECT user_id FROM active_users)), g AS (SELECT user_id, category_id, event_time, date_diff('second', LAG(event_time) OVER (PARTITION BY user_id, category_id ORDER BY event_time), event_time) / 3600.0 AS gap_h FROM v), uc AS (SELECT user_id, category_id, MAX(event_time) AS lt, MAX(CASE WHEN event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR THEN COALESCE(gap_h, 0) END) AS mg48, SUM(CASE WHEN gap_h >= 12 THEN 1 ELSE 0 END) AS nret FROM g GROUP BY 1, 2), ucs AS (SELECT * FROM uc WHERE lt >= TIMESTAMP '{t}' - INTERVAL 48 HOUR QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY lt DESC, category_id) <= 3), prod AS (SELECT product_id, category_id FROM (SELECT product_id, MIN(category_id) AS category_id, COUNT(DISTINCT user_id) AS na FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id) QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30) SELECT u.user_id, p.product_id, ln(1 + u.mg48) AS f_x_c1_cat_return_gap_log, ln(1 + u.nret) AS f_x_c1_cat_return_episodes_log FROM ucs u JOIN prod p ON p.category_id = u.category_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH v0 AS (SELECT user_id, category_id, event_time FROM hist WHERE event_type = 'view' AND event_time >= TIMESTAMP '{t}' - INTERVAL 14 DAY AND user_id IN (SELECT user_id FROM active_users)), v AS (SELECT a.user_id, a.category_id, b.event_time FROM (SELECT user_id, category_id, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY hash(user_id, category_id, event_time)) AS r FROM v0) a JOIN (SELECT user_id, event_time, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY event_time) AS r FROM v0) b ON a.user_id = b.user_id AND a.r = b.r), g AS (SELECT user_id, category_id, event_time, date_diff('second', LAG(event_time) OVER (PARTITION BY user_id, category_id ORDER BY event_time), event_time) / 3600.0 AS gap_h FROM v), uc AS (SELECT user_id, category_id, MAX(CASE WHEN event_time >= TIMESTAMP '{t}' - INTERVAL 48 HOUR THEN COALESCE(gap_h, 0) END) AS mg48, SUM(CASE WHEN gap_h >= 12 THEN 1 ELSE 0 END) AS nret FROM g GROUP BY 1, 2), ks AS (SELECT * FROM (SELECT user_id, category_id, MAX(event_time) AS lt FROM v0 GROUP BY 1, 2) WHERE lt >= TIMESTAMP '{t}' - INTERVAL 48 HOUR QUALIFY ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY lt DESC, category_id) <= 3), prod AS (SELECT product_id, category_id FROM (SELECT product_id, MIN(category_id) AS category_id, COUNT(DISTINCT user_id) AS na FROM hist WHERE event_type IN ('cart','purchase') AND event_time >= TIMESTAMP '{t}' - INTERVAL 7 DAY GROUP BY product_id) QUALIFY ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY na DESC, product_id) <= 30) SELECT k.user_id, p.product_id, ln(1 + COALESCE(u.mg48, 0)) AS f_x_c1_cat_return_gap_log_tw, ln(1 + u.nret) AS f_x_c1_cat_return_episodes_log_tw FROM ks k JOIN uc u ON u.user_id = k.user_id AND u.category_id = k.category_id JOIN prod p ON p.category_id = k.category_id"
+ },
+ "rival": {
+  "explanation": "Return episodes mostly count how many days the user touched the category, so the gain could come from persistence, which is already in uc_active_days_14d and uc_distinct_viewed_7d, rather than from the pause before the current visit.",
+  "stratum": "User x category with uc_active_days_14d >= 3, irrespective of the size of the latest gap."
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_cat_return_gap_log", "f_x_c1_cat_return_episodes_log"], "seconds_median": 1.06, "coverage": {"f_x_c1_cat_return_gap_log": 0.15, "f_x_c1_cat_return_episodes_log": 0.15}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_cat_return_gap_log": 0.766, "f_x_c1_cat_return_episodes_log": 0.986}, "nearest": {"f_x_c1_cat_return_gap_log": "uc_active_days_14d", "f_x_c1_cat_return_episodes_log": "uc_active_days_14d"}, "r2": {"f_x_c1_cat_return_gap_log": 0.788, "f_x_c1_cat_return_episodes_log": 0.972}, "non_null_share_by_day": {"f_x_c1_cat_return_gap_log": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}, "f_x_c1_cat_return_episodes_log": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}}, "parity_ok": true}, "twin": {"keys": ["user_id", "product_id"], "level": "pair", "columns": ["f_x_c1_cat_return_gap_log_tw", "f_x_c1_cat_return_episodes_log_tw"], "seconds_median": 1.69, "coverage": {"f_x_c1_cat_return_gap_log_tw": 0.15, "f_x_c1_cat_return_episodes_log_tw": 0.15}, "batch_invariant": true, "max_abs_rho": {"f_x_c1_cat_return_gap_log_tw": 0.532, "f_x_c1_cat_return_episodes_log_tw": 0.632}, "nearest": {"f_x_c1_cat_return_gap_log_tw": "uc_distinct_viewed_7d", "f_x_c1_cat_return_episodes_log_tw": "uc_distinct_viewed_7d"}, "r2": {"f_x_c1_cat_return_gap_log_tw": 0.535, "f_x_c1_cat_return_episodes_log_tw": 0.653}, "non_null_share_by_day": {"f_x_c1_cat_return_gap_log_tw": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}, "f_x_c1_cat_return_episodes_log_tw": {"probe_day_1": 0.16, "probe_day_2": 0.147, "probe_day_3": 0.144}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_cat_return_episodes_log has max |rho| 0.986 and R2 0.972 to uc_active_days_14d. f_x_c_cat_return_gap_log has R2 0.788 to the same column. Very little is left beyond persistence.",
+  "kill_test": "Difference of differences: the 24h-pause stratum vs pairs with uc_active_days_14d >= 3 and no pause. Equal gain refutes the pause effect.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "A gap of >=12h mostly marks the overnight break and weekends, so the gap length follows the daily and weekly rhythm more than deliberation. Anchors after a weekend will show long gaps for every user.",
+  "kill_test": "Staleness: compare the mean of f_x_c_cat_return_gap_log by the anchor's weekday. A weekday-driven level shift with no matching change in target rate refutes the mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_cat_return_episodes_log has rho 0.986 and R2 0.972 to uc_active_days_14d. f_x_c_cat_return_gap_log has R2 0.788 to the same column. Both are re-encodings of category persistence, which is the card's own rival.",
+  "kill_test": "Difference of differences: in the stratum (return after >=24h pause) versus users with equal uc_active_days_14d but continuous browsing, gap_log should add gain. If there is no difference after conditioning on uc_active_days_14d, the family is a duplicate.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The value is user x category, broadcast to the category's top-30 acquired items, so it is constant across those candidates. The gap is a property of the category node in the user's sequence. It says nothing about which never-touched item is picked next, and co-view and transition candidates outside the top-30 get NULL.",
+  "kill_test": "Key level: aggregate the column to user x category and test it as a category-ranking signal. If it does not reorder categories beyond uc_rank_in_user, it has no within-user value.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_cat_return_episodes_log has rho 0.986 and R2 0.972 with uc_active_days_14d, an exact duplicate. f_x_c_cat_return_gap_log has R2 0.788 with uc_active_days_14d. The card's own rival, persistence, is already in the model.",
+  "kill_test": "Difference of differences between categories viewed after a pause of at least 24h and categories new within 48h, conditioning on uc_active_days_14d. The mechanism is refuted if the gap column adds nothing inside uc_active_days_14d >= 3.",
+  "by": "skeptic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "No leak found: active users' views in [t-14d, t), lag ordered by event_time. But f_x_c_cat_return_episodes_log has rho 0.986 and R2 0.972 with uc_active_days_14d, and the gap column has R2 0.788 with the same column.",
+  "kill_test": "key level: drop the card and keep uc_active_days_14d; if the gain is unchanged, it is a duplicate.",
+  "by": "auditor"
+ }
+]
+
+Answer with a JSON list only:
+[{"card": "G1-1", "action": "revise", "new": {"name": "...", "mechanism": "...", ...}},
+ {"card": "...", "action": "withdraw", "reason": "..."}]

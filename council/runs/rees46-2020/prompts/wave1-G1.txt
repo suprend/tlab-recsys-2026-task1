@@ -1,0 +1,160 @@
+You are generator G1 of a feature council for a ranking model of new products.
+Your lens: intent and sessions: what the user is trying to do right now; session structure, search and comparison phases, dwell, revisits, abandoned carts, the stage of the buying funnel. Other generators work through other lenses; stay inside yours. Reply with JSON only.
+
+Task. REES46 multi-category online store, events from 2020-01-01 on. Every day at the anchor
+t = 00:00 UTC we rank products for the users active in [t-48h, t) who have at least one target. A target is
+a product whose FIRST cart or purchase by the user happens in [t, t+24h) and that the user never touched
+(no event of any type) before t. About 280 candidates per user come from six sources: the global top by
+distinct cart/purchase users over 7 days; the top products of the user's 3 heaviest categories and of the
+2 heaviest brands; session co-view neighbours of the user's 10 latest views; aggregated co-view scores and
+view->acquisition transition scores over the user's 20 latest views. Every product the user touched before
+t is excluded, so the (user, candidate) pair itself has no history: user signals work only through the
+candidate's category, brand, price, popularity and item-item links to what the user did. A CatBoost model
+scores each (user, product) pair; quality is a position-discounted gain over the top 20 products of each
+user. Training anchors are 2020-01-15..2020-02-07; the earliest anchors see only two weeks of history.
+
+The level of carts relative to views and purchases may change between days; prefer normalised forms
+(shares, ratios, lifts, ranks, logs) and treat cart and purchase together. The base set reads a 14-day
+window [t-14d, t).
+
+You can read two DuckDB tables:
+  hist(event_time TIMESTAMP, event_type VARCHAR -- 'view'|'cart'|'purchase',
+       product_id BIGINT, category_id BIGINT, category_code VARCHAR -- e.g. 'electronics.smartphone', often NULL,
+       brand VARCHAR -- often NULL, price DECIMAL(12,2), user_id BIGINT, user_session VARCHAR)
+       -- all events strictly before t, starting 2020-01-01; tens of millions of rows, mostly views
+  active_users(user_id) -- users with any event in the last 48 hours (a superset of the ranked users)
+Write the anchor as TIMESTAMP '{t}' (literally, with the braces), e.g.
+  event_time >= TIMESTAMP '{t}' - INTERVAL 3 DAY
+
+Columns already in the model. Base set by prefix (s_ candidate source, u_ user, i_ item, uc_
+candidate's category in the user's history, ub_ brand, up_ price vs user, ui_ popularity vs user, cf_
+item-item from recent views), then the tables of the automation (f_x_ columns):
+  base:
+    s_: s_pop_rank, s_cat_rank, s_brand_rank, s_n_sources, s_cvagg_rank, s_tr_rank
+    u_: u_views_7d_log, u_top_category_share_7d, u_hours_since_last_cp, u_new_item_cp_rate_14d, u_log_price_med_view_7d, u_pop_taste_14d, u_hours_since_last_view, u_views_per_session_7d, u_items_per_view_7d, u_ls_outcome, u_ls_views_log, u_active_days_7d, u_price_tier, u_first_seen_days_cap7, u_active_same_weekday_last_week, u_brand_hhi_14d, u_brand_explore_rate_14d
+    i_: i_actor_share_7d, i_trend_actor_1v7, i_trend_view_1v7, i_acq_share_lift_14d, i_log_price, i_price_pct_in_cat, i_cat_actor_share_7d, i_buy_lift_14d, i_acq_rate_lift_14d, i_cart_lift_7d, i_cat_buy_lift_14d, i_brand_actor_share_7d, i_brand_share_in_cat_7d, i_price_change_7d, i_price_from_max_14d, i_is_fresh_item_7d, i_cat_l1, i_hours_since_last_view, i_cat_trend_view_1v7, i_acq_trend_1v7, i_repeat_buyer_share_14d, i_cat_multi_buy_14d
+    uc_: uc_share_hl1d, uc_last_h, uc_distinct_viewed_7d, uc_first_pos, uc_ls_items, uc_last_cp_h, uc_rank_in_user, uc_active_days_14d, uc_last_purchase_h, uc_decay20, uc_ls_cp, uc_l1_share_hl1d, uc_trans_lift_max
+    ub_: ub_share_hl1d, ub_share_in_cat, ub_last_h, ub_weight_hl1d, ub_decay20
+    up_: up_logprice_vs_user, up_tier_absdiff, up_cat_logratio_med, up_cat_logdist_min, up_tier_diff, up_cat_in_range
+    ui_: ui_pop_gap
+    cf_: cf_cv_cos_max, cf_cv_cos_last, cf_cv_cond_tdecay, cf_tr_p_tdecay, cf_src4_best_rank, cf_cv_cos_same_cat_max, cf_tr_p_diff_cat_max, cf_tr_lift_max, cf_cv_cond_tdecay20, cf_tr_p_tdecay20
+  dfs_p: f_x_dfs_p_view_n_1d, f_x_dfs_p_view_u_1d, f_x_dfs_p_cart_n_1d, f_x_dfs_p_cart_u_1d, f_x_dfs_p_purchase_n_1d, f_x_dfs_p_purchase_u_1d, f_x_dfs_p_cart_per_view_1d, f_x_dfs_p_buy_per_view_1d, f_x_dfs_p_view_n_3d, f_x_dfs_p_view_u_3d, f_x_dfs_p_cart_n_3d, f_x_dfs_p_cart_u_3d, f_x_dfs_p_purchase_n_3d, f_x_dfs_p_purchase_u_3d, f_x_dfs_p_cart_per_view_3d, f_x_dfs_p_buy_per_view_3d, f_x_dfs_p_view_n_7d, f_x_dfs_p_view_u_7d, f_x_dfs_p_cart_n_7d, f_x_dfs_p_cart_u_7d, f_x_dfs_p_purchase_n_7d, f_x_dfs_p_purchase_u_7d, f_x_dfs_p_cart_per_view_7d, f_x_dfs_p_buy_per_view_7d, f_x_dfs_p_view_n_14d, f_x_dfs_p_view_u_14d, f_x_dfs_p_cart_n_14d, f_x_dfs_p_cart_u_14d, f_x_dfs_p_purchase_n_14d, f_x_dfs_p_purchase_u_14d, f_x_dfs_p_cart_per_view_14d, f_x_dfs_p_buy_per_view_14d
+  dfs_c: f_x_dfs_c_view_n_1d, f_x_dfs_c_view_u_1d, f_x_dfs_c_cart_n_1d, f_x_dfs_c_cart_u_1d, f_x_dfs_c_purchase_n_1d, f_x_dfs_c_purchase_u_1d, f_x_dfs_c_cart_per_view_1d, f_x_dfs_c_buy_per_view_1d, f_x_dfs_c_view_n_3d, f_x_dfs_c_view_u_3d, f_x_dfs_c_cart_n_3d, f_x_dfs_c_cart_u_3d, f_x_dfs_c_purchase_n_3d, f_x_dfs_c_purchase_u_3d, f_x_dfs_c_cart_per_view_3d, f_x_dfs_c_buy_per_view_3d, f_x_dfs_c_view_n_7d, f_x_dfs_c_view_u_7d, f_x_dfs_c_cart_n_7d, f_x_dfs_c_cart_u_7d, f_x_dfs_c_purchase_n_7d, f_x_dfs_c_purchase_u_7d, f_x_dfs_c_cart_per_view_7d, f_x_dfs_c_buy_per_view_7d, f_x_dfs_c_view_n_14d, f_x_dfs_c_view_u_14d, f_x_dfs_c_cart_n_14d, f_x_dfs_c_cart_u_14d, f_x_dfs_c_purchase_n_14d, f_x_dfs_c_purchase_u_14d, f_x_dfs_c_cart_per_view_14d, f_x_dfs_c_buy_per_view_14d
+  dfs_b: f_x_dfs_b_view_n_1d, f_x_dfs_b_view_u_1d, f_x_dfs_b_cart_n_1d, f_x_dfs_b_cart_u_1d, f_x_dfs_b_purchase_n_1d, f_x_dfs_b_purchase_u_1d, f_x_dfs_b_cart_per_view_1d, f_x_dfs_b_buy_per_view_1d, f_x_dfs_b_view_n_3d, f_x_dfs_b_view_u_3d, f_x_dfs_b_cart_n_3d, f_x_dfs_b_cart_u_3d, f_x_dfs_b_purchase_n_3d, f_x_dfs_b_purchase_u_3d, f_x_dfs_b_cart_per_view_3d, f_x_dfs_b_buy_per_view_3d, f_x_dfs_b_view_n_7d, f_x_dfs_b_view_u_7d, f_x_dfs_b_cart_n_7d, f_x_dfs_b_cart_u_7d, f_x_dfs_b_purchase_n_7d, f_x_dfs_b_purchase_u_7d, f_x_dfs_b_cart_per_view_7d, f_x_dfs_b_buy_per_view_7d, f_x_dfs_b_view_n_14d, f_x_dfs_b_view_u_14d, f_x_dfs_b_cart_n_14d, f_x_dfs_b_cart_u_14d, f_x_dfs_b_purchase_n_14d, f_x_dfs_b_purchase_u_14d, f_x_dfs_b_cart_per_view_14d, f_x_dfs_b_buy_per_view_14d
+  dfs_u: f_x_dfs_u_view_n_1d, f_x_dfs_u_view_u_1d, f_x_dfs_u_cart_n_1d, f_x_dfs_u_cart_u_1d, f_x_dfs_u_purchase_n_1d, f_x_dfs_u_purchase_u_1d, f_x_dfs_u_cart_per_view_1d, f_x_dfs_u_buy_per_view_1d, f_x_dfs_u_view_n_3d, f_x_dfs_u_view_u_3d, f_x_dfs_u_cart_n_3d, f_x_dfs_u_cart_u_3d, f_x_dfs_u_purchase_n_3d, f_x_dfs_u_purchase_u_3d, f_x_dfs_u_cart_per_view_3d, f_x_dfs_u_buy_per_view_3d, f_x_dfs_u_view_n_7d, f_x_dfs_u_view_u_7d, f_x_dfs_u_cart_n_7d, f_x_dfs_u_cart_u_7d, f_x_dfs_u_purchase_n_7d, f_x_dfs_u_purchase_u_7d, f_x_dfs_u_cart_per_view_7d, f_x_dfs_u_buy_per_view_7d, f_x_dfs_u_view_n_14d, f_x_dfs_u_view_u_14d, f_x_dfs_u_cart_n_14d, f_x_dfs_u_cart_u_14d, f_x_dfs_u_purchase_n_14d, f_x_dfs_u_purchase_u_14d, f_x_dfs_u_cart_per_view_14d, f_x_dfs_u_buy_per_view_14d
+  r1p1_first_touch_conversion: f_x_i_first_touch_conv_lift_7d, f_x_i_quick_acq_share_7d
+  r1p2_coacq_cf: f_x_cf_coacq_cos_max, f_x_cf_coacq_co_log
+  r1p3_buyer_price_profile: f_x_i_buyer_logprice_mean_14d, f_x_i_buyer_vs_item_logprice_14d, f_x_i_buyer_logprice_std_14d
+  r1p4_new_reach: f_x_i_new_reach_share_1d, f_x_i_new_reach_trend_1v7, f_x_i_new_reach_1d_log
+  r1p5_cp_staleness: f_x_i_log_hours_since_last_cp, f_x_i_cp_staleness_ratio
+  r2p1_cmp_session_win_lift: f_x_i_cmp_win_lift_14d, f_x_i_cmp_sessions_log_14d
+  r2p2_cp_category_complement: f_x_uc_cp_complement_lift_max, f_x_uc_cp_complement_co_log
+  r2p3_acq_seed_coview_cf: f_x_cf_acqseed_cv_cos_max, f_x_cf_acqseed_cv_cos_tdecay
+  r2p4_revisit_consideration: f_x_i_revisit_lift_cat_7d, f_x_i_views_per_viewer_7d
+  r2p5_view_dwell_time: f_x_i_dwell_log_mean_7d, f_x_i_dwell_vs_cat_7d
+  r3p1_view_session_last_choice: f_x_i_last_viewed_lift_7d, f_x_i_last_vs_first_7d, f_x_i_view_cmp_sessions_log_7d
+  r3p2_intraday_momentum_12h: f_x_i_view_mom_12h_vs_yday, f_x_i_acq_share_12h_vs_7d
+  r3p3_user_user_cf_acq: f_x_uu_acq_wshare, f_x_uu_acq_rank
+  r3p4_brand_cat_price_sibling: f_x_ubc_price_dist_min, f_x_ubc_sibling_kernel
+  r3p5_category_search_depth: f_x_i_cat_search_depth_14d, f_x_i_search_depth_vs_cat_14d
+  r4p1_acq_regularity_7d: f_x_i_acq_active_days_7d, f_x_i_acq_share_cv_7d
+  r4p2_cat_acq_concentration: f_x_i_cat_acq_hhi_7d, f_x_i_acq_share_in_cat_7d, f_x_i_acq_rank_in_cat_log_7d
+  r4p3_weekday_seasonality_14d: f_x_i_acq_weekday_lift_14d, f_x_i_cat_acq_weekday_lift_14d
+  r4p4_cat_to_item_transition: f_x_ucp_cat2item_lift_max, f_x_ucp_cat2item_lift_tdecay
+  r4p5_brand_switch_transition: f_x_ubt_brand_trans_lift_max, f_x_ubt_brand_trans_lift_tdecay
+  r5p1_cf_xday_new_acq_transition: f_x_cf_xday_newacq_lift_max, f_x_cf_xday_newacq_lift_tdecay, f_x_cf_xday_newacq_nseeds
+  r5p2_cf_next_view_adjacency: f_x_cf_nextview_p_pos, f_x_cf_nextview_lift_max
+  r5p3_cf_converting_session_coview: f_x_cf_convsess_cos_max, f_x_cf_convsess_cos_tdecay
+  r5p4_uc_nextday_continuation: f_x_uc_nextday_cont_lift, f_x_uc_nextday_cont_cat_excess
+  r5p5_cf_considered_seed_coview: f_x_cf_consid_cv_cos_max, f_x_cf_consid_cv_wsum
+  r6p1_older_view_seed_coview: f_x_cf_oldview_cv_cos_max, f_x_cf_oldview_cv_wsum, f_x_cf_oldview_cv_nseeds
+  r6p2_dwell_seed_coview: f_x_cf_dwell_cv_cos_max, f_x_cf_dwell_cv_wsum
+  r6p3_abandoned_cart_seed_coview: f_x_cf_abandon_cv_cos_max, f_x_cf_abandon_cv_tdecay
+  r6p4_user_level_cooccurrence_cf: f_x_cf_uco_cos_max, f_x_cf_uco_cos_tdecay
+  r6p5_fresh_2d_coview_graph: f_x_cf_cv2d_cos_max, f_x_cf_cv2d_cos_tdecay
+
+Already tried, all of it in the model above:
+- a DFS grid (tables dfs_p, dfs_c, dfs_b, dfs_u): for the candidate product, its category, its brand and the
+  user; windows of 1, 3, 7 and 14 days before t; for every event type log(1 + events) and log(1 + distinct
+  users), plus smoothed cart-per-view and purchase-per-view rates of distinct users;
+- SQL features of an earlier blind agent on an earlier period of the same store, by table (name: idea):
+  r1p1_first_touch_conversion: This mirrors the target definition at the item level. Column one is the smoothed lift of P(cart or purchase within 24h | user's first touch of the item in the last 7 days). Column two is the share of the item's recent acquirers who first touched it no more than 24h before acquiring, i.e. how often the item is bought by people who were new to it.
+  r1p2_coacq_cf: This is item-item similarity from co-acquisition rather than co-view: a cosine over users who carted or bought both items in the last 14 days. It is applied to the user's 10 latest touched items, so it surfaces complements and accessories that the co-view features miss.
+  r1p3_buyer_price_profile: This describes the price taste of the item's buyers: the mean and spread of their median viewed log price, and the gap between that and the item's own log price. The model can match it against u_log_price_med_view_7d to tell which price-tier audiences the item converts.
+  r1p4_new_reach: This measures the item's pull on new audiences, which is mostly view-based and therefore immune to the cart logging shift. It gives the share of the item's last-24h users who touched it for the first time in 14 days, plus the trend and log volume of those first-time users against the item's 7-day daily average.
+  r1p5_cp_staleness: This is a stock-out or demand-stop detector: the log hours since the item's last cart or purchase, and that time divided by the item's expected inter-acquisition gap from its 7-day acquirer count. Normally popular items that suddenly go quiet score high.
+  r2p1_cmp_session_win_lift: Choice share under comparison: in 14d sessions where a user viewed at least 2 items of one category and carted or bought something there, this is how often this item was the chosen one versus a uniform-choice expectation, plus the log number of such comparison sessions; it is a normalised ratio, so the cart level shift largely cancels.
+  r2p2_cp_category_complement: Category-level complement graph from acquisitions: lift of P(first cart/purchase in category c2 within 3 days after one in c1) over 14 days, applied from the categories the user acquired in the last 7 days to the top 40 acquired products of each complementary category; this captures accessory demand such as phone to case that view-based links miss.
+  r2p3_acq_seed_coview_cf: Session co-view neighbours (cosine, 7d, sessions of 2-30 items) of the user's 5 latest carted or bought items rather than latest views, with recency decay (72h) on the seed acquisition; this surfaces what people browse alongside things the user actually committed to, even when those items left the 20-latest-views window.
+  r2p4_revisit_consideration: Consideration depth from views only, so it is immune to the cart shift: the smoothed lift over the category of the share of the item's 7d viewers who came back to it in 2 or more distinct sessions, plus the log of views per viewer.
+  r2p5_view_dwell_time: Page dwell: the smoothed mean log seconds (capped at 600) between a view of the item and the next event in the same session over 7 days, and its gap to the category mean; long dwell signals serious evaluation and comes from views, so it is stable across the cart logging shift.
+  r3p1_view_session_last_choice: View-only decision signal immune to the cart shift: in 7d sessions where a user viewed 3 or more items of one category, this is how often the item was the last one viewed in that category (the settled choice) against a uniform expectation, how that compares with being viewed first (search-position bias), and the log number of such comparison sessions.
+  r3p2_intraday_momentum_12h: Very short-term momentum just before the anchor. Column one compares distinct viewers in the last 12h with the same 12h of the previous day, normalised by global traffic. Column two is the item's share of cart/purchase actors in the last 12h against its 7d share, a share ratio so the global cart level cancels.
+  r3p3_user_user_cf_acq: User-user collaborative filtering, unlike the existing item-item links: up to 30 neighbour users are found through overlap on the user's 10 latest items (niche items weighted by 1/log degree, hubs dropped), and their cart/purchase actions in the last 3 days are aggregated into a normalised weight share and a within-user rank.
+  r3p4_brand_cat_price_sibling: Detects near-duplicate variants (colour or storage versions of the same model): for the top-50 products of the user's 3 latest category+brand combos, this gives the minimum log-price distance to items the user viewed in that same category and brand in the last 3 days, plus a price-and-recency kernel sum; this joint brand+category+price match is not captured by the separate ub_ and up_ features.
+  r3p5_category_search_depth: How many distinct same-category items acquirers typically view before their first cart/purchase in the category (category-level log depth), and whether this item is a deliberated or an impulse choice relative to that norm; combined with uc_distinct_viewed_7d, it tells the model when a user's search is ripe to convert.
+  r4p1_acq_regularity_7d: Steady sellers versus spiky ones. The first column counts the days in the last 7 on which the item had any cart/purchase actor. The second is the coefficient of variation of the item's daily share of all acquirers, so the cart logging level cancels.
+  r4p2_cat_acq_concentration: Describes how winner-take-all the candidate's category is. It gives the Herfindahl index of the category's 7d cart/purchase actors over its items, plus the item's smoothed log share and log rank inside its category for all products in the category, not only those of the user's top categories.
+  r4p3_weekday_seasonality_14d: Weekly seasonality for the target day: the item's and its category's share of cart/purchase actors on the same weekday 7 and 14 days ago, relative to their 14d share. It is normalised by global daily acquirers so the cart shift cancels.
+  r4p4_cat_to_item_transition: Category-to-item transition: the smoothed lift of P(user acquires item p after first viewing category c) over the base rate, learned over 14 days. It is applied from the user's 3 latest viewed categories to the top 25 items per category, which generalises the item-level view->acquisition links to whole-category browsing, including cross-category pulls.
+  r4p5_brand_switch_transition: Within-category brand transitions: the smoothed lift of P(acquire brand b2 in category c after viewing brand b1 there) over the category base rate, covering both loyalty and switching. It is applied from the user's 2 latest viewed category+brand pairs to the top 15 acquired items of the 3 best follow-up brands.
+  r5p1_cf_xday_new_acq_transition: Item-item links that copy the target's structure: the smoothed lift of P(a user first touches and acquires item b within 24h on day d | the user viewed item a on day d-1 or d-2), learned over 14 days and applied from the user's 20 latest views of the last 48h; the target is new items acquired the next day, whereas the existing view->acquisition links are untimed.
+  r5p2_cf_next_view_adjacency: Directional sequential links instead of whole-session co-occurrence: the probability that the next distinct item viewed in a session after a is b (7d, view-only, so the cart shift does not affect it), plus its lift over the popularity expectation, applied from the user's 5 latest viewed items with positional decay. This captures the click paths of the 'similar items' widget.
+  r5p3_cf_converting_session_coview: Co-view cosine computed only over 14d sessions of 2-40 items that ended in a cart or purchase, so links reflect alternatives that were seriously weighed against each other in a buying decision rather than casual browsing. It is applied to the user's 10 latest views with a 48h recency decay.
+  r5p4_uc_nextday_continuation: A category-specific and state-conditional conversion rate. It is learned as P(a user acquires in category c one or two days after viewing k distinct items of c on a day), with k bucketed by log2, and expressed as a lift over the global rate. It is evaluated at the user's own depth and lag in their 3 latest categories, then attached to the top 30 acquired products of each category. A tree cannot get this from uc_distinct_viewed and the category popularity features without knowing the category id.
+  r5p5_cf_considered_seed_coview: Long-memory co-view seeds. It uses the user's 5 items with the most distinct revisit sessions over 14 days (at least 2), i.e. products they kept coming back to, which often fall outside the 20-latest-views window. It takes their 7d session co-view neighbours and weights them by log revisit count and a 96h recency decay. This extends the near-miss acquisition-seed idea to strong, uncommitted consideration.
+  r6p1_older_view_seed_coview: Long-memory co-view: session co-view neighbours (7d, sessions of 2-30 items) of the user's distinct viewed items ranked 21-40 by recency over 14 days, which fall just outside the existing 20-latest-views window, weighted by a 120h recency decay; this extends the earlier revisit-seed idea to the rest of the user's older browsing.
+  r6p2_dwell_seed_coview: Consideration seeds selected by attention rather than revisits or recency: the user's 5 items with the largest total page dwell (time to the next event in the session, capped at 300 s, at least 60 s total) over 7 days, expanded to their 7d session co-view neighbours and weighted by log dwell and a 72h decay.
+  r6p3_abandoned_cart_seed_coview: Substitute search after an abandoned cart: session co-view neighbours (7d) of the user's 5 latest items that were carted in the last 7 days but never purchased, with a 48h recency decay. An unfinished cart signals an open need that the user may close with an alternative, unlike purchased seeds, which mix in complements.
+  r6p4_user_level_cooccurrence_cf: Cross-session item-item links: a cosine over users (with 2-60 distinct viewed items in 14 days) who viewed both items at any time, not necessarily in the same session. It is applied to the user's 5 latest views of the last 48h with a 24h decay, and it captures items people return to compare on later days, which session co-view misses.
+  r6p5_fresh_2d_coview_graph: A fresh co-view graph built only from the last 48h of sessions (2-30 items), applied to the user's 5 latest views with a 12h decay. It catches links that only formed in the last two days around new launches, promotions or restocks, which are diluted in the 7-14d graphs; it is view-only, so it is immune to the cart shift.
+
+Rules for a feature query:
+- one DuckDB SELECT statement (WITH is fine) reading only hist and active_users; no other tables,
+  files or settings;
+- returns key columns user_id and/or product_id plus 1-4 numeric value columns named f_x_c1_<something>,
+  names not used by any existing column;
+- exactly one row per key, no NULL keys; keys without a row get NULL; afterwards only the keys present
+  among the day's candidates are kept;
+- the query cannot see the candidates: product-level features cover all products; user-level and
+  pair-level queries must filter user_id IN (SELECT user_id FROM active_users), and pair-level ones must
+  enumerate pairs narrowly (e.g. products of the user's recent categories or neighbours of recent views)
+  so the result stays well under 50M rows;
+- the value for a user must not depend on which other users are in active_users: the sandbox compares the
+  answer on all active users with the union of the answers on two halves of them;
+- deterministic: no random(), setseed(), now() or anything similar; any permutation is ordered by hash(...)
+  of keys;
+- a user-level feature is constant within a user's ranking and helps only through interactions;
+- it runs once per anchor day; the median time must stay under 60 s per day, aim for under 20 s.
+All valid columns enter the model without selection by outcome. Superfluous and noisy columns hurt: a few
+strong, non-redundant signals are needed.
+
+How cards are judged before any outcome is seen: validity in the sandbox, seconds per day,
+coverage (the share of candidate rows with a non-NULL value), invariance to the batch of users, the rank
+correlation rho and R2 within queries to the existing columns (a family with R2 >= 0.9 or |rho| >= 0.95 to
+an existing column is a duplicate and is dropped), a stable non-NULL share across days, and the shape of the
+knockout twin. Other generators, a skeptic and a leak auditor critique the cards with the authors hidden;
+every author answers them once.
+
+Write 8 cards. A card is one feature family together with the experiment that could refute it:
+{"name": "short_snake_case",
+ "mechanism": "which behaviour of users or products the family measures and why it should raise the rank of
+               the products that become targets",
+ "sign": "+ if adding the family should improve ranking quality, - if you expect it to hurt",
+ "stratum": "in words and as an SQL predicate over hist before t (user or user x product): where the gain
+             should be",
+ "null_stratum": "where the gain should not be, in words and as an SQL predicate",
+ "sql": "SELECT user_id, product_id, ... AS f_x_c1_..., ... FROM hist ...",
+ "twin": {"how": "time_shuffle | neighbour_shuffle | seeds_removed",
+          "sql": "the same query with the mechanism destroyed: same keys and coverage, columns named as yours
+                  plus the suffix _tw"},
+ "rival": {"explanation": "another reason why the family could help", "stratum": "where the rival predicts
+           the gain"}}
+Twin forms: time_shuffle permutes event times (e.g. within user and day, ordered by hash(...));
+neighbour_shuffle replaces neighbours by others of the same category and popularity decile chosen by
+hash(...); seeds_removed drops the seed events that carry the mechanism. The twin keeps the shape of the
+family (similar non-NULL share) and must not be a near copy of it.
+Columns: 1-4 per card, named f_x_c1_<slug>, unique across your cards; use the f_x_ prefix only for
+the output columns of the card (and their _tw copies in the twin), never for intermediate aliases.
+
+Answer with a JSON list of 8 cards only.
