@@ -1,0 +1,626 @@
+{
+  "format": "xfer-set-v1",
+  "dataset": "sber",
+  "run": {
+    "id": "s1",
+    "model": "claude-opus-5-5",
+    "rounds": 6,
+    "proposals_per_round": 5,
+    "calls": 6,
+    "cost_usd": 2.149318,
+    "log_sha256": "53f189d44fe0ce29441ae2740bd69b8f9c4c82c7ce33716c973e0a1cf21372a3"
+  },
+  "probe": {
+    "anchor": "2020-08-19",
+    "users": 5000,
+    "collection": {
+      "name": "probe-2020-08-19",
+      "path": "artifacts/xfer/sber/collections/probe-2020-08-19",
+      "manifest_sha256": "46fd8ce0760c8dd479ae7b1db6d58252f5e327c17748836118a90ec46f3cb185"
+    },
+    "probe_sha256": "81869c033ad68feb5f8c5a47968d7b161f71d777da80a58a3df027032a34136c",
+    "stats_sha256": "cfe1cb5fbbb61201e96fdb9e552f7b817d23da8df0bc4a3aff853e199ab1d427"
+  },
+  "run_sha256": "3486aeac93cff329fc35ba3b750ebd66b5a5131795f9402bda04f5465b15c801",
+  "base_digest": "4bc8a554d0bb159013371f9020e5bec20010e8cd8d5c5da8bda6b88f0860b92e",
+  "prompt": {
+    "template_sha256": "ad8a1e4d7d06fdad9c20c7df0615e379a0e32a4309b358eec126087a108afe6e",
+    "constants_digest": "15312ab0dacc2920c57575792e36d6fc099de220398384766231b74cd2c77afd",
+    "digest": "607719164d889b0ad6d2718572b976ea59af0aae430688696760160ee8d4947c"
+  },
+  "prompt_digest": "607719164d889b0ad6d2718572b976ea59af0aae430688696760160ee8d4947c",
+  "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "6180e9074266e30099ad7215461058a3c3b87c9a5645039131a39ece0b7d7b9c",
+    "scripts/xfer_sber.py": "e538de9f4429414aa4a104c9e38710bc53dd6866d2591519b91361b6b5a0ee1f"
+  },
+  "proposals": [
+    {
+      "id": "r1p1",
+      "round": 1,
+      "index": 1,
+      "name": "p_next_order_reorder",
+      "idea": "Item-level chance that a buyer's next order contains the product again (smoothed), plus the median days between consecutive purchases of the product by the same user, over the last 90 days.",
+      "level": "item",
+      "sql": "WITH op AS (SELECT DISTINCT user_id, order_id, product_id, ts FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 90 DAY), ou AS (SELECT order_id, lead(order_id) OVER (PARTITION BY user_id ORDER BY ts, order_id) AS next_order FROM orders WHERE ts >= TIMESTAMP '{A}' - INTERVAL 90 DAY), rr AS (SELECT op.product_id, count(*) AS n_all, count(n2.order_id) AS n_hit FROM op JOIN ou ON op.order_id = ou.order_id LEFT JOIN op n2 ON n2.order_id = ou.next_order AND n2.product_id = op.product_id WHERE ou.next_order IS NOT NULL GROUP BY op.product_id), gg AS (SELECT product_id, median(gap_d) AS med_gap FROM (SELECT product_id, epoch(ts - lag(ts) OVER (PARTITION BY user_id, product_id ORDER BY ts, order_id)) / 86400.0 AS gap_d FROM op) g WHERE gap_d IS NOT NULL GROUP BY product_id) SELECT rr.product_id, (rr.n_hit + 1.0) / (rr.n_all + 10.0) AS ag_p_next_reorder, gg.med_gap AS ag_p_med_regap FROM rr LEFT JOIN gg ON rr.product_id = gg.product_id",
+      "columns": [
+        "ag_p_next_reorder",
+        "ag_p_med_regap"
+      ],
+      "probe_seconds": "2^1–2^2"
+    },
+    {
+      "id": "r1p4",
+      "round": 1,
+      "index": 4,
+      "name": "user_repeat_fraction",
+      "idea": "How habitual the user is: mean share of products in each order (after the first in the 120-day window) that the user had already bought earlier in the window, plus the same share for the latest order.",
+      "level": "user",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), op AS (SELECT DISTINCT l.user_id, l.order_id, l.product_id, l.ts FROM lines l JOIN cu ON l.user_id = cu.user_id), r AS (SELECT user_id, order_id, ts, CASE WHEN row_number() OVER (PARTITION BY user_id, product_id ORDER BY ts, order_id) > 1 THEN 1.0 ELSE 0.0 END AS rep FROM op), po AS (SELECT user_id, order_id, avg(rep) AS rep_frac, row_number() OVER (PARTITION BY user_id ORDER BY min(ts), order_id) AS k FROM r GROUP BY user_id, order_id) SELECT user_id, avg(rep_frac) AS ag_u_repeat_frac, arg_max(rep_frac, k) AS ag_u_last_repeat_frac FROM po WHERE k > 1 GROUP BY user_id",
+      "columns": [
+        "ag_u_repeat_frac",
+        "ag_u_last_repeat_frac"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r1p5",
+      "round": 1,
+      "index": 5,
+      "name": "p_new_buyer_share",
+      "idea": "Smoothed share of the product's buyers in the last 28 days who had not bought it earlier in the 120-day window, separating trial-driven products from staples.",
+      "level": "item",
+      "sql": "WITH b AS (SELECT product_id, user_id, min(ts) AS first_ts, max(ts) AS last_ts FROM lines GROUP BY product_id, user_id) SELECT product_id, (count(*) FILTER (WHERE first_ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY) + 1.0) / (count(*) FILTER (WHERE last_ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY) + 2.0) AS ag_p_new_buyer_share FROM b GROUP BY product_id HAVING count(*) FILTER (WHERE last_ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY) > 0",
+      "columns": [
+        "ag_p_new_buyer_share"
+      ],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r2p1",
+      "round": 2,
+      "index": 1,
+      "name": "user_brand_affinity_v2",
+      "idea": "Share of the user's orders in the 120-day window that contain the product's brand, and days since the user last bought that brand; the product brand is taken from all lines, so the value does not depend on the batch.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), pb AS (SELECT product_id, max(brand_name) AS brand FROM lines WHERE brand_name IS NOT NULL GROUP BY product_id), un AS (SELECT o.user_id, count(*) AS n_u FROM orders o JOIN cu ON o.user_id = cu.user_id GROUP BY o.user_id), ub AS (SELECT l.user_id, l.brand_name, count(DISTINCT l.order_id) AS n_b, max(l.ts) AS last_ts FROM lines l JOIN cu ON l.user_id = cu.user_id WHERE l.brand_name IS NOT NULL GROUP BY l.user_id, l.brand_name) SELECT c.user_id, c.product_id, CASE WHEN pb.brand IS NULL OR un.n_u IS NULL THEN NULL ELSE COALESCE(ub.n_b, 0) * 1.0 / un.n_u END AS ag_ub_share, epoch(TIMESTAMP '{A}' - ub.last_ts) / 86400.0 AS ag_ub_days_since FROM cand c LEFT JOIN pb ON pb.product_id = c.product_id LEFT JOIN un ON un.user_id = c.user_id LEFT JOIN ub ON ub.user_id = c.user_id AND ub.brand_name = pb.brand;",
+      "columns": [
+        "ag_ub_share",
+        "ag_ub_days_since"
+      ],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r2p2",
+      "round": 2,
+      "index": 2,
+      "name": "up_decayed_frequency",
+      "idea": "Recency-weighted purchase frequency of the product by the user (sum over distinct orders of exp(-age/14 days)), raw and normalised by the user's own decayed order count.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), uw AS (SELECT o.user_id, sum(exp(-epoch(TIMESTAMP '{A}' - o.ts) / 86400.0 / 14.0)) AS w_u FROM orders o JOIN cu ON o.user_id = cu.user_id GROUP BY o.user_id), op AS (SELECT DISTINCT l.user_id, l.order_id, l.product_id, l.ts FROM lines l JOIN cu ON l.user_id = cu.user_id), pw AS (SELECT user_id, product_id, sum(exp(-epoch(TIMESTAMP '{A}' - ts) / 86400.0 / 14.0)) AS w_p FROM op GROUP BY user_id, product_id) SELECT c.user_id, c.product_id, COALESCE(pw.w_p, 0.0) AS ag_up_decay14, CASE WHEN uw.w_u > 0 THEN COALESCE(pw.w_p, 0.0) / uw.w_u ELSE NULL END AS ag_up_decay_share FROM cand c LEFT JOIN uw ON uw.user_id = c.user_id LEFT JOIN pw ON pw.user_id = c.user_id AND pw.product_id = c.product_id;",
+      "columns": [
+        "ag_up_decay14",
+        "ag_up_decay_share"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r2p3",
+      "round": 2,
+      "index": 3,
+      "name": "category_choice_v2",
+      "idea": "Within the product's category (taken from all lines, so batch-independent), the share of the user's category orders that picked this product, and whether the user's latest category order picked it (substitution vs loyalty).",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), pc AS (SELECT product_id, max(master_category_id) AS cat FROM lines WHERE master_category_id IS NOT NULL GROUP BY product_id), ul AS (SELECT DISTINCT l.user_id, l.order_id, l.ts, l.product_id, l.master_category_id AS cat FROM lines l JOIN cu ON l.user_id = cu.user_id WHERE l.master_category_id IS NOT NULL), co AS (SELECT user_id, cat, order_id, row_number() OVER (PARTITION BY user_id, cat ORDER BY ts DESC, order_id DESC) AS rk FROM (SELECT DISTINCT user_id, cat, order_id, ts FROM ul) x), ucn AS (SELECT user_id, cat, count(*) AS n_cat FROM co GROUP BY user_id, cat), upc AS (SELECT ul.user_id, ul.product_id, ul.cat, count(DISTINCT ul.order_id) AS n_p, max(CASE WHEN co.rk = 1 THEN 1 ELSE 0 END) AS in_last FROM ul JOIN co ON ul.user_id = co.user_id AND ul.cat = co.cat AND ul.order_id = co.order_id GROUP BY ul.user_id, ul.product_id, ul.cat) SELECT c.user_id, c.product_id, CASE WHEN ucn.n_cat IS NULL THEN NULL ELSE least(1.0, COALESCE(upc.n_p, 0) * 1.0 / ucn.n_cat) END AS ag_up_cat_choice, CASE WHEN ucn.n_cat IS NULL THEN NULL ELSE COALESCE(upc.in_last, 0) END AS ag_uc_last_pick FROM cand c LEFT JOIN pc ON pc.product_id = c.product_id LEFT JOIN ucn ON ucn.user_id = c.user_id AND ucn.cat = pc.cat LEFT JOIN upc ON upc.user_id = c.user_id AND upc.product_id = c.product_id AND upc.cat = pc.cat;",
+      "columns": [
+        "ag_up_cat_choice",
+        "ag_uc_last_pick"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r2p4",
+      "round": 2,
+      "index": 4,
+      "name": "up_order_count_due",
+      "idea": "Number of the user's orders since the product was last bought, and that count divided by the user's typical number of orders per purchase of the product (order-based dueness instead of day-based).",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), uo AS (SELECT o.user_id, o.order_id, row_number() OVER (PARTITION BY o.user_id ORDER BY o.ts DESC, o.order_id DESC) AS rn, count(*) OVER (PARTITION BY o.user_id) AS n_u FROM orders o JOIN cu ON o.user_id = cu.user_id), op AS (SELECT DISTINCT l.user_id, l.order_id, l.product_id FROM lines l JOIN cu ON l.user_id = cu.user_id), upo AS (SELECT op.user_id, op.product_id, min(uo.rn) - 1 AS since, count(*) AS n_p, max(uo.n_u) AS n_u FROM op JOIN uo ON op.order_id = uo.order_id GROUP BY op.user_id, op.product_id) SELECT c.user_id, c.product_id, upo.since AS ag_up_orders_since, upo.since * upo.n_p * 1.0 / upo.n_u AS ag_up_ord_due FROM cand c JOIN upo ON upo.user_id = c.user_id AND upo.product_id = c.product_id;",
+      "columns": [
+        "ag_up_orders_since",
+        "ag_up_ord_due"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r2p5",
+      "round": 2,
+      "index": 5,
+      "name": "p_buyer_repeat_penetration",
+      "idea": "Item-level share of later orders (after the first) of multi-order buyers in the last 90 days that contain the product again, smoothed: how much of a buyer's ongoing basket the product occupies.",
+      "level": "item",
+      "sql": "WITH b AS (SELECT user_id, product_id, count(DISTINCT order_id) AS n_p FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 90 DAY GROUP BY user_id, product_id), u AS (SELECT user_id, count(*) AS n_u FROM orders WHERE ts >= TIMESTAMP '{A}' - INTERVAL 90 DAY GROUP BY user_id HAVING count(*) >= 2) SELECT b.product_id, (sum(b.n_p) - count(*) + 1.0) / (sum(u.n_u) - count(*) + 5.0) AS ag_p_buyer_penetration FROM b JOIN u ON b.user_id = u.user_id GROUP BY b.product_id;",
+      "columns": [
+        "ag_p_buyer_penetration"
+      ],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r3p1",
+      "round": 3,
+      "index": 1,
+      "name": "up_adoption_streak",
+      "idea": "For products the user already bought in the 120-day window: the share of the user's orders since the first purchase of the product that contain it (persistence after adoption), and the number of consecutive latest orders that contain it (current streak).",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), uo AS (SELECT o.user_id, o.order_id, row_number() OVER (PARTITION BY o.user_id ORDER BY o.ts DESC, o.order_id DESC) AS rn FROM orders o JOIN cu ON o.user_id = cu.user_id), op AS (SELECT DISTINCT l.user_id, l.order_id, l.product_id FROM lines l JOIN cu ON l.user_id = cu.user_id), opr AS (SELECT op.user_id, op.product_id, uo.rn, row_number() OVER (PARTITION BY op.user_id, op.product_id ORDER BY uo.rn) AS rk FROM op JOIN uo ON op.order_id = uo.order_id), upo AS (SELECT user_id, product_id, count(*) AS n_p, max(rn) AS first_rn, sum(CASE WHEN rn = rk THEN 1 ELSE 0 END) AS streak FROM opr GROUP BY user_id, product_id) SELECT c.user_id, c.product_id, upo.n_p * 1.0 / upo.first_rn AS ag_up_adopt_share, upo.streak AS ag_up_streak FROM cand c JOIN upo ON upo.user_id = c.user_id AND upo.product_id = c.product_id;",
+      "columns": [
+        "ag_up_adopt_share",
+        "ag_up_streak"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r3p2",
+      "round": 3,
+      "index": 2,
+      "name": "store_popularity",
+      "idea": "Popularity of the product at the user's main store (finer than retailer) in the last 28 days: share of the store's buyers who bought it, and its smoothed lift over the global buyer share.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), um AS (SELECT user_id, store_id FROM (SELECT o.user_id, o.store_id, row_number() OVER (PARTITION BY o.user_id ORDER BY count(*) DESC, max(o.ts) DESC, o.store_id) AS rk FROM orders o JOIN cu ON o.user_id = cu.user_id WHERE o.store_id IS NOT NULL GROUP BY o.user_id, o.store_id) x WHERE rk = 1), sl AS (SELECT o.store_id, l.product_id, l.user_id FROM lines l JOIN orders o ON l.order_id = o.order_id WHERE l.ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY AND o.store_id IN (SELECT store_id FROM um)), sb AS (SELECT store_id, product_id, count(DISTINCT user_id) AS nb FROM sl GROUP BY store_id, product_id), su AS (SELECT store_id, count(DISTINCT user_id) AS n_s FROM sl GROUP BY store_id), gb AS (SELECT product_id, count(DISTINCT user_id) AS nb_g FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY GROUP BY product_id), gu AS (SELECT count(DISTINCT user_id) AS n_g FROM orders WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY) SELECT c.user_id, c.product_id, CASE WHEN su.n_s IS NULL THEN NULL ELSE COALESCE(sb.nb, 0) * 1.0 / su.n_s END AS ag_ps_share, CASE WHEN su.n_s IS NULL THEN NULL ELSE ln(((COALESCE(sb.nb, 0) + 1.0) / (su.n_s + 50.0)) / ((COALESCE(gb.nb_g, 0) + 1.0) / (gu.n_g + 50.0))) END AS ag_ps_lift FROM cand c JOIN um ON um.user_id = c.user_id LEFT JOIN su ON su.store_id = um.store_id LEFT JOIN sb ON sb.store_id = um.store_id AND sb.product_id = c.product_id LEFT JOIN gb ON gb.product_id = c.product_id CROSS JOIN gu;",
+      "columns": [
+        "ag_ps_share",
+        "ag_ps_lift"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r3p3",
+      "round": 3,
+      "index": 3,
+      "name": "product_promo_price",
+      "idea": "Current promotion signal of the product: share of its lines with a positive discount in the last 7 days, and the median line price in the last 7 days relative to the median price in the 83 days before.",
+      "level": "item",
+      "sql": "SELECT product_id, avg(CASE WHEN discount > 0 THEN 1.0 ELSE 0.0 END) FILTER (WHERE ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY) AS ag_p_promo7, median(price) FILTER (WHERE ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY) / NULLIF(median(price) FILTER (WHERE ts < TIMESTAMP '{A}' - INTERVAL 7 DAY), 0) AS ag_p_price_rel FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 90 DAY GROUP BY product_id HAVING count(*) FILTER (WHERE ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY) > 0;",
+      "columns": [
+        "ag_p_promo7",
+        "ag_p_price_rel"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r3p4",
+      "round": 3,
+      "index": 4,
+      "name": "product_category_dominance",
+      "idea": "How dominant the product is inside its category over the last 28 days: its distinct buyers divided by the category's distinct buyers, and its buyer rank within the category.",
+      "level": "item",
+      "sql": "WITH pc AS (SELECT product_id, max(master_category_id) AS cat FROM lines WHERE master_category_id IS NOT NULL GROUP BY product_id), l28 AS (SELECT l.user_id, l.product_id, pc.cat FROM lines l JOIN pc ON l.product_id = pc.product_id WHERE l.ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY), pb AS (SELECT product_id, max(cat) AS cat, count(DISTINCT user_id) AS nb FROM l28 GROUP BY product_id), cb AS (SELECT cat, count(DISTINCT user_id) AS nc FROM l28 GROUP BY cat) SELECT pb.product_id, pb.nb * 1.0 / cb.nc AS ag_p_cat_share, rank() OVER (PARTITION BY pb.cat ORDER BY pb.nb DESC) AS ag_p_cat_rank FROM pb JOIN cb ON pb.cat = cb.cat;",
+      "columns": [
+        "ag_p_cat_share",
+        "ag_p_cat_rank"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r3p5",
+      "round": 3,
+      "index": 5,
+      "name": "user_category_due",
+      "idea": "Category-level replenishment timing for every candidate: days since the user last bought the product's category divided by the user's mean interval between category orders, and the share of the user's last 5 orders containing the category.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), pc AS (SELECT product_id, max(master_category_id) AS cat FROM lines WHERE master_category_id IS NOT NULL GROUP BY product_id), uo AS (SELECT o.user_id, o.order_id, row_number() OVER (PARTITION BY o.user_id ORDER BY o.ts DESC, o.order_id DESC) AS rn FROM orders o JOIN cu ON o.user_id = cu.user_id), uco AS (SELECT DISTINCT l.user_id, l.master_category_id AS cat, l.order_id, l.ts FROM lines l JOIN cu ON l.user_id = cu.user_id WHERE l.master_category_id IS NOT NULL), ucs AS (SELECT uco.user_id, uco.cat, count(*) AS n_c, max(uco.ts) AS last_ts, min(uco.ts) AS first_ts, sum(CASE WHEN uo.rn <= 5 THEN 1 ELSE 0 END) AS n5 FROM uco JOIN uo ON uco.order_id = uo.order_id GROUP BY uco.user_id, uco.cat), un AS (SELECT user_id, least(5, count(*)) AS d5 FROM uo GROUP BY user_id) SELECT c.user_id, c.product_id, CASE WHEN ucs.n_c >= 2 AND ucs.last_ts > ucs.first_ts THEN (epoch(TIMESTAMP '{A}' - ucs.last_ts) / 86400.0) / (epoch(ucs.last_ts - ucs.first_ts) / 86400.0 / (ucs.n_c - 1)) ELSE NULL END AS ag_uc_due, CASE WHEN pc.cat IS NULL OR un.d5 IS NULL THEN NULL ELSE COALESCE(ucs.n5, 0) * 1.0 / un.d5 END AS ag_uc_last5_share FROM cand c LEFT JOIN pc ON pc.product_id = c.product_id LEFT JOIN un ON un.user_id = c.user_id LEFT JOIN ucs ON ucs.user_id = c.user_id AND ucs.cat = pc.cat;",
+      "columns": [
+        "ag_uc_due",
+        "ag_uc_last5_share"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r4p1",
+      "round": 4,
+      "index": 1,
+      "name": "up_rebuy_recency_bucket",
+      "idea": "Pseudo-label rate learned at A-14d: among users who had last bought the product in the same days-since-last bucket (0-7, 7-14, 14-28, 28-56, 56+) as this user now, the share whose first order in the next 14 days contained it, smoothed toward the bucket-wide rate.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), fo AS (SELECT user_id, order_id FROM (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY ts, order_id) AS rk FROM orders WHERE ts >= TIMESTAMP '{A}' - INTERVAL 14 DAY) x WHERE rk = 1), fl AS (SELECT DISTINCT l.order_id, l.product_id FROM lines l JOIN fo ON l.order_id = fo.order_id), h AS (SELECT l.user_id, l.product_id, epoch((TIMESTAMP '{A}' - INTERVAL 14 DAY) - max(l.ts)) / 86400.0 AS dd FROM lines l JOIN fo ON l.user_id = fo.user_id WHERE l.ts < TIMESTAMP '{A}' - INTERVAL 14 DAY GROUP BY l.user_id, l.product_id), hb AS (SELECT h.product_id, CASE WHEN h.dd < 7 THEN 0 WHEN h.dd < 14 THEN 1 WHEN h.dd < 28 THEN 2 WHEN h.dd < 56 THEN 3 ELSE 4 END AS b, CASE WHEN fl.order_id IS NULL THEN 0.0 ELSE 1.0 END AS hit FROM h JOIN fo ON fo.user_id = h.user_id LEFT JOIN fl ON fl.order_id = fo.order_id AND fl.product_id = h.product_id), pb AS (SELECT product_id, b, count(*) AS n, sum(hit) AS k FROM hb GROUP BY product_id, b), bb AS (SELECT b, sum(k) / sum(n) AS pr FROM pb GROUP BY b), cur AS (SELECT l.user_id, l.product_id, epoch(TIMESTAMP '{A}' - max(l.ts)) / 86400.0 AS dd FROM lines l JOIN cu ON l.user_id = cu.user_id GROUP BY l.user_id, l.product_id), cb AS (SELECT user_id, product_id, CASE WHEN dd < 7 THEN 0 WHEN dd < 14 THEN 1 WHEN dd < 28 THEN 2 WHEN dd < 56 THEN 3 ELSE 4 END AS b FROM cur) SELECT c.user_id, c.product_id, (COALESCE(pb.k, 0) + 20.0 * bb.pr) / (COALESCE(pb.n, 0) + 20.0) AS ag_pr_rebuy_bucket FROM cand c JOIN cb ON cb.user_id = c.user_id AND cb.product_id = c.product_id JOIN bb ON bb.b = cb.b LEFT JOIN pb ON pb.product_id = cb.product_id AND pb.b = cb.b;",
+      "columns": [
+        "ag_pr_rebuy_bucket"
+      ],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r4p2",
+      "round": 4,
+      "index": 2,
+      "name": "p_pseudo_adopt_rebuy14",
+      "idea": "Pseudo-label rates at A-14d over users with prior history: the share of prior non-buyers whose first order in the last 14 days adopted the product, and the smoothed share of prior buyers whose first order rebought it.",
+      "level": "item",
+      "sql": "WITH fo AS (SELECT user_id, order_id FROM (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY ts, order_id) AS rk FROM orders WHERE ts >= TIMESTAMP '{A}' - INTERVAL 14 DAY) x WHERE rk = 1), pu AS (SELECT DISTINCT user_id FROM orders WHERE ts < TIMESTAMP '{A}' - INTERVAL 14 DAY), co AS (SELECT fo.user_id, fo.order_id FROM fo JOIN pu ON fo.user_id = pu.user_id), nc AS (SELECT count(*) AS n_co FROM co), pv AS (SELECT DISTINCT l.user_id, l.product_id FROM lines l JOIN co ON l.user_id = co.user_id WHERE l.ts < TIMESTAMP '{A}' - INTERVAL 14 DAY), fl AS (SELECT DISTINCT l.user_id, l.product_id FROM lines l JOIN co ON l.order_id = co.order_id), pp AS (SELECT product_id, count(*) AS n_prev FROM pv GROUP BY product_id), fa AS (SELECT fl.product_id, count(*) FILTER (WHERE pv.user_id IS NULL) AS n_adopt, count(pv.user_id) AS n_rebuy FROM fl LEFT JOIN pv ON pv.user_id = fl.user_id AND pv.product_id = fl.product_id GROUP BY fl.product_id) SELECT COALESCE(pp.product_id, fa.product_id) AS product_id, (COALESCE(fa.n_adopt, 0) + 0.1) / (nc.n_co - COALESCE(pp.n_prev, 0) + 100.0) * 1000.0 AS ag_p_adopt14, (COALESCE(fa.n_rebuy, 0) + 1.0) / (COALESCE(pp.n_prev, 0) + 5.0) AS ag_p_rebuy14 FROM pp FULL OUTER JOIN fa ON pp.product_id = fa.product_id CROSS JOIN nc;",
+      "columns": [
+        "ag_p_adopt14",
+        "ag_p_rebuy14"
+      ],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r4p3",
+      "round": 4,
+      "index": 3,
+      "name": "uc_rebuy_recency_bucket",
+      "idea": "Category-level pseudo-label rate at A-14d: share of users with the same days-since-last-category-purchase bucket (or never bought the category) whose first order in the next 14 days contained the category, applied to every candidate via the user's current bucket.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), fo AS (SELECT user_id, order_id FROM (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY ts, order_id) AS rk FROM orders WHERE ts >= TIMESTAMP '{A}' - INTERVAL 14 DAY) x WHERE rk = 1), pu AS (SELECT DISTINCT user_id FROM orders WHERE ts < TIMESTAMP '{A}' - INTERVAL 14 DAY), co AS (SELECT fo.user_id, fo.order_id FROM fo JOIN pu ON fo.user_id = pu.user_id), nc AS (SELECT count(*) AS n_co FROM co), hc AS (SELECT l.user_id, l.master_category_id AS cat, epoch((TIMESTAMP '{A}' - INTERVAL 14 DAY) - max(l.ts)) / 86400.0 AS dd FROM lines l JOIN co ON l.user_id = co.user_id WHERE l.ts < TIMESTAMP '{A}' - INTERVAL 14 DAY AND l.master_category_id IS NOT NULL GROUP BY l.user_id, l.master_category_id), fc AS (SELECT DISTINCT l.user_id, l.master_category_id AS cat FROM lines l JOIN co ON l.order_id = co.order_id WHERE l.master_category_id IS NOT NULL), hh AS (SELECT hc.cat, CASE WHEN hc.dd < 7 THEN 0 WHEN hc.dd < 14 THEN 1 WHEN hc.dd < 28 THEN 2 WHEN hc.dd < 56 THEN 3 ELSE 4 END AS b, CASE WHEN fc.user_id IS NULL THEN 0 ELSE 1 END AS hit FROM hc LEFT JOIN fc ON fc.user_id = hc.user_id AND fc.cat = hc.cat), hb AS (SELECT cat, b, count(*) AS n, sum(hit) AS k FROM hh GROUP BY cat, b), ft AS (SELECT cat, count(*) AS k_all FROM fc GROUP BY cat), hn AS (SELECT cat, sum(n) AS n_h, sum(k) AS k_h FROM hb GROUP BY cat), nv AS (SELECT COALESCE(hn.cat, ft.cat) AS cat, 5 AS b, nc.n_co - COALESCE(hn.n_h, 0) AS n, COALESCE(ft.k_all, 0) - COALESCE(hn.k_h, 0) AS k FROM hn FULL OUTER JOIN ft ON hn.cat = ft.cat CROSS JOIN nc), rt AS (SELECT cat, b, n, k FROM hb UNION ALL SELECT cat, b, n, k FROM nv), pc AS (SELECT product_id, max(master_category_id) AS cat FROM lines WHERE master_category_id IS NOT NULL GROUP BY product_id), uc AS (SELECT l.user_id, l.master_category_id AS cat, epoch(TIMESTAMP '{A}' - max(l.ts)) / 86400.0 AS dd FROM lines l JOIN cu ON l.user_id = cu.user_id WHERE l.master_category_id IS NOT NULL GROUP BY l.user_id, l.master_category_id) SELECT c.user_id, c.product_id, (COALESCE(rt.k, 0) + 1.0) / (COALESCE(rt.n, 0) + 2.0) AS ag_uc_rebuy_bucket FROM cand c JOIN pc ON pc.product_id = c.product_id LEFT JOIN uc ON uc.user_id = c.user_id AND uc.cat = pc.cat LEFT JOIN rt ON rt.cat = pc.cat AND rt.b = CASE WHEN uc.dd IS NULL THEN 5 WHEN uc.dd < 7 THEN 0 WHEN uc.dd < 14 THEN 1 WHEN uc.dd < 28 THEN 2 WHEN uc.dd < 56 THEN 3 ELSE 4 END;",
+      "columns": [
+        "ag_uc_rebuy_bucket"
+      ],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r4p4",
+      "round": 4,
+      "index": 4,
+      "name": "up_category_switch_after",
+      "idea": "For products the user bought: number of the user's orders with the product's category placed after the last purchase of the product and the number of distinct other products of that category bought since (evidence of switching to a substitute).",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), pc AS (SELECT product_id, max(master_category_id) AS cat FROM lines WHERE master_category_id IS NOT NULL GROUP BY product_id), ul AS (SELECT DISTINCT l.user_id, l.order_id, l.ts, l.product_id, l.master_category_id AS cat FROM lines l JOIN cu ON l.user_id = cu.user_id), up AS (SELECT user_id, product_id, max(ts) AS last_ts FROM ul GROUP BY user_id, product_id), cp AS (SELECT c.user_id, c.product_id, pc.cat, up.last_ts FROM cand c JOIN up ON up.user_id = c.user_id AND up.product_id = c.product_id JOIN pc ON pc.product_id = c.product_id) SELECT cp.user_id, cp.product_id, count(DISTINCT ul.order_id) AS ag_uc_orders_after, count(DISTINCT ul.product_id) AS ag_uc_subs_after FROM cp LEFT JOIN ul ON ul.user_id = cp.user_id AND ul.cat = cp.cat AND ul.ts > cp.last_ts GROUP BY cp.user_id, cp.product_id;",
+      "columns": [
+        "ag_uc_orders_after",
+        "ag_uc_subs_after"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r5p1",
+      "round": 5,
+      "index": 1,
+      "name": "up_gap_regularity",
+      "idea": "How regular the user's repurchase gaps for the product are (coefficient of variation of gaps), and days since the user's last purchase divided by the product's typical 90-day median repurchase gap across all buyers.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), op AS (SELECT DISTINCT l.user_id, l.order_id, l.product_id, l.ts FROM lines l JOIN cu ON l.user_id = cu.user_id), g AS (SELECT user_id, product_id, epoch(ts - lag(ts) OVER (PARTITION BY user_id, product_id ORDER BY ts, order_id)) / 86400.0 AS gap_d FROM op), ug AS (SELECT user_id, product_id, count(gap_d) AS n_g, avg(gap_d) AS m_g, stddev_pop(gap_d) AS s_g FROM g GROUP BY user_id, product_id), ls AS (SELECT user_id, product_id, max(ts) AS last_ts FROM op GROUP BY user_id, product_id), pg AS (SELECT product_id, median(gap_d) AS med_gap FROM (SELECT product_id, epoch(ts - lag(ts) OVER (PARTITION BY user_id, product_id ORDER BY ts, order_id)) / 86400.0 AS gap_d FROM (SELECT DISTINCT user_id, order_id, product_id, ts FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 90 DAY) x) y WHERE gap_d IS NOT NULL GROUP BY product_id) SELECT c.user_id, c.product_id, CASE WHEN ug.n_g >= 2 AND ug.m_g > 0 THEN ug.s_g / ug.m_g ELSE NULL END AS ag_up_gap_cv, (epoch(TIMESTAMP '{A}' - ls.last_ts) / 86400.0) / greatest(pg.med_gap, 1.0) AS ag_up_due_pmed FROM cand c JOIN ls ON ls.user_id = c.user_id AND ls.product_id = c.product_id LEFT JOIN ug ON ug.user_id = c.user_id AND ug.product_id = c.product_id LEFT JOIN pg ON pg.product_id = c.product_id;",
+      "columns": [
+        "ag_up_gap_cv",
+        "ag_up_due_pmed"
+      ],
+      "probe_seconds": "2^1–2^2"
+    },
+    {
+      "id": "r5p2",
+      "round": 5,
+      "index": 2,
+      "name": "up_rebuy_freq_bucket",
+      "idea": "Pseudo-label rate learned at A-14d per product: among users with the same number of prior distinct orders containing the product (1, 2, 3-4, 5-7, 8+) as this user now, the share whose first order in the next 14 days contained it, smoothed toward the bucket-wide rate.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), fo AS (SELECT user_id, order_id FROM (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY ts, order_id) AS rk FROM orders WHERE ts >= TIMESTAMP '{A}' - INTERVAL 14 DAY) x WHERE rk = 1), fl AS (SELECT DISTINCT l.order_id, l.product_id FROM lines l JOIN fo ON l.order_id = fo.order_id), h AS (SELECT l.user_id, l.product_id, count(DISTINCT l.order_id) AS n FROM lines l JOIN fo ON l.user_id = fo.user_id WHERE l.ts < TIMESTAMP '{A}' - INTERVAL 14 DAY GROUP BY l.user_id, l.product_id), hb AS (SELECT h.product_id, CASE WHEN h.n = 1 THEN 0 WHEN h.n = 2 THEN 1 WHEN h.n <= 4 THEN 2 WHEN h.n <= 7 THEN 3 ELSE 4 END AS b, CASE WHEN fl.order_id IS NULL THEN 0.0 ELSE 1.0 END AS hit FROM h JOIN fo ON fo.user_id = h.user_id LEFT JOIN fl ON fl.order_id = fo.order_id AND fl.product_id = h.product_id), pb AS (SELECT product_id, b, count(*) AS n, sum(hit) AS k FROM hb GROUP BY product_id, b), bb AS (SELECT b, sum(k) / sum(n) AS pr FROM pb GROUP BY b), cur AS (SELECT l.user_id, l.product_id, count(DISTINCT l.order_id) AS n FROM lines l JOIN cu ON l.user_id = cu.user_id GROUP BY l.user_id, l.product_id), cb AS (SELECT user_id, product_id, CASE WHEN n = 1 THEN 0 WHEN n = 2 THEN 1 WHEN n <= 4 THEN 2 WHEN n <= 7 THEN 3 ELSE 4 END AS b FROM cur) SELECT c.user_id, c.product_id, (COALESCE(pb.k, 0) + 20.0 * bb.pr) / (COALESCE(pb.n, 0) + 20.0) AS ag_pr_rebuy_freq FROM cand c JOIN cb ON cb.user_id = c.user_id AND cb.product_id = c.product_id JOIN bb ON bb.b = cb.b LEFT JOIN pb ON pb.product_id = cb.product_id AND pb.b = cb.b;",
+      "columns": [
+        "ag_pr_rebuy_freq"
+      ],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r5p3",
+      "round": 5,
+      "index": 3,
+      "name": "up_price_vs_paid_v2",
+      "idea": "Clipped log ratio of the product's current 7-day median price at the user's main retailer (global 7-day median as fallback) to the price the user paid at the last purchase, guarded against zero prices.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), um AS (SELECT user_id, retailer FROM (SELECT o.user_id, o.retailer, row_number() OVER (PARTITION BY o.user_id ORDER BY count(*) DESC, max(o.ts) DESC, o.retailer) AS rk FROM orders o JOIN cu ON o.user_id = cu.user_id GROUP BY o.user_id, o.retailer) x WHERE rk = 1), lp AS (SELECT user_id, product_id, price FROM (SELECT l.user_id, l.product_id, l.price, row_number() OVER (PARTITION BY l.user_id, l.product_id ORDER BY l.ts DESC, l.order_id DESC, l.line_item_id DESC) AS rk FROM lines l JOIN cu ON l.user_id = cu.user_id) y WHERE rk = 1 AND price > 0), rp AS (SELECT o.retailer, l.product_id, median(l.price) AS mp FROM lines l JOIN orders o ON l.order_id = o.order_id WHERE l.ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY AND o.retailer IN (SELECT retailer FROM um) GROUP BY o.retailer, l.product_id), gp AS (SELECT product_id, median(price) AS mp FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY GROUP BY product_id) SELECT c.user_id, c.product_id, CASE WHEN COALESCE(rp.mp, gp.mp) > 0 THEN ln(least(greatest(COALESCE(rp.mp, gp.mp) / lp.price, 0.01), 100.0)) ELSE NULL END AS ag_up_price_vs_paid FROM cand c JOIN lp ON lp.user_id = c.user_id AND lp.product_id = c.product_id LEFT JOIN um ON um.user_id = c.user_id LEFT JOIN rp ON rp.retailer = um.retailer AND rp.product_id = c.product_id LEFT JOIN gp ON gp.product_id = c.product_id;",
+      "columns": [
+        "ag_up_price_vs_paid"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r5p4",
+      "round": 5,
+      "index": 4,
+      "name": "retailer_adopt14",
+      "idea": "Pseudo-label adoption rate at A-14d at the user's main retailer: share of returning users whose first order in the last 14 days was at that retailer, had never bought the product before, and added it in that order.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), um AS (SELECT user_id, retailer FROM (SELECT o.user_id, o.retailer, row_number() OVER (PARTITION BY o.user_id ORDER BY count(*) DESC, max(o.ts) DESC, o.retailer) AS rk FROM orders o JOIN cu ON o.user_id = cu.user_id GROUP BY o.user_id, o.retailer) x WHERE rk = 1), fo AS (SELECT user_id, order_id, retailer FROM (SELECT user_id, order_id, retailer, row_number() OVER (PARTITION BY user_id ORDER BY ts, order_id) AS rk FROM orders WHERE ts >= TIMESTAMP '{A}' - INTERVAL 14 DAY) x WHERE rk = 1), pu AS (SELECT DISTINCT user_id FROM orders WHERE ts < TIMESTAMP '{A}' - INTERVAL 14 DAY), co AS (SELECT fo.user_id, fo.order_id, fo.retailer FROM fo JOIN pu ON fo.user_id = pu.user_id WHERE fo.retailer IN (SELECT retailer FROM um)), rn AS (SELECT retailer, count(*) AS n_r FROM co GROUP BY retailer), pv AS (SELECT DISTINCT l.user_id, l.product_id FROM lines l JOIN co ON l.user_id = co.user_id WHERE l.ts < TIMESTAMP '{A}' - INTERVAL 14 DAY), pr AS (SELECT co.retailer, pv.product_id, count(*) AS n_prev FROM pv JOIN co ON pv.user_id = co.user_id GROUP BY co.retailer, pv.product_id), fl AS (SELECT DISTINCT co.retailer, l.user_id, l.product_id FROM lines l JOIN co ON l.order_id = co.order_id), fa AS (SELECT fl.retailer, fl.product_id, count(*) AS n_adopt FROM fl LEFT JOIN pv ON pv.user_id = fl.user_id AND pv.product_id = fl.product_id WHERE pv.user_id IS NULL GROUP BY fl.retailer, fl.product_id) SELECT c.user_id, c.product_id, (COALESCE(fa.n_adopt, 0) + 0.1) / (greatest(rn.n_r - COALESCE(pr.n_prev, 0), 0) + 100.0) * 1000.0 AS ag_pr_adopt14_main FROM cand c JOIN um ON um.user_id = c.user_id JOIN rn ON rn.retailer = um.retailer LEFT JOIN fa ON fa.retailer = um.retailer AND fa.product_id = c.product_id LEFT JOIN pr ON pr.retailer = um.retailer AND pr.product_id = c.product_id;",
+      "columns": [
+        "ag_pr_adopt14_main"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r5p5",
+      "round": 5,
+      "index": 5,
+      "name": "last_retailer_fit",
+      "idea": "Fit of the candidate to the retailer of the user's latest order: share of the user's purchases of the product made at that retailer, and log distinct buyers of the product at that retailer in the last 7 days (current availability).",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), lo AS (SELECT user_id, retailer FROM (SELECT o.user_id, o.retailer, row_number() OVER (PARTITION BY o.user_id ORDER BY o.ts DESC, o.order_id DESC) AS rk FROM orders o JOIN cu ON o.user_id = cu.user_id) x WHERE rk = 1), ul AS (SELECT DISTINCT l.user_id, l.order_id, l.product_id, o.retailer FROM lines l JOIN cu ON l.user_id = cu.user_id JOIN orders o ON o.order_id = l.order_id), up AS (SELECT ul.user_id, ul.product_id, avg(CASE WHEN ul.retailer = lo.retailer THEN 1.0 ELSE 0.0 END) AS sh FROM ul JOIN lo ON lo.user_id = ul.user_id GROUP BY ul.user_id, ul.product_id), av AS (SELECT o.retailer, l.product_id, count(DISTINCT l.user_id) AS nb FROM lines l JOIN orders o ON l.order_id = o.order_id WHERE l.ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY AND o.retailer IN (SELECT retailer FROM lo) GROUP BY o.retailer, l.product_id) SELECT c.user_id, c.product_id, up.sh AS ag_up_lastret_share, ln(1.0 + COALESCE(av.nb, 0)) AS ag_p_lastret_buyers7 FROM cand c JOIN lo ON lo.user_id = c.user_id LEFT JOIN up ON up.user_id = c.user_id AND up.product_id = c.product_id LEFT JOIN av ON av.retailer = lo.retailer AND av.product_id = c.product_id;",
+      "columns": [
+        "ag_up_lastret_share",
+        "ag_p_lastret_buyers7"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r6p1",
+      "round": 6,
+      "index": 1,
+      "name": "last_order_copurchase",
+      "idea": "Item-to-item affinity between the candidate and the products of the user's latest order: the mean over those products of P(candidate in an order | product in that order) over the last 7 days, and its log lift over the candidate's base order rate.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), lo AS (SELECT user_id, order_id FROM (SELECT o.user_id, o.order_id, row_number() OVER (PARTITION BY o.user_id ORDER BY o.ts DESC, o.order_id DESC) AS rk FROM orders o JOIN cu ON o.user_id = cu.user_id) x WHERE rk = 1), lq AS (SELECT DISTINCT lo.user_id, l.product_id AS q FROM lines l JOIN lo ON l.order_id = lo.order_id), nq AS (SELECT user_id, count(*) AS n_q FROM lq GROUP BY user_id), l7 AS (SELECT DISTINCT order_id, product_id FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY), nt AS (SELECT count(DISTINCT order_id) AS n_o FROM l7), pn AS (SELECT product_id, count(*) AS n_p FROM l7 GROUP BY product_id), qa AS (SELECT order_id, product_id FROM l7 WHERE product_id IN (SELECT q FROM lq)), pb AS (SELECT order_id, product_id FROM l7 WHERE product_id IN (SELECT product_id FROM cand)), co AS (SELECT qa.product_id AS q, pb.product_id AS p, count(*) AS n_qp FROM qa JOIN pb ON qa.order_id = pb.order_id AND qa.product_id <> pb.product_id GROUP BY qa.product_id, pb.product_id), s AS (SELECT c.user_id, c.product_id, sum(co.n_qp * 1.0 / pq.n_p) AS s_cond FROM cand c JOIN lq ON lq.user_id = c.user_id JOIN co ON co.q = lq.q AND co.p = c.product_id JOIN pn pq ON pq.product_id = lq.q GROUP BY c.user_id, c.product_id) SELECT c.user_id, c.product_id, COALESCE(s.s_cond, 0.0) / nq.n_q AS ag_co_last_cond, ln((COALESCE(s.s_cond, 0.0) / nq.n_q + 0.001) / (COALESCE(pn.n_p, 0) * 1.0 / nt.n_o + 0.001)) AS ag_co_last_lift FROM cand c JOIN nq ON nq.user_id = c.user_id LEFT JOIN s ON s.user_id = c.user_id AND s.product_id = c.product_id LEFT JOIN pn ON pn.product_id = c.product_id CROSS JOIN nt",
+      "columns": [
+        "ag_co_last_cond",
+        "ag_co_last_lift"
+      ],
+      "probe_seconds": "2^2–2^3"
+    },
+    {
+      "id": "r6p2",
+      "round": 6,
+      "index": 2,
+      "name": "up_gap_conditioned_share",
+      "idea": "Smoothed share of the user's orders placed after a gap at least as long as the current days since the user's last order that contain the product, matching the situation of the next order (big restock vs top-up).",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), uo AS (SELECT o.user_id, o.order_id, epoch(o.ts - lag(o.ts) OVER (PARTITION BY o.user_id ORDER BY o.ts, o.order_id)) / 86400.0 AS gap_d FROM orders o JOIN cu ON o.user_id = cu.user_id), ul AS (SELECT o.user_id, max(o.ts) AS last_ts, count(*) AS n_u FROM orders o JOIN cu ON o.user_id = cu.user_id GROUP BY o.user_id), qo AS (SELECT uo.user_id, uo.order_id FROM uo JOIN ul ON ul.user_id = uo.user_id WHERE uo.gap_d >= epoch(TIMESTAMP '{A}' - ul.last_ts) / 86400.0), nqo AS (SELECT user_id, count(*) AS n_g FROM qo GROUP BY user_id), op AS (SELECT DISTINCT l.user_id, l.order_id, l.product_id FROM lines l JOIN cu ON l.user_id = cu.user_id), up AS (SELECT op.user_id, op.product_id, count(*) AS n_p, count(qo.order_id) AS k_g FROM op LEFT JOIN qo ON qo.order_id = op.order_id GROUP BY op.user_id, op.product_id) SELECT c.user_id, c.product_id, (up.k_g + 2.0 * up.n_p / ul.n_u) / (COALESCE(nqo.n_g, 0) + 2.0) AS ag_up_gapcond_share FROM cand c JOIN up ON up.user_id = c.user_id AND up.product_id = c.product_id JOIN ul ON ul.user_id = c.user_id LEFT JOIN nqo ON nqo.user_id = c.user_id",
+      "columns": [
+        "ag_up_gapcond_share"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r6p3",
+      "round": 6,
+      "index": 3,
+      "name": "user_parent_category_affinity",
+      "idea": "Coarser category affinity via the parent of the product's category: share of the user's orders with any product of that parent category and days since the user last bought it, covering never-bought candidates.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), pc AS (SELECT product_id, max(master_category_id) AS cat FROM lines WHERE master_category_id IS NOT NULL GROUP BY product_id), pp AS (SELECT pc.product_id, COALESCE(cg.parent_id, pc.cat) AS par FROM pc LEFT JOIN categories cg ON cg.id = pc.cat), un AS (SELECT o.user_id, count(*) AS n_u FROM orders o JOIN cu ON o.user_id = cu.user_id GROUP BY o.user_id), ul AS (SELECT l.user_id, COALESCE(cg.parent_id, l.master_category_id) AS par, count(DISTINCT l.order_id) AS n_par, max(l.ts) AS last_ts FROM lines l JOIN cu ON l.user_id = cu.user_id LEFT JOIN categories cg ON cg.id = l.master_category_id WHERE l.master_category_id IS NOT NULL GROUP BY l.user_id, COALESCE(cg.parent_id, l.master_category_id)) SELECT c.user_id, c.product_id, CASE WHEN pp.par IS NULL OR un.n_u IS NULL THEN NULL ELSE COALESCE(ul.n_par, 0) * 1.0 / un.n_u END AS ag_upar_share, epoch(TIMESTAMP '{A}' - ul.last_ts) / 86400.0 AS ag_upar_days FROM cand c LEFT JOIN pp ON pp.product_id = c.product_id LEFT JOIN un ON un.user_id = c.user_id LEFT JOIN ul ON ul.user_id = c.user_id AND ul.par = pp.par",
+      "columns": [
+        "ag_upar_share",
+        "ag_upar_days"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r6p4",
+      "round": 6,
+      "index": 4,
+      "name": "p_basket_context",
+      "idea": "Order context of the product over the last 28 days: smoothed mean basket size of orders containing it relative to the overall mean (weekly-restock staple vs small-basket item), and the smoothed share of its orders that were top-ups placed within 2 days of the buyer's previous order.",
+      "level": "item",
+      "sql": "WITH ob AS (SELECT order_id, count(DISTINCT product_id) AS nb FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY GROUP BY order_id), og AS (SELECT order_id, epoch(ts - lag(ts) OVER (PARTITION BY user_id ORDER BY ts, order_id)) / 86400.0 AS gap_d FROM orders), ga AS (SELECT avg(nb) AS m_nb FROM ob), op AS (SELECT DISTINCT order_id, product_id FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY) SELECT op.product_id, (sum(ob.nb) + 10.0 * ga.m_nb) / (count(*) + 10.0) / ga.m_nb AS ag_p_basket_rel, (count(*) FILTER (WHERE og.gap_d < 2) + 1.0) / (count(og.gap_d) + 10.0) AS ag_p_topup_share FROM op JOIN ob ON ob.order_id = op.order_id JOIN og ON og.order_id = op.order_id CROSS JOIN ga GROUP BY op.product_id, ga.m_nb",
+      "columns": [
+        "ag_p_basket_rel",
+        "ag_p_topup_share"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r6p5",
+      "round": 6,
+      "index": 5,
+      "name": "up_last_quantity_rel",
+      "idea": "Quantity the user took of the product in the latest purchase relative to the user's mean per-order quantity of it, since a stock-up delays the next repurchase.",
+      "level": "pair",
+      "sql": "WITH cu AS (SELECT DISTINCT user_id FROM cand), ul AS (SELECT l.user_id, l.product_id, l.order_id, sum(l.quantity) AS q, max(l.ts) AS ts FROM lines l JOIN cu ON l.user_id = cu.user_id GROUP BY l.user_id, l.product_id, l.order_id), r AS (SELECT user_id, product_id, q, row_number() OVER (PARTITION BY user_id, product_id ORDER BY ts DESC, order_id DESC) AS rk, avg(q) OVER (PARTITION BY user_id, product_id) AS mq, count(*) OVER (PARTITION BY user_id, product_id) AS n FROM ul) SELECT c.user_id, c.product_id, r.q * 1.0 / r.mq AS ag_up_lastqty_rel FROM cand c JOIN r ON r.user_id = c.user_id AND r.product_id = c.product_id WHERE r.rk = 1 AND r.n >= 2 AND r.mq > 0",
+      "columns": [
+        "ag_up_lastqty_rel"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    }
+  ],
+  "attempts": [
+    {
+      "id": "r1p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r1p2",
+      "status": "invalid",
+      "error": "batch invariance: values of the first 1000 probe users differ between the full probe and its two halves"
+    },
+    {
+      "id": "r1p3",
+      "status": "invalid",
+      "error": "batch invariance: values of the first 1000 probe users differ between the full probe and its two halves"
+    },
+    {
+      "id": "r1p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r1p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p5",
+      "status": "invalid",
+      "error": "OutOfRangeException: a value was out of range at run time"
+    },
+    {
+      "id": "r5p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p5",
+      "status": "valid",
+      "error": null
+    }
+  ],
+  "columns": [
+    "ag_p_next_reorder",
+    "ag_p_med_regap",
+    "ag_u_repeat_frac",
+    "ag_u_last_repeat_frac",
+    "ag_p_new_buyer_share",
+    "ag_ub_share",
+    "ag_ub_days_since",
+    "ag_up_decay14",
+    "ag_up_decay_share",
+    "ag_up_cat_choice",
+    "ag_uc_last_pick",
+    "ag_up_orders_since",
+    "ag_up_ord_due",
+    "ag_p_buyer_penetration",
+    "ag_up_adopt_share",
+    "ag_up_streak",
+    "ag_ps_share",
+    "ag_ps_lift",
+    "ag_p_promo7",
+    "ag_p_price_rel",
+    "ag_p_cat_share",
+    "ag_p_cat_rank",
+    "ag_uc_due",
+    "ag_uc_last5_share",
+    "ag_pr_rebuy_bucket",
+    "ag_p_adopt14",
+    "ag_p_rebuy14",
+    "ag_uc_rebuy_bucket",
+    "ag_uc_orders_after",
+    "ag_uc_subs_after",
+    "ag_up_gap_cv",
+    "ag_up_due_pmed",
+    "ag_pr_rebuy_freq",
+    "ag_up_price_vs_paid",
+    "ag_pr_adopt14_main",
+    "ag_up_lastret_share",
+    "ag_p_lastret_buyers7",
+    "ag_co_last_cond",
+    "ag_co_last_lift",
+    "ag_up_gapcond_share",
+    "ag_upar_share",
+    "ag_upar_days",
+    "ag_p_basket_rel",
+    "ag_p_topup_share",
+    "ag_up_lastqty_rel"
+  ],
+  "budget": {
+    "pair_user_seconds": 20,
+    "item_seconds": 0
+  },
+  "digest": "2592ef2eda6849349a2f0c00685da5cca0e01c7fca1b078774b45dcf211e8034",
+  "audit": {
+    "verdict": "CLEAN",
+    "path": "docs/xfer-sber-run/audit.md",
+    "sha256": "9a106c975f9d7c4b109563ba57b0e68616ad8b387fdc677391cdf58886603ecc",
+    "date": "2026-10-21",
+    "auditor": "independent read-only agent"
+  }
+}

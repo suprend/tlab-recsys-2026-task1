@@ -1,0 +1,184 @@
+You are a feature engineer for a ranking model. Reply with JSON only.
+
+TASK
+Orders of a grocery delivery service. Every anchor A is a midnight. A query is a user with at least one order
+before A and at least one order in [A, A + 14 days). The target of a query is the set of distinct products of the
+user's first order in that window (earliest ts, then smallest order_id); products the user bought before count too.
+The label of a (user, product) candidate pair is whether the product is in the target. The metric is MAP@50:
+AP@50 = (1 / min(50, M)) * sum over positions k = 1..50 of rel_k * P@k, where M is the number of target products
+(targets outside the candidates included), rel_k is 1 when the product at position k is a target, and P@k is the
+number of targets among the first k positions divided by k; MAP@50 is the mean AP@50 over all queries.
+
+CANDIDATES (policy S-R150-P100-G200)
+Up to 200 candidates per query, all statistics from the history before A.
+Main retailer of the user: the retailer with the most distinct orders of the user; ties by the later last order of the user there, then by retailer code.
+(a) repeat: the distinct products the user bought before A, by the number of distinct orders with the product descending, then the time of the latest such order descending, then product_id; the first 150.
+(b) pop-retailer: products by distinct buyers at the main retailer in [A - 28 days, A) descending, then product_id; the first 100.
+(c) global: products by distinct buyers over all orders in [A - 28 days, A) descending, then product_id.
+Union: (a) in its order, then (b) without (a), then (c) without (a) and (b), until exactly 200 candidates. Source ranks repeat_rank, popr_rank and glob_rank are positions in the full orders.
+
+TRAINING
+CatBoost Logloss, 500 trees, depth 8, learning rate 0.05, L2 10, 128
+borders, no tuning. Training anchors are 14 days apart; each contributes at most 20000 queries: all positive pairs
+plus 20 hash-sampled negatives per query, with inverse-inclusion weights. Candidates are ranked by the raw
+model value, ties by product_id.
+
+FEATURES ALREADY IN THE MODEL: the base (name: formula; missing). A window of w days is [A - w days, A).
+- up_orders: number of distinct orders of the user before A that contain the product (repeated lines of an order count once); missing: 0 when none
+- up_share: up_orders / u_orders; missing: 0 when none
+- up_days_since_last: days from the latest order of the user with the product to A (fractional, from seconds); missing: NULL when the user never bought the product
+- up_mean_interval: (time of the latest minus time of the earliest order of the user with the product) / (up_orders - 1), in days; missing: NULL when up_orders < 2
+- up_due: up_days_since_last / up_mean_interval; missing: NULL when either is NULL or up_mean_interval = 0
+- up_qty_total: sum of quantity over all lines of the product of the user before A, repeated lines included; missing: 0 when none
+- up_last_price: price of the product line in the latest order of the user with the product (latest ts, then largest order_id; with several lines, the largest line_item_id); missing: NULL when none
+- up_discount_share: mean of discount / (price + discount) over the lines of the product of the user with price + discount > 0 (negative discounts kept); missing: NULL when there are no such lines
+- repeat_rank: position of the product in the full repeat order of the user (source a, without its depth cut); missing: NULL when the user never bought the product
+- popr_rank: position of the product in the full pop-retailer order of the main retailer of the user (source b, without its depth cut); missing: NULL when nobody bought the product at that retailer in the window
+- glob_rank: position of the product in the full global order (source c); missing: NULL when nobody bought the product in the window
+- u_orders: number of distinct orders of the user before A; missing: never missing
+- u_orders_28: orders of the user in [A - 28 days, A); missing: 0 when none
+- u_days_since_last: days from the latest order of the user to A; missing: never missing
+- u_mean_basket: mean over the orders of the user of the number of distinct products in the order; missing: never missing
+- u_mean_gap: (time of the latest minus time of the earliest order of the user) / (u_orders - 1), in days; missing: NULL when u_orders < 2
+- u_main_share: orders of the user at the main retailer / u_orders; missing: never missing
+- p_buyers_28: distinct users who bought the product in the global window of source c; missing: 0 when none
+- p_buyers_28_main: distinct users who bought the product at the main retailer of the user in the window of source b; missing: 0 when none
+- p_repeat_share: among users who bought the product in [A - 90 days, A), the share with at least 2 distinct orders containing it in that interval; missing: NULL when nobody bought it in the interval
+- uc_share: orders of the user that contain a product of the same category as the product / u_orders; the category of a product is its non-NULL master_category_id in the history before A; missing: NULL when the product has no category; 0 when no such order
+- main_retailer: code of the main retailer of the user (categorical); missing: never missing
+- up_orders_28: number of distinct orders of the user in [A - 28 days, A) that contain the product; missing: 0 when none
+- up_last5_share: share of the last 5 orders of the user before A (by time descending, then order_id descending) that contain the product; the denominator is min(5, u_orders); missing: 0 when none
+- up_in_last_order: 1 when the latest order of the user before A (latest time, then largest order_id) contains the product, else 0; missing: 0 when none
+- up_days_since_first: days from the earliest order of the user with the product to A (fractional, from seconds); missing: NULL when the user never bought the product
+- p_buyers_7: distinct users who bought the product over all orders in [A - 7 days, A); missing: 0 when none
+- p_trend: p_buyers_7 / p_buyers_28; missing: NULL when p_buyers_28 = 0
+- p_buyers_28_main_share: p_buyers_28_main / p_buyers_28; missing: NULL when p_buyers_28 = 0
+- up_qty_mean: up_qty_total / number of lines of the product of the user before A (repeated lines included); missing: NULL when there are no such lines
+- uc_days_since_last: days from the latest order of the user with a line of a product of the same category as the product to A (fractional, from seconds); categories as in uc_share; missing: NULL when the product has no category or there is no such order
+categorical: main_retailer
+Columns of earlier proposals with status valid are also in the model.
+
+TABLES (DuckDB; a query sees only these five)
+orders(order_id BIGINT, user_id BIGINT, ts TIMESTAMP, retailer VARCHAR, store_id BIGINT, platform VARCHAR, city_name VARCHAR)
+lines(order_id BIGINT, user_id BIGINT, ts TIMESTAMP, product_id BIGINT, line_item_id BIGINT, price DOUBLE, quantity BIGINT, discount DOUBLE, brand_name VARCHAR, master_category_id BIGINT)
+categories(id BIGINT, name VARCHAR, parent_id BIGINT)
+orders: one row per order placed in the last 120 days before A, [A - 120 days, A), that has at
+  least one product line; retailer and city_name are anonymised codes. Earlier orders are not visible to queries
+  (the base features above use the whole history before A).
+lines: every product line of those orders with the order's user_id and ts; a product can appear on several lines
+  of one order (duplicate lines are kept).
+order_id and line_item_id are shifted to the start of the window (their first value there is 0) and carry no
+  absolute meaning; use them to tell orders and lines apart and to break ties of equal ts.
+categories: the category tree; lines.master_category_id refers to categories.id.
+cand(user_id BIGINT, product_id BIGINT): the candidate pairs of the current batch, keys only
+users(user_id BIGINT): the distinct users of cand
+There is no user table and no product attribute table.
+Id columns (user_id, product_id, store_id, master_category_id, order_id, line_item_id, retailer, city_name) are
+  labels: do not use their numeric value or order as a feature, only equality and joins.
+
+QUERY RULES
+- Exactly one SELECT or WITH statement; ';' only at the very end; no comments (-- or /* */).
+- Write the anchor only as TIMESTAMP '{A}', literally with the braces, e.g.
+  ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY. No other {...} placeholders, no date or time literals
+  ('YYYY-MM-DD...', DATE '...', TIMESTAMP '...' other than the anchor); intervals only as INTERVAL n DAY, unquoted.
+- Times. A time value is the column ts of orders or lines, or a column of a WITH query or subquery that
+  selects one; its min, max, first, last, arg_max/arg_min result, lag, lead, first_value or last_value;
+  CAST(... AS DATE); date_trunc('day' | 'hour' | 'minute' | 'second' | 'week', ...); or such a value +/-
+  INTERVAL n DAY. The anchor is TIMESTAMP '{A}' +/- INTERVAL n DAY. Nothing else is a time value: struct
+  fields, values of other tables and anything built from text or numbers are not. A time value may only be:
+  compared (=, <>, <, <=, >, >=, BETWEEN, IN, IS DISTINCT FROM) with another time value or the anchor;
+  subtracted from another time value or the anchor (the difference is an interval, free to use, e.g.
+  epoch(TIMESTAMP '{A}' - max(ts)) / 86400); passed with another time value or the anchor to date_diff or
+  date_sub with 'week', 'day', 'hour', 'minute' or 'second'; reduced to a periodic part by date_part with dow,
+  isodow, day (of the month), hour, minute or second (or dayofweek(), day(), hour() and the like); counted;
+  used in ORDER BY, GROUP BY or PARTITION BY. A default of lag or lead must be a time value or the anchor
+  (lead(ts, 1, TIMESTAMP '{A}')); for a numeric default wrap the result instead, e.g.
+  COALESCE(date_diff('day', lag(ts) OVER (PARTITION BY user_id ORDER BY ts, order_id), ts), -1). The anchor
+  itself has no parts: date_part, dayofweek() and the like of TIMESTAMP '{A}' are errors. A scalar subquery
+  that returns a time value must name it ts or *_ts: (SELECT max(ts) AS last_ts FROM ...). All dates lie within
+  one year, so month, quarter, week of the year and day of the year are absolute dates and are errors
+  (date_part, month(), week(), dayofyear(), date_trunc('month' | 'quarter' | 'year', ...),
+  date_diff('month', ...)). Anything else is an error too: epoch(ts), year, julian, strftime,
+  CAST(ts AS VARCHAR), arithmetic on ts other than +/- INTERVAL n DAY,
+  comparing ts with anything but a time value or the anchor, and any cast whose type contains DATE, TIME,
+  TIMESTAMP or INTERVAL (STRUCT(x TIMESTAMP), lists and maps included), except ts to DATE or TIMESTAMP. A time
+  value selected in a WITH query or subquery must be named ts or end in _ts, and only time values may carry
+  such names; no WITH RECURSIVE, no column aliases in WITH name(...) or AS t(...), no table used as a value
+  (SELECT o FROM orders o), no COLUMNS(...), no * RENAME, no positional #n, no $; every column must exist;
+  column names have at most two parts (alias.column, not main.orders.ts). No lambdas (x -> ..., lambda x: ...,
+  [y FOR y IN ...]) and no table functions in FROM (range, generate_series, unnest and the like); struct keys,
+  STRUCT field names and named arguments may not be ts or *_ts. In a subquery whose FROM has users, cand,
+  categories, VALUES or a subquery with unnamed columns, write the outer ts as alias.ts, with an alias not used
+  in that FROM.
+- Forbidden whole words, in any case: transactions, customers, frame, label, labels, target, targets, hm_*,
+  _hm_*; read_*, parquet_*, csv, json*, glob, getenv, query, query_table, duckdb_*, information_schema,
+  pg_catalog, sqlite_master, pragma*; attach, detach, copy, export, import, install, load, set, reset, use,
+  call, create, drop, insert, update, delete, alter; random, setseed, uuid, gen_random_uuid, now, today,
+  current_*, get_current_*, transaction_timestamp, localtimestamp, sample, tablesample, current_setting,
+  sniff_*, checkpoint, force_checkpoint, which_secret; tab_*, sample_submission, product_name, propert*,
+  profile, profiles, bdate, gender (also inside names joined by _); make_*, strptime, strftime, to_timestamp,
+  to_date, to_days and the other to_<unit> interval functions, epoch_*, julian, yearweek, ago; the functions
+  error(), strptime() and regexp_*(). Tables are named by plain names only (no quoted paths, no schemas).
+- An item-level query must not mention cand or users: its values do not depend on the batch and are cached.
+
+OUTPUT OF A QUERY
+- level "pair": key columns user_id, product_id (pairs of cand); level "user": user_id (of users); level "item":
+  product_id (of the products in lines). Keys are BIGINT, never NULL and unique. A key outside its set is an
+  error, not a silent filter, so keep queries narrow.
+- 1 to 3 value columns named by ^ag_[a-z][a-z0-9_]{1,38}$, unique among the accepted columns and different from
+  every feature name above; integer, DECIMAL, FLOAT, DOUBLE or BOOLEAN. VARCHAR, DATE and TIMESTAMP values are
+  errors: turn times into days before TIMESTAMP '{A}'. No other columns.
+- Values are cast to DOUBLE and left-joined to the batch keys of the level. No row, NULL, a non-finite value or
+  a float32 overflow mean "no data": NaN in the model, which CatBoost treats as the minimum. Put your own
+  defaults with COALESCE.
+- Batch invariance: a value depends only on orders, lines, categories and its own key; cand and users only
+  filter. A window PARTITION BY user_id over cand is allowed (all 200 candidates of a user are
+  always in one batch); aggregates over cand across users are not. Windows need a full tie-break
+  (..., product_id). Violations are caught mechanically.
+- Limits on the probe: timeout 40 s for pair and user queries, 120 s for item queries;
+  at most 20 million output rows. Budget of the whole set on the probe: valid pair and user proposals together
+  at most 180 s, valid item proposals at most 360 s; a proposal that does not fit into
+  what is left gets status budget.
+
+VALIDITY
+A proposal is accepted or rejected as a whole. It is invalid on an SQL error, a broken rule or a timeout; when
+a column has fewer than 2 distinct non-NULL values or fewer than 100 non-NULL rows; when a column has
+|Spearman rho| >= 0.999 with a base feature, an accepted column or another column of the same proposal; or when
+batch invariance fails.
+
+PROBE STATISTICS (history before the probe anchor only)
+windows:
+  last_14_days: {lines: 3287858, orders: 142918, users: 99239, products: 74318}
+  last_28_days: {lines: 6799437, orders: 295256, users: 162039, products: 82167}
+  last_90_days: {lines: 25983331, orders: 1052978, users: 362433, products: 91315}
+  all_history: {lines: 51679263, orders: 1863027, users: 556666, products: 93884}
+orders_per_user_last_90_days: {users: 362433, mean: 2.9053, p10: 1, p25: 1, p50: 2, p75: 3, p90: 7, p99: 16, max: 76}
+users_with_2_or_more_orders_last_90_days_share: 0.5152
+distinct_products_per_order: {mean: 27.1133, p10: 9, p25: 14, p50: 23, p75: 35, p90: 50, p99: 93, max: 573}
+line_price: {min: 0, p01: 13.19, p10: 29.99, p25: 49.95, p50: 85, p75: 156.99, p90: 263.29, p99: 769.31, max: 986769}
+platform_share_of_orders: {app: 0.7773, undefined: 0, web: 0.2227}
+retailers:
+  count: 42
+  top_by_orders_last_28_days: [[r03, 152937], [r23, 82020], [r09, 55730], [r25, 1604], [r01, 602], [r15, 419], [r05, 379], [r14, 279], [r04, 231], [r22, 187]]
+cities: {count: 97}
+categories:
+  count: 610
+  top_by_lines_last_28_days: [[85, Свежие овощи, 370882], [91, Свежие фрукты, 230355], [596, Хлеб, тосты, лаваш, 181943], [26, Молоко, 167185], [122, Мясо птицы, 161989], [600, Печенье, пряники, вафли, 141800], [36, Твердые и полутвердые сыры, 141445], [581, Макаронные изделия и паста, 136343], [60, Шоколад и шоколадные батончики, 133721], [638, Замороженные овощи и смеси, 125672]]
+  null_category_line_share: 0.0108
+  null_brand_line_share: 0.0345
+candidates:
+  users: 5000
+  per_user_mean: {repeat: 56.894, pop_retailer: 88.5766, global: 54.5294}
+
+WARNING
+All valid columns will enter the model without selection. Superfluous and noisy columns hurt: a few strong, non-redundant signals are needed. User-level columns work only through interactions.
+
+EARLIER ATTEMPTS IN THIS RUN (validity and coverage on the probe; effects on labels are not shown)
+(none yet)
+Probe time budget left (rounded down to 10 s): pair+user about 180 s of 180 s;
+item about 360 s of 360 s.
+
+REQUEST
+This is round 1 of 6. Propose 5 new features that are likely to improve the ranking beyond
+the base and the accepted columns and that differ from earlier attempts. Answer with a JSON list only:
+[{"name": "short_snake_case", "idea": "one sentence", "level": "pair|user|item", "sql": "SELECT ..."}]

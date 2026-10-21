@@ -1,0 +1,113 @@
+{
+  "round": 6,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "attempts": [
+    {
+      "round": 6,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 101.8,
+      "cost_usd": 0.45836600000000005,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-m17ct1hx",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5,
+      "text": "[{\"name\": \"last_order_copurchase\", \"idea\": \"Item-to-item affinity between the candidate and the products of the user's latest order: the mean over those products of P(candidate in an order | product in that order) over the last 7 days, and its log lift over the candidate's base order rate.\", \"level\": \"pair\", \"sql\": \"WITH cu AS (SELECT DISTINCT user_id FROM cand), lo AS (SELECT user_id, order_id FROM (SELECT o.user_id, o.order_id, row_number() OVER (PARTITION BY o.user_id ORDER BY o.ts DESC, o.order_id DESC) AS rk FROM orders o JOIN cu ON o.user_id = cu.user_id) x WHERE rk = 1), lq AS (SELECT DISTINCT lo.user_id, l.product_id AS q FROM lines l JOIN lo ON l.order_id = lo.order_id), nq AS (SELECT user_id, count(*) AS n_q FROM lq GROUP BY user_id), l7 AS (SELECT DISTINCT order_id, product_id FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY), nt AS (SELECT count(DISTINCT order_id) AS n_o FROM l7), pn AS (SELECT product_id, count(*) AS n_p FROM l7 GROUP BY product_id), qa AS (SELECT order_id, product_id FROM l7 WHERE product_id IN (SELECT q FROM lq)), pb AS (SELECT order_id, product_id FROM l7 WHERE product_id IN (SELECT product_id FROM cand)), co AS (SELECT qa.product_id AS q, pb.product_id AS p, count(*) AS n_qp FROM qa JOIN pb ON qa.order_id = pb.order_id AND qa.product_id <> pb.product_id GROUP BY qa.product_id, pb.product_id), s AS (SELECT c.user_id, c.product_id, sum(co.n_qp * 1.0 / pq.n_p) AS s_cond FROM cand c JOIN lq ON lq.user_id = c.user_id JOIN co ON co.q = lq.q AND co.p = c.product_id JOIN pn pq ON pq.product_id = lq.q GROUP BY c.user_id, c.product_id) SELECT c.user_id, c.product_id, COALESCE(s.s_cond, 0.0) / nq.n_q AS ag_co_last_cond, ln((COALESCE(s.s_cond, 0.0) / nq.n_q + 0.001) / (COALESCE(pn.n_p, 0) * 1.0 / nt.n_o + 0.001)) AS ag_co_last_lift FROM cand c JOIN nq ON nq.user_id = c.user_id LEFT JOIN s ON s.user_id = c.user_id AND s.product_id = c.product_id LEFT JOIN pn ON pn.product_id = c.product_id CROSS JOIN nt\"}, {\"name\": \"up_gap_conditioned_share\", \"idea\": \"Smoothed share of the user's orders placed after a gap at least as long as the current days since the user's last order that contain the product, matching the situation of the next order (big restock vs top-up).\", \"level\": \"pair\", \"sql\": \"WITH cu AS (SELECT DISTINCT user_id FROM cand), uo AS (SELECT o.user_id, o.order_id, epoch(o.ts - lag(o.ts) OVER (PARTITION BY o.user_id ORDER BY o.ts, o.order_id)) / 86400.0 AS gap_d FROM orders o JOIN cu ON o.user_id = cu.user_id), ul AS (SELECT o.user_id, max(o.ts) AS last_ts, count(*) AS n_u FROM orders o JOIN cu ON o.user_id = cu.user_id GROUP BY o.user_id), qo AS (SELECT uo.user_id, uo.order_id FROM uo JOIN ul ON ul.user_id = uo.user_id WHERE uo.gap_d >= epoch(TIMESTAMP '{A}' - ul.last_ts) / 86400.0), nqo AS (SELECT user_id, count(*) AS n_g FROM qo GROUP BY user_id), op AS (SELECT DISTINCT l.user_id, l.order_id, l.product_id FROM lines l JOIN cu ON l.user_id = cu.user_id), up AS (SELECT op.user_id, op.product_id, count(*) AS n_p, count(qo.order_id) AS k_g FROM op LEFT JOIN qo ON qo.order_id = op.order_id GROUP BY op.user_id, op.product_id) SELECT c.user_id, c.product_id, (up.k_g + 2.0 * up.n_p / ul.n_u) / (COALESCE(nqo.n_g, 0) + 2.0) AS ag_up_gapcond_share FROM cand c JOIN up ON up.user_id = c.user_id AND up.product_id = c.product_id JOIN ul ON ul.user_id = c.user_id LEFT JOIN nqo ON nqo.user_id = c.user_id\"}, {\"name\": \"user_parent_category_affinity\", \"idea\": \"Coarser category affinity via the parent of the product's category: share of the user's orders with any product of that parent category and days since the user last bought it, covering never-bought candidates.\", \"level\": \"pair\", \"sql\": \"WITH cu AS (SELECT DISTINCT user_id FROM cand), pc AS (SELECT product_id, max(master_category_id) AS cat FROM lines WHERE master_category_id IS NOT NULL GROUP BY product_id), pp AS (SELECT pc.product_id, COALESCE(cg.parent_id, pc.cat) AS par FROM pc LEFT JOIN categories cg ON cg.id = pc.cat), un AS (SELECT o.user_id, count(*) AS n_u FROM orders o JOIN cu ON o.user_id = cu.user_id GROUP BY o.user_id), ul AS (SELECT l.user_id, COALESCE(cg.parent_id, l.master_category_id) AS par, count(DISTINCT l.order_id) AS n_par, max(l.ts) AS last_ts FROM lines l JOIN cu ON l.user_id = cu.user_id LEFT JOIN categories cg ON cg.id = l.master_category_id WHERE l.master_category_id IS NOT NULL GROUP BY l.user_id, COALESCE(cg.parent_id, l.master_category_id)) SELECT c.user_id, c.product_id, CASE WHEN pp.par IS NULL OR un.n_u IS NULL THEN NULL ELSE COALESCE(ul.n_par, 0) * 1.0 / un.n_u END AS ag_upar_share, epoch(TIMESTAMP '{A}' - ul.last_ts) / 86400.0 AS ag_upar_days FROM cand c LEFT JOIN pp ON pp.product_id = c.product_id LEFT JOIN un ON un.user_id = c.user_id LEFT JOIN ul ON ul.user_id = c.user_id AND ul.par = pp.par\"}, {\"name\": \"p_basket_context\", \"idea\": \"Order context of the product over the last 28 days: smoothed mean basket size of orders containing it relative to the overall mean (weekly-restock staple vs small-basket item), and the smoothed share of its orders that were top-ups placed within 2 days of the buyer's previous order.\", \"level\": \"item\", \"sql\": \"WITH ob AS (SELECT order_id, count(DISTINCT product_id) AS nb FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY GROUP BY order_id), og AS (SELECT order_id, epoch(ts - lag(ts) OVER (PARTITION BY user_id ORDER BY ts, order_id)) / 86400.0 AS gap_d FROM orders), ga AS (SELECT avg(nb) AS m_nb FROM ob), op AS (SELECT DISTINCT order_id, product_id FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY) SELECT op.product_id, (sum(ob.nb) + 10.0 * ga.m_nb) / (count(*) + 10.0) / ga.m_nb AS ag_p_basket_rel, (count(*) FILTER (WHERE og.gap_d < 2) + 1.0) / (count(og.gap_d) + 10.0) AS ag_p_topup_share FROM op JOIN ob ON ob.order_id = op.order_id JOIN og ON og.order_id = op.order_id CROSS JOIN ga GROUP BY op.product_id, ga.m_nb\"}, {\"name\": \"up_last_quantity_rel\", \"idea\": \"Quantity the user took of the product in the latest purchase relative to the user's mean per-order quantity of it, since a stock-up delays the next repurchase.\", \"level\": \"pair\", \"sql\": \"WITH cu AS (SELECT DISTINCT user_id FROM cand), ul AS (SELECT l.user_id, l.product_id, l.order_id, sum(l.quantity) AS q, max(l.ts) AS ts FROM lines l JOIN cu ON l.user_id = cu.user_id GROUP BY l.user_id, l.product_id, l.order_id), r AS (SELECT user_id, product_id, q, row_number() OVER (PARTITION BY user_id, product_id ORDER BY ts DESC, order_id DESC) AS rk, avg(q) OVER (PARTITION BY user_id, product_id) AS mq, count(*) OVER (PARTITION BY user_id, product_id) AS n FROM ul) SELECT c.user_id, c.product_id, r.q * 1.0 / r.mq AS ag_up_lastqty_rel FROM cand c JOIN r ON r.user_id = c.user_id AND r.product_id = c.product_id WHERE r.rk = 1 AND r.n >= 2 AND r.mq > 0\"}]",
+      "meta": {
+        "model": "claude-opus-5-5",
+        "seconds": 101.8,
+        "returncode": 0,
+        "result": {
+          "subtype": "success",
+          "is_error": false,
+          "total_cost_usd": 0.45836600000000005,
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 29273,
+            "cache_read_input_tokens": 1170,
+            "output_tokens": 11197,
+            "output_tokens_details": {
+              "thinking_tokens": 7685
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 29273,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard"
+          },
+          "modelUsage": {
+            "claude-opus-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 11197,
+              "cacheReadInputTokens": 1170,
+              "cacheCreationInputTokens": 29273,
+              "webSearchRequests": 0,
+              "costUSD": 0.45836600000000005,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 7685,
+              "canonicalModel": "claude-opus-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "duration_ms": 101137,
+          "num_turns": 1,
+          "stop_reason": "end_turn"
+        },
+        "cost_usd": 0.45836600000000005,
+        "models": [
+          "claude-opus-5-5"
+        ]
+      }
+    }
+  ],
+  "kept": 5
+}

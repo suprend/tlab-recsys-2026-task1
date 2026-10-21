@@ -1,0 +1,113 @@
+{
+  "round": 3,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "attempts": [
+    {
+      "round": 3,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 66.7,
+      "cost_usd": 0.26687,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-t8xj6toh",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5,
+      "text": "```json\n[\n  {\n    \"name\": \"up_adoption_streak\",\n    \"idea\": \"For products the user already bought in the 120-day window: the share of the user's orders since the first purchase of the product that contain it (persistence after adoption), and the number of consecutive latest orders that contain it (current streak).\",\n    \"level\": \"pair\",\n    \"sql\": \"WITH cu AS (SELECT DISTINCT user_id FROM cand), uo AS (SELECT o.user_id, o.order_id, row_number() OVER (PARTITION BY o.user_id ORDER BY o.ts DESC, o.order_id DESC) AS rn FROM orders o JOIN cu ON o.user_id = cu.user_id), op AS (SELECT DISTINCT l.user_id, l.order_id, l.product_id FROM lines l JOIN cu ON l.user_id = cu.user_id), opr AS (SELECT op.user_id, op.product_id, uo.rn, row_number() OVER (PARTITION BY op.user_id, op.product_id ORDER BY uo.rn) AS rk FROM op JOIN uo ON op.order_id = uo.order_id), upo AS (SELECT user_id, product_id, count(*) AS n_p, max(rn) AS first_rn, sum(CASE WHEN rn = rk THEN 1 ELSE 0 END) AS streak FROM opr GROUP BY user_id, product_id) SELECT c.user_id, c.product_id, upo.n_p * 1.0 / upo.first_rn AS ag_up_adopt_share, upo.streak AS ag_up_streak FROM cand c JOIN upo ON upo.user_id = c.user_id AND upo.product_id = c.product_id;\"\n  },\n  {\n    \"name\": \"store_popularity\",\n    \"idea\": \"Popularity of the product at the user's main store (finer than retailer) in the last 28 days: share of the store's buyers who bought it, and its smoothed lift over the global buyer share.\",\n    \"level\": \"pair\",\n    \"sql\": \"WITH cu AS (SELECT DISTINCT user_id FROM cand), um AS (SELECT user_id, store_id FROM (SELECT o.user_id, o.store_id, row_number() OVER (PARTITION BY o.user_id ORDER BY count(*) DESC, max(o.ts) DESC, o.store_id) AS rk FROM orders o JOIN cu ON o.user_id = cu.user_id WHERE o.store_id IS NOT NULL GROUP BY o.user_id, o.store_id) x WHERE rk = 1), sl AS (SELECT o.store_id, l.product_id, l.user_id FROM lines l JOIN orders o ON l.order_id = o.order_id WHERE l.ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY AND o.store_id IN (SELECT store_id FROM um)), sb AS (SELECT store_id, product_id, count(DISTINCT user_id) AS nb FROM sl GROUP BY store_id, product_id), su AS (SELECT store_id, count(DISTINCT user_id) AS n_s FROM sl GROUP BY store_id), gb AS (SELECT product_id, count(DISTINCT user_id) AS nb_g FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY GROUP BY product_id), gu AS (SELECT count(DISTINCT user_id) AS n_g FROM orders WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY) SELECT c.user_id, c.product_id, CASE WHEN su.n_s IS NULL THEN NULL ELSE COALESCE(sb.nb, 0) * 1.0 / su.n_s END AS ag_ps_share, CASE WHEN su.n_s IS NULL THEN NULL ELSE ln(((COALESCE(sb.nb, 0) + 1.0) / (su.n_s + 50.0)) / ((COALESCE(gb.nb_g, 0) + 1.0) / (gu.n_g + 50.0))) END AS ag_ps_lift FROM cand c JOIN um ON um.user_id = c.user_id LEFT JOIN su ON su.store_id = um.store_id LEFT JOIN sb ON sb.store_id = um.store_id AND sb.product_id = c.product_id LEFT JOIN gb ON gb.product_id = c.product_id CROSS JOIN gu;\"\n  },\n  {\n    \"name\": \"product_promo_price\",\n    \"idea\": \"Current promotion signal of the product: share of its lines with a positive discount in the last 7 days, and the median line price in the last 7 days relative to the median price in the 83 days before.\",\n    \"level\": \"item\",\n    \"sql\": \"SELECT product_id, avg(CASE WHEN discount > 0 THEN 1.0 ELSE 0.0 END) FILTER (WHERE ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY) AS ag_p_promo7, median(price) FILTER (WHERE ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY) / NULLIF(median(price) FILTER (WHERE ts < TIMESTAMP '{A}' - INTERVAL 7 DAY), 0) AS ag_p_price_rel FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 90 DAY GROUP BY product_id HAVING count(*) FILTER (WHERE ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY) > 0;\"\n  },\n  {\n    \"name\": \"product_category_dominance\",\n    \"idea\": \"How dominant the product is inside its category over the last 28 days: its distinct buyers divided by the category's distinct buyers, and its buyer rank within the category.\",\n    \"level\": \"item\",\n    \"sql\": \"WITH pc AS (SELECT product_id, max(master_category_id) AS cat FROM lines WHERE master_category_id IS NOT NULL GROUP BY product_id), l28 AS (SELECT l.user_id, l.product_id, pc.cat FROM lines l JOIN pc ON l.product_id = pc.product_id WHERE l.ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY), pb AS (SELECT product_id, max(cat) AS cat, count(DISTINCT user_id) AS nb FROM l28 GROUP BY product_id), cb AS (SELECT cat, count(DISTINCT user_id) AS nc FROM l28 GROUP BY cat) SELECT pb.product_id, pb.nb * 1.0 / cb.nc AS ag_p_cat_share, rank() OVER (PARTITION BY pb.cat ORDER BY pb.nb DESC) AS ag_p_cat_rank FROM pb JOIN cb ON pb.cat = cb.cat;\"\n  },\n  {\n    \"name\": \"user_category_due\",\n    \"idea\": \"Category-level replenishment timing for every candidate: days since the user last bought the product's category divided by the user's mean interval between category orders, and the share of the user's last 5 orders containing the category.\",\n    \"level\": \"pair\",\n    \"sql\": \"WITH cu AS (SELECT DISTINCT user_id FROM cand), pc AS (SELECT product_id, max(master_category_id) AS cat FROM lines WHERE master_category_id IS NOT NULL GROUP BY product_id), uo AS (SELECT o.user_id, o.order_id, row_number() OVER (PARTITION BY o.user_id ORDER BY o.ts DESC, o.order_id DESC) AS rn FROM orders o JOIN cu ON o.user_id = cu.user_id), uco AS (SELECT DISTINCT l.user_id, l.master_category_id AS cat, l.order_id, l.ts FROM lines l JOIN cu ON l.user_id = cu.user_id WHERE l.master_category_id IS NOT NULL), ucs AS (SELECT uco.user_id, uco.cat, count(*) AS n_c, max(uco.ts) AS last_ts, min(uco.ts) AS first_ts, sum(CASE WHEN uo.rn <= 5 THEN 1 ELSE 0 END) AS n5 FROM uco JOIN uo ON uco.order_id = uo.order_id GROUP BY uco.user_id, uco.cat), un AS (SELECT user_id, least(5, count(*)) AS d5 FROM uo GROUP BY user_id) SELECT c.user_id, c.product_id, CASE WHEN ucs.n_c >= 2 AND ucs.last_ts > ucs.first_ts THEN (epoch(TIMESTAMP '{A}' - ucs.last_ts) / 86400.0) / (epoch(ucs.last_ts - ucs.first_ts) / 86400.0 / (ucs.n_c - 1)) ELSE NULL END AS ag_uc_due, CASE WHEN pc.cat IS NULL OR un.d5 IS NULL THEN NULL ELSE COALESCE(ucs.n5, 0) * 1.0 / un.d5 END AS ag_uc_last5_share FROM cand c LEFT JOIN pc ON pc.product_id = c.product_id LEFT JOIN un ON un.user_id = c.user_id LEFT JOIN ucs ON ucs.user_id = c.user_id AND ucs.cat = pc.cat;\"\n  }\n]\n```",
+      "meta": {
+        "model": "claude-opus-5-5",
+        "seconds": 66.7,
+        "returncode": 0,
+        "result": {
+          "subtype": "success",
+          "is_error": false,
+          "total_cost_usd": 0.26687,
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 14271,
+            "cache_read_input_tokens": 1170,
+            "output_tokens": 7623,
+            "output_tokens_details": {
+              "thinking_tokens": 4328
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 14271,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard"
+          },
+          "modelUsage": {
+            "claude-opus-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 7623,
+              "cacheReadInputTokens": 1170,
+              "cacheCreationInputTokens": 14271,
+              "webSearchRequests": 0,
+              "costUSD": 0.26687,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 4328,
+              "canonicalModel": "claude-opus-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "duration_ms": 66360,
+          "num_turns": 1,
+          "stop_reason": "end_turn"
+        },
+        "cost_usd": 0.26687,
+        "models": [
+          "claude-opus-5-5"
+        ]
+      }
+    }
+  ],
+  "kept": 5
+}

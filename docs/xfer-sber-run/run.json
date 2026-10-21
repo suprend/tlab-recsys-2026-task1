@@ -1,0 +1,483 @@
+{
+  "format": "xfer-run-v1",
+  "dataset": "sber",
+  "status": "completed",
+  "id": "s1",
+  "model": "claude-opus-5-5",
+  "retry_of": null,
+  "reason": null,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "rounds": 6,
+  "proposals_per_round": 5,
+  "max_calls": 12,
+  "threads": 3,
+  "probe": {
+    "path": "artifacts/xfer/sber/probe/probe-2020-08-19",
+    "anchor": "2020-08-19",
+    "users": 5000,
+    "rows": 1000000,
+    "collection": {
+      "name": "probe-2020-08-19",
+      "path": "artifacts/xfer/sber/collections/probe-2020-08-19",
+      "manifest_sha256": "46fd8ce0760c8dd479ae7b1db6d58252f5e327c17748836118a90ec46f3cb185"
+    },
+    "probe_sha256": "81869c033ad68feb5f8c5a47968d7b161f71d777da80a58a3df027032a34136c",
+    "stats_sha256": "cfe1cb5fbbb61201e96fdb9e552f7b817d23da8df0bc4a3aff853e199ab1d427",
+    "base_digest": "4bc8a554d0bb159013371f9020e5bec20010e8cd8d5c5da8bda6b88f0860b92e"
+  },
+  "base_digest": "4bc8a554d0bb159013371f9020e5bec20010e8cd8d5c5da8bda6b88f0860b92e",
+  "prompt": {
+    "template_sha256": "ad8a1e4d7d06fdad9c20c7df0615e379a0e32a4309b358eec126087a108afe6e",
+    "constants_digest": "15312ab0dacc2920c57575792e36d6fc099de220398384766231b74cd2c77afd",
+    "digest": "607719164d889b0ad6d2718572b976ea59af0aae430688696760160ee8d4947c"
+  },
+  "budget": {
+    "limits": {
+      "pair_user_seconds": 180.0,
+      "item_seconds": 360.0
+    },
+    "used": {
+      "pair_user_seconds": 22.576000000000004,
+      "item_seconds": 9.622000000000002
+    }
+  },
+  "calls": 6,
+  "cost_usd": 2.149318,
+  "cost_unknown_calls": 0,
+  "rounds_run": 6,
+  "stop": "rounds",
+  "attempts": 30,
+  "valid": 27,
+  "columns": [
+    "ag_p_next_reorder",
+    "ag_p_med_regap",
+    "ag_u_repeat_frac",
+    "ag_u_last_repeat_frac",
+    "ag_p_new_buyer_share",
+    "ag_ub_share",
+    "ag_ub_days_since",
+    "ag_up_decay14",
+    "ag_up_decay_share",
+    "ag_up_cat_choice",
+    "ag_uc_last_pick",
+    "ag_up_orders_since",
+    "ag_up_ord_due",
+    "ag_p_buyer_penetration",
+    "ag_up_adopt_share",
+    "ag_up_streak",
+    "ag_ps_share",
+    "ag_ps_lift",
+    "ag_p_promo7",
+    "ag_p_price_rel",
+    "ag_p_cat_share",
+    "ag_p_cat_rank",
+    "ag_uc_due",
+    "ag_uc_last5_share",
+    "ag_pr_rebuy_bucket",
+    "ag_p_adopt14",
+    "ag_p_rebuy14",
+    "ag_uc_rebuy_bucket",
+    "ag_uc_orders_after",
+    "ag_uc_subs_after",
+    "ag_up_gap_cv",
+    "ag_up_due_pmed",
+    "ag_pr_rebuy_freq",
+    "ag_up_price_vs_paid",
+    "ag_pr_adopt14_main",
+    "ag_up_lastret_share",
+    "ag_p_lastret_buyers7",
+    "ag_co_last_cond",
+    "ag_co_last_lift",
+    "ag_up_gapcond_share",
+    "ag_upar_share",
+    "ag_upar_days",
+    "ag_p_basket_rel",
+    "ag_p_topup_share",
+    "ag_up_lastqty_rel"
+  ],
+  "call_log": [
+    {
+      "round": 1,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 81.2,
+      "cost_usd": 0.240624,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-125__lbo",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 2,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 67.0,
+      "cost_usd": 0.22809400000000002,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-11bdib1y",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 3,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 66.7,
+      "cost_usd": 0.26687,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-t8xj6toh",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 4,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 162.7,
+      "cost_usd": 0.5222140000000001,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-x1zvcs7q",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 5,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 109.2,
+      "cost_usd": 0.43315000000000003,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-wi3dgiwc",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 6,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 101.8,
+      "cost_usd": 0.45836600000000005,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-m17ct1hx",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    }
+  ],
+  "prompts": {
+    "r1": "fc9f7b3e8a2dcb1c600a1006efe52a9bc5d8cd1650d117e6fdafa9e09aa9e15b",
+    "r2": "5653331133ac91e6518cb23917bcbb5349c5f292de6844a83becb010f15077e9",
+    "r3": "acdac79afdfa0547ec9d07ec8386d8bed4269dcf64c16274a08959f921c2b6c0",
+    "r4": "2ea93eee767fa7a62d030b2a41f35b659b6301a9423874eec47a82fd922c0eb1",
+    "r5": "b6b729517efa0d1942dd981da0e9a5f25d6c68a6b6ecc3c9ec0959974d04fedb",
+    "r6": "5481e0cde2081b05db430d68e45d910fa76fbded8dc99f3ce7cf29940abb1909"
+  },
+  "values": {
+    "r1p1": {
+      "rows": 87271,
+      "sha256": "c2f50a2f376bc546ae9cc9b0f81810a61ab08b1c0930b0dcbda7882e2d8ccbf1"
+    },
+    "r1p4": {
+      "rows": 2078,
+      "sha256": "6d84cfa2948259c5fc9ea4787e33ebfbf0f3df3d95b97b5425d56030ecc95991"
+    },
+    "r1p5": {
+      "rows": 82167,
+      "sha256": "9c460a22066f6d18821b5177e89e8940ddebb651c46eb5938894455054fc172d"
+    },
+    "r2p1": {
+      "rows": 1000000,
+      "sha256": "9fc1c0c99f8c15550d1b9d0eab45500de2aff1f71ae1eba2082fdcd0d2e11454"
+    },
+    "r2p2": {
+      "rows": 1000000,
+      "sha256": "409ab3cfea54683262e168ae227d10a1b196ff246da7e42db0d9dd7323945dc0"
+    },
+    "r2p3": {
+      "rows": 1000000,
+      "sha256": "c3b45b6eb37546563b552fd557e6c0d3186c07179cf9c6a1acc5fb69e6975947"
+    },
+    "r2p4": {
+      "rows": 216484,
+      "sha256": "02f627fef665634955843959526cd4b571841d97a982749677063fd4b80efe3d"
+    },
+    "r2p5": {
+      "rows": 90064,
+      "sha256": "0b7ac76b4bc5e3ae2cd191e524884b6f1ea7ca6d39b514a1ac423dafb96cb749"
+    },
+    "r3p1": {
+      "rows": 216484,
+      "sha256": "e8af13e79ba51054b37d6fd03b9b8a7a3a2c09a32f2e2de8d8389d8c480dbec6"
+    },
+    "r3p2": {
+      "rows": 801200,
+      "sha256": "00ea9640e407fbc918c6a7b450beca60c651eadbb5c79dccbf41394f462d5078"
+    },
+    "r3p3": {
+      "rows": 65416,
+      "sha256": "844ff5a09c343fe4d618e421ccb60e5961e2711a9d2eb86b081c03777dfdf40f"
+    },
+    "r3p4": {
+      "rows": 81528,
+      "sha256": "58fac026779d7803611fa53e5bcd2119746365896cb42b10b58881672e3c5c46"
+    },
+    "r3p5": {
+      "rows": 1000000,
+      "sha256": "83b31305117bde09ac778ebd360910ba6fff3907f2c69ba2ef854c5c02a1703f"
+    },
+    "r4p1": {
+      "rows": 216484,
+      "sha256": "7d023a5aab8f10241f41595c27e3436d51d98b45dea50132f81b2d8e87301607"
+    },
+    "r4p2": {
+      "rows": 87052,
+      "sha256": "8d6a6894b49af4f6f80a816526f7cedba229486254833477958b743eceb278fd"
+    },
+    "r4p3": {
+      "rows": 994535,
+      "sha256": "8b5cff7387dbb438a02350798e26a352a42aa54f470e8bf69bd475c1ef134367"
+    },
+    "r4p4": {
+      "rows": 214936,
+      "sha256": "58c29f8a85a75678fcf9e47ad64b949e4541270722f53b40e195ab0eb5d1924c"
+    },
+    "r5p1": {
+      "rows": 216484,
+      "sha256": "523266c29ed940e6deeed284484bafdf26445441691de8976bbece96aa37f9d2"
+    },
+    "r5p2": {
+      "rows": 216484,
+      "sha256": "22361b6de7ed7c6c499dff26e010f7e231108d5eb137672662c18683c81761c4"
+    },
+    "r5p3": {
+      "rows": 216438,
+      "sha256": "934f47c628f339d442aadb6dd59bbd3e16488ab159e5ea686bf6282e860998ce"
+    },
+    "r5p4": {
+      "rows": 801200,
+      "sha256": "f5dab0ccb85c4467b5e789296da8d24dd59c17a038ff5aa933403b5896440b24"
+    },
+    "r5p5": {
+      "rows": 801200,
+      "sha256": "d01fc505ef46714b421d4871316ebd043c582d0078e0fd84ebc31b39fa5066db"
+    },
+    "r6p1": {
+      "rows": 801200,
+      "sha256": "4a4fa0a22785efe7e3d58396c0ef55b7677fd89ee1069273546acb5d34bbbc91"
+    },
+    "r6p2": {
+      "rows": 216484,
+      "sha256": "dbd3c14d13c515440f12937eb23b5cfdc079cd64532e821d018ad6a3d067d138"
+    },
+    "r6p3": {
+      "rows": 1000000,
+      "sha256": "2396c80b9d9143b4260a7e858ab15501db923e8ef658ed48bf69b882a8239f35"
+    },
+    "r6p4": {
+      "rows": 82167,
+      "sha256": "cf967d8541a07a5388664dbf6aace1954c6f96af619db388e666dccc013017b2"
+    },
+    "r6p5": {
+      "rows": 37007,
+      "sha256": "7a9bec829b32102c127f6329dab516fbb599d1fb3bd369c0ed82f05d3292c10b"
+    }
+  },
+  "probe_seconds": {
+    "r1p1": 2.975,
+    "r1p4": 0.287,
+    "r1p5": 1.396,
+    "r2p1": 1.026,
+    "r2p2": 0.44,
+    "r2p3": 0.843,
+    "r2p4": 0.364,
+    "r2p5": 1.425,
+    "r3p1": 0.381,
+    "r3p2": 0.761,
+    "r3p3": 0.956,
+    "r3p4": 0.924,
+    "r3p5": 0.779,
+    "r4p1": 1.147,
+    "r4p2": 1.039,
+    "r4p3": 1.436,
+    "r4p4": 0.694,
+    "r5p1": 2.513,
+    "r5p2": 1.287,
+    "r5p3": 0.872,
+    "r5p4": 0.968,
+    "r5p5": 0.665,
+    "r6p1": 6.501,
+    "r6p2": 0.425,
+    "r6p3": 0.802,
+    "r6p4": 0.907,
+    "r6p5": 0.385
+  },
+  "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "6180e9074266e30099ad7215461058a3c3b87c9a5645039131a39ece0b7d7b9c",
+    "scripts/xfer_sber.py": "e538de9f4429414aa4a104c9e38710bc53dd6866d2591519b91361b6b5a0ee1f"
+  },
+  "started_at_utc": "2026-10-21T11:14:07Z",
+  "log_sha256": "53f189d44fe0ce29441ae2740bd69b8f9c4c82c7ce33716c973e0a1cf21372a3",
+  "finished_at_utc": "2026-10-21T11:25:55Z"
+}
