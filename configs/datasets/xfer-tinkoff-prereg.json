@@ -1,0 +1,339 @@
+{
+  "format": "xfer-prereg-v1",
+  "dataset": "tinkoff",
+  "base_sha256": "4eb1e9392fc4f6583b3c677316a53ada27fb0aecb680d35c356d7ac8deb65113",
+  "set_sha256": "8d01777df239ccab5e263c712fe98f3080269f0661bb190ecb531d65ccd0fa9f",
+  "base_digest": "31df26fda92d8e08ab072a8a629cad3f1318b1c748bd134db5e16254cf1c6c77",
+  "contract": {
+    "path": "docs/xfer-design.md",
+    "sha256": "7a7ee935c02513f5629b9a61203345281c5742b599faa020a1a0a50aecf7d512"
+  },
+  "dataset_doc": {
+    "path": "docs/xfer-tinkoff-design.md",
+    "sha256": "dd476f1fb3c017cf41634167259c8c155fd7a24a6c6ab480e122eec277ea681d"
+  },
+  "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "79ba57acaadf97a0ce515be684fa238b0579c9015954345229db9af0e60a733b",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+  },
+  "code_changed_since_set": [],
+  "prompt_digest": "ccf381ed2ba739cecaca151a18f6f14fdec931cd37625e1fbb8914cbd1f43ae6",
+  "arms": {
+    "models": [
+      "B",
+      "BA",
+      "BApl"
+    ],
+    "pop": "Pop",
+    "series": {
+      "dev": [
+        "Pop",
+        "B",
+        "BA",
+        "BApl"
+      ],
+      "holdout": [
+        "Pop",
+        "B",
+        "BA",
+        "BApl"
+      ],
+      "final": [
+        "B",
+        "BA"
+      ]
+    }
+  },
+  "seeds": [
+    2026,
+    2027
+  ],
+  "sample_seed": 2026,
+  "anchors": {
+    "W": 30,
+    "N": 5000,
+    "K": 20,
+    "roles": {
+      "train": [
+        461,
+        491,
+        521,
+        551,
+        581,
+        611
+      ],
+      "val": [
+        641
+      ],
+      "holdout": [
+        671
+      ],
+      "kaggle": [
+        701
+      ],
+      "probe": [
+        641
+      ]
+    },
+    "series": {
+      "dev": {
+        "train": [
+          461,
+          491,
+          521,
+          551,
+          581,
+          611
+        ],
+        "sources": [
+          {
+            "anchor": 461,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 491,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 521,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 551,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 581,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 611,
+            "role": "train",
+            "cap": 5000
+          }
+        ],
+        "eval": 641,
+        "eval_role": "val",
+        "population": "all queries",
+        "arms": [
+          "Pop",
+          "B",
+          "BA",
+          "BApl"
+        ],
+        "after_holdout": false
+      },
+      "holdout": {
+        "train": [
+          461,
+          491,
+          521,
+          551,
+          581,
+          611,
+          641
+        ],
+        "sources": [
+          {
+            "anchor": 461,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 491,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 521,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 551,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 581,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 611,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 641,
+            "role": "val",
+            "cap": 5000
+          }
+        ],
+        "eval": 671,
+        "eval_role": "holdout",
+        "population": "all queries",
+        "arms": [
+          "Pop",
+          "B",
+          "BA",
+          "BApl"
+        ],
+        "after_holdout": false
+      },
+      "final": {
+        "train": [
+          521,
+          551,
+          581,
+          611,
+          641,
+          671
+        ],
+        "sources": [
+          {
+            "anchor": 521,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 551,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 581,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 611,
+            "role": "train",
+            "cap": 5000
+          },
+          {
+            "anchor": 641,
+            "role": "val",
+            "cap": 5000
+          },
+          {
+            "anchor": 671,
+            "role": "holdout",
+            "cap": 5000
+          }
+        ],
+        "eval": 701,
+        "eval_role": "kaggle",
+        "population": "test users",
+        "arms": [
+          "B",
+          "BA"
+        ],
+        "after_holdout": true
+      }
+    },
+    "holdout": 671,
+    "probe": 641,
+    "probe_users": 3000,
+    "kaggle_chunk": 2000
+  },
+  "N": 5000,
+  "K": 20,
+  "recipe": {
+    "iterations": 500,
+    "depth": 8,
+    "learning_rate": 0.05,
+    "l2_leaf_reg": 10,
+    "loss_function": "Logloss",
+    "bootstrap_type": "Bayesian",
+    "bagging_temperature": 1,
+    "border_count": 128,
+    "boosting_type": "Plain",
+    "thread_count": 8,
+    "task_type": "CPU",
+    "verbose": false,
+    "allow_writing_files": false
+  },
+  "prediction_type": "RawFormulaVal",
+  "threads": {
+    "catboost": 8,
+    "collect": 4,
+    "sidecar": 4,
+    "probe": 3,
+    "agent": 3,
+    "model_duckdb": 4
+  },
+  "kaggle_chunk": 2000,
+  "kaggle_chunk_order": "ascending user_id over the kaggle frame users",
+  "permutation": "numpy.random.default_rng([20261021, seed, anchor_int, chunk]).permutation(n) over the agent block in user_id, item_id order: training - the rows of the anchor used in the fit, chunk 0; val/holdout frames - all frame rows, chunk 0; kaggle - per chunk of KAGGLE_CHUNK users in ascending user_id, chunk = 0-based index",
+  "bootstrap": {
+    "draws": 2000,
+    "seed": 2026
+  },
+  "reading": {
+    "holdout": "per seed D_s = BA_s - B_s and P_s = BA_s - BApl_s, paired bootstrap over queries (xfer_common.bootstrap); verdicts xfer_common.verdict_transfer / verdict_content; seed-mean D, P and BApl - B descriptive",
+    "kaggle": "xfer_common.kaggle_reading on private scores, BA against B; descriptive"
+  },
+  "gate": {
+    "stage1": [
+      "leakcheck OK (report under leakcheck/, completed, result OK, this set, last train and holdout anchors on the current collections)",
+      "finite B, BA and BApl scores on val and on the holdout frame",
+      "finite share of every agent column on the holdout frame within [0.5*min, 2*max] of its shares on the training rows of the holdout series, per anchor",
+      "dev metric of every B, BA and BApl fit >= Pop on val"
+    ],
+    "stage2": [
+      "finite scores on the kaggle frame",
+      "finite-share parity on the kaggle frame against the training rows of the final series"
+    ],
+    "arms": {
+      "B": [
+        "finite",
+        "floor"
+      ],
+      "BA": [
+        "finite",
+        "floor",
+        "leakcheck",
+        "parity"
+      ],
+      "BApl": [
+        "finite",
+        "floor",
+        "leakcheck",
+        "parity"
+      ]
+    },
+    "stage2_arms": {
+      "B": [
+        "finite"
+      ],
+      "BA": [
+        "finite",
+        "parity"
+      ],
+      "BApl": [
+        "finite",
+        "parity"
+      ]
+    },
+    "parity": [
+      0.5,
+      2.0
+    ],
+    "opened": "xfer_common.gate_arms(status)"
+  },
+  "created_utc": "2026-10-21T09:58:15Z"
+}
