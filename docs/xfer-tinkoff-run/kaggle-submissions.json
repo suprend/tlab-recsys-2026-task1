@@ -5,7 +5,7 @@
   "authorization": {
     "quote": "да реализуй и обучай модели и все тестируй, эксперементируй, не останавливайся, меня ни о чем не спрашивай",
     "date": "2026-10-21",
-    "note": "Coordinator told the user this quote is taken as the «да» for the contract submissions (B/BA x 2 seeds); B2027 and BA2027 were blocked by the session permission classifier and wait for an explicit «да»."
+    "note": "Coordinator took this quote as the «да» for the contract submissions; B2026 and BA2026 were sent under it. B2027 and BA2027 were blocked by the session permission classifier and sent after the explicit quote in second_authorization."
   },
   "plan": "day 1 UTC (21.10): B2026, BA2026; day 2 UTC: B2027, BA2027; unsent by 24.10 23:59 UTC -> «не отправлено»",
   "observed_limit": "CLI reported 99 then 98 submissions remaining on 21.10 (late submission); the contract assumed 2 per day",
@@ -32,13 +32,33 @@
       "arm": "B2027",
       "file": "artifacts/xfer/tinkoff/kaggle/B2027/B2027.csv",
       "sha256": "cd8376397bdaf17251532e0193f7026cca19c81d44dd05b0cc2f4df98ea32110",
-      "status": "not sent yet"
+      "ref": 57482372,
+      "submitted_utc": "2026-10-21T12:48:26Z",
+      "public": 0.0319,
+      "private": 0.03051
     },
     {
       "arm": "BA2027",
       "file": "artifacts/xfer/tinkoff/kaggle/BA2027/BA2027.csv",
       "sha256": "69cadfe5753077527e7e66f8eb5f13b2ac7dfbb481d4689771dea90a19f8dbba",
-      "status": "not sent yet"
+      "ref": 57482380,
+      "submitted_utc": "2026-10-21T12:48:34Z",
+      "public": 0.03005,
+      "private": 0.02824
     }
-  ]
+  ],
+  "second_authorization": {
+    "quote": "да, отправь на Kaggle B2027 и BA2027 Tinkoff",
+    "date": "2026-10-21",
+    "arms": [
+      "B2027",
+      "BA2027"
+    ]
+  },
+  "deviation_from_plan": "B2027 and BA2027 were sent on day 1 UTC (21.10), not day 2: the CLI showed 98 submissions remaining, so the 2-per-day assumption did not bind",
+  "reading": {
+    "rule": "H&M private rule, BA vs B",
+    "result": "BA ниже B",
+    "artifact": "artifacts/xfer/tinkoff/kaggle/reading-20261021T124950043873Z/reading.json"
+  }
 }
