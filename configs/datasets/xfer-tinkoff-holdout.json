@@ -1,0 +1,124 @@
+{
+  "format": "xfer-holdout-result-v1",
+  "dataset": "tinkoff",
+  "anchor": 671,
+  "collection": "holdout-671",
+  "open_receipt_sha256": "d513e8c3a6df4dd56d844c63f2361bd1993298a42623df2f47b0efb71521d12e",
+  "prereg_sha256": "954f68ee372d55a2e3fe6602b3498f07dbf180bf29d2486d7d0a69c3e3712506",
+  "arms": [
+    "Pop",
+    "B",
+    "BA",
+    "BApl"
+  ],
+  "identity_digest": "2736744a7d13c3d8eb2c7dfa513bcd9b1572da3971e3fc73a186626685f78f03",
+  "queries": 10548,
+  "reruns_superseded": [],
+  "metrics": {
+    "B2026": 0.03390338070538384,
+    "B2027": 0.0341301054287798,
+    "BA2026": 0.03601273478541606,
+    "BA2027": 0.035362629594075684,
+    "BApl2026": 0.032771570974060554,
+    "BApl2027": 0.034290168203408265,
+    "Pop": 0.012135530359443739
+  },
+  "D": {
+    "2026": {
+      "queries": 10548,
+      "draws": 2000,
+      "seed": 2026,
+      "mean": 0.0021093540800322256,
+      "ci": [
+        0.0012979456225815174,
+        0.0029342385913362023
+      ],
+      "covers_zero": false
+    },
+    "2027": {
+      "queries": 10548,
+      "draws": 2000,
+      "seed": 2026,
+      "mean": 0.0012325241652958836,
+      "ci": [
+        0.0004667545558522295,
+        0.0019759723110416155
+      ],
+      "covers_zero": false
+    }
+  },
+  "P": {
+    "2026": {
+      "queries": 10548,
+      "draws": 2000,
+      "seed": 2026,
+      "mean": 0.003241163811355517,
+      "ci": [
+        0.0024039656660857505,
+        0.004089464148611952
+      ],
+      "covers_zero": false
+    },
+    "2027": {
+      "queries": 10548,
+      "draws": 2000,
+      "seed": 2026,
+      "mean": 0.0010724613906674186,
+      "ci": [
+        0.00029733937405366313,
+        0.0018499326313158421
+      ],
+      "covers_zero": false
+    }
+  },
+  "verdict_transfer": "колонки агента без отбора повышают качество базы на Tinkoff",
+  "verdict_content": "прирост несёт содержание колонок агента, а не их число",
+  "descriptive": {
+    "D": {
+      "queries": 10548,
+      "draws": 2000,
+      "seed": 2026,
+      "mean": 0.0016709391226640547,
+      "ci": [
+        0.0009633877135553441,
+        0.0023469899847066407
+      ],
+      "covers_zero": false
+    },
+    "P": {
+      "queries": 10548,
+      "draws": 2000,
+      "seed": 2026,
+      "mean": 0.0021568126010114677,
+      "ci": [
+        0.0014552409793630221,
+        0.002811816102739994
+      ],
+      "covers_zero": false
+    },
+    "BApl_minus_B": {
+      "queries": 10548,
+      "draws": 2000,
+      "seed": 2026,
+      "mean": -0.0004858734783474128,
+      "ci": [
+        -0.000920402839821613,
+        -2.856411971829767e-05
+      ],
+      "covers_zero": false
+    }
+  },
+  "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "79ba57acaadf97a0ce515be684fa238b0579c9015954345229db9af0e60a733b",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+  },
+  "created_utc": "2026-10-21T10:52:04Z"
+}
