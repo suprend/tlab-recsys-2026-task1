@@ -1,0 +1,155 @@
+# command: ["claude", "-p", "<prompt>", "--model", "opus", "--output-format", "json", "--tools", "", "--strict-mcp-config"]
+# cwd: /tmp/tlab-council-llm-a
+# prompt_sha256: 2607ad3ccbbf844036d4a87f335094a9e64bca59b59096c522a8e185e1e46392
+
+You are a feature engineer for a ranking model. Reply with JSON only.
+
+TASK
+An online store. The data are interactions (user, item, time step): time is an integer step of unknown unit,
+and every (user, item) pair occurs at most once. For an anchor A the history is every interaction with t < A.
+The label of a (user, item) pair is whether the user interacts with the item in [A, A+30); the task is to
+recommend 20 items the user has not interacted with before A. The metric is binary NDCG@20 over the users
+with at least one new item in that window.
+
+CANDIDATES
+For a user u at anchor A every source lists items with an event before A that u has not interacted with before A; ties go to the smaller item_id.
+- pop30: items by distinct users in [A-30, A), descending; the first 100.
+- cooc: E = interactions in [A-180, A); n(i) = distinct users of i in E; co(i, j) = distinct users with both i and j in E; sim(i, j) = co(i, j) / sqrt(n(i) n(j)); L(u) = the last 20 distinct items of u before A by time step descending, then item_id; score(j) = sum of sim(i, j) over i in L(u), rounded to 9 decimals; items with a positive score by score descending; the first 100.
+- fill: items by distinct users before A, descending.
+Union: the sources in this order, each skipping items already taken, up to 200 candidates per user (all unseen items when fewer). Each source position is a feature below.
+
+TRAINING
+CatBoost Logloss, 500 trees, depth 8, learning rate 0.05, L2 10, 128
+borders. Anchors every 30 steps with up to 5000 users each; every candidate of a user enters with weight 1.
+
+FEATURES ALREADY IN THE MODEL: base B (name [level]: formula; missing). A window of w steps is [A-w, A);
+j is the candidate item, u the user.
+- users_7 [item]: distinct users with an event on item j in [A-7, A); missing: 0
+- users_30 [item]: distinct users with an event on item j in [A-30, A); missing: 0
+- users_90 [item]: distinct users with an event on item j in [A-90, A); missing: 0
+- users_all [item]: distinct users with an event on item j before A; missing: never: j has an event before A
+- trend [item]: users_7 / users_30; missing: NULL when users_30 = 0
+- item_age [item]: A - first time step of item j before A; missing: never
+- item_last [item]: A - last time step of item j before A; missing: never
+- n_items_all [user]: distinct items of user u before A; missing: never: a query has history
+- n_items_30 [user]: distinct items of user u in [A-30, A); missing: 0
+- user_recency [user]: A - last time step of user u before A; missing: never
+- user_age [user]: A - first time step of user u before A; missing: never
+- cooc_score [pair]: sum of sim(i, j) over i in L(u) of source cooc, rounded to 9 decimals; missing: 0
+- cooc_rank [pair]: position of j in candidate source cooc; missing: NULL outside source cooc
+- cooc_max [pair]: max of sim(i, j) over i in L(u) of source cooc; missing: 0
+- cooc_hits [pair]: number of i in L(u) of source cooc with sim(i, j) > 0; missing: 0
+- pop30_rank [pair]: position of j in candidate source pop30; missing: NULL outside source pop30
+- global_rank [pair]: rank of j among the items with an event before A by users_all descending, then item_id; the same for every user; missing: never
+- cooc_last5 [pair]: sum of sim(i, j) over the 5 most recent items of L(u) of source cooc; missing: 0
+- cooc_wsum [pair]: sum over positions p = 1..|L(u)| of L(u) of source cooc (p = 1 most recent) of 0.8^(p-1) * sim(L_p, j); missing: 0
+- cooc_mean [pair]: sum of sim(i, j) over i in L(u) of source cooc, rounded to 9 decimals, divided by the number of i in L(u) of source cooc with n(i) > 0; missing: NULL when no i in L(u) of source cooc has n(i) > 0
+- cooc_n_last [pair]: number of i among the 5 most recent items of L(u) of source cooc with sim(i, j) > 0; missing: 0
+- users_14 [item]: distinct users with an event on item j in [A-14, A); missing: 0
+- pop_share_30 [item]: users_30 / users_all; missing: never: users_all >= 1
+- user_rate [user]: n_items_all / max(user_age, 1); missing: never
+- n_items_7 [user]: distinct items of user u in [A-7, A); missing: 0
+
+TABLES (DuckDB; a query sees only these three)
+ev(user_id BIGINT, item_id BIGINT, t INTEGER)
+  every interaction with t < A; each (user_id, item_id) pair occurs at most once
+cand(user_id BIGINT, item_id BIGINT): the candidate pairs of the current batch, keys only
+users(user_id BIGINT): the distinct users of cand
+There is no user or item attribute table.
+
+Columns of an earlier feature agent, in the model besides the base above (proposal name [level]: columns):
+  item_momentum_30_60 [item]: ag_mom_30_60
+  cooc_recent30 [pair]: ag_cooc30
+  next_item_transition [pair]: ag_next_tr
+  user_pop_pref [user]: ag_user_pop_pref
+  user_cf_recent [pair]: ag_ucf30
+  season_yoy_growth [item]: ag_season_yoy
+  adoption_rate_eligible [item]: ag_adopt_rate
+  item_age_gap [pair]: ag_age_gap
+  session_cooc [pair]: ag_sess_cooc
+  pop_gap [pair]: ag_pop_gap
+  item_peak_lifecycle [item]: ag_peak_ratio, ag_peak_age
+  item_pop_decay3 [item]: ag_pop_decay3
+  cond_prob_decay_lift [pair]: ag_cond_decay, ag_lift_max
+  user_recency_ratio [user]: ag_recency_ratio
+  adopter_depth [item]: ag_adopter_depth
+  longterm_profile_cooc [pair]: ag_lt_cooc
+  iuf_weighted_cooc [pair]: ag_iuf_cooc
+  user_visit_rhythm [user]: ag_steps_30, ag_gap_90
+  item_burstiness30 [item]: ag_burst30
+  neighbor_recent7_adoption [pair]: ag_nbr_recent7
+  timed_transition [pair]: ag_timed_tr
+  adopter_depth_gap [pair]: ag_depth_gap
+  cooc30_relative [pair]: ag_cooc30_rel
+  lastyear_share_gap [item]: ag_ly_share_gap
+  segment_pop30 [pair]: ag_seg_pop30
+  id_rank_proximity_all [pair]: ag_id_dist_all, ag_id_cnt10
+  id_neighbourhood_trend [item]: ag_idnb_pop30, ag_idnb_trend
+  recent_event_mean_age [item]: ag_rec_mean_age
+  id_rank_proximity_recent [pair]: ag_id_prox_rec
+  audience_still_active [item]: ag_aud_active7
+
+QUERY RULES
+- Exactly one SELECT or WITH statement; ';' only at the very end; no comments (-- or /* */).
+- Write the anchor only as {A}, literally with the braces; it becomes the integer anchor step,
+  e.g. t >= {A} - 30. No other {...} placeholders.
+- The column t always stands on the left of a comparison: t >= {A} - 30, never {A} - 30 <= t. Never compare
+  t with a number (t < 400 is an error); write ages as {A} - t.
+- Forbidden whole words, in any case: transactions, customers, frame, label, labels, target, targets, hm_*,
+  _hm_*; read_*, parquet_*, csv, json*, glob, getenv, query, query_table, duckdb_*, information_schema,
+  pg_catalog, sqlite_master, pragma*; attach, detach, copy, export, import, install, load, set, reset, use,
+  call, create, drop, insert, update, delete, alter; random, setseed, uuid, gen_random_uuid, now, today,
+  current_date, current_time, current_timestamp, get_current_time, sample, tablesample, current_setting,
+  sniff_*, checkpoint, force_checkpoint, which_secret; ev_* and the names of the raw data; the functions
+  error() and strptime().
+- An item-level query must not mention cand or users: its values do not depend on the batch and are cached.
+
+OUTPUT OF A QUERY
+- level "pair": key columns user_id, item_id (pairs of cand); level "user": user_id (of users); level "item":
+  item_id (of the items in ev). Keys are BIGINT, never NULL and unique. A key outside its set is an error, not
+  a silent filter, so keep queries narrow.
+- 1 to 3 value columns named by ag_rb1_<slug>, unique among the accepted columns and different
+  from every feature name above; integer, DECIMAL, FLOAT, DOUBLE or BOOLEAN. VARCHAR, DATE and TIMESTAMP values
+  are errors. No other columns.
+- Values are cast to DOUBLE and left-joined to the batch keys of the level. No row, NULL, a non-finite value or
+  a float32 overflow mean "no data": NaN in the model, which CatBoost treats as the minimum. Put your own
+  defaults with COALESCE.
+- Batch invariance: a value depends only on ev and its own key; cand and users only filter. A window
+  PARTITION BY user_id over cand is allowed (all candidates of a user are always in one batch); aggregates
+  over cand across users are not. Windows need a full tie-break (..., item_id). Violations are caught
+  mechanically.
+- Limits on the probe: timeout 20 s for pair and user queries, 60 s for item queries; at most 20 million
+  output rows.
+
+COUNCIL RULES
+- The value columns of a query are the names with the prefix ag_rb1_ in its SELECT; the sandbox runs the
+  query with exactly these output columns. Use the prefix only for output columns, never for intermediate
+  aliases; the part after the prefix is lower-case snake_case of at most 30 characters.
+- Every query states its level (pair, user or item); the level fixes its keys.
+- The probe runs every query at two anchors, named probe_day_1 and probe_day_2 in what you see.
+- All valid columns enter the model without selection by outcome. Superfluous and noisy columns hurt: a few
+  strong, non-redundant signals are needed.
+
+Your proposals below failed the sandbox check. The check output is all you get; no model was fitted.
+[
+ {
+  "name": "precursor_share",
+  "idea": "Candidate-normalized path signal: the share of the candidate's adopters in the last 90 steps who had taken one of the user's last 5 items before adopting it, i.e. how typical the user's recent items are as precursors of the candidate.",
+  "sql": "WITH L AS (SELECT user_id, item_id FROM (SELECT e.user_id, e.item_id, ROW_NUMBER() OVER (PARTITION BY e.user_id ORDER BY e.t DESC, e.item_id) AS p FROM ev e JOIN users s ON s.user_id = e.user_id) WHERE p <= 5), CI AS (SELECT DISTINCT item_id FROM cand), J AS (SELECT e.user_id AS v, e.item_id AS j, e.t AS tj FROM ev e JOIN CI ON CI.item_id = e.item_id WHERE e.t >= {A} - 90), NJ AS (SELECT j, COUNT(*) AS nj FROM J GROUP BY j), X AS (SELECT L.user_id AS u, J.j, COUNT(DISTINCT J.v) AS k FROM L JOIN ev e ON e.item_id = L.item_id JOIN J ON J.v = e.user_id JOIN cand c ON c.user_id = L.user_id AND c.item_id = J.j WHERE e.t >= {A} - 180 AND e.t < J.tj GROUP BY L.user_id, J.j) SELECT c.user_id, c.item_id, COALESCE(X.k * 1.0 / NJ.nj, 0) AS ag_rb1_precursor_share FROM cand c LEFT JOIN X ON X.u = c.user_id AND X.j = c.item_id LEFT JOIN NJ ON NJ.j = c.item_id",
+  "check": {
+   "error": "probe_day_1: OutOfMemoryException: the query ran out of memory",
+   "level": "pair",
+   "coverage": {},
+   "max_abs_rho": {},
+   "nearest": {},
+   "r2": {}
+  },
+  "problems": [
+   "error: probe_day_1: OutOfMemoryException: the query ran out of memory"
+  ]
+ }
+]
+
+Fix every failed proposal, keeping its name, or replace it by another query under the same name.
+Answer with a JSON list only:
+[{"name": "the same name", "idea": "one sentence", "level": "pair|user|item", "sql": "SELECT ..."}]
