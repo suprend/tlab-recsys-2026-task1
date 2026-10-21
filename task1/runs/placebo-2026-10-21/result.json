@@ -1,0 +1,1094 @@
+{
+ "2019": {
+  "eval": "val B 2019-11-08..13",
+  "runs": {
+   "H": [
+    "q2_d8",
+    "q3_d8_s1"
+   ],
+   "Hp": [
+    "grid_Hp_s0",
+    "grid_Hp_s1"
+   ],
+   "Hpl": [
+    "pl19_Hpl_s0",
+    "pl19_Hpl_s1"
+   ],
+   "Hpk": [
+    "pl19_Hpk_s0",
+    "pl19_Hpk_s1"
+   ],
+   "Hag": [
+    "pl19_Hag_s0",
+    "pl19_Hag_s1"
+   ],
+   "Hdfs": [
+    "pl19_Hdfs_s0",
+    "pl19_Hdfs_s1"
+   ]
+  },
+  "queries": 19361,
+  "ndcg_by_seed": {
+   "H": [
+    0.15053,
+    0.15016
+   ],
+   "Hp": [
+    0.15286,
+    0.15225
+   ],
+   "Hpl": [
+    0.15021,
+    0.14979
+   ],
+   "Hpk": [
+    0.14925,
+    0.14987
+   ],
+   "Hag": [
+    0.15322,
+    0.15298
+   ],
+   "Hdfs": [
+    0.15029,
+    0.14936
+   ]
+  },
+  "D": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": 0.00265,
+    "ci": [
+     0.00136,
+     0.00387
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": 0.00246,
+    "ci": [
+     0.00118,
+     0.00379
+    ]
+   }
+  ],
+  "Dk": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": 0.00361,
+    "ci": [
+     0.00236,
+     0.00489
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": 0.00238,
+    "ci": [
+     0.00113,
+     0.00371
+    ]
+   }
+  ],
+  "P": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": -0.00031,
+    "ci": [
+     -0.00125,
+     0.00064
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": -0.00037,
+    "ci": [
+     -0.00129,
+     0.00061
+    ]
+   }
+  ],
+  "Pk": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": -0.00128,
+    "ci": [
+     -0.00226,
+     -0.00036
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": -0.00029,
+    "ci": [
+     -0.00123,
+     0.00068
+    ]
+   }
+  ],
+  "Hpk-Hpl": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": -0.00096,
+    "ci": [
+     -0.00197,
+     -5e-05
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": 8e-05,
+    "ci": [
+     -0.00087,
+     0.00095
+    ]
+   }
+  ],
+  "Hp-H": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": 0.00234,
+    "ci": [
+     0.00105,
+     0.00357
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": 0.00209,
+    "ci": [
+     0.00085,
+     0.00334
+    ]
+   }
+  ],
+  "Hag-H": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": 0.00269,
+    "ci": [
+     0.0014,
+     0.00395
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": 0.00283,
+    "ci": [
+     0.00156,
+     0.00406
+    ]
+   }
+  ],
+  "Hdfs-H": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": -0.00024,
+    "ci": [
+     -0.00116,
+     0.00072
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": -0.0008,
+    "ci": [
+     -0.0018,
+     0.00018
+    ]
+   }
+  ],
+  "share": {
+   "Hag": [
+    {
+     "seed": [
+      2026,
+      0
+     ],
+     "r": 1.151,
+     "ci": [
+      0.764,
+      1.968
+     ]
+    },
+    {
+     "seed": [
+      7,
+      1
+     ],
+     "r": 1.352,
+     "ci": [
+      0.898,
+      2.598
+     ]
+    }
+   ],
+   "Hdfs": [
+    {
+     "seed": [
+      2026,
+      0
+     ],
+     "r": -0.102,
+     "ci": [
+      -0.827,
+      0.268
+     ]
+    },
+    {
+     "seed": [
+      7,
+      1
+     ],
+     "r": -0.38,
+     "ci": [
+      -1.624,
+      0.067
+     ]
+    }
+   ],
+   "sum": [
+    1.049,
+    0.971
+   ]
+  },
+  "mean_of_seeds": {
+   "D": {
+    "d": 0.00255,
+    "ci": [
+     0.00146,
+     0.00362
+    ]
+   },
+   "Dk": {
+    "d": 0.003,
+    "ci": [
+     0.00195,
+     0.00404
+    ]
+   },
+   "P": {
+    "d": -0.00034,
+    "ci": [
+     -0.00098,
+     0.00033
+    ]
+   },
+   "Pk": {
+    "d": -0.00078,
+    "ci": [
+     -0.00148,
+     -0.00011
+    ]
+   },
+   "Hpk-Hpl": {
+    "d": -0.00044,
+    "ci": [
+     -0.00115,
+     0.00019
+    ]
+   },
+   "Hp-H": {
+    "d": 0.00221,
+    "ci": [
+     0.00118,
+     0.00324
+    ]
+   },
+   "Hag-H": {
+    "d": 0.00276,
+    "ci": [
+     0.00173,
+     0.00382
+    ]
+   },
+   "Hdfs-H": {
+    "d": -0.00052,
+    "ci": [
+     -0.00122,
+     0.00019
+    ]
+   }
+  },
+  "reading": "прирост H+ несёт содержание колонок, а не их число",
+  "reading_keys": "H+ лучше плацебо по ключам",
+  "caveat": null
+ },
+ "2020": {
+  "eval": "val 2020-02-08..13",
+  "runs": {
+   "H": [
+    "pl20_H_s0",
+    "pl20_H_s1"
+   ],
+   "Hp": [
+    "pl20_Hp_s0",
+    "pl20_Hp_s1"
+   ],
+   "Hpl": [
+    "pl20_Hpl_s0",
+    "pl20_Hpl_s1"
+   ],
+   "Hpk": [
+    "pl20_Hpk_s0",
+    "pl20_Hpk_s1"
+   ],
+   "Hag": [
+    "pl20_Hag_s0",
+    "pl20_Hag_s1"
+   ],
+   "Hdfs": [
+    "pl20_Hdfs_s0",
+    "pl20_Hdfs_s1"
+   ]
+  },
+  "queries": 44334,
+  "ndcg_by_seed": {
+   "H": [
+    0.15113,
+    0.15141
+   ],
+   "Hp": [
+    0.15505,
+    0.15453
+   ],
+   "Hpl": [
+    0.15077,
+    0.15059
+   ],
+   "Hpk": [
+    0.15112,
+    0.15063
+   ],
+   "Hag": [
+    0.15457,
+    0.15484
+   ],
+   "Hdfs": [
+    0.15111,
+    0.15102
+   ]
+  },
+  "D": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": 0.00428,
+    "ci": [
+     0.0034,
+     0.00515
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": 0.00393,
+    "ci": [
+     0.00306,
+     0.00481
+    ]
+   }
+  ],
+  "Dk": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": 0.00393,
+    "ci": [
+     0.00308,
+     0.00481
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": 0.0039,
+    "ci": [
+     0.00303,
+     0.0048
+    ]
+   }
+  ],
+  "P": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": -0.00036,
+    "ci": [
+     -0.00099,
+     0.00025
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": -0.00082,
+    "ci": [
+     -0.00148,
+     -0.00015
+    ]
+   }
+  ],
+  "Pk": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": -1e-05,
+    "ci": [
+     -0.00066,
+     0.0006
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": -0.00078,
+    "ci": [
+     -0.00147,
+     -0.00013
+    ]
+   }
+  ],
+  "Hpk-Hpl": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": 0.00035,
+    "ci": [
+     -0.00028,
+     0.00094
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": 4e-05,
+    "ci": [
+     -0.00057,
+     0.00061
+    ]
+   }
+  ],
+  "Hp-H": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": 0.00392,
+    "ci": [
+     0.00304,
+     0.00478
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": 0.00312,
+    "ci": [
+     0.00221,
+     0.00399
+    ]
+   }
+  ],
+  "Hag-H": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": 0.00344,
+    "ci": [
+     0.00262,
+     0.00426
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": 0.00343,
+    "ci": [
+     0.0026,
+     0.00429
+    ]
+   }
+  ],
+  "Hdfs-H": [
+   {
+    "seed": [
+     2026,
+     0
+    ],
+    "d": -3e-05,
+    "ci": [
+     -0.00072,
+     0.00066
+    ]
+   },
+   {
+    "seed": [
+     7,
+     1
+    ],
+    "d": -0.00039,
+    "ci": [
+     -0.00104,
+     0.0003
+    ]
+   }
+  ],
+  "share": {
+   "Hag": [
+    {
+     "seed": [
+      2026,
+      0
+     ],
+     "r": 0.877,
+     "ci": [
+      0.722,
+      1.071
+     ]
+    },
+    {
+     "seed": [
+      7,
+      1
+     ],
+     "r": 1.102,
+     "ci": [
+      0.897,
+      1.4
+     ]
+    }
+   ],
+   "Hdfs": [
+    {
+     "seed": [
+      2026,
+      0
+     ],
+     "r": -0.007,
+     "ci": [
+      -0.207,
+      0.157
+     ]
+    },
+    {
+     "seed": [
+      7,
+      1
+     ],
+     "r": -0.125,
+     "ci": [
+      -0.409,
+      0.086
+     ]
+    }
+   ],
+   "sum": [
+    0.87,
+    0.977
+   ]
+  },
+  "mean_of_seeds": {
+   "D": {
+    "d": 0.00411,
+    "ci": [
+     0.00337,
+     0.00483
+    ]
+   },
+   "Dk": {
+    "d": 0.00391,
+    "ci": [
+     0.00319,
+     0.00465
+    ]
+   },
+   "P": {
+    "d": -0.00059,
+    "ci": [
+     -0.00103,
+     -0.00014
+    ]
+   },
+   "Pk": {
+    "d": -0.0004,
+    "ci": [
+     -0.00088,
+     6e-05
+    ]
+   },
+   "Hpk-Hpl": {
+    "d": 0.00019,
+    "ci": [
+     -0.00026,
+     0.00062
+    ]
+   },
+   "Hp-H": {
+    "d": 0.00352,
+    "ci": [
+     0.00277,
+     0.00426
+    ]
+   },
+   "Hag-H": {
+    "d": 0.00344,
+    "ci": [
+     0.00272,
+     0.00415
+    ]
+   },
+   "Hdfs-H": {
+    "d": -0.00021,
+    "ci": [
+     -0.00069,
+     0.00028
+    ]
+   }
+  },
+  "reading": "прирост H+ несёт содержание колонок, а не их число",
+  "reading_keys": "H+ лучше плацебо по ключам",
+  "caveat": null
+ },
+ "claim": "прирост H+ несёт содержание колонок, а не их число",
+ "periods": "согласны",
+ "caveats": {},
+ "fits": {
+  "pl19_Hpl_s0": {
+   "features": 274,
+   "permuted": 194,
+   "fit_queries": 101959,
+   "train_rows": 5174606,
+   "added_importance": 0.021,
+   "peak_rss_gb": 19.9,
+   "seconds": {
+    "prepare": 68,
+    "fit": 641,
+    "predict": 46
+   },
+   "commit": "57de6e677aad9f2f8230de613d07a927ec0e5160",
+   "started": "2026-10-21 00:14:25"
+  },
+  "pl19_Hpl_s1": {
+   "features": 274,
+   "permuted": 194,
+   "fit_queries": 101959,
+   "train_rows": 5174606,
+   "added_importance": 0.0208,
+   "peak_rss_gb": 23.6,
+   "seconds": {
+    "prepare": 62,
+    "fit": 652,
+    "predict": 47
+   },
+   "commit": "57de6e677aad9f2f8230de613d07a927ec0e5160",
+   "started": "2026-10-21 00:27:00"
+  },
+  "pl19_Hpk_s0": {
+   "features": 274,
+   "permuted": 194,
+   "fit_queries": 101959,
+   "train_rows": 5174606,
+   "added_importance": 0.0228,
+   "peak_rss_gb": 23.6,
+   "seconds": {
+    "prepare": 68,
+    "fit": 666,
+    "predict": 52
+   },
+   "commit": "57de6e677aad9f2f8230de613d07a927ec0e5160",
+   "started": "2026-10-21 00:39:41"
+  },
+  "pl19_Hpk_s1": {
+   "features": 274,
+   "permuted": 194,
+   "fit_queries": 101959,
+   "train_rows": 5174606,
+   "added_importance": 0.0232,
+   "peak_rss_gb": 23.6,
+   "seconds": {
+    "prepare": 70,
+    "fit": 668,
+    "predict": 52
+   },
+   "commit": "57de6e677aad9f2f8230de613d07a927ec0e5160",
+   "started": "2026-10-21 00:52:47"
+  },
+  "pl19_Hag_s0": {
+   "features": 146,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5174606,
+   "added_importance": 0.2675,
+   "peak_rss_gb": 23.6,
+   "seconds": {
+    "prepare": 60,
+    "fit": 481,
+    "predict": 34
+   },
+   "commit": "57de6e677aad9f2f8230de613d07a927ec0e5160",
+   "started": "2026-10-21 01:05:56"
+  },
+  "pl19_Hag_s1": {
+   "features": 146,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5174606,
+   "added_importance": 0.3544,
+   "peak_rss_gb": 24.1,
+   "seconds": {
+    "prepare": 58,
+    "fit": 472,
+    "predict": 35
+   },
+   "commit": "57de6e677aad9f2f8230de613d07a927ec0e5160",
+   "started": "2026-10-21 01:15:32"
+  },
+  "pl19_Hdfs_s0": {
+   "features": 208,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5174606,
+   "added_importance": 0.1948,
+   "peak_rss_gb": 24.1,
+   "seconds": {
+    "prepare": 43,
+    "fit": 530,
+    "predict": 23
+   },
+   "commit": "57de6e677aad9f2f8230de613d07a927ec0e5160",
+   "started": "2026-10-21 01:24:56"
+  },
+  "pl19_Hdfs_s1": {
+   "features": 208,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5174606,
+   "added_importance": 0.2099,
+   "peak_rss_gb": 24.1,
+   "seconds": {
+    "prepare": 45,
+    "fit": 538,
+    "predict": 22
+   },
+   "commit": "57de6e677aad9f2f8230de613d07a927ec0e5160",
+   "started": "2026-10-21 01:34:52"
+  },
+  "pl20_H_s0": {
+   "features": 80,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": null,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 44,
+    "fit": 373,
+    "predict": 19
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 03:47:15"
+  },
+  "pl20_H_s1": {
+   "features": 80,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": null,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 43,
+    "fit": 372,
+    "predict": 19
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 03:54:31"
+  },
+  "pl20_Hp_s0": {
+   "features": 274,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": 0.3766,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 66,
+    "fit": 574,
+    "predict": 47
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 02:35:14"
+  },
+  "pl20_Hp_s1": {
+   "features": 274,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": 0.417,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 69,
+    "fit": 581,
+    "predict": 47
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 02:58:49"
+  },
+  "pl20_Hpl_s0": {
+   "features": 274,
+   "permuted": 194,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": 0.0244,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 68,
+    "fit": 607,
+    "predict": 52
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 02:46:41"
+  },
+  "pl20_Hpl_s1": {
+   "features": 274,
+   "permuted": 194,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": 0.0206,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 70,
+    "fit": 611,
+    "predict": 53
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 03:10:27"
+  },
+  "pl20_Hpk_s0": {
+   "features": 274,
+   "permuted": 194,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": 0.0258,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 73,
+    "fit": 603,
+    "predict": 57
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 03:22:40"
+  },
+  "pl20_Hpk_s1": {
+   "features": 274,
+   "permuted": 194,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": 0.0262,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 73,
+    "fit": 612,
+    "predict": 57
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 03:34:53"
+  },
+  "pl20_Hag_s0": {
+   "features": 146,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": 0.3633,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 64,
+    "fit": 465,
+    "predict": 41
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 04:01:45"
+  },
+  "pl20_Hag_s1": {
+   "features": 146,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": 0.3598,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 65,
+    "fit": 452,
+    "predict": 40
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 04:11:14"
+  },
+  "pl20_Hdfs_s0": {
+   "features": 208,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": 0.2326,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 49,
+    "fit": 510,
+    "predict": 27
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 04:20:32"
+  },
+  "pl20_Hdfs_s1": {
+   "features": 208,
+   "permuted": 0,
+   "fit_queries": 101959,
+   "train_rows": 5172670,
+   "added_importance": 0.2356,
+   "peak_rss_gb": 25.8,
+   "seconds": {
+    "prepare": 48,
+    "fit": 513,
+    "predict": 27
+   },
+   "commit": "6bd2903531ce25fcb9c1b04273445ace13d5ecc6",
+   "started": "2026-10-21 04:30:18"
+  }
+ },
+ "levels": {
+  "user": [
+   "dfs_u"
+  ],
+  "product": [
+   "dfs_p",
+   "dfs_c",
+   "dfs_b",
+   "agent_night20_r1p1_first_touch_conversion",
+   "agent_night20_r1p3_buyer_price_profile",
+   "agent_night20_r1p4_new_reach",
+   "agent_night20_r1p5_cp_staleness",
+   "agent_night20_r2p1_cmp_session_win_lift",
+   "agent_night20_r2p4_revisit_consideration",
+   "agent_night20_r2p5_view_dwell_time",
+   "agent_night20_r3p1_view_session_last_choice",
+   "agent_night20_r3p2_intraday_momentum_12h",
+   "agent_night20_r3p5_category_search_depth",
+   "agent_night20_r4p1_acq_regularity_7d",
+   "agent_night20_r4p2_cat_acq_concentration",
+   "agent_night20_r4p3_weekday_seasonality_14d"
+  ],
+  "pair": [
+   "agent_night20_r1p2_coacq_cf",
+   "agent_night20_r2p2_cp_category_complement",
+   "agent_night20_r2p3_acq_seed_coview_cf",
+   "agent_night20_r3p3_user_user_cf_acq",
+   "agent_night20_r3p4_brand_cat_price_sibling",
+   "agent_night20_r4p4_cat_to_item_transition",
+   "agent_night20_r4p5_brand_switch_transition",
+   "agent_night20_r5p1_cf_xday_new_acq_transition",
+   "agent_night20_r5p2_cf_next_view_adjacency",
+   "agent_night20_r5p3_cf_converting_session_coview",
+   "agent_night20_r5p4_uc_nextday_continuation",
+   "agent_night20_r5p5_cf_considered_seed_coview",
+   "agent_night20_r6p1_older_view_seed_coview",
+   "agent_night20_r6p2_dwell_seed_coview",
+   "agent_night20_r6p3_abandoned_cart_seed_coview",
+   "agent_night20_r6p4_user_level_cooccurrence_cf",
+   "agent_night20_r6p5_fresh_2d_coview_graph"
+  ]
+ },
+ "code": {
+  "task1/exp.py": "94c1dc883654766d",
+  "task1/model.py": "33b7b2cf483bce77",
+  "task1/period.py": "fdeb16b9d0b39ece",
+  "task1/posthoc.py": "60a187edf3306ef3",
+  "task1/placebo.py": "35a77909256e2afb"
+ },
+ "libraries": {
+  "pandas": "3.0.6",
+  "numpy": "2.5.4",
+  "duckdb": "1.5.6",
+  "catboost": "1.2.10",
+  "pyarrow": null
+ },
+ "spec_sha256": "97f32ec15f92ea8a37ec94deae87c2a0c3a6fd9c4fdb121454416b74982d4de5",
+ "read": {
+  "commit": "d4a128d22cfbf3fa1d5efb0130f78d03a932ac32",
+  "at": "2026-10-21 04:40:35"
+ }
+}
