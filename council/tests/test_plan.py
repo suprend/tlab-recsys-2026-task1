@@ -68,6 +68,31 @@ class PlanTest(unittest.TestCase):
         self.assertEqual(sel['twin_arm']['family'], 'F2')                    # largest t(beta_g - beta_twin)
         self.assertEqual(sel['twin_arm']['replace'], ['council_g2_1', 'council_g2_1_tw'])
 
+    def test_analysis_refuses_an_edited_queue(self):
+        plan.build()
+        q = json.loads((self.runs / 'queue-plan.json').read_text())
+        q[0], q[1] = q[1], q[0]
+        (self.runs / 'queue-plan.json').write_text(json.dumps(q))
+        with mock.patch.object(plan.broker, 'y_select', side_effect=AssertionError('read')), \
+                self.assertRaises(SystemExit):
+            plan.analyze()
+
+    def test_the_one_c_val_read_is_kept(self):
+        plan.build()
+        (self.runs / 'selection.json').write_text(json.dumps(
+            {'SEL': 'ALL_P', 'twin_arm': {'family': None, 'card': None, 'replace': None}}))
+        plan.cval()
+        names = ['path_Hr_full_val_s0'] + [s['name'] for s in json.loads((self.runs / 'queue-cval.json').read_text())]
+        y = pd.DataFrame(np.full((40, len(names)), 0.3), index=[f'2020-02-08:{i}' for i in range(40)], columns=names)
+        out = self.runs / 'out'
+        with mock.patch.object(plan.roles, 'OUT', out), mock.patch.object(plan.D, 'two_level', side_effect=RuntimeError):
+            with mock.patch.object(plan.broker, 'c_val', return_value=y), self.assertRaises(RuntimeError):
+                plan.read_val()
+            self.assertTrue((out / 'cval-read.parquet').exists())
+            with mock.patch.object(plan.broker, 'c_val', side_effect=AssertionError('second read')), \
+                    self.assertRaises(RuntimeError):
+                plan.read_val()                                     # reuses the kept read, never reads again
+
     def test_cval_and_ctest_queues(self):
         plan.build()
         (self.runs / 'selection.json').write_text(json.dumps(

@@ -14,6 +14,7 @@ import hashlib
 import json
 import sys
 
+import duckdb
 import numpy as np
 import pandas as pd
 
@@ -50,10 +51,9 @@ def arms(curation):
     return out
 
 
-def build():
-    cur = _load('curation.json')
+def _queue(cur):
+    """The 48 specs of the plan from the curation: row r of design.matrix() is fit plan_r<r>."""
     fams, twins = list(cur['families']), list(cur['twins'])
-    names, empty = D.layout(len(fams), len(twins))
     x = D.matrix()
     col = {n: i for i, n in enumerate(D.COLUMNS)}
     placebo = {'columns': list(cur['placebo']), 'tables': [_table(i) for i in cur['placebo_families']]}
@@ -67,6 +67,15 @@ def build():
         queue.append({'name': f'plan_r{r:02d}', 'fit': 'T_fit', 'eval': 'S0', 'keep_half': roles.SELECT,
                       'recipe': 'plan', 'extra': extra, 'seed': seed, 'neg_seed': neg,
                       'placebo': placebo if row[col['PL']] > 0 else None})
+    return queue, placebo
+
+
+def build():
+    cur = _load('curation.json')
+    fams, twins = list(cur['families']), list(cur['twins'])
+    names, empty = D.layout(len(fams), len(twins))
+    x = D.matrix()
+    queue, placebo = _queue(cur)
     a = arms(cur)
     prereg = {
         'families': {f'F{k + 1}': f for k, f in enumerate(fams)},
@@ -89,7 +98,11 @@ def build():
 def analyze():
     pre = _load('prereg-2.json')
     queue = _load('queue-plan.json')
-    names = [q['name'] for q in queue]
+    if hashlib.sha256(D.matrix().tobytes()).hexdigest() != pre['matrix_sha256']:
+        raise SystemExit('design.matrix() differs from prereg-2.json')
+    if queue != _queue(_load('curation.json'))[0]:
+        raise SystemExit('queue-plan.json is not the queue of the matrix and the curation: rows would not match fits')
+    names = [f'plan_r{r:02d}' for r in range(1, 49)]
     y = broker.y_select(names)[names]
     groups = D.users_of(y.index)
     est = D.estimate(y.to_numpy(), D.matrix(), pre['empty'], groups=groups, names=D.COLUMNS)
@@ -154,7 +167,14 @@ def _contrast(y, a, b, groups):
 def read_val():
     q = _load('queue-cval.json')
     names = ['path_Hr_full_val_s0'] + [x['name'] for x in q]
-    y = broker.c_val(names)
+    kept = roles.OUT / 'cval-read.parquet'               # the only C_val read, kept if the statistics fail
+    if kept.exists():
+        y = duckdb.sql(f"SELECT * FROM read_parquet('{kept}')").df().set_index('qid')
+    else:
+        y = broker.c_val(names)
+        kept.parent.mkdir(parents=True, exist_ok=True)
+        frame = y.rename_axis('qid').reset_index()
+        duckdb.sql(f"COPY (SELECT * FROM frame) TO '{kept}' (FORMAT PARQUET)")
     groups = D.users_of(y.index)
     n = {arm: [f'cval_{arm}_s{i}' for i in range(2)] for arm in ('Hrp', 'ALLP', 'TWIN')}
     n['Hr'] = ['path_Hr_full_val_s0', 'cval_Hr_s1']
@@ -167,7 +187,7 @@ def read_val():
         if set(n[a] + n[b]) <= have:
             res['contrasts'][what] = _contrast(y, n[a], n[b], groups)
     if {'cval_Rb1_s0', 'cval_Rb2_s0'} <= have:
-        res['contrasts']['H+Rb2 − H+Rb1 (дисперсия генерации)'] = _contrast(y, ['cval_Rb1_s0'], ['cval_Rb2_s0'], groups)
+        res['contrasts']['H+Rb2 − H+Rb1 (генерация и ширина: Rb1 7 таблиц, Rb2 2)'] = _contrast(y, ['cval_Rb1_s0'], ['cval_Rb2_s0'], groups)
     if {'cval_Rb1_s0', 'path_Hr_full_val_s0'} <= have:
         res['contrasts']['H+Rb1 − H+r (зерно 0)'] = _contrast(y, ['path_Hr_full_val_s0'], ['cval_Rb1_s0'], groups)
         res['contrasts']['H+Rb2 − H+r (зерно 0)'] = _contrast(y, ['path_Hr_full_val_s0'], ['cval_Rb2_s0'], groups)
