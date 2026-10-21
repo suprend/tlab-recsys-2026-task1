@@ -1,0 +1,248 @@
+{
+  "format": "xfer-prereg-v1",
+  "dataset": "sber",
+  "base_sha256": "afd085c03b4a0059b1ef4e43d257604b7a7e12ec75e90814e5be02d3dee54ee5",
+  "set_sha256": "411953b3c43d0c50040b530052ab682ea53ee088dbaa61b516b1e417b010134f",
+  "base_digest": "4bc8a554d0bb159013371f9020e5bec20010e8cd8d5c5da8bda6b88f0860b92e",
+  "contract": {
+    "path": "docs/xfer-design.md",
+    "sha256": "7a7ee935c02513f5629b9a61203345281c5742b599faa020a1a0a50aecf7d512"
+  },
+  "dataset_doc": {
+    "path": "docs/xfer-sber-design.md",
+    "sha256": "3a2577f90f6e9aad78ba42755891f9ae96e0ed17c0943a61e6729fac09b9296e"
+  },
+  "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "6180e9074266e30099ad7215461058a3c3b87c9a5645039131a39ece0b7d7b9c",
+    "scripts/xfer_sber.py": "e538de9f4429414aa4a104c9e38710bc53dd6866d2591519b91361b6b5a0ee1f"
+  },
+  "code_changed_since_set": [],
+  "prompt_digest": "607719164d889b0ad6d2718572b976ea59af0aae430688696760160ee8d4947c",
+  "arms": {
+    "models": [
+      "B",
+      "BA",
+      "BApl"
+    ],
+    "pop": "Pop",
+    "series": {
+      "dev": [
+        "Pop",
+        "B",
+        "BA",
+        "BApl"
+      ],
+      "holdout": [
+        "Pop",
+        "B",
+        "BA",
+        "BApl"
+      ],
+      "final": [
+        "B",
+        "BA",
+        "BApl"
+      ]
+    }
+  },
+  "seeds": [
+    2026,
+    2027
+  ],
+  "sample_seed": 2026,
+  "anchors": {
+    "W": 14,
+    "N": 20000,
+    "K": 50,
+    "roles": {
+      "train": [
+        "2020-06-10",
+        "2020-06-24",
+        "2020-07-08",
+        "2020-07-22",
+        "2020-08-05"
+      ],
+      "val": [
+        "2020-08-19"
+      ],
+      "holdout": [
+        "2020-09-02"
+      ],
+      "kaggle": [
+        "2020-09-17"
+      ],
+      "probe": [
+        "2020-08-19"
+      ]
+    },
+    "series": {
+      "dev": {
+        "train": [
+          "2020-06-10",
+          "2020-06-24",
+          "2020-07-08",
+          "2020-07-22",
+          "2020-08-05"
+        ],
+        "eval": "2020-08-19",
+        "eval_role": "val",
+        "arms": [
+          "Pop",
+          "B",
+          "BA",
+          "BApl"
+        ]
+      },
+      "holdout": {
+        "train": [
+          "2020-06-10",
+          "2020-06-24",
+          "2020-07-08",
+          "2020-07-22",
+          "2020-08-05",
+          "2020-08-19"
+        ],
+        "eval": "2020-09-02",
+        "eval_role": "holdout",
+        "arms": [
+          "Pop",
+          "B",
+          "BA",
+          "BApl"
+        ]
+      },
+      "final": {
+        "train": [
+          "2020-06-24",
+          "2020-07-08",
+          "2020-07-22",
+          "2020-08-05",
+          "2020-08-19",
+          "2020-09-02"
+        ],
+        "eval": "2020-09-17",
+        "eval_role": "kaggle",
+        "arms": [
+          "B",
+          "BA",
+          "BApl"
+        ]
+      }
+    },
+    "anchor_role": {
+      "2020-06-10": "train",
+      "2020-06-24": "train",
+      "2020-07-08": "train",
+      "2020-07-22": "train",
+      "2020-08-05": "train",
+      "2020-08-19": "val",
+      "2020-09-02": "holdout",
+      "2020-09-17": "kaggle"
+    },
+    "queries": {
+      "train": 20000,
+      "val": 20000,
+      "holdout": 30000,
+      "kaggle": null,
+      "probe": null
+    },
+    "holdout": "2020-09-02",
+    "probe": "2020-08-19",
+    "probe_users": 5000,
+    "kaggle_chunk": 15000
+  },
+  "N": 20000,
+  "K": 50,
+  "recipe": {
+    "iterations": 500,
+    "depth": 8,
+    "learning_rate": 0.05,
+    "l2_leaf_reg": 10,
+    "loss_function": "Logloss",
+    "bootstrap_type": "Bayesian",
+    "bagging_temperature": 1,
+    "border_count": 128,
+    "boosting_type": "Plain",
+    "thread_count": 8,
+    "task_type": "CPU",
+    "verbose": false,
+    "allow_writing_files": false
+  },
+  "prediction_type": "RawFormulaVal",
+  "threads": {
+    "catboost": 8,
+    "collect": 4,
+    "sidecar": 4,
+    "probe": 3,
+    "agent": 3,
+    "model_duckdb": 4
+  },
+  "kaggle_chunk": 15000,
+  "kaggle_chunk_order": "ascending user_id over the kaggle frame users",
+  "permutation": "numpy.random.default_rng([20261021, seed, anchor_int, chunk]).permutation(n) over the agent block in user_id, item_id order: training - the rows of the anchor used in the fit, chunk 0; val/holdout frames - all frame rows, chunk 0; kaggle - per chunk of KAGGLE_CHUNK users in ascending user_id, chunk = 0-based index",
+  "bootstrap": {
+    "draws": 2000,
+    "seed": 2026
+  },
+  "reading": {
+    "holdout": "per seed D_s = BA_s - B_s and P_s = BA_s - BApl_s, paired bootstrap over queries (xfer_common.bootstrap); verdicts xfer_common.verdict_transfer / verdict_content; seed-mean D, P and BApl - B descriptive",
+    "kaggle": "xfer_common.kaggle_reading on private scores, BA against B; descriptive"
+  },
+  "gate": {
+    "stage1": [
+      "leakcheck OK (report under leakcheck/, completed, result OK, this set, last train and holdout anchors on the current collections)",
+      "finite B, BA and BApl scores on val and on the holdout frame",
+      "finite share of every agent column on the holdout frame within [0.5*min, 2*max] of its shares on the training rows of the holdout series, per anchor",
+      "dev metric of every B, BA and BApl fit >= Pop on val"
+    ],
+    "stage2": [
+      "finite scores on the kaggle frame",
+      "finite-share parity on the kaggle frame against the training rows of the final series"
+    ],
+    "arms": {
+      "B": [
+        "finite",
+        "floor"
+      ],
+      "BA": [
+        "finite",
+        "floor",
+        "leakcheck",
+        "parity"
+      ],
+      "BApl": [
+        "finite",
+        "floor",
+        "leakcheck",
+        "parity"
+      ]
+    },
+    "stage2_arms": {
+      "B": [
+        "finite"
+      ],
+      "BA": [
+        "finite",
+        "parity"
+      ],
+      "BApl": [
+        "finite",
+        "parity"
+      ]
+    },
+    "parity": [
+      0.5,
+      2.0
+    ],
+    "opened": "xfer_common.gate_arms(status)"
+  },
+  "created_utc": "2026-10-21T11:33:54Z"
+}
