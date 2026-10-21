@@ -1,0 +1,21 @@
+The submission.csv file - the submission - must contain two columns: Id and Predicted. Format:
+
+Id - user id. Example: 57
+Predicted - product ids separated by spaces. Example: 1 3 29 57 ... 100
+The sequence length should be 50. This is called the prediction, and the sequence elements (item ids) are called items.
+
+Mean Average Precision at K (\(MAP@K\)) metric is being used to evaluate the submission. It can be calculated according to the equation:
+
+\[ MAP@K(solution, submission) = \frac{1}{N}\sum_{n=1}^N AP@K_{n}(target_n, prediction_n) \]
+
+where N is the number of samples in the submission and \( AP@K_{n} \) is the Average Precision at K metric for prediction \(n\), which can be calculated with:
+
+\[ AP@K(target, prediction) = \frac{1}{min(K, M)}\sum_{k=1}^{K} r^{true}(π^{-1}(k)) \cdot p@k(target, prediction) \]
+
+where \(M\) is the target length, \(K=50\), \(r^{true}(e)\) can take values of 1 or 0 for relevant or irrelevant item \(e\), \(π^{-1}(k)\) represents the element with relevance position \(k\), and \(p@k\) (Precision at k) metric -
+
+\[ P@K(target, prediction) = \frac{\sum_{k=1}^{K} r^{true}(π^{-1}(k)) }{K} = \frac{relevant}{K} \]
+
+- is the ratio of relevant items count in first \(K\) elements to \(K\).
+Note that if the predicted sequence length is less than \(M\), the missing (ending) part is considered wrong.
+This metric is sensitive to order! Please sort your predictions descending by relevance.
