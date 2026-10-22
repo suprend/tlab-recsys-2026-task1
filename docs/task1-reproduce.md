@@ -18,7 +18,8 @@
 4. таблицы дополнительных признаков: пакет из брейншторма, DFS, признак агента;
 5. прогоны на валидации и числа половины B;
 6. проверка финального пути на val. Тест — только один раз;
-7. после теста: сетка, повтор на 2020, плацебо, перенос на H&M, Tinkoff и СберМаркет (раздел «После теста»).
+7. после теста: сетка, повтор на 2020, плацебо, перенос на H&M, Tinkoff и СберМаркет (раздел «После теста»);
+8. совет агентов на REES46 2020, Tinkoff и СберМаркете и побочные проверки H6, H8–H11, H13 (раздел «Совет агентов»).
 
 Термины. Якорь t — 00:00 UTC дня, от которого ранжируются товары следующих 24 часов. Train — якоря 15.10–7.11, val — 8–13.11, test — 18–28.11 (2019). Val делится по хешу `user_id` на половины A (выбор) и B (подтверждение). Песочница — отдельное подключение DuckDB для дополнительных признаков (`task1/extra.py`): SQL признака видит в нём только события до якоря и пользователей, активных за 48 часов до него.
 
@@ -552,6 +553,249 @@ diff /tmp/posthoc-recency.json docs/xfer-sber-run/posthoc-recency.json
 ```
 
 У post-hoc Tinkoff скрипта в репозитории нет, его числа есть только в `xfer-tinkoff.md`.
+
+## Совет агентов
+
+Разделы отчёта: [«Совет агентов над H+ (REES46 2020): первая проверка»](task1-v2-report.md#совет-агентов-над-h-rees46-2020-первая-проверка) и [«Совет агентов на Tinkoff и СберМаркете: повторный тест»](task1-v2-report.md#совет-агентов-на-tinkoff-и-сбермаркете-повторный-тест). Правила — контракты `council/runs/rees46-2020/contract.md` и `council/runs/xfer/contract.md`. Порядок ночи 22.10 с критериями готовности — `council/runs/night/2026-10-22-plan.md`. Совет идёт после повтора 2020 и переноса и читает уже открытые тесты повторно.
+
+Порядок:
+1. prereg-0: проверка пути, шум, гейт мощности;
+2. волна карточек, критика, куратор;
+3. compute — таблицы совета;
+4. план: 48 подгонок, `analyze`, `selection.json`;
+5. C_val — только REES46;
+6. после «да» владельца: маркер теста, очередь C_test, чтение.
+
+### Что воспроизводится без LLM, а что нет
+
+- **Вызовы Opus не повторяются.** Роли совета — `claude -p <промпт> --model opus --output-format json --tools '' --strict-mcp-config` из пустого каталога: `/tmp/tlab-council-llm` у REES46, `/tmp/tlab-council-llm-a` или `-b` у переноса. Через LLM идут стадии `reference` (с одним вызовом `reference-fix` на упавшие предложения), `wave1`, `cross` и `authors`. Их итоги под Git: `reference-rb<k>.json`, `cards-wave1.json`, `critiques.json`, `cards-final.json`, промпты `prompts/`, ответы `replies/`, журнал `llm.jsonl` с ценой вызовов. Стадии возобновляются по своему файлу: записанное второй запуск у LLM не спрашивает. На клоне они вернут закоммиченное без вызовов. Запуск в чистом каталоге — новый эксперимент.
+- **Промпты REES46.** `council.tests.test_golden_rees46` пересобирает все 18 промптов `llm.jsonl` из сохранённых входов и прогоняет их через `council.llm.ask` с подменённым `claude -p`. Байт в байт совпадают 10 — `cross` (6) и `authors` (4). Восемь вызовов `reference`, `reference-fix` и `wave1` шли до правок ревью (отклонение 13 в `prereg-0.md`). В текущих шаблонах есть список слов, которые отвергает песочница; без этого блока совпадают и они. Тест закрепляет и расхождение, и его причину.
+- **Курация REES46.** Тот же тест пересобирает `curation.json` из `cards-final.json`, `probes.json` и `critiques.json` байт в байт. `council.tests.test_xfer_curate` проверяет то же для кода переноса с правилами REES46. Своего эталона курации у Tinkoff и СберМаркета нет.
+- Обоим тестам нужен кэш проб `artifacts/task1/v2020/council/probes/` (вне Git). Подтест без нужной записи пропускается с названной причиной. `test_golden_rees46` ещё читает схемы parquet `days6` и 34 таблиц H+ (`agents.context()`). Значит, нужны кэш проб и таблицы 2020 после `--prepare`.
+
+```bash
+TASK1_PERIOD=2020 .venv/bin/python -m unittest council.tests.test_golden_rees46 -v
+TASK1_PERIOD=2020 .venv/bin/python -m unittest council.tests.test_xfer_curate -v
+```
+
+- **Без LLM, кодом:** пробы (`evidence`), `prereg1`, курирование, `compute`, сборка плана, подгонки, `analyze`, выбор, C_val и C_test. Их входы — закоммиченные карточки. Совпадение пересчитанных подгонок с подгонками автора не проверялось.
+- **Однократные чтения.** Брокер — единственный читатель меток. Каждое чтение он пишет в закоммиченный `reads.jsonl` и сверяется с ним.
+  - REES46: второй `noise_explore` и второй `c_val` отказывают. На клоне откажет только `start_test()`: маркер `test.started` лежит под Git. Подгонкам теста нужен лишь этот маркер. У `c_test` нет ни счётчика (`once` стоит только у `noise_explore` и `c_val`), ни сохранённого чтения. Поэтому подгонки теста и `read-test` на клоне пройдут и перечитают метки. Защищает только правило: не запускать.
+  - Перенос: маркер — запись `test.started` в `reads.jsonl`, второй `start-test` отказывает. `read-test` берёт сохранённое чтение `artifacts/council/xfer-<x>/test-read-<sha>.parquet`. Если есть запись `c_test`, а файла нет, он останавливается. Метки C_test — holdout-коллекция, а её клон не соберёт (раздел «Перенос на Tinkoff и СберМаркет»).
+
+Сверка чисел отчёта с файлами совета — без данных и без LLM:
+
+```bash
+.venv/bin/python -m council.report rees46 --check
+.venv/bin/python -m council.report tinkoff --check
+.venv/bin/python -m council.report sber --check
+```
+
+- Каждый блок `<!-- report:<набор>:<таблица> -->` отчёта сравнивается с таблицей, построенной сейчас: числа, метки ожидания и закрытый словарь вердиктов. При расхождении — diff и код выхода 1.
+- `--dry` перечисляет найденные и недостающие входы.
+- Блок `report:rees46:costs` читает журнал подгонок `artifacts/task1/v2020/council/fits/runs.jsonl`, он вне Git. По коду на клоне без этого журнала время и пик в блоке не построятся, и `--check` по `rees46` разойдётся. Сверка `tinkoff` и `sber` читает только файлы под Git.
+- Описательное раскрытие без новых чтений меток (H2, H3, H1', H14): `.venv/bin/python -m council.reveal <набор>`. С `--write` оно пишет `reveal.json`.
+
+### Тяжёлая полоса
+
+- Тяжёлый шаг — подгонка совета, `compute`, проба памяти, побочные H6, H8–H11. Одновременно идёт только один. Рядом допустимы вызовы LLM и правка кода, но не пробы, DuckDB и полный набор тестов.
+- Пики у автора, машина 36 ГБ:
+  - проверка пути REES46 (`full_val`) — 21.0 ГБ (`prereg-0.md`);
+  - проба памяти `full_test` — Hrp 24.0 ГБ, ALL_P 25.8 ГБ (`memory.jsonl`);
+  - H9–H11 — ≈24–26 ГБ по оценке prereg.
+- Очередь и `compute` переноса, H6, H8 и H9–H11 держат `/tmp/tlab-heavy.lock` и ждут процессов REES46. `council.queue` замок не берёт. Поэтому перед каждым тяжёлым шагом REES46 нужна проверка:
+
+```bash
+.venv/bin/python -c "from council.xfer.queue import lock_holder; print(lock_holder())" \
+ && ! pgrep -fl '[c]ouncil/xfer/run.py.*(queue|compute|fit-one)|[c]ouncil\.(fit|queue|memory)|[c]ouncil[./]side|[c]ouncil\.agents.*compute|scripts[./]xfer_'
+```
+
+  Ожидается `None` и пустой `pgrep`. Шаблон шире проверки из плана ночи: в нём ещё `compute` REES46 и скрипты `scripts/xfer_*`, как в `FOREIGN` из `council/xfer/queue.py`.
+- Гейт проб есть только у переноса и у H13. Там проба — лёгкий шаг: 4 потока, DuckDB 4 ГБ, гейт перед каждой пробой. Она идёт рядом с тяжёлым шагом, только если его записанный пик не выше 20 ГБ (`PEAK_LIMIT_GB`). Рядом с подгонками REES46 `full_val` и `full_test`, `council.memory` и `compute` она не идёт.
+- У проб REES46 гейта нет. Их делают `council.agents reference`, `evidence` и `authors`, по умолчанию с `--threads 8`. Запускайте их только при пустой тяжёлой полосе.
+- Очередь переноса вытесняется так: `kill -TERM <PID родителя>`. Дочерний `fit-one` дописывает запись и отпускает замок. Повторный `queue <NAME>` пропускает готовые подгонки. Очередь REES46 тоже пропускает подгонку с файлом и записью той же спецификации.
+- Журналы пишутся через `> /tmp/tlab-<имя>.log 2>&1`, без пайпа. На PID тяжёлого шага — `caffeinate -i -w <PID> &`.
+
+### REES46 2020
+
+Нужны `TASK1_PERIOD=2020`, таблицы 2020 после `--prepare`: `days6` и 34 таблицы H+, список — `council/roles.py`. Ещё нужен прогон плацебо `pl20_Hp_s0`: с ним сверяется путь. Файлы совета лежат в `council/runs/rees46-2020/` под Git. Подгонки, кэш проб и сохранённое чтение C_val — в `artifacts/task1/v2020/council/`.
+
+**1. prereg-0.** Отдельной команды нет. `prereg-0.json` и `prereg-0.md` впервые записаны в коммите 3c17c9f, позже их правили 6591a6f и a4bb59c. Записаны они кодом `council.fit`, `council.queue`, `council.broker` и `council.design`:
+- подгонка пути `path_Hr_full_val_s0` (`council.fit.path_spec()`) и `broker.path_check` против `pl20_Hp_s0`;
+- две подгонки шума из `queue-noise.json` и единственное чтение `broker.noise_explore`;
+- `design.rehearse` и гейт мощности. Гейт не пройден (0.52 < 0.8), поэтому SEL = ALL_P по построению.
+
+На клоне повторяются подгонка и сверка пути; `noise_explore` откажет. Подгонка пути нужна и C_val: это рука H+r на зерне 0.
+
+```bash
+TASK1_PERIOD=2020 .venv/bin/python -c "import json; from council.fit import path_spec; print(json.dumps([path_spec()]))" > /tmp/council-path.json
+TASK1_PERIOD=2020 .venv/bin/python -m council.queue /tmp/council-path.json
+TASK1_PERIOD=2020 .venv/bin/python -c "from council import broker; print(broker.path_check('path_Hr_full_val_s0'))"
+```
+
+`path_check` печатает только наибольшие разности по метрикам и дописывает строку в `reads.jsonl`.
+
+**2–3. Волна, критика, куратор, compute.**
+
+```bash
+TASK1_PERIOD=2020 .venv/bin/python -m council.agents reference --k 1
+TASK1_PERIOD=2020 .venv/bin/python -m council.agents reference --k 2
+TASK1_PERIOD=2020 .venv/bin/python -m council.agents wave1
+TASK1_PERIOD=2020 .venv/bin/python -m council.agents evidence
+TASK1_PERIOD=2020 .venv/bin/python -m council.agents cross
+TASK1_PERIOD=2020 .venv/bin/python -m council.agents authors
+TASK1_PERIOD=2020 .venv/bin/python -m council.agents prereg1
+TASK1_PERIOD=2020 .venv/bin/python -m council.agents curate
+TASK1_PERIOD=2020 .venv/bin/python -m council.agents compute
+```
+
+- `reference`, `wave1`, `cross` и `authors` вызывают Opus. `authors` заново измеряет переписанные карточки.
+- `evidence` измеряет карточки без исходов. Уже измеренную версию карточки он не перемеряет.
+- `prereg1` записывает хеши SQL, знаки и страты.
+- `curate` — код без исходов. Если `curation.json` уже есть, он возвращается как есть; байты проверяет эталонный тест выше.
+- `compute` — тяжёлый шаг: таблицы семейств, близнецов и оставленных Rb на всех днях train, val и test.
+
+**4. План и выбор.**
+
+```bash
+TASK1_PERIOD=2020 .venv/bin/python -m council.plan build
+TASK1_PERIOD=2020 .venv/bin/python -m council.queue council/runs/rees46-2020/queue-plan.json
+TASK1_PERIOD=2020 .venv/bin/python -m council.plan analyze
+git diff council/runs/rees46-2020/
+```
+
+- `build` пишет `prereg-2.json` и `queue-plan.json` из `curation.json`: 48 подгонок плана Плакетта–Бёрмана, T_fit → S0, половина B.
+- `analyze` читает S0-select через `broker.y_select`, такое чтение допускается сколько угодно раз. Он пишет `plan-result.json` и `selection.json`.
+- `build`, `analyze`, `cval` и `ctest` перезаписывают закоммиченные файлы без проверки, поэтому после них нужен `git diff`.
+- У автора `selection.json` закоммичен до первой подгонки C_val. Без закоммиченного выбора `c_val` и `start_test()` откажут.
+
+**5. C_val.**
+
+```bash
+TASK1_PERIOD=2020 .venv/bin/python -m council.plan cval
+TASK1_PERIOD=2020 .venv/bin/python -m council.queue council/runs/rees46-2020/queue-cval.json
+TASK1_PERIOD=2020 .venv/bin/python -m council.plan read-val
+TASK1_PERIOD=2020 .venv/bin/python -m council.memory --arm ALLP
+```
+
+- `queue-cval.json` — 9 подгонок train → val:
+  - H+r на зерне 1;
+  - H+r⁺ (`Hrp`), ALL_P и рука-близнец на двух зёрнах;
+  - Rb1 и Rb2 на одном.
+- `read-val` делает одно чтение `broker.c_val` и пишет `val.json`. Само чтение сохраняется в `artifacts/task1/v2020/council/cval-read.parquet` и переиспользуется. На клоне `c_val` откажет: запись о чтении уже есть в `reads.jsonl`.
+- `council.memory` обучает руку в рецепте `full_test` без скоринга. Дни теста он не читает и дописывает пик в `memory.jsonl`. У автора проба памяти Hrp выполнена 21.10, ALL_P — 22.10.
+
+**6. C_test** — только после «да» владельца. В `council/runs/rees46-2020/test-approved.md` записывается строка `approved: <дословная цитата с «да»>`, затем:
+
+```bash
+TASK1_PERIOD=2020 .venv/bin/python -m council.plan ctest
+TASK1_PERIOD=2020 .venv/bin/python -c "from council import broker; print(broker.start_test())"
+TASK1_PERIOD=2020 .venv/bin/python -m council.queue council/runs/rees46-2020/queue-test.json
+TASK1_PERIOD=2020 .venv/bin/python -m council.plan read-test
+```
+
+- `queue-test.json` — 10 подгонок train + val → 14–29.02: H+r⁺ и ALL_P на четырёх зёрнах, H+r на двух.
+- `start_test()` проверяет цитату и то, что `selection.json` закоммичен и побайтно совпадает с выбором, с которым читался C_val. Затем пишет `test.started`. Подгонки теста без маркера отказывают.
+- `read-test` пишет `test.json`: H1 (SEL против H+r⁺ по четырём зёрнам) и контрасты. Они считаются на основных днях без 27–28.02 и на всех 16.
+- На клоне шаг технически повторим: маркер под Git, откажет только `start_test()`. Не запускайте (п. «Однократные чтения» выше).
+
+### Tinkoff и СберМаркет
+
+Нужна dev-часть переноса из раздела «Перенос на Tinkoff и СберМаркет». Подгонка совета сверяет строки обучения с отчётом подгонки `BA2026` той же серии переноса. Проверка пути сравнивает с `dev/BA2026` и `holdout/BA2026`.
+
+Запуск — `.venv/bin/python -I council/xfer/run.py --dataset tinkoff|sber <стадия>`, из корня, один набор на процесс:
+- `-I` обязателен: без него `council/xfer/queue.py` заслонит стандартный модуль `queue`.
+- `TASK1_PERIOD` ставится в 2020 сам.
+- `info` печатает якоря, пути и code identity против prereg. `stages` выводит список стадий.
+- Файлы совета лежат в `council/runs/xfer-<x>/`, подгонки, таблицы и пробы — в `artifacts/council/xfer-<x>/`.
+
+Порядок на Tinkoff; для СберМаркета — те же команды с `--dataset sber`:
+
+```bash
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff info
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff queue-path
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff queue path
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff prereg0
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff reference --k 1
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff reference --k 2
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff wave1
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff evidence
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff cross
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff authors
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff evidence
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff prereg1
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff curate
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff compute
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff plan-build
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff queue plan
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff analyze
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff select
+```
+
+- `queue-path` собирает 4 подгонки: путь dev, путь test и шум на двух зёрнах. `queue path` их выполняет.
+- `prereg0` сверяет пути, делает одно чтение S0-explore и проверяет гейт мощности. У автора prereg-0 обоих наборов записан на одном штампе кода совета: поле `identity.council` в двух `prereg-0.json` совпадает. С этого момента `council/xfer/*` заморожен до `read-test`. Правка возможна только отклонением в `configs/datasets/xfer-<x>-deviations.json`.
+- Стадии `reference`, `wave1`, `cross` и `authors` вызывают Opus. Бюджет — 24 вызова и $25 на набор.
+- `evidence` измеряет карточки без исходов и проверяет гейт перед каждой пробой. Второй запуск после `authors` измеряет переписанные карточки.
+- `compute` — тяжёлый шаг. Он начинает с коллекции C_test, у которой самая длинная история.
+- `plan-build` пишет `prereg-2.json` и `queue-plan.json` (48 подгонок). До запуска плана у автора было два независимых ревью: `review-prereg2-r1.md` и `review-prereg2-r2.md`.
+- `analyze` пишет `plan-result.json`. Если номинированный список D не пуст, он пишет и `queue-confirm.json`; тогда до `select` выполняется `queue confirm`. У автора D пуст у обоих наборов.
+- `select` пишет `selection.json`. Флаги `--cut` и `--cut-plan` (§4 контракта) у автора не применялись: `cut` пуст, `cut_plan` — `false`.
+- `prereg-0.json` и `selection.json` пишутся строго один раз: если файл есть, команда откажет даже при том же содержимом. `prereg-2.json` и файлы очередей пишутся через `_save_new`: то же содержимое оставляет файл как есть, другое — отказ.
+
+C_test — только после «да» владельца для этого набора. В `council/runs/xfer-<x>/test-approved.md` записываются строки `approved:` (цитата с «да») и `transcript: <id сессии> / <сообщение>`:
+- цитата или сообщение называют набор и `final_labels`;
+- строки не совпадают со строками `test-approved.md` другого набора, иначе `start-test` откажет.
+
+Затем:
+
+```bash
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff start-test
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff test-queue
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff queue test
+.venv/bin/python -I council/xfer/run.py --dataset tinkoff read-test
+```
+
+- `test-queue` собирает 14 подгонок, при непустом D — 16.
+- `read-test` пишет `test.json`.
+
+На клоне:
+- `prereg0` откажет сразу: `prereg-0.json` уже есть;
+- `analyze` и `select` откажут из-за закоммиченного `selection.json`;
+- `compute` и тесту нужна holdout-коллекция, а её клон не соберёт.
+
+Без данных проверяются `council.report <x> --check` и `council.reveal`.
+
+### Побочные проверки
+
+**H13, покрытие кандидатов** (REES46 2020, хвост T_fit). Модуль — `council/side/coverage.py`, prereg — `council/runs/side/coverage.md`, итог — `council/runs/side/coverage.json`. Это лёгкий шаг: DuckDB в памяти, база 2020 подключена только для чтения. Он ждёт тяжёлых шагов REES46 и переноса. Метки S0, val и test он не читает.
+
+```bash
+TASK1_PERIOD=2020 .venv/bin/python -I council/side/coverage.py --dry
+TASK1_PERIOD=2020 .venv/bin/python -I council/side/coverage.py > /tmp/tlab-side-coverage.log 2>&1
+```
+
+**H9–H11** — REES46 2019, только половина A val. Модуль — `council/side/task1_side.py`. Правила, время и пики — prereg `council/runs/side/h9.md`, `h10.md`, `h11.md`. Общий стенд и проверка пути описаны в `h11.md`.
+- H9 — настройка H+.
+- H10 — ранняя остановка.
+- H11 — групповой приём таблиц агента.
+
+Порядок дня: проверка пути → H9 → H10 → H11, перед каждым шагом — проверка тяжёлой полосы. Ещё каждый шаг окружают снимки листинга `artifacts/task1/v2`, `artifacts/task1/v2020`, `artifacts/xfer` и `task1/runs`; команды снимков — в разделе «Команды» каждого prereg. Под `artifacts/task1/v2` и `task1/runs` diff обязан быть пустым: строка там — инцидент, результат `refused`, выход 3. Строки под `artifacts/task1/v2020` и `artifacts/xfer` сверяются с журналами владельцев (`queue.jsonl`) за время прогона. Если владельца нет, это тоже инцидент.
+
+```bash
+TASK1_PERIOD=2019 .venv/bin/python -X faulthandler -m council.side.task1_side path > /tmp/tlab-side-path.log 2>&1
+TASK1_PERIOD=2019 .venv/bin/python -m council.side.task1_side h9 --dry
+TASK1_PERIOD=2019 .venv/bin/python -X faulthandler -m council.side.task1_side h9 > /tmp/tlab-side-h9.log 2>&1
+TASK1_PERIOD=2019 .venv/bin/python -m council.side.task1_side h10 --dry
+TASK1_PERIOD=2019 .venv/bin/python -X faulthandler -m council.side.task1_side h10 > /tmp/tlab-side-h10.log 2>&1
+TASK1_PERIOD=2019 .venv/bin/python -m council.side.task1_side h11 --dry
+TASK1_PERIOD=2019 .venv/bin/python -X faulthandler -m council.side.task1_side h11 > /tmp/tlab-side-h11.log 2>&1
+```
+
+- Результат пишется в `artifacts/side/<h>/` и `council/runs/side/<h>-result.json`; проверка пути — в `t1-path-result.json`.
+- Половину B модуль не читает. Условные правила B в `h9.md` и `h11.md` требуют отдельного «да» владельца.
+- `h11 --groups 10|15` — вариант владельца с крупными группами. Он запускается только после основного `h11` со статусом `ok`, результат — `h11-L<g>-result.json`.
+
+**H6 и H8** запускаются так же, скриптом с `--dry` и без него. H6 — прокси Π плана REES46: `council/side/proxy.py`, prereg `council/runs/side/proxy.md`. H8 — якорь 611 Tinkoff: `council/side/tinkoff_anchor.py`, prereg `council/runs/side/tinkoff-611.md`.
 
 ## Время шагов
 
