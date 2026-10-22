@@ -1,0 +1,343 @@
+{
+ "families": [
+  "G1-1",
+  "G2-1",
+  "G3-2",
+  "G4-3",
+  "G1-2",
+  "G2-2",
+  "G3-3",
+  "G4-7",
+  "G1-4",
+  "G2-3",
+  "G3-4",
+  "G4-8"
+ ],
+ "columns": {
+  "G1-1": [
+   "ag_c1_trig_lag",
+   "ag_c1_trig_tdecay",
+   "ag_c1_trig_visits"
+  ],
+  "G2-1": [
+   "ag_c2_pop_at_last_visit",
+   "ag_c2_exposure_shift"
+  ],
+  "G3-2": [
+   "ag_c3_after_share",
+   "ag_c3_same_step_share"
+  ],
+  "G4-3": [
+   "ag_c4_ret_basket_share"
+  ],
+  "G1-2": [
+   "ag_c1_vday_lift"
+  ],
+  "G2-2": [
+   "ag_c2_launch_cohort_kern"
+  ],
+  "G3-3": [
+   "ag_c3_mc2_basket"
+  ],
+  "G4-7": [
+   "ag_c4_scout_mean"
+  ],
+  "G1-4": [
+   "ag_c1_state_lift"
+  ],
+  "G2-3": [
+   "ag_c2_stage_growth_dev"
+  ],
+  "G3-4": [
+   "ag_c3_nbr_trend7",
+   "ag_c3_nbr_mom30"
+  ],
+  "G4-8": [
+   "ag_c4_cohort_entry_lift"
+  ]
+ },
+ "width": 17,
+ "twins": [
+  "G1-2",
+  "G2-1",
+  "G3-2",
+  "G4-3"
+ ],
+ "twin_checks": {
+  "G1-1": "TWIN-BROKEN",
+  "G2-1": "ok",
+  "G3-2": "ok",
+  "G4-3": "ok",
+  "G1-2": "ok",
+  "G2-2": "ok",
+  "G3-3": "ok",
+  "G4-7": "TWIN-BROKEN",
+  "G1-4": "ok",
+  "G2-3": "ok",
+  "G3-4": "ok",
+  "G4-8": "ok"
+ },
+ "placebo": [
+  "ag_c1_vday_lift",
+  "ag_c3_after_share",
+  "ag_c3_nbr_trend7",
+  "ag_c2_pop_at_last_visit"
+ ],
+ "placebo_families": [
+  "G1-2",
+  "G3-2",
+  "G3-4",
+  "G2-1"
+ ],
+ "removed": [
+  {
+   "id": "G1-3",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G1-5",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G1-6",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G1-7",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G2-4",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G2-5",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G2-7",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G2-8",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G3-1",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G3-5",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G3-7",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G4-1",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G4-2",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G4-4",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G4-5",
+   "step": 1,
+   "reason": "machine test red: error: 641: timeout after 20 s"
+  },
+  {
+   "id": "G4-6",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G1-8",
+   "step": 3,
+   "reason": "quota: 3 per lens, 12 in all"
+  },
+  {
+   "id": "G2-6",
+   "step": 3,
+   "reason": "quota: 3 per lens, 12 in all"
+  },
+  {
+   "id": "G3-6",
+   "step": 3,
+   "reason": "quota: 3 per lens, 12 in all"
+  },
+  {
+   "id": "G3-8",
+   "step": 3,
+   "reason": "quota: 3 per lens, 12 in all"
+  }
+ ],
+ "parity": {
+  "w_council": 17,
+  "w_reference": 30,
+  "cut": [
+   "reference"
+  ],
+  "council_removed": [],
+  "reference_drop": [
+   "rb2_user_lastcycle_season",
+   "rb2_basket_match",
+   "rb2_evergreen_cover",
+   "rb2_basket_context",
+   "rb2_profile_coherence",
+   "rb2_leader_cf",
+   "rb2_precursor_share"
+  ],
+  "w_council_after": 17,
+  "w_reference_after": 18,
+  "ok": true
+ },
+ "reference_removed": [
+  {
+   "table": "rb1_cooc_time_decay",
+   "step": 2,
+   "reason": "duplicate of H+: ag_rb1_cooc_tdecay R2_wq 0.9132, max|rho_wq| 0.9192 (ag_cond_decay)"
+  },
+  {
+   "table": "rb2_active_share",
+   "step": 2,
+   "reason": "duplicate of H+: ag_rb2_share30 R2_wq 1.0, max|rho_wq| 1.0 (users_30)"
+  },
+  {
+   "table": "rb2_lifecycle_forecast",
+   "step": 2,
+   "reason": "duplicate of H+: ag_rb2_lc_ratio R2_wq 0.9278, max|rho_wq| 0.9489 (users_30)"
+  },
+  {
+   "table": "rb2_user_earliness",
+   "step": 2,
+   "reason": "duplicate of rb1_early_adopter: max|rho_wq| 1.0, R2_wq 1.0"
+  }
+ ],
+ "reference": [
+  "rb1_newcomer_share",
+  "rb1_basket_context",
+  "rb1_precursor_share",
+  "rb1_backward_transition",
+  "rb1_user_taste_spread",
+  "rb1_history_coherence",
+  "rb1_variant_hunter",
+  "rb1_strong_neighbor_support",
+  "rb1_early_adopter",
+  "rb1_rp3_walk",
+  "rb1_bigram_transition",
+  "rb2_newcomer_draw",
+  "rb2_adopter_tenure_gap"
+ ],
+ "warnings": [],
+ "critiques": {
+  "G1-1": [
+   "MECHANISM_DOUBT",
+   "OK"
+  ],
+  "G2-1": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL"
+  ],
+  "G3-2": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL"
+  ],
+  "G4-3": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK"
+  ],
+  "G1-2": [
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL"
+  ],
+  "G2-2": [
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL"
+  ],
+  "G3-3": [
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL"
+  ],
+  "G4-7": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK",
+   "SHIFT"
+  ],
+  "G1-4": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK"
+  ],
+  "G2-3": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK"
+  ],
+  "G3-4": [
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL"
+  ],
+  "G4-8": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK",
+   "SHIFT"
+  ]
+ },
+ "reference_order": [
+  "rb1_newcomer_share",
+  "rb1_basket_context",
+  "rb1_cooc_time_decay",
+  "rb1_precursor_share",
+  "rb1_backward_transition",
+  "rb1_user_taste_spread",
+  "rb1_history_coherence",
+  "rb1_variant_hunter",
+  "rb1_strong_neighbor_support",
+  "rb1_early_adopter",
+  "rb1_rp3_walk",
+  "rb1_bigram_transition",
+  "rb2_active_share",
+  "rb2_lifecycle_forecast",
+  "rb2_newcomer_draw",
+  "rb2_adopter_tenure_gap",
+  "rb2_precursor_share",
+  "rb2_leader_cf",
+  "rb2_profile_coherence",
+  "rb2_user_earliness",
+  "rb2_basket_context",
+  "rb2_evergreen_cover",
+  "rb2_basket_match",
+  "rb2_user_lastcycle_season"
+ ]
+}

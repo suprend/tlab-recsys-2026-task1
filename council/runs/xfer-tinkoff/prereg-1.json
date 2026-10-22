@@ -1,0 +1,739 @@
+{
+ "cards": [
+  {
+   "id": "G1-1",
+   "lens": "G1",
+   "name": "trigger_recency",
+   "table": "g1_1",
+   "level": "pair",
+   "sql_sha256": "f0e990014f312d4c09c96f83587139a8217a2bb3e6a62f9c8eaf4804ea428eba",
+   "twin_sha256": "de8b17384c6b92d3328af5674d6d378b1c7279a5f18d23d2fd27b4acf74cf08e",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Users whose recent history spans several visits, so trigger lags differ. They have at least 2 distinct active steps in [A-90, A) and an event in the last 14 steps. SQL: (SELECT count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id AND e.t >= {A} - 90) >= 2 AND (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) >= {A} - 14",
+   "null_stratum": "Users with a single active step in the last 90 steps. Every trigger has lag 0 and visits is at most 1, so only the co-adoption share is left. SQL: (SELECT count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id AND e.t >= {A} - 90) <= 1",
+   "rival": {
+    "explanation": "The gain may come only from the capped recent-adopter co-adoption share, which is another normalisation of item-item similarity, and not from the timing of the trigger. The twin replaces each of u's real visit steps with a random step in [A-90, A) chosen by hash. This keeps the grouping of items into visits and the co-adoption share, but destroys their real order and spacing. If the rival is right, the twin matches the original.",
+    "stratum": "users whose recent items are popular (many adopters), where the capped share differs most from the cosine scores"
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor in the mixed-recency stratum (>= 2 active steps in 90, last event within 14). If trig_*_tw gives the same gain, timing is refuted and the gain is the capped co-adoption share (the rival)."
+    },
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: gain of original over twin for users with >= 2 active steps in 90 and an event within 14 steps, minus the same gain for users with <= 1 active step. If it is about 0, the real-time decay is refuted. Add a directed variant with e.t > v's src time; if it does not beat the undirected one, the transition reading fails."
+    },
+    {
+     "critic": "skeptic",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as factor: if the time-shuffled twin gives the same gain in the stratum of multi-visit users with an event in the last 14 steps, timing is refuted and the rival (co-adoption normalisation) wins. Also run a difference of differences against the single-active-step users; there must be a gap."
+    }
+   ]
+  },
+  {
+   "id": "G1-2",
+   "lens": "G1",
+   "name": "visit_day_context",
+   "table": "g1_2",
+   "level": "pair",
+   "sql_sha256": "de1115ff778603284a115b94f9a9cf4dc85266924b232fa14bdf2c7998d91702",
+   "twin_sha256": "5fadf303bb7f14f5426a1e81464d357a803219c250ae64b03a6b4ba3e25f4013",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Users who shopped recently but not at the very latest steps, so their visit days differ from the newest popularity window: user_recency between 4 and 14. SQL: {A} - (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) BETWEEN 4 AND 14",
+   "null_stratum": "Dormant users whose last visit context is stale. SQL: (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) < {A} - 90",
+   "rival": {
+    "explanation": "The lift may be only very-short-horizon momentum (1-3 steps against 30) or a weekday rhythm, and not u's personal exposure. The twin moves each visit day by 1-7 steps in either direction, keeping it inside [.., A). This keeps the staleness band and the short-horizon momentum while breaking the alignment with u's actual days. If the rival is right, the twin matches the original.",
+    "stratum": "users with user_recency <= 3, where visit days coincide with the latest steps"
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor, redesigned to shift days both forward and backward within u's recency band. If the redesigned twin matches the gain in the recency <= 14 stratum, the personal-context mechanism is refuted."
+    },
+    {
+     "critic": "G2",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: gain in the recency <= 14 stratum minus the recency > 90 null stratum, restricted to items with item_age > user_recency. If no gain remains, the gain is freshness."
+    },
+    {
+     "critic": "G3",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: gain of original over twin for users with last event within 14 steps, minus the same gain for users with last event before A-90. If it is not positive and concentrated where recency > 3 (outside the rival stratum), the personal-context mechanism is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: users whose last event is within 14 steps against users dormant for 90+ steps, with users at user_recency <= 3 excluded. If the gain sits only in user_recency <= 3, it is short-horizon popularity, and the mechanism is refuted. The twin as a factor must also lose the gain."
+    }
+   ]
+  },
+  {
+   "id": "G1-4",
+   "lens": "G1",
+   "name": "recency_state_pop",
+   "table": "g1_4",
+   "level": "pair",
+   "sql_sha256": "4e898ac84a9727e7415d216d895e8a47cf0cb908efff56c6af453d8bab2bc008",
+   "twin_sha256": "51e50a14e5677fa9c5b253fba3f6cac2b7e2d3c557cc8c7a98e19d842517cf76",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Dormant users, whose pool of returning sessions differs most from the overall session mix: user_recency >= 16. SQL: {A} - (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) >= 16",
+   "null_stratum": "Users active within the last 3 steps. Their pool is almost all sessions, so the lift is about 0 by construction. SQL: {A} - (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) <= 3",
+   "rival": {
+    "explanation": "The lift of long-gap returner sessions may just mark evergreen, steadily bought items, because returners after a pause meet the long-lived assortment. That is an item property any user would show, not a match to u's pause state. The twin with hashed buckets keeps the same item-level lifts, so under the rival it helps equally.",
+    "stratum": "old items (item_age > 180) for all users, regardless of user_recency"
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor: ub hashed to a random bucket. If state_lift_tw gives the same gain in the stratum (recency >= 32 or <= 1) as state_lift, the pause-state mechanism is refuted."
+    },
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: gain in the extreme-state stratum minus gain in the 4-16 pause null stratum. If equal, state_pop is just a longer popularity horizon."
+    },
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor: with state_lift_tw (hashed buckets) instead of state_lift, a difference of differences between the stratum (recency >= 32 or <= 1) and the null stratum (4-16) of about 0 refutes the pause-state mechanism."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences on the lift: dormant or streak users (user_recency >= 32 or <= 1) against moderate-pause users (4-16 steps). If the gain is the same, or the hash-bucket twin matches it, the state mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G1-8",
+   "lens": "G1",
+   "name": "basket_size_match",
+   "table": "g1_8",
+   "level": "pair",
+   "sql_sha256": "34b09bfb3a6ee83db68ecb09adb237607bb302b6ff68ef05a6846c7a16f760c9",
+   "twin_sha256": "5b664773618f1b6295577cd5fab27639db51549a3a03069e4609653049d68d59",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Users with a clear visit style and at least 3 active steps: mean items per active step >= 3 or exactly 1. SQL: (SELECT count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id) >= 3 AND ((SELECT count(*) * 1.0 / count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id) >= 3 OR (SELECT count(*) * 1.0 / count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id) = 1)",
+   "null_stratum": "Users whose mean visit size is close to the population's, 1.5 to 2.5 items per active step, where style_match is about 0. SQL: (SELECT count(*) * 1.0 / count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id) BETWEEN 1.5 AND 2.5",
+   "rival": {
+    "explanation": "j_addon may mark items bought in campaign or sale visits, which are larger than usual for everyone. In that case it is an item-level promotion flag, not a user-style match: the gain would come from j_addon alone, and style_match would add nothing.",
+    "stratum": "all users equally, concentrated on items with users_30 / users_90 above the median (promoted items)"
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness: compute the query one anchor earlier. If the gain persists unchanged, the column captures a static item property. Also check the key level: if item-level j_basket alone gives the full gain, the user-item match is refuted."
+    },
+    {
+     "critic": "G2",
+     "type": "RIVAL",
+     "kill_test": "Stratum n_items_all >= 50 versus the 'clear style' stratum. If the gain concentrates in heavy users regardless of visit style, the style mechanism is refuted."
+    },
+    {
+     "critic": "G3",
+     "type": "RIVAL",
+     "kill_test": "Key level: keep only the item-level j_basket and drop basket_gap. If the gain is unchanged, the user-style matching (pair level) is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Twin as factor in heavy users (n_items_all >= 50): if the twin, whose adopter-depth structure is shuffled away, matches the gain, the visit style is refuted. Also run a difference of differences between clear-style users and the null stratum (one step, 2 items). If there is no gap, the mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G2-1",
+   "lens": "G2",
+   "name": "exposure_at_last_visit",
+   "table": "g2_1",
+   "level": "pair",
+   "sql_sha256": "160aefbafabb7133055888944dd40ed096e89ba136e1b319c5ab9f70ed803052",
+   "twin_sha256": "bc9bb05447bba5a304f5f2e473b671dce6994137ea58051d8c225a62ffd935ce",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Lapsed users, last event at least 14 steps before A: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING max(t) < {A} - 14)",
+   "null_stratum": "Users active in the last 2 steps, where the window around tl coincides with the users_7 window and the shift is about 0: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING max(t) >= {A} - 2)",
+   "rival": {
+    "explanation": "For lapsed users the column may act as a stale long-window popularity count (like users_90): returning users buy perennial bestsellers, which were popular at any past step. The random-visit twin keeps this stale popularity and destroys only the alignment with the last visit.",
+    "stratum": "Users lapsed 60 or more steps, where both explanations predict a gain and only the twin separates them: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING max(t) < {A} - 60)"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "DUPLICATE",
+     "kill_test": "Key level: replace launch_vs_last_visit with item_age alone. If the within-user ranking and NDCG are identical, the column carries no pair information."
+    },
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor: compare against pop_at_last_visit_tw (random visit) in lapsed users (max(t) < A-14) minus active users (max(t) >= A-2). A difference of about 0 refutes exposure at the last visit."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor for pop_at_last_visit alone, inside the stratum of users lapsed >= 14 steps. If the random-visit twin recovers most of the gain, exposure at the last visit is refuted and the column is long-window popularity."
+    },
+    {
+     "critic": "G4",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: the gain among users lapsed >= 60 steps minus the gain among users active in the last 2 steps, computed with pop_at_last_visit only. If the far-lapsed gain is not larger, exposure is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as factor in users lapsed 60+ steps: if the random-visit twin of pop_at_last_visit gives the same gain, exposure at the last visit is refuted in favour of stale bestseller popularity."
+    }
+   ]
+  },
+  {
+   "id": "G2-2",
+   "lens": "G2",
+   "name": "launch_cohort_proximity",
+   "table": "g2_2",
+   "level": "pair",
+   "sql_sha256": "00beba7c81d26b23e953ed424da2bbd104281df8e557e61b2a135e4a859953d1",
+   "twin_sha256": "729058abe2ee0f6bbeb04cdb4a08650acc5a2b58e911fb08778be4cbe5b5682b",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Users who recently took freshly launched items (launched within 60 steps, taken in the last 30); the gain should also appear for candidates with item_age >= 60, which rules out pure freshness: user_id IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id) f ON e.item_id = f.item_id WHERE e.t >= {A} - 30 AND f.ft >= {A} - 60)",
+   "null_stratum": "Users whose items of the last 180 steps were all launched more than 365 steps before A: user_id NOT IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id) f ON e.item_id = f.item_id WHERE e.t >= {A} - 180 AND f.ft >= {A} - 365)",
+   "rival": {
+    "explanation": "Co-launched items often have adjacent ids within one product family, and when shopped together they already have cooc edges. The gain could then repeat ag_id_prox_rec or cooc_score rather than reflect drop timing. The gain should survive in pairs with cooc_score = 0 and no id neighbour.",
+    "stratum": "Pairs where j lies within 10 id ranks of one of the user's items; launch timing should add little there: (user_id, item_id) IN (SELECT c.user_id, c.item_id FROM cand c JOIN ev e ON c.user_id = e.user_id WHERE abs(c.item_id - e.item_id) <= 10)"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: gain of original over twin in pairs with cooc_score = 0 and item_age >= 60, minus the gain in pairs with cooc_score > 0. If the gain sits only in fresh candidates or only where cooc_score > 0, the drop-cohort mechanism is refuted."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: inside the stratum, the gain among candidates with item_age > 60 (old drops), minus the gain among candidates with item_age <= 14. If the gain exists only among young candidates, drop co-membership is refuted in favour of freshness preference."
+    },
+    {
+     "critic": "G4",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: the gain among pairs within 10 id ranks of a recent item, minus the gain among pairs with no such neighbour. If the gain sits only in the id-adjacent stratum, the column repeats id proximity."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: the gain in the fresh-launch stratum minus the gain in the null stratum (all items launched more than 365 steps ago), measured inside the id-adjacent rival stratum. If the gain inside the id-adjacent pairs is not smaller than outside them, the launch timing adds nothing beyond id proximity, and the mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G2-3",
+   "lens": "G2",
+   "name": "lifecycle_stage_growth",
+   "table": "g2_3",
+   "level": "item",
+   "sql_sha256": "b5e37ed64026cbdf0f47f2b2ca38438a6d3eaf778b98eb857cbdeed6311fb6f4",
+   "twin_sha256": "2cebe56817ddec75c402be1402fd31f00e7d34da76ec9d2c304c29398d334a74",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Young items, first event within the last 60 steps, where the life-cycle curve is steepest: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) >= {A} - 60)",
+   "null_stratum": "Old items, more than 365 steps since launch, on a flat part of the curve: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) < {A} - 365)",
+   "rival": {
+    "explanation": "Age buckets may stand in for censoring by the data start, or for a single launch wave, rather than for a generic life-cycle curve. The deviation would then mark one old cohort and not life stage. The twin permutes age buckets among items of the same level and direction cell, so it keeps the cell distribution of ages and destroys only the item's own stage.",
+    "stratum": "Items whose first event lies within 7 steps of the data start: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) <= (SELECT min(t) FROM ev) + 7)"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor, with a fixed twin that permutes the age bucket among existing age buckets of the same (pb, tb). If the gain in young items (< 60 steps) minus old items (> 365 steps) is about 0, life stage is refuted."
+    },
+    {
+     "critic": "G4",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor inside the young-item stratum (first event within 60 steps). If the age-randomised twin gives the same gain there, life-cycle stage plays no role and the gain is regression to the mean."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: the gain among items with u1 >= 3 minus the gain among items with u1 = 0. A larger gain for u1 = 0 refutes the life-cycle claim, since there the column is only users_30 binned."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as factor (age bucket randomised): if the twin gives the same gain in young items (first event within 60 steps), life-cycle stage is refuted in favour of the audience-level rival."
+    }
+   ]
+  },
+  {
+   "id": "G2-6",
+   "lens": "G2",
+   "name": "lastyear_phase_transition",
+   "table": "g2_6",
+   "level": "pair",
+   "sql_sha256": "14ff7478376ef354245c43a9acaa3b9cbade9ba07addc6e08f9e67a4483fa2b7",
+   "twin_sha256": "fda1665d7da07b9449410cfea8df4c715458a7ae9e68689cc2981a269405a60f",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Users whose recent items existed a cycle ago, so seeds have last-year adopters: user_id IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) < {A} - 395) o ON e.item_id = o.item_id WHERE e.t >= {A} - 60)",
+   "null_stratum": "Users whose items of the last 180 steps were all launched within the last 365 steps, so the value is NaN: user_id NOT IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) < {A} - 365) o ON e.item_id = o.item_id WHERE e.t >= {A} - 180)",
+   "rival": {
+    "explanation": "The lift may be a phase-agnostic long-lag co-purchase transition that would help equally at any lag. The half-cycle twin (lag 182) should then perform as well as the original. A second possibility is that the lift only repeats current cooc affinity.",
+    "stratum": "Cooc candidates with a strong current co-occurrence signal, where a phase-agnostic transition should already be covered: (user_id, item_id) IN (SELECT c.user_id, c.item_id FROM cand c JOIN ev a ON c.user_id = a.user_id JOIN ev d ON d.item_id = c.item_id JOIN ev b ON b.user_id = d.user_id AND b.item_id = a.item_id WHERE a.t >= {A} - 30 AND b.t >= {A} - 180 AND d.t >= {A} - 180)"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Key level: compute the item-only version, the share of all users active in [A-395, A-365) who took j in [A-365, A-335). If it reproduces the gain of the pair version in the stratum, the user-conditioned transition is refuted."
+    },
+    {
+     "critic": "G3",
+     "type": "COST",
+     "kill_test": "Staleness: run the same query one anchor earlier and at the largest anchor. If seconds grow superlinearly with ev size beyond the 20 s limit, the family is not viable."
+    },
+    {
+     "critic": "G4",
+     "type": "SHIFT",
+     "kill_test": "Staleness: compute the share of nonzero values per anchor across the training anchors and at A-30. If the nonzero share is near 0 for the early anchors, the column carries a fold-wise shift. Also run the half-cycle twin as a factor: an equal gain refutes phase alignment."
+    },
+    {
+     "critic": "G4",
+     "type": "DUPLICATE",
+     "kill_test": "Key level: replace the column with its item-level analogue, the mean over users of the same score per item. If the item-level version recovers most of the gain, the pair conditioning adds nothing."
+    },
+    {
+     "critic": "skeptic",
+     "type": "SHIFT",
+     "kill_test": "Twin as factor: if the half-cycle-shifted twin (lag 182) gives the same gain in the stratum of users whose recent items existed a cycle ago, the phase alignment is refuted. Also run a difference of differences against the null stratum, restricted to anchors at least 395 steps from the data start."
+    }
+   ]
+  },
+  {
+   "id": "G3-2",
+   "lens": "G3",
+   "name": "pair_order_profile",
+   "table": "g3_2",
+   "level": "pair",
+   "sql_sha256": "5195b2e52504a9031bb2472f66c1c546d9fc71afd34b563b71cb1e82d08a229e",
+   "twin_sha256": "8278cb549960528df842f14a42039ac415aef4a5a2fe005ea50fc37700718b8e",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Pairs with availability-controlled order evidence: a co-user of j and of one of u's items in the last 120 steps, with both items existing before both adoptions: EXISTS (SELECT 1 FROM ev a JOIN ev b ON b.user_id = a.user_id JOIN ev h ON h.item_id = a.item_id AND h.user_id = u.user_id WHERE b.item_id = j.item_id AND a.t >= {A} - 120 AND b.t >= {A} - 120 AND a.t > (SELECT MIN(t) FROM ev z WHERE z.item_id = j.item_id) AND b.t > (SELECT MIN(t) FROM ev z WHERE z.item_id = a.item_id))",
+   "null_stratum": "Pairs without such co-users, where both columns sit at their priors (0.5 and 0): the negation of the stratum predicate",
+   "rival": {
+    "explanation": "Even when both items were available, after_share can be high for j in its rising lifecycle phase: its audience is still growing, so co-users take it late. The column would then re-encode item momentum (ag_mom_30_60, trend) and not a behavioural i-then-j order.",
+    "stratum": "Rising candidates whose 30-step audience exceeds the previous 30 steps: (SELECT COUNT(*) FROM ev WHERE ev.item_id = j.item_id AND t >= {A} - 30) > (SELECT COUNT(*) FROM ev WHERE ev.item_id = j.item_id AND t >= {A} - 60 AND t < {A} - 30)"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: the gain among young candidates (age <= 30) minus the gain among old candidates whose first event precedes every seed i. If the gain is concentrated in young candidates and vanishes for old ones, after_share only encodes release order."
+    },
+    {
+     "critic": "G4",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: the gain among candidates with item_age > 120 (both i and j existed for the whole 120-step window) minus the gain among candidates with item_age <= 30. If the gain vanishes in the old stratum, the column encodes freshness, not behavioural order."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences between the stratum (pairs with order evidence) and the null stratum (prior values). Also check whether the gain inside the stratum survives restricting to pairs with cooc_score = 0. If nothing remains there, the family adds no coverage."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: the after_share gain in young candidates (item_age <= 30) against older candidates within the order-evidence stratum. If the gain concentrates in young candidates, it is freshness, and the mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G3-3",
+   "lens": "G3",
+   "name": "basket_markov_2step",
+   "table": "g3_3",
+   "level": "pair",
+   "sql_sha256": "552266d4f95a11e2062367dd4bf2c0f891ba2725843b5c761bf22e93fc794bbe",
+   "twin_sha256": "220174a3518e87a0c0e6864ec3de253b11f0c3ba6c75a07b1ff620d4b6b4648c",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Users active within the last 30 steps, whose next baskets are likely to fall inside the window: EXISTS (SELECT 1 FROM ev WHERE ev.user_id = u.user_id AND t >= {A} - 30)",
+   "null_stratum": "Users with no event in the last 180 steps, which get NULL: NOT EXISTS (SELECT 1 FROM ev WHERE ev.user_id = u.user_id AND t >= {A} - 180)",
+   "rival": {
+    "explanation": "Two-step mass collects on items with a large in-degree in the transition graph, which are popular follow-up items. The gain could therefore come from popularity among active repeat buyers, not from the chain's personal path.",
+    "stratum": "Candidates with at least 20 distinct users in the last 30 steps: (SELECT COUNT(*) FROM ev WHERE ev.item_id = j.item_id AND t >= {A} - 30) >= 20"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: the gain among users active within 30 steps minus the gain among users whose last basket is older than 180 steps. Also staleness: the same query one anchor earlier should lose most of its gain. If the stale version does as well, the column is a long-term transition prior, not next-basket intent."
+    },
+    {
+     "critic": "G1",
+     "type": "RIVAL",
+     "kill_test": "Twin as a factor among candidates with at least 20 users in 30 steps. If mc2_basket_tw matches the card there, the gain is popularity among active buyers."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences between the stratum (active in the last 30 steps) and users lapsed > 180 steps. If the gain is similar, the chain is not what matters. Also test the rival stratum (users_30 >= 20 candidates): if the gain concentrates there, the column is a hub-popularity signal."
+    },
+    {
+     "critic": "skeptic",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as factor plus difference of differences: compare the stratum (active within 30 steps) with users active 31-180 steps ago. If the original and the twin give the same gain, or the gain does not concentrate in the active stratum, the two-step mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G3-4",
+   "lens": "G3",
+   "name": "graph_neighbourhood_momentum",
+   "table": "g3_4",
+   "level": "item",
+   "sql_sha256": "1c29d2927d1394ae47a096163511afd32879f930bec4b2c85e54ecb33060a414",
+   "twin_sha256": "4e32667e227a9e6b1072152ea7fabb8a5b4f407c2b87fa48a55952dc6601fc1e",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Candidates with a small own recent audience, where their own users_7/users_30 ratio is noise: (SELECT COUNT(*) FROM ev WHERE ev.item_id = j.item_id AND t >= {A} - 30) BETWEEN 1 AND 5",
+   "null_stratum": "Candidates without events in the last 60 steps, which have no graph neighbours and get NaN: NOT EXISTS (SELECT 1 FROM ev WHERE ev.item_id = j.item_id AND t >= {A} - 60)",
+   "rival": {
+    "explanation": "Neighbours of young items are young and rise by lifecycle. External neighbourhood momentum may then only flag fresh items in their launch phase, which item_age, ag_peak_age and ag_mom_30_60 already express, and not the spread of demand along the graph.",
+    "stratum": "Young candidates: (SELECT {A} - MIN(t) FROM ev WHERE ev.item_id = j.item_id) <= 60"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: the gain among candidates with 1 to 5 users in 30 steps minus the gain among candidates with at least 50. If the gain is equal or larger in the large-audience stratum, the family is a re-estimate of own trend and not graph smoothing."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: the gain among candidates with users_30 between 1 and 5, minus the gain among candidates with users_30 >= 50. If the gain is not larger in the small-audience stratum, the denoising claim is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: candidates with 1-5 users in the last 30 steps against candidates with 50+. If the gain is equal or larger for the large-audience candidates, it is a denoised own trend, and the graph mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G3-6",
+   "lens": "G3",
+   "name": "neighbours_since_last_visit",
+   "table": "g3_6",
+   "level": "pair",
+   "sql_sha256": "974aa4b0fce2968b4e640a141801789e9ee3e73945dc2463ad55d65c2ae571e8",
+   "twin_sha256": "f89c2618446445e785b427bb16d03ec500f7eab66b7996d6649616d84d0e577f",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Lapsed users, not active in the last 7 steps: NOT EXISTS (SELECT 1 FROM ev WHERE ev.user_id = u.user_id AND t >= {A} - 7)",
+   "null_stratum": "Users active in the last step, for whom nothing can happen after their last step and the value is 0: EXISTS (SELECT 1 FROM ev WHERE ev.user_id = u.user_id AND t >= {A} - 1)",
+   "rival": {
+    "explanation": "Any active users' adoptions after u's last step mostly reflect global popularity since that step, and the share grows with the lapse length. The gain may come from a 'popular since your last visit' window and not from the neighbourhood.",
+    "stratum": "Lapsed users with popular candidates: NOT EXISTS (SELECT 1 FROM ev WHERE ev.user_id = u.user_id AND t >= {A} - 7) AND (SELECT COUNT(*) FROM ev WHERE ev.item_id = j.item_id AND t >= {A} - 30) >= 20"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: the gain among users lapsed 7 to 90 steps minus the gain among users active at A-1. If the difference is not positive, or the lapsed-stratum gain matches a non-neighbour 'popular since your last step' column, the neighbourhood mechanism is refuted."
+    },
+    {
+     "critic": "G1",
+     "type": "RIVAL",
+     "kill_test": "Twin as a factor in the lapsed stratum with popular candidates (users_30 >= 20). If nbr_since_share_tw gets a comparable split share, the neighbourhood adds nothing beyond recency-windowed popularity."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: the gain among users lapsed 7–90 steps with >= 5 items in 90 steps, minus the gain among lapsed users with <= 2 items. If the gain does not concentrate in the multi-item lapsed group, neighbourhood taste is refuted."
+    },
+    {
+     "critic": "G4",
+     "type": "RIVAL",
+     "kill_test": "Twin as a factor in the rival stratum (lapsed users, users_30 >= 20 candidates). If the shuffled-neighbour twin recovers most of the gain there, the neighbourhood mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G3-8",
+   "lens": "G3",
+   "name": "heat_conduction_niche",
+   "table": "g3_8",
+   "level": "pair",
+   "sql_sha256": "e9f6f198561fa69b8d4597b859da9aee0f10ae04e2b4baa0cae9f4db7bdcaf41",
+   "twin_sha256": "0ef906960eb8a91ad53c9e0b5db2001331aea93e057b46c44cdd2294af3be764",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Users with at least 10 items in the last 90 steps, who have a well-defined taste region and take more niche items: (SELECT COUNT(*) FROM ev WHERE ev.user_id = u.user_id AND t >= {A} - 90) >= 10",
+   "null_stratum": "Users with at most 2 items in total, where the diffusion from one or two seeds orders candidates almost like cosine: (SELECT COUNT(*) FROM ev WHERE ev.user_id = u.user_id) <= 2",
+   "rival": {
+    "explanation": "Dividing by n(j) + 5 makes the score an inverse-popularity indicator among connected candidates. Any gain may come from a generic niche boost for heavy users, which the popularity features with n_items_all could already express, and not from the diffusion path.",
+    "stratum": "Heavy users with low-popularity candidates: (SELECT COUNT(*) FROM ev WHERE ev.user_id = u.user_id) >= 20 AND (SELECT COUNT(*) FROM ev WHERE ev.item_id = j.item_id AND t >= {A} - 90) <= 10"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: the gain among users with at least 10 items in 90 steps minus the gain among users with at most 2 items. Also check the rival stratum (heavy users × candidates with at most 10 users in 90 steps). If the gain is confined to low-n(j) candidates whatever the user's taste region, it is a niche boost and not diffusion."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: the gain among candidates with n(j) <= 2 in 90 steps, minus the gain among candidates with n(j) >= 10. If the low-n stratum shows a gain <= 0 or a loss, the niche mechanism is refuted and the column needs a prior, for example h/(n+5)."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: users with 10+ items in 90 steps against users with at most 2 items. Then repeat it within low-popularity candidates (users_90 <= 10) against high-popularity ones. If the gain appears only for low-n(j) candidates, regardless of path weight, it is a generic niche boost, and the mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G4-3",
+   "lens": "G4",
+   "name": "returner_basket_popularity",
+   "table": "g4_3",
+   "level": "item",
+   "sql_sha256": "1a32915bd6401a2c18a2927f637717b0e7e4da2eb8a3af8b0d4af3faafdee76a",
+   "twin_sha256": "967d430079f209f44f0c4a7dae4f65d1a59545cc9ab429d3c3a928bcebedfd93",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "dormant users who may return in the label window: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING max(t) < {A} - 60)",
+   "null_stratum": "users active in the last 7 steps: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING max(t) >= {A} - 7)",
+   "rival": {
+    "explanation": "Returners may be reactivated by campaigns that push a few promoted items. The return-basket share would then flag promoted items that every currently active user takes, not dormant-user taste.",
+    "stratum": "users with n_items_7 >= 1 and candidates with high users_7"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: ret_lift against ret_lift_tw. The twin keeps the u30 term and replaces the returners with random active users. If both get similar gain, returner taste adds nothing and ret_lift should be dropped."
+    },
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: the gain among dormant users (max t < A-60) minus the gain among users active in the last 7 steps. If it is not positive, or it reverses at the anchor one step earlier (staleness), the mechanism is refuted."
+    },
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: the hash-picked twin ret_lift_tw has R2 0.519 to ag_pop_gap. If the twin's lift matches the card's gain, the returner taste mechanism is refuted."
+    },
+    {
+     "critic": "G2",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: gain in dormant users (recency >= 60) minus gain in users active in the last 7 steps. If it is equal or larger in the active stratum, the gain is campaign/promotion popularity (the rival), not returner taste."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: the gain for dormant users (max t < A-60) minus the gain for users active in the last 7 steps. If the gain is equal or larger among the active-7 users (the promoted-item rival), the returner-taste mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G4-7",
+   "lens": "G4",
+   "name": "scout_adopters",
+   "table": "g4_7",
+   "level": "item",
+   "sql_sha256": "97acdf30f09b26b68cbe5060ae343472eeef251fbde80ba88038e4999c0d0808",
+   "twin_sha256": "f7b34bfdccaba54c50e8399a4858a5311065b06ed613d409f07a6ad15258f5f5",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "young candidates with small audience: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) >= {A} - 60 AND count(*) <= 20)",
+   "null_stratum": "old saturated items: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) < {A} - 365 AND count(*) >= 500)",
+   "rival": {
+    "explanation": "Scout scores may mostly measure adopter activity, because heavy users take many items early by chance. The family would then be a variant of adopter_depth that marks niche items rather than spreading ones.",
+    "stratum": "items with high ag_adopter_depth"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor for trendsetter_mean against trendsetter_mean_tw. Equal split share refutes the scout mechanism. Drop trendsetter_sum."
+    },
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Staleness: compute the scores from items launched in [A-240, A-60) only and compare. Also a difference of differences between young small-audience items and old saturated items. No positive difference refutes the mechanism."
+    },
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor for trendsetter_mean in the young small-audience stratum. If the time-shuffled twin gives the same gain, scouting is refuted."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness: compute user scores at A-30 and apply them at A. If the scout ranking changes substantially or the gain disappears, the score is era/censoring-driven."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as factor on the mean column only: if the time-shuffled twin of the mean gives the same gain in the young small-audience stratum, the scout skill is refuted. Also run a difference of differences between young small items and old saturated items. If the gain does not concentrate in the young small items, the mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G4-8",
+   "lens": "G4",
+   "name": "signup_cohort_entry_lift",
+   "table": "g4_8",
+   "level": "pair",
+   "sql_sha256": "96c91ae97d2170c52b27bc6c079b52ee844ed49638155f0bb4feea94ff4faef9",
+   "twin_sha256": "f1e454038181e750e33b338e79117ef4a57ad58afc3884c312e22ef4a238a110",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "short-history users: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING count(*) <= 3)",
+   "null_stratum": "long-tenured heavy users, whose entry basket is old and diluted by later history: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING min(t) < {A} - 365 AND count(*) >= 30)",
+   "rival": {
+    "explanation": "The cohort's entry basket may simply be the items that were popular at sign-up time, a time-localised popularity. Its gain would then track item age relative to u's first event (ag_age_gap) rather than shared acquisition taste.",
+    "stratum": "users with user_age <= 60 and candidates with item_age close to user_age"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: cohort_share against cohort_share_tw, where the twin has random cohorts. Equal gain means no cohort-taste effect, so drop cohort_share."
+    },
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences for cohort_lift: the gain among recently acquired users with at most 5 items minus the gain among long-tenured heavy users. If the difference is not positive, or the stratum holds almost no evaluated users, the mechanism is refuted."
+    },
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: if cohort_lift_tw matches cohort_lift in the new short-history stratum, shared-acquisition taste is refuted."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Difference of differences: gain for users with user_age <= 30 (cohort overlaps pop30's window) minus gain for users aged 30-60. If the gain is only in the first group, it is recent popularity (the rival)."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as factor on cohort_lift: if the shuffled-signup twin gives the same gain in the stratum of recent short-history users, cohort taste is refuted. Also run a difference of differences against long-tenured heavy users. If there is no gap, the mechanism is refuted."
+    }
+   ]
+  }
+ ],
+ "withdrawn": [
+  {
+   "id": "G1-3",
+   "reason": "vis_since_launch is a per-user visit count for every item older than 180 steps, so it is degenerate within a user (undefined rho, TWIN-BROKEN). vis_copresent_rate is item demand frequency (R2 0.667 to global_rank). The young-item part overlaps item_age and the per-user clock of G1-7 and of other cards. No fix leaves a distinct pair-level exposure signal."
+  },
+  {
+   "id": "G1-5",
+   "reason": "These are user-level columns that are constant within a user's candidates, so they can only act through interactions. prev_gap duplicates user_visit_rhythm (R2 0.489 to ag_steps_30), and last_sess_n has R2 0.461 to existing columns. The main effect is calibration across users, and the column adds noise for little within-user ranking signal. The pause and visit structure is carried at pair level by the revised G1-1 (trig_lag, trig_visits) and G1-4."
+  },
+  {
+   "id": "G1-6",
+   "reason": "R2 0.835 to ag_pop_decay3, and the random-horizon twin keeps R2 0.689. The column is mostly an existing momentum ratio. Its 1-4 step horizons also invite weekday-phase noise across anchors spaced 30 steps apart."
+  },
+  {
+   "id": "G1-7",
+   "reason": "missed_log is popularity over a window of length user_recency (R2 0.664 to ag_pop_decay3), and missed_share mainly encodes item_age < user_recency (R2 0.696 to pop_share_30). The random-visit twin keeps the same correlations, and the per-user clock overlaps other cards. Trees can build it from user_recency and the existing popularity windows."
+  },
+  {
+   "id": "G2-4",
+   "reason": "dormancy_ratio has R2 0.892 to item_last, and longest_gap has R2 0.699 to global_rank. For sparse items the ratio collapses to ln(1+item_last) and the gap to 0. Revivals within 30 steps are rare positives, so any gain would come from demoting dead fill negatives, which item_last already does."
+  },
+  {
+   "id": "G2-5",
+   "reason": "Both columns and both twins have undefined correlations at both probe anchors, which points to near-zero variance. The idea also repeats segment_pop30 and earlier entry-share cards (R2 0.9 to users_30 and users_90). It is an item-level proxy for an interaction with user_age that the trees would have to rebuild."
+  },
+  {
+   "id": "G2-7",
+   "reason": "traffic_beta has R2 0.886 to trend, and traffic_resid_wk0 has R2 0.928 to ag_mom_30_60, so both re-express existing momentum features. The slope is only identified at anchors where weekly traffic varies, and for young items it fits the launch ramp."
+  },
+  {
+   "id": "G2-8",
+   "reason": "mass_center_frac has R2 0.913 to global_rank, and it repeats ag_peak_ratio and ag_rec_mean_age. Single-event items sit at exactly 1.0, so the column acts mainly as a low-volume and censoring flag."
+  },
+  {
+   "id": "G3-1",
+   "reason": "The neighbour-shuffled twin keeps the card's structure: rho 0.699 against 0.678 and R2 0.632 against 0.625 to users_30. Remapping the hubs to random items of equal popularity leaves the score almost unchanged, so the two-hop mass is recent popularity collected over hubs, which is the card's own rival. It is also the slowest pair query (7.56 s of the 20 s limit) and overlaps ag_ucf30. No revision of the hop set removes the hub-popularity component cheaply enough to justify the cost."
+  },
+  {
+   "id": "G3-5",
+   "reason": "hist_cohesion has R2 0.653 to ag_iuf_cooc, and the neighbour-shuffled twin keeps the same structure (R2 0.666, rho 0.769). The column measures the user's level of cooc mass and staleness, not graph cohesion. chain_support is novel, but its twin is more correlated with existing features than the original (0.423 against 0.107), so the twin cannot test it. 'Stale' and 'scattered' histories are also confounded. The trees can already gate on cooc_hits, cooc_n_last and cooc_mean. Two weak user-level columns would add noise rather than a strong signal."
+  },
+  {
+   "id": "G3-7",
+   "reason": "entry_share is popularity: R2 0.899 to users_90, and the twin check is TWIN-BROKEN (rho 0.928 with its twin). followup_share is weak, with R2 0.172 to ag_adopter_depth and a twin of the same shape (0.291). It is an item average of adopter visit pace, which ag_adopter_depth and the visit-rhythm columns already carry. The sign also fails for short-history users in their entry phase. Neither column is a strong, non-redundant signal."
+  },
+  {
+   "id": "G4-1",
+   "reason": "launch_rate has rho 1.0 and R2 1.0 to users_all, and its twin has rho 1.0, so it carries no launch-speed information. launch_late_share has R2 0.797 to global_rank. Its moving midpoint makes it a 0/1 coin for 1-2 step old items and a stretching lifecycle phase for old items. For young items, trend, users_7/users_14 against users_all and ag_mom_30_60 already describe acceleration more cleanly. A fixed-horizon rewrite would duplicate those columns."
+  },
+  {
+   "id": "G4-2",
+   "reason": "Degenerate. newc_share is constant and newc_lift is an exact transform of users_30 (R2 1.0), because no user has a first-ever event in [A-30, A) at either probe anchor. The newcomer population the mechanism needs does not exist near the anchors. The short-history stratum is therefore old one-off users, which the card does not describe."
+  },
+  {
+   "id": "G4-4",
+   "reason": "silence_ratio has R2 0.892 to item_last and silence_vs_max has R2 0.643 to global_rank. The rhythm normalisation adds little that the trees cannot build from item_last and item_age. The target stratum (items silent for more than 30 steps) sits among fill candidates that rarely reach the top 20. One-step items become NaN and are read as 'within rhythm'. A whole-life mean gap confounds decay with death, and C26 measures the same thing."
+  },
+  {
+   "id": "G4-5",
+   "reason": "The card and twin both time out. Even with O bounded to [A-365, A-180), the target stratum (users dormant for more than 180 steps) rarely has a new item in [A, A+30), so it carries almost no NDCG weight. For active users, old-era links overlap ag_lt_cooc and the seasonality rival overlaps ag_season_yoy. O also grows with the anchor, which adds coverage drift. Cost, drift and redundancy outweigh the small expected gain."
+  },
+  {
+   "id": "G4-6",
+   "reason": "co_support has R2 0.931 to cooc_score and its twin keeps rho 0.895, so it is the cosine signal with a popularity tilt. co_share_j has R2 0.624 to ag_lift_max. The +5 prior on n(j) counted over [A-180, A) shrinks young launches hardest and mixes new items with dying long-tail ones, which works against the cold-denoising claim. cooc_hits, cooc_max and ag_lift_max already let the trees tell one-user links from robust ones."
+  }
+ ],
+ "code_sha256": {
+  "council": {
+   "council/agents.py": "fbe64e3221ebdbeea3b3e54c254466d454829169d47ee37930d0262092aaac10",
+   "council/llm.py": "dd666b8d0aad1c50c7c27a814f48760b79a32bd0972352068fa05bb56525bd55",
+   "council/evidence.py": "1d14d8088e3be3679864b983c1d928b42ea64b00dac3520d719dda0ef4c0ab88",
+   "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+   "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+   "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+   "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+   "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+   "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+   "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+   "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+  },
+  "scripts": {
+   "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+   "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+   "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+   "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+   "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+   "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+   "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+   "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+   "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+   "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+  }
+ },
+ "dataset": "tinkoff",
+ "probe_anchors": [
+  "641",
+  "611"
+ ],
+ "limitations": [
+  "The second probe anchor is the last train anchor; its users are those of its training frame, a set conditional on the outcome window of that anchor. No outcome value is read by a probe."
+ ]
+}
