@@ -1,0 +1,565 @@
+{
+  "format": "otto-run-v1",
+  "status": "completed",
+  "id": "a1",
+  "model": "claude-opus-5-5",
+  "retry_of": null,
+  "reason": null,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "rounds": 6,
+  "proposals_per_round": 5,
+  "max_calls": 12,
+  "probe": {
+    "path": "artifacts/otto/probe/probe1",
+    "collection": "artifacts/otto/collections/probe-F3",
+    "pool_size": 20000,
+    "rows": 841203,
+    "probe_sha256": "2fba425a1048bfb1794a11ae79a76cae3a87e5d51f9d03b480d73f6df918c7fe",
+    "stats_sha256": "26b971e0039770a0feb28b9c40575cde449b64565de0111372da709b9f1fb02a",
+    "base_digest": "4b50037532aa4bade03c45d3b294fade03b6f7536abda6620630953b6ae86aaf",
+    "t_tb": 1200,
+    "calibration_sha256": "bafe1c9be14a0cafaf144f56a83fef3017a75b784aa1712c53897c455f96a97d"
+  },
+  "base_digest": "4b50037532aa4bade03c45d3b294fade03b6f7536abda6620630953b6ae86aaf",
+  "prompt": {
+    "template_sha256": "a38d19a5d3392e0f4bfb6c66eca512912dc1a43bb5595d28e9c17a30859dd0c9",
+    "constants_digest": "8ba996487c5f42960cbdd238de7652a3440c51d48838a5516052a05651bcfe02",
+    "digest": "c430ed493dfcbdf85431cb7a81cbbf02e4decac2e392e0e0314854d4cf80b58a"
+  },
+  "t_tb": 1200.0,
+  "n_t": 50000,
+  "smoke": {
+    "path": "artifacts/otto/smoke/20261022T215027202680Z/smoke.json",
+    "sha256": "9b0f16f329292545de8f35777f1f8af2c8641cd6f20d068724aab1efcb37df34",
+    "N_t": 50000
+  },
+  "budget": {
+    "limits": {
+      "table_seconds": 4800.0,
+      "pair_session_seconds": 900.0,
+      "item_seconds": 600.0
+    },
+    "used": {
+      "table_seconds": 17.762999999999998,
+      "pair_session_seconds": 10.15010058414191,
+      "item_seconds": 10.843189208069816
+    }
+  },
+  "calls": 6,
+  "cost_usd": 1.798986,
+  "cost_unknown_calls": 0,
+  "rounds_run": 6,
+  "stop": "rounds",
+  "attempts": 30,
+  "valid": 24,
+  "phase": "F",
+  "candidates": {
+    "sources": [
+      "wk_next_i",
+      "wk_cobuy",
+      "h_cobuy"
+    ],
+    "rows": 2374277,
+    "agent_rows": 1533074,
+    "sha256": "6969310c7235d18b4633c40bbdeaec0fbbe20eb850aafb77c852510eb387671a"
+  },
+  "tables": {
+    "cobuy": {
+      "kind": "table",
+      "path": "artifacts/otto/tables/F3/r2p4-ca481f8063998ff7/table.parquet",
+      "key": "ca481f8063998ff7c2b28aad5a6d993f9915f4c2d3d6dc47c9b8406d8d49f22f",
+      "sha256": "0fb6e187acdae6658e8a4e40b38bc3166bd98262beb1eab7437b5c2139fda38e",
+      "rows": 17771751,
+      "columns": [
+        "tv_cnt",
+        "tv_ord"
+      ]
+    },
+    "nextview": {
+      "kind": "table",
+      "path": "artifacts/otto/tables/F3/r2p5-b4269470cfb7c778/table.parquet",
+      "key": "b4269470cfb7c778d137b68b8a8c87a79163326c99ca77b7e8058fb41a878a18",
+      "sha256": "f57268bb224430223f5e923be9114536f8874b6c612cedc5be540c00ba03622c",
+      "rows": 28789432,
+      "columns": [
+        "tv_wgt"
+      ]
+    },
+    "view2buy": {
+      "kind": "table",
+      "path": "artifacts/otto/tables/F3/r4p5-23ef98e2e9834e00/table.parquet",
+      "key": "23ef98e2e9834e001afb85d864d2974711232737b33b488d8d53720056e42e42",
+      "sha256": "9873cb1c17a0c761a7b4e9ed4ac65f9b501a7054855178765fca410e2dc8e051",
+      "rows": 17687247,
+      "columns": [
+        "tv_cnt",
+        "tv_ord"
+      ]
+    }
+  },
+  "sources": [
+    "wk_next_i",
+    "wk_cobuy",
+    "h_cobuy"
+  ],
+  "columns": [
+    "ag_src_wk_next_i_rank",
+    "ag_src_wk_next_i_score",
+    "ag_src_wk_cobuy_rank",
+    "ag_src_wk_cobuy_score",
+    "ag_src_h_cobuy_rank",
+    "ag_src_h_cobuy_score",
+    "ag_nv_score",
+    "ag_nv_rank",
+    "ag_cb_score",
+    "ag_cb_nsrc",
+    "ag_p_dwell",
+    "ag_p_visits",
+    "ag_i_v2c",
+    "ag_i_c2o",
+    "ag_i_trend",
+    "ag_i_wk_buyrate",
+    "ag_wrv_score",
+    "ag_wrv_share",
+    "ag_p_cart_age",
+    "ag_p_cart_rank",
+    "ag_p_cart_done",
+    "ag_cbb_ord",
+    "ag_cbb_ord_share",
+    "ag_i_revisit",
+    "ag_i_wk_c2o",
+    "ag_v2b_score",
+    "ag_v2b_ord_share",
+    "ag_wcb_share",
+    "ag_wcb_ord",
+    "ag_nv1_share",
+    "ag_i_buy_mom",
+    "ag_i_wk_buy_trend",
+    "ag_p_span",
+    "ag_p_age_rel",
+    "ag_p_after_last",
+    "ag_p_before_last",
+    "ag_nvb_score",
+    "ag_wcc_share",
+    "ag_wcv_share"
+  ],
+  "call_log": [
+    {
+      "round": 1,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 94.8,
+      "cost_usd": 0.245088,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-tzlkso8b",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 2,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 54.5,
+      "cost_usd": 0.18564999999999998,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-7865oe6l",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 3,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 65.2,
+      "cost_usd": 0.23685400000000004,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-u63f9y6f",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 4,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 75.4,
+      "cost_usd": 0.28529800000000005,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-c08tuivn",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 5,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 118.9,
+      "cost_usd": 0.403802,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-_qes1xus",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 6,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 121.3,
+      "cost_usd": 0.44229399999999996,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-xchua4jp",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    }
+  ],
+  "prompts": {
+    "r1": "b29ea7b622232ae80a7e233c1f0ef98def0225fdcddf10ebdcdc7ff6a31cdf78",
+    "r2": "4ea6c6cc800d20f689c5d636ee2f83ab3b91b85f4ec36efe34720df52995b71c",
+    "r3": "e9959ed98fd4765131eef95aca535ae88ad489163234ae864117965623597ae1",
+    "r4": "a0f5d5b5f7c92bba52071fff514abca6871c997c3a8d2a8597347f78a1b7cadf",
+    "r5": "244b49f3a404e22a68214696ae8ba62d5641d667b6c91c32d8f82caa421e3f1d",
+    "r6": "1b64d3928466b6e5ba7bbf92ab62ec8bd14fe19f1e33808fe60009c5f4b02438"
+  },
+  "values": {
+    "r2p1": {
+      "kind": "source",
+      "rows": 621288,
+      "sha256": "25b21e375a81925d35ee42aa69ac9130c94757853ad90120ed2c485d716fb700"
+    },
+    "r2p2": {
+      "kind": "source",
+      "rows": 568484,
+      "sha256": "676db3a9fe433d6879ab1cc8990d418bb0a39369c82824dde9bf1c8ccc3be017"
+    },
+    "r2p3": {
+      "kind": "source",
+      "rows": 672298,
+      "sha256": "2fee52f9f979137f3048b3c2bcd82bd6ea93afe8d393ee7ba0162e4d76a12371"
+    },
+    "r2p4": {
+      "kind": "table",
+      "path": "artifacts/otto/tables/F3/r2p4-ca481f8063998ff7/table.parquet",
+      "key": "ca481f8063998ff7c2b28aad5a6d993f9915f4c2d3d6dc47c9b8406d8d49f22f",
+      "sha256": "0fb6e187acdae6658e8a4e40b38bc3166bd98262beb1eab7437b5c2139fda38e",
+      "rows": 17771751,
+      "columns": [
+        "tv_cnt",
+        "tv_ord"
+      ]
+    },
+    "r2p5": {
+      "kind": "table",
+      "path": "artifacts/otto/tables/F3/r2p5-b4269470cfb7c778/table.parquet",
+      "key": "b4269470cfb7c778d137b68b8a8c87a79163326c99ca77b7e8058fb41a878a18",
+      "sha256": "f57268bb224430223f5e923be9114536f8874b6c612cedc5be540c00ba03622c",
+      "rows": 28789432,
+      "columns": [
+        "tv_wgt"
+      ]
+    },
+    "r3p1": {
+      "kind": "feature",
+      "rows": 459790,
+      "sha256": "f1c37f20ce8b1dc1fbbbeb1f67fe3f86b151dc152fdbb5be170059dd1d3708df"
+    },
+    "r3p2": {
+      "kind": "feature",
+      "rows": 743188,
+      "sha256": "a313fbbc81dcefb14d8fb95e56ff861b0dc439d7197f2098d4269828be824302"
+    },
+    "r3p3": {
+      "kind": "feature",
+      "rows": 62045,
+      "sha256": "8ae50ab662063ef0cea37829bcadf0728fd92ae5f02cc3b2d60afb9b404988b1"
+    },
+    "r3p4": {
+      "kind": "feature",
+      "rows": 1753571,
+      "sha256": "fd0ec4c4dcb1b87bd8b8ca5c12205532e08e9b1181022a1eb952c39580bd823b"
+    },
+    "r3p5": {
+      "kind": "feature",
+      "rows": 935103,
+      "sha256": "1a5d9c589f162970d84d434a3554214d29ac26654bbdc59c75466299f71e2ce9"
+    },
+    "r4p1": {
+      "kind": "feature",
+      "rows": 29588,
+      "sha256": "b9362822363e4ae7553ef631146a2d4726dbcf5bd75a5e2e9f281fba55e86951"
+    },
+    "r4p2": {
+      "kind": "feature",
+      "rows": 6514,
+      "sha256": "2afaf29b7482c0a544ff3f2532a4e1c8b3e505b0c48ca641c96c18adfe616c33"
+    },
+    "r4p3": {
+      "kind": "feature",
+      "rows": 81051,
+      "sha256": "595e1caa7e5c68a9bc8c05b383381698a86eec1dd96263b1f6a787bee29ed728"
+    },
+    "r4p4": {
+      "kind": "feature",
+      "rows": 1605617,
+      "sha256": "4854847f6dc4e89e395e830ddb54f910ad4231da57cecc98614f2a986aed3763"
+    },
+    "r4p5": {
+      "kind": "table",
+      "path": "artifacts/otto/tables/F3/r4p5-23ef98e2e9834e00/table.parquet",
+      "key": "23ef98e2e9834e001afb85d864d2974711232737b33b488d8d53720056e42e42",
+      "sha256": "9873cb1c17a0c761a7b4e9ed4ac65f9b501a7054855178765fca410e2dc8e051",
+      "rows": 17687247,
+      "columns": [
+        "tv_cnt",
+        "tv_ord"
+      ]
+    },
+    "r5p1": {
+      "kind": "feature",
+      "rows": 443323,
+      "sha256": "1e54c3fa58347f6807bb47dd544a424794830f2917a1950167268971519109a9"
+    },
+    "r5p2": {
+      "kind": "feature",
+      "rows": 745277,
+      "sha256": "640aa47c4d9e1b21f3d713c738c6619d5a30ed2349d0f6e76c4f9962f6d9085b"
+    },
+    "r5p3": {
+      "kind": "feature",
+      "rows": 334143,
+      "sha256": "1ab961f599eab4bb06674959283aab3cd383c466bfba2c30f77cc2dcbffcce9b"
+    },
+    "r5p4": {
+      "kind": "feature",
+      "rows": 743462,
+      "sha256": "9c04cb3fb9567a78346d2c003b8ce2d0c7b066fd35ddcdbcf7e2cbee27fdb3fe"
+    },
+    "r5p5": {
+      "kind": "feature",
+      "rows": 62045,
+      "sha256": "a34d98079bb0e569ee1a6acf961faf161eeba28d9339781cded672080b4ac74b"
+    },
+    "r6p2": {
+      "kind": "feature",
+      "rows": 4621,
+      "sha256": "b92b3bc348ccbe8f95df242a9668f85544ed3c29e60ecefd929a4f02c7843b38"
+    },
+    "r6p3": {
+      "kind": "feature",
+      "rows": 500649,
+      "sha256": "d3f34115400bf578286bcfc5ee5879d84272ca3c3d3a0a7b11bec41c765ae844"
+    },
+    "r6p4": {
+      "kind": "feature",
+      "rows": 44263,
+      "sha256": "952054946e82e46e9161a5f71ff5a0045961cdc231ba31c6440d373975285d3d"
+    },
+    "r6p5": {
+      "kind": "feature",
+      "rows": 931710,
+      "sha256": "536807bd9adca0a6bde13ff5e1335448cb679f8da4e26cf9fc9001b4d082d4b3"
+    }
+  },
+  "probe_seconds": {
+    "r2p1": 1.147,
+    "r2p2": 1.018,
+    "r2p3": 3.453,
+    "r2p4": 3.266,
+    "r2p5": 9.754,
+    "r3p1": 0.309,
+    "r3p2": 0.267,
+    "r3p3": 0.11,
+    "r3p4": 4.152,
+    "r3p5": 1.888,
+    "r4p1": 0.546,
+    "r4p2": 0.109,
+    "r4p3": 0.17,
+    "r4p4": 3.927,
+    "r4p5": 4.743,
+    "r5p1": 0.284,
+    "r5p2": 0.636,
+    "r5p3": 0.232,
+    "r5p4": 0.877,
+    "r5p5": 0.099,
+    "r6p2": 0.102,
+    "r6p3": 0.705,
+    "r6p4": 0.127,
+    "r6p5": 0.834
+  },
+  "code": {
+    "files": {
+      "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+      "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+      "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+      "scripts/hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+      "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+      "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+      "scripts/hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+      "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+      "scripts/hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+      "scripts/otto_agent.py": "07f87b1fbdf78c2cdd60a8b56b67ebcbe547ea01d988269174adf5dc34a67bf4",
+      "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
+      "scripts/otto_data.py": "57bffca039e7b51be746c63f05ba0ac908ae8908ec925eb760b55c276972f6b0",
+      "scripts/otto_model.py": "46deffd121d426b77c5373f751d3d354308bc27a70ce13ca5119e8e38392b40f",
+      "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+      "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"
+    },
+    "missing": []
+  },
+  "started_at_utc": "2026-10-22T23:18:08Z",
+  "log_sha256": "03578a181ce86751a42aca118bbf536c0eba9c4a32d548749a5507fe1c4c22ed",
+  "finished_at_utc": "2026-10-22T23:28:44Z"
+}

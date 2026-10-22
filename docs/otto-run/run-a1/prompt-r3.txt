@@ -1,0 +1,249 @@
+You are a feature engineer for a ranking model. Reply with JSON only.
+
+TASK
+Sessions of an online shop. An event is (session, item, ts, event) with event in {view, cart, order}; ts is in
+seconds. Each session of the target week is cut at a point that does not depend on its events: the prefix is
+known, the rest is hidden. For every session and every event type t the model ranks candidate items, and the
+first 20 count. Labels: view - the first viewed item after the cut; cart - items put into the cart after the
+cut; order - items ordered after the cut. R_t = sum over sessions of |top 20 with labels of type t| divided by
+the sum over sessions of min(20, |labels of type t|). Score = 0.10*R_view + 0.30*R_cart +
+0.60*R_order. The feedback below carries a coarse recall on a validation sample (described there).
+
+CANDIDATES OF THE BASE B (always kept)
+- (h) history: the distinct items of the prefix by their last occurrence, latest first, then item; the first 50.
+- (p_t) popular of type t in view, cart, order: the 20 items with the most distinct prefixes of the target week that hold an event of type t with them; ties to the smaller item; one list per week.
+- Union: (h), then p_view, p_cart, p_order without repeats, at most 110 per session.
+
+FEATURES ALREADY IN THE MODEL: base B (name: formula; missing). The history H is every event before the start
+{S} of the target week; prefixes are the known parts of the target-week sessions.
+- s_len: events in the prefix; missing: -
+- s_items: distinct item in the prefix; missing: -
+- s_cart: cart events in the prefix; missing: 0
+- s_order: order events in the prefix; missing: 0
+- s_dur: ts of the last minus ts of the first prefix event, s; missing: -
+- p_view: view events of the item in the prefix; missing: 0
+- p_cart: cart events of the item in the prefix; missing: 0
+- p_order: order events of the item in the prefix; missing: 0
+- p_last_pos: position of the last occurrence of the item from the prefix end (1 = last event); missing: NULL outside (h)
+- p_last_age: ts of the last prefix event minus ts of the last occurrence of the item, s; missing: NULL outside (h)
+- p_is_last: 1 if the item is the last prefix event; missing: 0
+- h_rank: position in (h); missing: NULL outside (h)
+- pop_rank_view: position in p_view; missing: NULL outside p_view
+- pop_rank_cart: position in p_cart; missing: NULL outside p_cart
+- pop_rank_order: position in p_order; missing: NULL outside p_order
+- i_wk_view: distinct sessions of Q_k with view of the item in the prefix; missing: 0
+- i_wk_cart: distinct sessions of Q_k with cart of the item in the prefix; missing: 0
+- i_wk_order: distinct sessions of Q_k with order of the item in the prefix; missing: 0
+- i_h7_cart: distinct sessions of H_k with cart of the item in the 7 d before start(W_k); missing: 0
+- i_h7_order: distinct sessions of H_k with order of the item in the 7 d before start(W_k); missing: 0
+- i_h7_all: events of the item in H_k in the 7 d before start(W_k); missing: 0
+
+TRAINING
+CatBoost YetiRank, 500 trees, depth 8, learning rate 0.05, L2 10, 128 borders; one model
+per event type; the first 50000 sessions with a label of the type, all positives and up to 30 negatives per
+session; no tuning. History depth before the target week: 7, 14, 21, 28 days for the four weeks in order; the
+validation sample below lies in the second of them (history depth 14 days). The training week of
+each run is 7 days shorter than the week it is evaluated on, and a window longer than the
+available history is silently truncated there.
+
+TABLES (DuckDB; a query sees only these)
+hist(session BIGINT, item BIGINT, ts BIGINT, event VARCHAR, seq INTEGER): the history H, every event before {S}; seq is the index of the event in its session
+sess(session BIGINT, item BIGINT, ts BIGINT, event VARCHAR, seq INTEGER): the prefixes of every session of the target week (all sessions, not only the batch)
+cand(session BIGINT, item BIGINT): the candidate pairs of the current batch, keys only
+sessions(session BIGINT): the sessions of the current batch
+tb_<name>(item BIGINT, item2 BIGINT, tv_* DOUBLE): tables accepted earlier in this run
+
+THREE KINDS OF PROPOSALS (field "kind")
+- "table" (level "item_pair"): an item x item helper table computed once on the whole history, for example items
+  that go together. Keys item, item2 (BIGINT); 1 to 3 value columns named ^tv_[a-z][a-z0-9_]{1,38}$;
+  at most 50 rows per item and 100000000 rows in total. The field "name" must match
+  ^[a-z][a-z0-9_]{1,24}$; an accepted table is visible to later proposals of this run as tb_<name>
+  (read only). A table never enters the model itself; it reads hist only (not sess, cand or sessions).
+- "source" (level "pair"): a candidate source. Keys session, item (BIGINT) for sessions of the batch, items that
+  occur in hist or sess; exactly one value column score; at most 40 rows per session; on the validation
+  sample it must add candidates that the base does not have to at least 1000 sessions. The harness ranks
+  the rows by score descending, then item, and adds ag_src_<name>_rank and ag_src_<name>_score to the model.
+- "feature" (level "pair", "session" or "item"): value columns for the model. Level pair: keys session, item of
+  cand; level session: session of sessions; level item: item. 1 to 3 value columns named
+  ^ag_[a-z][a-z0-9_]{1,38}$, not starting with ag_src_, unique among accepted columns.
+- A proposal may read only tb_* tables accepted earlier in this run.
+
+PHASES
+- Rounds 1 to 2 (phase S): only table and source. After round 2 the candidates freeze: the base
+  candidates of each session always stay, then up to 200 per session are filled with items of the valid
+  sources (at most the first 6 valid sources) that are not base candidates, by the smallest rank over
+  the sources, then the earliest accepted source, then item.
+- Rounds 3 to 6 (phase F): only table and feature, on the frozen candidates.
+- There is no selection by effect: every valid source and column enters the model.
+
+QUERY RULES
+- Exactly one SELECT or WITH statement; ';' only at the very end; no comments (-- or /* */).
+- Times only through {S} (start of the target week) and {E} (its end), literally with the braces, for example
+  ts >= {S} - 7*86400. No other {...} placeholders, no date literals, no integer literal of nine or
+  more digits.
+- ts always stands on the left of a comparison and is never compared with a plain number; write ages as {S} - ts.
+- Forbidden whole words, in any case: label*, suffix*, frame, target, targets; read_*, parquet_*, csv, json*,
+  glob, getenv, getvariable, query, query_table, duckdb_*, information_schema, pg_*, sqlite_master, pragma*,
+  summarize, describe, show; attach, detach, copy, export, import, install, load, set, reset, use, call, create,
+  drop, insert, update, delete, alter; random, setseed, uuid, now, today, current_date, current_time,
+  current_timestamp, sample, tablesample, current_setting, checkpoint; hash*, sha*, md5*, crc*; the functions
+  error(), strptime() and regexp_*(). No "$" anywhere. No string literal may hold a path or a file name.
+- session is never compared with a number and never taken modulo: no rule may single out sessions by their id.
+- Keys are BIGINT, never NULL, unique; a key outside its set is an error. Values must be integer, DECIMAL, FLOAT,
+  DOUBLE or BOOLEAN; they are cast to DOUBLE, NULL or non-finite means missing. Every output column is named in
+  the SQL.
+- Batch invariance: a value depends only on hist, sess, tb_* and its own key; cand and sessions only filter.
+  PARTITION BY session over cand is allowed (all candidates of a session are always in one batch). Windows need a
+  full tie-break.
+
+VALIDATION SAMPLE (probe)
+20000 sessions of a validation week. Timeouts per proposal: table 1200 s; source 60 s;
+feature pair 60 s, session 60 s, item 120 s. Budget of the run: tables
+4800 s, sources and pair or session features 900 s, item features 600 s; a
+proposal that does not fit into what is left gets status budget.
+Validity: a proposal is accepted or rejected as a whole. It is invalid on an SQL error, a broken rule or a timeout;
+when a column has fewer than 2 distinct non-NULL values or fewer than 100 non-NULL rows (a
+source: rows and scores); when a column has |Spearman rho| >= 0.999 with a base column, an accepted column or
+another column of the same proposal; or when the first 1000 probe sessions give other values in two
+batches of 500.
+Feedback: buckets 2^k-2^(k+1) of time, rows and coverage; for a source the recall of its candidates per event type
+(step 0.01) and the gain of the candidate ceiling (step 0.001); for a feature column R_t@20 when the
+candidates are ranked by that column alone (better direction), next to the best single base column.
+
+STATISTICS OF THE VALIDATION WEEK AND ITS HISTORY (no hidden events)
+history_7d:
+  view:
+    events: 49757345
+    sessions: 5677706
+    items: 1605617
+  cart:
+    events: 4293045
+    sessions: 1302310
+    items: 679237
+  order:
+    events: 1336801
+    sessions: 525882
+    items: 323633
+history_14d:
+  view:
+    events: 97537597
+    sessions: 8639277
+    items: 1750827
+  cart:
+    events: 8423388
+    sessions: 2234300
+    items: 920399
+  order:
+    events: 2587084
+    sessions: 934199
+    items: 459853
+prefixes:
+  view:
+    events: 8712048
+    sessions: 2221455
+    items: 924877
+  cart:
+    events: 788271
+    sessions: 332780
+    items: 263082
+  order:
+    events: 96886
+    sessions: 50855
+    items: 57181
+prefix_sessions: 2224350
+prefix_length:
+  p50: 2
+  p90: 9
+  p99: 39
+  max: 414
+share_prefixes_with_cart: 0.15
+share_prefixes_with_order: 0.023
+events_per_item:
+  p50: 11
+  p90: 105
+  p99: 966
+  max: 72509
+base_candidates_per_session: 42.1
+events_squared_per_session:
+  p50: 16
+  p90: 625
+  p99: 12321
+  max: 247009
+  sum: 6540575550
+event_pairs_per_session:
+  within_5: 42.58
+  within_20: 121.84
+
+WARNING
+All valid sources and columns will enter the model without selection. Superfluous and noisy columns hurt: a few strong, non-redundant signals are needed. Session-level columns work only through interactions.
+
+EARLIER ATTEMPTS IN THIS RUN
+Accepted tables (tb_<name>): cobuy, nextview
+Accepted sources: wk_next_i, wk_cobuy, h_cobuy
+Agent columns accepted earlier in this run, also in the model: ag_src_wk_next_i_rank, ag_src_wk_next_i_score, ag_src_wk_cobuy_rank, ag_src_wk_cobuy_score, ag_src_h_cobuy_rank, ag_src_h_cobuy_score
+The candidates are frozen with the sources wk_next_i, wk_cobuy, h_cobuy.
+Best single base column, R@20 on the current candidates: view p_last_pos 0.35, cart p_last_pos 0.31, order p_last_pos 0.59
+r1p1 cobuy [table/item_pair]: invalid
+  idea: Pairs of items that are carted or ordered together in the same history session (sessions with 2 to 30 such items), counted by distinct sessions, as a buy-to-buy co-visitation for cart and order recall.
+  reason: table column tv_n does not match ^tv_[a-z][a-z0-9_]{1,38}$
+  sql: WITH b AS (SELECT session, item, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE event IN ('cart', 'order') GROUP BY session, item), bs AS (SELECT session FROM b GROUP BY session HAVING count(*) BETWEEN 2 AND 30), bb AS (SELECT b.session, b.item, b.o FROM b JOIN bs ON b.session = bs.session), p AS (SELECT x.item AS item, y.item AS item2, count(*) AS n, sum(y.o) AS n_o FROM bb x JOIN bb y ON x.session = y.session AND x.item <> y.item GROUP BY x.item, y.item), r AS (SELECT item, item2, n, n_o, row_number() OVER (PARTITION BY item ORDER BY n DESC, n_o DESC, item2) AS rn FROM p) SELECT item, item2, CAST(n AS DOUBLE) AS tv_n, CAST(n_o AS DOUBLE) AS tv_ord FROM r WHERE rn <= 50;
+r1p2 view2buy [table/item_pair]: invalid
+  idea: Directed pairs where an item first viewed earlier in a history session is followed by a different item that is carted or ordered later in that session, so viewed items point to likely purchases.
+  reason: table column tv_n does not match ^tv_[a-z][a-z0-9_]{1,38}$
+  sql: WITH c AS (SELECT session, item, min(seq) AS cs, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE event IN ('cart', 'order') GROUP BY session, item), css AS (SELECT DISTINCT session FROM c), v AS (SELECT h.session, h.item, min(h.seq) AS fs FROM hist h JOIN css ON h.session = css.session WHERE h.event = 'view' GROUP BY h.session, h.item), vn AS (SELECT session FROM v GROUP BY session HAVING count(*) <= 40), p AS (SELECT x.item AS item, c.item AS item2, count(*) AS n, sum(c.o) AS n_o FROM v x JOIN vn ON x.session = vn.session JOIN c ON c.session = x.session AND x.fs < c.cs AND x.item <> c.item GROUP BY x.item, c.item), r AS (SELECT item, item2, n, n_o, row_number() OVER (PARTITION BY item ORDER BY n DESC, n_o DESC, item2) AS rn FROM p) SELECT item, item2, CAST(n AS DOUBLE) AS tv_n, CAST(n_o AS DOUBLE) AS tv_ord FROM r WHERE rn <= 50;
+r1p3 nextview [table/item_pair]: invalid
+  idea: Forward transitions in the last 7 days of history after collapsing consecutive repeats: item2 appearing 1 to 3 steps after item, weighted 1/step, to predict the next viewed item.
+  reason: table column tv_w does not match ^tv_[a-z][a-z0-9_]{1,38}$
+  sql: WITH e AS (SELECT session, item, seq, lag(item) OVER (PARTITION BY session ORDER BY seq, item) AS pi FROM hist WHERE ts >= {S} - 7*86400), d AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY seq, item) AS r FROM e WHERE pi IS NULL OR pi <> item), p AS (SELECT x.item AS item, y.item AS item2, sum(1.0 / k.k) AS w FROM d x CROSS JOIN (VALUES (1), (2), (3)) k(k) JOIN d y ON y.session = x.session AND y.r = x.r + k.k WHERE y.item <> x.item GROUP BY x.item, y.item), r AS (SELECT item, item2, w, row_number() OVER (PARTITION BY item ORDER BY w DESC, item2) AS rn FROM p) SELECT item, item2, CAST(w AS DOUBLE) AS tv_w FROM r WHERE rn <= 50;
+r1p4 covisit_w [table/item_pair]: invalid
+  idea: Symmetric whole-session co-occurrence in the last 7 days of history (sessions with 2 to 20 distinct items), with item2 weighted by its strongest event type (view 1, cart 6, order 3), to surface items that get bought alongside.
+  reason: table column tv_w does not match ^tv_[a-z][a-z0-9_]{1,38}$
+  sql: WITH b AS (SELECT session, item, max(CASE WHEN event = 'cart' THEN 6 WHEN event = 'order' THEN 3 ELSE 1 END) AS w FROM hist WHERE ts >= {S} - 7*86400 GROUP BY session, item), bs AS (SELECT session FROM b GROUP BY session HAVING count(*) BETWEEN 2 AND 20), bb AS (SELECT b.session, b.item, b.w FROM b JOIN bs ON b.session = bs.session), p AS (SELECT x.item AS item, y.item AS item2, sum(y.w) AS w FROM bb x JOIN bb y ON x.session = y.session AND x.item <> y.item GROUP BY x.item, y.item), r AS (SELECT item, item2, w, row_number() OVER (PARTITION BY item ORDER BY w DESC, item2) AS rn FROM p) SELECT item, item2, CAST(w AS DOUBLE) AS tv_w FROM r WHERE rn <= 50;
+r1p5 wk_next [source/pair]: invalid (2^-1–2^0 s, 2^19–2^20 rows)
+  idea: Fresh in-week transitions: for the last 3 prefix events of a session, the items that follow those items 1 to 3 steps later in any target-week prefix, weighted 1/step and 1/recency rank, excluding the session's own prefix items.
+  reason: batch invariance: rows or scores of the first 1000 probe sessions differ between the scored pass on permuted session ids and its two halves on the real ones
+  candidates per session 2^4–2^5, share of new items 2^-1–2^0, share of sessions covered 2^-1–2^0
+  ag_src_wk_next_rank: non-null 0.43, distinct 2^5–2^6, max |rho| 0.0, nearest i_wk_cart
+  ag_src_wk_next_score: non-null 0.43, distinct 2^11–2^12, max |rho| 0.5, nearest i_wk_view
+  sql: WITH l AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS rk FROM sess s JOIN sessions b ON s.session = b.session), li AS (SELECT session, item, min(rk) AS rk FROM l WHERE rk <= 3 GROUP BY session, item), it AS (SELECT DISTINCT item FROM li), occ AS (SELECT s.session, s.seq, s.item FROM sess s JOIN it ON s.item = it.item), nx AS (SELECT o.item AS item, n.item AS item2, sum(1.0 / d.k) AS w FROM occ o CROSS JOIN (VALUES (1), (2), (3)) d(k) JOIN sess n ON n.session = o.session AND n.seq = o.seq + d.k WHERE n.item <> o.item GROUP BY o.item, n.item), sc AS (SELECT li.session, nx.item2 AS item, sum(nx.w / li.rk) AS score FROM li JOIN nx ON nx.item = li.item GROUP BY li.session, nx.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess p WHERE p.session = sc.session AND p.item = sc.item)), r AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS rn FROM f) SELECT session, item, CAST(score AS DOUBLE) AS score FROM r WHERE rn <= 40;
+r2p1 wk_next_i [source/pair]: valid (2^0–2^1 s, 2^19–2^20 rows)
+  idea: In-week transitions with integer weights: for the session's last 3 distinct prefix items, items that follow them 1 to 3 steps later in any target-week prefix, weighted 6/3/2 by step and by recency, excluding the session's own prefix items.
+  candidates per session 2^4–2^5, share of new items 2^-1–2^0, share of sessions covered 2^-1–2^0
+  recall of its candidates: view 0.20, cart 0.11, order 0.07
+  gain of the candidate ceiling: view 0.195, cart 0.106, order 0.063
+  ag_src_wk_next_i_rank: non-null 0.43, distinct 2^5–2^6, max |rho| 0.0, nearest i_wk_order
+  ag_src_wk_next_i_score: non-null 0.43, distinct 2^11–2^12, max |rho| 0.5, nearest i_wk_view
+  sql: WITH l AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS rk FROM sess s JOIN sessions b ON s.session = b.session), li AS (SELECT session, item, min(rk) AS rk FROM l WHERE rk <= 3 GROUP BY session, item), it AS (SELECT DISTINCT item FROM li), occ AS (SELECT s.session, s.seq, s.item FROM sess s JOIN it ON s.item = it.item), nx AS (SELECT o.item AS item, n.item AS item2, sum(CASE d.k WHEN 1 THEN 6 WHEN 2 THEN 3 ELSE 2 END) AS w FROM occ o CROSS JOIN (VALUES (1), (2), (3)) d(k) JOIN sess n ON n.session = o.session AND n.seq = o.seq + d.k WHERE n.item <> o.item GROUP BY o.item, n.item), sc AS (SELECT li.session, nx.item2 AS item, sum(nx.w * CASE li.rk WHEN 1 THEN 6 WHEN 2 THEN 3 ELSE 2 END) AS score FROM li JOIN nx ON nx.item = li.item GROUP BY li.session, nx.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess p WHERE p.session = sc.session AND p.item = sc.item)), r AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS rn FROM f) SELECT session, item, CAST(score AS DOUBLE) AS score FROM r WHERE rn <= 40;
+r2p2 wk_cobuy [source/pair]: valid (2^0–2^1 s, 2^19–2^20 rows)
+  idea: In-week view-to-buy: for the session's last 5 distinct prefix items, items carted or ordered in other target-week prefixes that contain those items (up to 1000 most recent prefixes per item), integer weighted by recency rank.
+  candidates per session 2^4–2^5, share of new items 2^-1–2^0, share of sessions covered 2^-1–2^0
+  recall of its candidates: view 0.10, cart 0.09, order 0.06
+  gain of the candidate ceiling: view 0.010, cart 0.017, order 0.010
+  ag_src_wk_cobuy_rank: non-null 0.31, distinct 2^5–2^6, max |rho| 0.4, nearest ag_src_wk_next_i_rank
+  ag_src_wk_cobuy_score: non-null 0.31, distinct 2^9–2^10, max |rho| 0.7, nearest ag_src_wk_next_i_score
+  sql: WITH l AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS rk FROM sess s JOIN sessions b ON s.session = b.session), li AS (SELECT session, item, min(rk) AS rk FROM l WHERE rk <= 5 GROUP BY session, item), it AS (SELECT DISTINCT item FROM li), ps0 AS (SELECT s.session, s.item, max(s.ts) AS mt FROM sess s JOIN it ON s.item = it.item GROUP BY s.session, s.item), ps AS (SELECT session, item FROM (SELECT session, item, row_number() OVER (PARTITION BY item ORDER BY mt DESC, session) AS rn FROM ps0) z WHERE rn <= 1000), bt AS (SELECT session, item, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM sess WHERE event IN ('cart', 'order') GROUP BY session, item), nx AS (SELECT p.item AS item, b.item AS item2, sum(2 + b.o) AS w FROM ps p JOIN bt b ON b.session = p.session AND b.item <> p.item GROUP BY p.item, b.item), sc AS (SELECT li.session, nx.item2 AS item, sum(nx.w * (6 - li.rk)) AS score FROM li JOIN nx ON nx.item = li.item GROUP BY li.session, nx.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess p WHERE p.session = sc.session AND p.item = sc.item)), r AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS rn FROM f) SELECT session, item, CAST(score AS DOUBLE) AS score FROM r WHERE rn <= 40;
+r2p3 h_cobuy [source/pair]: valid (2^1–2^2 s, 2^19–2^20 rows)
+  idea: History buy-to-buy: for the session's last 5 distinct prefix items, items carted or ordered together with them in history sessions with 2 to 30 bought items (up to 300 most recent sessions per item), order weighted higher, integer scores.
+  candidates per session 2^5–2^6, share of new items 2^-1–2^0, share of sessions covered 2^-1–2^0
+  recall of its candidates: view 0.11, cart 0.09, order 0.06
+  gain of the candidate ceiling: view 0.020, cart 0.027, order 0.018
+  ag_src_h_cobuy_rank: non-null 0.28, distinct 2^5–2^6, max |rho| 0.4, nearest ag_src_wk_cobuy_rank
+  ag_src_h_cobuy_score: non-null 0.28, distinct 2^9–2^10, max |rho| 0.7, nearest ag_src_wk_cobuy_score
+  sql: WITH l AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS rk FROM sess s JOIN sessions b ON s.session = b.session), li AS (SELECT session, item, min(rk) AS rk FROM l WHERE rk <= 5 GROUP BY session, item), it AS (SELECT DISTINCT item FROM li), b0 AS (SELECT session, item, max(ts) AS mt, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE event IN ('cart', 'order') GROUP BY session, item), bs AS (SELECT session FROM b0 GROUP BY session HAVING count(*) BETWEEN 2 AND 30), bb AS (SELECT b0.session, b0.item, b0.mt, b0.o FROM b0 JOIN bs ON b0.session = bs.session), ps AS (SELECT session, item FROM (SELECT bb.session, bb.item, row_number() OVER (PARTITION BY bb.item ORDER BY bb.mt DESC, bb.session) AS rn FROM bb JOIN it ON bb.item = it.item) z WHERE rn <= 300), nx AS (SELECT p.item AS item, y.item AS item2, sum(1 + 2 * y.o) AS w FROM ps p JOIN bb y ON y.session = p.session AND y.item <> p.item GROUP BY p.item, y.item), sc AS (SELECT li.session, nx.item2 AS item, sum(nx.w * (6 - li.rk)) AS score FROM li JOIN nx ON nx.item = li.item GROUP BY li.session, nx.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess p WHERE p.session = sc.session AND p.item = sc.item)), r AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS rn FROM f) SELECT session, item, CAST(score AS DOUBLE) AS score FROM r WHERE rn <= 40;
+r2p4 cobuy [table/item_pair]: valid (2^1–2^2 s, 2^24–2^25 rows)
+  idea: Pairs of items carted or ordered together in the same history session (2 to 30 bought items), counted by distinct sessions with an order count, as a buy-to-buy co-visitation for later cart and order features.
+  tv_cnt
+  tv_ord
+  sql: WITH b AS (SELECT session, item, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE event IN ('cart', 'order') GROUP BY session, item), bs AS (SELECT session FROM b GROUP BY session HAVING count(*) BETWEEN 2 AND 30), bb AS (SELECT b.session, b.item, b.o FROM b JOIN bs ON b.session = bs.session), p AS (SELECT x.item AS item, y.item AS item2, count(*) AS n, sum(y.o) AS n_o FROM bb x JOIN bb y ON x.session = y.session AND x.item <> y.item GROUP BY x.item, y.item), r AS (SELECT item, item2, n, n_o, row_number() OVER (PARTITION BY item ORDER BY n DESC, n_o DESC, item2) AS rn FROM p) SELECT item, item2, CAST(n AS DOUBLE) AS tv_cnt, CAST(n_o AS DOUBLE) AS tv_ord FROM r WHERE rn <= 50;
+r2p5 nextview [table/item_pair]: valid (2^3–2^4 s, 2^24–2^25 rows)
+  idea: Forward transitions in the last 7 days of history after collapsing consecutive repeats: item2 appearing 1 to 3 steps after item, weighted 1/step, to predict the next viewed item in later features.
+  tv_wgt
+  sql: WITH e AS (SELECT session, item, seq, lag(item) OVER (PARTITION BY session ORDER BY seq, item) AS pi FROM hist WHERE ts >= {S} - 7*86400), d AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY seq, item) AS r FROM e WHERE pi IS NULL OR pi <> item), p AS (SELECT x.item AS item, y.item AS item2, sum(1.0 / k.k) AS w FROM d x CROSS JOIN (VALUES (1), (2), (3)) k(k) JOIN d y ON y.session = x.session AND y.r = x.r + k.k WHERE y.item <> x.item GROUP BY x.item, y.item), r AS (SELECT item, item2, w, row_number() OVER (PARTITION BY item ORDER BY w DESC, item2) AS rn FROM p) SELECT item, item2, CAST(w AS DOUBLE) AS tv_wgt FROM r WHERE rn <= 50;
+Budget left (rounded down to 10 s): tables about 4780 s; sources and pair or session features about
+890 s; item features about 600 s.
+
+REQUEST
+This is round 3 of 6 (phase F: table and feature only). Propose 5 new proposals that are likely
+to improve the score beyond base B and the accepted ones and that differ from earlier attempts. Answer with a JSON
+list only:
+[{"name": "short_snake_case", "idea": "one sentence", "kind": "table|feature", "level": "...", "sql": "SELECT ..."}]

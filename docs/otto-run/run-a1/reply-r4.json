@@ -1,0 +1,113 @@
+{
+  "round": 4,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "attempts": [
+    {
+      "round": 4,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 75.4,
+      "cost_usd": 0.28529800000000005,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-c08tuivn",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5,
+      "text": "[{\"name\": \"wk_revisit\", \"idea\": \"In-week transition strength from the session's last 3 distinct prefix items into the candidates that are themselves prefix items (the revisit case, which the in-week source excludes), computed over all target-week prefixes, as a raw score and as a share of all outgoing in-week transitions of those items.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH l AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions b ON s.session = b.session GROUP BY s.session, s.item), lr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS r FROM l), lt AS (SELECT session, item, r FROM lr WHERE r <= 3), ci AS (SELECT c.session, c.item FROM cand c JOIN l ON l.session = c.session AND l.item = c.item), it AS (SELECT DISTINCT item FROM lt), occ AS (SELECT s.session, s.seq, s.item FROM sess s JOIN it ON s.item = it.item), nx AS (SELECT o.item AS item, n.item AS item2, sum(CASE d.k WHEN 1 THEN 4 WHEN 2 THEN 2 ELSE 1 END) AS w FROM occ o CROSS JOIN (VALUES (1), (2), (3)) d(k) JOIN sess n ON n.session = o.session AND n.seq = o.seq + d.k WHERE n.item <> o.item GROUP BY o.item, n.item), tot AS (SELECT lt.session, sum(nx.w * (4 - lt.r)) AS t FROM lt JOIN nx ON nx.item = lt.item GROUP BY lt.session), sc AS (SELECT ci.session, ci.item, sum(nx.w * (4 - lt.r)) AS v FROM ci JOIN lt ON lt.session = ci.session JOIN nx ON nx.item = lt.item AND nx.item2 = ci.item GROUP BY ci.session, ci.item) SELECT sc.session, sc.item, CAST(sc.v AS DOUBLE) AS ag_wrv_score, CAST(sc.v * 1.0 / tot.t AS DOUBLE) AS ag_wrv_share FROM sc JOIN tot ON tot.session = sc.session;\"}, {\"name\": \"p_cart_state\", \"idea\": \"Cart state of each prefix item: seconds from its last cart event to the prefix end, its rank among the prefix's carted items by recency of carting, and whether it was already ordered after that last cart, since an open recent cart is the main source of order labels.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH e AS (SELECT s.session, s.item, s.seq, s.ts, s.event FROM sess s JOIN sessions b ON s.session = b.session), m AS (SELECT session, max(ts) AS mt FROM e GROUP BY session), c AS (SELECT session, item, max(ts) AS ct, max(seq) AS cs FROM e WHERE event = 'cart' GROUP BY session, item), o AS (SELECT session, item, max(seq) AS os FROM e WHERE event = 'order' GROUP BY session, item), cr AS (SELECT session, item, ct, cs, row_number() OVER (PARTITION BY session ORDER BY cs DESC, item) AS r FROM c) SELECT cd.session, cd.item, CAST(m.mt - cr.ct AS DOUBLE) AS ag_p_cart_age, CAST(cr.r AS DOUBLE) AS ag_p_cart_rank, CAST(CASE WHEN o.os IS NOT NULL AND o.os > cr.cs THEN 1 ELSE 0 END AS DOUBLE) AS ag_p_cart_done FROM cand cd JOIN cr ON cr.session = cd.session AND cr.item = cd.item JOIN m ON m.session = cd.session LEFT JOIN o ON o.session = cd.session AND o.item = cd.item;\"}, {\"name\": \"cb_buy_ord\", \"idea\": \"Order-oriented complements: from the session's last 10 carted or ordered prefix items only, the summed history co-order count (tv_ord) to each candidate and its smoothed share of the co-buy count, to separate items that are completed into orders from items only co-carted.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH p AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions x ON s.session = x.session WHERE s.event IN ('cart', 'order') GROUP BY s.session, s.item), pr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS r FROM p), pt AS (SELECT session, item FROM pr WHERE r <= 10), sc AS (SELECT c.session, c.item, sum(t.tv_ord) AS v, sum(t.tv_cnt) AS n FROM cand c JOIN pt ON pt.session = c.session JOIN tb_cobuy t ON t.item = pt.item AND t.item2 = c.item GROUP BY c.session, c.item) SELECT session, item, CAST(v AS DOUBLE) AS ag_cbb_ord, CAST((v + 0.5) / (n + 2.0) AS DOUBLE) AS ag_cbb_ord_share FROM sc;\"}, {\"name\": \"i_revisit\", \"idea\": \"Item revisit propensity: the smoothed share of 7-day history sessions viewing the item in which it is viewed again after viewing something else, plus the smoothed in-week cart-to-order rate by distinct prefixes, to tell which history items get returned to and which carts get completed.\", \"kind\": \"feature\", \"level\": \"item\", \"sql\": \"WITH e AS (SELECT session, item, seq, lag(item) OVER (PARTITION BY session ORDER BY seq, item) AS pi FROM hist WHERE ts >= {S} - 7*86400 AND event = 'view'), g AS (SELECT session, item, sum(CASE WHEN pi IS NULL OR pi <> item THEN 1 ELSE 0 END) AS runs FROM e GROUP BY session, item), a AS (SELECT item, count(*) AS ns, sum(CASE WHEN runs >= 2 THEN 1 ELSE 0 END) AS nr FROM g GROUP BY item), w AS (SELECT item, count(DISTINCT CASE WHEN event = 'cart' THEN session END) AS c, count(DISTINCT CASE WHEN event = 'order' THEN session END) AS o FROM sess WHERE event IN ('cart', 'order') GROUP BY item) SELECT a.item, CAST((a.nr + 1.0) / (a.ns + 10.0) AS DOUBLE) AS ag_i_revisit, CAST((coalesce(w.o, 0) + 1.0) / (coalesce(w.c, 0) + 5.0) AS DOUBLE) AS ag_i_wk_c2o FROM a LEFT JOIN w ON w.item = a.item;\"}, {\"name\": \"view2buy\", \"idea\": \"Directed history pairs where an item first viewed earlier in a session (sessions with up to 40 viewed items) is followed by a different item carted or ordered later in it, counted by sessions with an order count, for a later view-to-purchase pair feature.\", \"kind\": \"table\", \"level\": \"item_pair\", \"sql\": \"WITH c AS (SELECT session, item, min(seq) AS cs, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE event IN ('cart', 'order') GROUP BY session, item), css AS (SELECT DISTINCT session FROM c), v AS (SELECT h.session, h.item, min(h.seq) AS fs FROM hist h JOIN css ON h.session = css.session WHERE h.event = 'view' GROUP BY h.session, h.item), vn AS (SELECT session FROM v GROUP BY session HAVING count(*) <= 40), p AS (SELECT x.item AS item, c.item AS item2, count(*) AS n, sum(c.o) AS n_o FROM v x JOIN vn ON x.session = vn.session JOIN c ON c.session = x.session AND x.fs < c.cs AND x.item <> c.item GROUP BY x.item, c.item), r AS (SELECT item, item2, n, n_o, row_number() OVER (PARTITION BY item ORDER BY n DESC, n_o DESC, item2) AS rn FROM p) SELECT item, item2, CAST(n AS DOUBLE) AS tv_cnt, CAST(n_o AS DOUBLE) AS tv_ord FROM r WHERE rn <= 50;\"}]",
+      "meta": {
+        "model": "claude-opus-5-5",
+        "seconds": 75.4,
+        "returncode": 0,
+        "result": {
+          "subtype": "success",
+          "is_error": false,
+          "total_cost_usd": 0.28529800000000005,
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 15162,
+            "cache_read_input_tokens": 1170,
+            "output_tokens": 8188,
+            "output_tokens_details": {
+              "thinking_tokens": 5113
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 15162,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard"
+          },
+          "modelUsage": {
+            "claude-opus-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 8188,
+              "cacheReadInputTokens": 1170,
+              "cacheCreationInputTokens": 15162,
+              "webSearchRequests": 0,
+              "costUSD": 0.28529800000000005,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 5113,
+              "canonicalModel": "claude-opus-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "duration_ms": 74943,
+          "num_turns": 1,
+          "stop_reason": "end_turn"
+        },
+        "cost_usd": 0.28529800000000005,
+        "models": [
+          "claude-opus-5-5"
+        ]
+      }
+    }
+  ],
+  "kept": 5
+}

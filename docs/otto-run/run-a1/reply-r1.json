@@ -1,0 +1,113 @@
+{
+  "round": 1,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "attempts": [
+    {
+      "round": 1,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 94.8,
+      "cost_usd": 0.245088,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-tzlkso8b",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5,
+      "text": "[{\"name\":\"cobuy\",\"idea\":\"Pairs of items that are carted or ordered together in the same history session (sessions with 2 to 30 such items), counted by distinct sessions, as a buy-to-buy co-visitation for cart and order recall.\",\"kind\":\"table\",\"level\":\"item_pair\",\"sql\":\"WITH b AS (SELECT session, item, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE event IN ('cart', 'order') GROUP BY session, item), bs AS (SELECT session FROM b GROUP BY session HAVING count(*) BETWEEN 2 AND 30), bb AS (SELECT b.session, b.item, b.o FROM b JOIN bs ON b.session = bs.session), p AS (SELECT x.item AS item, y.item AS item2, count(*) AS n, sum(y.o) AS n_o FROM bb x JOIN bb y ON x.session = y.session AND x.item <> y.item GROUP BY x.item, y.item), r AS (SELECT item, item2, n, n_o, row_number() OVER (PARTITION BY item ORDER BY n DESC, n_o DESC, item2) AS rn FROM p) SELECT item, item2, CAST(n AS DOUBLE) AS tv_n, CAST(n_o AS DOUBLE) AS tv_ord FROM r WHERE rn <= 50;\"},{\"name\":\"view2buy\",\"idea\":\"Directed pairs where an item first viewed earlier in a history session is followed by a different item that is carted or ordered later in that session, so viewed items point to likely purchases.\",\"kind\":\"table\",\"level\":\"item_pair\",\"sql\":\"WITH c AS (SELECT session, item, min(seq) AS cs, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE event IN ('cart', 'order') GROUP BY session, item), css AS (SELECT DISTINCT session FROM c), v AS (SELECT h.session, h.item, min(h.seq) AS fs FROM hist h JOIN css ON h.session = css.session WHERE h.event = 'view' GROUP BY h.session, h.item), vn AS (SELECT session FROM v GROUP BY session HAVING count(*) <= 40), p AS (SELECT x.item AS item, c.item AS item2, count(*) AS n, sum(c.o) AS n_o FROM v x JOIN vn ON x.session = vn.session JOIN c ON c.session = x.session AND x.fs < c.cs AND x.item <> c.item GROUP BY x.item, c.item), r AS (SELECT item, item2, n, n_o, row_number() OVER (PARTITION BY item ORDER BY n DESC, n_o DESC, item2) AS rn FROM p) SELECT item, item2, CAST(n AS DOUBLE) AS tv_n, CAST(n_o AS DOUBLE) AS tv_ord FROM r WHERE rn <= 50;\"},{\"name\":\"nextview\",\"idea\":\"Forward transitions in the last 7 days of history after collapsing consecutive repeats: item2 appearing 1 to 3 steps after item, weighted 1/step, to predict the next viewed item.\",\"kind\":\"table\",\"level\":\"item_pair\",\"sql\":\"WITH e AS (SELECT session, item, seq, lag(item) OVER (PARTITION BY session ORDER BY seq, item) AS pi FROM hist WHERE ts >= {S} - 7*86400), d AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY seq, item) AS r FROM e WHERE pi IS NULL OR pi <> item), p AS (SELECT x.item AS item, y.item AS item2, sum(1.0 / k.k) AS w FROM d x CROSS JOIN (VALUES (1), (2), (3)) k(k) JOIN d y ON y.session = x.session AND y.r = x.r + k.k WHERE y.item <> x.item GROUP BY x.item, y.item), r AS (SELECT item, item2, w, row_number() OVER (PARTITION BY item ORDER BY w DESC, item2) AS rn FROM p) SELECT item, item2, CAST(w AS DOUBLE) AS tv_w FROM r WHERE rn <= 50;\"},{\"name\":\"covisit_w\",\"idea\":\"Symmetric whole-session co-occurrence in the last 7 days of history (sessions with 2 to 20 distinct items), with item2 weighted by its strongest event type (view 1, cart 6, order 3), to surface items that get bought alongside.\",\"kind\":\"table\",\"level\":\"item_pair\",\"sql\":\"WITH b AS (SELECT session, item, max(CASE WHEN event = 'cart' THEN 6 WHEN event = 'order' THEN 3 ELSE 1 END) AS w FROM hist WHERE ts >= {S} - 7*86400 GROUP BY session, item), bs AS (SELECT session FROM b GROUP BY session HAVING count(*) BETWEEN 2 AND 20), bb AS (SELECT b.session, b.item, b.w FROM b JOIN bs ON b.session = bs.session), p AS (SELECT x.item AS item, y.item AS item2, sum(y.w) AS w FROM bb x JOIN bb y ON x.session = y.session AND x.item <> y.item GROUP BY x.item, y.item), r AS (SELECT item, item2, w, row_number() OVER (PARTITION BY item ORDER BY w DESC, item2) AS rn FROM p) SELECT item, item2, CAST(w AS DOUBLE) AS tv_w FROM r WHERE rn <= 50;\"},{\"name\":\"wk_next\",\"idea\":\"Fresh in-week transitions: for the last 3 prefix events of a session, the items that follow those items 1 to 3 steps later in any target-week prefix, weighted 1/step and 1/recency rank, excluding the session's own prefix items.\",\"kind\":\"source\",\"level\":\"pair\",\"sql\":\"WITH l AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS rk FROM sess s JOIN sessions b ON s.session = b.session), li AS (SELECT session, item, min(rk) AS rk FROM l WHERE rk <= 3 GROUP BY session, item), it AS (SELECT DISTINCT item FROM li), occ AS (SELECT s.session, s.seq, s.item FROM sess s JOIN it ON s.item = it.item), nx AS (SELECT o.item AS item, n.item AS item2, sum(1.0 / d.k) AS w FROM occ o CROSS JOIN (VALUES (1), (2), (3)) d(k) JOIN sess n ON n.session = o.session AND n.seq = o.seq + d.k WHERE n.item <> o.item GROUP BY o.item, n.item), sc AS (SELECT li.session, nx.item2 AS item, sum(nx.w / li.rk) AS score FROM li JOIN nx ON nx.item = li.item GROUP BY li.session, nx.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess p WHERE p.session = sc.session AND p.item = sc.item)), r AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS rn FROM f) SELECT session, item, CAST(score AS DOUBLE) AS score FROM r WHERE rn <= 40;\"}]",
+      "meta": {
+        "model": "claude-opus-5-5",
+        "seconds": 94.8,
+        "returncode": 0,
+        "result": {
+          "subtype": "success",
+          "is_error": false,
+          "total_cost_usd": 0.245088,
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 5685,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 9980,
+            "output_tokens_details": {
+              "thinking_tokens": 7329
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 5685,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard"
+          },
+          "modelUsage": {
+            "claude-opus-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 9980,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 5685,
+              "webSearchRequests": 0,
+              "costUSD": 0.245088,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 7329,
+              "canonicalModel": "claude-opus-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "duration_ms": 94257,
+          "num_turns": 1,
+          "stop_reason": "end_turn"
+        },
+        "cost_usd": 0.245088,
+        "models": [
+          "claude-opus-5-5"
+        ]
+      }
+    }
+  ],
+  "kept": 5
+}

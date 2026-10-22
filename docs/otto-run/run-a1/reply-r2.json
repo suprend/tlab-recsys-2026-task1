@@ -1,0 +1,113 @@
+{
+  "round": 2,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "attempts": [
+    {
+      "round": 2,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 54.5,
+      "cost_usd": 0.18564999999999998,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-7865oe6l",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5,
+      "text": "[{\"name\":\"wk_next_i\",\"idea\":\"In-week transitions with integer weights: for the session's last 3 distinct prefix items, items that follow them 1 to 3 steps later in any target-week prefix, weighted 6/3/2 by step and by recency, excluding the session's own prefix items.\",\"kind\":\"source\",\"level\":\"pair\",\"sql\":\"WITH l AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS rk FROM sess s JOIN sessions b ON s.session = b.session), li AS (SELECT session, item, min(rk) AS rk FROM l WHERE rk <= 3 GROUP BY session, item), it AS (SELECT DISTINCT item FROM li), occ AS (SELECT s.session, s.seq, s.item FROM sess s JOIN it ON s.item = it.item), nx AS (SELECT o.item AS item, n.item AS item2, sum(CASE d.k WHEN 1 THEN 6 WHEN 2 THEN 3 ELSE 2 END) AS w FROM occ o CROSS JOIN (VALUES (1), (2), (3)) d(k) JOIN sess n ON n.session = o.session AND n.seq = o.seq + d.k WHERE n.item <> o.item GROUP BY o.item, n.item), sc AS (SELECT li.session, nx.item2 AS item, sum(nx.w * CASE li.rk WHEN 1 THEN 6 WHEN 2 THEN 3 ELSE 2 END) AS score FROM li JOIN nx ON nx.item = li.item GROUP BY li.session, nx.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess p WHERE p.session = sc.session AND p.item = sc.item)), r AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS rn FROM f) SELECT session, item, CAST(score AS DOUBLE) AS score FROM r WHERE rn <= 40;\"},\n{\"name\":\"wk_cobuy\",\"idea\":\"In-week view-to-buy: for the session's last 5 distinct prefix items, items carted or ordered in other target-week prefixes that contain those items (up to 1000 most recent prefixes per item), integer weighted by recency rank.\",\"kind\":\"source\",\"level\":\"pair\",\"sql\":\"WITH l AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS rk FROM sess s JOIN sessions b ON s.session = b.session), li AS (SELECT session, item, min(rk) AS rk FROM l WHERE rk <= 5 GROUP BY session, item), it AS (SELECT DISTINCT item FROM li), ps0 AS (SELECT s.session, s.item, max(s.ts) AS mt FROM sess s JOIN it ON s.item = it.item GROUP BY s.session, s.item), ps AS (SELECT session, item FROM (SELECT session, item, row_number() OVER (PARTITION BY item ORDER BY mt DESC, session) AS rn FROM ps0) z WHERE rn <= 1000), bt AS (SELECT session, item, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM sess WHERE event IN ('cart', 'order') GROUP BY session, item), nx AS (SELECT p.item AS item, b.item AS item2, sum(2 + b.o) AS w FROM ps p JOIN bt b ON b.session = p.session AND b.item <> p.item GROUP BY p.item, b.item), sc AS (SELECT li.session, nx.item2 AS item, sum(nx.w * (6 - li.rk)) AS score FROM li JOIN nx ON nx.item = li.item GROUP BY li.session, nx.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess p WHERE p.session = sc.session AND p.item = sc.item)), r AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS rn FROM f) SELECT session, item, CAST(score AS DOUBLE) AS score FROM r WHERE rn <= 40;\"},\n{\"name\":\"h_cobuy\",\"idea\":\"History buy-to-buy: for the session's last 5 distinct prefix items, items carted or ordered together with them in history sessions with 2 to 30 bought items (up to 300 most recent sessions per item), orders weighted higher, integer scores.\",\"kind\":\"source\",\"level\":\"pair\",\"sql\":\"WITH l AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS rk FROM sess s JOIN sessions b ON s.session = b.session), li AS (SELECT session, item, min(rk) AS rk FROM l WHERE rk <= 5 GROUP BY session, item), it AS (SELECT DISTINCT item FROM li), b0 AS (SELECT session, item, max(ts) AS mt, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE event IN ('cart', 'order') GROUP BY session, item), bs AS (SELECT session FROM b0 GROUP BY session HAVING count(*) BETWEEN 2 AND 30), bb AS (SELECT b0.session, b0.item, b0.mt, b0.o FROM b0 JOIN bs ON b0.session = bs.session), ps AS (SELECT session, item FROM (SELECT bb.session, bb.item, row_number() OVER (PARTITION BY bb.item ORDER BY bb.mt DESC, bb.session) AS rn FROM bb JOIN it ON bb.item = it.item) z WHERE rn <= 300), nx AS (SELECT p.item AS item, y.item AS item2, sum(1 + 2 * y.o) AS w FROM ps p JOIN bb y ON y.session = p.session AND y.item <> p.item GROUP BY p.item, y.item), sc AS (SELECT li.session, nx.item2 AS item, sum(nx.w * (6 - li.rk)) AS score FROM li JOIN nx ON nx.item = li.item GROUP BY li.session, nx.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess p WHERE p.session = sc.session AND p.item = sc.item)), r AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS rn FROM f) SELECT session, item, CAST(score AS DOUBLE) AS score FROM r WHERE rn <= 40;\"},\n{\"name\":\"cobuy\",\"idea\":\"Pairs of items carted or ordered together in the same history session (2 to 30 bought items), counted by distinct sessions with an order count, as a buy-to-buy co-visitation for later cart and order features.\",\"kind\":\"table\",\"level\":\"item_pair\",\"sql\":\"WITH b AS (SELECT session, item, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE event IN ('cart', 'order') GROUP BY session, item), bs AS (SELECT session FROM b GROUP BY session HAVING count(*) BETWEEN 2 AND 30), bb AS (SELECT b.session, b.item, b.o FROM b JOIN bs ON b.session = bs.session), p AS (SELECT x.item AS item, y.item AS item2, count(*) AS n, sum(y.o) AS n_o FROM bb x JOIN bb y ON x.session = y.session AND x.item <> y.item GROUP BY x.item, y.item), r AS (SELECT item, item2, n, n_o, row_number() OVER (PARTITION BY item ORDER BY n DESC, n_o DESC, item2) AS rn FROM p) SELECT item, item2, CAST(n AS DOUBLE) AS tv_cnt, CAST(n_o AS DOUBLE) AS tv_ord FROM r WHERE rn <= 50;\"},\n{\"name\":\"nextview\",\"idea\":\"Forward transitions in the last 7 days of history after collapsing consecutive repeats: item2 appearing 1 to 3 steps after item, weighted 1/step, to predict the next viewed item in later features.\",\"kind\":\"table\",\"level\":\"item_pair\",\"sql\":\"WITH e AS (SELECT session, item, seq, lag(item) OVER (PARTITION BY session ORDER BY seq, item) AS pi FROM hist WHERE ts >= {S} - 7*86400), d AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY seq, item) AS r FROM e WHERE pi IS NULL OR pi <> item), p AS (SELECT x.item AS item, y.item AS item2, sum(1.0 / k.k) AS w FROM d x CROSS JOIN (VALUES (1), (2), (3)) k(k) JOIN d y ON y.session = x.session AND y.r = x.r + k.k WHERE y.item <> x.item GROUP BY x.item, y.item), r AS (SELECT item, item2, w, row_number() OVER (PARTITION BY item ORDER BY w DESC, item2) AS rn FROM p) SELECT item, item2, CAST(w AS DOUBLE) AS tv_wgt FROM r WHERE rn <= 50;\"}]",
+      "meta": {
+        "model": "claude-opus-5-5",
+        "seconds": 54.5,
+        "returncode": 0,
+        "result": {
+          "subtype": "success",
+          "is_error": false,
+          "total_cost_usd": 0.18564999999999998,
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 7576,
+            "cache_read_input_tokens": 1170,
+            "output_tokens": 6240,
+            "output_tokens_details": {
+              "thinking_tokens": 2831
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 7576,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard"
+          },
+          "modelUsage": {
+            "claude-opus-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 6240,
+              "cacheReadInputTokens": 1170,
+              "cacheCreationInputTokens": 7576,
+              "webSearchRequests": 0,
+              "costUSD": 0.18564999999999998,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 2831,
+              "canonicalModel": "claude-opus-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "duration_ms": 53927,
+          "num_turns": 1,
+          "stop_reason": "end_turn"
+        },
+        "cost_usd": 0.18564999999999998,
+        "models": [
+          "claude-opus-5-5"
+        ]
+      }
+    }
+  ],
+  "kept": 5
+}
