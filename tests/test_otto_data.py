@@ -3,6 +3,7 @@
 No real OTTO data is read: raw jsonl files, partitions and receipts are built here
 inside a throwaway Git repository that stands in for ROOT.
 """
+import copy
 import hashlib
 import json
 import os
@@ -79,6 +80,12 @@ def write_raw(raw, train, test):
                 stream.write(f'{session}_{kind},1 2 3\n')
 
 
+def frame_digest(frame):
+    """SHA-256 of the column names and integer values (NULL as null) of a frame, row order included."""
+    rows = [[None if pd.isna(v) else int(v) for v in row] for row in frame.astype(object).itertuples(index=False)]
+    return hashlib.sha256(json.dumps([list(frame.columns), rows]).encode()).hexdigest()
+
+
 class TempRoot(unittest.TestCase):
     """A throwaway Git repository standing in for ROOT."""
 
@@ -143,7 +150,7 @@ class TempRoot(unittest.TestCase):
         base = oc.config_path('base')
         oc.atomic_json(base, self.base)
         agent_set = oc.config_path('set')
-        agent_set.write_text(json.dumps(dict(s=1)))
+        agent_set.write_text(json.dumps(dict(s=1, audit=dict(verdict='clean'))))
         prereg = oc.config_path('prereg')
         prereg.write_text(json.dumps(dict(base_sha256=oc.sha256_file(base), set_sha256=oc.sha256_file(agent_set),
                                           code=IDENTITY['files'])))
@@ -477,6 +484,95 @@ class FoldTest(TempRoot):
         whole, _, _ = self.fold_frame(3)
         small, _, _ = self.fold_frame(3, batch=2)
         pd.testing.assert_frame_equal(whole, small)
+
+    # (rows, frame_digest) of build_frame at commit e45e70f, before the B SQL moved into b_tables/b_feature_sql,
+    # on make_world(seed=5, n_per_week=40): the contract base, a base whose depths and limit bite
+    # (h 2, p_t 3, max 5, item windows of 1 and 3 days) and one without h_rank/pop_rank_carts in the base.
+    GOLDEN = {
+        ('initial', 2): (570, '90295abad0f31cd64137fb75733dccb63401605030511eacdb650d453e93af5a'),
+        ('initial', 3): (600, '56959b2c4818205c445f4e10d26d7c28d448b50276097be4cca15362e2734caa'),
+        ('small', 2): (190, '0279863e77117c88ccd15ed7fba72e95193d9d2edd14ef85dfa19b5b191aa1ae'),
+        ('small', 3): (200, 'e8b062fbfd91685282fe3599e00c2f7be89b31277d34ccb4c114e8ee7d2c9336'),
+        ('small2', 2): (266, 'c07b42962bf56745b24196af6da2070d4a0871d1102229a575b378b22a71261d'),
+        ('small2', 3): (280, '2d94f97894c39980ca628a9363db2494aa3fb899e25d18466ad40fb22f13ab0d'),
+    }
+
+    @staticmethod
+    def golden_bases():
+        base = od.initial_base()
+        small = copy.deepcopy(base['candidates'])
+        small['history']['depth'], small['popular']['depth'], small['max'] = 2, 3, 5
+        windows = [dict(name='i_h1_clicks', formula='x', missing='0'), dict(name='i_h3_all', formula='x', missing='0')]
+        small2 = copy.deepcopy(small)
+        small2['max'], small2['history']['depth'] = 7, 4
+        return dict(initial=base, small=oc.make_base(small, base['features'] + windows),
+                    small2=oc.make_base(small2, [f for f in base['features']
+                                                 if f['name'] not in ('h_rank', 'pop_rank_carts')]))
+
+    def test_frame_values_are_unchanged_by_the_shared_b_sql(self):
+        train, test = make_world(seed=5, n_per_week=40)
+        self.load(train, test)
+        for name, base in self.golden_bases().items():
+            self.base = base
+            for k in (2, 3):
+                for batch in (od.FRAME_BATCH, 4):
+                    with self.subTest(base=name, k=k, batch=batch):
+                        frame, _, _ = self.fold_frame(k, batch=batch)
+                        self.assertEqual((len(frame), frame_digest(frame)), self.GOLDEN[(name, k)])
+
+    def test_b_features_on_arbitrary_keys_from_neutral_views(self):
+        """otto_agent's route: neutral sess/hist -> coded_events_sql -> b_tables -> b_feature_sql on any keys."""
+        train, test = make_world(seed=2)
+        self.load(train, test)
+        con = od.connect(2, '1GB')
+        out = Path(tempfile.mkdtemp(dir=self.tmp.name))
+        try:
+            od.build_fold(con, 3, 'test', S5)
+            con.execute('CREATE TEMP TABLE frame_sessions AS SELECT DISTINCT session FROM fold')
+            built = od.build_frame(con, 3, self.base, S5, out=out)
+            frame = con.execute(f'SELECT * FROM read_parquet({[str(p) for p in built["parts"]]}) '
+                                'ORDER BY session, aid').df()
+            names = ' '.join(f"WHEN {c} THEN '{n}'" for c, n in enumerate(od.NEUTRAL_EVENTS))
+            for view, source in (('sess', 'fold WHERE pos <= c'), ('hist_n', 'hist')):
+                con.execute(f'CREATE TEMP VIEW {view} AS SELECT session, aid AS item, ts, '
+                            f'CASE type {names} END AS event, seq FROM {source}')
+            con.execute(f'CREATE TEMP VIEW pfx_n AS {od.coded_events_sql("sess")}')
+            con.execute(f'CREATE TEMP VIEW hist_c AS {od.coded_events_sql("hist_n")}')
+            spec = od.b_tables(con, self.base, oc.week_start(3, S5), prefix='pfx_n', hist='hist_c')
+            self.assertEqual(spec['columns'], built['columns'])
+            # every third frame key, plus an aid outside the candidates and a session without a prefix
+            keys = frame[['session', 'aid']].iloc[::3]
+            first = int(frame['session'].iloc[0])
+            extra = pd.DataFrame({'session': [first, 10**9], 'aid': [987654, 1]})
+            con.register('keys_in', pd.concat([keys, extra], ignore_index=True).astype('int64'))
+            con.execute('CREATE TEMP TABLE keys AS SELECT * FROM keys_in')
+            got = con.execute(od.b_feature_sql(spec, 'keys')).df()
+            kinds = con.execute(f'DESCRIBE {od.b_feature_sql(spec, "keys")}').fetchall()
+            # keys as a CTE of ``ctes``: the sessions relation is given, the default would read an unknown CTE
+            in_cte = con.execute(od.b_feature_sql(spec, 'kc', '(SELECT DISTINCT session FROM keys)',
+                                                  ctes='kc AS (SELECT * FROM keys)')).df()
+            with self.assertRaisesRegex(oc.ContractError, 'sessions relation is required'):
+                od.b_feature_sql(spec, 'kc', ctes='kc AS (SELECT * FROM keys)')
+            # an event outside NEUTRAL_EVENTS (or NULL) fails the query, it never becomes a NULL type
+            for event in ("'like'", 'NULL'):
+                con.execute(f"""CREATE OR REPLACE TEMP VIEW odd AS SELECT * FROM sess UNION ALL
+                    (SELECT session, item, ts, {event}, seq + 1000 FROM sess LIMIT 5)""")
+                with self.subTest(event=event), self.assertRaisesRegex(duckdb.Error, 'unknown event'):
+                    con.execute(f'SELECT count(*), count(type) FROM ({od.coded_events_sql("odd")})').fetchall()
+        finally:
+            con.close()
+        self.assertEqual(list(got.columns), ['session', 'aid', *built['columns']])
+        self.assertEqual({n: t for n, t, *_ in kinds if n in spec['types']}, spec['types'])
+        pd.testing.assert_frame_equal(in_cte, got)
+        on_frame = got.merge(keys, on=['session', 'aid'])
+        expected = frame.merge(keys, on=['session', 'aid'])
+        pd.testing.assert_frame_equal(on_frame.reset_index(drop=True), expected.reset_index(drop=True))
+        outside = got[(got['session'] == first) & (got['aid'] == 987654)].iloc[0]
+        session_row = frame[frame['session'] == first].iloc[0]
+        for column in ('s_len', 's_items', 's_dur'):                         # session values hold for any key
+            self.assertEqual(outside[column], session_row[column])
+        self.assertTrue(pd.isna(outside['h_rank']) and outside['p_clicks'] == 0 and outside['p_is_last'] == 0)
+        self.assertNotIn(10**9, set(got['session']))                         # no prefix, no row
 
     def test_pop_does_not_see_the_future(self):
         train, test = make_world(seed=4)
@@ -824,6 +920,29 @@ class AssembleTest(TempRoot):
         self.assertEqual(lines[4].split(',')[1].split()[:3], ['50', '7', '51'])
         self.assertTrue((self.out/'B2026.json').exists())
         self.assertFalse((self.out/'B2026.csv.part').exists())
+        self.assertEqual((body['ranked_sha256'], body['fill_sha256']), (None, None))     # frames, not files
+
+    def test_assemble_receipt_names_the_ranked_file(self):
+        rows = [(s, t, a, r) for s in self.sessions for t in NAMES for r, a in enumerate(range(1, 21), start=1)]
+        ranked, fill = self.out/'ranked.parquet', self.out/'pop.parquet'
+        oc.write_parquet(self.ranked(rows), ranked)
+        oc.write_parquet(self.fill, fill)
+        body = od.assemble(ranked, self.out/'BA2026.csv', self.sessions, self.known, fill)
+        self.assertEqual((body['ranked_sha256'], body['fill_sha256'], body['filled_sessions']),
+                         (oc.sha256_file(ranked), oc.sha256_file(fill), 0))
+        self.assertEqual(oc.read_json(self.out/'BA2026.json'), body)
+        # the hash names the bytes DuckDB read: a file replaced after the copy does not move it
+        before = oc.sha256_file(ranked)
+        copy = od._copy_hashed
+        def copy_then_replace(source, target):
+            digest = copy(source, target)
+            if Path(source) == ranked:
+                ranked.write_bytes(b'replaced')
+            return digest
+        with mock.patch.object(od, '_copy_hashed', side_effect=copy_then_replace):
+            again = od.assemble(ranked, self.out/'BA2027.csv', self.sessions, self.known, fill)
+        self.assertEqual(again['ranked_sha256'], before)
+        self.assertNotEqual(oc.sha256_file(ranked), before)
 
     def write(self, lines):
         path = self.out/'x.csv'

@@ -6,7 +6,13 @@ line on stdout, exit 0/1, refusal without ``-I``):
 ``fit --series dev|holdout|final --arm B|BA|BApl --seed 2026|2027``
     Three CatBoost YetiRank models, one per type (§6), on the training fold of
     the series. ``fit --base-dev NAME --base PATH`` is the base development fit
-    (arm B, dev, seed 2026, before prereg) with its F3 scores.
+    (arm B, dev, seed 2026, before prereg) with its F3 scores. The final series
+    trains on the sessions of ``final-sessions`` and checks them.
+``final-sessions [--name NAME]``
+    After the committed result receipt otto-holdout.json: the training sessions
+    of the final series (first N_t labelled F4 sessions per type, labels through
+    ``read_sealed``) as ``final-training/<name>/sessions.json`` of
+    otto-final-training-v1; otto_agent builds the F4 sidecar of those sessions.
 ``smoke [--base PATH]``
     Smoke calibration before prereg (§12): one orders fit of the BA shape on F2
     (base features plus 72 noise columns), the bootstrap type and the time.
@@ -37,9 +43,12 @@ line on stdout, exit 0/1, refusal without ``-I``):
 Inputs owned elsewhere: collections, Pop lists and the Kaggle file come from
 otto_data in the formats of otto_common; the BA frame of a collection (B
 candidates and features plus the agent block ``ag_*``) comes from otto_agent
-as parquet files under ``artifacts/otto/sidecars/<collection>/`` unless
-``--agent-frame NAME=PATH`` names them. Their formats are read in one place
-each (``ba_frame_paths``, ``leakcheck_record``, ``frozen_agent_columns``).
+as ``artifacts/otto/sidecars/<collection>/<name>/`` (sidecar.json and parts),
+the leakcheck reports as ``leakcheck/<name>/report.json`` and the frozen
+columns from the committed set. Their readers live in otto_common
+(``sidecar_parts``, ``read_leakcheck``, ``agent_columns``) and are called here
+in one place each (``ba_frame``, ``leakcheck_record``, ``frozen_agent_columns``);
+there is no command-line override of the BA frame.
 A collection without a BA frame is "BA не выполнена" (§5.7): its BA and BApl
 arms are absent, D and P are not computed and the holdout opens for B and Pop.
 """
@@ -56,7 +65,6 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
-import tempfile
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -72,14 +80,14 @@ from scripts.otto_common import ContractError, require  # noqa: E402,F401
 FIT_FORMAT = 'otto-fit-v1'
 EVAL_FORMAT = 'otto-eval-v1'
 CONTRAST_FORMAT = 'otto-contrast-v1'
-GATE_FORMAT = 'otto-gate-v1'
+GATE_FORMAT = oc.GATE_FORMAT
 RESULT_FORMAT = 'otto-holdout-result-v1'
 READING_FORMAT = 'otto-kaggle-reading-v1'
 SMOKE_FORMAT = 'otto-smoke-v1'
 ASSEMBLE_FORMAT = 'otto-assemble-v1'           # receipt of otto_data.assemble (read by gate 2)
 
 REPORT_FILE = 'report.json'
-GATE_FILE = 'gate.json'
+GATE_FILE = oc.GATE_FILE
 RANKED_FILE = 'ranked.parquet'
 POP_FILE = 'pop.parquet'
 STARTED_FILE = 'started.json'
@@ -88,8 +96,7 @@ EVAL_DIR = 'eval'
 MODEL_FILE = 'model-{type}.cbm'
 
 # §6 recipe (decision 7); bootstrap_type comes from the smoke run through the prereg
-RECIPE = dict(loss_function='YetiRank', iterations=500, depth=8, learning_rate=0.05, l2_leaf_reg=10,
-              border_count=128, thread_count=8, allow_writing_files=False)
+RECIPE = oc.RECIPE
 DEFAULT_BOOTSTRAP = 'Bayesian'
 FALLBACK_BOOTSTRAP = 'Bernoulli'
 PREDICTION_TYPE = 'RawFormulaVal'
@@ -104,10 +111,10 @@ PERMUTATION_RULE = ('training: numpy.random.default_rng([20261022, seed, k, 0, j
 NEGATIVE_RULE = ("all positives and up to 30 negatives with the smallest sha256(CAST(CAST(session AS BIGINT) AS "
                  "VARCHAR) || '|' || CAST(CAST(aid AS BIGINT) AS VARCHAR) || '|' || t || '|2026') (lower-case hex), "
                  "ties by smaller aid")
-AGENT_PREFIX = 'ag_'
-DUCKDB_THREADS = 8
-DUCKDB_MEMORY = '20GB'
-DUCKDB_MAX_TEMP = '40GB'
+AGENT_PREFIX = oc.AGENT_PREFIX
+DUCKDB_THREADS = oc.DUCKDB_THREADS
+DUCKDB_MEMORY = oc.DUCKDB_MEMORY
+DUCKDB_MAX_TEMP = oc.DUCKDB_MAX_TEMP
 PARITY = (0.5, 2.0)
 SMOKE_NOISE = 72
 SMOKE_LIMIT_SECONDS = 40*60
@@ -160,12 +167,8 @@ def from_rel(name):
     return path if path.is_absolute() else oc.ROOT/path
 
 
-def sql_str(value):
-    return "'" + str(value).replace("'", "''") + "'"
-
-
-def sql_list(paths):
-    return '[' + ', '.join(sql_str(p) for p in paths) + ']'
+sql_str = oc.sql_literal
+sql_list = oc.sql_list
 
 
 def normalized(value):
@@ -278,7 +281,7 @@ class Context:
 
     def __init__(self, base, *, mode='contract', prereg=None, prereg_sha256=None, code=None,
                  bootstrap_type=DEFAULT_BOOTSTRAP, recipe_overrides=None, threads=DUCKDB_THREADS,
-                 memory=DUCKDB_MEMORY, agent_frames=None, agent_columns=None, n_t=oc.N_T,
+                 memory=DUCKDB_MEMORY, agent_columns=None, set_digest=None, n_t=oc.N_T,
                  negatives=oc.NEGATIVES, score_batch=oc.SCORE_BATCH, dev_bapl=True):
         require(mode in ('contract', 'base-dev', 'smoke'), f'Unknown mode {mode!r}')
         self.base = oc.check_base(base)
@@ -291,8 +294,10 @@ class Context:
         self.recipe_overrides = dict(recipe_overrides or {})
         self.threads = int(threads)
         self.memory = memory
-        self.agent_frames = {k: [str(p) for p in v] for k, v in (agent_frames or {}).items()}
         self.agent_columns = list(agent_columns) if agent_columns is not None else None
+        self.set_digest = set_digest
+        self._ba = {}
+        self._ba_run = {}
         self.n_t = int(n_t)
         self.negatives = int(negatives)
         self.score_batch = int(score_batch)
@@ -300,31 +305,31 @@ class Context:
         self._spill = None
 
     @classmethod
-    def contract(cls, agent_frames=None):
+    def contract(cls):
         """Committed prereg (base, set and code checked by require_prereg) and its recorded rules.
 
         Prereg keys read here: ``recipe.bootstrap_type`` (required), ``N_t``,
-        ``SCORE_BATCH``, ``dev_bapl``; the frozen agent columns come from
-        ``frozen_agent_columns`` (prereg or the committed set) and are required.
+        ``SCORE_BATCH``, ``dev_bapl``; the frozen agent columns and the set digest come
+        from the committed set (``frozen_agent_columns``) and are required.
         """
         prereg = oc.require_prereg(check_code=True)
         recipe = prereg.get('recipe') or {}
         require(recipe.get('bootstrap_type'), 'Prereg records no recipe.bootstrap_type (smoke result)')
+        agent_set = oc.receipt('set')
         return cls(oc.read_base(), mode='contract', prereg=prereg,
                    prereg_sha256=oc.sha256_file(oc.config_path('prereg')),
                    code=oc.code_identity(strict=True)['files'], bootstrap_type=recipe['bootstrap_type'],
-                   agent_frames=agent_frames, agent_columns=frozen_agent_columns(prereg),
+                   agent_columns=frozen_agent_columns(prereg, agent_set), set_digest=agent_set['digest'],
                    n_t=prereg.get('N_t', oc.N_T), score_batch=prereg.get('SCORE_BATCH', oc.SCORE_BATCH),
                    dev_bapl=prereg.get('dev_bapl', True))
 
     @classmethod
-    def before_prereg(cls, base, mode, bootstrap_type=DEFAULT_BOOTSTRAP, agent_frames=None):
-        return cls(base, mode=mode, code=oc.code_identity(strict=False)['files'], bootstrap_type=bootstrap_type,
-                   agent_frames=agent_frames)
+    def before_prereg(cls, base, mode, bootstrap_type=DEFAULT_BOOTSTRAP):
+        return cls(base, mode=mode, code=oc.code_identity(strict=False)['files'], bootstrap_type=bootstrap_type)
 
     def spill(self):
         if self._spill is None:
-            self._spill = tempfile.mkdtemp(prefix='otto-model-')
+            self._spill = str(oc.spill_dir())
         return self._spill
 
     def close(self):
@@ -354,28 +359,122 @@ class Context:
         require(paths, f'No BA frame for {collection.name}: {BA_NOT_RUN}')
         return paths
 
-    def ba_run(self, *folds):
-        """True when every given fold has a BA frame; False is "BA не выполнена" on that fold."""
-        return all(ba_frame_paths(self, self.collection(k)) for k in folds)
+    def ba_run(self, train, eval_):
+        """True when the BA frames cover the sessions a BA fit and evaluation of the series need.
+
+        Training fold: the union of the training sessions (F2/F3 from the open labels, F4 from
+        final-sessions); evaluation fold: the evaluation population. A missing frame or an
+        incomplete coverage on either fold is "BA не выполнена" (§8), a result, not an error.
+        """
+        key = (int(train), int(eval_))
+        if key not in self._ba_run:
+            self._ba_run[key] = all(ba_covers(self, self.collection(k), sessions(self, k))
+                                    for k, sessions in ((key[0], ba_training_sessions),
+                                                        (key[1], ba_evaluation_sessions)))
+        return self._ba_run[key]
 
 
-# ---- formats owned by otto_agent: each is read in exactly one function (integration step, Б1/С3)
+# ---- formats owned by otto_agent: read by otto_common, called here in exactly one function each
 
-def ba_frame_paths(ctx, collection):
-    """Parquet files of the BA frame of a collection, or [] when otto_agent wrote none (BA не выполнена).
+def ba_frame(ctx, collection):
+    """The BA frame of a collection after ``oc.sidecar_parts`` (None: BA не выполнена); cached per context.
 
-    ``--agent-frame NAME=PATH`` overrides; otherwise every parquet under
-    ``artifacts/otto/sidecars/<collection>/``.
+    The sidecars must be built on the frozen set (``ctx.set_digest``; without it any sidecar refuses:
+    no frozen set) and carry between the keys exactly the B columns otto_agent writes for this base
+    (``od.with_sources(ctx.features)`` = ``od.b_columns(base)``: base features, then the source
+    columns they lack) and exactly the frozen agent columns.
     """
     collection = Path(collection)
-    if collection.name in ctx.agent_frames:
-        return list(ctx.agent_frames[collection.name])
-    root = oc.output_dir('sidecars', collection.name)
-    return sorted(str(p) for p in root.rglob('*.parquet')) if root.exists() else []
+    if collection.name not in ctx._ba:
+        if ctx.set_digest is None:
+            root = oc.output_dir('sidecars', collection.name)
+            present = root.exists() and any(not p.name.startswith('.') for p in root.iterdir())
+            require(not present, f'{collection.name} has sidecars but the context has no frozen agent set '
+                                 '(нет замороженного набора)')
+            record = None
+        else:
+            record = oc.sidecar_parts(collection, ctx.set_digest)
+        if record is not None:
+            columns, agent = record['columns'], record['agent_columns']
+            require(columns[2:len(columns)-len(agent)] == od.with_sources(ctx.features),
+                    f'{collection.name}: sidecar B columns differ from the B columns of the base (od.b_columns)')
+            if ctx.agent_columns is not None:
+                require(agent == ctx.agent_columns,
+                        f'{collection.name}: sidecar agent columns differ from the frozen set')
+        ctx._ba[collection.name] = record
+    return ctx._ba[collection.name]
 
 
-def leakcheck_record(path):
-    """Leakcheck report of otto_agent: a JSON file under artifacts/otto/leakcheck with ``ok`` and ``fold``."""
+def ba_frame_paths(ctx, collection):
+    """Parquet parts of the BA frame of a collection, or [] when otto_agent wrote none (BA не выполнена)."""
+    record = ba_frame(ctx, collection)
+    return list(record['parts']) if record is not None else []
+
+
+def ba_covers(ctx, collection, sessions):
+    """True when the BA frame of the collection exists and holds every session of ``sessions()``.
+
+    ``sessions`` is called only when the frame exists (no labels are read for a fold without sidecars);
+    None from it means the sessions are not defined yet (F4 before final-sessions): not covered.
+    """
+    record = ba_frame(ctx, collection)
+    if record is None:
+        return False
+    needed = sessions()
+    return needed is not None and not (set(needed) - set(record['sessions']))
+
+
+def ba_training_sessions(ctx, k):
+    """A callable giving the training union of fold k: final-sessions on F4, the open labels on F2/F3."""
+    def sessions():
+        collection = ctx.collection(k)
+        if int(k) == 4:                   # no final-sessions yet: no final-training sidecar, BA не выполнена
+            if not final_training_written(collection):
+                return None
+            return {int(s) for s in final_training(ctx, collection)[1]['sessions']}
+        labels_path, _ = fold_labels(ctx, k)
+        con = connect(ctx)
+        try:
+            labels_view(con, labels_path)
+            chosen = training_sessions(con, 'lab', ctx.n_t)
+        finally:
+            con.close()
+        return set().union(*chosen.values())
+    return sessions
+
+
+def ba_evaluation_sessions(ctx, k):
+    """A callable giving the evaluation population of fold k (as ``evaluation_population``)."""
+    def sessions():
+        collection = ctx.collection(k)
+        if int(k) == 3:
+            return {int(s) for s in oc.read_population(collection)}
+        if int(k) == 4:
+            return {int(s) for s in oc.holdout_population(collection)['sessions']}
+        con = connect(ctx)
+        try:
+            return set(collection_sessions(con, collection))
+        finally:
+            con.close()
+    return sessions
+
+
+def require_ba_coverage(ctx, collection, sessions, what):
+    """Every session of ``sessions`` has a sidecar (§5.7: sidecars only for the sessions that need them)."""
+    record = ba_frame(ctx, collection)
+    require(record is not None, f'No BA frame for {Path(collection).name}: {BA_NOT_RUN}')
+    missing = set(int(s) for s in sessions) - set(record['sessions'])
+    require(not missing, f'BA frame of {Path(collection).name} lacks {len(missing)} {what} sessions, '
+                         f'e.g. {sorted(missing)[:3]}')
+    return dict(sessions=len(set(int(s) for s in sessions)), covered=True)
+
+
+def leakcheck_record(ctx, path):
+    """Leakcheck report of otto_agent (``leakcheck/<name>/report.json``) read by ``oc.read_leakcheck``.
+
+    F3 must cover the dev population (population.json of val-F3), F4 the holdout population of
+    the power gate (``oc.holdout_population``), both on the frozen set. Problems are recorded, not raised.
+    """
     path = Path(path).resolve()
     root = oc.output_dir('leakcheck').resolve()
     out = dict(path=rel(path), sha256=None, fold=None, ok=False, problems=[])
@@ -384,24 +483,31 @@ def leakcheck_record(path):
         return out
     data = oc.read_json(path)
     out.update(sha256=oc.sha256_file(path), fold=data.get('fold'))
-    if data.get('ok') is not True:
-        out['problems'].append('ok is not true')
+    try:
+        if data.get('fold') == 3:
+            collection = ctx.collection(3)
+            digest = oc.sessions_digest(oc.read_population(collection))
+        elif data.get('fold') == 4:
+            collection = ctx.collection(4)
+            digest = oc.holdout_population(collection)['sessions_digest']
+        else:
+            raise ContractError('Leakcheck fold must be 3 or 4')
+        oc.read_leakcheck(path, set_digest=ctx.set_digest, population_digest=digest, collection=collection.name)
+    except ContractError as exc:
+        out['problems'].append(str(exc))
     out['ok'] = not out['problems']
     return out
 
 
-def frozen_agent_columns(prereg):
-    """Frozen agent columns (§5, §7): ``agent_columns`` of the prereg, else of the committed set; required."""
-    columns = prereg.get('agent_columns')
-    source = 'prereg'
-    if columns is None:
-        columns = oc.receipt('set').get('agent_columns')
-        source = 'set'
-    require(isinstance(columns, list) and columns, f'No frozen agent_columns in the {source}')
-    require(all(isinstance(c, str) and c.startswith(AGENT_PREFIX) for c in columns),
-            f'Agent columns must be names starting with {AGENT_PREFIX!r}')
-    require(len(set(columns)) == len(columns), 'Repeated agent columns')
-    return list(columns)
+def frozen_agent_columns(prereg, agent_set):
+    """Frozen agent columns (§5, §7): ``columns`` of the committed set (``oc.agent_columns``).
+
+    A prereg that records ``agent_columns`` must name the same list.
+    """
+    columns = oc.agent_columns(agent_set)
+    if prereg.get('agent_columns') is not None:
+        require(prereg['agent_columns'] == columns, 'Prereg agent_columns differ from the committed set')
+    return columns
 
 
 def series_spec(series):
@@ -531,6 +637,58 @@ def check_training_digest(manifest, chosen):
     return 'equal'
 
 
+def final_training_written(collection):
+    """True when some final-training/*/sessions.json names the collection (final-sessions has run)."""
+    root = oc.output_dir('final-training')
+    return root.exists() and any(oc.read_json(p).get('collection') == Path(collection).name
+                                 for p in root.glob(f'*/{oc.FINAL_TRAINING_FILE}'))
+
+
+def final_training(ctx, collection):
+    """(path, record) of the single final-training sessions of the holdout collection under this prereg and N_t."""
+    return oc.final_training_record(collection.name, prereg_sha256=ctx.prereg_sha256, n_t=ctx.n_t)
+
+
+def check_final_training(final, chosen):
+    """The final-series training sessions recomputed from the labels equal ``training_digest`` of final-sessions."""
+    path, record = final
+    require(oc.canonical_digest(chosen) == record['training_digest'],
+            'Final training sessions differ from training_digest of final-sessions')
+    return dict(status='equal', path=rel(path), sha256=oc.sha256_file(path), training_digest=record['training_digest'])
+
+
+def final_sessions(ctx, name=None):
+    """The training sessions of the final series (§6) after the committed result receipt (§2.5).
+
+    First N_t labelled sessions of F4 per type in sha256 order, from the labels of
+    ``read_sealed(holdout, 'final')``; written once per holdout collection as
+    ``final-training/<name>/sessions.json`` (otto-final-training-v1). otto_agent builds the F4
+    sidecar of ``sessions``; ``fit --series final`` recomputes them and checks ``training_digest``.
+    """
+    require(ctx.mode == 'contract' and ctx.prereg is not None, 'final-sessions runs under the committed prereg')
+    name = oc.output_name(name if name is not None else stamp())
+    oc.require_window('final')
+    collection = ctx.collection(4)
+    root = oc.output_dir('final-training')
+    earlier = [p for p in sorted(root.glob(f'*/{oc.FINAL_TRAINING_FILE}')) if root.exists()
+               and oc.read_json(p).get('collection') == collection.name]
+    require(not earlier, f'Final training sessions of {collection.name} exist: {[rel(p) for p in earlier]}')
+    labels_path, _ = fold_labels(ctx, 4, 'final')
+    con = connect(ctx)
+    try:
+        labels_view(con, labels_path)
+        chosen = training_sessions(con, 'lab', ctx.n_t)
+        frame = set(collection_sessions(con, collection))
+    finally:
+        con.close()
+    union = set().union(*chosen.values())
+    require(union <= frame, 'Final training sessions outside the holdout frame')
+    output = oc.new_output(oc.final_training_dir(name))
+    record = oc.write_final_training(output, collection.name, ctx.n_t, ctx.prereg_sha256, chosen)
+    return dict(path=rel(output/oc.FINAL_TRAINING_FILE), sessions=len(record['sessions']),
+                per_type={t: len(record['per_type'][t]) for t in oc.TYPES}, training_digest=record['training_digest'])
+
+
 def feature_matrix(block, columns):
     """float32 matrix of ``columns`` (NULL -> NaN), filled column by column to keep one copy in memory."""
     import numpy as np
@@ -562,10 +720,14 @@ def fit(ctx, series, arm, seed, output=None, purpose=None):
         purpose = 'final'
     collection = ctx.collection(k)
     manifest = oc.read_json(collection/oc.MANIFEST_FILE)
+    final = None
     if k == 4:
         fold_labels(ctx, k, purpose)                  # refuses before any output when the barrier is closed
+        final = final_training(ctx, collection)       # the sessions of final-sessions, checked below
     if arm != 'B':
         ctx.frame_paths(collection, arm)              # BA не выполнена: refused before any output
+        if final is not None:
+            require_ba_coverage(ctx, collection, final[1]['sessions'], 'final training')
     output = fresh_output(output if output is not None else fit_dir(series, arm, seed))
     started = time.monotonic()
     report = dict(format=FIT_FORMAT, status='running', mode=ctx.mode, series=series, arm=arm, seed=seed, train_fold=k,
@@ -583,8 +745,14 @@ def fit(ctx, series, arm, seed, output=None, purpose=None):
         agent_idx = list(range(len(ctx.features), len(columns)))
         report['features'] = dict(base=list(ctx.features), agent=agent)
         chosen = training_sessions(con, 'lab', ctx.n_t)
-        report['training_digest'] = check_training_digest(manifest, chosen)
-        register_sessions(con, 'train_union', sorted(set().union(*chosen.values())))
+        if final is not None:
+            report['training_digest'] = check_final_training(final, chosen)
+        else:
+            report['training_digest'] = check_training_digest(manifest, chosen)
+        union = sorted(set().union(*chosen.values()))
+        if arm != 'B':
+            report['ba_coverage'] = require_ba_coverage(ctx, collection, union, 'training')
+        register_sessions(con, 'train_union', union)
         report['sessions_without_rows'] = require_frame_rows(con, 'fr', 'train_union')
         if arm != 'B':
             report['ba_frame'] = check_ba_frame(con, ctx, collection, 'fr', 'train_union')
@@ -811,8 +979,8 @@ def evaluation_population(ctx, con, series, collection):
     if k == 3:
         return oc.read_population(collection), None
     if k == 4:
-        gate = power_gate_report()
-        return oc.read_population(collection, expected_digest=gate['population']['digest']), gate['population']
+        population = oc.holdout_population(collection)
+        return population['sessions'], population['record']
     return collection_sessions(con, collection), None
 
 
@@ -853,6 +1021,8 @@ def evaluate(ctx, series, arm, seed, fit_directory=None, output=None, batch=None
     con = connect(ctx)
     try:
         population, power = evaluation_population(ctx, con, series, collection)
+        if arm != 'B':
+            require_ba_coverage(ctx, collection, population, 'population')
     except Exception:
         con.close()
         raise
@@ -865,7 +1035,7 @@ def evaluate(ctx, series, arm, seed, fit_directory=None, output=None, batch=None
     parts = output/'parts'
     try:
         report['pop'] = make_pop(ctx, collection, output/POP_FILE)
-        report['population'] = dict(n=len(population), digest=oc.canonical_digest(sorted(int(s) for s in population)))
+        report['population'] = dict(n=len(population), digest=oc.sessions_digest(population))
         if power is not None:
             report['population']['power_gate'] = power
         paths, agent = arm_view(con, ctx, collection, arm)
@@ -988,7 +1158,7 @@ def series_evals(ctx, series, seed, arms):
     """({arm: (directory, report)}, BA present) for the evaluations of a series.
 
     B is required. An evaluation of BA or BApl, when present, must be complete; it may be
-    absent only when BA is not run (no BA frame on the training or evaluation fold).
+    absent only when BA is not run (``Context.ba_run``: frames short of the training union or the population).
     """
     spec = series_spec(series)
     out = {}
@@ -997,7 +1167,7 @@ def series_evals(ctx, series, seed, arms):
             out[arm] = load_eval(series, arm, seed)
         else:
             require(not ctx.ba_run(spec['train'], spec['eval']),
-                    f'{series} {arm}{seed} is not evaluated though the BA frame exists')
+                    f'{series} {arm}{seed} is not evaluated though the BA frames cover the series')
     return out, 'BA' in out
 
 
@@ -1068,26 +1238,8 @@ def power_rule(ci, n_dev, q4):
     return n, expected, w*math.sqrt(n_dev/n), rule
 
 
-def power_gate_dirs(collection_name=None):
-    """Power gate directories of the holdout collection in force (a rebuilt collection gets its own gate)."""
-    name = collection_name or oc.current_holdout_collection().name
-    root = oc.output_dir('gate')
-    out = []
-    for path in sorted(root.iterdir()) if root.exists() else []:
-        if path.is_dir() and path.name.startswith('power-'):
-            report = path/GATE_FILE
-            data = oc.read_json(report) if report.is_file() else {}
-            if (data.get('population') or {}).get('collection', name) == name:
-                out.append(path)              # a directory without a report blocks: it may be a run in flight
-    return out
-
-
-def power_gate_report():
-    dirs = power_gate_dirs()
-    require(len(dirs) == 1, f'Expected exactly one power gate report of the current holdout, found {len(dirs)}')
-    report = oc.read_json(dirs[0]/GATE_FILE)
-    require(report.get('format') == GATE_FORMAT and report.get('kind') == 'power', 'Not a power gate report')
-    return report
+power_gate_dirs = oc.power_gate_dirs
+power_gate_report = oc.power_gate_report
 
 
 def gate_power(ctx, contrast_path, output=None):
@@ -1113,7 +1265,7 @@ def gate_power(ctx, contrast_path, output=None):
         con.close()
     body = oc.write_population(collection, sessions, rule)
     digest = oc.canonical_digest(body)
-    output = oc.new_output(output if output is not None else oc.output_dir('gate', f'power-{stamp()}'))
+    output = oc.new_output(output if output is not None else oc.output_dir('gate', f'{oc.POWER_GATE_PREFIX}{stamp()}'))
     report = dict(format=GATE_FORMAT, kind='power', ok=True, contrast=dict(path=rel(contrast_path),
                   sha256=oc.sha256_file(contrast_path)), ci_dev=ci, n_dev=n_dev, q4_sessions=len(q4),
                   expected_half_width_1e6=expected, threshold=oc.POWER_HALF_WIDTH,
@@ -1171,7 +1323,7 @@ def gate1_checks(ctx, stage, leakcheck=()):
     if stage == 1:
         dev, _ = series_evals(ctx, 'dev', seed, dev_arms(ctx))
         check_eval_pairing(dev)
-        records = [leakcheck_record(p) for p in leakcheck]
+        records = [leakcheck_record(ctx, p) for p in leakcheck]
         folds = sorted({r['fold'] for r in records if r['ok']})
         checks['leakcheck'] = dict(ok=bool(records) and all(r['ok'] for r in records) and folds == [3, 4],
                                    reports=records)
@@ -1247,7 +1399,8 @@ def kaggle_file(arm, seed):
 
 
 def assemble_record(arm, seed, eval_report):
-    """The otto_data.assemble receipt next to the Kaggle file of (arm, seed), re-hashed."""
+    """The otto_data.assemble receipt next to the Kaggle file of (arm, seed), re-hashed: built from the ranked
+    lists of the F5 evaluation (``ranked_sha256``), one file of the population, nothing topped up at assembly."""
     path = kaggle_file(arm, seed)
     receipt_path = path.with_suffix('.json')
     out = dict(file=rel(path), ok=False, problems=[])
@@ -1263,6 +1416,10 @@ def assemble_record(arm, seed, eval_report):
         out['problems'].append('rows != 3 x sessions')
     if data.get('sessions') != eval_report['population']['n']:
         out['problems'].append('sessions differ from the F5 population')
+    if data.get('ranked_sha256') != eval_report['ranked']['sha256']:
+        out['problems'].append('assembled from other ranked lists than the F5 evaluation')
+    if data.get('filled_sessions') != 0:
+        out['problems'].append(f'filled_sessions is {data.get("filled_sessions")}, not 0')
     out['ok'] = not out['problems']
     return out
 
@@ -1566,6 +1723,9 @@ def smoke(ctx, output=None, noise=SMOKE_NOISE, type_=SMOKE_TYPE):
 def prereg_rules(smoke_json):
     """Model rules the prereg records (§7), with bootstrap_type and N_t of the smoke run (§12).
 
+    The committed set must carry an audit with verdict clean, and ``smoke_json`` must be the
+    smoke result the agent run of that set used: run/run-<set.run.id>/run.json has the SHA-256
+    ``set.run_sha256`` and names ``smoke.sha256`` of this file (N_t of the prompt = N_t of the prereg).
     The prereg command itself is the coordinator's; ``Context.contract`` reads back
     ``recipe.bootstrap_type``, ``N_t`` and ``SCORE_BATCH``.
     """
@@ -1574,9 +1734,20 @@ def prereg_rules(smoke_json):
     require(data.get('format') == SMOKE_FORMAT, f'{smoke_json} is not a smoke result')
     require(data.get('bootstrap_type') in (DEFAULT_BOOTSTRAP, FALLBACK_BOOTSTRAP), 'Smoke names no bootstrap type')
     require(int(data.get('N_t', 0)) in (oc.N_T, SMOKE_REDUCED_N_T), f'Smoke N_t {data.get("N_t")} is not allowed')
+    smoke_sha = oc.sha256_file(smoke_json)
+    agent_set = oc.receipt('set')
+    oc.require_clean_audit(agent_set)
+    run_id = (agent_set.get('run') or {}).get('id')
+    require(isinstance(run_id, str) and run_id, 'The committed set names no run')
+    run_json = oc.output_dir('run', oc.output_name(f'run-{run_id}'))/'run.json'
+    require(run_json.is_file() and oc.sha256_file(run_json) == agent_set.get('run_sha256'),
+            f'{rel(run_json)} is not the run.json the set was frozen from (run_sha256)')
+    run_smoke = oc.read_json(run_json).get('smoke') or {}
+    require(run_smoke.get('sha256') == smoke_sha,
+            f'{smoke_json} is not the smoke result of run {run_id} (run.json smoke.sha256)')
     return normalized(dict(recipe=dict(RECIPE, bootstrap_type=data['bootstrap_type']),
-                           smoke=dict(path=rel(smoke_json), sha256=oc.sha256_file(smoke_json),
-                                      seconds=data.get('seconds')),
+                           smoke=dict(path=rel(smoke_json), sha256=smoke_sha, seconds=data.get('seconds'),
+                                      run=run_id),
                            prediction_type=PREDICTION_TYPE, negatives=NEGATIVE_RULE,
                            N_t=int(data['N_t']), SCORE_BATCH=oc.SCORE_BATCH, permutation=PERMUTATION_RULE,
                            parity=list(PARITY),
@@ -1591,8 +1762,6 @@ def parser():
     p = Parser(prog='otto_model.py', description=__doc__.splitlines()[0])
     sub = p.add_subparsers(dest='command', required=True)
 
-    def frames(c):
-        c.add_argument('--agent-frame', action='append', default=[], metavar='COLLECTION=PATH')
     c = sub.add_parser('fit')
     c.add_argument('--series', choices=tuple(oc.SERIES))
     c.add_argument('--arm', choices=oc.ARMS)
@@ -1600,7 +1769,8 @@ def parser():
     c.add_argument('--base-dev', metavar='NAME')
     c.add_argument('--base')
     c.add_argument('--bootstrap', default=DEFAULT_BOOTSTRAP)
-    frames(c)
+    c = sub.add_parser('final-sessions')
+    c.add_argument('--name')
     c = sub.add_parser('smoke')
     c.add_argument('--base')
     c.add_argument('--bootstrap', default=DEFAULT_BOOTSTRAP)
@@ -1608,7 +1778,6 @@ def parser():
     c.add_argument('--series', choices=tuple(oc.SERIES), required=True)
     c.add_argument('--arm', choices=oc.ARMS, required=True)
     c.add_argument('--seed', type=int, required=True)
-    frames(c)
     sub.add_parser('contrast')
     c = sub.add_parser('gate')
     c.add_argument('--kind', choices=GATE_KINDS, required=True)
@@ -1626,42 +1795,33 @@ def parser():
     c = sub.add_parser('score')
     c.add_argument('--arm', choices=('B', 'BA'), required=True)
     c.add_argument('--seed', type=int, required=True)
-    frames(c)
     c = sub.add_parser('reading')
     c.add_argument('--private', required=True)
     return p
 
 
-def agent_frames(values):
-    out = {}
-    for value in values:
-        name, sep, path = value.partition('=')
-        require(sep and name and path, f'--agent-frame takes COLLECTION=PATH, got {value!r}')
-        out.setdefault(name, []).append(path)
-    return out
-
-
 def cmd_fit(args):
     if args.base_dev:
+        oc.output_name(args.base_dev)
         require(args.base, 'Base-dev needs --base')
         require(args.series in (None, 'dev') and args.arm in (None, 'B') and args.seed in (None, oc.SEEDS[0]),
                 'Base-dev is dev B2026')
         ctx = Context.before_prereg(oc.read_base(args.base), 'base-dev', args.bootstrap)
-        directory = oc.output_dir('base-dev', args.base_dev)
+        directory = oc.output_dir('base-dev', oc.output_name(args.base_dev))
         report = fit(ctx, 'dev', 'B', oc.SEEDS[0], output=directory)
         ev = evaluate(ctx, 'dev', 'B', oc.SEEDS[0], fit_directory=directory)
         return dict(path=rel(directory), training={t: r['rows'] for t, r in report['training'].items()},
                     metrics=ev.get('metrics'), ceiling=ev.get('ceiling'))
     require(args.series and args.arm and args.seed is not None, 'fit needs --series, --arm and --seed')
     require(not args.base, 'Only base-dev takes --base')
-    ctx = Context.contract(agent_frames(args.agent_frame))
+    ctx = Context.contract()
     report = fit(ctx, args.series, args.arm, args.seed)
     return dict(path=rel(report['path']), training={t: dict(rows=r['rows'], dropped_sessions=r['dropped_sessions'])
                                                     for t, r in report['training'].items()})
 
 
 def cmd_evaluate(args):
-    ctx = Context.contract(agent_frames(args.agent_frame))
+    ctx = Context.contract()
     report = evaluate(ctx, args.series, args.arm, args.seed)
     return dict(path=rel(report['path']), finite=report['finite_all'], short_lists=report['short_lists'],
                 topped_sessions=report['topped_sessions'], metrics=report.get('metrics'))
@@ -1669,6 +1829,7 @@ def cmd_evaluate(args):
 
 COMMANDS = {
     'fit': cmd_fit,
+    'final-sessions': lambda a: final_sessions(Context.contract(), a.name),
     'smoke': lambda a: smoke(Context.before_prereg(oc.read_base(a.base), 'smoke', a.bootstrap)),
     'evaluate': cmd_evaluate,
     'contrast': lambda a: contrast(Context.contract()),
@@ -1676,7 +1837,7 @@ COMMANDS = {
     'holdout-open': lambda a: holdout_open(Context.contract(), a.gate, a.quote, a.quote_time, a.covers_stage2,
                                            a.stage),
     'holdout': lambda a: holdout(Context.contract(), a.stage),
-    'score': lambda a: score(Context.contract(agent_frames(a.agent_frame)), a.arm, a.seed),
+    'score': lambda a: score(Context.contract(), a.arm, a.seed),
     'reading': lambda a: reading(a.private),
 }
 

@@ -3,8 +3,9 @@
 No real OTTO data is read: collections, BA frames and receipts are built in a
 throwaway Git repository that stands in for ROOT, with a committed synthetic
 base, set and prereg (code_identity is mocked as in test_otto_data). Frames carry
-the stored types of otto_data (ranks USMALLINT). CatBoost fits are tiny (5 trees,
-depth 2, 2 threads).
+the stored types of otto_data (ranks USMALLINT). The agent's outputs are simulated
+in its formats: the set (otto-set-v1, ``columns``), sidecars (sidecar.json and
+parts) and leakcheck reports. CatBoost fits are tiny (5 trees, depth 2, 2 threads).
 """
 import copy
 import json
@@ -28,7 +29,13 @@ from scripts import otto_model as om
 REPO = Path(om.__file__).resolve().parents[1]
 FEATURES = ['f_signal', 'h_rank', 'pop_rank_clicks', 'pop_rank_carts', 'pop_rank_orders']
 RANKS = FEATURES[1:]
-AGENT = ['ag_src_x_rank', 'ag_good']
+AGENT = ['ag_src_x_rank', 'ag_src_x_score', 'ag_good']
+SET_DIGEST = '5'*64
+AGENT_SET = dict(format=oc.SET_FORMAT, digest=SET_DIGEST, columns=AGENT,
+                 proposals=[dict(id='r1p1', kind='table', columns=['v']),
+                            dict(id='r1p2', kind='source', columns=AGENT[:2]),
+                            dict(id='r2p1', kind='feature', columns=AGENT[2:])],
+                 audit=dict(verdict='clean', set_digest=SET_DIGEST))
 SMALL = dict(iterations=5, depth=2, thread_count=2)
 QUOTE = 'да, открывай holdout OTTO, и для этапа 2 тоже'
 WHEN = '2026-10-24T10:00:00+03:00'
@@ -68,10 +75,10 @@ def make_fold(first, n, seed, short_every=0, outside_every=0):
         for row in rows:
             frame.append(row)
             good = math.nan if rng.random() < 0.1 else float(row[2] + rng.normal(scale=0.5))
-            agent.append(row + (math.nan, good))
+            agent.append(row + (math.nan, math.nan, good))
         for r, a in enumerate(int(x) for x in rng.choice(np.arange(600, 700), 3, replace=False)):
             agent.append((s, a, float(rng.normal()-1), math.nan, math.nan, math.nan, math.nan, float(r+1),
-                          float(rng.normal()-1)))
+                          float(-r), float(rng.normal()-1)))
         if outside_every and s % outside_every == 0:
             labels += [(s, t, 1000+s) for t in oc.TYPES]
         else:
@@ -87,12 +94,50 @@ def write_frame(frame, path, typed=True):
     """Parquet of a frame in (session, aid) order; ``typed``: the stored types of otto_data (ranks USMALLINT)."""
     con = duckdb.connect()
     con.register('frame_in', frame)
-    cast = {c: ('USMALLINT' if typed and c in RANKS else 'DOUBLE')
+    cast = {c: ('FLOAT' if c.startswith(oc.AGENT_PREFIX) else 'USMALLINT' if typed and c in RANKS else 'DOUBLE')
             for c in frame.columns if c not in ('session', 'aid')}
     columns = ', '.join(['CAST(session AS BIGINT) AS session', 'CAST(aid AS BIGINT) AS aid']
                         + [f'CAST("{c}" AS {t}) AS "{c}"' for c, t in cast.items()])
     con.execute(f"COPY (SELECT {columns} FROM frame_in ORDER BY session, aid) TO '{path}' (FORMAT parquet)")
     con.close()
+
+
+def write_sidecar(collection, frame, name='run1', sessions=None, batch=25, set_digest=SET_DIGEST,
+                  manifest_sha256=None):
+    """sidecars/<collection>/<name>/ in the otto_agent format: part-NNNNN.parquet of ``batch`` sessions and
+    sidecar.json (otto-sidecar-v1) with every field of oc.SIDECAR_FIELDS."""
+    collection = Path(collection)
+    manifest = oc.read_json(collection/oc.MANIFEST_FILE)
+    if sessions is not None:
+        frame = frame[frame['session'].isin(set(sessions))]
+    own = sorted(int(x) for x in frame['session'].unique())
+    directory = oc.sidecar_dir(collection.name, name)
+    directory.mkdir(parents=True)
+    parts = {}
+    for i in range(0, len(own), batch):
+        chunk = own[i:i+batch]
+        part = frame[frame['session'].isin(chunk)]
+        path = directory/f'part-{i//batch:05d}.parquet'
+        write_frame(part, path, typed=False)                   # base columns DOUBLE in the BA frame
+        parts[path.name] = dict(sha256=oc.sha256_file(path), rows=int(len(part)), sessions=len(chunk))
+    body = dict(format=oc.SIDECAR_FORMAT, collection=collection.name, role=manifest['role'], fold=manifest['fold'],
+                manifest_sha256=manifest_sha256 or oc.sha256_file(collection/oc.MANIFEST_FILE),
+                set_digest=set_digest, sessions=len(own), sessions_digest=oc.sessions_digest(own),
+                batch=batch, rows=int(len(frame)), parts=parts, columns=list(frame.columns),
+                agent_columns=[c for c in frame.columns if c.startswith(oc.AGENT_PREFIX)])
+    oc.atomic_json(directory/oc.SIDECAR_REPORT, body)
+    return directory
+
+
+def leak_report(fold, collection, digest, **changes):
+    """leakcheck/<name>/report.json body in the otto_agent format (otto-leakcheck-v1), passed."""
+    body = dict(format=oc.LEAKCHECK_FORMAT, ok=True, fold=fold, collection=collection, sessions=10,
+                sessions_digest=digest, set_digest=SET_DIGEST, degenerate=[], history=dict(days=7), columns=AGENT,
+                error=None, history_check=dict(sessions=10, keys_one_side=0, cells={}),
+                batch_check=dict(sessions=10, batches=2, keys_one_side=0, cells={}), seconds=1.0,
+                prefix_check=dict(rows=['9', '9'], sessions=['10', '10'], ok=True) if fold == 3 else None)
+    body.update(changes)
+    return body
 
 
 class Repo(unittest.TestCase):
@@ -149,15 +194,13 @@ class Repo(unittest.TestCase):
         if role == 'val':
             sessions = sorted(fold['frame']['session'].unique())
             oc.write_population(col, sessions[5:], rule='synthetic: all but the first five (probe pool)')
-        side = oc.output_dir('sidecars', name)
-        side.mkdir(parents=True)
-        write_frame(fold['agent'], side/'frame.parquet', typed=False)      # base columns DOUBLE in the BA frame
+        write_sidecar(col, fold['agent'])
 
     def configs(self, prereg_extra=None, set_body=None):
         """Committed base, set and prereg naming them and the mocked code identity."""
         paths = {k: oc.config_path(k) for k in ('base', 'set', 'prereg')}
         paths['base'].write_text(json.dumps(self.base))
-        paths['set'].write_text(json.dumps(set_body if set_body is not None else dict(agent_columns=AGENT)))
+        paths['set'].write_text(json.dumps(set_body if set_body is not None else AGENT_SET))
         prereg = dict(base_sha256=oc.sha256_file(paths['base']), set_sha256=oc.sha256_file(paths['set']),
                       code=IDENTITY['files'], recipe=dict(om.RECIPE, bootstrap_type='Bayesian'), N_t=40,
                       SCORE_BATCH=7, agent_columns=AGENT)
@@ -169,7 +212,7 @@ class Repo(unittest.TestCase):
     def ctx(self, **kw):
         values = dict(mode='contract', prereg={'recipe': {'bootstrap_type': 'Bayesian'}}, prereg_sha256='0'*64,
                       code={}, recipe_overrides=SMALL, threads=2, memory='2GB', n_t=40, negatives=5, score_batch=7,
-                      agent_columns=AGENT)
+                      agent_columns=AGENT, set_digest=SET_DIGEST)
         values.update(kw)
         return om.Context(self.base, **values)
 
@@ -186,15 +229,25 @@ class Repo(unittest.TestCase):
             if eval_too:
                 om.evaluate(ctx, series, arm, seed)
 
-    def leakcheck(self, f4=None):
-        root = oc.output_dir('leakcheck')
-        root.mkdir(parents=True, exist_ok=True)
-        (root/'F3.json').write_text(json.dumps(dict(ok=True, fold=3)))
-        (root/'F4.json').write_text(json.dumps(f4 if f4 is not None else dict(ok=True, fold=4)))
-        return [root/'F3.json', root/'F4.json']
+    def leakcheck(self, f3=None, f4=None):
+        """Passed F3 and F4 reports on the dev and the power-gate population; ``f3``/``f4`` change fields."""
+        val, hold = oc.collection_dir('val'), oc.current_holdout_collection()
+        reports = {3: leak_report(3, val.name, oc.sessions_digest(oc.read_population(val)), **(f3 or {})),
+                   4: leak_report(4, hold.name, oc.holdout_population(hold)['sessions_digest'], **(f4 or {}))}
+        paths = []
+        for fold, body in reports.items():
+            path = oc.leakcheck_path(f'F{fold}')
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.unlink(missing_ok=True)
+            oc.atomic_json(path, body)
+            paths.append(path)
+        return paths
 
-    def sidecar(self, k):
-        return oc.output_dir('sidecars', oc.collection_name(oc.FOLD_ROLE[k]))/'frame.parquet'
+    def residecar(self, k, frame, **kw):
+        """Replace every sidecar of fold k's collection by one sidecar of ``frame``."""
+        collection = oc.collection_dir(oc.FOLD_ROLE[k])
+        shutil.rmtree(oc.output_dir('sidecars', collection.name))
+        return write_sidecar(collection, frame, **kw)
 
 
 # ================================================================== training rows (§6)
@@ -335,16 +388,15 @@ class Pipeline(Repo):
         chosen = od.training_sessions(self.folds[2]['labels'], n=40)
         session = chosen['clicks'][0]
         b_row = self.folds[2]['frame'].iloc[0]
-        cases = [('without rows', agent[agent.session != session]),
-                 ('lacks', agent[~((agent.session == b_row.session) & (agent.aid == b_row.aid))]),
+        cases = [('lacks 1 training sessions', agent[agent.session != session]),
+                 ('candidates of B', agent[~((agent.session == b_row.session) & (agent.aid == b_row.aid))]),
                  ('changes base values', agent.assign(h_rank=agent['h_rank'].where(
                      ~((agent.session == b_row.session) & (agent.aid == b_row.aid)), 99.0)))]
         for pattern, frame in cases:
             with self.subTest(pattern=pattern):
                 self.assertIn(int(b_row.session), set().union(*chosen.values()))
-                path = self.sidecar(2)
-                path.unlink()
-                write_frame(frame, path, typed=False)
+                self.residecar(2, frame)
+                ctx = self.ctx()                                    # a context caches the BA frame it read
                 with self.assertRaisesRegex(oc.ContractError, pattern):
                     om.fit(ctx, 'dev', 'BA', 2026)
                 report = oc.read_json(om.fit_dir('dev', 'BA', 2026)/om.REPORT_FILE)
@@ -379,7 +431,7 @@ class Pipeline(Repo):
                     self.assertEqual(len(calls), len(batches))
                     base_idx = list(range(len(FEATURES)))
                     for matrix, columns, perm, out in calls:
-                        self.assertEqual(columns, [len(FEATURES), len(FEATURES)+1])
+                        self.assertEqual(columns, [len(FEATURES)+i for i in range(len(AGENT))])
                         np.testing.assert_array_equal(out[:, base_idx], matrix[:, base_idx])
                         np.testing.assert_array_equal(out[:, columns], matrix[perm][:, columns])
                 else:
@@ -443,14 +495,24 @@ class Pipeline(Repo):
         for arm in oc.ARMS:
             om.evaluate(ctx, 'holdout', arm, 2026)
 
-        # leakcheck: a missing fold or ok:false fails BA and BApl, B stays
-        root = oc.output_dir('leakcheck')
-        self.leakcheck()
-        for leak in ([root/'F3.json'], self.leakcheck(f4=dict(ok=False, fold=4)), []):
-            with self.subTest(leak=leak):
-                bad = om.gate(ctx, '1', 1, leak)
+        # leakcheck: a missing fold, ok:false, an error, another set or another population fails BA and BApl
+        f3, _ = self.leakcheck()
+        dev_digest = oc.read_json(f3)['sessions_digest']
+        bad_cases = [(lambda: [f3], 'fold'), (lambda: self.leakcheck(f4=dict(ok=False)), 'ok is not true'),
+                     (lambda: self.leakcheck(f4=dict(error='Timeout')), 'Timeout'),
+                     (lambda: self.leakcheck(f3=dict(set_digest='6'*64)), 'another agent set'),
+                     (lambda: self.leakcheck(f4=dict(sessions_digest=dev_digest)), 'another population'),
+                     (lambda: self.leakcheck(f4=dict(batch_check=dict(keys_one_side=0, cells=2))), 'batch_check'),
+                     (lambda: self.leakcheck(f3=dict(prefix_check=dict(ok=False))), 'prefix_check'),
+                     (lambda: [], 'fold')]
+        for leak, problem in bad_cases:
+            with self.subTest(problem=problem):
+                bad = om.gate(ctx, '1', 1, leak())
                 self.assertEqual(bad['status'], dict(B=True, BA=False, BApl=False))
                 self.assertFalse(bad['ok'])
+                reports = oc.read_json(bad['path'])['checks']['leakcheck']['reports']
+                if problem != 'fold':
+                    self.assertTrue(any(problem in p for r in reports for p in r['problems']), reports)
         gate1 = om.gate(ctx, '1', 1, self.leakcheck())
         self.assertTrue(gate1['ok'], gate1)
         with self.assertRaisesRegex(oc.ContractError, 'quote'):
@@ -490,7 +552,10 @@ class Pipeline(Repo):
             om.holdout(ctx)
         self.commit(oc.config_path('holdout'))
 
-        # final series and the Kaggle lists
+        # final series and the Kaggle lists: the training sessions first (final-sessions)
+        with self.assertRaisesRegex(oc.ContractError, 'final-training'):
+            om.fit(ctx, 'final', 'B', 2026)
+        om.final_sessions(ctx)
         self.fit_eval(ctx, 'final', ['B', 'BA'], 2026, eval_too=False)
         sessions = sorted(self.folds[5]['frame']['session'].unique())
         known = set(self.folds[5]['agent']['aid'])
@@ -513,6 +578,24 @@ class Pipeline(Repo):
             self.assertEqual(len(set(labels.split(' '))), 20)
         gate2 = om.gate(ctx, '2', 1)
         self.assertTrue(gate2['ok'], gate2)
+        record = oc.read_json(gate2['path'])['checks']['assemble']['BA2026']
+        self.assertEqual(record['problems'], [])
+        # a receipt of other ranked lists, or of a file topped up at assembly, fails gate 2
+        receipt_path = om.kaggle_file('BA', 2026).with_suffix('.json')
+        receipt = oc.read_json(receipt_path)
+        self.assertEqual(receipt['ranked_sha256'], oc.read_json(
+            om.fit_dir('final', 'BA', 2026)/om.EVAL_DIR/om.REPORT_FILE)['ranked']['sha256'])
+        for change, problem in ((dict(ranked_sha256='7'*64), 'other ranked lists'),
+                                (dict(filled_sessions=3), 'filled_sessions')):
+            with self.subTest(problem=problem):
+                receipt_path.unlink()
+                oc.atomic_json(receipt_path, dict(receipt, **change))
+                bad = om.gate(ctx, '2', 1)
+                self.assertFalse(bad['status']['BA'])
+                problems = oc.read_json(bad['path'])['checks']['assemble']['BA2026']['problems']
+                self.assertTrue(any(problem in p for p in problems), problems)
+        receipt_path.unlink()
+        oc.atomic_json(receipt_path, receipt)
         om.kaggle_file('BA', 2026).write_text('changed\n')
         self.assertFalse(om.gate(ctx, '2', 1)['status']['BA'])
 
@@ -550,6 +633,246 @@ class Pipeline(Repo):
         self.assertFalse(oc.config_path('holdout-open').exists())
 
 
+class AgentFormats(Repo):
+    """Integration with the otto_agent formats: freeze -> frozen columns, sidecar.json -> BA frame."""
+
+    def test_frozen_columns_come_from_the_set_written_by_freeze(self):
+        frozen = dict(format=oc.SET_FORMAT, run='run-1', probe='probe-1', run_sha256='1'*64, base_digest='2'*64,
+                      prompt={'digest': '3'*64}, prompt_digest='3'*64, t_tb=60, code={}, candidates={'sources': ['x']},
+                      proposals=AGENT_SET['proposals'], attempts=[], columns=AGENT, tables=['v'], budget={},
+                      digest=SET_DIGEST, audit=AGENT_SET['audit'])   # the fields otto_agent freeze writes
+        self.configs(prereg_extra=dict(agent_columns=None), set_body=frozen)
+        ctx = om.Context.contract()
+        self.assertEqual((ctx.agent_columns, ctx.set_digest), (AGENT, SET_DIGEST))
+        self.assertEqual(om.frozen_agent_columns({}, frozen), AGENT)
+        self.assertEqual(oc.agent_columns(frozen), AGENT)
+
+    def test_sidecar_b_columns_follow_b_tables_of_the_base(self):
+        """A base without h_rank: otto_agent writes the base features, then h_rank (od.b_columns)."""
+        lean = oc.make_base({}, [dict(name=n, formula=n, missing='NULL') for n in FEATURES if n != 'h_rank'])
+        expected = [n for n in FEATURES if n != 'h_rank'] + ['h_rank']
+        self.assertEqual(od.b_columns(lean), expected)
+        self.assertEqual(od.b_columns(self.base), FEATURES)
+        ctx = lambda: om.Context(lean, **{k: v for k, v in dict(
+            mode='contract', prereg={'recipe': {'bootstrap_type': 'Bayesian'}}, prereg_sha256='0'*64, code={},
+            agent_columns=AGENT, set_digest=SET_DIGEST).items()})
+        val = oc.collection_dir('val')
+        agent = self.folds[3]['agent']
+        self.residecar(3, agent[['session', 'aid', *expected, *AGENT]])
+        self.assertEqual(om.ba_frame(ctx(), val)['columns'][2:-len(AGENT)], expected)
+        for frame in (agent[['session', 'aid', *FEATURES, *AGENT]],                       # h_rank in base order
+                      agent[['session', 'aid', *expected[:-1], *AGENT]]):                 # h_rank missing
+            self.residecar(3, frame)
+            with self.assertRaisesRegex(oc.ContractError, 'B columns of the base'):
+                om.ba_frame(ctx(), val)
+
+    def test_sidecars_make_the_ba_frame(self):
+        ctx = self.ctx()
+        val = oc.collection_dir('val')
+        agent = self.folds[3]['agent']
+        sessions = sorted(int(x) for x in agent['session'].unique())
+        # two sidecar runs (population first, the rest later) form one BA frame
+        self.residecar(3, agent, name='a', sessions=sessions[:30], batch=7)
+        write_sidecar(val, agent, name='b', sessions=sessions[30:], batch=50)
+        record = om.ba_frame(ctx, val)
+        self.assertEqual(record['sessions'], sessions)
+        self.assertEqual(len(record['parts']), 5+1)
+        self.assertEqual((record['columns'][:2], record['agent_columns']), (['session', 'aid'], AGENT))
+        self.assertEqual(om.ba_frame_paths(ctx, val), record['parts'])
+        self.assertEqual([r['name'] for r in record['sidecars']], ['a', 'b'])
+        om.fit(ctx, 'dev', 'B', 2026)
+        om.fit(ctx, 'dev', 'BA', 2026)
+        self.assertTrue(om.evaluate(ctx, 'dev', 'BA', 2026)['finite_all'])
+
+        # a population session without a sidecar: refused before any evaluation output
+        self.residecar(3, agent, name='a', sessions=sessions[:-1])
+        ctx = self.ctx()
+        output = om.fit_dir('dev', 'BA', 2026)/'again'
+        with self.assertRaisesRegex(oc.ContractError, 'lacks 1 population sessions'):
+            om.evaluate(ctx, 'dev', 'BA', 2026, output=output)
+        self.assertFalse(output.exists())
+
+        def broken(change, frame=agent):
+            self.residecar(3, frame, name='a')
+            directory = oc.sidecar_dir(val.name, 'a')
+            change(directory)
+            return self.ctx()
+        def report(directory):
+            return oc.read_json(directory/oc.SIDECAR_REPORT)
+
+        def rewrite(directory, drop=(), **changes):
+            body = {k: v for k, v in dict(report(directory), **changes).items() if k not in drop}
+            (directory/oc.SIDECAR_REPORT).unlink()
+            oc.atomic_json(directory/oc.SIDECAR_REPORT, body)
+        def retype(directory, column, type_):
+            """part-00001 rewritten with ``column`` of another type, listed with its new SHA-256."""
+            path = directory/'part-00001.parquet'
+            con = duckdb.connect()
+            con.execute(f"""COPY (SELECT * REPLACE (CAST("{column}" AS {type_}) AS "{column}")
+                FROM read_parquet('{path}')) TO '{path}.new' (FORMAT parquet)""")
+            con.close()
+            Path(f'{path}.new').replace(path)
+            body = report(directory)
+            rewrite(directory, parts={**body['parts'], path.name: dict(body['parts'][path.name],
+                                                                         sha256=oc.sha256_file(path))})
+
+        def relink(path):
+            """``path`` moved aside and replaced by a symbolic link to it."""
+            moved = path.with_name('.' + path.name + '-target') if path.is_dir() else self.root/'moved.parquet'
+            path.rename(moved)
+            path.symlink_to(moved, target_is_directory=moved.is_dir())
+
+        cases = [
+            (lambda d: rewrite(d, set_digest='6'*64), 'another agent set'),
+            (lambda d: rewrite(d, manifest_sha256='6'*64), 'another manifest'),
+            (lambda d: rewrite(d, collection='train-F2'), 'another collection'),
+            (lambda d: rewrite(d, format='x'), oc.SIDECAR_FORMAT),
+            (lambda d: rewrite(d, sessions_digest='6'*64), 'sessions_digest'),
+            (lambda d: rewrite(d, rows=1), 'row counts'),
+            (lambda d: rewrite(d, columns=report(d)['columns'][::-1]), 'columns must be session, aid'),
+            (lambda d: rewrite(d, columns=[*report(d)['columns'][:2], *report(d)['columns'][3:4],
+                                           *report(d)['columns'][2:3], *report(d)['columns'][4:]]),
+             'columns differ from sidecar.json'),
+            (lambda d: rewrite(d, drop=('manifest_sha256',)), 'lacks'),
+            (lambda d: rewrite(d, parts={**report(d)['parts'], 'part-00000.parquet': dict(
+                report(d)['parts']['part-00000.parquet'], sha256=None)}), 'without sha256'),
+            (lambda d: rewrite(d, parts={**report(d)['parts'], 'part-00000.parquet': dict(
+                report(d)['parts']['part-00000.parquet'], rows=1)}), 'rows or sessions differ'),
+            (lambda d: rewrite(d, parts={**report(d)['parts'], 'part-00000.parquet': dict(
+                report(d)['parts']['part-00000.parquet'], sessions=1)}), 'rows or sessions differ'),
+            (lambda d: retype(d, 'ag_good', 'DOUBLE'), 'not FLOAT'),
+            (lambda d: retype(d, report(d)['columns'][2], 'FLOAT'), 'types differ'),
+            (lambda d: relink(d/'part-00000.parquet'), 'links'),
+            (lambda d: relink(d), 'links'),
+            (lambda d: (d/'part-00000.parquet').write_bytes(b'x'), 'part changed'),
+            (lambda d: (d/'extra.parquet').write_bytes(b'x'), 'differ from the listed parts'),
+            (lambda d: (d.parent/'stray').mkdir(), 'without sidecar.json'),
+            (lambda d: write_sidecar(val, agent, name='z', sessions=sessions[:2]), 'already in another'),
+        ]
+        cases.append(((lambda d: None), 'frozen set', agent.drop(columns=['ag_good'])))   # another column list
+        cases.append(((lambda d: None), 'B columns of the base', agent.drop(columns=[self.ctx().features[0]])))
+        for change, pattern, *frame in cases:
+            with self.subTest(pattern=pattern):
+                ctx = broken(change, *frame)
+                with self.assertRaisesRegex(oc.ContractError, pattern):
+                    om.ba_frame_paths(ctx, val)
+        self.residecar(3, agent, name='a')
+        with self.assertRaisesRegex(oc.ContractError, 'нет замороженного набора'):
+            om.ba_frame_paths(self.ctx(set_digest=None), val)
+        # one command hashes every part once: the cache keys on path, mtime and size
+        oc._PART_SHA.clear()
+        with mock.patch.object(oc, 'sha256_file', wraps=oc.sha256_file) as hashed:
+            oc.sidecar_parts(val, SET_DIGEST)
+            oc.sidecar_parts(val, SET_DIGEST)
+        parts = [c for c in hashed.call_args_list if str(c.args[0]).endswith('.parquet')]
+        self.assertEqual(len(parts), len(list(oc.sidecar_dir(val.name, 'a').glob('*.parquet'))))
+        shutil.rmtree(oc.output_dir('sidecars', val.name))
+        self.assertEqual(om.ba_frame_paths(self.ctx(), val), [])                # BA не выполнена
+        self.assertEqual(om.ba_frame_paths(self.ctx(set_digest=None), val), [])
+
+
+class FinalSeries(Repo):
+    """final-sessions after the committed result receipt; fit final trains on exactly those sessions."""
+
+    def setUp(self):
+        super().setUp()
+        result = oc.config_path('holdout')
+        result.write_text(json.dumps(dict(format=om.RESULT_FORMAT, stage=1)))
+        self.commit(result)
+
+    def test_final_training_then_fit_final(self):
+        ctx = self.ctx()
+        with self.assertRaisesRegex(oc.ContractError, 'found 0'):
+            om.fit(ctx, 'final', 'B', 2026)
+        self.assertFalse(om.fit_dir('final', 'B', 2026).exists())
+        out = om.final_sessions(ctx, name='first')
+        path = oc.ROOT/out['path']
+        self.assertEqual(path, oc.final_training_dir('first')/oc.FINAL_TRAINING_FILE)
+        record = oc.read_json(path)
+        expected = od.training_sessions(self.folds[4]['labels'], n=40)
+        self.assertEqual(record['per_type'], expected)
+        self.assertEqual((record['format'], record['collection'], record['N_t'], record['prereg_sha256']),
+                         (oc.FINAL_TRAINING_FORMAT, oc.collection_name('holdout'), 40, '0'*64))
+        self.assertEqual(record['training_digest'], oc.canonical_digest(expected))
+        self.assertEqual(record['sessions'], sorted(set().union(*map(set, expected.values()))))
+        with self.assertRaisesRegex(oc.ContractError, 'exist'):                # once per holdout collection
+            om.final_sessions(ctx, name='second')
+        for bad in ('../x', 'a/b', '/tmp/x', '..', '.hidden', ''):
+            with self.subTest(name=bad), self.assertRaisesRegex(oc.ContractError, 'Output names'):
+                om.final_sessions(ctx, name=bad)
+
+        # the BA frame of F4 must cover the training sessions: population sidecar first, training sidecar later
+        hold = oc.collection_dir('holdout')
+        agent = self.folds[4]['agent']
+        rest = sorted(set(int(x) for x in agent['session'].unique()) - set(record['sessions']))
+        self.residecar(4, agent, name='population', sessions=rest + record['sessions'][:-1])
+        with self.assertRaisesRegex(oc.ContractError, 'lacks 1 final training sessions'):
+            om.fit(self.ctx(), 'final', 'BA', 2026)
+        self.assertFalse(om.fit_dir('final', 'BA', 2026).exists())
+        write_sidecar(hold, agent, name='final-training', sessions=record['sessions'][-1:])
+        ctx = self.ctx()
+        for arm in ('B', 'BA'):
+            report = om.fit(ctx, 'final', arm, 2026)
+            self.assertEqual(report['training_digest']['status'], 'equal')
+            self.assertEqual(report['training_digest']['training_digest'], record['training_digest'])
+            self.assertEqual({t: report['training'][t]['sessions_digest'] for t in oc.TYPES},
+                             {t: oc.canonical_digest(expected[t]) for t in oc.TYPES})
+        with self.assertRaisesRegex(oc.ContractError, 'another N_t'):
+            om.fit(self.ctx(n_t=30), 'final', 'B', 2027)
+        with self.assertRaisesRegex(oc.ContractError, 'another prereg'):
+            om.fit(self.ctx(prereg_sha256='1'*64), 'final', 'B', 2027)
+
+        # sessions.json that names other sessions than the labels give: refused, the fit fails
+        path.unlink()
+        changed = dict(expected, clicks=expected['clicks'][:-1])
+        oc.write_final_training(path.parent, oc.collection_name('holdout'), 40, '0'*64, changed)
+        with self.assertRaisesRegex(oc.ContractError, 'differ from training_digest'):
+            om.fit(self.ctx(), 'final', 'B', 2027)
+        self.assertEqual(oc.read_json(om.fit_dir('final', 'B', 2027)/om.REPORT_FILE)['status'], 'failed')
+
+    def test_refused_final_training_sidecar_is_ba_not_run(self):
+        """§8: a population sidecar of F4 without the final-training one is "BA не выполнена" — gate 2 counts B."""
+        ctx = self.ctx()
+        record = oc.read_json(oc.ROOT/om.final_sessions(ctx, name='first')['path'])
+        agent = self.folds[4]['agent']
+        rest = sorted(set(int(x) for x in agent['session'].unique()) - set(record['sessions']))
+        self.residecar(4, agent, name='population', sessions=rest)       # the training sidecar was refused
+        with self.assertRaisesRegex(oc.ContractError, 'lacks'):
+            om.fit(self.ctx(), 'final', 'BA', 2026)
+        ctx = self.ctx()
+        self.assertFalse(ctx.ba_run(4, 5))
+        om.fit(ctx, 'final', 'B', 2026)
+        out = om.score(ctx, 'B', 2026)
+        sessions = sorted(self.folds[5]['frame']['session'].unique())
+        target = om.kaggle_file('B', 2026)
+        target.parent.mkdir(parents=True)
+        od.assemble(oc.ROOT/out['ranked'], target, sessions, set(self.folds[5]['agent']['aid']),
+                    od.pop(oc.collection_dir('kaggle')/oc.FRAME_FILE), sample_rows=3*len(sessions))
+        evals, present = om.series_evals(self.ctx(), 'final', 2026, ('B', 'BA'))
+        self.assertEqual((list(evals), present), (['B'], False))
+        gate2 = om.gate(self.ctx(), '2', 1)
+        self.assertEqual(gate2['status'], dict(B=True, BA=False))
+        self.assertFalse(oc.read_json(gate2['path'])['checks']['present']['BA'])
+        # the training sidecar arrives: now the missing BA evaluation is an error, not a result
+        write_sidecar(oc.collection_dir('holdout'), agent, name='final-training', sessions=record['sessions'])
+        with self.assertRaisesRegex(oc.ContractError, 'not evaluated though the BA frames cover the series'):
+            om.series_evals(self.ctx(), 'final', 2026, ('B', 'BA'))
+
+    def test_ba_run_before_final_sessions_is_ba_not_run(self):
+        self.assertFalse(oc.output_dir('final-training').exists())
+        self.assertFalse(self.ctx().ba_run(4, 5))                       # not "found 0": BA не выполнена
+        om.final_sessions(self.ctx(), name='first')
+        self.assertTrue(self.ctx().ba_run(4, 5))                        # the setUp sidecars cover all of F4
+
+    def test_final_sessions_needs_the_result_receipt(self):
+        git(self.root, 'rm', '-q', str(oc.config_path('holdout').relative_to(self.root)))
+        git(self.root, 'commit', '-q', '-m', 'rm')
+        with mock.patch.object(oc, 'read_sealed', side_effect=AssertionError('labels read')):
+            with self.assertRaisesRegex(oc.ContractError, 'closed'):
+                om.final_sessions(self.ctx())
+        self.assertFalse(oc.output_dir('final-training').exists())
+
+
 class BaNotRun(Repo):
     """§5.7: no BA frame — D null, gate 1 fails BA and BApl, the holdout opens for B and Pop."""
 
@@ -580,28 +903,57 @@ class BaNotRun(Repo):
         self.assertNotIn('D', data)
         self.assertEqual(sorted(data['ceiling']), ['B'])
 
+    def test_ba_run_needs_coverage_of_the_training_union_and_the_population(self):
+        ctx = self.ctx()
+        self.assertTrue(ctx.ba_run(2, 3))
+        train = self.folds[2]['agent']
+        con = duckdb.connect()
+        om.labels_view(con, str(oc.collection_dir('train')/oc.LABELS_FILE))
+        union = set().union(*om.training_sessions(con, 'lab', ctx.n_t).values())
+        con.close()
+        short = train[train['session'] != min(union)]
+        self.residecar(2, short)                                    # one training session without a sidecar
+        self.assertFalse(self.ctx().ba_run(2, 3))
+        self.residecar(2, train)
+        val = self.folds[3]['agent']
+        population = oc.read_population(oc.collection_dir('val'))
+        self.residecar(3, val[val['session'] != population[0]])     # one population session without a sidecar
+        self.assertFalse(self.ctx().ba_run(2, 3))
+        self.fit_eval(self.ctx(), 'dev', ['B'], 2026)
+        self.assertEqual(list(om.series_evals(self.ctx(), 'dev', 2026, oc.ARMS)[0]), ['B'])
+        shutil.rmtree(oc.output_dir('sidecars'))
+        with mock.patch.object(om, 'fold_labels', side_effect=AssertionError('labels read')):
+            self.assertFalse(self.ctx().ba_run(2, 3))               # no frame: no labels read
+
     def test_missing_ba_evaluation_with_a_ba_frame_is_refused(self):
         ctx = self.ctx()
         self.fit_eval(ctx, 'dev', ['B'], 2026)
-        with self.assertRaisesRegex(oc.ContractError, 'not evaluated though the BA frame exists'):
+        with self.assertRaisesRegex(oc.ContractError, 'not evaluated though the BA frames cover the series'):
             om.contrast(ctx)
 
 
 class ContextAndOutputs(Repo):
     def test_contract_context_from_the_committed_prereg(self):
         ctx = om.Context.contract()
-        self.assertEqual((ctx.bootstrap_type, ctx.agent_columns, ctx.n_t, ctx.score_batch),
-                         ('Bayesian', AGENT, 40, 7))
+        self.assertEqual((ctx.bootstrap_type, ctx.agent_columns, ctx.set_digest, ctx.n_t, ctx.score_batch),
+                         ('Bayesian', AGENT, SET_DIGEST, 40, 7))
         self.assertEqual(ctx.code, IDENTITY['files'])
         self.assertEqual(ctx.prereg_sha256, oc.sha256_file(oc.config_path('prereg')))
         self.configs(prereg_extra=dict(agent_columns=None))                # columns from the committed set
         self.assertEqual(om.Context.contract().agent_columns, AGENT)
-        self.configs(prereg_extra=dict(agent_columns=None), set_body=dict(sources=[]))
-        with self.assertRaisesRegex(oc.ContractError, 'agent_columns'):
-            om.Context.contract()
-        self.configs(prereg_extra=dict(agent_columns=['x_bad']))
-        with self.assertRaisesRegex(oc.ContractError, 'ag_'):
-            om.Context.contract()
+        cases = [(dict(agent_columns=None), dict(agent_columns=AGENT, audit=AGENT_SET['audit']), oc.SET_FORMAT),
+                 (dict(agent_columns=None), dict(AGENT_SET, audit=None), 'verdict clean'),     # not audited
+                 (dict(agent_columns=None), dict(AGENT_SET, audit=dict(verdict='leak')), 'verdict clean'),
+                 (dict(agent_columns=['ag_other']), AGENT_SET, 'differ from the committed set'),
+                 (dict(agent_columns=None), dict(AGENT_SET, columns=['x_bad'], proposals=None), 'ag_'),
+                 (dict(agent_columns=None), dict(AGENT_SET, columns=AGENT[::2], proposals=None), 'both'),
+                 (dict(agent_columns=None), dict(AGENT_SET, columns=AGENT[::-1]), 'proposals'),
+                 (dict(agent_columns=None), dict(AGENT_SET, digest='x'), 'digest')]
+        for prereg_extra, set_body, pattern in cases:
+            with self.subTest(pattern=pattern):
+                self.configs(prereg_extra=prereg_extra, set_body={k: v for k, v in set_body.items() if v is not None})
+                with self.assertRaisesRegex(oc.ContractError, pattern):
+                    om.Context.contract()
         self.configs()
         other = dict(files=dict(IDENTITY['files'], **{'scripts/otto_model.py': 'd'*64}), missing=[])
         with mock.patch.object(oc, 'code_identity', return_value=other):
@@ -639,8 +991,32 @@ class BeforePrereg(Repo):
         full = oc.output_dir('smoke', 'full')
         full.mkdir(parents=True)
         oc.atomic_json(full/'smoke.json', dict(data, N_t=oc.N_T, bootstrap_type='Bernoulli'))
+        # the run the set was frozen from names this smoke result; the set carries a clean audit
+        run = oc.output_dir('run', 'run-t1')
+        run.mkdir(parents=True)
+        oc.atomic_json(run/'run.json', dict(format='otto-run-v1', smoke=dict(
+            path='x', sha256=oc.sha256_file(full/'smoke.json'), N_t=oc.N_T)))
+        frozen = dict(AGENT_SET, run=dict(id='t1'), run_sha256=oc.sha256_file(run/'run.json'))
+        self.configs(set_body=frozen)
         rules = om.prereg_rules(full/'smoke.json')
         self.assertEqual((rules['recipe']['bootstrap_type'], rules['N_t']), ('Bernoulli', oc.N_T))
+        self.assertEqual((rules['smoke']['sha256'], rules['smoke']['run']), (oc.sha256_file(full/'smoke.json'), 't1'))
+        other = oc.output_dir('smoke', 'other')
+        other.mkdir(parents=True)
+        oc.atomic_json(other/'smoke.json', dict(data, N_t=oc.N_T, bootstrap_type='Bayesian'))
+        bad = [(frozen, other/'smoke.json', 'not the smoke result of run t1'),
+               (dict(frozen, run_sha256='0'*64), full/'smoke.json', 'run_sha256'),
+               (dict(frozen, run=None), full/'smoke.json', 'names no run'),
+               (dict(frozen, run=dict(id='../x')), full/'smoke.json', 'Output names'),
+               (dict(frozen, audit=dict(verdict='leak')), full/'smoke.json', 'verdict clean'),
+               (dict(frozen, audit=None), full/'smoke.json', 'verdict clean')]
+        for body, smoke_path, pattern in bad:
+            with self.subTest(pattern=pattern):
+                if body is not frozen:
+                    self.configs(set_body=body)
+                with self.assertRaisesRegex(oc.ContractError, pattern):
+                    om.prereg_rules(smoke_path)
+        self.configs(set_body=frozen)
         self.assertEqual(rules['recipe']['iterations'], 500)
         self.assertIn('evaluation fold', rules['permutation'])
         with self.assertRaisesRegex(oc.ContractError, 'N_t'):             # smoke of the tiny test N_t
@@ -724,6 +1100,24 @@ class ReadingAndCli(unittest.TestCase):
     def run_cli(self, *flags):
         return subprocess.run([sys.executable, *flags, str(REPO/'scripts'/'otto_model.py'), 'reading', '--private',
                                '{}'], capture_output=True, text=True, cwd=tempfile.gettempdir(), check=False)
+
+    def test_cli_has_final_sessions_and_no_agent_frame_override(self):
+        args = om.parser().parse_args(['final-sessions', '--name', 'x'])
+        self.assertEqual((args.command, args.name), ('final-sessions', 'x'))
+        self.assertIn('final-sessions', om.COMMANDS)
+        for command in (['fit', '--series', 'dev', '--arm', 'BA', '--seed', '2026'],
+                        ['evaluate', '--series', 'dev', '--arm', 'BA', '--seed', '2026'],
+                        ['score', '--arm', 'BA', '--seed', '2026']):
+            with self.subTest(command=command[0]), self.assertRaises(om.ArgumentError):
+                om.parser().parse_args(command + ['--agent-frame', 'val-F3=x.parquet'])
+
+    def test_cli_names_are_one_path_component(self):
+        for bad in ('../x', 'a/b', '/tmp/x', '..'):
+            args = om.parser().parse_args(['fit', '--base-dev', bad, '--base', 'b.json'])
+            with self.subTest(name=bad), mock.patch.object(oc, 'read_base', return_value=None), \
+                    mock.patch.object(om.Context, 'before_prereg', side_effect=AssertionError('context')):
+                with self.assertRaisesRegex(oc.ContractError, 'Output names'):
+                    om.cmd_fit(args)
 
     def test_cli_refuses_without_isolation_and_prints_one_json_line(self):
         plain = self.run_cli()

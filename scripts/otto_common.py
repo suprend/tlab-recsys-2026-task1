@@ -29,6 +29,33 @@ Formats fixed here:
 ``type``
     Labels and ranked lists use the names in TYPES; an integer column is read as
     TYPE_CODES (0 clicks, 1 carts, 2 orders).
+``configs/datasets/otto-set.json`` (SET_FORMAT, otto_agent ``freeze``)
+    ``columns``: the model columns in proposal order (``ag_src_<name>_rank``/``_score``
+    and ``ag_*``), ``digest``; read through ``agent_columns``. ``audit.verdict`` must be
+    ``clean`` for the prereg (``require_clean_audit`` in ``require_prereg``).
+``artifacts/otto/sidecars/<collection>/<name>/`` (SIDECAR_FORMAT, §5.7)
+    ``sidecar.json`` with SIDECAR_FIELDS (``manifest_sha256`` of the collection
+    manifest, ``set_digest``, ``sessions``/``sessions_digest``, ``rows``, ``parts``
+    {file: sha256, rows, sessions}, ``columns`` = session, aid, B columns, then
+    ``agent_columns``) and the listed ``part-*.parquet`` (no links; the agent columns
+    FLOAT, the same types in every part); the sidecars of a collection hold disjoint
+    sessions and together form its BA frame (``sidecar_parts``).
+``artifacts/otto/leakcheck/<name>/report.json`` (LEAKCHECK_FORMAT, §5.8)
+    ``ok``, ``error``, ``fold`` 3|4, ``collection``, ``set_digest``,
+    ``sessions_digest`` of the population, ``history_check``/``batch_check``
+    (``keys_one_side`` 0, ``cells`` present and empty), on F3 ``prefix_check.ok`` true
+    (decision 23); read through ``read_leakcheck``.
+``artifacts/otto/gate/power-<stamp>/gate.json``
+    The power gate report; its ``population.digest`` is the digest of
+    population.json (decision 22), checked by ``holdout_population``.
+``artifacts/otto/final-training/<name>/sessions.json`` (FINAL_TRAINING_FORMAT)
+    ``collection, N_t, prereg_sha256, per_type, training_digest, sessions, digest``:
+    the final-series training sessions, readable after the result receipt only.
+Output names (``output_name``)
+    ``<name>`` of sidecars, leakcheck, final-training and base-dev is one path
+    component ``[A-Za-z0-9][A-Za-z0-9._-]*``, as otto_agent's OUTPUT_NAME.
+``sessions_digest``
+    A report on a set of sessions carries ``canonical_digest(sorted sessions)``.
 
 Parquet goes through DuckDB (``write_parquet``/``read_parquet``): pyarrow is not
 installed.
@@ -72,9 +99,15 @@ VERIFY_FILE = 'otto-verify.json'
 CONFIG_PREFIX = 'otto'
 CONFIG_KINDS = ('base', 'set', 'prereg', 'deviations', 'holdout-open', 'holdout', 'holdout-open-2', 'holdout-2')
 OUTPUT_KINDS = ('load', 'base-dev', 'collections', 'export', 'calibration', 'probe', 'run', 'tables', 'sidecars',
-                'leakcheck', 'smoke', 'fits', 'contrast', 'gate', 'holdout', 'kaggle')
+                'leakcheck', 'smoke', 'fits', 'contrast', 'gate', 'holdout', 'kaggle', 'final-training')
 _LOAD_TREES = {'train': 'events', 'test': 'test'}     # private: reached only through events_path/partition_*
 _PARTITION_PREFIX = 'd='
+SPILL_DIR = '.spill'                                  # artifacts/otto/.spill/duckdb-<pid>-<id> (spill_dir)
+
+# ---- resources (§12): DuckDB limits of load, collect, sidecars and model steps
+DUCKDB_THREADS = 8
+DUCKDB_MEMORY = '20GB'
+DUCKDB_MAX_TEMP = '40GB'
 
 # ---- time (§2.1, §2.5)
 DAY = 86400
@@ -144,6 +177,32 @@ _SEALED_FILES = (LABELS_FILE,)
 HOLDOUT_FORBIDDEN_WORDS = ('label', 'positive', 'target', 'suffix', 'hit', 'recall')   # holdout counts/extra keys
 HOLDOUT_FILES = (FRAME_FILE, PREFIX_DIR+'/')          # allowlist of a holdout collection outside sealed/
 
+# ---- agent names (§5): every agent column is ag_*, the two columns of a source ag_src_<name>_rank/_score;
+# the agent sees the three types under neutral names, same order as TYPES (§5.6)
+AGENT_PREFIX = 'ag_'
+SOURCE_PREFIX = 'ag_src_'
+SOURCE_SUFFIXES = ('rank', 'score')
+NEUTRAL_EVENTS = ('view', 'cart', 'order')
+FLOAT32_MAX = 3.4028234663852886e38          # largest finite float32; agent values beyond it become NULL
+
+# ---- formats shared by otto_agent and otto_model (§5.7, §5.8, §6, §8)
+SET_FORMAT = 'otto-set-v1'                   # configs/datasets/otto-set.json (otto_agent freeze)
+SIDECAR_FORMAT = 'otto-sidecar-v1'           # sidecars/<collection>/<name>/sidecar.json + part-*.parquet
+SIDECAR_REPORT = 'sidecar.json'
+LEAKCHECK_FORMAT = 'otto-leakcheck-v1'       # leakcheck/<name>/report.json
+LEAKCHECK_REPORT = 'report.json'
+FINAL_TRAINING_FORMAT = 'otto-final-training-v1'    # final-training/<name>/sessions.json (otto_model final-sessions)
+FINAL_TRAINING_FILE = 'sessions.json'
+GATE_FORMAT = 'otto-gate-v1'                 # gate/<kind>-<stamp>/gate.json (otto_model gate)
+GATE_FILE = 'gate.json'
+POWER_GATE_PREFIX = 'power-'
+SIDECAR_FIELDS = ('format', 'collection', 'role', 'fold', 'manifest_sha256', 'set_digest', 'sessions',
+                  'sessions_digest', 'rows', 'parts', 'columns', 'agent_columns')
+
+# ---- ranker recipe (§6, decision 7); bootstrap_type comes from the smoke run through the prereg
+RECIPE = dict(loss_function='YetiRank', iterations=500, depth=8, learning_rate=0.05, l2_leaf_reg=10,
+              border_count=128, thread_count=8, allow_writing_files=False)
+
 # ---- receipts (§2.5): minimal schemas checked whenever a receipt opens something
 HOLDOUT_OPEN_FORMAT = 'otto-holdout-open-v1'
 HOLDOUT_OPEN_2_FORMAT = 'otto-holdout-open-2-v1'
@@ -177,6 +236,15 @@ _SCRIPTS = Path(__file__).resolve().parent
 
 def artifacts_dir():
     return ROOT.joinpath(*ARTIFACTS)
+
+
+def output_name(name):
+    """A plain output name ``[A-Za-z0-9][A-Za-z0-9._-]*`` as otto_agent's OUTPUT_NAME: one path component,
+    not absolute, not hidden, never ``.`` or ``..``."""
+    import re
+    require(isinstance(name, str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]*', name) is not None,
+            f'Output names are [A-Za-z0-9][A-Za-z0-9._-]*: got {name!r}')
+    return name
 
 
 def output_dir(kind, *parts):
@@ -216,7 +284,47 @@ def new_output(path):
     return path
 
 
+def spill_dir():
+    """A fresh, not yet created DuckDB spill path under artifacts/otto/.spill.
+
+    DuckDB creates it on the first spill and removes it on close; callers that own the
+    connection may also remove it.
+    """
+    import os
+    import uuid
+    root = artifacts_dir()/SPILL_DIR
+    root.mkdir(parents=True, exist_ok=True)
+    return root/f'duckdb-{os.getpid()}-{uuid.uuid4().hex[:12]}'
+
+
+# =============================================================================== SQL text helpers
+
+def sql_literal(value):
+    """A single-quoted SQL string literal of ``str(value)``."""
+    return "'" + str(value).replace("'", "''") + "'"
+
+
+def sql_list(values):
+    """``[lit, lit, ...]`` of string literals (file lists for read_parquet); an empty list is refused."""
+    values = [str(v) for v in values]
+    require(values, 'No files to read')
+    return '[' + ', '.join(sql_literal(v) for v in values) + ']'
+
+
+def agent_float_sql(expr):
+    """An agent value as FLOAT: finite and |x| <= FLOAT32_MAX, otherwise NULL (BOOLEAN and integers via DOUBLE)."""
+    value = f'CAST(({expr}) AS DOUBLE)'
+    return f'CAST(CASE WHEN isfinite({value}) AND abs({value}) <= {FLOAT32_MAX!r} THEN {value} END AS FLOAT)'
+
+
 # =============================================================================== weeks and day partitions
+
+def history_days(k):
+    """Nominal history depth of F_k in days (§2.4, §5.6): 7·(k-1), i.e. 7/14/21/28 for F2..F5."""
+    k = int(k)
+    require(k in (2, 3, 4, KAGGLE_WEEK), f'Unknown fold F{k}')
+    return WEEK_DAYS*(k-1)
+
 
 def partition_day(ts, s5, source='train'):
     """Partition key d = floor((ts - S5) / 86400); train is min(d, -1), test must be d >= 0 (§2.5)."""
@@ -624,6 +732,305 @@ def read_population(collection, expected_digest=None):
     return data['sessions']
 
 
+def sessions_digest(sessions):
+    """canonical_digest of the sessions in ascending order: the digest every report puts on a session set."""
+    return canonical_digest(sorted(int(s) for s in sessions))
+
+
+# =============================================================================== power gate and the F4 population (§8)
+
+def power_gate_dirs(collection_name=None):
+    """gate/power-*/ directories of a holdout collection (default: the one in force).
+
+    A directory without gate.json counts (it may be a run in flight); a report of another
+    collection (a superseded holdout) does not.
+    """
+    name = collection_name or current_holdout_collection().name
+    root = output_dir('gate')
+    out = []
+    for path in sorted(root.iterdir()) if root.exists() else []:
+        if path.is_dir() and path.name.startswith(POWER_GATE_PREFIX):
+            report = path/GATE_FILE
+            data = read_json(report) if report.is_file() else {}
+            if (data.get('population') or {}).get('collection', name) == name:
+                out.append(path)
+    return out
+
+
+def power_gate_report(collection_name=None):
+    """The single power gate report of the holdout collection: format, kind and the population record."""
+    dirs = power_gate_dirs(collection_name)
+    require(len(dirs) == 1, f'Expected exactly one power gate report of the current holdout, found {len(dirs)}')
+    report = read_json(dirs[0]/GATE_FILE)
+    require(report.get('format') == GATE_FORMAT and report.get('kind') == 'power', 'Not a power gate report')
+    population = report.get('population') or {}
+    require(_hex64(population.get('digest')) and population.get('collection'), 'Power gate report without population')
+    return dict(report, path=str(dirs[0]/GATE_FILE))
+
+
+def holdout_population(collection=None):
+    """The F4 evaluation population (decision 22): population.json checked against the power gate's digest.
+
+    Returns dict(sessions ascending, digest of population.json, sessions_digest (what reports on
+    the population, e.g. a leakcheck, carry), n, record = the gate's population record, gate path).
+    """
+    collection = Path(collection) if collection is not None else current_holdout_collection()
+    gate = power_gate_report(collection.name)
+    require(gate['population']['collection'] == collection.name, 'Power gate of another holdout collection')
+    sessions = read_population(collection, expected_digest=gate['population']['digest'])
+    return dict(sessions=sessions, digest=gate['population']['digest'], sessions_digest=sessions_digest(sessions),
+                n=len(sessions), record=gate['population'], gate=gate['path'])
+
+
+# =============================================================================== agent formats (§5.7, §5.8)
+
+def agent_columns(set_record):
+    """Model columns of the frozen agent set, in their frozen order (otto_agent ``freeze``, field ``columns``).
+
+    Every name starts with AGENT_PREFIX and none repeats; a source gives both
+    ``ag_src_<name>_rank`` and ``_score``; when ``proposals`` are present, ``columns`` must
+    list the columns of every non-table proposal in proposal order.
+    """
+    require(isinstance(set_record, dict) and set_record.get('format') == SET_FORMAT,
+            f'The agent set must be of {SET_FORMAT}')
+    require(_hex64(set_record.get('digest')), 'The agent set has no digest')
+    columns = set_record.get('columns')
+    require(isinstance(columns, list) and columns, 'The agent set names no columns')
+    require(all(isinstance(c, str) and c.startswith(AGENT_PREFIX) for c in columns),
+            f'Agent columns must be names starting with {AGENT_PREFIX!r}')
+    require(len(set(columns)) == len(columns), 'Repeated agent columns')
+    sources = [c for c in columns if c.startswith(SOURCE_PREFIX)]
+    for column in sources:
+        stem, _, suffix = column.rpartition('_')
+        require(suffix in SOURCE_SUFFIXES and all(f'{stem}_{s}' in sources for s in SOURCE_SUFFIXES),
+                f'Source column {column} needs both {SOURCE_PREFIX}<name>_rank and _score')
+    proposals = set_record.get('proposals')
+    if proposals is not None:
+        listed = [n for p in proposals if p.get('kind') != 'table' for n in p.get('columns', [])]
+        require(listed == columns, 'The set columns differ from the columns of its proposals')
+    return list(columns)
+
+
+def sidecar_dir(collection_name, name):
+    """sidecars/<collection>/<name>/: one sidecar run of otto_agent (sidecar.json and part-*.parquet)."""
+    return output_dir('sidecars', output_name(collection_name), output_name(name))
+
+
+_PART_SHA = {}                                         # (path, mtime_ns, size) -> SHA-256, within one process
+
+
+def _part_sha256(path):
+    """SHA-256 of a sidecar part, hashed once per process while its path, mtime and size stay the same."""
+    stat = Path(path).stat()
+    key = (str(Path(path).resolve()), stat.st_mtime_ns, stat.st_size)
+    if key not in _PART_SHA:
+        _PART_SHA[key] = sha256_file(path)
+    return _PART_SHA[key]
+
+
+def sidecar_parts(collection, set_digest, *, verify=True):
+    """The BA frame of a collection: every sidecars/<collection>/*/sidecar.json and its parts.
+
+    Returns None when no sidecar exists (BA не выполнена). Otherwise each sidecar.json must
+    carry SIDECAR_FIELDS with format SIDECAR_FORMAT, this collection (name, role, fold), the
+    SHA-256 of its manifest.json, the given set digest and the same columns and agent
+    columns as the others; its directory holds exactly the listed parts, each listed with
+    ``sha256``, ``rows`` and ``sessions`` that match the file; every part has exactly those
+    columns in that order with the same types in every part of every sidecar, the agent
+    columns FLOAT; its sessions match ``sessions`` and ``sessions_digest``; sidecars do not
+    share sessions. Symbolic links and anything else under sidecars/<collection>/ refuse.
+
+    DuckDB runs with the DUCKDB_* limits and a spill_dir; part hashes are cached per process
+    by path, mtime and size (a command that reads the frame twice hashes it once).
+
+    Returns dict(parts=[paths, sidecars by name, parts by name], columns, types, agent_columns,
+    sessions=[ascending], sidecars=[dict(name, sha256, sessions, sessions_digest, rows)]).
+    """
+    collection = Path(collection)
+    manifest_path = collection/MANIFEST_FILE
+    manifest = read_json(manifest_path)
+    manifest_sha = sha256_file(manifest_path)
+    root = output_dir('sidecars', collection.name)
+    if not root.exists():
+        return None
+    require(not root.is_symlink(), f'sidecars/{collection.name} is a symbolic link')
+    entries = sorted(p for p in root.iterdir() if not p.name.startswith('.'))
+    stray = [p.name for p in entries if p.is_symlink() or not (p.is_dir() and (p/SIDECAR_REPORT).is_file())]
+    require(not stray, f'sidecars/{collection.name}/ holds links or entries without {SIDECAR_REPORT}: {stray[:5]}')
+    if not entries:
+        return None
+    import shutil
+    import duckdb
+    parts, records, seen, shape = [], [], set(), None
+    temp = spill_dir()
+    con = duckdb.connect()
+    try:
+        con.execute(f'SET threads={int(DUCKDB_THREADS)}')
+        con.execute(f'SET memory_limit={sql_literal(DUCKDB_MEMORY)}')
+        con.execute(f'SET temp_directory={sql_literal(temp)}')
+        con.execute(f'SET max_temp_directory_size={sql_literal(DUCKDB_MAX_TEMP)}')
+        for directory in entries:
+            report_path = directory/SIDECAR_REPORT
+            where = f'sidecars/{collection.name}/{directory.name}'
+            require(not report_path.is_symlink(), f'{where}: {SIDECAR_REPORT} is a symbolic link')
+            data = read_json(report_path)
+            missing = [k for k in SIDECAR_FIELDS if k not in data]
+            require(not missing, f'{where}: sidecar.json lacks {missing}')
+            require(data['format'] == SIDECAR_FORMAT, f'{where}: format must be {SIDECAR_FORMAT}')
+            require(data['collection'] == collection.name and data['role'] == manifest.get('role')
+                    and int(data['fold']) == int(manifest.get('fold')), f'{where}: sidecar of another collection')
+            require(data['manifest_sha256'] == manifest_sha, f'{where}: built on another manifest of {collection.name}')
+            require(data['set_digest'] == set_digest, f'{where}: built on another agent set')
+            columns, agent = list(data['columns']), list(data['agent_columns'])
+            require(columns[:2] == list(FRAME_KEYS) and agent and columns[len(columns)-len(agent):] == agent,
+                    f'{where}: columns must be session, aid, B columns, then the agent columns')
+            listed = data['parts']
+            require(isinstance(listed, dict) and listed, f'{where}: no parts')
+            for name, info in listed.items():
+                require(isinstance(info, dict) and _hex64(info.get('sha256'))
+                        and all(type(info.get(k)) is int and info[k] > 0 for k in ('rows', 'sessions')),
+                        f'{where}: part {name} is listed without sha256, rows and sessions')
+            files = sorted(p.name for p in directory.iterdir() if p.name != SIDECAR_REPORT)
+            require(files == sorted(listed), f'{where}: files differ from the listed parts')
+            paths = [directory/name for name in sorted(listed)]
+            links = [p.name for p in paths if p.is_symlink() or not p.is_file()]
+            require(not links, f'{where}: parts are links or not files: {links[:3]}')
+            for path in paths:
+                if verify:
+                    require(_part_sha256(path) == listed[path.name]['sha256'], f'{where}: part changed: {path.name}')
+                described = con.execute(f'DESCRIBE SELECT * FROM read_parquet({sql_literal(path)})').fetchall()
+                require([r[0] for r in described] == columns,
+                        f'{where}: {path.name} columns differ from sidecar.json columns')
+                types = [r[1] for r in described]
+                floats = [c for c, t in zip(columns, types) if c in agent and t != 'FLOAT']
+                require(not floats, f'{where}: {path.name} agent columns not FLOAT: {floats[:3]}')
+                require(shape in (None, (columns, agent, types)),
+                        f'{where}: {path.name} columns or types differ from the other parts and sidecars')
+                shape = (columns, agent, types)
+            counts = {Path(f).name: (int(r), int(n)) for f, r, n in con.execute(
+                f'SELECT filename, count(*), count(DISTINCT session) FROM read_parquet({sql_list(paths)}, '
+                f'filename=true) GROUP BY filename').fetchall()}
+            for path in paths:
+                info = listed[path.name]
+                require(counts.get(path.name) == (info['rows'], info['sessions']),
+                        f'{where}: {path.name} rows or sessions differ from the listed part')
+            rows = sum(r for r, _ in counts.values())
+            require(int(rows) == int(data['rows']) == sum(int(v['rows']) for v in listed.values()),
+                    f'{where}: row counts differ')
+            own = [int(s) for (s,) in con.execute(
+                f'SELECT DISTINCT session FROM read_parquet({sql_list(paths)}) ORDER BY 1').fetchall()]
+            require(len(own) == int(data['sessions']) and sessions_digest(own) == data['sessions_digest'],
+                    f'{where}: sessions differ from sessions/sessions_digest')
+            require(not seen & set(own), f'{where}: sessions already in another sidecar')
+            seen |= set(own)
+            parts += [str(p) for p in paths]
+            records.append(dict(name=directory.name, sha256=sha256_file(report_path), sessions=len(own),
+                                sessions_digest=data['sessions_digest'], rows=int(rows)))
+    finally:
+        con.close()
+        shutil.rmtree(temp, ignore_errors=True)
+    return dict(parts=parts, columns=shape[0], types=shape[2], agent_columns=shape[1], sessions=sorted(seen),
+                sidecars=records)
+
+
+def leakcheck_path(name):
+    """leakcheck/<name>/report.json of otto_agent ``leakcheck``."""
+    return output_dir('leakcheck', output_name(name))/LEAKCHECK_REPORT
+
+
+def _exact_zero(value):
+    return type(value) is int and value == 0
+
+
+def read_leakcheck(path, *, set_digest, population_digest, collection=None):
+    """A passed leakcheck report (§5.8) of the set on the population; refuses otherwise.
+
+    Checks format LEAKCHECK_FORMAT, ``error`` None, ``ok`` True with both checks clean
+    (``history_check``, ``batch_check``: ``keys_one_side`` 0 and ``cells`` present and empty, {} or 0),
+    ``fold`` 3 or 4, on F3 ``prefix_check.ok`` True (decision 23; on F4 it is absent or null),
+    ``set_digest`` and ``sessions_digest`` (= sessions_digest(population)) and, when given,
+    the collection name.
+    """
+    data = read_json(path)
+    require(data.get('format') == LEAKCHECK_FORMAT, f'Leakcheck report must be of {LEAKCHECK_FORMAT}')
+    require(data.get('error') is None, f'Leakcheck failed: {str(data.get("error"))[:200]}')
+    require(data.get('ok') is True, 'Leakcheck ok is not true')
+    require(data.get('fold') in (3, 4), 'Leakcheck fold must be 3 or 4')
+    for check in ('history_check', 'batch_check'):
+        value = data.get(check)
+        require(isinstance(value, dict) and _exact_zero(value.get('keys_one_side')) and 'cells' in value
+                and (value['cells'] == {} or _exact_zero(value['cells'])), f'Leakcheck {check} is not clean')
+    prefix = data.get('prefix_check')
+    if data['fold'] == 3:
+        require(isinstance(prefix, dict) and prefix.get('ok') is True,
+                'Leakcheck F3 has no passed prefix_check (decision 23)')
+    else:
+        require(prefix is None, 'Leakcheck F4 carries a prefix_check')
+    require(data.get('set_digest') == set_digest, 'Leakcheck of another agent set')
+    require(data.get('sessions_digest') == population_digest, 'Leakcheck on another population')
+    require(collection is None or data.get('collection') == collection, 'Leakcheck of another collection')
+    return data
+
+
+def final_training_dir(name):
+    """final-training/<name>/: the training sessions of the final series (otto_model final-sessions)."""
+    return output_dir('final-training', output_name(name))
+
+
+def write_final_training(directory, collection, n_t, prereg_sha256, per_type):
+    """sessions.json of otto-final-training-v1 in ``directory`` (created by the caller); returns the record.
+
+    ``per_type``: {type: sessions in sha256 order}, the first N_t labelled sessions of F4 per type (§6).
+    Fields: format, collection, N_t, prereg_sha256, per_type, training_digest = canonical_digest(per_type),
+    sessions (their ascending union), digest of the rest.
+    """
+    per_type = {t: [int(s) for s in per_type[t]] for t in TYPES}
+    body = dict(format=FINAL_TRAINING_FORMAT, collection=str(collection), N_t=int(n_t), prereg_sha256=prereg_sha256,
+                per_type=per_type, training_digest=canonical_digest(per_type),
+                sessions=sorted(set().union(*map(set, per_type.values()))))
+    record = dict(body, digest=canonical_digest(body))
+    _check_final_training(record)
+    atomic_json(Path(directory)/FINAL_TRAINING_FILE, record)
+    return record
+
+
+def _check_final_training(data):
+    require(data.get('format') == FINAL_TRAINING_FORMAT, f'Final training sessions must be of {FINAL_TRAINING_FORMAT}')
+    body = {k: v for k, v in data.items() if k != 'digest'}
+    require(canonical_digest(body) == data.get('digest'), 'Final training digest mismatch')
+    per_type = data.get('per_type')
+    require(isinstance(per_type, dict) and sorted(per_type) == sorted(TYPES), 'per_type must name the three types')
+    for t in TYPES:
+        values = per_type[t]
+        require(all(type(v) is int for v in values) and len(set(values)) == len(values)
+                and len(values) <= int(data['N_t']), f'per_type[{t}] must hold at most N_t distinct sessions')
+    require(canonical_digest(per_type) == data.get('training_digest'), 'training_digest differs from per_type')
+    require(data.get('sessions') == sorted(set().union(*map(set, per_type.values()))),
+            'sessions must be the ascending union of per_type')
+    return data
+
+
+def read_final_training(path, *, collection=None, prereg_sha256=None, n_t=None):
+    """The final training sessions after their checks; they come from F4 labels, so only with the result receipt."""
+    require_window('final')
+    data = _check_final_training(read_json(path))
+    require(collection is None or data['collection'] == str(collection), 'Final training of another collection')
+    require(prereg_sha256 is None or data['prereg_sha256'] == prereg_sha256, 'Final training under another prereg')
+    require(n_t is None or data['N_t'] == int(n_t), 'Final training of another N_t')
+    return data
+
+
+def final_training_record(collection_name, **expected):
+    """The single final-training/*/sessions.json of the collection (path and record); refuses 0 or several."""
+    root = output_dir('final-training')
+    found = []
+    for path in sorted(root.glob(f'*/{FINAL_TRAINING_FILE}')) if root.exists() else []:
+        if read_json(path).get('collection') == collection_name:
+            found.append(path)
+    require(len(found) == 1, f'Expected exactly one final-training record of {collection_name}, found {len(found)}')
+    return found[0], read_final_training(found[0], collection=collection_name, **expected)
+
+
 # =============================================================================== orders
 
 def order_key(session):
@@ -734,12 +1141,22 @@ def latest_code(prereg):
     return records[-1]['code'] if records else prereg['code']
 
 
+def require_clean_audit(agent_set):
+    """The set carries the SQL audit with verdict ``clean`` (§5.8, decision 23); returns the audit record."""
+    audit = agent_set.get('audit') if isinstance(agent_set, dict) else None
+    require(isinstance(audit, dict) and audit.get('verdict') == 'clean',
+            'The set carries no audit with verdict clean (§5.8): no prereg on an unaudited or leaking set')
+    return audit
+
+
 def require_prereg(check_code=True):
-    """Committed prereg whose base, set and code match the tree (or the last deviation), §7."""
+    """Committed prereg whose base, set and code match the tree (or the last deviation), §7;
+    the committed set carries an audit with verdict clean (§5.8)."""
     prereg = receipt('prereg')
     for kind in ('base', 'set'):
         path = config_path(kind)
         require(committed_clean(path) and sha256_file(path) == prereg[f'{kind}_sha256'], f'{kind} differs from prereg')
+    require_clean_audit(read_json(config_path('set')))
     if check_code:
         require(code_identity(strict=True)['files'] == latest_code(prereg), 'Code differs from prereg and deviations')
     return prereg

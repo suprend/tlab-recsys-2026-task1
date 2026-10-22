@@ -23,7 +23,10 @@ line on stdout, exit 0/1, refusal without ``-I``):
     time, peak RSS and peak spill, the memory rehearsal for F4/F5 (§12).
 
 Library functions for otto_agent and otto_model: ``read_load``, ``history``,
-``views``, ``cut_point``, ``training_sessions``, ``pop``, ``check_submission``.
+``views``, ``cut_point``, ``training_sessions``, ``pop``, ``check_submission`` and
+the B features of arbitrary (session, aid) keys: ``coded_events_sql``, ``b_tables``,
+``b_feature_sql`` (the SQL ``build_frame`` itself runs). The assemble receipt carries
+``ranked_sha256`` and ``filled_sessions``, which gate 2 checks.
 
 Paths, the barrier and formats come only from ``otto_common``. Downloaded data is
 read only from processes run with ``-I``; nothing is executed or imported from
@@ -42,7 +45,6 @@ import sys
 import tempfile
 import threading
 import time
-import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -75,11 +77,11 @@ S_CEIL = 10**11                          # every ts < 10^11: seconds
 
 CUT_SALT = ':otto-cut:2026'              # §2.2
 TYPE_NAMES = oc.TYPES                    # code = index (TYPE_CODES)
-NEUTRAL_EVENTS = ('view', 'cart', 'order')    # agent names of the three types (§5.6)
+NEUTRAL_EVENTS = oc.NEUTRAL_EVENTS            # agent names of the three types (§5.6); fixed in otto_common
 
-THREADS = 8                              # §12: load, collect
-MEMORY_LIMIT = '20GB'
-MAX_TEMP = '40GB'
+THREADS = oc.DUCKDB_THREADS              # §12: load, collect (limits fixed in otto_common)
+MEMORY_LIMIT = oc.DUCKDB_MEMORY
+MAX_TEMP = oc.DUCKDB_MAX_TEMP
 FRAME_BATCH = 250_000                    # sessions per frame batch (memory only; result independent)
 FETCH_ROWS = 100_000                     # rows per fetch when assemble streams the Kaggle file
 
@@ -138,13 +140,8 @@ def _pd():
     return pd
 
 
-def _literal(value):
-    return "'" + str(value).replace("'", "''") + "'"
-
-
-def _list_literal(paths):
-    require(paths, 'No files to read')
-    return '[' + ', '.join(_literal(p) for p in paths) + ']'
+_literal = oc.sql_literal
+_list_literal = oc.sql_list
 
 
 def connect(threads=THREADS, memory=MEMORY_LIMIT, temp=None, max_temp=MAX_TEMP, database=':memory:'):
@@ -167,12 +164,7 @@ def _scalar(con, sql):
     return con.execute(sql).fetchone()[0]
 
 
-def _spill_dir():
-    """A fresh, not yet created spill path under artifacts/otto/.spill; DuckDB creates it on the
-    first spill and removes it on close, callers that own the connection also remove it."""
-    root = oc.artifacts_dir()/'.spill'
-    root.mkdir(parents=True, exist_ok=True)
-    return root/f'duckdb-{os.getpid()}-{uuid.uuid4().hex[:12]}'
+_spill_dir = oc.spill_dir
 
 
 def _dir_bytes(path):
@@ -779,7 +771,7 @@ def _feature_sql(name, item_windows):
     return f'coalesce(ih.{name}, 0)'
 
 
-def _item_history_sql(windows, start):
+def _item_history_sql(windows, start, hist='hist'):
     if not windows:
         return None
     longest = max(days for days, _ in windows)
@@ -792,7 +784,7 @@ def _item_history_sql(windows, start):
             parts.append(f'count(DISTINCT session) FILTER (WHERE ts >= {lo} AND type = {oc.TYPE_CODES[kind]}) '
                          f'AS i_h{days}_{kind}')
     # lower bound only: H_k is bounded above by its partitions (a train event at ts = S5 is in H_5)
-    return f'SELECT aid, {", ".join(parts)} FROM hist WHERE ts >= {start - longest*oc.DAY} GROUP BY aid'
+    return f'SELECT aid, {", ".join(parts)} FROM {hist} WHERE ts >= {start - longest*oc.DAY} GROUP BY aid'
 
 
 RANK_FEATURES = ('h_rank', 'p_last_pos', 'pop_rank_clicks', 'pop_rank_carts', 'pop_rank_orders')
@@ -819,44 +811,78 @@ def _batches(con, sessions_table, batch):
     return [(int(lo), int(hi)) for lo, hi in rows] or [(0, -1)]
 
 
-def build_frame(con, k, base, s5_, sessions_table='frame_sessions', batch=FRAME_BATCH, out=None):
-    """Candidates and features of B for the sessions of ``sessions_table`` (§4) as parquet parts.
+def coded_events_sql(view):
+    """SELECT over a neutral view (session, item, ts, event, seq of ``views``) with EVENT_COLUMNS:
+    ``item`` becomes ``aid`` and ``event`` the type code (index of NEUTRAL_EVENTS = TYPE_CODES);
+    any other event, NULL included, fails the query (DuckDB ``error``), never a NULL type."""
+    cases = ' '.join(f'WHEN {_literal(name)} THEN {code}' for code, name in enumerate(NEUTRAL_EVENTS))
+    unknown = "error('coded_events_sql: unknown event ' || coalesce(CAST(event AS VARCHAR), 'NULL'))"
+    return (f'SELECT session, item AS aid, ts, CAST(CASE event {cases} ELSE {unknown} END AS UTINYINT) AS type, '
+            f'seq FROM {view}')
 
-    Needs ``hist`` and ``fold`` from ``build_fold``. Only prefixes (pos <= c) and H_k are read.
-    Each batch of ``batch`` consecutive sessions goes straight to ``out/part-<i>.parquet``,
-    sorted by (session, aid) inside the batch; batches are increasing session ranges, so the
-    parts in order are the frame in global order without a global sort. Columns: session, aid,
-    base features in base order, then source ranks not among them.
-    Returns dict(columns, parts).
+
+def with_sources(features):
+    """``features`` (base feature names in base order), then the SOURCE_COLUMNS they lack."""
+    return list(features) + [n for n in SOURCE_COLUMNS if n not in features]
+
+
+def b_columns(base):
+    """The B columns of frame.parquet and of the B part of a sidecar, in order: the base features,
+    then the SOURCE_COLUMNS the base does not list (the column list of ``b_tables``)."""
+    return with_sources(oc.base_feature_names(base))
+
+
+def b_tables(con, base, start, prefix='pfx', hist='hist'):
+    """Fold tables of B in ``con`` and the spec ``b_feature_sql`` needs (§4).
+
+    ``prefix``: relation of the fold prefixes with session, aid, ts, type (code), seq (the
+    collection's prefix/, or ``fold WHERE pos <= c``); ``hist``: H_k with EVENT_COLUMNS
+    (neutral views go through ``coded_events_sql``). ``start``: start of W_k in seconds.
+    Creates b_pt (p_t of every type), b_iwk (item counts of the week) and b_ih (item windows
+    over H_k). Returns dict(columns, exprs, history_depth, pop_depth, limit, prefix, tables).
     """
-    require(out is not None, 'build_frame writes parquet parts into a directory')
-    out = Path(out)
-    out.mkdir(parents=True, exist_ok=True)
     history_depth, pop_depth, limit = _policy(base)
-    names = oc.base_feature_names(base)
     windows = set()
-    exprs = [(n, _feature_sql(n, windows)) for n in names]
-    exprs += [(n, _feature_sql(n, windows)) for n in SOURCE_COLUMNS if n not in names]
-    start = oc.week_start(k, s5_)
-    con.execute('CREATE OR REPLACE TEMP VIEW pfx AS SELECT session, aid, ts, type, seq, pos FROM fold WHERE pos <= c')
-    con.execute(f"""CREATE OR REPLACE TEMP TABLE pt AS SELECT type, aid, rnk FROM (
+    exprs = [(n, _feature_sql(n, windows)) for n in b_columns(base)]
+    con.execute(f"""CREATE OR REPLACE TEMP TABLE b_pt AS SELECT type, aid, rnk FROM (
         SELECT type, aid, row_number() OVER (PARTITION BY type ORDER BY ns DESC, aid) AS rnk
-        FROM (SELECT type, aid, count(DISTINCT session) AS ns FROM pfx GROUP BY type, aid))
+        FROM (SELECT type, aid, count(DISTINCT session) AS ns FROM {prefix} GROUP BY type, aid))
         WHERE rnk <= {pop_depth}""")
-    con.execute("""CREATE OR REPLACE TEMP TABLE item_wk AS SELECT aid,
+    con.execute(f"""CREATE OR REPLACE TEMP TABLE b_iwk AS SELECT aid,
         count(DISTINCT session) FILTER (WHERE type = 0) AS i_wk_clicks,
         count(DISTINCT session) FILTER (WHERE type = 1) AS i_wk_carts,
-        count(DISTINCT session) FILTER (WHERE type = 2) AS i_wk_orders FROM pfx GROUP BY aid""")
-    item_h = _item_history_sql(windows, start)
-    con.execute(f'CREATE OR REPLACE TEMP TABLE item_h AS {item_h}' if item_h else
-                'CREATE OR REPLACE TEMP TABLE item_h AS SELECT CAST(NULL AS BIGINT) AS aid WHERE false')
-    select = ',\n               '.join(f'CAST({sql} AS {_feature_type(name)}) AS {name}' for name, sql in exprs)
-    parts = []
-    for index, (lo, hi) in enumerate(_batches(con, sessions_table, batch)):
-        con.execute(f"""CREATE OR REPLACE TEMP TABLE bs AS SELECT session FROM {sessions_table}
-            WHERE session BETWEEN {lo} AND {hi}""")
-        query = f"""
-        WITH p AS (SELECT x.* FROM pfx x SEMI JOIN bs USING (session) WHERE x.session BETWEEN {lo} AND {hi}),
+        count(DISTINCT session) FILTER (WHERE type = 2) AS i_wk_orders FROM {prefix} GROUP BY aid""")
+    item_h = _item_history_sql(windows, int(start), hist)
+    con.execute(f'CREATE OR REPLACE TEMP TABLE b_ih AS {item_h}' if item_h else
+                'CREATE OR REPLACE TEMP TABLE b_ih AS SELECT CAST(NULL AS BIGINT) AS aid WHERE false')
+    return dict(columns=[n for n, _ in exprs], exprs=exprs, types={n: _feature_type(n) for n, _ in exprs},
+                history_depth=history_depth, pop_depth=pop_depth, limit=limit, prefix=prefix,
+                tables=dict(pt='b_pt', item_wk='b_iwk', item_h='b_ih'))
+
+
+def b_feature_sql(spec, keys, sessions=None, *, where='', ctes=''):
+    """SELECT of session, aid and the B columns (frame types, frame order) for arbitrary keys.
+
+    ``keys``: a table or view of distinct (session, aid), or a CTE named in ``ctes``;
+    ``sessions``: a relation with column ``session``, the sessions read from the prefix. It may be
+    omitted only for a table or view ``keys`` (default: the sessions of ``keys``); with ``ctes`` it is
+    required, since p is computed before the extra CTEs and cannot read a key CTE. The prefix
+    position is the 1-based index in seq order inside the prefix, as ``pos`` of the fold. A key
+    whose session has no prefix gets no row. ``where`` filters the prefix rows (alias ``x``);
+    ``ctes`` are extra CTEs after p, s, pa, hh (build_frame adds its candidates there). Rows in
+    (session, aid) order. The same SQL builds frame.parquet (``build_frame``) and the B part
+    of the BA sidecar (otto_agent).
+    """
+    if sessions is None:
+        require(not ctes, 'b_feature_sql: with extra ctes the sessions relation is required')
+        sessions = f'(SELECT DISTINCT session FROM {keys})'
+    select = ',\n               '.join(f'CAST({sql} AS {spec["types"][name]}) AS {name}' for name, sql in spec['exprs'])
+    tables = spec['tables']
+    extra = f',\n        {ctes}' if ctes else ''
+    return f"""
+        WITH p AS (SELECT x.session, x.aid, x.ts, x.type, x.seq,
+                          row_number() OVER (PARTITION BY x.session ORDER BY x.seq) AS pos
+                   FROM {spec['prefix']} x SEMI JOIN {sessions} bs_ USING (session) {where}),
         s AS (SELECT session, count(*) AS s_len, count(DISTINCT aid) AS s_items,
                      count(*) FILTER (WHERE type = 1) AS s_carts, count(*) FILTER (WHERE type = 2) AS s_orders,
                      arg_max(ts, pos) - arg_min(ts, pos) AS s_dur, max(pos) AS c,
@@ -868,29 +894,52 @@ def build_frame(con, k, base, s5_, sessions_table='frame_sessions', batch=FRAME_
                FROM p GROUP BY session, aid),
         hh AS (SELECT session, aid, h_rank FROM (SELECT session, aid,
                       row_number() OVER (PARTITION BY session ORDER BY lp DESC, aid) AS h_rank FROM pa)
-               WHERE h_rank <= {history_depth}),
-        u AS (SELECT session, aid, h_rank AS r, 0 AS src FROM hh
-              UNION ALL SELECT bs.session, pt.aid, pt.rnk, pt.type + 1 FROM bs CROSS JOIN pt),
+               WHERE h_rank <= {spec['history_depth']}){extra}
+        SELECT c.session, c.aid,
+               {select}
+        FROM {keys} c JOIN s USING (session)
+             LEFT JOIN pa USING (session, aid)
+             LEFT JOIN hh USING (session, aid)
+             LEFT JOIN {tables['pt']} p0 ON p0.type = 0 AND p0.aid = c.aid
+             LEFT JOIN {tables['pt']} p1 ON p1.type = 1 AND p1.aid = c.aid
+             LEFT JOIN {tables['pt']} p2 ON p2.type = 2 AND p2.aid = c.aid
+             LEFT JOIN {tables['item_wk']} iw ON iw.aid = c.aid
+             LEFT JOIN {tables['item_h']} ih ON ih.aid = c.aid
+        ORDER BY c.session, c.aid"""
+
+
+def build_frame(con, k, base, s5_, sessions_table='frame_sessions', batch=FRAME_BATCH, out=None):
+    """Candidates and features of B for the sessions of ``sessions_table`` (§4) as parquet parts.
+
+    Needs ``hist`` and ``fold`` from ``build_fold``. Only prefixes (pos <= c) and H_k are read.
+    Each batch of ``batch`` consecutive sessions goes straight to ``out/part-<i>.parquet``,
+    sorted by (session, aid) inside the batch; batches are increasing session ranges, so the
+    parts in order are the frame in global order without a global sort. Columns: session, aid,
+    base features in base order, then source ranks not among them. The features come from
+    ``b_tables``/``b_feature_sql`` on the candidate keys.
+    Returns dict(columns, parts).
+    """
+    require(out is not None, 'build_frame writes parquet parts into a directory')
+    out = Path(out)
+    out.mkdir(parents=True, exist_ok=True)
+    con.execute('CREATE OR REPLACE TEMP VIEW pfx AS SELECT session, aid, ts, type, seq, pos FROM fold WHERE pos <= c')
+    spec = b_tables(con, base, oc.week_start(k, s5_), prefix='pfx', hist='hist')
+    candidates = f"""u AS (SELECT session, aid, h_rank AS r, 0 AS src FROM hh
+              UNION ALL SELECT bs.session, pt.aid, pt.rnk, pt.type + 1 FROM bs CROSS JOIN {spec['tables']['pt']} pt),
         k AS (SELECT session, aid, min(src * 1000000 + r) AS key FROM u GROUP BY session, aid),
         c AS (SELECT session, aid FROM (SELECT session, aid,
                      row_number() OVER (PARTITION BY session ORDER BY key, aid) AS ord FROM k)
-              WHERE ord <= {limit})
-        SELECT c.session, c.aid,
-               {select}
-        FROM c JOIN s USING (session)
-             LEFT JOIN pa USING (session, aid)
-             LEFT JOIN hh USING (session, aid)
-             LEFT JOIN pt p0 ON p0.type = 0 AND p0.aid = c.aid
-             LEFT JOIN pt p1 ON p1.type = 1 AND p1.aid = c.aid
-             LEFT JOIN pt p2 ON p2.type = 2 AND p2.aid = c.aid
-             LEFT JOIN item_wk iw ON iw.aid = c.aid
-             LEFT JOIN item_h ih ON ih.aid = c.aid
-        ORDER BY c.session, c.aid"""
+              WHERE ord <= {spec['limit']})"""
+    parts = []
+    for index, (lo, hi) in enumerate(_batches(con, sessions_table, batch)):
+        con.execute(f"""CREATE OR REPLACE TEMP TABLE bs AS SELECT session FROM {sessions_table}
+            WHERE session BETWEEN {lo} AND {hi}""")
+        query = b_feature_sql(spec, 'c', 'bs', where=f'WHERE x.session BETWEEN {lo} AND {hi}', ctes=candidates)
         part = out/f'part-{index:05d}.parquet'
         con.execute(f'COPY ({query}) TO {_literal(part)} (FORMAT parquet, COMPRESSION zstd)')
         parts.append(part)
     con.execute('DROP TABLE IF EXISTS bs')
-    return dict(columns=[name for name, _ in exprs], parts=parts)
+    return dict(columns=spec['columns'], parts=parts)
 
 
 def _concat_parts(con, parts, target):
@@ -1235,12 +1284,27 @@ def check_submission(path, sessions, known, sample_rows=None):
     return dict(rows=rows, sessions=len(sessions))
 
 
+def _copy_hashed(source, target, chunk=1 << 20):
+    """Copy ``source`` to ``target`` (parents created) and return the SHA-256 of exactly the copied bytes."""
+    import hashlib
+    target = Path(target)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    digest = hashlib.sha256()
+    with open(source, 'rb') as src, open(target, 'xb') as dst:
+        while block := src.read(chunk):
+            digest.update(block)
+            dst.write(block)
+    return digest.hexdigest()
+
+
 def assemble(ranked, output, sessions, known, fill, sample_rows=None, threads=4, memory=MEMORY_LIMIT):
     """Kaggle file from ranked lists (session, type, aid, rank; up to 20 per list), topped up from ``fill``
     (Pop lists of the same shape) without repeats; writes ``.part``, re-reads, renames; receipt ``.json``.
 
     ``ranked`` and ``fill``: parquet paths (or small pandas frames). Needs the committed prereg
-    whose code matches the tree; the receipt carries code_identity(strict=True).
+    whose code matches the tree; the receipt carries code_identity(strict=True), ``ranked_sha256``
+    and ``fill_sha256`` (SHA-256 of the bytes DuckDB read: each input file is copied once into the
+    spill directory while hashed, and the copy is read; None for a frame) and ``filled_sessions``.
     """
     output = Path(output)
     receipt_path = output.with_suffix('.json')
@@ -1249,13 +1313,17 @@ def assemble(ranked, output, sessions, known, fill, sample_rows=None, threads=4,
     require(not output.exists() and not receipt_path.exists(), f'{output} or its receipt exists')
     part = output.with_name(output.name + '.part')
     require(not part.exists(), f'{part} exists')
+    # the inputs this file was built from: gate 2 pairs ranked_sha256 with the F5 eval's ranked.parquet
+    inputs = dict(ranked_sha256=None, fill_sha256=None)
     spill = _spill_dir()
     try:
         con = connect(threads, memory, temp=spill)
         try:
-            for name, value in (('m', ranked), ('fl', fill)):
+            for name, value, key in (('m', ranked, 'ranked_sha256'), ('fl', fill, 'fill_sha256')):
                 if isinstance(value, (str, Path)):
-                    con.execute(f'CREATE TEMP VIEW {name}_in AS SELECT * FROM read_parquet({_literal(value)})')
+                    copy = Path(spill)/'inputs'/f'{name}.parquet'
+                    inputs[key] = _copy_hashed(value, copy)
+                    con.execute(f'CREATE TEMP VIEW {name}_in AS SELECT * FROM read_parquet({_literal(copy)})')
                 else:
                     con.register(f'{name}_in', value)
                 con.execute(f"""CREATE TEMP TABLE {name} AS SELECT CAST(session AS BIGINT) AS session,
@@ -1306,7 +1374,7 @@ def assemble(ranked, output, sessions, known, fill, sample_rows=None, threads=4,
         raise
     os.replace(part, output)
     body = dict(format=ASSEMBLE_FORMAT, file=output.name, sha256=oc.sha256_file(output), bytes=output.stat().st_size,
-                rows=checked['rows'], sessions=checked['sessions'], filled_sessions=filled, code=code,
+                rows=checked['rows'], sessions=checked['sessions'], filled_sessions=filled, **inputs, code=code,
                 created_utc=oc.utc_now())
     oc.atomic_json(receipt_path, body)
     return body

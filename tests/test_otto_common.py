@@ -103,7 +103,7 @@ class TempRoot(unittest.TestCase):
 
     def commit_prereg(self):
         base = self.write_config('base', dict(b=1))
-        agent_set = self.write_config('set', dict(s=1))
+        agent_set = self.write_config('set', dict(s=1, audit=dict(verdict='clean')))
         return self.write_config('prereg', dict(base_sha256=oc.sha256_file(base), set_sha256=oc.sha256_file(agent_set),
                                                 code={'scripts/otto_common.py': 'x'}))
 
@@ -509,7 +509,7 @@ class Barrier(TempRoot):
 
     def test_window_sha_mismatch(self):
         self.write_config('base', dict(b=1))
-        agent_set = self.write_config('set', dict(s=1))
+        agent_set = self.write_config('set', dict(s=1, audit=dict(verdict='clean')))
         self.write_config('prereg', dict(base_sha256='0'*64, set_sha256=oc.sha256_file(agent_set)))
         self.assertFalse(oc.holdout_window_open('collect-holdout'))
 
@@ -778,6 +778,179 @@ class Barrier(TempRoot):
 
 
 # ================================================================== base, orders, identity
+
+class SqlAndResources(unittest.TestCase):
+    def test_sql_text_helpers(self):
+        self.assertEqual(oc.sql_literal("a'b"), "'a''b'")
+        self.assertEqual(oc.sql_list([Path('x'), "y'"]), "['x', " + "'y''']")
+        with self.assertRaisesRegex(oc.ContractError, 'No files'):
+            oc.sql_list([])
+
+    def test_agent_float_keeps_finite_float32_values_only(self):
+        con = duckdb.connect()
+        values = ['1.5', "'inf'::DOUBLE", "'-inf'::DOUBLE", "'nan'::DOUBLE", '1e39', '-1e39', 'NULL',
+                  '3.4028234663852886e38', 'true', '3']
+        rows = [con.execute(f'SELECT {oc.agent_float_sql(v)}, typeof({oc.agent_float_sql(v)})').fetchone()
+                for v in values]
+        con.close()
+        self.assertEqual({t for _, t in rows}, {'FLOAT'})
+        self.assertEqual([None if v is None else float(v) for v, _ in rows],
+                         [1.5, None, None, None, None, None, None, float(np.float32(oc.FLOAT32_MAX)), 1.0, 3.0])
+
+    def test_history_days_and_shared_constants(self):
+        self.assertEqual([oc.history_days(k) for k in (2, 3, 4, 5)], [7, 14, 21, 28])
+        for k in (1, 6):
+            with self.assertRaises(oc.ContractError):
+                oc.history_days(k)
+        self.assertEqual((oc.DUCKDB_MEMORY, oc.DUCKDB_MAX_TEMP, oc.DUCKDB_THREADS), ('20GB', '40GB', 8))
+        self.assertEqual((oc.AGENT_PREFIX, oc.SOURCE_PREFIX, oc.NEUTRAL_EVENTS),
+                         ('ag_', 'ag_src_', ('view', 'cart', 'order')))
+        self.assertEqual(oc.RECIPE['loss_function'], 'YetiRank')
+        self.assertEqual(oc.FLOAT32_MAX, float(np.finfo(np.float32).max))
+
+    def test_spill_dir_is_fresh_and_under_artifacts(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(oc, 'ROOT', Path(tmp).resolve()):
+            a, b = oc.spill_dir(), oc.spill_dir()
+            self.assertNotEqual(a, b)
+            self.assertEqual(a.parent, oc.artifacts_dir()/oc.SPILL_DIR)
+            self.assertTrue(a.parent.is_dir() and not a.exists())
+
+
+AGENT_SET = dict(format=oc.SET_FORMAT, digest='5'*64, columns=['ag_src_x_rank', 'ag_src_x_score', 'ag_a'],
+                 proposals=[dict(kind='table', columns=['v']),
+                            dict(kind='source', columns=['ag_src_x_rank', 'ag_src_x_score']),
+                            dict(kind='feature', columns=['ag_a'])])
+
+
+class AgentFormats(TempRoot):
+    def test_agent_columns(self):
+        self.assertEqual(oc.agent_columns(AGENT_SET), AGENT_SET['columns'])
+        self.assertEqual(oc.agent_columns({k: v for k, v in AGENT_SET.items() if k != 'proposals'}),
+                         AGENT_SET['columns'])
+        cases = [(dict(format='x'), oc.SET_FORMAT), (dict(digest=None), 'digest'), (dict(columns=[]), 'no columns'),
+                 (dict(columns=['x_a'], proposals=None), 'ag_'),
+                 (dict(columns=['ag_a', 'ag_a'], proposals=None), 'Repeated'),
+                 (dict(columns=['ag_src_x_rank'], proposals=None), 'both'),
+                 (dict(columns=['ag_src_x_rank', 'ag_src_y_score'], proposals=None), 'both'),
+                 (dict(columns=['ag_a', 'ag_src_x_rank', 'ag_src_x_score']), 'proposals'),
+                 (dict(format=None, digest=None, columns=None, proposals=None, agent_columns=['ag_a']),
+                  oc.SET_FORMAT)]                                       # the pre-integration ad-hoc set
+        for change, pattern in cases:
+            with self.subTest(pattern=pattern):
+                record = {k: v for k, v in dict(AGENT_SET, **change).items() if v is not None}
+                with self.assertRaisesRegex(oc.ContractError, pattern):
+                    oc.agent_columns(record)
+
+    def leak(self, **changes):
+        body = dict(format=oc.LEAKCHECK_FORMAT, ok=True, fold=3, collection='val-F3', sessions=3,
+                    sessions_digest=oc.sessions_digest([3, 1, 2]), set_digest='5'*64, error=None,
+                    history_check=dict(sessions=3, keys_one_side=0, cells={}),
+                    batch_check=dict(sessions=3, batches=2, keys_one_side=0, cells=0),
+                    prefix_check=dict(rows=['5', '5'], sessions=['3', '3'], ok=True))
+        body.update(changes)
+        path = oc.leakcheck_path('F3')
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.unlink(missing_ok=True)
+        oc.atomic_json(path, body)
+        return path
+
+    def test_read_leakcheck(self):
+        self.assertEqual(oc.leakcheck_path('F3'), self.root/'artifacts'/'otto'/'leakcheck'/'F3'/'report.json')
+        self.assertEqual(oc.sessions_digest([3, 1, 2]), oc.canonical_digest([1, 2, 3]))
+        good = dict(set_digest='5'*64, population_digest=oc.sessions_digest([1, 2, 3]))
+        self.assertTrue(oc.read_leakcheck(self.leak(), **good, collection='val-F3')['ok'])
+        cases = [(dict(format='x'), oc.LEAKCHECK_FORMAT), (dict(error='Timeout after 60 s'), 'Timeout'),
+                 (dict(ok=False), 'ok is not true'), (dict(fold=5), 'fold'),
+                 (dict(history_check=dict(keys_one_side=1, cells=0)), 'history_check'),
+                 (dict(batch_check=dict(keys_one_side=0, cells=4)), 'batch_check'),
+                 (dict(batch_check=None), 'batch_check'),
+                 (dict(history_check=dict(keys_one_side=0)), 'history_check'),             # cells absent
+                 (dict(history_check=dict(keys_one_side=0, cells=None)), 'history_check'),
+                 (dict(batch_check=dict(keys_one_side=0, cells={'ag_good': 2})), 'batch_check'),
+                 (dict(batch_check=dict(keys_one_side=False, cells=0)), 'batch_check'),
+                 (dict(prefix_check=None), 'prefix_check'),
+                 (dict(prefix_check=dict(ok=False)), 'prefix_check'),
+                 (dict(prefix_check=dict(ok='true')), 'prefix_check'),
+                 (dict(fold=4), 'prefix_check'),
+                 (dict(set_digest='6'*64), 'another agent set'),
+                 (dict(sessions_digest=oc.sessions_digest([1, 2])), 'another population')]
+        for change, pattern in cases:
+            with self.subTest(pattern=pattern), self.assertRaisesRegex(oc.ContractError, pattern):
+                oc.read_leakcheck(self.leak(**change), **good)
+        with self.assertRaisesRegex(oc.ContractError, 'another collection'):
+            oc.read_leakcheck(self.leak(), **good, collection='holdout-F4')
+        self.assertEqual(oc.read_leakcheck(self.leak(fold=4, prefix_check=None), **good)['fold'], 4)
+
+    def power_gate(self, name, collection, digest):
+        directory = oc.output_dir('gate', f'{oc.POWER_GATE_PREFIX}{name}')
+        directory.mkdir(parents=True)
+        oc.atomic_json(directory/oc.GATE_FILE, dict(format=oc.GATE_FORMAT, kind='power', ok=True,
+                                                    population=dict(collection=collection, n=3, digest=digest)))
+        return directory
+
+    def test_holdout_population_is_checked_against_the_power_gate(self):
+        col = self.holdout_collection()
+        with self.assertRaisesRegex(oc.ContractError, 'found 0'):
+            oc.holdout_population(col)
+        oc.write_population(col, [3, 1, 2], 'all of Q_4')
+        digest = oc.read_json(col/oc.POPULATION_FILE)['digest']
+        self.power_gate('0-old', 'holdout-F4-old', '0'*64)                     # a superseded collection's gate
+        gate = self.power_gate('1', col.name, digest)
+        out = oc.holdout_population()
+        self.assertEqual((out['sessions'], out['n'], out['digest']), ([1, 2, 3], 3, digest))
+        self.assertEqual(out['sessions_digest'], oc.sessions_digest([1, 2, 3]))
+        self.assertEqual(out['record']['collection'], col.name)
+        self.assertEqual(out['gate'], str(gate/oc.GATE_FILE))
+        (gate/oc.GATE_FILE).unlink()
+        oc.atomic_json(gate/oc.GATE_FILE, dict(format=oc.GATE_FORMAT, kind='power',
+                                               population=dict(collection=col.name, digest='1'*64)))
+        with self.assertRaisesRegex(oc.ContractError, 'not the expected'):
+            oc.holdout_population(col)
+        self.power_gate('2', col.name, digest)
+        with self.assertRaisesRegex(oc.ContractError, 'found 2'):
+            oc.holdout_population(col)
+
+    def test_output_names_are_one_path_component(self):
+        for good in ('it0', 'F3', 'leakcheck-F4-20261023T1200Z', 'a.b_c-1'):
+            self.assertEqual(oc.output_name(good), good)
+        for bad in ('../x', 'a/b', '/tmp/x', '..', '.', '.hidden', '', None, 'a\\b'):
+            with self.subTest(name=bad), self.assertRaisesRegex(oc.ContractError, 'Output names'):
+                oc.output_name(bad)
+        for make in (lambda n: oc.sidecar_dir('val-F3', n), lambda n: oc.sidecar_dir(n, 'run'),
+                     oc.leakcheck_path, oc.final_training_dir):
+            with self.assertRaisesRegex(oc.ContractError, 'Output names'):
+                make('../x')
+
+    def test_final_training_format(self):
+        per_type = dict(clicks=[5, 2], carts=[2], orders=[])
+        directory = oc.new_output(oc.final_training_dir('a'))
+        record = oc.write_final_training(directory, 'holdout-F4', 2, 'a'*64, per_type)
+        self.assertEqual(sorted(record), sorted(['format', 'collection', 'N_t', 'prereg_sha256', 'per_type',
+                                                 'training_digest', 'sessions', 'digest']))
+        self.assertEqual((record['format'], record['sessions'], record['training_digest']),
+                         (oc.FINAL_TRAINING_FORMAT, [2, 5], oc.canonical_digest(per_type)))
+        path = directory/oc.FINAL_TRAINING_FILE
+        with self.assertRaisesRegex(oc.ContractError, 'closed'):              # F4 labels: only after the result
+            oc.read_final_training(path)
+        self.write_config('holdout', dict(stage=1))
+        self.assertEqual(oc.read_final_training(path, collection='holdout-F4', prereg_sha256='a'*64, n_t=2), record)
+        for kw, pattern in ((dict(collection='holdout-F4-x'), 'another collection'),
+                            (dict(prereg_sha256='b'*64), 'another prereg'), (dict(n_t=3), 'another N_t')):
+            with self.subTest(pattern=pattern), self.assertRaisesRegex(oc.ContractError, pattern):
+                oc.read_final_training(path, **kw)
+        self.assertEqual(oc.final_training_record('holdout-F4', n_t=2)[0], path)
+        with self.assertRaisesRegex(oc.ContractError, 'found 0'):
+            oc.final_training_record('holdout-F4-x')
+        path.unlink()
+        oc.atomic_json(path, dict(record, sessions=[2]))
+        with self.assertRaisesRegex(oc.ContractError, 'digest mismatch'):
+            oc.read_final_training(path)
+        with self.assertRaisesRegex(oc.ContractError, 'at most N_t'):
+            oc.write_final_training(oc.new_output(oc.final_training_dir('b')), 'holdout-F4', 1, 'a'*64, per_type)
+        with self.assertRaises(KeyError):
+            oc.write_final_training(oc.new_output(oc.final_training_dir('c')), 'holdout-F4', 2, 'a'*64,
+                                    dict(clicks=[1]))
+
 
 class BaseFormat(unittest.TestCase):
     def test_digest_and_rules(self):
