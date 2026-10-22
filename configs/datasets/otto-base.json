@@ -1,0 +1,134 @@
+{
+  "format": "otto-base-v1",
+  "candidates": {
+    "history": {
+      "depth": 50,
+      "order": "distinct prefix aid by last occurrence (seq) desc, then aid asc"
+    },
+    "popular": {
+      "depth": 20,
+      "types": [
+        "clicks",
+        "carts",
+        "orders"
+      ],
+      "order": "distinct sessions of Q_k with the type in the prefix desc, then aid asc"
+    },
+    "union": [
+      "history",
+      "popular_clicks",
+      "popular_carts",
+      "popular_orders"
+    ],
+    "max": 110
+  },
+  "features": [
+    {
+      "name": "s_len",
+      "formula": "events in the prefix",
+      "missing": "-"
+    },
+    {
+      "name": "s_items",
+      "formula": "distinct aid in the prefix",
+      "missing": "-"
+    },
+    {
+      "name": "s_carts",
+      "formula": "carts events in the prefix",
+      "missing": "0"
+    },
+    {
+      "name": "s_orders",
+      "formula": "orders events in the prefix",
+      "missing": "0"
+    },
+    {
+      "name": "s_dur",
+      "formula": "ts of the last minus ts of the first prefix event, s",
+      "missing": "-"
+    },
+    {
+      "name": "p_clicks",
+      "formula": "clicks events of the aid in the prefix",
+      "missing": "0"
+    },
+    {
+      "name": "p_carts",
+      "formula": "carts events of the aid in the prefix",
+      "missing": "0"
+    },
+    {
+      "name": "p_orders",
+      "formula": "orders events of the aid in the prefix",
+      "missing": "0"
+    },
+    {
+      "name": "p_last_pos",
+      "formula": "position of the last occurrence of the aid from the prefix end (1 = last event)",
+      "missing": "NULL outside (h)"
+    },
+    {
+      "name": "p_last_age",
+      "formula": "ts of the last prefix event minus ts of the last occurrence of the aid, s",
+      "missing": "NULL outside (h)"
+    },
+    {
+      "name": "p_is_last",
+      "formula": "1 if the aid is the last prefix event",
+      "missing": "0"
+    },
+    {
+      "name": "h_rank",
+      "formula": "position in (h)",
+      "missing": "NULL outside (h)"
+    },
+    {
+      "name": "pop_rank_clicks",
+      "formula": "position in p_clicks",
+      "missing": "NULL outside p_clicks"
+    },
+    {
+      "name": "pop_rank_carts",
+      "formula": "position in p_carts",
+      "missing": "NULL outside p_carts"
+    },
+    {
+      "name": "pop_rank_orders",
+      "formula": "position in p_orders",
+      "missing": "NULL outside p_orders"
+    },
+    {
+      "name": "i_wk_clicks",
+      "formula": "distinct sessions of Q_k with clicks of the aid in the prefix",
+      "missing": "0"
+    },
+    {
+      "name": "i_wk_carts",
+      "formula": "distinct sessions of Q_k with carts of the aid in the prefix",
+      "missing": "0"
+    },
+    {
+      "name": "i_wk_orders",
+      "formula": "distinct sessions of Q_k with orders of the aid in the prefix",
+      "missing": "0"
+    },
+    {
+      "name": "i_h7_carts",
+      "formula": "distinct sessions of H_k with carts of the aid in the 7 d before start(W_k)",
+      "missing": "0"
+    },
+    {
+      "name": "i_h7_orders",
+      "formula": "distinct sessions of H_k with orders of the aid in the 7 d before start(W_k)",
+      "missing": "0"
+    },
+    {
+      "name": "i_h7_all",
+      "formula": "events of the aid in H_k in the 7 d before start(W_k)",
+      "missing": "0"
+    }
+  ],
+  "categorical": [],
+  "digest": "4b50037532aa4bade03c45d3b294fade03b6f7536abda6620630953b6ae86aaf"
+}
