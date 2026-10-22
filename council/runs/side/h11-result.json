@@ -1,0 +1,361 @@
+{
+ "step": "h11",
+ "status": "ok",
+ "groups": 5,
+ "rounds": [
+  {
+   "round": 1,
+   "group": [
+    "agent_night20_r1p1_first_touch_conversion",
+    "agent_night20_r1p2_coacq_cf",
+    "agent_night20_r1p3_buyer_price_profile",
+    "agent_night20_r1p4_new_reach",
+    "agent_night20_r1p5_cp_staleness"
+   ],
+   "extra": 5,
+   "by_seed": [
+    {
+     "ref": "q2_d8",
+     "new": "h11_g1_s0",
+     "d": 0.000762901034060345,
+     "ci": [
+      -0.00025067822976847085,
+      0.0017797001967015983
+     ],
+     "queries": 19360
+    }
+   ],
+   "accepted": false
+  },
+  {
+   "round": 2,
+   "group": [
+    "agent_night20_r2p1_cmp_session_win_lift",
+    "agent_night20_r2p2_cp_category_complement",
+    "agent_night20_r2p3_acq_seed_coview_cf",
+    "agent_night20_r2p4_revisit_consideration",
+    "agent_night20_r2p5_view_dwell_time"
+   ],
+   "extra": 5,
+   "by_seed": [
+    {
+     "ref": "q2_d8",
+     "new": "h11_g2_s0",
+     "d": 0.001252382402182941,
+     "ci": [
+      0.00019746126058339615,
+      0.002333052484853094
+     ],
+     "queries": 19360
+    },
+    {
+     "ref": "q3_d8_s1",
+     "new": "h11_g2_s1",
+     "d": 0.0006942428369219964,
+     "ci": [
+      -0.00034068565419563535,
+      0.00178104864980764
+     ],
+     "queries": 19360
+    }
+   ],
+   "accepted": false,
+   "mean_of_seeds": {
+    "ref": [
+     "q2_d8",
+     "q3_d8_s1"
+    ],
+    "new": [
+     "h11_g2_s0",
+     "h11_g2_s1"
+    ],
+    "d": 0.0009733126195524688,
+    "ci": [
+     0.00021012852297771608,
+     0.0017717154144066963
+    ],
+    "queries": 19360
+   }
+  },
+  {
+   "round": 3,
+   "group": [
+    "agent_night20_r3p1_view_session_last_choice",
+    "agent_night20_r3p2_intraday_momentum_12h",
+    "agent_night20_r3p3_user_user_cf_acq",
+    "agent_night20_r3p4_brand_cat_price_sibling",
+    "agent_night20_r3p5_category_search_depth"
+   ],
+   "extra": 5,
+   "by_seed": [
+    {
+     "ref": "q2_d8",
+     "new": "h11_g3_s0",
+     "d": 0.0004509786571015094,
+     "ci": [
+      -0.0005021040940381736,
+      0.0014183093581070236
+     ],
+     "queries": 19360
+    }
+   ],
+   "accepted": false
+  },
+  {
+   "round": 4,
+   "group": [
+    "agent_night20_r4p1_acq_regularity_7d",
+    "agent_night20_r4p2_cat_acq_concentration",
+    "agent_night20_r4p3_weekday_seasonality_14d",
+    "agent_night20_r4p4_cat_to_item_transition",
+    "agent_night20_r4p5_brand_switch_transition"
+   ],
+   "extra": 5,
+   "by_seed": [
+    {
+     "ref": "q2_d8",
+     "new": "h11_g4_s0",
+     "d": 0.00025432223087647134,
+     "ci": [
+      -0.000690537764805488,
+      0.0011478386014927718
+     ],
+     "queries": 19360
+    }
+   ],
+   "accepted": false
+  },
+  {
+   "round": 5,
+   "group": [
+    "agent_night20_r5p1_cf_xday_new_acq_transition",
+    "agent_night20_r5p2_cf_next_view_adjacency",
+    "agent_night20_r5p3_cf_converting_session_coview",
+    "agent_night20_r5p4_uc_nextday_continuation",
+    "agent_night20_r5p5_cf_considered_seed_coview"
+   ],
+   "extra": 5,
+   "by_seed": [
+    {
+     "ref": "q2_d8",
+     "new": "h11_g5_s0",
+     "d": 0.001084997941851308,
+     "ci": [
+      -8.75741039036189e-06,
+      0.002188509921040227
+     ],
+     "queries": 19360
+    }
+   ],
+   "accepted": false
+  },
+  {
+   "round": 6,
+   "group": [
+    "agent_night20_r6p1_older_view_seed_coview",
+    "agent_night20_r6p2_dwell_seed_coview",
+    "agent_night20_r6p3_abandoned_cart_seed_coview",
+    "agent_night20_r6p4_user_level_cooccurrence_cf",
+    "agent_night20_r6p5_fresh_2d_coview_graph"
+   ],
+   "extra": 5,
+   "by_seed": [
+    {
+     "ref": "q2_d8",
+     "new": "h11_g6_s0",
+     "d": 0.001932929665754798,
+     "ci": [
+      0.0007760710259171988,
+      0.0030370566018348664
+     ],
+     "queries": 19360
+    },
+    {
+     "ref": "q3_d8_s1",
+     "new": "h11_g6_s1",
+     "d": 0.001097888303553754,
+     "ci": [
+      2.3703895428811156e-05,
+      0.0022644321184128627
+     ],
+     "queries": 19360
+    }
+   ],
+   "accepted": true,
+   "mean_of_seeds": {
+    "ref": [
+     "q2_d8",
+     "q3_d8_s1"
+    ],
+    "new": [
+     "h11_g6_s0",
+     "h11_g6_s1"
+    ],
+    "d": 0.001515408984654276,
+    "ci": [
+     0.0005969256309539943,
+     0.0024092863809138483
+    ],
+    "queries": 19360
+   }
+  }
+ ],
+ "accepted": 1,
+ "G_star": {
+  "fits": [
+   "h11_g6_s0",
+   "h11_g6_s1"
+  ],
+  "tables": [
+   "agent_night20_r6p1_older_view_seed_coview",
+   "agent_night20_r6p2_dwell_seed_coview",
+   "agent_night20_r6p3_abandoned_cart_seed_coview",
+   "agent_night20_r6p4_user_level_cooccurrence_cf",
+   "agent_night20_r6p5_fresh_2d_coview_graph"
+  ]
+ },
+ "arms": {
+  "H": [
+   "q2_d8",
+   "q3_d8_s1"
+  ],
+  "step": [
+   "agent_night20_r6_base",
+   "h11_step_s1"
+  ],
+  "all": [
+   "pl19_Hag_s0",
+   "pl19_Hag_s1"
+  ],
+  "group": [
+   "h11_g6_s0",
+   "h11_g6_s1"
+  ]
+ },
+ "D": {
+  "ref": [
+   "pl19_Hag_s0",
+   "pl19_Hag_s1"
+  ],
+  "new": [
+   "h11_g6_s0",
+   "h11_g6_s1"
+  ],
+  "d": -0.002121900410294368,
+  "ci": [
+   -0.0030419603959872255,
+   -0.001181295267333831
+  ],
+  "queries": 19360
+ },
+ "E": {
+  "ref": [
+   "agent_night20_r6_base",
+   "h11_step_s1"
+  ],
+  "new": [
+   "h11_g6_s0",
+   "h11_g6_s1"
+  ],
+  "d": 0.0003881144411663674,
+  "ci": [
+   -0.0005846364420404088,
+   0.0013125157053016695
+  ],
+  "queries": 19360
+ },
+ "to_H": {
+  "step": {
+   "ref": [
+    "q2_d8",
+    "q3_d8_s1"
+   ],
+   "new": [
+    "agent_night20_r6_base",
+    "h11_step_s1"
+   ],
+   "d": 0.0011272945434879088,
+   "ci": [
+    0.00031711049504843443,
+    0.0019765695357094565
+   ],
+   "queries": 19360
+  },
+  "all": {
+   "ref": [
+    "q2_d8",
+    "q3_d8_s1"
+   ],
+   "new": [
+    "pl19_Hag_s0",
+    "pl19_Hag_s1"
+   ],
+   "d": 0.003637309394948644,
+   "ci": [
+    0.002600719025808053,
+    0.004705356144689182
+   ],
+   "queries": 19360
+  },
+  "group": {
+   "ref": [
+    "q2_d8",
+    "q3_d8_s1"
+   ],
+   "new": [
+    "h11_g6_s0",
+    "h11_g6_s1"
+   ],
+   "d": 0.001515408984654276,
+   "ci": [
+    0.0005969256309539943,
+    0.0024092863809138483
+   ],
+   "queries": 19360
+  }
+ },
+ "rule": 2,
+ "verdict": "групповой приём сохраняет часть сигнала, но меньше, чем всё сразу",
+ "note": "разности меньше ≈0.001 по протоколу не считаются установленными",
+ "deviations": [
+  "журнал heavy — общий council/runs/side/queue.jsonl (council.side.heavy_step), а не artifacts/side/<h>/heavy.jsonl",
+  "свой снимок под замком (artifacts/task1/v2, v2020, artifacts/xfer, task1/runs без каталогов sealed) — в дополнение к снимкам find/stat из команд prereg",
+  "ключ retrain в результате H10 = перефит prereg",
+  "--skip stage3 | refit_H = пп. 2–3 «Что режется первым» (h11.md)",
+  "имя замка проверки пути — side t1-path",
+  "h10 --dry считает Q_full, Q_sub и запросы хвоста (только anchor, user_id; за световым гейтом); --no-counts пропускает подсчёт"
+ ],
+ "reused": {
+  "q2_d8": "ok",
+  "q3_d8_s1": "ok",
+  "agent_night20_r6_base": "ok",
+  "pl19_Hag_s0": "ok",
+  "pl19_Hag_s1": "ok"
+ },
+ "eval": "val half A 2019-11-08..13",
+ "half_b": "не скорится и не читается",
+ "protected": {
+  "unchanged": true,
+  "incident": [],
+  "n_incident": 0,
+  "reconcile": [],
+  "entries": 6344,
+  "roots": {
+   "/Users/mdpospelov/tlab-recsys-2026/artifacts/task1/v2": "incident",
+   "/Users/mdpospelov/tlab-recsys-2026/task1/runs": "incident",
+   "/Users/mdpospelov/tlab-recsys-2026/artifacts/task1/v2020": "reconcile",
+   "/Users/mdpospelov/tlab-recsys-2026/artifacts/xfer": "reconcile"
+  }
+ },
+ "code": {
+  "task1/exp.py": "94c1dc883654766d5ba4e24f7d81fdd10ab711ad3df1e40cd845b47147d1c957",
+  "task1/model.py": "33b7b2cf483bce77c2472acd5571d2937a76890096f682b2d56dd2b6899e3a74",
+  "task1/period.py": "fdeb16b9d0b39ece02499b4bf0a9f5809a795d0d08db17c3b7ca74c77a42944e",
+  "council/side/__init__.py": "11f6fa839e6739cb2b04e41d532015d6765ec286e0c37870167242ddf5fc22d7",
+  "council/side/task1_side.py": "83eae080eae7c377f7a9e3adefa4c7b8377ddbbacd72aac683a1db41fa58d398"
+ },
+ "commit": "1c4ed11a3c7f1b712764794f5cf43600db547fab",
+ "peak_rss_gb": 23.888,
+ "seconds_total": 4643.9,
+ "finished": "2026-10-22 22:51:07"
+}
