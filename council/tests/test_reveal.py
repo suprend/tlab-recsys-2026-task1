@@ -212,7 +212,7 @@ class TestH1p(Base):
         s = sum(BETAS)
         se_s = math.sqrt(12 * (SE_BOOT ** 2 + SE_EMPTY ** 2))
         r = 0.0012 / s
-        self.assertEqual(h['label'], 'отношение d(C_val) / Σβ̂ (S0-select)')
+        self.assertEqual(h['title'], 'отношение d(C_val) / Σβ̂ (S0-select)')
         self.assertAlmostEqual(h['sum_beta'], s, places=15)
         self.assertAlmostEqual(h['se_sum_beta_no_cov'], se_s, places=15)
         self.assertAlmostEqual(h['ratio'], r, places=12)

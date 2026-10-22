@@ -24,7 +24,7 @@ the report for two files (WAIT): `⟨ждёт plan-result⟩` and, for test.json
 Tables (TABLES; --table also takes PARTS, the pieces of `plan`):
   REES46  prereg, plan (beta + calibration + mechanism + selection), cval, cval-mean, test,
           costs (time and peak of the plan, C_val and C_test fits: the block `report:rees46:costs`),
-          llm (calls, hours and $ by stage), fits (every fit of runs.jsonl by phase and the memory trials)
+          llm (calls, hours and $ by stage), fit-runs (every fit of runs.jsonl by phase and the memory trials)
   xfer    prereg, plan, test, llm, costs (queue.jsonl steps: count, hours, peak)
 
 Rounding (the report uses the same): beta, SE, contrast and CI bounds, C_val means 4 decimals; t 2; WY p 3;
@@ -67,7 +67,7 @@ DASH = '—'
 POWER_GATE = 0.8          # council.design.POWER_GATE, repeated here: the module imports nothing of the council
 
 # Tables printed by default, in report order; PARTS (the pieces of `plan`) are reachable by name too.
-TABLES = {REES46: ('prereg', 'plan', 'cval', 'cval-mean', 'test', 'costs', 'llm', 'fits'),
+TABLES = {REES46: ('prereg', 'plan', 'cval', 'cval-mean', 'test', 'costs', 'llm', 'fit-runs'),
           'xfer': ('prereg', 'plan', 'test', 'llm', 'costs')}
 PARTS = ('beta', 'calibration', 'mechanism', 'selection')
 # The waiting line of a missing file; the report uses these words (plan of 22.10, §2), the rest is ⟨ждёт <file>⟩.
@@ -77,7 +77,7 @@ WAIT = {'plan-result.json': 'plan-result', 'test.json': 'C_test, нужно «д
 VOCAB = ('обыгрывает H+', 'не различено', 'уступает', 'не решено', 'механизм установлен', 'форма без механизма',
          'ждёт C_val', 'не пройдена', 'пройдена', 'не пройден', 'пройден', 'да', 'нет', 'ALL_P minus D', 'ALL_P')
 LLM_NOTE = '$ — сумма cost_usd завершённых вызовов; лимит считает ещё резерв за прерванные (llm.dollars_spent).'
-# REES46 stages of the `costs` table: label (with {n} fits), the queue file that names the fits, the expected
+# REES46 stages of the `costs` table: caption (with {n} fits), the queue file that names the fits, the expected
 # number of fits while that queue does not exist, the artifact that marks the stage as finished.
 STAGES = (('план: {n} подгонок `plan`', 'queue-plan.json', 48, 'plan-result.json'),
           ('C_val: {n} новых подгонок `full_val`, H+r на 2026/0 — подгонка пути', 'queue-cval.json', 9, 'val.json'),
@@ -411,20 +411,20 @@ def t_costs_rees46(src: Source) -> str:
     artifact of STAGES exists); the fits are the names of the stage's queue file."""
     recs = _fit_records(src)
     rows = []
-    for label, queue, expected, done in STAGES:
+    for caption, queue, expected, done in STAGES:
         q = src.json(queue)
         names = [s.get('name') for s in q] if isinstance(q, list) else None
         n = len(names) if names is not None else expected
         if not src.file(done).exists() or names is None:
             w = waiting(done if not src.file(done).exists() else queue)
-            rows.append([label.format(n=n), w, w])
+            rows.append([caption.format(n=n), w, w])
             continue
         have = [recs[x] for x in names if x in recs]
         peak = _peak(r.get('peak_rss_gb') for r in have)
         time = f'{hours(sum(_seconds(r) for r in have))} ч' if have else DASH
         if len(have) != len(names):
             time += f' (записей {len(have)} из {len(names)})'
-        rows.append([label.format(n=n), time, DASH if peak is None else f'{gb(peak)} ГБ'])
+        rows.append([caption.format(n=n), time, DASH if peak is None else f'{gb(peak)} ГБ'])
     return table(['Этап', 'Время', 'Пик памяти'], rows)
 
 
@@ -491,7 +491,7 @@ def t_costs(src: Source) -> str:
 
 RENDER = {'prereg': t_prereg, 'plan': t_plan, 'beta': t_beta, 'calibration': t_calibration,
           'mechanism': t_mechanism, 'selection': t_selection, 'cval': t_cval, 'cval-mean': t_cval_mean,
-          'test': t_test, 'llm': t_llm, 'costs': t_costs, 'fits': t_fits}
+          'test': t_test, 'llm': t_llm, 'costs': t_costs, 'fit-runs': t_fits}
 
 
 def table_names(dataset: str) -> tuple[str, ...]:

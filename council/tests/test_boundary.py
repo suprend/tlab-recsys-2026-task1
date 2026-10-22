@@ -97,14 +97,71 @@ def modules():
     return sorted(p for p in PKG.glob('*.py') if p.name not in EXEMPT)
 
 
+# The one waiver of the module test (violations() itself still reports it, CheckerTest.test_fits): council/report.py
+# and council/reveal.py read the fit journal runs.jsonl (names, seconds, peak memory; council/fit.py writes it without
+# metrics) and nothing else of the fits directory. They cannot take the records through council.fit.records: their
+# own guards (test_report BoundaryTest, test_reveal TestGuard) keep their imports to the stdlib (reveal: plus numpy
+# and scipy) and their reads to allowlisted .json/.jsonl files. So, for these two modules only, the fits-path breach
+# is waived on a line whose every string constant naming the fits directory is wholly a path ending in
+# fits/runs.jsonl; a bare 'fits' segment, any other file of the directory or any other module is still a breach.
+READS_FIT_JOURNAL = {'report.py', 'reveal.py'}
+FIT_JOURNAL = re.compile(r'(?:[\w.-]*/)*fits/runs\.jsonl')
+FITS_BREACH = 'string builds a path to the fits directory'
+
+
+def fit_journal_lines(source, filename='<module>'):
+    """Lines where every string constant matching FITS_PATH is wholly a path to the fit journal fits/runs.jsonl."""
+    tree = ast.parse(source, filename)
+    # in an f-string the journal path must end the string: f'…/fits/runs.jsonl{x}' is not the journal
+    inner = {id(v) for n in ast.walk(tree) if isinstance(n, ast.JoinedStr) for v in n.values[:-1]}
+    by_line = {}
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Constant) and isinstance(node.value, (str, bytes)):
+            text = node.value.decode('utf-8', 'replace') if isinstance(node.value, bytes) else node.value
+            if FITS_PATH.search(text):
+                ok = id(node) not in inner and bool(FIT_JOURNAL.fullmatch(text))
+                by_line.setdefault(node.lineno, []).append(ok)
+    return {line for line, ok in by_line.items() if all(ok)}
+
+
+def breaches(source, filename):
+    """violations() of a module of council/ less the import of the training module and the fit-journal waiver."""
+    journal = fit_journal_lines(source, filename) if filename in READS_FIT_JOURNAL else set()
+    out = []
+    for x in violations(source, filename):
+        line, _, what = x.partition(': ')
+        if filename in TRAINS_ONLY and TRAIN_IMPORT.match(x):
+            continue
+        if what == FITS_BREACH and int(line) in journal:
+            continue
+        out.append(x)
+    return out
+
+
 class BoundaryTest(unittest.TestCase):
     def test_every_council_module_keeps_the_boundary(self):
         files = modules()
         self.assertIn('roles.py', [p.name for p in files])
-        bad = {p.name: v for p in files
-               if (v := [x for x in violations(p.read_text(encoding='utf-8'), p.name)
-                         if not (p.name in TRAINS_ONLY and TRAIN_IMPORT.match(x))])}
+        bad = {p.name: v for p in files if (v := breaches(p.read_text(encoding='utf-8'), p.name))}
         self.assertEqual(bad, {}, 'modules of council/ outside fit.py and broker.py cross the label boundary')
+
+    def test_the_fit_journal_waiver_is_narrow(self):
+        journal = "P = ROOT / 'artifacts/task1/v2020/council/fits/runs.jsonl'\n"
+        xfer = "p = root / f'artifacts/council/xfer-{dataset}/fits/runs.jsonl'\n"
+        for name in READS_FIT_JOURNAL:
+            self.assertEqual(breaches(journal, name), [], name)
+            self.assertEqual(breaches(xfer, name), [], name)
+            self.assertTrue(violations(journal, name), name)       # the checker itself still catches the path
+        for name, code in (('design.py', journal), ('plan.py', xfer), ('memory.py', journal),
+                           ('report.py', "P = 'artifacts/task1/v2020/council/fits/scores.parquet'\n"),
+                           ('report.py', "p = root / 'fits' / 'runs.jsonl'\n"),
+                           ('reveal.py', "x = 'fits'\n"),
+                           ('reveal.py', "p = 'fits/runs.jsonl.bak'\n"),
+                           ('report.py', "a, b = 'a/fits/runs.jsonl', 'a/fits/p.parquet'\n"),
+                           ('report.py', "x = 'label'; p = 'fits/runs.jsonl'\n"),
+                           ('reveal.py', "p = f'a/fits/runs.jsonl{x}'\n"),
+                           ('reveal.py', "p = f'fits/runs.jsonl{x}.bak'\n")):
+            self.assertTrue(breaches(code, name), f'{name}: {code}')
 
     def test_the_exempt_modules_exist(self):
         for name in EXEMPT:

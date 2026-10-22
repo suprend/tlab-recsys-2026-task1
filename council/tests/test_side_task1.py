@@ -26,6 +26,12 @@ from datetime import date
 from pathlib import Path
 from unittest import mock
 
+# council.side.task1_side stops on import unless TASK1_PERIOD is 2019 (unset counts as 2019, as in the module), so
+# under the full suite with TASK1_PERIOD=2020 these tests are skipped, not failed; they run with the command above.
+if os.environ.get('TASK1_PERIOD', '2019') != '2019':
+    raise unittest.SkipTest(f"TASK1_PERIOD={os.environ['TASK1_PERIOD']!r}: council.side.task1_side is REES46 2019 "
+                            "only; run TASK1_PERIOD=2019 .venv/bin/python -m unittest council.tests.test_side_task1")
+
 import duckdb
 import numpy as np
 import pandas as pd

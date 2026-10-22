@@ -281,12 +281,12 @@ class TablesTest(ReportCase):
         t = R.tables('rees46', self.root)
         self.assertIn('| wave1 | 2 | 1.0 | 2.47 |', t['llm'])             # 1.2652 + 1.2022, summed directly
         self.assertIn('| всего | 3 | 1.1 | 2.97 |', t['llm'])
-        self.assertIn('| plan | 2 | 0.2 | 22.5 |', t['fits'])
-        self.assertIn('| path | 1 | 0.2 | 21.0 |', t['fits'])
-        self.assertIn('| cval | 2 | 0.5 | 24.0 |', t['fits'])
-        self.assertIn('| всего | 5 | 0.9 | 24.0 |', t['fits'])
-        self.assertIn('| проба памяти Hrp (full_test) | 1 | 0.3 | 24.0 |', t['fits'])
-        self.assertNotIn('99.9', t['fits'])
+        self.assertIn('| plan | 2 | 0.2 | 22.5 |', t['fit-runs'])
+        self.assertIn('| path | 1 | 0.2 | 21.0 |', t['fit-runs'])
+        self.assertIn('| cval | 2 | 0.5 | 24.0 |', t['fit-runs'])
+        self.assertIn('| всего | 5 | 0.9 | 24.0 |', t['fit-runs'])
+        self.assertIn('| проба памяти Hrp (full_test) | 1 | 0.3 | 24.0 |', t['fit-runs'])
+        self.assertNotIn('99.9', t['fit-runs'])
 
     def test_xfer_costs(self):
         t = R.tables('tinkoff', self.root)

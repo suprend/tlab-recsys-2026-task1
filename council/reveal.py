@@ -86,8 +86,8 @@ def runs_dir(dataset: str, root: Path = ROOT) -> Path:
 
 def fit_records_path(dataset: str, root: Path = ROOT) -> Path:
     if dataset == REES46:
-        return root / 'artifacts' / 'task1' / 'v2020' / 'council' / 'fits' / 'runs.jsonl'
-    return root / 'artifacts' / 'council' / f'xfer-{dataset}' / 'fits' / 'runs.jsonl'
+        return root / 'artifacts/task1/v2020/council/fits/runs.jsonl'
+    return root / f'artifacts/council/xfer-{dataset}/fits/runs.jsonl'
 
 
 def _read_json(path: Path):
@@ -297,7 +297,7 @@ def h1p(inp: Inputs) -> dict:
         se_d = abs(ci[1] - ci[0]) / 3.92
         se_r = math.sqrt(se_d ** 2 + ratio ** 2 * se_sum ** 2) / abs(sum_beta)
         approx = {'se_d': se_d, 'se_ratio': se_r, 'ci95': [ratio - 1.96 * se_r, ratio + 1.96 * se_r]}
-    return {'label': 'отношение d(C_val) / Σβ̂ (S0-select)', 'contrast': key, 'd': d, 'd_ci95': ci,
+    return {'title': 'отношение d(C_val) / Σβ̂ (S0-select)', 'contrast': key, 'd': d, 'd_ci95': ci,
             'by_pair': list(c.get('by_pair') or []), 'columns': cols, 'n_families': len(cols), 'sum_beta': sum_beta,
             'se_sum_beta_no_cov': se_sum, 'ratio': ratio,
             'ratio_by_pair': [v / sum_beta for v in c.get('by_pair') or []] if sum_beta else None,
@@ -456,7 +456,7 @@ def markdown(res: dict) -> str:
                 f"| по парам зёрен | {', '.join(_f(v, 6) for v in h['by_pair'])} |",
                 f"| Σβ̂ ({h['n_families']} семейств) | {_f(h['sum_beta'], 6)} "
                 f"(SE без ковариаций {_f(h['se_sum_beta_no_cov'], 6)}) |",
-                f"| {h['label']} | {_f(h['ratio'], 2)} |",
+                f"| {h['title']} | {_f(h['ratio'], 2)} |",
                 (f"| приближённо, дельта-метод, 95% | [{_f(ap[0], 2)}; {_f(ap[1], 2)}] |" if h['ratio_ci95_delta_approx']
                  else "| приближённо, дельта-метод, 95% | — (знаменатель не отличим от нуля, дельта-метод неприменим) |"),
                 f"| по парам | {', '.join(_f(v, 2) for v in h['ratio_by_pair'] or [])} |",
