@@ -30,7 +30,8 @@ Tables (TABLES; --table also takes PARTS, the pieces of `plan`):
 Rounding (the report uses the same): beta, SE, contrast and CI bounds, C_val means 4 decimals; t 2; WY p 3;
 power 2; SD t 3; sigma_q 4; $ 2; GB 1; hours 1. Signed values (beta, t, contrasts) carry '+' or the minus sign
 '−' (U+2212), as in the report; a value that rounds to zero is printed without a sign. Rounding is Python's
-format spec ('{:.4f}'), applied once to the stored float.
+format spec ('{:.4f}'), applied once to the stored float. Exception: the beta and mechanism tables of a plan whose
+median SE is below 5e-5 (СберМаркет, metric level ~1e-5) print beta, SE and SE_empty with 6 decimals (`plan_nd`).
 
   python -m council.report rees46|tinkoff|sber            every table in its marked block, ready for the report
   python -m council.report rees46 --dry                   the inputs found and missing, then the tables, no markers
@@ -50,6 +51,7 @@ import difflib
 import json
 import math
 import re
+import statistics
 import sys
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
@@ -126,6 +128,13 @@ def gb(x):
 
 def hours(seconds):
     return num(seconds / 3600 if _finite(seconds) else None, 1)
+
+
+def plan_nd(res: dict) -> int:
+    """Decimals of beta and SE in the plan tables: 4, or 6 when the median SE of the plan columns is below 5e-5,
+    where 4 decimals print every beta and SE of the plan as 0.0000."""
+    ses = [b['se'] for b in (res.get('beta') or {}).values() if _finite(b.get('se'))]
+    return 6 if ses and statistics.median(ses) < 5e-5 else 4
 
 
 def ci(pair):
@@ -230,10 +239,11 @@ def t_beta(src: Source) -> str:
     if res is None:
         return waiting('plan-result.json')
     wy = res.get('wy_harm') or {}
-    rows = [[c, b.get('what'), beta(b.get('beta')), se(b.get('se')), tval(b.get('t')), pval(wy.get(c))]
-            for c, b in (res.get('beta') or {}).items()]
+    nd = plan_nd(res)
+    rows = [[c, b.get('what'), num(b.get('beta'), nd, sign=True), num(b.get('se'), nd), tval(b.get('t')),
+             pval(wy.get(c))] for c, b in (res.get('beta') or {}).items()]
     head = (f"S0-select: запросов {res.get('queries')}, пользователей {res.get('users')}; "
-            f"SE_empty = {se(res.get('se_empty'))}. WY p — односторонний (вред), max-T по семействам и PL.")
+            f"SE_empty = {num(res.get('se_empty'), nd)}. WY p — односторонний (вред), max-T по семействам и PL.")
     return head + '\n\n' + table(['Столбец', 'Что', 'β', 'SE', 't', 'WY p'], rows)
 
 
@@ -256,8 +266,9 @@ def t_mechanism(src: Source) -> str:
     res = src.json('plan-result.json')
     if res is None:
         return waiting('plan-result.json')
-    rows = [[m.get('family'), m.get('twin'), beta(m.get('beta')), beta(m.get('beta_twin')), beta(m.get('diff')),
-             se(m.get('se')), tval(m.get('t')), tval(m.get('t_family')), m.get('class')]
+    nd = plan_nd(res)
+    rows = [[m.get('family'), m.get('twin'), *(num(m.get(k), nd, sign=True) for k in ('beta', 'beta_twin', 'diff')),
+             num(m.get('se'), nd), tval(m.get('t')), tval(m.get('t_family')), m.get('class')]
             for m in res.get('mechanism') or []]
     out = table(['Семейство', 'Близнец', 'β_g', 'β_twin', 'β_g − β_twin', 'SE', 't', 't_g', 'Класс до C_val'
                  if not src.xfer else 'Класс до C_test'], rows)

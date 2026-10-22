@@ -203,6 +203,22 @@ class TablesTest(ReportCase):
         self.assertIn('SE_empty = 0.0003', t)
         self.assertEqual(t.count('\n| '), len(COLUMNS) + 1)
 
+    def test_small_se_plan_prints_six_decimals(self):
+        res = plan_result()
+        for b in res['beta'].values():
+            b['beta'] /= 20; b['se'] /= 20
+        res['se_empty'] /= 20
+        res['mechanism'][0] |= {'beta': 0.000123456, 'se': 0.00004}
+        _write(self.root / R.REES46_RUNS / 'plan-result.json', res)
+        t = R.render('rees46', 'beta', self.root)
+        self.assertIn('| F1 | G1-1 | +0.000062 | 0.000023 | +2.70 | 0.510 |', t)
+        self.assertIn('SE_empty = 0.000016', t)
+        self.assertIn('| F1 | T1 | +0.000123 | +0.000200 | +0.001035 | 0.000040 |', R.render('rees46', 'mechanism', self.root))
+        self.assertEqual(R.plan_nd(plan_result()), 4)              # the usual plan keeps 4 decimals
+        self.assertEqual(R.plan_nd({'beta': {}}), 4)                # nothing to judge by
+        small = {c: {'se': 2e-5} for c in COLUMNS} | {'E6': {'se': None}, 'E5': {'se': float('nan')}}
+        self.assertEqual(R.plan_nd({'beta': small}), 6)             # non-finite SE are skipped
+
     def test_rees46_calibration_mechanism_selection(self):
         t = {n: R.render('rees46', n, self.root) for n in R.PARTS}
         plan = R.tables('rees46', self.root)['plan']
