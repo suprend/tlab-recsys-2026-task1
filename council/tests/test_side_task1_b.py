@@ -472,6 +472,16 @@ class Read(unittest.TestCase):
         with Stand.patched(), self.assertRaises(S.Refused):
             TB.run(step)
 
+    def test_failure_in_finish_is_recorded(self):
+        root, step = Stand.fresh('h9')
+        with Stand.patched(), mock.patch.object(S, 'peak_rss_gb', mock.Mock(side_effect=OSError('disk'))), \
+                self.assertRaises(OSError):
+            TB.run(step)
+        res = json.loads((root / 'runs' / 'h9-B-result.json').read_text())
+        self.assertEqual((res['status'], res['B_read']), ('failed', True))
+        self.assertIn('OSError', res['error'])
+        self.assertTrue((root / 'art' / 'h9' / 'B.started').exists())
+
     def test_incident_refuses(self):
         root, step = Stand.fresh('h9')
         orig = TB.half_b

@@ -523,35 +523,50 @@ def failed(step: Step, started: dict, e: BaseException) -> None:
         pass
 
 
+def written_for(ctx: T.Ctx, started) -> bool:
+    """Whether <h>-B-result.json already records this marker (finish or failed wrote it)."""
+    try:
+        r = json.loads(T.wpath(ctx, result_b_name(ctx), runs=True).read_text(encoding='utf-8'))
+    except Exception:
+        return False
+    return r.get('marker') == started
+
+
 def run(step: Step) -> dict:
     ctx = step.ctx
     pre = prepare(step)
     t0 = time.time()
     started = None
-    with S.heavy_step(f'{T.OUT_NAME[ctx.h]}{tag(ctx)}-B', T.DATASET, ctx.out, wait=ctx.wait, **ctx.heavy_kw):
-        ctx.check_fn()
-        if prepare(step)['finger'] != pre['finger']:
-            raise S.Refused('the A result, runs.jsonl, a model or this module changed while waiting for the lock: '
-                            'B is not read')
-        before = T.snapshot(ctx.snapshot_roots)
-        a_new = pass_a(pre['models'])
-        rc = {m['name']: max_abs(T.metrics_a(ctx, m['name']), a_new[m['name']]) for m in pre['models']}
-        del a_new
-        if recheck_passed(rc):
-            started = mark(step)
-            try:
-                b_parts = pass_b(pre['models'])
-                status, body = half_b(step, pre['plan'], pre['res_a'], pre['models'], b_parts)
-                del b_parts
+    try:
+        with S.heavy_step(f'{T.OUT_NAME[ctx.h]}{tag(ctx)}-B', T.DATASET, ctx.out, wait=ctx.wait, **ctx.heavy_kw):
+            ctx.check_fn()
+            if prepare(step)['finger'] != pre['finger']:
+                raise S.Refused('the A result, runs.jsonl, a model or this module changed while waiting for the lock: '
+                                'B is not read')
+            before = T.snapshot(ctx.snapshot_roots)
+            a_new = pass_a(pre['models'])
+            rc = {m['name']: max_abs(T.metrics_a(ctx, m['name']), a_new[m['name']]) for m in pre['models']}
+            del a_new
+            if recheck_passed(rc):
+                started = mark(step)
+                try:
+                    b_parts = pass_b(pre['models'])
+                    status, body = half_b(step, pre['plan'], pre['res_a'], pre['models'], b_parts)
+                    del b_parts
+                    protected = T.snapshot_verdict(before, ctx.snapshot_roots)
+                except BaseException as e:
+                    failed(step, started, e)
+                    raise
+            else:
+                status, body = 'refused', {'reason': 'повтор A не совпал с сохранённым <name>.A.parquet: B не читался, '
+                                                     'маркер не ставился'}
                 protected = T.snapshot_verdict(before, ctx.snapshot_roots)
-            except BaseException as e:
-                failed(step, started, e)
-                raise
-        else:
-            status, body = 'refused', {'reason': 'повтор A не совпал с сохранённым <name>.A.parquet: B не читался, '
-                                                 'маркер не ставился'}
-            protected = T.snapshot_verdict(before, ctx.snapshot_roots)
-    return finish(step, pre, t0, status, body, rc, protected, started)
+        return finish(step, pre, t0, status, body, rc, protected, started)
+    except BaseException as e:
+        # after the marker every way out leaves a result: leaving the lock or finish itself may fail too
+        if started is not None and not written_for(ctx, started):
+            failed(step, started, e)
+        raise
 
 
 def dry(step: Step) -> dict:
