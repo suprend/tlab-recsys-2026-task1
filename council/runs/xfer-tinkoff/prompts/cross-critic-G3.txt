@@ -1,0 +1,460 @@
+# command: ["claude", "-p", "<prompt>", "--model", "opus", "--output-format", "json", "--tools", "", "--strict-mcp-config"]
+# cwd: /tmp/tlab-council-llm-a
+# prompt_sha256: 7bbe05d28c6f706dc24263fe379b7d5fbdf9e795b0fac1b8e8eb6e30e868f795
+
+You are critic G3 of a feature council for a ranking model. Your lens:
+co-occurrence graph and transitions: item-item graphs, multi-step diffusion from seed items, sequential transitions, user-user neighbourhoods. Reply with JSON only.
+
+TASK
+An online store. The data are interactions (user, item, time step): time is an integer step of unknown unit,
+and every (user, item) pair occurs at most once. For an anchor A the history is every interaction with t < A.
+The label of a (user, item) pair is whether the user interacts with the item in [A, A+30); the task is to
+recommend 20 items the user has not interacted with before A. The metric is binary NDCG@20 over the users
+with at least one new item in that window.
+
+CANDIDATES
+For a user u at anchor A every source lists items with an event before A that u has not interacted with before A; ties go to the smaller item_id.
+- pop30: items by distinct users in [A-30, A), descending; the first 100.
+- cooc: E = interactions in [A-180, A); n(i) = distinct users of i in E; co(i, j) = distinct users with both i and j in E; sim(i, j) = co(i, j) / sqrt(n(i) n(j)); L(u) = the last 20 distinct items of u before A by time step descending, then item_id; score(j) = sum of sim(i, j) over i in L(u), rounded to 9 decimals; items with a positive score by score descending; the first 100.
+- fill: items by distinct users before A, descending.
+Union: the sources in this order, each skipping items already taken, up to 200 candidates per user (all unseen items when fewer). Each source position is a feature below.
+
+TRAINING
+CatBoost Logloss, 500 trees, depth 8, learning rate 0.05, L2 10, 128
+borders. Anchors every 30 steps with up to 5000 users each; every candidate of a user enters with weight 1.
+
+FEATURES ALREADY IN THE MODEL: base B (name [level]: formula; missing). A window of w steps is [A-w, A);
+j is the candidate item, u the user.
+- users_7 [item]: distinct users with an event on item j in [A-7, A); missing: 0
+- users_30 [item]: distinct users with an event on item j in [A-30, A); missing: 0
+- users_90 [item]: distinct users with an event on item j in [A-90, A); missing: 0
+- users_all [item]: distinct users with an event on item j before A; missing: never: j has an event before A
+- trend [item]: users_7 / users_30; missing: NULL when users_30 = 0
+- item_age [item]: A - first time step of item j before A; missing: never
+- item_last [item]: A - last time step of item j before A; missing: never
+- n_items_all [user]: distinct items of user u before A; missing: never: a query has history
+- n_items_30 [user]: distinct items of user u in [A-30, A); missing: 0
+- user_recency [user]: A - last time step of user u before A; missing: never
+- user_age [user]: A - first time step of user u before A; missing: never
+- cooc_score [pair]: sum of sim(i, j) over i in L(u) of source cooc, rounded to 9 decimals; missing: 0
+- cooc_rank [pair]: position of j in candidate source cooc; missing: NULL outside source cooc
+- cooc_max [pair]: max of sim(i, j) over i in L(u) of source cooc; missing: 0
+- cooc_hits [pair]: number of i in L(u) of source cooc with sim(i, j) > 0; missing: 0
+- pop30_rank [pair]: position of j in candidate source pop30; missing: NULL outside source pop30
+- global_rank [pair]: rank of j among the items with an event before A by users_all descending, then item_id; the same for every user; missing: never
+- cooc_last5 [pair]: sum of sim(i, j) over the 5 most recent items of L(u) of source cooc; missing: 0
+- cooc_wsum [pair]: sum over positions p = 1..|L(u)| of L(u) of source cooc (p = 1 most recent) of 0.8^(p-1) * sim(L_p, j); missing: 0
+- cooc_mean [pair]: sum of sim(i, j) over i in L(u) of source cooc, rounded to 9 decimals, divided by the number of i in L(u) of source cooc with n(i) > 0; missing: NULL when no i in L(u) of source cooc has n(i) > 0
+- cooc_n_last [pair]: number of i among the 5 most recent items of L(u) of source cooc with sim(i, j) > 0; missing: 0
+- users_14 [item]: distinct users with an event on item j in [A-14, A); missing: 0
+- pop_share_30 [item]: users_30 / users_all; missing: never: users_all >= 1
+- user_rate [user]: n_items_all / max(user_age, 1); missing: never
+- n_items_7 [user]: distinct items of user u in [A-7, A); missing: 0
+
+TABLES (DuckDB; a query sees only these three)
+ev(user_id BIGINT, item_id BIGINT, t INTEGER)
+  every interaction with t < A; each (user_id, item_id) pair occurs at most once
+cand(user_id BIGINT, item_id BIGINT): the candidate pairs of the current batch, keys only
+users(user_id BIGINT): the distinct users of cand
+There is no user or item attribute table.
+
+Columns of an earlier feature agent, in the model besides the base above (proposal name [level]: columns):
+  item_momentum_30_60 [item]: ag_mom_30_60
+  cooc_recent30 [pair]: ag_cooc30
+  next_item_transition [pair]: ag_next_tr
+  user_pop_pref [user]: ag_user_pop_pref
+  user_cf_recent [pair]: ag_ucf30
+  season_yoy_growth [item]: ag_season_yoy
+  adoption_rate_eligible [item]: ag_adopt_rate
+  item_age_gap [pair]: ag_age_gap
+  session_cooc [pair]: ag_sess_cooc
+  pop_gap [pair]: ag_pop_gap
+  item_peak_lifecycle [item]: ag_peak_ratio, ag_peak_age
+  item_pop_decay3 [item]: ag_pop_decay3
+  cond_prob_decay_lift [pair]: ag_cond_decay, ag_lift_max
+  user_recency_ratio [user]: ag_recency_ratio
+  adopter_depth [item]: ag_adopter_depth
+  longterm_profile_cooc [pair]: ag_lt_cooc
+  iuf_weighted_cooc [pair]: ag_iuf_cooc
+  user_visit_rhythm [user]: ag_steps_30, ag_gap_90
+  item_burstiness30 [item]: ag_burst30
+  neighbor_recent7_adoption [pair]: ag_nbr_recent7
+  timed_transition [pair]: ag_timed_tr
+  adopter_depth_gap [pair]: ag_depth_gap
+  cooc30_relative [pair]: ag_cooc30_rel
+  lastyear_share_gap [item]: ag_ly_share_gap
+  segment_pop30 [pair]: ag_seg_pop30
+  id_rank_proximity_all [pair]: ag_id_dist_all, ag_id_cnt10
+  id_neighbourhood_trend [item]: ag_idnb_pop30, ag_idnb_trend
+  recent_event_mean_age [item]: ag_rec_mean_age
+  id_rank_proximity_recent [pair]: ag_id_prox_rec
+  audience_still_active [item]: ag_aud_active7
+
+QUERY RULES
+- Exactly one SELECT or WITH statement; ';' only at the very end; no comments (-- or /* */).
+- Write the anchor only as {A}, literally with the braces; it becomes the integer anchor step,
+  e.g. t >= {A} - 30. No other {...} placeholders.
+- The column t always stands on the left of a comparison: t >= {A} - 30, never {A} - 30 <= t. Never compare
+  t with a number (t < 400 is an error); write ages as {A} - t.
+- Forbidden whole words, in any case: transactions, customers, frame, label, labels, target, targets, hm_*,
+  _hm_*; read_*, parquet_*, csv, json*, glob, getenv, query, query_table, duckdb_*, information_schema,
+  pg_catalog, sqlite_master, pragma*; attach, detach, copy, export, import, install, load, set, reset, use,
+  call, create, drop, insert, update, delete, alter; random, setseed, uuid, gen_random_uuid, now, today,
+  current_date, current_time, current_timestamp, get_current_time, sample, tablesample, current_setting,
+  sniff_*, checkpoint, force_checkpoint, which_secret; ev_* and the names of the raw data; the functions
+  error() and strptime().
+- An item-level query must not mention cand or users: its values do not depend on the batch and are cached.
+
+OUTPUT OF A QUERY
+- level "pair": key columns user_id, item_id (pairs of cand); level "user": user_id (of users); level "item":
+  item_id (of the items in ev). Keys are BIGINT, never NULL and unique. A key outside its set is an error, not
+  a silent filter, so keep queries narrow.
+- 1 to 3 value columns named by f_x_c<lens digit>_<slug>, unique among the accepted columns and different
+  from every feature name above; integer, DECIMAL, FLOAT, DOUBLE or BOOLEAN. VARCHAR, DATE and TIMESTAMP values
+  are errors. No other columns.
+- Values are cast to DOUBLE and left-joined to the batch keys of the level. No row, NULL, a non-finite value or
+  a float32 overflow mean "no data": NaN in the model, which CatBoost treats as the minimum. Put your own
+  defaults with COALESCE.
+- Batch invariance: a value depends only on ev and its own key; cand and users only filter. A window
+  PARTITION BY user_id over cand is allowed (all candidates of a user are always in one batch); aggregates
+  over cand across users are not. Windows need a full tie-break (..., item_id). Violations are caught
+  mechanically.
+- Limits on the probe: timeout 20 s for pair and user queries, 60 s for item queries; at most 20 million
+  output rows.
+
+COUNCIL RULES
+- The value columns of a query are the names with the prefix f_x_c<lens digit>_ in its SELECT; the sandbox runs the
+  query with exactly these output columns. Use the prefix only for output columns, never for intermediate
+  aliases; the part after the prefix is lower-case snake_case of at most 30 characters.
+- Every query states its level (pair, user or item); the level fixes its keys.
+- The probe runs every query at two anchors, named probe_day_1 and probe_day_2 in what you see.
+- All valid columns enter the model without selection by outcome. Superfluous and noisy columns hurt: a few
+  strong, non-redundant signals are needed.
+
+Below are 16 feature cards written by other generators; the authors are hidden behind the ids C01, C02, ...
+Every card comes with its sandbox measurements, made without any model outcome: validity and
+seconds per probe anchor, coverage per column, batch invariance, the highest |rho| and R2 within queries to the
+existing columns with the nearest column, the shape check of the twin, the non-NULL share per probe anchor
+(non_null_share_by_day) and the machine tests.
+
+Critique types:
+- LEAK: information at or after the anchor {A}, or from other users of the batch, reaches the family; name the
+  clause;
+- DUPLICATE: only when citing the measured rho or R2 to a named existing column;
+- SHIFT: the family behaves differently across anchors (cite the non-NULL share per probe anchor);
+- COST: too slow or too large;
+- MECHANISM_DOUBT: the mechanism is unlikely, or the twin does not destroy it;
+- RIVAL: another explanation of the same gain, with its own stratum;
+- OK: no objection.
+kill_test: a concrete check that would refute the mechanism, one of: the twin as a factor; a difference of
+differences between the stratum and the null stratum; the key level (user vs item vs pair); staleness (the
+same query one anchor earlier). Say which, and what result would refute the mechanism.
+
+Critique every card through your lens, 1-3 critiques per card.
+--- C01
+card: {
+ "name": "exposure_since_launch",
+ "level": "pair",
+ "mechanism": "Skipped exposure versus unseen novelty. The first column counts how many of u's visits in the last 180 steps happened after j's first event, i.e. visits where u could have taken j and did not. The second gives the share of those visits on which j was actually being bought by others that same step. A low count marks a new arrival that u has not had a chance to see, and such items should rank high. Many co-present visits without adoption mark an item u keeps passing by.",
+ "sign": "+",
+ "stratum": "frequent visitors, for whom exposure counts vary across candidates: at least 4 distinct active steps in [A-180, A). SQL: (SELECT count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id AND e.t >= {A} - 180) >= 4",
+ "null_stratum": "users with no visit in the last 180 steps; both columns are 0 for every candidate. SQL: NOT EXISTS (SELECT 1 FROM ev e WHERE e.user_id = cand.user_id AND e.t >= {A} - 180)",
+ "sql": "WITH fi AS (SELECT item_id, min(t) AS first_t FROM ev WHERE item_id IN (SELECT item_id FROM cand) GROUP BY item_id), us AS (SELECT DISTINCT e.user_id, e.t AS s FROM ev e JOIN users u ON e.user_id = u.user_id WHERE e.t >= {A} - 180), ic AS (SELECT item_id, t AS s FROM ev WHERE t >= {A} - 180 AND item_id IN (SELECT item_id FROM cand) GROUP BY item_id, t), x AS (SELECT c.user_id, c.item_id, count(*) FILTER (WHERE us.s >= fi.first_t) AS nl, count(ic.s) AS nh FROM cand c JOIN fi ON fi.item_id = c.item_id JOIN us ON us.user_id = c.user_id LEFT JOIN ic ON ic.item_id = c.item_id AND ic.s = us.s GROUP BY c.user_id, c.item_id) SELECT c.user_id, c.item_id, COALESCE(x.nl, 0) AS f_x_c_vis_since_launch, COALESCE(x.nh * 1.0 / nullif(x.nl, 0), 0) AS f_x_c_vis_copresent_rate FROM cand c LEFT JOIN x ON x.user_id = c.user_id AND x.item_id = c.item_id",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH st AS (SELECT item_id, count(*) AS n, min(t) AS first_t FROM ev GROUP BY item_id), pb AS (SELECT item_id, first_t, CAST(floor(log2(n)) AS INTEGER) AS b, row_number() OVER (PARTITION BY CAST(floor(log2(n)) AS INTEGER) ORDER BY hash(item_id), item_id) AS p, count(*) OVER (PARTITION BY CAST(floor(log2(n)) AS INTEGER)) AS m FROM st), pr AS (SELECT a.item_id, b.item_id AS pitem, b.first_t FROM pb a JOIN pb b ON a.b = b.b AND b.p = a.p % a.m + 1 WHERE a.item_id IN (SELECT item_id FROM cand)), us AS (SELECT DISTINCT e.user_id, e.t AS s FROM ev e JOIN users u ON e.user_id = u.user_id WHERE e.t >= {A} - 180), ic AS (SELECT item_id, t AS s FROM ev WHERE t >= {A} - 180 AND item_id IN (SELECT pitem FROM pr) GROUP BY item_id, t), x AS (SELECT c.user_id, c.item_id, count(*) FILTER (WHERE us.s >= pr.first_t) AS nl, count(ic.s) AS nh FROM cand c JOIN pr ON pr.item_id = c.item_id JOIN us ON us.user_id = c.user_id LEFT JOIN ic ON ic.item_id = pr.pitem AND ic.s = us.s GROUP BY c.user_id, c.item_id) SELECT c.user_id, c.item_id, COALESCE(x.nl, 0) AS f_x_c_vis_since_launch_tw, COALESCE(x.nh * 1.0 / nullif(x.nl, 0), 0) AS f_x_c_vis_copresent_rate_tw FROM cand c LEFT JOIN x ON x.user_id = c.user_id AND x.item_id = c.item_id"
+ },
+ "rival": {
+  "explanation": "vis_since_launch may act mainly as an item-age proxy clipped by user activity, and the co-presence rate as item daily-demand frequency. The gain would then come from item freshness and steady demand, not from u's personal exposure history.",
+  "stratum": "young items (item_age < 30) for all users, regardless of their visit count"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_vis_since_launch", "ag_c_vis_copresent_rate"], "seconds_median": 0.475, "coverage": {"ag_c_vis_copresent_rate": 1.0, "ag_c_vis_since_launch": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_vis_copresent_rate": 0.659, "ag_c_vis_since_launch": null}, "nearest": {"ag_c_vis_copresent_rate": "global_rank", "ag_c_vis_since_launch": null}, "r2": {"ag_c_vis_copresent_rate": 0.667, "ag_c_vis_since_launch": null}, "non_null_share_by_day": {"ag_c_vis_copresent_rate": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_vis_since_launch": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_vis_since_launch_tw", "ag_c_vis_copresent_rate_tw"], "seconds_median": 0.486, "coverage": {"ag_c_vis_copresent_rate_tw": 1.0, "ag_c_vis_since_launch_tw": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_vis_copresent_rate_tw": 0.635, "ag_c_vis_since_launch_tw": null}, "nearest": {"ag_c_vis_copresent_rate_tw": "global_rank", "ag_c_vis_since_launch_tw": null}, "r2": {"ag_c_vis_copresent_rate_tw": 0.449, "ag_c_vis_since_launch_tw": null}, "non_null_share_by_day": {"ag_c_vis_copresent_rate_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_vis_since_launch_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["ag_c_vis_since_launch: rho_wq with the twin is undefined"]}, "machine_red": []}
+--- C02
+card: {
+ "name": "lifecycle_mass_center",
+ "level": "item",
+ "mechanism": "The scale-free position of an item in its own life: the mean event age divided by the item's age. Values near 1 mean the audience came early and the item is fading. Values near 0 mean most of the audience arrived recently and the item is still ramping. Values near 0.5 mean steady sellers. Unlike pop_share_30 or the peak features, it does not depend on a fixed 30-step bucket. Items of any age, from 20 to 500 steps, are therefore placed on one comparable decay axis, which ranks rising items above fading ones of equal current volume.",
+ "sign": "+",
+ "stratum": "Established items aged 90 steps or more, whose shapes differ the most: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) < {A} - 90 AND count(*) >= 10)",
+ "null_stratum": "Very young items, launched within the last 14 steps, whose value is close to 0.5 by construction: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) >= {A} - 14)",
+ "sql": "WITH f AS (SELECT item_id, min(t) AS ft, avg({A} - t) AS ma FROM ev GROUP BY item_id) SELECT item_id, ma / ({A} - ft) AS f_x_c_mass_center_frac FROM f;",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH f AS (SELECT item_id, min(t) AS ft, count(*) AS n, avg({A} - t) AS ma FROM ev GROUP BY item_id), v AS (SELECT item_id, floor(log2(n)) AS b, ma / ({A} - ft) AS val, row_number() OVER (PARTITION BY floor(log2(n)) ORDER BY item_id) AS r1, row_number() OVER (PARTITION BY floor(log2(n)) ORDER BY hash(item_id), item_id) AS r2 FROM f) SELECT p.item_id, q.val AS f_x_c_mass_center_frac_tw FROM v p JOIN v q ON p.b = q.b AND p.r1 = q.r2;"
+ },
+ "rival": {
+  "explanation": "For items present since the data start, censoring makes the fraction mostly a proxy for item_age and lifetime volume. The gain would then come from separating censored old items from genuinely launched ones.",
+  "stratum": "Items whose first event lies within 7 steps of the global first step: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) <= (SELECT min(t) FROM ev) + 7)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["item_id"], "level": "item", "columns": ["ag_c_mass_center_frac"], "seconds_median": 0.0295, "coverage": {"ag_c_mass_center_frac": 1.0}, "max_abs_rho": {"ag_c_mass_center_frac": 0.817}, "nearest": {"ag_c_mass_center_frac": "global_rank"}, "r2": {"ag_c_mass_center_frac": 0.913}, "non_null_share_by_day": {"ag_c_mass_center_frac": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["item_id"], "level": "item", "columns": ["ag_c_mass_center_frac_tw"], "seconds_median": 0.0365, "coverage": {"ag_c_mass_center_frac_tw": 1.0}, "max_abs_rho": {"ag_c_mass_center_frac_tw": 0.519}, "nearest": {"ag_c_mass_center_frac_tw": "users_all"}, "r2": {"ag_c_mass_center_frac_tw": 0.344}, "non_null_share_by_day": {"ag_c_mass_center_frac_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C03
+card: {
+ "name": "basket_size_match",
+ "level": "pair",
+ "mechanism": "Items differ in how they are bought: as add-ons inside big multi-item visits or as single targeted picks. Users differ in their visit style. The family gives the mean log size of the visit (the adopter's distinct items at that step) in which j was adopted over the last 180 steps, and that value minus u's own mean log visit size. Haul shoppers should get add-on items and targeted shoppers destination items.",
+ "sign": "+",
+ "stratum": "users with a clear visit style: mean items per active step >= 3 or exactly 1, with at least 3 active steps. SQL: (SELECT count(*) * 1.0 / count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id) >= 3 OR (SELECT count(*) * 1.0 / count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id) = 1",
+ "null_stratum": "users with one active step and 2 items, whose style is undefined. SQL: (SELECT count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id) = 1 AND (SELECT count(*) FROM ev e WHERE e.user_id = cand.user_id) = 2",
+ "sql": "WITH bs AS (SELECT user_id, t AS s, count(*) AS k FROM ev WHERE t >= {A} - 180 GROUP BY user_id, t), jb AS (SELECT e.item_id, avg(ln(b.k)) AS jl FROM ev e JOIN bs b ON b.user_id = e.user_id AND e.t = b.s WHERE e.t >= {A} - 180 AND e.item_id IN (SELECT item_id FROM cand) GROUP BY e.item_id), ub AS (SELECT d.user_id, avg(ln(d.k)) AS ul FROM (SELECT e.user_id, e.t AS s, count(*) AS k FROM ev e JOIN users u ON e.user_id = u.user_id GROUP BY e.user_id, e.t) d GROUP BY d.user_id) SELECT c.user_id, c.item_id, jb.jl AS f_x_c_j_basket, jb.jl - ub.ul AS f_x_c_basket_gap FROM cand c JOIN ub ON ub.user_id = c.user_id LEFT JOIN jb ON jb.item_id = c.item_id",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH st AS (SELECT item_id, count(*) AS n FROM ev GROUP BY item_id), pb AS (SELECT item_id, CAST(floor(log2(n)) AS INTEGER) AS b, row_number() OVER (PARTITION BY CAST(floor(log2(n)) AS INTEGER) ORDER BY hash(item_id), item_id) AS p, count(*) OVER (PARTITION BY CAST(floor(log2(n)) AS INTEGER)) AS m FROM st), pr AS (SELECT a.item_id, b.item_id AS pitem FROM pb a JOIN pb b ON a.b = b.b AND b.p = a.p % a.m + 1 WHERE a.item_id IN (SELECT item_id FROM cand)), bs AS (SELECT user_id, t AS s, count(*) AS k FROM ev WHERE t >= {A} - 180 GROUP BY user_id, t), jb AS (SELECT e.item_id, avg(ln(b.k)) AS jl FROM ev e JOIN bs b ON b.user_id = e.user_id AND e.t = b.s WHERE e.t >= {A} - 180 AND e.item_id IN (SELECT pitem FROM pr) GROUP BY e.item_id), ub AS (SELECT d.user_id, avg(ln(d.k)) AS ul FROM (SELECT e.user_id, e.t AS s, count(*) AS k FROM ev e JOIN users u ON e.user_id = u.user_id GROUP BY e.user_id, e.t) d GROUP BY d.user_id) SELECT c.user_id, c.item_id, jb.jl AS f_x_c_j_basket_tw, jb.jl - ub.ul AS f_x_c_basket_gap_tw FROM cand c JOIN ub ON ub.user_id = c.user_id LEFT JOIN pr ON pr.item_id = c.item_id LEFT JOIN jb ON jb.item_id = pr.pitem"
+ },
+ "rival": {
+  "explanation": "j_basket may proxy for adopter activity (heavy users make big visits), duplicating adopter_depth and adopter_depth_gap. The gain would then be appeal breadth, not visit style.",
+  "stratum": "heavy users (n_items_all >= 50), where visit size and total activity are most entangled"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_j_basket", "ag_c_basket_gap"], "seconds_median": 0.157, "coverage": {"ag_c_basket_gap": 1.0, "ag_c_j_basket": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_basket_gap": 0.41, "ag_c_j_basket": 0.44}, "nearest": {"ag_c_basket_gap": "ag_adopter_depth", "ag_c_j_basket": "ag_adopter_depth"}, "r2": {"ag_c_basket_gap": 0.369, "ag_c_j_basket": 0.419}, "non_null_share_by_day": {"ag_c_basket_gap": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_j_basket": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_j_basket_tw", "ag_c_basket_gap_tw"], "seconds_median": 0.13, "coverage": {"ag_c_basket_gap_tw": 1.0, "ag_c_j_basket_tw": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_basket_gap_tw": 0.115, "ag_c_j_basket_tw": 0.136}, "nearest": {"ag_c_basket_gap_tw": "item_age", "ag_c_j_basket_tw": "ag_burst30"}, "r2": {"ag_c_basket_gap_tw": 0.084, "ag_c_j_basket_tw": 0.0991}, "non_null_share_by_day": {"ag_c_basket_gap_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_j_basket_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C04
+card: {
+ "name": "lastyear_phase_transition",
+ "level": "pair",
+ "mechanism": "Seasonal demand is sequential, not just a level effect: what people buy after item i in spring differs from what they buy after it in autumn. For each of u's last 10 items i, the family takes the users who took i in [A-395, A-365), one cycle before the current phase. It sums over i the share of them who took j in [A-365, A-335), the cycle-earlier copy of the 30-step horizon after A. Existing seasonal features are item-level levels, and existing transitions are phase-agnostic. This one is a phase-aligned, user-conditioned transition.",
+ "sign": "+",
+ "stratum": "Users whose recent items existed a cycle ago, so seeds have last-year adopters: user_id IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) < {A} - 395) o ON e.item_id = o.item_id WHERE e.t >= {A} - 60)",
+ "null_stratum": "Users whose items of the last 180 steps were all launched within the last 365 steps, giving no last-year seeds and a score of 0: user_id NOT IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) < {A} - 365) o ON e.item_id = o.item_id WHERE e.t >= {A} - 180)",
+ "sql": "WITH s AS (SELECT user_id, item_id FROM (SELECT ev.user_id, ev.item_id, row_number() OVER (PARTITION BY ev.user_id ORDER BY t DESC, ev.item_id) AS p FROM ev JOIN users ON ev.user_id = users.user_id) z WHERE p <= 10), si AS (SELECT DISTINCT item_id FROM s), ci AS (SELECT DISTINCT item_id FROM cand), w1 AS (SELECT ev.user_id, ev.item_id FROM ev JOIN si ON ev.item_id = si.item_id WHERE t >= {A} - 395 AND t < {A} - 365), n1 AS (SELECT item_id, count(*) AS n FROM w1 GROUP BY item_id), w2 AS (SELECT ev.user_id, ev.item_id FROM ev JOIN ci ON ev.item_id = ci.item_id WHERE t >= {A} - 365 AND t < {A} - 335), tr AS (SELECT w1.item_id AS i, w2.item_id AS j, count(*) AS c FROM w1 JOIN w2 ON w1.user_id = w2.user_id WHERE w2.item_id <> w1.item_id GROUP BY w1.item_id, w2.item_id), x AS (SELECT s.user_id, tr.j AS item_id, sum(tr.c / (n1.n + 5.0)) AS sc FROM s JOIN tr ON s.item_id = tr.i JOIN n1 ON tr.i = n1.item_id GROUP BY s.user_id, tr.j) SELECT cand.user_id, cand.item_id, COALESCE(x.sc, 0) AS f_x_c_ly_season_trans FROM cand LEFT JOIN x ON cand.user_id = x.user_id AND cand.item_id = x.item_id;",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH s AS (SELECT user_id, item_id FROM (SELECT ev.user_id, ev.item_id, row_number() OVER (PARTITION BY ev.user_id ORDER BY t DESC, ev.item_id) AS p FROM ev JOIN users ON ev.user_id = users.user_id) z WHERE p <= 10), si AS (SELECT DISTINCT item_id FROM s), ci AS (SELECT DISTINCT item_id FROM cand), w1 AS (SELECT ev.user_id, ev.item_id FROM ev JOIN si ON ev.item_id = si.item_id WHERE t >= {A} - 212 AND t < {A} - 182), n1 AS (SELECT item_id, count(*) AS n FROM w1 GROUP BY item_id), w2 AS (SELECT ev.user_id, ev.item_id FROM ev JOIN ci ON ev.item_id = ci.item_id WHERE t >= {A} - 182 AND t < {A} - 152), tr AS (SELECT w1.item_id AS i, w2.item_id AS j, count(*) AS c FROM w1 JOIN w2 ON w1.user_id = w2.user_id WHERE w2.item_id <> w1.item_id GROUP BY w1.item_id, w2.item_id), x AS (SELECT s.user_id, tr.j AS item_id, sum(tr.c / (n1.n + 5.0)) AS sc FROM s JOIN tr ON s.item_id = tr.i JOIN n1 ON tr.i = n1.item_id GROUP BY s.user_id, tr.j) SELECT cand.user_id, cand.item_id, COALESCE(x.sc, 0) AS f_x_c_ly_season_trans_tw FROM cand LEFT JOIN x ON cand.user_id = x.user_id AND cand.item_id = x.item_id;"
+ },
+ "rival": {
+  "explanation": "The score may be a long-lag, phase-agnostic co-purchase transition that would help equally at any lag. The half-cycle-shifted twin should then perform about as well as the original.",
+  "stratum": "Pairs with a strong current co-occurrence signal, cooc candidates where the user's last 20 items co-occur with j: (user_id, item_id) IN (SELECT c.user_id, c.item_id FROM cand c JOIN ev a ON c.user_id = a.user_id JOIN ev b ON b.user_id <> a.user_id AND b.item_id = a.item_id JOIN ev d ON d.user_id = b.user_id AND d.item_id = c.item_id WHERE a.t >= {A} - 30 AND b.t >= {A} - 180 AND d.t >= {A} - 180)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_ly_season_trans"], "seconds_median": 0.348, "coverage": {"ag_c_ly_season_trans": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_ly_season_trans": 0.651}, "nearest": {"ag_c_ly_season_trans": "ag_ly_share_gap"}, "r2": {"ag_c_ly_season_trans": 0.605}, "non_null_share_by_day": {"ag_c_ly_season_trans": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_ly_season_trans_tw"], "seconds_median": 0.23, "coverage": {"ag_c_ly_season_trans_tw": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_ly_season_trans_tw": 0.479}, "nearest": {"ag_c_ly_season_trans_tw": "global_rank"}, "r2": {"ag_c_ly_season_trans_tw": 0.338}, "non_null_share_by_day": {"ag_c_ly_season_trans_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C05
+card: {
+ "name": "pace_aligned_momentum",
+ "level": "pair",
+ "mechanism": "Each user's relevant trend horizon is their own rhythm. A user who visits every 2 steps reacts to what surged in the last 2 steps, and a monthly user to the last month. The horizon h is the power of 2 (1 to 32) closest above u's median gap between distinct active steps in the last 365 steps. The family measures j's per-step demand in [A-h, A) relative to its 60-step per-step demand, a momentum at the user's own timescale that fixed windows like users_7/users_30 cannot express.",
+ "sign": "+",
+ "stratum": "users with a very short or very long rhythm (median gap <= 2 or >= 16), where h differs most from the fixed 7- and 30-step windows. SQL: users whose median gap between distinct active steps in the last 365 steps is <= 2 or >= 16",
+ "null_stratum": "users with a median gap of about 5 to 8 steps, where h = 8 makes the column nearly a rescaled trend. SQL: users whose median gap between distinct active steps in [A-365, A) is between 5 and 8",
+ "sql": "WITH sd AS (SELECT DISTINCT e.user_id, e.t AS s FROM ev e JOIN users u ON e.user_id = u.user_id WHERE e.t >= {A} - 365), gp AS (SELECT user_id, s - lag(s) OVER (PARTITION BY user_id ORDER BY s) AS g FROM sd), uh AS (SELECT u.user_id, COALESCE(quantile_cont(gp.g, 0.5), 32) AS gm FROM users u LEFT JOIN gp ON gp.user_id = u.user_id GROUP BY u.user_id), uh2 AS (SELECT user_id, CASE WHEN gm <= 1 THEN 1 WHEN gm <= 2 THEN 2 WHEN gm <= 4 THEN 4 WHEN gm <= 8 THEN 8 WHEN gm <= 16 THEN 16 ELSE 32 END AS h FROM uh), ic AS (SELECT item_id, count(*) FILTER (WHERE t >= {A} - 1) AS c1, count(*) FILTER (WHERE t >= {A} - 2) AS c2, count(*) FILTER (WHERE t >= {A} - 4) AS c4, count(*) FILTER (WHERE t >= {A} - 8) AS c8, count(*) FILTER (WHERE t >= {A} - 16) AS c16, count(*) FILTER (WHERE t >= {A} - 32) AS c32, count(*) AS c60 FROM ev WHERE t >= {A} - 60 AND item_id IN (SELECT item_id FROM cand) GROUP BY item_id) SELECT c.user_id, c.item_id, ln((COALESCE(CASE uh2.h WHEN 1 THEN ic.c1 WHEN 2 THEN ic.c2 WHEN 4 THEN ic.c4 WHEN 8 THEN ic.c8 WHEN 16 THEN ic.c16 ELSE ic.c32 END, 0) * 1.0 / uh2.h + 0.05) / (COALESCE(ic.c60, 0) / 60.0 + 0.05)) AS f_x_c_pace_trend FROM cand c JOIN uh2 ON uh2.user_id = c.user_id LEFT JOIN ic ON ic.item_id = c.item_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH uh2 AS (SELECT u.user_id, CAST(pow(2, CAST(hash(u.user_id) % 6 AS INTEGER)) AS INTEGER) AS h FROM users u), ic AS (SELECT item_id, count(*) FILTER (WHERE t >= {A} - 1) AS c1, count(*) FILTER (WHERE t >= {A} - 2) AS c2, count(*) FILTER (WHERE t >= {A} - 4) AS c4, count(*) FILTER (WHERE t >= {A} - 8) AS c8, count(*) FILTER (WHERE t >= {A} - 16) AS c16, count(*) FILTER (WHERE t >= {A} - 32) AS c32, count(*) AS c60 FROM ev WHERE t >= {A} - 60 AND item_id IN (SELECT item_id FROM cand) GROUP BY item_id) SELECT c.user_id, c.item_id, ln((COALESCE(CASE uh2.h WHEN 1 THEN ic.c1 WHEN 2 THEN ic.c2 WHEN 4 THEN ic.c4 WHEN 8 THEN ic.c8 WHEN 16 THEN ic.c16 ELSE ic.c32 END, 0) * 1.0 / uh2.h + 0.05) / (COALESCE(ic.c60, 0) / 60.0 + 0.05)) AS f_x_c_pace_trend_tw FROM cand c JOIN uh2 ON uh2.user_id = c.user_id LEFT JOIN ic ON ic.item_id = c.item_id"
+ },
+ "rival": {
+  "explanation": "Any short-versus-long momentum ratio could help because the existing trend columns stop at 7/30 and 30/60. A randomly assigned horizon (the twin) would then help equally, showing that the gain is extra trend horizons, not alignment with the user's pace.",
+  "stratum": "fast-rising items (users_7 / users_30 > 0.4) for all users"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_pace_trend"], "seconds_median": 0.138, "coverage": {"ag_c_pace_trend": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_pace_trend": 0.762}, "nearest": {"ag_c_pace_trend": "ag_pop_decay3"}, "r2": {"ag_c_pace_trend": 0.835}, "non_null_share_by_day": {"ag_c_pace_trend": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_pace_trend_tw"], "seconds_median": 0.087, "coverage": {"ag_c_pace_trend_tw": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_pace_trend_tw": 0.715}, "nearest": {"ag_c_pace_trend_tw": "ag_pop_decay3"}, "r2": {"ag_c_pace_trend_tw": 0.689}, "non_null_share_by_day": {"ag_c_pace_trend_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C06
+card: {
+ "name": "recency_state_pop",
+ "level": "pair",
+ "mechanism": "Users who come back after a pause of a given length buy different things than users in a streak. Returners after a long gap take new-season basics and bestsellers, while users in a burst take complements. Every session in the last 60 steps is bucketed by its gap since the previous active step (log2 buckets, plus a bucket for no visit in the prior year). The family measures j's share among sessions in the bucket matching u's current elapsed pause, and j's lift in that bucket over all sessions.",
+ "sign": "+",
+ "stratum": "users in a non-typical state, either dormant or in a streak: user_recency >= 32 or <= 1. SQL: {A} - (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) >= 32 OR {A} - (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) <= 1",
+ "null_stratum": "users with a moderate pause of 4 to 16 steps, whose bucket resembles the overall session mix so the lift is about 0. SQL: {A} - (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) BETWEEN 4 AND 16",
+ "sql": "WITH sd AS (SELECT DISTINCT user_id, t AS s FROM ev WHERE t >= {A} - 425), sg AS (SELECT user_id, s, s - lag(s) OVER (PARTITION BY user_id ORDER BY s) AS g FROM sd), sb AS (SELECT user_id, s, CASE WHEN g IS NULL THEN 9 ELSE least(CAST(floor(log2(g)) AS INTEGER), 8) END AS b FROM sg WHERE s >= {A} - 60), sn AS (SELECT b, count(*) AS nb FROM sb GROUP BY b), tot AS (SELECT sum(nb) AS ns FROM sn), si AS (SELECT sb.b, e.item_id, count(*) AS n FROM sb JOIN ev e ON e.user_id = sb.user_id AND e.t = sb.s WHERE e.t >= {A} - 60 AND e.item_id IN (SELECT item_id FROM cand) GROUP BY sb.b, e.item_id), ti AS (SELECT item_id, sum(n) AS nt FROM si GROUP BY item_id), ub AS (SELECT e.user_id, CASE WHEN {A} - max(e.t) > 365 THEN 9 ELSE least(CAST(floor(log2({A} - max(e.t))) AS INTEGER), 8) END AS b FROM ev e JOIN users u ON e.user_id = u.user_id GROUP BY e.user_id) SELECT c.user_id, c.item_id, COALESCE(si.n, 0) * 1.0 / greatest(COALESCE(sn.nb, 0), 1) AS f_x_c_state_pop, ln(((COALESCE(si.n, 0) + 0.5) / (COALESCE(sn.nb, 0) + 1.0)) / ((COALESCE(ti.nt, 0) + 0.5) / (tot.ns + 1.0))) AS f_x_c_state_lift FROM cand c JOIN ub ON ub.user_id = c.user_id LEFT JOIN sn ON sn.b = ub.b LEFT JOIN si ON si.b = ub.b AND si.item_id = c.item_id LEFT JOIN ti ON ti.item_id = c.item_id CROSS JOIN tot",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH sd AS (SELECT DISTINCT user_id, t AS s FROM ev WHERE t >= {A} - 425), sg AS (SELECT user_id, s, s - lag(s) OVER (PARTITION BY user_id ORDER BY s) AS g FROM sd), sb AS (SELECT user_id, s, CASE WHEN g IS NULL THEN 9 ELSE least(CAST(floor(log2(g)) AS INTEGER), 8) END AS b FROM sg WHERE s >= {A} - 60), sn AS (SELECT b, count(*) AS nb FROM sb GROUP BY b), tot AS (SELECT sum(nb) AS ns FROM sn), si AS (SELECT sb.b, e.item_id, count(*) AS n FROM sb JOIN ev e ON e.user_id = sb.user_id AND e.t = sb.s WHERE e.t >= {A} - 60 AND e.item_id IN (SELECT item_id FROM cand) GROUP BY sb.b, e.item_id), ti AS (SELECT item_id, sum(n) AS nt FROM si GROUP BY item_id), ub AS (SELECT u.user_id, CAST(hash(u.user_id) % 10 AS INTEGER) AS b FROM users u) SELECT c.user_id, c.item_id, COALESCE(si.n, 0) * 1.0 / greatest(COALESCE(sn.nb, 0), 1) AS f_x_c_state_pop_tw, ln(((COALESCE(si.n, 0) + 0.5) / (COALESCE(sn.nb, 0) + 1.0)) / ((COALESCE(ti.nt, 0) + 0.5) / (tot.ns + 1.0))) AS f_x_c_state_lift_tw FROM cand c JOIN ub ON ub.user_id = c.user_id LEFT JOIN sn ON sn.b = ub.b LEFT JOIN si ON si.b = ub.b AND si.item_id = c.item_id LEFT JOIN ti ON ti.item_id = c.item_id CROSS JOIN tot"
+ },
+ "rival": {
+  "explanation": "state_pop is largely a 60-step popularity count, so the gain may only reflect a slightly longer popularity horizon than users_30, with no dependence on u's pause state.",
+  "stratum": "all users equally, concentrated in long-tail candidates outside pop30"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_state_pop", "ag_c_state_lift"], "seconds_median": 0.169, "coverage": {"ag_c_state_lift": 1.0, "ag_c_state_pop": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_state_lift": 0.0333, "ag_c_state_pop": 0.767}, "nearest": {"ag_c_state_lift": "users_14", "ag_c_state_pop": "users_90"}, "r2": {"ag_c_state_lift": 0.008, "ag_c_state_pop": 0.772}, "non_null_share_by_day": {"ag_c_state_lift": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_state_pop": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_state_pop_tw", "ag_c_state_lift_tw"], "seconds_median": 0.202, "coverage": {"ag_c_state_lift_tw": 1.0, "ag_c_state_pop_tw": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_state_lift_tw": 0.179, "ag_c_state_pop_tw": 0.467}, "nearest": {"ag_c_state_lift_tw": "ag_pop_gap", "ag_c_state_pop_tw": "users_90"}, "r2": {"ag_c_state_lift_tw": 0.0454, "ag_c_state_pop_tw": 0.277}, "non_null_share_by_day": {"ag_c_state_lift_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_state_pop_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C07
+card: {
+ "name": "visit_day_context",
+ "level": "pair",
+ "mechanism": "What was being bought on the exact steps when u last shopped (u's last 3 active steps) captures the context of u's current intent: promotions, drops and campaigns that u was exposed to. The share of that day's active users who took j, and its lift over j's current 30-step share, separate items that were hot at u's moment from items that are hot in general.",
+ "sign": "+",
+ "stratum": "users who shopped recently, so their visit-day context is still current: last event within 14 steps. SQL: (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) >= {A} - 14",
+ "null_stratum": "dormant users whose last visit was long ago; that context is stale. SQL: (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) < {A} - 90",
+ "sql": "WITH us AS (SELECT user_id, s FROM (SELECT user_id, s, row_number() OVER (PARTITION BY user_id ORDER BY s DESC) AS r FROM (SELECT DISTINCT e.user_id, e.t AS s FROM ev e JOIN users u ON e.user_id = u.user_id) d) x WHERE r <= 3), dn AS (SELECT t AS s, count(DISTINCT user_id) AS nu FROM ev WHERE t IN (SELECT s FROM us) GROUP BY t), di AS (SELECT t AS s, item_id, count(*) AS n FROM ev WHERE t IN (SELECT s FROM us) AND item_id IN (SELECT item_id FROM cand) GROUP BY t, item_id), vd AS (SELECT c.user_id, c.item_id, avg(COALESCE(di.n, 0) * 1.0 / dn.nu) AS sh FROM cand c JOIN us ON us.user_id = c.user_id JOIN dn ON dn.s = us.s LEFT JOIN di ON di.s = us.s AND di.item_id = c.item_id GROUP BY c.user_id, c.item_id), i30 AS (SELECT item_id, count(*) AS n30 FROM ev WHERE t >= {A} - 30 AND item_id IN (SELECT item_id FROM cand) GROUP BY item_id), a30 AS (SELECT count(DISTINCT user_id) AS na FROM ev WHERE t >= {A} - 30) SELECT c.user_id, c.item_id, COALESCE(vd.sh, 0) AS f_x_c_vday_share, ln((COALESCE(vd.sh, 0) + 0.0001) / (COALESCE(i30.n30, 0) * 1.0 / greatest(a30.na, 1) + 0.0001)) AS f_x_c_vday_lift FROM cand c LEFT JOIN vd ON vd.user_id = c.user_id AND vd.item_id = c.item_id LEFT JOIN i30 ON i30.item_id = c.item_id CROSS JOIN a30",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH us AS (SELECT user_id, s - 1 - CAST(hash(user_id, s) % 28 AS INTEGER) AS s FROM (SELECT user_id, s, row_number() OVER (PARTITION BY user_id ORDER BY s DESC) AS r FROM (SELECT DISTINCT e.user_id, e.t AS s FROM ev e JOIN users u ON e.user_id = u.user_id) d) x WHERE r <= 3), dn AS (SELECT t AS s, count(DISTINCT user_id) AS nu FROM ev WHERE t IN (SELECT s FROM us) GROUP BY t), di AS (SELECT t AS s, item_id, count(*) AS n FROM ev WHERE t IN (SELECT s FROM us) AND item_id IN (SELECT item_id FROM cand) GROUP BY t, item_id), vd AS (SELECT c.user_id, c.item_id, avg(COALESCE(di.n, 0) * 1.0 / dn.nu) AS sh FROM cand c JOIN us ON us.user_id = c.user_id JOIN dn ON dn.s = us.s LEFT JOIN di ON di.s = us.s AND di.item_id = c.item_id GROUP BY c.user_id, c.item_id), i30 AS (SELECT item_id, count(*) AS n30 FROM ev WHERE t >= {A} - 30 AND item_id IN (SELECT item_id FROM cand) GROUP BY item_id), a30 AS (SELECT count(DISTINCT user_id) AS na FROM ev WHERE t >= {A} - 30) SELECT c.user_id, c.item_id, COALESCE(vd.sh, 0) AS f_x_c_vday_share_tw, ln((COALESCE(vd.sh, 0) + 0.0001) / (COALESCE(i30.n30, 0) * 1.0 / greatest(a30.na, 1) + 0.0001)) AS f_x_c_vday_lift_tw FROM cand c LEFT JOIN vd ON vd.user_id = c.user_id AND vd.item_id = c.item_id LEFT JOIN i30 ON i30.item_id = c.item_id CROSS JOIN a30"
+ },
+ "rival": {
+  "explanation": "For users active yesterday, the visit-day share is just a 1-to-3-step popularity window, a sharper version of users_7. The gain would then come from very-short-horizon item demand, not from u's personal context.",
+  "stratum": "users with user_recency <= 3, where visit days coincide with the latest steps"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_vday_share", "ag_c_vday_lift"], "seconds_median": 0.197, "coverage": {"ag_c_vday_lift": 1.0, "ag_c_vday_share": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_vday_lift": 0.253, "ag_c_vday_share": 0.744}, "nearest": {"ag_c_vday_lift": "ag_mom_30_60", "ag_c_vday_share": "users_30"}, "r2": {"ag_c_vday_lift": 0.135, "ag_c_vday_share": 0.597}, "non_null_share_by_day": {"ag_c_vday_lift": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_vday_share": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_vday_share_tw", "ag_c_vday_lift_tw"], "seconds_median": 0.25, "coverage": {"ag_c_vday_lift_tw": 1.0, "ag_c_vday_share_tw": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_vday_lift_tw": 0.583, "ag_c_vday_share_tw": 0.567}, "nearest": {"ag_c_vday_lift_tw": "ag_mom_30_60", "ag_c_vday_share_tw": "ag_seg_pop30"}, "r2": {"ag_c_vday_lift_tw": 0.391, "ag_c_vday_share_tw": 0.442}, "non_null_share_by_day": {"ag_c_vday_lift_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_vday_share_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C08
+card: {
+ "name": "missed_since_visit",
+ "level": "pair",
+ "mechanism": "What happened to j while u was away: the adopters of j strictly after u's last active step (log count), and their share of j's lifetime adopters. A share of 1 means j launched after u's last visit, so it is a novelty u has never seen. A high count since the visit means demand u missed and will meet on return. This is a per-user window ending at u's own last visit, which none of the fixed-anchor windows capture.",
+ "sign": "+",
+ "stratum": "users who paused 7 to 90 steps, where the per-user window differs from every fixed window. SQL: {A} - (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) BETWEEN 7 AND 90",
+ "null_stratum": "users active at the latest step (user_recency = 1), where nothing could be missed and the column is about 0 for every candidate. SQL: {A} - (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) <= 1",
+ "sql": "WITH ul AS (SELECT e.user_id, max(e.t) AS last_t FROM ev e JOIN users u ON e.user_id = u.user_id GROUP BY e.user_id), ic AS (SELECT item_id, s, sum(n) OVER (PARTITION BY item_id ORDER BY s ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cum, sum(n) OVER (PARTITION BY item_id) AS tot FROM (SELECT item_id, t AS s, count(*) AS n FROM ev WHERE item_id IN (SELECT item_id FROM cand) GROUP BY item_id, t) z), it AS (SELECT DISTINCT item_id, tot FROM ic), x AS (SELECT c.user_id, c.item_id, ul.last_t FROM cand c JOIN ul ON ul.user_id = c.user_id), y AS (SELECT x.user_id, x.item_id, ic.cum FROM x ASOF LEFT JOIN ic ON x.item_id = ic.item_id AND x.last_t >= ic.s) SELECT y.user_id, y.item_id, ln(1 + it.tot - COALESCE(y.cum, 0)) AS f_x_c_missed_log, (it.tot - COALESCE(y.cum, 0)) * 1.0 / it.tot AS f_x_c_missed_share FROM y JOIN it ON it.item_id = y.item_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH ul AS (SELECT user_id, s AS last_t FROM (SELECT user_id, s, row_number() OVER (PARTITION BY user_id ORDER BY hash(user_id, s), s) AS r FROM (SELECT DISTINCT e.user_id, e.t AS s FROM ev e JOIN users u ON e.user_id = u.user_id) d) q WHERE r = 1), ic AS (SELECT item_id, s, sum(n) OVER (PARTITION BY item_id ORDER BY s ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cum, sum(n) OVER (PARTITION BY item_id) AS tot FROM (SELECT item_id, t AS s, count(*) AS n FROM ev WHERE item_id IN (SELECT item_id FROM cand) GROUP BY item_id, t) z), it AS (SELECT DISTINCT item_id, tot FROM ic), x AS (SELECT c.user_id, c.item_id, ul.last_t FROM cand c JOIN ul ON ul.user_id = c.user_id), y AS (SELECT x.user_id, x.item_id, ic.cum FROM x ASOF LEFT JOIN ic ON x.item_id = ic.item_id AND x.last_t >= ic.s) SELECT y.user_id, y.item_id, ln(1 + it.tot - COALESCE(y.cum, 0)) AS f_x_c_missed_log_tw, (it.tot - COALESCE(y.cum, 0)) * 1.0 / it.tot AS f_x_c_missed_share_tw FROM y JOIN it ON it.item_id = y.item_id"
+ },
+ "rival": {
+  "explanation": "missed_share may mostly encode item youth relative to a user-specific clock, i.e. a nonlinear mix of item_age and user_recency that trees approximate poorly. The gain would then be item freshness, not personal exposure.",
+  "stratum": "young items with item_age < user_recency, across all users"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_missed_log", "ag_c_missed_share"], "seconds_median": 0.247, "coverage": {"ag_c_missed_log": 1.0, "ag_c_missed_share": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_missed_log": 0.799, "ag_c_missed_share": 0.703}, "nearest": {"ag_c_missed_log": "ag_pop_decay3", "ag_c_missed_share": "pop_share_30"}, "r2": {"ag_c_missed_log": 0.664, "ag_c_missed_share": 0.696}, "non_null_share_by_day": {"ag_c_missed_log": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_missed_share": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_missed_log_tw", "ag_c_missed_share_tw"], "seconds_median": 0.257, "coverage": {"ag_c_missed_log_tw": 1.0, "ag_c_missed_share_tw": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_missed_log_tw": 0.772, "ag_c_missed_share_tw": 0.685}, "nearest": {"ag_c_missed_log_tw": "users_all", "ag_c_missed_share_tw": "global_rank"}, "r2": {"ag_c_missed_log_tw": 0.707, "ag_c_missed_share_tw": 0.67}, "non_null_share_by_day": {"ag_c_missed_log_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_missed_share_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C09
+card: {
+ "name": "traffic_elasticity",
+ "level": "item",
+ "mechanism": "Global traffic swings between anchors (sales, holidays, campaigns), and items differ in how they ride those swings: promo and sale items scale with traffic, while staples do not. Over the last 13 weekly buckets the family regresses ln(1 + weekly users of j) on ln(weekly active users). The slope is the item's traffic elasticity. The week-0 residual is j's latest demand net of what current traffic explains, a trend that stays valid when the next horizon's traffic level shifts.",
+ "sign": "+",
+ "stratum": "Items with enough weekly signal, at least 50 events in the last 91 steps: item_id IN (SELECT item_id FROM ev WHERE t >= {A} - 91 GROUP BY item_id HAVING count(*) >= 50)",
+ "null_stratum": "Items with fewer than 5 events in the last 91 steps, where the regression is undefined (NULL): item_id NOT IN (SELECT item_id FROM ev WHERE t >= {A} - 91 GROUP BY item_id HAVING count(*) >= 5)",
+ "sql": "WITH wk AS (SELECT item_id, CAST(floor(({A} - 1 - t) / 7.0) AS INTEGER) AS w, count(*) AS c FROM ev WHERE t >= {A} - 91 GROUP BY 1, 2), tot AS (SELECT CAST(floor(({A} - 1 - t) / 7.0) AS INTEGER) AS w, ln(count(DISTINCT user_id)) AS x FROM ev WHERE t >= {A} - 91 GROUP BY 1), it AS (SELECT item_id FROM wk GROUP BY item_id HAVING sum(c) >= 5), gr AS (SELECT it.item_id, tot.w, tot.x, ln(1 + COALESCE(wk.c, 0)) AS y FROM it CROSS JOIN tot LEFT JOIN wk ON wk.item_id = it.item_id AND wk.w = tot.w), fit AS (SELECT item_id, regr_slope(y, x) AS b, regr_intercept(y, x) AS a0 FROM gr GROUP BY item_id) SELECT fit.item_id, fit.b AS f_x_c_traffic_beta, sum(CASE WHEN gr.w = 0 THEN gr.y - (fit.a0 + fit.b * gr.x) END) AS f_x_c_traffic_resid_wk0 FROM fit JOIN gr ON fit.item_id = gr.item_id GROUP BY fit.item_id, fit.b;",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH wk AS (SELECT item_id, CAST(floor(({A} - 1 - t) / 7.0) AS INTEGER) AS w, count(*) AS c FROM ev WHERE t >= {A} - 91 GROUP BY 1, 2), tot AS (SELECT CAST(floor(({A} - 1 - t) / 7.0) AS INTEGER) AS w, ln(count(DISTINCT user_id)) AS x FROM ev WHERE t >= {A} - 91 GROUP BY 1), it AS (SELECT item_id FROM wk GROUP BY item_id HAVING sum(c) >= 5), gr0 AS (SELECT it.item_id, tot.w, ln(1 + COALESCE(wk.c, 0)) AS y FROM it CROSS JOIN tot LEFT JOIN wk ON wk.item_id = it.item_id AND wk.w = tot.w), gp AS (SELECT item_id, y, row_number() OVER (PARTITION BY item_id ORDER BY hash(item_id, w), w) AS rn FROM gr0), wl AS (SELECT w, x, row_number() OVER (ORDER BY w) AS rn FROM tot), gr AS (SELECT gp.item_id, wl.w, wl.x, gp.y FROM gp JOIN wl ON gp.rn = wl.rn), fit AS (SELECT item_id, regr_slope(y, x) AS b, regr_intercept(y, x) AS a0 FROM gr GROUP BY item_id) SELECT fit.item_id, fit.b AS f_x_c_traffic_beta_tw, sum(CASE WHEN gr.w = 0 THEN gr.y - (fit.a0 + fit.b * gr.x) END) AS f_x_c_traffic_resid_wk0_tw FROM fit JOIN gr ON fit.item_id = gr.item_id GROUP BY fit.item_id, fit.b;"
+ },
+ "rival": {
+  "explanation": "The slope may only identify discounted sale items, so the gain would appear only at anchors near sale periods. The residual would then add nothing beyond trend.",
+  "stratum": "Anchors whose last 7 steps carry above-average traffic, recognisable per item as heavy recent-week demand: item_id IN (SELECT item_id FROM ev WHERE t >= {A} - 7 GROUP BY item_id HAVING count(*) >= 20)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["item_id"], "level": "item", "columns": ["ag_c_traffic_beta", "ag_c_traffic_resid_wk0"], "seconds_median": 0.014, "coverage": {"ag_c_traffic_beta": 1.0, "ag_c_traffic_resid_wk0": 1.0}, "max_abs_rho": {"ag_c_traffic_beta": 0.688, "ag_c_traffic_resid_wk0": 0.86}, "nearest": {"ag_c_traffic_beta": "trend", "ag_c_traffic_resid_wk0": "ag_mom_30_60"}, "r2": {"ag_c_traffic_beta": 0.886, "ag_c_traffic_resid_wk0": 0.928}, "non_null_share_by_day": {"ag_c_traffic_beta": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_traffic_resid_wk0": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["item_id"], "level": "item", "columns": ["ag_c_traffic_beta_tw", "ag_c_traffic_resid_wk0_tw"], "seconds_median": 0.019, "coverage": {"ag_c_traffic_beta_tw": 1.0, "ag_c_traffic_resid_wk0_tw": 1.0}, "max_abs_rho": {"ag_c_traffic_beta_tw": 0.224, "ag_c_traffic_resid_wk0_tw": 0.192}, "nearest": {"ag_c_traffic_beta_tw": "users_7", "ag_c_traffic_resid_wk0_tw": "ag_ly_share_gap"}, "r2": {"ag_c_traffic_beta_tw": 0.144, "ag_c_traffic_resid_wk0_tw": 0.138}, "non_null_share_by_day": {"ag_c_traffic_beta_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_traffic_resid_wk0_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C10
+card: {
+ "name": "trigger_recency",
+ "level": "pair",
+ "mechanism": "Intent decays in real time, not in list positions. For each of u's last 15 items of the last 90 steps, take up to 20 of that item's most recent other adopters and see whether they took candidate j. This yields three signals: the age in steps of u's most recent item that leads to j (is the related interest still live?), a co-adoption share decayed by exp(-age/7) in actual steps, and the number of distinct visits (active steps) of u that contain a trigger of j. The last one marks an interest u keeps returning to. Existing cooc_last5 and cooc_wsum weight by position, so they treat a 20-item haul from yesterday the same as 20 single visits spread over months.",
+ "sign": "+",
+ "stratum": "users whose history mixes recent and older visits, so trigger ages differ: u has at least 2 distinct active steps in [A-90, A) and an event in the last 14 steps. SQL: (SELECT count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id AND e.t >= {A} - 90) >= 2 AND (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) >= {A} - 14",
+ "null_stratum": "users with a single active step in the last 90 steps: every trigger has the same age, so only the co-adoption share remains and cooc already covers it. SQL: (SELECT count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id AND e.t >= {A} - 90) <= 1",
+ "sql": "WITH L AS (SELECT user_id, item_id AS src, t AS src_t FROM (SELECT e.user_id, e.item_id, e.t, row_number() OVER (PARTITION BY e.user_id ORDER BY e.t DESC, e.item_id) AS rn FROM ev e JOIN users u ON e.user_id = u.user_id WHERE e.t >= {A} - 90) x WHERE rn <= 15), RA AS (SELECT item_id, user_id AS v FROM (SELECT e.item_id, e.user_id, row_number() OVER (PARTITION BY e.item_id ORDER BY e.t DESC, e.user_id) AS rk FROM ev e WHERE e.t >= {A} - 90 AND e.item_id IN (SELECT src FROM L)) y WHERE rk <= 20), NA AS (SELECT L.user_id, L.src, L.src_t, RA.v FROM L JOIN RA ON RA.item_id = L.src WHERE RA.v <> L.user_id), DEN AS (SELECT user_id, src, count(*) AS na FROM NA GROUP BY user_id, src), HIT AS (SELECT n.user_id, e.item_id, n.src, n.src_t, count(*) AS k FROM NA n JOIN ev e ON e.user_id = n.v AND e.t >= {A} - 90 JOIN cand c ON c.user_id = n.user_id AND c.item_id = e.item_id GROUP BY n.user_id, e.item_id, n.src, n.src_t), AGG AS (SELECT h.user_id, h.item_id, min({A} - h.src_t) AS age_min, sum(exp(-({A} - h.src_t) / 7.0) * h.k * 1.0 / d.na) AS tdec, count(DISTINCT h.src_t) AS nvis FROM HIT h JOIN DEN d ON d.user_id = h.user_id AND d.src = h.src GROUP BY h.user_id, h.item_id) SELECT c.user_id, c.item_id, COALESCE(a.age_min, 365) AS f_x_c_trig_age, COALESCE(a.tdec, 0) AS f_x_c_trig_tdecay, COALESCE(a.nvis, 0) AS f_x_c_trig_visits FROM cand c LEFT JOIN AGG a ON a.user_id = c.user_id AND a.item_id = c.item_id",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH L0 AS (SELECT user_id, item_id AS src, t AS src_t FROM (SELECT e.user_id, e.item_id, e.t, row_number() OVER (PARTITION BY e.user_id ORDER BY e.t DESC, e.item_id) AS rn FROM ev e JOIN users u ON e.user_id = u.user_id WHERE e.t >= {A} - 90) x WHERE rn <= 15), L AS (SELECT a.user_id, a.src, b.src_t FROM (SELECT user_id, src, row_number() OVER (PARTITION BY user_id ORDER BY hash(user_id, src), src) AS hr FROM L0) a JOIN (SELECT user_id, src_t, row_number() OVER (PARTITION BY user_id ORDER BY src_t DESC, src) AS tr FROM L0) b ON a.user_id = b.user_id AND a.hr = b.tr), RA AS (SELECT item_id, user_id AS v FROM (SELECT e.item_id, e.user_id, row_number() OVER (PARTITION BY e.item_id ORDER BY e.t DESC, e.user_id) AS rk FROM ev e WHERE e.t >= {A} - 90 AND e.item_id IN (SELECT src FROM L)) y WHERE rk <= 20), NA AS (SELECT L.user_id, L.src, L.src_t, RA.v FROM L JOIN RA ON RA.item_id = L.src WHERE RA.v <> L.user_id), DEN AS (SELECT user_id, src, count(*) AS na FROM NA GROUP BY user_id, src), HIT AS (SELECT n.user_id, e.item_id, n.src, n.src_t, count(*) AS k FROM NA n JOIN ev e ON e.user_id = n.v AND e.t >= {A} - 90 JOIN cand c ON c.user_id = n.user_id AND c.item_id = e.item_id GROUP BY n.user_id, e.item_id, n.src, n.src_t), AGG AS (SELECT h.user_id, h.item_id, min({A} - h.src_t) AS age_min, sum(exp(-({A} - h.src_t) / 7.0) * h.k * 1.0 / d.na) AS tdec, count(DISTINCT h.src_t) AS nvis FROM HIT h JOIN DEN d ON d.user_id = h.user_id AND d.src = h.src GROUP BY h.user_id, h.item_id) SELECT c.user_id, c.item_id, COALESCE(a.age_min, 365) AS f_x_c_trig_age_tw, COALESCE(a.tdec, 0) AS f_x_c_trig_tdecay_tw, COALESCE(a.nvis, 0) AS f_x_c_trig_visits_tw FROM cand c LEFT JOIN AGG a ON a.user_id = c.user_id AND a.item_id = c.item_id"
+ },
+ "rival": {
+  "explanation": "The gain may come only from the capped recent-adopter co-adoption share, which is another normalisation of item-item similarity, and not from the timing of the trigger. The time-shuffled twin keeps that share, so in that case it would match the original.",
+  "stratum": "users whose recent items are popular (many adopters), where the capped share differs most from the cosine scores"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_trig_age", "ag_c_trig_tdecay", "ag_c_trig_visits"], "seconds_median": 1.27, "coverage": {"ag_c_trig_age": 1.0, "ag_c_trig_tdecay": 1.0, "ag_c_trig_visits": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_trig_age": 0.316, "ag_c_trig_tdecay": 0.464, "ag_c_trig_visits": 0.53}, "nearest": {"ag_c_trig_age": "ag_iuf_cooc", "ag_c_trig_tdecay": "ag_iuf_cooc", "ag_c_trig_visits": "ag_iuf_cooc"}, "r2": {"ag_c_trig_age": 0.14, "ag_c_trig_tdecay": 0.293, "ag_c_trig_visits": 0.373}, "non_null_share_by_day": {"ag_c_trig_age": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_trig_tdecay": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_trig_visits": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_trig_age_tw", "ag_c_trig_tdecay_tw", "ag_c_trig_visits_tw"], "seconds_median": 1.18, "coverage": {"ag_c_trig_age_tw": 1.0, "ag_c_trig_tdecay_tw": 1.0, "ag_c_trig_visits_tw": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_trig_age_tw": 0.287, "ag_c_trig_tdecay_tw": 0.424, "ag_c_trig_visits_tw": 0.533}, "nearest": {"ag_c_trig_age_tw": "ag_iuf_cooc", "ag_c_trig_tdecay_tw": "ag_iuf_cooc", "ag_c_trig_visits_tw": "ag_iuf_cooc"}, "r2": {"ag_c_trig_age_tw": 0.115, "ag_c_trig_tdecay_tw": 0.253, "ag_c_trig_visits_tw": 0.376}, "non_null_share_by_day": {"ag_c_trig_age_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_trig_tdecay_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_trig_visits_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C11
+card: {
+ "name": "cohort_expected_growth",
+ "level": "item",
+ "mechanism": "Items follow a typical life-cycle curve: launch ramp, plateau, decay. The family learns that curve empirically from the previous horizon. For every item at A-30 it takes the age bucket (log2 age), audience bucket (log2 users in [A-60,A-30)) and direction (sign of the change versus [A-90,A-60)), and the realised log growth into [A-30,A). It averages the growth per cell with shrinkage, then looks up j's current cell at A. The result is a forward estimate of the item's growth into the next 30 steps, conditioned jointly on life stage and level. Single-item ratios like trend or momentum only extrapolate an item's own past and miss the typical turn of the curve.",
+ "sign": "+",
+ "stratum": "Young items, first event within the last 60 steps, where the life-cycle curve is steepest: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) >= {A} - 60)",
+ "null_stratum": "Old items, more than 365 steps since launch, on a flat part of the curve: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) < {A} - 365)",
+ "sql": "WITH fi AS (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id), w AS (SELECT item_id, count(*) FILTER (WHERE t >= {A} - 30) AS u0, count(*) FILTER (WHERE t >= {A} - 60 AND t < {A} - 30) AS u1, count(*) FILTER (WHERE t >= {A} - 90 AND t < {A} - 60) AS u2 FROM ev GROUP BY item_id), b AS (SELECT w.item_id, fi.ft, w.u0, w.u1, w.u2 FROM w JOIN fi ON w.item_id = fi.item_id), past AS (SELECT floor(log2(1 + {A} - 30 - ft)) AS ab, floor(log2(1 + u1)) AS pb, sign(u1 - u2) AS tb, ln((1 + u0) / (1.0 + u1)) AS g FROM b WHERE ft < {A} - 30), tab AS (SELECT ab, pb, tb, sum(g) / (count(*) + 20.0) AS mg FROM past GROUP BY ab, pb, tb) SELECT b.item_id, COALESCE(tab.mg, 0) AS f_x_c_cohort_exp_growth FROM b LEFT JOIN tab ON tab.ab = floor(log2(1 + {A} - b.ft)) AND tab.pb = floor(log2(1 + b.u0)) AND tab.tb = sign(b.u0 - b.u1);",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH fi AS (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id), w AS (SELECT item_id, count(*) FILTER (WHERE t >= {A} - 30) AS u0, count(*) FILTER (WHERE t >= {A} - 60 AND t < {A} - 30) AS u1, count(*) FILTER (WHERE t >= {A} - 90 AND t < {A} - 60) AS u2 FROM ev GROUP BY item_id), b AS (SELECT w.item_id, fi.ft, w.u0, w.u1, w.u2 FROM w JOIN fi ON w.item_id = fi.item_id), past AS (SELECT floor(log2(1 + {A} - 30 - ft)) AS ab, floor(log2(1 + u1)) AS pb, sign(u1 - u2) AS tb, ln((1 + u0) / (1.0 + u1)) AS g FROM b WHERE ft < {A} - 30), tab AS (SELECT ab, pb, tb, sum(g) / (count(*) + 20.0) AS mg FROM past GROUP BY ab, pb, tb) SELECT b.item_id, COALESCE(tab.mg, 0) AS f_x_c_cohort_exp_growth_tw FROM b LEFT JOIN tab ON tab.ab = CAST(hash(b.item_id) % 10 AS DOUBLE) AND tab.pb = floor(log2(1 + b.u0)) AND tab.tb = sign(b.u0 - b.u1);"
+ },
+ "rival": {
+  "explanation": "The gain may come only from the audience-level and direction cells: regression to the mean of noisy 30-step counts, not life-cycle stage. The twin keeps those cells and randomises only the age bucket.",
+  "stratum": "Small-audience items with 1 to 5 users in the last 30 steps, where regression to the mean dominates: item_id IN (SELECT item_id FROM ev WHERE t >= {A} - 30 GROUP BY item_id HAVING count(*) <= 5)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["item_id"], "level": "item", "columns": ["ag_c_cohort_exp_growth"], "seconds_median": 0.0195, "coverage": {"ag_c_cohort_exp_growth": 1.0}, "max_abs_rho": {"ag_c_cohort_exp_growth": 0.88}, "nearest": {"ag_c_cohort_exp_growth": "users_30"}, "r2": {"ag_c_cohort_exp_growth": 0.902}, "non_null_share_by_day": {"ag_c_cohort_exp_growth": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["item_id"], "level": "item", "columns": ["ag_c_cohort_exp_growth_tw"], "seconds_median": 0.0425, "coverage": {"ag_c_cohort_exp_growth_tw": 1.0}, "max_abs_rho": {"ag_c_cohort_exp_growth_tw": 0.132}, "nearest": {"ag_c_cohort_exp_growth_tw": "pop30_rank"}, "r2": {"ag_c_cohort_exp_growth_tw": 0.0917}, "non_null_share_by_day": {"ag_c_cohort_exp_growth_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C12
+card: {
+ "name": "item_dormancy_rhythm",
+ "level": "item",
+ "mechanism": "Item silence means different things depending on the item's own rhythm. Five silent steps are alarming for an item sold every step (likely out of stock or delisted) and normal for one sold weekly. The dormancy ratio relates the steps since j's last event to j's mean gap between active steps over its lifetime. The longest historical gap between active steps marks items that have gone dark and come back before (restocks, recurring drops). Such items can revive in the next 30 steps even when currently silent. item_last alone cannot separate these cases.",
+ "sign": "+",
+ "stratum": "Items silent for at least 7 steps but with real history: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING max(t) < {A} - 7 AND count(*) >= 20)",
+ "null_stratum": "Items with events in the last 2 steps, whose ratio is near-constant: item_id IN (SELECT item_id FROM ev WHERE t >= {A} - 2 GROUP BY item_id)",
+ "sql": "WITH s AS (SELECT DISTINCT item_id, t FROM ev), g AS (SELECT item_id, t, t - lag(t) OVER (PARTITION BY item_id ORDER BY t) AS gap FROM s), a AS (SELECT item_id, count(*) AS nst, min(t) AS tf, max(t) AS tl, max(gap) AS mg FROM g GROUP BY item_id) SELECT item_id, ln(1 + ({A} - tl) * nst / (tl - tf + 1.0)) AS f_x_c_dormancy_ratio, ln(1 + COALESCE(mg, 0)) AS f_x_c_longest_gap FROM a;",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH s AS (SELECT DISTINCT item_id, t FROM ev), g AS (SELECT item_id, t, t - lag(t) OVER (PARTITION BY item_id ORDER BY t) AS gap FROM s), a AS (SELECT item_id, count(*) AS nst, min(t) AS tf, max(t) AS tl, max(gap) AS mg FROM g GROUP BY item_id), v AS (SELECT item_id, floor(log2(nst)) AS b, ln(1 + ({A} - tl) * nst / (tl - tf + 1.0)) AS d1, ln(1 + COALESCE(mg, 0)) AS d2, row_number() OVER (PARTITION BY floor(log2(nst)) ORDER BY item_id) AS r1, row_number() OVER (PARTITION BY floor(log2(nst)) ORDER BY hash(item_id), item_id) AS r2 FROM a) SELECT p.item_id, q.d1 AS f_x_c_dormancy_ratio_tw, q.d2 AS f_x_c_longest_gap_tw FROM v p JOIN v q ON p.b = q.b AND p.r1 = q.r2;"
+ },
+ "rival": {
+  "explanation": "The ratio may act only as a dead-item filter, a sharper version of item_last that pushes delisted fill candidates down. Any gain would then come from negatives, not from predicted revivals.",
+  "stratum": "Candidates outside pop30 and cooc (fill only), mostly old silent items: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING max(t) < {A} - 30)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["item_id"], "level": "item", "columns": ["ag_c_dormancy_ratio", "ag_c_longest_gap"], "seconds_median": 0.057, "coverage": {"ag_c_dormancy_ratio": 1.0, "ag_c_longest_gap": 1.0}, "max_abs_rho": {"ag_c_dormancy_ratio": 0.703, "ag_c_longest_gap": 0.688}, "nearest": {"ag_c_dormancy_ratio": "item_last", "ag_c_longest_gap": "global_rank"}, "r2": {"ag_c_dormancy_ratio": 0.892, "ag_c_longest_gap": 0.699}, "non_null_share_by_day": {"ag_c_dormancy_ratio": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_longest_gap": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["item_id"], "level": "item", "columns": ["ag_c_dormancy_ratio_tw", "ag_c_longest_gap_tw"], "seconds_median": 0.084, "coverage": {"ag_c_dormancy_ratio_tw": 1.0, "ag_c_longest_gap_tw": 1.0}, "max_abs_rho": {"ag_c_dormancy_ratio_tw": 0.129, "ag_c_longest_gap_tw": 0.574}, "nearest": {"ag_c_dormancy_ratio_tw": "pop30_rank", "ag_c_longest_gap_tw": "global_rank"}, "r2": {"ag_c_dormancy_ratio_tw": 0.0951, "ag_c_longest_gap_tw": 0.458}, "non_null_share_by_day": {"ag_c_dormancy_ratio_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_longest_gap_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C13
+card: {
+ "name": "exposure_at_last_visit",
+ "level": "pair",
+ "mechanism": "A user who last visited at step tl saw the assortment that was trending around tl, not the one trending now. Two things drive returns: the items the user was exposed to at their own last visit, and items launched after that visit, which are new to them. users_7 and users_30 measure demand at A, which is wrong for lapsed users. This family moves the popularity window to the user's own last active step: distinct users of j in [tl-7, tl]. It also gives the signed launch offset first_t(j) - tl, positive for items that appeared after the user was last seen. Trees cannot easily form this difference from item_age and user_recency.",
+ "sign": "+",
+ "stratum": "Lapsed users, last event at least 14 steps before A: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING max(t) < {A} - 14)",
+ "null_stratum": "Users active in the last 2 steps, where the window around tl coincides with users_7: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING max(t) >= {A} - 2)",
+ "sql": "WITH ul AS (SELECT ev.user_id, max(t) AS tl FROM ev JOIN users ON ev.user_id = users.user_id GROUP BY ev.user_id), fi AS (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id), ci AS (SELECT DISTINCT item_id FROM cand), d AS (SELECT ev.item_id, t, count(*) AS c FROM ev JOIN ci ON ev.item_id = ci.item_id GROUP BY ev.item_id, t), pc AS (SELECT cand.user_id, cand.item_id, ul.tl FROM cand JOIN ul ON cand.user_id = ul.user_id), x AS (SELECT pc.user_id, pc.item_id, sum(d.c) AS n FROM pc CROSS JOIN range(0, 8) AS r(k) JOIN d ON d.item_id = pc.item_id AND d.t = pc.tl - r.k GROUP BY pc.user_id, pc.item_id) SELECT pc.user_id, pc.item_id, ln(1 + COALESCE(x.n, 0)) AS f_x_c_pop_at_last_visit, CAST(fi.ft - pc.tl AS DOUBLE) AS f_x_c_launch_vs_last_visit FROM pc JOIN fi ON pc.item_id = fi.item_id LEFT JOIN x ON pc.user_id = x.user_id AND pc.item_id = x.item_id;",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH sv AS (SELECT DISTINCT ev.user_id, t FROM ev JOIN users ON ev.user_id = users.user_id), vs AS (SELECT user_id, t, row_number() OVER (PARTITION BY user_id ORDER BY hash(user_id, t), t) AS rn FROM sv), ul AS (SELECT user_id, t AS tl FROM vs WHERE rn = 1), fi AS (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id), ci AS (SELECT DISTINCT item_id FROM cand), d AS (SELECT ev.item_id, t, count(*) AS c FROM ev JOIN ci ON ev.item_id = ci.item_id GROUP BY ev.item_id, t), pc AS (SELECT cand.user_id, cand.item_id, ul.tl FROM cand JOIN ul ON cand.user_id = ul.user_id), x AS (SELECT pc.user_id, pc.item_id, sum(d.c) AS n FROM pc CROSS JOIN range(0, 8) AS r(k) JOIN d ON d.item_id = pc.item_id AND d.t = pc.tl - r.k GROUP BY pc.user_id, pc.item_id) SELECT pc.user_id, pc.item_id, ln(1 + COALESCE(x.n, 0)) AS f_x_c_pop_at_last_visit_tw, CAST(fi.ft - pc.tl AS DOUBLE) AS f_x_c_launch_vs_last_visit_tw FROM pc JOIN fi ON pc.item_id = fi.item_id LEFT JOIN x ON pc.user_id = x.user_id AND pc.item_id = x.item_id;"
+ },
+ "rival": {
+  "explanation": "The gain may have nothing to do with exposure. For lapsed users the column may act as a stale, long-window popularity count (like users_90): returning users buy perennial bestsellers, and those were also popular at any past step.",
+  "stratum": "Users lapsed 60 or more steps, where both explanations predict a gain; only the twin (random visit instead of last visit) separates them: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING max(t) < {A} - 60)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_pop_at_last_visit", "ag_c_launch_vs_last_visit"], "seconds_median": 0.203, "coverage": {"ag_c_launch_vs_last_visit": 1.0, "ag_c_pop_at_last_visit": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_launch_vs_last_visit": 0.773, "ag_c_pop_at_last_visit": 0.826}, "nearest": {"ag_c_launch_vs_last_visit": "item_age", "ag_c_pop_at_last_visit": "users_30"}, "r2": {"ag_c_launch_vs_last_visit": 0.689, "ag_c_pop_at_last_visit": 0.732}, "non_null_share_by_day": {"ag_c_launch_vs_last_visit": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_pop_at_last_visit": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_pop_at_last_visit_tw", "ag_c_launch_vs_last_visit_tw"], "seconds_median": 0.197, "coverage": {"ag_c_launch_vs_last_visit_tw": 1.0, "ag_c_pop_at_last_visit_tw": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_launch_vs_last_visit_tw": 0.855, "ag_c_pop_at_last_visit_tw": 0.68}, "nearest": {"ag_c_launch_vs_last_visit_tw": "ag_age_gap", "ag_c_pop_at_last_visit_tw": "users_all"}, "r2": {"ag_c_launch_vs_last_visit_tw": 0.799, "ag_c_pop_at_last_visit_tw": 0.505}, "non_null_share_by_day": {"ag_c_launch_vs_last_visit_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_pop_at_last_visit_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["ag_c_launch_vs_last_visit: |rho_wq| with the twin 0.884 > 0.8"]}, "machine_red": []}
+--- C14
+card: {
+ "name": "session_state",
+ "level": "user",
+ "mechanism": "The shape of the user's latest visit: the number of distinct items taken at the last active step (a haul versus a single targeted pick) and the gap before that visit (a streak versus a return after a pause). Haul shoppers and returners spread over popular, broad items, while targeted shoppers in a streak follow co-occurrence. The trees can use this state to switch between the popularity and similarity features.",
+ "sign": "+",
+ "stratum": "users whose last visit was a haul or followed a long pause: last-step item count >= 4 or previous gap >= 60. SQL: (SELECT count(*) FROM ev e WHERE e.user_id = users.user_id AND e.t = (SELECT max(e2.t) FROM ev e2 WHERE e2.user_id = users.user_id)) >= 4",
+ "null_stratum": "users with a single active step in total, for whom prev_gap is the default and the haul size equals n_items_all. SQL: (SELECT count(DISTINCT e.t) FROM ev e WHERE e.user_id = users.user_id) = 1",
+ "sql": "WITH sd AS (SELECT e.user_id, e.t AS s, count(*) AS k FROM ev e JOIN users u ON e.user_id = u.user_id GROUP BY e.user_id, e.t), r AS (SELECT user_id, s, k, row_number() OVER (PARTITION BY user_id ORDER BY s DESC) AS rn, lead(s) OVER (PARTITION BY user_id ORDER BY s DESC) AS ps FROM sd) SELECT user_id, k AS f_x_c_last_sess_n, COALESCE(s - ps, 1000) AS f_x_c_prev_gap FROM r WHERE rn = 1",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH sd AS (SELECT e.user_id, e.t AS s, count(*) AS k FROM ev e JOIN users u ON e.user_id = u.user_id GROUP BY e.user_id, e.t), r AS (SELECT user_id, s, k, row_number() OVER (PARTITION BY user_id ORDER BY hash(user_id, s), s) AS rn, lead(s) OVER (PARTITION BY user_id ORDER BY s DESC) AS ps FROM sd) SELECT user_id, k AS f_x_c_last_sess_n_tw, COALESCE(s - ps, 1000) AS f_x_c_prev_gap_tw FROM r WHERE rn = 1"
+ },
+ "rival": {
+  "explanation": "The columns may only act as user-activity proxies, with last_sess_n similar to n_items_7 and prev_gap similar to ag_gap_90. The gain would then be calibration across users rather than state-dependent ranking within a user.",
+  "stratum": "heavy users with many active steps, where activity proxies vary most"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id"], "level": "user", "columns": ["ag_c_last_sess_n", "ag_c_prev_gap"], "seconds_median": 0.0325, "coverage": {"ag_c_last_sess_n": 1.0, "ag_c_prev_gap": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_last_sess_n": 0.377, "ag_c_prev_gap": 0.579}, "nearest": {"ag_c_last_sess_n": "ag_cond_decay", "ag_c_prev_gap": "ag_steps_30"}, "r2": {"ag_c_last_sess_n": 0.461, "ag_c_prev_gap": 0.489}, "non_null_share_by_day": {"ag_c_last_sess_n": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_prev_gap": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["user_id"], "level": "user", "columns": ["ag_c_last_sess_n_tw", "ag_c_prev_gap_tw"], "seconds_median": 0.0415, "coverage": {"ag_c_last_sess_n_tw": 1.0, "ag_c_prev_gap_tw": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_last_sess_n_tw": 0.215, "ag_c_prev_gap_tw": 0.255}, "nearest": {"ag_c_last_sess_n_tw": "user_rate", "ag_c_prev_gap_tw": "ag_gap_90"}, "r2": {"ag_c_last_sess_n_tw": 0.104, "ag_c_prev_gap_tw": 0.133}, "non_null_share_by_day": {"ag_c_last_sess_n_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_prev_gap_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C15
+card: {
+ "name": "launch_cohort_proximity",
+ "level": "pair",
+ "mechanism": "Assortments arrive in drops: items first seen at the same step belong to the same collection or campaign and are shopped together while that drop is live. The family measures how close j's launch step is to the launch steps of the user's last 20 items. It gives a kernel sum exp(-|ft_j - ft_i|/3) and the minimal launch gap. Items whose first event is censored by the data start are excluded. This aligns the candidate's life cycle with the life cycles the user is currently consuming, independent of id adjacency or co-purchase counts.",
+ "sign": "+",
+ "stratum": "Users who recently took freshly launched items, launched within the last 60 steps and taken in the last 30: user_id IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id) f ON e.item_id = f.item_id WHERE e.t >= {A} - 30 AND f.ft >= {A} - 60)",
+ "null_stratum": "Users whose items of the last 180 steps were all launched more than 365 steps before A: user_id NOT IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id) f ON e.item_id = f.item_id WHERE e.t >= {A} - 180 AND f.ft >= {A} - 365)",
+ "sql": "WITH fi AS (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id), g AS (SELECT min(t) AS t0 FROM ev), ue AS (SELECT ev.user_id, ev.item_id, row_number() OVER (PARTITION BY ev.user_id ORDER BY t DESC, ev.item_id) AS p FROM ev JOIN users ON ev.user_id = users.user_id), h AS (SELECT ue.user_id, fi.ft FROM ue JOIN fi ON ue.item_id = fi.item_id CROSS JOIN g WHERE ue.p <= 20 AND fi.ft > g.t0 + 7), cf AS (SELECT cand.user_id, cand.item_id, fi.ft, fi.ft > g.t0 + 7 AS ok FROM cand JOIN fi ON cand.item_id = fi.item_id CROSS JOIN g), x AS (SELECT cf.user_id, cf.item_id, sum(exp(-abs(cf.ft - h.ft) / 3.0)) AS k, min(abs(cf.ft - h.ft)) AS m FROM cf JOIN h ON cf.user_id = h.user_id WHERE cf.ok GROUP BY cf.user_id, cf.item_id) SELECT cf.user_id, cf.item_id, COALESCE(x.k, 0) AS f_x_c_launch_cohort_kern, ln(1 + COALESCE(x.m, 1000)) AS f_x_c_launch_gap_min FROM cf LEFT JOIN x ON cf.user_id = x.user_id AND cf.item_id = x.item_id;",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH fb AS (SELECT item_id, min(t) AS ft, floor(log2(1 + count(*))) AS b FROM ev GROUP BY item_id), fr AS (SELECT item_id, ft, b, row_number() OVER (PARTITION BY b ORDER BY item_id) AS r1, row_number() OVER (PARTITION BY b ORDER BY hash(item_id), item_id) AS r2 FROM fb), fs AS (SELECT a.item_id, z.ft FROM fr a JOIN fr z ON a.b = z.b AND a.r1 = z.r2), g AS (SELECT min(t) AS t0 FROM ev), ue AS (SELECT ev.user_id, ev.item_id, row_number() OVER (PARTITION BY ev.user_id ORDER BY t DESC, ev.item_id) AS p FROM ev JOIN users ON ev.user_id = users.user_id), h AS (SELECT ue.user_id, fb.ft FROM ue JOIN fb ON ue.item_id = fb.item_id CROSS JOIN g WHERE ue.p <= 20 AND fb.ft > g.t0 + 7), cf AS (SELECT cand.user_id, cand.item_id, fs.ft, fs.ft > g.t0 + 7 AS ok FROM cand JOIN fs ON cand.item_id = fs.item_id CROSS JOIN g), x AS (SELECT cf.user_id, cf.item_id, sum(exp(-abs(cf.ft - h.ft) / 3.0)) AS k, min(abs(cf.ft - h.ft)) AS m FROM cf JOIN h ON cf.user_id = h.user_id WHERE cf.ok GROUP BY cf.user_id, cf.item_id) SELECT cf.user_id, cf.item_id, COALESCE(x.k, 0) AS f_x_c_launch_cohort_kern_tw, ln(1 + COALESCE(x.m, 1000)) AS f_x_c_launch_gap_min_tw FROM cf LEFT JOIN x ON cf.user_id = x.user_id AND cf.item_id = x.item_id;"
+ },
+ "rival": {
+  "explanation": "Co-launched items often have adjacent ids within one product family, so the gain could repeat the id-proximity features (ag_id_prox_rec) rather than reflect drop timing.",
+  "stratum": "Pairs where j lies within 10 id ranks of one of the user's last 20 items; launch timing should add nothing there: (user_id, item_id) IN (SELECT c.user_id, c.item_id FROM cand c JOIN ev e ON c.user_id = e.user_id WHERE abs(c.item_id - e.item_id) <= 10)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_launch_cohort_kern", "ag_c_launch_gap_min"], "seconds_median": 0.141, "coverage": {"ag_c_launch_cohort_kern": 1.0, "ag_c_launch_gap_min": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_launch_cohort_kern": 0.466, "ag_c_launch_gap_min": 0.466}, "nearest": {"ag_c_launch_cohort_kern": "ag_age_gap", "ag_c_launch_gap_min": "ag_age_gap"}, "r2": {"ag_c_launch_cohort_kern": 0.212, "ag_c_launch_gap_min": 0.212}, "non_null_share_by_day": {"ag_c_launch_cohort_kern": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_launch_gap_min": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c_launch_cohort_kern_tw", "ag_c_launch_gap_min_tw"], "seconds_median": 0.0855, "coverage": {"ag_c_launch_cohort_kern_tw": 1.0, "ag_c_launch_gap_min_tw": 1.0}, "batch_invariant": true, "max_abs_rho": {"ag_c_launch_cohort_kern_tw": 0.0969, "ag_c_launch_gap_min_tw": 0.097}, "nearest": {"ag_c_launch_cohort_kern_tw": "item_age", "ag_c_launch_gap_min_tw": "item_age"}, "r2": {"ag_c_launch_cohort_kern_tw": 0.0594, "ag_c_launch_gap_min_tw": 0.0594}, "non_null_share_by_day": {"ag_c_launch_cohort_kern_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_launch_gap_min_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+--- C16
+card: {
+ "name": "newcomer_entry_share",
+ "level": "item",
+ "mechanism": "Traffic shifts between anchors are driven largely by customer acquisition: campaigns and seasons bring waves of new users who buy a narrow set of entry items. The first column is the share of j's adopters in the last 30 steps whose first-ever event is in the last 30 steps. The second is the share of j's adopters in the last 90 steps for whom j was among their first 3 items. Both are smoothed toward the global rate. Together they tell entry items, which keep converting the next wave of newcomers, apart from items bought deep into a customer's life cycle.",
+ "sign": "+",
+ "stratum": "New users, first event within the last 30 steps: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING min(t) >= {A} - 30)",
+ "null_stratum": "Long-standing users, first event more than 365 steps ago: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING min(t) < {A} - 365)",
+ "sql": "WITH uf AS (SELECT user_id, min(t) AS uft FROM ev GROUP BY user_id), ur AS (SELECT user_id, item_id, t, row_number() OVER (PARTITION BY user_id ORDER BY t, item_id) AS p FROM ev), r30 AS (SELECT ev.item_id, CASE WHEN uf.uft >= {A} - 30 THEN 1.0 ELSE 0.0 END AS nw FROM ev JOIN uf ON ev.user_id = uf.user_id WHERE t >= {A} - 30), r90 AS (SELECT item_id, CASE WHEN p <= 3 THEN 1.0 ELSE 0.0 END AS en FROM ur WHERE t >= {A} - 90), gl AS (SELECT (SELECT avg(nw) FROM r30) AS g30, (SELECT avg(en) FROM r90) AS g90), a30 AS (SELECT item_id, sum(nw) AS s, count(*) AS n FROM r30 GROUP BY item_id), a90 AS (SELECT item_id, sum(en) AS s, count(*) AS n FROM r90 GROUP BY item_id), it AS (SELECT DISTINCT item_id FROM ev) SELECT it.item_id, (COALESCE(a30.s, 0) + 5 * gl.g30) / (COALESCE(a30.n, 0) + 5) AS f_x_c_newcomer_share30, (COALESCE(a90.s, 0) + 5 * gl.g90) / (COALESCE(a90.n, 0) + 5) AS f_x_c_entry_item_share90 FROM it CROSS JOIN gl LEFT JOIN a30 ON it.item_id = a30.item_id LEFT JOIN a90 ON it.item_id = a90.item_id;",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH uf AS (SELECT user_id, min(t) AS uft FROM ev GROUP BY user_id), ur AS (SELECT user_id, item_id, t, row_number() OVER (PARTITION BY user_id ORDER BY t, item_id) AS p FROM ev), r30 AS (SELECT ev.user_id, ev.item_id, CASE WHEN uf.uft >= {A} - 30 THEN 1.0 ELSE 0.0 END AS nw FROM ev JOIN uf ON ev.user_id = uf.user_id WHERE t >= {A} - 30), r90 AS (SELECT user_id, item_id, CASE WHEN p <= 3 THEN 1.0 ELSE 0.0 END AS en FROM ur WHERE t >= {A} - 90), gl AS (SELECT (SELECT avg(nw) FROM r30) AS g30, (SELECT avg(en) FROM r90) AS g90), t30 AS (SELECT r30.item_id, CASE WHEN hash(r30.user_id, 17) % 1000 < 1000 * gl.g30 THEN 1.0 ELSE 0.0 END AS nw FROM r30 CROSS JOIN gl), t90 AS (SELECT r90.item_id, CASE WHEN hash(r90.user_id, r90.item_id) % 1000 < 1000 * gl.g90 THEN 1.0 ELSE 0.0 END AS en FROM r90 CROSS JOIN gl), a30 AS (SELECT item_id, sum(nw) AS s, count(*) AS n FROM t30 GROUP BY item_id), a90 AS (SELECT item_id, sum(en) AS s, count(*) AS n FROM t90 GROUP BY item_id), it AS (SELECT DISTINCT item_id FROM ev) SELECT it.item_id, (COALESCE(a30.s, 0) + 5 * gl.g30) / (COALESCE(a30.n, 0) + 5) AS f_x_c_newcomer_share30_tw, (COALESCE(a90.s, 0) + 5 * gl.g90) / (COALESCE(a90.n, 0) + 5) AS f_x_c_entry_item_share90_tw FROM it CROSS JOIN gl LEFT JOIN a30 ON it.item_id = a30.item_id LEFT JOIN a90 ON it.item_id = a90.item_id;"
+ },
+ "rival": {
+  "explanation": "A high newcomer share may simply mark items on promotion or front-page placement, which every user buys more of. The gain would then be spread over all users rather than concentrated on new ones.",
+  "stratum": "All users with pop30 candidates, gain independent of user_age: user_id IN (SELECT user_id FROM ev GROUP BY user_id)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["item_id"], "level": "item", "columns": ["ag_c_newcomer_share30", "ag_c_entry_item_share90"], "seconds_median": 0.12, "coverage": {"ag_c_entry_item_share90": 1.0, "ag_c_newcomer_share30": 1.0}, "max_abs_rho": {"ag_c_entry_item_share90": null, "ag_c_newcomer_share30": null}, "nearest": {"ag_c_entry_item_share90": null, "ag_c_newcomer_share30": null}, "r2": {"ag_c_entry_item_share90": null, "ag_c_newcomer_share30": null}, "non_null_share_by_day": {"ag_c_entry_item_share90": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_newcomer_share30": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin": {"keys": ["item_id"], "level": "item", "columns": ["ag_c_newcomer_share30_tw", "ag_c_entry_item_share90_tw"], "seconds_median": 0.121, "coverage": {"ag_c_entry_item_share90_tw": 1.0, "ag_c_newcomer_share30_tw": 1.0}, "max_abs_rho": {"ag_c_entry_item_share90_tw": null, "ag_c_newcomer_share30_tw": null}, "nearest": {"ag_c_entry_item_share90_tw": null, "ag_c_newcomer_share30_tw": null}, "r2": {"ag_c_entry_item_share90_tw": null, "ag_c_newcomer_share30_tw": null}, "non_null_share_by_day": {"ag_c_entry_item_share90_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}, "ag_c_newcomer_share30_tw": {"probe_day_2": 1.0, "probe_day_1": 1.0}}, "parity_ok": true}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["ag_c_newcomer_share30: rho_wq with the twin is undefined", "ag_c_entry_item_share90: rho_wq with the twin is undefined"]}, "machine_red": []}
+
+Answer with a JSON list only:
+[{"card": "C01", "type": "MECHANISM_DOUBT", "text": "...", "kill_test": "..."}]

@@ -1,0 +1,1392 @@
+{
+ "G1": {
+  "aliases": {
+   "C01": "G3-7",
+   "C02": "G4-3",
+   "C03": "G4-5",
+   "C04": "G4-8",
+   "C05": "G3-8",
+   "C06": "G3-6",
+   "C07": "G4-4",
+   "C08": "G3-1",
+   "C09": "G3-2",
+   "C10": "G3-5",
+   "C11": "G4-1",
+   "C12": "G4-7",
+   "C13": "G3-4",
+   "C14": "G4-6",
+   "C15": "G3-3",
+   "C16": "G4-2"
+  },
+  "critiques": [
+   {
+    "card": "G3-7",
+    "critic": "G1",
+    "type": "DUPLICATE",
+    "text": "entry_share is popularity, not a graph role. It has rho 0.885 and R2 0.899 to users_90, and its time-shuffle twin keeps rho 0.928 with it, so the twin check is TWIN-BROKEN. The entry share of an item falls mechanically as its audience of repeat users grows.",
+    "kill_test": "Twin as a factor: put entry_share and entry_share_tw in together. If the twin takes an equal or larger split share, entry role carries nothing beyond popularity. Drop entry_share in that case."
+   },
+   {
+    "card": "G3-7",
+    "critic": "G1",
+    "type": "MECHANISM_DOUBT",
+    "text": "Through the recency lens, followup_share is an item average of how often the adopter's previous step was within 30 steps. The ranked user's own pace is not in the column, so the claimed 'follow-up mode' interaction is left for the trees to build from user_recency. LAG runs over distinct steps inside [A-150, A), so an adopter's first step in the window always counts as non-follow-up. That biases the share down for items bought by users with long gaps, and it overlaps ag_adopter_depth (rho 0.262) and the visit-rhythm columns.",
+    "kill_test": "Difference of differences: the NDCG gain in the stratum (active within 30 steps) minus the gain in the null stratum (no event in 90 steps). A difference of zero or less refutes the follow-up-mode mechanism."
+   },
+   {
+    "card": "G4-3",
+    "critic": "G1",
+    "type": "DUPLICATE",
+    "text": "ret_lift has rho 0.812 and R2 0.697 to users_30. Its second term is -ln((users_30+1)/(act+1)), and with a small returner count the first term is often ln(1/(n+1)), constant across items. Most of its variance is therefore negative 30-step popularity. ret_share is the column with new content (R2 0.182 to ag_adopt_rate).",
+    "kill_test": "Twin as a factor: ret_lift against ret_lift_tw. The twin keeps the u30 term and replaces the returners with random active users. If both get similar gain, returner taste adds nothing and ret_lift should be dropped."
+   },
+   {
+    "card": "G4-3",
+    "critic": "G1",
+    "type": "MECHANISM_DOUBT",
+    "text": "The returner set is users whose first step in [A-30, A) follows a gap of 60 or more steps. 'it' counts every event of these users in the window, including later visits once they are active again, so it mixes the return basket with ordinary follow-up buying. The stratum is users with max(t) < A-60, who have not returned yet, and few of them have a new item in the label window. The share also rests on a small tot.n per anchor and will be noisy.",
+    "kill_test": "Difference of differences: the gain among dormant users (max t < A-60) minus the gain among users active in the last 7 steps. If it is not positive, or it reverses at the anchor one step earlier (staleness), the mechanism is refuted."
+   },
+   {
+    "card": "G4-5",
+    "critic": "G1",
+    "type": "COST",
+    "text": "The card and twin both time out at 20 s on probe_day_1. The self-join of O over all history before A-180 is unbounded and filtered only after the join. The seeds L are the last 10 items regardless of age, so for active users they pull in many popular old items with huge co-user fan-out.",
+    "kill_test": "Key level and size: rerun with O cut to [A-365, A-180) and the seeds limited to items with n(i) <= some cap. If it still times out, or the stratum of users dormant more than 180 steps holds under 1% of evaluated users, reject the card."
+   },
+   {
+    "card": "G4-5",
+    "critic": "G1",
+    "type": "MECHANISM_DOUBT",
+    "text": "Through the recency lens, users dormant for more than 180 steps rarely have a new item in [A, A+30), so the target stratum carries almost no NDCG weight. For active users the old-era links are stale tastes, not current intent.",
+    "kill_test": "Difference of differences: the gain among dormant users (max t < A-180) minus the gain among users with min t >= A-90. A difference near zero, or gain only among active users with ag_season_yoy > 1, refutes the mechanism in favour of the seasonality rival."
+   },
+   {
+    "card": "G4-8",
+    "critic": "G1",
+    "type": "DUPLICATE",
+    "text": "cohort_share has rho 0.996 and R2 0.993 to users_all, and its twin keeps rho 0.995, so the check is TWIN-BROKEN. The fi CTE counts every lifetime event of the cohort users, not their entry items. The cohort therefore acts as a random sample of users and the share reproduces global penetration.",
+    "kill_test": "Twin as a factor: cohort_share against cohort_share_tw, where the twin has random cohorts. Equal gain means no cohort-taste effect, so drop cohort_share."
+   },
+   {
+    "card": "G4-8",
+    "critic": "G1",
+    "type": "MECHANISM_DOUBT",
+    "text": "The idea of shared entry interest is not in the SQL. Matching on first events within ±3 steps should be combined with the cohort users' first few steps (e.t <= ft + k), but here they are counted over their whole history. Only cohort_lift (rho 0.235) carries anything. The stratum (min t >= A-60, count <= 5) may also be thin: C16 suggests very few first-ever events lie close to the probe anchors.",
+    "kill_test": "Difference of differences for cohort_lift: the gain among recently acquired users with at most 5 items minus the gain among long-tenured heavy users. If the difference is not positive, or the stratum holds almost no evaluated users, the mechanism is refuted."
+   },
+   {
+    "card": "G3-8",
+    "critic": "G1",
+    "type": "MECHANISM_DOUBT",
+    "text": "Through the recency lens, the seeds are the last 20 items with equal weight and no age limit, while the graph covers only 90 steps. For lapsed users the seeds fall outside the graph and the value is 0, the same as 'no niche link'. For active users it is a long-term profile, not current intent. The twin is clean (rho 0.04), but the card's rho of 0.449 to ag_iuf_cooc suggests an inverse-popularity reweighting of existing cooc.",
+    "kill_test": "Difference of differences: the gain among users with at least 10 items in 90 steps minus the gain among users with at most 2 items. Also check the rival stratum (heavy users × candidates with at most 10 users in 90 steps). If the gain is confined to low-n(j) candidates whatever the user's taste region, it is a niche boost and not diffusion."
+   },
+   {
+    "card": "G3-6",
+    "critic": "G1",
+    "type": "MECHANISM_DOUBT",
+    "text": "This card is in my lens and the idea is sound, but zero is ambiguous. The value is 0 both for users active at A-1, whose post-last-step window is empty, and for users lapsed more than 90 steps, whose seeds s come from the 90-step window. Lapsed users get 0 and do not get NaN. The 'since last visit' window also lengthens with user_recency, so the share partly measures lapse length × neighbour activity. Returning NULL when tot.sw is NULL, and normalising by the length of the window since the last visit, would separate the two.",
+    "kill_test": "Difference of differences: the gain among users lapsed 7 to 90 steps minus the gain among users active at A-1. If the difference is not positive, or the lapsed-stratum gain matches a non-neighbour 'popular since your last step' column, the neighbourhood mechanism is refuted."
+   },
+   {
+    "card": "G3-6",
+    "critic": "G1",
+    "type": "RIVAL",
+    "text": "Popular-since-last-visit explanation. Among lapsed users, anything adopted in (t_last, A) by any active users tracks users_7, users_14 and users_30, depending on the lapse length. The twin keeps the weights of degree-matched random neighbours, and those neighbours also buy popular items. Its rho to users_14 is 0.11, close to the card's 0.19 to ag_ucf30.",
+    "kill_test": "Twin as a factor in the lapsed stratum with popular candidates (users_30 >= 20). If nbr_since_share_tw gets a comparable split share, the neighbourhood adds nothing beyond recency-windowed popularity."
+   },
+   {
+    "card": "G4-4",
+    "critic": "G1",
+    "type": "DUPLICATE",
+    "text": "silence_ratio has rho 0.703 and R2 0.892 to item_last. silence_vs_max has R2 0.643 to global_rank, because the longest historical gap grows with item_age. The rhythm normalisation adds little beyond item_last and item_age, which the trees can already combine.",
+    "kill_test": "Key level: within the stratum (no event in 30 steps, at least 3 active steps), take the partial correlation of silence_ratio with the label given item_last and item_age. A value near zero refutes the rhythm mechanism."
+   },
+   {
+    "card": "G4-4",
+    "critic": "G1",
+    "type": "MECHANISM_DOUBT",
+    "text": "The target stratum, items silent for more than 30 steps, appears only among fill candidates that rarely reach the top 20. Its leverage on NDCG is small. Items with a single active step get avg(gp) NULL and become NaN, which reads as the minimum. That puts one-off items together with 'within rhythm' items on the ratio column.",
+    "kill_test": "Difference of differences: the gain on sparse silent candidates minus the gain on items active in at least 5 of the last 7 steps. If both are about 0, the column is noise."
+   },
+   {
+    "card": "G3-1",
+    "critic": "G1",
+    "type": "MECHANISM_DOUBT",
+    "text": "The twin does not destroy the signal. Card and twin have nearly the same rho to users_30 (0.678 against 0.699) and the same R2 (0.625 against 0.632). With the intermediate hubs remapped to random items of equal popularity, the score keeps its structure, so it is driven by hub popularity and not by the user's taste region. Recency is only a 0.8 decay over the last 10 seeds, whatever their age.",
+    "kill_test": "Twin as a factor: twohop60 against twohop60_tw. If the twin takes a similar split share or gain, especially among pop30 top-100 candidates, the two-hop personal path is refuted."
+   },
+   {
+    "card": "G3-1",
+    "critic": "G1",
+    "type": "COST",
+    "text": "The card takes 7.56 s per probe anchor, the slowest of the valid pair queries and about 40% of the 20 s limit. The fan-out of c2 grows with the number of seeds and hubs, so heavier batches or later anchors with more events could time out.",
+    "kill_test": "Staleness and cost: run the same query at the latest training anchor with a full 5000-user batch. A run over 15 s, or growth in run time faster than the number of events, rejects the card on cost."
+   },
+   {
+    "card": "G3-2",
+    "critic": "G1",
+    "type": "RIVAL",
+    "text": "Release order. after_share has rho 0.738 to pop_share_30 (R2 0.661), which is a freshness signal: j taken after i largely because j launched later. The time-shuffle twin permutes times within a user, so it destroys release order and behavioural order together. The twin's low rho (0.04) therefore cannot separate the two.",
+    "kill_test": "Difference of differences: the gain among young candidates (age <= 30) minus the gain among old candidates whose first event precedes every seed i. If the gain is concentrated in young candidates and vanishes for old ones, after_share only encodes release order."
+   },
+   {
+    "card": "G3-2",
+    "critic": "G1",
+    "type": "OK",
+    "text": "same_step_share (rho 0.52 to ag_sess_cooc) gives the 'bought together but missed' negative signal, which is new for intent. The ordered-pair counts are cheap at 0.51 s, and the coverage and parity checks pass.",
+    "kill_test": "Twin as a factor for same_step_share. If same_step_share_tw, whose step simultaneity is destroyed, does equally well, the basket-miss mechanism is refuted."
+   },
+   {
+    "card": "G3-5",
+    "critic": "G1",
+    "type": "MECHANISM_DOUBT",
+    "text": "Through the recency lens, cohesion is computed on the last 10 items with no age limit, on a 180-step graph. Users whose items predate A-180 get cohesion 0 because of staleness, not scattered taste, so the column partly encodes user_recency and the mix of item ages. hist_cohesion has R2 0.653 to ag_iuf_cooc, and its twin keeps a similar rho (0.769), which suggests the user's cooc mass level and not cohesion. chain_support is the cleaner column (R2 0.083), but its twin rises to 0.423.",
+    "kill_test": "Twin as a factor at user level: if hist_cohesion_tw splits as much as hist_cohesion, drop it. Also a difference of differences restricted to users whose last 10 items all fall within [A-180, A) against users with at least 5 items. If the gain disappears once stale seeds are removed, it was a recency proxy."
+   },
+   {
+    "card": "G4-1",
+    "critic": "G1",
+    "type": "DUPLICATE",
+    "text": "launch_rate has rho 1.0 and R2 1.0 to users_all, and its twin also has rho 1.0 (TWIN-BROKEN), so it adds no information. launch_late_share has R2 0.797 to global_rank. Through the recency lens, a half-life split is a cruder version of trend, users_14 / users_all and ag_mom_30_60, which are already in the model.",
+    "kill_test": "Key level: within cold items (first event at or after A-30), check whether launch_late_share has any partial correlation with the label given users_7 and users_14. A value near zero refutes the card. Drop launch_rate outright."
+   },
+   {
+    "card": "G4-7",
+    "critic": "G1",
+    "type": "DUPLICATE",
+    "text": "trendsetter_sum has R2 0.923 to users_90, and its twin keeps rho 0.990 (TWIN-BROKEN). It counts the adopters of the last 60 steps. Only trendsetter_mean (rho 0.235) could carry scout information.",
+    "kill_test": "Twin as a factor for trendsetter_mean against trendsetter_mean_tw. Equal split share refutes the scout mechanism. Drop trendsetter_sum."
+   },
+   {
+    "card": "G4-7",
+    "critic": "G1",
+    "type": "MECHANISM_DOUBT",
+    "text": "The scout score averages over each user's whole history of items launched before A-60. It does not weight how recently the user acted as a scout, so a user who was an early adopter long ago counts the same as an active one. The mean over adopters also rewards heavy users, as the rival says.",
+    "kill_test": "Staleness: compute the scores from items launched in [A-240, A-60) only and compare. Also a difference of differences between young small-audience items and old saturated items. No positive difference refutes the mechanism."
+   },
+   {
+    "card": "G3-4",
+    "critic": "G1",
+    "type": "RIVAL",
+    "text": "Graph neighbours share most of their audience with j. nbr_mom30 has rho 0.695 and R2 0.559 to ag_mom_30_60, and nbr_trend7 has R2 0.492 to users_30, so the family may be a denoised copy of j's own trend. The twin cuts these correlations to 0.28 and 0.40, so the graph structure does matter. Whether it adds anything beyond own trend is untested.",
+    "kill_test": "Difference of differences: the gain among candidates with 1 to 5 users in 30 steps minus the gain among candidates with at least 50. If the gain is equal or larger in the large-audience stratum, the family is a re-estimate of own trend and not graph smoothing."
+   },
+   {
+    "card": "G4-6",
+    "critic": "G1",
+    "type": "DUPLICATE",
+    "text": "co_support has R2 0.931 to cooc_score, and its twin keeps rho 0.895 (TWIN-BROKEN). The log of the raw co-count over the last 10 seeds is cooc_score without cosine normalisation, which mostly adds back popularity. co_share_j has R2 0.624 to ag_lift_max. The seeds have no recency weighting, so nothing here adds current intent.",
+    "kill_test": "Twin as a factor for co_support. Also a difference of differences for co_share_j between cold candidates (at most 5 users in 180 steps) and candidates with at least 200. No positive difference refutes the denoising mechanism."
+   },
+   {
+    "card": "G3-3",
+    "critic": "G1",
+    "type": "MECHANISM_DOUBT",
+    "text": "This card is in my lens, and the time-shuffle twin is the right one: it kills basket boundaries (rho 0.666 to ag_lt_cooc for the card against 0.216 for the twin). But lb takes the user's last basket from all of ev with no age limit, so a basket 170 steps old seeds the walk as fully as yesterday's. Users whose last basket predates A-180 get 0, and the stratum split is assumed rather than encoded. The value should be NULL beyond 180 steps or carry the age of the last basket.",
+    "kill_test": "Difference of differences: the gain among users active within 30 steps minus the gain among users whose last basket is older than 180 steps. Also staleness: the same query one anchor earlier should lose most of its gain. If the stale version does as well, the column is a long-term transition prior, not next-basket intent."
+   },
+   {
+    "card": "G3-3",
+    "critic": "G1",
+    "type": "RIVAL",
+    "text": "Two-step mass collects on items with high in-degree, popular follow-up items such as staples bought by active repeat customers. The score may then rank popular candidates among active users rather than follow a personal path.",
+    "kill_test": "Twin as a factor among candidates with at least 20 users in 30 steps. If mc2_basket_tw matches the card there, the gain is popularity among active buyers."
+   },
+   {
+    "card": "G4-2",
+    "critic": "G1",
+    "type": "DUPLICATE",
+    "text": "newc_lift has rho 1.0 and R2 1.0 to users_30, and newc_share has an undefined rho, so it is constant. The likely cause is tot.n = 0 at both probe anchors. Then newc_share = 0 everywhere and newc_lift = -ln((users_30+1)/(act+1)) + const, an exact transform of users_30.",
+    "kill_test": "Key level: count the users with min(t) >= A-30 at the probe anchors. If it is 0, or too small for a stable share, the mechanism has no support. Reject both columns."
+   },
+   {
+    "card": "G4-2",
+    "critic": "G1",
+    "type": "SHIFT",
+    "text": "Where newcomers exist, newc_share depends on how many first-ever users fall in [A-30, A) at each anchor, which seems to be 0 at both probes. The column may be constant on some anchors and informative on others, so the trees would learn anchor-specific splits. The 'short-history' stratum (count <= 3) would then mostly hold old one-off users, not newcomers.",
+    "kill_test": "Staleness: run the card at several earlier training anchors and compare the variance of newc_share per anchor. If it is degenerate at most anchors, drop the card."
+   }
+  ],
+  "llm": {
+   "seconds": 101.9,
+   "cost_usd": 0.5757804,
+   "attempts": 1,
+   "prompt_sha256": "12713564425d77dbd4776b933a7c37c4a1c5783ddbec2225066183bff88b15f1"
+  }
+ },
+ "G2": {
+  "aliases": {
+   "C01": "G1-3",
+   "C02": "G4-1",
+   "C03": "G4-5",
+   "C04": "G4-3",
+   "C05": "G1-7",
+   "C06": "G1-4",
+   "C07": "G1-8",
+   "C08": "G4-2",
+   "C09": "G4-6",
+   "C10": "G1-6",
+   "C11": "G4-8",
+   "C12": "G1-5",
+   "C13": "G4-7",
+   "C14": "G1-2",
+   "C15": "G1-1",
+   "C16": "G4-4"
+  },
+  "critiques": [
+   {
+    "card": "G1-3",
+    "critic": "G2",
+    "type": "MECHANISM_DOUBT",
+    "text": "f_x_c_vis_since_launch only varies within a user for items launched inside the 180-step window. For every older item, us.s >= fi.first_t holds on all of u's visits, so the column equals u's visit count, a user-level constant. Most candidates (pop30, fill) are old items, so within-user ranking information exists only for young items. There it reduces to a clipped item_age (visits after first_t). The measured rho for this column is undefined (null), and the twin check is TWIN-BROKEN for the same reason, so the twin does not test the exposure mechanism.",
+    "kill_test": "Key level: replace vis_since_launch by u's distinct active steps in [A-180, A) (user level) plus item_age. If the gain is unchanged among frequent visitors (>= 4 steps), the personal-exposure mechanism is refuted."
+   },
+   {
+    "card": "G1-3",
+    "critic": "G2",
+    "type": "DUPLICATE",
+    "text": "f_x_c_vis_copresent_rate has R2 0.667 (rho 0.659) to global_rank. It is largely the item's daily-demand frequency over the user's visit days, i.e. popularity again.",
+    "kill_test": "Difference of differences: gain of copresent_rate in the >= 4-visit stratum minus gain in the no-visit-in-180 null stratum. A difference near 0 means it is popularity, not exposure."
+   },
+   {
+    "card": "G1-3",
+    "critic": "G2",
+    "type": "RIVAL",
+    "text": "Freshness rival: a low vis_since_launch is attained mostly by items with item_age < 180. The gain would then come from the new-arrival lifecycle phase that item_age and ag_age_gap already encode, not from skipped exposure.",
+    "kill_test": "Stratum item_age < 30 versus item_age > 180 among frequent visitors. If the gain is entirely in the young stratum and absent among old items (where the column is constant per user anyway), the exposure story is refuted."
+   },
+   {
+    "card": "G4-1",
+    "critic": "G2",
+    "type": "DUPLICATE",
+    "text": "f_x_c_launch_rate has measured rho 1.000 and R2 1.0 to users_all, and the time-shuffled twin also has rho 1.000. On the probe it adds no information beyond users_all. The age normalisation is swamped by the count.",
+    "kill_test": "Twin as a factor: if launch_rate_tw (rho 1.0 to the original) gives the same gain, the launch-speed mechanism is refuted. Expected to be refuted."
+   },
+   {
+    "card": "G4-1",
+    "critic": "G2",
+    "type": "SHIFT",
+    "text": "f_x_c_launch_late_share uses the moving midpoint (ft + A)/2. For a 1-2 step old item the 'late half' is a single step, so the share is 0 or 1 from noise. For old items it reflects lifecycle phase measured on a scale that stretches with every anchor. The column also has R2 0.797 to global_rank. The same item drifts in value across anchors without any change in demand.",
+    "kill_test": "Staleness: compute the query at A-30 and compare cold-stratum (min(t) >= A-30) gain. If the stale version predicts as well, the column is not an acceleration signal but a static item property."
+   },
+   {
+    "card": "G4-5",
+    "critic": "G2",
+    "type": "COST",
+    "text": "Machine test red: probe_day_1 timeout after 20 s for both card and twin. The self-join of O (all interactions before A-180) is unbounded and grows with every anchor, so later training anchors will be slower still.",
+    "kill_test": "None possible until the query runs. It must bound O (e.g. [A-545, A-180)) and the seed set before any test."
+   },
+   {
+    "card": "G4-5",
+    "critic": "G2",
+    "type": "SHIFT",
+    "text": "O = t < A-180 is empty at the earliest training anchors and grows monotonically with A. The column is all 0 early and dense late, so its scale and coverage drift with the anchor rather than with taste. Non-NULL shares per day are unavailable because of the timeout.",
+    "kill_test": "Staleness / anchor drift: compare the non-zero share and the gain at the first and last training anchor. A gain only at late anchors refutes the dormant-user mechanism in favour of history-length drift."
+   },
+   {
+    "card": "G4-3",
+    "critic": "G2",
+    "type": "DUPLICATE",
+    "text": "f_x_c_ret_lift has rho 0.812 (R2 0.697) to users_30. Its second term is just -ln of 30-step penetration, so the lift is mostly inverse popularity. f_x_c_ret_share (R2 0.182 to ag_adopt_rate) is the only new part.",
+    "kill_test": "Twin as a factor: the hash-picked twin ret_lift_tw has R2 0.519 to ag_pop_gap. If the twin's lift matches the card's gain, the returner taste mechanism is refuted."
+   },
+   {
+    "card": "G4-3",
+    "critic": "G2",
+    "type": "MECHANISM_DOUBT",
+    "text": "The stratum is users dormant now (max(t) < A-60), but the feature profiles users who already returned within [A-30, A). Being item-level, it is identical for every user, so it can only help dormant users through a tree split on user_recency. The returner population size tot.n also varies by anchor with seasonal reactivation, so share noise differs across anchors.",
+    "kill_test": "Difference of differences: gain in dormant users (recency >= 60) minus gain in users active in the last 7 steps. If it is equal or larger in the active stratum, the gain is campaign/promotion popularity (the rival), not returner taste."
+   },
+   {
+    "card": "G1-7",
+    "critic": "G2",
+    "type": "RIVAL",
+    "text": "missed_share = 1 exactly when item_age < user_recency, so its strongest variation is item freshness relative to the user clock. missed_log is popularity over a user-specific window, with R2 0.664 to ag_pop_decay3 (missed_share R2 0.696 to pop_share_30). The twin (random past step) keeps R2 0.707/0.67 to users_all/global_rank, so it preserves the popularity part and only tests window alignment.",
+    "kill_test": "Difference of differences: gain among users paused 7-90 steps minus gain among users with recency <= 1. If the gain sits entirely in young items (item_age < user_recency) across all users, the missed-demand mechanism is refuted."
+   },
+   {
+    "card": "G1-7",
+    "critic": "G2",
+    "type": "DUPLICATE",
+    "text": "It overlaps C10 and C14: for recent users all three compute popularity since a user-specific step. Within the existing set, missed_share R2 0.696 to pop_share_30.",
+    "kill_test": "Twin as a factor: if missed_log_tw (random step instead of last step) gives the same gain, the 'since last visit' alignment is refuted."
+   },
+   {
+    "card": "G1-4",
+    "critic": "G2",
+    "type": "MECHANISM_DOUBT",
+    "text": "Censoring mismatch: sessions are bucketed by completed gaps, but u is bucketed by the elapsed, still-open pause A - max(t). A user at elapsed 5 will return with a gap > 5, not in bucket 2. Bucket 9 mixes brand-new users (g IS NULL, first session in the 425 window) with returners after a year, so the dormant bucket is dominated by newcomer behaviour. Small buckets (gap >= 32 within the last 60 steps) give a noisy lift.",
+    "kill_test": "Twin as a factor: ub hashed to a random bucket. If state_lift_tw gives the same gain in the stratum (recency >= 32 or <= 1) as state_lift, the pause-state mechanism is refuted."
+   },
+   {
+    "card": "G1-4",
+    "critic": "G2",
+    "type": "DUPLICATE",
+    "text": "f_x_c_state_pop has R2 0.772 (rho 0.767) to users_90, i.e. a 60-step popularity count. Only state_lift (rho 0.033 to users_14) is new.",
+    "kill_test": "Difference of differences: gain in the extreme-state stratum minus gain in the 4-16 pause null stratum. If equal, state_pop is just a longer popularity horizon."
+   },
+   {
+    "card": "G1-8",
+    "critic": "G2",
+    "type": "SHIFT",
+    "text": "Window mismatch: j_basket is averaged over [A-180, A), but u's mean visit size ub uses u's entire history. If basket sizes drift over the store's life (assortment growth, campaigns), basket_gap carries a trend that depends on user tenure and on the anchor, not on style match. Items with no event in 180 steps (fill tail) get NULL, which CatBoost treats as the minimum.",
+    "kill_test": "Staleness: compute the query one anchor earlier. If the gain persists unchanged, the column captures a static item property. Also check the key level: if item-level j_basket alone gives the full gain, the user-item match is refuted."
+   },
+   {
+    "card": "G1-8",
+    "critic": "G2",
+    "type": "RIVAL",
+    "text": "The rival is plausible from the measurements. j_basket has R2 0.419 to ag_adopter_depth, so adopter heaviness, not visit style, may drive it. The twin drops to R2 0.099, which is consistent with either story.",
+    "kill_test": "Stratum n_items_all >= 50 versus the 'clear style' stratum. If the gain concentrates in heavy users regardless of visit style, the style mechanism is refuted."
+   },
+   {
+    "card": "G4-2",
+    "critic": "G2",
+    "type": "DUPLICATE",
+    "text": "f_x_c_newc_lift has measured rho 1.000 and R2 1.0 to users_30, and newc_share has an undefined rho. This is the signature of tot.n = 0 at both probe anchors: no user has a first event in [A-30, A) among the probed histories. Then share is 0 for every item and lift is -ln((k+1)/(m+1)), a monotone transform of users_30. The twin is identical (rho 1.0).",
+    "kill_test": "Key level / degeneracy: count the newcomers (tot.n) per training anchor. If it is 0 or tiny at most anchors, the family is a copy of users_30 and is refuted outright."
+   },
+   {
+    "card": "G4-2",
+    "critic": "G2",
+    "type": "SHIFT",
+    "text": "Where newcomers exist, their number swings with acquisition campaigns, so the share's denominator and noise differ strongly between anchors. Even though the non-NULL share is 1.0 on both days, the values are degenerate there.",
+    "kill_test": "Staleness: the same query one anchor earlier. If the stale version has the same gain, it does not track current entry products."
+   },
+   {
+    "card": "G4-6",
+    "critic": "G2",
+    "type": "DUPLICATE",
+    "text": "f_x_c_co_support has rho 0.897 and R2 0.931 to cooc_score, and the twin keeps rho 0.895. It is the existing cosine signal with a popularity tilt. co_share_j has R2 0.624 to ag_lift_max.",
+    "kill_test": "Twin as a factor in the cold stratum (n <= 5 in 180 steps): if co_support_tw matches the card's gain, the denoising mechanism is refuted."
+   },
+   {
+    "card": "G4-6",
+    "critic": "G2",
+    "type": "MECHANISM_DOUBT",
+    "text": "Lifecycle bias: n(j) is counted over [A-180, A), so an item launched 10 steps ago has n over 10 steps and an old item over 180. The +5 prior shrinks the young items' share hardest, exactly the cold candidates the card targets. Cold here mixes truly new items with dying long-tail items, which have opposite futures.",
+    "kill_test": "Difference of differences: within the cold stratum, split by item_age < 30 versus item_age > 180. If the gain comes only from dying items (negative direction) or not at all, the claimed mechanism is refuted."
+   },
+   {
+    "card": "G1-6",
+    "critic": "G2",
+    "type": "DUPLICATE",
+    "text": "f_x_c_pace_trend has R2 0.835 (rho 0.762) to ag_pop_decay3. The random-horizon twin keeps R2 0.689 to the same column, so it is mostly an existing momentum ratio.",
+    "kill_test": "Twin as a factor: if pace_trend_tw (hash-assigned horizon) gives the same gain in the median-gap <= 2 or >= 16 stratum, alignment to user pace is refuted."
+   },
+   {
+    "card": "G1-6",
+    "critic": "G2",
+    "type": "SHIFT",
+    "text": "Horizons h = 1, 2 and 4 read 1-4 steps of demand. If steps are days, these counts carry the weekly rhythm. Anchors every 30 steps fall on a different weekday each time (30 mod 7 = 2), so the same item swings between anchors. The 60-step denominator also understates the rate for items younger than 60 steps, inflating their momentum.",
+    "kill_test": "Staleness: the same query one anchor earlier, restricted to users with h <= 2. If the gain varies in sign or size across anchors by weekday phase (anchor mod 7), the column is periodic noise, not pace."
+   },
+   {
+    "card": "G4-8",
+    "critic": "G2",
+    "type": "DUPLICATE",
+    "text": "f_x_c_cohort_share has rho 0.996 and R2 0.993 to users_all, and the twin keeps rho 0.995. fi counts cohort members' lifetime interactions, not their entry interests, so the share is lifetime popularity. cohort_lift (R2 0.095) is the only new part.",
+    "kill_test": "Twin as a factor: if cohort_lift_tw matches cohort_lift in the new short-history stratum, shared-acquisition taste is refuted."
+   },
+   {
+    "card": "G4-8",
+    "critic": "G2",
+    "type": "SHIFT",
+    "text": "Edge effect: for users whose first event is within 3 steps of A, the cohort window [ft-3, ft+3] is truncated by the anchor, so cohorts are smaller and noisier exactly in the target stratum. Cohort size also depends on the acquisition rate at that time, which varies by anchor.",
+    "kill_test": "Difference of differences: gain for users with user_age <= 30 (cohort overlaps pop30's window) minus gain for users aged 30-60. If the gain is only in the first group, it is recent popularity (the rival)."
+   },
+   {
+    "card": "G1-5",
+    "critic": "G2",
+    "type": "MECHANISM_DOUBT",
+    "text": "This is a user-level family: it cannot reorder candidates within a user except through interactions with item columns. prev_gap is the gap before the last visit, not the current elapsed pause (that is user_recency). The 1000 sentinel for single-step users sits in the same column as real gaps. Measured overlaps are moderate (prev_gap R2 0.489 to ag_steps_30; last_sess_n R2 0.461 to ag_cond_decay).",
+    "kill_test": "Key level: compare with a pair-level interaction (e.g. last_sess_n x pop30_rank). If adding the user columns changes logloss but not per-user NDCG in the haul/return stratum, the switch mechanism is refuted."
+   },
+   {
+    "card": "G4-7",
+    "critic": "G2",
+    "type": "DUPLICATE",
+    "text": "f_x_c_trendsetter_sum has R2 0.923 (rho 0.873) to users_90, and the twin keeps rho 0.990. It is a recent-adopter count.",
+    "kill_test": "Twin as a factor for trendsetter_mean in the young small-audience stratum. If the time-shuffled twin gives the same gain, scouting is refuted."
+   },
+   {
+    "card": "G4-7",
+    "critic": "G2",
+    "type": "SHIFT",
+    "text": "Censoring: an item's later popularity ln(1 + users_all) is measured up to A. Items launched just before A-60 have had at most about 60 steps to grow, while older items had hundreds. Items whose first event coincides with the data start are not launches at all, so all their early adopters count as 'early'. Scout scores therefore depend on which era a user was active in and inflate as the anchor advances.",
+    "kill_test": "Staleness: compute user scores at A-30 and apply them at A. If the scout ranking changes substantially or the gain disappears, the score is era/censoring-driven."
+   },
+   {
+    "card": "G1-2",
+    "critic": "G2",
+    "type": "MECHANISM_DOUBT",
+    "text": "The twin always shifts visit days earlier (s - 1 - hash % 28), so it differs from the original in staleness as well as in personal alignment. A loss for the twin would be explained by recency of the context window, not u's exposure. vday_share has R2 0.597 to users_30, and for users with recency <= 3 it is a 1-3 step popularity window carrying the weekday rhythm.",
+    "kill_test": "Twin as a factor, redesigned to shift days both forward and backward within u's recency band. If the redesigned twin matches the gain in the recency <= 14 stratum, the personal-context mechanism is refuted."
+   },
+   {
+    "card": "G1-2",
+    "critic": "G2",
+    "type": "RIVAL",
+    "text": "Freshness rival: for items launched after u's last 3 visit days the share is 0 and the lift is about ln(0.0001/p30), strongly negative. The lift column therefore partly encodes 'launched after u's visit' (an item_age versus user_recency rule).",
+    "kill_test": "Difference of differences: gain in the recency <= 14 stratum minus the recency > 90 null stratum, restricted to items with item_age > user_recency. If no gain remains, the gain is freshness."
+   },
+   {
+    "card": "G1-1",
+    "critic": "G2",
+    "type": "MECHANISM_DOUBT",
+    "text": "The decay exp(-age/7) and the 365 default assume steps of about a day, but the step unit is unknown. If a step is a week, the decay zeroes everything after 2-3 steps. The twin shuffles times only among u's last 15 items, so trigger ages stay within the same narrow range and the twin barely changes the columns: rho to ag_iuf_cooc is 0.287/0.424/0.533 versus 0.316/0.464/0.53 for the card.",
+    "kill_test": "Twin as a factor in the mixed-recency stratum (>= 2 active steps in 90, last event within 14). If trig_*_tw gives the same gain, timing is refuted and the gain is the capped co-adoption share (the rival)."
+   },
+   {
+    "card": "G4-4",
+    "critic": "G2",
+    "type": "DUPLICATE",
+    "text": "f_x_c_item_silence_ratio has R2 0.892 (rho 0.703) to item_last. The mean-gap normaliser adds little beyond the absolute silence.",
+    "kill_test": "Difference of differences: gain in the sparse stratum (max(t) < A-30, >= 3 active steps) minus the null stratum of items active >= 5 of the last 7 steps. If it is zero, the column is item_last."
+   },
+   {
+    "card": "G4-4",
+    "critic": "G2",
+    "type": "MECHANISM_DOUBT",
+    "text": "Lifecycle confound: the mean gap is averaged over the item's whole life, so a decaying item's current gap exceeds its historical mean and max by construction. silence_vs_max therefore flags normal decay rather than death. Items with a single active step get avg(gp) = NULL, i.e. NaN, which CatBoost treats as the minimum ('within rhythm'). These are exactly the fresh one-step launches. Gaps from data start are left-censored.",
+    "kill_test": "Staleness: the same query one anchor earlier on the sparse stratum. If a stale silence_vs_max predicts as well, the column measures a fixed decay profile, not current silence against rhythm."
+   }
+  ],
+  "llm": {
+   "seconds": 120.4,
+   "cost_usd": 0.5912684,
+   "attempts": 1,
+   "prompt_sha256": "f8ed63e8f4edda773dececc51112e1fae005d9f6b5d5390d98167d0ba720ddbf"
+  }
+ },
+ "G3": {
+  "aliases": {
+   "C01": "G1-3",
+   "C02": "G2-8",
+   "C03": "G1-8",
+   "C04": "G2-6",
+   "C05": "G1-6",
+   "C06": "G1-4",
+   "C07": "G1-2",
+   "C08": "G1-7",
+   "C09": "G2-7",
+   "C10": "G1-1",
+   "C11": "G2-3",
+   "C12": "G2-4",
+   "C13": "G2-1",
+   "C14": "G1-5",
+   "C15": "G2-2",
+   "C16": "G2-5"
+  },
+  "critiques": [
+   {
+    "card": "G1-3",
+    "critic": "G3",
+    "type": "MECHANISM_DOUBT",
+    "text": "ag_c_vis_since_launch has max_abs_rho = null to every existing column and an undefined rho with its twin (TWIN-BROKEN). With coverage 1.0, that points to a degenerate, near-constant column on the probe. Even when it varies, the count is mostly u's number of active steps in [A-180, A), capped only for items launched inside the window. That makes it a user-level visit count rather than a pair-level exposure signal.",
+    "kill_test": "Key level: replace vis_since_launch with u's count of distinct active steps in [A-180, A) (user level). If the model gain is unchanged, the per-item launch clipping carries nothing and the mechanism is refuted."
+   },
+   {
+    "card": "G1-3",
+    "critic": "G3",
+    "type": "DUPLICATE",
+    "text": "The co-presence rate is an item-level daily-demand frequency sampled on u's visit days: rho 0.659 and R2 0.667 to global_rank. The twin keeps R2 0.449 to global_rank. It is not a user-user co-visitation signal, because it ignores which items u took on those steps.",
+    "kill_test": "Twin as a factor: train with vis_copresent_rate_tw instead of the original. If NDCG in the frequent-visitor stratum is within noise of the original, the personal-exposure part is refuted."
+   },
+   {
+    "card": "G2-8",
+    "critic": "G3",
+    "type": "DUPLICATE",
+    "text": "R2 0.913 (rho 0.817) to global_rank. The mass-center fraction is almost fully explained by lifetime popularity rank, so it adds little item-lifecycle information on top of item_age, item_last, the peak features and ag_rec_mean_age.",
+    "kill_test": "Difference of differences: gain of original over twin in the stratum (items aged >= 90 with >= 10 events) minus the same gain in the null stratum (items launched within 14 steps). A value of about 0 refutes the decay-axis mechanism."
+   },
+   {
+    "card": "G1-8",
+    "critic": "G3",
+    "type": "RIVAL",
+    "text": "Basket size is a co-occurrence-graph quantity: an item adopted inside large visits has high degree in the session graph. j_basket is therefore partly the degree normaliser that ag_sess_cooc and cooc already divide out, besides being an adopter-activity proxy (R2 0.419 to ag_adopter_depth). basket_gap is just j_basket minus a user constant, and trees can form that from the two parts.",
+    "kill_test": "Key level: keep only the item-level j_basket and drop basket_gap. If the gain is unchanged, the user-style matching (pair level) is refuted."
+   },
+   {
+    "card": "G2-6",
+    "critic": "G3",
+    "type": "MECHANISM_DOUBT",
+    "text": "The time unit is unknown, yet the family hard-codes a 365-step cycle (windows [A-395, A-365) and [A-365, A-335)). If one step is not a day, the 'phase-aligned' windows are arbitrary lags. Also, R2 0.605 to ag_ly_share_gap: summed over up to 10 seeds, the score is largely j's popularity in [A-365, A-335) among anyone active a cycle earlier. That is an item-level seasonal level, not a seed-conditioned transition.",
+    "kill_test": "Key level: compute the item-only version, the share of all users active in [A-395, A-365) who took j in [A-365, A-335). If it reproduces the gain of the pair version in the stratum, the user-conditioned transition is refuted."
+   },
+   {
+    "card": "G2-6",
+    "critic": "G3",
+    "type": "COST",
+    "text": "The tr join pairs every seed adopter in w1 with every candidate adopter in w2 per user. On a store with heavy users a cycle ago this grows quadratically, and only the 0.348 s probe median was measured. The rival stratum SQL (a four-way ev self-join) is far heavier and cannot run within the limits.",
+    "kill_test": "Staleness: run the same query one anchor earlier and at the largest anchor. If seconds grow superlinearly with ev size beyond the 20 s limit, the family is not viable."
+   },
+   {
+    "card": "G1-6",
+    "critic": "G3",
+    "type": "DUPLICATE",
+    "text": "R2 0.835 (rho 0.762) to ag_pop_decay3. The random-horizon twin still has R2 0.689 to the same column, so the user-pace alignment adds a small margin over existing momentum features. Pace is user-level and does not involve the item graph.",
+    "kill_test": "Twin as a factor: replace pace_trend with pace_trend_tw. If NDCG in the stratum (median gap <= 2 or >= 16) matches the original, pace alignment is refuted."
+   },
+   {
+    "card": "G1-4",
+    "critic": "G3",
+    "type": "MECHANISM_DOUBT",
+    "text": "Two problems with the bucketing. First, session bucket 9 (g IS NULL inside the 425-step window) mixes first-ever sessions of brand-new users with returns after more than about a year. The user bucket 9 means only recency > 365, so the lookup matches dormant users to newcomer baskets. Second, state_lift has rho 0.033 and R2 0.008: a smoothed log-ratio over 10 sparse buckets of 60 steps is near noise for tail items. state_pop is a 60-step popularity (R2 0.772 to users_90).",
+    "kill_test": "Twin as a factor: with state_lift_tw (hashed buckets) instead of state_lift, a difference of differences between the stratum (recency >= 32 or <= 1) and the null stratum (4-16) of about 0 refutes the pause-state mechanism."
+   },
+   {
+    "card": "G1-2",
+    "critic": "G3",
+    "type": "RIVAL",
+    "text": "Same-day co-presence is a crude user-user neighbourhood: it counts everyone active on u's last 3 steps, regardless of whether they shared any item with u. ag_sess_cooc and ag_ucf30 already carry the item-conditioned version. For active users the share is a 1-3-step popularity (R2 0.597 to users_30). The twin lift has a higher R2 to ag_mom_30_60 (0.391) than the original (0.135), so the shifted dates still carry momentum.",
+    "kill_test": "Difference of differences: gain of original over twin for users with last event within 14 steps, minus the same gain for users with last event before A-90. If it is not positive and concentrated where recency > 3 (outside the rival stratum), the personal-context mechanism is refuted."
+   },
+   {
+    "card": "G1-7",
+    "critic": "G3",
+    "type": "DUPLICATE",
+    "text": "missed_log has R2 0.664 to ag_pop_decay3 and missed_share has R2 0.696 to pop_share_30. The random-visit twin keeps the same level (R2 0.707 to users_all, 0.67 to global_rank). The per-user window [last_t+1, A) is popularity in a window of length user_recency, which trees approximate from user_recency and the users_7/14/30/90 ladder.",
+    "kill_test": "Twin as a factor: replace both columns with their twins. If NDCG in the stratum (recency 7-90) minus the null stratum (recency <= 1) is unchanged, the own-last-visit window is refuted."
+   },
+   {
+    "card": "G2-7",
+    "critic": "G3",
+    "type": "DUPLICATE",
+    "text": "traffic_resid_wk0 has R2 0.928 (rho 0.86) to ag_mom_30_60, and traffic_beta has R2 0.886 to trend. Both are re-expressions of existing momentum features.",
+    "kill_test": "Twin as a factor: the week-permuted twin falls to R2 0.14. If the original adds nothing over the twin in the stratum (>= 50 events in 91 steps) beyond the null stratum, the elasticity mechanism is refuted."
+   },
+   {
+    "card": "G1-1",
+    "critic": "G3",
+    "type": "MECHANISM_DOUBT",
+    "text": "The trigger is not directed. HIT counts any event of the neighbour v on j in [A-90, A), including events before v took src, so this is undirected co-adoption, not 'src leads to j'. The temporal claim rests only on u's src_t. The twin permutes src_t within L(u), which is the identity for users whose last 15 items fall on one active step, a large share. This weakens the twin exactly where cooc_last5 and cooc_wsum already apply. trig_age is also bounded below by user_recency, so part of it is user level.",
+    "kill_test": "Difference of differences: gain of original over twin for users with >= 2 active steps in 90 and an event within 14 steps, minus the same gain for users with <= 1 active step. If it is about 0, the real-time decay is refuted. Add a directed variant with e.t > v's src time; if it does not beat the undirected one, the transition reading fails."
+   },
+   {
+    "card": "G1-1",
+    "critic": "G3",
+    "type": "OK",
+    "text": "The family is the most novel pair-level graph signal in this batch (max R2 0.373 to ag_iuf_cooc), with no leak: all windows have t >= {A} - 90 and t < A. Cost is 1.27 s, within limits.",
+    "kill_test": "Staleness: run the query one anchor earlier (A-30). If the stale version yields the same gain, live trigger timing is refuted."
+   },
+   {
+    "card": "G2-3",
+    "critic": "G3",
+    "type": "DUPLICATE",
+    "text": "R2 0.902 (rho 0.88) to users_30. The shrinkage sum(g) / (count + 20) scales the value by cell occupancy, and the cells are keyed on the log2 audience bucket. The value is therefore mostly a popularity-bucket code. The twin hashes the age bucket into cells that often do not exist, which destroys the level information too (R2 0.09), not only life stage.",
+    "kill_test": "Twin as a factor, with a fixed twin that permutes the age bucket among existing age buckets of the same (pb, tb). If the gain in young items (< 60 steps) minus old items (> 365 steps) is about 0, life stage is refuted."
+   },
+   {
+    "card": "G2-4",
+    "critic": "G3",
+    "type": "DUPLICATE",
+    "text": "dormancy_ratio has R2 0.892 (rho 0.703) to item_last, and longest_gap has R2 0.699 to global_rank. The ratio is item_last rescaled by activity density, already available from item_last and users_all.",
+    "kill_test": "Difference of differences: gain of original over twin in silent items with history (max(t) < A-7, >= 20 events) minus the gain in items active within 2 steps. If it is about 0 or comes only from fill negatives, the revival mechanism is refuted."
+   },
+   {
+    "card": "G2-1",
+    "critic": "G3",
+    "type": "DUPLICATE",
+    "text": "launch_vs_last_visit = ft(j) - tl(u) = user_recency - item_age, an exact linear combination of two base features. Within a user it is a monotone transform of item_age (R2 0.689 to item_age). TWIN-BROKEN: rho 0.884 with the twin. pop_at_last_visit has R2 0.732 to users_30.",
+    "kill_test": "Key level: replace launch_vs_last_visit with item_age alone. If the within-user ranking and NDCG are identical, the column carries no pair information."
+   },
+   {
+    "card": "G2-1",
+    "critic": "G3",
+    "type": "MECHANISM_DOUBT",
+    "text": "pop_at_last_visit counts distinct users of j in [tl-7, tl] over the whole store. It is not what u saw, because u took nothing of j. Nothing ties it to u's item neighbourhood at tl: users co-active with u's items at tl would be the graph version of exposure.",
+    "kill_test": "Twin as a factor: compare against pop_at_last_visit_tw (random visit) in lapsed users (max(t) < A-14) minus active users (max(t) >= A-2). A difference of about 0 refutes exposure at the last visit."
+   },
+   {
+    "card": "G1-5",
+    "critic": "G3",
+    "type": "MECHANISM_DOUBT",
+    "text": "These are user-level columns, constant within a user's 200 candidates. Under binary NDCG they can only act through interactions with the cooc and popularity features. The claimed switch between popularity and cooc is plausible, but prev_gap overlaps ag_steps_30 and ag_gap_90 (R2 0.489), and last_sess_n has R2 0.461 to ag_cond_decay. The default 1000 for single-step users is one extreme bucket that mixes newcomers.",
+    "kill_test": "Key level: train with the columns but evaluate NDCG only within users. If the gain over the twin in the stratum (last-step count >= 4 or gap >= 60) is about the same as in the null stratum (single active step), the state-switch mechanism is refuted."
+   },
+   {
+    "card": "G2-2",
+    "critic": "G3",
+    "type": "RIVAL",
+    "text": "Co-launched items that are shopped together already have edges in the 180-step cooc graph, so launch proximity should add value only where the graph is empty. A second rival is freshness: users who take fresh items get a high kernel for every fresh candidate, an item_age × user freshness preference interaction (nearest ag_age_gap, R2 0.212). The twin swaps ft across items within a popularity bucket, which also destroys item_age (twin R2 to item_age 0.059). It does not isolate drop alignment from freshness.",
+    "kill_test": "Difference of differences: gain of original over twin in pairs with cooc_score = 0 and item_age >= 60, minus the gain in pairs with cooc_score > 0. If the gain sits only in fresh candidates or only where cooc_score > 0, the drop-cohort mechanism is refuted."
+   },
+   {
+    "card": "G2-5",
+    "critic": "G3",
+    "type": "MECHANISM_DOUBT",
+    "text": "Both columns and both twins have max_abs_rho = null and an undefined rho with the twin (TWIN-BROKEN), although coverage is 1.0. This points to near-constant values on the probe, for example smoothing that dominates sparse counts. Also, the raw share follows the anchor-level acquisition rate g30, so its scale moves with each traffic wave instead of being expressed relative to g30. The family has no item-graph content.",
+    "kill_test": "Staleness: compute the same query one anchor earlier and check its variance and rank correlation with the current values. If the columns are constant, or the item ranking does not persist, the stable entry-item mechanism is refuted."
+   }
+  ],
+  "llm": {
+   "seconds": 117.0,
+   "cost_usd": 0.5638284,
+   "attempts": 1,
+   "prompt_sha256": "7bbe05d28c6f706dc24263fe379b7d5fbdf9e795b0fac1b8e8eb6e30e868f795"
+  }
+ },
+ "G4": {
+  "aliases": {
+   "C01": "G3-5",
+   "C02": "G3-2",
+   "C03": "G2-4",
+   "C04": "G2-7",
+   "C05": "G2-5",
+   "C06": "G2-8",
+   "C07": "G2-3",
+   "C08": "G2-1",
+   "C09": "G3-3",
+   "C10": "G2-2",
+   "C11": "G3-4",
+   "C12": "G2-6",
+   "C13": "G3-6",
+   "C14": "G3-8",
+   "C15": "G3-1",
+   "C16": "G3-7"
+  },
+  "critiques": [
+   {
+    "card": "G3-5",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "Through the short-history lens, the gate is undefined exactly where the base is weakest. Users with one item have no pairs and get NaN, which CatBoost reads as the minimum. That puts them next to 'maximally scattered' users. Yet non_null_share is 1.0 on both probe days, so either the probe has no single-item users or the NULL path is not exercised. The two also mix in a second way. Any seed with no event in [A-180, A) has n(i)=0 and contributes w=0. A lapsed user with a cohesive but old history therefore scores the same as a scattered one. 'Stale' and 'scattered' are confounded.",
+    "kill_test": "Difference of differences: the gain from adding the family among users with >=5 items, all of whose last-10 items have an event in [A-180, A), minus the gain among users with >=5 items, >=3 of whose last-10 items have none. If the gain sits only in the stale stratum, the column is a history-staleness flag, not cohesion."
+   },
+   {
+    "card": "G3-5",
+    "critic": "G4",
+    "type": "DUPLICATE",
+    "text": "hist_cohesion has R2 0.653 to ag_iuf_cooc, and its twin keeps R2 0.666 to the same column. The neighbour shuffle does not remove what hist_cohesion shares with the existing graph scores. Only chain_support (R2 0.083) is new, and its twin is more correlated with ag_iuf_cooc (0.423) than the original (0.107), which is odd for a destroying twin.",
+    "kill_test": "Twin as a factor: fit with the original and with the twin. If the twin recovers >=80% of the gain from hist_cohesion, the mechanism is the shared popularity/recency mix, not graph cohesion."
+   },
+   {
+    "card": "G3-2",
+    "critic": "G4",
+    "type": "DUPLICATE",
+    "text": "after_share has R2 0.661 to pop_share_30. That is the card's own rival in action: a young j can only come after i. Cold and recently launched candidates, the group the base describes worst, get high after_share purely from release timing.",
+    "kill_test": "Difference of differences: the gain among candidates with item_age > 120 (both i and j existed for the whole 120-step window) minus the gain among candidates with item_age <= 30. If the gain vanishes in the old stratum, the column encodes freshness, not behavioural order."
+   },
+   {
+    "card": "G3-2",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "Every pair without co-users sits at the prior (0.5, 0). That covers most fill candidates and cold items far from the user's recent items. So the family cannot reach the candidates the base misses. It only re-sorts candidates that already have cooc signal, where cooc_score and ag_sess_cooc (R2 0.376 for same_step_share) already speak.",
+    "kill_test": "Difference of differences between the stratum (pairs with order evidence) and the null stratum (prior values). Also check whether the gain inside the stratum survives restricting to pairs with cooc_score = 0. If nothing remains there, the family adds no coverage."
+   },
+   {
+    "card": "G2-4",
+    "critic": "G4",
+    "type": "DUPLICATE",
+    "text": "dormancy_ratio has R2 0.892 to item_last. Cold items make this worse. An item with a single active step has nst=1 and tl=tf, so the ratio reduces to ln(1+item_last), and longest_gap is COALESCE(NULL, 0)=0. The 'revival' signal therefore does not exist for young or sparse items. longest_gap has R2 0.699 to global_rank, because a long life with few active steps simply means low volume.",
+    "kill_test": "Difference of differences: the gain in the stratum (silent >=7 steps, >=20 events) minus the gain among items with <=3 active steps. Also, within the stratum, run the twin as a factor. If the twin matches the original, the column is an item_last/volume rescaling."
+   },
+   {
+    "card": "G2-4",
+    "critic": "G4",
+    "type": "RIVAL",
+    "text": "The rival explains the expected gain better. Fill candidates are old and silent, and the ratio mostly sharpens their demotion. Revivals in the next 30 steps are rare positives, so NDCG@20 gains would come from negatives.",
+    "kill_test": "Difference of differences on positives only: the rank lift of labelled positives with item_last >= 30, minus the rank lift of positives with item_last < 7. If silent positives do not move up, the revival mechanism is refuted."
+   },
+   {
+    "card": "G2-7",
+    "critic": "G4",
+    "type": "DUPLICATE",
+    "text": "traffic_beta has R2 0.886 to trend, and traffic_resid_wk0 has R2 0.928 to ag_mom_30_60. That leaves almost nothing new. For cold items there is also a bias. An item launched inside the 91-step window has zero weeks before launch. If site traffic grew over the same weeks, the slope fits the launch ramp and is not elasticity. Items with <5 events have no row and get NaN as the minimum. That puts them in the same place as the lowest-elasticity items.",
+    "kill_test": "Difference of differences: the gain among items with item_age > 91 (full 13-week support) minus the gain among items with item_age <= 91. If the gain sits only in young items, beta encodes the launch ramp."
+   },
+   {
+    "card": "G2-7",
+    "critic": "G4",
+    "type": "SHIFT",
+    "text": "The mechanism needs traffic to vary between weekly buckets. non_null_share is 1.0 on both probe days, but the slope is only identifiable when the 13 values of ln(weekly active users) differ. At flat-traffic anchors regr_slope is noise. Weekly buckets also assume 7 steps is a meaningful unit, while the time unit is unknown.",
+    "kill_test": "Staleness: run the same query one anchor earlier (A-30) and correlate the beta of each item across the two anchors. A rank correlation below 0.3 means beta is not a stable item property."
+   },
+   {
+    "card": "G2-5",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "This is the one card aimed at short-history users, but the measurements are degenerate. max_abs_rho is null for both columns and for both twins, and the twin check reports rho undefined. Undefined correlations usually mean zero variance, so the output may be constant at the probe anchors. That would happen if no first-ever events fall in [A-30, A), which makes g30 zero, or if the smoothing dominates. The signal is also item-level, so trees must learn the interaction with user_age or n_items_all themselves.",
+    "kill_test": "Key level: report the variance and distinct count of each column per probe anchor. Then compute the pair-level version, entry_share × [n_items_all <= 3]. If the item-level column has near-zero variance, or the gain appears only in the pair version, the item-level card is refuted."
+   },
+   {
+    "card": "G2-5",
+    "critic": "G4",
+    "type": "RIVAL",
+    "text": "This rival has its own stratum. Entry items are also the most-promoted items, so new users can be served by pop30_rank and users_7 already. The difference of differences between new and long-standing users is the decisive check.",
+    "kill_test": "Difference of differences: the gain among users with user_age <= 30, minus the gain among users with user_age > 365. A difference near zero (gain spread evenly) refutes the entry-item mechanism in favour of promotion."
+   },
+   {
+    "card": "G2-8",
+    "critic": "G4",
+    "type": "DUPLICATE",
+    "text": "mass_center_frac has R2 0.913 to global_rank. It also breaks on cold items. With one event, avg(A-t) = A-ft, so the fraction is exactly 1.0. A sparse item seen once therefore looks maximally 'fading', the same as a dead old item. With 2–3 events the value is pure noise. The 'young items ≈ 0.5' null stratum is also wrong: young items can sit anywhere between 0 and 1.",
+    "kill_test": "Difference of differences: the gain among established items (age >= 90, >= 10 events) minus the gain among items with <= 3 events. If most of the gain comes from sparse items at 1.0, the column is a low-volume flag, already covered by global_rank."
+   },
+   {
+    "card": "G2-3",
+    "critic": "G4",
+    "type": "DUPLICATE",
+    "text": "cohort_exp_growth has R2 0.902 to users_30. The shrinkage sum(g)/(count+20) pulls sparse cells hardest toward 0. Young-item cells are the sparse ones (few items launched in each age bucket), so the column is flattest exactly in its claimed stratum. It is informative mainly for large, populated cells of old items, which users_30 already describes.",
+    "kill_test": "Twin as a factor inside the young-item stratum (first event within 60 steps). If the age-randomised twin gives the same gain there, life-cycle stage plays no role and the gain is regression to the mean."
+   },
+   {
+    "card": "G2-3",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "For cold items with u1 = 0, the direction cell sign(u0-u1) is always +1 and the level cell carries all the information. So on brand-new items the table lookup is a function of users_30 alone. The life-cycle turn cannot be learned for items with no previous 30-step window.",
+    "kill_test": "Difference of differences: the gain among items with u1 >= 3 minus the gain among items with u1 = 0. A larger gain for u1 = 0 refutes the life-cycle claim, since there the column is only users_30 binned."
+   },
+   {
+    "card": "G2-1",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "launch_vs_last_visit = ft - tl = user_recency - item_age, an exact difference of two base columns. Its R2 to item_age is 0.689, and the twin check is TWIN-BROKEN (|rho| with the twin 0.884). The random-visit twin barely changes it, so the twin cannot test exposure. pop_at_last_visit (R2 0.732 to users_30) is the novel part, and only for lapsed users. That is the right lens group, but for active users the column equals users_7.",
+    "kill_test": "Twin as a factor for pop_at_last_visit alone, inside the stratum of users lapsed >= 14 steps. If the random-visit twin recovers most of the gain, exposure at the last visit is refuted and the column is long-window popularity."
+   },
+   {
+    "card": "G2-1",
+    "critic": "G4",
+    "type": "RIVAL",
+    "text": "The rival is long-window popularity (users_90-like) for lapsed users. Since the twin is broken for the launch column, the exposure explanation and the rival can only be told apart through pop_at_last_visit in a far-lapsed stratum.",
+    "kill_test": "Difference of differences: the gain among users lapsed >= 60 steps minus the gain among users active in the last 2 steps, computed with pop_at_last_visit only. If the far-lapsed gain is not larger, exposure is refuted."
+   },
+   {
+    "card": "G3-3",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "The null stratum is mis-specified. lb takes the user's last basket from all of ev, while transitions come from other users in [A-180, A). A user lapsed for more than 180 steps can still have seeds with transitions, so the score is not 0 there. For short-history users, one basket of one item makes the walk P(k|i)P(j|k) from a single seed, and that is dominated by high in-degree hubs. Cold candidates have few in-transitions and score about 0, so the family does not reach items the base misses.",
+    "kill_test": "Difference of differences between the stratum (active in the last 30 steps) and users lapsed > 180 steps. If the gain is similar, the chain is not what matters. Also test the rival stratum (users_30 >= 20 candidates): if the gain concentrates there, the column is a hub-popularity signal."
+   },
+   {
+    "card": "G2-2",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "Censored items get kern = 0 and gap = ln(1001). Users whose recent items are all old get the same value as 'far from the drop'. Cold candidates near young history items score high by construction. That is a user-level freshness preference × item_age, not a shared drop. The twin shuffles ft within count buckets, which destroys age as well as drop identity, so it cannot separate the two.",
+    "kill_test": "Difference of differences: inside the stratum, the gain among candidates with item_age > 60 (old drops), minus the gain among candidates with item_age <= 14. If the gain exists only among young candidates, drop co-membership is refuted in favour of freshness preference."
+   },
+   {
+    "card": "G2-2",
+    "critic": "G4",
+    "type": "RIVAL",
+    "text": "The card's own rival is id adjacency (ag_id_prox_rec, ag_id_dist_all). Measured R2 is only 0.212 to ag_age_gap, so redundancy with id proximity is not shown either way.",
+    "kill_test": "Difference of differences: the gain among pairs within 10 id ranks of a recent item, minus the gain among pairs with no such neighbour. If the gain sits only in the id-adjacent stratum, the column repeats id proximity."
+   },
+   {
+    "card": "G3-4",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "For cold items (1–5 users in 30 steps), the top-20 cosine neighbours come entirely from those 1–5 users' other items. The 'smoothed' trend is then the trend of a few users' baskets, which is no more stable than the item's own count. Items with no events in [A-60, A) get NaN, which CatBoost reads as the minimum, so far-from-recent fill candidates get no help.",
+    "kill_test": "Difference of differences: the gain among candidates with users_30 between 1 and 5, minus the gain among candidates with users_30 >= 50. If the gain is not larger in the small-audience stratum, the denoising claim is refuted."
+   },
+   {
+    "card": "G2-6",
+    "critic": "G4",
+    "type": "SHIFT",
+    "text": "The window [A-395, A-335) lies before the data start for early training anchors (anchors every 30 steps). There, and for every candidate launched after A-335, the column is COALESCE 0. non_null_share 1.0 on both probe days hides this. The value of 0 means 'no data' at early anchors and for cold items, and 'no transition' elsewhere. It can never lift cold candidates.",
+    "kill_test": "Staleness: compute the share of nonzero values per anchor across the training anchors and at A-30. If the nonzero share is near 0 for the early anchors, the column carries a fold-wise shift. Also run the half-cycle twin as a factor: an equal gain refutes phase alignment."
+   },
+   {
+    "card": "G2-6",
+    "critic": "G4",
+    "type": "DUPLICATE",
+    "text": "ly_season_trans has R2 0.605 to ag_ly_share_gap. Much of the value is the item-level last-year level, not the user-conditioned transition.",
+    "kill_test": "Key level: replace the column with its item-level analogue, the mean over users of the same score per item. If the item-level version recovers most of the gain, the pair conditioning adds nothing."
+   },
+   {
+    "card": "G3-6",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "This fits the lapsed-user lens well (R2 only 0.157 to ag_ucf30), but its seeds come from the 90-step window e. Users lapsed for more than 90 steps have no seeds and get 0. That is the group whose catch-up need is largest. Users with 1–2 items in 90 steps get cosine neighbours chosen by one shared item, which is close to 'all buyers of that item'. The signal therefore lives only for users lapsed 7–90 steps with several recent items.",
+    "kill_test": "Difference of differences: the gain among users lapsed 7–90 steps with >= 5 items in 90 steps, minus the gain among lapsed users with <= 2 items. If the gain does not concentrate in the multi-item lapsed group, neighbourhood taste is refuted."
+   },
+   {
+    "card": "G3-6",
+    "critic": "G4",
+    "type": "RIVAL",
+    "text": "The rival is 'popular since your last visit'. A user-recency-aligned popularity window would give the same lift to lapsed users without any neighbourhood.",
+    "kill_test": "Twin as a factor in the rival stratum (lapsed users, users_30 >= 20 candidates). If the shuffled-neighbour twin recovers most of the gain there, the neighbourhood mechanism is refuted."
+   },
+   {
+    "card": "G3-8",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "There is no shrinkage on n(j). A cold candidate with one user in 90 steps who also holds one of u's items gets h/n = 1/k_v, which beats a well-connected item whose audience is only partly in the region. This is the long-tail group the base misses, but the column ranks it by one or two users' presence, which is noise. Candidates with no events in 90 steps get 0.",
+    "kill_test": "Difference of differences: the gain among candidates with n(j) <= 2 in 90 steps, minus the gain among candidates with n(j) >= 10. If the low-n stratum shows a gain <= 0 or a loss, the niche mechanism is refuted and the column needs a prior, for example h/(n+5)."
+   },
+   {
+    "card": "G3-1",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "The twin does not destroy the measured structure. The original has R2 0.625 to users_30, and the hub-shuffled twin has R2 0.632 to the same column. The two-hop mass is mainly popularity collected over many intermediates, which supports the card's own rival. Cold and far candidates reachable only through hubs get the same score whatever the user.",
+    "kill_test": "Twin as a factor inside the stratum without a direct co-user. If the twin matches the original's gain there, the personal two-hop path is refuted."
+   },
+   {
+    "card": "G3-1",
+    "critic": "G4",
+    "type": "COST",
+    "text": "The median is 7.56 s per probe anchor, the slowest card, against a 20 s limit, for a column whose information is about 63% users_30. The c2 self-join over all intermediates k scales with hub degree and may breach the limit on denser anchors.",
+    "kill_test": "Staleness: run the same query one anchor earlier and at the densest training anchor. A runtime above 15 s, or a nonzero share that does not grow beyond the cooc coverage, refutes the cost/benefit case."
+   },
+   {
+    "card": "G3-7",
+    "critic": "G4",
+    "type": "DUPLICATE",
+    "text": "entry_share has R2 0.899 to users_90, and the twin check is TWIN-BROKEN (|rho| with the twin 0.928). The time shuffle keeps the first-step membership, so the twin cannot test it. Only followup_share (R2 0.172 to ag_adopter_depth) is new.",
+    "kill_test": "Twin as a factor for followup_share alone: if the time-shuffled twin recovers most of the gain, the transition role is refuted."
+   },
+   {
+    "card": "G3-7",
+    "critic": "G4",
+    "type": "MECHANISM_DOUBT",
+    "text": "The sign rests on the claim that every ranked user is in follow-up mode. Through the short-history lens that is false. Users with 1–3 items are still in their entry phase, and entry items fit them best. A single item-level column with sign + pushes those items down for exactly the users with the weakest cooc signal.",
+    "kill_test": "Difference of differences: the effect of the family among users with n_items_all <= 3, minus its effect among users with n_items_all >= 10. If the short-history group gains as much or more, the follow-up-mode mechanism is refuted."
+   }
+  ],
+  "llm": {
+   "seconds": 117.7,
+   "cost_usd": 0.6110564,
+   "attempts": 1,
+   "prompt_sha256": "4176c413a811d696e1c660acd2a728bdba9da86b18b17b577692c0ed526d90bf"
+  }
+ },
+ "skeptic": {
+  "aliases": {
+   "C01": "G2-2",
+   "C02": "G4-2",
+   "C03": "G3-3",
+   "C04": "G3-1",
+   "C05": "G1-1",
+   "C06": "G4-3",
+   "C07": "G1-7",
+   "C08": "G4-5",
+   "C09": "G2-8",
+   "C10": "G3-6",
+   "C11": "G1-8",
+   "C12": "G3-8",
+   "C13": "G2-6",
+   "C14": "G4-7",
+   "C15": "G1-3",
+   "C16": "G2-5",
+   "C17": "G4-8",
+   "C18": "G4-4",
+   "C19": "G1-4",
+   "C20": "G3-4",
+   "C21": "G1-2",
+   "C22": "G2-1",
+   "C23": "G3-2",
+   "C24": "G4-1",
+   "C25": "G4-6",
+   "C26": "G2-4",
+   "C27": "G2-3",
+   "C28": "G1-5",
+   "C29": "G1-6",
+   "C30": "G3-7",
+   "C31": "G3-5",
+   "C32": "G2-7"
+  },
+  "critiques": [
+   {
+    "card": "G2-2",
+    "critic": "skeptic",
+    "type": "RIVAL",
+    "text": "Repeats item_age_gap (ag_age_gap; rho 0.466, R2 0.212). |ft_j - ft_i| is the difference of the current ages of j and of u's items, and ag_age_gap already compares the candidate's age with the ages of the user's items. A second rival is id adjacency (id_rank_proximity_recent, ag_id_prox_rec): co-launched variants often have adjacent ids. Censoring by the data start is handled. The twin destroys the signal (twin R2 0.059), so the gain may still be real. Novelty is moderate.",
+    "kill_test": "Difference of differences: the gain in the fresh-launch stratum minus the gain in the null stratum (all items launched more than 365 steps ago), measured inside the id-adjacent rival stratum. If the gain inside the id-adjacent pairs is not smaller than outside them, the launch timing adds nothing beyond id proximity, and the mechanism is refuted."
+   },
+   {
+    "card": "G4-2",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_newc_lift has rho 1.000 and R2 1.000 to users_30. ag_c_newc_share has an undefined rho, which means it is constant: no newcomer counts vary within the query. The twin also gives rho 1.000, and the twin check is TWIN-BROKEN. The family is a relabelled users_30. The idea repeats segment_pop30 (sub-population popularity), and C16 makes the same newcomer claim.",
+    "kill_test": "Key level: if the share were a real newcomer taste, it would need a user-level interaction with n_items_all <= 3. If an item-level column whose lift is identical to users_30 gives no gain in short-history users over heavy users (difference of differences about 0), the mechanism is refuted."
+   },
+   {
+    "card": "G3-3",
+    "critic": "skeptic",
+    "type": "MECHANISM_DOUBT",
+    "text": "R2 0.529 (rho 0.666) to ag_lt_cooc. The time_shuffle twin permutes the timestamps of all events of a user. That destroys basket co-membership as well as order, so the drop in the twin (R2 0.060) cannot separate the two-step sequential path from plain co-basket co-occurrence. The one-hop transitions next_item_transition (ag_next_tr) and timed_transition (ag_timed_tr) are already in the model. The null stratum is also wrong: users idle for 180 steps still have last-basket seeds whose transitions by other users exist inside the window, so their value is not 0. Runtime is 2.75 s.",
+    "kill_test": "Twin as factor plus difference of differences: compare the stratum (active within 30 steps) with users active 31-180 steps ago. If the original and the twin give the same gain, or the gain does not concentrate in the active stratum, the two-step mechanism is refuted."
+   },
+   {
+    "card": "G3-1",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "R2 0.625 (rho 0.678) to users_30. The neighbour_shuffle twin keeps almost the same structure: rho 0.699, R2 0.632 to users_30. The second hop smears mass onto hubs, so the column behaves as recent popularity, as the card's own rival predicts. The idea also repeats the multi-hop reach of user_cf_recent (ag_ucf30). It is costly: median 7.56 s out of a 20 s budget.",
+    "kill_test": "Twin as factor: if the shuffled-hop twin gives the same model gain as the original, the gain is popularity and not two-hop taste diffusion. Also run a difference of differences in the no-direct-co-user stratum against the top-pop30 candidates. If the gain is not higher in the no-co-user stratum, the mechanism is refuted."
+   },
+   {
+    "card": "G1-1",
+    "critic": "skeptic",
+    "type": "MECHANISM_DOUBT",
+    "text": "The twin is nearly indistinguishable from the card. Twin R2 to ag_iuf_cooc is 0.115 / 0.253 / 0.376, against 0.14 / 0.293 / 0.373 for the card. Shuffling src_t inside the user's last 15 items keeps the set of visit steps, so the timing signal is barely perturbed, or the family is driven by the capped co-adoption share. That share repeats neighbor_recent7_adoption (ag_nbr_recent7) and cooc_wsum.",
+    "kill_test": "Twin as factor: if the time-shuffled twin gives the same gain in the stratum of multi-visit users with an event in the last 14 steps, timing is refuted and the rival (co-adoption normalisation) wins. Also run a difference of differences against the single-active-step users; there must be a gap."
+   },
+   {
+    "card": "G4-3",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_ret_lift has rho 0.812 and R2 0.697 to users_30. ag_c_ret_share has R2 0.182 to ag_adopt_rate. The returner subgroup is small, so the share is noisy. The idea repeats segment_pop30 (popularity within a user segment) and has the same structure as C02 and C16. The predicted stratum is users dormant at A, but the feature describes users who already returned inside [A-30, A). This match is only indirect.",
+    "kill_test": "Difference of differences: the gain for dormant users (max t < A-60) minus the gain for users active in the last 7 steps. If the gain is equal or larger among the active-7 users (the promoted-item rival), the returner-taste mechanism is refuted."
+   },
+   {
+    "card": "G1-7",
+    "critic": "skeptic",
+    "type": "RIVAL",
+    "text": "ag_c_missed_log has R2 0.664 to ag_pop_decay3, and ag_c_missed_share has R2 0.696 to pop_share_30. The random-visit twin is about as correlated: R2 0.707 to users_all and 0.670 to global_rank. 'Adopters since u's last visit' is a popularity window of length user_recency, which trees can approximate from users_7/14/30/90 combined with user_recency. The per-user clock is shared with C10, C15 and C22.",
+    "kill_test": "Difference of differences: the gain for users paused 7-90 steps minus the gain for users with user_recency = 1, where the column is about 0. If the gain does not concentrate in the paused users, or the twin (random visit instead of last visit) matches it, the mechanism is refuted."
+   },
+   {
+    "card": "G4-5",
+    "critic": "skeptic",
+    "type": "COST",
+    "text": "Machine red: card and twin both time out at 20 s on probe_day_1. The self-join on all events before A-180 is unbounded. The family cannot enter. The mechanism also partly repeats longterm_profile_cooc (ag_lt_cooc, older positions of the profile), and its rival (seasonality) repeats season_yoy_growth.",
+    "kill_test": "Staleness: once the cost is fixed, run the same query one anchor earlier. If the dormant-user stratum gains the same from the stale copy, the old-era links are static priors and not recovered taste. If the stratum does not gain more than the null stratum (whole history in the last 90 steps), the mechanism is refuted."
+   },
+   {
+    "card": "G2-8",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "R2 0.913 (rho 0.817) to global_rank. The mass-centre fraction is mostly lifetime volume and age through censoring. The idea also repeats item_peak_lifecycle (ag_peak_ratio, ag_peak_age) and recent_event_mean_age (ag_rec_mean_age).",
+    "kill_test": "Twin as factor plus a difference of differences in the rival stratum: items first seen within 7 steps of the data start, against genuinely launched items aged 90+ steps. If the gain sits in the censored items, the mechanism is refuted."
+   },
+   {
+    "card": "G3-6",
+    "critic": "skeptic",
+    "type": "OK",
+    "text": "Low redundancy: rho 0.19 and R2 0.157 to ag_ucf30. The twin destroys the signal (R2 0.017). The value is 0 for users active at the last step, which gives a clean null stratum. This is new compared with user_cf_recent because the window is cut at u's own last step. It does share the per-user clock with C07 and C22, so only one of these should enter.",
+    "kill_test": "Difference of differences: the gain for lapsed users (active in the last 90 steps but not in the last 7) minus the gain for users active at the last step. Also compare against the rival stratum of popular candidates: if the gain for lapsed users comes only from items with users_30 >= 20, the neighbourhood adds nothing beyond 'popular since your visit', and the mechanism is refuted."
+   },
+   {
+    "card": "G1-8",
+    "critic": "skeptic",
+    "type": "RIVAL",
+    "text": "R2 0.419 (j_basket) and R2 0.369 (basket_gap) to ag_adopter_depth. The signed gap repeats adopter_depth_gap (ag_depth_gap) with visit size in place of total items, since heavy users make big visits. j_basket is NULL (NaN, the minimum) for candidates without 180-step events, so the column partly flags dead items.",
+    "kill_test": "Twin as factor in heavy users (n_items_all >= 50): if the twin, whose adopter-depth structure is shuffled away, matches the gain, the visit style is refuted. Also run a difference of differences between clear-style users and the null stratum (one step, 2 items). If there is no gap, the mechanism is refuted."
+   },
+   {
+    "card": "G3-8",
+    "critic": "skeptic",
+    "type": "RIVAL",
+    "text": "R2 0.433 (rho 0.449) to ag_iuf_cooc. The twin destroys the signal (R2 0.004). The 1/k_v-weighted reverse conditional is nearly the same quantity as C25's co_share_j and close to cond_prob_decay_lift (ag_cond_decay, ag_lift_max). Dividing by n(j) may give only a niche boost.",
+    "kill_test": "Difference of differences: users with 10+ items in 90 steps against users with at most 2 items. Then repeat it within low-popularity candidates (users_90 <= 10) against high-popularity ones. If the gain appears only for low-n(j) candidates, regardless of path weight, it is a generic niche boost, and the mechanism is refuted."
+   },
+   {
+    "card": "G2-6",
+    "critic": "skeptic",
+    "type": "SHIFT",
+    "text": "The column needs 395 steps of history. At training anchors within 395 steps of the data start every value is the COALESCE 0, so the feature switches on part-way through the training anchors. non_null_share is 1.0 on both probe days only because the COALESCE hides this. R2 0.605 to ag_ly_share_gap: the family repeats season_yoy_growth and lastyear_share_gap at pair level, combined with timed_transition.",
+    "kill_test": "Twin as factor: if the half-cycle-shifted twin (lag 182) gives the same gain in the stratum of users whose recent items existed a cycle ago, the phase alignment is refuted. Also run a difference of differences against the null stratum, restricted to anchors at least 395 steps from the data start."
+   },
+   {
+    "card": "G4-7",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_trendsetter_sum has R2 0.923 (rho 0.873) to users_90, and the twin keeps rho 0.990 (TWIN-BROKEN). The sum is popularity. Only ag_c_trendsetter_mean is novel: R2 0.186 to pop_share_30. Its rival is adopter_depth (heavy users take many items early).",
+    "kill_test": "Twin as factor on the mean column only: if the time-shuffled twin of the mean gives the same gain in the young small-audience stratum, the scout skill is refuted. Also run a difference of differences between young small items and old saturated items. If the gain does not concentrate in the young small items, the mechanism is refuted."
+   },
+   {
+    "card": "G1-3",
+    "critic": "skeptic",
+    "type": "MECHANISM_DOUBT",
+    "text": "ag_c_vis_since_launch has an undefined rho in both card and twin (TWIN-BROKEN). It is degenerate within queries and carries no ranking variation. ag_c_vis_copresent_rate has R2 0.667 to global_rank, about item demand frequency. The idea shares the exposure clock with C07 and C22, and overlaps with item_age.",
+    "kill_test": "Difference of differences: users with 4+ active steps in 180 against users with none. Then compare inside young items (item_age < 30) with older items. If the gain lives only in young items for all users, it is item freshness, and the mechanism is refuted."
+   },
+   {
+    "card": "G2-5",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "Every column has an undefined rho in both card and twin (TWIN-BROKEN), so the columns are degenerate within queries. The newcomer share repeats C02, whose lift is R2 1.0 to users_30. The entry-item share repeats C30's entry_share (R2 0.899 to users_90). The idea is segment_pop30 again, with a newcomer segment.",
+    "kill_test": "Key level: the hypothesis is that new users favour entry items, so the gain must appear as a difference of differences for new users (first event in the last 30 steps) against users with first event more than 365 steps ago. Equal gain for all users would mean a promotion flag, and the mechanism is refuted."
+   },
+   {
+    "card": "G4-8",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_cohort_share has R2 0.993 (rho 0.996) to users_all, and the twin keeps rho 0.995 (TWIN-BROKEN). Only ag_c_cohort_lift is new (R2 0.095). The newcomer focus repeats C02 and C16.",
+    "kill_test": "Twin as factor on cohort_lift: if the shuffled-signup twin gives the same gain in the stratum of recent short-history users, cohort taste is refuted. Also run a difference of differences against long-tenured heavy users. If there is no gap, the mechanism is refuted."
+   },
+   {
+    "card": "G4-4",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_item_silence_ratio has R2 0.892 (rho 0.703) to item_last, and silence_vs_max has R2 0.643 to global_rank. It is identical in signature to C26 item_dormancy_rhythm: same item_last R2 0.892 and the same mechanism.",
+    "kill_test": "Difference of differences: sparse items silent for 30+ steps with 3+ active steps, against items active every recent step. If the gain lies only in pushing dead fill candidates down, and does not appear in revivals, the rhythm mechanism is refuted."
+   },
+   {
+    "card": "G1-4",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_state_pop has R2 0.772 to users_90, a 60-step popularity count. ag_c_state_lift is novel: R2 0.008, and the twin with a random bucket changes it. It is a segment-popularity idea like segment_pop30, but conditioned on the pause state instead of activity, so only the lift column earns a place.",
+    "kill_test": "Difference of differences on the lift: dormant or streak users (user_recency >= 32 or <= 1) against moderate-pause users (4-16 steps). If the gain is the same, or the hash-bucket twin matches it, the state mechanism is refuted."
+   },
+   {
+    "card": "G3-4",
+    "critic": "skeptic",
+    "type": "RIVAL",
+    "text": "ag_c_nbr_mom30 has R2 0.559 to ag_mom_30_60, and nbr_trend7 has R2 0.492 to users_30. This is id_neighbourhood_trend (ag_idnb_trend) rebuilt on the co-adoption graph, and it may only be a denoised copy of j's own trend. The twin does destroy the graph (R2 0.17 and 0.28).",
+    "kill_test": "Difference of differences: candidates with 1-5 users in the last 30 steps against candidates with 50+. If the gain is equal or larger for the large-audience candidates, it is a denoised own trend, and the graph mechanism is refuted."
+   },
+   {
+    "card": "G1-2",
+    "critic": "skeptic",
+    "type": "RIVAL",
+    "text": "ag_c_vday_share has R2 0.597 to users_30. vday_lift has R2 0.135, but the shifted-day twin's lift has R2 0.391 to the same nearest column (ag_mom_30_60). For recently active users the share is a 1-3-step popularity window, and the context is generic recency.",
+    "kill_test": "Difference of differences: users whose last event is within 14 steps against users dormant for 90+ steps, with users at user_recency <= 3 excluded. If the gain sits only in user_recency <= 3, it is short-horizon popularity, and the mechanism is refuted. The twin as a factor must also lose the gain."
+   },
+   {
+    "card": "G2-1",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_launch_vs_last_visit = ft_j - tl = user_recency - item_age, an exact linear combination of two base columns. Its R2 is 0.689 to item_age, and the twin keeps rho 0.884 (TWIN-BROKEN). ag_c_pop_at_last_visit has R2 0.732 to users_30. The per-user clock repeats C07 and C10.",
+    "kill_test": "Twin as factor in users lapsed 60+ steps: if the random-visit twin of pop_at_last_visit gives the same gain, exposure at the last visit is refuted in favour of stale bestseller popularity."
+   },
+   {
+    "card": "G3-2",
+    "critic": "skeptic",
+    "type": "RIVAL",
+    "text": "ag_c_after_share has R2 0.661 (rho 0.738) to pop_share_30, consistent with the release-order artefact: j cannot precede i if it launched later. ag_c_same_step_share has R2 0.376 to ag_sess_cooc and repeats session_cooc. Direction already enters through next_item_transition and timed_transition.",
+    "kill_test": "Difference of differences: the after_share gain in young candidates (item_age <= 30) against older candidates within the order-evidence stratum. If the gain concentrates in young candidates, it is freshness, and the mechanism is refuted."
+   },
+   {
+    "card": "G4-1",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_launch_rate has R2 1.000 (rho 1.0) to users_all, and the twin also has rho 1.000 (TWIN-BROKEN). ag_c_launch_late_share has R2 0.797 to global_rank. The family repeats item_peak_lifecycle and pop_share_30.",
+    "kill_test": "Difference of differences: cold items (first seen within 30 steps) against items older than 365 steps. If launch_late_share adds no gain in the cold stratum beyond the old one, the mechanism is refuted."
+   },
+   {
+    "card": "G4-6",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_co_support has R2 0.931 (rho 0.897) to cooc_score, and the twin keeps rho 0.895 (TWIN-BROKEN). ag_c_co_share_j has R2 0.624 to ag_lift_max (cond_prob_decay_lift) and is nearly the same quantity as C12's HeatS. Runtime is 2.95 s.",
+    "kill_test": "Difference of differences: cold candidates (n(j) <= 5 in 180 steps) against candidates with n(j) >= 200. If co_share_j helps equally or more for popular candidates of heavy users, the cold denoising is refuted."
+   },
+   {
+    "card": "G2-4",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_dormancy_ratio has R2 0.892 (rho 0.703) to item_last, and ag_c_longest_gap has R2 0.699 to global_rank. The signature is the same as C18 item_silence_vs_rhythm.",
+    "kill_test": "Difference of differences: silent items with 20+ events against items active in the last 2 steps. If the gain comes only from fill candidates pushed down (the negatives) and no silent item revives, the revival mechanism is refuted."
+   },
+   {
+    "card": "G2-3",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "R2 0.902 (rho 0.88) to users_30. The cell lookup is dominated by the audience bucket, so it reduces to regression to the mean of the current count. The idea repeats item_momentum_30_60 and item_peak_lifecycle.",
+    "kill_test": "Twin as factor (age bucket randomised): if the twin gives the same gain in young items (first event within 60 steps), life-cycle stage is refuted in favour of the audience-level rival."
+   },
+   {
+    "card": "G1-5",
+    "critic": "skeptic",
+    "type": "MECHANISM_DOUBT",
+    "text": "This is a user-level gate. ag_c_last_sess_n has R2 0.461 to ag_cond_decay, and ag_c_prev_gap has R2 0.489 to ag_steps_30. It repeats user_visit_rhythm (ag_steps_30, ag_gap_90) and user_recency_ratio. Within-user NDCG changes only through interactions, so the main effect is calibration.",
+    "kill_test": "Key level and difference of differences: users with a haul (4+ items) or a pause of 60+ steps before the last visit, against users with a single active step. If within-user ranking does not improve more in the haul/pause stratum, or the time-shuffled twin matches, the mechanism is refuted."
+   },
+   {
+    "card": "G1-6",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "R2 0.835 (rho 0.762) to ag_pop_decay3. The random-horizon twin keeps R2 0.689 to the same column. The family adds trend horizons, which repeats item_pop_decay3 and trend, rather than user pace.",
+    "kill_test": "Twin as factor: if the hash-assigned horizon gives the same gain for users whose median gap is <= 2 or >= 16, pace alignment is refuted."
+   },
+   {
+    "card": "G3-7",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_entry_share has R2 0.899 to users_90, the twin keeps rho 0.928 (TWIN-BROKEN), and it repeats C16's entry_item_share90. ag_c_followup_share (R2 0.172 to ag_adopter_depth) is censored at the 150-step lag window: adopters whose previous step precedes A-150 get fu = 0. It may restate adopter activity.",
+    "kill_test": "Difference of differences: users active in the last 30 steps against users lapsed for 90+ steps, inside candidates adopted mostly by heavy users. If the gain in the heavy-adopter candidates explains the effect, it is adopter activity, and the mechanism is refuted."
+   },
+   {
+    "card": "G3-5",
+    "critic": "skeptic",
+    "type": "MECHANISM_DOUBT",
+    "text": "ag_c_hist_cohesion has R2 0.653 to ag_iuf_cooc, and the neighbour-shuffled twin is just as correlated: R2 0.666 and rho 0.769. The twin does not destroy what the column measures, which looks like the popularity mix of the user's items. ag_c_chain_support is novel (R2 0.083), but its twin is more correlated (R2 0.25).",
+    "kill_test": "Twin as factor: if the twin gives the same gain for users with at least 5 items, graph cohesion is refuted and the column is a user_pop_pref (ag_user_pop_pref) proxy."
+   },
+   {
+    "card": "G2-7",
+    "critic": "skeptic",
+    "type": "DUPLICATE",
+    "text": "ag_c_traffic_beta has R2 0.886 to trend, and ag_c_traffic_resid_wk0 has R2 0.928 to ag_mom_30_60. The family repeats trend and item_momentum_30_60 through a weekly regression.",
+    "kill_test": "Staleness: run the same query one anchor earlier. If the stale beta gives the same gain on high-traffic weeks (items with 20+ events in the last 7 steps), elasticity is refuted. Also, if the gain disappears outside those items, it is a sale flag and not elasticity."
+   }
+  ],
+  "llm": {
+   "seconds": 135.1,
+   "cost_usd": 1.0125804,
+   "attempts": 1,
+   "prompt_sha256": "58df6c6b24604e9d0e2cc121b0e63548fab945efbd467eb0b8b153726506d771"
+  }
+ },
+ "auditor": {
+  "aliases": {
+   "C01": "G3-8",
+   "C02": "G4-8",
+   "C03": "G3-4",
+   "C04": "G1-1",
+   "C05": "G1-5",
+   "C06": "G1-2",
+   "C07": "G2-5",
+   "C08": "G4-4",
+   "C09": "G3-2",
+   "C10": "G2-1",
+   "C11": "G3-7",
+   "C12": "G2-6",
+   "C13": "G1-6",
+   "C14": "G3-6",
+   "C15": "G1-4",
+   "C16": "G2-2",
+   "C17": "G4-5",
+   "C18": "G2-3",
+   "C19": "G3-3",
+   "C20": "G4-7",
+   "C21": "G4-1",
+   "C22": "G4-2",
+   "C23": "G2-8",
+   "C24": "G3-5",
+   "C25": "G1-8",
+   "C26": "G2-4",
+   "C27": "G4-3",
+   "C28": "G2-7",
+   "C29": "G1-7",
+   "C30": "G1-3",
+   "C31": "G3-1",
+   "C32": "G4-6"
+  },
+  "critiques": [
+   {
+    "card": "G3-8",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Reads ev only, in [A-90, A). cand and users only filter keys: the item set, the user set and L(u). No aggregate is taken across cand. ROW_NUMBER has a full tie-break (t DESC, item_id). The twin permutation is ordered by hash(item_id), item_id inside log2-popularity buckets and reads the same family. The level pair matches the keys user_id, item_id. No leak.",
+    "kill_test": "Staleness: rerun at A-30 on the same labels. If the 1/k-weighted heat score keeps its gain over cooc_score with no decay, the gain comes from popularity and not from recent co-visitation."
+   },
+   {
+    "card": "G4-8",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Data at or after A: none; ev only. Batch dependence: none. cand restricts fi to candidate items and users restricts cu; tot and fc are global over ev. Twin: the rank permutation is ordered by hash(user_id), user_id and reads no table beyond the family. No leak. Not a leak issue: cohort_share has R2 0.993 to users_all and the twin is TWIN-BROKEN (rho 0.995).",
+    "kill_test": "Difference of differences: cohort_lift in the users-with-recent-first-event stratum minus the long-tenure stratum. A zero difference refutes the cohort mechanism."
+   },
+   {
+    "card": "G3-4",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level and mentions neither cand nor users. All windows are [A-60, A) with sub-windows A-7 and A-30. The QUALIFY count is deterministic. Neighbour ROW_NUMBER has a full tie-break (co.k). The twin uses a hash(item_id), item_id ordered bucket permutation. No leak.",
+    "kill_test": "Twin as factor: if nbr_mom30_tw gives the same gain as nbr_mom30, neighbour identity carries no signal beyond the popularity bucket."
+   },
+   {
+    "card": "G1-1",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Reads ev in [A-90, A) only. users restricts L and cand restricts HIT to pairs, keys only. Both ROW_NUMBERs have full tie-breaks (item_id; user_id). The RA filter on src items does not change any per-item value. The twin reassigns src_t by hash(user_id, src), src within the user. No leak.",
+    "kill_test": "Twin as factor: if trig_tdecay_tw has the same gain as trig_tdecay, the trigger-time decay adds nothing."
+   },
+   {
+    "card": "G1-5",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "User level, keys from users. ev only, all t < A. ORDER BY s DESC is unique because sd is grouped by (user_id, t). LEAD is deterministic. The twin picks a session by hash(user_id, s), s. No leak.",
+    "kill_test": "Key level: replace the user value by its decile mean across users. No loss of gain refutes a per-user session mechanism."
+   },
+   {
+    "card": "G1-2",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "The user's last 3 steps are all < A. dn and di are per-step counts over all of ev; the t IN (us) and item IN cand clauses only filter, so per-step values do not depend on the batch. a30 is global. The twin shifts steps earlier by a hash offset of 1..28, so it stays < A and reads only ev. No leak.",
+    "kill_test": "Twin as factor: if vday_share_tw (shifted steps) gives the same gain, same-step co-presence carries nothing beyond recent popularity."
+   },
+   {
+    "card": "G2-5",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level, no cand or users. Windows are [A-30, A) and [A-90, A), with first step taken over ev. ROW_NUMBER has a full tie-break (t, item_id). The twin is a deterministic hash(user_id, ...) Bernoulli draw. No leak. Not a leak issue: rho is undefined in the measurements, so a near-constant column is possible.",
+    "kill_test": "Difference of differences: newcomer_share30 gain among new users (user_age <= 30) minus old users. A zero difference refutes the newcomer-affinity mechanism."
+   },
+   {
+    "card": "G4-4",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level, ev only, all t < A. LAG runs over DISTINCT (item_id, t), so the order is unique. The twin's global rank join is ordered by hash(user_id, item_id), user_id, item_id against t, user_id, item_id, a full order. No leak.",
+    "kill_test": "Staleness: the same query one anchor earlier. If silence_ratio keeps its gain beyond item_last, the gap normalisation adds nothing."
+   },
+   {
+    "card": "G3-2",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "The pair window is [A-120, A). users only selects L(u) and cand only restricts j. pc per (i, j) does not depend on the batch. ROW_NUMBERs have full tie-breaks, and the twin's time permutation is ordered by hash(user_id, item_id), item_id. No leak.",
+    "kill_test": "Twin as factor: if after_share_tw (time order destroyed) has the same gain, the directionality mechanism is refuted."
+   },
+   {
+    "card": "G2-1",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "tl = the user's max t < A. The range(0, 8) offsets go backwards from tl, so all steps are < A. cand and users are key filters only. The twin draws a visit step by hash(user_id, t), t. No leak. Not a leak issue: the twin is TWIN-BROKEN on launch_vs_last_visit (rho 0.884).",
+    "kill_test": "Difference of differences: pop_at_last_visit gain for users with recency > 30 minus users with recency <= 7. No difference means it is only users_7/users_30."
+   },
+   {
+    "card": "G3-7",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level, ev only. Windows are [A-150, A) and [A-120, A). LAG runs over distinct (user_id, t), so the order is unique. The twin uses a hash(user_id, item_id), item_id permutation. No leak. Not a leak issue: entry_share has R2 0.899 to users_90 and the twin is TWIN-BROKEN.",
+    "kill_test": "Twin as factor: if followup_share_tw keeps the same gain, the follow-up mechanism is refuted."
+   },
+   {
+    "card": "G2-6",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Windows are [A-395, A-365) and [A-365, A-335), both strictly before A. users only selects L(u) and cand only restricts j. The transition count per (i, j) does not depend on the batch. ROW_NUMBER tie-break is item_id. The twin uses the same family with half-year-shifted windows. No leak.",
+    "kill_test": "Twin as factor: if the half-year-lag twin (A-212/A-182) gives equal gain, yearly seasonality is refuted."
+   },
+   {
+    "card": "G1-6",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "The user pace comes from the user's own steps < A. Item counts come from windows t >= A-k, all < A, with cand items only as a filter. quantile_cont is deterministic. The twin assigns pace by hash(user_id) % 6 and reads only ev, cand and users. No leak.",
+    "kill_test": "Twin as factor: if pace_trend_tw (random pace) matches the gain, matching the window to the user's pace adds nothing."
+   },
+   {
+    "card": "G3-6",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "e.t > lt.tl selects neighbour events after the user's last visit but still in ev, so t < A; there is no future data. Neighbour weights come from ev over all users and do not depend on the batch. QUALIFY has a full tie-break (ov.v). The twin uses a hash(user_id), user_id bucket permutation. No leak.",
+    "kill_test": "Difference of differences: gain for users with recency >= 14 minus recency <= 2. If equal, the 'since last visit' mechanism is refuted."
+   },
+   {
+    "card": "G1-4",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Session gap states come from all of ev in [A-425, A) and [A-60, A); ub uses max(t) < A. The cand item filter and users filter only restrict keys. LAG runs over distinct (user_id, s). The twin assigns the bucket by hash(user_id) % 10. No leak.",
+    "kill_test": "Twin as factor: if state_lift_tw with random buckets has the same gain, the recency-state mechanism is refuted."
+   },
+   {
+    "card": "G2-2",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "t0 = min(t) of ev is a global constant and does not depend on the batch. ft < A. ROW_NUMBER tie-break is item_id. The twin permutes ft inside count buckets by hash(item_id), item_id. No leak.",
+    "kill_test": "Twin as factor: if launch_cohort_kern_tw gives equal gain, the launch-cohort affinity is refuted."
+   },
+   {
+    "card": "G4-5",
+    "critic": "auditor",
+    "type": "COST",
+    "text": "machine_red: probe_day_1 timeout after 20 s for both the card and the twin. The O self-join over all history before A-180 is unbounded. No leak in the SQL itself.",
+    "kill_test": "Key level: restrict O to [A-365, A-180). If it still times out or loses all coverage, the card cannot run."
+   },
+   {
+    "card": "G2-3",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level, no cand or users. The backtest table fits growth from [A-30, A) on states at A-30, using only ev < A. Each current item uses its own state at A. The twin keys the age bucket by hash(item_id) % 10. No leak.",
+    "kill_test": "Staleness: one anchor earlier. If cohort_exp_growth gives no gain beyond users_30 (R2 0.902), the expected-growth mechanism is refuted."
+   },
+   {
+    "card": "G3-3",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "The transition matrix comes from [A-180, A). The last basket is at max t < A for users. The cand item filter only restricts keys. QUALIFY tie-break is p.j. LEAD runs over distinct steps. The twin uses a hash(user_id, item_id), item_id time permutation. No leak.",
+    "kill_test": "Twin as factor: if mc2_basket_tw matches the gain, the sequential transition order is refuted."
+   },
+   {
+    "card": "G4-7",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level, ev only, all t < A. f.n counts events up to A-1, which is inside the history. The twin's global permutation is ordered by hash(user_id, item_id), user_id, item_id. No leak. Not a leak issue: trendsetter_sum is TWIN-BROKEN (rho 0.990) with R2 0.923 to users_90.",
+    "kill_test": "Twin as factor: if trendsetter_mean_tw gives the same gain, early-adopter identity is refuted."
+   },
+   {
+    "card": "G4-1",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level, ev only, all t < A. The twin permutation is hash-ordered with a full tie-break. No leak. Not a leak issue: launch_rate has R2 1.0 to users_all and the twin is TWIN-BROKEN, so it is a duplicate.",
+    "kill_test": "Twin as factor: if launch_late_share_tw gives the same gain, the late-mass mechanism is refuted."
+   },
+   {
+    "card": "G4-2",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level, no cand or users. Newcomers have their first step >= A-30, all < A. The counts are global. The twin's user pick is ordered by hash(user_id), user_id. No leak. Not a leak issue: newc_lift has R2 1.0 to users_30 and newc_share has undefined rho.",
+    "kill_test": "Difference of differences: gain among new users (user_age <= 30) minus old users. Zero refutes newcomer affinity."
+   },
+   {
+    "card": "G2-8",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level, ev only, avg(A - t) over t < A. The twin permutation is ordered by hash(item_id), item_id inside count buckets. No leak.",
+    "kill_test": "Staleness: one anchor earlier. No gain beyond global_rank (R2 0.913) refutes the mechanism."
+   },
+   {
+    "card": "G3-5",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "User level, keys from users. L(u) comes from ev < A and the cooc statistics from [A-180, A). ROW_NUMBER tie-break is item_id. The twin uses a hash bucket item permutation. No leak.",
+    "kill_test": "Twin as factor: if hist_cohesion_tw gives equal gain (rho 0.769 to the same neighbour), cohesion adds nothing."
+   },
+   {
+    "card": "G1-8",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Basket sizes come from [A-180, A) over all users. jb is per item with a cand-item filter only; ub is per user over history < A. The twin pairs items by hash(item_id), item_id in buckets. No leak.",
+    "kill_test": "Difference of differences: basket_gap gain for heavy-basket users minus single-item users. Zero refutes basket-size matching."
+   },
+   {
+    "card": "G2-4",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level, ev only. LAG runs over distinct (item_id, t). The twin permutation is ordered by hash(item_id), item_id. No leak.",
+    "kill_test": "Staleness: one anchor earlier. If dormancy_ratio adds nothing beyond item_last (R2 0.892), the mechanism is refuted."
+   },
+   {
+    "card": "G4-3",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level, no cand or users. Returning users are defined by a gap >= 60 before [A-30, A), all < A. The twin pick is ordered by hash(user_id), user_id. No leak.",
+    "kill_test": "Difference of differences: ret_lift gain for users with recency gap >= 60 minus active users. Zero refutes returner affinity."
+   },
+   {
+    "card": "G2-7",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Item level. Weekly buckets come from t >= A-91 and floor((A-1-t)/7) >= 0, so there is no step at or after A. regr is deterministic. The twin permutes weeks per item by hash(item_id, w), w. No leak.",
+    "kill_test": "Twin as factor: if traffic_resid_wk0_tw matches the gain, the traffic-adjusted residual is refuted."
+   },
+   {
+    "card": "G1-7",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "The ASOF join on last_t (< A) is deterministic. The cumulative window per item is ordered by unique s. The cand item filter and users filter only restrict keys. The twin picks a visit step by hash(user_id, s), s. No leak.",
+    "kill_test": "Difference of differences: missed_share gain for users with recency >= 30 minus recency <= 3. If equal, it is just pop_share_30."
+   },
+   {
+    "card": "G1-3",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Visits come from [A-180, A) and first_t is computed over ev with a cand item filter that does not change values. The twin pairs items by a hash(item_id), item_id bucket permutation. No leak. Not a leak issue: vis_since_launch has undefined rho and the twin is TWIN-BROKEN on it.",
+    "kill_test": "Twin as factor: if vis_copresent_rate_tw matches the gain, same-step co-presence is refuted."
+   },
+   {
+    "card": "G3-1",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "All cooc is in [A-60, A). L(u) comes from ev < A with a full tie-break, and the cand item filter only restricts keys. QUALIFY tie-break is k. 7.56 s is under the 20 s limit. The twin uses a hash bucket permutation of the hop item. No leak.",
+    "kill_test": "Twin as factor: twohop60_tw has nearly the same rho/R2 to users_30 (0.699/0.632). Equal gain refutes the two-hop mechanism."
+   },
+   {
+    "card": "G4-6",
+    "critic": "auditor",
+    "type": "OK",
+    "text": "Cooc comes from [A-180, A) and L(u) from ev < A with a full tie-break. cand and L are used as IN filters only, and co per (i, j) does not depend on the batch. The twin permutation is ordered by hash(item_id), item_id. No leak. Not a leak issue: co_support has R2 0.931 to cooc_score and the twin is TWIN-BROKEN.",
+    "kill_test": "Twin as factor: if co_share_j_tw gives equal gain, raw co-support normalisation is refuted."
+   }
+  ],
+  "llm": {
+   "seconds": 105.1,
+   "cost_usd": 0.7705764,
+   "attempts": 1,
+   "prompt_sha256": "6ed4d06028d10ac65971f51d4b57d8af1e8def3adfeaa541d86e6256c8e7fbbb"
+  }
+ }
+}
