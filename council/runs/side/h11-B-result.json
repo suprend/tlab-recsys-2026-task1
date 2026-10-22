@@ -1,0 +1,256 @@
+{
+ "step": "h11-B",
+ "status": "ok",
+ "B_read": true,
+ "groups": 5,
+ "owner_yes": "да — чтение B 2019 для H9 и H11",
+ "owner_date": "2026-10-22",
+ "owner_source": "transcript 6f57ee67-3e16-4fa5-a412-e45c43c303a6",
+ "marker": {
+  "step": "h11",
+  "groups": 5,
+  "owner_yes": "да — чтение B 2019 для H9 и H11",
+  "owner_date": "2026-10-22",
+  "owner_source": "transcript 6f57ee67-3e16-4fa5-a412-e45c43c303a6",
+  "pid": 52838,
+  "started": "2026-10-22 22:51:36"
+ },
+ "prior_B": {
+  "groups10": {
+   "marker": null,
+   "file": null,
+   "read": false
+  },
+  "groups15": {
+   "marker": null,
+   "file": null,
+   "read": false
+  },
+  "read": false
+ },
+ "eval": "val half B 2019-11-08..13, один раз",
+ "interpretation": "h11.md, «Условное правило для B»: G* остаётся выбранным на A, приём групп на B заново не проверяется; правила 2–5 по порядку на CI с B; при вердикте 1 на A B не читается.",
+ "A": {
+  "file": "h11-result.json",
+  "verdict_A": "групповой приём сохраняет часть сигнала, но меньше, чем всё сразу",
+  "rule_A": 2,
+  "sha256_before": "0493263a007faceea642ec0b2d4e5758cc5289d96eab60abc86885f0df797d96",
+  "sha256_after": "0493263a007faceea642ec0b2d4e5758cc5289d96eab60abc86885f0df797d96",
+  "untouched": true
+ },
+ "models": {
+  "h11_g6_s0": {
+   "sha256": "bb1ff96ed0aacb0945380ca64520e5b86a3263a1be21734911b08ac6bf57f290",
+   "features": 91
+  },
+  "h11_g6_s1": {
+   "sha256": "3f6f3ec116d07c7eb0ac5401a6af3c6d6ba7bd065292eea20aba585235473cd4",
+   "features": 91
+  },
+  "h11_step_s1": {
+   "sha256": "c4d2d6021e8f081288726e8a36ec22dd66e15e5ae206f57cab1fd50620da423c",
+   "features": 82
+  }
+ },
+ "path_A_recheck": {
+  "h11_g6_s0": {
+   "same_queries": true,
+   "queries": 19360,
+   "max_abs": {
+    "ndcg": 0.0,
+    "recall": 0.0,
+    "purchase_ndcg": 0.0,
+    "purchase_recall": 0.0
+   }
+  },
+  "h11_g6_s1": {
+   "same_queries": true,
+   "queries": 19360,
+   "max_abs": {
+    "ndcg": 0.0,
+    "recall": 0.0,
+    "purchase_ndcg": 0.0,
+    "purchase_recall": 0.0
+   }
+  },
+  "h11_step_s1": {
+   "same_queries": true,
+   "queries": 19360,
+   "max_abs": {
+    "ndcg": 0.0,
+    "recall": 0.0,
+    "purchase_ndcg": 0.0,
+    "purchase_recall": 0.0
+   }
+  }
+ },
+ "A_recheck_passed": true,
+ "B_queries": 19361,
+ "B_queries_expected": 19361,
+ "B_queries_match": true,
+ "same_B_queries": {
+  "h11_g6_s0": true,
+  "h11_g6_s1": true,
+  "h11_step_s1": true,
+  "agent_night20_r6_base": true,
+  "pl19_Hag_s0": true,
+  "pl19_Hag_s1": true,
+  "q2_d8": true,
+  "q3_d8_s1": true
+ },
+ "arms": {
+  "H": [
+   "q2_d8",
+   "q3_d8_s1"
+  ],
+  "step": [
+   "agent_night20_r6_base",
+   "h11_step_s1"
+  ],
+  "all": [
+   "pl19_Hag_s0",
+   "pl19_Hag_s1"
+  ],
+  "group": [
+   "h11_g6_s0",
+   "h11_g6_s1"
+  ]
+ },
+ "D": {
+  "ref": [
+   "pl19_Hag_s0",
+   "pl19_Hag_s1"
+  ],
+  "new": [
+   "h11_g6_s0",
+   "h11_g6_s1"
+  ],
+  "half": "B",
+  "d": -0.0009550229742965778,
+  "ci": [
+   -0.001865253652624634,
+   -9.573725437582433e-05
+  ],
+  "queries": 19361
+ },
+ "E": {
+  "ref": [
+   "agent_night20_r6_base",
+   "h11_step_s1"
+  ],
+  "new": [
+   "h11_g6_s0",
+   "h11_g6_s1"
+  ],
+  "half": "B",
+  "d": 0.001440924399420044,
+  "ci": [
+   0.0005548416231570781,
+   0.0023332817264624757
+  ],
+  "queries": 19361
+ },
+ "to_H": {
+  "step": {
+   "ref": [
+    "q2_d8",
+    "q3_d8_s1"
+   ],
+   "new": [
+    "agent_night20_r6_base",
+    "h11_step_s1"
+   ],
+   "half": "B",
+   "d": 0.0003621089197491143,
+   "ci": [
+    -0.00041021701833570274,
+    0.0011676988499228786
+   ],
+   "queries": 19361
+  },
+  "all": {
+   "ref": [
+    "q2_d8",
+    "q3_d8_s1"
+   ],
+   "new": [
+    "pl19_Hag_s0",
+    "pl19_Hag_s1"
+   ],
+   "half": "B",
+   "d": 0.0027580562934657366,
+   "ci": [
+    0.001732455940054664,
+    0.003817617490748804
+   ],
+   "queries": 19361
+  },
+  "group": {
+   "ref": [
+    "q2_d8",
+    "q3_d8_s1"
+   ],
+   "new": [
+    "h11_g6_s0",
+    "h11_g6_s1"
+   ],
+   "half": "B",
+   "d": 0.0018030333191691587,
+   "ci": [
+    0.0008813578981103251,
+    0.002684799651927384
+   ],
+   "queries": 19361
+  },
+  "reading": "описательно"
+ },
+ "rule": 2,
+ "rule_text_h11_rule": "групповой приём сохраняет часть сигнала, но меньше, чем всё сразу",
+ "verdict_B": "на B групповой приём сохраняет часть сигнала, но меньше, чем всё сразу",
+ "replaces": "вердикт B заменяет вердикт A в отчёте",
+ "note": "таблицы агента придуманы, когда агент видел A, и подстроены под A; G* выбран приёмом на A. Разности меньше ≈0.001 по протоколу не считаются установленными.",
+ "reasons": [],
+ "deviations": [
+  "шаг B — отдельный модуль task1_side_b.py: task1_side.py и council/side/__init__.py не меняются (они в штампе пройденной проверки пути)",
+  "H11 на B: номер правила — task1_side.h11_rule по CI с B; формулировки переписаны «на B» (тексты h11_rule 3–4 говорят «на A»)",
+  "число запросов B сверяется с 19 361 описательно (warnings); шаг останавливает только расхождение запросов B новых моделей и опор",
+  "замок — side <h>-B, журнал heavy — council/runs/side/queue.jsonl",
+  "H11: на B скорятся только G* и h11_step_s1, а не все новые подгонки h11_g<r>_s<i> (h11.md:211) — консервативное сужение: остальные группы нужны только для приёма на A, правилам 2–5 их B не нужен",
+  "два прохода по дням val под замком: сначала A (строки B дня сразу отбрасываются) и сверка max|Δ| = 0; маркер и проход B — только после неё; отказ сверки пишет результат с B_read = false и не тратит чтение",
+  "штамп A-прогона сверяется целиком (все файлы task1_side.STAMPED), а не только task1/*"
+ ],
+ "reused": {
+  "agent_night20_r6_base": "ok",
+  "pl19_Hag_s0": "ok",
+  "pl19_Hag_s1": "ok",
+  "q2_d8": "ok",
+  "q3_d8_s1": "ok"
+ },
+ "protected": {
+  "unchanged": true,
+  "incident": [],
+  "n_incident": 0,
+  "reconcile": [],
+  "entries": 6344,
+  "roots": {
+   "/Users/mdpospelov/tlab-recsys-2026/artifacts/task1/v2": "incident",
+   "/Users/mdpospelov/tlab-recsys-2026/task1/runs": "incident",
+   "/Users/mdpospelov/tlab-recsys-2026/artifacts/task1/v2020": "reconcile",
+   "/Users/mdpospelov/tlab-recsys-2026/artifacts/xfer": "reconcile"
+  }
+ },
+ "code": {
+  "task1/exp.py": "94c1dc883654766d5ba4e24f7d81fdd10ab711ad3df1e40cd845b47147d1c957",
+  "task1/model.py": "33b7b2cf483bce77c2472acd5571d2937a76890096f682b2d56dd2b6899e3a74",
+  "task1/period.py": "fdeb16b9d0b39ece02499b4bf0a9f5809a795d0d08db17c3b7ca74c77a42944e",
+  "council/side/__init__.py": "11f6fa839e6739cb2b04e41d532015d6765ec286e0c37870167242ddf5fc22d7",
+  "council/side/task1_side.py": "83eae080eae7c377f7a9e3adefa4c7b8377ddbbacd72aac683a1db41fa58d398"
+ },
+ "code_B": {
+  "council/side/task1_side_b.py": "6977dc462a0a61471320236364bcecd998eb8f5cec7b80a18a362c8704d5048c"
+ },
+ "commit": "d8cad885dcc7ee3660c064b0e0a96f0662153cc9",
+ "peak_rss_gb": 7.448,
+ "seconds_total": 60.6,
+ "finished": "2026-10-22 22:52:09"
+}
