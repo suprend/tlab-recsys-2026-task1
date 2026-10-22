@@ -1,0 +1,271 @@
+{
+ "families": {
+  "F1": "G2-2",
+  "F2": "G3-1",
+  "F3": "G4-1",
+  "F4": "G2-4",
+  "F5": "G3-3",
+  "F6": "G4-3",
+  "F7": "G2-6",
+  "F8": "G4-6"
+ },
+ "family_tables": {
+  "F1": "g2_2",
+  "F2": "g3_1",
+  "F3": "g4_1",
+  "F4": "g2_4",
+  "F5": "g3_3",
+  "F6": "g4_3",
+  "F7": "g2_6",
+  "F8": "g4_6"
+ },
+ "twins": {
+  "T1": {
+   "family": "F1",
+   "card": "G2-2",
+   "table": "g2_2_tw"
+  },
+  "T2": {
+   "family": "F4",
+   "card": "G2-4",
+   "table": "g2_4_tw"
+  },
+  "T3": {
+   "family": "F2",
+   "card": "G3-1",
+   "table": "g3_1_tw"
+  },
+  "T4": {
+   "family": "F3",
+   "card": "G4-1",
+   "table": "g4_1_tw"
+  }
+ },
+ "placebo": {
+  "tables": [
+   "g4_1",
+   "g2_2",
+   "g3_3",
+   "g2_4"
+  ],
+  "columns": [
+   "ag_c4_ret_silence_exp",
+   "ag_c2_p_share_slope_post",
+   "ag_c3_knn_share",
+   "ag_c2_pr_missed_sale_days"
+  ]
+ },
+ "empty": [
+  "F9",
+  "F10",
+  "F11",
+  "F12",
+  "E1",
+  "E2",
+  "E3",
+  "E4",
+  "E5",
+  "E6"
+ ],
+ "columns": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5",
+  "F6",
+  "F7",
+  "F8",
+  "F9",
+  "F10",
+  "F11",
+  "F12",
+  "T1",
+  "T2",
+  "T3",
+  "T4",
+  "PL",
+  "E1",
+  "E2",
+  "E3",
+  "E4",
+  "E5",
+  "E6"
+ ],
+ "matrix_sha256": "dc36824963e06a5c4db3bdd6039c3514a728da487af78c1ebe048c1c02c22358",
+ "seeds": {
+  "plan-r01-1001": 1001,
+  "plan-r02-1002": 1002,
+  "plan-r03-1003": 1003,
+  "plan-r04-1004": 1004,
+  "plan-r05-1005": 1005,
+  "plan-r06-1006": 1006,
+  "plan-r07-1007": 1007,
+  "plan-r08-1008": 1008,
+  "plan-r09-1009": 1009,
+  "plan-r10-1010": 1010,
+  "plan-r11-1011": 1011,
+  "plan-r12-1012": 1012,
+  "plan-r13-1013": 1013,
+  "plan-r14-1014": 1014,
+  "plan-r15-1015": 1015,
+  "plan-r16-1016": 1016,
+  "plan-r17-1017": 1017,
+  "plan-r18-1018": 1018,
+  "plan-r19-1019": 1019,
+  "plan-r20-1020": 1020,
+  "plan-r21-1021": 1021,
+  "plan-r22-1022": 1022,
+  "plan-r23-1023": 1023,
+  "plan-r24-1024": 1024,
+  "plan-r25-1025": 1025,
+  "plan-r26-1026": 1026,
+  "plan-r27-1027": 1027,
+  "plan-r28-1028": 1028,
+  "plan-r29-1029": 1029,
+  "plan-r30-1030": 1030,
+  "plan-r31-1031": 1031,
+  "plan-r32-1032": 1032,
+  "plan-r33-1033": 1033,
+  "plan-r34-1034": 1034,
+  "plan-r35-1035": 1035,
+  "plan-r36-1036": 1036,
+  "plan-r37-1037": 1037,
+  "plan-r38-1038": 1038,
+  "plan-r39-1039": 1039,
+  "plan-r40-1040": 1040,
+  "plan-r41-1041": 1041,
+  "plan-r42-1042": 1042,
+  "plan-r43-1043": 1043,
+  "plan-r44-1044": 1044,
+  "plan-r45-1045": 1045,
+  "plan-r46-1046": 1046,
+  "plan-r47-1047": 1047,
+  "plan-r48-1048": 1048
+ },
+ "arms": {
+  "Hr": [],
+  "Hrp": [
+   "rb1_seq_next_order_transition",
+   "rb1_assortment_recency",
+   "rb1_p_launch_age_activity",
+   "rb1_uc_price_tier_fit",
+   "rb1_p_monthly_trend_retention"
+  ],
+  "ALLP": [
+   "g2_2",
+   "g3_1",
+   "g4_1",
+   "g2_4",
+   "g3_3",
+   "g4_3",
+   "g2_6",
+   "g4_6"
+  ],
+  "Rb1": [
+   "rb1_seq_next_order_transition",
+   "rb1_assortment_recency",
+   "rb1_p_launch_age_activity",
+   "rb1_uc_price_tier_fit",
+   "rb1_p_monthly_trend_retention"
+  ],
+  "Rb2": []
+ },
+ "tables_over_hr": {
+  "Hr": 0,
+  "Hrp": 5,
+  "ALLP": 8,
+  "Rb1": 5,
+  "Rb2": 0
+ },
+ "curation_sha256": "ebec18a9875ea132c9287cd6c81bce9c32eefc489df15b521f5f92314e84f8fa",
+ "rehearsal": {
+  "power": 1.0,
+  "sd_t_interval": [
+   0.47621048975828917,
+   0.8208867771270465
+  ],
+  "sd_t_median": 0.6928400572044109,
+  "false_rate": 0.006,
+  "calib_fail_rate": 0.05,
+  "gate": true,
+  "n_q": 9989,
+  "n_sim": 2000,
+  "beta_harm": -0.0005,
+  "exact": false,
+  "seed": 2026,
+  "sigma_fit": 0.0,
+  "deff": 1.0,
+  "se_boot": 2.849915774328293e-05,
+  "layout": {
+   "n_families": 8,
+   "n_twins": 4
+  }
+ },
+ "power_gate": {
+  "power": 1.0,
+  "gate": true,
+  "layout": "12/4 (prereg-0)",
+  "sd_t_interval": [
+   0.36671250100979474,
+   0.8476491696069465
+  ],
+  "power_on_this_layout": 1.0
+ },
+ "rule": "SEL = ALL_P minus D after the nomination and the confirmation of D; calibration on the interval of this layout, beta and twins by council.design",
+ "twin_arm": "SEL with the family of the largest t(beta_g - beta_twin) replaced by its twin, chosen by select",
+ "h1": "design.h1 on C_test, SEL vs H+r+ over seeds [7, 11, 13, 17]",
+ "test_fits": {
+  "Hrp": [
+   7,
+   11,
+   13,
+   17
+  ],
+  "SEL": [
+   7,
+   11,
+   13,
+   17
+  ],
+  "Hr": [
+   7,
+   11
+  ],
+  "TWIN": [
+   7,
+   11
+  ],
+  "Rb1": [
+   7
+  ],
+  "Rb2": [
+   7
+  ]
+ },
+ "test": "повторный тест (контракт §0): якоря C_test открыты цепочкой xfer, вывод — первая проверка",
+ "identity": {
+  "code": {
+   "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+   "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+   "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+   "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+   "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+   "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+   "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+   "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+   "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+   "scripts/xfer_sber.py": "e538de9f4429414aa4a104c9e38710bc53dd6866d2591519b91361b6b5a0ee1f"
+  },
+  "council": {
+   "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+   "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+   "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+   "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+   "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+   "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+   "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+   "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+  }
+ }
+}
