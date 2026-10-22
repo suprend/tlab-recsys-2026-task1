@@ -1,0 +1,385 @@
+{
+ "format": "side-coverage-v1",
+ "status": "ok",
+ "spec": {
+  "format": "side-coverage-v1",
+  "dataset": "rees46-2020",
+  "span": "T_fit",
+  "anchors": [
+   "2020-01-29",
+   "2020-01-30",
+   "2020-01-31",
+   "2020-02-01",
+   "2020-02-02"
+  ],
+  "db": "/Users/mdpospelov/tlab-recsys-2026/data/processed/rees46-2020.duckdb",
+  "days6": "/Users/mdpospelov/tlab-recsys-2026/artifacts/task1/v2020/days6",
+  "duckdb": {
+   "threads": 4,
+   "memory_limit": "4GB",
+   "read_only": true,
+   "temp": "/tmp/tlab-side-coverage-duckdb"
+  },
+  "current": [
+   "pop",
+   "cat",
+   "brand",
+   "coview",
+   "coview_agg",
+   "transition"
+  ],
+  "new": [
+   "i2v",
+   "cp1",
+   "cp2"
+  ],
+  "k_grid": [
+   10,
+   20,
+   50,
+   100,
+   200
+  ],
+  "primary": [
+   "i2v",
+   "cp2"
+  ],
+  "primary_k": 50,
+  "i2v": {
+   "dim": 64,
+   "min_sessions": 5,
+   "max_items": 100000,
+   "min_pair": 2,
+   "alpha": 0.75,
+   "seeds": 20,
+   "session_items": [
+    2,
+    50
+   ]
+  },
+  "cp": {
+   "seeds": 10,
+   "hop": 20,
+   "prior": 5,
+   "user_items": [
+    2,
+    50
+   ]
+  },
+  "bootstrap": {
+   "draws": 2000,
+   "seed": 2026
+  },
+  "decision": "per N in primary: CI of e(N@K \\ U) - e(weakest current, unique) > 0 -> окупается; < 0 -> не окупается; else не различено (e = targets per 1000 added candidates)"
+ },
+ "spec_digest": "2afa2c653186822ab2112496de4331cc78851d05db62f05bb6ea18106f5cac0c",
+ "days": {
+  "2020-01-29": {
+   "seconds": {
+    "current": 26.6,
+    "cp": 0.6,
+    "i2v": 17.6,
+    "aggregate": 0.3
+   },
+   "i2v_vocab": 100000,
+   "i2v_dim": 64,
+   "queries": 5931,
+   "targets": 8175,
+   "hits_U": 4227,
+   "targets_with_candidates": 8175,
+   "days6": {
+    "hits": 4227,
+    "targets": 8175,
+    "match": true
+   }
+  },
+  "2020-01-30": {
+   "seconds": {
+    "current": 40.5,
+    "cp": 1.1,
+    "i2v": 22.9,
+    "aggregate": 0.4
+   },
+   "i2v_vocab": 100000,
+   "i2v_dim": 64,
+   "queries": 8876,
+   "targets": 16676,
+   "hits_U": 6378,
+   "targets_with_candidates": 16676,
+   "days6": {
+    "hits": 6378,
+    "targets": 16676,
+    "match": true
+   }
+  },
+  "2020-01-31": {
+   "seconds": {
+    "current": 45.4,
+    "cp": 1.2,
+    "i2v": 24.7,
+    "aggregate": 0.5
+   },
+   "i2v_vocab": 100000,
+   "i2v_dim": 64,
+   "queries": 11130,
+   "targets": 21027,
+   "hits_U": 7839,
+   "targets_with_candidates": 21027,
+   "days6": {
+    "hits": 7839,
+    "targets": 21027,
+    "match": true
+   }
+  },
+  "2020-02-01": {
+   "seconds": {
+    "current": 38.5,
+    "cp": 1.0,
+    "i2v": 21.7,
+    "aggregate": 0.4
+   },
+   "i2v_vocab": 100000,
+   "i2v_dim": 64,
+   "queries": 8685,
+   "targets": 12768,
+   "hits_U": 5749,
+   "targets_with_candidates": 12768,
+   "days6": {
+    "hits": 5749,
+    "targets": 12768,
+    "match": true
+   }
+  },
+  "2020-02-02": {
+   "seconds": {
+    "current": 30.6,
+    "cp": 1.2,
+    "i2v": 22.9,
+    "aggregate": 0.3
+   },
+   "i2v_vocab": 100000,
+   "i2v_dim": 64,
+   "queries": 8617,
+   "targets": 11953,
+   "hits_U": 5651,
+   "targets_with_candidates": 11953,
+   "days6": {
+    "hits": 5651,
+    "targets": 11953,
+    "match": true
+   }
+  }
+ },
+ "pooled": {
+  "queries": 43239,
+  "targets": 70599,
+  "union": {
+   "recall": 0.42272553435601073,
+   "rows_per_query": 283.0448669025648
+  },
+  "current": {
+   "pop": {
+    "recall": 0.24127820507372624,
+    "rows_per_query": 96.25359050856865,
+    "unique_recall": 0.054320882732050026,
+    "unique_rows_per_query": 59.50805985337311,
+    "unique_eff_per_1000": 1.4904380722009398
+   },
+   "cat": {
+    "recall": 0.16858595730817716,
+    "rows_per_query": 64.31931820809918,
+    "unique_recall": 0.007733820592359665,
+    "unique_rows_per_query": 26.979462984805384,
+    "unique_eff_per_1000": 0.4680407864113873
+   },
+   "brand": {
+    "recall": 0.1683026671765889,
+    "rows_per_query": 62.77279770577488,
+    "unique_recall": 0.008881145625292143,
+    "unique_rows_per_query": 31.948541825666645,
+    "unique_eff_per_1000": 0.45387980365174174
+   },
+   "coview": {
+    "recall": 0.28344594116063965,
+    "rows_per_query": 106.71040033303268,
+    "unique_recall": 0.016544143684754743,
+    "unique_rows_per_query": 34.988228219894076,
+    "unique_eff_per_1000": 0.7720496861565146
+   },
+   "coview_agg": {
+    "recall": 0.2868879162594371,
+    "rows_per_query": 98.89275885196236,
+    "unique_recall": 0.016629130724231223,
+    "unique_rows_per_query": 25.248479382039363,
+    "unique_eff_per_1000": 1.0753682953214152
+   },
+   "transition": {
+    "recall": 0.19413872717743877,
+    "rows_per_query": 29.57128980781239,
+    "unique_recall": 0.0019122083882207963,
+    "unique_rows_per_query": 6.334975369458128,
+    "unique_eff_per_1000": 0.492848224651173
+   }
+  },
+  "new": {
+   "i2v": {
+    "10": {
+     "recall": 0.026586778849558776,
+     "rows_per_query": 9.964384005180507,
+     "added_recall": 0.0004957577302794657,
+     "added_rows_per_query": 5.961654987395638,
+     "added_eff_per_1000": 0.13577679846067903
+    },
+    "20": {
+     "recall": 0.04206858454085752,
+     "rows_per_query": 19.928768010361015,
+     "added_recall": 0.0012039830592501311,
+     "added_rows_per_query": 12.39024954323643,
+     "added_eff_per_1000": 0.15865845873573473
+    },
+    "50": {
+     "recall": 0.07192736441026076,
+     "rows_per_query": 49.82192002590254,
+     "added_recall": 0.0031161914474709274,
+     "added_rows_per_query": 33.484007493235275,
+     "added_eff_per_1000": 0.1519531155568909
+    },
+    "100": {
+     "recall": 0.10398164279947308,
+     "rows_per_query": 99.64384005180509,
+     "added_recall": 0.006600660066006601,
+     "added_rows_per_query": 72.27324868752747,
+     "added_eff_per_1000": 0.14911890248487772
+    },
+    "200": {
+     "recall": 0.14297652941259792,
+     "rows_per_query": 199.28768010361017,
+     "added_recall": 0.01328630717148968,
+     "added_rows_per_query": 156.96364393256087,
+     "added_eff_per_1000": 0.13820639046900443
+    }
+   },
+   "cp1": {
+    "10": {
+     "recall": 0.11236703069448575,
+     "rows_per_query": 9.80575406461759,
+     "added_recall": 0.00033994815790591937,
+     "added_rows_per_query": 1.5204329424824812,
+     "added_eff_per_1000": 0.3650634297709227
+    },
+    "20": {
+     "recall": 0.15491720845904333,
+     "rows_per_query": 19.443719790004394,
+     "added_recall": 0.0007932123684471451,
+     "added_rows_per_query": 4.035037813085409,
+     "added_eff_per_1000": 0.3209702472044065
+    },
+    "50": {
+     "recall": 0.20827490474369326,
+     "rows_per_query": 41.997525382178125,
+     "added_recall": 0.002266321052706129,
+     "added_rows_per_query": 11.829713915677976,
+     "added_eff_per_1000": 0.3128024163986667
+    },
+    "100": {
+     "recall": 0.23139137948129576,
+     "rows_per_query": 59.81227595457804,
+     "added_recall": 0.004008555361973966,
+     "added_rows_per_query": 19.638543907120887,
+     "added_eff_per_1000": 0.33327405844190255
+    },
+    "200": {
+     "recall": 0.23350189096162835,
+     "rows_per_query": 61.98746502000509,
+     "added_recall": 0.004192693947506339,
+     "added_rows_per_query": 20.724716112768565,
+     "added_eff_per_1000": 0.330314378942012
+    }
+   },
+   "cp2": {
+    "10": {
+     "recall": 0.105383928950835,
+     "rows_per_query": 9.883276671523394,
+     "added_recall": 0.00016997407895295969,
+     "added_rows_per_query": 0.8041351557621592,
+     "added_eff_per_1000": 0.3451251078515962
+    },
+    "20": {
+     "recall": 0.15310415161687843,
+     "rows_per_query": 19.759060107773074,
+     "added_recall": 0.000509922236858879,
+     "added_rows_per_query": 2.26237887092671,
+     "added_eff_per_1000": 0.3680116128108931
+    },
+    "50": {
+     "recall": 0.22928086800096317,
+     "rows_per_query": 49.26059807118573,
+     "added_recall": 0.002322979079023782,
+     "added_rows_per_query": 8.696338953259788,
+     "added_eff_per_1000": 0.4361458535560514
+    },
+    "100": {
+     "recall": 0.2820578195158572,
+     "rows_per_query": 96.77862577765443,
+     "added_recall": 0.008059604243686172,
+     "added_rows_per_query": 28.279146141215108,
+     "added_eff_per_1000": 0.4653399435049503
+    },
+    "200": {
+     "recall": 0.3257269933001884,
+     "rows_per_query": 171.90039085085223,
+     "added_recall": 0.019334551480899163,
+     "added_rows_per_query": 77.52797243229492,
+     "added_eff_per_1000": 0.4071913877082493
+    }
+   }
+  },
+  "weakest_current": "brand"
+ },
+ "primary": {
+  "i2v": {
+   "k": 50,
+   "against": "brand",
+   "eff_new": 0.1519531155568909,
+   "eff_weakest": 0.45387980365174174,
+   "diff": -0.30192668809485085,
+   "ci": [
+    -0.3476417231114648,
+    -0.2594164012380293
+   ],
+   "draws": 2000,
+   "decision": "не окупается"
+  },
+  "cp2": {
+   "k": 50,
+   "against": "brand",
+   "eff_new": 0.4361458535560514,
+   "eff_weakest": 0.45387980365174174,
+   "diff": -0.017733950095690343,
+   "ci": [
+    -0.09768437714890542,
+    0.06070369439723593
+   ],
+   "draws": 2000,
+   "decision": "не различено"
+  }
+ },
+ "build_match": true,
+ "seconds": 301.3,
+ "peak_rss_gb": 7.317,
+ "protected": {
+  "unchanged": true,
+  "roots": [
+   "/Users/mdpospelov/tlab-recsys-2026/artifacts/xfer",
+   "/Users/mdpospelov/tlab-recsys-2026/artifacts/task1"
+  ],
+  "entries": 8157,
+  "changes": 0,
+  "first": []
+ },
+ "code": {
+  "council/side/__init__.py": "11f6fa839e6739cb",
+  "council/side/coverage.py": "0001958f164458d2"
+ },
+ "finished": "2026-10-22 07:46:03"
+}
