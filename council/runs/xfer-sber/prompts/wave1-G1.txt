@@ -1,0 +1,242 @@
+# command: ["claude", "-p", "<prompt>", "--model", "opus", "--output-format", "json", "--tools", "", "--strict-mcp-config"]
+# cwd: /tmp/tlab-council-llm-b
+# prompt_sha256: fb44894618ccf2261c0c38c52d753775279fa89889104ede0322e10b7c92dfb3
+
+You are generator G1 of a feature council for a ranking model.
+Your lens: intent and recency of the user: what the user is doing right now; the latest interactions, their pace and gaps, repeats and returns, bursts and pauses, the start of a new interest or the end of an old one. Other generators work through other lenses; stay inside yours. Reply with JSON only.
+
+TASK
+Orders of a grocery delivery service. Every anchor A is a midnight. A query is a user with at least one order
+before A and at least one order in [A, A + 14 days). The target of a query is the set of distinct products of the
+user's first order in that window (earliest ts, then smallest order_id); products the user bought before count too.
+The label of a (user, product) candidate pair is whether the product is in the target. The metric is MAP@50:
+AP@50 = (1 / min(50, M)) * sum over positions k = 1..50 of rel_k * P@k, where M is the number of target products
+(targets outside the candidates included), rel_k is 1 when the product at position k is a target, and P@k is the
+number of targets among the first k positions divided by k; MAP@50 is the mean AP@50 over all queries.
+
+CANDIDATES (policy S-R150-P100-G200)
+Up to 200 candidates per query, all statistics from the history before A.
+Main retailer of the user: the retailer with the most distinct orders of the user; ties by the later last order of the user there, then by retailer code.
+(a) repeat: the distinct products the user bought before A, by the number of distinct orders with the product descending, then the time of the latest such order descending, then product_id; the first 150.
+(b) pop-retailer: products by distinct buyers at the main retailer in [A - 28 days, A) descending, then product_id; the first 100.
+(c) global: products by distinct buyers over all orders in [A - 28 days, A) descending, then product_id.
+Union: (a) in its order, then (b) without (a), then (c) without (a) and (b), until exactly 200 candidates. Source ranks repeat_rank, popr_rank and glob_rank are positions in the full orders.
+
+TRAINING
+CatBoost Logloss, 500 trees, depth 8, learning rate 0.05, L2 10, 128
+borders, no tuning. Training anchors are 14 days apart; each contributes at most 20000 queries: all positive pairs
+plus 20 hash-sampled negatives per query, with inverse-inclusion weights. Candidates are ranked by the raw
+model value, ties by product_id.
+
+FEATURES ALREADY IN THE MODEL: the base (name: formula; missing). A window of w days is [A - w days, A).
+- up_orders: number of distinct orders of the user before A that contain the product (repeated lines of an order count once); missing: 0 when none
+- up_share: up_orders / u_orders; missing: 0 when none
+- up_days_since_last: days from the latest order of the user with the product to A (fractional, from seconds); missing: NULL when the user never bought the product
+- up_mean_interval: (time of the latest minus time of the earliest order of the user with the product) / (up_orders - 1), in days; missing: NULL when up_orders < 2
+- up_due: up_days_since_last / up_mean_interval; missing: NULL when either is NULL or up_mean_interval = 0
+- up_qty_total: sum of quantity over all lines of the product of the user before A, repeated lines included; missing: 0 when none
+- up_last_price: price of the product line in the latest order of the user with the product (latest ts, then largest order_id; with several lines, the largest line_item_id); missing: NULL when none
+- up_discount_share: mean of discount / (price + discount) over the lines of the product of the user with price + discount > 0 (negative discounts kept); missing: NULL when there are no such lines
+- repeat_rank: position of the product in the full repeat order of the user (source a, without its depth cut); missing: NULL when the user never bought the product
+- popr_rank: position of the product in the full pop-retailer order of the main retailer of the user (source b, without its depth cut); missing: NULL when nobody bought the product at that retailer in the window
+- glob_rank: position of the product in the full global order (source c); missing: NULL when nobody bought the product in the window
+- u_orders: number of distinct orders of the user before A; missing: never missing
+- u_orders_28: orders of the user in [A - 28 days, A); missing: 0 when none
+- u_days_since_last: days from the latest order of the user to A; missing: never missing
+- u_mean_basket: mean over the orders of the user of the number of distinct products in the order; missing: never missing
+- u_mean_gap: (time of the latest minus time of the earliest order of the user) / (u_orders - 1), in days; missing: NULL when u_orders < 2
+- u_main_share: orders of the user at the main retailer / u_orders; missing: never missing
+- p_buyers_28: distinct users who bought the product in the global window of source c; missing: 0 when none
+- p_buyers_28_main: distinct users who bought the product at the main retailer of the user in the window of source b; missing: 0 when none
+- p_repeat_share: among users who bought the product in [A - 90 days, A), the share with at least 2 distinct orders containing it in that interval; missing: NULL when nobody bought it in the interval
+- uc_share: orders of the user that contain a product of the same category as the product / u_orders; the category of a product is its non-NULL master_category_id in the history before A; missing: NULL when the product has no category; 0 when no such order
+- main_retailer: code of the main retailer of the user (categorical); missing: never missing
+- up_orders_28: number of distinct orders of the user in [A - 28 days, A) that contain the product; missing: 0 when none
+- up_last5_share: share of the last 5 orders of the user before A (by time descending, then order_id descending) that contain the product; the denominator is min(5, u_orders); missing: 0 when none
+- up_in_last_order: 1 when the latest order of the user before A (latest time, then largest order_id) contains the product, else 0; missing: 0 when none
+- up_days_since_first: days from the earliest order of the user with the product to A (fractional, from seconds); missing: NULL when the user never bought the product
+- p_buyers_7: distinct users who bought the product over all orders in [A - 7 days, A); missing: 0 when none
+- p_trend: p_buyers_7 / p_buyers_28; missing: NULL when p_buyers_28 = 0
+- p_buyers_28_main_share: p_buyers_28_main / p_buyers_28; missing: NULL when p_buyers_28 = 0
+- up_qty_mean: up_qty_total / number of lines of the product of the user before A (repeated lines included); missing: NULL when there are no such lines
+- uc_days_since_last: days from the latest order of the user with a line of a product of the same category as the product to A (fractional, from seconds); categories as in uc_share; missing: NULL when the product has no category or there is no such order
+categorical: main_retailer
+Columns of earlier proposals with status valid are also in the model.
+
+TABLES (DuckDB; a query sees only these five)
+orders(order_id BIGINT, user_id BIGINT, ts TIMESTAMP, retailer VARCHAR, store_id BIGINT, platform VARCHAR, city_name VARCHAR)
+lines(order_id BIGINT, user_id BIGINT, ts TIMESTAMP, product_id BIGINT, line_item_id BIGINT, price DOUBLE, quantity BIGINT, discount DOUBLE, brand_name VARCHAR, master_category_id BIGINT)
+categories(id BIGINT, name VARCHAR, parent_id BIGINT)
+orders: one row per order placed in the last 120 days before A, [A - 120 days, A), that has at
+  least one product line; retailer and city_name are anonymised codes. Earlier orders are not visible to queries
+  (the base features above use the whole history before A).
+lines: every product line of those orders with the order's user_id and ts; a product can appear on several lines
+  of one order (duplicate lines are kept).
+order_id and line_item_id are shifted to the start of the window (their first value there is 0) and carry no
+  absolute meaning; use them to tell orders and lines apart and to break ties of equal ts.
+categories: the category tree; lines.master_category_id refers to categories.id.
+cand(user_id BIGINT, product_id BIGINT): the candidate pairs of the current batch, keys only
+users(user_id BIGINT): the distinct users of cand
+There is no user table and no product attribute table.
+Id columns (user_id, product_id, store_id, master_category_id, order_id, line_item_id, retailer, city_name) are
+  labels: do not use their numeric value or order as a feature, only equality and joins.
+
+Columns of an earlier feature agent, in the model besides the base above (proposal name [level]: columns):
+  p_next_order_reorder [item]: ag_p_next_reorder, ag_p_med_regap
+  user_repeat_fraction [user]: ag_u_repeat_frac, ag_u_last_repeat_frac
+  p_new_buyer_share [item]: ag_p_new_buyer_share
+  user_brand_affinity_v2 [pair]: ag_ub_share, ag_ub_days_since
+  up_decayed_frequency [pair]: ag_up_decay14, ag_up_decay_share
+  category_choice_v2 [pair]: ag_up_cat_choice, ag_uc_last_pick
+  up_order_count_due [pair]: ag_up_orders_since, ag_up_ord_due
+  p_buyer_repeat_penetration [item]: ag_p_buyer_penetration
+  up_adoption_streak [pair]: ag_up_adopt_share, ag_up_streak
+  store_popularity [pair]: ag_ps_share, ag_ps_lift
+  product_promo_price [item]: ag_p_promo7, ag_p_price_rel
+  product_category_dominance [item]: ag_p_cat_share, ag_p_cat_rank
+  user_category_due [pair]: ag_uc_due, ag_uc_last5_share
+  up_rebuy_recency_bucket [pair]: ag_pr_rebuy_bucket
+  p_pseudo_adopt_rebuy14 [item]: ag_p_adopt14, ag_p_rebuy14
+  uc_rebuy_recency_bucket [pair]: ag_uc_rebuy_bucket
+  up_category_switch_after [pair]: ag_uc_orders_after, ag_uc_subs_after
+  up_gap_regularity [pair]: ag_up_gap_cv, ag_up_due_pmed
+  up_rebuy_freq_bucket [pair]: ag_pr_rebuy_freq
+  up_price_vs_paid_v2 [pair]: ag_up_price_vs_paid
+  retailer_adopt14 [pair]: ag_pr_adopt14_main
+  last_retailer_fit [pair]: ag_up_lastret_share, ag_p_lastret_buyers7
+  last_order_copurchase [pair]: ag_co_last_cond, ag_co_last_lift
+  up_gap_conditioned_share [pair]: ag_up_gapcond_share
+  user_parent_category_affinity [pair]: ag_upar_share, ag_upar_days
+  p_basket_context [item]: ag_p_basket_rel, ag_p_topup_share
+  up_last_quantity_rel [pair]: ag_up_lastqty_rel
+
+Ideas of that agent, all of them in the model above (name: idea):
+  p_next_order_reorder: Item-level chance that a buyer's next order contains the product again (smoothed), plus the median days between consecutive purchases of the product by the same user, over the last 90 days.
+  user_repeat_fraction: How habitual the user is: mean share of products in each order (after the first in the 120-day window) that the user had already bought earlier in the window, plus the same share for the latest order.
+  p_new_buyer_share: Smoothed share of the product's buyers in the last 28 days who had not bought it earlier in the 120-day window, separating trial-driven products from staples.
+  user_brand_affinity_v2: Share of the user's orders in the 120-day window that contain the product's brand, and days since the user last bought that brand; the product brand is taken from all lines, so the value does not depend on the batch.
+  up_decayed_frequency: Recency-weighted purchase frequency of the product by the user (sum over distinct orders of exp(-age/14 days)), raw and normalised by the user's own decayed order count.
+  category_choice_v2: Within the product's category (taken from all lines, so batch-independent), the share of the user's category orders that picked this product, and whether the user's latest category order picked it (substitution vs loyalty).
+  up_order_count_due: Number of the user's orders since the product was last bought, and that count divided by the user's typical number of orders per purchase of the product (order-based dueness instead of day-based).
+  p_buyer_repeat_penetration: Item-level share of later orders (after the first) of multi-order buyers in the last 90 days that contain the product again, smoothed: how much of a buyer's ongoing basket the product occupies.
+  up_adoption_streak: For products the user already bought in the 120-day window: the share of the user's orders since the first purchase of the product that contain it (persistence after adoption), and the number of consecutive latest orders that contain it (current streak).
+  store_popularity: Popularity of the product at the user's main store (finer than retailer) in the last 28 days: share of the store's buyers who bought it, and its smoothed lift over the global buyer share.
+  product_promo_price: Current promotion signal of the product: share of its lines with a positive discount in the last 7 days, and the median line price in the last 7 days relative to the median price in the 83 days before.
+  product_category_dominance: How dominant the product is inside its category over the last 28 days: its distinct buyers divided by the category's distinct buyers, and its buyer rank within the category.
+  user_category_due: Category-level replenishment timing for every candidate: days since the user last bought the product's category divided by the user's mean interval between category orders, and the share of the user's last 5 orders containing the category.
+  up_rebuy_recency_bucket: Pseudo-label rate learned at A-14d: among users who had last bought the product in the same days-since-last bucket (0-7, 7-14, 14-28, 28-56, 56+) as this user now, the share whose first order in the next 14 days contained it, smoothed toward the bucket-wide rate.
+  p_pseudo_adopt_rebuy14: Pseudo-label rates at A-14d over users with prior history: the share of prior non-buyers whose first order in the last 14 days adopted the product, and the smoothed share of prior buyers whose first order rebought it.
+  uc_rebuy_recency_bucket: Category-level pseudo-label rate at A-14d: share of users with the same days-since-last-category-purchase bucket (or never bought the category) whose first order in the next 14 days contained the category, applied to every candidate via the user's current bucket.
+  up_category_switch_after: For products the user bought: number of the user's orders with the product's category placed after the last purchase of the product and the number of distinct other products of that category bought since (evidence of switching to a substitute).
+  up_gap_regularity: How regular the user's repurchase gaps for the product are (coefficient of variation of gaps), and days since the user's last purchase divided by the product's typical 90-day median repurchase gap across all buyers.
+  up_rebuy_freq_bucket: Pseudo-label rate learned at A-14d per product: among users with the same number of prior distinct orders containing the product (1, 2, 3-4, 5-7, 8+) as this user now, the share whose first order in the next 14 days contained it, smoothed toward the bucket-wide rate.
+  up_price_vs_paid_v2: Clipped log ratio of the product's current 7-day median price at the user's main retailer (global 7-day median as fallback) to the price the user paid at the last purchase, guarded against zero prices.
+  retailer_adopt14: Pseudo-label adoption rate at A-14d at the user's main retailer: share of returning users whose first order in the last 14 days was at that retailer, had never bought the product before, and added it in that order.
+  last_retailer_fit: Fit of the candidate to the retailer of the user's latest order: share of the user's purchases of the product made at that retailer, and log distinct buyers of the product at that retailer in the last 7 days (current availability).
+  last_order_copurchase: Item-to-item affinity between the candidate and the products of the user's latest order: the mean over those products of P(candidate in an order | product in that order) over the last 7 days, and its log lift over the candidate's base order rate.
+  up_gap_conditioned_share: Smoothed share of the user's orders placed after a gap at least as long as the current days since the user's last order that contain the product, matching the situation of the next order (big restock vs top-up).
+  user_parent_category_affinity: Coarser category affinity via the parent of the product's category: share of the user's orders with any product of that parent category and days since the user last bought it, covering never-bought candidates.
+  p_basket_context: Order context of the product over the last 28 days: smoothed mean basket size of orders containing it relative to the overall mean (weekly-restock staple vs small-basket item), and the smoothed share of its orders that were top-ups placed within 2 days of the buyer's previous order.
+  up_last_quantity_rel: Quantity the user took of the product in the latest purchase relative to the user's mean per-order quantity of it, since a stock-up delays the next repurchase.
+
+QUERY RULES
+- Exactly one SELECT or WITH statement; ';' only at the very end; no comments (-- or /* */).
+- Write the anchor only as TIMESTAMP '{A}', literally with the braces, e.g.
+  ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY. No other {...} placeholders, no date or time literals
+  ('YYYY-MM-DD...', DATE '...', TIMESTAMP '...' other than the anchor); intervals only as INTERVAL n DAY, unquoted.
+- Times. A time value is the column ts of orders or lines, or a column of a WITH query or subquery that
+  selects one; its min, max, first, last, arg_max/arg_min result, lag, lead, first_value or last_value;
+  CAST(... AS DATE); date_trunc('day' | 'hour' | 'minute' | 'second' | 'week', ...); or such a value +/-
+  INTERVAL n DAY. The anchor is TIMESTAMP '{A}' +/- INTERVAL n DAY. Nothing else is a time value: struct
+  fields, values of other tables and anything built from text or numbers are not. A time value may only be:
+  compared (=, <>, <, <=, >, >=, BETWEEN, IN, IS DISTINCT FROM) with another time value or the anchor;
+  subtracted from another time value or the anchor (the difference is an interval, free to use, e.g.
+  epoch(TIMESTAMP '{A}' - max(ts)) / 86400); passed with another time value or the anchor to date_diff or
+  date_sub with 'week', 'day', 'hour', 'minute' or 'second'; reduced to a periodic part by date_part with dow,
+  isodow, day (of the month), hour, minute or second (or dayofweek(), day(), hour() and the like); counted;
+  used in ORDER BY, GROUP BY or PARTITION BY. A default of lag or lead must be a time value or the anchor
+  (lead(ts, 1, TIMESTAMP '{A}')); for a numeric default wrap the result instead, e.g.
+  COALESCE(date_diff('day', lag(ts) OVER (PARTITION BY user_id ORDER BY ts, order_id), ts), -1). The anchor
+  itself has no parts: date_part, dayofweek() and the like of TIMESTAMP '{A}' are errors. A scalar subquery
+  that returns a time value must name it ts or *_ts: (SELECT max(ts) AS last_ts FROM ...). All dates lie within
+  one year, so month, quarter, week of the year and day of the year are absolute dates and are errors
+  (date_part, month(), week(), dayofyear(), date_trunc('month' | 'quarter' | 'year', ...),
+  date_diff('month', ...)). Anything else is an error too: epoch(ts), year, julian, strftime,
+  CAST(ts AS VARCHAR), arithmetic on ts other than +/- INTERVAL n DAY,
+  comparing ts with anything but a time value or the anchor, and any cast whose type contains DATE, TIME,
+  TIMESTAMP or INTERVAL (STRUCT(x TIMESTAMP), lists and maps included), except ts to DATE or TIMESTAMP. A time
+  value selected in a WITH query or subquery must be named ts or end in _ts, and only time values may carry
+  such names; no WITH RECURSIVE, no column aliases in WITH name(...) or AS t(...), no table used as a value
+  (SELECT o FROM orders o), no COLUMNS(...), no * RENAME, no positional #n, no $; every column must exist;
+  column names have at most two parts (alias.column, not main.orders.ts). No lambdas (x -> ..., lambda x: ...,
+  [y FOR y IN ...]) and no table functions in FROM (range, generate_series, unnest and the like); struct keys,
+  STRUCT field names and named arguments may not be ts or *_ts. In a subquery whose FROM has users, cand,
+  categories, VALUES or a subquery with unnamed columns, write the outer ts as alias.ts, with an alias not used
+  in that FROM.
+- Forbidden whole words, in any case: transactions, customers, frame, label, labels, target, targets, hm_*,
+  _hm_*; read_*, parquet_*, csv, json*, glob, getenv, query, query_table, duckdb_*, information_schema,
+  pg_catalog, sqlite_master, pragma*; attach, detach, copy, export, import, install, load, set, reset, use,
+  call, create, drop, insert, update, delete, alter; random, setseed, uuid, gen_random_uuid, now, today,
+  current_*, get_current_*, transaction_timestamp, localtimestamp, sample, tablesample, current_setting,
+  sniff_*, checkpoint, force_checkpoint, which_secret; tab_*, product_name, propert*,
+  profile, profiles, bdate, gender (also inside names joined by _); make_*, strptime, strftime, to_timestamp,
+  to_date, to_days and the other to_<unit> interval functions, epoch_*, julian, yearweek, ago; the functions
+  error(), strptime() and regexp_*(). Tables are named by plain names only (no quoted paths, no schemas).
+- An item-level query must not mention cand or users: its values do not depend on the batch and are cached.
+
+OUTPUT OF A QUERY
+- level "pair": key columns user_id, product_id (pairs of cand); level "user": user_id (of users); level "item":
+  product_id (of the products in lines). Keys are BIGINT, never NULL and unique. A key outside its set is an
+  error, not a silent filter, so keep queries narrow.
+- 1 to 3 value columns named by f_x_c1_<slug>, unique among the accepted columns and different from
+  every feature name above; integer, DECIMAL, FLOAT, DOUBLE or BOOLEAN. VARCHAR, DATE and TIMESTAMP values are
+  errors: turn times into days before TIMESTAMP '{A}'. No other columns.
+- Values are cast to DOUBLE and left-joined to the batch keys of the level. No row, NULL, a non-finite value or
+  a float32 overflow mean "no data": NaN in the model, which CatBoost treats as the minimum. Put your own
+  defaults with COALESCE.
+- Batch invariance: a value depends only on orders, lines, categories and its own key; cand and users only
+  filter. A window PARTITION BY user_id over cand is allowed (all 200 candidates of a user are
+  always in one batch); aggregates over cand across users are not. Windows need a full tie-break
+  (..., product_id). Violations are caught mechanically.
+- Limits on the probe: timeout 40 s for pair and user queries, 120 s for item queries;
+  at most 20 million output rows.
+
+COUNCIL RULES
+- The value columns of a query are the names with the prefix f_x_c1_ in its SELECT; the sandbox runs the
+  query with exactly these output columns. Use the prefix only for output columns, never for intermediate
+  aliases; the part after the prefix is lower-case snake_case of at most 30 characters.
+- Every query states its level (pair, user or item); the level fixes its keys.
+- The probe runs every query at two anchors, named probe_day_1 and probe_day_2 in what you see.
+- All valid columns enter the model without selection by outcome. Superfluous and noisy columns hurt: a few
+  strong, non-redundant signals are needed.
+
+How cards are judged before any outcome is seen: validity in the sandbox, seconds per probe anchor,
+coverage (the share of candidate rows with a non-NULL value), invariance to the batch of users, the rank
+correlation rho and R2 within queries to the existing columns (a family with R2 >= 0.9 or |rho| >= 0.95 to
+an existing column is a duplicate and is dropped), a stable non-NULL share across the probe anchors, and the shape
+of the knockout twin. Other generators, a skeptic and a leak auditor critique the cards with the authors hidden;
+every author answers them once.
+
+Write 8 cards. A card is one feature family together with the experiment that could refute it:
+{"name": "short_snake_case",
+ "level": "pair | user | item: the level of the query and of its twin",
+ "mechanism": "which behaviour of users or items the family measures and why it should raise the rank of
+               the candidates the user turns to next",
+ "sign": "+ if adding the family should improve ranking quality, - if you expect it to hurt",
+ "stratum": "in words and as an SQL predicate over the tables before {A} (user or user x item): where the gain
+             should be",
+ "null_stratum": "where the gain should not be, in words and as an SQL predicate",
+ "sql": "SELECT <the keys of the level>, ... AS f_x_c1_..., ... FROM ...",
+ "twin": {"how": "time_shuffle | neighbour_shuffle | seeds_removed",
+          "sql": "the same query with the mechanism destroyed: same level, keys and coverage, columns named as
+                  yours plus the suffix _tw"},
+ "rival": {"explanation": "another reason why the family could help", "stratum": "where the rival predicts
+           the gain"}}
+Twin forms: time_shuffle permutes interaction times (e.g. within a user, ordered by hash(...) of keys);
+neighbour_shuffle replaces neighbours by others of similar popularity (and category, where the data have one)
+chosen by hash(...); seeds_removed drops the seed interactions that carry the mechanism. The twin keeps the shape
+of the family (similar non-NULL share) and must not be a near copy of it.
+Columns: 1-3 per card, named f_x_c1_<slug>, unique across your cards; use the prefix only for the output
+columns of the card (and their _tw copies in the twin), never for intermediate aliases.
+
+Answer with a JSON list of 8 cards only.
