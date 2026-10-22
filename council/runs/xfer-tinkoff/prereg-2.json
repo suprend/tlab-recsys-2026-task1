@@ -1,0 +1,296 @@
+{
+ "families": {
+  "F1": "G1-1",
+  "F2": "G2-1",
+  "F3": "G3-2",
+  "F4": "G4-3",
+  "F5": "G1-2",
+  "F6": "G2-2",
+  "F7": "G3-3",
+  "F8": "G4-7",
+  "F9": "G1-4",
+  "F10": "G2-3",
+  "F11": "G3-4",
+  "F12": "G4-8"
+ },
+ "family_tables": {
+  "F1": "g1_1",
+  "F2": "g2_1",
+  "F3": "g3_2",
+  "F4": "g4_3",
+  "F5": "g1_2",
+  "F6": "g2_2",
+  "F7": "g3_3",
+  "F8": "g4_7",
+  "F9": "g1_4",
+  "F10": "g2_3",
+  "F11": "g3_4",
+  "F12": "g4_8"
+ },
+ "twins": {
+  "T1": {
+   "family": "F5",
+   "card": "G1-2",
+   "table": "g1_2_tw"
+  },
+  "T2": {
+   "family": "F2",
+   "card": "G2-1",
+   "table": "g2_1_tw"
+  },
+  "T3": {
+   "family": "F3",
+   "card": "G3-2",
+   "table": "g3_2_tw"
+  },
+  "T4": {
+   "family": "F4",
+   "card": "G4-3",
+   "table": "g4_3_tw"
+  }
+ },
+ "placebo": {
+  "tables": [
+   "g1_2",
+   "g3_2",
+   "g3_4",
+   "g2_1"
+  ],
+  "columns": [
+   "ag_c1_vday_lift",
+   "ag_c3_after_share",
+   "ag_c3_nbr_trend7",
+   "ag_c2_pop_at_last_visit"
+  ]
+ },
+ "empty": [
+  "E1",
+  "E2",
+  "E3",
+  "E4",
+  "E5",
+  "E6"
+ ],
+ "columns": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5",
+  "F6",
+  "F7",
+  "F8",
+  "F9",
+  "F10",
+  "F11",
+  "F12",
+  "T1",
+  "T2",
+  "T3",
+  "T4",
+  "PL",
+  "E1",
+  "E2",
+  "E3",
+  "E4",
+  "E5",
+  "E6"
+ ],
+ "matrix_sha256": "dc36824963e06a5c4db3bdd6039c3514a728da487af78c1ebe048c1c02c22358",
+ "seeds": {
+  "plan-r01-1001": 1001,
+  "plan-r02-1002": 1002,
+  "plan-r03-1003": 1003,
+  "plan-r04-1004": 1004,
+  "plan-r05-1005": 1005,
+  "plan-r06-1006": 1006,
+  "plan-r07-1007": 1007,
+  "plan-r08-1008": 1008,
+  "plan-r09-1009": 1009,
+  "plan-r10-1010": 1010,
+  "plan-r11-1011": 1011,
+  "plan-r12-1012": 1012,
+  "plan-r13-1013": 1013,
+  "plan-r14-1014": 1014,
+  "plan-r15-1015": 1015,
+  "plan-r16-1016": 1016,
+  "plan-r17-1017": 1017,
+  "plan-r18-1018": 1018,
+  "plan-r19-1019": 1019,
+  "plan-r20-1020": 1020,
+  "plan-r21-1021": 1021,
+  "plan-r22-1022": 1022,
+  "plan-r23-1023": 1023,
+  "plan-r24-1024": 1024,
+  "plan-r25-1025": 1025,
+  "plan-r26-1026": 1026,
+  "plan-r27-1027": 1027,
+  "plan-r28-1028": 1028,
+  "plan-r29-1029": 1029,
+  "plan-r30-1030": 1030,
+  "plan-r31-1031": 1031,
+  "plan-r32-1032": 1032,
+  "plan-r33-1033": 1033,
+  "plan-r34-1034": 1034,
+  "plan-r35-1035": 1035,
+  "plan-r36-1036": 1036,
+  "plan-r37-1037": 1037,
+  "plan-r38-1038": 1038,
+  "plan-r39-1039": 1039,
+  "plan-r40-1040": 1040,
+  "plan-r41-1041": 1041,
+  "plan-r42-1042": 1042,
+  "plan-r43-1043": 1043,
+  "plan-r44-1044": 1044,
+  "plan-r45-1045": 1045,
+  "plan-r46-1046": 1046,
+  "plan-r47-1047": 1047,
+  "plan-r48-1048": 1048
+ },
+ "arms": {
+  "Hr": [],
+  "Hrp": [
+   "rb1_newcomer_share",
+   "rb1_basket_context",
+   "rb1_precursor_share",
+   "rb1_backward_transition",
+   "rb1_user_taste_spread",
+   "rb1_history_coherence",
+   "rb1_variant_hunter",
+   "rb1_strong_neighbor_support",
+   "rb1_early_adopter",
+   "rb1_rp3_walk",
+   "rb1_bigram_transition",
+   "rb2_newcomer_draw",
+   "rb2_adopter_tenure_gap"
+  ],
+  "ALLP": [
+   "g1_1",
+   "g2_1",
+   "g3_2",
+   "g4_3",
+   "g1_2",
+   "g2_2",
+   "g3_3",
+   "g4_7",
+   "g1_4",
+   "g2_3",
+   "g3_4",
+   "g4_8"
+  ],
+  "Rb1": [
+   "rb1_newcomer_share",
+   "rb1_basket_context",
+   "rb1_precursor_share",
+   "rb1_backward_transition",
+   "rb1_user_taste_spread",
+   "rb1_history_coherence",
+   "rb1_variant_hunter",
+   "rb1_strong_neighbor_support",
+   "rb1_early_adopter",
+   "rb1_rp3_walk",
+   "rb1_bigram_transition"
+  ],
+  "Rb2": [
+   "rb2_newcomer_draw",
+   "rb2_adopter_tenure_gap"
+  ]
+ },
+ "tables_over_hr": {
+  "Hr": 0,
+  "Hrp": 13,
+  "ALLP": 12,
+  "Rb1": 11,
+  "Rb2": 2
+ },
+ "curation_sha256": "a8d3970c963a43b3e976d3a5332f9f83e2cf491bbeb108fcbb3f3ba574d9af08",
+ "rehearsal": {
+  "power": 0.9945,
+  "sd_t_interval": [
+   0.36671250100979474,
+   0.8476491696069465
+  ],
+  "sd_t_median": 0.6783036199998306,
+  "false_rate": 0.0105,
+  "calib_fail_rate": 0.05,
+  "gate": true,
+  "n_q": 5300,
+  "n_sim": 2000,
+  "beta_harm": -0.0005,
+  "exact": false,
+  "seed": 2026,
+  "sigma_fit": 0.0,
+  "deff": 1.0,
+  "se_boot": 8.169468880227568e-05,
+  "layout": {
+   "n_families": 12,
+   "n_twins": 4
+  }
+ },
+ "power_gate": {
+  "power": 0.9945,
+  "gate": true,
+  "layout": "12/4 (prereg-0)",
+  "sd_t_interval": [
+   0.36671250100979474,
+   0.8476491696069465
+  ],
+  "power_on_this_layout": 0.9945
+ },
+ "rule": "SEL = ALL_P minus D after the nomination and the confirmation of D; calibration on the interval of this layout, beta and twins by council.design",
+ "twin_arm": "SEL with the family of the largest t(beta_g - beta_twin) replaced by its twin, chosen by select",
+ "h1": "design.h1 on C_test, SEL vs H+r+ over seeds [7, 11, 13, 17]",
+ "test_fits": {
+  "Hrp": [
+   7,
+   11,
+   13,
+   17
+  ],
+  "SEL": [
+   7,
+   11,
+   13,
+   17
+  ],
+  "Hr": [
+   7,
+   11
+  ],
+  "TWIN": [
+   7,
+   11
+  ],
+  "Rb1": [
+   7
+  ],
+  "Rb2": [
+   7
+  ]
+ },
+ "test": "повторный тест (контракт §0): якоря C_test открыты цепочкой xfer, вывод — первая проверка",
+ "identity": {
+  "code": {
+   "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+   "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+   "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+   "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+   "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+   "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+   "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+   "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+   "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+   "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+  },
+  "council": {
+   "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+   "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+   "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+   "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+   "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+   "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+   "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+   "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+  }
+ }
+}
