@@ -1,0 +1,41 @@
+{
+  "format": "otto-calibration-v1",
+  "fold": 3,
+  "collection": "artifacts/otto/collections/probe-F3",
+  "views_digest": "0eb6daceb15469bdf3f1a536d72a2ffcbb1df5095880c953797ea4ccf510ad3c",
+  "fingerprint": "396499ca2d0a5bf0234ed8e05fd29af59fb43b4e123901c386729ce05ec40b3d",
+  "sessions": 10867570,
+  "n2": {
+    "p50": 16,
+    "p90": 625,
+    "p99": 12321,
+    "max": 247009,
+    "sum": 6540575550
+  },
+  "pairs": {
+    "5": 462754800,
+    "20": 1324093686
+  },
+  "pairs_per_session": {
+    "5": 42.58,
+    "20": 121.84
+  },
+  "seconds": {
+    "join_5": 3.1,
+    "join_20": 3.2,
+    "aggregation_20": 21.1
+  },
+  "interrupted": {
+    "join_5": false,
+    "join_20": false,
+    "aggregation_20": false
+  },
+  "cap_seconds": 1800.0,
+  "t_20": 21.1,
+  "t_tb": 1200,
+  "limitation": null,
+  "rule": "T_tb = clamp(ceil(3*t_20/60)*60, 1200, 1800) s",
+  "threads": 8,
+  "memory": "20GB",
+  "created_utc": "2026-10-22T23:17:15Z"
+}
