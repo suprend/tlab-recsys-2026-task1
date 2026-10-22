@@ -1,0 +1,245 @@
+{
+ "dataset": "rees46",
+ "runs": "council/runs/rees46-2020",
+ "H3": {
+  "cards_from": "prereg-1.json",
+  "families": [
+   {
+    "column": "F1",
+    "card": "G1-1",
+    "lens": "G1",
+    "sign": 1,
+    "beta": 0.00023950055349610273,
+    "t": 1.2393151520700902
+   },
+   {
+    "column": "F2",
+    "card": "G2-1",
+    "lens": "G2",
+    "sign": 1,
+    "beta": -1.3135460020012123e-05,
+    "t": -0.06785286151520194
+   },
+   {
+    "column": "F3",
+    "card": "G3-1",
+    "lens": "G3",
+    "sign": 1,
+    "beta": -8.049926228228276e-05,
+    "t": -0.4171036715931044
+   },
+   {
+    "column": "F4",
+    "card": "G4-1",
+    "lens": "G4",
+    "sign": 1,
+    "beta": -0.00013696302800730663,
+    "t": -0.7248178217310862
+   },
+   {
+    "column": "F5",
+    "card": "G1-3",
+    "lens": "G1",
+    "sign": 1,
+    "beta": 5.033516307117532e-05,
+    "t": 0.2631696721678377
+   },
+   {
+    "column": "F6",
+    "card": "G2-2",
+    "lens": "G2",
+    "sign": 1,
+    "beta": -0.00011696405018851446,
+    "t": -0.6102596145865193
+   },
+   {
+    "column": "F7",
+    "card": "G3-4",
+    "lens": "G3",
+    "sign": 1,
+    "beta": -9.735029009301186e-05,
+    "t": -0.4777299694737814
+   },
+   {
+    "column": "F8",
+    "card": "G4-5",
+    "lens": "G4",
+    "sign": 1,
+    "beta": -4.3333192107440524e-05,
+    "t": -0.2194825253333173
+   },
+   {
+    "column": "F9",
+    "card": "G1-5",
+    "lens": "G1",
+    "sign": 1,
+    "beta": -0.0003371343523981056,
+    "t": -1.762811148652073
+   },
+   {
+    "column": "F10",
+    "card": "G2-5",
+    "lens": "G2",
+    "sign": 1,
+    "beta": -6.505308077646508e-05,
+    "t": -0.334724236776224
+   },
+   {
+    "column": "F11",
+    "card": "G3-6",
+    "lens": "G3",
+    "sign": 1,
+    "beta": 0.0007250632343311446,
+    "t": 2.905541125090917
+   },
+   {
+    "column": "F12",
+    "card": "G4-6",
+    "lens": "G4",
+    "sign": 1,
+    "beta": -6.340971852164548e-05,
+    "t": -0.33303905342127327
+   }
+  ],
+  "no_sign": [],
+  "degenerate": true,
+  "all": {
+   "n": 12,
+   "n_beta_positive": 3,
+   "share_positive": 0.25,
+   "p_share_vs_half": 0.980712890625,
+   "n_t_above_2": 1,
+   "n_t_below_minus_2": 0,
+   "degenerate": true,
+   "spearman": null,
+   "perm_p": null
+  },
+  "by_lens": {
+   "G1": {
+    "n": 3,
+    "n_beta_positive": 2,
+    "share_positive": 0.6666666666666666,
+    "p_share_vs_half": 0.5,
+    "n_t_above_2": 0,
+    "n_t_below_minus_2": 0,
+    "degenerate": true,
+    "spearman": null,
+    "perm_p": null
+   },
+   "G2": {
+    "n": 3,
+    "n_beta_positive": 0,
+    "share_positive": 0.0,
+    "p_share_vs_half": 1.0,
+    "n_t_above_2": 0,
+    "n_t_below_minus_2": 0,
+    "degenerate": true,
+    "spearman": null,
+    "perm_p": null
+   },
+   "G3": {
+    "n": 3,
+    "n_beta_positive": 1,
+    "share_positive": 0.3333333333333333,
+    "p_share_vs_half": 0.875,
+    "n_t_above_2": 1,
+    "n_t_below_minus_2": 0,
+    "degenerate": true,
+    "spearman": null,
+    "perm_p": null
+   },
+   "G4": {
+    "n": 3,
+    "n_beta_positive": 0,
+    "share_positive": 0.0,
+    "p_share_vs_half": 1.0,
+    "n_t_above_2": 0,
+    "n_t_below_minus_2": 0,
+    "degenerate": true,
+    "spearman": null,
+    "perm_p": null
+   }
+  },
+  "note": "H3 не проверяема: все знаки «+»; ниже только доля β̂ > 0"
+ },
+ "H2": {
+  "se_empty": 0.00012174376516407222,
+  "n_empty": 6,
+  "df": 5,
+  "empty": [
+   "E1",
+   "E2",
+   "E3",
+   "E4",
+   "E5",
+   "E6"
+  ],
+  "se_empty_ci95": [
+   7.599343244055223e-05,
+   0.00029859046145994236
+  ],
+  "se_boot": 0.00014630472160397524,
+  "ratio_empty_to_boot": 0.8321246493576208,
+  "se_seed": 0.0,
+  "se_seed_ci95": [
+   0.0,
+   0.0002602905916687052
+  ],
+  "share_of_variance_seed": 0.0,
+  "rehearsal_se_boot": 0.00014664376430808653,
+  "rehearsal_se_boot_scaled": 0.00014664376430808653,
+  "rehearsal_scale": "√(15605 / 15605)"
+ },
+ "H1'": {
+  "label": "отношение d(C_val) / Σβ̂ (S0-select)",
+  "contrast": "ALL_P − H+r (вклад совета)",
+  "d": 7.793901326370032e-05,
+  "d_ci95": [
+   -0.0006054474039290542,
+   0.0007829788931459346
+  ],
+  "by_pair": [
+   -5.689976412206746e-05,
+   0.00021277779064946795
+  ],
+  "columns": [
+   "F1",
+   "F2",
+   "F3",
+   "F4",
+   "F5",
+   "F6",
+   "F7",
+   "F8",
+   "F9",
+   "F10",
+   "F11",
+   "F12"
+  ],
+  "n_families": 12,
+  "sum_beta": 6.105651650363815e-05,
+  "se_sum_beta_no_cov": 0.000688817388381462,
+  "ratio": 1.276506059087996,
+  "ratio_by_pair": [
+   -0.931919594834353,
+   3.4849317130103423
+  ],
+  "ratio_numerator_ci95": [
+   -9.916179936223148,
+   12.823838272844792
+  ],
+  "ratio_ci95_delta_approx": null,
+  "sum_beta_within_2se": true,
+  "differs": "числитель: train → full_val, C_val, 2 пары зёрен; знаменатель: T_fit → plan, S0-select, 48 подгонок; отношение смешивает неаддитивность семейств и перенос между постановками",
+  "why_no_ci": "бутстрапа нет: в val.json две средние по парам зёрен и ci95 разности, в plan-result нет ковариации β и по-запросных значений; интервал по дельта-методу приближённый (se_d = ширина ci95 / 3.92, SE Σβ̂ без ковариаций)"
+ },
+ "H14": {
+  "status": "нет данных",
+  "scanned": [
+   "runs.jsonl"
+  ],
+  "unreadable": [],
+  "why": "нет данных: записи подгонок (council/fit.py:272, council/xfer/fit.py:564) не хранят importance"
+ },
+ "note": "описательно: без новых чтений меток, без выводов; n мало"
+}
