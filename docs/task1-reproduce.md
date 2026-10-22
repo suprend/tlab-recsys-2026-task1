@@ -666,7 +666,7 @@ git diff council/runs/rees46-2020/
 
 - `build` пишет `prereg-2.json` и `queue-plan.json` из `curation.json`: 48 подгонок плана Плакетта–Бёрмана, T_fit → S0, половина B.
 - `analyze` читает S0-select через `broker.y_select`, такое чтение допускается сколько угодно раз. Он пишет `plan-result.json` и `selection.json`.
-- `build`, `analyze`, `cval` и `ctest` перезаписывают закоммиченные файлы без проверки, поэтому после них нужен `git diff`.
+- Все команды `council.plan` пишут через `_save` (`council/plan.py`) — простую запись без проверки содержимого. Без отказа перезаписываются закоммиченные `prereg-2.json` и `queue-plan.json` (`build`), `plan-result.json` и `selection.json` (`analyze`), `queue-cval.json` (`cval`), `val.json` (`read-val`), `queue-test.json` (`ctest`) и `test.json` (`read-test`). Поэтому после каждой нужен `git diff`.
 - У автора `selection.json` закоммичен до первой подгонки C_val. Без закоммиченного выбора `c_val` и `start_test()` откажут.
 
 **5. C_val.**
@@ -682,7 +682,7 @@ TASK1_PERIOD=2020 .venv/bin/python -m council.memory --arm ALLP
   - H+r на зерне 1;
   - H+r⁺ (`Hrp`), ALL_P и рука-близнец на двух зёрнах;
   - Rb1 и Rb2 на одном.
-- `read-val` делает одно чтение `broker.c_val` и пишет `val.json`. Само чтение сохраняется в `artifacts/task1/v2020/council/cval-read.parquet` и переиспользуется. На клоне `c_val` откажет: запись о чтении уже есть в `reads.jsonl`.
+- `read-val` делает одно чтение `broker.c_val` и пишет `val.json`. Само чтение сохраняется в `artifacts/task1/v2020/council/cval-read.parquet` и переиспользуется. Поэтому при сохранённом чтении повтор `read-val` молча перезаписывает закоммиченный `val.json`. На клоне `c_val` откажет: запись о чтении уже есть в `reads.jsonl`.
 - `council.memory` обучает руку в рецепте `full_test` без скоринга. Дни теста он не читает и дописывает пик в `memory.jsonl`. У автора проба памяти Hrp выполнена 21.10, ALL_P — 22.10.
 
 **6. C_test** — только после «да» владельца. В `council/runs/rees46-2020/test-approved.md` записывается строка `approved: <дословная цитата с «да»>`, затем:
@@ -697,7 +697,7 @@ TASK1_PERIOD=2020 .venv/bin/python -m council.plan read-test
 - `queue-test.json` — 10 подгонок train + val → 14–29.02: H+r⁺ и ALL_P на четырёх зёрнах, H+r на двух.
 - `start_test()` проверяет цитату и то, что `selection.json` закоммичен и побайтно совпадает с выбором, с которым читался C_val. Затем пишет `test.started`. Подгонки теста без маркера отказывают.
 - `read-test` пишет `test.json`: H1 (SEL против H+r⁺ по четырём зёрнам) и контрасты. Они считаются на основных днях без 27–28.02 и на всех 16.
-- На клоне шаг технически повторим: маркер под Git, откажет только `start_test()`. Не запускайте (п. «Однократные чтения» выше).
+- На клоне шаг технически повторим: маркер под Git, откажет только `start_test()`. У `broker.c_test` нет `once`: каждый вызов снова читает метки теста и лишь дописывает строку в `reads.jsonl`. `read-test` вызывает его дважды (основные дни и все 16) и перезаписывает `test.json`. Не запускайте (п. «Однократные чтения» выше).
 
 ### Tinkoff и СберМаркет
 
@@ -765,6 +765,32 @@ C_test — только после «да» владельца для этого
 
 Без данных проверяются `council.report <x> --check` и `council.reveal`.
 
+### Чтение C_test и post-hoc по JSON плана
+
+Эти шаги не читают меток, подгонок и `data/`, им нужны только закоммиченные файлы совета.
+
+**Правило чтения C_test.** Записано 22.10 до `read-test` всех трёх наборов: `council/runs/note-inference-level-2026-10-22.md`, §1. Рядом с вердиктом H1 отчёт приводит описательную t по средним четырёх зёрен против t₃, 0.95 = 2.35. Если вердикт «уступает» или «обыгрывает H+», а |t| < 2.35, в отчёт идёт оговорка; сам вердикт не переписывается.
+
+```bash
+.venv/bin/python -m council.posthoc_ctest_t
+.venv/bin/python -m council.posthoc_ctest_t --dataset sber --json
+```
+
+- Читает `test.json` из `council/runs/rees46-2020/` и `council/runs/xfer-<x>/`; набор без `test.json` пропускается с сообщением. `--dataset` принимает `rees46`, `tinkoff`, `sber` (по умолчанию все три), `--file` — путь к отдельному `test.json`.
+- Ничего не пишет, только печатает.
+
+**Post-hoc по плану.** Два правила, записанные после дедлайна. Они читают только `plan-result.json`, `prereg-2.json` и `selection.json` трёх наборов, на вердикты контракта не влияют.
+- `council/posthoc_phantom_fwer.py` — сколько пустых столбцов прошли бы порог номинации, будь каждый кандидатом. Prereg — `council/runs/posthoc/phantom-fwer.md`, итог — `council/runs/posthoc/phantom-fwer-result.json`.
+- `council/posthoc_beyond_empties.py` — какие семейства лежат за всеми пустыми столбцами, в сравнении с записанной номинацией. Prereg — `council/runs/posthoc/beyond-empties.md`, итог — `council/runs/posthoc/beyond-empties-result.json`.
+
+```bash
+.venv/bin/python -m council.posthoc_phantom_fwer --write council/runs/posthoc/phantom-fwer-result.json
+.venv/bin/python -m council.posthoc_beyond_empties --write council/runs/posthoc/beyond-empties-result.json
+git diff council/runs/posthoc/
+```
+
+Без `--write` результат только печатается. С `--write` закоммиченный итог перезаписывается без проверки, отсюда `git diff`. Неутверждённые черновики следующих post-hoc лежат в `council/runs/posthoc/drafts/`; по ним команд нет.
+
 ### Побочные проверки
 
 **H13, покрытие кандидатов** (REES46 2020, хвост T_fit). Модуль — `council/side/coverage.py`, prereg — `council/runs/side/coverage.md`, итог — `council/runs/side/coverage.json`. Это лёгкий шаг: DuckDB в памяти, база 2020 подключена только для чтения. Он ждёт тяжёлых шагов REES46 и переноса. Метки S0, val и test он не читает.
@@ -774,26 +800,52 @@ TASK1_PERIOD=2020 .venv/bin/python -I council/side/coverage.py --dry
 TASK1_PERIOD=2020 .venv/bin/python -I council/side/coverage.py > /tmp/tlab-side-coverage.log 2>&1
 ```
 
-**H9–H11** — REES46 2019, только половина A val. Модуль — `council/side/task1_side.py`. Правила, время и пики — prereg `council/runs/side/h9.md`, `h10.md`, `h11.md`. Общий стенд и проверка пути описаны в `h11.md`.
+**H9–H11** — REES46 2019. Выбор на половине A val делает модуль `council/side/task1_side.py`. Однократное чтение половины B для H9 и H11 — отдельный модуль `council/side/task1_side_b.py`. Правила, время и пики — prereg `council/runs/side/h9.md`, `h10.md`, `h11.md`. Общий стенд и проверка пути описаны в `h11.md`.
 - H9 — настройка H+.
 - H10 — ранняя остановка.
 - H11 — групповой приём таблиц агента.
 
-Порядок дня: проверка пути → H9 → H10 → H11, перед каждым шагом — проверка тяжёлой полосы. Ещё каждый шаг окружают снимки листинга `artifacts/task1/v2`, `artifacts/task1/v2020`, `artifacts/xfer` и `task1/runs`; команды снимков — в разделе «Команды» каждого prereg. Под `artifacts/task1/v2` и `task1/runs` diff обязан быть пустым: строка там — инцидент, результат `refused`, выход 3. Строки под `artifacts/task1/v2020` и `artifacts/xfer` сверяются с журналами владельцев (`queue.jsonl`) за время прогона. Если владельца нет, это тоже инцидент.
+В prereg записан порядок дня «проверка пути → H9 → H10 → H11» (`h11.md`, «Порядок дня 23.10»). У автора запланирован порядок: проверка пути (пройдена 22.10, `council/runs/side/t1-path-result.json`) → H9 → B H9 → H11 → B H11 → H10; результаты H9–H11 появятся в `council/runs/side/*-result.json` после прогона. Перед каждым тяжёлым шагом, включая чтение B, — проверка тяжёлой полосы.
+
+Каждый шаг на A окружают снимки листинга `artifacts/task1/v2`, `artifacts/task1/v2020`, `artifacts/xfer` и `task1/runs`; команды снимков — в разделе «Команды» каждого prereg. Под `artifacts/task1/v2` и `task1/runs` diff обязан быть пустым: строка там — инцидент, результат `refused`, выход 3. Строки под `artifacts/task1/v2020` и `artifacts/xfer` сверяются с журналами владельцев (`queue.jsonl`) за время прогона. Если владельца нет, это тоже инцидент.
+- В снимках prereg стоит BSD-форма `stat -f '%m %z %N'` (macOS). На Linux: `stat -c '%Y %s %n'`.
 
 ```bash
 TASK1_PERIOD=2019 .venv/bin/python -X faulthandler -m council.side.task1_side path > /tmp/tlab-side-path.log 2>&1
 TASK1_PERIOD=2019 .venv/bin/python -m council.side.task1_side h9 --dry
 TASK1_PERIOD=2019 .venv/bin/python -X faulthandler -m council.side.task1_side h9 > /tmp/tlab-side-h9.log 2>&1
-TASK1_PERIOD=2019 .venv/bin/python -m council.side.task1_side h10 --dry
-TASK1_PERIOD=2019 .venv/bin/python -X faulthandler -m council.side.task1_side h10 > /tmp/tlab-side-h10.log 2>&1
 TASK1_PERIOD=2019 .venv/bin/python -m council.side.task1_side h11 --dry
 TASK1_PERIOD=2019 .venv/bin/python -X faulthandler -m council.side.task1_side h11 > /tmp/tlab-side-h11.log 2>&1
+TASK1_PERIOD=2019 .venv/bin/python -m council.side.task1_side h10 --dry
+TASK1_PERIOD=2019 .venv/bin/python -X faulthandler -m council.side.task1_side h10 > /tmp/tlab-side-h10.log 2>&1
 ```
 
 - Результат пишется в `artifacts/side/<h>/` и `council/runs/side/<h>-result.json`; проверка пути — в `t1-path-result.json`.
-- Половину B модуль не читает. Условные правила B в `h9.md` и `h11.md` требуют отдельного «да» владельца.
-- `h11 --groups 10|15` — вариант владельца с крупными группами. Он запускается только после основного `h11` со статусом `ok`, результат — `h11-L<g>-result.json`.
+- `task1_side` половину B не читает.
+
+**Чтение B 2019 для H9 и H11** — `council/side/task1_side_b.py`, коммиты e8d634e и e2dad51. Спецификация шага — `council/runs/night/2026-10-22-bughunt.md`, находка «B-step spec». Шаг идёт после A-прогона своей гипотезы со статусом `ok` и только по дословному «да» владельца:
+
+```bash
+TASK1_PERIOD=2019 .venv/bin/python -m council.side.task1_side_b h9 --dry \
+  --owner-yes '<дословное «да»>' --owner-date YYYY-MM-DD
+TASK1_PERIOD=2019 .venv/bin/python -X faulthandler -m council.side.task1_side_b h9 \
+  --owner-yes '<дословное «да»>' --owner-date YYYY-MM-DD --owner-source '<чат, сессия>' \
+  > /tmp/tlab-side-h9-B.log 2>&1
+```
+
+То же с `h11`, после своего A-прогона.
+- `--owner-yes` обязан содержать «да», «B 2019» и имя гипотезы (H9 или H11), иначе отказ до чтения. Цитата, дата и источник пишутся в результат. У автора — «да — чтение B 2019 для H9 и H11», 22.10.2026.
+- `--dry` — только проверки: ни дня, ни строки B, ни маркера. `--no-wait` отказывает вместо ожидания тяжёлого замка. Настоящему прогону нужны закоммиченные модуль, его тесты и файлы `task1_side.COMMITTED`.
+- Два прохода под замком `heavy_step('<h>-B', 'rees46-2019')`. Проход A по дням val 08–13.11 сверяет предсказания сохранённых `.cbm` с `<name>.A.parquet`, требуется max|Δ| = 0. При расхождении пишется `status refused` и `B_read = false`; маркера нет, B не тронут, повтор разрешён. Иначе атомарно (O_EXCL) создаётся маркер `artifacts/side/<h>/B.started`, и с этого момента B гипотезы потрачен. Затем проход B. Любой сбой после маркера пишет `status failed`.
+- Результат — `council/runs/side/<h>-B-result.json`, предсказания по запросам — `artifacts/side/<h>/<name>.B.parquet`. Вердикт A в `<h>-result.json` не меняется, его sha256 до и после пишется в результат. Вердикт B заменяет вердикт A в отчёте.
+- H9: W (победитель 2-го этапа) скорится на B при любом вердикте A, в том числе «без выигрыша» (`h9.md`, «Условное правило для B»; трактовка пишется в поле `interpretation`). Если 1-й этап не прошла ни одна рука, W нет и B не читается.
+- H11: на B скорится G*, выбранная на A, приём на B заново не проверяется. При правиле 1 на A B не читается.
+- Однократность. Повтор отказывает, если есть маркер или `<h>-B-result.json` без `B_read = false`. Маркер лежит в `artifacts/`, а она вне Git. Поэтому на клоне однократность держится только на закоммиченном `council/runs/side/<h>-B-result.json`. Без него код снова прочитает B, если на клоне есть данные и `.cbm`.
+
+**Вариант H11 с крупными группами** (`h11.md`, «Вариант с крупными группами»). `task1_side h11 --groups 10|15` запускается только после основного `h11` со статусом `ok` и только по дословному «да» владельца, называющему вариант (правило `h11.md`; код A-прогона это «да» не проверяет). Результат — `h11-L<g>-result.json`. У автора 22.10 вариант не запускался.
+- Его чтение B — `task1_side_b h11 --groups 10|15`. «Да» должно называть вариант (`по 10`, `--groups 10` или `L10`).
+- Для любого чтения B H11 (основного или варианта) после другого уже прочитанного B H11 «да» должно содержать слово «повторно» (`prior_b`), в каком бы порядке они ни шли.
+- Маркер — `artifacts/side/h11/B-L<g>.started`, результат — `council/runs/side/h11-L<g>-B-result.json`.
 
 **H6 и H8** запускаются так же, скриптом с `--dry` и без него. H6 — прокси Π плана REES46: `council/side/proxy.py`, prereg `council/runs/side/proxy.md`. H8 — якорь 611 Tinkoff: `council/side/tinkoff_anchor.py`, prereg `council/runs/side/tinkoff-611.md`.
 
