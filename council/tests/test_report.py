@@ -177,7 +177,12 @@ class FormatTest(unittest.TestCase):
     def test_rounding_and_signs(self):
         self.assertEqual(R.beta(0.00123456), '+0.0012')
         self.assertEqual(R.beta(-0.00098765), '−0.0010')
-        self.assertEqual(R.beta(-0.00001), '0.0000')           # a rounded zero has no sign
+        self.assertEqual(R.beta(-0.00001), '−0.0000')          # a negative rounded zero keeps its minus
+        self.assertEqual(R.num(-0.000044, 4, sign=True), '−0.0000')
+        self.assertEqual(R.se(-0.00001), '−0.0000')
+        self.assertEqual(R.beta(0.00001), '0.0000')            # a positive rounded zero has no '+'
+        self.assertEqual(R.beta(0.0), '0.0000')
+        self.assertEqual(R.beta(-0.0), '0.0000')
         self.assertEqual(R.se(0.00045678), '0.0005')
         self.assertEqual(R.tval(-2.3456), '−2.35')
         self.assertEqual(R.pval(0.0123), '0.012')
@@ -191,6 +196,8 @@ class FormatTest(unittest.TestCase):
         got = R.numbers('| F12 | G3-4 | Rb1 | −0.0012 | [+0.0010, 0.0030] | 2026-10-22 | 15605 | $5.44 | 24.0 ГБ. |')
         self.assertEqual(got, [Decimal('-0.0012'), Decimal('0.001'), Decimal('0.003'), Decimal('15605'),
                                Decimal('5.44'), Decimal('24.0')])
+        self.assertTrue(R.numbers('[−0.0000, 0.0000]')[0].is_signed())
+        self.assertFalse(R.numbers('[−0.0000, +0.0000]')[1].is_signed())
 
 
 class TablesTest(ReportCase):
@@ -292,6 +299,16 @@ class TablesTest(ReportCase):
         _write(self.root / 'council/runs/xfer-tinkoff/prereg-2.json', {'rehearsal': {'sd_t_interval': [0.41, 0.95]}})
         self.assertIn('| интервал SD t пустых (2.5–97.5%) (prereg-2) | [0.410, 0.950] |',
                       R.render('tinkoff', 'prereg', self.root))
+
+    def test_test_phrase_is_its_own_paragraph(self):
+        t = R.tables('tinkoff', self.root)['test']
+        self.assertTrue(t.startswith('повторный тест\n\nЗапросов: C_test 7001\n\n'), t[:80])
+        self.assertNotIn('тест Запросов', t)
+
+    def test_h1_bound_below_zero_keeps_minus(self):
+        d = self.root / 'council/runs/xfer-tinkoff'
+        _write(d / 'test.json', TEST_XFER | {'h1': H1 | {'delta': 0.00042, 'lower': -0.000044, 'upper': 0.00088}})
+        self.assertIn('| C_test | +0.0004 | −0.0000 | +0.0009 |', R.render('tinkoff', 'test', self.root))
 
     def test_xfer_cut_plan_without_plan_result(self):
         d = self.root / 'council/runs/xfer-tinkoff'
@@ -436,6 +453,18 @@ class CheckTest(ReportCase):
         self.assertIn('MISMATCH report:rees46:calibration', out)
         self.assertIn('0.613 != 0.612', out)
         self.assertIn('+++ generated report:rees46:calibration', out)
+
+    def test_signed_rounded_zero_must_match(self):
+        _write(self.root / 'council/runs/xfer-tinkoff/test.json',
+               TEST_XFER | {'h1': H1 | {'delta': 0.00042, 'lower': -0.000044, 'upper': 0.00088}})
+        block = R.blocks('tinkoff', self.root, 'test')
+        self.assertIn('| −0.0000 |', block)
+        code, out = self.check(block)
+        self.assertEqual(code, 0, out)
+        code, out = self.check(block.replace('| −0.0000 |', '| 0.0000 |'))
+        self.assertEqual(code, 1)                                    # the unsigned zero is the old, wrong reading
+        self.assertIn('MISMATCH report:tinkoff:test', out)
+        self.assertIn('0.0000 != -0.0000', out)
 
     def test_stale_placeholder_fails(self):
         code, out = self.check('<!-- report:rees46:cval -->\n⟨ждёт val.json⟩\n<!-- /report -->\n')

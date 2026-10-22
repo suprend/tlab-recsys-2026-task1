@@ -95,12 +95,13 @@ def _finite(x) -> bool:
 
 
 def num(x, nd: int, sign: bool = False) -> str:
-    """x with nd decimals; sign: '+' for positive values; minus is U+2212; a rounded zero has no sign."""
+    """x with nd decimals; sign: '+' for positive values; minus is U+2212. A rounded zero keeps the minus of a
+    negative x ('−0.0000': an interval bound below zero must not read as zero) and has no '+'."""
     if not _finite(x):
         return DASH
     s = f'{x:+.{nd}f}' if sign else f'{x:.{nd}f}'
     if float(s) == 0:
-        s = f'{0:.{nd}f}'
+        s = ('-' if x < 0 else '') + f'{0:.{nd}f}'
     return s.replace('-', MINUS)
 
 
@@ -366,9 +367,8 @@ def t_test(src: Source) -> str:
     names = {'': 'C_test', 'primary': 'C_test (основной)', 'all_16_days': 'C_test (все 16 дней)'}
     h1 = table(['Срез', 'Δ1', 'нижняя 5%', 'верхняя 95%', 'пар с Δ > 0', 'вердикт'],
                [_h1_row(names.get(k, k), v['h1'], nd) for k, v in slices.items()])
-    lead = f"{test['test']} " if isinstance(test.get('test'), str) else ''   # REES46 test.json has no phrase
-    out = [f"{lead}Запросов: "
-           + ', '.join(f"{names.get(k, k)} {v.get('queries')}" for k, v in slices.items()), h1]
+    lead = [test['test']] if isinstance(test.get('test'), str) else []   # REES46 test.json has no phrase
+    out = [*lead, 'Запросов: ' + ', '.join(f"{names.get(k, k)} {v.get('queries')}" for k, v in slices.items()), h1]
     for k, v in slices.items():
         contrasts = v.get('contrasts') if 'contrasts' in v else {
             what: c for what, c in v.items() if isinstance(c, dict) and 'ci95' in c}
@@ -585,6 +585,11 @@ def numbers(text: str) -> list[Decimal]:
     return out
 
 
+def _signed(d: Decimal) -> tuple:
+    """Comparison key of a number: Decimal('-0.0000') == Decimal('0.0000'), but '−0.0000' and '0.0000' differ."""
+    return d, d.is_signed()
+
+
 def waits(text: str) -> list[str]:
     return WAITING.findall(text)
 
@@ -618,8 +623,9 @@ def check(doc: Path, root: Path = ROOT, dataset: str | None = None) -> tuple[boo
         bad = []
         for kind, f in (('numbers', numbers), ('waiting lines', waits), ('vocabulary', vocab)):
             have, want = f(body), f(gen)
-            if have != want:
-                k = next((i for i, (a, b) in enumerate(zip(have, want)) if a != b), min(len(have), len(want)))
+            hk, wk = (list(map(_signed, have)), list(map(_signed, want))) if kind == 'numbers' else (have, want)
+            if hk != wk:
+                k = next((i for i, (a, b) in enumerate(zip(hk, wk)) if a != b), min(len(have), len(want)))
                 bad.append(f'{kind}: {len(have)} in the document, {len(want)} generated; first difference at '
                            f'{k + 1}: {have[k] if k < len(have) else "none"} != {want[k] if k < len(want) else "none"}')
         if not bad:
