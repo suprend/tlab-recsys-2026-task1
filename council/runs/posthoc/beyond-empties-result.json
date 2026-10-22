@@ -1,0 +1,287 @@
+{
+ "what": "post-hoc Boruta-style rule: families beyond all empty columns (prereg beyond-empties.md)",
+ "status": "post-hoc, после плана, до/независимо от C_test; на вердикты контракта не влияет",
+ "rule": {
+  "below_min": "beta_g < min beta_E (harm direction)",
+  "above_max": "beta_g > max beta_E",
+  "beyond_abs": "|beta_g| > max |beta_E|",
+  "repeat": "same on saved t",
+  "variant": "t_E = beta_g / SE_empty vs t_{m-1, 0.975}"
+ },
+ "datasets": {
+  "rees46": {
+   "run": "council/runs/rees46-2020",
+   "families": [
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7",
+    "F8",
+    "F9",
+    "F10",
+    "F11",
+    "F12"
+   ],
+   "empty": [
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6"
+   ],
+   "m": 6,
+   "k": 12,
+   "beta": {
+    "below_min": [
+     "F4",
+     "F9"
+    ],
+    "above_max": [
+     "F1",
+     "F11"
+    ],
+    "beyond_abs": [
+     "F1",
+     "F9",
+     "F11"
+    ],
+    "empty_min": -0.0001279449625494601,
+    "empty_max": 0.00021462682560361758,
+    "empty_abs_max": 0.00021462682560361758
+   },
+   "t": {
+    "below_min": [
+     "F4",
+     "F9"
+    ],
+    "above_max": [
+     "F1",
+     "F11"
+    ],
+    "beyond_abs": [
+     "F1",
+     "F9",
+     "F11"
+    ],
+    "empty_min": -0.6821215356625466,
+    "empty_max": 1.1417947568357747,
+    "empty_abs_max": 1.1417947568357747
+   },
+   "beta_vs_t_disagree": {
+    "below_min": [],
+    "above_max": [],
+    "beyond_abs": []
+   },
+   "null_level": {
+    "per_family": 0.14285714285714285,
+    "any_of_k": 0.6666666666666666,
+    "expected_count": 1.7142857142857142
+   },
+   "t_se_empty_only": {
+    "crit_two_sided_975": 2.5705818356363146,
+    "df": 5,
+    "values": {
+     "F1": 1.967251079949199,
+     "F2": -0.1078943139495453,
+     "F3": -0.6612187669224385,
+     "F4": -1.1250106140772274,
+     "F5": 0.4134516704271417,
+     "F6": -0.9607395502421319,
+     "F7": -0.7996326543853344,
+     "F8": -0.35593766998286147,
+     "F9": -2.7692124680369035,
+     "F10": -0.5343442490775115,
+     "F11": 5.955649830231454,
+     "F12": -0.5208457158868807
+    },
+    "beyond": [
+     "F9",
+     "F11"
+    ]
+   },
+   "nomination_recorded": null,
+   "nomination_recorded_from": null,
+   "nomination_by_rule": [],
+   "outcome_below_min_vs_nomination": "правило шире",
+   "outcome_reference": "rule (nomination not recorded)"
+  },
+  "tinkoff": {
+   "run": "council/runs/xfer-tinkoff",
+   "families": [
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7",
+    "F8",
+    "F9",
+    "F10",
+    "F11",
+    "F12"
+   ],
+   "empty": [
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6"
+   ],
+   "m": 6,
+   "k": 12,
+   "beta": {
+    "below_min": [
+     "F11"
+    ],
+    "above_max": [],
+    "beyond_abs": [
+     "F11"
+    ],
+    "empty_min": -0.00040359122426850266,
+    "empty_max": 0.00032560335181070404,
+    "empty_abs_max": 0.00040359122426850266
+   },
+   "t": {
+    "below_min": [
+     "F11"
+    ],
+    "above_max": [],
+    "beyond_abs": [
+     "F11"
+    ],
+    "empty_min": -1.578113747736599,
+    "empty_max": 1.28174719780766,
+    "empty_abs_max": 1.578113747736599
+   },
+   "beta_vs_t_disagree": {
+    "below_min": [],
+    "above_max": [],
+    "beyond_abs": []
+   },
+   "null_level": {
+    "per_family": 0.14285714285714285,
+    "any_of_k": 0.6666666666666666,
+    "expected_count": 1.7142857142857142
+   },
+   "t_se_empty_only": {
+    "crit_two_sided_975": 2.5705818356363146,
+    "df": 5,
+    "values": {
+     "F1": -1.5417141214124641,
+     "F2": -0.6304502023396085,
+     "F3": -1.328830509375216,
+     "F4": -0.8247120963862503,
+     "F5": 0.3973517003313979,
+     "F6": -0.5381894261689874,
+     "F7": 0.5309159032292284,
+     "F8": 0.22743928274447928,
+     "F9": 1.0610198538313034,
+     "F10": -0.710995369039633,
+     "F11": -4.463823785727569,
+     "F12": -0.2279285861188408
+    },
+    "beyond": [
+     "F11"
+    ]
+   },
+   "nomination_recorded": [
+    "F11"
+   ],
+   "nomination_recorded_from": "plan-result.D",
+   "nomination_by_rule": [
+    "F11"
+   ],
+   "outcome_below_min_vs_nomination": "совпадение",
+   "outcome_reference": "recorded"
+  },
+  "sber": {
+   "run": "council/runs/xfer-sber",
+   "families": [
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7",
+    "F8"
+   ],
+   "empty": [
+    "F9",
+    "F10",
+    "F11",
+    "F12",
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6"
+   ],
+   "m": 10,
+   "k": 8,
+   "beta": {
+    "below_min": [],
+    "above_max": [
+     "F2"
+    ],
+    "beyond_abs": [
+     "F2"
+    ],
+    "empty_min": -3.243601635643365e-05,
+    "empty_max": 4.396041085779602e-05,
+    "empty_abs_max": 4.396041085779602e-05
+   },
+   "t": {
+    "below_min": [],
+    "above_max": [],
+    "beyond_abs": [],
+    "empty_min": -0.7914812869887728,
+    "empty_max": 1.1919612933643182,
+    "empty_abs_max": 1.1919612933643182
+   },
+   "beta_vs_t_disagree": {
+    "below_min": [],
+    "above_max": [
+     "F2"
+    ],
+    "beyond_abs": [
+     "F2"
+    ]
+   },
+   "null_level": {
+    "per_family": 0.09090909090909091,
+    "any_of_k": 0.4444444444444444,
+    "expected_count": 0.7272727272727273
+   },
+   "t_se_empty_only": {
+    "crit_two_sided_975": 2.262157162798205,
+    "df": 9,
+    "values": {
+     "F1": 1.0203026588174537,
+     "F2": 2.2634272019126644,
+     "F3": 0.8302078878190116,
+     "F4": 0.7326944352112349,
+     "F5": -0.4223081492669747,
+     "F6": 0.9649906443583621,
+     "F7": 0.028371464161336502,
+     "F8": 0.35351494833845687
+    },
+    "beyond": [
+     "F2"
+    ]
+   },
+   "nomination_recorded": [],
+   "nomination_recorded_from": "plan-result.D",
+   "nomination_by_rule": [],
+   "outcome_below_min_vs_nomination": "совпадение",
+   "outcome_reference": "recorded"
+  }
+ }
+}
