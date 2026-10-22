@@ -1,44 +1,60 @@
 {
-  "format": "xfer-kaggle-submissions-v1",
-  "dataset": "sber",
-  "competition": "test-recsys",
-  "authorization": {
-    "status": "pending",
-    "note": "contract §6: explicit «да» in chat for the specific files is required"
+ "format": "xfer-kaggle-submissions-v1",
+ "dataset": "sber",
+ "competition": "test-recsys",
+ "authorization": {
+  "status": "granted",
+  "quote": "отправь в сбер маркет пж",
+  "date": "2026-10-22",
+  "note": "reply to the coordinator's proposal naming exactly B2026.csv and B2027.csv (base B only); BA/BApl stay withheld by gate 2"
+ },
+ "gate2": [
+  "artifacts/xfer/sber/gate/stage2-20261021T135151437711Z/gate.json",
+  "artifacts/xfer/sber/gate/stage2-20261021T140329522758Z/gate.json"
+ ],
+ "reading": "BA not sent: no BA vs B reading; B scores are descriptive (late submission, private ≈20% of test)",
+ "submissions": [
+  {
+   "arm": "B2026",
+   "file": "artifacts/xfer/sber/kaggle/B2026/B2026.csv",
+   "sha256": "310112d35527b8451bcfa92a3039fc9d15cbd78ca1ece8019f5796ad9ff2dbdb",
+   "ref": 57536401,
+   "submitted_utc": "2026-10-22T19:39:08Z",
+   "public": 0.08572,
+   "private": 0.08499
   },
-  "gate2": [
-    "artifacts/xfer/sber/gate/stage2-20261021T135151437711Z/gate.json",
-    "artifacts/xfer/sber/gate/stage2-20261021T140329522758Z/gate.json"
-  ],
-  "reading": "not computed: BA not sent",
-  "submissions": [
-    {
-      "arm": "B2026",
-      "file": "artifacts/xfer/sber/kaggle/B2026/B2026.csv",
-      "sha256": "310112d35527b8451bcfa92a3039fc9d15cbd78ca1ece8019f5796ad9ff2dbdb",
-      "status": "not sent yet"
-    },
-    {
-      "arm": "B2027",
-      "file": "artifacts/xfer/sber/kaggle/B2027/B2027.csv",
-      "sha256": "1a6687f3e096c22438ef618483f1d672bfe8d313df3a4b0904a941fd151f3dbb",
-      "status": "not sent yet"
-    },
-    {
-      "arm": "BA2026",
-      "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
-    },
-    {
-      "arm": "BA2027",
-      "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
-    },
-    {
-      "arm": "BApl2026",
-      "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
-    },
-    {
-      "arm": "BApl2027",
-      "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
-    }
-  ]
+  {
+   "arm": "B2027",
+   "file": "artifacts/xfer/sber/kaggle/B2027/B2027.csv",
+   "sha256": "1a6687f3e096c22438ef618483f1d672bfe8d313df3a4b0904a941fd151f3dbb",
+   "ref": 57536440,
+   "submitted_utc": "2026-10-22T19:40:41Z",
+   "public": 0.08587,
+   "private": 0.08523
+  },
+  {
+   "arm": "BA2026",
+   "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
+  },
+  {
+   "arm": "BA2027",
+   "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
+  },
+  {
+   "arm": "BApl2026",
+   "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
+  },
+  {
+   "arm": "BApl2027",
+   "status": "withheld: gate 2 failed (parity of ag_up_gap_cv, ag_up_lastqty_rel); contract: a failed arm is not sent"
+  }
+ ],
+ "leaderboard_context": {
+  "read_utc": "2026-10-22",
+  "source": "https://www.kaggle.com/competitions/test-recsys/leaderboard?tab=private",
+  "private_top1": 0.07992,
+  "baseline_2": 0.07214,
+  "baseline_1": 0.07033,
+  "note": "late submissions are not ranked on the leaderboard; competition finished ~6 years ago"
+ }
 }
