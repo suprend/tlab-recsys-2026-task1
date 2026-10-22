@@ -1,0 +1,769 @@
+{
+ "k": 2,
+ "proposals": [
+  {
+   "name": "active_share",
+   "idea": "Item audience in the last 30 and 7 steps as a share of all users active in the same windows, which makes popularity comparable across anchors with different store traffic.",
+   "sql": "WITH n AS (SELECT count(DISTINCT CASE WHEN t >= {A} - 30 THEN user_id END) AS n30, count(DISTINCT CASE WHEN t >= {A} - 7 THEN user_id END) AS n7 FROM ev WHERE t >= {A} - 30), i AS (SELECT item_id, sum(CASE WHEN t >= {A} - 30 THEN 1 ELSE 0 END) AS u30, sum(CASE WHEN t >= {A} - 7 THEN 1 ELSE 0 END) AS u7 FROM ev GROUP BY item_id) SELECT i.item_id, 1000.0 * i.u30 / greatest(n.n30, 1) AS ag_rb2_share30, 1000.0 * i.u7 / greatest(n.n7, 1) AS ag_rb2_share7 FROM i CROSS JOIN n",
+   "table": "rb2_active_share",
+   "level": "item",
+   "columns": [
+    "ag_rb2_share30",
+    "ag_rb2_share7"
+   ]
+  },
+  {
+   "name": "lifecycle_forecast",
+   "idea": "Empirical lifecycle forecast: the growth factor from [A-60,A-30) to [A-30,A) observed for items of the same age bucket and audience bucket one window earlier, applied to the item's current 30-step audience, so the next-window demand is estimated from the current anchor's own dynamics.",
+   "sql": "WITH f AS (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id), h AS (SELECT item_id, sum(CASE WHEN t < {A} - 30 THEN 1 ELSE 0 END) AS p, sum(CASE WHEN t >= {A} - 30 THEN 1 ELSE 0 END) AS c FROM ev WHERE t >= {A} - 60 GROUP BY item_id), ref AS (SELECT CAST(floor(log2(greatest({A} - 30 - f.ft, 1))) AS INTEGER) AS ab, CAST(floor(log2(1 + h.p)) AS INTEGER) AS pb, h.p, h.c FROM h JOIN f ON f.item_id = h.item_id WHERE f.ft < {A} - 30 AND h.p > 0), g AS (SELECT ab, pb, sum(c) * 1.0 / sum(p) AS r FROM ref GROUP BY ab, pb), cur AS (SELECT f.item_id, CAST(floor(log2(greatest({A} - f.ft, 1))) AS INTEGER) AS ab, CAST(floor(log2(1 + COALESCE(h.c, 0))) AS INTEGER) AS pb, COALESCE(h.c, 0) AS c FROM f LEFT JOIN h ON h.item_id = f.item_id) SELECT cur.item_id, COALESCE(g.r, 1.0) AS ag_rb2_lc_ratio, ln(1 + cur.c * COALESCE(g.r, 1.0)) AS ag_rb2_lc_fcst FROM cur LEFT JOIN g ON g.ab = cur.ab AND g.pb = cur.pb",
+   "table": "rb2_lifecycle_forecast",
+   "level": "item",
+   "columns": [
+    "ag_rb2_lc_ratio",
+    "ag_rb2_lc_fcst"
+   ]
+  },
+  {
+   "name": "newcomer_draw",
+   "idea": "How much an item attracts fresh customers: the share of its last-30-step adopters whose first ever event is within those 30 steps, and the share of its last-90-step adoptions made in the adopter's very first active step.",
+   "sql": "WITH uf AS (SELECT user_id, min(t) AS ft FROM ev GROUP BY user_id), x AS (SELECT e.item_id, avg(CASE WHEN e.t = uf.ft THEN 1.0 ELSE 0.0 END) AS es, sum(CASE WHEN e.t >= {A} - 30 THEN 1.0 ELSE 0.0 END) AS n30, sum(CASE WHEN e.t >= {A} - 30 AND uf.ft >= {A} - 30 THEN 1.0 ELSE 0.0 END) AS nc30 FROM ev e JOIN uf ON uf.user_id = e.user_id WHERE e.t >= {A} - 90 GROUP BY e.item_id) SELECT item_id, CASE WHEN n30 > 0 THEN nc30 / n30 END AS ag_rb2_newcomer_sh, es AS ag_rb2_entry_sh FROM x",
+   "table": "rb2_newcomer_draw",
+   "level": "item",
+   "columns": [
+    "ag_rb2_newcomer_sh",
+    "ag_rb2_entry_sh"
+   ]
+  },
+  {
+   "name": "adopter_tenure_gap",
+   "idea": "Signed match between the user's tenure ln(1 + A - first step) and the candidate's typical adopter tenure at adoption time over the last 90 steps, since some items are bought by new customers and others by long-standing ones.",
+   "sql": "WITH uf AS (SELECT user_id, min(t) AS ft FROM ev GROUP BY user_id), it AS (SELECT e.item_id, avg(ln(1 + e.t - uf.ft)) AS mt FROM ev e JOIN uf ON uf.user_id = e.user_id WHERE e.t >= {A} - 90 AND e.item_id IN (SELECT DISTINCT item_id FROM cand) GROUP BY e.item_id), ut AS (SELECT u.user_id, ln(1 + {A} - uf.ft) AS lt FROM users u JOIN uf ON uf.user_id = u.user_id) SELECT c.user_id, c.item_id, ut.lt - it.mt AS ag_rb2_tenure_gap FROM cand c JOIN ut ON ut.user_id = c.user_id LEFT JOIN it ON it.item_id = c.item_id",
+   "table": "rb2_adopter_tenure_gap",
+   "level": "pair",
+   "columns": [
+    "ag_rb2_tenure_gap"
+   ]
+  },
+  {
+   "name": "precursor_share",
+   "idea": "Reverse sequential signal: among the candidate's adopters of the last 30 (and 7) steps, the share who had taken one of u's last 20 items earlier within 210 steps, max and sum over those items, i.e. how typical u's history is of the people buying j at present.",
+   "sql": "WITH l AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, row_number() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) s WHERE rn <= 20), r AS (SELECT user_id, item_id, t FROM ev WHERE t >= {A} - 30 AND item_id IN (SELECT DISTINCT item_id FROM cand)), p AS (SELECT user_id, item_id, t FROM ev WHERE t >= {A} - 210 AND item_id IN (SELECT DISTINCT item_id FROM l)), nr AS (SELECT item_id, count(*) AS u30, sum(CASE WHEN t >= {A} - 7 THEN 1 ELSE 0 END) AS u7 FROM r GROUP BY item_id), x AS (SELECT p.item_id AS i, r.item_id AS j, count(*) AS n, sum(CASE WHEN r.t >= {A} - 7 THEN 1 ELSE 0 END) AS n7 FROM r JOIN p ON p.user_id = r.user_id AND p.t < r.t GROUP BY p.item_id, r.item_id), z AS (SELECT l.user_id, x.j AS item_id, max(x.n * 1.0 / nr.u30) AS pmax, sum(x.n * 1.0 / nr.u30) AS psum, max(CASE WHEN nr.u7 > 0 THEN x.n7 * 1.0 / nr.u7 ELSE 0 END) AS p7 FROM l JOIN x ON x.i = l.item_id JOIN nr ON nr.item_id = x.j GROUP BY l.user_id, x.j) SELECT c.user_id, c.item_id, COALESCE(z.pmax, 0) AS ag_rb2_prec_max, COALESCE(z.psum, 0) AS ag_rb2_prec_sum, COALESCE(z.p7, 0) AS ag_rb2_prec7_max FROM cand c LEFT JOIN z ON z.user_id = c.user_id AND z.item_id = c.item_id",
+   "table": "rb2_precursor_share",
+   "level": "pair",
+   "columns": [
+    "ag_rb2_prec_max",
+    "ag_rb2_prec_sum",
+    "ag_rb2_prec7_max"
+   ]
+  },
+  {
+   "name": "leader_cf",
+   "idea": "Leader-based collaborative filtering: users who took u's recent items up to 30 steps before u did are trend leaders for u; the weighted share of u's top-30 leaders who took candidate j in the last 30 steps anticipates what u will follow.",
+   "sql": "WITH l AS (SELECT user_id, item_id, t FROM (SELECT user_id, item_id, t, row_number() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) s WHERE rn <= 8 AND t >= {A} - 180), e AS (SELECT user_id, item_id, t FROM ev WHERE t >= {A} - 210 AND item_id IN (SELECT DISTINCT item_id FROM l)), ld AS (SELECT l.user_id AS u, e.user_id AS v, count(*) AS w, max(e.t) AS lt FROM l JOIN e ON e.item_id = l.item_id AND e.t < l.t AND e.t >= l.t - 30 GROUP BY l.user_id, e.user_id), ldr AS (SELECT u, v, w FROM (SELECT u, v, w, row_number() OVER (PARTITION BY u ORDER BY w DESC, lt DESC, v) AS rk FROM ld) q WHERE rk <= 30), rec AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 30 AND user_id IN (SELECT DISTINCT v FROM ldr)), tw AS (SELECT u, sum(w) AS sw FROM ldr GROUP BY u), z AS (SELECT ldr.u, rec.item_id, sum(ldr.w) AS w, count(*) AS nl FROM ldr JOIN rec ON rec.user_id = ldr.v GROUP BY ldr.u, rec.item_id) SELECT c.user_id, c.item_id, COALESCE(z.w * 1.0 / tw.sw, 0) AS ag_rb2_leader_share, COALESCE(z.nl, 0) AS ag_rb2_leader_cnt FROM cand c LEFT JOIN z ON z.u = c.user_id AND z.item_id = c.item_id LEFT JOIN tw ON tw.u = c.user_id",
+   "table": "rb2_leader_cf",
+   "level": "pair",
+   "columns": [
+    "ag_rb2_leader_share",
+    "ag_rb2_leader_cnt"
+   ]
+  },
+  {
+   "name": "profile_coherence",
+   "idea": "How focused the user's recent taste is: the mean 180-step cosine similarity among all pairs of the user's 5 most recent items, telling the model when co-occurrence scores are trustworthy versus when popularity should dominate.",
+   "sql": "WITH l AS (SELECT user_id, item_id FROM (SELECT user_id, item_id, row_number() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) s WHERE rn <= 5), e AS (SELECT user_id, item_id FROM ev WHERE t >= {A} - 180 AND item_id IN (SELECT DISTINCT item_id FROM l)), n AS (SELECT item_id, count(*) AS cnt FROM e GROUP BY item_id), pr AS (SELECT DISTINCT a.item_id AS i, b.item_id AS k FROM l a JOIN l b ON a.user_id = b.user_id AND a.item_id < b.item_id), cc AS (SELECT pr.i, pr.k, count(*) AS c2 FROM pr JOIN e a ON a.item_id = pr.i JOIN e b ON b.user_id = a.user_id AND b.item_id = pr.k GROUP BY pr.i, pr.k), z AS (SELECT a.user_id, avg(COALESCE(cc.c2 / sqrt(na.cnt * nb.cnt), 0)) AS coh FROM l a JOIN l b ON a.user_id = b.user_id AND a.item_id < b.item_id LEFT JOIN cc ON cc.i = a.item_id AND cc.k = b.item_id LEFT JOIN n na ON na.item_id = a.item_id LEFT JOIN n nb ON nb.item_id = b.item_id GROUP BY a.user_id) SELECT u.user_id, z.coh AS ag_rb2_coherence FROM users u LEFT JOIN z ON z.user_id = u.user_id",
+   "table": "rb2_profile_coherence",
+   "level": "user",
+   "columns": [
+    "ag_rb2_coherence"
+   ]
+  },
+  {
+   "name": "user_earliness",
+   "idea": "Early adopter versus follower: over the user's last 20 items, the mean percentile of the user's position among all adopters of the item, the mean log count of prior adopters, and the mean log 30-step audience at the moment of adoption.",
+   "sql": "WITH l AS (SELECT user_id, item_id, t FROM (SELECT user_id, item_id, t, row_number() OVER (PARTITION BY user_id ORDER BY t DESC, item_id) AS rn FROM ev WHERE user_id IN (SELECT user_id FROM users)) s WHERE rn <= 20), d AS (SELECT item_id, t, count(*) AS c FROM ev WHERE item_id IN (SELECT DISTINCT item_id FROM l) GROUP BY item_id, t), q AS (SELECT item_id, t, sum(c) OVER (PARTITION BY item_id ORDER BY t) - c AS bf, sum(c) OVER (PARTITION BY item_id ORDER BY t RANGE BETWEEN 30 PRECEDING AND 1 PRECEDING) AS r30, sum(c) OVER (PARTITION BY item_id) AS tot FROM d), z AS (SELECT l.user_id, avg(q.bf * 1.0 / q.tot) AS ep, avg(ln(1 + q.bf)) AS er, avg(ln(1 + COALESCE(q.r30, 0))) AS pa FROM l JOIN q ON q.item_id = l.item_id AND q.t = l.t GROUP BY l.user_id) SELECT u.user_id, z.ep AS ag_rb2_early_pct, z.er AS ag_rb2_early_lnrank, z.pa AS ag_rb2_pop_at_adopt FROM users u LEFT JOIN z ON z.user_id = u.user_id",
+   "table": "rb2_user_earliness",
+   "level": "user",
+   "columns": [
+    "ag_rb2_early_pct",
+    "ag_rb2_early_lnrank",
+    "ag_rb2_pop_at_adopt"
+   ]
+  },
+  {
+   "name": "basket_context",
+   "idea": "Standalone versus add-on items: the mean log number of items the adopter took in the same step as this item over the last 90 steps, and the share of adoptions that were the only item of that step.",
+   "sql": "WITH b AS (SELECT user_id, t, count(*) AS k FROM ev WHERE t >= {A} - 90 GROUP BY user_id, t) SELECT e.item_id, avg(ln(b.k)) AS ag_rb2_basket_ln, avg(CASE WHEN b.k = 1 THEN 1.0 ELSE 0.0 END) AS ag_rb2_solo_sh FROM ev e JOIN b ON b.user_id = e.user_id AND b.t = e.t WHERE e.t >= {A} - 90 GROUP BY e.item_id",
+   "table": "rb2_basket_context",
+   "level": "item",
+   "columns": [
+    "ag_rb2_basket_ln",
+    "ag_rb2_solo_sh"
+   ]
+  },
+  {
+   "name": "evergreen_cover",
+   "idea": "Steadiness of demand over the item's life: the share of 30-step buckets among the last 12 (or since the item's first event) in which it had at least one event, separating evergreen items from one-season items.",
+   "sql": "WITH x AS (SELECT item_id, CAST(floor(({A} - 1 - t) / 30) AS INTEGER) AS b FROM ev WHERE t >= {A} - 360), f AS (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id), g AS (SELECT item_id, count(DISTINCT b) AS nb FROM x GROUP BY item_id) SELECT f.item_id, COALESCE(g.nb, 0) * 1.0 / least(12, CAST(floor(({A} - 1 - f.ft) / 30) AS INTEGER) + 1) AS ag_rb2_bucket_cover FROM f LEFT JOIN g ON g.item_id = f.item_id",
+   "table": "rb2_evergreen_cover",
+   "level": "item",
+   "columns": [
+    "ag_rb2_bucket_cover"
+   ]
+  },
+  {
+   "name": "basket_match",
+   "idea": "Signed gap between the user's mean log items per active step over their whole history and the candidate's mean log basket size at adoption over the last 90 steps, matching big-basket shoppers with add-on items.",
+   "sql": "WITH b AS (SELECT user_id, t, count(*) AS k FROM ev WHERE t >= {A} - 90 GROUP BY user_id, t), ib AS (SELECT e.item_id, avg(ln(b.k)) AS ik FROM ev e JOIN b ON b.user_id = e.user_id AND b.t = e.t WHERE e.t >= {A} - 90 AND e.item_id IN (SELECT DISTINCT item_id FROM cand) GROUP BY e.item_id), ub AS (SELECT user_id, avg(ln(k)) AS uk FROM (SELECT user_id, t, count(*) AS k FROM ev WHERE user_id IN (SELECT user_id FROM users) GROUP BY user_id, t) z GROUP BY user_id) SELECT c.user_id, c.item_id, ub.uk - ib.ik AS ag_rb2_basket_gap FROM cand c JOIN ub ON ub.user_id = c.user_id LEFT JOIN ib ON ib.item_id = c.item_id",
+   "table": "rb2_basket_match",
+   "level": "pair",
+   "columns": [
+    "ag_rb2_basket_gap"
+   ]
+  },
+  {
+   "name": "user_lastcycle_season",
+   "idea": "Whether the user shopped in the same season one cycle earlier: log count and share of the user's items taken in [A-365, A-335), the counterpart of the upcoming 30-step window, letting seasonal item features interact with seasonal shoppers.",
+   "sql": "WITH x AS (SELECT user_id, sum(CASE WHEN t >= {A} - 365 AND t < {A} - 335 THEN 1 ELSE 0 END) AS ly, count(*) AS tot, min(t) AS ft FROM ev WHERE user_id IN (SELECT user_id FROM users) GROUP BY user_id) SELECT user_id, CASE WHEN ft < {A} - 365 THEN ln(1 + ly) ELSE -1.0 END AS ag_rb2_ly_items, ly * 1.0 / tot AS ag_rb2_ly_share FROM x",
+   "table": "rb2_user_lastcycle_season",
+   "level": "user",
+   "columns": [
+    "ag_rb2_ly_items",
+    "ag_rb2_ly_share"
+   ]
+  }
+ ],
+ "llm": [
+  {
+   "seconds": 413.2,
+   "cost_usd": 0.8881764000000001,
+   "attempts": 1,
+   "prompt_sha256": "69cb0be9614e73fdc42567fb7e84cfb4a9aa15052677f5bf7e00df94626a053a"
+  }
+ ],
+ "probes": {
+  "rb2_active_share": {
+   "sql_sha256": "8a05284a6a4a1451ae08a46df71827258d6b65d45e963f027f07b998e8454c3c",
+   "level": "item",
+   "columns": [
+    "ag_rb2_share30",
+    "ag_rb2_share7"
+   ],
+   "view": {
+    "keys": [
+     "item_id"
+    ],
+    "level": "item",
+    "columns": [
+     "ag_rb2_share30",
+     "ag_rb2_share7"
+    ],
+    "seconds_median": 0.0375,
+    "coverage": {
+     "ag_rb2_share30": 1.0,
+     "ag_rb2_share7": 1.0
+    },
+    "max_abs_rho": {
+     "ag_rb2_share30": 1.0,
+     "ag_rb2_share7": 1.0
+    },
+    "nearest": {
+     "ag_rb2_share30": "users_30",
+     "ag_rb2_share7": "users_7"
+    },
+    "r2": {
+     "ag_rb2_share30": 1.0,
+     "ag_rb2_share7": 1.0
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_share30": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     },
+     "ag_rb2_share7": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "rb2_lifecycle_forecast": {
+   "sql_sha256": "01745b6d3f9e66f69b1c7a55bee3e30281c6b26fa33d98abedfd578f85564e56",
+   "level": "item",
+   "columns": [
+    "ag_rb2_lc_ratio",
+    "ag_rb2_lc_fcst"
+   ],
+   "view": {
+    "keys": [
+     "item_id"
+    ],
+    "level": "item",
+    "columns": [
+     "ag_rb2_lc_ratio",
+     "ag_rb2_lc_fcst"
+    ],
+    "seconds_median": 0.035,
+    "coverage": {
+     "ag_rb2_lc_ratio": 1.0,
+     "ag_rb2_lc_fcst": 1.0
+    },
+    "max_abs_rho": {
+     "ag_rb2_lc_ratio": 0.949,
+     "ag_rb2_lc_fcst": 0.611
+    },
+    "nearest": {
+     "ag_rb2_lc_ratio": "users_30",
+     "ag_rb2_lc_fcst": "users_30"
+    },
+    "r2": {
+     "ag_rb2_lc_ratio": 0.928,
+     "ag_rb2_lc_fcst": 0.771
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_lc_ratio": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     },
+     "ag_rb2_lc_fcst": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "rb2_newcomer_draw": {
+   "sql_sha256": "ed8e7bd7b70ccd8bfcb0008706c33eb02363802249b8baec6f4e289dc93e46ee",
+   "level": "item",
+   "columns": [
+    "ag_rb2_newcomer_sh",
+    "ag_rb2_entry_sh"
+   ],
+   "view": {
+    "keys": [
+     "item_id"
+    ],
+    "level": "item",
+    "columns": [
+     "ag_rb2_newcomer_sh",
+     "ag_rb2_entry_sh"
+    ],
+    "seconds_median": 0.0385,
+    "coverage": {
+     "ag_rb2_newcomer_sh": 0.999,
+     "ag_rb2_entry_sh": 1.0
+    },
+    "max_abs_rho": {
+     "ag_rb2_newcomer_sh": null,
+     "ag_rb2_entry_sh": null
+    },
+    "nearest": {
+     "ag_rb2_newcomer_sh": null,
+     "ag_rb2_entry_sh": null
+    },
+    "r2": {
+     "ag_rb2_newcomer_sh": null,
+     "ag_rb2_entry_sh": null
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_newcomer_sh": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 0.997
+     },
+     "ag_rb2_entry_sh": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "rb2_adopter_tenure_gap": {
+   "sql_sha256": "370a2f4b6791645f1f12b6fd17286f15ea5d257ee2d50e2bbbf77a9ffe4f6e43",
+   "level": "pair",
+   "columns": [
+    "ag_rb2_tenure_gap"
+   ],
+   "view": {
+    "keys": [
+     "user_id",
+     "item_id"
+    ],
+    "level": "pair",
+    "columns": [
+     "ag_rb2_tenure_gap"
+    ],
+    "seconds_median": 0.097,
+    "coverage": {
+     "ag_rb2_tenure_gap": 1.0
+    },
+    "batch_invariant": true,
+    "max_abs_rho": {
+     "ag_rb2_tenure_gap": 0.833
+    },
+    "nearest": {
+     "ag_rb2_tenure_gap": "pop_share_30"
+    },
+    "r2": {
+     "ag_rb2_tenure_gap": 0.881
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_tenure_gap": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "rb2_precursor_share": {
+   "sql_sha256": "011eed5af8d4ae1ae4ee8b697cd1edb844eac0b673421e16630e1be681122289",
+   "level": "pair",
+   "columns": [
+    "ag_rb2_prec_max",
+    "ag_rb2_prec_sum",
+    "ag_rb2_prec7_max"
+   ],
+   "view": {
+    "keys": [
+     "user_id",
+     "item_id"
+    ],
+    "level": "pair",
+    "columns": [
+     "ag_rb2_prec_max",
+     "ag_rb2_prec_sum",
+     "ag_rb2_prec7_max"
+    ],
+    "seconds_median": 4.62,
+    "coverage": {
+     "ag_rb2_prec_max": 1.0,
+     "ag_rb2_prec_sum": 1.0,
+     "ag_rb2_prec7_max": 1.0
+    },
+    "batch_invariant": true,
+    "max_abs_rho": {
+     "ag_rb2_prec_max": 0.359,
+     "ag_rb2_prec_sum": 0.296,
+     "ag_rb2_prec7_max": 0.389
+    },
+    "nearest": {
+     "ag_rb2_prec_max": "ag_adopt_rate",
+     "ag_rb2_prec_sum": "ag_adopter_depth",
+     "ag_rb2_prec7_max": "users_7"
+    },
+    "r2": {
+     "ag_rb2_prec_max": 0.221,
+     "ag_rb2_prec_sum": 0.202,
+     "ag_rb2_prec7_max": 0.215
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_prec_max": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     },
+     "ag_rb2_prec_sum": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     },
+     "ag_rb2_prec7_max": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "rb2_leader_cf": {
+   "sql_sha256": "f4feea94a6d81f94cabdd70fbbb36c9a1ee4e35d352e87119aa2b5bd0f954291",
+   "level": "pair",
+   "columns": [
+    "ag_rb2_leader_share",
+    "ag_rb2_leader_cnt"
+   ],
+   "view": {
+    "keys": [
+     "user_id",
+     "item_id"
+    ],
+    "level": "pair",
+    "columns": [
+     "ag_rb2_leader_share",
+     "ag_rb2_leader_cnt"
+    ],
+    "seconds_median": 0.404,
+    "coverage": {
+     "ag_rb2_leader_share": 1.0,
+     "ag_rb2_leader_cnt": 1.0
+    },
+    "batch_invariant": true,
+    "max_abs_rho": {
+     "ag_rb2_leader_share": 0.346,
+     "ag_rb2_leader_cnt": 0.35
+    },
+    "nearest": {
+     "ag_rb2_leader_share": "users_30",
+     "ag_rb2_leader_cnt": "users_30"
+    },
+    "r2": {
+     "ag_rb2_leader_share": 0.181,
+     "ag_rb2_leader_cnt": 0.185
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_leader_share": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     },
+     "ag_rb2_leader_cnt": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "rb2_profile_coherence": {
+   "sql_sha256": "9e2698bd76d1d31369b9e0aa9fb5e1a482d3ab5532bfbb2cc1a8e51f2eeba494",
+   "level": "user",
+   "columns": [
+    "ag_rb2_coherence"
+   ],
+   "view": {
+    "keys": [
+     "user_id"
+    ],
+    "level": "user",
+    "columns": [
+     "ag_rb2_coherence"
+    ],
+    "seconds_median": 0.238,
+    "coverage": {
+     "ag_rb2_coherence": 1.0
+    },
+    "batch_invariant": true,
+    "max_abs_rho": {
+     "ag_rb2_coherence": 0.734
+    },
+    "nearest": {
+     "ag_rb2_coherence": "cooc_last5"
+    },
+    "r2": {
+     "ag_rb2_coherence": 0.57
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_coherence": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "rb2_user_earliness": {
+   "sql_sha256": "daf2c17ea89da4344f88f3ecf1c6e5e53533416b9bb7eaf9b9ae9370c83f1d23",
+   "level": "user",
+   "columns": [
+    "ag_rb2_early_pct",
+    "ag_rb2_early_lnrank",
+    "ag_rb2_pop_at_adopt"
+   ],
+   "view": {
+    "keys": [
+     "user_id"
+    ],
+    "level": "user",
+    "columns": [
+     "ag_rb2_early_pct",
+     "ag_rb2_early_lnrank",
+     "ag_rb2_pop_at_adopt"
+    ],
+    "seconds_median": 0.321,
+    "coverage": {
+     "ag_rb2_early_pct": 1.0,
+     "ag_rb2_early_lnrank": 1.0,
+     "ag_rb2_pop_at_adopt": 1.0
+    },
+    "batch_invariant": true,
+    "max_abs_rho": {
+     "ag_rb2_early_pct": 0.924,
+     "ag_rb2_early_lnrank": 0.823,
+     "ag_rb2_pop_at_adopt": 0.805
+    },
+    "nearest": {
+     "ag_rb2_early_pct": "ag_age_gap",
+     "ag_rb2_early_lnrank": "cooc_score",
+     "ag_rb2_pop_at_adopt": "cooc_score"
+    },
+    "r2": {
+     "ag_rb2_early_pct": 0.89,
+     "ag_rb2_early_lnrank": 0.769,
+     "ag_rb2_pop_at_adopt": 0.743
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_early_pct": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     },
+     "ag_rb2_early_lnrank": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     },
+     "ag_rb2_pop_at_adopt": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "rb2_basket_context": {
+   "sql_sha256": "a8f9133547635ec6e6b15fb10c0337235516138beb285fff32d86ddd3a496226",
+   "level": "item",
+   "columns": [
+    "ag_rb2_basket_ln",
+    "ag_rb2_solo_sh"
+   ],
+   "view": {
+    "keys": [
+     "item_id"
+    ],
+    "level": "item",
+    "columns": [
+     "ag_rb2_basket_ln",
+     "ag_rb2_solo_sh"
+    ],
+    "seconds_median": 0.041,
+    "coverage": {
+     "ag_rb2_basket_ln": 1.0,
+     "ag_rb2_solo_sh": 1.0
+    },
+    "max_abs_rho": {
+     "ag_rb2_basket_ln": 0.427,
+     "ag_rb2_solo_sh": 0.416
+    },
+    "nearest": {
+     "ag_rb2_basket_ln": "ag_adopter_depth",
+     "ag_rb2_solo_sh": "ag_adopter_depth"
+    },
+    "r2": {
+     "ag_rb2_basket_ln": 0.44,
+     "ag_rb2_solo_sh": 0.373
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_basket_ln": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     },
+     "ag_rb2_solo_sh": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "rb2_evergreen_cover": {
+   "sql_sha256": "768e8797820e34c9adad22c4d0a5209cf896dee46bb0bc25abd6ad361248fe7b",
+   "level": "item",
+   "columns": [
+    "ag_rb2_bucket_cover"
+   ],
+   "view": {
+    "keys": [
+     "item_id"
+    ],
+    "level": "item",
+    "columns": [
+     "ag_rb2_bucket_cover"
+    ],
+    "seconds_median": 0.0315,
+    "coverage": {
+     "ag_rb2_bucket_cover": 1.0
+    },
+    "max_abs_rho": {
+     "ag_rb2_bucket_cover": 0.189
+    },
+    "nearest": {
+     "ag_rb2_bucket_cover": "item_last"
+    },
+    "r2": {
+     "ag_rb2_bucket_cover": 0.422
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_bucket_cover": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "rb2_basket_match": {
+   "sql_sha256": "27321b4f3753e1c6722e2e62cc49bf0a620f801aeb949087f3cff486248747be",
+   "level": "pair",
+   "columns": [
+    "ag_rb2_basket_gap"
+   ],
+   "view": {
+    "keys": [
+     "user_id",
+     "item_id"
+    ],
+    "level": "pair",
+    "columns": [
+     "ag_rb2_basket_gap"
+    ],
+    "seconds_median": 0.113,
+    "coverage": {
+     "ag_rb2_basket_gap": 1.0
+    },
+    "batch_invariant": true,
+    "max_abs_rho": {
+     "ag_rb2_basket_gap": 0.406
+    },
+    "nearest": {
+     "ag_rb2_basket_gap": "ag_adopter_depth"
+    },
+    "r2": {
+     "ag_rb2_basket_gap": 0.403
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_basket_gap": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  },
+  "rb2_user_lastcycle_season": {
+   "sql_sha256": "e2cb4943c2e9ceda0d3f0fee7a2821118bb4d68ed36d93c74425020e4d90b749",
+   "level": "user",
+   "columns": [
+    "ag_rb2_ly_items",
+    "ag_rb2_ly_share"
+   ],
+   "view": {
+    "keys": [
+     "user_id"
+    ],
+    "level": "user",
+    "columns": [
+     "ag_rb2_ly_items",
+     "ag_rb2_ly_share"
+    ],
+    "seconds_median": 0.0285,
+    "coverage": {
+     "ag_rb2_ly_items": 1.0,
+     "ag_rb2_ly_share": 1.0
+    },
+    "batch_invariant": true,
+    "max_abs_rho": {
+     "ag_rb2_ly_items": 0.658,
+     "ag_rb2_ly_share": 0.0747
+    },
+    "nearest": {
+     "ag_rb2_ly_items": "user_rate",
+     "ag_rb2_ly_share": "ag_lt_cooc"
+    },
+    "r2": {
+     "ag_rb2_ly_items": 0.449,
+     "ag_rb2_ly_share": 0.0357
+    },
+    "non_null_share_by_day": {
+     "ag_rb2_ly_items": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     },
+     "ag_rb2_ly_share": {
+      "probe_day_1": 1.0,
+      "probe_day_2": 1.0
+     }
+    },
+    "parity_ok": true
+   },
+   "problems": []
+  }
+ },
+ "fix": {
+  "asked": []
+ },
+ "tables": [
+  "rb2_active_share",
+  "rb2_lifecycle_forecast",
+  "rb2_newcomer_draw",
+  "rb2_adopter_tenure_gap",
+  "rb2_precursor_share",
+  "rb2_leader_cf",
+  "rb2_profile_coherence",
+  "rb2_user_earliness",
+  "rb2_basket_context",
+  "rb2_evergreen_cover",
+  "rb2_basket_match",
+  "rb2_user_lastcycle_season"
+ ],
+ "widths": [
+  [
+   "rb2_active_share",
+   2
+  ],
+  [
+   "rb2_lifecycle_forecast",
+   2
+  ],
+  [
+   "rb2_newcomer_draw",
+   2
+  ],
+  [
+   "rb2_adopter_tenure_gap",
+   1
+  ],
+  [
+   "rb2_precursor_share",
+   3
+  ],
+  [
+   "rb2_leader_cf",
+   2
+  ],
+  [
+   "rb2_profile_coherence",
+   1
+  ],
+  [
+   "rb2_user_earliness",
+   3
+  ],
+  [
+   "rb2_basket_context",
+   2
+  ],
+  [
+   "rb2_evergreen_cover",
+   1
+  ],
+  [
+   "rb2_basket_match",
+   1
+  ],
+  [
+   "rb2_user_lastcycle_season",
+   2
+  ]
+ ],
+ "width": 22,
+ "done": true
+}
