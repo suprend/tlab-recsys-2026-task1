@@ -1,0 +1,206 @@
+{
+ "dataset": "tinkoff",
+ "runs": "council/runs/xfer-tinkoff",
+ "H3": {
+  "cards_from": "prereg-1.json",
+  "families": [
+   {
+    "column": "F1",
+    "card": "G1-1",
+    "lens": "G1",
+    "sign": 1,
+    "beta": -0.00037311756177468353,
+    "t": -1.4309577154359234
+   },
+   {
+    "column": "F2",
+    "card": "G2-1",
+    "lens": "G2",
+    "sign": 1,
+    "beta": -0.00015257824978719096,
+    "t": -0.5938475368609765
+   },
+   {
+    "column": "F3",
+    "card": "G3-2",
+    "lens": "G3",
+    "sign": 1,
+    "beta": -0.0003215965870609317,
+    "t": -1.227239306914902
+   },
+   {
+    "column": "F4",
+    "card": "G4-3",
+    "lens": "G4",
+    "sign": 1,
+    "beta": -0.00019959249402723786,
+    "t": -0.7707089927892858
+   },
+   {
+    "column": "F5",
+    "card": "G1-2",
+    "lens": "G1",
+    "sign": 1,
+    "beta": 9.616497347695455e-05,
+    "t": 0.3790933246435844
+   },
+   {
+    "column": "F6",
+    "card": "G2-2",
+    "lens": "G2",
+    "sign": 1,
+    "beta": -0.0001302497808615228,
+    "t": -0.510935558768602
+   },
+   {
+    "column": "F7",
+    "card": "G3-3",
+    "lens": "G3",
+    "sign": 1,
+    "beta": 0.00012848948100624956,
+    "t": 0.5016308666264175
+   },
+   {
+    "column": "F8",
+    "card": "G4-7",
+    "lens": "G4",
+    "sign": 1,
+    "beta": 5.504366175984414e-05,
+    "t": 0.21603982667770474
+   },
+   {
+    "column": "F9",
+    "card": "G1-4",
+    "lens": "G1",
+    "sign": 1,
+    "beta": 0.0002567824574982624,
+    "t": 1.0049864520931335
+   },
+   {
+    "column": "F10",
+    "card": "G2-3",
+    "lens": "G2",
+    "sign": 1,
+    "beta": -0.00017207136838450605,
+    "t": -0.6796999621416798
+   },
+   {
+    "column": "F11",
+    "card": "G3-4",
+    "lens": "G3",
+    "sign": 1,
+    "beta": -0.0010803112094456312,
+    "t": -3.9781518108173546
+   },
+   {
+    "column": "F12",
+    "card": "G4-8",
+    "lens": "G4",
+    "sign": 1,
+    "beta": -5.516208039496868e-05,
+    "t": -0.2169284622704798
+   }
+  ],
+  "no_sign": [],
+  "degenerate": true,
+  "all": {
+   "n": 12,
+   "n_beta_positive": 4,
+   "share_positive": 0.3333333333333333,
+   "p_share_vs_half": 0.927001953125,
+   "n_t_above_2": 0,
+   "n_t_below_minus_2": 1,
+   "degenerate": true,
+   "spearman": null,
+   "perm_p": null
+  },
+  "by_lens": {
+   "G1": {
+    "n": 3,
+    "n_beta_positive": 2,
+    "share_positive": 0.6666666666666666,
+    "p_share_vs_half": 0.5,
+    "n_t_above_2": 0,
+    "n_t_below_minus_2": 0,
+    "degenerate": true,
+    "spearman": null,
+    "perm_p": null
+   },
+   "G2": {
+    "n": 3,
+    "n_beta_positive": 0,
+    "share_positive": 0.0,
+    "p_share_vs_half": 1.0,
+    "n_t_above_2": 0,
+    "n_t_below_minus_2": 0,
+    "degenerate": true,
+    "spearman": null,
+    "perm_p": null
+   },
+   "G3": {
+    "n": 3,
+    "n_beta_positive": 1,
+    "share_positive": 0.3333333333333333,
+    "p_share_vs_half": 0.875,
+    "n_t_above_2": 0,
+    "n_t_below_minus_2": 1,
+    "degenerate": true,
+    "spearman": null,
+    "perm_p": null
+   },
+   "G4": {
+    "n": 3,
+    "n_beta_positive": 1,
+    "share_positive": 0.3333333333333333,
+    "p_share_vs_half": 0.875,
+    "n_t_above_2": 0,
+    "n_t_below_minus_2": 0,
+    "degenerate": true,
+    "spearman": null,
+    "perm_p": null
+   }
+  },
+  "note": "H3 не проверяема: все знаки «+»; ниже только доля β̂ > 0"
+ },
+ "H2": {
+  "se_empty": 0.00024201475266558912,
+  "n_empty": 6,
+  "df": 5,
+  "empty": [
+   "E1",
+   "E2",
+   "E3",
+   "E4",
+   "E5",
+   "E6"
+  ],
+  "se_empty_ci95": [
+   0.00015106754527858916,
+   0.0005935687678226802
+  ],
+  "se_boot": 8.108135407365044e-05,
+  "ratio_empty_to_boot": 2.9848385665310233,
+  "se_seed": 0.0002280284072859555,
+  "se_seed_ci95": [
+   0.00012746457256069985,
+   0.0005880048436502186
+  ],
+  "share_of_variance_seed": 0.8877572483407128,
+  "rehearsal_se_boot": 8.169468880227568e-05,
+  "rehearsal_se_boot_scaled": 8.169468880227568e-05,
+  "rehearsal_scale": "√(5300 / 5300)"
+ },
+ "H1'": {
+  "status": "не применимо",
+  "why": "в контракте xfer нет C_val"
+ },
+ "H14": {
+  "status": "нет данных",
+  "scanned": [
+   "runs.jsonl"
+  ],
+  "unreadable": [],
+  "why": "нет данных: записи подгонок (council/fit.py:272, council/xfer/fit.py:564) не хранят importance"
+ },
+ "note": "описательно: без новых чтений меток, без выводов; n мало"
+}
