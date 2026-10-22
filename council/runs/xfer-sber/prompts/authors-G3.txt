@@ -1,0 +1,697 @@
+# command: ["claude", "-p", "<prompt>", "--model", "opus", "--output-format", "json", "--tools", "", "--strict-mcp-config"]
+# cwd: /tmp/tlab-council-llm-b
+# prompt_sha256: 8fb36ce3463384d5b69b2126c305deb72121e1473edb3231947b6b5b0d10a076
+
+You are generator G3 of a feature council for a ranking model. Your lens:
+co-occurrence graph and transitions: item-item graphs, multi-step diffusion from seed items, sequential transitions, user-user neighbourhoods. Reply with JSON only.
+
+TASK
+Orders of a grocery delivery service. Every anchor A is a midnight. A query is a user with at least one order
+before A and at least one order in [A, A + 14 days). The target of a query is the set of distinct products of the
+user's first order in that window (earliest ts, then smallest order_id); products the user bought before count too.
+The label of a (user, product) candidate pair is whether the product is in the target. The metric is MAP@50:
+AP@50 = (1 / min(50, M)) * sum over positions k = 1..50 of rel_k * P@k, where M is the number of target products
+(targets outside the candidates included), rel_k is 1 when the product at position k is a target, and P@k is the
+number of targets among the first k positions divided by k; MAP@50 is the mean AP@50 over all queries.
+
+CANDIDATES (policy S-R150-P100-G200)
+Up to 200 candidates per query, all statistics from the history before A.
+Main retailer of the user: the retailer with the most distinct orders of the user; ties by the later last order of the user there, then by retailer code.
+(a) repeat: the distinct products the user bought before A, by the number of distinct orders with the product descending, then the time of the latest such order descending, then product_id; the first 150.
+(b) pop-retailer: products by distinct buyers at the main retailer in [A - 28 days, A) descending, then product_id; the first 100.
+(c) global: products by distinct buyers over all orders in [A - 28 days, A) descending, then product_id.
+Union: (a) in its order, then (b) without (a), then (c) without (a) and (b), until exactly 200 candidates. Source ranks repeat_rank, popr_rank and glob_rank are positions in the full orders.
+
+TRAINING
+CatBoost Logloss, 500 trees, depth 8, learning rate 0.05, L2 10, 128
+borders, no tuning. Training anchors are 14 days apart; each contributes at most 20000 queries: all positive pairs
+plus 20 hash-sampled negatives per query, with inverse-inclusion weights. Candidates are ranked by the raw
+model value, ties by product_id.
+
+FEATURES ALREADY IN THE MODEL: the base (name: formula; missing). A window of w days is [A - w days, A).
+- up_orders: number of distinct orders of the user before A that contain the product (repeated lines of an order count once); missing: 0 when none
+- up_share: up_orders / u_orders; missing: 0 when none
+- up_days_since_last: days from the latest order of the user with the product to A (fractional, from seconds); missing: NULL when the user never bought the product
+- up_mean_interval: (time of the latest minus time of the earliest order of the user with the product) / (up_orders - 1), in days; missing: NULL when up_orders < 2
+- up_due: up_days_since_last / up_mean_interval; missing: NULL when either is NULL or up_mean_interval = 0
+- up_qty_total: sum of quantity over all lines of the product of the user before A, repeated lines included; missing: 0 when none
+- up_last_price: price of the product line in the latest order of the user with the product (latest ts, then largest order_id; with several lines, the largest line_item_id); missing: NULL when none
+- up_discount_share: mean of discount / (price + discount) over the lines of the product of the user with price + discount > 0 (negative discounts kept); missing: NULL when there are no such lines
+- repeat_rank: position of the product in the full repeat order of the user (source a, without its depth cut); missing: NULL when the user never bought the product
+- popr_rank: position of the product in the full pop-retailer order of the main retailer of the user (source b, without its depth cut); missing: NULL when nobody bought the product at that retailer in the window
+- glob_rank: position of the product in the full global order (source c); missing: NULL when nobody bought the product in the window
+- u_orders: number of distinct orders of the user before A; missing: never missing
+- u_orders_28: orders of the user in [A - 28 days, A); missing: 0 when none
+- u_days_since_last: days from the latest order of the user to A; missing: never missing
+- u_mean_basket: mean over the orders of the user of the number of distinct products in the order; missing: never missing
+- u_mean_gap: (time of the latest minus time of the earliest order of the user) / (u_orders - 1), in days; missing: NULL when u_orders < 2
+- u_main_share: orders of the user at the main retailer / u_orders; missing: never missing
+- p_buyers_28: distinct users who bought the product in the global window of source c; missing: 0 when none
+- p_buyers_28_main: distinct users who bought the product at the main retailer of the user in the window of source b; missing: 0 when none
+- p_repeat_share: among users who bought the product in [A - 90 days, A), the share with at least 2 distinct orders containing it in that interval; missing: NULL when nobody bought it in the interval
+- uc_share: orders of the user that contain a product of the same category as the product / u_orders; the category of a product is its non-NULL master_category_id in the history before A; missing: NULL when the product has no category; 0 when no such order
+- main_retailer: code of the main retailer of the user (categorical); missing: never missing
+- up_orders_28: number of distinct orders of the user in [A - 28 days, A) that contain the product; missing: 0 when none
+- up_last5_share: share of the last 5 orders of the user before A (by time descending, then order_id descending) that contain the product; the denominator is min(5, u_orders); missing: 0 when none
+- up_in_last_order: 1 when the latest order of the user before A (latest time, then largest order_id) contains the product, else 0; missing: 0 when none
+- up_days_since_first: days from the earliest order of the user with the product to A (fractional, from seconds); missing: NULL when the user never bought the product
+- p_buyers_7: distinct users who bought the product over all orders in [A - 7 days, A); missing: 0 when none
+- p_trend: p_buyers_7 / p_buyers_28; missing: NULL when p_buyers_28 = 0
+- p_buyers_28_main_share: p_buyers_28_main / p_buyers_28; missing: NULL when p_buyers_28 = 0
+- up_qty_mean: up_qty_total / number of lines of the product of the user before A (repeated lines included); missing: NULL when there are no such lines
+- uc_days_since_last: days from the latest order of the user with a line of a product of the same category as the product to A (fractional, from seconds); categories as in uc_share; missing: NULL when the product has no category or there is no such order
+categorical: main_retailer
+Columns of earlier proposals with status valid are also in the model.
+
+TABLES (DuckDB; a query sees only these five)
+orders(order_id BIGINT, user_id BIGINT, ts TIMESTAMP, retailer VARCHAR, store_id BIGINT, platform VARCHAR, city_name VARCHAR)
+lines(order_id BIGINT, user_id BIGINT, ts TIMESTAMP, product_id BIGINT, line_item_id BIGINT, price DOUBLE, quantity BIGINT, discount DOUBLE, brand_name VARCHAR, master_category_id BIGINT)
+categories(id BIGINT, name VARCHAR, parent_id BIGINT)
+orders: one row per order placed in the last 120 days before A, [A - 120 days, A), that has at
+  least one product line; retailer and city_name are anonymised codes. Earlier orders are not visible to queries
+  (the base features above use the whole history before A).
+lines: every product line of those orders with the order's user_id and ts; a product can appear on several lines
+  of one order (duplicate lines are kept).
+order_id and line_item_id are shifted to the start of the window (their first value there is 0) and carry no
+  absolute meaning; use them to tell orders and lines apart and to break ties of equal ts.
+categories: the category tree; lines.master_category_id refers to categories.id.
+cand(user_id BIGINT, product_id BIGINT): the candidate pairs of the current batch, keys only
+users(user_id BIGINT): the distinct users of cand
+There is no user table and no product attribute table.
+Id columns (user_id, product_id, store_id, master_category_id, order_id, line_item_id, retailer, city_name) are
+  labels: do not use their numeric value or order as a feature, only equality and joins.
+
+Columns of an earlier feature agent, in the model besides the base above (proposal name [level]: columns):
+  p_next_order_reorder [item]: ag_p_next_reorder, ag_p_med_regap
+  user_repeat_fraction [user]: ag_u_repeat_frac, ag_u_last_repeat_frac
+  p_new_buyer_share [item]: ag_p_new_buyer_share
+  user_brand_affinity_v2 [pair]: ag_ub_share, ag_ub_days_since
+  up_decayed_frequency [pair]: ag_up_decay14, ag_up_decay_share
+  category_choice_v2 [pair]: ag_up_cat_choice, ag_uc_last_pick
+  up_order_count_due [pair]: ag_up_orders_since, ag_up_ord_due
+  p_buyer_repeat_penetration [item]: ag_p_buyer_penetration
+  up_adoption_streak [pair]: ag_up_adopt_share, ag_up_streak
+  store_popularity [pair]: ag_ps_share, ag_ps_lift
+  product_promo_price [item]: ag_p_promo7, ag_p_price_rel
+  product_category_dominance [item]: ag_p_cat_share, ag_p_cat_rank
+  user_category_due [pair]: ag_uc_due, ag_uc_last5_share
+  up_rebuy_recency_bucket [pair]: ag_pr_rebuy_bucket
+  p_pseudo_adopt_rebuy14 [item]: ag_p_adopt14, ag_p_rebuy14
+  uc_rebuy_recency_bucket [pair]: ag_uc_rebuy_bucket
+  up_category_switch_after [pair]: ag_uc_orders_after, ag_uc_subs_after
+  up_gap_regularity [pair]: ag_up_gap_cv, ag_up_due_pmed
+  up_rebuy_freq_bucket [pair]: ag_pr_rebuy_freq
+  up_price_vs_paid_v2 [pair]: ag_up_price_vs_paid
+  retailer_adopt14 [pair]: ag_pr_adopt14_main
+  last_retailer_fit [pair]: ag_up_lastret_share, ag_p_lastret_buyers7
+  last_order_copurchase [pair]: ag_co_last_cond, ag_co_last_lift
+  up_gap_conditioned_share [pair]: ag_up_gapcond_share
+  user_parent_category_affinity [pair]: ag_upar_share, ag_upar_days
+  p_basket_context [item]: ag_p_basket_rel, ag_p_topup_share
+  up_last_quantity_rel [pair]: ag_up_lastqty_rel
+
+QUERY RULES
+- Exactly one SELECT or WITH statement; ';' only at the very end; no comments (-- or /* */).
+- Write the anchor only as TIMESTAMP '{A}', literally with the braces, e.g.
+  ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY. No other {...} placeholders, no date or time literals
+  ('YYYY-MM-DD...', DATE '...', TIMESTAMP '...' other than the anchor); intervals only as INTERVAL n DAY, unquoted.
+- Times. A time value is the column ts of orders or lines, or a column of a WITH query or subquery that
+  selects one; its min, max, first, last, arg_max/arg_min result, lag, lead, first_value or last_value;
+  CAST(... AS DATE); date_trunc('day' | 'hour' | 'minute' | 'second' | 'week', ...); or such a value +/-
+  INTERVAL n DAY. The anchor is TIMESTAMP '{A}' +/- INTERVAL n DAY. Nothing else is a time value: struct
+  fields, values of other tables and anything built from text or numbers are not. A time value may only be:
+  compared (=, <>, <, <=, >, >=, BETWEEN, IN, IS DISTINCT FROM) with another time value or the anchor;
+  subtracted from another time value or the anchor (the difference is an interval, free to use, e.g.
+  epoch(TIMESTAMP '{A}' - max(ts)) / 86400); passed with another time value or the anchor to date_diff or
+  date_sub with 'week', 'day', 'hour', 'minute' or 'second'; reduced to a periodic part by date_part with dow,
+  isodow, day (of the month), hour, minute or second (or dayofweek(), day(), hour() and the like); counted;
+  used in ORDER BY, GROUP BY or PARTITION BY. A default of lag or lead must be a time value or the anchor
+  (lead(ts, 1, TIMESTAMP '{A}')); for a numeric default wrap the result instead, e.g.
+  COALESCE(date_diff('day', lag(ts) OVER (PARTITION BY user_id ORDER BY ts, order_id), ts), -1). The anchor
+  itself has no parts: date_part, dayofweek() and the like of TIMESTAMP '{A}' are errors. A scalar subquery
+  that returns a time value must name it ts or *_ts: (SELECT max(ts) AS last_ts FROM ...). All dates lie within
+  one year, so month, quarter, week of the year and day of the year are absolute dates and are errors
+  (date_part, month(), week(), dayofyear(), date_trunc('month' | 'quarter' | 'year', ...),
+  date_diff('month', ...)). Anything else is an error too: epoch(ts), year, julian, strftime,
+  CAST(ts AS VARCHAR), arithmetic on ts other than +/- INTERVAL n DAY,
+  comparing ts with anything but a time value or the anchor, and any cast whose type contains DATE, TIME,
+  TIMESTAMP or INTERVAL (STRUCT(x TIMESTAMP), lists and maps included), except ts to DATE or TIMESTAMP. A time
+  value selected in a WITH query or subquery must be named ts or end in _ts, and only time values may carry
+  such names; no WITH RECURSIVE, no column aliases in WITH name(...) or AS t(...), no table used as a value
+  (SELECT o FROM orders o), no COLUMNS(...), no * RENAME, no positional #n, no $; every column must exist;
+  column names have at most two parts (alias.column, not main.orders.ts). No lambdas (x -> ..., lambda x: ...,
+  [y FOR y IN ...]) and no table functions in FROM (range, generate_series, unnest and the like); struct keys,
+  STRUCT field names and named arguments may not be ts or *_ts. In a subquery whose FROM has users, cand,
+  categories, VALUES or a subquery with unnamed columns, write the outer ts as alias.ts, with an alias not used
+  in that FROM.
+- Forbidden whole words, in any case: transactions, customers, frame, label, labels, target, targets, hm_*,
+  _hm_*; read_*, parquet_*, csv, json*, glob, getenv, query, query_table, duckdb_*, information_schema,
+  pg_catalog, sqlite_master, pragma*; attach, detach, copy, export, import, install, load, set, reset, use,
+  call, create, drop, insert, update, delete, alter; random, setseed, uuid, gen_random_uuid, now, today,
+  current_*, get_current_*, transaction_timestamp, localtimestamp, sample, tablesample, current_setting,
+  sniff_*, checkpoint, force_checkpoint, which_secret; tab_*, product_name, propert*,
+  profile, profiles, bdate, gender (also inside names joined by _); make_*, strptime, strftime, to_timestamp,
+  to_date, to_days and the other to_<unit> interval functions, epoch_*, julian, yearweek, ago; the functions
+  error(), strptime() and regexp_*(). Tables are named by plain names only (no quoted paths, no schemas).
+- An item-level query must not mention cand or users: its values do not depend on the batch and are cached.
+
+OUTPUT OF A QUERY
+- level "pair": key columns user_id, product_id (pairs of cand); level "user": user_id (of users); level "item":
+  product_id (of the products in lines). Keys are BIGINT, never NULL and unique. A key outside its set is an
+  error, not a silent filter, so keep queries narrow.
+- 1 to 3 value columns named by f_x_c3_<slug>, unique among the accepted columns and different from
+  every feature name above; integer, DECIMAL, FLOAT, DOUBLE or BOOLEAN. VARCHAR, DATE and TIMESTAMP values are
+  errors: turn times into days before TIMESTAMP '{A}'. No other columns.
+- Values are cast to DOUBLE and left-joined to the batch keys of the level. No row, NULL, a non-finite value or
+  a float32 overflow mean "no data": NaN in the model, which CatBoost treats as the minimum. Put your own
+  defaults with COALESCE.
+- Batch invariance: a value depends only on orders, lines, categories and its own key; cand and users only
+  filter. A window PARTITION BY user_id over cand is allowed (all 200 candidates of a user are
+  always in one batch); aggregates over cand across users are not. Windows need a full tie-break
+  (..., product_id). Violations are caught mechanically.
+- Limits on the probe: timeout 40 s for pair and user queries, 120 s for item queries;
+  at most 20 million output rows.
+
+COUNCIL RULES
+- The value columns of a query are the names with the prefix f_x_c3_ in its SELECT; the sandbox runs the
+  query with exactly these output columns. Use the prefix only for output columns, never for intermediate
+  aliases; the part after the prefix is lower-case snake_case of at most 30 characters.
+- Every query states its level (pair, user or item); the level fixes its keys.
+- The probe runs every query at two anchors, named probe_day_1 and probe_day_2 in what you see.
+- All valid columns enter the model without selection by outcome. Superfluous and noisy columns hurt: a few
+  strong, non-redundant signals are needed.
+
+A card is one feature family together with the experiment that could refute it:
+{"name": "short_snake_case",
+ "level": "pair | user | item: the level of the query and of its twin",
+ "mechanism": "which behaviour of users or items the family measures and why it should raise the rank of
+               the candidates the user turns to next",
+ "sign": "+ if adding the family should improve ranking quality, - if you expect it to hurt",
+ "stratum": "in words and as an SQL predicate over the tables before {A} (user or user x item): where the gain
+             should be",
+ "null_stratum": "where the gain should not be, in words and as an SQL predicate",
+ "sql": "SELECT <the keys of the level>, ... AS f_x_c3_..., ... FROM ...",
+ "twin": {"how": "time_shuffle | neighbour_shuffle | seeds_removed",
+          "sql": "the same query with the mechanism destroyed: same level, keys and coverage, columns named as
+                  yours plus the suffix _tw"},
+ "rival": {"explanation": "another reason why the family could help", "stratum": "where the rival predicts
+           the gain"}}
+Twin forms: time_shuffle permutes interaction times (e.g. within a user, ordered by hash(...) of keys);
+neighbour_shuffle replaces neighbours by others of similar popularity (and category, where the data have one)
+chosen by hash(...); seeds_removed drops the seed interactions that carry the mechanism. The twin keeps the shape
+of the family (similar non-NULL share) and must not be a near copy of it.
+Columns: 1-3 per card, named f_x_c3_<slug>, unique across your cards; use the prefix only for the output
+columns of the card (and their _tw copies in the twin), never for intermediate aliases.
+
+You wrote the cards below. Each comes with its sandbox measurements (no model outcome) and the critiques of
+anonymous critics, a skeptic and a leak auditor. Answer every card once:
+- revise: return the full card in the same schema, corrected; it may stay unchanged if the critiques do not
+  call for a change. A revised card is measured again.
+- withdraw: drop the card, with a reason.
+There is no vote; an unresolved critique stays on record as a kill_test.
+--- G3-1
+card: {
+ "id": "G3-1",
+ "name": "seed_cooc_pmi",
+ "level": "pair",
+ "mechanism": "Measures how strongly the candidate co-occurs in shoppers' baskets with the user's core repertoire. The repertoire is the user's top-10 products by distinct orders in the 120-day window, weighted by that count. The co-occurrence graph is built over the last 14 days of all orders. Two columns: the seed-weighted mean of P(candidate in order | seed in order), and the log of the seed-weighted lift n_co*N/(n_seed*n_cand). Complements of a user's staples (pasta with sauce, cereal with milk) are likely to enter the next basket. The existing last_order_copurchase uses only the latest order as seeds. This card uses the stable repertoire, so it scores complements of habitual items even when the last order was a small top-up.",
+ "sign": "+",
+ "stratum": "Candidates the user has not bought, for users with at least 3 orders in the window. Predicate: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) AND (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id) >= 3",
+ "null_stratum": "Long-standing repeat candidates, where the user's own frequency dominates. Predicate: (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) >= 5",
+ "sql": "WITH ol AS (SELECT DISTINCT order_id, product_id FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 14 DAY), nall AS (SELECT count(DISTINCT order_id) AS n_all FROM ol), pcnt AS (SELECT product_id, count(*) AS n_p FROM ol GROUP BY product_id), up AS (SELECT user_id, product_id, count(DISTINCT order_id) AS n_ord FROM lines WHERE user_id IN (SELECT user_id FROM users) GROUP BY user_id, product_id), seeds AS (SELECT user_id, seed_id, n_ord, n_q FROM (SELECT up.user_id, up.product_id AS seed_id, up.n_ord, pcnt.n_p AS n_q, row_number() OVER (PARTITION BY up.user_id ORDER BY up.n_ord DESC, pcnt.n_p DESC, up.product_id) AS rn FROM up JOIN pcnt ON pcnt.product_id = up.product_id) s WHERE rn <= 10), co AS (SELECT a.product_id AS seed_id, b.product_id, count(*) AS n_co FROM ol a JOIN ol b ON a.order_id = b.order_id AND a.product_id <> b.product_id WHERE a.product_id IN (SELECT seed_id FROM seeds) AND b.product_id IN (SELECT product_id FROM cand) GROUP BY a.product_id, b.product_id) SELECT c.user_id, c.product_id, sum(s.n_ord * COALESCE(co.n_co, 0) / s.n_q) / sum(s.n_ord) AS f_x_c3_seed_cooc_cond, ln(1 + sum(s.n_ord * COALESCE(co.n_co, 0) * CAST(n.n_all AS DOUBLE) / (s.n_q * COALESCE(pc.n_p, 1))) / sum(s.n_ord)) AS f_x_c3_seed_cooc_lift FROM cand c JOIN seeds s ON s.user_id = c.user_id AND s.seed_id <> c.product_id LEFT JOIN co ON co.seed_id = s.seed_id AND co.product_id = c.product_id LEFT JOIN pcnt pc ON pc.product_id = c.product_id CROSS JOIN nall n GROUP BY c.user_id, c.product_id",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH ol AS (SELECT DISTINCT order_id, product_id FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 14 DAY), nall AS (SELECT count(DISTINCT order_id) AS n_all FROM ol), pcnt AS (SELECT product_id, count(*) AS n_p FROM ol GROUP BY product_id), up AS (SELECT user_id, product_id, count(DISTINCT order_id) AS n_ord FROM lines WHERE user_id IN (SELECT user_id FROM users) GROUP BY user_id, product_id), seeds AS (SELECT user_id, seed_id, n_ord FROM (SELECT up.user_id, up.product_id AS seed_id, up.n_ord, row_number() OVER (PARTITION BY up.user_id ORDER BY up.n_ord DESC, pcnt.n_p DESC, up.product_id) AS rn FROM up JOIN pcnt ON pcnt.product_id = up.product_id) s WHERE rn <= 10), pc0 AS (SELECT product_id, COALESCE(max(master_category_id), -1) AS cat_id FROM lines GROUP BY product_id), pb AS (SELECT pcnt.product_id, pc0.cat_id, ntile(5) OVER (PARTITION BY pc0.cat_id ORDER BY pcnt.n_p, pcnt.product_id) AS pop_b FROM pcnt JOIN pc0 ON pc0.product_id = pcnt.product_id), perm AS (SELECT product_id, COALESCE(lead(product_id) OVER (PARTITION BY cat_id, pop_b ORDER BY hash(product_id), product_id), first_value(product_id) OVER (PARTITION BY cat_id, pop_b ORDER BY hash(product_id), product_id)) AS sub_id FROM pb), seeds_tw AS (SELECT s.user_id, pm.sub_id AS seed_id, s.n_ord, pq.n_p AS n_q FROM seeds s JOIN perm pm ON pm.product_id = s.seed_id JOIN pcnt pq ON pq.product_id = pm.sub_id), co AS (SELECT a.product_id AS seed_id, b.product_id, count(*) AS n_co FROM ol a JOIN ol b ON a.order_id = b.order_id AND a.product_id <> b.product_id WHERE a.product_id IN (SELECT seed_id FROM seeds_tw) AND b.product_id IN (SELECT product_id FROM cand) GROUP BY a.product_id, b.product_id) SELECT c.user_id, c.product_id, sum(s.n_ord * COALESCE(co.n_co, 0) / s.n_q) / sum(s.n_ord) AS f_x_c3_seed_cooc_cond_tw, ln(1 + sum(s.n_ord * COALESCE(co.n_co, 0) * CAST(n.n_all AS DOUBLE) / (s.n_q * COALESCE(pc.n_p, 1))) / sum(s.n_ord)) AS f_x_c3_seed_cooc_lift_tw FROM cand c JOIN seeds_tw s ON s.user_id = c.user_id AND s.seed_id <> c.product_id LEFT JOIN co ON co.seed_id = s.seed_id AND co.product_id = c.product_id LEFT JOIN pcnt pc ON pc.product_id = c.product_id CROSS JOIN nall n GROUP BY c.user_id, c.product_id"
+ },
+ "rival": {
+  "explanation": "The co-occurrence mean mostly re-encodes candidate popularity among shoppers of mainstream seeds, or category affinity, not specific complementarity.",
+  "stratum": "Top-popularity candidates (glob_rank <= 100), and candidates in the user's most frequent categories"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_seed_cooc_cond", "ag_c3_seed_cooc_lift"], "seconds_median": 11.1, "coverage": {"ag_c3_seed_cooc_cond": 0.89, "ag_c3_seed_cooc_lift": 0.89}, "batch_invariant": true, "max_abs_rho": {"ag_c3_seed_cooc_cond": 0.82, "ag_c3_seed_cooc_lift": 0.635}, "nearest": {"ag_c3_seed_cooc_cond": "p_buyers_7", "ag_c3_seed_cooc_lift": "ag_co_last_lift"}, "r2": {"ag_c3_seed_cooc_cond": 0.814, "ag_c3_seed_cooc_lift": 0.522}, "non_null_share_by_day": {"ag_c3_seed_cooc_cond": {"probe_day_1": 0.801, "probe_day_2": 0.98}, "ag_c3_seed_cooc_lift": {"probe_day_1": 0.801, "probe_day_2": 0.98}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_seed_cooc_cond_tw", "ag_c3_seed_cooc_lift_tw"], "seconds_median": 8.19, "coverage": {"ag_c3_seed_cooc_cond_tw": 0.89, "ag_c3_seed_cooc_lift_tw": 0.89}, "batch_invariant": true, "max_abs_rho": {"ag_c3_seed_cooc_cond_tw": 0.901, "ag_c3_seed_cooc_lift_tw": 0.198}, "nearest": {"ag_c3_seed_cooc_cond_tw": "p_buyers_7", "ag_c3_seed_cooc_lift_tw": "ag_co_last_cond"}, "r2": {"ag_c3_seed_cooc_cond_tw": 0.826, "ag_c3_seed_cooc_lift_tw": 0.121}, "non_null_share_by_day": {"ag_c3_seed_cooc_cond_tw": {"probe_day_1": 0.801, "probe_day_2": 0.98}, "ag_c3_seed_cooc_lift_tw": {"probe_day_1": 0.801, "probe_day_2": 0.98}}, "parity_ok": true}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_seed_cooc_cond has R2 0.814 to p_buyers_7, and its twin is even closer (R2 0.826), so it is popularity. f_x_c_seed_cooc_lift has R2 0.522 to ag_co_last_lift, so it partly repeats the last-order co-purchase. The repertoire is the 120-day top-10 by count with no recency weighting, so ended interests still seed.",
+  "kill_test": "Twin as a factor on the lift column, where the twin does destroy it (R2 0.121). If the real lift does not beat the twin on never-bought candidates beyond what ag_co_last_lift explains (difference of differences against the null stratum of 5+ repeats), refute.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "ag_c_seed_cooc_cond reaches rho 0.82 and R2 0.814 to p_buyers_7, and its twin keeps rho 0.901 to p_buyers_7, so it is popularity. Drop it. ag_c_seed_cooc_lift is the useful part: the twin cuts it to rho 0.198, and it is weaker against ag_co_last_lift (R2 0.522). It reaches never-bought candidates of users whose last order was a top-up, a gap of the base.",
+  "kill_test": "Difference of differences: compare the lift's gain on never-bought candidates of users with 3 or more orders against repeat candidates with 5 or more orders. No stratum-specific gain refutes the complementarity mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_seed_cooc_cond has rho 0.82 and R2 0.814 to p_buyers_7. f_x_c_seed_cooc_lift has rho 0.635 to ag_co_last_lift (last_order_copurchase). This is last_order_copurchase with repertoire seeds, and the same family as C18.",
+  "kill_test": "Twin as a factor: the twin keeps cond at R2 0.826 to p_buyers_7. If the lift column alone gives no gain over the twin lift, the complementarity mechanism is refuted.",
+  "by": "skeptic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The conditional probability is dominated by candidate base rate, and the seed shuffle does not destroy it. Only the lift (twin R2 0.121) carries seed-specific information.",
+  "kill_test": "Difference of differences between never-bought candidates of users with 3+ orders and candidates bought 5+ times. No extra gain in the never-bought stratum refutes it.",
+  "by": "skeptic"
+ },
+ {
+  "type": "OK",
+  "text": "No leak found: the 14-day co-occurrence window is before {A}, cand only filters, and seed ranking is tie-broken by product_id. seed_cooc_cond leans on popularity (R2 0.814 to p_buyers_7); lift is more novel (R2 0.522). Costs 11.1 s.",
+  "kill_test": "Twin as factor: no gain of seed_cooc_lift over the neighbour-seed twin (rho 0.198) refutes the seed mechanism.",
+  "by": "auditor"
+ }
+]
+--- G3-2
+card: {
+ "id": "G3-2",
+ "name": "next_order_addition_transition",
+ "level": "pair",
+ "mechanism": "A cross-user sequential transition graph over consecutive orders of the same user. Each next order falls in the last 28 days. For each product q in the previous order, it counts the products p that were added in the next order, meaning present in the next order but absent from the previous one. Seeds are the products of the user's latest order, excluding the candidate itself. The columns are the mean smoothed P(p added next | q in previous) and its log lift over p's base addition rate. This captures order-to-order dynamics: what people buy the order after buying X (e.g. replenishment chains, alternating product lines). It differs from same-basket co-occurrence (last_order_copurchase) and from self-reorder rates.",
+ "sign": "+",
+ "stratum": "Candidates absent from the user's latest order. Predicate: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id AND l.ts = (SELECT max(o.ts) AS last_ts FROM orders o WHERE o.user_id = c.user_id))",
+ "null_stratum": "Candidates contained in the user's latest order. An addition is impossible there by construction, so the value only reflects other seeds. Predicate: EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id AND l.ts = (SELECT max(o.ts) AS last_ts FROM orders o WHERE o.user_id = c.user_id))",
+ "sql": "WITH ord AS (SELECT order_id, user_id, ts, lag(order_id) OVER (PARTITION BY user_id ORDER BY ts, order_id) AS prev_order_id FROM orders), tr AS (SELECT order_id, prev_order_id FROM ord WHERE prev_order_id IS NOT NULL AND ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY), ol AS (SELECT DISTINCT order_id, product_id FROM lines), ntr AS (SELECT count(*) AS n_tr FROM tr), lastord AS (SELECT user_id, order_id FROM (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY ts DESC, order_id DESC) AS rn FROM orders WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn = 1), seeds AS (SELECT DISTINCT lo.user_id, ol.product_id AS seed_id FROM lastord lo JOIN ol ON ol.order_id = lo.order_id), prevp AS (SELECT tr.order_id, ol.product_id FROM tr JOIN ol ON ol.order_id = tr.prev_order_id), added AS (SELECT nl.order_id, nl.product_id FROM tr JOIN ol nl ON nl.order_id = tr.order_id LEFT JOIN prevp p ON p.order_id = nl.order_id AND p.product_id = nl.product_id WHERE p.order_id IS NULL), padd AS (SELECT product_id, count(*) AS n_add FROM added WHERE product_id IN (SELECT product_id FROM cand) GROUP BY product_id), qn AS (SELECT product_id AS seed_id, count(*) AS n_q FROM prevp WHERE product_id IN (SELECT seed_id FROM seeds) GROUP BY product_id), qp AS (SELECT p.product_id AS seed_id, a.product_id, count(*) AS n_qp FROM prevp p JOIN added a ON a.order_id = p.order_id WHERE p.product_id IN (SELECT seed_id FROM seeds) AND a.product_id IN (SELECT product_id FROM cand) GROUP BY p.product_id, a.product_id), sc AS (SELECT c.user_id, c.product_id, avg(COALESCE(qp.n_qp, 0) / (qn.n_q + 5.0)) AS p_add FROM cand c JOIN seeds s ON s.user_id = c.user_id AND s.seed_id <> c.product_id JOIN qn ON qn.seed_id = s.seed_id LEFT JOIN qp ON qp.seed_id = s.seed_id AND qp.product_id = c.product_id GROUP BY c.user_id, c.product_id) SELECT sc.user_id, sc.product_id, sc.p_add AS f_x_c3_next_add_prob, ln((sc.p_add + 0.0001) / ((COALESCE(pa.n_add, 0) + 1.0) / (n.n_tr + 1.0) + 0.0001)) AS f_x_c3_next_add_lift FROM sc LEFT JOIN padd pa ON pa.product_id = sc.product_id CROSS JOIN ntr n",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH ord AS (SELECT order_id, user_id, ts, lag(order_id) OVER (PARTITION BY user_id ORDER BY hash(order_id), order_id) AS prev_order_id FROM orders), tr AS (SELECT order_id, prev_order_id FROM ord WHERE prev_order_id IS NOT NULL AND ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY), ol AS (SELECT DISTINCT order_id, product_id FROM lines), ntr AS (SELECT count(*) AS n_tr FROM tr), lastord AS (SELECT user_id, order_id FROM (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY ts DESC, order_id DESC) AS rn FROM orders WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn = 1), seeds AS (SELECT DISTINCT lo.user_id, ol.product_id AS seed_id FROM lastord lo JOIN ol ON ol.order_id = lo.order_id), prevp AS (SELECT tr.order_id, ol.product_id FROM tr JOIN ol ON ol.order_id = tr.prev_order_id), added AS (SELECT nl.order_id, nl.product_id FROM tr JOIN ol nl ON nl.order_id = tr.order_id LEFT JOIN prevp p ON p.order_id = nl.order_id AND p.product_id = nl.product_id WHERE p.order_id IS NULL), padd AS (SELECT product_id, count(*) AS n_add FROM added WHERE product_id IN (SELECT product_id FROM cand) GROUP BY product_id), qn AS (SELECT product_id AS seed_id, count(*) AS n_q FROM prevp WHERE product_id IN (SELECT seed_id FROM seeds) GROUP BY product_id), qp AS (SELECT p.product_id AS seed_id, a.product_id, count(*) AS n_qp FROM prevp p JOIN added a ON a.order_id = p.order_id WHERE p.product_id IN (SELECT seed_id FROM seeds) AND a.product_id IN (SELECT product_id FROM cand) GROUP BY p.product_id, a.product_id), sc AS (SELECT c.user_id, c.product_id, avg(COALESCE(qp.n_qp, 0) / (qn.n_q + 5.0)) AS p_add FROM cand c JOIN seeds s ON s.user_id = c.user_id AND s.seed_id <> c.product_id JOIN qn ON qn.seed_id = s.seed_id LEFT JOIN qp ON qp.seed_id = s.seed_id AND qp.product_id = c.product_id GROUP BY c.user_id, c.product_id) SELECT sc.user_id, sc.product_id, sc.p_add AS f_x_c3_next_add_prob_tw, ln((sc.p_add + 0.0001) / ((COALESCE(pa.n_add, 0) + 1.0) / (n.n_tr + 1.0) + 0.0001)) AS f_x_c3_next_add_lift_tw FROM sc LEFT JOIN padd pa ON pa.product_id = sc.product_id CROSS JOIN ntr n"
+ },
+ "rival": {
+  "explanation": "The lift may only pick up products with rising adoption (new launches, promotions) that get added after almost any basket, independent of the specific seed.",
+  "stratum": "Candidates with high p_trend or high ag_p_new_buyer_share"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_next_add_prob", "ag_c3_next_add_lift"], "seconds_median": 25.4, "coverage": {"ag_c3_next_add_prob": 0.89, "ag_c3_next_add_lift": 0.89}, "batch_invariant": true, "max_abs_rho": {"ag_c3_next_add_prob": 0.898, "ag_c3_next_add_lift": 0.575}, "nearest": {"ag_c3_next_add_prob": "p_buyers_7", "ag_c3_next_add_lift": "ag_co_last_lift"}, "r2": {"ag_c3_next_add_prob": 0.887, "ag_c3_next_add_lift": 0.445}, "non_null_share_by_day": {"ag_c3_next_add_prob": {"probe_day_1": 0.801, "probe_day_2": 0.98}, "ag_c3_next_add_lift": {"probe_day_1": 0.801, "probe_day_2": 0.98}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_next_add_prob_tw", "ag_c3_next_add_lift_tw"], "seconds_median": 26.4, "coverage": {"ag_c3_next_add_prob_tw": 0.89, "ag_c3_next_add_lift_tw": 0.89}, "batch_invariant": true, "max_abs_rho": {"ag_c3_next_add_prob_tw": 0.887, "ag_c3_next_add_lift_tw": 0.556}, "nearest": {"ag_c3_next_add_prob_tw": "p_buyers_28", "ag_c3_next_add_lift_tw": "ag_co_last_lift"}, "r2": {"ag_c3_next_add_prob_tw": 0.859, "ag_c3_next_add_lift_tw": 0.43}, "non_null_share_by_day": {"ag_c3_next_add_prob_tw": {"probe_day_1": 0.801, "probe_day_2": 0.98}, "ag_c3_next_add_lift_tw": {"probe_day_1": 0.801, "probe_day_2": 0.98}}, "parity_ok": true}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["ag_c3_next_add_prob: |rho_wq| with the twin 0.910 > 0.8"]}, "machine_red": []}
+critiques: [
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "TWIN-BROKEN: the twin with hash-ordered lag keeps rho 0.910, and f_x_c_next_add_prob has R2 0.887 to p_buyers_7. The 'added in next order' rate is the product's general adoption over 28 days and does not depend on order sequence. The lift has R2 0.445 to ag_co_last_lift, so it is mostly same-household co-purchase.",
+  "kill_test": "Twin as a factor. Expect no gain in the stratum of candidates absent from the latest order; any gain equal to the twin's refutes the sequential mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "COST",
+  "text": "seconds_median is 25.4 for the card and 26.4 for the twin, against a 40 s limit on pair queries. It sits close to the limit for a column that duplicates popularity, and larger anchors risk timeouts.",
+  "kill_test": "Run it on the probe anchor with the most users. A time above 40 s settles it.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "ag_c_next_add_prob reaches rho 0.898 and R2 0.887 to p_buyers_7. The (n_q+5) smoothing pulls rarely seen seeds toward zero, so the column turns into an additions-weighted popularity count. That is the regime of cold items, which are added rarely.",
+  "kill_test": "Key level: replace the pair value with the item-level base addition rate (padd/n_tr). Equal gain refutes the seed-conditioned mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The time-shuffled twin keeps ag_c_next_add_prob at |rho_wq| 0.910 to the card, and its twin lift sits at R2 0.43 against 0.445 for the card. Randomly reordering a user's orders barely changes the value, so the sequential addition structure carries little signal. Only the lift column could still hold the mechanism.",
+  "kill_test": "Twin as a factor: train with the card and twin columns side by side. If the twin takes equal or larger importance on the stratum of candidates absent from the latest order, the mechanism is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_next_add_prob has rho 0.898 and R2 0.887 to p_buyers_7. f_x_c_next_add_lift has R2 0.445 to ag_co_last_lift (last_order_copurchase).",
+  "kill_test": "Twin as a factor: prob keeps |rho_wq| 0.910 with the twin. An equal gain refutes sequential addition.",
+  "by": "skeptic"
+ },
+ {
+  "type": "COST",
+  "text": "The median is 25.4 s and the twin 26.4 s per pair probe, against the 40 s limit, with no headroom for larger batches.",
+  "kill_test": "Staleness: the same query one anchor earlier, with timing. Any probe over 40 s invalidates it.",
+  "by": "skeptic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "No leak found: the transition window is before {A}, and cand only filters. next_add_prob has R2 0.887 (rho 0.898) to p_buyers_7, and the twin keeps |rho_wq| 0.910. It costs 25.4 s of the 40 s budget.",
+  "kill_test": "Twin as factor: if next_add_lift (R2 0.445 to ag_co_last_lift) does not beat its twin, refute.",
+  "by": "auditor"
+ }
+]
+--- G3-3
+card: {
+ "id": "G3-3",
+ "name": "user_knn_neighbourhood",
+ "level": "pair",
+ "mechanism": "User-user neighbourhood collaborative filtering. Each user's seeds are their 15 most-ordered products in the last 56 days among products with 2..300 distinct buyers, which are the distinctive tastes. Neighbours are other users sharing at least 2 seeds, with similarity sum(1/ln(1+buyers)); the top 50 are kept. The columns are the similarity-weighted share of neighbours who bought the candidate in the last 28 days, and its log lift over the global 28-day buyer share. Users with the same niche tastes (diet, household type, local assortment) buy similar new items. This lifts non-repeat candidates above plain popularity.",
+ "sign": "+",
+ "stratum": "Never-bought candidates of users with a broad recent repertoire. Predicate: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) AND (SELECT count(DISTINCT l.product_id) FROM lines l WHERE l.user_id = c.user_id AND l.ts >= TIMESTAMP '{A}' - INTERVAL 56 DAY) >= 20",
+ "null_stratum": "Users with almost no recent repertoire (few or no neighbours). Predicate: (SELECT count(DISTINCT l.product_id) FROM lines l WHERE l.user_id = c.user_id AND l.ts >= TIMESTAMP '{A}' - INTERVAL 56 DAY) < 5",
+ "sql": "WITH ub AS (SELECT user_id, product_id, count(DISTINCT order_id) AS n_o FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 56 DAY GROUP BY user_id, product_id), pb AS (SELECT product_id, count(*) AS n_b FROM ub GROUP BY product_id), useed AS (SELECT user_id, product_id, n_b FROM (SELECT u.user_id, u.product_id, pb.n_b, row_number() OVER (PARTITION BY u.user_id ORDER BY u.n_o DESC, pb.n_b, u.product_id) AS rn FROM ub u JOIN pb ON pb.product_id = u.product_id WHERE u.user_id IN (SELECT user_id FROM users) AND pb.n_b BETWEEN 2 AND 300) x WHERE rn <= 15), nb AS (SELECT s.user_id, v.user_id AS nb_id, sum(1.0 / ln(1.0 + s.n_b)) AS sim FROM useed s JOIN ub v ON v.product_id = s.product_id AND v.user_id <> s.user_id GROUP BY s.user_id, v.user_id HAVING count(*) >= 2), nbk AS (SELECT user_id, nb_id, sim FROM (SELECT user_id, nb_id, sim, row_number() OVER (PARTITION BY user_id ORDER BY sim DESC, nb_id) AS rn FROM nb) x WHERE rn <= 50), tot AS (SELECT user_id, sum(sim) AS sim_tot FROM nbk GROUP BY user_id), nbp AS (SELECT DISTINCT user_id, product_id FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY AND user_id IN (SELECT nb_id FROM nbk)), sc AS (SELECT k.user_id, p.product_id, sum(k.sim) AS s_sim FROM nbk k JOIN nbp p ON p.user_id = k.nb_id GROUP BY k.user_id, p.product_id), gb AS (SELECT product_id, count(DISTINCT user_id) AS n_g FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY AND product_id IN (SELECT product_id FROM cand) GROUP BY product_id), gu AS (SELECT count(DISTINCT user_id) AS n_u FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY) SELECT c.user_id, c.product_id, COALESCE(sc.s_sim, 0) / t.sim_tot AS f_x_c3_knn_share, ln((COALESCE(sc.s_sim, 0) / t.sim_tot + 0.001) / (COALESCE(gb.n_g, 0) / g.n_u + 0.001)) AS f_x_c3_knn_lift FROM cand c JOIN tot t ON t.user_id = c.user_id LEFT JOIN sc ON sc.user_id = c.user_id AND sc.product_id = c.product_id LEFT JOIN gb ON gb.product_id = c.product_id CROSS JOIN gu g",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH ub AS (SELECT user_id, product_id, count(DISTINCT order_id) AS n_o FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 56 DAY GROUP BY user_id, product_id), pb AS (SELECT product_id, count(*) AS n_b FROM ub GROUP BY product_id), useed AS (SELECT user_id, product_id, n_b FROM (SELECT u.user_id, u.product_id, pb.n_b, row_number() OVER (PARTITION BY u.user_id ORDER BY u.n_o DESC, pb.n_b, u.product_id) AS rn FROM ub u JOIN pb ON pb.product_id = u.product_id WHERE u.user_id IN (SELECT user_id FROM users) AND pb.n_b BETWEEN 2 AND 300) x WHERE rn <= 15), nb AS (SELECT s.user_id, v.user_id AS nb_id, sum(1.0 / ln(1.0 + s.n_b)) AS sim FROM useed s JOIN ub v ON v.product_id = s.product_id AND v.user_id <> s.user_id GROUP BY s.user_id, v.user_id HAVING count(*) >= 2), nbk AS (SELECT user_id, nb_id, sim FROM (SELECT user_id, nb_id, sim, row_number() OVER (PARTITION BY user_id ORDER BY sim DESC, nb_id) AS rn FROM nb) x WHERE rn <= 50), ua AS (SELECT user_id, count(*) AS n_up FROM ub GROUP BY user_id), bk AS (SELECT user_id, ntile(100) OVER (ORDER BY n_up, user_id) AS b FROM ua), perm AS (SELECT user_id, COALESCE(lead(user_id) OVER (PARTITION BY b ORDER BY hash(user_id), user_id), first_value(user_id) OVER (PARTITION BY b ORDER BY hash(user_id), user_id)) AS sub_id FROM bk), nbt AS (SELECT k.user_id, pm.sub_id AS nb_id, k.sim FROM nbk k JOIN perm pm ON pm.user_id = k.nb_id WHERE pm.sub_id <> k.user_id), tot AS (SELECT user_id, sum(sim) AS sim_tot FROM nbt GROUP BY user_id), nbp AS (SELECT DISTINCT user_id, product_id FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY AND user_id IN (SELECT nb_id FROM nbt)), sc AS (SELECT k.user_id, p.product_id, sum(k.sim) AS s_sim FROM nbt k JOIN nbp p ON p.user_id = k.nb_id GROUP BY k.user_id, p.product_id), gb AS (SELECT product_id, count(DISTINCT user_id) AS n_g FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY AND product_id IN (SELECT product_id FROM cand) GROUP BY product_id), gu AS (SELECT count(DISTINCT user_id) AS n_u FROM lines WHERE ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY) SELECT c.user_id, c.product_id, COALESCE(sc.s_sim, 0) / t.sim_tot AS f_x_c3_knn_share_tw, ln((COALESCE(sc.s_sim, 0) / t.sim_tot + 0.001) / (COALESCE(gb.n_g, 0) / g.n_u + 0.001)) AS f_x_c3_knn_lift_tw FROM cand c JOIN tot t ON t.user_id = c.user_id LEFT JOIN sc ON sc.user_id = c.user_id AND sc.product_id = c.product_id LEFT JOIN gb ON gb.product_id = c.product_id CROSS JOIN gu g"
+ },
+ "rival": {
+  "explanation": "Neighbours sharing niche products are mostly customers of the same store or retailer, so the score is a finer store-assortment popularity rather than taste similarity.",
+  "stratum": "Users with u_main_share >= 0.9 whose candidates have high ag_ps_share"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_knn_share", "ag_c3_knn_lift"], "seconds_median": 1.58, "coverage": {"ag_c3_knn_share": 0.612, "ag_c3_knn_lift": 0.612}, "batch_invariant": false, "max_abs_rho": {"ag_c3_knn_share": 0.413, "ag_c3_knn_lift": 0.338}, "nearest": {"ag_c3_knn_share": "ag_ps_share", "ag_c3_knn_lift": "ag_ps_lift"}, "r2": {"ag_c3_knn_share": 0.268, "ag_c3_knn_lift": 0.164}, "non_null_share_by_day": {"ag_c3_knn_share": {"probe_day_1": 0.367, "probe_day_2": 0.857}, "ag_c3_knn_lift": {"probe_day_1": 0.367, "probe_day_2": 0.857}}, "parity_ok": false}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_knn_share_tw", "ag_c3_knn_lift_tw"], "seconds_median": 1.92, "coverage": {"ag_c3_knn_share_tw": 0.612, "ag_c3_knn_lift_tw": 0.612}, "batch_invariant": false, "max_abs_rho": {"ag_c3_knn_share_tw": 0.625, "ag_c3_knn_lift_tw": 0.102}, "nearest": {"ag_c3_knn_share_tw": "p_buyers_28", "ag_c3_knn_lift_tw": "glob_rank"}, "r2": {"ag_c3_knn_share_tw": 0.405, "ag_c3_knn_lift_tw": 0.0441}, "non_null_share_by_day": {"ag_c3_knn_share_tw": {"probe_day_1": 0.367, "probe_day_2": 0.857}, "ag_c3_knn_lift_tw": {"probe_day_1": 0.367, "probe_day_2": 0.857}}, "parity_ok": false}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["card machine test red: batch: the answer depends on the batch of active_users ({\"probe_day_2\": \"batch invariance: values of the first 1000 probe users differ between the full probe and its two halves\", \"probe_day_1\": \"batch invariance: values of the first 1000 probe users differ between the full probe and its two halves\"})", "twin machine test red: batch: the answer depends on the batch of active_users ({\"probe_day_2\": \"batch invariance: values of the first 1000 probe users differ between the full probe and its two halves\", \"probe_day_1\": \"batch invariance: values of the first 1000 probe users differ between the full probe and its two halves\"})"]}, "machine_red": ["batch: the answer depends on the batch of active_users ({\"probe_day_2\": \"batch invariance: values of the first 1000 probe users differ between the full probe and its two halves\", \"probe_day_1\": \"batch invariance: values of the first 1000 probe users differ between the full probe and its two halves\"})"]}
+critiques: [
+ {
+  "type": "LEAK",
+  "text": "Machine test red on batch invariance on both probe days, for the card and the twin. The likely clause is the top-50 cut row_number() OVER (PARTITION BY user_id ORDER BY sim DESC, nb_id) on float sums whose rounding depends on aggregation order, which changes with batch size. The card cannot enter as is.",
+  "kill_test": "Rank on rounded or integer-weighted similarity and rerun the half-batch test. Persistent failure points to another cand-dependent clause.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "non_null_share_by_day is 0.367 vs 0.857. Neighbours need 2+ shared niche seeds in 56 days, so availability depends strongly on the anchor's visible activity.",
+  "kill_test": "Staleness: run the same query one anchor earlier. If the never-bought stratum gain tracks coverage, the column flags active users rather than measuring taste.",
+  "by": "critic"
+ },
+ {
+  "type": "LEAK",
+  "text": "The batch-invariance test fails on both probe anchors: values of the first 1000 users change between the full probe and its halves. The top-50 neighbour cut ranks by a floating sum, sim DESC, whose summation order depends on the batch. Near-ties then flip, so other users of the batch reach the value. Round sim (e.g. round(sim, 6)) before ranking.",
+  "kill_test": "Key level: recompute after rounding sim. If the batch test still fails, the dependence comes from the cand/users filters, and the family is invalid as written.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "Non-NULL share is 0.367 on probe_day_1 and 0.857 on probe_day_2. The seeds require orders in the last 56 days, so users with sparse or old histories, whom the base describes poorly, get NULL. Whether they do depends heavily on the anchor.",
+  "kill_test": "Staleness: run the same query one anchor earlier. If coverage swings again by more than 0.3, the family's coverage is anchor-driven rather than user-driven.",
+  "by": "critic"
+ },
+ {
+  "type": "LEAK",
+  "text": "Machine test red on both probe days: the values for the first 1000 users differ between the full probe and its halves, so other users of the batch reach the family. The neighbour set is built in nbk through useed (user_id IN users) and in ub joined over all users. The top-50 cut ORDER BY sim DESC, nb_id runs on float sums whose summation order depends on the batch, so ties flip.",
+  "kill_test": "Batch invariance: rerun on the two halves. Any difference keeps the card invalid.",
+  "by": "skeptic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "The non-NULL share is 0.367 on probe_day_1 and 0.857 on probe_day_2. That gap is far larger than the generic 0.80/0.98 of the other pair cards, because the neighbour graph is thin on the earlier anchor.",
+  "kill_test": "Staleness: the same query one anchor earlier. If coverage and value distribution move by this much, the family is anchor-dependent.",
+  "by": "skeptic"
+ },
+ {
+  "type": "LEAK",
+  "text": "Veto: the machine batch-invariance test is red on both probe days, and the twin is red too. cand and users act only as filters, so the suspected source is the float sum(1.0 / ln(1.0 + s.n_b)) in nb. It feeds row_number() OVER (PARTITION BY user_id ORDER BY sim DESC, nb_id) <= 50 in nbk, and plan-dependent rounding flips the top-50 neighbour cut.",
+  "kill_test": "Rerun the machine batch test with sim rounded to 1e-9 or as an exact DECIMAL before ranking. If it stays red, the dependence is structural.",
+  "by": "auditor"
+ }
+]
+--- G3-4
+card: {
+ "id": "G3-4",
+ "name": "category_next_order_transition",
+ "level": "pair",
+ "mechanism": "A category-level sequential transition graph over consecutive orders of all users, with the next order in the last 14 days. For each category s in the user's latest order, it takes P(candidate's category in next order | s in previous order), excluding s equal to the candidate's category. The columns are the mean over the last-order categories and its log lift over the category's base next-order rate. This captures cross-category order dynamics: after a big fresh-produce order, the next is a household or beverage top-up; after baby food, diapers. It tells which category, and so which candidates, the next order turns to. It is not about the user's own category recency, which is already covered.",
+ "sign": "+",
+ "stratum": "Candidates whose category is absent from the user's latest order. Predicate: NOT EXISTS (SELECT 1 FROM lines l JOIN lines m ON m.order_id = l.order_id WHERE m.product_id = c.product_id AND l.user_id = c.user_id AND l.master_category_id = m.master_category_id AND l.ts = (SELECT max(o.ts) AS last_ts FROM orders o WHERE o.user_id = c.user_id))",
+ "null_stratum": "Products without a category (value NULL). Predicate: NOT EXISTS (SELECT 1 FROM lines l WHERE l.product_id = c.product_id AND l.master_category_id IS NOT NULL)",
+ "sql": "WITH ord AS (SELECT order_id, user_id, ts, lag(order_id) OVER (PARTITION BY user_id ORDER BY ts, order_id) AS prev_order_id FROM orders), tr AS (SELECT order_id, prev_order_id FROM ord WHERE prev_order_id IS NOT NULL AND ts >= TIMESTAMP '{A}' - INTERVAL 14 DAY), oc AS (SELECT DISTINCT order_id, master_category_id AS cat_id FROM lines WHERE master_category_id IS NOT NULL), ntr AS (SELECT count(*) AS n_tr FROM tr), pcat AS (SELECT product_id, max(master_category_id) AS cat_id FROM lines WHERE product_id IN (SELECT product_id FROM cand) AND master_category_id IS NOT NULL GROUP BY product_id), lastord AS (SELECT user_id, order_id FROM (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY ts DESC, order_id DESC) AS rn FROM orders WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn = 1), seeds AS (SELECT DISTINCT lo.user_id, oc.cat_id AS seed_cat FROM lastord lo JOIN oc ON oc.order_id = lo.order_id), prevc AS (SELECT tr.order_id, oc.cat_id FROM tr JOIN oc ON oc.order_id = tr.prev_order_id), nextc AS (SELECT tr.order_id, oc.cat_id FROM tr JOIN oc ON oc.order_id = tr.order_id), sn AS (SELECT cat_id AS seed_cat, count(*) AS n_s FROM prevc GROUP BY cat_id), cn AS (SELECT cat_id, count(*) AS n_c FROM nextc GROUP BY cat_id), sc AS (SELECT p.cat_id AS seed_cat, x.cat_id, count(*) AS n_sc FROM prevc p JOIN nextc x ON x.order_id = p.order_id WHERE p.cat_id IN (SELECT seed_cat FROM seeds) AND x.cat_id IN (SELECT cat_id FROM pcat) AND x.cat_id <> p.cat_id GROUP BY p.cat_id, x.cat_id), ucat AS (SELECT DISTINCT c.user_id, pcat.cat_id FROM cand c JOIN pcat ON pcat.product_id = c.product_id), uc AS (SELECT u.user_id, u.cat_id, avg(COALESCE(sc.n_sc, 0) / (sn.n_s + 5.0)) AS p_next FROM ucat u JOIN seeds s ON s.user_id = u.user_id AND s.seed_cat <> u.cat_id JOIN sn ON sn.seed_cat = s.seed_cat LEFT JOIN sc ON sc.seed_cat = s.seed_cat AND sc.cat_id = u.cat_id GROUP BY u.user_id, u.cat_id) SELECT c.user_id, c.product_id, uc.p_next AS f_x_c3_cat_next_prob, ln((uc.p_next + 0.0001) / ((COALESCE(cn.n_c, 0) + 1.0) / (n.n_tr + 1.0) + 0.0001)) AS f_x_c3_cat_next_lift FROM cand c JOIN pcat ON pcat.product_id = c.product_id JOIN uc ON uc.user_id = c.user_id AND uc.cat_id = pcat.cat_id LEFT JOIN cn ON cn.cat_id = pcat.cat_id CROSS JOIN ntr n",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH ord AS (SELECT order_id, user_id, ts, lag(order_id) OVER (PARTITION BY user_id ORDER BY hash(order_id), order_id) AS prev_order_id FROM orders), tr AS (SELECT order_id, prev_order_id FROM ord WHERE prev_order_id IS NOT NULL AND ts >= TIMESTAMP '{A}' - INTERVAL 14 DAY), oc AS (SELECT DISTINCT order_id, master_category_id AS cat_id FROM lines WHERE master_category_id IS NOT NULL), ntr AS (SELECT count(*) AS n_tr FROM tr), pcat AS (SELECT product_id, max(master_category_id) AS cat_id FROM lines WHERE product_id IN (SELECT product_id FROM cand) AND master_category_id IS NOT NULL GROUP BY product_id), lastord AS (SELECT user_id, order_id FROM (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY ts DESC, order_id DESC) AS rn FROM orders WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn = 1), seeds AS (SELECT DISTINCT lo.user_id, oc.cat_id AS seed_cat FROM lastord lo JOIN oc ON oc.order_id = lo.order_id), prevc AS (SELECT tr.order_id, oc.cat_id FROM tr JOIN oc ON oc.order_id = tr.prev_order_id), nextc AS (SELECT tr.order_id, oc.cat_id FROM tr JOIN oc ON oc.order_id = tr.order_id), sn AS (SELECT cat_id AS seed_cat, count(*) AS n_s FROM prevc GROUP BY cat_id), cn AS (SELECT cat_id, count(*) AS n_c FROM nextc GROUP BY cat_id), sc AS (SELECT p.cat_id AS seed_cat, x.cat_id, count(*) AS n_sc FROM prevc p JOIN nextc x ON x.order_id = p.order_id WHERE p.cat_id IN (SELECT seed_cat FROM seeds) AND x.cat_id IN (SELECT cat_id FROM pcat) AND x.cat_id <> p.cat_id GROUP BY p.cat_id, x.cat_id), ucat AS (SELECT DISTINCT c.user_id, pcat.cat_id FROM cand c JOIN pcat ON pcat.product_id = c.product_id), uc AS (SELECT u.user_id, u.cat_id, avg(COALESCE(sc.n_sc, 0) / (sn.n_s + 5.0)) AS p_next FROM ucat u JOIN seeds s ON s.user_id = u.user_id AND s.seed_cat <> u.cat_id JOIN sn ON sn.seed_cat = s.seed_cat LEFT JOIN sc ON sc.seed_cat = s.seed_cat AND sc.cat_id = u.cat_id GROUP BY u.user_id, u.cat_id) SELECT c.user_id, c.product_id, uc.p_next AS f_x_c3_cat_next_prob_tw, ln((uc.p_next + 0.0001) / ((COALESCE(cn.n_c, 0) + 1.0) / (n.n_tr + 1.0) + 0.0001)) AS f_x_c3_cat_next_lift_tw FROM cand c JOIN pcat ON pcat.product_id = c.product_id JOIN uc ON uc.user_id = c.user_id AND uc.cat_id = pcat.cat_id LEFT JOIN cn ON cn.cat_id = pcat.cat_id CROSS JOIN ntr n"
+ },
+ "rival": {
+  "explanation": "Because the consecutive orders belong to the same user, the transition probability mostly reflects category co-purchase propensity of the same households (a static affinity), not order-to-order sequencing.",
+  "stratum": "Candidates in categories with high ag_upar_share for the user, regardless of last-order content"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_cat_next_prob", "ag_c3_cat_next_lift"], "seconds_median": 2.08, "coverage": {"ag_c3_cat_next_prob": 0.885, "ag_c3_cat_next_lift": 0.885}, "batch_invariant": true, "max_abs_rho": {"ag_c3_cat_next_prob": 0.75, "ag_c3_cat_next_lift": 0.312}, "nearest": {"ag_c3_cat_next_prob": "ag_uc_rebuy_bucket", "ag_c3_cat_next_lift": "ag_up_cat_choice"}, "r2": {"ag_c3_cat_next_prob": 0.886, "ag_c3_cat_next_lift": 0.363}, "non_null_share_by_day": {"ag_c3_cat_next_prob": {"probe_day_1": 0.796, "probe_day_2": 0.974}, "ag_c3_cat_next_lift": {"probe_day_1": 0.796, "probe_day_2": 0.974}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_cat_next_prob_tw", "ag_c3_cat_next_lift_tw"], "seconds_median": 1.94, "coverage": {"ag_c3_cat_next_prob_tw": 0.885, "ag_c3_cat_next_lift_tw": 0.885}, "batch_invariant": true, "max_abs_rho": {"ag_c3_cat_next_prob_tw": 0.749, "ag_c3_cat_next_lift_tw": 0.312}, "nearest": {"ag_c3_cat_next_prob_tw": "ag_uc_rebuy_bucket", "ag_c3_cat_next_lift_tw": "ag_up_cat_choice"}, "r2": {"ag_c3_cat_next_prob_tw": 0.886, "ag_c3_cat_next_lift_tw": 0.364}, "non_null_share_by_day": {"ag_c3_cat_next_prob_tw": {"probe_day_1": 0.796, "probe_day_2": 0.974}, "ag_c3_cat_next_lift_tw": {"probe_day_1": 0.796, "probe_day_2": 0.974}}, "parity_ok": true}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["ag_c3_cat_next_prob: |rho_wq| with the twin 0.999 > 0.8", "ag_c3_cat_next_lift: |rho_wq| with the twin 0.955 > 0.8"]}, "machine_red": []}
+critiques: [
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "TWIN-BROKEN with rho 0.999 and 0.955: shuffling the order sequence leaves the columns unchanged. Category transitions between consecutive orders of the same household are static category affinity, not order-to-order dynamics. f_x_c_cat_next_prob also has R2 0.886 to ag_uc_rebuy_bucket.",
+  "kill_test": "Twin as a factor. An identical gain, which the measured rho 0.999 implies, refutes the sequential mechanism outright.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "Reordering each user's orders at random leaves the card almost unchanged: |rho| with the twin is 0.999 for ag_c_cat_next_prob and 0.955 for the lift. The order-to-order sequence therefore carries nothing, which confirms the rival (static household category affinity). ag_c_cat_next_prob also reaches R2 0.886 to ag_uc_rebuy_bucket.",
+  "kill_test": "Twin as a factor: train with the twin columns instead. Equal gain on the stratum of categories absent from the latest order refutes sequencing.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_cat_next_prob has rho 0.75 and R2 0.886 to ag_uc_rebuy_bucket.",
+  "kill_test": "Twin as a factor: |rho_wq| with the twin is 0.999 and 0.955. An equal gain is expected and would refute sequencing.",
+  "by": "skeptic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "TWIN-BROKEN. A hash-ordered lag gives the same transition matrix, so the value is static category co-propensity, not order-to-order dynamics.",
+  "kill_test": "Difference of differences: candidates whose category is absent from the latest order versus products without a category.",
+  "by": "skeptic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "No leak found: pcat and ucat use cand only as a filter, and windows are partitioned per user. The twin does not destroy the mechanism, though: |rho_wq| with the twin is 0.999 (prob) and 0.955 (lift). The signal comes from seed and candidate categories, not from the temporal prev->next transition. prob also has R2 0.886 to ag_uc_rebuy_bucket.",
+  "kill_test": "Twin as factor: a twin that keeps rho > 0.95 with the card refutes the transition mechanism. Expect zero card-minus-twin gain.",
+  "by": "auditor"
+ }
+]
+--- G3-5
+card: {
+ "id": "G3-5",
+ "name": "within_category_pick_transition",
+ "level": "pair",
+ "mechanism": "A product-to-product transition matrix inside each category, built from all users' consecutive category purchases over 120 days. For each user and category, the orders that contain the category form a sequence. Each pair of consecutive category orders gives transitions q -> p between products of that category. For a candidate, the seeds are the products the user picked in their latest order containing the candidate's category. The columns are the smoothed mean P(next pick = p | previous pick = q), shrunk toward p's share of category picks, and its log lift over that share. The self-transition (q = p) encodes item loyalty. Cross transitions encode substitution flows: which brand or flavour people switch to from the user's current pick. So substitutes the user is likely to rotate into rise, and products people tend to abandon fall.",
+ "sign": "+",
+ "stratum": "Candidates in categories the user bought, where the user's latest category pick was a different product. Predicate: EXISTS (SELECT 1 FROM lines l JOIN lines m ON m.master_category_id = l.master_category_id WHERE l.user_id = c.user_id AND m.product_id = c.product_id AND l.product_id <> c.product_id)",
+ "null_stratum": "Candidates whose category the user never bought (value NULL), and products without a category. Predicate: NOT EXISTS (SELECT 1 FROM lines l JOIN lines m ON m.master_category_id = l.master_category_id WHERE l.user_id = c.user_id AND m.product_id = c.product_id)",
+ "sql": "WITH pcat AS (SELECT product_id, max(master_category_id) AS cat_id FROM lines WHERE master_category_id IS NOT NULL GROUP BY product_id), oc AS (SELECT DISTINCT l.user_id, l.order_id, l.ts, l.product_id, p.cat_id FROM lines l JOIN pcat p ON p.product_id = l.product_id), co AS (SELECT DISTINCT user_id, order_id, ts, cat_id FROM oc), seq AS (SELECT user_id, order_id, cat_id, lead(order_id) OVER (PARTITION BY user_id, cat_id ORDER BY ts, order_id) AS next_order_id FROM co), tq AS (SELECT cat_id, order_id, next_order_id FROM seq WHERE next_order_id IS NOT NULL), lastq AS (SELECT s.user_id, s.cat_id, o.product_id AS q_id FROM seq s JOIN oc o ON o.order_id = s.order_id AND o.cat_id = s.cat_id WHERE s.next_order_id IS NULL AND s.user_id IN (SELECT user_id FROM users)), qn AS (SELECT o.product_id AS q_id, count(*) AS n_q FROM tq JOIN oc o ON o.order_id = tq.order_id AND o.cat_id = tq.cat_id WHERE o.product_id IN (SELECT q_id FROM lastq) GROUP BY o.product_id), qp AS (SELECT a.product_id AS q_id, b.product_id, count(*) AS n_qp FROM tq JOIN oc a ON a.order_id = tq.order_id AND a.cat_id = tq.cat_id JOIN oc b ON b.order_id = tq.next_order_id AND b.cat_id = tq.cat_id WHERE a.product_id IN (SELECT q_id FROM lastq) AND b.product_id IN (SELECT product_id FROM cand) GROUP BY a.product_id, b.product_id), pn AS (SELECT o.product_id, count(*) AS n_in FROM tq JOIN oc o ON o.order_id = tq.next_order_id AND o.cat_id = tq.cat_id WHERE o.product_id IN (SELECT product_id FROM cand) GROUP BY o.product_id), cn AS (SELECT cat_id, count(*) AS n_cat FROM tq GROUP BY cat_id), sc AS (SELECT c.user_id, c.product_id, avg((COALESCE(qp.n_qp, 0) + 2.0 * COALESCE(pn.n_in, 0) / cn.n_cat) / (COALESCE(qn.n_q, 0) + 2.0)) AS p_tr, any_value(COALESCE(pn.n_in, 0) / cn.n_cat) AS p_base FROM cand c JOIN pcat ON pcat.product_id = c.product_id JOIN lastq lq ON lq.user_id = c.user_id AND lq.cat_id = pcat.cat_id JOIN cn ON cn.cat_id = pcat.cat_id LEFT JOIN qn ON qn.q_id = lq.q_id LEFT JOIN qp ON qp.q_id = lq.q_id AND qp.product_id = c.product_id LEFT JOIN pn ON pn.product_id = c.product_id GROUP BY c.user_id, c.product_id) SELECT user_id, product_id, p_tr AS f_x_c3_cat_seq_trans, ln((p_tr + 0.001) / (p_base + 0.001)) AS f_x_c3_cat_seq_lift FROM sc",
+ "twin": {
+  "how": "neighbour_shuffle",
+  "sql": "WITH pcat AS (SELECT product_id, max(master_category_id) AS cat_id FROM lines WHERE master_category_id IS NOT NULL GROUP BY product_id), oc AS (SELECT DISTINCT l.user_id, l.order_id, l.ts, l.product_id, p.cat_id FROM lines l JOIN pcat p ON p.product_id = l.product_id), co AS (SELECT DISTINCT user_id, order_id, ts, cat_id FROM oc), seq AS (SELECT user_id, order_id, cat_id, lead(order_id) OVER (PARTITION BY user_id, cat_id ORDER BY ts, order_id) AS next_order_id FROM co), tq AS (SELECT cat_id, order_id, next_order_id FROM seq WHERE next_order_id IS NOT NULL), lastq AS (SELECT s.user_id, s.cat_id, o.product_id AS q_id FROM seq s JOIN oc o ON o.order_id = s.order_id AND o.cat_id = s.cat_id WHERE s.next_order_id IS NULL AND s.user_id IN (SELECT user_id FROM users)), pp AS (SELECT product_id, cat_id, count(*) AS n_o FROM oc GROUP BY product_id, cat_id), pbk AS (SELECT product_id, cat_id, ntile(5) OVER (PARTITION BY cat_id ORDER BY n_o, product_id) AS pop_b FROM pp), perm AS (SELECT product_id, COALESCE(lead(product_id) OVER (PARTITION BY cat_id, pop_b ORDER BY hash(product_id), product_id), first_value(product_id) OVER (PARTITION BY cat_id, pop_b ORDER BY hash(product_id), product_id)) AS sub_id FROM pbk), lqt AS (SELECT lq.user_id, lq.cat_id, pm.sub_id AS q_id FROM lastq lq JOIN perm pm ON pm.product_id = lq.q_id), qn AS (SELECT o.product_id AS q_id, count(*) AS n_q FROM tq JOIN oc o ON o.order_id = tq.order_id AND o.cat_id = tq.cat_id WHERE o.product_id IN (SELECT q_id FROM lqt) GROUP BY o.product_id), qp AS (SELECT a.product_id AS q_id, b.product_id, count(*) AS n_qp FROM tq JOIN oc a ON a.order_id = tq.order_id AND a.cat_id = tq.cat_id JOIN oc b ON b.order_id = tq.next_order_id AND b.cat_id = tq.cat_id WHERE a.product_id IN (SELECT q_id FROM lqt) AND b.product_id IN (SELECT product_id FROM cand) GROUP BY a.product_id, b.product_id), pn AS (SELECT o.product_id, count(*) AS n_in FROM tq JOIN oc o ON o.order_id = tq.next_order_id AND o.cat_id = tq.cat_id WHERE o.product_id IN (SELECT product_id FROM cand) GROUP BY o.product_id), cn AS (SELECT cat_id, count(*) AS n_cat FROM tq GROUP BY cat_id), sc AS (SELECT c.user_id, c.product_id, avg((COALESCE(qp.n_qp, 0) + 2.0 * COALESCE(pn.n_in, 0) / cn.n_cat) / (COALESCE(qn.n_q, 0) + 2.0)) AS p_tr, any_value(COALESCE(pn.n_in, 0) / cn.n_cat) AS p_base FROM cand c JOIN pcat ON pcat.product_id = c.product_id JOIN lqt lq ON lq.user_id = c.user_id AND lq.cat_id = pcat.cat_id JOIN cn ON cn.cat_id = pcat.cat_id LEFT JOIN qn ON qn.q_id = lq.q_id LEFT JOIN qp ON qp.q_id = lq.q_id AND qp.product_id = c.product_id LEFT JOIN pn ON pn.product_id = c.product_id GROUP BY c.user_id, c.product_id) SELECT user_id, product_id, p_tr AS f_x_c3_cat_seq_trans_tw, ln((p_tr + 0.001) / (p_base + 0.001)) AS f_x_c3_cat_seq_lift_tw FROM sc"
+ },
+ "rival": {
+  "explanation": "The value is dominated by the self-transition, so it would act as a smoothed item-level retention rate (like ag_p_next_reorder or ag_uc_last_pick), with no real substitution information.",
+  "stratum": "Candidates that were the user's latest pick in their category"
+ }
+}
+measurements: {"schema_problems": [], "card": {"error": "probe_day_2: OutOfMemoryException: the query ran out of memory", "keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_cat_seq_trans", "ag_c3_cat_seq_lift"], "seconds_median": 27.8, "coverage": {"ag_c3_cat_seq_trans": 0.416, "ag_c3_cat_seq_lift": 0.416}, "batch_invariant": true, "max_abs_rho": {"ag_c3_cat_seq_trans": 0.703, "ag_c3_cat_seq_lift": 0.767}, "nearest": {"ag_c3_cat_seq_trans": "ag_uc_orders_after", "ag_c3_cat_seq_lift": "ag_uc_last_pick"}, "r2": {"ag_c3_cat_seq_trans": 0.729, "ag_c3_cat_seq_lift": 0.752}, "non_null_share_by_day": {"ag_c3_cat_seq_trans": {"probe_day_1": 0.416}, "ag_c3_cat_seq_lift": {"probe_day_1": 0.416}}, "parity_ok": true}, "twin": {"error": "probe_day_1: OutOfMemoryException: the query ran out of memory", "level": "pair", "coverage": {}, "max_abs_rho": {}, "nearest": {}, "r2": {}}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["card machine test red: error: probe_day_2: OutOfMemoryException: the query ran out of memory", "twin machine test red: error: probe_day_1: OutOfMemoryException: the query ran out of memory"]}, "machine_red": ["error: probe_day_2: OutOfMemoryException: the query ran out of memory"]}
+critiques: [
+ {
+  "type": "COST",
+  "text": "OutOfMemoryException on probe_day_2 for the card and on probe_day_1 for the twin. The oc self-join across consecutive category orders of all users over 120 days explodes. The card is invalid as submitted.",
+  "kill_test": "Rerun restricted to transitions whose next order falls in the last 28 days and whose seeds come from users' categories. If it still runs out of memory, reject.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The seed is the user's latest pick in the category with no age attached. A pick 100 days old and one from yesterday get the same substitution flow, although rotation into a substitute is a recent-intent event. On probe_day_1, lift has R2 0.752 to ag_uc_last_pick, which matches the self-transition rival.",
+  "kill_test": "Difference of differences: the gain where the latest category pick is within u_mean_gap, against where it is older than 3x u_mean_gap. No difference refutes recent substitution.",
+  "by": "critic"
+ },
+ {
+  "type": "COST",
+  "text": "The card ran out of memory on probe_day_2 and the twin ran out of memory on probe_day_1, so neither run has measurements. The joins oc x tq x oc expand every consecutive category order into all product pairs, and nothing caps this for large categories. Even on day 1 alone it took 27.8 s against the 40 s limit.",
+  "kill_test": "Staleness: rerun the same query one anchor earlier with the seeds capped at the top 3 products per category. If it still fails or exceeds 40 s, the family cannot be served.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "On day 1, the lift column reaches R2 0.752 to ag_uc_last_pick and the transition column reaches R2 0.729 to ag_uc_orders_after. Coverage is 0.416, all of it in categories the user already bought, where the base is already strong (uc_share, uc_days_since_last). The pairs the base describes poorly are categories the user never bought, and there the card is NULL by construction.",
+  "kill_test": "Difference of differences: compare the gain on stratum pairs where the latest category pick differs from the candidate against the gain on self-pick pairs. A gain only on self-pick pairs refutes the substitution mechanism.",
+  "by": "critic"
+ },
+ {
+  "type": "COST",
+  "text": "OutOfMemoryException on probe_day_2 for the card and on probe_day_1 for the twin. The full 120-day product-to-product self-join inside categories is too large. Where it ran, f_x_c_cat_seq_lift has rho 0.767 and R2 0.752 to ag_uc_last_pick (category_choice_v2).",
+  "kill_test": "Key level: none possible until it runs. Afterwards, compare candidates that were the user's latest category pick with those that were not. A gain only on self-transitions refutes substitution flows.",
+  "by": "skeptic"
+ },
+ {
+  "type": "COST",
+  "text": "Machine test red: OutOfMemoryException on probe_day_2 for the card and on probe_day_1 for the twin. The self-join of oc on tq (every order of every user per category, with no user restriction) explodes, and the card runs 27.8 s even where it succeeds. No leak was seen in the SQL.",
+  "kill_test": "Key level: restrict tq to cand categories and seed products before the join. If memory is still exceeded, the family is infeasible.",
+  "by": "auditor"
+ }
+]
+--- G3-6
+card: {
+ "id": "G3-6",
+ "name": "personal_cross_transition",
+ "level": "pair",
+ "mechanism": "A personal order-to-order transition graph from the user's own 120-day sequence. For each product q in the user's latest order, it counts how often the user's order right after an order with q contained the candidate p (q != p). This is smoothed toward the user's base rate of p in non-first orders. The columns are the mean over q and the log lift over that base rate. Individual rotation habits (alternating two flavours, buying detergent the order after a big fresh order, a weekly-biweekly rhythm between product groups) make p predictable from what was just bought. Aggregate counts and the self-history columns miss this.",
+ "sign": "+",
+ "stratum": "Users with at least 5 orders in the window and candidates they bought at least twice. Predicate: (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id) >= 5 AND (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) >= 2",
+ "null_stratum": "Users with only 2 orders, where no personal pattern can be estimated. Predicate: (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id) <= 2",
+ "sql": "WITH uo AS (SELECT user_id, order_id, lead(order_id) OVER (PARTITION BY user_id ORDER BY ts, order_id) AS next_order_id FROM orders WHERE user_id IN (SELECT user_id FROM users)), ol AS (SELECT DISTINCT user_id, order_id, product_id FROM lines WHERE user_id IN (SELECT user_id FROM users)), lastp AS (SELECT ol.user_id, ol.product_id AS q_id FROM uo JOIN ol ON ol.order_id = uo.order_id WHERE uo.next_order_id IS NULL), qn AS (SELECT ol.user_id, ol.product_id AS q_id, count(*) AS n_q FROM uo JOIN ol ON ol.order_id = uo.order_id JOIN lastp lp ON lp.user_id = ol.user_id AND lp.q_id = ol.product_id WHERE uo.next_order_id IS NOT NULL GROUP BY ol.user_id, ol.product_id), ntr AS (SELECT user_id, count(*) AS n_tr FROM uo WHERE next_order_id IS NOT NULL GROUP BY user_id), pn AS (SELECT b.user_id, b.product_id, count(*) AS n_pn FROM uo JOIN ol b ON b.order_id = uo.next_order_id JOIN cand c ON c.user_id = b.user_id AND c.product_id = b.product_id GROUP BY b.user_id, b.product_id), qp AS (SELECT a.user_id, a.product_id AS q_id, b.product_id, count(*) AS n_qp FROM uo JOIN ol a ON a.order_id = uo.order_id JOIN qn ON qn.user_id = a.user_id AND qn.q_id = a.product_id JOIN ol b ON b.order_id = uo.next_order_id JOIN cand c ON c.user_id = b.user_id AND c.product_id = b.product_id WHERE a.product_id <> b.product_id GROUP BY a.user_id, a.product_id, b.product_id), sc AS (SELECT c.user_id, c.product_id, avg((COALESCE(qp.n_qp, 0) + COALESCE(pn.n_pn, 0) / t.n_tr) / (qn.n_q + 1.0)) AS p_tr, any_value(COALESCE(pn.n_pn, 0) / t.n_tr) AS p_base FROM cand c JOIN ntr t ON t.user_id = c.user_id JOIN qn ON qn.user_id = c.user_id AND qn.q_id <> c.product_id LEFT JOIN qp ON qp.user_id = c.user_id AND qp.q_id = qn.q_id AND qp.product_id = c.product_id LEFT JOIN pn ON pn.user_id = c.user_id AND pn.product_id = c.product_id GROUP BY c.user_id, c.product_id) SELECT user_id, product_id, p_tr AS f_x_c3_pers_trans, ln((p_tr + 0.01) / (p_base + 0.01)) AS f_x_c3_pers_trans_lift FROM sc",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH uo AS (SELECT user_id, order_id, lead(order_id) OVER (PARTITION BY user_id ORDER BY ts, order_id) AS next_order_id FROM orders WHERE user_id IN (SELECT user_id FROM users)), uh AS (SELECT user_id, order_id, lead(order_id) OVER (PARTITION BY user_id ORDER BY hash(order_id), order_id) AS next_order_id FROM orders WHERE user_id IN (SELECT user_id FROM users)), ol AS (SELECT DISTINCT user_id, order_id, product_id FROM lines WHERE user_id IN (SELECT user_id FROM users)), lastp AS (SELECT ol.user_id, ol.product_id AS q_id FROM uo JOIN ol ON ol.order_id = uo.order_id WHERE uo.next_order_id IS NULL), qn AS (SELECT ol.user_id, ol.product_id AS q_id, count(*) AS n_q FROM uh JOIN ol ON ol.order_id = uh.order_id JOIN lastp lp ON lp.user_id = ol.user_id AND lp.q_id = ol.product_id WHERE uh.next_order_id IS NOT NULL GROUP BY ol.user_id, ol.product_id), ntr AS (SELECT user_id, count(*) AS n_tr FROM uh WHERE next_order_id IS NOT NULL GROUP BY user_id), pn AS (SELECT b.user_id, b.product_id, count(*) AS n_pn FROM uh JOIN ol b ON b.order_id = uh.next_order_id JOIN cand c ON c.user_id = b.user_id AND c.product_id = b.product_id GROUP BY b.user_id, b.product_id), qp AS (SELECT a.user_id, a.product_id AS q_id, b.product_id, count(*) AS n_qp FROM uh JOIN ol a ON a.order_id = uh.order_id JOIN qn ON qn.user_id = a.user_id AND qn.q_id = a.product_id JOIN ol b ON b.order_id = uh.next_order_id JOIN cand c ON c.user_id = b.user_id AND c.product_id = b.product_id WHERE a.product_id <> b.product_id GROUP BY a.user_id, a.product_id, b.product_id), sc AS (SELECT c.user_id, c.product_id, avg((COALESCE(qp.n_qp, 0) + COALESCE(pn.n_pn, 0) / t.n_tr) / (qn.n_q + 1.0)) AS p_tr, any_value(COALESCE(pn.n_pn, 0) / t.n_tr) AS p_base FROM cand c JOIN ntr t ON t.user_id = c.user_id JOIN qn ON qn.user_id = c.user_id AND qn.q_id <> c.product_id LEFT JOIN qp ON qp.user_id = c.user_id AND qp.q_id = qn.q_id AND qp.product_id = c.product_id LEFT JOIN pn ON pn.user_id = c.user_id AND pn.product_id = c.product_id GROUP BY c.user_id, c.product_id) SELECT user_id, product_id, p_tr AS f_x_c3_pers_trans_tw, ln((p_tr + 0.01) / (p_base + 0.01)) AS f_x_c3_pers_trans_lift_tw FROM sc"
+ },
+ "rival": {
+  "explanation": "p_tr is mostly a smoothed version of the user's share of orders with p (up_share), so any gain is extra frequency information, not sequencing.",
+  "stratum": "Heavy users (u_orders >= 10) where up_share is already precise"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_pers_trans", "ag_c3_pers_trans_lift"], "seconds_median": 0.671, "coverage": {"ag_c3_pers_trans": 0.577, "ag_c3_pers_trans_lift": 0.577}, "batch_invariant": true, "max_abs_rho": {"ag_c3_pers_trans": 0.845, "ag_c3_pers_trans_lift": 0.174}, "nearest": {"ag_c3_pers_trans": "ag_up_decay_share", "ag_c3_pers_trans_lift": "ag_up_orders_since"}, "r2": {"ag_c3_pers_trans": 0.87, "ag_c3_pers_trans_lift": 0.0613}, "non_null_share_by_day": {"ag_c3_pers_trans": {"probe_day_1": 0.354, "probe_day_2": 0.801}, "ag_c3_pers_trans_lift": {"probe_day_1": 0.354, "probe_day_2": 0.801}}, "parity_ok": false}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_pers_trans_tw", "ag_c3_pers_trans_lift_tw"], "seconds_median": 0.961, "coverage": {"ag_c3_pers_trans_tw": 0.617, "ag_c3_pers_trans_lift_tw": 0.617}, "batch_invariant": true, "max_abs_rho": {"ag_c3_pers_trans_tw": 0.776, "ag_c3_pers_trans_lift_tw": 0.314}, "nearest": {"ag_c3_pers_trans_tw": "ag_up_decay14", "ag_c3_pers_trans_lift_tw": "ag_up_decay14"}, "r2": {"ag_c3_pers_trans_tw": 0.693, "ag_c3_pers_trans_lift_tw": 0.166}, "non_null_share_by_day": {"ag_c3_pers_trans_tw": {"probe_day_1": 0.387, "probe_day_2": 0.846}, "ag_c3_pers_trans_lift_tw": {"probe_day_1": 0.387, "probe_day_2": 0.846}}, "parity_ok": false}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_pers_trans has rho 0.845 and R2 0.87 to ag_up_decay_share. Averaging over every q in the latest order lets staples present in almost every order dominate, so P(p next | q) collapses to the user's share of orders with p. Only the lift column (R2 0.061) is new.",
+  "kill_test": "Twin as a factor on f_x_c_pers_trans_lift among heavy users (u_orders >= 10). If the gain does not exceed the time-shuffled twin there, sequencing adds nothing beyond frequency.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "non_null_share_by_day is 0.354 vs 0.801. The value exists only when the user has a non-last order that contains a product of the latest order, which depends on how many visible orders the anchor gives.",
+  "kill_test": "Staleness: run the same query one anchor earlier and compare the stratum gain. If it varies with coverage, the column is a history-depth indicator.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "ag_c_pers_trans reaches R2 0.87 to ag_up_decay_share, which supports the rival (smoothed frequency). Only ag_c_pers_trans_lift is new (R2 0.061).",
+  "kill_test": "Difference of differences: compare the lift column's gain on heavy users (u_orders 10 or more) against users with 2 orders. A gain only where up_share is imprecise refutes sequencing.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "Non-NULL share is 0.354 on probe_day_1 and 0.801 on probe_day_2, and parity_ok is false. Users with short visible histories have no personal transitions, so they get NULL, and that cohort's size depends strongly on the anchor.",
+  "kill_test": "Staleness: run the same query one anchor earlier. Coverage outside 0.35-0.80 again would confirm the family's support is unstable.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_pers_trans has rho 0.845 and R2 0.87 to ag_up_decay_share (up_decayed_frequency). Only the lift column (R2 0.061) is new, and it is close to personal_self_markov (C30).",
+  "kill_test": "Twin as a factor on the lift column. The hash-ordered sequence keeps trans R2 0.693. If the twin lift gives the same gain, sequencing is refuted.",
+  "by": "skeptic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "The non-NULL share is 0.354 on probe_day_1 and 0.801 on probe_day_2.",
+  "kill_test": "Staleness: one anchor earlier.",
+  "by": "skeptic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "No leak found: everything is restricted to users and cand as filters, with per-user transitions. pers_trans has R2 0.87 (rho 0.845) to ag_up_decay_share. The twin also changes coverage (0.617 vs 0.577), so it does not preserve the family shape. Non-NULL share 0.354 / 0.801 (parity false).",
+  "kill_test": "Twin as factor: no card-minus-twin gain of pers_trans_lift within queries refutes the personal-transition mechanism.",
+  "by": "auditor"
+ }
+]
+--- G3-7
+card: {
+ "id": "G3-7",
+ "name": "personal_self_markov",
+ "level": "pair",
+ "mechanism": "A first-order Markov chain of the candidate's presence in the user's own order sequence, starting from the first purchase in the 120-day window. It estimates P(in next | in current) and P(in next | not in current), smoothed toward the user's post-adoption base rate. The first column is the probability for the current state, i.e. whether p was in the latest order. The second is the persistence gap P(in|in) - P(in|out). A negative gap marks alternating products, which skip after being bought (stock-ups, rotation). A positive gap marks products that come in runs. Share and streak features cannot distinguish 'bought in half the orders, alternating' from 'bought in half the orders, in blocks'. For the next order these imply opposite predictions given the last state.",
+ "sign": "+",
+ "stratum": "Candidates bought at least 3 times by users with at least 6 orders in the window. Predicate: (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id) >= 6 AND (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) >= 3",
+ "null_stratum": "Candidates bought once, where the chain is just the prior. Predicate: (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) = 1",
+ "sql": "WITH uo AS (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY ts, order_id) AS k, count(*) OVER (PARTITION BY user_id) AS n_ord FROM orders WHERE user_id IN (SELECT user_id FROM users)), up AS (SELECT DISTINCT uo.user_id, l.product_id, uo.k FROM lines l JOIN uo ON uo.order_id = l.order_id JOIN cand c ON c.user_id = uo.user_id AND c.product_id = l.product_id), fk AS (SELECT user_id, product_id, min(k) AS k_first FROM up GROUP BY user_id, product_id), g AS (SELECT f.user_id, f.product_id, uo.k, uo.n_ord, CASE WHEN up.k IS NULL THEN 0 ELSE 1 END AS inn FROM fk f JOIN uo ON uo.user_id = f.user_id AND uo.k >= f.k_first LEFT JOIN up ON up.user_id = f.user_id AND up.product_id = f.product_id AND up.k = uo.k), t AS (SELECT user_id, product_id, k, n_ord, inn, lead(inn) OVER (PARTITION BY user_id, product_id ORDER BY k) AS nxt FROM g), agg AS (SELECT user_id, product_id, sum(CASE WHEN inn = 1 AND nxt IS NOT NULL THEN 1 ELSE 0 END) AS n1, sum(CASE WHEN inn = 1 AND nxt = 1 THEN 1 ELSE 0 END) AS n11, sum(CASE WHEN inn = 0 AND nxt IS NOT NULL THEN 1 ELSE 0 END) AS n0, sum(CASE WHEN inn = 0 AND nxt = 1 THEN 1 ELSE 0 END) AS n01, max(CASE WHEN k = n_ord THEN inn ELSE 0 END) AS cur, avg(nxt) AS base FROM t GROUP BY user_id, product_id) SELECT user_id, product_id, CASE WHEN cur = 1 THEN (n11 + 2.0 * COALESCE(base, 0.3)) / (n1 + 2.0) ELSE (n01 + 2.0 * COALESCE(base, 0.3)) / (n0 + 2.0) END AS f_x_c3_self_markov_cur, (n11 + 1.0) / (n1 + 2.0) - (n01 + 1.0) / (n0 + 2.0) AS f_x_c3_self_markov_gap FROM agg",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH uo AS (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY hash(order_id), order_id) AS k, count(*) OVER (PARTITION BY user_id) AS n_ord FROM orders WHERE user_id IN (SELECT user_id FROM users)), up AS (SELECT DISTINCT uo.user_id, l.product_id, uo.k FROM lines l JOIN uo ON uo.order_id = l.order_id JOIN cand c ON c.user_id = uo.user_id AND c.product_id = l.product_id), fk AS (SELECT user_id, product_id, min(k) AS k_first FROM up GROUP BY user_id, product_id), g AS (SELECT f.user_id, f.product_id, uo.k, uo.n_ord, CASE WHEN up.k IS NULL THEN 0 ELSE 1 END AS inn FROM fk f JOIN uo ON uo.user_id = f.user_id AND uo.k >= f.k_first LEFT JOIN up ON up.user_id = f.user_id AND up.product_id = f.product_id AND up.k = uo.k), t AS (SELECT user_id, product_id, k, n_ord, inn, lead(inn) OVER (PARTITION BY user_id, product_id ORDER BY k) AS nxt FROM g), agg AS (SELECT user_id, product_id, sum(CASE WHEN inn = 1 AND nxt IS NOT NULL THEN 1 ELSE 0 END) AS n1, sum(CASE WHEN inn = 1 AND nxt = 1 THEN 1 ELSE 0 END) AS n11, sum(CASE WHEN inn = 0 AND nxt IS NOT NULL THEN 1 ELSE 0 END) AS n0, sum(CASE WHEN inn = 0 AND nxt = 1 THEN 1 ELSE 0 END) AS n01, max(CASE WHEN k = n_ord THEN inn ELSE 0 END) AS cur, avg(nxt) AS base FROM t GROUP BY user_id, product_id) SELECT user_id, product_id, CASE WHEN cur = 1 THEN (n11 + 2.0 * COALESCE(base, 0.3)) / (n1 + 2.0) ELSE (n01 + 2.0 * COALESCE(base, 0.3)) / (n0 + 2.0) END AS f_x_c3_self_markov_cur_tw, (n11 + 1.0) / (n1 + 2.0) - (n01 + 1.0) / (n0 + 2.0) AS f_x_c3_self_markov_gap_tw FROM agg"
+ },
+ "rival": {
+  "explanation": "The current-state column is close to ag_up_adopt_share combined with up_in_last_order, so any gain comes from a better-smoothed adoption share rather than from the Markov structure.",
+  "stratum": "Candidates with up_in_last_order = 1 and short purchase histories (2-3 orders)"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_self_markov_cur", "ag_c3_self_markov_gap"], "seconds_median": 0.514, "coverage": {"ag_c3_self_markov_cur": 0.354, "ag_c3_self_markov_gap": 0.354}, "batch_invariant": true, "max_abs_rho": {"ag_c3_self_markov_cur": 0.786, "ag_c3_self_markov_gap": 0.568}, "nearest": {"ag_c3_self_markov_cur": "ag_up_streak", "ag_c3_self_markov_gap": "ag_up_orders_since"}, "r2": {"ag_c3_self_markov_cur": 0.905, "ag_c3_self_markov_gap": 0.72}, "non_null_share_by_day": {"ag_c3_self_markov_cur": {"probe_day_1": 0.216, "probe_day_2": 0.491}, "ag_c3_self_markov_gap": {"probe_day_1": 0.216, "probe_day_2": 0.491}}, "parity_ok": false}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_self_markov_cur_tw", "ag_c3_self_markov_gap_tw"], "seconds_median": 0.519, "coverage": {"ag_c3_self_markov_cur_tw": 0.354, "ag_c3_self_markov_gap_tw": 0.354}, "batch_invariant": true, "max_abs_rho": {"ag_c3_self_markov_cur_tw": 0.651, "ag_c3_self_markov_gap_tw": 0.297}, "nearest": {"ag_c3_self_markov_cur_tw": "up_orders", "ag_c3_self_markov_gap_tw": "up_share"}, "r2": {"ag_c3_self_markov_cur_tw": 0.511, "ag_c3_self_markov_gap_tw": 0.118}, "non_null_share_by_day": {"ag_c3_self_markov_cur_tw": {"probe_day_1": 0.216, "probe_day_2": 0.491}, "ag_c3_self_markov_gap_tw": {"probe_day_1": 0.216, "probe_day_2": 0.491}}, "parity_ok": false}, "twin_check": {"verdict": "ok", "reasons": []}, "machine_red": []}
+critiques: [
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_self_markov_cur has rho 0.786 and R2 0.905 to ag_up_streak. Smoothing it toward the post-adoption base rate turns the 'current state' column into last-order presence (up_in_last_order) plus the run length the model already has. Only the gap column (R2 0.72 to ag_up_orders_since) can carry something new.",
+  "kill_test": "Twin as a factor on f_x_c_self_markov_gap alone. If the real gap column gives no lift over its time-shuffled twin (twin R2 0.118) in the stratum of users with 6+ orders and 3+ buys, the alternating-versus-runs structure is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The chain is indexed by order number and ignores elapsed time. The target is the first order in [A, A+14d), whose distance from the latest order varies widely. For a user returning after a long pause (high u_days_since_last), P(in | in last order) is not the same quantity as after a one-day top-up gap. A stock-up alternation is a time effect, not an order-count effect, so 'skip after buy' should weaken as the pause grows.",
+  "kill_test": "Difference of differences: the gain of the gap column in the stratum against the bought-once null stratum, split by u_days_since_last below and above the user's u_mean_gap. If the gain does not shrink for long pauses, the stock-up reading is wrong.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "non_null_share_by_day is 0.216 on probe_day_1 and 0.491 on probe_day_2, a 2.3x jump, which is larger than the 0.80 to 0.98 jump of the window-wide cards. The family needs a product bought inside the 120-day window, so its coverage depends strongly on visible history depth per anchor.",
+  "kill_test": "Staleness: run the same query one anchor earlier. If coverage and the stratum gain swing with the anchor rather than staying stable, the column is mostly a proxy for history depth.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "ag_c_self_markov_cur reaches R2 0.905 to ag_up_streak and ag_c_self_markov_gap R2 0.72 to ag_up_orders_since. Coverage is 0.354 and covers only candidates already bought in the window, the region the base already describes best.",
+  "kill_test": "Difference of differences: compare the gain on pairs with 3 or more purchases by users with 6 or more orders against single-purchase pairs. No gain beyond ag_up_streak in the stratum refutes the Markov structure.",
+  "by": "critic"
+ },
+ {
+  "type": "SHIFT",
+  "text": "Non-NULL share is 0.216 on probe_day_1 and 0.491 on probe_day_2, and parity_ok is false. Support more than doubles between anchors.",
+  "kill_test": "Staleness: run the same query one anchor earlier. Another twofold swing confirms the family's support is anchor-driven.",
+  "by": "critic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "f_x_c_self_markov_cur has rho 0.786 and R2 0.905 to ag_up_streak (up_adoption_streak). f_x_c_self_markov_gap has R2 0.72 to ag_up_orders_since. It overlaps C10.",
+  "kill_test": "Twin as a factor on the gap column (twin R2 0.118). If the hash-ordered twin gives the same gain, alternation versus runs is refuted.",
+  "by": "skeptic"
+ },
+ {
+  "type": "DUPLICATE",
+  "text": "No leak found: users and cand only filter, and k is unique per user, so the lead() ordering is fully tie-broken. self_markov_cur has R2 0.905 (rho 0.786) to ag_up_streak. self_markov_gap has R2 0.72 to ag_up_orders_since.",
+  "kill_test": "Twin as factor: the hash-order twin drops cur to R2 0.511. If the card does not beat the twin given ag_up_streak, refute.",
+  "by": "auditor"
+ }
+]
+--- G3-8
+card: {
+ "id": "G3-8",
+ "name": "session_knn_next_order",
+ "level": "pair",
+ "mechanism": "Session-based nearest neighbours. The user's latest order is the query session. Its seeds are its 8 most distinctive products (2..300 orders with a following order in the last 56 days). Neighbour sessions are other users' orders from the last 56 days that contain the seeds, with similarity sum(1/ln(1+degree)); the top 50 are kept. The score of a candidate is the similarity-weighted share of those neighbours whose next order contained it, plus its log lift over the base rate of that product in next orders. People whose basket looked like this user's last basket reveal what tends to come next. This multi-step path (seed -> similar session -> its successor -> product) differs from user-level kNN and from item-level transitions.",
+ "sign": "+",
+ "stratum": "Users whose latest order has at least 3 niche products (<= 300 orders in 56 days), for candidates outside that order. Predicate: (SELECT count(*) FROM lines l WHERE l.user_id = c.user_id AND l.ts = (SELECT max(o.ts) AS last_ts FROM orders o WHERE o.user_id = c.user_id) AND l.product_id IN (SELECT m.product_id FROM lines m WHERE m.ts >= TIMESTAMP '{A}' - INTERVAL 56 DAY GROUP BY m.product_id HAVING count(DISTINCT m.order_id) <= 300)) >= 3",
+ "null_stratum": "Users whose latest order has only mainstream products (no seeds, value NULL). Predicate: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.ts = (SELECT max(o.ts) AS last_ts FROM orders o WHERE o.user_id = c.user_id) AND l.product_id IN (SELECT m.product_id FROM lines m WHERE m.ts >= TIMESTAMP '{A}' - INTERVAL 56 DAY GROUP BY m.product_id HAVING count(DISTINCT m.order_id) <= 300))",
+ "sql": "WITH ord AS (SELECT order_id, user_id, ts, lead(order_id) OVER (PARTITION BY user_id ORDER BY ts, order_id) AS next_order_id FROM orders), ol AS (SELECT DISTINCT order_id, product_id FROM lines), win AS (SELECT order_id, user_id, next_order_id FROM ord WHERE next_order_id IS NOT NULL AND ts >= TIMESTAMP '{A}' - INTERVAL 56 DAY), wl AS (SELECT w.order_id, w.user_id, w.next_order_id, ol.product_id FROM win w JOIN ol ON ol.order_id = w.order_id), deg AS (SELECT product_id, count(*) AS n_o FROM wl GROUP BY product_id), lastord AS (SELECT user_id, order_id FROM (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY ts DESC, order_id DESC) AS rn FROM orders WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn = 1), seeds AS (SELECT user_id, product_id, n_o FROM (SELECT lo.user_id, ol.product_id, deg.n_o, row_number() OVER (PARTITION BY lo.user_id ORDER BY deg.n_o, ol.product_id) AS rn FROM lastord lo JOIN ol ON ol.order_id = lo.order_id JOIN deg ON deg.product_id = ol.product_id WHERE deg.n_o BETWEEN 2 AND 300) x WHERE rn <= 8), nb AS (SELECT s.user_id, wl.order_id, wl.next_order_id, sum(1.0 / ln(1.0 + s.n_o)) AS sim FROM seeds s JOIN wl ON wl.product_id = s.product_id AND wl.user_id <> s.user_id GROUP BY s.user_id, wl.order_id, wl.next_order_id), nbk AS (SELECT user_id, next_order_id, sim FROM (SELECT user_id, order_id, next_order_id, sim, row_number() OVER (PARTITION BY user_id ORDER BY sim DESC, order_id) AS rn FROM nb) x WHERE rn <= 50), tot AS (SELECT user_id, sum(sim) AS sim_tot FROM nbk GROUP BY user_id), sc AS (SELECT k.user_id, ol.product_id, sum(k.sim) AS s_sim FROM nbk k JOIN ol ON ol.order_id = k.next_order_id GROUP BY k.user_id, ol.product_id), pn AS (SELECT ol.product_id, count(*) AS n_pn FROM win JOIN ol ON ol.order_id = win.next_order_id WHERE ol.product_id IN (SELECT product_id FROM cand) GROUP BY ol.product_id), nw AS (SELECT count(*) AS n_w FROM win) SELECT c.user_id, c.product_id, COALESCE(sc.s_sim, 0) / t.sim_tot AS f_x_c3_sknn_next_share, ln((COALESCE(sc.s_sim, 0) / t.sim_tot + 0.001) / (COALESCE(pn.n_pn, 0) * 1.0 / n.n_w + 0.001)) AS f_x_c3_sknn_next_lift FROM cand c JOIN tot t ON t.user_id = c.user_id LEFT JOIN sc ON sc.user_id = c.user_id AND sc.product_id = c.product_id LEFT JOIN pn ON pn.product_id = c.product_id CROSS JOIN nw n",
+ "twin": {
+  "how": "time_shuffle",
+  "sql": "WITH ord AS (SELECT order_id, user_id, ts, lead(order_id) OVER (PARTITION BY user_id ORDER BY hash(order_id), order_id) AS next_order_id FROM orders), ol AS (SELECT DISTINCT order_id, product_id FROM lines), win AS (SELECT order_id, user_id, next_order_id FROM ord WHERE next_order_id IS NOT NULL AND ts >= TIMESTAMP '{A}' - INTERVAL 56 DAY), wl AS (SELECT w.order_id, w.user_id, w.next_order_id, ol.product_id FROM win w JOIN ol ON ol.order_id = w.order_id), deg AS (SELECT product_id, count(*) AS n_o FROM wl GROUP BY product_id), lastord AS (SELECT user_id, order_id FROM (SELECT user_id, order_id, row_number() OVER (PARTITION BY user_id ORDER BY ts DESC, order_id DESC) AS rn FROM orders WHERE user_id IN (SELECT user_id FROM users)) x WHERE rn = 1), seeds AS (SELECT user_id, product_id, n_o FROM (SELECT lo.user_id, ol.product_id, deg.n_o, row_number() OVER (PARTITION BY lo.user_id ORDER BY deg.n_o, ol.product_id) AS rn FROM lastord lo JOIN ol ON ol.order_id = lo.order_id JOIN deg ON deg.product_id = ol.product_id WHERE deg.n_o BETWEEN 2 AND 300) x WHERE rn <= 8), nb AS (SELECT s.user_id, wl.order_id, wl.next_order_id, sum(1.0 / ln(1.0 + s.n_o)) AS sim FROM seeds s JOIN wl ON wl.product_id = s.product_id AND wl.user_id <> s.user_id GROUP BY s.user_id, wl.order_id, wl.next_order_id), nbk AS (SELECT user_id, next_order_id, sim FROM (SELECT user_id, order_id, next_order_id, sim, row_number() OVER (PARTITION BY user_id ORDER BY sim DESC, order_id) AS rn FROM nb) x WHERE rn <= 50), tot AS (SELECT user_id, sum(sim) AS sim_tot FROM nbk GROUP BY user_id), sc AS (SELECT k.user_id, ol.product_id, sum(k.sim) AS s_sim FROM nbk k JOIN ol ON ol.order_id = k.next_order_id GROUP BY k.user_id, ol.product_id), pn AS (SELECT ol.product_id, count(*) AS n_pn FROM win JOIN ol ON ol.order_id = win.next_order_id WHERE ol.product_id IN (SELECT product_id FROM cand) GROUP BY ol.product_id), nw AS (SELECT count(*) AS n_w FROM win) SELECT c.user_id, c.product_id, COALESCE(sc.s_sim, 0) / t.sim_tot AS f_x_c3_sknn_next_share_tw, ln((COALESCE(sc.s_sim, 0) / t.sim_tot + 0.001) / (COALESCE(pn.n_pn, 0) * 1.0 / n.n_w + 0.001)) AS f_x_c3_sknn_next_lift_tw FROM cand c JOIN tot t ON t.user_id = c.user_id LEFT JOIN sc ON sc.user_id = c.user_id AND sc.product_id = c.product_id LEFT JOIN pn ON pn.product_id = c.product_id CROSS JOIN nw n"
+ },
+ "rival": {
+  "explanation": "Neighbour sessions share the user's store or retailer and its niche assortment, so the score measures local assortment popularity rather than what comes after a similar basket.",
+  "stratum": "Users with u_main_share = 1 at small retailers, and candidates with high ag_ps_lift"
+ }
+}
+measurements: {"schema_problems": [], "card": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_sknn_next_share", "ag_c3_sknn_next_lift"], "seconds_median": 2.51, "coverage": {"ag_c3_sknn_next_share": 0.865, "ag_c3_sknn_next_lift": 0.865}, "batch_invariant": false, "max_abs_rho": {"ag_c3_sknn_next_share": 0.458, "ag_c3_sknn_next_lift": 0.273}, "nearest": {"ag_c3_sknn_next_share": "popr_rank", "ag_c3_sknn_next_lift": "ag_ps_lift"}, "r2": {"ag_c3_sknn_next_share": 0.296, "ag_c3_sknn_next_lift": 0.117}, "non_null_share_by_day": {"ag_c3_sknn_next_share": {"probe_day_1": 0.772, "probe_day_2": 0.958}, "ag_c3_sknn_next_lift": {"probe_day_1": 0.772, "probe_day_2": 0.958}}, "parity_ok": true}, "twin": {"keys": ["user_id", "item_id"], "level": "pair", "columns": ["ag_c3_sknn_next_share_tw", "ag_c3_sknn_next_lift_tw"], "seconds_median": 2.44, "coverage": {"ag_c3_sknn_next_share_tw": 0.856, "ag_c3_sknn_next_lift_tw": 0.856}, "batch_invariant": false, "max_abs_rho": {"ag_c3_sknn_next_share_tw": 0.45, "ag_c3_sknn_next_lift_tw": 0.252}, "nearest": {"ag_c3_sknn_next_share_tw": "popr_rank", "ag_c3_sknn_next_lift_tw": "ag_ps_lift"}, "r2": {"ag_c3_sknn_next_share_tw": 0.302, "ag_c3_sknn_next_lift_tw": 0.0999}, "non_null_share_by_day": {"ag_c3_sknn_next_share_tw": {"probe_day_1": 0.764, "probe_day_2": 0.948}, "ag_c3_sknn_next_lift_tw": {"probe_day_1": 0.764, "probe_day_2": 0.948}}, "parity_ok": true}, "twin_check": {"verdict": "TWIN-BROKEN", "reasons": ["card machine test red: batch: the answer depends on the batch of active_users ({\"probe_day_1\": \"batch invariance: values of the first 1000 probe users differ between the full probe and its two halves\"})", "twin machine test red: batch: the answer depends on the batch of active_users ({\"probe_day_2\": \"batch invariance: values of the first 1000 probe users differ between the full probe and its two halves\", \"probe_day_1\": \"batch invariance: values of the first 1000 probe users differ between the full probe and its two halves\"})"]}, "machine_red": ["batch: the answer depends on the batch of active_users ({\"probe_day_1\": \"batch invariance: values of the first 1000 probe users differ between the full probe and its two halves\"})"]}
+critiques: [
+ {
+  "type": "LEAK",
+  "text": "Machine test red on batch invariance: values for the first 1000 users differ between the full probe and its halves, and the twin fails the same way. The likely clause is the top-k cut in nbk, row_number() OVER (PARTITION BY user_id ORDER BY sim DESC, order_id). sim is a float sum of 1/ln(1+n_o), and its rounding depends on hash-aggregation order, which changes with batch size, so near-ties flip neighbours in and out of the top 50. The card cannot enter as is.",
+  "kill_test": "Round sim (for example to 1e-9) or use integer-weighted similarity before ranking, then rerun the half-batch test. If it still fails, look for another cand-dependent clause.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The twin only shuffles which order counts as 'next' (lead by hash), yet it leaves the columns almost unchanged: R2 0.296 vs 0.302 to popr_rank, and coverage 0.865 vs 0.856. 'What comes after a similar basket' therefore adds nothing beyond 'what similar shoppers buy at all', which supports the local-assortment rival.",
+  "kill_test": "Twin as a factor once batch invariance is fixed. If the real columns do not beat the twin among users whose latest order has 3+ niche seeds, the sequential mechanism is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "LEAK",
+  "text": "The batch-invariance test fails on probe_day_1, and the twin fails on both days. The top-50 cut ranks neighbour sessions by a floating sum, sim DESC, and near-ties flip with the batch, as in C09.",
+  "kill_test": "Key level: recompute with round(sim, 6) in the ranking. If the batch test still fails, the family is invalid.",
+  "by": "critic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The time-shuffled twin matches the card's profile: share rho 0.45 versus 0.458 to popr_rank, coverage 0.856 versus 0.865. Successor orders picked at random work as well as true successors, so the score is local assortment popularity (the rival), not what comes after a similar basket.",
+  "kill_test": "Twin as a factor: if the twin's gain on the niche-last-order stratum matches the card's, sequencing is refuted.",
+  "by": "critic"
+ },
+ {
+  "type": "LEAK",
+  "text": "Machine test red: the card is batch-dependent on probe_day_1, and the twin on both days. The top-50 neighbour sessions in nbk are ranked on float sums of sim, so ties depend on the batch.",
+  "kill_test": "Batch invariance on the halves. Any difference keeps the card invalid.",
+  "by": "skeptic"
+ },
+ {
+  "type": "MECHANISM_DOUBT",
+  "text": "The time-shuffled twin keeps the same profile: rho 0.45 to popr_rank versus 0.458, and lift 0.252 versus 0.273. So 'what comes next' is not what the score measures. It is local assortment popularity, which is the rival.",
+  "kill_test": "Twin as a factor: an equal gain refutes the next-order path.",
+  "by": "skeptic"
+ },
+ {
+  "type": "LEAK",
+  "text": "Veto: the machine batch-invariance test is red on probe_day_1, and the twin is red on both days. cand and users act only as filters (lastord, pn), so the suspected source is the float sum(1.0 / ln(1.0 + s.n_o)) in nb. Its rounding depends on the parallel plan, which changes with batch size, and it feeds row_number() OVER (PARTITION BY user_id ORDER BY sim DESC, order_id) <= 50 in nbk. Near-ties then flip the top-50 cut, and tot and sc change with it.",
+  "kill_test": "Rerun the machine batch test with sim rounded to 1e-9 (or computed as an exact DECIMAL) before the nbk ranking. If it stays red, the batch dependence is structural rather than float noise.",
+  "by": "auditor"
+ }
+]
+
+Answer with a JSON list only:
+[{"card": "G3-1", "action": "revise", "new": {"name": "...", "level": "...", "mechanism": "...", ...}},
+ {"card": "...", "action": "withdraw", "reason": "..."}]
