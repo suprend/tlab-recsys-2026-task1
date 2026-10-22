@@ -38,7 +38,7 @@ uv sync --locked
 ```
 
 - Python 3.12 (`.python-version`; у автора 3.12.14).
-- Версии зафиксированы в `pyproject.toml` и `uv.lock`: catboost 1.2.10, duckdb 1.5.6, pandas 3.0.6, numpy 2.5.4.
+- Версии: catboost 1.2.10 и duckdb 1.5.6 закреплены в `pyproject.toml`, pandas 3.0.6 и numpy 2.5.4 — в `uv.lock`.
 - Машина автора: Apple M3 Pro, 12 CPU, 36 ГБ памяти, macOS 26.3. На других машинах путь не проверялся.
 - Потоки: сборка дней и CatBoost — 10, песочница — 8.
 - Память. Пул обучения на train + val из `days6` — 16.6 млн строк, 9.3 ГБ, из `days` — 8.4 ГБ. Пик памяти процесса при чтении — 29.6 ГБ ([журнал экспериментов](task1-night-2026-10-20.md)). Меньший объём памяти не проверялся.
@@ -107,7 +107,7 @@ EOF
 
 ### 4 источника
 
-Таблицы `artifacts/task1/v2/days` (4 источника, 76 признаков) нужны базе на 4 источниках: очередям q1 и q6, ветке `base_4src` теста и эвристикам `task1.baseline`. Текущий `build.py` их не строит: источники с тех пор расширены. Их строит код коммита e875b84. Данные и артефакты не в Git, поэтому общие для всех коммитов. Окружение (`pyproject.toml`, `uv.lock`) и `task1/data.py` с e875b84 не менялись.
+Таблицы `artifacts/task1/v2/days` (4 источника, 76 признаков) нужны базе на 4 источниках: очередям q1 и q6, ветке `base_4src` теста и эвристикам `task1.baseline`. Текущий `build.py` их не строит: источники с тех пор расширены. Их строит код коммита e875b84. Данные и артефакты не в Git, поэтому общие для всех коммитов. Окружение (`pyproject.toml`, `uv.lock`) с e875b84 не менялось. В `task1/data.py` изменились только docstring и выбор путей через `task1.period`: SQL импорта и пути 2019 те же.
 
 ```bash
 git status --short   # в отслеживаемых файлах не должно быть изменений
@@ -327,7 +327,7 @@ LLM-агент (`task1/agent.py`) по раундам предлагает SQL-�
   --rounds 6 --per-round 5 --max-llm-calls 6 --model opus --min-gain 0.0005
 ```
 
-У автора было два запуска `--run agent_night20` с теми же аргументами. Первый — с `--config` базы, `--rounds 4 --max-llm-calls 5`. Второй продолжил его: `--rounds 2 --max-llm-calls 6`.
+У автора было два запуска с одним `--run agent_night20`, оба с `--per-round 5 --model opus --min-gain 0.0005`. Первый — с `--config` базы, `--rounds 4 --max-llm-calls 5`. Второй продолжил его: `--rounds 2 --max-llm-calls 6`.
 
 - `--config` по умолчанию — `days6` с глубиной 6, а база отчёта — глубина 8. Поэтому при первом запуске `--config` обязателен.
 - Продолжение `--run <id>` берёт из `log.jsonl` историю попыток, конфигурацию и прокси (`--proxy`, у автора пустой).
@@ -579,7 +579,7 @@ diff /tmp/posthoc-recency.json docs/xfer-sber-run/posthoc-recency.json
 
 ### Что воспроизводится без LLM, а что нет
 
-- **Вызовы Opus не повторяются.** Роли совета — `claude -p <промпт> --model opus --output-format json --tools '' --strict-mcp-config` из пустого каталога: `/tmp/tlab-council-llm` у REES46, `/tmp/tlab-council-llm-a` или `-b` у переноса. Через LLM идут стадии `reference` (с одним вызовом `reference-fix` на упавшие предложения), `wave1`, `cross` и `authors`. Их итоги под Git: `reference-rb<k>.json`, `cards-wave1.json`, `critiques.json`, `cards-final.json`, промпты `prompts/`, ответы `replies/`, журнал `llm.jsonl` с ценой вызовов. Стадии возобновляются по своему файлу: записанное второй запуск у LLM не спрашивает. На клоне они вернут закоммиченное без вызовов. Запуск в чистом каталоге — новый эксперимент.
+- **Вызовы Opus не повторяются.** Роли совета — `claude -p <промпт> --model opus --output-format json --tools '' --strict-mcp-config` из пустого каталога: `/tmp/tlab-council-llm` у REES46, `/tmp/tlab-council-llm-a` или `-b` у переноса. Через LLM идут стадии `reference` (с вызовами `reference-fix` на упавшие предложения: по два у REES46 и Tinkoff, у СберМаркета ни одного), `wave1`, `cross` и `authors`. Их итоги под Git: `reference-rb<k>.json`, `cards-wave1.json`, `critiques.json`, `cards-final.json`, промпты `prompts/`, ответы `replies/`, журнал `llm.jsonl` с ценой вызовов. Стадии возобновляются по своему файлу: записанное второй запуск у LLM не спрашивает. На клоне они вернут закоммиченное без вызовов. Запуск в чистом каталоге — новый эксперимент.
 - **Промпты REES46.** `council.tests.test_golden_rees46` пересобирает все 18 промптов `llm.jsonl` из сохранённых входов и прогоняет их через `council.llm.ask` с подменённым `claude -p`. Байт в байт совпадают 10 — `cross` (6) и `authors` (4). Восемь вызовов `reference`, `reference-fix` и `wave1` шли до правок ревью (отклонение 13 в `prereg-0.md`). В текущих шаблонах есть список слов, которые отвергает песочница; без этого блока совпадают и они. Тест закрепляет и расхождение, и его причину.
 - **Курация REES46.** Тот же тест пересобирает `curation.json` из `cards-final.json`, `probes.json` и `critiques.json` байт в байт. `council.tests.test_xfer_curate` проверяет то же для кода переноса с правилами REES46. Своего эталона курации у Tinkoff и СберМаркета нет.
 - Обоим тестам нужен кэш проб `artifacts/task1/v2020/council/probes/` (вне Git). Подтест без нужной записи пропускается с названной причиной. `test_golden_rees46` ещё читает схемы parquet `days6` и 34 таблиц H+ (`agents.context()`). Значит, нужны кэш проб и таблицы 2020 после `--prepare`.
@@ -607,7 +607,7 @@ TASK1_PERIOD=2020 .venv/bin/python -m unittest council.tests.test_xfer_curate -v
 
 - Каждый блок `<!-- report:<набор>:<таблица> -->` отчёта (или документа из `--doc`, здесь — приложения о совете) сравнивается с таблицей, построенной сейчас: числа, метки ожидания и закрытый словарь вердиктов. При расхождении — diff и код выхода 1.
 - `--dry` перечисляет найденные и недостающие входы.
-- Блок `report:rees46:costs` читает журнал подгонок `artifacts/task1/v2020/council/fits/runs.jsonl`, он вне Git. По коду на клоне без этого журнала время и пик в блоке не построятся, и `--check` по `rees46` разойдётся. Сверка `tinkoff` и `sber` читает только файлы под Git.
+- Блок `report:rees46:costs` (он есть только в приложении `task1-v2-council.md`) читает журнал подгонок `artifacts/task1/v2020/council/fits/runs.jsonl`, он вне Git. На клоне без этого журнала разойдётся `council.report rees46 --check --doc docs/task1-v2-council.md`. `rees46 --check` по самому отчёту и сверки `tinkoff` и `sber` читают только файлы под Git.
 - Описательное раскрытие без новых чтений меток (H2, H3, H1', H14): `.venv/bin/python -m council.reveal <набор>`. С `--write` оно пишет `reveal.json`.
 
 ### Тяжёлая полоса
@@ -619,10 +619,10 @@ TASK1_PERIOD=2020 .venv/bin/python -m unittest council.tests.test_xfer_curate -v
   - H9–H11 — ≈24–26 ГБ по оценке prereg.
 - Очередь и `compute` переноса, H6, H8 и H9–H11 держат `/tmp/tlab-heavy.lock` и ждут процессов REES46. `council.queue` замок не берёт. Поэтому перед каждым тяжёлым шагом REES46 нужна проверка:
 
-```bash
-.venv/bin/python -c "from council.xfer.queue import lock_holder; print(lock_holder())" \
- && ! pgrep -fl '[c]ouncil/xfer/run.py.*(queue|compute|fit-one)|[c]ouncil\.(fit|queue|memory)|[c]ouncil[./]side|[c]ouncil\.agents.*compute|scripts[./]xfer_'
-```
+  ```bash
+  .venv/bin/python -c "from council.xfer.queue import lock_holder; print(lock_holder())" \
+   && ! pgrep -fl '[c]ouncil/xfer/run.py.*(queue|compute|fit-one)|[c]ouncil\.(fit|queue|memory)|[c]ouncil[./]side|[c]ouncil\.agents.*compute|scripts[./]xfer_'
+  ```
 
   Ожидается `None` и пустой `pgrep`. Шаблон шире проверки из плана ночи: в нём ещё `compute` REES46 и скрипты `scripts/xfer_*`, как в `FOREIGN` из `council/xfer/queue.py`.
 - Гейт проб есть только у переноса и у H13. Там проба — лёгкий шаг: 4 потока, DuckDB 4 ГБ, гейт перед каждой пробой. Она идёт рядом с тяжёлым шагом, только если его записанный пик не выше 20 ГБ (`PEAK_LIMIT_GB`). Рядом с подгонками REES46 `full_val` и `full_test`, `council.memory` и `compute` она не идёт.

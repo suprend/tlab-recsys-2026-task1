@@ -264,7 +264,7 @@ def t_calibration(src: Source) -> str:
     passed = cal.get('passed')
     rows = [[num(cal.get('sd_t'), 3), f'[{num(lo, 3)}, {num(hi, 3)}]', pval(cal.get('p_wy_empty')),
              DASH if passed is None else ('пройдена' if passed else 'не пройдена')]]
-    out = table(['SD t пустых', 'интервал репетиции', 'WY p (max |t| пустых)', 'калибровка'], rows)
+    out = table(['SD t пустых', 'интервал репетиции', 'WY p (max \\|t\\| пустых)', 'калибровка'], rows)
     if src.xfer and 'D' in res:
         out += f"\n\nD (номинированы планом): {', '.join(res['D']) or 'пусто'}; вычитание: {res.get('subtraction', DASH)}"
     return out
