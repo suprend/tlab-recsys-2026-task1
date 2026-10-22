@@ -1,0 +1,1133 @@
+{
+ "g1_1": {
+  "sql_sha256": "be3a5a7becdbdc6f33e4368bde06b443e8a5f2233114077c39974aebd156b693",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g2_1": {
+  "sql_sha256": "44455950d84e735be32da828d322cfde73a1d34bb327827c014a3687aed4c5a5",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g3_2": {
+  "sql_sha256": "f09084ca885cc0857aa9c6c729717a886acfd0ac878d99520e04c0692ee14f28",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g4_3": {
+  "sql_sha256": "9eb11c9dca9ed0781d1a70bf050295fcf85cffaa64a4e6e7a8125dd96c84ac2a",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g1_2": {
+  "sql_sha256": "573d1dcd39b3d7886f89f60f738dfdddba48b62dad7a8354dd86bb2ade023ddf",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g2_2": {
+  "sql_sha256": "68f8d54c2233b187188c35134beaadaf656c458ebaea414fae3c019fa4988d8b",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g3_3": {
+  "sql_sha256": "2bcbe8644719d911e1d13997d7e224d29bd1c7999fa83a4bec4d45ef29744dc9",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g4_7": {
+  "sql_sha256": "78f4fd1566a4eca46b59b1d30e17242d35eeb6031814c4af406b13e55617fc58",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g1_4": {
+  "sql_sha256": "7dd9baf9bdef61f470049ae3c271fd2a0e0d78c6cfb1a4e26ea3476f3407e0c2",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g2_3": {
+  "sql_sha256": "4fe997e75d416607945af85ac4744cc4eb374a2402c658c8c4bd1c7d6428b74f",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g3_4": {
+  "sql_sha256": "ff656bb0ba35e33db468ecb6807c69546f9fa8117de5389fcf84ccadb6ed6228",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g4_8": {
+  "sql_sha256": "f6a4f5f6abfd5efd0e19ab07a9e10c62aea02f6d2c80aa1e754ce19f5732dae1",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g1_2_tw": {
+  "sql_sha256": "1771c225273fe7abe1cb851c7242758a6b5e6c86f1ff2c87d5736b93ced52db6",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g2_1_tw": {
+  "sql_sha256": "675abadb384f8d922c44d5b43a17e6bd2e2f1e7041a999dd900a50a8863d3269",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g3_2_tw": {
+  "sql_sha256": "9ec5b0b290388243331e4b1185803c5813ea11c4976e4706933ae925934253f6",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "g4_3_tw": {
+  "sql_sha256": "484349ec4e9dbb3a03c505c0487dd04c3809481adfc7b63fc3f89a268a31b94c",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb1_newcomer_share": {
+  "sql_sha256": "0a547d97aeb93ec98ce053ef117d19235bb8e6026c7975163b94252e8e305e9c",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb1_basket_context": {
+  "sql_sha256": "e1dcee16fa96265550914d452e6ae26d16634aeeada76a1a2bb0af4cb5a351f4",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb1_precursor_share": {
+  "sql_sha256": "2f22b268e93535c0c964506a74b240cfc6a7ca8fff9f43a035c4d784425cd62c",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb1_backward_transition": {
+  "sql_sha256": "3b984446764df560cda41d30c84917ae7b9f40aca72cd3b3776a648e201c18fc",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb1_user_taste_spread": {
+  "sql_sha256": "cd6411e9b33c8355812cd9cf7578ba4846f099a41d95b8ecb271019b52ef6800",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb1_history_coherence": {
+  "sql_sha256": "38f341ab0ec8560e9c596b4303783c041b1c292a3e29c1d093d30fed2d03d12d",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb1_variant_hunter": {
+  "sql_sha256": "4f8b6faf29a178ec6cc4e9e406631bb88063253352e697b4cc6206df3448fc49",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb1_strong_neighbor_support": {
+  "sql_sha256": "d65bc5f39e39a04c495bced2a9e001f687808b931fbeb13d2414173340870738",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb1_early_adopter": {
+  "sql_sha256": "9251d5fd7ea4b74337cbd9068d25385442c88c539f7385c7ea2528e63f7d8b64",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb1_rp3_walk": {
+  "sql_sha256": "72cec25c75d039b553fcf81462e6a13c8c128a599d3a4e825374da6626f38328",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb1_bigram_transition": {
+  "sql_sha256": "811791bf1538c228c074cbd4bd44397702ead67e6696a0b5428b7a74b3174c72",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb2_newcomer_draw": {
+  "sql_sha256": "ed8e7bd7b70ccd8bfcb0008706c33eb02363802249b8baec6f4e289dc93e46ee",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ },
+ "rb2_adopter_tenure_gap": {
+  "sql_sha256": "370a2f4b6791645f1f12b6fd17286f15ea5d257ee2d50e2bbbf77a9ffe4f6e43",
+  "status": "done",
+  "collections": [
+   "holdout-671",
+   "train-461",
+   "train-491",
+   "train-521",
+   "train-551",
+   "train-581",
+   "train-611",
+   "val-641"
+  ],
+  "error": null,
+  "identity": {
+   "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+    "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+    "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+   },
+   "council": {
+    "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+    "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+    "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+    "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+    "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+    "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+    "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+    "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+   }
+  }
+ }
+}
