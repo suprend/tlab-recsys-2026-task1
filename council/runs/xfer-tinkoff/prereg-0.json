@@ -1,0 +1,651 @@
+{
+ "dataset": "tinkoff",
+ "path_checks": {
+  "select": {
+   "kind": "select",
+   "name": "path_select-Hr-2026",
+   "ref": "dev/BA2026",
+   "same_queries": true,
+   "max_abs_diff": 0.0,
+   "ok": true
+  },
+  "test": {
+   "kind": "test",
+   "name": "path_test-Hr-2026",
+   "ref": "holdout/BA2026",
+   "same_queries": true,
+   "max_abs_diff": 0.0,
+   "ok": true
+  }
+ },
+ "path_ok": true,
+ "path_tolerance": {
+  "value": 1e-09,
+  "reason": "contract §3.1",
+  "explicit": false,
+  "max_abs_diff": {
+   "select": 0.0,
+   "test": 0.0
+  }
+ },
+ "deviation_6_8": null,
+ "noise_fits": [
+  "noise-Hr-7",
+  "noise-Hr-11"
+ ],
+ "explore_queries": 5302,
+ "users": 5302,
+ "sigma_q": 0.020602616594807617,
+ "deff": 1.0,
+ "seed_mean_shift_abs": 6.800158901089013e-05,
+ "s0_frame_users": {
+  "all": 10602,
+  "A": 5302,
+  "B": 5300
+ },
+ "explore_check": {
+  "frame_half_users": 5302,
+  "explore_queries": 5302,
+  "equal": true
+ },
+ "select_queries_expected": 5300,
+ "rehearsal": {
+  "power": 0.9945,
+  "sd_t_interval": [
+   0.36671250100979474,
+   0.8476491696069465
+  ],
+  "sd_t_median": 0.6783036199998306,
+  "false_rate": 0.0105,
+  "calib_fail_rate": 0.05,
+  "gate": true,
+  "n_q": 5300,
+  "n_sim": 2000,
+  "beta_harm": -0.0005,
+  "exact": false,
+  "seed": 2026,
+  "sigma_fit": 0.0,
+  "deff": 1.0,
+  "se_boot": 8.169468880227568e-05
+ },
+ "rehearsal_layout": {
+  "n_families": 12,
+  "n_twins": 4
+ },
+ "sensitivity": {
+  "deff1": {
+   "power": 0.9945,
+   "sd_t_interval": [
+    0.36671250100979474,
+    0.8476491696069465
+   ],
+   "false_rate": 0.0105,
+   "gate": true
+  },
+  "sigma_fit_1": {
+   "power": 0.8925,
+   "sd_t_interval": [
+    0.4869032377877046,
+    0.9144400079117535
+   ],
+   "false_rate": 0.054,
+   "gate": true
+  },
+  "beta_-0.001": {
+   "power": 1.0,
+   "sd_t_interval": [
+    0.36671250100979474,
+    0.8476491696069465
+   ],
+   "false_rate": 0.0105,
+   "gate": true
+  }
+ },
+ "power": 0.9945,
+ "gate": true,
+ "rule": "SEL = ALL_P minus D after the nomination and the confirmation of D",
+ "expected_gate": "не пройден: SEL = ALL_P по построению, план описательный (контракт §6.5)",
+ "shares_before_test": "доли запросов с целью до теста не считаются и не сравниваются; после чтения C_test — описательно в квитанции (контракт §1, §6.10)",
+ "test": "повторный тест (контракт §0): якоря C_test открыты цепочкой xfer, вывод — первая проверка",
+ "identity": {
+  "code": {
+   "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+   "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+   "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+   "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+   "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+   "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+   "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+   "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+   "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+   "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+  },
+  "council": {
+   "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+   "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+   "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+   "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+   "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+   "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+   "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+   "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+  }
+ },
+ "fits": {
+  "path_select-Hr-2026": {
+   "spec": {
+    "name": "path_select-Hr-2026",
+    "phase": "path_select",
+    "arm": "Hr",
+    "seed": 2026,
+    "half": null,
+    "tables": [],
+    "placebo": null,
+    "selection_sha256": null
+   },
+   "data": {
+    "collections": {
+     "train-461": "3d34827bf7e269b7dfac241ab166adc31dfd4ecacaf4ddab77aada9efa385303",
+     "train-491": "7ec05daa9fd78fb9794de177592ac85f9f7fe10f230b8dc014a2293f14e25ef0",
+     "train-521": "cc2d5ed0611ddc7571f7a6bb8b5845345718e56d99a0243e3e3f5c176630391c",
+     "train-551": "d579232f95525b26ebbcbb044863479007820e86c7f10b5e2d9b345047e19338",
+     "train-581": "58a5a31092451a97cc88359c1105b3b277d44bb43c233c11fd880f84166370f2",
+     "train-611": "a18e7d4f582009749e08f528c93d88df4bf564d5df9bc0289b85b88b1050ff1b",
+     "val-641": "651d8327747fd103619dde7ed236b721d11c80f8e99770fae601286b7ddb4840"
+    },
+    "sidecars": {
+     "train-461": "f56a814bcb87787ccdbea5f1610fd45bfa3783c8b7d7ecb95bd68ac67e4d8c4b",
+     "train-491": "a5678818971e5f47b05005128c12ad34a81b545a2d3c6f927ba78e2a66abf383",
+     "train-521": "b2a413fd2dae803127fdaa6b6f5c9d2c8a272c401d836447acfb48569d20dac3",
+     "train-551": "8fef848afa9e93114f4cee6219988fb8b50cd48e27ef653009b2525150ab08db",
+     "train-581": "d5819aa6083eb87a63dde39dc8e714bcbcd64813df4a4b5cedbc35b15a6fb2d2",
+     "train-611": "22b11b53407be6de472b4f6a8951c12ea55870426a0ba004a1d8a74d174baafa",
+     "val-641": "9c2b5bae2193d6d6948a3e9c5e3d576d5cd1b0797eb8e4f6e6de993f152f8537"
+    },
+    "tables": {},
+    "selection_sha256": null
+   },
+   "populations": [
+    {
+     "anchor": 461,
+     "collection": "train-461",
+     "manifest_sha256": "3d34827bf7e269b7dfac241ab166adc31dfd4ecacaf4ddab77aada9efa385303",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "f35603e8de2f306bbc92c1cb802cd9a101783787017fe2d84d431d1dbe4e7f99"
+    },
+    {
+     "anchor": 491,
+     "collection": "train-491",
+     "manifest_sha256": "7ec05daa9fd78fb9794de177592ac85f9f7fe10f230b8dc014a2293f14e25ef0",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "598bf347f84ab814cc1a96092002d3909b8a8f03abae873b07280b520db9557c"
+    },
+    {
+     "anchor": 521,
+     "collection": "train-521",
+     "manifest_sha256": "cc2d5ed0611ddc7571f7a6bb8b5845345718e56d99a0243e3e3f5c176630391c",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "af764e2b391d91681c97073cdf57909b4d5d6d3757b841c37b7431f1ca6b3ebe"
+    },
+    {
+     "anchor": 551,
+     "collection": "train-551",
+     "manifest_sha256": "d579232f95525b26ebbcbb044863479007820e86c7f10b5e2d9b345047e19338",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "39bdd59079b11d5439191446db0b7cc0f150790217737b08405bf23d0c3b213e"
+    },
+    {
+     "anchor": 581,
+     "collection": "train-581",
+     "manifest_sha256": "58a5a31092451a97cc88359c1105b3b277d44bb43c233c11fd880f84166370f2",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "57956f78d8f868cd8a347ebd673d98842505c9d82874a26fe8ad6fc72009ba24"
+    },
+    {
+     "anchor": 611,
+     "collection": "train-611",
+     "manifest_sha256": "a18e7d4f582009749e08f528c93d88df4bf564d5df9bc0289b85b88b1050ff1b",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "3f5e76a4ad55b8b1c3667aa1a938c8bec367c696f5464e1c2e0ebc0d0010075e"
+    }
+   ],
+   "identity": {
+    "code": {
+     "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+     "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+     "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+     "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+     "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+     "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+     "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+     "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+     "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+     "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+    },
+    "council": {
+     "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+     "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+     "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+     "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+     "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+     "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+     "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+     "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+    }
+   },
+   "peak_rss_gb": 8.55,
+   "seconds": {
+    "train": 189,
+    "score": 2,
+    "write": 0
+   },
+   "commit": "1b36cc41adb8779e468d3c9281e8affdda8582e5",
+   "dirty": false
+  },
+  "path_test-Hr-2026": {
+   "spec": {
+    "name": "path_test-Hr-2026",
+    "phase": "path_test",
+    "arm": "Hr",
+    "seed": 2026,
+    "half": null,
+    "tables": [],
+    "placebo": null,
+    "selection_sha256": null
+   },
+   "data": {
+    "collections": {
+     "train-461": "3d34827bf7e269b7dfac241ab166adc31dfd4ecacaf4ddab77aada9efa385303",
+     "train-491": "7ec05daa9fd78fb9794de177592ac85f9f7fe10f230b8dc014a2293f14e25ef0",
+     "train-521": "cc2d5ed0611ddc7571f7a6bb8b5845345718e56d99a0243e3e3f5c176630391c",
+     "train-551": "d579232f95525b26ebbcbb044863479007820e86c7f10b5e2d9b345047e19338",
+     "train-581": "58a5a31092451a97cc88359c1105b3b277d44bb43c233c11fd880f84166370f2",
+     "train-611": "a18e7d4f582009749e08f528c93d88df4bf564d5df9bc0289b85b88b1050ff1b",
+     "val-641": "651d8327747fd103619dde7ed236b721d11c80f8e99770fae601286b7ddb4840",
+     "holdout-671": "c939cb563d1b6d3be96c6fa6854ff096cc803b89685bea136900363ec48e4145"
+    },
+    "sidecars": {
+     "train-461": "f56a814bcb87787ccdbea5f1610fd45bfa3783c8b7d7ecb95bd68ac67e4d8c4b",
+     "train-491": "a5678818971e5f47b05005128c12ad34a81b545a2d3c6f927ba78e2a66abf383",
+     "train-521": "b2a413fd2dae803127fdaa6b6f5c9d2c8a272c401d836447acfb48569d20dac3",
+     "train-551": "8fef848afa9e93114f4cee6219988fb8b50cd48e27ef653009b2525150ab08db",
+     "train-581": "d5819aa6083eb87a63dde39dc8e714bcbcd64813df4a4b5cedbc35b15a6fb2d2",
+     "train-611": "22b11b53407be6de472b4f6a8951c12ea55870426a0ba004a1d8a74d174baafa",
+     "val-641": "9c2b5bae2193d6d6948a3e9c5e3d576d5cd1b0797eb8e4f6e6de993f152f8537",
+     "holdout-671": "882fd5f2882d9ebed83e9afd3732c9f6e29746ed61c2d238e37ebf7dac657f54"
+    },
+    "tables": {},
+    "selection_sha256": null
+   },
+   "populations": [
+    {
+     "anchor": 461,
+     "collection": "train-461",
+     "manifest_sha256": "3d34827bf7e269b7dfac241ab166adc31dfd4ecacaf4ddab77aada9efa385303",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "f35603e8de2f306bbc92c1cb802cd9a101783787017fe2d84d431d1dbe4e7f99"
+    },
+    {
+     "anchor": 491,
+     "collection": "train-491",
+     "manifest_sha256": "7ec05daa9fd78fb9794de177592ac85f9f7fe10f230b8dc014a2293f14e25ef0",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "598bf347f84ab814cc1a96092002d3909b8a8f03abae873b07280b520db9557c"
+    },
+    {
+     "anchor": 521,
+     "collection": "train-521",
+     "manifest_sha256": "cc2d5ed0611ddc7571f7a6bb8b5845345718e56d99a0243e3e3f5c176630391c",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "af764e2b391d91681c97073cdf57909b4d5d6d3757b841c37b7431f1ca6b3ebe"
+    },
+    {
+     "anchor": 551,
+     "collection": "train-551",
+     "manifest_sha256": "d579232f95525b26ebbcbb044863479007820e86c7f10b5e2d9b345047e19338",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "39bdd59079b11d5439191446db0b7cc0f150790217737b08405bf23d0c3b213e"
+    },
+    {
+     "anchor": 581,
+     "collection": "train-581",
+     "manifest_sha256": "58a5a31092451a97cc88359c1105b3b277d44bb43c233c11fd880f84166370f2",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "57956f78d8f868cd8a347ebd673d98842505c9d82874a26fe8ad6fc72009ba24"
+    },
+    {
+     "anchor": 611,
+     "collection": "train-611",
+     "manifest_sha256": "a18e7d4f582009749e08f528c93d88df4bf564d5df9bc0289b85b88b1050ff1b",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "3f5e76a4ad55b8b1c3667aa1a938c8bec367c696f5464e1c2e0ebc0d0010075e"
+    },
+    {
+     "anchor": 641,
+     "collection": "val-641",
+     "manifest_sha256": "651d8327747fd103619dde7ed236b721d11c80f8e99770fae601286b7ddb4840",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "f8fbe52ff939c3a6cfcd72284ac12b01dbf15a9986e65bd67376298d03fba255"
+    }
+   ],
+   "identity": {
+    "code": {
+     "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+     "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+     "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+     "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+     "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+     "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+     "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+     "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+     "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+     "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+    },
+    "council": {
+     "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+     "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+     "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+     "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+     "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+     "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+     "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+     "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+    }
+   },
+   "peak_rss_gb": 8.27,
+   "seconds": {
+    "train": 223,
+    "score": 2,
+    "write": 0
+   },
+   "commit": "47aea177bcac8fb9fc64b3157cd12b2bf5d5a749",
+   "dirty": false
+  },
+  "noise-Hr-7": {
+   "spec": {
+    "name": "noise-Hr-7",
+    "phase": "noise",
+    "arm": "Hr",
+    "seed": 7,
+    "half": "A",
+    "tables": [],
+    "placebo": null,
+    "selection_sha256": null
+   },
+   "data": {
+    "collections": {
+     "train-461": "3d34827bf7e269b7dfac241ab166adc31dfd4ecacaf4ddab77aada9efa385303",
+     "train-491": "7ec05daa9fd78fb9794de177592ac85f9f7fe10f230b8dc014a2293f14e25ef0",
+     "train-521": "cc2d5ed0611ddc7571f7a6bb8b5845345718e56d99a0243e3e3f5c176630391c",
+     "train-551": "d579232f95525b26ebbcbb044863479007820e86c7f10b5e2d9b345047e19338",
+     "train-581": "58a5a31092451a97cc88359c1105b3b277d44bb43c233c11fd880f84166370f2",
+     "train-611": "a18e7d4f582009749e08f528c93d88df4bf564d5df9bc0289b85b88b1050ff1b",
+     "val-641": "651d8327747fd103619dde7ed236b721d11c80f8e99770fae601286b7ddb4840"
+    },
+    "sidecars": {
+     "train-461": "f56a814bcb87787ccdbea5f1610fd45bfa3783c8b7d7ecb95bd68ac67e4d8c4b",
+     "train-491": "a5678818971e5f47b05005128c12ad34a81b545a2d3c6f927ba78e2a66abf383",
+     "train-521": "b2a413fd2dae803127fdaa6b6f5c9d2c8a272c401d836447acfb48569d20dac3",
+     "train-551": "8fef848afa9e93114f4cee6219988fb8b50cd48e27ef653009b2525150ab08db",
+     "train-581": "d5819aa6083eb87a63dde39dc8e714bcbcd64813df4a4b5cedbc35b15a6fb2d2",
+     "train-611": "22b11b53407be6de472b4f6a8951c12ea55870426a0ba004a1d8a74d174baafa",
+     "val-641": "9c2b5bae2193d6d6948a3e9c5e3d576d5cd1b0797eb8e4f6e6de993f152f8537"
+    },
+    "tables": {},
+    "selection_sha256": null
+   },
+   "populations": [
+    {
+     "anchor": 461,
+     "collection": "train-461",
+     "manifest_sha256": "3d34827bf7e269b7dfac241ab166adc31dfd4ecacaf4ddab77aada9efa385303",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "f35603e8de2f306bbc92c1cb802cd9a101783787017fe2d84d431d1dbe4e7f99"
+    },
+    {
+     "anchor": 491,
+     "collection": "train-491",
+     "manifest_sha256": "7ec05daa9fd78fb9794de177592ac85f9f7fe10f230b8dc014a2293f14e25ef0",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "598bf347f84ab814cc1a96092002d3909b8a8f03abae873b07280b520db9557c"
+    },
+    {
+     "anchor": 521,
+     "collection": "train-521",
+     "manifest_sha256": "cc2d5ed0611ddc7571f7a6bb8b5845345718e56d99a0243e3e3f5c176630391c",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "af764e2b391d91681c97073cdf57909b4d5d6d3757b841c37b7431f1ca6b3ebe"
+    },
+    {
+     "anchor": 551,
+     "collection": "train-551",
+     "manifest_sha256": "d579232f95525b26ebbcbb044863479007820e86c7f10b5e2d9b345047e19338",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "39bdd59079b11d5439191446db0b7cc0f150790217737b08405bf23d0c3b213e"
+    },
+    {
+     "anchor": 581,
+     "collection": "train-581",
+     "manifest_sha256": "58a5a31092451a97cc88359c1105b3b277d44bb43c233c11fd880f84166370f2",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "57956f78d8f868cd8a347ebd673d98842505c9d82874a26fe8ad6fc72009ba24"
+    },
+    {
+     "anchor": 611,
+     "collection": "train-611",
+     "manifest_sha256": "a18e7d4f582009749e08f528c93d88df4bf564d5df9bc0289b85b88b1050ff1b",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "3f5e76a4ad55b8b1c3667aa1a938c8bec367c696f5464e1c2e0ebc0d0010075e"
+    }
+   ],
+   "identity": {
+    "code": {
+     "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+     "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+     "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+     "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+     "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+     "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+     "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+     "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+     "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+     "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+    },
+    "council": {
+     "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+     "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+     "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+     "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+     "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+     "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+     "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+     "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+    }
+   },
+   "peak_rss_gb": 8.58,
+   "seconds": {
+    "train": 190,
+    "score": 2,
+    "write": 0
+   },
+   "commit": "47aea177bcac8fb9fc64b3157cd12b2bf5d5a749",
+   "dirty": false
+  },
+  "noise-Hr-11": {
+   "spec": {
+    "name": "noise-Hr-11",
+    "phase": "noise",
+    "arm": "Hr",
+    "seed": 11,
+    "half": "A",
+    "tables": [],
+    "placebo": null,
+    "selection_sha256": null
+   },
+   "data": {
+    "collections": {
+     "train-461": "3d34827bf7e269b7dfac241ab166adc31dfd4ecacaf4ddab77aada9efa385303",
+     "train-491": "7ec05daa9fd78fb9794de177592ac85f9f7fe10f230b8dc014a2293f14e25ef0",
+     "train-521": "cc2d5ed0611ddc7571f7a6bb8b5845345718e56d99a0243e3e3f5c176630391c",
+     "train-551": "d579232f95525b26ebbcbb044863479007820e86c7f10b5e2d9b345047e19338",
+     "train-581": "58a5a31092451a97cc88359c1105b3b277d44bb43c233c11fd880f84166370f2",
+     "train-611": "a18e7d4f582009749e08f528c93d88df4bf564d5df9bc0289b85b88b1050ff1b",
+     "val-641": "651d8327747fd103619dde7ed236b721d11c80f8e99770fae601286b7ddb4840"
+    },
+    "sidecars": {
+     "train-461": "f56a814bcb87787ccdbea5f1610fd45bfa3783c8b7d7ecb95bd68ac67e4d8c4b",
+     "train-491": "a5678818971e5f47b05005128c12ad34a81b545a2d3c6f927ba78e2a66abf383",
+     "train-521": "b2a413fd2dae803127fdaa6b6f5c9d2c8a272c401d836447acfb48569d20dac3",
+     "train-551": "8fef848afa9e93114f4cee6219988fb8b50cd48e27ef653009b2525150ab08db",
+     "train-581": "d5819aa6083eb87a63dde39dc8e714bcbcd64813df4a4b5cedbc35b15a6fb2d2",
+     "train-611": "22b11b53407be6de472b4f6a8951c12ea55870426a0ba004a1d8a74d174baafa",
+     "val-641": "9c2b5bae2193d6d6948a3e9c5e3d576d5cd1b0797eb8e4f6e6de993f152f8537"
+    },
+    "tables": {},
+    "selection_sha256": null
+   },
+   "populations": [
+    {
+     "anchor": 461,
+     "collection": "train-461",
+     "manifest_sha256": "3d34827bf7e269b7dfac241ab166adc31dfd4ecacaf4ddab77aada9efa385303",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "f35603e8de2f306bbc92c1cb802cd9a101783787017fe2d84d431d1dbe4e7f99"
+    },
+    {
+     "anchor": 491,
+     "collection": "train-491",
+     "manifest_sha256": "7ec05daa9fd78fb9794de177592ac85f9f7fe10f230b8dc014a2293f14e25ef0",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "598bf347f84ab814cc1a96092002d3909b8a8f03abae873b07280b520db9557c"
+    },
+    {
+     "anchor": 521,
+     "collection": "train-521",
+     "manifest_sha256": "cc2d5ed0611ddc7571f7a6bb8b5845345718e56d99a0243e3e3f5c176630391c",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "af764e2b391d91681c97073cdf57909b4d5d6d3757b841c37b7431f1ca6b3ebe"
+    },
+    {
+     "anchor": 551,
+     "collection": "train-551",
+     "manifest_sha256": "d579232f95525b26ebbcbb044863479007820e86c7f10b5e2d9b345047e19338",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "39bdd59079b11d5439191446db0b7cc0f150790217737b08405bf23d0c3b213e"
+    },
+    {
+     "anchor": 581,
+     "collection": "train-581",
+     "manifest_sha256": "58a5a31092451a97cc88359c1105b3b277d44bb43c233c11fd880f84166370f2",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "57956f78d8f868cd8a347ebd673d98842505c9d82874a26fe8ad6fc72009ba24"
+    },
+    {
+     "anchor": 611,
+     "collection": "train-611",
+     "manifest_sha256": "a18e7d4f582009749e08f528c93d88df4bf564d5df9bc0289b85b88b1050ff1b",
+     "rows": 1000000,
+     "queries": 5000,
+     "rows_sha256": "3f5e76a4ad55b8b1c3667aa1a938c8bec367c696f5464e1c2e0ebc0d0010075e"
+    }
+   ],
+   "identity": {
+    "code": {
+     "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+     "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+     "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+     "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+     "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+     "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+     "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+     "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+     "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+     "scripts/xfer_tinkoff.py": "ff318ca3cbea2590b701a040adaa201ddef4e3f137e1246de9463b3bb439ab75"
+    },
+    "council": {
+     "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+     "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+     "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+     "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+     "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+     "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+     "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+     "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+    }
+   },
+   "peak_rss_gb": 8.56,
+   "seconds": {
+    "train": 193,
+    "score": 2,
+    "write": 0
+   },
+   "commit": "47aea177bcac8fb9fc64b3157cd12b2bf5d5a749",
+   "dirty": false
+  }
+ },
+ "peak_gb": 8.58,
+ "seeds": {
+  "path": 2026,
+  "noise": [
+   7,
+   11
+  ],
+  "plan": "1000 + r",
+  "confirm": [
+   3001,
+   3002
+  ],
+  "test": {
+   "Hrp": [
+    7,
+    11,
+    13,
+    17
+   ],
+   "SEL": [
+    7,
+    11,
+    13,
+    17
+   ],
+   "Hr": [
+    7,
+    11
+   ],
+   "TWIN": [
+    7,
+    11
+   ],
+   "Rb1": [
+    7
+   ],
+   "Rb2": [
+    7
+   ]
+  }
+ }
+}
