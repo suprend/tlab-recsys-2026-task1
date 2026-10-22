@@ -1,0 +1,864 @@
+{
+ "cards": [
+  {
+   "id": "G1-1",
+   "lens": "G1",
+   "name": "category_momentum_onset",
+   "table": "g1_1",
+   "level": "pair",
+   "sql_sha256": "5c3bcb20bad015ac08a31336cc72e0ec45eb7c5866838e55d9680b5aa8efc0b5",
+   "twin_sha256": "85dcb0847cd48cd0dc26e224a3e76bba8b012c350dd84f4561a7e749ffe9a7db",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Candidates with a category, of users with orders in both 28-day blocks, where the category was bought in at least one block: EXISTS (SELECT 1 FROM orders o WHERE o.user_id = c.user_id AND o.ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY) AND EXISTS (SELECT 1 FROM orders o WHERE o.user_id = c.user_id AND o.ts >= TIMESTAMP '{A}' - INTERVAL 56 DAY AND o.ts < TIMESTAMP '{A}' - INTERVAL 28 DAY)",
+   "null_stratum": "Users without an order in one of the two blocks, where the column is NULL: NOT EXISTS (SELECT 1 FROM orders o WHERE o.user_id = c.user_id AND o.ts >= TIMESTAMP '{A}' - INTERVAL 56 DAY AND o.ts < TIMESTAMP '{A}' - INTERVAL 28 DAY)",
+   "rival": {
+    "explanation": "The gain may come from a recent (56-day) category share that is less diluted than the lifetime uc_share, not from the change between the two blocks.",
+    "stratum": "Users with long histories, where the recent share differs from the lifetime one: (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id) >= 10"
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor for momentum: if the shuffled-time momentum gives the same gain for users with orders both inside and before the last 28 days, the rising or fading mechanism is refuted."
+    },
+    {
+     "critic": "G3",
+     "type": "DUPLICATE",
+     "kill_test": "Use the twin as a factor for momentum only, within users with orders in both periods. No gain over the twin refutes the category-momentum mechanism."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: first_days keeps |rho_wq| 0.927 with its twin. If the twin columns match the gain, onset timing is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: users with orders in both periods versus users with all orders in the last 28 days."
+    },
+    {
+     "critic": "auditor",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as factor: card versus twin for uc_first_days. No difference, as rho 0.927 suggests, refutes the mechanism."
+    }
+   ]
+  },
+  {
+   "id": "G1-3",
+   "lens": "G1",
+   "name": "user_pace_shift",
+   "table": "g1_3",
+   "level": "user",
+   "sql_sha256": "786d0dbf594bdbf4e78431397e568253a8c58b4ca7a7bbba0aeb6b48f77ac1bf",
+   "twin_sha256": "90460f5291a4d390b6e29a740c0294d86c1ed62d058809ebb09cddf4ee8405ed",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Users with at least 4 orders in the window: (SELECT count(*) FROM orders o WHERE o.user_id = u.user_id) >= 4",
+   "null_stratum": "Users with at most 3 orders in the window, where the column is NULL: (SELECT count(*) FROM orders o WHERE o.user_id = u.user_id) <= 3",
+   "rival": {
+    "explanation": "The gain may come from gap irregularity: users with a dispersed gap distribution get extreme values whether or not the recent gaps are the short ones, so the column would proxy for ag_up_gap_cv-like user volatility.",
+    "stratum": "Users with an irregular history: (SELECT count(*) FROM orders o WHERE o.user_id = u.user_id) >= 6"
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: refit with overdue_med replaced by overdue_med_tw while keeping pace_accel. If MAP@50 is unchanged within noise, the overdue column carries nothing beyond ag_uc_due and should be dropped."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness: compute the family one anchor earlier and compare the per-anchor gain in the stratum of users with 4+ window orders. If the gain only appears at anchors with deep visible history, it is a window-depth artefact, not tempo."
+    },
+    {
+     "critic": "G3",
+     "type": "DUPLICATE",
+     "kill_test": "Use the twin as a factor: refit with only pace_accel versus pace_accel_tw. If the real column gives no gain over the twin in the stratum (>=4 window orders), the acceleration mechanism is refuted."
+    },
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: the gain of pace_accel among in-last-order candidates minus the gain among never-bought candidates, in the stratum versus the null stratum (<=1 order). A zero difference refutes the transition story."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor on pace_accel. If the shuffled recent gaps give the same gain, acceleration is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "SHIFT",
+     "kill_test": "Staleness: one anchor earlier."
+    },
+    {
+     "critic": "auditor",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as factor: no gain of pace_accel over its twin (rho 0.066) refutes the acceleration mechanism."
+    }
+   ]
+  },
+  {
+   "id": "G1-4",
+   "lens": "G1",
+   "name": "topup_urgency",
+   "table": "g1_4",
+   "level": "pair",
+   "sql_sha256": "0c9a43dcec4ce0450016bd6d2f99d0d794a5875deb8f249259d177c19d83ad25",
+   "twin_sha256": "6d22ed9a605dcd57522c037c14e1c6f0723c56bcc49f151d92b60d4f40e9c56f",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Repeat candidates of users who placed at least one top-up order in the window: EXISTS (SELECT 1 FROM orders o1 JOIN orders o2 ON o1.user_id = o2.user_id AND o2.ts > o1.ts AND o2.ts < o1.ts + INTERVAL 2 DAY WHERE o1.user_id = c.user_id) AND EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id)",
+   "null_stratum": "Users without any top-up order (no row): NOT EXISTS (SELECT 1 FROM orders o1 JOIN orders o2 ON o1.user_id = o2.user_id AND o2.ts > o1.ts AND o2.ts < o1.ts + INTERVAL 2 DAY WHERE o1.user_id = c.user_id)",
+   "rival": {
+    "explanation": "Top-up orders are small, so the lift may only mark products typical of small baskets, which ag_p_topup_share and ag_p_basket_rel already capture at the item level.",
+    "stratum": "Users with a small mean basket: (SELECT avg(n) FROM (SELECT count(DISTINCT l.product_id) AS n FROM lines l WHERE l.user_id = c.user_id GROUP BY l.order_id) z) < 8"
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Difference of differences: gain on repeat candidates of users with at least one top-up, minus gain on users with none (constant share), per anchor. If the difference vanishes on one anchor, the mechanism is not stable."
+    },
+    {
+     "critic": "G2",
+     "type": "RIVAL",
+     "kill_test": "Key level: replace the pair share with the item-level ag_p_topup_share times the user's top-up rate. An equal gain refutes a pair-level urgency."
+    },
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Use the twin as a factor: real versus twin among repeat candidates of users with top-ups. A twin gain of equal size refutes the urgency mechanism."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Key level: replace the pair share by item-level ag_p_topup_share. If the item column already gives the gain, or the gain concentrates on small-basket users, the urgency mechanism is refuted."
+    },
+    {
+     "critic": "auditor",
+     "type": "SHIFT",
+     "kill_test": "Staleness: compute one anchor earlier. If the gain only appears where coverage differs between anchors, refute."
+    }
+   ]
+  },
+  {
+   "id": "G1-6",
+   "lens": "G1",
+   "name": "product_cadence_shift",
+   "table": "g1_6",
+   "level": "pair",
+   "sql_sha256": "476db1bcab1a3323ac2126aa359559e1d0607e7293bd2b8f1b65488a0f7c1978",
+   "twin_sha256": "9a541df78e1e82bb593204b4e6d35128e5510d3f629f827f8b635bb2c95d8c34",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Pairs with at least 3 purchases in the window: (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) >= 3",
+   "null_stratum": "Pairs bought at most twice in the window (no row): (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) <= 2",
+   "rival": {
+    "explanation": "The gain may come from gap dispersion: pairs with one outlier gap get extreme values whichever gap is the latest, so the column would proxy for irregularity (ag_up_gap_cv).",
+    "stratum": "Pairs with many purchases, where an outlier gap is likely: (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) >= 4"
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor on last_gap_rel only. No gain over the twin in pairs with 3+ window purchases refutes the cadence-shift mechanism."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness: one anchor earlier, the sign of last_gap_rel should persist for the same pairs. A rank correlation near 0 refutes a cadence trend."
+    },
+    {
+     "critic": "G3",
+     "type": "DUPLICATE",
+     "kill_test": "Use the twin as a factor for last_gap_rel alone on pairs with >=3 window purchases. No gain over the twin refutes the cadence-shift mechanism."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor on last_gap_rel. An equal gain refutes cadence change."
+    },
+    {
+     "critic": "skeptic",
+     "type": "SHIFT",
+     "kill_test": "Staleness: one anchor earlier."
+    },
+    {
+     "critic": "auditor",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as factor: no gain of up_last_gap_rel over its twin (rho 0.0125) refutes the last-gap mechanism."
+    }
+   ]
+  },
+  {
+   "id": "G1-8",
+   "lens": "G1",
+   "name": "category_exploration_burst",
+   "table": "g1_8",
+   "level": "pair",
+   "sql_sha256": "c140fb71849117a0cec0afb3d03df36eb0c31db761b46fdcf441cad2e64b46cf",
+   "twin_sha256": "602a4fb3c290d2d77a560fe64a23b3774f257a7c1a7b8bc8608a540c2b41dffc",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Candidates whose category the user bought (another product of it) in the last 28 days, of users with visible orders before A-28: EXISTS (SELECT 1 FROM orders o WHERE o.user_id = c.user_id AND o.ts < TIMESTAMP '{A}' - INTERVAL 28 DAY) AND EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id <> c.product_id AND l.ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY AND l.master_category_id = (SELECT min(l2.master_category_id) FROM lines l2 WHERE l2.product_id = c.product_id))",
+   "null_stratum": "Candidates whose category the user did not buy in the last 28 days (NULL): NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id <> c.product_id AND l.ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY AND l.master_category_id = (SELECT min(l2.master_category_id) FROM lines l2 WHERE l2.product_id = c.product_id))",
+   "rival": {
+    "explanation": "A high new share may reflect a wide category with many substitutes, or left truncation for users whose base history is much longer than the window, rather than current exploration.",
+    "stratum": "Large categories with many distinct products: (SELECT count(DISTINCT l.product_id) FROM lines l WHERE l.master_category_id = (SELECT min(l2.master_category_id) FROM lines l2 WHERE l2.product_id = c.product_id)) >= 200"
+   },
+   "kill_tests": [
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness: rerun the query one anchor earlier. If the n_new of a user-category is driven by window truncation, users with long base histories (u_orders far above their window orders) will show inflated n_new. A gain concentrated there refutes exploration."
+    },
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Staleness: recompute one anchor earlier and restrict to users whose first window order is before A-56. If the gain in the stratum disappears there, it was truncation and activity, not exploration."
+    },
+    {
+     "critic": "G3",
+     "type": "DUPLICATE",
+     "kill_test": "Use the twin as a factor: new_share_28 against its twin within the stratum. Equal gains refute the mechanism."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: never-bought candidates in categories with new trials versus categories not bought in 28 days. If the gain disappears after excluding the candidate itself from n_new, the exploration mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G2-2",
+   "lens": "G2",
+   "name": "item_audience_growth_curve",
+   "table": "g2_2",
+   "level": "item",
+   "sql_sha256": "1dc07133a70d8e14e2223f3c9d3c78e41856455a9a7369611a151f39827626c5",
+   "twin_sha256": "5af085e587e5530f953b745c8d41f8def96c44bfe6429bcfd189ab5ce86b4d75",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Candidates with at least 20 buyers in 8 weeks whose audience moved strongly: (SELECT count(DISTINCT l.user_id) FROM lines l WHERE l.product_id = c.product_id AND l.ts > TIMESTAMP '{A}' - INTERVAL 56 DAY AND l.ts < TIMESTAMP '{A}') >= 20 AND abs(ln((1.0 + (SELECT count(DISTINCT l.user_id) FROM lines l WHERE l.product_id = c.product_id AND l.ts >= TIMESTAMP '{A}' - INTERVAL 14 DAY AND l.ts < TIMESTAMP '{A}')) / (1.0 + (SELECT count(DISTINCT l.user_id) FROM lines l WHERE l.product_id = c.product_id AND l.ts >= TIMESTAMP '{A}' - INTERVAL 56 DAY AND l.ts < TIMESTAMP '{A}' - INTERVAL 42 DAY)))) > 0.4",
+   "null_stratum": "Products with a flat audience (the same log ratio <= 0.1, at least 20 buyers in 8 weeks), and products with fewer than 20 buyers, where the column is NULL by construction",
+   "rival": {
+    "explanation": "The slope helps only as a smoothed popularity or novelty level (it correlated with ag_p_new_buyer_share), not through the direction of change.",
+    "stratum": "Products with a high new-buyer share or low volume, with equal gain for positive and negative slopes of similar magnitude"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "SHIFT",
+     "kill_test": "Staleness: recompute one anchor earlier and compare the distribution of peak_ratio for the same products. A large shift, or an equal gain from the twin on low-volume candidates of sources b and c, refutes the trend mechanism."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: compare the gain on the moved stratum (|ln ratio| > 0.4) against the flat stratum, restricted to products with 20 or more buyers in 28 days. No gain refutes the trend mechanism."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: compare the gain on the moved-audience stratum (|log ratio| > 0.4) with the flat stratum (<= 0.1). If the gain in the moved stratum is no larger, or the twin columns give the same gain as factors, the trend mechanism is refuted and only a popularity level remains."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Key level and stratum: if the gain concentrates on low-volume b/c candidates regardless of the slope's sign, the rival explains it."
+    }
+   ]
+  },
+  {
+   "id": "G2-4",
+   "lens": "G2",
+   "name": "retailer_supply_silence",
+   "table": "g2_4",
+   "level": "pair",
+   "sql_sha256": "b5492fe3edf17295bbe11c5f0cff6ad0269967be278246b40f155492e4a2d355",
+   "twin_sha256": "fb8c624ef2d74dab124815f649dcdfa62360e692ffd9bbe5601e8f43e687a76d",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Repeat pairs where the product sold at the user's main retailer in [A-28, A-7) but not in [A-7, A): EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id AND l.ts < TIMESTAMP '{A}') AND EXISTS (SELECT 1 FROM lines l JOIN orders o ON o.order_id = l.order_id WHERE l.product_id = c.product_id AND o.retailer = (SELECT o2.retailer FROM orders o2 WHERE o2.user_id = c.user_id AND o2.ts < TIMESTAMP '{A}' GROUP BY o2.retailer ORDER BY count(DISTINCT o2.order_id) DESC, max(o2.ts) DESC, o2.retailer LIMIT 1) AND l.ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY AND l.ts < TIMESTAMP '{A}' - INTERVAL 7 DAY) AND NOT EXISTS (SELECT 1 FROM lines l JOIN orders o ON o.order_id = l.order_id WHERE l.product_id = c.product_id AND o.retailer = (SELECT o2.retailer FROM orders o2 WHERE o2.user_id = c.user_id AND o2.ts < TIMESTAMP '{A}' GROUP BY o2.retailer ORDER BY count(DISTINCT o2.order_id) DESC, max(o2.ts) DESC, o2.retailer LIMIT 1) AND l.ts >= TIMESTAMP '{A}' - INTERVAL 7 DAY AND l.ts < TIMESTAMP '{A}')",
+   "null_stratum": "Pairs whose product sold at that main retailer on at least 12 of the last 14 days (continuously stocked, column near 0): (SELECT count(DISTINCT CAST(l.ts AS DATE)) FROM lines l JOIN orders o ON o.order_id = l.order_id WHERE l.product_id = c.product_id AND o.retailer = (SELECT o2.retailer FROM orders o2 WHERE o2.user_id = c.user_id AND o2.ts < TIMESTAMP '{A}' GROUP BY o2.retailer ORDER BY count(DISTINCT o2.order_id) DESC, max(o2.ts) DESC, o2.retailer LIMIT 1) AND l.ts >= TIMESTAMP '{A}' - INTERVAL 14 DAY AND l.ts < TIMESTAMP '{A}') >= 12",
+   "rival": {
+    "explanation": "Silence at the retailer is still a low-popularity marker (rarely sold products are often silent), so any gain is retailer popularity already in popr_rank and ag_pr_adopt14_main.",
+    "stratum": "Low-popularity candidates at the main retailer (popr_rank > 1000), with no dependence on whether the product sold regularly before going silent"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: the gain of silence_rel in the stratum (sold in [A-28, A-7), not in the last 7 days) minus the gain in the continuously stocked null stratum. No difference refutes availability."
+    },
+    {
+     "critic": "G4",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: compare silence_rel's gain on the stratum (sold in [A-28,A-7) but not in [A-7,A)) against the null stratum (sold on 12 or more of 14 days). No larger gain on the stratum refutes the stock-out mechanism."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: sale_days14 keeps |rho_wq| 0.810 with its twin. An equal gain refutes stock-outs in favour of retailer popularity."
+    },
+    {
+     "critic": "auditor",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as factor: no gain of pr_silence_rel over its twin (rho 0.205) refutes the silence mechanism."
+    }
+   ]
+  },
+  {
+   "id": "G2-6",
+   "lens": "G2",
+   "name": "hour_band_fit",
+   "table": "g2_6",
+   "level": "pair",
+   "sql_sha256": "64be869276f17bfb77b37928c878f570b9c392c0370c4910d9a761e6f9a5c289",
+   "twin_sha256": "9b0a134710e0da33e89c060c4bb11137db5b94c811f4ce35038c4792980d74b2",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Users with a concentrated hour habit (at least 70 percent of orders in one 4-hour band, at least 4 orders) x candidates the user never bought: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id AND l.ts < TIMESTAMP '{A}') AND (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id AND o.ts < TIMESTAMP '{A}') >= 4 AND (SELECT max(cnt) * 1.0 / sum(cnt) FROM (SELECT hour(o.ts) // 4 AS hb, count(*) AS cnt FROM orders o WHERE o.user_id = c.user_id AND o.ts < TIMESTAMP '{A}' GROUP BY hour(o.ts) // 4)) >= 0.7",
+   "null_stratum": "Users whose orders spread across bands (max band share <= 0.35) or with fewer than 2 visible orders, where the shrunk distribution is close to the global mix and the column is close to 0",
+   "rival": {
+    "explanation": "Hour bands proxy user segments (office workers vs families, store or city) whose assortment differs, so the gain is segment-level popularity already partly in ag_ps_lift and popr_rank.",
+    "stratum": "Users whose main store or city differs from the majority, independent of how concentrated their hours are"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: the gain on never-bought candidates of hour-concentrated users (>=0.7 in one band) minus the gain for spread users (<=0.35). A similar gain in both strata refutes the hour mechanism in favour of segment popularity."
+    },
+    {
+     "critic": "auditor",
+     "type": "LEAK",
+     "kill_test": "Staleness: if the values computed one anchor earlier lose the card's gain only on the test period, the leak is confirmed. If both are equally weak, there is no leak."
+    }
+   ]
+  },
+  {
+   "id": "G2-8",
+   "lens": "G2",
+   "name": "item_weekly_overdispersion",
+   "table": "g2_8",
+   "level": "item",
+   "sql_sha256": "337933dde7f5d1abafd0392ddaa878dff2e1d036ec5564883d773c4a958a71c0",
+   "twin_sha256": "30a891ed1606a2941e3efba48290c1ed4650aa3ba85f92e56ec8cf8c82acecc6",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Never-bought candidates with at least 20 buyers in 8 weeks and a spike week above twice their mean, outside the top 100 of glob_rank: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id AND l.ts < TIMESTAMP '{A}') AND (SELECT count(DISTINCT l.user_id) FROM lines l WHERE l.product_id = c.product_id AND l.ts > TIMESTAMP '{A}' - INTERVAL 56 DAY AND l.ts < TIMESTAMP '{A}') >= 20 AND (SELECT max(nb) / avg(nb) FROM (SELECT floor(epoch(TIMESTAMP '{A}' - l.ts) / 604800) AS wk, count(DISTINCT l.user_id) AS nb FROM lines l WHERE l.product_id = c.product_id AND l.ts > TIMESTAMP '{A}' - INTERVAL 56 DAY AND l.ts < TIMESTAMP '{A}' GROUP BY floor(epoch(TIMESTAMP '{A}' - l.ts) / 604800))) > 2",
+   "null_stratum": "Repeat candidates with at least 3 orders by the user, where the user's own history dominates popularity ranks: (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id AND l.ts < TIMESTAMP '{A}') >= 3",
+   "rival": {
+    "explanation": "Bursts coincide with promotions, so any gain is the promo or price effect already in ag_p_promo7 and p_trend, not the reliability of popularity ranks.",
+    "stratum": "Candidates with a high ag_p_promo7 or an extreme p_trend, with no extra gain for bursty products outside promotions"
+   },
+   "kill_tests": [
+    {
+     "critic": "G3",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: the gain on never-bought candidates with glob_rank > 100 and a spike week, minus the gain on glob_rank <= 100. Gain only in the head refutes the burst mechanism."
+    },
+    {
+     "critic": "G4",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: compare the gain on spiky never-bought candidates against top glob_rank candidates within the same p_buyers_28 decile. No within-decile gain refutes the burst mechanism."
+    },
+    {
+     "critic": "skeptic",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences on popularity-matched bins: spiky never-bought b/c candidates versus repeat candidates. If the gain sits in the top glob_rank <= 100 and not in spiky tail items, the burst mechanism is refuted."
+    }
+   ]
+  },
+  {
+   "id": "G3-1",
+   "lens": "G3",
+   "name": "seed_cooc_pmi",
+   "table": "g3_1",
+   "level": "pair",
+   "sql_sha256": "d12279ea40f1a8e75077f529017e612e463e66ff26d17bf3b692e456b8d6b264",
+   "twin_sha256": "aa8fe1b69fcfb4835a40d43405e83ebdcd53145c0ed2ebd55a48854f31f00b1a",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Candidates the user has not bought, for users with at least 3 orders in the window. Predicate: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) AND (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id) >= 3",
+   "null_stratum": "Long-standing repeat candidates, where the user's own frequency dominates. Predicate: (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) >= 5",
+   "rival": {
+    "explanation": "The lift may mostly re-encode last-order co-purchase (ag_co_last_lift), because the latest order holds many repertoire items, or niche-store co-assortment rather than complementarity.",
+    "stratum": "Candidates with high ag_co_last_lift, and users with u_main_share = 1 at small retailers"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor on the lift column, where the twin does destroy it (R2 0.121). If the real lift does not beat the twin on never-bought candidates beyond what ag_co_last_lift explains (difference of differences against the null stratum of 5+ repeats), refute."
+    },
+    {
+     "critic": "G4",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: compare the lift's gain on never-bought candidates of users with 3 or more orders against repeat candidates with 5 or more orders. No stratum-specific gain refutes the complementarity mechanism."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: the twin keeps cond at R2 0.826 to p_buyers_7. If the lift column alone gives no gain over the twin lift, the complementarity mechanism is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences between never-bought candidates of users with 3+ orders and candidates bought 5+ times. No extra gain in the never-bought stratum refutes it."
+    }
+   ]
+  },
+  {
+   "id": "G3-3",
+   "lens": "G3",
+   "name": "user_knn_neighbourhood",
+   "table": "g3_3",
+   "level": "pair",
+   "sql_sha256": "922dd86741e1c94adbd0e13258f8bcd68762863638ee9ff8f9a04a82ea2d20d0",
+   "twin_sha256": "730c956866327abcd5bb30b353ecd1da572879d31dd5e9f30b90bb940764c4e8",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Never-bought candidates of users with a broad repertoire. Predicate: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) AND (SELECT count(DISTINCT l.product_id) FROM lines l WHERE l.user_id = c.user_id) >= 20",
+   "null_stratum": "Users with almost no repertoire, so few or no neighbours. Predicate: (SELECT count(DISTINCT l.product_id) FROM lines l WHERE l.user_id = c.user_id) < 5",
+   "rival": {
+    "explanation": "Neighbours sharing niche products are mostly customers of the same store or retailer, so the score is a finer store-assortment popularity rather than taste similarity.",
+    "stratum": "Users with u_main_share >= 0.9 whose candidates have high ag_ps_share"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "LEAK",
+     "kill_test": "Rank on rounded or integer-weighted similarity and rerun the half-batch test. Persistent failure points to another cand-dependent clause."
+    },
+    {
+     "critic": "G1",
+     "type": "SHIFT",
+     "kill_test": "Staleness: run the same query one anchor earlier. If the never-bought stratum gain tracks coverage, the column flags active users rather than measuring taste."
+    },
+    {
+     "critic": "G4",
+     "type": "LEAK",
+     "kill_test": "Key level: recompute after rounding sim. If the batch test still fails, the dependence comes from the cand/users filters, and the family is invalid as written."
+    },
+    {
+     "critic": "G4",
+     "type": "SHIFT",
+     "kill_test": "Staleness: run the same query one anchor earlier. If coverage swings again by more than 0.3, the family's coverage is anchor-driven rather than user-driven."
+    },
+    {
+     "critic": "skeptic",
+     "type": "LEAK",
+     "kill_test": "Batch invariance: rerun on the two halves. Any difference keeps the card invalid."
+    },
+    {
+     "critic": "skeptic",
+     "type": "SHIFT",
+     "kill_test": "Staleness: the same query one anchor earlier. If coverage and value distribution move by this much, the family is anchor-dependent."
+    },
+    {
+     "critic": "auditor",
+     "type": "LEAK",
+     "kill_test": "Rerun the machine batch test with sim rounded to 1e-9 or as an exact DECIMAL before ranking. If it stays red, the dependence is structural."
+    }
+   ]
+  },
+  {
+   "id": "G3-6",
+   "lens": "G3",
+   "name": "personal_cross_transition",
+   "table": "g3_6",
+   "level": "pair",
+   "sql_sha256": "8b8ba07b614160e10f7fb09de096fee3f26c11949dd8d4b74f849c5f50997fd1",
+   "twin_sha256": "82fd4a0de91a6783053dbc292b9c42ae6efb9a536e6f9d61841f57ece38596b5",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Users with at least 5 orders in the window and candidates they bought at least twice. Predicate: (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id) >= 5 AND (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) >= 2",
+   "null_stratum": "Users with only 2 orders, where no personal pattern can be estimated. Predicate: (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id) <= 2",
+   "rival": {
+    "explanation": "The lift may only reflect within-user co-purchase propensity (p tends to be in the same orders as q, so it also tends to follow orders that were themselves followed by q-rich orders), i.e. personal basket affinity rather than sequencing.",
+    "stratum": "Heavy users (u_orders >= 10) whose candidates have high ag_co_last_cond"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor on f_x_c_pers_trans_lift among heavy users (u_orders >= 10). If the gain does not exceed the time-shuffled twin there, sequencing adds nothing beyond frequency."
+    },
+    {
+     "critic": "G1",
+     "type": "SHIFT",
+     "kill_test": "Staleness: run the same query one anchor earlier and compare the stratum gain. If it varies with coverage, the column is a history-depth indicator."
+    },
+    {
+     "critic": "G4",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: compare the lift column's gain on heavy users (u_orders 10 or more) against users with 2 orders. A gain only where up_share is imprecise refutes sequencing."
+    },
+    {
+     "critic": "G4",
+     "type": "SHIFT",
+     "kill_test": "Staleness: run the same query one anchor earlier. Coverage outside 0.35-0.80 again would confirm the family's support is unstable."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor on the lift column. The hash-ordered sequence keeps trans R2 0.693. If the twin lift gives the same gain, sequencing is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "SHIFT",
+     "kill_test": "Staleness: one anchor earlier."
+    },
+    {
+     "critic": "auditor",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as factor: no card-minus-twin gain of pers_trans_lift within queries refutes the personal-transition mechanism."
+    }
+   ]
+  },
+  {
+   "id": "G4-1",
+   "lens": "G4",
+   "name": "retailer_sale_silence",
+   "table": "g4_1",
+   "level": "pair",
+   "sql_sha256": "2e7e33c94e11bfbeaf4b068a045bb97dc1883f037c0d4049c47830418ee3c9f7",
+   "twin_sha256": "83944d2f17faf0237656e7f70242c06135acd274913ea251332279afc1668b05",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Repeat candidates not bought for 28+ days: EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) AND NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id AND l.ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY)",
+   "null_stratum": "Products that sold on almost every day of the last 4 weeks: (SELECT count(DISTINCT CAST(l.ts AS DATE)) FROM lines l WHERE l.product_id = c.product_id AND l.ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY) >= 27",
+   "rival": {
+    "explanation": "Expected missed days could still act as a finer tail-popularity indicator at the retailer than popr_rank, rather than as a measure of availability, and help whether or not the user bought the product.",
+    "stratum": "Never-bought candidates from the pop-retailer source with popr_rank > 50, for every kind of user"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Staleness: run the same query one anchor earlier. Products flagged at A-14d with high silence_exp should show no sales at that retailer in [A-14d, A). If they resume at the usual rate, 'gone from the shelf' is refuted."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Difference of differences: gain on lapsed repeat candidates (28+ days) minus gain on the null stratum of products selling 27+ of 28 days, computed separately per anchor. If the difference does not hold on both anchors, the availability mechanism is refuted."
+    },
+    {
+     "critic": "G2",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: gain on never-bought popr_rank > 50 candidates versus lapsed repeat candidates. An equal or larger gain on the never-bought tail refutes the delisting mechanism."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: repeat candidates lapsed 28+ days versus products sold on 27+ of 28 days. A gain mainly on never-bought popr_rank > 50 candidates refutes availability in favour of the tail-popularity rival."
+    }
+   ]
+  },
+  {
+   "id": "G4-3",
+   "lens": "G4",
+   "name": "price_tier_fit",
+   "table": "g4_3",
+   "level": "pair",
+   "sql_sha256": "12bfe7b944511059ecbe85ce7e59f74c26a4e7f32b4c971d6ea78b9ebdde08f4",
+   "twin_sha256": "415b19ce76ad0b28cd8e1dd364b1feca21ad69c0ad76beb00d32c9f450645980",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Never-bought candidates of users with 3+ orders: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) AND (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id) >= 3",
+   "null_stratum": "Established repeat candidates: (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) >= 3",
+   "rival": {
+    "explanation": "Distance to the user's tier may mostly encode how extreme the product's own index is, since extreme items sit far from every user's mean, so a product-level premium/budget attribute would carry the gain.",
+    "stratum": "All candidates equally, including users with a single order"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "RIVAL",
+     "kill_test": "Key level: replace the pair columns by the item-level pix.idx alone. If the item column reproduces the gain on never-bought candidates of users with 3+ orders, the user-tier mechanism is refuted."
+    },
+    {
+     "critic": "G1",
+     "type": "SHIFT",
+     "kill_test": "Staleness: run the same query one anchor earlier. If the stratum gain of the cat column moves with its coverage, it is acting as a history-depth flag."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Key level: fit with the item-level price index alone against the pair gap. If the item index gives the same gain on never-bought candidates of 3+ order users, the user-tier mechanism is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "SHIFT",
+     "kill_test": "Staleness: run one anchor earlier. Unstable coverage of the category gap would argue for keeping only the global gap."
+    }
+   ]
+  },
+  {
+   "id": "G4-4",
+   "lens": "G4",
+   "name": "staple_far_copurchase",
+   "table": "g4_4",
+   "level": "pair",
+   "sql_sha256": "f41810274b07f53411ebf9423d229bd79f144dd70db54a405d5c90b7a9e37412",
+   "twin_sha256": "defcb9a3129a48cc62f356202756632165f7058bf5284f2acaa5bd61806d222e",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Candidates not in the latest order, for users with 3+ orders: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id AND l.order_id = (SELECT arg_max(o.order_id, o.ts) FROM orders o WHERE o.user_id = c.user_id)) AND (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id) >= 3",
+   "null_stratum": "Users without live seeds, e.g. users with at most 2 orders: (SELECT count(*) FROM orders o WHERE o.user_id = c.user_id) <= 2",
+   "rival": {
+    "explanation": "The lift may mostly encode how close the candidate's category is to the user's staples (same-aisle complements), which the category columns already partly capture, rather than true co-basket habits.",
+    "stratum": "Candidates whose category equals the category of one of the user's seeds"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor on the lift column only, in the not-in-latest-order stratum. If there is no gain over the neighbour-shuffled seeds, there is no co-basket habit."
+    },
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Difference of differences: the lift gain when the seeds' last purchase is within the user's u_mean_gap, against seeds lapsed for more than 2x u_mean_gap. If the gain persists for long-lapsed seeds, it is not habit complementarity."
+    },
+    {
+     "critic": "G2",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor on seed_co_lift only, in candidates not in the latest order of 3+ order users. No gain over the twin refutes the staple co-purchase link. Staleness: the lift recomputed one anchor earlier should keep its sign for the same seed-candidate pairs."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: cond keeps |rho_wq| 0.817 with its twin (TWIN-BROKEN). An equal gain from the twin lift refutes staple complementarity."
+    },
+    {
+     "critic": "skeptic",
+     "type": "SHIFT",
+     "kill_test": "Staleness: one anchor earlier."
+    },
+    {
+     "critic": "auditor",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as factor: no card-minus-twin gain on seed_co_cond refutes the co-occurrence mechanism."
+    }
+   ]
+  },
+  {
+   "id": "G4-6",
+   "lens": "G4",
+   "name": "p_returner_basket",
+   "table": "g4_6",
+   "level": "item",
+   "sql_sha256": "98ef3f6c3bd7d93205a2e80803412d8b8533c90b9e16bd85e522c3df497e84f9",
+   "twin_sha256": "97411d8332a11bf6e24c2d7f8413e4f10c5177d1d55204f49e9c01f0e9dd27f2",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Users whose last order is 21+ days before A: (SELECT max(o.ts) FROM orders o WHERE o.user_id = c.user_id) < TIMESTAMP '{A}' - INTERVAL 21 DAY",
+   "null_stratum": "Users who ordered in the last 7 days: (SELECT max(o.ts) FROM orders o WHERE o.user_id = c.user_id) >= TIMESTAMP '{A}' - INTERVAL 7 DAY",
+   "rival": {
+    "explanation": "The lift may be a staple-versus-impulse index that helps every user regardless of their gap, overlapping with the existing rebuy pseudo-labels.",
+    "stratum": "Repeat candidates of users who ordered within the last 7 days"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences on the lift column: users whose last order is 21+ days before A against users who ordered within the last 7 days. If the gain is equal, the column is a staple index (the rival)."
+    },
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Staleness: compute the same query one anchor earlier and correlate the lift across anchors per product. A low rank stability (below 0.3) means noise rather than a product trait."
+    },
+    {
+     "critic": "G2",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Twin as a factor on returner_lift alone, in the stratum of users with a last order 21+ days before A versus users who ordered in the last 7 days. If the difference of differences is about 0, the mechanism is refuted."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as a factor: rebuy keeps |rho_wq| 0.887 with the twin (TWIN-BROKEN). Only the lift (R2 0.185) can carry the mechanism. A difference of differences between users silent 21+ days and users who ordered in 7 days must show a lift gain, or the mechanism is refuted."
+    },
+    {
+     "critic": "auditor",
+     "type": "DUPLICATE",
+     "kill_test": "Twin as factor: no gain of returner_lift over the hash-returner twin refutes the returner mechanism."
+    }
+   ]
+  },
+  {
+   "id": "G4-7",
+   "lens": "G4",
+   "name": "city_local_lift",
+   "table": "g4_7",
+   "level": "pair",
+   "sql_sha256": "a4874b447e762bc42f29357735ff73adf899b7fdbe0d03037a129e0aa74ab20c",
+   "twin_sha256": "6fd33b0b033841dbbc44515d1802be3592f657aa838afb9813ab7e3df4f4a3ca",
+   "twin_how": "neighbour_shuffle",
+   "sign": "+",
+   "stratum": "Never-bought candidates of users whose main store had few buyers in 28 days: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) AND (SELECT count(DISTINCT o2.user_id) FROM orders o2 WHERE o2.ts >= TIMESTAMP '{A}' - INTERVAL 28 DAY AND o2.store_id = (SELECT mode(o.store_id) FROM orders o WHERE o.user_id = c.user_id)) < 100",
+   "null_stratum": "Repeat candidates with 3+ orders by the user: (SELECT count(DISTINCT l.order_id) FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) >= 3",
+   "rival": {
+    "explanation": "City lift may encode which retailers operate in the city (assortment availability), not local taste. It would then help mainly users whose orders spread over several retailers.",
+    "stratum": "Users with u_main_share < 0.7, on all candidates"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: the gain among users with u_main_share < 0.7 against users with u_main_share = 1. If the gain concentrates in multi-retailer users, it measures assortment availability, not local taste."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness: compute the city lift one anchor earlier. If the gain disappears for cities whose 28-day buyer count changed by more than 2x, the lift tracks traffic shift, not local taste."
+    },
+    {
+     "critic": "G2",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: gain for users with u_main_share < 0.7 minus gain for users with u_main_share >= 0.95. A larger gain for multi-retailer users supports the assortment rival."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: never-bought candidates at small stores (< 100 buyers) versus repeat candidates. If the gain is no larger at small stores, it only re-learns ag_ps_lift."
+    }
+   ]
+  },
+  {
+   "id": "G4-8",
+   "lens": "G4",
+   "name": "retailer_shelf_age",
+   "table": "g4_8",
+   "level": "pair",
+   "sql_sha256": "5f1dc59a7d4186ef3652c90a154866879e4e57b7fa3b21cb9f33e405c567eb41",
+   "twin_sha256": "b8f64ba375ffdd54f23bcb02337e721815c5581f220eac7f9d4de401d230d291",
+   "twin_how": "time_shuffle",
+   "sign": "+",
+   "stratum": "Never-bought candidates that first sold after the user's latest order: NOT EXISTS (SELECT 1 FROM lines l WHERE l.user_id = c.user_id AND l.product_id = c.product_id) AND (SELECT min(l.ts) FROM lines l WHERE l.product_id = c.product_id) > (SELECT max(o.ts) FROM orders o WHERE o.user_id = c.user_id)",
+   "null_stratum": "Products sold since the start of the visible window: (SELECT min(l.ts) FROM lines l WHERE l.product_id = c.product_id) < TIMESTAMP '{A}' - INTERVAL 110 DAY",
+   "rival": {
+    "explanation": "New-since-visit may proxy launch promotions (new products are discounted and featured), so the gain would coincide with the promo columns instead of with the user's missed exposure.",
+    "stratum": "Candidates with a positive 7-day discount share (ag_p_promo7 > 0), for all users"
+   },
+   "kill_tests": [
+    {
+     "critic": "G1",
+     "type": "MECHANISM_DOUBT",
+     "kill_test": "Staleness: run the same query one anchor earlier. True launches with first sale in [A-28d, A) must be NULL at A-14d for the part first sold after A-14d. If most stratum products already had a first_ts more than 28 days back at the earlier anchor, the 'fresh launch' reading is refuted."
+    },
+    {
+     "critic": "G2",
+     "type": "SHIFT",
+     "kill_test": "Staleness: a real launch ages by 14 days per anchor. If ret_age_days for products near the window start does not follow that, the column is a boundary artefact. The gain should concentrate on products first sold in the last 28 days, not near 110+ days."
+    },
+    {
+     "critic": "G2",
+     "type": "RIVAL",
+     "kill_test": "Difference of differences: gain among candidates with ag_p_promo7 > 0 versus without. A gain only in the promo stratum supports the rival."
+    },
+    {
+     "critic": "skeptic",
+     "type": "DUPLICATE",
+     "kill_test": "Difference of differences: products first sold at the main retailer within 28 days versus products sold since window start. No larger gain in the launch stratum refutes shelf age."
+    }
+   ]
+  }
+ ],
+ "withdrawn": [
+  {
+   "id": "G1-2",
+   "reason": "up_rate_trend has R2 0.947 to up_orders_28 and up_old_share has R2 0.843 to up_days_since_first. The base and the agent's decay and streak columns already carry the product-level rise and lapse. The category-level version of the trend idea survives in revised G1-1, with equal-length blocks."
+  },
+  {
+   "id": "G1-5",
+   "reason": "Training anchors are 14 days apart and share one weekday, so the predicted next weekday hardly varies across anchors. The per-weekday counts are about 2, which makes the lift noise. The twin is indistinguishable from the card (R2 0.0431 vs 0.0425, rho 0.174 vs 0.159), so the shuffle does not destroy what the column measures. The fix the critic suggested, predicting from A conditional on no order yet, would still rest on the same noisy counts."
+  },
+  {
+   "id": "G1-7",
+   "reason": "first_sold_days is left-truncated at the window start and is the same column as other cards' product age (identical rho 0.603, R2 0.557 to p_buyers_28). The silence column is a near-monotone popularity transform, and its twin is even closer to popularity, so the shuffle does not destroy it. Both overlap other cards' silence and shelf-age columns. The family lies outside the user-intent lens."
+  },
+  {
+   "id": "G2-1",
+   "reason": "The age column duplicates first_sold_days from another generator: rho 0.603 and R2 0.557 to p_buyers_28, the same values to three decimals. Inside a 120-day window, a late first sale mostly means a rare product, not a launch. The availability share keeps rho 0.453 to p_buyers_28 in its twin, so it is tail popularity. The withheld SQL also cannot be audited. A rate-normalised age would still lean on the same popularity column, so nothing distinct remains."
+  },
+  {
+   "id": "G2-3",
+   "reason": "Abandonment is the complement of an existing repurchase rate: R2 0.932 and 0.79 to ag_p_rebuy14. The hash time-split twin keeps R2 0.965, so the time-local decay is not what the column measures. Cold products get only the prior. No revision separates delisting from the static staple trait."
+  },
+  {
+   "id": "G2-5",
+   "reason": "The signal is very weak (rho <= 0.068) and overlaps C28 next_dow_routine, which covers the upcoming-weekday routine. The weekday of the first order in a 14-day window is poorly predictable without the user's gap, so the column would mostly add noise. The daily-rhythm idea continues in G2-6 with proper shrinkage."
+  },
+  {
+   "id": "G2-7",
+   "reason": "trial_conv28 restates product repurchase (R2 0.892 to p_repeat_share) and is TWIN-BROKEN (0.864). The shift column compares a recent cohort with an old one that, given the 120-day window and the 28-day activity requirement, is limited to [A-92, A-56) and is thin. For most products both cohorts collapse to the prior, so the shift is noise. Cold launches, the intended target, are excluded by construction."
+  },
+  {
+   "id": "G3-2",
+   "reason": "The twin is broken: the hash-ordered lag keeps rho 0.910 on prob, so the sequence carries nothing. prob is popularity (R2 0.887 to p_buyers_7). The twin lift has nearly the same profile as the card lift (R2 0.43 vs 0.445 to ag_co_last_lift). At 25 s of a 40 s budget it costs too much for a column that duplicates existing features."
+  },
+  {
+   "id": "G3-4",
+   "reason": "The twin is broken. The time-shuffled twin keeps |rho_wq| at 0.999 (prob) and 0.955 (lift), so the order-to-order transition carries no information: the value is static household category affinity, as the rival says. prob also duplicates ag_uc_rebuy_bucket (R2 0.886)."
+  },
+  {
+   "id": "G3-5",
+   "reason": "It ran out of memory on both probe anchors (card on day 2, twin on day 1), and took 27.8 s even where it ran. Where it ran, both columns were largely explained by existing features: lift R2 0.752 to ag_uc_last_pick, transition R2 0.729 to ag_uc_orders_after. Coverage is limited to categories the user already bought, where the base is already strong, so a capped rewrite is unlikely to add a non-redundant signal."
+  },
+  {
+   "id": "G3-7",
+   "reason": "The current-state column duplicates ag_up_streak (R2 0.905). The gap column is largely explained by ag_up_orders_since (R2 0.72). Coverage is only 0.354, swings 0.216 to 0.491 between anchors, and covers only candidates already bought in the window, where the base is strongest. The alternation hypothesis is better tested through the kept personal-transition lift (G3-6) than through a near-duplicate column."
+  },
+  {
+   "id": "G3-8",
+   "reason": "Batch invariance is red. Beyond that, the time-shuffled twin reproduces the card's profile (share rho 0.45 vs 0.458 to popr_rank, lift 0.252 vs 0.273, same coverage), so the 'what comes after a similar basket' path adds nothing over local-assortment similarity. The neighbourhood idea is kept in the revised user kNN (G3-3), which has the stronger, non-sequential mechanism; keeping both would add a redundant column."
+  },
+  {
+   "id": "G4-2",
+   "reason": "The adopt column is popularity: R2 0.97 to p_buyers_28, and it keeps |rho_wq| 0.998 with its twin (TWIN-BROKEN). The keep column has R2 0.88 to ag_p_next_reorder. The 'newcomer' cohort is also contaminated by dormant returners whose earlier orders fall before the visible 120-day window, and an item-level column cannot target newcomers by itself. Nothing specific to newcomers is left."
+  },
+  {
+   "id": "G4-5",
+   "reason": "TWIN-BROKEN: longgap_return keeps |rho_wq| 0.851 with the time-shuffled twin, so it measures tenure and order density inside the 120-day window, not rotation behaviour. rebuy_gap_med has R2 0.822 to up_mean_interval, and its non-NULL share swings from 0.37 to 0.827 across anchors. Both columns repeat existing cadence features and are right-censored by the window."
+  }
+ ],
+ "code_sha256": {
+  "council": {
+   "council/agents.py": "fbe64e3221ebdbeea3b3e54c254466d454829169d47ee37930d0262092aaac10",
+   "council/llm.py": "dd666b8d0aad1c50c7c27a814f48760b79a32bd0972352068fa05bb56525bd55",
+   "council/evidence.py": "1d14d8088e3be3679864b983c1d928b42ea64b00dac3520d719dda0ef4c0ab88",
+   "council/xfer/broker.py": "cab5b6c6d456fd18df043b1b31e5d981bce312942505332ebeb1c791110b8fa3",
+   "council/xfer/fit.py": "b42dab3f1a9e5ab6a15e36e53fe4d15596646075b1d49451915a1f78c92429ee",
+   "council/xfer/marker.py": "0a6e199b0a2b35896888e09bbf27f631e88cd95b653674d76c918c3271161417",
+   "council/xfer/plan.py": "a1b41b3a29eb79aae57cc6fd72baa9c6be1b337eb95f0f3d714f671acd40fd4a",
+   "council/xfer/queue.py": "143fb7dde4ae19bedfd882c77e1968426656627702b651338ec2a7f2665c2ff8",
+   "council/xfer/roles.py": "709a2280de6419a21800763a8865d7c35c52b847ff3933946a1b5496fa265f8d",
+   "council/xfer/run.py": "dd3dc6711bf574fa60bedf66f9311790a76f7e0820c1d02a17358d91bb98d9ba",
+   "council/design.py": "6ba603db0c141efe23e73c1d27ae1325cf7cd1562944785e4dce5272a7da364d"
+  },
+  "scripts": {
+   "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+   "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+   "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+   "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+   "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+   "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+   "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+   "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8",
+   "scripts/xfer_model.py": "e30091bc31c1092be8112348446230b47c58439648b17e34f889877e157232af",
+   "scripts/xfer_sber.py": "e538de9f4429414aa4a104c9e38710bc53dd6866d2591519b91361b6b5a0ee1f"
+  }
+ },
+ "dataset": "sber",
+ "probe_anchors": [
+  "2020-08-19",
+  "2020-08-05"
+ ],
+ "limitations": [
+  "The second probe anchor is the last train anchor; its users are those of its training frame, a set conditional on the outcome window of that anchor. No outcome value is read by a probe."
+ ]
+}

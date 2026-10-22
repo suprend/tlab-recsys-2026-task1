@@ -1,0 +1,345 @@
+{
+ "families": [
+  "G2-2",
+  "G3-1",
+  "G4-1",
+  "G2-4",
+  "G3-3",
+  "G4-3",
+  "G2-6",
+  "G4-6"
+ ],
+ "columns": {
+  "G2-2": [
+   "ag_c2_p_share_slope_post"
+  ],
+  "G3-1": [
+   "ag_c3_seed_cooc_lift"
+  ],
+  "G4-1": [
+   "ag_c4_ret_silence_exp"
+  ],
+  "G2-4": [
+   "ag_c2_pr_missed_sale_days"
+  ],
+  "G3-3": [
+   "ag_c3_knn_share",
+   "ag_c3_knn_lift"
+  ],
+  "G4-3": [
+   "ag_c4_price_tier_fit"
+  ],
+  "G2-6": [
+   "ag_c2_up_hour_lift"
+  ],
+  "G4-6": [
+   "ag_c4_p_returner_lift"
+  ]
+ },
+ "width": 9,
+ "twins": [
+  "G2-2",
+  "G2-4",
+  "G3-1",
+  "G4-1"
+ ],
+ "twin_checks": {
+  "G2-2": "ok",
+  "G3-1": "ok",
+  "G4-1": "ok",
+  "G2-4": "ok",
+  "G3-3": "ok",
+  "G4-3": "ok",
+  "G2-6": "ok",
+  "G4-6": "ok"
+ },
+ "placebo": [
+  "ag_c4_ret_silence_exp",
+  "ag_c2_p_share_slope_post",
+  "ag_c3_knn_share",
+  "ag_c2_pr_missed_sale_days"
+ ],
+ "placebo_families": [
+  "G4-1",
+  "G2-2",
+  "G3-3",
+  "G2-4"
+ ],
+ "removed": [
+  {
+   "id": "G1-1",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_c1_uc_momentum_56': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "id": "G1-2",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_c1_up_rate_trend': ['2020-08-19', '2020-08-05'], 'ag_c1_up_old_share': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "id": "G1-3",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_c1_u_pace_accel': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "id": "G1-4",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_c1_up_topup_lift': ['2020-08-19', '2020-08-05'], 'ag_c1_up_topup_forgot': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "id": "G1-5",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_c1_up_dow_lift': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "id": "G1-6",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_c1_up_last_gap_rel': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "id": "G1-7",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G1-8",
+   "step": 1,
+   "reason": "machine test red: error: 2020-08-05: OutOfMemoryException: the query ran out of memory"
+  },
+  {
+   "id": "G2-1",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G2-3",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G2-5",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G2-7",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G3-2",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G3-4",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G3-5",
+   "step": 1,
+   "reason": "machine test red: error: 2020-08-05: OutOfMemoryException: the query ran out of memory"
+  },
+  {
+   "id": "G3-6",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_c3_pers_trans_lift': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "id": "G3-7",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_c3_self_markov_cur': ['2020-08-19', '2020-08-05'], 'ag_c3_self_markov_gap': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "id": "G3-8",
+   "step": 1,
+   "reason": "machine test red: batch: the answer depends on the batch of active_users ({\"2020-08-19\": \"batch invariance: values of the first 1000 probe users differ between the full probe and its two halves\"})"
+  },
+  {
+   "id": "G4-2",
+   "step": 1,
+   "reason": "withdrawn by the author"
+  },
+  {
+   "id": "G4-4",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_c4_seed_co_lift': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "id": "G4-5",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_c4_u_rebuy_gap_med': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "id": "G2-8",
+   "step": 3,
+   "reason": "quota: 3 per lens, 12 in all"
+  },
+  {
+   "id": "G4-7",
+   "step": 3,
+   "reason": "quota: 3 per lens, 12 in all"
+  },
+  {
+   "id": "G4-8",
+   "step": 3,
+   "reason": "quota: 3 per lens, 12 in all"
+  }
+ ],
+ "parity": {
+  "w_council": 9,
+  "w_reference": 23,
+  "cut": [
+   "reference"
+  ],
+  "council_removed": [],
+  "reference_drop": [
+   "rb2_uc_brand_loyalty",
+   "rb2_uc_variety",
+   "rb2_uc_price_tier",
+   "rb2_retailer_promo_now",
+   "rb2_history_copurchase",
+   "rb2_p_first_order_lift",
+   "rb1_user_top_products_copurchase",
+   "rb1_user_basket_state"
+  ],
+  "w_council_after": 9,
+  "w_reference_after": 10,
+  "ok": true
+ },
+ "reference_removed": [
+  {
+   "table": "rb1_up_small_order_presence",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_rb1_up_small_frac': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "table": "rb1_user_promo_sensitivity",
+   "step": 2,
+   "reason": "duplicate of H+: ag_rb1_u_promo_share R2_wq 0.9513, max|rho_wq| 0.9697 (up_discount_share)"
+  },
+  {
+   "table": "rb1_uc_variety_seeking",
+   "step": 2,
+   "reason": "duplicate of H+: ag_rb1_uc_n_products R2_wq 0.916, max|rho_wq| 0.9078 (ag_uc_last5_share)"
+  },
+  {
+   "table": "rb1_user_retailer_switching",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_rb1_u_ret_switch': ['2020-08-19', '2020-08-05'], 'ag_rb1_u_store_switch': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "table": "rb1_up_lapse_vs_max_gap",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_rb1_up_dsl_over_maxgap': ['2020-08-19', '2020-08-05'], 'ag_rb1_up_osl_over_maxgap': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "table": "rb2_up_first_order_hit",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_rb2_up_win1_rate': ['2020-08-19', '2020-08-05'], 'ag_rb2_up_win1_vs_any': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "table": "rb2_uc_first_order_hit",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_rb2_uc_win1_rate': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "table": "rb2_retailer_availability",
+   "step": 2,
+   "reason": "duplicate of rb1_assortment_recency: max|rho_wq| 1.0, R2_wq 1.0"
+  },
+  {
+   "table": "rb2_p_lifecycle",
+   "step": 2,
+   "reason": "duplicate of rb1_p_launch_age_activity: max|rho_wq| 1.0, R2_wq 0.9999999999999983"
+  },
+  {
+   "table": "rb2_up_basket_context",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_rb2_up_basket_rel': ['2020-08-19', '2020-08-05'], 'ag_rb2_up_topup_rel': ['2020-08-19', '2020-08-05']}"
+  },
+  {
+   "table": "rb2_up_share_trend",
+   "step": 1,
+   "reason": "non-NULL parity across days broken: {'ag_rb2_up_share_trend': ['2020-08-19', '2020-08-05']}"
+  }
+ ],
+ "reference": [
+  "rb1_seq_next_order_transition",
+  "rb1_assortment_recency",
+  "rb1_p_launch_age_activity",
+  "rb1_uc_price_tier_fit",
+  "rb1_p_monthly_trend_retention"
+ ],
+ "warnings": [],
+ "critiques": {
+  "G2-2": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL",
+   "SHIFT"
+  ],
+  "G3-1": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK"
+  ],
+  "G4-1": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT",
+   "OK",
+   "RIVAL",
+   "SHIFT"
+  ],
+  "G2-4": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT"
+  ],
+  "G3-3": [
+   "LEAK",
+   "SHIFT"
+  ],
+  "G4-3": [
+   "OK",
+   "RIVAL",
+   "SHIFT"
+  ],
+  "G2-6": [
+   "LEAK",
+   "OK",
+   "RIVAL"
+  ],
+  "G4-6": [
+   "DUPLICATE",
+   "MECHANISM_DOUBT"
+  ]
+ },
+ "reference_order": [
+  "rb1_seq_next_order_transition",
+  "rb1_up_small_order_presence",
+  "rb1_user_promo_sensitivity",
+  "rb1_assortment_recency",
+  "rb1_p_launch_age_activity",
+  "rb1_uc_price_tier_fit",
+  "rb1_uc_variety_seeking",
+  "rb1_user_retailer_switching",
+  "rb1_p_monthly_trend_retention",
+  "rb1_up_lapse_vs_max_gap",
+  "rb1_user_basket_state",
+  "rb1_user_top_products_copurchase",
+  "rb2_up_first_order_hit",
+  "rb2_uc_first_order_hit",
+  "rb2_p_first_order_lift",
+  "rb2_retailer_availability",
+  "rb2_p_lifecycle",
+  "rb2_history_copurchase",
+  "rb2_retailer_promo_now",
+  "rb2_uc_price_tier",
+  "rb2_up_basket_context",
+  "rb2_uc_variety",
+  "rb2_up_share_trend",
+  "rb2_uc_brand_loyalty"
+ ]
+}
