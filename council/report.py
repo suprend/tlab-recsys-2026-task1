@@ -19,7 +19,8 @@ broker function, and writes nothing. Inputs of a dataset (D = council/runs/rees4
   xfer:   D/queue.jsonl (heavy `end` and light `light-end` events: seconds, ok, peak_gb; `peak` events: the peak
           of a fit record; `failed` and `stop` events: failures)
 A missing file gives a waiting line in place of its table, never an error: `⟨ждёт <file>⟩`, with the words of
-the report for two files (WAIT): `⟨ждёт plan-result⟩` and, for test.json, `⟨ждёт C_test, нужно «да»⟩`.
+the report for two files (WAIT): `⟨ждёт plan-result⟩` and, for test.json, `⟨ждёт C_test, нужно «да»⟩` — or
+`⟨ждёт C_test⟩` once the dataset's test-approved.md exists (`test_wait`).
 
 Tables (TABLES; --table also takes PARTS, the pieces of `plan`):
   REES46  prereg, plan (beta + calibration + mechanism + selection), cval, cval-mean, test,
@@ -31,7 +32,8 @@ Rounding (the report uses the same): beta, SE, contrast and CI bounds, C_val mea
 power 2; SD t 3; sigma_q 4; $ 2; GB 1; hours 1. Signed values (beta, t, contrasts) carry '+' or the minus sign
 '−' (U+2212), as in the report; a value that rounds to zero is printed without a sign. Rounding is Python's
 format spec ('{:.4f}'), applied once to the stored float. Exception: the beta and mechanism tables of a plan whose
-median SE is below 5e-5 (СберМаркет, metric level ~1e-5) print beta, SE and SE_empty with 6 decimals (`plan_nd`).
+median SE is below 5e-5 (СберМаркет, metric level ~1e-5) print beta, SE and SE_empty with 6 decimals (`plan_nd`); with the same nd the C_test tables
+(H1, contrasts and their CI, mechanism repeat) and the «подтверждение D» row of the selection.
 
   python -m council.report rees46|tinkoff|sber            every table in its marked block, ready for the report
   python -m council.report rees46 --dry                   the inputs found and missing, then the tables, no markers
@@ -155,6 +157,11 @@ def table(head: list[str], rows: list[list]) -> str:
 
 def waiting(*files: str) -> str:
     return f"⟨ждёт {', '.join(WAIT.get(f, f) for f in files)}⟩"
+
+
+def test_wait(src) -> str:
+    """The waiting line of test.json: after the owner's «да» (test-approved.md exists) only the fits are awaited."""
+    return '⟨ждёт C_test⟩' if src.file('test-approved.md').exists() else waiting('test.json')
 
 
 # ---------------------------------------------------------------- inputs
@@ -287,7 +294,8 @@ def t_selection(src: Source) -> str:
         rows.insert(2, ['номинированы', ', '.join(sel.get('nominated') or []) or 'пусто'])
         c = sel.get('confirmation')
         if c:
-            rows.append(['подтверждение D', f"Δ = {beta(c.get('delta'))}, SE = {se(c.get('se'))}, "
+            nd = plan_nd(src.json('plan-result.json') or {})
+            rows.append(['подтверждение D', f"Δ = {num(c.get('delta'), nd, sign=True)}, SE = {num(c.get('se'), nd)}, "
                                             f"t = {tval(c.get('t'))}, {'да' if c.get('confirmed') else 'нет'}"])
         if sel.get('cut'):
             rows.append(['срезаны руки', ', '.join(sel['cut'])])
@@ -296,19 +304,22 @@ def t_selection(src: Source) -> str:
     return table(['Поле', 'Значение'], rows)
 
 
-def _contrast_rows(contrasts: dict) -> list[list]:
+def _contrast_rows(contrasts: dict, nd: int = 4) -> list[list]:
     rows = []
+    b = lambda x: num(x, nd, sign=True)  # noqa: E731
     for what, c in (contrasts or {}).items():
         by = c.get('by_pair', c.get('by_seed')) or []
-        rows.append([what, beta(c.get('d')), ci(c.get('ci95')), ', '.join(beta(v) for v in by)])
+        pair = c.get('ci95')
+        cell = f'[{b(pair[0])}, {b(pair[1])}]' if isinstance(pair, (list, tuple)) and len(pair) == 2 else DASH
+        rows.append([what, b(c.get('d')), cell, ', '.join(b(v) for v in by)])
     return rows
 
 
-def contrast_table(contrasts: dict) -> str:
-    """REES46 contrasts carry by_pair (pairs of seeds), xfer ones by_seed."""
+def contrast_table(contrasts: dict, nd: int = 4) -> str:
+    """REES46 contrasts carry by_pair (pairs of seeds), xfer ones by_seed; nd as plan_nd of the dataset's plan."""
     by_seed = any('by_seed' in c and 'by_pair' not in c for c in (contrasts or {}).values())
     head = ['Контраст', 'Δ', '95% CI', 'по зёрнам' if by_seed else 'по парам зёрен']
-    return table(head, _contrast_rows(contrasts))
+    return table(head, _contrast_rows(contrasts, nd))
 
 
 def t_plan(src: Source) -> str:
@@ -340,19 +351,21 @@ def t_cval_mean(src: Source) -> str:
     return table(['Подгонка', 'NDCG@20 на C_val'], [[k, se(v)] for k, v in (val.get('mean') or {}).items()])
 
 
-def _h1_row(name: str, h: dict) -> list:
-    return [name, beta(h.get('delta')), beta(h.get('lower')), beta(h.get('upper')),
+def _h1_row(name: str, h: dict, nd: int = 4) -> list:
+    return [name, *(num(h.get(k), nd, sign=True) for k in ('delta', 'lower', 'upper')),
             f"{h.get('pairs_positive')}/{h.get('n_pairs')}", h.get('verdict')]
 
 
 def t_test(src: Source) -> str:
     test = src.json('test.json')
     if test is None:
-        return waiting('test.json')
+        return test_wait(src)
+    nd = plan_nd(src.json('plan-result.json') or {})
+    b = lambda x: num(x, nd, sign=True)  # noqa: E731
     slices = {'': test} if 'h1' in test else {k: v for k, v in test.items() if isinstance(v, dict) and 'h1' in v}
     names = {'': 'C_test', 'primary': 'C_test (основной)', 'all_16_days': 'C_test (все 16 дней)'}
     h1 = table(['Срез', 'Δ1', 'нижняя 5%', 'верхняя 95%', 'пар с Δ > 0', 'вердикт'],
-               [_h1_row(names.get(k, k), v['h1']) for k, v in slices.items()])
+               [_h1_row(names.get(k, k), v['h1'], nd) for k, v in slices.items()])
     lead = f"{test['test']} " if isinstance(test.get('test'), str) else ''   # REES46 test.json has no phrase
     out = [f"{lead}Запросов: "
            + ', '.join(f"{names.get(k, k)} {v.get('queries')}" for k, v in slices.items()), h1]
@@ -360,13 +373,13 @@ def t_test(src: Source) -> str:
         contrasts = v.get('contrasts') if 'contrasts' in v else {
             what: c for what, c in v.items() if isinstance(c, dict) and 'ci95' in c}
         if contrasts:
-            out.append(f'{names.get(k, k)}, контрасты (описательно):\n\n' + contrast_table(contrasts))
+            out.append(f'{names.get(k, k)}, контрасты (описательно):\n\n' + contrast_table(contrasts, nd))
     m = test.get('mechanism')
     if m:
         rep = m.get('repeat') or {}
         out.append(f"Механизм {m.get('family')} ({m.get('card')}): t на S0-select {tval(m.get('t_select'))}, "
-                   f"SEL − близнец на C_test {beta(rep.get('delta'))} [{beta(rep.get('lower'))}, "
-                   f"{beta(rep.get('upper'))}], класс: {m.get('class')}")
+                   f"SEL − близнец на C_test {b(rep.get('delta'))} [{b(rep.get('lower'))}, "
+                   f"{b(rep.get('upper'))}], класс: {m.get('class')}")
     return '\n\n'.join(out)
 
 
@@ -427,7 +440,8 @@ def t_costs_rees46(src: Source) -> str:
         names = [s.get('name') for s in q] if isinstance(q, list) else None
         n = len(names) if names is not None else expected
         if not src.file(done).exists() or names is None:
-            w = waiting(done if not src.file(done).exists() else queue)
+            w = (test_wait(src) if done == 'test.json' and not src.file(done).exists() else
+                 waiting(done if not src.file(done).exists() else queue))
             rows.append([caption.format(n=n), w, w])
             continue
         have = [recs[x] for x in names if x in recs]

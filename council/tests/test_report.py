@@ -219,6 +219,25 @@ class TablesTest(ReportCase):
         small = {c: {'se': 2e-5} for c in COLUMNS} | {'E6': {'se': None}, 'E5': {'se': float('nan')}}
         self.assertEqual(R.plan_nd({'beta': small}), 6)             # non-finite SE are skipped
 
+    def test_small_se_plan_prints_test_with_six_decimals(self):
+        res = plan_result()
+        for b in res['beta'].values():
+            b['se'] /= 20
+        _write(self.root / R.REES46_RUNS / 'plan-result.json', res)
+        t = R.render('rees46', 'test', self.root)
+        self.assertIn('+0.002130 | +0.001060 | +0.003210 | 4/4 |', t)
+        self.assertIn('| H+r⁺ − H+r | +0.001100 | [+0.000200, +0.002000] | +0.001000, +0.001200 |', t)
+        tres = plan_result(xfer=True)
+        for x in tres['beta'].values():
+            x['se'] /= 20
+        _write(self.root / 'council/runs/xfer-tinkoff/plan-result.json', tres)
+        self.assertIn('SEL − близнец на C_test +0.000900 [+0.000100, +0.001700]', R.render('tinkoff', 'test', self.root))
+        _write(self.root / 'council/runs/xfer-tinkoff/selection.json',
+               {'SEL': 'ALL_P minus D', 'D': ['F2'], 'nominated': ['F2'], 'reason': 'x', 'cut': [], 'cut_plan': False,
+                'confirmation': {'delta': 0.0000123, 'se': 0.0000045, 't': 2.73, 'confirmed': True},
+                'twin_arm': {'family': 'F1', 'card': 'G1-1', 'replace': ['a', 'b']}})
+        self.assertIn('Δ = +0.000012, SE = 0.000005, t = +2.73, да', R.render('tinkoff', 'selection', self.root))
+
     def test_rees46_calibration_mechanism_selection(self):
         t = {n: R.render('rees46', n, self.root) for n in R.PARTS}
         plan = R.tables('rees46', self.root)['plan']
@@ -357,6 +376,11 @@ class PlaceholderTest(ReportCase):
         x = R.tables('tinkoff', self.root)
         self.assertEqual(x['prereg'], '⟨ждёт prereg-0.json⟩')
         self.assertEqual(x['test'], '⟨ждёт C_test, нужно «да»⟩')
+        (self.root / R.REES46_RUNS).mkdir(parents=True, exist_ok=True)
+        (self.root / R.REES46_RUNS / 'test-approved.md').write_text('approved: да\n', encoding='utf-8')
+        t = R.tables('rees46', self.root)
+        self.assertEqual(t['test'], '⟨ждёт C_test⟩')               # after the «да» only the fits are awaited
+        self.assertIn('| ⟨ждёт C_test⟩ | ⟨ждёт C_test⟩ |', t['costs'])
 
     def test_costs_block_while_waiting_is_the_report_template(self):
         self.assertEqual(R.tables('rees46', self.root)['costs'], COSTS_TEMPLATE)
@@ -497,9 +521,10 @@ class BoundaryTest(unittest.TestCase):
     def test_reads_only_allowlisted_json_and_writes_nothing(self):
         allowed = {'prereg-0.json', 'prereg-2.json', 'plan-result.json', 'selection.json', 'val.json', 'test.json',
                    'llm.jsonl', 'memory.jsonl', 'runs.jsonl', 'queue.jsonl', 'queue-plan.json', 'queue-cval.json',
-                   'queue-test.json'}
+                   'queue-test.json', 'test-approved.md',
+                   'task1-v2-report.md', '2026-10-22-plan.md'}  # the checked document; the plan named in a comment
         consts = [n.value for n in ast.walk(self.tree) if isinstance(n, ast.Constant) and isinstance(n.value, str)]
-        named = {m for c in consts for m in re.findall(r'[\w.-]+\.jsonl?(?!\w)', c)}
+        named = {m for c in consts for m in re.findall(r'[\w.-]+\.(?:jsonl?|md)(?!\w)', c)}
         self.assertLessEqual(named, allowed)
         for c in consts:
             self.assertNotIn('duckdb', c.lower())
