@@ -1,0 +1,108 @@
+```json
+[
+ {
+  "card": "G2-1",
+  "action": "revise",
+  "new": {
+   "name": "exposure_at_last_visit",
+   "level": "pair",
+   "mechanism": "A lapsed user last saw the store at their own last active step tl, so the assortment they remember is the one trending around tl, not the one trending at A. users_7 and users_30 measure demand at A, which is the wrong window for lapsed users. The family counts the distinct users of j in [tl-7, tl] (pop_at_last_visit). It also gives the exposure shift ln(1+pop at tl) - ln(1+users_7 at A). That difference is positive for items that were hot when the user left and have cooled since: they are remembered, and often bought on return. It is negative for items that took off after the user left, which are new to them. For active users the shift is about 0 by construction. Trees cannot form this difference, because the pop at tl exists nowhere else in the model. The earlier launch_vs_last_visit column is dropped: it equalled user_recency - item_age exactly.",
+   "sign": "+",
+   "stratum": "Lapsed users, last event at least 14 steps before A: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING max(t) < {A} - 14)",
+   "null_stratum": "Users active in the last 2 steps, where the window around tl coincides with the users_7 window and the shift is about 0: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING max(t) >= {A} - 2)",
+   "sql": "WITH ul AS (SELECT ev.user_id, max(t) AS tl FROM ev JOIN users ON ev.user_id = users.user_id GROUP BY ev.user_id), ci AS (SELECT DISTINCT item_id FROM cand), d AS (SELECT ev.item_id, t, count(*) AS c FROM ev JOIN ci ON ev.item_id = ci.item_id GROUP BY ev.item_id, t), u7 AS (SELECT ev.item_id, count(*) AS n7 FROM ev JOIN ci ON ev.item_id = ci.item_id WHERE t >= {A} - 7 GROUP BY ev.item_id), pc AS (SELECT cand.user_id, cand.item_id, ul.tl FROM cand JOIN ul ON cand.user_id = ul.user_id), x AS (SELECT pc.user_id, pc.item_id, sum(d.c) AS n FROM pc CROSS JOIN range(0, 8) AS r(k) JOIN d ON d.item_id = pc.item_id AND d.t = pc.tl - r.k GROUP BY pc.user_id, pc.item_id) SELECT pc.user_id, pc.item_id, ln(1 + COALESCE(x.n, 0)) AS f_x_c2_pop_at_last_visit, ln(1 + COALESCE(x.n, 0)) - ln(1 + COALESCE(u7.n7, 0)) AS f_x_c2_exposure_shift FROM pc LEFT JOIN x ON pc.user_id = x.user_id AND pc.item_id = x.item_id LEFT JOIN u7 ON pc.item_id = u7.item_id;",
+   "twin": {
+    "how": "time_shuffle",
+    "sql": "WITH sv AS (SELECT DISTINCT ev.user_id, t FROM ev JOIN users ON ev.user_id = users.user_id), vs AS (SELECT user_id, t, row_number() OVER (PARTITION BY user_id ORDER BY hash(user_id, t), t) AS rn FROM sv), ul AS (SELECT user_id, t AS tl FROM vs WHERE rn = 1), ci AS (SELECT DISTINCT item_id FROM cand), d AS (SELECT ev.item_id, t, count(*) AS c FROM ev JOIN ci ON ev.item_id = ci.item_id GROUP BY ev.item_id, t), u7 AS (SELECT ev.item_id, count(*) AS n7 FROM ev JOIN ci ON ev.item_id = ci.item_id WHERE t >= {A} - 7 GROUP BY ev.item_id), pc AS (SELECT cand.user_id, cand.item_id, ul.tl FROM cand JOIN ul ON cand.user_id = ul.user_id), x AS (SELECT pc.user_id, pc.item_id, sum(d.c) AS n FROM pc CROSS JOIN range(0, 8) AS r(k) JOIN d ON d.item_id = pc.item_id AND d.t = pc.tl - r.k GROUP BY pc.user_id, pc.item_id) SELECT pc.user_id, pc.item_id, ln(1 + COALESCE(x.n, 0)) AS f_x_c2_pop_at_last_visit_tw, ln(1 + COALESCE(x.n, 0)) - ln(1 + COALESCE(u7.n7, 0)) AS f_x_c2_exposure_shift_tw FROM pc LEFT JOIN x ON pc.user_id = x.user_id AND pc.item_id = x.item_id LEFT JOIN u7 ON pc.item_id = u7.item_id;"
+   },
+   "rival": {
+    "explanation": "For lapsed users the column may act as a stale long-window popularity count (like users_90): returning users buy perennial bestsellers, which were popular at any past step. The random-visit twin keeps this stale popularity and destroys only the alignment with the last visit.",
+    "stratum": "Users lapsed 60 or more steps, where both explanations predict a gain and only the twin separates them: user_id IN (SELECT user_id FROM ev GROUP BY user_id HAVING max(t) < {A} - 60)"
+   }
+  }
+ },
+ {
+  "card": "G2-2",
+  "action": "revise",
+  "new": {
+   "name": "launch_cohort_proximity",
+   "level": "pair",
+   "mechanism": "Assortments arrive in drops: items first seen at the same step belong to one collection or campaign and are shopped together while the drop is live. The family gives a kernel sum exp(-|ft_j - ft_i|/3) over the launch steps of the user's last 20 items. Censored items, whose first event lies within 7 steps of the data start, are excluded on both sides. A censored candidate gets NULL, not 0, so 'unknown launch' is no longer confused with 'far from the drop'. The redundant min-gap column is dropped. The claim is exact drop alignment within a few steps, not a general preference for fresh items. The twin therefore keeps each candidate's log2 age bucket and popularity bucket and swaps only its exact launch step, so a freshness preference survives in the twin and drop alignment does not.",
+   "sign": "+",
+   "stratum": "Users who recently took freshly launched items (launched within 60 steps, taken in the last 30); the gain should also appear for candidates with item_age >= 60, which rules out pure freshness: user_id IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id) f ON e.item_id = f.item_id WHERE e.t >= {A} - 30 AND f.ft >= {A} - 60)",
+   "null_stratum": "Users whose items of the last 180 steps were all launched more than 365 steps before A: user_id NOT IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id) f ON e.item_id = f.item_id WHERE e.t >= {A} - 180 AND f.ft >= {A} - 365)",
+   "sql": "WITH fi AS (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id), g AS (SELECT min(t) AS t0 FROM ev), ue AS (SELECT ev.user_id, ev.item_id, row_number() OVER (PARTITION BY ev.user_id ORDER BY t DESC, ev.item_id) AS p FROM ev JOIN users ON ev.user_id = users.user_id), h AS (SELECT ue.user_id, fi.ft FROM ue JOIN fi ON ue.item_id = fi.item_id CROSS JOIN g WHERE ue.p <= 20 AND fi.ft > g.t0 + 7), cf AS (SELECT cand.user_id, cand.item_id, fi.ft, fi.ft > g.t0 + 7 AS ok FROM cand JOIN fi ON cand.item_id = fi.item_id CROSS JOIN g), x AS (SELECT cf.user_id, cf.item_id, sum(exp(-abs(cf.ft - h.ft) / 3.0)) AS k FROM cf JOIN h ON cf.user_id = h.user_id WHERE cf.ok GROUP BY cf.user_id, cf.item_id) SELECT cf.user_id, cf.item_id, CASE WHEN cf.ok THEN COALESCE(x.k, 0) END AS f_x_c2_launch_cohort_kern FROM cf LEFT JOIN x ON cf.user_id = x.user_id AND cf.item_id = x.item_id;",
+   "twin": {
+    "how": "neighbour_shuffle",
+    "sql": "WITH g AS (SELECT min(t) AS t0 FROM ev), fb AS (SELECT item_id, min(t) AS ft, floor(log2(1 + {A} - min(t))) AS ab, floor(log2(1 + count(*))) AS b FROM ev GROUP BY item_id), fr AS (SELECT item_id, ft, ab, b, row_number() OVER (PARTITION BY ab, b ORDER BY item_id) AS r1, row_number() OVER (PARTITION BY ab, b ORDER BY hash(item_id), item_id) AS r2 FROM fb), fs AS (SELECT a.item_id, z.ft FROM fr a JOIN fr z ON a.ab = z.ab AND a.b = z.b AND a.r1 = z.r2), ue AS (SELECT ev.user_id, ev.item_id, row_number() OVER (PARTITION BY ev.user_id ORDER BY t DESC, ev.item_id) AS p FROM ev JOIN users ON ev.user_id = users.user_id), h AS (SELECT ue.user_id, fb.ft FROM ue JOIN fb ON ue.item_id = fb.item_id CROSS JOIN g WHERE ue.p <= 20 AND fb.ft > g.t0 + 7), cf AS (SELECT cand.user_id, cand.item_id, fs.ft, fb.ft > g.t0 + 7 AS ok FROM cand JOIN fs ON cand.item_id = fs.item_id JOIN fb ON cand.item_id = fb.item_id CROSS JOIN g), x AS (SELECT cf.user_id, cf.item_id, sum(exp(-abs(cf.ft - h.ft) / 3.0)) AS k FROM cf JOIN h ON cf.user_id = h.user_id WHERE cf.ok GROUP BY cf.user_id, cf.item_id) SELECT cf.user_id, cf.item_id, CASE WHEN cf.ok THEN COALESCE(x.k, 0) END AS f_x_c2_launch_cohort_kern_tw FROM cf LEFT JOIN x ON cf.user_id = x.user_id AND cf.item_id = x.item_id;"
+   },
+   "rival": {
+    "explanation": "Co-launched items often have adjacent ids within one product family, and when shopped together they already have cooc edges. The gain could then repeat ag_id_prox_rec or cooc_score rather than reflect drop timing. The gain should survive in pairs with cooc_score = 0 and no id neighbour.",
+    "stratum": "Pairs where j lies within 10 id ranks of one of the user's items; launch timing should add little there: (user_id, item_id) IN (SELECT c.user_id, c.item_id FROM cand c JOIN ev e ON c.user_id = e.user_id WHERE abs(c.item_id - e.item_id) <= 10)"
+   }
+  }
+ },
+ {
+  "card": "G2-3",
+  "action": "revise",
+  "new": {
+   "name": "lifecycle_stage_growth",
+   "level": "item",
+   "mechanism": "Items follow a typical life-cycle curve: launch ramp, plateau, decay. Regression to the mean of the audience level is already in users_30 and the momentum features. The family therefore isolates the part of expected growth that is due to life stage alone. It backtests on states at A-30: age bucket ab = log2 age, level bucket pb = log2 users in [A-60, A-30), and direction tb = sign of the change versus [A-90, A-60). The target is the realised log growth into [A-30, A). For each (ab, pb, tb) cell it outputs the deviation of the cell's mean growth from the mean of its level-direction cell (pb, tb), shrunk toward 0 by a pseudo-count of 20. The result is then looked up at j's current cell at A. The value is 0 where age carries no information beyond level and direction. It is positive for life stages that typically keep ramping and negative for stages that typically turn down.",
+   "sign": "+",
+   "stratum": "Young items, first event within the last 60 steps, where the life-cycle curve is steepest: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) >= {A} - 60)",
+   "null_stratum": "Old items, more than 365 steps since launch, on a flat part of the curve: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) < {A} - 365)",
+   "sql": "WITH fi AS (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id), w AS (SELECT item_id, count(*) FILTER (WHERE t >= {A} - 30) AS u0, count(*) FILTER (WHERE t >= {A} - 60 AND t < {A} - 30) AS u1, count(*) FILTER (WHERE t >= {A} - 90 AND t < {A} - 60) AS u2 FROM ev GROUP BY item_id), b AS (SELECT w.item_id, fi.ft, w.u0, w.u1, w.u2 FROM w JOIN fi ON w.item_id = fi.item_id), past AS (SELECT floor(log2(1 + {A} - 30 - ft)) AS ab, floor(log2(1 + u1)) AS pb, sign(u1 - u2) AS tb, ln((1 + u0) / (1.0 + u1)) AS g FROM b WHERE ft < {A} - 30), lv AS (SELECT pb, tb, avg(g) AS mlv FROM past GROUP BY pb, tb), tab AS (SELECT past.ab, past.pb, past.tb, (sum(past.g) - count(*) * lv.mlv) / (count(*) + 20.0) AS dev FROM past JOIN lv ON past.pb = lv.pb AND past.tb = lv.tb GROUP BY past.ab, past.pb, past.tb, lv.mlv), cur AS (SELECT item_id, floor(log2(1 + {A} - ft)) AS ab, floor(log2(1 + u0)) AS pb, sign(u0 - u1) AS tb FROM b) SELECT cur.item_id, COALESCE(tab.dev, 0) AS f_x_c2_stage_growth_dev FROM cur LEFT JOIN tab ON tab.ab = cur.ab AND tab.pb = cur.pb AND tab.tb = cur.tb;",
+   "twin": {
+    "how": "neighbour_shuffle",
+    "sql": "WITH fi AS (SELECT item_id, min(t) AS ft FROM ev GROUP BY item_id), w AS (SELECT item_id, count(*) FILTER (WHERE t >= {A} - 30) AS u0, count(*) FILTER (WHERE t >= {A} - 60 AND t < {A} - 30) AS u1, count(*) FILTER (WHERE t >= {A} - 90 AND t < {A} - 60) AS u2 FROM ev GROUP BY item_id), b AS (SELECT w.item_id, fi.ft, w.u0, w.u1, w.u2 FROM w JOIN fi ON w.item_id = fi.item_id), past AS (SELECT floor(log2(1 + {A} - 30 - ft)) AS ab, floor(log2(1 + u1)) AS pb, sign(u1 - u2) AS tb, ln((1 + u0) / (1.0 + u1)) AS g FROM b WHERE ft < {A} - 30), lv AS (SELECT pb, tb, avg(g) AS mlv FROM past GROUP BY pb, tb), tab AS (SELECT past.ab, past.pb, past.tb, (sum(past.g) - count(*) * lv.mlv) / (count(*) + 20.0) AS dev FROM past JOIN lv ON past.pb = lv.pb AND past.tb = lv.tb GROUP BY past.ab, past.pb, past.tb, lv.mlv), cur AS (SELECT item_id, floor(log2(1 + {A} - ft)) AS ab, floor(log2(1 + u0)) AS pb, sign(u0 - u1) AS tb FROM b), cr AS (SELECT item_id, ab, pb, tb, row_number() OVER (PARTITION BY pb, tb ORDER BY item_id) AS r1, row_number() OVER (PARTITION BY pb, tb ORDER BY hash(item_id), item_id) AS r2 FROM cur), cs AS (SELECT p.item_id, q.ab, p.pb, p.tb FROM cr p JOIN cr q ON p.pb = q.pb AND p.tb = q.tb AND p.r1 = q.r2) SELECT cs.item_id, COALESCE(tab.dev, 0) AS f_x_c2_stage_growth_dev_tw FROM cs LEFT JOIN tab ON tab.ab = cs.ab AND tab.pb = cs.pb AND tab.tb = cs.tb;"
+   },
+   "rival": {
+    "explanation": "Age buckets may stand in for censoring by the data start, or for a single launch wave, rather than for a generic life-cycle curve. The deviation would then mark one old cohort and not life stage. The twin permutes age buckets among items of the same level and direction cell, so it keeps the cell distribution of ages and destroys only the item's own stage.",
+    "stratum": "Items whose first event lies within 7 steps of the data start: item_id IN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) <= (SELECT min(t) FROM ev) + 7)"
+   }
+  }
+ },
+ {
+  "card": "G2-4",
+  "action": "withdraw",
+  "reason": "dormancy_ratio has R2 0.892 to item_last, and longest_gap has R2 0.699 to global_rank. For sparse items the ratio collapses to ln(1+item_last) and the gap to 0. Revivals within 30 steps are rare positives, so any gain would come from demoting dead fill negatives, which item_last already does."
+ },
+ {
+  "card": "G2-5",
+  "action": "withdraw",
+  "reason": "Both columns and both twins have undefined correlations at both probe anchors, which points to near-zero variance. The idea also repeats segment_pop30 and earlier entry-share cards (R2 0.9 to users_30 and users_90). It is an item-level proxy for an interaction with user_age that the trees would have to rebuild."
+ },
+ {
+  "card": "G2-6",
+  "action": "revise",
+  "new": {
+   "name": "lastyear_phase_transition",
+   "level": "pair",
+   "mechanism": "Seasonal demand is sequential: what people buy after item i in one phase of the cycle differs from what they buy after it in another. Seeds are u's last 10 items i. The seed adopters are the users who took a seed in [A-395, A-365), one cycle before the current phase; their pooled rate is the share of them who took j in [A-365, A-335), the cycle-earlier copy of the horizon. The family outputs the log lift of that pooled rate over j's base rate among all users active in [A-395, A-365), smoothed toward the base. Dividing by the base removes the item-level last-year level, which accounted for most of the old score (R2 0.605 to ag_ly_share_gap). What remains is the user-conditioned, phase-aligned transition. Users without last-year seed adopters get no row (NaN). This includes every user at anchors within 395 steps of the data start, so 'no data' is never encoded as 'no transition'. The cycle length of 365 steps is an assumption, because the time unit is unknown; the half-cycle twin tests it directly.",
+   "sign": "+",
+   "stratum": "Users whose recent items existed a cycle ago, so seeds have last-year adopters: user_id IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) < {A} - 395) o ON e.item_id = o.item_id WHERE e.t >= {A} - 60)",
+   "null_stratum": "Users whose items of the last 180 steps were all launched within the last 365 steps, so the value is NaN: user_id NOT IN (SELECT e.user_id FROM ev e JOIN (SELECT item_id FROM ev GROUP BY item_id HAVING min(t) < {A} - 365) o ON e.item_id = o.item_id WHERE e.t >= {A} - 180)",
+   "sql": "WITH s AS (SELECT user_id, item_id FROM (SELECT ev.user_id, ev.item_id, row_number() OVER (PARTITION BY ev.user_id ORDER BY t DESC, ev.item_id) AS p FROM ev JOIN users ON ev.user_id = users.user_id) z WHERE p <= 10), si AS (SELECT DISTINCT item_id FROM s), ci AS (SELECT DISTINCT item_id FROM cand), w1 AS (SELECT ev.user_id, ev.item_id FROM ev JOIN si ON ev.item_id = si.item_id WHERE t >= {A} - 395 AND t < {A} - 365), n1 AS (SELECT item_id, count(*) AS n FROM w1 GROUP BY item_id), act1 AS (SELECT DISTINCT user_id FROM ev WHERE t >= {A} - 395 AND t < {A} - 365), na AS (SELECT count(*) AS n FROM act1), w2 AS (SELECT ev.user_id, ev.item_id FROM ev JOIN ci ON ev.item_id = ci.item_id WHERE t >= {A} - 365 AND t < {A} - 335), bj AS (SELECT w2.item_id, count(*) AS c FROM w2 JOIN act1 ON w2.user_id = act1.user_id GROUP BY w2.item_id), tr AS (SELECT w1.item_id AS i, w2.item_id AS j, count(*) AS c FROM w1 JOIN w2 ON w1.user_id = w2.user_id WHERE w2.item_id <> w1.item_id GROUP BY w1.item_id, w2.item_id), us AS (SELECT s.user_id, sum(n1.n) AS ns FROM s JOIN n1 ON s.item_id = n1.item_id GROUP BY s.user_id), x AS (SELECT s.user_id, tr.j AS item_id, sum(tr.c) AS sc FROM s JOIN tr ON s.item_id = tr.i GROUP BY s.user_id, tr.j), cb AS (SELECT cand.user_id, cand.item_id, us.ns, (COALESCE(bj.c, 0) + 1.0) / (na.n + 100.0) AS base FROM cand JOIN us ON cand.user_id = us.user_id CROSS JOIN na LEFT JOIN bj ON cand.item_id = bj.item_id) SELECT cb.user_id, cb.item_id, ln((COALESCE(x.sc, 0) + 5.0 * cb.base) / (cb.ns + 5.0) / cb.base) AS f_x_c2_ly_phase_lift FROM cb LEFT JOIN x ON cb.user_id = x.user_id AND cb.item_id = x.item_id;",
+   "twin": {
+    "how": "time_shuffle",
+    "sql": "WITH s AS (SELECT user_id, item_id FROM (SELECT ev.user_id, ev.item_id, row_number() OVER (PARTITION BY ev.user_id ORDER BY t DESC, ev.item_id) AS p FROM ev JOIN users ON ev.user_id = users.user_id) z WHERE p <= 10), si AS (SELECT DISTINCT item_id FROM s), ci AS (SELECT DISTINCT item_id FROM cand), w1 AS (SELECT ev.user_id, ev.item_id FROM ev JOIN si ON ev.item_id = si.item_id WHERE t >= {A} - 212 AND t < {A} - 182), n1 AS (SELECT item_id, count(*) AS n FROM w1 GROUP BY item_id), act1 AS (SELECT DISTINCT user_id FROM ev WHERE t >= {A} - 212 AND t < {A} - 182), na AS (SELECT count(*) AS n FROM act1), w2 AS (SELECT ev.user_id, ev.item_id FROM ev JOIN ci ON ev.item_id = ci.item_id WHERE t >= {A} - 182 AND t < {A} - 152), bj AS (SELECT w2.item_id, count(*) AS c FROM w2 JOIN act1 ON w2.user_id = act1.user_id GROUP BY w2.item_id), tr AS (SELECT w1.item_id AS i, w2.item_id AS j, count(*) AS c FROM w1 JOIN w2 ON w1.user_id = w2.user_id WHERE w2.item_id <> w1.item_id GROUP BY w1.item_id, w2.item_id), us AS (SELECT s.user_id, sum(n1.n) AS ns FROM s JOIN n1 ON s.item_id = n1.item_id GROUP BY s.user_id), x AS (SELECT s.user_id, tr.j AS item_id, sum(tr.c) AS sc FROM s JOIN tr ON s.item_id = tr.i GROUP BY s.user_id, tr.j), cb AS (SELECT cand.user_id, cand.item_id, us.ns, (COALESCE(bj.c, 0) + 1.0) / (na.n + 100.0) AS base FROM cand JOIN us ON cand.user_id = us.user_id CROSS JOIN na LEFT JOIN bj ON cand.item_id = bj.item_id) SELECT cb.user_id, cb.item_id, ln((COALESCE(x.sc, 0) + 5.0 * cb.base) / (cb.ns + 5.0) / cb.base) AS f_x_c2_ly_phase_lift_tw FROM cb LEFT JOIN x ON cb.user_id = x.user_id AND cb.item_id = x.item_id;"
+   },
+   "rival": {
+    "explanation": "The lift may be a phase-agnostic long-lag co-purchase transition that would help equally at any lag. The half-cycle twin (lag 182) should then perform as well as the original. A second possibility is that the lift only repeats current cooc affinity.",
+    "stratum": "Cooc candidates with a strong current co-occurrence signal, where a phase-agnostic transition should already be covered: (user_id, item_id) IN (SELECT c.user_id, c.item_id FROM cand c JOIN ev a ON c.user_id = a.user_id JOIN ev d ON d.item_id = c.item_id JOIN ev b ON b.user_id = d.user_id AND b.item_id = a.item_id WHERE a.t >= {A} - 30 AND b.t >= {A} - 180 AND d.t >= {A} - 180)"
+   }
+  }
+ },
+ {
+  "card": "G2-7",
+  "action": "withdraw",
+  "reason": "traffic_beta has R2 0.886 to trend, and traffic_resid_wk0 has R2 0.928 to ag_mom_30_60, so both re-express existing momentum features. The slope is only identified at anchors where weekly traffic varies, and for young items it fits the launch ramp."
+ },
+ {
+  "card": "G2-8",
+  "action": "withdraw",
+  "reason": "mass_center_frac has R2 0.913 to global_rank, and it repeats ag_peak_ratio and ag_rec_mean_age. Single-event items sit at exactly 1.0, so the column acts mainly as a low-volume and censoring flag."
+ }
+]
+```

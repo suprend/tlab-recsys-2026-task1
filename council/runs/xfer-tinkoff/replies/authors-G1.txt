@@ -1,0 +1,108 @@
+```json
+[
+ {
+  "card": "G1-1",
+  "action": "revise",
+  "new": {
+   "name": "trigger_recency",
+   "level": "pair",
+   "mechanism": "Intent decays with time between u's own visits, not with list position. For each of u's last 15 items in the last 90 steps, take up to 20 of that item's most recent other adopters and check whether they took candidate j. The co-adoption is undirected on purpose: the time signal comes from u's side, from when u touched the trigger. Three columns: (1) trig_lag, the steps between u's latest visit and the latest visit of u that holds a trigger of j. It is measured from u's own last step, not from A, so it is not a copy of user_recency. (2) trig_tdecay, the capped co-adoption share weighted by 1/ln(2 + lag). This weight decays slowly and does not depend much on the unknown step unit, unlike exp(-age/7). (3) trig_visits, the number of distinct visits of u that contain a trigger of j, which marks an interest u keeps returning to. cooc_last5 and cooc_wsum weight by list position, so a 20-item haul from yesterday counts the same as 20 single visits spread over months.",
+   "sign": "+",
+   "stratum": "Users whose recent history spans several visits, so trigger lags differ. They have at least 2 distinct active steps in [A-90, A) and an event in the last 14 steps. SQL: (SELECT count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id AND e.t >= {A} - 90) >= 2 AND (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) >= {A} - 14",
+   "null_stratum": "Users with a single active step in the last 90 steps. Every trigger has lag 0 and visits is at most 1, so only the co-adoption share is left. SQL: (SELECT count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id AND e.t >= {A} - 90) <= 1",
+   "sql": "WITH L AS (SELECT user_id, item_id AS src, t AS src_t FROM (SELECT e.user_id, e.item_id, e.t, row_number() OVER (PARTITION BY e.user_id ORDER BY e.t DESC, e.item_id) AS rn FROM ev e JOIN users u ON e.user_id = u.user_id WHERE e.t >= {A} - 90) x WHERE rn <= 15), LM AS (SELECT user_id, max(src_t) AS lt FROM L GROUP BY user_id), RA AS (SELECT item_id, user_id AS v FROM (SELECT e.item_id, e.user_id, row_number() OVER (PARTITION BY e.item_id ORDER BY e.t DESC, e.user_id) AS rk FROM ev e WHERE e.t >= {A} - 90 AND e.item_id IN (SELECT src FROM L)) y WHERE rk <= 20), NA AS (SELECT L.user_id, L.src, L.src_t, RA.v FROM L JOIN RA ON RA.item_id = L.src WHERE RA.v <> L.user_id), DEN AS (SELECT user_id, src, count(*) AS na FROM NA GROUP BY user_id, src), HIT AS (SELECT n.user_id, e.item_id, n.src, n.src_t, count(*) AS k FROM NA n JOIN ev e ON e.user_id = n.v AND e.t >= {A} - 90 JOIN cand c ON c.user_id = n.user_id AND c.item_id = e.item_id GROUP BY n.user_id, e.item_id, n.src, n.src_t), AGG AS (SELECT h.user_id, h.item_id, min(m.lt - h.src_t) AS lag_min, sum(h.k * 1.0 / d.na / ln(2.0 + m.lt - h.src_t)) AS tdec, count(DISTINCT h.src_t) AS nvis FROM HIT h JOIN DEN d ON d.user_id = h.user_id AND d.src = h.src JOIN LM m ON m.user_id = h.user_id GROUP BY h.user_id, h.item_id) SELECT c.user_id, c.item_id, COALESCE(a.lag_min, 365) AS f_x_c1_trig_lag, COALESCE(a.tdec, 0) AS f_x_c1_trig_tdecay, COALESCE(a.nvis, 0) AS f_x_c1_trig_visits FROM cand c LEFT JOIN AGG a ON a.user_id = c.user_id AND a.item_id = c.item_id",
+   "twin": {
+    "how": "time_shuffle",
+    "sql": "WITH L0 AS (SELECT user_id, item_id AS src, t AS src_t FROM (SELECT e.user_id, e.item_id, e.t, row_number() OVER (PARTITION BY e.user_id ORDER BY e.t DESC, e.item_id) AS rn FROM ev e JOIN users u ON e.user_id = u.user_id WHERE e.t >= {A} - 90) x WHERE rn <= 15), L AS (SELECT user_id, src, {A} - 1 - CAST(hash(user_id, src_t) % 90 AS INTEGER) AS src_t FROM L0), LM AS (SELECT user_id, max(src_t) AS lt FROM L GROUP BY user_id), RA AS (SELECT item_id, user_id AS v FROM (SELECT e.item_id, e.user_id, row_number() OVER (PARTITION BY e.item_id ORDER BY e.t DESC, e.user_id) AS rk FROM ev e WHERE e.t >= {A} - 90 AND e.item_id IN (SELECT src FROM L)) y WHERE rk <= 20), NA AS (SELECT L.user_id, L.src, L.src_t, RA.v FROM L JOIN RA ON RA.item_id = L.src WHERE RA.v <> L.user_id), DEN AS (SELECT user_id, src, count(*) AS na FROM NA GROUP BY user_id, src), HIT AS (SELECT n.user_id, e.item_id, n.src, n.src_t, count(*) AS k FROM NA n JOIN ev e ON e.user_id = n.v AND e.t >= {A} - 90 JOIN cand c ON c.user_id = n.user_id AND c.item_id = e.item_id GROUP BY n.user_id, e.item_id, n.src, n.src_t), AGG AS (SELECT h.user_id, h.item_id, min(m.lt - h.src_t) AS lag_min, sum(h.k * 1.0 / d.na / ln(2.0 + m.lt - h.src_t)) AS tdec, count(DISTINCT h.src_t) AS nvis FROM HIT h JOIN DEN d ON d.user_id = h.user_id AND d.src = h.src JOIN LM m ON m.user_id = h.user_id GROUP BY h.user_id, h.item_id) SELECT c.user_id, c.item_id, COALESCE(a.lag_min, 365) AS f_x_c1_trig_lag_tw, COALESCE(a.tdec, 0) AS f_x_c1_trig_tdecay_tw, COALESCE(a.nvis, 0) AS f_x_c1_trig_visits_tw FROM cand c LEFT JOIN AGG a ON a.user_id = c.user_id AND a.item_id = c.item_id"
+   },
+   "rival": {
+    "explanation": "The gain may come only from the capped recent-adopter co-adoption share, which is another normalisation of item-item similarity, and not from the timing of the trigger. The twin replaces each of u's real visit steps with a random step in [A-90, A) chosen by hash. This keeps the grouping of items into visits and the co-adoption share, but destroys their real order and spacing. If the rival is right, the twin matches the original.",
+    "stratum": "users whose recent items are popular (many adopters), where the capped share differs most from the cosine scores"
+   }
+  }
+ },
+ {
+  "card": "G1-2",
+  "action": "revise",
+  "new": {
+   "name": "visit_day_context",
+   "level": "pair",
+   "mechanism": "What was being bought on the exact steps when u last shopped (u's last 3 active steps) reflects the promotions and drops u was exposed to. The single column is the lift of j's share among the active users of those steps over j's share of the 30-step audience. It separates items that were hot at u's moment from items that are hot in general. The share column is dropped because it duplicates users_30. Visit days before j's first event are excluded, and the lift is set to 0 when j launched after all three days. This way the column no longer encodes 'launched after u's visit', which item_age and user_recency already give.",
+   "sign": "+",
+   "stratum": "Users who shopped recently but not at the very latest steps, so their visit days differ from the newest popularity window: user_recency between 4 and 14. SQL: {A} - (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) BETWEEN 4 AND 14",
+   "null_stratum": "Dormant users whose last visit context is stale. SQL: (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) < {A} - 90",
+   "sql": "WITH us AS (SELECT user_id, s FROM (SELECT user_id, s, row_number() OVER (PARTITION BY user_id ORDER BY s DESC) AS r FROM (SELECT DISTINCT e.user_id, e.t AS s FROM ev e JOIN users u ON e.user_id = u.user_id) d) x WHERE r <= 3), fi AS (SELECT item_id, min(t) AS ft FROM ev WHERE item_id IN (SELECT item_id FROM cand) GROUP BY item_id), dn AS (SELECT t AS s, count(DISTINCT user_id) AS nu FROM ev WHERE t IN (SELECT s FROM us) GROUP BY t), di AS (SELECT t AS s, item_id, count(*) AS n FROM ev WHERE t IN (SELECT s FROM us) AND item_id IN (SELECT item_id FROM cand) GROUP BY t, item_id), vd AS (SELECT c.user_id, c.item_id, avg(COALESCE(di.n, 0) * 1.0 / dn.nu) AS sh FROM cand c JOIN fi ON fi.item_id = c.item_id JOIN us ON us.user_id = c.user_id AND us.s >= fi.ft JOIN dn ON dn.s = us.s LEFT JOIN di ON di.s = us.s AND di.item_id = c.item_id GROUP BY c.user_id, c.item_id), i30 AS (SELECT item_id, count(*) AS n30 FROM ev WHERE t >= {A} - 30 AND item_id IN (SELECT item_id FROM cand) GROUP BY item_id), a30 AS (SELECT count(DISTINCT user_id) AS na FROM ev WHERE t >= {A} - 30) SELECT c.user_id, c.item_id, CASE WHEN vd.sh IS NULL THEN 0 ELSE ln((vd.sh + 0.0001) / (COALESCE(i30.n30, 0) * 1.0 / greatest(a30.na, 1) + 0.0001)) END AS f_x_c1_vday_lift FROM cand c LEFT JOIN vd ON vd.user_id = c.user_id AND vd.item_id = c.item_id LEFT JOIN i30 ON i30.item_id = c.item_id CROSS JOIN a30",
+   "twin": {
+    "how": "time_shuffle",
+    "sql": "WITH us0 AS (SELECT user_id, s, (CAST(hash(user_id, s) % 7 AS INTEGER) + 1) * CASE WHEN hash(s, user_id) % 2 = 0 THEN 1 ELSE -1 END AS d FROM (SELECT user_id, s, row_number() OVER (PARTITION BY user_id ORDER BY s DESC) AS r FROM (SELECT DISTINCT e.user_id, e.t AS s FROM ev e JOIN users u ON e.user_id = u.user_id) d0) x WHERE r <= 3), us AS (SELECT user_id, CASE WHEN s + d < {A} THEN s + d ELSE s - abs(d) END AS s FROM us0), fi AS (SELECT item_id, min(t) AS ft FROM ev WHERE item_id IN (SELECT item_id FROM cand) GROUP BY item_id), dn AS (SELECT t AS s, count(DISTINCT user_id) AS nu FROM ev WHERE t IN (SELECT s FROM us) GROUP BY t), di AS (SELECT t AS s, item_id, count(*) AS n FROM ev WHERE t IN (SELECT s FROM us) AND item_id IN (SELECT item_id FROM cand) GROUP BY t, item_id), vd AS (SELECT c.user_id, c.item_id, avg(COALESCE(di.n, 0) * 1.0 / dn.nu) AS sh FROM cand c JOIN fi ON fi.item_id = c.item_id JOIN us ON us.user_id = c.user_id AND us.s >= fi.ft JOIN dn ON dn.s = us.s LEFT JOIN di ON di.s = us.s AND di.item_id = c.item_id GROUP BY c.user_id, c.item_id), i30 AS (SELECT item_id, count(*) AS n30 FROM ev WHERE t >= {A} - 30 AND item_id IN (SELECT item_id FROM cand) GROUP BY item_id), a30 AS (SELECT count(DISTINCT user_id) AS na FROM ev WHERE t >= {A} - 30) SELECT c.user_id, c.item_id, CASE WHEN vd.sh IS NULL THEN 0 ELSE ln((vd.sh + 0.0001) / (COALESCE(i30.n30, 0) * 1.0 / greatest(a30.na, 1) + 0.0001)) END AS f_x_c1_vday_lift_tw FROM cand c LEFT JOIN vd ON vd.user_id = c.user_id AND vd.item_id = c.item_id LEFT JOIN i30 ON i30.item_id = c.item_id CROSS JOIN a30"
+   },
+   "rival": {
+    "explanation": "The lift may be only very-short-horizon momentum (1-3 steps against 30) or a weekday rhythm, and not u's personal exposure. The twin moves each visit day by 1-7 steps in either direction, keeping it inside [.., A). This keeps the staleness band and the short-horizon momentum while breaking the alignment with u's actual days. If the rival is right, the twin matches the original.",
+    "stratum": "users with user_recency <= 3, where visit days coincide with the latest steps"
+   }
+  }
+ },
+ {
+  "card": "G1-3",
+  "action": "withdraw",
+  "reason": "vis_since_launch is a per-user visit count for every item older than 180 steps, so it is degenerate within a user (undefined rho, TWIN-BROKEN). vis_copresent_rate is item demand frequency (R2 0.667 to global_rank). The young-item part overlaps item_age and the per-user clock of G1-7 and of other cards. No fix leaves a distinct pair-level exposure signal."
+ },
+ {
+  "card": "G1-4",
+  "action": "revise",
+  "new": {
+   "name": "recency_state_pop",
+   "level": "pair",
+   "mechanism": "Users returning after a long pause buy differently from the average session: they favour basics and seasonal bestsellers over complements of their last basket. Every session in the last 90 steps is bucketed by its completed gap since the user's previous active step (log2 buckets up to 8). Returns after more than 425 steps form bucket 9. Brand-new users' first sessions form bucket -1 and are excluded, which fixes the newcomer contamination. The censoring is now respected: a user with elapsed pause p will return with a gap of at least p, so u is matched to all sessions whose gap bucket is at least u's elapsed-pause bucket, not only the equal one. The single column is j's share in that pool against j's share over all sessions, shrunk toward 1 with a prior of 20 sessions so that sparse long-gap pools do not produce noise. state_pop is dropped because it duplicates users_90.",
+   "sign": "+",
+   "stratum": "Dormant users, whose pool of returning sessions differs most from the overall session mix: user_recency >= 16. SQL: {A} - (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) >= 16",
+   "null_stratum": "Users active within the last 3 steps. Their pool is almost all sessions, so the lift is about 0 by construction. SQL: {A} - (SELECT max(e.t) FROM ev e WHERE e.user_id = cand.user_id) <= 3",
+   "sql": "WITH fu AS (SELECT user_id, min(t) AS ft FROM ev GROUP BY user_id), sd AS (SELECT DISTINCT user_id, t AS s FROM ev WHERE t >= {A} - 425), sg AS (SELECT user_id, s, s - lag(s) OVER (PARTITION BY user_id ORDER BY s) AS g FROM sd), sb AS (SELECT sg.user_id, sg.s, CASE WHEN sg.g IS NOT NULL THEN least(CAST(floor(log2(sg.g)) AS INTEGER), 8) WHEN sg.s > fu.ft THEN 9 ELSE -1 END AS b FROM sg JOIN fu ON fu.user_id = sg.user_id WHERE sg.s >= {A} - 90), sn AS (SELECT b, count(*) AS nb FROM sb GROUP BY b), tot AS (SELECT sum(nb) AS ns FROM sn), si AS (SELECT sb.b, e.item_id, count(*) AS n FROM sb JOIN ev e ON e.user_id = sb.user_id AND e.t = sb.s WHERE e.t >= {A} - 90 AND e.item_id IN (SELECT item_id FROM cand) GROUP BY sb.b, e.item_id), ti AS (SELECT item_id, sum(n) AS nt FROM si GROUP BY item_id), ub AS (SELECT e.user_id, CASE WHEN {A} - max(e.t) > 365 THEN 9 ELSE least(CAST(floor(log2({A} - max(e.t))) AS INTEGER), 8) END AS b FROM ev e JOIN users u ON e.user_id = u.user_id GROUP BY e.user_id), kb AS (SELECT DISTINCT b FROM ub), snc AS (SELECT kb.b, sum(sn.nb) AS nbc FROM kb JOIN sn ON sn.b >= kb.b GROUP BY kb.b), sic AS (SELECT kb.b, si.item_id, sum(si.n) AS nc FROM kb JOIN si ON si.b >= kb.b GROUP BY kb.b, si.item_id), pj AS (SELECT ci.item_id, (COALESCE(ti.nt, 0) + 0.5) / (tot.ns + 1.0) AS p FROM (SELECT DISTINCT item_id FROM cand) ci LEFT JOIN ti ON ti.item_id = ci.item_id CROSS JOIN tot) SELECT c.user_id, c.item_id, ln(((COALESCE(sic.nc, 0) + 20.0 * pj.p) / (COALESCE(snc.nbc, 0) + 20.0)) / pj.p) AS f_x_c1_state_lift FROM cand c JOIN ub ON ub.user_id = c.user_id JOIN pj ON pj.item_id = c.item_id LEFT JOIN snc ON snc.b = ub.b LEFT JOIN sic ON sic.b = ub.b AND sic.item_id = c.item_id",
+   "twin": {
+    "how": "neighbour_shuffle",
+    "sql": "WITH fu AS (SELECT user_id, min(t) AS ft FROM ev GROUP BY user_id), sd AS (SELECT DISTINCT user_id, t AS s FROM ev WHERE t >= {A} - 425), sg AS (SELECT user_id, s, s - lag(s) OVER (PARTITION BY user_id ORDER BY s) AS g FROM sd), sb AS (SELECT sg.user_id, sg.s, CASE WHEN sg.g IS NOT NULL THEN least(CAST(floor(log2(sg.g)) AS INTEGER), 8) WHEN sg.s > fu.ft THEN 9 ELSE -1 END AS b FROM sg JOIN fu ON fu.user_id = sg.user_id WHERE sg.s >= {A} - 90), sn AS (SELECT b, count(*) AS nb FROM sb GROUP BY b), tot AS (SELECT sum(nb) AS ns FROM sn), si AS (SELECT sb.b, e.item_id, count(*) AS n FROM sb JOIN ev e ON e.user_id = sb.user_id AND e.t = sb.s WHERE e.t >= {A} - 90 AND e.item_id IN (SELECT item_id FROM cand) GROUP BY sb.b, e.item_id), ti AS (SELECT item_id, sum(n) AS nt FROM si GROUP BY item_id), ub AS (SELECT u.user_id, CAST(hash(u.user_id) % 10 AS INTEGER) AS b FROM users u), kb AS (SELECT DISTINCT b FROM ub), snc AS (SELECT kb.b, sum(sn.nb) AS nbc FROM kb JOIN sn ON sn.b >= kb.b GROUP BY kb.b), sic AS (SELECT kb.b, si.item_id, sum(si.n) AS nc FROM kb JOIN si ON si.b >= kb.b GROUP BY kb.b, si.item_id), pj AS (SELECT ci.item_id, (COALESCE(ti.nt, 0) + 0.5) / (tot.ns + 1.0) AS p FROM (SELECT DISTINCT item_id FROM cand) ci LEFT JOIN ti ON ti.item_id = ci.item_id CROSS JOIN tot) SELECT c.user_id, c.item_id, ln(((COALESCE(sic.nc, 0) + 20.0 * pj.p) / (COALESCE(snc.nbc, 0) + 20.0)) / pj.p) AS f_x_c1_state_lift_tw FROM cand c JOIN ub ON ub.user_id = c.user_id JOIN pj ON pj.item_id = c.item_id LEFT JOIN snc ON snc.b = ub.b LEFT JOIN sic ON sic.b = ub.b AND sic.item_id = c.item_id"
+   },
+   "rival": {
+    "explanation": "The lift of long-gap returner sessions may just mark evergreen, steadily bought items, because returners after a pause meet the long-lived assortment. That is an item property any user would show, not a match to u's pause state. The twin with hashed buckets keeps the same item-level lifts, so under the rival it helps equally.",
+    "stratum": "old items (item_age > 180) for all users, regardless of user_recency"
+   }
+  }
+ },
+ {
+  "card": "G1-5",
+  "action": "withdraw",
+  "reason": "These are user-level columns that are constant within a user's candidates, so they can only act through interactions. prev_gap duplicates user_visit_rhythm (R2 0.489 to ag_steps_30), and last_sess_n has R2 0.461 to existing columns. The main effect is calibration across users, and the column adds noise for little within-user ranking signal. The pause and visit structure is carried at pair level by the revised G1-1 (trig_lag, trig_visits) and G1-4."
+ },
+ {
+  "card": "G1-6",
+  "action": "withdraw",
+  "reason": "R2 0.835 to ag_pop_decay3, and the random-horizon twin keeps R2 0.689. The column is mostly an existing momentum ratio. Its 1-4 step horizons also invite weekday-phase noise across anchors spaced 30 steps apart."
+ },
+ {
+  "card": "G1-7",
+  "action": "withdraw",
+  "reason": "missed_log is popularity over a window of length user_recency (R2 0.664 to ag_pop_decay3), and missed_share mainly encodes item_age < user_recency (R2 0.696 to pop_share_30). The random-visit twin keeps the same correlations, and the per-user clock overlaps other cards. Trees can build it from user_recency and the existing popularity windows."
+ },
+ {
+  "card": "G1-8",
+  "action": "revise",
+  "new": {
+   "name": "basket_size_match",
+   "level": "pair",
+   "mechanism": "Items differ in how they are bought: as add-ons inside larger-than-usual visits or as targeted picks. The adopter-activity confound is removed by measuring visit size within adopter. j_addon is the mean, over j's adoptions in [A-180, A) by adopters with at least 2 visits there, of ln(size of the adoption visit) minus that adopter's own mean ln visit size. Heavy users no longer push the value up, because each is compared with themself. style_match is j_addon times u's mean ln visit size in the last 180 steps minus the population mean (falling back to u's whole history when u has no visit in 180 steps). It is positive when haul shoppers meet add-on items or targeted shoppers meet destination items. Both windows now cover 180 steps, and items without data get the neutral value 0 instead of NULL.",
+   "sign": "+",
+   "stratum": "Users with a clear visit style and at least 3 active steps: mean items per active step >= 3 or exactly 1. SQL: (SELECT count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id) >= 3 AND ((SELECT count(*) * 1.0 / count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id) >= 3 OR (SELECT count(*) * 1.0 / count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id) = 1)",
+   "null_stratum": "Users whose mean visit size is close to the population's, 1.5 to 2.5 items per active step, where style_match is about 0. SQL: (SELECT count(*) * 1.0 / count(DISTINCT e.t) FROM ev e WHERE e.user_id = cand.user_id) BETWEEN 1.5 AND 2.5",
+   "sql": "WITH bs AS (SELECT user_id, t AS s, ln(count(*)) AS lk FROM ev WHERE t >= {A} - 180 GROUP BY user_id, t), am AS (SELECT user_id, avg(lk) AS ml, count(*) AS nv FROM bs GROUP BY user_id), jb AS (SELECT e.item_id, avg(b.lk - am.ml) AS ja FROM ev e JOIN bs b ON b.user_id = e.user_id AND e.t = b.s JOIN am ON am.user_id = e.user_id WHERE e.t >= {A} - 180 AND am.nv >= 2 AND e.item_id IN (SELECT item_id FROM cand) GROUP BY e.item_id), gm AS (SELECT avg(lk) AS g FROM bs), ub AS (SELECT d.user_id, COALESCE(avg(ln(d.k)) FILTER (WHERE d.s >= {A} - 180), avg(ln(d.k))) AS ul FROM (SELECT e.user_id, e.t AS s, count(*) AS k FROM ev e JOIN users u ON e.user_id = u.user_id GROUP BY e.user_id, e.t) d GROUP BY d.user_id) SELECT c.user_id, c.item_id, COALESCE(jb.ja, 0) AS f_x_c1_j_addon, COALESCE(jb.ja, 0) * (ub.ul - gm.g) AS f_x_c1_style_match FROM cand c JOIN ub ON ub.user_id = c.user_id LEFT JOIN jb ON jb.item_id = c.item_id CROSS JOIN gm",
+   "twin": {
+    "how": "neighbour_shuffle",
+    "sql": "WITH st AS (SELECT item_id, count(*) AS n FROM ev GROUP BY item_id), pb AS (SELECT item_id, CAST(floor(log2(n)) AS INTEGER) AS b, row_number() OVER (PARTITION BY CAST(floor(log2(n)) AS INTEGER) ORDER BY hash(item_id), item_id) AS p, count(*) OVER (PARTITION BY CAST(floor(log2(n)) AS INTEGER)) AS m FROM st), pr AS (SELECT a.item_id, b.item_id AS pitem FROM pb a JOIN pb b ON a.b = b.b AND b.p = a.p % a.m + 1 WHERE a.item_id IN (SELECT item_id FROM cand)), bs AS (SELECT user_id, t AS s, ln(count(*)) AS lk FROM ev WHERE t >= {A} - 180 GROUP BY user_id, t), am AS (SELECT user_id, avg(lk) AS ml, count(*) AS nv FROM bs GROUP BY user_id), jb AS (SELECT e.item_id, avg(b.lk - am.ml) AS ja FROM ev e JOIN bs b ON b.user_id = e.user_id AND e.t = b.s JOIN am ON am.user_id = e.user_id WHERE e.t >= {A} - 180 AND am.nv >= 2 AND e.item_id IN (SELECT pitem FROM pr) GROUP BY e.item_id), gm AS (SELECT avg(lk) AS g FROM bs), ub AS (SELECT d.user_id, COALESCE(avg(ln(d.k)) FILTER (WHERE d.s >= {A} - 180), avg(ln(d.k))) AS ul FROM (SELECT e.user_id, e.t AS s, count(*) AS k FROM ev e JOIN users u ON e.user_id = u.user_id GROUP BY e.user_id, e.t) d GROUP BY d.user_id) SELECT c.user_id, c.item_id, COALESCE(jb.ja, 0) AS f_x_c1_j_addon_tw, COALESCE(jb.ja, 0) * (ub.ul - gm.g) AS f_x_c1_style_match_tw FROM cand c JOIN ub ON ub.user_id = c.user_id LEFT JOIN pr ON pr.item_id = c.item_id LEFT JOIN jb ON jb.item_id = pr.pitem CROSS JOIN gm"
+   },
+   "rival": {
+    "explanation": "j_addon may mark items bought in campaign or sale visits, which are larger than usual for everyone. In that case it is an item-level promotion flag, not a user-style match: the gain would come from j_addon alone, and style_match would add nothing.",
+    "stratum": "all users equally, concentrated on items with users_30 / users_90 above the median (promoted items)"
+   }
+  }
+ }
+]
+```
