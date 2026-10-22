@@ -1,0 +1,68 @@
+{
+ "step": "path",
+ "status": "ok",
+ "points": {
+  "side_path_H_s0": {
+   "ref": "q2_d8",
+   "same_queries": true,
+   "queries": 19360,
+   "max_abs": {
+    "ndcg": 0.0,
+    "recall": 0.0,
+    "purchase_ndcg": 0.0,
+    "purchase_recall": 0.0
+   }
+  },
+  "side_path_r6base_s0": {
+   "ref": "agent_night20_r6_base",
+   "same_queries": true,
+   "queries": 19360,
+   "max_abs": {
+    "ndcg": 0.0,
+    "recall": 0.0,
+    "purchase_ndcg": 0.0,
+    "purchase_recall": 0.0
+   }
+  }
+ },
+ "passed": true,
+ "verdict": "путь совпал с опорами на A: max|Δ| = 0",
+ "deviations": [
+  "журнал heavy — общий council/runs/side/queue.jsonl (council.side.heavy_step), а не artifacts/side/<h>/heavy.jsonl",
+  "свой снимок под замком (artifacts/task1/v2, v2020, artifacts/xfer, task1/runs без каталогов sealed) — в дополнение к снимкам find/stat из команд prereg",
+  "ключ retrain в результате H10 = перефит prereg",
+  "--skip stage3 | refit_H = пп. 2–3 «Что режется первым» (h11.md)",
+  "имя замка проверки пути — side t1-path",
+  "h10 --dry считает Q_full, Q_sub и запросы хвоста (только anchor, user_id; за световым гейтом); --no-counts пропускает подсчёт"
+ ],
+ "reused": {
+  "q2_d8": "ok",
+  "agent_night20_r6_base": "ok"
+ },
+ "eval": "val half A 2019-11-08..13",
+ "half_b": "не скорится и не читается",
+ "protected": {
+  "unchanged": true,
+  "incident": [],
+  "n_incident": 0,
+  "reconcile": [],
+  "entries": 6334,
+  "roots": {
+   "/Users/mdpospelov/tlab-recsys-2026/artifacts/task1/v2": "incident",
+   "/Users/mdpospelov/tlab-recsys-2026/task1/runs": "incident",
+   "/Users/mdpospelov/tlab-recsys-2026/artifacts/task1/v2020": "reconcile",
+   "/Users/mdpospelov/tlab-recsys-2026/artifacts/xfer": "reconcile"
+  }
+ },
+ "code": {
+  "task1/exp.py": "94c1dc883654766d5ba4e24f7d81fdd10ab711ad3df1e40cd845b47147d1c957",
+  "task1/model.py": "33b7b2cf483bce77c2472acd5571d2937a76890096f682b2d56dd2b6899e3a74",
+  "task1/period.py": "fdeb16b9d0b39ece02499b4bf0a9f5809a795d0d08db17c3b7ca74c77a42944e",
+  "council/side/__init__.py": "11f6fa839e6739cb2b04e41d532015d6765ec286e0c37870167242ddf5fc22d7",
+  "council/side/task1_side.py": "83eae080eae7c377f7a9e3adefa4c7b8377ddbbacd72aac683a1db41fa58d398"
+ },
+ "commit": "38b8ebf5f2949c03cc1d2c7201aa57667ae3c83a",
+ "peak_rss_gb": 20.585,
+ "seconds_total": 900.1,
+ "finished": "2026-10-22 14:58:45"
+}
