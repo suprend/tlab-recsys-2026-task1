@@ -1,0 +1,167 @@
+{
+ "dataset": "sber",
+ "runs": "council/runs/xfer-sber",
+ "H3": {
+  "cards_from": "prereg-1.json",
+  "families": [
+   {
+    "column": "F1",
+    "card": "G2-2",
+    "lens": "G2",
+    "sign": 1,
+    "beta": 2.6078803172462583e-05,
+    "t": 0.5098306336881447
+   },
+   {
+    "column": "F2",
+    "card": "G3-1",
+    "lens": "G3",
+    "sign": 1,
+    "beta": 5.785290470799306e-05,
+    "t": 1.1532082355586248
+   },
+   {
+    "column": "F3",
+    "card": "G4-1",
+    "lens": "G4",
+    "sign": 1,
+    "beta": 2.1220005565555947e-05,
+    "t": 0.5511270589304756
+   },
+   {
+    "column": "F4",
+    "card": "G2-4",
+    "lens": "G2",
+    "sign": 1,
+    "beta": 1.872757440775334e-05,
+    "t": 0.4760351714061002
+   },
+   {
+    "column": "F5",
+    "card": "G3-3",
+    "lens": "G3",
+    "sign": 1,
+    "beta": -1.0794141334126242e-05,
+    "t": -0.2598156328310392
+   },
+   {
+    "column": "F6",
+    "card": "G4-3",
+    "lens": "G4",
+    "sign": 1,
+    "beta": 2.4665035281449832e-05,
+    "t": 0.6120347980148011
+   },
+   {
+    "column": "F7",
+    "card": "G2-6",
+    "lens": "G2",
+    "sign": 1,
+    "beta": 7.251709315700687e-07,
+    "t": 0.019634201555512727
+   },
+   {
+    "column": "F8",
+    "card": "G4-6",
+    "lens": "G4",
+    "sign": 1,
+    "beta": 9.035796071458976e-06,
+    "t": 0.19767662896436367
+   }
+  ],
+  "no_sign": [],
+  "degenerate": true,
+  "all": {
+   "n": 8,
+   "n_beta_positive": 7,
+   "share_positive": 0.875,
+   "p_share_vs_half": 0.03515625,
+   "n_t_above_2": 0,
+   "n_t_below_minus_2": 0,
+   "degenerate": true,
+   "spearman": null,
+   "perm_p": null
+  },
+  "by_lens": {
+   "G2": {
+    "n": 3,
+    "n_beta_positive": 3,
+    "share_positive": 1.0,
+    "p_share_vs_half": 0.125,
+    "n_t_above_2": 0,
+    "n_t_below_minus_2": 0,
+    "degenerate": true,
+    "spearman": null,
+    "perm_p": null
+   },
+   "G3": {
+    "n": 2,
+    "n_beta_positive": 1,
+    "share_positive": 0.5,
+    "p_share_vs_half": 0.75,
+    "n_t_above_2": 0,
+    "n_t_below_minus_2": 0,
+    "degenerate": true,
+    "spearman": null,
+    "perm_p": null
+   },
+   "G4": {
+    "n": 3,
+    "n_beta_positive": 3,
+    "share_positive": 1.0,
+    "p_share_vs_half": 0.125,
+    "n_t_above_2": 0,
+    "n_t_below_minus_2": 0,
+    "degenerate": true,
+    "spearman": null,
+    "perm_p": null
+   }
+  },
+  "note": "H3 не проверяема: все знаки «+»; ниже только доля β̂ > 0"
+ },
+ "H2": {
+  "se_empty": 2.5559869855370476e-05,
+  "n_empty": 10,
+  "df": 9,
+  "empty": [
+   "F9",
+   "F10",
+   "F11",
+   "F12",
+   "E1",
+   "E2",
+   "E3",
+   "E4",
+   "E5",
+   "E6"
+  ],
+  "se_empty_ci95": [
+   1.7580978366446277e-05,
+   4.666235867183945e-05
+  ],
+  "se_boot": 2.826867586534971e-05,
+  "ratio_empty_to_boot": 0.9041764098579675,
+  "se_seed": 0.0,
+  "se_seed_ci95": [
+   0.0,
+   3.7124893018555424e-05
+  ],
+  "share_of_variance_seed": 0.0,
+  "rehearsal_se_boot": 2.849915774328293e-05,
+  "rehearsal_se_boot_scaled": 2.849915774328293e-05,
+  "rehearsal_scale": "√(9989 / 9989)"
+ },
+ "H1'": {
+  "status": "не применимо",
+  "why": "в контракте xfer нет C_val"
+ },
+ "H14": {
+  "status": "нет данных",
+  "scanned": [
+   "runs.jsonl"
+  ],
+  "unreadable": [],
+  "why": "нет данных: записи подгонок (council/fit.py:272, council/xfer/fit.py:564) не хранят importance"
+ },
+ "note": "описательно: без новых чтений меток, без выводов; n мало"
+}
