@@ -33,6 +33,39 @@
         "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
         "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"
       }
+    },
+    {
+      "id": "d2",
+      "step": "gate",
+      "kind": "technical",
+      "cause": "cli",
+      "timing": "after gate 1 of stage 1 (its receipt is written and unchanged), before holdout-open",
+      "changed_files": [
+        "scripts/otto_model.py"
+      ],
+      "what": "the CLI command gate (otto_model.cmd_gate) sends the gate verdict as `passed` instead of `ok` (gates 1 and 2; the power-gate line has no `ok` and is unchanged); gate() itself, its checks and its receipt do not change",
+      "why": "gate --kind 1 wrote artifacts/otto/gate/gate1-s1-20261023T020044020028Z/gate.json and then failed while printing: the `ok` of the gate result collided with the `ok` of the CLI line (TypeError: dict() got multiple values for keyword argument 'ok'), exit 1. Every later gate call through the CLI (gate 1 of stage 2, gate 2) would fail the same way after writing its receipt.",
+      "effect": "none on gate checks, statuses or receipts: only the stdout line of the CLI changes (test_gate_cli_reports_passed_without_clashing_with_ok); the gate-1 receipt of stage 1 is kept as written",
+      "failed_output": "none: the gate-1 receipt was written before the failure and is used as is",
+      "contract": "§7: after the first BA number only technical fixes recorded here; the gate rules of §8 are unchanged",
+      "created_utc": "2026-10-23T02:11:57Z",
+      "code": {
+        "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+        "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+        "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+        "scripts/hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+        "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+        "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+        "scripts/hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+        "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+        "scripts/hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+        "scripts/otto_agent.py": "05a6aa899047a447fd12b18453d3987fa68777ed30ca706198c294464b718a79",
+        "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
+        "scripts/otto_data.py": "57bffca039e7b51be746c63f05ba0ac908ae8908ec925eb760b55c276972f6b0",
+        "scripts/otto_model.py": "6be77c778ca34f7fe0aa76442c3bb5f0b45bc43bbede547a22e19d68d5fd75c1",
+        "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+        "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"
+      }
     }
   ]
 }

@@ -1839,13 +1839,21 @@ def cmd_evaluate(args):
                 topped_sessions=report['topped_sessions'], metrics=report.get('metrics'))
 
 
+def cmd_gate(a):
+    """CLI gate: the gate verdict goes out as ``passed``; ``ok`` belongs to the CLI line (deviation d2)."""
+    result = dict(gate(Context.contract(), a.kind, a.stage, a.leakcheck, a.contrast))
+    if 'ok' in result:
+        result['passed'] = result.pop('ok')
+    return result
+
+
 COMMANDS = {
     'fit': cmd_fit,
     'final-sessions': lambda a: final_sessions(Context.contract(), a.name),
     'smoke': lambda a: smoke(Context.before_prereg(oc.read_base(a.base), 'smoke', a.bootstrap)),
     'evaluate': cmd_evaluate,
     'contrast': lambda a: contrast(Context.contract()),
-    'gate': lambda a: gate(Context.contract(), a.kind, a.stage, a.leakcheck, a.contrast),
+    'gate': cmd_gate,
     'holdout-open': lambda a: holdout_open(Context.contract(), a.gate, a.quote, a.quote_time, a.covers_stage2,
                                            a.stage),
     'holdout': lambda a: holdout(Context.contract(), a.stage),

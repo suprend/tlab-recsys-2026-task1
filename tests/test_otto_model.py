@@ -7,7 +7,9 @@ the stored types of otto_data (ranks USMALLINT). The agent's outputs are simulat
 in its formats: the set (otto-set-v1, ``columns``), sidecars (sidecar.json and
 parts) and leakcheck reports. CatBoost fits are tiny (5 trees, depth 2, 2 threads).
 """
+import contextlib
 import copy
+import io
 import json
 import math
 from pathlib import Path
@@ -1150,6 +1152,20 @@ class ReadingAndCli(unittest.TestCase):
                     mock.patch.object(om.Context, 'before_prereg', side_effect=AssertionError('context')):
                 with self.assertRaisesRegex(oc.ContractError, 'Output names'):
                     om.cmd_fit(args)
+
+    def test_gate_cli_reports_passed_without_clashing_with_ok(self):
+        fake = dict(path='/x/gate.json', ok=False, status=dict(B=False, BA=True, BApl=True))
+        out = io.StringIO()
+        with mock.patch.object(om, 'gate', return_value=fake) as gate, \
+                mock.patch.object(om.Context, 'contract', return_value='ctx'), \
+                mock.patch.object(oc, 'isolated'), contextlib.redirect_stdout(out):
+            code = om.main(['gate', '--kind', '1', '--leakcheck', 'a.json', 'b.json'])
+        line = json.loads(out.getvalue())
+        self.assertEqual(code, 0)
+        self.assertEqual((line['ok'], line['passed'], line['command']), (True, False, 'gate'))
+        self.assertEqual(line['status'], fake['status'])
+        self.assertEqual(gate.call_args.args[:2], ('ctx', '1'))
+        self.assertIn('ok', fake)
 
     def test_cli_refuses_without_isolation_and_prints_one_json_line(self):
         plain = self.run_cli()
