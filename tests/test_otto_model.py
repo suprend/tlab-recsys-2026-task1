@@ -403,6 +403,38 @@ class Pipeline(Repo):
                 self.assertEqual(report['status'], 'failed')
         self.assertEqual(om.fit(ctx, 'dev', 'B', 2026)['sessions_without_rows'], 0)
 
+    def test_ba_frame_check_runs_by_chunks_and_counts_every_chunk(self):
+        ctx = self.ctx()
+        collection = ctx.collection(2)
+        con = om.connect(ctx)
+        feature = ctx.features[0]
+        try:
+            b_paths = ctx.frame_paths(collection, 'B')
+            con.execute(f'CREATE TEMP TABLE fr AS SELECT * FROM read_parquet({om.sql_list(b_paths)})')
+            con.execute('CREATE TEMP TABLE s AS SELECT DISTINCT CAST(session AS BIGINT) AS session FROM fr')
+            ids = [r[0] for r in con.execute('SELECT session FROM s ORDER BY session').fetchall()]
+            self.assertGreater(len(ids), 6)
+            with mock.patch.object(om, 'BA_CHECK_CHUNK', 3):
+                self.assertEqual(om.check_ba_frame(con, ctx, collection, 'fr', 's'),
+                                 dict(b_keys_missing=0, b_values_differ=0))
+            # damage two chunks: drop one row of the first session, change one value of the last session
+            con.execute(f'DELETE FROM fr WHERE session = {ids[0]} AND aid = (SELECT min(aid) FROM fr WHERE session = {ids[0]})')
+            con.execute(f'UPDATE fr SET "{feature}" = 9999 WHERE session = {ids[-1]} '
+                        f'AND aid = (SELECT min(aid) FROM fr WHERE session = {ids[-1]})')
+            counts = {}
+            for chunk in (3, 10**9):                       # by chunks and in one pass: the same counts
+                with mock.patch.object(om, 'BA_CHECK_CHUNK', chunk), mock.patch.object(om, 'require'):
+                    counts[chunk] = om.check_ba_frame(con, ctx, collection, 'fr', 's')
+            self.assertEqual(counts[3], dict(b_keys_missing=1, b_values_differ=1))
+            self.assertEqual(counts[3], counts[10**9])
+            with mock.patch.object(om, 'BA_CHECK_CHUNK', 3):
+                with self.assertRaisesRegex(oc.ContractError, 'lacks 1 candidates of B'):
+                    om.check_ba_frame(con, ctx, collection, 'fr', 's')
+            self.assertEqual(con.execute("SELECT count(*) FROM duckdb_tables() WHERE table_name = 'ba_check_chunks'"
+                                         ).fetchone()[0], 0)
+        finally:
+            con.close()
+
     def test_batch_size_does_not_change_b_and_ba_and_bapl_keeps_base_columns(self):
         ctx = self.ctx()
         calls = []

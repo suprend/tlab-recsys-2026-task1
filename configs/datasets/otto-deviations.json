@@ -1,0 +1,38 @@
+{
+  "format": "otto-deviations-v1",
+  "records": [
+    {
+      "id": "d1",
+      "step": "evaluate",
+      "kind": "technical",
+      "cause": "memory",
+      "timing": "after the first BA number (dev contrast), before gate 1 and holdout-open",
+      "changed_files": [
+        "scripts/otto_model.py"
+      ],
+      "what": "otto_model.check_ba_frame (the check that B enters BA whole, §5.2) runs over chunks of BA_CHECK_CHUNK = 100 000 sessions and sums the counts, instead of one pass over every session",
+      "why": "evaluate holdout BA2026 on the F4 evaluation population (1 000 000 sessions, BA frame 115 M rows) failed with DuckDB OutOfMemoryException (18.6 GiB of the 20 GB memory_limit) inside check_ba_frame: one EXCEPT over every B row of the population. Dry run outside the contract with chunks of 200 000 (code check off, scratch output removed): completed in 390 s, peak RSS 20.2 GB, b_keys_missing 0, b_values_differ 0; the chunk is halved for F5 (~150 rows per session).",
+      "effect": "none on metrics or outputs: every session lies in one chunk, so the summed set counts equal the single pass (test_ba_frame_check_runs_by_chunks_and_counts_every_chunk); agent SQL, columns, parameters, populations and models do not change",
+      "failed_output": "artifacts/otto/fits/holdout-BA2026/eval (status failed); fresh_output moves it to eval.failed-<stamp> on the rerun",
+      "contract": "§7: after the first BA number only technical fixes recorded here; §12 «Память»: a DuckDB memory failure is fixed by a smaller batch — here a batch over sessions is introduced into the check, its comparison logic is unchanged",
+      "created_utc": "2026-10-23T01:43:39Z",
+      "code": {
+        "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+        "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+        "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+        "scripts/hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+        "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+        "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+        "scripts/hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+        "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+        "scripts/hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+        "scripts/otto_agent.py": "05a6aa899047a447fd12b18453d3987fa68777ed30ca706198c294464b718a79",
+        "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
+        "scripts/otto_data.py": "57bffca039e7b51be746c63f05ba0ac908ae8908ec925eb760b55c276972f6b0",
+        "scripts/otto_model.py": "d44f12b53137e312ee4787e40f927e012426716ae1a34236b67e212a0a7898fc",
+        "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+        "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"
+      }
+    }
+  ]
+}

@@ -115,6 +115,7 @@ AGENT_PREFIX = oc.AGENT_PREFIX
 DUCKDB_THREADS = oc.DUCKDB_THREADS
 DUCKDB_MEMORY = oc.DUCKDB_MEMORY
 DUCKDB_MAX_TEMP = oc.DUCKDB_MAX_TEMP
+BA_CHECK_CHUNK = 100_000           # sessions per pass of check_ba_frame (deviation d1; F5 has ~150 rows/session)
 PARITY = (0.5, 2.0)
 SMOKE_NOISE = 72
 SMOKE_LIMIT_SECONDS = 40*60
@@ -813,12 +814,23 @@ def check_ba_frame(con, ctx, collection, ba_view, sessions_table):
     b_paths = ctx.frame_paths(collection, 'B')
     values = ', '.join(f'CAST("{c}" AS DOUBLE) AS "{c}"' for c in ctx.features)
     values = ', ' + values if values else ''
-    missing, differ = con.execute(f"""
-        WITH b AS (SELECT CAST(session AS BIGINT) AS session, CAST(aid AS BIGINT) AS aid{values}
-                   FROM read_parquet({sql_list(b_paths)}) SEMI JOIN {sessions_table} USING (session)),
-             a AS (SELECT session, aid{values} FROM {ba_view} SEMI JOIN {sessions_table} USING (session))
-        SELECT (SELECT count(*) FROM b ANTI JOIN a USING (session, aid)),
-               (SELECT count(*) FROM (SELECT * FROM b EXCEPT SELECT * FROM a))""").fetchone()
+    # by chunks of sessions: one EXCEPT over the F4 population (1M sessions) ran out of memory (deviation d1)
+    con.execute(f"""CREATE OR REPLACE TEMP TABLE ba_check_chunks AS SELECT session,
+        (row_number() OVER (ORDER BY session) - 1) // {int(BA_CHECK_CHUNK)} AS chunk FROM {sessions_table}""")
+    chunks = con.execute('SELECT coalesce(max(chunk) + 1, 0) FROM ba_check_chunks').fetchone()[0]
+    missing = differ = 0
+    try:
+        for chunk in range(int(chunks)):
+            part = f'(SELECT session FROM ba_check_chunks WHERE chunk = {chunk})'
+            m, d = con.execute(f"""
+                WITH b AS (SELECT CAST(session AS BIGINT) AS session, CAST(aid AS BIGINT) AS aid{values}
+                           FROM read_parquet({sql_list(b_paths)}) SEMI JOIN {part} c USING (session)),
+                     a AS (SELECT session, aid{values} FROM {ba_view} SEMI JOIN {part} c USING (session))
+                SELECT (SELECT count(*) FROM b ANTI JOIN a USING (session, aid)),
+                       (SELECT count(*) FROM (SELECT * FROM b EXCEPT SELECT * FROM a))""").fetchone()
+            missing, differ = missing + int(m), differ + int(d)
+    finally:
+        con.execute('DROP TABLE IF EXISTS ba_check_chunks')
     out = dict(b_keys_missing=int(missing), b_values_differ=int(differ) - int(missing))
     require(out['b_keys_missing'] == 0, f'BA frame lacks {missing} candidates of B (§5.2)')
     require(out['b_values_differ'] == 0, f'BA frame changes base values of {out["b_values_differ"]} B rows (§5.2)')

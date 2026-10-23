@@ -1,0 +1,248 @@
+{
+  "format": "otto-contrast-v1",
+  "series": "dev",
+  "seed": 2026,
+  "descriptive": true,
+  "prereg_sha256": "b1d374a397618373dc76851a070f1e6c1134bbcd02bafd5fbbb51118e1b24154",
+  "population": {
+    "n": 300000,
+    "digest": "05a49effa11215282d71a99de802e80d347ca0ec25d5171596629b9beb1b74f7"
+  },
+  "arms": [
+    "B",
+    "BA",
+    "BApl"
+  ],
+  "bapl_cut": false,
+  "ba": null,
+  "metrics": {
+    "B2026": {
+      "recall": {
+        "clicks": 0.3143899197411937,
+        "carts": 0.3097230236583958,
+        "orders": 0.5890062418773224
+      },
+      "score": 0.4777596441980316
+    },
+    "BA2026": {
+      "recall": {
+        "clicks": 0.5002249444507406,
+        "carts": 0.412198087544308,
+        "orders": 0.6493565924109023
+      },
+      "score": 0.5632958761549078
+    },
+    "BApl2026": {
+      "recall": {
+        "clicks": 0.39983790262480984,
+        "carts": 0.34188236748825324,
+        "orders": 0.6115026267137705
+      },
+      "score": 0.5094500765372192
+    }
+  },
+  "pop": {
+    "recall": {
+      "clicks": 0.3160074592266719,
+      "carts": 0.3088986893083835,
+      "orders": 0.5707382255495964
+    },
+    "score": 0.46671328804494006
+  },
+  "ceiling": {
+    "B": {
+      "clicks": 0.3192562752633224,
+      "carts": 0.3148751133459731,
+      "orders": 0.5922461606047849
+    },
+    "BA": {
+      "clicks": 0.5502381663764712,
+      "carts": 0.4655428241694831,
+      "orders": 0.6819571305668942
+    },
+    "BApl": {
+      "clicks": 0.5502381663764712,
+      "carts": 0.4655428241694831,
+      "orders": 0.6819571305668942
+    }
+  },
+  "D": {
+    "2026": {
+      "sessions": 300000,
+      "draws": 2000,
+      "seed": 2026,
+      "reference": {
+        "recall": {
+          "clicks": 0.3143899197411937,
+          "carts": 0.3097230236583958,
+          "orders": 0.5890062418773224
+        },
+        "score": 0.4777596441980316
+      },
+      "alternative": {
+        "recall": {
+          "clicks": 0.5002249444507406,
+          "carts": 0.412198087544308,
+          "orders": 0.6493565924109023
+        },
+        "score": 0.5632958761549078
+      },
+      "diff": 0.08553623195687626,
+      "ci": [
+        0.08384863990504839,
+        0.08734664722337736
+      ],
+      "covers_zero": false,
+      "types": {
+        "clicks": {
+          "diff": 0.18583502470954694,
+          "ci": [
+            0.1843710488091027,
+            0.18733820652213817
+          ]
+        },
+        "carts": {
+          "diff": 0.10247506388591215,
+          "ci": [
+            0.10039011775156868,
+            0.10469639950009543
+          ]
+        },
+        "orders": {
+          "diff": 0.060350350533579844,
+          "ci": [
+            0.058245687729200676,
+            0.06265804428439974
+          ]
+        }
+      }
+    }
+  },
+  "evals": {
+    "artifacts/otto/fits/dev-B2026/eval/report.json": "6fedd57591a0e3705d3b1558ff4a82a74c3d2516ecc0598d6ed05703e7ed8517",
+    "artifacts/otto/fits/dev-BA2026/eval/report.json": "948d00cf16157f427610a32ddcbd72f307b86eaa018267a0b594c48441d4fc21",
+    "artifacts/otto/fits/dev-BApl2026/eval/report.json": "210a37cc57bc4e100d8f4460f3ac8d9924fa9d3f155e272150a22254a16a39fe"
+  },
+  "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+    "scripts/otto_agent.py": "05a6aa899047a447fd12b18453d3987fa68777ed30ca706198c294464b718a79",
+    "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
+    "scripts/otto_data.py": "57bffca039e7b51be746c63f05ba0ac908ae8908ec925eb760b55c276972f6b0",
+    "scripts/otto_model.py": "46deffd121d426b77c5373f751d3d354308bc27a70ce13ca5119e8e38392b40f",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"
+  },
+  "created_utc": "2026-10-23T00:54:43Z",
+  "P": {
+    "2026": {
+      "sessions": 300000,
+      "draws": 2000,
+      "seed": 2026,
+      "reference": {
+        "recall": {
+          "clicks": 0.39983790262480984,
+          "carts": 0.34188236748825324,
+          "orders": 0.6115026267137705
+        },
+        "score": 0.5094500765372192
+      },
+      "alternative": {
+        "recall": {
+          "clicks": 0.5002249444507406,
+          "carts": 0.412198087544308,
+          "orders": 0.6493565924109023
+        },
+        "score": 0.5632958761549078
+      },
+      "diff": 0.05384579961768865,
+      "ci": [
+        0.052472482026174216,
+        0.05534048846167093
+      ],
+      "covers_zero": false,
+      "types": {
+        "clicks": {
+          "diff": 0.10038704182593078,
+          "ci": [
+            0.09913105334786898,
+            0.10162111987344716
+          ]
+        },
+        "carts": {
+          "diff": 0.07031572005605474,
+          "ci": [
+            0.06844453682624434,
+            0.07228241262363798
+          ]
+        },
+        "orders": {
+          "diff": 0.03785396569713173,
+          "ci": [
+            0.03598489408811251,
+            0.039742629514574815
+          ]
+        }
+      }
+    }
+  },
+  "BApl_minus_B": {
+    "2026": {
+      "sessions": 300000,
+      "draws": 2000,
+      "seed": 2026,
+      "reference": {
+        "recall": {
+          "clicks": 0.3143899197411937,
+          "carts": 0.3097230236583958,
+          "orders": 0.5890062418773224
+        },
+        "score": 0.4777596441980316
+      },
+      "alternative": {
+        "recall": {
+          "clicks": 0.39983790262480984,
+          "carts": 0.34188236748825324,
+          "orders": 0.6115026267137705
+        },
+        "score": 0.5094500765372192
+      },
+      "diff": 0.03169043233918761,
+      "ci": [
+        0.030724221075239307,
+        0.03279215899489303
+      ],
+      "covers_zero": false,
+      "types": {
+        "clicks": {
+          "diff": 0.08544798288361616,
+          "ci": [
+            0.08436593138626557,
+            0.0864948618870106
+          ]
+        },
+        "carts": {
+          "diff": 0.03215934382985741,
+          "ci": [
+            0.03100965262382667,
+            0.03342174569517018
+          ]
+        },
+        "orders": {
+          "diff": 0.022496384836448113,
+          "ci": [
+            0.02114262417731343,
+            0.023981096624962922
+          ]
+        }
+      }
+    }
+  }
+}
