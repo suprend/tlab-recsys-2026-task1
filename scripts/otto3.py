@@ -46,6 +46,8 @@ require = oc.require
 
 ITERATIONS = {
     'i1': dict(rounds=8, s_rounds=4, max_sources=10, ba_max=300, replay=None),
+    # i1 replayed (S rounds 1-4, F rounds 5-8 -> 7-10), two new S rounds (5-6) and two new F rounds (11-12)
+    'i2': dict(rounds=12, s_rounds=6, max_sources=14, ba_max=300, replay='i1'),
 }
 SHARED = ('collections', 'calibration', 'probe', 'smoke', 'gate')
 OTTO1 = ('artifacts', 'otto')
