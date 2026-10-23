@@ -1,0 +1,113 @@
+{
+  "round": 3,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "attempts": [
+    {
+      "round": 3,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 58.6,
+      "cost_usd": 0.22138200000000002,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-igalkr56",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5,
+      "text": "[{\"name\": \"v2c_src\", \"idea\": \"Items carted or ordered after viewing the session's last 10 distinct prefix items in history (tb_view2cart), with orders weighted triple, prefix cart/order items weighted triple and integer recency weights (11 - rank) for an exact batch-invariant score, excluding prefix items.\", \"kind\": \"source\", \"level\": \"pair\", \"sql\": \"WITH pi AS (SELECT s.session, s.item, max(CASE WHEN s.event <> 'view' THEN 3 ELSE 1 END) AS w, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, w, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, w * (11 - rp) AS w FROM li WHERE rp <= 10), sc AS (SELECT lt.session, v.item2 AS item, CAST(sum((v.tv_ns + 2 * v.tv_no) * lt.w) AS DOUBLE) AS score FROM lt JOIN tb_view2cart v ON v.item = lt.item GROUP BY lt.session, v.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;\"}, {\"name\": \"covis7_src\", \"idea\": \"Symmetric 7-day history co-visitation (tb_covis_any7) with the session's last 10 distinct prefix items, partners that were carted or ordered counted double, integer recency weights (11 - rank), excluding prefix items.\", \"kind\": \"source\", \"level\": \"pair\", \"sql\": \"WITH pi AS (SELECT s.session, s.item, max(CASE WHEN s.event <> 'view' THEN 3 ELSE 1 END) AS w, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, w, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, w * (11 - rp) AS w FROM li WHERE rp <= 10), sc AS (SELECT lt.session, c.item2 AS item, CAST(sum((c.tv_ns + c.tv_nb) * lt.w) AS DOUBLE) AS score FROM lt JOIN tb_covis_any7 c ON c.item = lt.item GROUP BY lt.session, c.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;\"}, {\"name\": \"wk_buy_src\", \"idea\": \"Current-week buy co-occurrence: items carted or ordered in other target-week prefixes that contain any of the session's last 10 distinct prefix items, counted once per prefix, with integer recency weights (11 - rank), excluding prefix items.\", \"kind\": \"source\", \"level\": \"pair\", \"sql\": \"WITH pi AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, 11 - rp AS w FROM li WHERE rp <= 10), ki AS (SELECT DISTINCT item FROM lt), a AS (SELECT DISTINCT x.session, x.item FROM sess x JOIN ki ON ki.item = x.item), bb AS (SELECT DISTINCT session, item FROM sess WHERE event <> 'view'), pr AS (SELECT a.item AS src, bb.item AS dst, count(*) AS c FROM a JOIN bb ON bb.session = a.session AND bb.item <> a.item GROUP BY a.item, bb.item), sc AS (SELECT lt.session, pr.dst AS item, CAST(sum(pr.c * lt.w) AS DOUBLE) AS score FROM lt JOIN pr ON pr.src = lt.item GROUP BY lt.session, pr.dst), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;\"}, {\"name\": \"any2order\", \"idea\": \"Directed table over the last 14 days of history: items ordered within 50 events after an event with the item in the same session, counted once per session, with the number of sessions where the item itself was carted before.\", \"kind\": \"table\", \"level\": \"item_pair\", \"sql\": \"WITH o AS (SELECT session, item, seq FROM hist WHERE ts >= {S} - 14*86400 AND event = 'order'), h AS (SELECT session, item, seq, event FROM hist WHERE ts >= {S} - 14*86400), d AS (SELECT a.session, a.item, o.item AS item2, max(CASE WHEN a.event = 'cart' THEN 1 ELSE 0 END) AS c FROM o JOIN h a ON a.session = o.session AND a.item <> o.item AND a.seq BETWEEN o.seq - 50 AND o.seq - 1 GROUP BY a.session, a.item, o.item), p AS (SELECT item, item2, count(*) AS tv_ns, sum(c) AS tv_nc FROM d GROUP BY item, item2), r AS (SELECT item, item2, tv_ns, tv_nc, row_number() OVER (PARTITION BY item ORDER BY tv_ns DESC, tv_nc DESC, item2) AS rn FROM p) SELECT item, item2, CAST(tv_ns AS DOUBLE) AS tv_ns, CAST(tv_nc AS DOUBLE) AS tv_nc FROM r WHERE rn <= 50;\"}, {\"name\": \"next_any14\", \"idea\": \"Directed next-item table over the last 14 days of history: items within 2 events after the item in the same session, counted once per session, plus sessions where the follower was carted or ordered.\", \"kind\": \"table\", \"level\": \"item_pair\", \"sql\": \"WITH h AS (SELECT session, item, seq, event FROM hist WHERE ts >= {S} - 14*86400), d AS (SELECT a.session, a.item, b.item AS item2, max(CASE WHEN b.event <> 'view' THEN 1 ELSE 0 END) AS bb FROM h a JOIN h b ON b.session = a.session AND b.seq BETWEEN a.seq + 1 AND a.seq + 2 AND b.item <> a.item GROUP BY a.session, a.item, b.item), p AS (SELECT item, item2, count(*) AS tv_ns, sum(bb) AS tv_nb FROM d GROUP BY item, item2 HAVING count(*) >= 2), r AS (SELECT item, item2, tv_ns, tv_nb, row_number() OVER (PARTITION BY item ORDER BY tv_ns DESC, tv_nb DESC, item2) AS rn FROM p) SELECT item, item2, CAST(tv_ns AS DOUBLE) AS tv_ns, CAST(tv_nb AS DOUBLE) AS tv_nb FROM r WHERE rn <= 50;\"}]",
+      "meta": {
+        "model": "claude-opus-5-5",
+        "seconds": 58.6,
+        "returncode": 0,
+        "result": {
+          "subtype": "success",
+          "is_error": false,
+          "total_cost_usd": 0.22138200000000002,
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 11520,
+            "cache_read_input_tokens": 1170,
+            "output_tokens": 6449,
+            "output_tokens_details": {
+              "thinking_tokens": 3558
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 11520,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard"
+          },
+          "modelUsage": {
+            "claude-opus-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 6449,
+              "cacheReadInputTokens": 1170,
+              "cacheCreationInputTokens": 11520,
+              "webSearchRequests": 0,
+              "costUSD": 0.22138200000000002,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 3558,
+              "canonicalModel": "claude-opus-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "duration_ms": 57745,
+          "num_turns": 1,
+          "stop_reason": "end_turn"
+        },
+        "cost_usd": 0.22138200000000002,
+        "models": [
+          "claude-opus-5-5"
+        ]
+      }
+    }
+  ],
+  "kept": 5
+}

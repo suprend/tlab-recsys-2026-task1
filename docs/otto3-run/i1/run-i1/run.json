@@ -1,0 +1,764 @@
+{
+  "format": "otto-run-v1",
+  "status": "completed",
+  "id": "i1",
+  "model": "claude-opus-5-5",
+  "retry_of": null,
+  "reason": null,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "rounds": 8,
+  "proposals_per_round": 5,
+  "max_calls": 16,
+  "probe": {
+    "path": "artifacts/otto/probe/probe1",
+    "collection": "artifacts/otto/collections/probe-F3",
+    "pool_size": 20000,
+    "rows": 841203,
+    "probe_sha256": "2fba425a1048bfb1794a11ae79a76cae3a87e5d51f9d03b480d73f6df918c7fe",
+    "stats_sha256": "26b971e0039770a0feb28b9c40575cde449b64565de0111372da709b9f1fb02a",
+    "base_digest": "4b50037532aa4bade03c45d3b294fade03b6f7536abda6620630953b6ae86aaf",
+    "t_tb": 1200,
+    "calibration_sha256": "bafe1c9be14a0cafaf144f56a83fef3017a75b784aa1712c53897c455f96a97d"
+  },
+  "base_digest": "4b50037532aa4bade03c45d3b294fade03b6f7536abda6620630953b6ae86aaf",
+  "prompt": {
+    "template_sha256": "a38d19a5d3392e0f4bfb6c66eca512912dc1a43bb5595d28e9c17a30859dd0c9",
+    "constants_digest": "062cf65fdb586242d692decceb79c5b030b663e196f897e7f83465a0f5345e92",
+    "digest": "b39b54cc8279f062de58ec3fc54d4cfa7d25e8ab3d44fcf519e601818bb30520"
+  },
+  "t_tb": 1200.0,
+  "n_t": 50000,
+  "smoke": {
+    "path": "artifacts/otto/smoke/20261022T215027202680Z/smoke.json",
+    "sha256": "9b0f16f329292545de8f35777f1f8af2c8641cd6f20d068724aab1efcb37df34",
+    "N_t": 50000
+  },
+  "budget": {
+    "limits": {
+      "table_seconds": 4800.0,
+      "pair_session_seconds": 900.0,
+      "item_seconds": 600.0
+    },
+    "used": {
+      "table_seconds": 211.51800000000003,
+      "pair_session_seconds": 38.79164438031148,
+      "item_seconds": 12.29261600098107
+    }
+  },
+  "calls": 8,
+  "cost_usd": 2.344986,
+  "cost_unknown_calls": 0,
+  "rounds_run": 8,
+  "stop": "rounds",
+  "attempts": 40,
+  "valid": 33,
+  "phase": "F",
+  "candidates": {
+    "sources": [
+      "wk_covis_int",
+      "hist_next_int",
+      "b2b_src",
+      "v2c_src",
+      "covis7_src",
+      "wk_buy_src",
+      "a2o_src",
+      "next14_src",
+      "wk_next_src",
+      "wk_v2c_src"
+    ],
+    "rows": 3740196,
+    "agent_rows": 2898993,
+    "sha256": "6a4fc45a438207c429199d4dd043912832473fcd7e8b8e5adcbca20e1ec496b1"
+  },
+  "tables": {
+    "buy2buy": {
+      "kind": "table",
+      "path": "artifacts/otto3/i1/tables/F3/r1p3-fbd49fdb0112d1ad/table.parquet",
+      "key": "fbd49fdb0112d1ad807af0570dfa9a5ace230389f562a6f0f615458aafe30230",
+      "sha256": "123f7ae8c7b36b1b67d5bc500ff2c59870369b4944ca42522dddf1334f68b4ec",
+      "rows": 17614365,
+      "columns": [
+        "tv_ns"
+      ]
+    },
+    "view2cart": {
+      "kind": "table",
+      "path": "artifacts/otto3/i1/tables/F3/r2p4-8a0a29f79a104786/table.parquet",
+      "key": "8a0a29f79a1047863c55409f6f31100c8fc893ac165ee5fb9c8c98e7f71f33ab",
+      "sha256": "c5d9dddbfc104e55399c60b61617a7535943a012016491de862d8e1102ab08f8",
+      "rows": 28252276,
+      "columns": [
+        "tv_ns",
+        "tv_no"
+      ]
+    },
+    "covis_any7": {
+      "kind": "table",
+      "path": "artifacts/otto3/i1/tables/F3/r2p5-b426dffdc58369ae/table.parquet",
+      "key": "b426dffdc58369ae12e5ce064f256ec0854551f980f523d2dd2209e098475aa2",
+      "sha256": "f74af0983b6fd3cc9089f9ad95203a3ee9359117020d7c6111fe06cef77cd429",
+      "rows": 10329707,
+      "columns": [
+        "tv_ns",
+        "tv_nb"
+      ]
+    },
+    "any2order": {
+      "kind": "table",
+      "path": "artifacts/otto3/i1/tables/F3/r3p4-ec4e217a8f2be61d/table.parquet",
+      "key": "ec4e217a8f2be61d5b5daefddce7c31d75d12b0062ad482886f5aa7c2396ad16",
+      "sha256": "1d0d9b04524fc0cae0fda9af828c6c7833c48c6015f26dbc8ac4070bf10836c4",
+      "rows": 16166372,
+      "columns": [
+        "tv_ns",
+        "tv_nc"
+      ]
+    },
+    "next_any14": {
+      "kind": "table",
+      "path": "artifacts/otto3/i1/tables/F3/r3p5-5a5824e500b5947b/table.parquet",
+      "key": "5a5824e500b5947b7fac69ddbea6528eadded1153b4100cd31c0713a2f25e32b",
+      "sha256": "d1086796e2cba816a959576e6963c1cea1581aa4c723f4aea2033523f272e439",
+      "rows": 7790333,
+      "columns": [
+        "tv_ns",
+        "tv_nb"
+      ]
+    }
+  },
+  "sources": [
+    "wk_covis_int",
+    "hist_next_int",
+    "b2b_src",
+    "v2c_src",
+    "covis7_src",
+    "wk_buy_src",
+    "a2o_src",
+    "next14_src",
+    "wk_next_src",
+    "wk_v2c_src"
+  ],
+  "columns": [
+    "ag_src_wk_covis_int_rank",
+    "ag_src_wk_covis_int_score",
+    "ag_src_hist_next_int_rank",
+    "ag_src_hist_next_int_score",
+    "ag_src_b2b_src_rank",
+    "ag_src_b2b_src_score",
+    "ag_src_v2c_src_rank",
+    "ag_src_v2c_src_score",
+    "ag_src_covis7_src_rank",
+    "ag_src_covis7_src_score",
+    "ag_src_wk_buy_src_rank",
+    "ag_src_wk_buy_src_score",
+    "ag_src_a2o_src_rank",
+    "ag_src_a2o_src_score",
+    "ag_src_next14_src_rank",
+    "ag_src_next14_src_score",
+    "ag_src_wk_next_src_rank",
+    "ag_src_wk_next_src_score",
+    "ag_src_wk_v2c_src_rank",
+    "ag_src_wk_v2c_src_score",
+    "ag_p_dwell",
+    "ag_p_last10",
+    "ag_p_share",
+    "ag_last_covis",
+    "ag_last_next",
+    "ag_buy_max",
+    "ag_a2o_max",
+    "ag_v2o_last5",
+    "ag_i_cart_rate",
+    "ag_i_order_rate",
+    "ag_i_c2o",
+    "ag_i_trend1",
+    "ag_i_wk_ratio",
+    "ag_i_wk_buy_share",
+    "ag_i_first_age",
+    "ag_i_last_age",
+    "ag_i_last_order_age",
+    "ag_p_last_type",
+    "ag_p_open_cart",
+    "ag_p_runs",
+    "ag_cov_cond",
+    "ag_link_cnt",
+    "ag_link_buy_cnt",
+    "ag_i_self_rep",
+    "ag_i_runs_per_sess",
+    "ag_i_exit_rate",
+    "ag_rk_wk_pop",
+    "ag_rk_h7_order",
+    "ag_last_next_p",
+    "ag_prev_cov_p",
+    "ag_p_cart_age",
+    "ag_p_cart_evts",
+    "ag_p_cart_rank",
+    "ag_p_rel_time",
+    "ag_p_span_share",
+    "ag_i_day_sess",
+    "ag_i_hr3_share",
+    "ag_s_open_carts",
+    "ag_s_last_gap",
+    "ag_s_week_pos",
+    "ag_i_wk_c2o",
+    "ag_i_wk_order_rate",
+    "ag_wk_last_next3_p",
+    "ag_wk_last_next20_p",
+    "ag_lastcart_b2b",
+    "ag_cart_a2o_sum"
+  ],
+  "call_log": [
+    {
+      "round": 1,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 63.2,
+      "cost_usd": 0.176528,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-xa33jdjk",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 2,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 58.4,
+      "cost_usd": 0.18821000000000002,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-11pwugtf",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 3,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 58.6,
+      "cost_usd": 0.22138200000000002,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-igalkr56",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 4,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 73.5,
+      "cost_usd": 0.24711,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-oq_8wzdm",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 5,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 78.0,
+      "cost_usd": 0.32477,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-49v5kpwq",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 6,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 64.8,
+      "cost_usd": 0.333286,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-3u5skkl_",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 7,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 78.3,
+      "cost_usd": 0.385754,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-rps09frn",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    },
+    {
+      "round": 8,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 100.1,
+      "cost_usd": 0.467946,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-ajnn6g1q",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5
+    }
+  ],
+  "prompts": {
+    "r1": "19fee0b9b15fa46678c65eb2678afc85a46ea1fbcebd9e46fa81351f9f5206ed",
+    "r2": "d3ac84d0113f6976d3bd4d103f0ef335f45dd1112ab8445c611b1e51a76a0be0",
+    "r3": "1b0bc695d44b160f90d9ea4613133653e01a00ea4e23a8667cf93210a28fdbf7",
+    "r4": "7868d242a7620e1d94dda60d5fc4a240dbfb861e9e11156b80f6c6a54fa822a7",
+    "r5": "31a48851447bc372516a6b895c0e8b90e65eeaf6fcacb68d8572f39e2f6bd9b9",
+    "r6": "bb65d45fce5b704260dc615fbdb522308b0dc5d6544d732a9bcb58822589ecef",
+    "r7": "7759a0fd8caedba34510745c32a38fe73f4646b6205e8b199277bb4c7962bf83",
+    "r8": "eda7e8898a0f9a7431c31343cb9184003d95613aa84fd64cda76abcb64dad140"
+  },
+  "values": {
+    "r1p3": {
+      "kind": "table",
+      "path": "artifacts/otto3/i1/tables/F3/r1p3-fbd49fdb0112d1ad/table.parquet",
+      "key": "fbd49fdb0112d1ad807af0570dfa9a5ace230389f562a6f0f615458aafe30230",
+      "sha256": "123f7ae8c7b36b1b67d5bc500ff2c59870369b4944ca42522dddf1334f68b4ec",
+      "rows": 17614365,
+      "columns": [
+        "tv_ns"
+      ]
+    },
+    "r2p1": {
+      "kind": "source",
+      "rows": 695378,
+      "sha256": "9f4fe28af7434d205ecb1e608b5df8ad7433bcff3a5b74c286dc8cb7a00ff02a"
+    },
+    "r2p2": {
+      "kind": "source",
+      "rows": 741278,
+      "sha256": "06ead78731e996dcd3b16e599f6ea223f7a31878e6d4a19d07c6dccf72be34aa"
+    },
+    "r2p3": {
+      "kind": "source",
+      "rows": 674860,
+      "sha256": "dff57f3e95f861170b768624802eace3f7340624120af20ed641c6d86dcede89"
+    },
+    "r2p4": {
+      "kind": "table",
+      "path": "artifacts/otto3/i1/tables/F3/r2p4-8a0a29f79a104786/table.parquet",
+      "key": "8a0a29f79a1047863c55409f6f31100c8fc893ac165ee5fb9c8c98e7f71f33ab",
+      "sha256": "c5d9dddbfc104e55399c60b61617a7535943a012016491de862d8e1102ab08f8",
+      "rows": 28252276,
+      "columns": [
+        "tv_ns",
+        "tv_no"
+      ]
+    },
+    "r2p5": {
+      "kind": "table",
+      "path": "artifacts/otto3/i1/tables/F3/r2p5-b426dffdc58369ae/table.parquet",
+      "key": "b426dffdc58369ae12e5ce064f256ec0854551f980f523d2dd2209e098475aa2",
+      "sha256": "f74af0983b6fd3cc9089f9ad95203a3ee9359117020d7c6111fe06cef77cd429",
+      "rows": 10329707,
+      "columns": [
+        "tv_ns",
+        "tv_nb"
+      ]
+    },
+    "r3p1": {
+      "kind": "source",
+      "rows": 736780,
+      "sha256": "bb468ab4b731083f019f75054279b45c058b0247d6c1afb9c4058ca9f419cb5a"
+    },
+    "r3p2": {
+      "kind": "source",
+      "rows": 672917,
+      "sha256": "0a255e9eaeadb8f57145caf2fc4c06bffe147cfe2260384976360cb6628c05f2"
+    },
+    "r3p3": {
+      "kind": "source",
+      "rows": 579136,
+      "sha256": "d2be283513ccf88e71990428e099ea09c94160e700ecaf40480767525482f43f"
+    },
+    "r3p4": {
+      "kind": "table",
+      "path": "artifacts/otto3/i1/tables/F3/r3p4-ec4e217a8f2be61d/table.parquet",
+      "key": "ec4e217a8f2be61d5b5daefddce7c31d75d12b0062ad482886f5aa7c2396ad16",
+      "sha256": "1d0d9b04524fc0cae0fda9af828c6c7833c48c6015f26dbc8ac4070bf10836c4",
+      "rows": 16166372,
+      "columns": [
+        "tv_ns",
+        "tv_nc"
+      ]
+    },
+    "r3p5": {
+      "kind": "table",
+      "path": "artifacts/otto3/i1/tables/F3/r3p5-5a5824e500b5947b/table.parquet",
+      "key": "5a5824e500b5947b7fac69ddbea6528eadded1153b4100cd31c0713a2f25e32b",
+      "sha256": "d1086796e2cba816a959576e6963c1cea1581aa4c723f4aea2033523f272e439",
+      "rows": 7790333,
+      "columns": [
+        "tv_ns",
+        "tv_nb"
+      ]
+    },
+    "r4p1": {
+      "kind": "source",
+      "rows": 678068,
+      "sha256": "37f15ed94b81bbbced2d2d436201403ad4c0c5951e02b03597eb8e8e36f15160"
+    },
+    "r4p2": {
+      "kind": "source",
+      "rows": 644010,
+      "sha256": "373e31cb0e584224cdedb55833cdf5cfbc1460d2a179aa70b77b9068772601f9"
+    },
+    "r4p3": {
+      "kind": "source",
+      "rows": 621288,
+      "sha256": "b258beacce61f88535a05a8e3078dd86baf3c0795d044e6a9973407f7bc54ca6"
+    },
+    "r4p4": {
+      "kind": "source",
+      "rows": 449164,
+      "sha256": "d0f1bd88d93239cba601b1970028453eaddcca4408bc69494e8834d2fafe96bd"
+    },
+    "r5p3": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "1729ea81af596a0fb565a8754ad1ccd039d1f637210dfb38ee4a78d582835616"
+    },
+    "r5p4": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "445db66c2ee24e6b086e4658c4653098877ccb1b7006e4726358b69e6e6cfbc1"
+    },
+    "r5p5": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "1b19aff6b46cd1a55ad21d12eb8fafdbe96f9281c200fdfa134914bf7e7089b0"
+    },
+    "r6p1": {
+      "kind": "feature",
+      "rows": 1611529,
+      "sha256": "0d5195b83055fa44a5dcd6f2893b8f055125b234cea57284e99d7c054ab62707"
+    },
+    "r6p2": {
+      "kind": "feature",
+      "rows": 1649521,
+      "sha256": "e6cd9fa45a4aaa1479404a78c933c3dc6cdcaec7acc4c994079f58c2920333c5"
+    },
+    "r6p3": {
+      "kind": "feature",
+      "rows": 1611529,
+      "sha256": "aa04868fafd02f6b65f8b4980394f8e2e20226f54fe27b26d5945af426438aed"
+    },
+    "r6p4": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "9731a7f131de9f10ed518768266df1d4a40cca1235bb5775daa9fca3662736b2"
+    },
+    "r6p5": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "0969aeac8b4edf2f3e515e737a833d3cdded9b4748cb31fa783fde2ae2a49e8e"
+    },
+    "r7p1": {
+      "kind": "feature",
+      "rows": 1611529,
+      "sha256": "e599e79769a3368bf49267b676378f84908db0a3c0dd868b7b92d4048c7fe793"
+    },
+    "r7p2": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "2322fcf6dada75669c8b070d8fa2c59b45207e2185342f91d737049fc55c5c7d"
+    },
+    "r7p3": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "6a94d87b0379c1042a1f4c6082473ac0fe367265e45079711ee3a04b114622b5"
+    },
+    "r7p4": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "557e325a4a108ca6d901c54fd7624d94d3adc4419a211f64021ff8957985345c"
+    },
+    "r7p5": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "5df0304337e30b146a7c6ee7ba56d7124b76835e6bedd40802a4c05257446187"
+    },
+    "r8p1": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "b4222053882fe71f9414326a55300c7616c4a012d988428eb23bd25e7f1d838c"
+    },
+    "r8p2": {
+      "kind": "feature",
+      "rows": 20000,
+      "sha256": "73fe4d8fa54fe9cd0a8aea01e32f4d750b49683f50b79e86873199028e33ed2b"
+    },
+    "r8p3": {
+      "kind": "feature",
+      "rows": 935103,
+      "sha256": "ecf642b9475e00234143f191ab8aedf8511d8604481309861165b83489cd4277"
+    },
+    "r8p4": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "006a92ed53d2de863d45f8268d3d11c89e9b76d1cac225094ff3e5063e16c329"
+    },
+    "r8p5": {
+      "kind": "feature",
+      "rows": 3740196,
+      "sha256": "b7761f087500df6ad6d420e4e4fba973f1ead471cb5f166980dc98f68701fcf5"
+    }
+  },
+  "probe_seconds": {
+    "r1p3": 18.115,
+    "r2p1": 1.646,
+    "r2p2": 6.055,
+    "r2p3": 0.416,
+    "r2p4": 49.319,
+    "r2p5": 64.834,
+    "r3p1": 0.558,
+    "r3p2": 0.366,
+    "r3p3": 0.936,
+    "r3p4": 22.08,
+    "r3p5": 57.17,
+    "r4p1": 0.476,
+    "r4p2": 0.312,
+    "r4p3": 1.019,
+    "r4p4": 0.607,
+    "r5p3": 0.448,
+    "r5p4": 0.888,
+    "r5p5": 0.835,
+    "r6p1": 2.451,
+    "r6p2": 2.75,
+    "r6p3": 1.332,
+    "r6p4": 0.439,
+    "r6p5": 1.633,
+    "r7p1": 5.374,
+    "r7p2": 1.652,
+    "r7p3": 0.581,
+    "r7p4": 0.428,
+    "r7p5": 0.39,
+    "r8p1": 17.223,
+    "r8p2": 0.092,
+    "r8p3": 0.386,
+    "r8p4": 1.271,
+    "r8p5": 0.52
+  },
+  "code": {
+    "files": {
+      "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+      "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+      "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+      "scripts/hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+      "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+      "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+      "scripts/hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+      "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+      "scripts/hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+      "scripts/otto_agent.py": "05a6aa899047a447fd12b18453d3987fa68777ed30ca706198c294464b718a79",
+      "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
+      "scripts/otto_data.py": "c799b32289305cca9aa2251012da1f2123e0f70a725d8df5dfac986f2ff53bbd",
+      "scripts/otto_model.py": "ff87a9f495776f5f8ba41b3008ca7882d9a954b657780583975525ae00f0d6ea",
+      "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+      "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"
+    },
+    "missing": []
+  },
+  "started_at_utc": "2026-10-23T21:29:51Z",
+  "log_sha256": "7b234dbf4290286fee25f50972e042011434f2d30291ed1319f8901348f2c422",
+  "finished_at_utc": "2026-10-23T21:46:57Z"
+}
