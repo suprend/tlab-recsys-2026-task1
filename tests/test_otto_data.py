@@ -922,6 +922,16 @@ class AssembleTest(TempRoot):
         self.assertFalse((self.out/'B2026.csv.part').exists())
         self.assertEqual((body['ranked_sha256'], body['fill_sha256']), (None, None))     # frames, not files
 
+    def test_assemble_writes_the_same_file_by_session_ranges(self):
+        rows = [(s, t, a, r) for s in (12, 10) for t in NAMES for r, a in enumerate(range(1, 21), start=1)]
+        rows += [(11, 'carts', 60, 1), (11, 'orders', 9, 1)]
+        whole = od.assemble(self.ranked(rows), self.out/'B2026.csv', self.sessions, self.known, self.fill)
+        with mock.patch.object(od, 'ASSEMBLE_BATCH', 1):
+            ranged = od.assemble(self.ranked(rows), self.out/'B2027.csv', self.sessions, self.known, self.fill)
+        self.assertEqual((self.out/'B2026.csv').read_bytes(), (self.out/'B2027.csv').read_bytes())
+        self.assertEqual((whole['sha256'], whole['rows'], whole['filled_sessions']),
+                         (ranged['sha256'], ranged['rows'], ranged['filled_sessions']))
+
     def test_assemble_receipt_names_the_ranked_file(self):
         rows = [(s, t, a, r) for s in self.sessions for t in NAMES for r, a in enumerate(range(1, 21), start=1)]
         ranked, fill = self.out/'ranked.parquet', self.out/'pop.parquet'

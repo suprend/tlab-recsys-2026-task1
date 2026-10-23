@@ -122,6 +122,40 @@
       "owner_quote_followup": "убери место где требуется да на каждый файл / мы переходим в полностью автономный режим",
       "owner_quote_followup_time": "2026-10-23T09:50:00+03:00",
       "owner_quote_followup_context": "сообщение в чате во время сборки файлов F5; в чате метки нет, время — момент записи"
+    },
+    {
+      "id": "d5",
+      "kind": "technical",
+      "step": "assemble",
+      "cause": "memory",
+      "what": "otto_data.assemble пишет файл Kaggle диапазонами сессий по возрастанию (ASSEMBLE_BATCH = 200 000 сессий), а не одним запросом string_agg по всем 1 671 803 сессиям F5.",
+      "why": "Финальный запрос сборки упал по памяти DuckDB: 18.6 ГиБ при настройках CLI (4 потока, 20GB) и 26.0 ГиБ при 2 потоках и 28GB.",
+      "effect": "Только память: тот же порядок строк (session, тип), те же списки; тест сравнивает файлы побайтно при диапазоне в 1 сессию и без разбиения. Правила гейта 2 и чтения не меняются.",
+      "contract": "§9, §12 — без изменения содержания файла",
+      "timing": "до первой успешной сборки файлов F5; чисел Kaggle по OTTO ещё не было",
+      "failed_output": "OutOfMemoryException: Out of Memory Error: failed to allocate data of size 16.0 KiB (18.6 GiB/18.6 GiB used)",
+      "changed_files": [
+        "scripts/otto_data.py",
+        "tests/test_otto_data.py"
+      ],
+      "code": {
+        "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+        "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+        "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+        "scripts/hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+        "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+        "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+        "scripts/hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+        "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+        "scripts/hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+        "scripts/otto_agent.py": "05a6aa899047a447fd12b18453d3987fa68777ed30ca706198c294464b718a79",
+        "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
+        "scripts/otto_data.py": "71b6bdc243d285308bcbca807508223bee6a70353065136fab3f7561954f9399",
+        "scripts/otto_model.py": "ff87a9f495776f5f8ba41b3008ca7882d9a954b657780583975525ae00f0d6ea",
+        "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+        "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"
+      },
+      "created_utc": "2026-10-23T07:07:24Z"
     }
   ]
 }

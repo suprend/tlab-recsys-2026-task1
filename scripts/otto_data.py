@@ -84,6 +84,7 @@ MEMORY_LIMIT = oc.DUCKDB_MEMORY
 MAX_TEMP = oc.DUCKDB_MAX_TEMP
 FRAME_BATCH = 250_000                    # sessions per frame batch (memory only; result independent)
 FETCH_ROWS = 100_000                     # rows per fetch when assemble streams the Kaggle file
+ASSEMBLE_BATCH = 200_000                 # sessions per range when assemble writes the file (d5; memory only)
 
 HISTORY_DEPTH = 50                       # §4 (h)
 POP_DEPTH = 20                           # §4 p_t
@@ -1354,12 +1355,18 @@ def assemble(ranked, output, sessions, known, fill, sample_rows=None, threads=4,
             try:
                 with part.open('w', encoding='utf-8', newline='\n') as stream:
                     stream.write(oc.SUBMISSION_HEADER + '\n')
-                    result = con.execute("""SELECT p.session, p.type,
-                            string_agg(CAST(x.aid AS VARCHAR), ' ' ORDER BY x.key, x.aid)
-                        FROM pairs p LEFT JOIN merged x USING (session, type) GROUP BY p.session, p.type, p.tc
-                        ORDER BY p.session, p.tc""")
-                    while rows := result.fetchmany(FETCH_ROWS):
-                        stream.writelines(f'{session}_{kind},{aids or ""}\n' for session, kind, aids in rows)
+                    # deviation d5: written by ascending session ranges (memory only; the file is the same)
+                    ordered = [s for (s,) in con.execute('SELECT session FROM ts_ ORDER BY session').fetchall()]
+                    for start in range(0, len(ordered), ASSEMBLE_BATCH):
+                        lo, hi = ordered[start], ordered[min(start+ASSEMBLE_BATCH, len(ordered))-1]
+                        result = con.execute("""SELECT p.session, p.type,
+                                string_agg(CAST(x.aid AS VARCHAR), ' ' ORDER BY x.key, x.aid)
+                            FROM (SELECT * FROM pairs WHERE session BETWEEN $lo AND $hi) p
+                            LEFT JOIN (SELECT * FROM merged WHERE session BETWEEN $lo AND $hi) x USING (session, type)
+                            GROUP BY p.session, p.type, p.tc
+                            ORDER BY p.session, p.tc""", dict(lo=lo, hi=hi))
+                        while rows := result.fetchmany(FETCH_ROWS):
+                            stream.writelines(f'{session}_{kind},{aids or ""}\n' for session, kind, aids in rows)
             except BaseException:
                 part.unlink(missing_ok=True)
                 raise
