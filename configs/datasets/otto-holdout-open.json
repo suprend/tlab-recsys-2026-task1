@@ -1,0 +1,56 @@
+{
+  "format": "otto-holdout-open-v1",
+  "quote": "да — открыть локальный holdout OTTO после prereg и гейта 1",
+  "quote_time": "2026-10-23T08:59:00+03:00",
+  "covers_stage2": false,
+  "gate1": {
+    "ok": true,
+    "status": {
+      "B": true,
+      "BA": true,
+      "BApl": true
+    },
+    "path": "artifacts/otto/gate/gate1-s1-20261023T052436824074Z/gate.json",
+    "sha256": "5ed32094fd383ad808f5e7f91018c19a67e3aacf01e29e21934786537c6d1bdb"
+  },
+  "arms": [
+    "B",
+    "BA",
+    "BApl"
+  ],
+  "score_files": {
+    "artifacts/otto/fits/holdout-B2026/eval/ranked.parquet": "381e90cf861c9821e00abfecba4b0880bc1d83d75b45c5062c491e9c3b3fd149",
+    "artifacts/otto/fits/holdout-B2026/eval/report.json": "add00dff4611ba277303a7c3f25d8284a0b4a9de60251888554bac2170f4f5bc",
+    "artifacts/otto/fits/holdout-B2026/eval/pop.parquet": "6ac81b336e1a6f4ba8f5f4cdda564ca183bfa0eb79f2f54c1377c00013c29dd7",
+    "artifacts/otto/fits/holdout-BA2026/eval/ranked.parquet": "2c08f668e516757194d68442df01bbfc6090fca6afeae01187585363614e27bf",
+    "artifacts/otto/fits/holdout-BA2026/eval/report.json": "be8234f0e6283270c0bf3e165bb70644a86993501b72ce5c8eec87b100975968",
+    "artifacts/otto/fits/holdout-BA2026/eval/pop.parquet": "6ac81b336e1a6f4ba8f5f4cdda564ca183bfa0eb79f2f54c1377c00013c29dd7",
+    "artifacts/otto/fits/holdout-BApl2026/eval/ranked.parquet": "689a35148c6b57d2c67801861f6b2047901c5a2343071d5091a5b441fc9355ab",
+    "artifacts/otto/fits/holdout-BApl2026/eval/report.json": "a5244d6a34380aaae4565cd283b4a4a7d8e0fc9dbbd8a93e7484d4ff9d032896",
+    "artifacts/otto/fits/holdout-BApl2026/eval/pop.parquet": "6ac81b336e1a6f4ba8f5f4cdda564ca183bfa0eb79f2f54c1377c00013c29dd7",
+    "artifacts/otto/fits/dev-B2026/eval/ranked.parquet": "2ce930d203de0a1085fe533356f4ef26057e9e63c50b4539cf25a8321f91bbbe",
+    "artifacts/otto/fits/dev-B2026/eval/report.json": "6fedd57591a0e3705d3b1558ff4a82a74c3d2516ecc0598d6ed05703e7ed8517",
+    "artifacts/otto/fits/dev-B2026/eval/pop.parquet": "f5ae0c585571d0ab75d541b4f66fe694c0e0b5e8f4e38e66fa699d20f76ab278",
+    "artifacts/otto/fits/dev-BA2026/eval/ranked.parquet": "1e28846c49af53c0ff5d050aeb63134c529d8693eaa7313af51c046bff9bd37b",
+    "artifacts/otto/fits/dev-BA2026/eval/report.json": "948d00cf16157f427610a32ddcbd72f307b86eaa018267a0b594c48441d4fc21",
+    "artifacts/otto/fits/dev-BA2026/eval/pop.parquet": "f5ae0c585571d0ab75d541b4f66fe694c0e0b5e8f4e38e66fa699d20f76ab278",
+    "artifacts/otto/fits/dev-BApl2026/eval/ranked.parquet": "0e6461f42b94edc2a83f4fcd6a36a2730bab0f4b7a681ca8fd0d0a21a278cbea",
+    "artifacts/otto/fits/dev-BApl2026/eval/report.json": "210a37cc57bc4e100d8f4460f3ac8d9924fa9d3f155e272150a22254a16a39fe",
+    "artifacts/otto/fits/dev-BApl2026/eval/pop.parquet": "f5ae0c585571d0ab75d541b4f66fe694c0e0b5e8f4e38e66fa699d20f76ab278"
+  },
+  "population": {
+    "collection": "holdout-F4",
+    "n": 1000000,
+    "digest": "a939dfa77e0fc2e924a6e93a6b9b9eeb295778b476dcb264df7601a55713070e",
+    "rule": "expected half-width 0.000958 <= 0.0015: first 1000000 in sha256 order"
+  },
+  "prereg_sha256": "b1d374a397618373dc76851a070f1e6c1134bbcd02bafd5fbbb51118e1b24154",
+  "confirmation": {
+    "confirmatory": false,
+    "methodological_deviations": [
+      "d3"
+    ],
+    "label": "после методического отклонения, выбранного после dev-чисел; не подтверждающая проверка в смысле prereg"
+  },
+  "opened_utc": "2026-10-23T05:59:15Z"
+}
