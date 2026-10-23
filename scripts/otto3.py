@@ -32,13 +32,15 @@ import os
 from pathlib import Path
 import sys
 
-ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.append(str(ROOT))
+_HERE = Path(__file__).resolve().parents[1]
+if str(_HERE) not in sys.path:
+    sys.path.append(str(_HERE))
 
 from scripts import otto_common as oc  # noqa: E402
 from scripts import otto_agent as oa  # noqa: E402
 from scripts import otto_model as om  # noqa: E402
+
+ROOT = oc.ROOT
 
 require = oc.require
 
@@ -48,6 +50,7 @@ ITERATIONS = {
 SHARED = ('collections', 'calibration', 'probe', 'smoke', 'gate')
 OTTO1 = ('artifacts', 'otto')
 SNAPSHOT = 'shared-snapshot.json'
+AGENT_COMMANDS = ('freeze', 'audit', 'sidecar', 'leakcheck')
 _ORIGINAL = dict(artifacts=oc.ARTIFACTS, config_path=oc.config_path, require_prereg=oc.require_prereg,
                  frozen_agent_columns=om.frozen_agent_columns, journal_dir=oa.journal_dir, load_tree=oc._load_tree,
                  constants={k: getattr(oa, k) for k in ('ROUNDS', 'S_ROUNDS', 'MAX_CALLS', 'MAX_SOURCES', 'BA_MAX')},
@@ -74,7 +77,11 @@ def require_prereg3(check_code=True):
     require(oc.committed_clean(base) and oc.sha256_file(base) == prereg['base_sha256'], 'base differs from prereg')
     path = oc.config_path('set')
     require(oc.committed_clean(path), f'{path.name} is not committed clean')
-    oc.require_clean_audit(oc.read_json(path))
+    record = oa.read_set(path, oc.read_base())          # schema, digest, phases, audit of this digest
+    oc.require_clean_audit(record)
+    # the prompt identity covers rounds, S rounds, sources and the candidate cap of the iteration
+    require(record['prompt_digest'] == oa.prompt_identity()['digest'],
+            'The set was made with other iteration settings (prompt identity differs)')
     if check_code:
         require(oc.code_identity(strict=True)['files'] == oc.latest_code(prereg),
                 'Code differs from prereg and deviations')
@@ -167,6 +174,8 @@ def replay_plan(iteration):
     require(previous['s_rounds'] <= cfg['s_rounds'], 'The replayed S rounds must fit into the new S rounds')
     record = oc.read_json(set_path(cfg['replay']))
     require(oc.committed_clean(set_path(cfg['replay'])), 'The replayed set is not committed clean')
+    oc.require_clean_audit(record)
+    require(record['digest'] == oa.set_digest(record['proposals']), 'The replayed set differs from its digest')
     shift = cfg['s_rounds']-previous['s_rounds']
     plan = {}
     for proposal in record['proposals']:
@@ -193,11 +202,11 @@ def replay_ask(plan, ask=None):
     return call
 
 
-def run(iteration, probe, name, smoke=None):
+def run(iteration, probe, name, smoke=None, retry_of=None, reason=None):
     cfg = ITERATIONS[iteration]
     plan = replay_plan(iteration)
     result = oa.run_loop(Path(probe), name, rounds=cfg['rounds'], max_calls=oa.MAX_CALLS,
-                         ask=replay_ask(plan) if plan else None, smoke=smoke)
+                         ask=replay_ask(plan) if plan else None, retry_of=retry_of, reason=reason, smoke=smoke)
     return dict(command='run', path=result['path'], calls=result['calls'], cost_usd=result['cost_usd'],
                 rounds=result['rounds_run'], stop=result['stop'], attempts=result['attempts'], valid=result['valid'],
                 sources=result['sources'], columns=len(result['columns']), replayed=sum(map(len, plan.values())))
@@ -223,11 +232,16 @@ def main(argv=None):
         parser.add_argument('--probe', type=Path, required=True)
         parser.add_argument('--name', required=True)
         parser.add_argument('--smoke', type=Path)
+        parser.add_argument('--retry-of', type=Path)
+        parser.add_argument('--reason')
         args = parser.parse_args(rest)
         oc.isolated()
-        print(json.dumps(run(iteration, args.probe, args.name, args.smoke), ensure_ascii=False))
+        print(json.dumps(run(iteration, args.probe, args.name, args.smoke, args.retry_of, args.reason),
+                         ensure_ascii=False))
         return 0
     if command == 'agent':
+        # run goes through the wrapper (rounds and replay); export, calibration and probe belong to OTTO-1
+        require(rest and rest[0] in AGENT_COMMANDS, f'agent commands here: {", ".join(AGENT_COMMANDS)}')
         return oa.main(rest)
     if command == 'pool':
         from scripts import otto2_pool as op

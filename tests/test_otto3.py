@@ -41,7 +41,20 @@ class ConfigureTest(unittest.TestCase):
 
 def _proposal(number, index, kind):
     return dict(id=f'r{number}p{index}', round=number, index=index, name=f'n{number}{index}', idea='i', kind=kind,
-                level='pair', sql='SELECT 1', columns=[])
+                level='pair', sql='SELECT 1', columns=[], depends=[])
+
+
+class MainTest(unittest.TestCase):
+    def tearDown(self):
+        otto3.restore()
+
+    def test_agent_run_and_probe_are_refused(self):
+        with mock.patch.object(otto3, 'iteration_root', return_value=oc.ROOT/'artifacts'/'otto3'/'i1'), \
+                mock.patch.object(otto3.Path, 'exists', return_value=True), \
+                mock.patch.object(oa, 'main', side_effect=AssertionError('reached otto_agent')):
+            for command in ('run', 'probe', 'calibrate', 'export'):
+                with self.assertRaises(oc.ContractError):
+                    otto3.main(['--iteration', 'i1', 'agent', command])
 
 
 class ReplayTest(unittest.TestCase):
@@ -54,9 +67,13 @@ class ReplayTest(unittest.TestCase):
         otto3.ITERATIONS['t2'] = dict(rounds=9, s_rounds=4, max_sources=6, ba_max=200, replay='t1')
         record = dict(proposals=[_proposal(1, 2, 'table'), _proposal(2, 1, 'source'), _proposal(3, 1, 'feature'),
                                  _proposal(4, 3, 'feature')])
+        record.update(audit=dict(verdict='clean'), digest=oa.set_digest(record['proposals']))
         with mock.patch.object(oc, 'read_json', return_value=record), \
                 mock.patch.object(oc, 'committed_clean', return_value=True):
             plan = otto3.replay_plan('t2')
+            leak = dict(record, audit=dict(verdict='leak'))
+            with mock.patch.object(oc, 'read_json', return_value=leak), self.assertRaises(oc.ContractError):
+                otto3.replay_plan('t2')
         self.assertEqual(sorted(plan), [1, 2, 5, 6])
         self.assertEqual(plan[5][0]['name'], 'n31')
         self.assertEqual(set(plan[1][0]), set(oa.FIELDS))
