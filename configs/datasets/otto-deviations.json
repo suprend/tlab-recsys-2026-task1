@@ -128,12 +128,12 @@
       "kind": "technical",
       "step": "assemble",
       "cause": "memory",
-      "what": "otto_data.assemble пишет файл Kaggle диапазонами сессий по возрастанию (ASSEMBLE_BATCH = 200 000 сессий), а не одним запросом string_agg по всем 1 671 803 сессиям F5.",
-      "why": "Финальный запрос сборки упал по памяти DuckDB: 18.6 ГиБ при настройках CLI (4 потока, 20GB) и 26.0 ГиБ при 2 потоках и 28GB.",
-      "effect": "Только память: тот же порядок строк (session, тип), те же списки; тест сравнивает файлы побайтно при диапазоне в 1 сессию и без разбиения. Правила гейта 2 и чтения не меняются.",
+      "what": "otto_data.assemble освобождает входные таблицы m и fl после построения merged и filled и пишет файл Kaggle диапазонами сессий по возрастанию (ASSEMBLE_BATCH = 200 000 сессий): DuckDB отдаёт строки (session, тип, aid), отсортированные по session, тип, key, aid, а списки склеиваются в Python. Раньше — один запрос string_agg(... ORDER BY key, aid) по всем 1 671 803 сессиям F5.",
+      "why": "Финальный запрос сборки упал по памяти DuckDB: 18.6 ГиБ при настройках CLI (4 потока, 20GB) и 26.0 ГиБ при 2 потоках и 28GB. Первая версия d5 (коммит d919ab7: только диапазоны, string_agg внутри диапазона) тоже упала: 18.6 ГиБ. До записи файла DuckDB уже держал 11.4 ГиБ (m, fl, pairs, merged), упорядоченный string_agg держит состояние на каждую группу.",
+      "effect": "Только память: тот же порядок строк (session, тип) и тот же порядок aid (key, aid), пустой список для пары без строк; тест сравнивает файл без разбиения с разбиениями по 1 и 2 сессии побайтно. Правила гейта 2 и чтения не меняются.",
       "contract": "§9, §12 — без изменения содержания файла",
       "timing": "до первой успешной сборки файлов F5; чисел Kaggle по OTTO ещё не было",
-      "failed_output": "OutOfMemoryException: Out of Memory Error: failed to allocate data of size 16.0 KiB (18.6 GiB/18.6 GiB used)",
+      "failed_output": "OutOfMemoryException: Out of Memory Error: failed to allocate data of size 16.0 KiB (18.6 GiB/18.6 GiB used); то же после d919ab7 (32.0 KiB, 18.6 GiB)",
       "changed_files": [
         "scripts/otto_data.py",
         "tests/test_otto_data.py"
@@ -150,7 +150,7 @@
         "scripts/hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
         "scripts/otto_agent.py": "05a6aa899047a447fd12b18453d3987fa68777ed30ca706198c294464b718a79",
         "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
-        "scripts/otto_data.py": "71b6bdc243d285308bcbca807508223bee6a70353065136fab3f7561954f9399",
+        "scripts/otto_data.py": "c799b32289305cca9aa2251012da1f2123e0f70a725d8df5dfac986f2ff53bbd",
         "scripts/otto_model.py": "ff87a9f495776f5f8ba41b3008ca7882d9a954b657780583975525ae00f0d6ea",
         "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
         "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"

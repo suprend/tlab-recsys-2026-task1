@@ -1352,21 +1352,34 @@ def assemble(ranked, output, sessions, known, fill, sample_rows=None, threads=4,
             filled = int(_scalar(con, f"""SELECT count(DISTINCT p.session) FROM pairs p LEFT JOIN
                 (SELECT session, type, count(*) AS n FROM m GROUP BY ALL) x USING (session, type)
                 WHERE coalesce(x.n, 0) < {oc.TOP_K}"""))
+            # deviation d5: the inputs live on in `merged` and `filled`; their tables are freed before writing
+            con.execute('DROP TABLE m')
+            con.execute('DROP TABLE fl')
             try:
                 with part.open('w', encoding='utf-8', newline='\n') as stream:
                     stream.write(oc.SUBMISSION_HEADER + '\n')
-                    # deviation d5: written by ascending session ranges (memory only; the file is the same)
+                    # deviation d5: ascending session ranges, rows sorted in DuckDB and joined here (an ordered
+                    # string_agg keeps per-group state and ran out of memory); the file is the same
                     ordered = [s for (s,) in con.execute('SELECT session FROM ts_ ORDER BY session').fetchall()]
                     for start in range(0, len(ordered), ASSEMBLE_BATCH):
                         lo, hi = ordered[start], ordered[min(start+ASSEMBLE_BATCH, len(ordered))-1]
-                        result = con.execute("""SELECT p.session, p.type,
-                                string_agg(CAST(x.aid AS VARCHAR), ' ' ORDER BY x.key, x.aid)
+                        result = con.execute("""SELECT p.session, p.type, x.aid
                             FROM (SELECT * FROM pairs WHERE session BETWEEN $lo AND $hi) p
                             LEFT JOIN (SELECT * FROM merged WHERE session BETWEEN $lo AND $hi) x USING (session, type)
-                            GROUP BY p.session, p.type, p.tc
-                            ORDER BY p.session, p.tc""", dict(lo=lo, hi=hi))
+                            ORDER BY p.session, p.tc, x.key, x.aid""", dict(lo=lo, hi=hi))
+                        current, aids = None, []
                         while rows := result.fetchmany(FETCH_ROWS):
-                            stream.writelines(f'{session}_{kind},{aids or ""}\n' for session, kind, aids in rows)
+                            lines = []
+                            for session, kind, aid in rows:
+                                if (session, kind) != current:
+                                    if current is not None:
+                                        lines.append(f'{current[0]}_{current[1]},{" ".join(aids)}\n')
+                                    current, aids = (session, kind), []
+                                if aid is not None:
+                                    aids.append(str(aid))
+                            stream.writelines(lines)
+                        if current is not None:
+                            stream.write(f'{current[0]}_{current[1]},{" ".join(aids)}\n')
             except BaseException:
                 part.unlink(missing_ok=True)
                 raise

@@ -926,11 +926,16 @@ class AssembleTest(TempRoot):
         rows = [(s, t, a, r) for s in (12, 10) for t in NAMES for r, a in enumerate(range(1, 21), start=1)]
         rows += [(11, 'carts', 60, 1), (11, 'orders', 9, 1)]
         whole = od.assemble(self.ranked(rows), self.out/'B2026.csv', self.sessions, self.known, self.fill)
-        with mock.patch.object(od, 'ASSEMBLE_BATCH', 1):
-            ranged = od.assemble(self.ranked(rows), self.out/'B2027.csv', self.sessions, self.known, self.fill)
-        self.assertEqual((self.out/'B2026.csv').read_bytes(), (self.out/'B2027.csv').read_bytes())
-        self.assertEqual((whole['sha256'], whole['rows'], whole['filled_sessions']),
-                         (ranged['sha256'], ranged['rows'], ranged['filled_sessions']))
+        lines = (self.out/'B2026.csv').read_text().splitlines()
+        self.assertEqual([l.split(',')[0] for l in lines[1:]], [f'{s}_{t}' for s in self.sessions for t in NAMES])
+        self.assertEqual(lines[4].split(',')[1].split()[:2], ['50', '51'])      # 11_clicks: Pop only
+        self.assertEqual(lines[5].split(',')[1].split()[:2], ['60', '50'])      # 11_carts: ranked, then Pop
+        for batch, name in ((1, 'B2027'), (2, 'B2028')):
+            with self.subTest(batch=batch), mock.patch.object(od, 'ASSEMBLE_BATCH', batch):
+                ranged = od.assemble(self.ranked(rows), self.out/f'{name}.csv', self.sessions, self.known, self.fill)
+                self.assertEqual((self.out/'B2026.csv').read_bytes(), (self.out/f'{name}.csv').read_bytes())
+                self.assertEqual((whole['sha256'], whole['rows'], whole['filled_sessions']),
+                                 (ranged['sha256'], ranged['rows'], ranged['filled_sessions']))
 
     def test_assemble_receipt_names_the_ranked_file(self):
         rows = [(s, t, a, r) for s in self.sessions for t in NAMES for r, a in enumerate(range(1, 21), start=1)]
