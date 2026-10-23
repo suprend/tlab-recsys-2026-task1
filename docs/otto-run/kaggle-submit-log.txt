@@ -11,3 +11,10 @@ B2027 exit=0 10:35:57
 BA2027 start 10:35:57
 Authentication required to call the Kaggle API.
 BA2027 exit=1 10:45:02
+BA2027 retry start 12:20:26
+('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+BA2027 retry exit=1 12:30:51
+# повтор: цикл до двух попыток, вторая не понадобилась
+BA2027 retry2.1 start 12:31:37
+Successfully submitted
+BA2027 retry2.1 exit=0 12:41:27
