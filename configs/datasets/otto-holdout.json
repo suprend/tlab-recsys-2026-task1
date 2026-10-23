@@ -1,0 +1,252 @@
+{
+  "format": "otto-holdout-result-v1",
+  "stage": 1,
+  "seeds": [
+    2026
+  ],
+  "arms": [
+    "B",
+    "BA",
+    "BApl"
+  ],
+  "collection": "holdout-F4",
+  "population": {
+    "collection": "holdout-F4",
+    "n": 1000000,
+    "digest": "a939dfa77e0fc2e924a6e93a6b9b9eeb295778b476dcb264df7601a55713070e",
+    "rule": "expected half-width 0.000958 <= 0.0015: first 1000000 in sha256 order"
+  },
+  "open_receipt_sha256": "1475888cc2fa678679cf0cd740e8564bf7573978e42131422fed8e789b5d295c",
+  "prereg_sha256": "b1d374a397618373dc76851a070f1e6c1134bbcd02bafd5fbbb51118e1b24154",
+  "metrics": {
+    "B2026": {
+      "recall": {
+        "clicks": 0.3251267673279469,
+        "carts": 0.3124968504333804,
+        "orders": 0.594160408048516
+      },
+      "score": 0.4827579766919184
+    },
+    "BA2026": {
+      "recall": {
+        "clicks": 0.5058378137626062,
+        "carts": 0.4159002721225559,
+        "orders": 0.6543980538518471
+      },
+      "score": 0.5679926953241357
+    },
+    "BApl2026": {
+      "recall": {
+        "clicks": 0.4124451085411572,
+        "carts": 0.34485864745011086,
+        "orders": 0.6157734389791902
+      },
+      "score": 0.5141661684766632
+    }
+  },
+  "pop": {
+    "recall": {
+      "clicks": 0.32578254002625145,
+      "carts": 0.311564578713969,
+      "orders": 0.5759955936268238
+    },
+    "score": 0.4716449837929101
+  },
+  "confirmation": {
+    "confirmatory": false,
+    "methodological_deviations": [
+      "d3"
+    ],
+    "label": "после методического отклонения, выбранного после dev-чисел; не подтверждающая проверка в смысле prereg"
+  },
+  "D": {
+    "2026": {
+      "sessions": 1000000,
+      "draws": 2000,
+      "seed": 2026,
+      "reference": {
+        "recall": {
+          "clicks": 0.3251267673279469,
+          "carts": 0.3124968504333804,
+          "orders": 0.594160408048516
+        },
+        "score": 0.4827579766919184
+      },
+      "alternative": {
+        "recall": {
+          "clicks": 0.5058378137626062,
+          "carts": 0.4159002721225559,
+          "orders": 0.6543980538518471
+        },
+        "score": 0.5679926953241357
+      },
+      "diff": 0.08523471863221727,
+      "ci": [
+        0.08422944371540292,
+        0.08624434636536804
+      ],
+      "covers_zero": false,
+      "types": {
+        "clicks": {
+          "diff": 0.1807110464346593,
+          "ci": [
+            0.17993315179681466,
+            0.18146379385248607
+          ]
+        },
+        "carts": {
+          "diff": 0.10340342168917555,
+          "ci": [
+            0.10215303781659424,
+            0.10465390294669802
+          ]
+        },
+        "orders": {
+          "diff": 0.06023764580333113,
+          "ci": [
+            0.05903699882969692,
+            0.06152771380258732
+          ]
+        }
+      }
+    }
+  },
+  "P": {
+    "2026": {
+      "sessions": 1000000,
+      "draws": 2000,
+      "seed": 2026,
+      "reference": {
+        "recall": {
+          "clicks": 0.4124451085411572,
+          "carts": 0.34485864745011086,
+          "orders": 0.6157734389791902
+        },
+        "score": 0.5141661684766632
+      },
+      "alternative": {
+        "recall": {
+          "clicks": 0.5058378137626062,
+          "carts": 0.4159002721225559,
+          "orders": 0.6543980538518471
+        },
+        "score": 0.5679926953241357
+      },
+      "diff": 0.05382652684747247,
+      "ci": [
+        0.05301596673540922,
+        0.054663442438315384
+      ],
+      "covers_zero": false,
+      "types": {
+        "clicks": {
+          "diff": 0.09339270522144899,
+          "ci": [
+            0.09273672692049212,
+            0.09408511976827329
+          ]
+        },
+        "carts": {
+          "diff": 0.07104162467244507,
+          "ci": [
+            0.06996874227812111,
+            0.07209112023723313
+          ]
+        },
+        "orders": {
+          "diff": 0.03862461487265689,
+          "ci": [
+            0.037575809883746945,
+            0.03968824106814236
+          ]
+        }
+      }
+    }
+  },
+  "BApl_minus_B": {
+    "2026": {
+      "sessions": 1000000,
+      "draws": 2000,
+      "seed": 2026,
+      "reference": {
+        "recall": {
+          "clicks": 0.3251267673279469,
+          "carts": 0.3124968504333804,
+          "orders": 0.594160408048516
+        },
+        "score": 0.4827579766919184
+      },
+      "alternative": {
+        "recall": {
+          "clicks": 0.4124451085411572,
+          "carts": 0.34485864745011086,
+          "orders": 0.6157734389791902
+        },
+        "score": 0.5141661684766632
+      },
+      "diff": 0.0314081917847448,
+      "ci": [
+        0.030831905302529803,
+        0.03196960331792
+      ],
+      "covers_zero": false,
+      "types": {
+        "clicks": {
+          "diff": 0.0873183412132103,
+          "ci": [
+            0.08674562815222163,
+            0.08788461944378219
+          ]
+        },
+        "carts": {
+          "diff": 0.032361797016730476,
+          "ci": [
+            0.03166912103597728,
+            0.03311227161645031
+          ]
+        },
+        "orders": {
+          "diff": 0.021613030930674237,
+          "ci": [
+            0.020839755867998598,
+            0.02234896776620733
+          ]
+        }
+      }
+    }
+  },
+  "verdict_transfer": "не решено (одно зерно)",
+  "verdict_content": "не решено (одно зерно)",
+  "note": "на зерне 2026 CI(D) выше нуля; вердикт по правилу — после этапа 2",
+  "ceiling": {
+    "B": {
+      "clicks": 0.32930975561947945,
+      "carts": 0.31781646845394074,
+      "orders": 0.5976602617431567
+    },
+    "BA": {
+      "clicks": 0.5548442514185318,
+      "carts": 0.46724450715581534,
+      "orders": 0.6839689488390239
+    }
+  },
+  "verdict_label": "после методического отклонения, выбранного после dev-чисел; не подтверждающая проверка в смысле prereg",
+  "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+    "scripts/otto_agent.py": "05a6aa899047a447fd12b18453d3987fa68777ed30ca706198c294464b718a79",
+    "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
+    "scripts/otto_data.py": "57bffca039e7b51be746c63f05ba0ac908ae8908ec925eb760b55c276972f6b0",
+    "scripts/otto_model.py": "ff87a9f495776f5f8ba41b3008ca7882d9a954b657780583975525ae00f0d6ea",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"
+  },
+  "created_utc": "2026-10-23T06:00:26Z"
+}
