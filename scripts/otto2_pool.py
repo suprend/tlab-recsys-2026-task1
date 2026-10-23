@@ -238,6 +238,8 @@ def evaluate(name, fold, model_dirs=None, batch=None):
             labels_path = collection/oc.LABELS_FILE
             value = oc.metric(output/om.RANKED_FILE, labels_path, sessions=population, threads=ctx.threads)
             report.update(recall=value['recall'], score=value['score'])
+            om.register_sessions(con, 'ceiling_population', population)
+            report['ceiling'] = om.ceiling(con, 'fr', labels_path, 'ceiling_population')
         report['status'] = 'completed'
     except Exception as exc:
         report['status'] = 'failed'
