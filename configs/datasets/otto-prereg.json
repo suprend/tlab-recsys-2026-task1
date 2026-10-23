@@ -1,0 +1,516 @@
+{
+  "format": "otto-prereg-v1",
+  "comment": "OTTO prereg (§7). Readers: oc.require_prereg (base_sha256, set_sha256, code), om.Context.contract (recipe.bootstrap_type, N_t, SCORE_BATCH, dev_bapl, agent_columns).",
+  "base_sha256": "e8256bb6345a9ed0a1c1ab3823cd81c2c60e2a9e35f7f91dace076cb8c25ad86",
+  "base_digest": "4b50037532aa4bade03c45d3b294fade03b6f7536abda6620630953b6ae86aaf",
+  "set_sha256": "6fea72001defdc50d3f5a0a3f0c7b147843f08e71a54942b0fa8bf9c751cd20d",
+  "set_digest": "cda530622f632d00210e477b82962755ef4593220c118673319deef5a8850240",
+  "design_sha256": "e44e7984fc286f476e5f212e8cf7a36c26bd05ab40fc92fef302196589e8cc6d",
+  "design_path": "docs/otto-design.md",
+  "verify_sha256": "74f28d48761c47e91e0a225fad02192f2669e3ead99a42c502b1f44a4da5a41b",
+  "verify_digest": "7b735529f9dbc712e5b463db0fa6b92a40f6aeffcb34917ff8ab29a15aac24ab",
+  "verify_path": "data/raw-otto-kaggle/otto-verify.json",
+  "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+    "scripts/otto_agent.py": "05a6aa899047a447fd12b18453d3987fa68777ed30ca706198c294464b718a79",
+    "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
+    "scripts/otto_data.py": "57bffca039e7b51be746c63f05ba0ac908ae8908ec925eb760b55c276972f6b0",
+    "scripts/otto_model.py": "46deffd121d426b77c5373f751d3d354308bc27a70ce13ca5119e8e38392b40f",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"
+  },
+  "agent_columns": [
+    "ag_src_wk_next_i_rank",
+    "ag_src_wk_next_i_score",
+    "ag_src_wk_cobuy_rank",
+    "ag_src_wk_cobuy_score",
+    "ag_src_h_cobuy_rank",
+    "ag_src_h_cobuy_score",
+    "ag_nv_score",
+    "ag_nv_rank",
+    "ag_cb_score",
+    "ag_cb_nsrc",
+    "ag_p_dwell",
+    "ag_p_visits",
+    "ag_i_v2c",
+    "ag_i_c2o",
+    "ag_i_trend",
+    "ag_i_wk_buyrate",
+    "ag_wrv_score",
+    "ag_wrv_share",
+    "ag_p_cart_age",
+    "ag_p_cart_rank",
+    "ag_p_cart_done",
+    "ag_cbb_ord",
+    "ag_cbb_ord_share",
+    "ag_i_revisit",
+    "ag_i_wk_c2o",
+    "ag_v2b_score",
+    "ag_v2b_ord_share",
+    "ag_wcb_share",
+    "ag_wcb_ord",
+    "ag_nv1_share",
+    "ag_i_buy_mom",
+    "ag_i_wk_buy_trend",
+    "ag_p_span",
+    "ag_p_age_rel",
+    "ag_p_after_last",
+    "ag_p_before_last",
+    "ag_nvb_score",
+    "ag_wcc_share",
+    "ag_wcv_share"
+  ],
+  "agent_set": {
+    "run": {
+      "id": "a1",
+      "model": "claude-opus-5-5",
+      "rounds": 6,
+      "proposals_per_round": 5,
+      "calls": 6,
+      "cost_usd": 1.798986,
+      "log_sha256": "03578a181ce86751a42aca118bbf536c0eba9c4a32d548749a5507fe1c4c22ed"
+    },
+    "run_sha256": "79d6ef38f557646392bf1607acb62822533c009075a5307b3b13d14597763b76",
+    "columns": 39,
+    "sources": [
+      "h_cobuy",
+      "wk_cobuy",
+      "wk_next_i"
+    ],
+    "proposals": 24,
+    "probe": {
+      "path": "artifacts/otto/probe/probe1",
+      "collection": "artifacts/otto/collections/probe-F3",
+      "pool_size": 20000,
+      "rows": 841203,
+      "probe_sha256": "2fba425a1048bfb1794a11ae79a76cae3a87e5d51f9d03b480d73f6df918c7fe",
+      "stats_sha256": "26b971e0039770a0feb28b9c40575cde449b64565de0111372da709b9f1fb02a",
+      "base_digest": "4b50037532aa4bade03c45d3b294fade03b6f7536abda6620630953b6ae86aaf",
+      "t_tb": 1200,
+      "calibration_sha256": "bafe1c9be14a0cafaf144f56a83fef3017a75b784aa1712c53897c455f96a97d"
+    },
+    "prompt_digest": "c430ed493dfcbdf85431cb7a81cbbf02e4decac2e392e0e0314854d4cf80b58a",
+    "audit": {
+      "path": "docs/otto-run/audit-run-a1.json",
+      "sha256": "da80b5efbc321ba7a7d304899591a8f8dd535e88e55fa3c642224c6ef16f49b0",
+      "verdict": "clean"
+    }
+  },
+  "leakcheck_f3": {
+    "path": "docs/otto-run/lc-F3c.json",
+    "report": "artifacts/otto/leakcheck/lc-F3c/report.json",
+    "sha256": "138870b1ffb1e32a6992247320cc81b4afcbb4c42671ccccf43e8b5675ebfaa9",
+    "fold": 3,
+    "ok": true,
+    "sessions": 300000,
+    "sessions_digest": "05a49effa11215282d71a99de802e80d347ca0ec25d5171596629b9beb1b74f7",
+    "prefix_check": {
+      "rows": [
+        "9597205",
+        "9597205"
+      ],
+      "sessions": [
+        "2224350",
+        "2224350"
+      ],
+      "ok": true
+    },
+    "seconds": 593.5
+  },
+  "leakcheck_f3_earlier": [
+    {
+      "path": "docs/otto-run/lc-F3.json",
+      "sha256": "16b1e2ef425add449d624e41c15291c97ced24d03e207e046bf5bf61feff3778",
+      "ok": false,
+      "note": "history_check: ag_nv1_share, ag_nv_rank, ag_nv_score, ag_nvb_score"
+    },
+    {
+      "path": "docs/otto-run/lc-F3b.json",
+      "sha256": "a674287c6fed6bdd275a3992405860e96f0b0d0560db40353a774d7822572726",
+      "ok": true,
+      "note": "passed, but otto_agent.py changed after it (TABLE_MEMORY, sidecar identity; review of decision 24), so the check was repeated on the committed code"
+    }
+  ],
+  "arms": [
+    "B",
+    "BA",
+    "BApl"
+  ],
+  "pop_arm": "Pop",
+  "seeds": [
+    2026,
+    2027
+  ],
+  "stage_seeds": {
+    "1": [
+      2026
+    ],
+    "2": [
+      2026,
+      2027
+    ]
+  },
+  "folds": {
+    "F2": "train",
+    "F3": "val",
+    "F4": "holdout",
+    "F5": "kaggle"
+  },
+  "series": {
+    "dev": {
+      "train": "F2",
+      "eval": "F3",
+      "arms": {
+        "1": [
+          "Pop",
+          "B",
+          "BA",
+          "BApl"
+        ]
+      }
+    },
+    "holdout": {
+      "train": "F3",
+      "eval": "F4",
+      "arms": {
+        "1": [
+          "Pop",
+          "B",
+          "BA",
+          "BApl"
+        ],
+        "2": [
+          "B",
+          "BA",
+          "BApl"
+        ]
+      }
+    },
+    "final": {
+      "train": "F4",
+      "eval": "F5",
+      "arms": {
+        "1": [
+          "B",
+          "BA"
+        ],
+        "2": [
+          "B",
+          "BA"
+        ]
+      }
+    }
+  },
+  "dev_bapl": true,
+  "dev_bapl_comment": "§14 п. 1 не применён: BApl в dev-серии остаётся",
+  "populations": {
+    "order": "sha256(CAST(session AS VARCHAR) || ':2026'), ties by session",
+    "dev": {
+      "n": 300000,
+      "collection": "val-F3",
+      "file_digest": "d68be4313cf3e3a57b9f2cb2032ccd20e7b6a6cbaf35adb3b5ce6865ab2d495c",
+      "sessions_digest": "05a49effa11215282d71a99de802e80d347ca0ec25d5171596629b9beb1b74f7",
+      "actual": 300000
+    },
+    "probe_pool": {
+      "n": 20000,
+      "order": "sha256(CAST(session AS VARCHAR) || ':probe:2026')",
+      "comment": "исключён из популяции dev (§5.4, решение 17)"
+    },
+    "holdout": "gate power: first HOLDOUT_POPULATION_CAP of Q_4 in sha256 order or all of Q_4 (§8)",
+    "kaggle": "every test session (F5)"
+  },
+  "collections": {
+    "train-F2": {
+      "manifest_sha256": "2db46c9bc53566f71cef82e5158af6b77f26e83555b89f66a224ce0d9da85451",
+      "fold": 2
+    },
+    "val-F3": {
+      "manifest_sha256": "76084df5d552ec66ffac6e38a3c1745bf8a67907c8530920790d6d47dc9c0c70",
+      "fold": 3
+    },
+    "probe-F3": {
+      "manifest_sha256": "f839233fd4713ca255ba1bc6c62c3ecc270536332f1f0cc8bbbe6d6411c8d719",
+      "fold": 3
+    }
+  },
+  "recipe": {
+    "loss_function": "YetiRank",
+    "iterations": 500,
+    "depth": 8,
+    "learning_rate": 0.05,
+    "l2_leaf_reg": 10,
+    "border_count": 128,
+    "thread_count": 8,
+    "allow_writing_files": false,
+    "bootstrap_type": "Bayesian"
+  },
+  "prediction_type": "RawFormulaVal",
+  "negatives": "all positives and up to 30 negatives with the smallest sha256(CAST(CAST(session AS BIGINT) AS VARCHAR) || '|' || CAST(CAST(aid AS BIGINT) AS VARCHAR) || '|' || t || '|2026') (lower-case hex), ties by smaller aid",
+  "N_t": 50000,
+  "SCORE_BATCH": 50000,
+  "permutation": "training: numpy.random.default_rng([20261022, seed, k, 0, j]).permutation(n), k the training fold, j 0/1/2 for clicks/carts/orders, n training rows of the type in (session, aid) order; scoring: default_rng([20261022, seed, k, 1, b]).permutation(n_b), k the evaluation fold, per SCORE_BATCH batch b of the evaluation population in sha256 order, rows of the batch in (session, aid) order, one permutation for all three types; row i of the agent block takes the values of row perm[i], base columns stay",
+  "parity": [
+    0.5,
+    2.0
+  ],
+  "power": {
+    "cap": 1000000,
+    "half_width": 0.0015
+  },
+  "top_k": 20,
+  "threads": {
+    "catboost": 8,
+    "duckdb": 8
+  },
+  "memory": "20GB",
+  "seed_changes": "random_seed of CatBoost and the BApl permutation only (§6)",
+  "kaggle_files": [
+    "B2026",
+    "BA2026",
+    "B2027",
+    "BA2027"
+  ],
+  "resources": {
+    "duckdb": {
+      "threads": 8,
+      "memory_limit": "20GB",
+      "max_temp_directory_size": "40GB"
+    },
+    "catboost_threads": 8,
+    "probe_threads": {
+      "table": 8,
+      "other": 3
+    },
+    "tables": {
+      "threads": 1,
+      "memory_limit": "20GB",
+      "comment": "decision 24: every tb_* in one thread with a fixed memory_limit; --memory does not apply to tables. probe_threads.table = 8 is the historical value of the run-a1 probe (probe_table keys in the set); t_20 was measured at CALIBRATION_THREADS"
+    },
+    "calibration_threads": 8,
+    "sidecar_batch": 50000,
+    "comment": "§12"
+  },
+  "calibration": {
+    "path": "artifacts/otto/calibration/cal1/calibration.json",
+    "journal": "docs/otto-run/calibration-cal1.json",
+    "sha256": "bafe1c9be14a0cafaf144f56a83fef3017a75b784aa1712c53897c455f96a97d",
+    "t_20": 21.1,
+    "t_tb": 1200,
+    "rule": "T_tb = clamp(ceil(3*t_20/60)*60, 1200, 1800) s",
+    "cap_seconds": 1800.0
+  },
+  "T_tb": 1200,
+  "probe_budgets": {
+    "limits": {
+      "table_seconds": 4800.0,
+      "pair_session_seconds": 900.0,
+      "item_seconds": 600.0
+    },
+    "timeouts": {
+      "source": 60.0,
+      "pair": 60.0,
+      "session": 60.0,
+      "item": 120.0
+    },
+    "table_budget_factor": 4,
+    "comment": "§5.4, §5.5: tables 4·T_tb; source, pair and session features 900 s; item 600 s"
+  },
+  "sidecar_limits": {
+    "batch_timeout": 900.0,
+    "proposal_cap": 14400.0,
+    "table_timeout": "max(3600.0, 1.5·T_tb·Σn²(I_k)/Σn²(I_3))",
+    "retry_factor": 2,
+    "comment": "§5.7"
+  },
+  "smoke": {
+    "path": "artifacts/otto/smoke/20261022T215027202680Z/smoke.json",
+    "sha256": "9b0f16f329292545de8f35777f1f8af2c8641cd6f20d068724aab1efcb37df34",
+    "seconds": 85.388,
+    "run": "a1",
+    "type": "orders",
+    "rows": 1205688,
+    "sessions": 50000,
+    "dropped_sessions": 11855,
+    "columns": 93,
+    "noise": 72,
+    "tried": [
+      {
+        "bootstrap_type": "Bayesian",
+        "seconds": 85.388,
+        "trees": 500
+      }
+    ],
+    "limit_seconds": 2400,
+    "decision": "N_t = 50000: 85.388 s <= 2400 s"
+  },
+  "gates": {
+    "kinds": [
+      "1",
+      "power",
+      "2"
+    ],
+    "gate1": {
+      "leakcheck": "F3 and F4 reports ok (oc.read_leakcheck)",
+      "finite": "B, BA, BApl on F3 and the F4 frame",
+      "parity": {
+        "bounds": [
+          0.5,
+          2.0
+        ],
+        "reference": "full BA frame of the F3 evaluation population",
+        "zero": "r_c = 0 -> share 0"
+      },
+      "floor": "dev fits of seed 2026 (B, BA, BApl): R_t on F3 per type >= Pop",
+      "lists": "20 aids per type for every population session after topping up",
+      "comment": "§8"
+    },
+    "gate1_stage2": "seed 2027: finite on F4, parity on F4, 20 aids; floor inherited from stage 1 (§8)",
+    "power": {
+      "cap": 1000000,
+      "half_width": 0.0015,
+      "rule": "w·sqrt(n_dev/1e6) <= half_width -> first cap sessions of Q_4 in sha256 order; otherwise, or Q_4 <= cap, or CI(BA - B) not computed -> all of Q_4",
+      "resolution_note": "эффекты меньше ≈0,003 holdout не разрешит",
+      "comment": "§8, decision 12"
+    },
+    "gate2": "finite on F5, parity on F5 against the F4 BA frame, assemble receipt (ranked_sha256, filled_sessions 0) (§8, §9)",
+    "consequences": "B fails -> the set is not read; BA or BApl fail gate 1 -> both verdicts «не вычислен», holdout opens for B and Pop; gate 2 -> no submissions of the failed arm (§8)"
+  },
+  "reading": {
+    "metric": {
+      "weights": {
+        "clicks": 0.1,
+        "carts": 0.3,
+        "orders": 0.6
+      },
+      "top_k": 20,
+      "bootstrap_draws": 2000,
+      "bootstrap_seed": 2026,
+      "ci": [
+        0.025,
+        0.975
+      ],
+      "comment": "§3"
+    },
+    "verdict_transfer": [
+      "всё, что предложил агент (с dev-сигналом), без отбора координатором повышает качество базы на OTTO",
+      "вредит",
+      "не различено",
+      "не решено"
+    ],
+    "verdict_content": [
+      "прирост колонок агента несёт их содержание",
+      "плацебо лучше",
+      "не отличимо от плацебо",
+      "не решено"
+    ],
+    "rule": "1: lower CI bound > 0 on both seeds; 2: upper < 0 on both; 3: CI covers 0 on both; 4: otherwise (§10)",
+    "stage1": "не решено (одно зерно)",
+    "stage1_note": "на зерне 2026 CI(D) выше нуля; вердикт по правилу — после этапа 2",
+    "not_computed": "не вычислен",
+    "kaggle": "private, BA against B, xfer_common.kaggle_reading (H&M rule); descriptive (§10)"
+  },
+  "level": {
+    "thresholds": [
+      [
+        "0.575",
+        "ниже публичного ноутбука на правилах"
+      ],
+      [
+        "0.580",
+        "на уровне публичного ноутбука на правилах"
+      ],
+      [
+        "0.590",
+        "пайплайн работает: уровень серебра по чужим отчётам"
+      ],
+      [
+        null,
+        "весомо: между серебром и 3-м местом по чужим отчётам"
+      ]
+    ],
+    "references": {
+      "public_notebook": 0.575,
+      "silver": 0.583,
+      "third_place": 0.6038,
+      "teams": 2580
+    },
+    "one_seed": "один seed",
+    "comment": "§10, decision 13; references not verified"
+  },
+  "limitations": [
+    {
+      "n": 1,
+      "text": "LLM знает OTTO (§0)."
+    },
+    {
+      "n": 2,
+      "text": "Координатор знает OTTO; B ограничена семейством «история + популярность»."
+    },
+    {
+      "n": 3,
+      "text": "Схемные факты load касаются W4 и W5; их видели авторы."
+    },
+    {
+      "n": 4,
+      "text": "Разметка складок воспроизводит логику кода организаторов (прочитан, не скопирован); генератор свой."
+    },
+    {
+      "n": 5,
+      "text": "История складок растёт с 1 до 4 недель."
+    },
+    {
+      "n": 6,
+      "text": "Признаки складки видят префиксы других сессий позже по времени; так устроен Kaggle."
+    },
+    {
+      "n": 7,
+      "text": "Агент видел огрублённый recall на пробе F3. Вывод xfer «без меток» не переносится; dev-контраст оптимистичен."
+    },
+    {
+      "n": 8,
+      "text": "Прогон агента один."
+    },
+    {
+      "n": 9,
+      "text": "Рецепт YetiRank не настраивался; подвыборка N_t и 30 негативов."
+    },
+    {
+      "n": 10,
+      "text": "BApl не проверяет вклад кандидатов агента; перестановка BApl — по батчам скоринга."
+    },
+    {
+      "n": 11,
+      "text": "Kaggle — late submission: доля private неизвестна, место не заявляется."
+    },
+    {
+      "n": 12,
+      "text": "Обходы regex `check_sql`. Адресный отбор сессий пула по id закрыт: скоринг и одна из проверок инвариантности идут на перестановке id сессий, а таблицы читают только `hist`. Отбор группы сессий по содержимому (длина, время, редкие товары) перестановкой не закрывается. Это групповой оракул по меткам пробы, ограниченный числом предложений, шагом 0.001 и покрытием новыми парами ≥ 1 000 сессий. Пул пробы исключён из популяции dev, F4 — другие сессии, поэтому вердикт holdout он не завышает (решение 23)."
+    },
+    {
+      "n": 13,
+      "text": "Этап 1 — одно зерно: вердикты по правилу появляются только после этапа 2."
+    },
+    {
+      "n": 14,
+      "text": "Таймаут `table` задан калибровкой нейтральным самосоединением; тяжёлые таблицы агента могут не уложиться и выпасть по правилу отказа. При отрезке [1 200, 1 800] с T_tb в основном решает сам отрезок, а не замер: замер влияет, только если 3·t_20 попадает внутрь него."
+    },
+    {
+      "n": 15,
+      "text": "`seq` в `prefix/` складок — индекс из `load`, с пропусками после фильтра aid; у test он сплошной. Агент может увидеть сдвиг распределения `seq` между складками и неделей Kaggle."
+    },
+    {
+      "n": 16,
+      "text": "По id сессии, известной соли обрезки и c длина сессии n восстанавливается частично (в симуляции однозначно в ≈6% сессий). Агенту это недоступно: соли нет в промпте, а функции хеширования (`hash*`, `sha*`, `md5*`, `crc*`) запрещены в `check_sql` (решение 23). Координатор такими оценками длины суффикса не пользуется."
+    }
+  ],
+  "created_utc": "2026-10-23T00:28:22Z"
+}
