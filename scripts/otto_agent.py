@@ -114,6 +114,10 @@ SIDECAR_THREADS = oc.DUCKDB_THREADS
 BATCH_TIMEOUT = 900.0
 PROPOSAL_CAP = 4*3600.0
 TABLE_TIMEOUT_MIN = 3600.0
+# Tables are computed in one DuckDB thread: a parallel hash aggregate sums DOUBLE in a varying order,
+# and a top-N cut over those sums flips at ties (leakcheck lc-F3, r2p5: 3 606 pairs at 8 vs 3 threads).
+TABLE_THREADS = 1
+TABLE_MEMORY = oc.DUCKDB_MEMORY      # fixed too: an external aggregate may add partial sums in another order
 TABLE_TIMEOUT_FACTOR = 1.5
 RETRY_FACTOR = 2
 SIDECAR_REPORT = oc.SIDECAR_REPORT
@@ -863,9 +867,11 @@ def _stage_keys(frame, path):
 # =============================================================================== tables: cache (§5.1)
 
 def table_key(fold, pid, sql, fingerprint, depends):
-    """Cache identity: fold, proposal id, sha256 of the SQL, the data fingerprint and the tables read."""
+    """Cache identity: fold, proposal id, sha256 of the SQL, the data fingerprint, the tables read and
+    TABLE_THREADS and TABLE_MEMORY."""
     return oc.canonical_digest(dict(fold=int(fold), id=pid, sql_sha256=_sha(sql), data=fingerprint,
-                                    depends=[[name, key] for name, key in depends]))
+                                    depends=[[name, key] for name, key in depends], threads=TABLE_THREADS,
+                                    memory=TABLE_MEMORY))
 
 
 def table_dir(fold, pid, key):
@@ -907,8 +913,8 @@ def compute_table(spec, proposal, tables, *, timeout_s, threads, memory=None, fi
         require(not final.exists(), f'{final} exists')
     partial = oc.new_output(final.with_name(f'.partial-{final.name}-{os.getpid()}'))
     try:
-        con = sandbox(spec, None, tables={n: tables[n]['path'] for n in used}, threads=threads, memory=memory,
-                      writable=partial)
+        con = sandbox(spec, None, tables={n: tables[n]['path'] for n in used}, threads=TABLE_THREADS,
+                      memory=TABLE_MEMORY, writable=partial)  # ``threads``, ``memory`` unused: see TABLE_THREADS
         try:
             _, names, rows, seconds = execute(con, 'table', proposal['level'], sql, spec['start'], spec['end'],
                                               timeout_s, table_path=partial/'table.parquet')
@@ -916,7 +922,8 @@ def compute_table(spec, proposal, tables, *, timeout_s, threads, memory=None, fi
             close(con)
         record = dict(format=TABLE_FORMAT, status='completed', fold=spec['fold'], id=proposal['id'], name=name,
                       key=key, sql_sha256=_sha(sql), data=fingerprint, views_digest=spec['digest'],
-                      depends=[[n, tables[n]['key']] for n in used], columns=names, rows=rows,
+                      depends=[[n, tables[n]['key']] for n in used], columns=names, rows=rows, threads=TABLE_THREADS,
+                      memory=TABLE_MEMORY,
                       seconds=round(seconds, 3), sha256=oc.sha256_file(partial/'table.parquet'),
                       created_utc=oc.utc_now())
         oc.atomic_json(partial/'table.json', record)
@@ -3251,7 +3258,8 @@ def sidecar(collection, name=None, threads=SIDECAR_THREADS, memory=None, batch=o
         ordered = oc.first_in_order(sessions, None)
         identity = dict(collection=collection.name, name=name, manifest_sha256=manifest_sha,
                         set_digest=agent_set['digest'], sessions=len(ordered),
-                        sessions_digest=oc.sessions_digest(ordered), batch=batch)
+                        sessions_digest=oc.sessions_digest(ordered), batch=batch,
+                        tables=dict(threads=TABLE_THREADS, memory=TABLE_MEMORY))
         if partial.exists():
             progress = oc.read_json(partial/SIDECAR_PROGRESS)
             require({k: progress.get(k) for k in identity} == identity,
@@ -3302,7 +3310,7 @@ def sidecar(collection, name=None, threads=SIDECAR_THREADS, memory=None, batch=o
             parts = progress['parts']
             report = dict(format=SIDECAR_FORMAT, collection=collection.name, role=role, fold=fold,
                           manifest_sha256=manifest_sha, set_digest=agent_set['digest'], sessions=len(ordered),
-                          sessions_digest=identity['sessions_digest'], rows=sum(p['rows'] for p in parts.values()),
+                          sessions_digest=identity['sessions_digest'], table_build=identity['tables'], rows=sum(p['rows'] for p in parts.values()),
                           parts=parts, columns=['session', 'aid', *names, *agent_set['columns']],
                           agent_columns=agent_set['columns'], batch=batch,
                           final_training=training,
@@ -3579,7 +3587,7 @@ def _handle(argv):
         return dict(command='sidecar', path=result['path'], sessions=result['sessions'], rows=result['rows'],
                     columns=len(result['agent_columns']))
     result = leakcheck(args.fold, args.name, threads=args.threads, memory=args.memory, batch=args.batch)
-    return dict(command='leakcheck', path=result['path'], ok=result['ok'], fold=result['fold'])
+    return dict(command='leakcheck', path=result['path'], passed=result['ok'], fold=result['fold'])
 
 
 def main(argv=None):

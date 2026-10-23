@@ -4,6 +4,8 @@ No real OTTO data is read and no LLM is called: raw files, partitions, collectio
 receipts are built inside a throwaway Git repository that stands in for ROOT; the agent's
 replies come from a fake ``ask``. DuckDB runs with at most 2 threads and 1-2 GB.
 """
+import contextlib
+import io
 import json
 import os
 from pathlib import Path
@@ -91,7 +93,8 @@ class World:
         git(self.root, 'commit', '-q', '-m', 'init')
         self.patches = [mock.patch.object(oc, 'ROOT', self.root),
                         mock.patch.object(oc, 'code_identity', return_value=IDENTITY),
-                        mock.patch.object(oa, 'MEMORY', MEMORY), mock.patch.object(oa, 'MAX_TEMP', '2GB'),
+                        mock.patch.object(oa, 'MEMORY', MEMORY), mock.patch.object(oa, 'TABLE_MEMORY', MEMORY),
+                        mock.patch.object(oa, 'MAX_TEMP', '2GB'),
                         mock.patch.dict(oa.PROBE_THREADS, table=THREADS, other=THREADS),
                         mock.patch.object(oa, 'MIN_SOURCE_SESSIONS', MIN_SOURCE)]
         for patch in self.patches:
@@ -805,6 +808,40 @@ class ProbeWorldTest(unittest.TestCase):
         self.assertFalse(other['cached'])
         self.assertNotEqual(other['key'], entry['key'])
         self.assertEqual(other['sha256'], entry['sha256'])
+
+    def test_tables_run_in_one_thread_and_the_count_keys_the_cache(self):
+        # lc-F3: a parallel DOUBLE sum flipped a top-50 cut at ties; tables are computed single-threaded
+        self.assertEqual(oa.TABLE_THREADS, 1)
+        key = oa.table_key(3, 'r1p1', COVIS, 'f'*64, [])
+        with mock.patch.object(oa, 'TABLE_THREADS', 4):
+            self.assertNotEqual(oa.table_key(3, 'r1p1', COVIS, 'f'*64, []), key)
+        with mock.patch.object(oa, 'TABLE_MEMORY', '7GB'):
+            self.assertNotEqual(oa.table_key(3, 'r1p1', COVIS, 'f'*64, []), key)
+        seen = []
+        real = oa.sandbox
+
+        def spy(*args, **kwargs):
+            seen.append(kwargs.get('threads'))
+            return real(*args, **kwargs)
+        table = dict(id='r1p9', name='covis9', kind='table', level='item_pair', sql=COVIS)
+        with mock.patch.object(oa, 'sandbox', spy):
+            entry = oa.compute_table(self.data.spec, table, {}, timeout_s=60, threads=THREADS, fingerprint='e'*64)
+        try:
+            self.assertEqual(seen, [1])
+            record = oa.read_table(Path(entry['path']).parent)
+            self.assertEqual((record['threads'], record['memory']), (1, oa.TABLE_MEMORY))
+        finally:
+            shutil.rmtree(Path(entry['path']).parent)
+
+    def test_leakcheck_cli_reports_passed_without_clashing_with_ok(self):
+        fake = dict(path='/x/report.json', ok=False, fold=3)
+        out = io.StringIO()
+        with mock.patch.object(oa, 'leakcheck', return_value=fake), mock.patch.object(oc, 'isolated'), \
+                contextlib.redirect_stdout(out):
+            code = oa.main(['leakcheck', '--fold', '3'])
+        line = json.loads(out.getvalue())
+        self.assertEqual(code, 0)
+        self.assertEqual((line['ok'], line['passed'], line['command']), (True, False, 'leakcheck'))
 
     def test_rejected_table_drops_its_dependents(self):
         agent_set = make_set(self.base, [
