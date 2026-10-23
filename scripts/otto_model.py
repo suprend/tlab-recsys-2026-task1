@@ -1312,6 +1312,24 @@ def evals_files(evals):
     return files
 
 
+FLOOR_RULE = 'score'    # deviation d3: the gate-1 floor of every arm compares Score with Pop; per type is recorded only
+POST_HOC_LABEL = ('после методического отклонения, выбранного после dev-чисел; '
+                  'не подтверждающая проверка в смысле prereg')
+
+
+def floor_check(recall, pop):
+    """Gate-1 floor of one dev fit (§8, deviation d3): ok when Score >= Pop's Score; by_type is kept for the record."""
+    score, pop_score = oc._score(recall), oc._score(pop)
+    return dict(recall=recall, pop=pop, by_type=all(recall[t] >= pop[t] for t in oc.TYPES),
+                score=score, pop_score=pop_score, rule=FLOOR_RULE, ok=score >= pop_score)
+
+
+def confirmation():
+    """Whether holdout and Kaggle readings are confirmatory: not after any non-technical deviation (d3)."""
+    ids = [r['id'] for r in oc.deviations() if r.get('kind') != 'technical']      # fail closed on any other kind
+    return dict(confirmatory=not ids, methodological_deviations=ids, label=POST_HOC_LABEL if ids else None)
+
+
 def gate1_checks(ctx, stage, leakcheck=()):
     """Checks of gate 1 (stage 1) or gate 1 of stage 2 (§8), recomputed from the files."""
     stage = int(stage)
@@ -1347,8 +1365,7 @@ def gate1_checks(ctx, stage, leakcheck=()):
             checks['finite'][f'dev-{a}{seed}'] = bool(r['finite_all'])
             checks['lists'][f'dev-{a}{seed}'] = int(sum(r['short_lists'].values()))
             recall = read_metrics(d/METRICS_FILE)['recall']
-            checks['floor'][f'{a}{seed}'] = dict(recall=recall, pop=pop['recall'],
-                                                 ok=all(recall[t] >= pop['recall'][t] for t in oc.TYPES))
+            checks['floor'][f'{a}{seed}'] = floor_check(recall, pop['recall'])
         checks['bapl_dev_cut'] = not ctx.dev_bapl
         files.update(evals_files(dev))
     else:
@@ -1517,7 +1534,8 @@ def holdout_open(ctx, gate_path, quote=None, quote_time=None, covers_stage2=Fals
         power = power_gate_report()
         body = dict(format=oc.HOLDOUT_OPEN_FORMAT, quote=quote, quote_time=quote_time,
                     covers_stage2=bool(covers_stage2), gate1=gate_ref, arms=arms, score_files=files,
-                    population=power['population'], prereg_sha256=ctx.prereg_sha256, opened_utc=oc.utc_now())
+                    population=power['population'], prereg_sha256=ctx.prereg_sha256, confirmation=confirmation(),
+                    opened_utc=oc.utc_now())
     else:
         first = oc.receipt('holdout-open')
         if quote is None:
@@ -1529,10 +1547,11 @@ def holdout_open(ctx, gate_path, quote=None, quote_time=None, covers_stage2=Fals
         arms = [a for a in arms if a in first['arms']]
         scores = {name: digest for name, digest in {**first['score_files'], **files}.items()}
         body = dict(format=oc.HOLDOUT_OPEN_2_FORMAT, quote=quote_ref, gate1=gate_ref, arms=arms, scores=scores,
-                    population=first['population'], prereg_sha256=ctx.prereg_sha256, opened_utc=oc.utc_now())
+                    population=first['population'], prereg_sha256=ctx.prereg_sha256, confirmation=confirmation(),
+                    opened_utc=oc.utc_now())
     oc.check_receipt(kind, body)
     oc.atomic_json(path, normalized(body))
-    return dict(path=rel(path), arms=arms, gate_ok=record['ok'])
+    return dict(path=rel(path), arms=arms, gate_ok=record['ok'], confirmation=body['confirmation'])
 
 
 def holdout_inputs(receipt, pinned, arms, seeds):
@@ -1584,6 +1603,7 @@ def holdout(ctx, stage=1, output=None):
     seeds = oc.STAGE_SEEDS[stage]
     reports = holdout_inputs(first, pinned, arms, seeds)
     open_sha = oc.sha256_file(oc.config_path('holdout-open' if stage == 1 else 'holdout-open-2'))
+    conf = confirmation()                       # before the labels: nothing after them may refuse
     output = oc.new_output(output if output is not None else root/f'stage{stage}-{stamp()}')
     oc.atomic_json(output/STARTED_FILE, dict(stage=stage, arms=arms, seeds=list(seeds), open_receipt_sha256=open_sha,
                                              population=first['population'], started_utc=oc.utc_now()))
@@ -1594,7 +1614,7 @@ def holdout(ctx, stage=1, output=None):
     result = dict(format=RESULT_FORMAT, stage=stage, seeds=list(seeds), arms=arms, collection=collection.name,
                   population=first['population'], open_receipt_sha256=open_sha, prereg_sha256=ctx.prereg_sha256,
                   metrics={f'{a}{s}': dict(recall=v['recall'], score=v['score']) for (a, s), v in values.items()},
-                  pop=dict(recall=pop['recall'], score=pop['score']))
+                  pop=dict(recall=pop['recall'], score=pop['score']), confirmation=conf)
     if arms == list(oc.ARMS):
         D = {str(s): oc.bootstrap_ratio(values[('B', s)], values[('BA', s)]) for s in seeds}
         P = {str(s): oc.bootstrap_ratio(values[('BApl', s)], values[('BA', s)]) for s in seeds}
@@ -1622,12 +1642,15 @@ def holdout(ctx, stage=1, output=None):
             result['ceiling'][arm] = ceiling(con, 'cv', labels_path, 'population')
     finally:
         con.close()
+    if not conf['confirmatory']:
+        result['verdict_label'] = conf['label']             # beside verdict_*, note and seed_mean (deviation d3)
     result.update(code=ctx.code, created_utc=oc.utc_now())
     result = normalized(result)
     oc.atomic_json(output/'result.json', result)
     oc.atomic_json(path, result)
     return dict(path=rel(path), verdict_transfer=result['verdict_transfer'],
-                verdict_content=result['verdict_content'], metrics=result['metrics'])
+                verdict_content=result['verdict_content'], metrics=result['metrics'],
+                confirmation=result['confirmation'])
 
 
 # =============================================================================== score and reading (§9, §10)
@@ -1680,10 +1703,11 @@ def reading(private, passed=None, output=None):
                   difference={str(s): scores[f'BA{s}']-scores[f'B{s}'] for s in oc.SEEDS
                               if f'BA{s}' in scores and f'B{s}' in scores},
                   level=oc.level_reading(ba) if ba else None, level_B=oc.level_reading(b) if b else None,
-                  created_utc=oc.utc_now())
+                  confirmation=confirmation(), created_utc=oc.utc_now())
     output = oc.new_output(output if output is not None else oc.output_dir('kaggle', f'reading-{stamp()}'))
     oc.atomic_json(output/'reading.json', normalized(result))
-    return dict(path=rel(output/'reading.json'), comparison=result['comparison'], level=result['level'])
+    return dict(path=rel(output/'reading.json'), comparison=result['comparison'], level=result['level'],
+                confirmation=result['confirmation'])
 
 
 # =============================================================================== smoke (§6, §12)

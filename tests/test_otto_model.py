@@ -556,6 +556,7 @@ class Pipeline(Repo):
                 om.holdout_open(ctx, gate1['path'], QUOTE, when)
         opened = om.holdout_open(ctx, gate1['path'], QUOTE, WHEN, covers_stage2=True)
         self.assertEqual(opened['arms'], list(oc.ARMS))
+        self.assertEqual(oc.read_json(oc.config_path('holdout-open'))['confirmation'], opened['confirmation'])
         receipt = oc.config_path('holdout-open')
         with self.assertRaisesRegex(oc.ContractError, 'closed'):     # uncommitted receipt: nothing is started
             om.holdout(ctx)
@@ -572,8 +573,19 @@ class Pipeline(Repo):
         self.assertFalse(oc.output_dir('holdout').exists())
         ranked.write_bytes(saved)
 
-        result = om.holdout(ctx)
+        # the confirmation status is read before the labels: a refusal there leaves no trace
+        with mock.patch.object(om, 'confirmation', side_effect=oc.ContractError('deviations')), \
+                mock.patch.object(oc, 'read_sealed', side_effect=AssertionError('labels read')):
+            with self.assertRaisesRegex(oc.ContractError, 'deviations'):
+                om.holdout(ctx)
+        self.assertFalse(oc.output_dir('holdout').exists())
+
+        post_hoc = dict(confirmatory=False, methodological_deviations=['d3'], label=om.POST_HOC_LABEL)
+        with mock.patch.object(om, 'confirmation', return_value=post_hoc):
+            result = om.holdout(ctx)
         data = oc.read_json(oc.config_path('holdout'))
+        self.assertEqual((data['confirmation'], result['confirmation']), (post_hoc, post_hoc))
+        self.assertEqual(data['verdict_label'], om.POST_HOC_LABEL)
         self.assertEqual(result['verdict_transfer'], oc.ONE_SEED)
         self.assertEqual(result['verdict_content'], oc.ONE_SEED)
         self.assertEqual(sorted(data['metrics']), ['B2026', 'BA2026', 'BApl2026'])
@@ -936,6 +948,8 @@ class BaNotRun(Repo):
         self.assertEqual(sorted(data['pop']['recall']), sorted(oc.TYPES))
         self.assertNotIn('D', data)
         self.assertEqual(sorted(data['ceiling']), ['B'])
+        self.assertTrue(data['confirmation']['confirmatory'])      # no deviations file: confirmatory, no label
+        self.assertNotIn('verdict_label', data)
 
     def test_ba_run_needs_coverage_of_the_training_union_and_the_population(self):
         ctx = self.ctx()
@@ -1113,6 +1127,34 @@ class GateRules(unittest.TestCase):
         absent = self.checks(present=dict(B=True, BA=False, BApl=True))      # an absent arm is False
         self.assertEqual(om.gate1_status(absent), dict(B=True, BA=False, BApl=True))
         self.assertEqual(om.opened_arms(om.gate1_status(absent)), ['B'])
+
+    POP = dict(clicks=0.3160, carts=0.3089, orders=0.5707)
+    DEV = dict(B=dict(clicks=0.3144, carts=0.3097, orders=0.5890),          # dev F3, seed 2026 (contrast-dev-2026)
+               BA=dict(clicks=0.5002, carts=0.4122, orders=0.6494),
+               BApl=dict(clicks=0.3998, carts=0.3419, orders=0.6115))
+
+    def test_floor_compares_score_and_keeps_the_per_type_result(self):
+        floor = om.floor_check(self.DEV['B'], self.POP)
+        self.assertEqual((floor['ok'], floor['by_type'], floor['rule']), (True, False, 'score'))
+        self.assertAlmostEqual(floor['score'], 0.10*0.3144 + 0.30*0.3097 + 0.60*0.5890)
+        self.assertAlmostEqual(floor['pop_score'], 0.10*0.3160 + 0.30*0.3089 + 0.60*0.5707)
+        worse = om.floor_check(dict(clicks=0.40, carts=0.30, orders=0.56), self.POP)   # better clicks, lower Score
+        self.assertEqual((worse['ok'], worse['by_type']), (False, False))
+        self.assertTrue(om.floor_check(self.POP, self.POP)['ok'])
+
+    def test_floor_by_score_opens_all_arms_when_b_misses_one_type(self):
+        floor = {f'{a}2026': om.floor_check(r, self.POP) for a, r in self.DEV.items()}
+        self.assertEqual([floor[f'{a}2026']['by_type'] for a in oc.ARMS], [False, True, True])
+        self.assertEqual(om.opened_arms(om.gate1_status(self.checks(floor=floor))), list(oc.ARMS))
+
+    def test_confirmation_is_lost_after_a_methodological_deviation(self):
+        technical = [dict(id='d1', kind='technical'), dict(id='d2', kind='technical')]
+        with mock.patch.object(oc, 'deviations', return_value=technical):
+            self.assertEqual(om.confirmation(), dict(confirmatory=True, methodological_deviations=[], label=None))
+        with mock.patch.object(oc, 'deviations', return_value=technical + [dict(id='d3', kind='methodological')]):
+            c = om.confirmation()
+        self.assertEqual((c['confirmatory'], c['methodological_deviations']), (False, ['d3']))
+        self.assertIn('не подтверждающая', c['label'])
 
 
 # ================================================================== reading and CLI (§10, §11)
