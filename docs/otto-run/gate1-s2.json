@@ -1,0 +1,289 @@
+{
+  "format": "otto-gate-v1",
+  "kind": "1",
+  "stage": 2,
+  "ok": true,
+  "status": {
+    "B": true,
+    "BA": true,
+    "BApl": true
+  },
+  "checks": {
+    "stage": 2,
+    "seed": 2027,
+    "finite": {
+      "holdout-B2027": true,
+      "holdout-BA2027": true,
+      "holdout-BApl2027": true
+    },
+    "lists": {
+      "holdout-B2027": 0,
+      "holdout-BA2027": 0,
+      "holdout-BApl2027": 0
+    },
+    "present": {
+      "B": true,
+      "BA": true,
+      "BApl": true
+    },
+    "ba": null,
+    "parity": {
+      "ok": true,
+      "columns": {
+        "ag_src_wk_next_i_rank": {
+          "reference": 0.2621353464425888,
+          "share": 0.25955857181585035,
+          "ok": true
+        },
+        "ag_src_wk_next_i_score": {
+          "reference": 0.2621353464425888,
+          "share": 0.25955857181585035,
+          "ok": true
+        },
+        "ag_src_wk_cobuy_rank": {
+          "reference": 0.24001428993992224,
+          "share": 0.23556338667480814,
+          "ok": true
+        },
+        "ag_src_wk_cobuy_score": {
+          "reference": 0.24001428993992224,
+          "share": 0.23556338667480814,
+          "ok": true
+        },
+        "ag_src_h_cobuy_rank": {
+          "reference": 0.28322026417432355,
+          "share": 0.3032458448596186,
+          "ok": true
+        },
+        "ag_src_h_cobuy_score": {
+          "reference": 0.28322026417432355,
+          "share": 0.3032458448596186,
+          "ok": true
+        },
+        "ag_nv_score": {
+          "reference": 0.19513325281788824,
+          "share": 0.1925793220887252,
+          "ok": true
+        },
+        "ag_nv_rank": {
+          "reference": 0.19513325281788824,
+          "share": 0.1925793220887252,
+          "ok": true
+        },
+        "ag_cb_score": {
+          "reference": 0.31338084627731005,
+          "share": 0.32926303678888047,
+          "ok": true
+        },
+        "ag_cb_nsrc": {
+          "reference": 0.31338084627731005,
+          "share": 0.32926303678888047,
+          "ok": true
+        },
+        "ag_p_dwell": {
+          "reference": 0.026040608595963622,
+          "share": 0.026351239413598126,
+          "ok": true
+        },
+        "ag_p_visits": {
+          "reference": 0.026040608595963622,
+          "share": 0.026351239413598126,
+          "ok": true
+        },
+        "ag_i_v2c": {
+          "reference": 1.0,
+          "share": 0.9727858813597428,
+          "ok": true
+        },
+        "ag_i_c2o": {
+          "reference": 1.0,
+          "share": 0.9727858813597428,
+          "ok": true
+        },
+        "ag_i_trend": {
+          "reference": 0.9849537406508093,
+          "share": 0.9791785006295093,
+          "ok": true
+        },
+        "ag_i_wk_buyrate": {
+          "reference": 0.9849537406508093,
+          "share": 0.9791785006295093,
+          "ok": true
+        },
+        "ag_wrv_score": {
+          "reference": 0.012370664413861726,
+          "share": 0.012175358954377314,
+          "ok": true
+        },
+        "ag_wrv_share": {
+          "reference": 0.012370664413861726,
+          "share": 0.012175358954377314,
+          "ok": true
+        },
+        "ag_p_cart_age": {
+          "reference": 0.002664907293283495,
+          "share": 0.00269367394599714,
+          "ok": true
+        },
+        "ag_p_cart_rank": {
+          "reference": 0.002664907293283495,
+          "share": 0.00269367394599714,
+          "ok": true
+        },
+        "ag_p_cart_done": {
+          "reference": 0.002664907293283495,
+          "share": 0.00269367394599714,
+          "ok": true
+        },
+        "ag_cbb_ord": {
+          "reference": 0.033840337259232384,
+          "share": 0.03535849251325224,
+          "ok": true
+        },
+        "ag_cbb_ord_share": {
+          "reference": 0.033840337259232384,
+          "share": 0.03535849251325224,
+          "ok": true
+        },
+        "ag_i_revisit": {
+          "reference": 0.9959864810328245,
+          "share": 0.9681390630446963,
+          "ok": true
+        },
+        "ag_i_wk_c2o": {
+          "reference": 0.9959864810328245,
+          "share": 0.9681390630446963,
+          "ok": true
+        },
+        "ag_v2b_score": {
+          "reference": 0.18719649733344737,
+          "share": 0.1917673400382193,
+          "ok": true
+        },
+        "ag_v2b_ord_share": {
+          "reference": 0.18719649733344737,
+          "share": 0.1917673400382193,
+          "ok": true
+        },
+        "ag_wcb_share": {
+          "reference": 0.31555640019178127,
+          "share": 0.303583916488859,
+          "ok": true
+        },
+        "ag_wcb_ord": {
+          "reference": 0.31555640019178127,
+          "share": 0.303583916488859,
+          "ok": true
+        },
+        "ag_nv1_share": {
+          "reference": 0.14200205917111766,
+          "share": 0.14042130224475408,
+          "ok": true
+        },
+        "ag_i_buy_mom": {
+          "reference": 0.9735587173288275,
+          "share": 0.9690237925959541,
+          "ok": true
+        },
+        "ag_i_wk_buy_trend": {
+          "reference": 0.9735587173288275,
+          "share": 0.9690237925959541,
+          "ok": true
+        },
+        "ag_p_span": {
+          "reference": 0.026040608595963622,
+          "share": 0.026351239413598126,
+          "ok": true
+        },
+        "ag_p_age_rel": {
+          "reference": 0.026040608595963622,
+          "share": 0.026351239413598126,
+          "ok": true
+        },
+        "ag_p_after_last": {
+          "reference": 0.001874359286406391,
+          "share": 0.0018937730216614854,
+          "ok": true
+        },
+        "ag_p_before_last": {
+          "reference": 0.001874359286406391,
+          "share": 0.0018937730216614854,
+          "ok": true
+        },
+        "ag_nvb_score": {
+          "reference": 0.2124747395470853,
+          "share": 0.20909917569433165,
+          "ok": true
+        },
+        "ag_wcc_share": {
+          "reference": 0.018732173962299568,
+          "share": 0.017375649294259287,
+          "ok": true
+        },
+        "ag_wcv_share": {
+          "reference": 0.3953743828976577,
+          "share": 0.3873844830310979,
+          "ok": true
+        }
+      },
+      "unexpected": []
+    },
+    "floor_inherited": {
+      "B": true,
+      "BA": true,
+      "BApl": true
+    },
+    "leakcheck": {
+      "ok": true,
+      "inherited": true
+    }
+  },
+  "files": {
+    "artifacts/otto/fits/holdout-B2027/eval/ranked.parquet": "a671911e14fd36c870ce28879761ea1404aadca8db61ad92eda1ae8c5b166be6",
+    "artifacts/otto/fits/holdout-B2027/eval/report.json": "5db27675f7598b9c8da9307c718628dc6ff849eaaaff274916386af396c46ac7",
+    "artifacts/otto/fits/holdout-B2027/eval/pop.parquet": "6ac81b336e1a6f4ba8f5f4cdda564ca183bfa0eb79f2f54c1377c00013c29dd7",
+    "artifacts/otto/fits/holdout-BA2027/eval/ranked.parquet": "6af439396e4aaef049a117e9eeb41b4e86a498dbbf4702d9f0f965920f41d253",
+    "artifacts/otto/fits/holdout-BA2027/eval/report.json": "a92a0dd1714e7de1ac3cfaae06e9cf66632c09423859aea5490b0eb7af38339c",
+    "artifacts/otto/fits/holdout-BA2027/eval/pop.parquet": "6ac81b336e1a6f4ba8f5f4cdda564ca183bfa0eb79f2f54c1377c00013c29dd7",
+    "artifacts/otto/fits/holdout-BApl2027/eval/ranked.parquet": "85cfe00e3db1e9d257d7ed6896fdd4f269f889897cf84e0399c3499da68adfcc",
+    "artifacts/otto/fits/holdout-BApl2027/eval/report.json": "87fbee4848c14633e0a49798b64f35b6bd397cbe7f0b53e36c41787bd3f1d231",
+    "artifacts/otto/fits/holdout-BApl2027/eval/pop.parquet": "6ac81b336e1a6f4ba8f5f4cdda564ca183bfa0eb79f2f54c1377c00013c29dd7",
+    "artifacts/otto/fits/holdout-B2026/eval/ranked.parquet": "381e90cf861c9821e00abfecba4b0880bc1d83d75b45c5062c491e9c3b3fd149",
+    "artifacts/otto/fits/holdout-B2026/eval/report.json": "add00dff4611ba277303a7c3f25d8284a0b4a9de60251888554bac2170f4f5bc",
+    "artifacts/otto/fits/holdout-B2026/eval/pop.parquet": "6ac81b336e1a6f4ba8f5f4cdda564ca183bfa0eb79f2f54c1377c00013c29dd7",
+    "artifacts/otto/fits/holdout-BA2026/eval/ranked.parquet": "2c08f668e516757194d68442df01bbfc6090fca6afeae01187585363614e27bf",
+    "artifacts/otto/fits/holdout-BA2026/eval/report.json": "be8234f0e6283270c0bf3e165bb70644a86993501b72ce5c8eec87b100975968",
+    "artifacts/otto/fits/holdout-BA2026/eval/pop.parquet": "6ac81b336e1a6f4ba8f5f4cdda564ca183bfa0eb79f2f54c1377c00013c29dd7",
+    "artifacts/otto/fits/holdout-BApl2026/eval/ranked.parquet": "689a35148c6b57d2c67801861f6b2047901c5a2343071d5091a5b441fc9355ab",
+    "artifacts/otto/fits/holdout-BApl2026/eval/report.json": "a5244d6a34380aaae4565cd283b4a4a7d8e0fc9dbbd8a93e7484d4ff9d032896",
+    "artifacts/otto/fits/holdout-BApl2026/eval/pop.parquet": "6ac81b336e1a6f4ba8f5f4cdda564ca183bfa0eb79f2f54c1377c00013c29dd7",
+    "artifacts/otto/fits/dev-B2026/eval/ranked.parquet": "2ce930d203de0a1085fe533356f4ef26057e9e63c50b4539cf25a8321f91bbbe",
+    "artifacts/otto/fits/dev-B2026/eval/report.json": "6fedd57591a0e3705d3b1558ff4a82a74c3d2516ecc0598d6ed05703e7ed8517",
+    "artifacts/otto/fits/dev-B2026/eval/pop.parquet": "f5ae0c585571d0ab75d541b4f66fe694c0e0b5e8f4e38e66fa699d20f76ab278",
+    "artifacts/otto/fits/dev-BA2026/eval/ranked.parquet": "1e28846c49af53c0ff5d050aeb63134c529d8693eaa7313af51c046bff9bd37b",
+    "artifacts/otto/fits/dev-BA2026/eval/report.json": "948d00cf16157f427610a32ddcbd72f307b86eaa018267a0b594c48441d4fc21",
+    "artifacts/otto/fits/dev-BA2026/eval/pop.parquet": "f5ae0c585571d0ab75d541b4f66fe694c0e0b5e8f4e38e66fa699d20f76ab278",
+    "artifacts/otto/fits/dev-BApl2026/eval/ranked.parquet": "0e6461f42b94edc2a83f4fcd6a36a2730bab0f4b7a681ca8fd0d0a21a278cbea",
+    "artifacts/otto/fits/dev-BApl2026/eval/report.json": "210a37cc57bc4e100d8f4460f3ac8d9924fa9d3f155e272150a22254a16a39fe",
+    "artifacts/otto/fits/dev-BApl2026/eval/pop.parquet": "f5ae0c585571d0ab75d541b4f66fe694c0e0b5e8f4e38e66fa699d20f76ab278"
+  },
+  "prereg_sha256": "b1d374a397618373dc76851a070f1e6c1134bbcd02bafd5fbbb51118e1b24154",
+  "code": {
+    "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+    "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+    "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+    "scripts/hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+    "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+    "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+    "scripts/hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+    "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+    "scripts/hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+    "scripts/otto_agent.py": "05a6aa899047a447fd12b18453d3987fa68777ed30ca706198c294464b718a79",
+    "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
+    "scripts/otto_data.py": "57bffca039e7b51be746c63f05ba0ac908ae8908ec925eb760b55c276972f6b0",
+    "scripts/otto_model.py": "ff87a9f495776f5f8ba41b3008ca7882d9a954b657780583975525ae00f0d6ea",
+    "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+    "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"
+  },
+  "created_utc": "2026-10-23T06:04:32Z"
+}
