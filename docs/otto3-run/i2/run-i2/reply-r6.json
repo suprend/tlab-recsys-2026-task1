@@ -1,0 +1,113 @@
+{
+  "round": 6,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "attempts": [
+    {
+      "round": 6,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 60.7,
+      "cost_usd": 0.29605000000000004,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-k9cvb7j2",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5,
+      "text": "```json\n[\n  {\n    \"name\": \"cos_mix_src\",\n    \"idea\": \"Specific-neighbor source from the two cosine tables not yet used as sources (tb_covis14_cos, plus tb_buy_cos14 weighted double), drawn from the session's last 10 distinct prefix items with cart/order prefix items weighted triple and integer recency weights (11 - rank); cosines are scaled to integers so the sums stay exact; prefix items are excluded.\",\n    \"kind\": \"source\",\n    \"level\": \"pair\",\n    \"sql\": \"WITH pi AS (SELECT s.session, s.item, max(CASE WHEN s.event <> 'view' THEN 3 ELSE 1 END) AS w, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, w, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, w * (11 - rp) AS w FROM li WHERE rp <= 10), ki AS (SELECT DISTINCT item FROM lt), e AS (SELECT c.item, c.item2, CAST(round(c.tv_cos * 1000000) AS BIGINT) AS v FROM tb_covis14_cos c JOIN ki ON ki.item = c.item UNION ALL SELECT b.item, b.item2, CAST(round(2 * b.tv_cos * 1000000) AS BIGINT) AS v FROM tb_buy_cos14 b JOIN ki ON ki.item = b.item), ee AS (SELECT item, item2, sum(v) AS v FROM e GROUP BY item, item2), sc AS (SELECT lt.session, ee.item2 AS item, CAST(sum(ee.v * lt.w) AS DOUBLE) AS score FROM lt JOIN ee ON ee.item = lt.item GROUP BY lt.session, ee.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;\"\n  },\n  {\n    \"name\": \"next1_p14\",\n    \"idea\": \"Directed immediate-next table over the last 14 days of history: the item at seq+1 in the same session, counted once per session, with the conditional transition probability (pair sessions divided by the item's sessions with any next item) for later pair features.\",\n    \"kind\": \"table\",\n    \"level\": \"item_pair\",\n    \"sql\": \"WITH h AS (SELECT session, item, seq FROM hist WHERE ts >= {S} - 14*86400), d AS (SELECT DISTINCT a.session, a.item, b.item AS item2 FROM h a JOIN h b ON b.session = a.session AND b.seq = a.seq + 1 AND b.item <> a.item), n AS (SELECT item, count(DISTINCT session) AS ni FROM d GROUP BY item), p AS (SELECT item, item2, count(*) AS c FROM d GROUP BY item, item2 HAVING count(*) >= 2), q AS (SELECT p.item, p.item2, p.c, p.c / CAST(n.ni AS DOUBLE) AS pr FROM p JOIN n ON n.item = p.item), r AS (SELECT item, item2, c, pr, row_number() OVER (PARTITION BY item ORDER BY c DESC, pr DESC, item2) AS rn FROM q) SELECT item, item2, CAST(c AS DOUBLE) AS tv_ns, CAST(pr AS DOUBLE) AS tv_p FROM r WHERE rn <= 50;\"\n  },\n  {\n    \"name\": \"covis3_cos\",\n    \"idea\": \"Recent-trend symmetric co-visitation over only the last 3 days of history within 5 events, counted once per session, top 50 partners by cosine, to capture freshly emerging item relations for later pair features.\",\n    \"kind\": \"table\",\n    \"level\": \"item_pair\",\n    \"sql\": \"WITH h AS (SELECT session, item, seq FROM hist WHERE ts >= {S} - 3*86400), d AS (SELECT DISTINCT a.session, a.item, b.item AS item2 FROM h a JOIN h b ON b.session = a.session AND b.item <> a.item AND b.seq BETWEEN a.seq - 5 AND a.seq + 5), n AS (SELECT item, count(DISTINCT session) AS ni FROM h GROUP BY item), p AS (SELECT item, item2, count(*) AS c FROM d GROUP BY item, item2 HAVING count(*) >= 2), q AS (SELECT p.item, p.item2, p.c, p.c / sqrt(CAST(n1.ni AS DOUBLE) * CAST(n2.ni AS DOUBLE)) AS cs FROM p JOIN n n1 ON n1.item = p.item JOIN n n2 ON n2.item = p.item2), r AS (SELECT item, item2, c, cs, row_number() OVER (PARTITION BY item ORDER BY cs DESC, c DESC, item2) AS rn FROM q) SELECT item, item2, CAST(c AS DOUBLE) AS tv_ns, CAST(cs AS DOUBLE) AS tv_cos FROM r WHERE rn <= 50;\"\n  },\n  {\n    \"name\": \"v2o_rate\",\n    \"idea\": \"Substitute/alternative table over 14 days of history: in sessions with 1 to 20 ordered items and at most 200 distinct items, the item was touched but not ordered while item2 was ordered, counted once per session, with the rate relative to the item's session count.\",\n    \"kind\": \"table\",\n    \"level\": \"item_pair\",\n    \"sql\": \"WITH h AS (SELECT session, item, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE ts >= {S} - 14*86400 GROUP BY session, item), s AS (SELECT session FROM h GROUP BY session HAVING sum(o) BETWEEN 1 AND 20 AND count(*) <= 200), b AS (SELECT h.session, h.item, h.o FROM h JOIN s ON s.session = h.session), n AS (SELECT item, count(*) AS ni FROM h GROUP BY item), p AS (SELECT x.item, y.item AS item2, count(*) AS c FROM b x JOIN b y ON y.session = x.session AND y.item <> x.item AND y.o = 1 AND x.o = 0 GROUP BY x.item, y.item HAVING count(*) >= 2), q AS (SELECT p.item, p.item2, p.c, p.c / CAST(n.ni AS DOUBLE) AS rt FROM p JOIN n ON n.item = p.item), r AS (SELECT item, item2, c, rt, row_number() OVER (PARTITION BY item ORDER BY c DESC, rt DESC, item2) AS rn FROM q) SELECT item, item2, CAST(c AS DOUBLE) AS tv_ns, CAST(rt AS DOUBLE) AS tv_rate FROM r WHERE rn <= 50;\"\n  },\n  {\n    \"name\": \"prev_any14\",\n    \"idea\": \"Reverse-direction transition table over 14 days of history: items within 2 events before the item in the same session, counted once per session, plus sessions where the item itself was then carted or ordered, so later features can tell whether a candidate typically leads into the prefix items.\",\n    \"kind\": \"table\",\n    \"level\": \"item_pair\",\n    \"sql\": \"WITH h AS (SELECT session, item, seq, event FROM hist WHERE ts >= {S} - 14*86400), d AS (SELECT a.session, a.item, b.item AS item2, max(CASE WHEN a.event <> 'view' THEN 1 ELSE 0 END) AS bb FROM h a JOIN h b ON b.session = a.session AND b.seq BETWEEN a.seq - 2 AND a.seq - 1 AND b.item <> a.item GROUP BY a.session, a.item, b.item), p AS (SELECT item, item2, count(*) AS tv_ns, sum(bb) AS tv_nb FROM d GROUP BY item, item2 HAVING count(*) >= 2), r AS (SELECT item, item2, tv_ns, tv_nb, row_number() OVER (PARTITION BY item ORDER BY tv_ns DESC, tv_nb DESC, item2) AS rn FROM p) SELECT item, item2, CAST(tv_ns AS DOUBLE) AS tv_ns, CAST(tv_nb AS DOUBLE) AS tv_nb FROM r WHERE rn <= 50;\"\n  }\n]\n```",
+      "meta": {
+        "model": "claude-opus-5-5",
+        "seconds": 60.7,
+        "returncode": 0,
+        "result": {
+          "subtype": "success",
+          "is_error": false,
+          "total_cost_usd": 0.29605000000000004,
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 20796,
+            "cache_read_input_tokens": 1170,
+            "output_tokens": 6472,
+            "output_tokens_details": {
+              "thinking_tokens": 3348
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 20796,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard"
+          },
+          "modelUsage": {
+            "claude-opus-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 6472,
+              "cacheReadInputTokens": 1170,
+              "cacheCreationInputTokens": 20796,
+              "webSearchRequests": 0,
+              "costUSD": 0.29605000000000004,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 3348,
+              "canonicalModel": "claude-opus-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "duration_ms": 59957,
+          "num_turns": 1,
+          "stop_reason": "end_turn"
+        },
+        "cost_usd": 0.29605000000000004,
+        "models": [
+          "claude-opus-5-5"
+        ]
+      }
+    }
+  ],
+  "kept": 5
+}

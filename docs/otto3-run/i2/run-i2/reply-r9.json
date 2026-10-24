@@ -1,0 +1,40 @@
+{
+  "round": 9,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "attempts": [
+    {
+      "round": 9,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 0.0,
+      "cost_usd": 0.0,
+      "init": null,
+      "proposals": 5,
+      "kept": 5,
+      "text": "[{\"name\": \"i_repeat\", \"idea\": \"Item revisit behaviour over the last 7 days of history: smoothed share of the item's events directly followed by the same item, runs (separate visits) per session holding it, and share of its sessions that end on it.\", \"kind\": \"feature\", \"level\": \"item\", \"sql\": \"WITH h AS (SELECT session, item, lead(item) OVER (PARTITION BY session ORDER BY seq, item) AS nx, lag(item) OVER (PARTITION BY session ORDER BY seq, item) AS pv FROM hist WHERE ts >= {S} - 7*86400), g AS (SELECT item, count(*) AS n, sum(CASE WHEN nx = item THEN 1 ELSE 0 END) AS ns, sum(CASE WHEN nx IS NULL THEN 1 ELSE 0 END) AS ne, count(DISTINCT session) AS nsess, sum(CASE WHEN pv IS NULL OR pv <> item THEN 1 ELSE 0 END) AS runs FROM h GROUP BY item) SELECT item, (ns + 0.5) / (n + 5.0) AS ag_i_self_rep, (runs + 1.0) / (nsess + 2.0) AS ag_i_runs_per_sess, (ne + 0.2) / (nsess + 5.0) AS ag_i_exit_rate FROM g;\"}, {\"name\": \"cand_pop_rank\", \"idea\": \"Within-session rank of each candidate by its current-week prefix popularity and by its 7-day history order sessions, so the model compares candidates relative to their session's candidate set.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH ci AS (SELECT DISTINCT item FROM cand), w AS (SELECT s.item, count(DISTINCT s.session) AS v FROM sess s JOIN ci ON ci.item = s.item GROUP BY s.item), o AS (SELECT x.item, count(DISTINCT x.session) AS v FROM hist x JOIN ci ON ci.item = x.item WHERE x.ts >= {S} - 7*86400 AND x.event = 'order' GROUP BY x.item), j AS (SELECT c.session, c.item, coalesce(w.v, 0) AS wv, coalesce(o.v, 0) AS ov FROM cand c LEFT JOIN w ON w.item = c.item LEFT JOIN o ON o.item = c.item) SELECT session, item, CAST(row_number() OVER (PARTITION BY session ORDER BY wv DESC, item) AS DOUBLE) AS ag_rk_wk_pop, CAST(row_number() OVER (PARTITION BY session ORDER BY ov DESC, item) AS DOUBLE) AS ag_rk_h7_order FROM j;\"}, {\"name\": \"last_trans_prob\", \"idea\": \"Normalized transition strength: conditional probability of the candidate following the last distinct prefix item (tb_next_any14) and conditional co-visitation probability from the second-to-last distinct prefix item (tb_covis_any7).\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH lp AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), pr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM lp), l1 AS (SELECT session, item FROM pr WHERE rp = 1), l2 AS (SELECT session, item FROM pr WHERE rp = 2), ki AS (SELECT item FROM l1 UNION SELECT item FROM l2), dn AS (SELECT n.item, sum(n.tv_ns) AS tot FROM tb_next_any14 n JOIN ki ON ki.item = n.item GROUP BY n.item), dc AS (SELECT c.item, sum(c.tv_ns) AS tot FROM tb_covis_any7 c JOIN ki ON ki.item = c.item GROUP BY c.item), a AS (SELECT l1.session, n.item2 AS item, n.tv_ns / dn.tot AS v FROM l1 JOIN tb_next_any14 n ON n.item = l1.item JOIN dn ON dn.item = l1.item), b AS (SELECT l2.session, c.item2 AS item, c.tv_ns / dc.tot AS v FROM l2 JOIN tb_covis_any7 c ON c.item = l2.item JOIN dc ON dc.item = l2.item) SELECT c.session, c.item, a.v AS ag_last_next_p, b.v AS ag_prev_cov_p FROM cand c LEFT JOIN a ON a.session = c.session AND a.item = c.item LEFT JOIN b ON b.session = c.session AND b.item = c.item;\"}, {\"name\": \"p_cart_recency\", \"idea\": \"Cart recency of prefix items: seconds and events from the item's last cart to the prefix end, and its rank among the session's carted items by last cart, a direct order-intent signal.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH s AS (SELECT x.session, x.item, x.ts, x.seq, x.event FROM sess x JOIN sessions t ON t.session = x.session), e AS (SELECT session, max(ts) AS lt, max(seq) AS lq FROM s GROUP BY session), cg AS (SELECT session, item, max(ts) AS ct, max(seq) AS cq FROM s WHERE event = 'cart' GROUP BY session, item), cr AS (SELECT cg.session, cg.item, e.lt - cg.ct AS age, e.lq - cg.cq AS ev, row_number() OVER (PARTITION BY cg.session ORDER BY cg.cq DESC, cg.item) AS rk FROM cg JOIN e ON e.session = cg.session) SELECT c.session, c.item, CAST(cr.age AS DOUBLE) AS ag_p_cart_age, CAST(cr.ev AS DOUBLE) AS ag_p_cart_evts, CAST(cr.rk AS DOUBLE) AS ag_p_cart_rank FROM cand c LEFT JOIN cr ON cr.session = c.session AND cr.item = c.item;\"}, {\"name\": \"p_rel_time\", \"idea\": \"Session-relative timing of prefix items: time of the item's last occurrence as a fraction of the prefix duration, and the fraction of the prefix duration spanned between its first and last occurrence.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH s AS (SELECT x.session, x.item, x.ts FROM sess x JOIN sessions t ON t.session = x.session), e AS (SELECT session, min(ts) AS ft, max(ts) AS lt FROM s GROUP BY session), g AS (SELECT session, item, max(ts) AS it, min(ts) AS ift FROM s GROUP BY session, item), gg AS (SELECT g.session, g.item, CASE WHEN e.lt > e.ft THEN (g.it - e.ft) * 1.0 / (e.lt - e.ft) END AS rt, CASE WHEN e.lt > e.ft THEN (g.it - g.ift) * 1.0 / (e.lt - e.ft) END AS sp FROM g JOIN e ON e.session = g.session) SELECT c.session, c.item, gg.rt AS ag_p_rel_time, gg.sp AS ag_p_span_share FROM cand c LEFT JOIN gg ON gg.session = c.session AND gg.item = c.item;\"}]",
+      "meta": {
+        "cost_usd": 0.0,
+        "seconds": 0.0,
+        "replay": true
+      }
+    }
+  ],
+  "kept": 5
+}
