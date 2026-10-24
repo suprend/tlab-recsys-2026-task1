@@ -19,7 +19,10 @@
         "carts": 0.4146607864149699,
         "orders": 0.6508941809595284
       },
-      "ranked_sha256": "b8763a407a78e60de6ac905863db2687cd2914a3cbefc10d2f91deb812ade914"
+      "ranked_sha256": "b8763a407a78e60de6ac905863db2687cd2914a3cbefc10d2f91deb812ade914",
+      "models": {
+        "artifacts/otto/otto2-pool/f4all-lr10-it2000": "967a95cb377b48f23e14b1895e50425f73e90f42dce7de88fe6f2c6383f170b2"
+      }
     },
     "i1": {
       "eval": "artifacts/otto3/i1/otto2-pool/f4all-lr10-it2000/eval-F3",
@@ -29,7 +32,10 @@
         "carts": 0.428066523782046,
         "orders": 0.6587102560817119
       },
-      "ranked_sha256": "954219ba883eeb0a7bb6ad4cbeeaf7abe015b4d11c82520a59e471ea1df52ffc"
+      "ranked_sha256": "954219ba883eeb0a7bb6ad4cbeeaf7abe015b4d11c82520a59e471ea1df52ffc",
+      "models": {
+        "artifacts/otto3/i1/otto2-pool/f4all-lr10-it2000": "cc487e118cf95820296a013a97fc5f62d364a62028c86b0a710e84befdb46e92"
+      }
     },
     "i2": {
       "eval": "artifacts/otto3/i2/otto2-pool/f4all-lr10-it2000/eval-F3",
@@ -39,7 +45,10 @@
         "carts": 0.43109595251834143,
         "orders": 0.6600647983745492
       },
-      "ranked_sha256": "4f5c1a60c09e325556f49796beede77f61a974d458be3dcc3091439234de95f6"
+      "ranked_sha256": "4f5c1a60c09e325556f49796beede77f61a974d458be3dcc3091439234de95f6",
+      "models": {
+        "artifacts/otto3/i2/otto2-pool/f4all-lr10-it2000": "d4e9aaf1ae84ed9ab8ad810b0f7cacbed6b1f9e0ac16fc8dc8c80ac267e79a80"
+      }
     }
   },
   "pairs": {
@@ -191,6 +200,6 @@
       }
     }
   },
-  "created_utc": "2026-10-24T21:20:25Z",
+  "created_utc": "2026-10-24T22:48:37Z",
   "note": "F3 chose between candidates at every step: the CI covers dev sampling noise, not selection."
 }
