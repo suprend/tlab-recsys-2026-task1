@@ -2,7 +2,7 @@
 
 Вызов:
 
-    .venv/bin/python -I scripts/writeup_pdf.py INPUT.md OUTPUT.pdf [--typ OUT.typ]
+    .venv/bin/python -I scripts/writeup_pdf.py INPUT.md OUTPUT.pdf [--typ OUT.typ] [--ref REF]
 
 Только стандартная библиотека. Markdown переводится в Typst-разметку и
 компилируется командой ``typst compile``. Поддержано подмножество, которое
@@ -10,8 +10,10 @@
 ссылки, списки (с вложенностью), таблицы GFM, картинки, блоки кода, ``---``.
 
 Относительные ссылки на файлы репозитория превращаются в ссылки на GitHub
-(``GITHUB_REPO``, ветка ``GITHUB_BRANCH``). HTML-комментарии и раздел
-«Чего не хватило» в PDF не попадают.
+``/blob/<ref>/...`` (``GITHUB_REPO``; ref по умолчанию — полный sha HEAD, чтобы
+ссылка не уезжала вместе с веткой). Цель ссылки проверяется в этом коммите
+(``git cat-file``); незакоммиченная — предупреждение. HTML-комментарии и
+раздел «Чего не хватило» в PDF не попадают; незакрытый ``<!--`` — ошибка.
 """
 
 from __future__ import annotations
@@ -31,7 +33,8 @@ from pathlib import Path
 from urllib.parse import quote, unquote, urlsplit
 
 GITHUB_REPO = "suprend/tlab-recsys-2026"
-GITHUB_BRANCH = "task1-v2"
+GITHUB_BRANCH = "task1-v2"  # ref ссылок, если sha HEAD взять неоткуда
+GIT = "git"
 DROPPED_SECTIONS = ("чего не хватило",)
 DEFAULT_TYPST = "/opt/homebrew/bin/typst"
 
@@ -93,19 +96,34 @@ def _find_code_close(s: str, start: int, run: int) -> int:
     return -1
 
 
-def strip_html_comments(md: str) -> str:
-    """Убрать ``<!-- ... -->`` вне кода, в том числе многострочные.
+Numbered = list[tuple[int, str]]  # строки с номерами во входном файле (с 1)
 
-    Строка, в которой кроме комментария ничего не было, удаляется целиком,
-    чтобы не рвать таблицы и списки. Комментарии внутри блоков кода и
-    ``код``-вставок сохраняются как текст.
-    """
-    out: list[str] = []
+
+def _numbered(md: str) -> Numbered:
+    return list(enumerate(md.split("\n"), start=1))
+
+
+def _comment_end(line: str, start: int) -> int:
+    """Конец комментария, открытого ``<!--`` на позиции ``start``, или -1.
+
+    ``<!-->`` и ``<!--->`` — пустые комментарии (HTML, CommonMark 0.31)."""
+    body = start + 4
+    for empty in (">", "->"):
+        if line.startswith(empty, body):
+            return body + len(empty)
+    end = line.find("-->", body)
+    return end + 3 if end >= 0 else -1
+
+
+def _strip_comments_numbered(lines: Numbered) -> Numbered:
+    out: Numbered = []
     fence: tuple[str, int, int] | None = None
     in_comment = False
-    for line in md.split("\n"):
+    opened_at = 0
+    block = False  # комментарий открыт в начале строки: у GitHub это HTML-блок
+    for lineno, line in lines:
         if fence is not None:
-            out.append(line)
+            out.append((lineno, line))
             if _fence_closes(line, fence):
                 fence = None
             continue
@@ -113,8 +131,10 @@ def strip_html_comments(md: str) -> str:
             opened = _fence_open(line)
             if opened is not None:
                 fence = opened
-                out.append(line)
+                out.append((lineno, line))
                 continue
+            block = line.lstrip(" ").startswith("<!--")
+        line_block = block
         had_comment = in_comment
         pieces: list[str] = []
         i = 0
@@ -146,32 +166,70 @@ def strip_html_comments(md: str) -> str:
                 continue
             if line.startswith("<!--", i):
                 had_comment = True
-                in_comment = True
-                i += 4
+                opened_at = lineno
+                end = _comment_end(line, i)
+                if end < 0:
+                    in_comment = True
+                    i = len(line)
+                    break
+                i = end
+                if i < len(line) and line[i] in CLOSING_PUNCT:
+                    pieces = ["".join(pieces).rstrip(" \t")]
                 continue
             pieces.append(ch)
             i += 1
         rebuilt = "".join(pieces)
-        if had_comment and not rebuilt.strip():
+        if line_block:
+            # HTML-блок у GitHub отделяет то, что до и после него: вместо
+            # строки комментария — пустая строка, остаток — отдельным блоком
+            if not out or out[-1][1]:
+                out.append((lineno, ""))
+            if rebuilt.strip():
+                out.extend([(lineno, rebuilt.strip()), (lineno, "")])
             continue
-        out.append(rebuilt.rstrip() if had_comment else rebuilt)
-    return "\n".join(out)
+        if had_comment and not rebuilt.strip():
+            continue  # строка внутри комментария посреди абзаца
+        out.append((lineno, rebuilt.rstrip() if had_comment else rebuilt))
+    if in_comment:
+        raise ConversionError(
+            f"строка {opened_at}: комментарий <!-- не закрыт (нет -->); "
+            "он скрыл бы весь остаток документа"
+        )
+    return out
+
+
+def strip_html_comments(md: str) -> str:
+    """Убрать ``<!-- ... -->`` вне кода, в том числе многострочные.
+
+    Комментарий посреди строки вырезается, абзац остаётся целым. Строка,
+    которая начинается с комментария, у GitHub — отдельный HTML-блок: она
+    заменяется пустой строкой и разделяет абзацы, таблицы и списки так же.
+    Комментарии внутри блоков кода и ``код``-вставок сохраняются как текст.
+    Незакрытый ``<!--`` — ``ConversionError`` с номером строки.
+    """
+    return "\n".join(line for _, line in _strip_comments_numbered(_numbered(md)))
 
 
 def _normalize_title(text: str) -> str:
     text = re.sub(r"[*_`]", "", text)
-    text = " ".join(text.split()).strip().rstrip(":.").strip()
-    return text.casefold()
+    return " ".join(text.split()).casefold()
 
 
-def drop_sections(md: str, titles: tuple[str, ...] = DROPPED_SECTIONS) -> str:
-    """Удалить разделы с заданными заголовками до следующего заголовка
-    того же или более высокого уровня (или до конца файла)."""
-    wanted = {_normalize_title(t) for t in titles}
-    out: list[str] = []
+def _title_starts_with(title: str, phrase: str) -> bool:
+    """Заголовок начинается с фразы, если отбросить номер и знаки впереди:
+    «5. Чего не хватило», «Чего не хватило?», «Чего не хватило (по OTTO)»."""
+    title = re.sub(r"^[\W\d_]+", "", title)
+    return title.startswith(phrase) and not title[len(phrase) : len(phrase) + 1].isalnum()
+
+
+def _drop_sections_numbered(
+    lines: Numbered, titles: tuple[str, ...], warnings: list[str] | None
+) -> Numbered:
+    wanted = [_normalize_title(t) for t in titles]
+    out: Numbered = []
     fence: tuple[str, int, int] | None = None
     dropping_level: int | None = None
-    for line in md.split("\n"):
+    for lineno, line in lines:
         heading = None
         if fence is not None:
             if _fence_closes(line, fence):
@@ -186,11 +244,32 @@ def drop_sections(md: str, titles: tuple[str, ...] = DROPPED_SECTIONS) -> str:
             level = len(heading.group(1))
             if dropping_level is not None and level <= dropping_level:
                 dropping_level = None
-            if dropping_level is None and _normalize_title(heading.group(2) or "") in wanted:
-                dropping_level = level
+            if dropping_level is None:
+                title = _normalize_title(heading.group(2) or "")
+                if any(_title_starts_with(title, w) for w in wanted):
+                    dropping_level = level
+                elif warnings is not None:
+                    for w in wanted:
+                        if w in title:
+                            warnings.append(
+                                f"строка {lineno}: заголовок «{(heading.group(2) or '').strip()}» "
+                                f"содержит «{w}», но не начинается с этой фразы; раздел оставлен в PDF"
+                            )
         if dropping_level is None:
-            out.append(line)
-    return "\n".join(out)
+            out.append((lineno, line))
+    return out
+
+
+def drop_sections(
+    md: str, titles: tuple[str, ...] = DROPPED_SECTIONS, warnings: list[str] | None = None
+) -> str:
+    """Удалить разделы, чей заголовок начинается с одной из ``titles``
+    (без учёта регистра, разметки, номера впереди и знаков после фразы), до
+    следующего заголовка того же или более высокого уровня (или до конца
+    файла). Заголовок, где фраза стоит не в начале, остаётся; о нём —
+    предупреждение в ``warnings``."""
+    kept = _drop_sections_numbered(_numbered(md), titles, warnings)
+    return "\n".join(line for _, line in kept)
 
 
 # ---------------------------------------------------------------------------
@@ -318,7 +397,17 @@ def _starts_block(lines: list[str], i: int, *, in_paragraph: bool) -> bool:
     return _table_starts(lines, i) is not None
 
 
-def parse_blocks(lines: list[str]) -> list[object]:
+def _short(text: str, limit: int = 60) -> str:
+    return text if len(text) <= limit else text[: limit - 1] + "…"
+
+
+def parse_blocks(
+    lines: list[str], linenos: list[int] | None = None, warnings: list[str] | None = None
+) -> list[object]:
+    """Разобрать строки на блоки. ``linenos`` — номера строк во входном
+    файле (для предупреждений), по умолчанию 1, 2, …"""
+    if linenos is None:
+        linenos = list(range(1, len(lines) + 1))
     blocks: list[object] = []
     i = 0
     n = len(lines)
@@ -351,7 +440,7 @@ def parse_blocks(lines: list[str]) -> list[object]:
             i += 1
             continue
         if _list_match(line):
-            block, i = _parse_list(lines, i)
+            block, i = _parse_list(lines, i, linenos, warnings)
             blocks.append(block)
             continue
         aligns = _table_starts(lines, i)
@@ -363,6 +452,13 @@ def parse_blocks(lines: list[str]) -> list[object]:
                 if not lines[i].lstrip().startswith("|") and _starts_block(lines, i, in_paragraph=False):
                     break
                 cells = _split_row(lines[i])
+                if len(cells) > len(aligns) and warnings is not None:
+                    extra = " | ".join(cells[len(aligns) :])
+                    warnings.append(
+                        f"строка {linenos[i]}: в строке таблицы {len(cells)} ячеек при "
+                        f"{len(aligns)} колонках, лишние отброшены: «{_short(extra)}»; "
+                        "если | — часть текста, экранируй его как \\|"
+                    )
                 cells = (cells + [""] * len(aligns))[: len(aligns)]
                 rows.append(cells)
                 i += 1
@@ -379,7 +475,9 @@ def parse_blocks(lines: list[str]) -> list[object]:
     return blocks
 
 
-def _parse_list(lines: list[str], i: int) -> tuple[ListBlock, int]:
+def _parse_list(
+    lines: list[str], i: int, linenos: list[int], warnings: list[str] | None
+) -> tuple[ListBlock, int]:
     first = _list_match(lines[i])
     marker = first.group(2)
     ordered = marker[0].isdigit()
@@ -405,6 +503,7 @@ def _parse_list(lines: list[str], i: int) -> tuple[ListBlock, int]:
         else:
             content_indent = indent + len(mk) + len(spaces)
         item_lines = [rest]
+        item_nos = [linenos[i]]
         i += 1
         fence = _fence_open(rest)
         while i < n:
@@ -415,12 +514,14 @@ def _parse_list(lines: list[str], i: int) -> tuple[ListBlock, int]:
                     j += 1
                 if j < n and _indent(lines[j]) >= content_indent:
                     item_lines.extend([""] * (j - i))
+                    item_nos.extend(linenos[i:j])
                     i = j
                     continue
                 break
             if _indent(line) >= content_indent:
                 text = line[content_indent:]
                 item_lines.append(text)
+                item_nos.append(linenos[i])
                 if fence is None:
                     fence = _fence_open(text)
                 elif _fence_closes(text, fence):
@@ -433,14 +534,16 @@ def _parse_list(lines: list[str], i: int) -> tuple[ListBlock, int]:
             last = item_lines[-1] if item_lines else ""
             if last.strip() and not _starts_block(lines, i, in_paragraph=True):
                 item_lines.append(line.strip())
+                item_nos.append(linenos[i])
                 i += 1
                 continue
             break
         while item_lines and not item_lines[-1].strip():
             item_lines.pop()
+            item_nos.pop()
         if "" in item_lines:
             block.tight = False
-        block.items.append(parse_blocks(item_lines))
+        block.items.append(parse_blocks(item_lines, item_nos, warnings))
         # пустые строки между пунктами одного списка делают его «рыхлым»
         j = i
         while j < n and not lines[j].strip():
@@ -599,12 +702,17 @@ def _parse_link_at(s: str, i: int) -> tuple[str, str, int] | None:
     return s[i + 1 : close], dest, j + 1
 
 
+BARE_URL_TRAILING = ".,:;!?\"'*_~»…”"
+
+
 def _trim_bare_url(url: str) -> str:
-    while url and url[-1] in ".,:;!?\"'*_~":
-        url = url[:-1]
-    while url.endswith(")") and url.count(")") > url.count("("):
-        url = url[:-1]
-    return url
+    while True:
+        before = url
+        url = url.rstrip(BARE_URL_TRAILING)
+        while url.endswith(")") and url.count(")") > url.count("("):
+            url = url[:-1]
+        if url == before:
+            return url
 
 
 def parse_inline(s: str) -> list:
@@ -837,14 +945,54 @@ def typst_string(s: str) -> str:
     return f'"{s}"'
 
 
+def _git(args: list[str], cwd: Path) -> str | None:
+    """Вывод ``git -C cwd ARGS`` или None, если git нет или он завершился ошибкой."""
+    try:
+        result = subprocess.run(
+            [GIT, "-C", str(cwd), *args], capture_output=True, text=True, encoding="utf-8"
+        )
+    except OSError:
+        return None
+    return result.stdout.strip() if result.returncode == 0 else None
+
+
+def default_ref(start: Path) -> str:
+    """Полный sha HEAD репозитория, в котором лежит ``start``; без git — ``GITHUB_BRANCH``."""
+    sha = _git(["rev-parse", "--verify", "--quiet", "HEAD"], start)
+    if sha and re.fullmatch(r"[0-9a-f]{40}|[0-9a-f]{64}", sha):
+        return sha
+    return GITHUB_BRANCH
+
+
 @dataclass
 class Context:
     base_dir: Path
     repo_root: Path
     github_repo: str = GITHUB_REPO
-    branch: str = GITHUB_BRANCH
+    ref: str = GITHUB_BRANCH
     labels: set[str] = field(default_factory=set)
     warnings: list[str] = field(default_factory=list)
+    _ref_is_commit: bool | None = field(default=None, init=False, repr=False)
+    _objects: dict[str, str | None] = field(default_factory=dict, init=False, repr=False)
+
+    def ref_is_commit(self) -> bool:
+        """``ref`` — коммит в локальном репозитории (проверяется один раз)."""
+        if self._ref_is_commit is None:
+            sha = _git(["rev-parse", "--verify", "--quiet", f"{self.ref}^{{commit}}"], self.repo_root)
+            self._ref_is_commit = sha is not None
+            if not self._ref_is_commit:
+                self.warnings.append(
+                    f"ref {self.ref} не найден как коммит в {self.repo_root} (нет git или такого "
+                    "коммита); ссылки на файлы проверены только по рабочему дереву"
+                )
+        return self._ref_is_commit
+
+    def object_type(self, rel: str) -> str | None:
+        """Тип объекта ``ref:rel`` («blob», «tree»…) или None, если его нет в коммите."""
+        if rel not in self._objects:
+            spec = f"{self.ref}:" + ("" if rel == "." else rel)
+            self._objects[rel] = _git(["cat-file", "-t", spec], self.repo_root)
+        return self._objects[rel]
 
 
 def resolve_link(dest: str, ctx: Context) -> tuple[str, str] | None:
@@ -878,11 +1026,23 @@ def resolve_link(dest: str, ctx: Context) -> tuple[str, str] | None:
         return "url", dest
     local = root / rel
     kind = "tree" if local.is_dir() or path.endswith("/") else "blob"
-    url = f"https://github.com/{ctx.github_repo}/{kind}/{ctx.branch}"
+    if ctx.ref_is_commit():
+        obj = ctx.object_type(rel)
+        if obj is not None:
+            kind = "tree" if obj == "tree" else "blob"
+        else:
+            where = (
+                "в рабочем дереве есть: не закоммичен или в .gitignore"
+                if local.exists()
+                else "нет и в рабочем дереве"
+            )
+            ref = ctx.ref[:12] if re.fullmatch(r"[0-9a-f]{40,64}", ctx.ref) else ctx.ref
+            ctx.warnings.append(f"{dest}: {rel} нет в коммите {ref} ({where}); ссылка на GitHub будет битой")
+    elif not local.exists():
+        ctx.warnings.append(f"{dest}: файла {rel} нет в рабочем дереве")
+    url = f"https://github.com/{ctx.github_repo}/{kind}/{quote(ctx.ref, safe='/')}"
     if rel != ".":
         url += "/" + quote(rel, safe="/")
-    if not local.exists():
-        ctx.warnings.append(f"{dest}: файла {rel} нет в рабочем дереве")
     if parts.query:
         url += "?" + parts.query
     if parts.fragment:
@@ -891,7 +1051,7 @@ def resolve_link(dest: str, ctx: Context) -> tuple[str, str] | None:
 
 
 def render_inline(nodes: list, ctx: Context, soft: dict[int, set[int]] | None = None) -> str:
-    """``soft`` — места невидимых разрывов в коде (см. ``soft_breaks``)."""
+    """``soft`` — места разрывов в коде (см. ``soft_breaks``)."""
     out: list[str] = []
     after_call = False
     for node in nodes:
@@ -900,9 +1060,7 @@ def render_inline(nodes: list, ctx: Context, soft: dict[int, set[int]] | None = 
             after_call = False
             continue
         if isinstance(node, Code):
-            points = (soft or {}).get(id(node))
-            text = _with_zwsp(node.text, points) if points else node.text
-            out.append(f"#raw({typst_string(text)})")
+            out.append(_raw_with_breaks(node.text, (soft or {}).get(id(node), set())))
         elif isinstance(node, Strong):
             out.append(f"#strong[{render_inline(node.children, ctx, soft)}]")
         elif isinstance(node, Emph):
@@ -1012,7 +1170,7 @@ NARROW_COLUMN_CHARS = 14  # колонка не шире стольких зна
 HYPHEN_PIECE_CHARS = 9  # русское слово переносится по слогам
 NO_BREAK_BEFORE = set(":;,.)]}!?/»…%")  # UAX 14: перед ними не рвут даже после пробела
 CODE_SOFT_BREAK_AFTER = "._:,=;"
-ZWSP = "\u200b"
+SOFT_BREAK = "#box()"  # место разрыва без знака в тексте (см. _raw_with_breaks)
 
 
 Char = tuple[str, bool]  # знак и признак «это код»
@@ -1062,7 +1220,7 @@ def _unbreakable_spans(chars: list[Char]) -> list[tuple[int, int]]:
 
 
 def _soft_points(chars: list[Char], start: int, end: int) -> list[int]:
-    """Где внутри куска можно поставить ZWSP: после «._:,=;» в коде и перед
+    """Где внутри куска можно поставить разрыв: после «._:,=;» в коде и перед
     кодом, который идёт за неразрывным пробелом."""
     points = []
     for i in range(start + 1, end):
@@ -1094,7 +1252,7 @@ def _span_min_pt(chars: list[Char], start: int, end: int, bold: bool, soft: bool
 
 def soft_breaks(nodes: list, inner_pt: float, bold: bool = False) -> dict[int, set[int]]:
     """Для кусков шире ``inner_pt``: id узла Code → номера знаков, перед
-    которыми ставится ZWSP. Typst рвёт код только после «/», дефиса и на
+    которыми ставится разрыв. Typst рвёт код только после «/», дефиса и на
     пробелах; длинное имя файла в узкой колонке иначе вылезет за линию."""
     refs: list = []
     chars = _flat_chars(nodes, [], refs)
@@ -1109,8 +1267,22 @@ def soft_breaks(nodes: list, inner_pt: float, bold: bool = False) -> dict[int, s
     return out
 
 
-def _with_zwsp(text: str, points: set[int]) -> str:
-    return "".join((ZWSP + ch) if k in points else ch for k, ch in enumerate(text))
+def _raw_with_breaks(text: str, points: set[int]) -> str:
+    """``#raw`` с местами разрыва перед знаками ``points``.
+
+    Разрыв — пустой ``#box()`` между кусками кода: Typst рвёт строку до и
+    после него, а в текстовом слое PDF он ничего не оставляет. U+200B давал
+    то же, но попадал в копируемый текст: путь из PDF не находился.
+    """
+    parts: list[str] = []
+    prev = 0
+    for k in sorted(points):
+        if k > prev:
+            parts.append(f"#raw({typst_string(text[prev:k])})")
+        parts.append(SOFT_BREAK)
+        prev = k
+    parts.append(f"#raw({typst_string(text[prev:])})")
+    return "".join(parts)
 
 
 @dataclass
@@ -1146,7 +1318,7 @@ def table_columns(table: Table) -> tuple[str, list[float | None]]:
     Таблица, которая помещается, получает ``auto`` у всех колонок. Иначе узкие
     колонки остаются ``auto``, а широкие получают абсолютную ширину: доля по
     объёму текста, но не меньше самого длинного неразрывного куска. Если
-    места мало и для этого, длинный код получает места разрыва (ZWSP).
+    места мало и для этого, длинный код получает места разрыва.
     """
     ncols = len(table.aligns)
     stats = _column_stats(table)
@@ -1241,24 +1413,43 @@ PREAMBLE = """\
 """
 
 
+def _warning_line(warning: str) -> int:
+    m = re.match(r"строка (\d+):", warning)
+    return int(m.group(1)) if m else 0
+
+
 def markdown_to_typst(
     md: str,
     *,
     base_dir: Path,
     repo_root: Path,
     github_repo: str = GITHUB_REPO,
-    branch: str = GITHUB_BRANCH,
+    ref: str | None = None,
     warnings: list[str] | None = None,
 ) -> str:
-    """Перевести Markdown отчёта в полный документ Typst."""
+    """Перевести Markdown отчёта в полный документ Typst.
+
+    ``ref`` — коммит или ветка в ссылках на GitHub; по умолчанию sha HEAD
+    репозитория ``base_dir`` (см. ``default_ref``)."""
     md = md.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n").expandtabs(4)
-    md = drop_sections(strip_html_comments(md))
-    blocks = parse_blocks(md.split("\n"))
-    ctx = Context(Path(base_dir), Path(repo_root), github_repo, branch)
+    found: list[str] = []
+    numbered = _drop_sections_numbered(
+        _strip_comments_numbered(_numbered(md)), DROPPED_SECTIONS, found
+    )
+    blocks = parse_blocks([line for _, line in numbered], [no for no, _ in numbered], found)
+    found.sort(key=_warning_line)
+    if ref is None:
+        ref = default_ref(Path(base_dir))
+        if ref == GITHUB_BRANCH:
+            found.append(
+                f"sha HEAD не получен (нет git или {base_dir} вне репозитория): ссылки ведут на "
+                f"ветку {GITHUB_BRANCH} и уедут вместе с ней; задай --ref"
+            )
+    ctx = Context(Path(base_dir), Path(repo_root), github_repo, ref)
     title = _collect_headings(blocks, ctx, {})
     body = "\n\n".join(_render_block(b, ctx) for b in blocks)
     if warnings is not None:
-        warnings.extend(ctx.warnings)
+        warnings.extend(found + ctx.warnings)
     return PREAMBLE.format(title=typst_string(title or "Отчёт")) + "\n" + body + "\n"
 
 
@@ -1276,6 +1467,7 @@ def build_pdf(
     typst: str | None = None,
     typ_out: Path | None = None,
     repo_root: Path | None = None,
+    ref: str | None = None,
 ) -> list[str]:
     """Собрать PDF; вернуть предупреждения конвертера и typst."""
     input_md = Path(os.path.realpath(input_md))
@@ -1283,7 +1475,11 @@ def build_pdf(
     root = repo_root or find_repo_root(base_dir)
     warnings: list[str] = []
     source = markdown_to_typst(
-        input_md.read_text(encoding="utf-8"), base_dir=base_dir, repo_root=root, warnings=warnings
+        input_md.read_text(encoding="utf-8"),
+        base_dir=base_dir,
+        repo_root=root,
+        ref=ref,
+        warnings=warnings,
     )
     exe = typst or shutil.which("typst") or DEFAULT_TYPST
     output_pdf = Path(output_pdf).resolve()
@@ -1309,10 +1505,22 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--typ", type=Path, help="сохранить промежуточный .typ")
     parser.add_argument("--typst", help="путь к typst (по умолчанию из PATH или /opt/homebrew/bin/typst)")
     parser.add_argument("--repo-root", type=Path, help="корень репозитория для ссылок на GitHub")
+    parser.add_argument(
+        "--ref",
+        help=(
+            "коммит или ветка в ссылках /blob/REF/... (по умолчанию полный sha HEAD репозитория "
+            f"входного файла, без git — {GITHUB_BRANCH}); коммит должен быть запушен"
+        ),
+    )
     args = parser.parse_args(argv)
     try:
         warnings = build_pdf(
-            args.input, args.output, typst=args.typst, typ_out=args.typ, repo_root=args.repo_root
+            args.input,
+            args.output,
+            typst=args.typst,
+            typ_out=args.typ,
+            repo_root=args.repo_root,
+            ref=args.ref,
         )
     except (ConversionError, OSError) as exc:
         print(f"writeup_pdf: ошибка: {exc}", file=sys.stderr)
