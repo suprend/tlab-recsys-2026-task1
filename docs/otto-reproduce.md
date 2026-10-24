@@ -33,7 +33,7 @@
 - **Ответы LLM.** Новый прогон агента (`run`) — новый эксперимент с другими предложениями. В `i2` и `i3` действует `replay`: действительные предложения предыдущей закоммиченной итерации проверяются заново в своих раундах без вызова модели. Новые раунды всё равно вызывают `claude -p`. Поэтому источник истины — закоммиченные наборы, а не повтор прогона. Все последующие шаги читают набор из `configs/datasets/`.
 - **Данные и модели.** Порядки сессий заданы sha256 с солями. Бутстрап использует 2000 повторов и зерно 2026, CatBoost — зёрна 2026 и 2027. Побайтное совпадение коллекций, сайдкаров и моделей на другой машине не проверялось.
 - **Квитанция загрузки.** `otto-verify.json` содержит замеры времени и `created_utc`, поэтому её SHA-256 на новой машине будет другим. Поле `verify_sha256` в prereg — хеш квитанции автора, и код его не сверяет.
-- **Kaggle.** Посылка создаёт новую запись в Kaggle и ещё одно чтение F5. Оценки — данные Kaggle; повтор оценки того же файла не проверялся. SHA-256 файла `.csv.gz` зависит от версии и флагов gzip. Сверять нужно `.csv`.
+- **Kaggle.** Посылка создаёт новую запись в Kaggle и ещё одно чтение F5. Оценки — данные Kaggle; повтор оценки того же файла не проверялся. SHA-256 файла `.csv.gz` зависит от версии и флагов gzip, а без `-n` ещё и от имени и времени изменения файла. Сверять нужно `.csv`.
 
 ## Окружение
 
@@ -43,7 +43,7 @@ uv sync --locked
 
 - Python 3.12 (`.python-version`). Версии catboost и duckdb закреплены в `pyproject.toml` и `uv.lock`.
 - Машина автора: Apple M3 Pro, 12 CPU, 36 ГБ памяти, macOS 26.3, 174 ГБ свободного диска на старте ([otto-design.md](otto-design.md), §12). На других машинах путь не проверялся.
-- DuckDB по умолчанию: 8 потоков, лимит памяти 20GB, временные файлы до 40GB в `artifacts/otto/.spill`. У команд есть `--threads` и `--memory`. Таблицы агента считаются в один поток.
+- DuckDB по умолчанию: 8 потоков, лимит памяти 20GB, временные файлы до 40GB в `artifacts/otto/.spill`. Флаги `--threads` и `--memory` есть у `load`, `collect`, `collect-holdout`, `fold-stats`, `rehearse-frame` и у команд агента `calibrate`, `probe`, `sidecar`, `leakcheck`. У `otto_model.py`, `otto2_dev.py` и `otto2_pool.py` их нет. Таблицы агента считаются в один поток.
 - CLI `claude` (Claude Code) с выполненным входом. Он нужен только для шага `run`, модель — `claude-opus-5-5`.
 - CLI `kaggle` с настроенным токеном. У автора версия 2.2.4 (`docs/otto-run/kaggle-competition-snapshot.txt`); как она была установлена, не записано. Правила соревнования нужно принять на сайте Kaggle.
 
@@ -92,13 +92,15 @@ echo "fb88d6b02968abef8a62d2f895c9beb3fc14c4a378066aed63914c0b1242fed1  otto-rec
   Эти шаги повторяются только с артефактами автора.
 - `gate`, `holdout-open` и `holdout` пишут квитанции в `configs/datasets/` один раз.
 - Нельзя использовать имена, которые уже заняты журналом:
-  - `calibrate --name cal1` откажет, потому что `docs/otto-run/calibration-cal1.json` есть;
-  - `leakcheck` с именем, отчёт которого уже лежит в журнале (`lc-F3c`, `lc-F4`, `lc-F3` у `i1`, части `lc-F3-p*` у `i2` и `i3`), тоже откажет.
+  - `calibrate --name cal1` откажет сразу, потому что `docs/otto-run/calibration-cal1.json` есть;
+  - `leakcheck` с именем, отчёт которого уже лежит в журнале, тоже откажет сразу. У OTTO-1 заняты `lc-F3`, `lc-F3b`, `lc-F3c` и `lc-F4`, у `i1` — `lc-F3`, у `i2` и `i3` — части `lc-F3-p*`;
+  - `run --name run-a1` и `o3 run --name run-<ID>` откажут только в конце. Журналы `docs/otto-run/run-a1/` и `docs/otto3-run/<ID>/run-<ID>/` закоммичены. `run_loop` копирует журнал (`_copy_journal` в `scripts/otto_agent.py`) после последнего раунда и отказывает, если файл журнала уже есть с другим содержимым. Прогон пройдёт целиком, со всеми вызовами `claude -p`, и получит статус `failed`.
 
-  Для повтора нужны новые имена, например `cal2` и `lc-F3r`. Новые отчёты появятся в `docs/` как неотслеживаемые файлы.
+  Для повтора нужны новые имена, например `cal2`, `lc-F3r`, `run-a1r` и `run-<ID>-r`. Новые отчёты и журналы появятся в `docs/` как неотслеживаемые файлы.
 - `freeze` нового прогона агента откажет: закоммиченный набор отличается от нового.
+- `audit` откажет и на закоммиченном наборе. Вердикт вписывается только в набор, который не совпадает со своей версией в `HEAD` (`require(not oc.committed_clean(output), ...)` в `audit`, `scripts/otto_agent.py`). У закоммиченного набора аудит к тому же уже записан.
 
-На клоне без артефактов автора повторяются:
+На клоне без артефактов автора по коду должны повторяться следующие шаги; на чистом клоне это не проверялось:
 - загрузка;
 - коллекции F2, F3, проба и F5;
 - база B;
@@ -144,14 +146,14 @@ echo "fb88d6b02968abef8a62d2f895c9beb3fc14c4a378066aed63914c0b1242fed1  otto-rec
 ```bash
 .venv/bin/python -I scripts/otto_agent.py calibrate --name cal2
 .venv/bin/python -I scripts/otto_agent.py probe --name probe1
-.venv/bin/python -I scripts/otto_agent.py run --probe artifacts/otto/probe/probe1 --name run-a1
-.venv/bin/python -I scripts/otto_agent.py freeze --run artifacts/otto/run/run-a1
-.venv/bin/python -I scripts/otto_agent.py audit --report docs/otto-run/audit-run-a1.json
+.venv/bin/python -I scripts/otto_agent.py run --probe artifacts/otto/probe/probe1 --name run-a1r
+.venv/bin/python -I scripts/otto_agent.py freeze --run artifacts/otto/run/run-a1r
+.venv/bin/python -I scripts/otto_agent.py audit --report docs/otto-run/audit-run-a1r.json
 ```
 
 - `calibrate` пишет `docs/otto-run/calibration-<имя>.json`. У автора имя `cal1`, на клоне нужно новое. `probe` берёт единственную калибровку или ту, что указана в `--calibration`.
-- `run` вызывает `claude -p`. У автора было 6 вызовов на $1.80 по оценке клиента. Журнал — `docs/otto-run/run-a1/`.
-- `freeze` пишет `configs/datasets/otto-set.json` и копирует журнал. На клоне он откажет: см. «Что откажет на клоне».
+- `run` вызывает `claude -p`. У автора было 6 вызовов на $1.80 по оценке клиента. Журнал автора — `docs/otto-run/run-a1/`; имя `run-a1` на клоне занято, отсюда `run-a1r`.
+- `freeze` пишет `configs/datasets/otto-set.json` и копирует журнал. На клоне `freeze` и `audit` откажут: см. «Что откажет на клоне».
 - Аудит SQL делает независимый ревьюер, скрипта для этого нет. Его вывод — JSON формата `otto-audit-v1` с пунктами `hidden_encoding`, `addressed_oracle` и `recognizability`. `audit --report` вписывает вердикт в набор до коммита набора.
 - `export` (необязательно) записывает представления и файлы партиций F2 и F3 с SHA-256, ничего не копируя. Следующие шаги его не читают.
 - Prereg (`configs/datasets/otto-prereg.json`) собран генератором вне репозитория, поэтому используется закоммиченный файл. Отклонения d1–d5 (`otto-deviations.json`) уже внесены в код.
@@ -214,7 +216,7 @@ done
 
 ## OTTO-2
 
-Dev-замеры (F2 → F3, BA, зерно 2026). Они повторяются на клоне:
+Dev-замеры (F2 → F3, BA, зерно 2026). По коду они должны повторяться на клоне; на чистом клоне это не проверялось:
 
 ```bash
 .venv/bin/python -I scripts/otto2_dev.py --name n12k --n-t 12500
@@ -261,13 +263,14 @@ o3 setup
 ### Прогон агента, заморозка и аудит
 
 ```bash
-o3 run --probe artifacts/otto/probe/probe1 --name run-$IT
-o3 agent freeze --run artifacts/otto3/$IT/run/run-$IT
-o3 agent audit --report docs/otto3-run/$IT/audit-run-$IT.json
+o3 run --probe artifacts/otto/probe/probe1 --name run-$IT-r
+o3 agent freeze --run artifacts/otto3/$IT/run/run-$IT-r
+o3 agent audit --report docs/otto3-run/$IT/audit-run-$IT-r.json
 ```
 
 - `run` для `i2` и `i3` сначала повторяет закоммиченный набор предыдущей итерации без LLM, потом вызывает `claude -p` в новых раундах. Расход по оценке клиента: `i1` 8 вызовов, $2.34; `i2` 12 вызовов, из них 8 повторов, $1.75; `i3` $2.78.
-- Повтор прогона на клоне не проверялся. На клоне `freeze` откажет, потому что набор уже закоммичен. Аудит, как и в OTTO-1, делает независимый ревьюер.
+- Автор называл прогоны `run-<ID>`; на клоне эти имена заняты журналами, отсюда `run-<ID>-r`.
+- Повтор прогона на клоне не проверялся. На клоне `freeze` откажет, потому что набор итерации уже закоммичен с другим содержимым, и `audit` тоже откажет (см. «Что откажет на клоне»). Аудит, как и в OTTO-1, делает независимый ревьюер.
 - После аудита автор коммитил набор. Следующие шаги требуют закоммиченный набор с чистым аудитом.
 
 ### Leakcheck F3
@@ -291,7 +294,6 @@ o3 pool evaluate --name f2n50-lr10-it1000 --fold 3
 
 - Быстрый замер: обучение на F2, 50 000 сессий на тип, оценка на популяции F3. Ожидается Score F3 0.5759 у `i1` и 0.5783 у `i2`.
 - Проба негативов у `i1` — тот же `pool fit` с `--negatives 100` и именем `f2n50-lr10-it1000-neg100`; ожидается 0.5748.
-- У `i2` и `i3` автор местами передавал `--memory 20GB`.
 
 ### Финальная модель (только с артефактами автора)
 
@@ -312,14 +314,18 @@ o3 check-shared
 
 ## Сборка файла и посылка
 
-`assemble` пишет `.csv` и квитанцию со SHA-256 и числом сессий, дополненных из Pop (у всех посланных файлов 0). Автор в OTTO-3 сжимал файл и считал хеши так:
+`assemble` пишет `.csv` и квитанцию со SHA-256 и числом сессий, дополненных из Pop (у всех посланных файлов 0). Как автор сжимал файлы, не записано. Заголовки `.gz` на диске автора:
+- у четырёх файлов OTTO-1 и у `i2` в заголовке есть имя файла и время изменения, то есть сжатие шло без `-n`;
+- у двух файлов OTTO-2 и у `i1` имени нет, время нулевое.
+
+Исходных `.csv` у `i1` и `i2` на диске автора нет, остались `.gz` и квитанции `assemble`. Поэтому SHA-256 `.csv` сверяется по распакованному потоку. Одна из возможных форм сжатия и сверки:
 
 ```bash
-gzip -k -n artifacts/otto3/i2/kaggle/i2-f4all-lr10-it2000/i2-f4all-lr10-it2000.csv
-shasum -a 256 artifacts/otto3/i2/kaggle/i2-f4all-lr10-it2000/i2-f4all-lr10-it2000.csv*
+gzip -k artifacts/otto3/i2/kaggle/i2-f4all-lr10-it2000/i2-f4all-lr10-it2000.csv
+gzip -dc artifacts/otto3/i2/kaggle/i2-f4all-lr10-it2000/i2-f4all-lr10-it2000.csv.gz | shasum -a 256
 ```
 
-Флаги gzip в OTTO-1 не записаны: `kaggle-files.csv` содержит только SHA-256 `.gz`.
+`docs/otto-run/kaggle-files.csv` содержит размер и SHA-256 и `.csv`, и `.csv.gz` четырёх файлов OTTO-1. SHA-256 посланных `.gz` OTTO-2, `i1` и `i2` записаны в [otto2.md](otto2.md) и [otto3.md](otto3.md). Они опознают посланный файл, но повторное сжатие может дать другой хеш.
 
 Посылка и выгрузка оценок:
 
@@ -329,7 +335,7 @@ kaggle competitions submissions -c otto-recommender-system --csv
 ```
 
 - Описания посылок автора лежат в CSV оценок и содержат начало SHA-256 файла. Пример: `OTTO task1-v2 B2026 (sha256 csv 2c9da2717ae1); post-hoc d3`.
-- Первая строка CSV оценок у автора — время выгрузки в UTC (`# 2026-10-24T02:44:59Z`); как именно она дописывалась, не записано.
+- Первая строка CSV оценок у автора — время выгрузки в UTC; как именно она дописывалась, не записано. В `docs/otto3-run/otto3-kaggle-scores.csv` это `# 2026-10-24T02:44:59Z` — время первой выгрузки, после посылки `i1`. Строку `i2` дописали позже (коммит `0cf0221`), а первую строку не обновили.
 - Журналы посылок: `docs/otto-run/kaggle-submit-log.txt` и `docs/otto3-run/kaggle-submit-log.txt`. Оценки: `docs/otto-run/kaggle-scores.csv`, `otto2-kaggle-scores.csv` и `docs/otto3-run/otto3-kaggle-scores.csv`.
 
 ## Проверка без переобучения
@@ -385,32 +391,36 @@ print(oc.sessions_digest(oc.read_population(Path(oc.collection_dir('val')).resol
 Предложения в наборах `configs/datasets/` выводятся из этих ответов. Повтор в `i2` и `i3` виден в журнале как раунды без вызова модели.
 
 **Score F3 и бутстрап шагов.** Нужны артефакты автора:
-- для каждой руки — `eval-F3/ranked.parquet` и `report.json` финальной модели `f4all-lr10-it2000` (OTTO-2 — в `artifacts/otto/otto2-pool/`, OTTO-3 — в `artifacts/otto3/<ID>/otto2-pool/`);
+- для каждой руки — `eval-F3/ranked.parquet`, `eval-F3/report.json` и `eval-F5/report.json` финальной модели `f4all-lr10-it2000` (OTTO-2 — в `artifacts/otto/otto2-pool/`, OTTO-3 — в `artifacts/otto3/<ID>/otto2-pool/`);
 - метки коллекции `val-F3`.
 
-Скрипт сверяет SHA-256 каждого `ranked.parquet` с его `report.json` и пересчитывает Score с допуском 1e-12. Потом считает парный бутстрап: 2000 повторов, зерно 2026. Скрипт перезаписывает закоммиченный `docs/otto3-run/ladder-ci-F3.json` и молча пропускает руки без `report.json`. Поэтому сравнивать нужно с копией, без поля `created_utc`:
+Руки OTTO-2, `i1` и `i2` обязательны: без оценки F3 любой из них скрипт откажет. Рука `i3` входит, когда есть её `eval-F3/report.json`, и тогда ей тоже нужен `eval-F5/report.json`. Без оценки F3 скрипт печатает, что `i3` пропущена.
+
+Скрипт сверяет SHA-256 каждого `ranked.parquet` с его `report.json`, а модели оценки F3 — с моделями `eval-F5/report.json`: списки F3 должны идти от модели, файл которой послан в Kaggle. Score пересчитывается с допуском 1e-12. Потом скрипт считает парный бутстрап: 2000 повторов, зерно 2026.
+
+Без `--output` результат пишется в закоммиченную квитанцию `docs/otto3-run/ladder-ci-F3.json`. Если содержимое без `created_utc` отличается, скрипт отказывает; `--force` перезаписывает квитанцию. Для проверки результат пишется в отдельный файл и сравнивается с закоммиченным без `created_utc`. Старый `/tmp/ladder-ci-F3.json` с другим содержимым скрипт тоже не перезапишет, поэтому перед повтором его нужно удалить.
 
 ```bash
-cp docs/otto3-run/ladder-ci-F3.json /tmp/ladder-ci-F3.committed.json
-.venv/bin/python -I scripts/otto3_ladder_ci.py --threads 2
+.venv/bin/python -I scripts/otto3_ladder_ci.py --threads 2 --output /tmp/ladder-ci-F3.json
 .venv/bin/python -I -c "
 import json, sys
 a, b = (json.load(open(p, encoding='utf-8')) for p in sys.argv[1:])
 for d in (a, b): d.pop('created_utc', None)
-print(sorted(b['arms']), a == b)" /tmp/ladder-ci-F3.committed.json docs/otto3-run/ladder-ci-F3.json
-git restore docs/otto3-run/ladder-ci-F3.json
+print(sorted(b['arms']), a == b)" docs/otto3-run/ladder-ci-F3.json /tmp/ladder-ci-F3.json
 ```
 
 - Ожидаемые Score: OTTO-2 0.565256, `i1` 0.577732, `i2` 0.580152.
-- Ожидаемые шаги: `i1` − OTTO-2 +0.0125 [+0.0115, +0.0134]; `i2` − `i1` +0.0024 [+0.0018, +0.0030].
+- Ожидаемые шаги: `i1` − OTTO-2 +0.0125 [+0.0115, +0.0134]; `i2` − `i1` +0.0024 [+0.0018, +0.0030]; `i2` − OTTO-2 +0.0149 [+0.0139, +0.0159].
 - Когда появится финальная модель `i3`, скрипт добавит её руку, и сравнение с закоммиченным файлом даст `False`.
 - Повторный прогон скрипта в рамках этой инструкции не делался.
 
-**Файлы Kaggle.** SHA-256 `.csv` сверяется с записанными значениями:
+**Файлы Kaggle.** SHA-256 `.csv` сверяется с записанными значениями. Если остался только `.csv.gz`, хеш считается по распакованному потоку: `gzip -dc FILE.csv.gz | shasum -a 256`. Хеш самого `.gz` для сверки не годится: см. «Сборка файла и посылка».
 - OTTO-1 — `docs/otto-run/kaggle-files.csv` (B2026 `2c9da271…`, BA2026 `3177b1d9…`, B2027 `31677f7b…`, BA2027 `c3f5bf25…`);
 - OTTO-2 `f4all-lr10-it2000` — `401fdb12…`;
 - `i1` — `b3bdde81d6f1f563d0d3d8c8e411f7498545e3f13ee225f31b0aabfddcfa3c1d`;
 - `i2` — `7506449eac83fab86ff3c146bdb44a001df65ab9660fdb542288df970e298e52`.
+
+25.10 на файлах автора `gzip -dc` у `i1` и `i2` дал ровно эти хеши.
 
 Оценки private: OTTO-1 BA — 0.57878 в среднем по двум зёрнам, OTTO-2 — 0.58049, `i1` — 0.59299, `i2` — 0.59548.
 
@@ -435,7 +445,7 @@ git restore docs/otto3-run/ladder-ci-F3.json
 | сайдкары OTTO-1 | train-F2 2.5 мин, val-F3 3 мин, holdout-F4 11 мин, kaggle-F5 18 мин |
 | dev OTTO-1: fit / оценка одной руки | 2.5–4 мин / 0.5–2 мин |
 | final OTTO-1: fit / score F5 / assemble одного файла | 2.5–4.5 мин / 3–12 мин / 1.5–2 мин |
-| dev-замеры OTTO-2 | 1–15 мин каждый (68–924 с) |
+| dev-замер OTTO-2: обучение / оценка на F3 | 68–924 с (1–15 мин) / 107–141 с; всего 3–18 мин на замер |
 | OTTO-2 `f4all-it1000` / `f4all-lr10-it2000`, обучение | 54 мин / 1 ч 45 мин |
 | оценка на F3 / на F5 | 2–6 мин / 14–45 мин |
 | быстрый замер OTTO-3, обучение | 9–10 мин |
