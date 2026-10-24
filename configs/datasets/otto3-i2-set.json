@@ -1,0 +1,1445 @@
+{
+  "format": "otto-set-v1",
+  "run": {
+    "id": "i2",
+    "model": "claude-opus-5-5",
+    "rounds": 12,
+    "proposals_per_round": 5,
+    "calls": 12,
+    "cost_usd": 1.75335,
+    "log_sha256": "d5a597614469360c4a4b55762a76037f399569d181117553a552fbf997800bed"
+  },
+  "probe": {
+    "path": "artifacts/otto/probe/probe1",
+    "collection": "artifacts/otto/collections/probe-F3",
+    "pool_size": 20000,
+    "rows": 841203,
+    "probe_sha256": "2fba425a1048bfb1794a11ae79a76cae3a87e5d51f9d03b480d73f6df918c7fe",
+    "stats_sha256": "26b971e0039770a0feb28b9c40575cde449b64565de0111372da709b9f1fb02a",
+    "base_digest": "4b50037532aa4bade03c45d3b294fade03b6f7536abda6620630953b6ae86aaf",
+    "t_tb": 1200,
+    "calibration_sha256": "bafe1c9be14a0cafaf144f56a83fef3017a75b784aa1712c53897c455f96a97d"
+  },
+  "run_sha256": "867d884ad5d3008b038d020178f57a80e7a8eeef5615f6c2172ffcca13d75832",
+  "base_digest": "4b50037532aa4bade03c45d3b294fade03b6f7536abda6620630953b6ae86aaf",
+  "prompt": {
+    "template_sha256": "a38d19a5d3392e0f4bfb6c66eca512912dc1a43bb5595d28e9c17a30859dd0c9",
+    "constants_digest": "a69b438aae8b3030da592f2290d9ebdeb640c73d8e42ccdfbb6603a6f0b64bd7",
+    "digest": "88f8646785a308ec69ddd7ffd26468c51bb8eb1b8459a68a3f871d221a176028"
+  },
+  "prompt_digest": "88f8646785a308ec69ddd7ffd26468c51bb8eb1b8459a68a3f871d221a176028",
+  "t_tb": 1200.0,
+  "code": {
+    "files": {
+      "scripts/hm_agent_loop.py": "bddcdd7d321a9b3ba58fad47f45953a4e13d3882df354663591e7048aec60b71",
+      "scripts/hm_agent_sandbox.py": "2447afc4c42b5745f4c2f01390da41af84a8c6726875e8f656ad358ada3ddb1f",
+      "scripts/hm_baseline.py": "0b251758ef7e63660e817161e442d33c3c6acc90bdc3fa1d22147b303cb85b91",
+      "scripts/hm_eda.py": "596f53fdcb64124985028a0630d723f463d475468439375f45e408ffa41282e9",
+      "scripts/hm_experiment.py": "864921a657d41b1d47aeaf92a7735803235eee4d71bb2cd75b9cf919e101519b",
+      "scripts/hm_feature_engine.py": "47e4de2e7282fc41d21a86687aa42a705cd14083380cff519a39c7444164a6a2",
+      "scripts/hm_final_lock.py": "165286d08dfabf7a81bf0f429341eda25bce8deb23ee74cec1f12db07fe9989c",
+      "scripts/hm_kaggle.py": "f956fef20a007b04bdaafd32e63f37619eff9a62d0ac6b2715cba50d01ab2f5d",
+      "scripts/hm_retrieval.py": "c0d174115592e32d95df31dd1b0e7369c884d80dc3456bfc30a2650a1d36a774",
+      "scripts/otto_agent.py": "05a6aa899047a447fd12b18453d3987fa68777ed30ca706198c294464b718a79",
+      "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
+      "scripts/otto_data.py": "c799b32289305cca9aa2251012da1f2123e0f70a725d8df5dfac986f2ff53bbd",
+      "scripts/otto_model.py": "ff87a9f495776f5f8ba41b3008ca7882d9a954b657780583975525ae00f0d6ea",
+      "scripts/xfer_agent.py": "750b44ffe7fbbfe090daed5ca73211a7c177353c0c8fcfa79a51765a099363c6",
+      "scripts/xfer_common.py": "4c25b6c9e91703c25a1f9f709d8239081e93487425e4a47b4346946e074717c8"
+    },
+    "missing": []
+  },
+  "candidates": {
+    "sources": [
+      "wk_covis_int",
+      "hist_next_int",
+      "b2b_src",
+      "v2c_src",
+      "covis7_src",
+      "wk_buy_src",
+      "a2o_src",
+      "next14_src",
+      "wk_next_src",
+      "wk_v2c_src",
+      "wk_covis_wide",
+      "covis_2hop",
+      "trend_buy",
+      "cos_mix_src"
+    ],
+    "rows": 4538462,
+    "agent_rows": 3697259,
+    "sha256": "7dbe48246d8b720b83811137e538574b16a4cdfe9cb2caf9a52be677ae662e6a"
+  },
+  "proposals": [
+    {
+      "id": "r1p1",
+      "round": 1,
+      "index": 1,
+      "name": "buy2buy",
+      "idea": "Item to item table of items carted or ordered together (within 50 events) in the same history session over the last 14 days, counted once per session.",
+      "kind": "table",
+      "level": "item_pair",
+      "sql": "WITH b AS (SELECT session, item, seq FROM hist WHERE ts >= {S} - 14*86400 AND event IN ('cart', 'order')), d AS (SELECT DISTINCT x.session, x.item, y.item AS item2 FROM b x JOIN b y ON y.session = x.session AND y.item <> x.item AND y.seq BETWEEN x.seq - 50 AND x.seq + 50), p AS (SELECT item, item2, count(*) AS tv_ns FROM d GROUP BY item, item2), r AS (SELECT item, item2, tv_ns, row_number() OVER (PARTITION BY item ORDER BY tv_ns DESC, item2) AS rn FROM p) SELECT item, item2, tv_ns FROM r WHERE rn <= 50;",
+      "columns": [
+        "tv_ns"
+      ],
+      "depends": [],
+      "probe_seconds": "2^4–2^5",
+      "probe_table": {
+        "key": "377913877b22aa2b49d91e56f477d26a4e78d02941b0a7b716c1a634c2877e3e",
+        "rows": 17614365,
+        "sha256": "123f7ae8c7b36b1b67d5bc500ff2c59870369b4944ca42522dddf1334f68b4ec"
+      }
+    },
+    {
+      "id": "r2p1",
+      "round": 2,
+      "index": 1,
+      "name": "wk_covis_int",
+      "idea": "Current-week co-visitation: items seen within 5 events of the session's last 5 prefix items in other target-week prefixes, weighted by integer recency weight (6 - rank) so the sum is exact and batch invariant, excluding prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH lp AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS rp FROM sess s JOIN sessions t ON t.session = s.session), li AS (SELECT session, item, min(rp) AS rp FROM lp WHERE rp <= 5 GROUP BY session, item), ki AS (SELECT DISTINCT item FROM li), a AS (SELECT x.session, x.item, x.seq FROM sess x JOIN ki ON ki.item = x.item), pr AS (SELECT a.item AS src, y.item AS dst, count(DISTINCT y.session) AS c FROM a JOIN sess y ON y.session = a.session AND y.item <> a.item AND y.seq BETWEEN a.seq - 5 AND a.seq + 5 GROUP BY a.item, y.item), sc AS (SELECT li.session, pr.dst AS item, CAST(sum(pr.c * (6 - li.rp)) AS DOUBLE) AS score FROM li JOIN pr ON pr.src = li.item GROUP BY li.session, pr.dst), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_wk_covis_int_rank",
+        "ag_src_wk_covis_int_score"
+      ],
+      "depends": [],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r2p2",
+      "round": 2,
+      "index": 2,
+      "name": "hist_next_int",
+      "idea": "Items that followed the session's last 3 prefix items within 3 events in history sessions of the last 7 days, cart or order followers weighted triple, with integer recency weights (4 - rank) for an exact batch-invariant score, excluding prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH lp AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS rp FROM sess s JOIN sessions t ON t.session = s.session), li AS (SELECT session, item, min(rp) AS rp FROM lp WHERE rp <= 3 GROUP BY session, item), ki AS (SELECT DISTINCT item FROM li), a AS (SELECT x.session, x.item, x.seq FROM hist x JOIN ki ON ki.item = x.item WHERE x.ts >= {S} - 7*86400), pr AS (SELECT a.item AS src, y.item AS dst, count(DISTINCT y.session) + 2 * count(DISTINCT CASE WHEN y.event <> 'view' THEN y.session END) AS c FROM a JOIN hist y ON y.session = a.session AND y.seq BETWEEN a.seq + 1 AND a.seq + 3 AND y.item <> a.item WHERE y.ts >= {S} - 7*86400 GROUP BY a.item, y.item), sc AS (SELECT li.session, pr.dst AS item, CAST(sum(pr.c * (4 - li.rp)) AS DOUBLE) AS score FROM li JOIN pr ON pr.src = li.item GROUP BY li.session, pr.dst), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_hist_next_int_rank",
+        "ag_src_hist_next_int_score"
+      ],
+      "depends": [],
+      "probe_seconds": "2^2–2^3"
+    },
+    {
+      "id": "r2p3",
+      "round": 2,
+      "index": 3,
+      "name": "b2b_src",
+      "idea": "Items co-carted or co-ordered in history (tb_buy2buy) with the session's last 20 distinct prefix items, prefix cart/order items weighted triple, integer-exact sums, excluding prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(CASE WHEN s.event <> 'view' THEN 3 ELSE 1 END) AS w, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, w, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, w FROM li WHERE rp <= 20), sc AS (SELECT lt.session, b.item2 AS item, CAST(sum(b.tv_ns * lt.w) AS DOUBLE) AS score FROM lt JOIN tb_buy2buy b ON b.item = lt.item GROUP BY lt.session, b.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_b2b_src_rank",
+        "ag_src_b2b_src_score"
+      ],
+      "depends": [
+        "buy2buy"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r2p4",
+      "round": 2,
+      "index": 4,
+      "name": "view2cart",
+      "idea": "Directed table over the last 14 days of history: items carted or ordered within 30 events after the item in the same session, counted once per session, with the number of sessions where it was ordered.",
+      "kind": "table",
+      "level": "item_pair",
+      "sql": "WITH h AS (SELECT session, item, seq FROM hist WHERE ts >= {S} - 14*86400), b AS (SELECT session, item, seq, event FROM hist WHERE ts >= {S} - 14*86400 AND event IN ('cart', 'order')), d AS (SELECT a.session, a.item, b.item AS item2, max(CASE WHEN b.event = 'order' THEN 1 ELSE 0 END) AS o FROM b JOIN h a ON a.session = b.session AND a.item <> b.item AND a.seq BETWEEN b.seq - 30 AND b.seq - 1 GROUP BY a.session, a.item, b.item), p AS (SELECT item, item2, count(*) AS tv_ns, sum(o) AS tv_no FROM d GROUP BY item, item2), r AS (SELECT item, item2, tv_ns, tv_no, row_number() OVER (PARTITION BY item ORDER BY tv_ns DESC, tv_no DESC, item2) AS rn FROM p) SELECT item, item2, CAST(tv_ns AS DOUBLE) AS tv_ns, CAST(tv_no AS DOUBLE) AS tv_no FROM r WHERE rn <= 50;",
+      "columns": [
+        "tv_ns",
+        "tv_no"
+      ],
+      "depends": [],
+      "probe_seconds": "2^5–2^6",
+      "probe_table": {
+        "key": "8a0a29f79a1047863c55409f6f31100c8fc893ac165ee5fb9c8c98e7f71f33ab",
+        "rows": 28252276,
+        "sha256": "c5d9dddbfc104e55399c60b61617a7535943a012016491de862d8e1102ab08f8"
+      }
+    },
+    {
+      "id": "r2p5",
+      "round": 2,
+      "index": 5,
+      "name": "covis_any7",
+      "idea": "Symmetric co-visitation over the last 7 days of history: items within 5 events of each other in the same session, counted once per session, plus sessions where the partner was carted or ordered.",
+      "kind": "table",
+      "level": "item_pair",
+      "sql": "WITH h AS (SELECT session, item, seq, event FROM hist WHERE ts >= {S} - 7*86400), d AS (SELECT a.session, a.item, b.item AS item2, max(CASE WHEN b.event <> 'view' THEN 1 ELSE 0 END) AS bb FROM h a JOIN h b ON b.session = a.session AND b.item <> a.item AND b.seq BETWEEN a.seq - 5 AND a.seq + 5 GROUP BY a.session, a.item, b.item), p AS (SELECT item, item2, count(*) AS tv_ns, sum(bb) AS tv_nb FROM d GROUP BY item, item2 HAVING count(*) >= 2), r AS (SELECT item, item2, tv_ns, tv_nb, row_number() OVER (PARTITION BY item ORDER BY tv_ns DESC, tv_nb DESC, item2) AS rn FROM p) SELECT item, item2, CAST(tv_ns AS DOUBLE) AS tv_ns, CAST(tv_nb AS DOUBLE) AS tv_nb FROM r WHERE rn <= 50;",
+      "columns": [
+        "tv_ns",
+        "tv_nb"
+      ],
+      "depends": [],
+      "probe_seconds": "2^5–2^6",
+      "probe_table": {
+        "key": "b426dffdc58369ae12e5ce064f256ec0854551f980f523d2dd2209e098475aa2",
+        "rows": 10329707,
+        "sha256": "f74af0983b6fd3cc9089f9ad95203a3ee9359117020d7c6111fe06cef77cd429"
+      }
+    },
+    {
+      "id": "r3p1",
+      "round": 3,
+      "index": 1,
+      "name": "v2c_src",
+      "idea": "Items carted or ordered after viewing the session's last 10 distinct prefix items in history (tb_view2cart), with orders weighted triple, prefix cart/order items weighted triple and integer recency weights (11 - rank) for an exact batch-invariant score, excluding prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(CASE WHEN s.event <> 'view' THEN 3 ELSE 1 END) AS w, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, w, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, w * (11 - rp) AS w FROM li WHERE rp <= 10), sc AS (SELECT lt.session, v.item2 AS item, CAST(sum((v.tv_ns + 2 * v.tv_no) * lt.w) AS DOUBLE) AS score FROM lt JOIN tb_view2cart v ON v.item = lt.item GROUP BY lt.session, v.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_v2c_src_rank",
+        "ag_src_v2c_src_score"
+      ],
+      "depends": [
+        "view2cart"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r3p2",
+      "round": 3,
+      "index": 2,
+      "name": "covis7_src",
+      "idea": "Symmetric 7-day history co-visitation (tb_covis_any7) with the session's last 10 distinct prefix items, partners that were carted or ordered counted double, integer recency weights (11 - rank), excluding prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(CASE WHEN s.event <> 'view' THEN 3 ELSE 1 END) AS w, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, w, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, w * (11 - rp) AS w FROM li WHERE rp <= 10), sc AS (SELECT lt.session, c.item2 AS item, CAST(sum((c.tv_ns + c.tv_nb) * lt.w) AS DOUBLE) AS score FROM lt JOIN tb_covis_any7 c ON c.item = lt.item GROUP BY lt.session, c.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_covis7_src_rank",
+        "ag_src_covis7_src_score"
+      ],
+      "depends": [
+        "covis_any7"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r3p3",
+      "round": 3,
+      "index": 3,
+      "name": "wk_buy_src",
+      "idea": "Current-week buy co-occurrence: items carted or ordered in other target-week prefixes that contain any of the session's last 10 distinct prefix items, counted once per prefix, with integer recency weights (11 - rank), excluding prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, 11 - rp AS w FROM li WHERE rp <= 10), ki AS (SELECT DISTINCT item FROM lt), a AS (SELECT DISTINCT x.session, x.item FROM sess x JOIN ki ON ki.item = x.item), bb AS (SELECT DISTINCT session, item FROM sess WHERE event <> 'view'), pr AS (SELECT a.item AS src, bb.item AS dst, count(*) AS c FROM a JOIN bb ON bb.session = a.session AND bb.item <> a.item GROUP BY a.item, bb.item), sc AS (SELECT lt.session, pr.dst AS item, CAST(sum(pr.c * lt.w) AS DOUBLE) AS score FROM lt JOIN pr ON pr.src = lt.item GROUP BY lt.session, pr.dst), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_wk_buy_src_rank",
+        "ag_src_wk_buy_src_score"
+      ],
+      "depends": [],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r3p4",
+      "round": 3,
+      "index": 4,
+      "name": "any2order",
+      "idea": "Directed table over the last 14 days of history: items ordered within 50 events after an event with the item in the same session, counted once per session, with the number of sessions where the item itself was carted before.",
+      "kind": "table",
+      "level": "item_pair",
+      "sql": "WITH o AS (SELECT session, item, seq FROM hist WHERE ts >= {S} - 14*86400 AND event = 'order'), h AS (SELECT session, item, seq, event FROM hist WHERE ts >= {S} - 14*86400), d AS (SELECT a.session, a.item, o.item AS item2, max(CASE WHEN a.event = 'cart' THEN 1 ELSE 0 END) AS c FROM o JOIN h a ON a.session = o.session AND a.item <> o.item AND a.seq BETWEEN o.seq - 50 AND o.seq - 1 GROUP BY a.session, a.item, o.item), p AS (SELECT item, item2, count(*) AS tv_ns, sum(c) AS tv_nc FROM d GROUP BY item, item2), r AS (SELECT item, item2, tv_ns, tv_nc, row_number() OVER (PARTITION BY item ORDER BY tv_ns DESC, tv_nc DESC, item2) AS rn FROM p) SELECT item, item2, CAST(tv_ns AS DOUBLE) AS tv_ns, CAST(tv_nc AS DOUBLE) AS tv_nc FROM r WHERE rn <= 50;",
+      "columns": [
+        "tv_ns",
+        "tv_nc"
+      ],
+      "depends": [],
+      "probe_seconds": "2^4–2^5",
+      "probe_table": {
+        "key": "ec4e217a8f2be61d5b5daefddce7c31d75d12b0062ad482886f5aa7c2396ad16",
+        "rows": 16166372,
+        "sha256": "1d0d9b04524fc0cae0fda9af828c6c7833c48c6015f26dbc8ac4070bf10836c4"
+      }
+    },
+    {
+      "id": "r3p5",
+      "round": 3,
+      "index": 5,
+      "name": "next_any14",
+      "idea": "Directed next-item table over the last 14 days of history: items within 2 events after the item in the same session, counted once per session, plus sessions where the follower was carted or ordered.",
+      "kind": "table",
+      "level": "item_pair",
+      "sql": "WITH h AS (SELECT session, item, seq, event FROM hist WHERE ts >= {S} - 14*86400), d AS (SELECT a.session, a.item, b.item AS item2, max(CASE WHEN b.event <> 'view' THEN 1 ELSE 0 END) AS bb FROM h a JOIN h b ON b.session = a.session AND b.seq BETWEEN a.seq + 1 AND a.seq + 2 AND b.item <> a.item GROUP BY a.session, a.item, b.item), p AS (SELECT item, item2, count(*) AS tv_ns, sum(bb) AS tv_nb FROM d GROUP BY item, item2 HAVING count(*) >= 2), r AS (SELECT item, item2, tv_ns, tv_nb, row_number() OVER (PARTITION BY item ORDER BY tv_ns DESC, tv_nb DESC, item2) AS rn FROM p) SELECT item, item2, CAST(tv_ns AS DOUBLE) AS tv_ns, CAST(tv_nb AS DOUBLE) AS tv_nb FROM r WHERE rn <= 50;",
+      "columns": [
+        "tv_ns",
+        "tv_nb"
+      ],
+      "depends": [],
+      "probe_seconds": "2^5–2^6",
+      "probe_table": {
+        "key": "5a5824e500b5947b7fac69ddbea6528eadded1153b4100cd31c0713a2f25e32b",
+        "rows": 7790333,
+        "sha256": "d1086796e2cba816a959576e6963c1cea1581aa4c723f4aea2033523f272e439"
+      }
+    },
+    {
+      "id": "r4p1",
+      "round": 4,
+      "index": 1,
+      "name": "a2o_src",
+      "idea": "Items ordered in history after an event with one of the session's last 20 distinct prefix items (tb_any2order), with pairs where the item was carted counted again, prefix cart/order items weighted triple and integer recency weights (21 - rank), excluding prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(CASE WHEN s.event <> 'view' THEN 3 ELSE 1 END) AS w, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, w, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, w * (21 - rp) AS w FROM li WHERE rp <= 20), sc AS (SELECT lt.session, o.item2 AS item, CAST(sum((o.tv_ns + o.tv_nc) * lt.w) AS DOUBLE) AS score FROM lt JOIN tb_any2order o ON o.item = lt.item GROUP BY lt.session, o.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_a2o_src_rank",
+        "ag_src_a2o_src_score"
+      ],
+      "depends": [
+        "any2order"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r4p2",
+      "round": 4,
+      "index": 2,
+      "name": "next14_src",
+      "idea": "Directed 14-day next-item transitions (tb_next_any14) from the session's last 5 distinct prefix items, followers that were carted or ordered weighted triple, prefix cart/order items weighted triple and integer recency weights (6 - rank), excluding prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(CASE WHEN s.event <> 'view' THEN 3 ELSE 1 END) AS w, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, w, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, w * (6 - rp) AS w FROM li WHERE rp <= 5), sc AS (SELECT lt.session, n.item2 AS item, CAST(sum((n.tv_ns + 2 * n.tv_nb) * lt.w) AS DOUBLE) AS score FROM lt JOIN tb_next_any14 n ON n.item = lt.item GROUP BY lt.session, n.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_next14_src_rank",
+        "ag_src_next14_src_score"
+      ],
+      "depends": [
+        "next_any14"
+      ],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r4p3",
+      "round": 4,
+      "index": 3,
+      "name": "wk_next_src",
+      "idea": "Current-week directed transitions: items that follow the session's last 3 prefix items within 3 events in target-week prefixes, counted once per prefix, followers carted or ordered weighted triple, integer recency weights (4 - rank), excluding prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH lp AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS rp FROM sess s JOIN sessions t ON t.session = s.session), li AS (SELECT session, item, min(rp) AS rp FROM lp WHERE rp <= 3 GROUP BY session, item), ki AS (SELECT DISTINCT item FROM li), a AS (SELECT x.session, x.item, x.seq FROM sess x JOIN ki ON ki.item = x.item), pr AS (SELECT a.item AS src, y.item AS dst, count(DISTINCT y.session) + 2 * count(DISTINCT CASE WHEN y.event <> 'view' THEN y.session END) AS c FROM a JOIN sess y ON y.session = a.session AND y.item <> a.item AND y.seq BETWEEN a.seq + 1 AND a.seq + 3 GROUP BY a.item, y.item), sc AS (SELECT li.session, pr.dst AS item, CAST(sum(pr.c * (4 - li.rp)) AS DOUBLE) AS score FROM li JOIN pr ON pr.src = li.item GROUP BY li.session, pr.dst), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_wk_next_src_rank",
+        "ag_src_wk_next_src_score"
+      ],
+      "depends": [],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r4p4",
+      "round": 4,
+      "index": 4,
+      "name": "wk_v2c_src",
+      "idea": "Current-week view-to-buy: items carted or ordered within 10 events after an event with one of the session's last 10 distinct prefix items in target-week prefixes, counted once per prefix, orders weighted triple, integer recency weights (11 - rank), excluding prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, 11 - rp AS w FROM li WHERE rp <= 10), ki AS (SELECT DISTINCT item FROM lt), a AS (SELECT x.session, x.item, x.seq FROM sess x JOIN ki ON ki.item = x.item), bb AS (SELECT session, item, seq, event FROM sess WHERE event <> 'view'), pr AS (SELECT a.item AS src, bb.item AS dst, count(DISTINCT bb.session) + 2 * count(DISTINCT CASE WHEN bb.event = 'order' THEN bb.session END) AS c FROM a JOIN bb ON bb.session = a.session AND bb.item <> a.item AND bb.seq BETWEEN a.seq + 1 AND a.seq + 10 GROUP BY a.item, bb.item), sc AS (SELECT lt.session, pr.dst AS item, CAST(sum(pr.c * lt.w) AS DOUBLE) AS score FROM lt JOIN pr ON pr.src = lt.item GROUP BY lt.session, pr.dst), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_wk_v2c_src_rank",
+        "ag_src_wk_v2c_src_score"
+      ],
+      "depends": [],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r5p1",
+      "round": 5,
+      "index": 1,
+      "name": "covis14_cos",
+      "idea": "Symmetric 14-day history co-visitation within 5 events, counted once per session, keeping the top 50 partners per item by cosine (pair sessions divided by the square root of both items' session counts) so that rare items get specific neighbors instead of popular hubs.",
+      "kind": "table",
+      "level": "item_pair",
+      "sql": "WITH h AS (SELECT session, item, seq FROM hist WHERE ts >= {S} - 14*86400), d AS (SELECT a.session, a.item, b.item AS item2 FROM h a JOIN h b ON b.session = a.session AND b.item <> a.item AND b.seq BETWEEN a.seq - 5 AND a.seq + 5 GROUP BY a.session, a.item, b.item), n AS (SELECT item, count(DISTINCT session) AS ni FROM h GROUP BY item), p AS (SELECT item, item2, count(*) AS c FROM d GROUP BY item, item2 HAVING count(*) >= 2), q AS (SELECT p.item, p.item2, p.c, p.c / sqrt(CAST(n1.ni AS DOUBLE) * CAST(n2.ni AS DOUBLE)) AS cs FROM p JOIN n n1 ON n1.item = p.item JOIN n n2 ON n2.item = p.item2), r AS (SELECT item, item2, c, cs, row_number() OVER (PARTITION BY item ORDER BY cs DESC, c DESC, item2) AS rn FROM q) SELECT item, item2, CAST(c AS DOUBLE) AS tv_ns, CAST(cs AS DOUBLE) AS tv_cos FROM r WHERE rn <= 50;",
+      "columns": [
+        "tv_ns",
+        "tv_cos"
+      ],
+      "depends": [],
+      "probe_seconds": "2^6–2^7",
+      "probe_table": {
+        "key": "623de4aa6574b7fc099bd83a5af9b077ee58ddc07db41316ea8d1c519384c4ff",
+        "rows": 17034868,
+        "sha256": "37eaf41a29306b95e63145f66da8f7d4c96a3b1079c401b814a69a6e7fd561d3"
+      }
+    },
+    {
+      "id": "r5p2",
+      "round": 5,
+      "index": 2,
+      "name": "buy_cos14",
+      "idea": "Items carted or ordered in the same 14-day history session at any distance, sessions with more than 100 bought items dropped, keeping the top 50 partners per item by cosine over buy sessions, with the number of sessions where both items were ordered.",
+      "kind": "table",
+      "level": "item_pair",
+      "sql": "WITH e AS (SELECT session, item, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE ts >= {S} - 14*86400 AND event IN ('cart', 'order') GROUP BY session, item), s AS (SELECT session FROM e GROUP BY session HAVING count(*) BETWEEN 2 AND 100), b AS (SELECT e.session, e.item, e.o FROM e JOIN s ON s.session = e.session), n AS (SELECT item, count(*) AS ni FROM e GROUP BY item), p AS (SELECT x.item, y.item AS item2, count(*) AS c, sum(x.o * y.o) AS co FROM b x JOIN b y ON y.session = x.session AND y.item <> x.item GROUP BY x.item, y.item HAVING count(*) >= 2), q AS (SELECT p.item, p.item2, p.c, p.co, p.c / sqrt(CAST(n1.ni AS DOUBLE) * CAST(n2.ni AS DOUBLE)) AS cs FROM p JOIN n n1 ON n1.item = p.item JOIN n n2 ON n2.item = p.item2), r AS (SELECT item, item2, c, co, cs, row_number() OVER (PARTITION BY item ORDER BY cs DESC, c DESC, item2) AS rn FROM q) SELECT item, item2, CAST(c AS DOUBLE) AS tv_ns, CAST(cs AS DOUBLE) AS tv_cos, CAST(co AS DOUBLE) AS tv_no FROM r WHERE rn <= 50;",
+      "columns": [
+        "tv_ns",
+        "tv_cos",
+        "tv_no"
+      ],
+      "depends": [],
+      "probe_seconds": "2^3–2^4",
+      "probe_table": {
+        "key": "eaccb560ba35e78b994c4f16ca4f40daa14f72fa03699a6d38fa2361859ebad0",
+        "rows": 1894102,
+        "sha256": "747ad479237662a123dfb8ca1bbfc2b59b8e6475ae780dcfc378fe02c1370b0d"
+      }
+    },
+    {
+      "id": "r5p3",
+      "round": 5,
+      "index": 3,
+      "name": "wk_covis_wide",
+      "idea": "Wider current-week co-visitation: items within 10 events of the session's last 10 distinct prefix items in target-week prefixes, counted once per prefix, carted or ordered partners weighted triple, integer recency weights (11 - rank), excluding prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, 11 - rp AS w FROM li WHERE rp <= 10), ki AS (SELECT DISTINCT item FROM lt), a AS (SELECT x.session, x.item, x.seq FROM sess x JOIN ki ON ki.item = x.item), pr AS (SELECT a.item AS src, y.item AS dst, count(DISTINCT y.session) + 2 * count(DISTINCT CASE WHEN y.event <> 'view' THEN y.session END) AS c FROM a JOIN sess y ON y.session = a.session AND y.item <> a.item AND y.seq BETWEEN a.seq - 10 AND a.seq + 10 GROUP BY a.item, y.item), sc AS (SELECT lt.session, pr.dst AS item, CAST(sum(pr.c * lt.w) AS DOUBLE) AS score FROM lt JOIN pr ON pr.src = lt.item GROUP BY lt.session, pr.dst), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_wk_covis_wide_rank",
+        "ag_src_wk_covis_wide_score"
+      ],
+      "depends": [],
+      "probe_seconds": "2^1–2^2"
+    },
+    {
+      "id": "r5p4",
+      "round": 5,
+      "index": 4,
+      "name": "covis_2hop",
+      "idea": "Two-hop co-visitation via tb_covis_any7: neighbors of the top 10 neighbors of the session's last 3 distinct prefix items, with integer rank and recency weights, excluding prefix items and one-hop neighbors, to reach items that direct co-visitation misses.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, 4 - rp AS w FROM li WHERE rp <= 3), ki AS (SELECT DISTINCT item FROM lt), h1 AS (SELECT c.item, c.item2, row_number() OVER (PARTITION BY c.item ORDER BY c.tv_ns DESC, c.tv_nb DESC, c.item2) AS r1 FROM tb_covis_any7 c JOIN ki ON ki.item = c.item), s1 AS (SELECT lt.session, h1.item2 AS mid, sum(lt.w * (11 - h1.r1)) AS w1 FROM lt JOIN h1 ON h1.item = lt.item WHERE h1.r1 <= 10 GROUP BY lt.session, h1.item2), sc AS (SELECT s1.session, c.item2 AS item, CAST(sum(s1.w1 * c.tv_ns) AS DOUBLE) AS score FROM s1 JOIN tb_covis_any7 c ON c.item = s1.mid GROUP BY s1.session, c.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item) AND NOT EXISTS (SELECT 1 FROM s1 m WHERE m.session = sc.session AND m.mid = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_covis_2hop_rank",
+        "ag_src_covis_2hop_score"
+      ],
+      "depends": [
+        "covis_any7"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r5p5",
+      "round": 5,
+      "index": 5,
+      "name": "trend_buy",
+      "idea": "Trending buy items for every session: distinct target-week prefixes with cart plus double weight for order, plus distinct history sessions with an order in the last 2 days, top 300 items, excluding the session's prefix items.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH g AS (SELECT item, count(DISTINCT session) + 2 * count(DISTINCT CASE WHEN event = 'order' THEN session END) AS c FROM sess WHERE event <> 'view' GROUP BY item), hh AS (SELECT item, count(DISTINCT session) AS c FROM hist WHERE ts >= {S} - 2*86400 AND event = 'order' GROUP BY item), u AS (SELECT item, sum(c) AS c FROM (SELECT item, c FROM g UNION ALL SELECT item, c FROM hh) GROUP BY item), gr AS (SELECT item, c, row_number() OVER (ORDER BY c DESC, item) AS gr FROM u), gt AS (SELECT item, c FROM gr WHERE gr <= 300), x AS (SELECT t.session, gt.item, CAST(gt.c AS DOUBLE) AS score FROM sessions t CROSS JOIN gt), f AS (SELECT x.session, x.item, x.score FROM x WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = x.session AND z.item = x.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_trend_buy_rank",
+        "ag_src_trend_buy_score"
+      ],
+      "depends": [],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r6p1",
+      "round": 6,
+      "index": 1,
+      "name": "cos_mix_src",
+      "idea": "Specific-neighbor source from the two cosine tables not yet used as sources (tb_covis14_cos, plus tb_buy_cos14 weighted double), drawn from the session's last 10 distinct prefix items with cart/order prefix items weighted triple and integer recency weights (11 - rank); cosines are scaled to integers so the sums stay exact; prefix items are excluded.",
+      "kind": "source",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(CASE WHEN s.event <> 'view' THEN 3 ELSE 1 END) AS w, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, w, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, w * (11 - rp) AS w FROM li WHERE rp <= 10), ki AS (SELECT DISTINCT item FROM lt), e AS (SELECT c.item, c.item2, CAST(round(c.tv_cos * 1000000) AS BIGINT) AS v FROM tb_covis14_cos c JOIN ki ON ki.item = c.item UNION ALL SELECT b.item, b.item2, CAST(round(2 * b.tv_cos * 1000000) AS BIGINT) AS v FROM tb_buy_cos14 b JOIN ki ON ki.item = b.item), ee AS (SELECT item, item2, sum(v) AS v FROM e GROUP BY item, item2), sc AS (SELECT lt.session, ee.item2 AS item, CAST(sum(ee.v * lt.w) AS DOUBLE) AS score FROM lt JOIN ee ON ee.item = lt.item GROUP BY lt.session, ee.item2), f AS (SELECT sc.session, sc.item, sc.score FROM sc WHERE NOT EXISTS (SELECT 1 FROM sess z WHERE z.session = sc.session AND z.item = sc.item)), rk AS (SELECT session, item, score, row_number() OVER (PARTITION BY session ORDER BY score DESC, item) AS r FROM f) SELECT session, item, score FROM rk WHERE r <= 40;",
+      "columns": [
+        "ag_src_cos_mix_src_rank",
+        "ag_src_cos_mix_src_score"
+      ],
+      "depends": [
+        "covis14_cos",
+        "buy_cos14"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r6p3",
+      "round": 6,
+      "index": 3,
+      "name": "covis3_cos",
+      "idea": "Recent-trend symmetric co-visitation over only the last 3 days of history within 5 events, counted once per session, top 50 partners by cosine, to capture freshly emerging item relations for later pair features.",
+      "kind": "table",
+      "level": "item_pair",
+      "sql": "WITH h AS (SELECT session, item, seq FROM hist WHERE ts >= {S} - 3*86400), d AS (SELECT DISTINCT a.session, a.item, b.item AS item2 FROM h a JOIN h b ON b.session = a.session AND b.item <> a.item AND b.seq BETWEEN a.seq - 5 AND a.seq + 5), n AS (SELECT item, count(DISTINCT session) AS ni FROM h GROUP BY item), p AS (SELECT item, item2, count(*) AS c FROM d GROUP BY item, item2 HAVING count(*) >= 2), q AS (SELECT p.item, p.item2, p.c, p.c / sqrt(CAST(n1.ni AS DOUBLE) * CAST(n2.ni AS DOUBLE)) AS cs FROM p JOIN n n1 ON n1.item = p.item JOIN n n2 ON n2.item = p.item2), r AS (SELECT item, item2, c, cs, row_number() OVER (PARTITION BY item ORDER BY cs DESC, c DESC, item2) AS rn FROM q) SELECT item, item2, CAST(c AS DOUBLE) AS tv_ns, CAST(cs AS DOUBLE) AS tv_cos FROM r WHERE rn <= 50;",
+      "columns": [
+        "tv_ns",
+        "tv_cos"
+      ],
+      "depends": [],
+      "probe_seconds": "2^4–2^5",
+      "probe_table": {
+        "key": "a300d8273e5c06d8d25713df7fd9e204f90b36687ce96eefe70ddff2f44c1539",
+        "rows": 5552546,
+        "sha256": "8197b40aeb6df060db3ab6eb47ed3e44268b6106fa97d25ee8907295684e290a"
+      }
+    },
+    {
+      "id": "r6p4",
+      "round": 6,
+      "index": 4,
+      "name": "v2o_rate",
+      "idea": "Substitute/alternative table over 14 days of history: in sessions with 1 to 20 ordered items and at most 200 distinct items, the item was touched but not ordered while item2 was ordered, counted once per session, with the rate relative to the item's session count.",
+      "kind": "table",
+      "level": "item_pair",
+      "sql": "WITH h AS (SELECT session, item, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE ts >= {S} - 14*86400 GROUP BY session, item), s AS (SELECT session FROM h GROUP BY session HAVING sum(o) BETWEEN 1 AND 20 AND count(*) <= 200), b AS (SELECT h.session, h.item, h.o FROM h JOIN s ON s.session = h.session), n AS (SELECT item, count(*) AS ni FROM h GROUP BY item), p AS (SELECT x.item, y.item AS item2, count(*) AS c FROM b x JOIN b y ON y.session = x.session AND y.item <> x.item AND y.o = 1 AND x.o = 0 GROUP BY x.item, y.item HAVING count(*) >= 2), q AS (SELECT p.item, p.item2, p.c, p.c / CAST(n.ni AS DOUBLE) AS rt FROM p JOIN n ON n.item = p.item), r AS (SELECT item, item2, c, rt, row_number() OVER (PARTITION BY item ORDER BY c DESC, rt DESC, item2) AS rn FROM q) SELECT item, item2, CAST(c AS DOUBLE) AS tv_ns, CAST(rt AS DOUBLE) AS tv_rate FROM r WHERE rn <= 50;",
+      "columns": [
+        "tv_ns",
+        "tv_rate"
+      ],
+      "depends": [],
+      "probe_seconds": "2^4–2^5",
+      "probe_table": {
+        "key": "9124aacfbcc12cd9bcca438dd3f15cd45c500420ffa0281618dc5f3ac57fbc85",
+        "rows": 1398249,
+        "sha256": "43e236c2a7663384341b3ea8812aea7c7190490fe33b1f13bd7f8de19f943f56"
+      }
+    },
+    {
+      "id": "r6p5",
+      "round": 6,
+      "index": 5,
+      "name": "prev_any14",
+      "idea": "Reverse-direction transition table over 14 days of history: items within 2 events before the item in the same session, counted once per session, plus sessions where the item itself was then carted or ordered, so later features can tell whether a candidate typically leads into the prefix items.",
+      "kind": "table",
+      "level": "item_pair",
+      "sql": "WITH h AS (SELECT session, item, seq, event FROM hist WHERE ts >= {S} - 14*86400), d AS (SELECT a.session, a.item, b.item AS item2, max(CASE WHEN a.event <> 'view' THEN 1 ELSE 0 END) AS bb FROM h a JOIN h b ON b.session = a.session AND b.seq BETWEEN a.seq - 2 AND a.seq - 1 AND b.item <> a.item GROUP BY a.session, a.item, b.item), p AS (SELECT item, item2, count(*) AS tv_ns, sum(bb) AS tv_nb FROM d GROUP BY item, item2 HAVING count(*) >= 2), r AS (SELECT item, item2, tv_ns, tv_nb, row_number() OVER (PARTITION BY item ORDER BY tv_ns DESC, tv_nb DESC, item2) AS rn FROM p) SELECT item, item2, CAST(tv_ns AS DOUBLE) AS tv_ns, CAST(tv_nb AS DOUBLE) AS tv_nb FROM r WHERE rn <= 50;",
+      "columns": [
+        "tv_ns",
+        "tv_nb"
+      ],
+      "depends": [],
+      "probe_seconds": "2^5–2^6",
+      "probe_table": {
+        "key": "b806a994cc3b6aa845cefc900d766b4cffad15037c230dc04e28593076350ee0",
+        "rows": 8055905,
+        "sha256": "9a0a5fa9149c90ae213792f71bc7603b40408112f4c6ab4e0531ec7e7c6c987d"
+      }
+    },
+    {
+      "id": "r7p1",
+      "round": 7,
+      "index": 1,
+      "name": "p_dwell",
+      "idea": "Prefix engagement per item: total dwell time on its events (gap to the next prefix event, capped at 600 s), its events among the last 10 prefix events, and its share of prefix events.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH s AS (SELECT x.session, x.item, x.ts, lead(x.ts) OVER (PARTITION BY x.session ORDER BY x.seq, x.item) AS nt, row_number() OVER (PARTITION BY x.session ORDER BY x.seq DESC, x.item DESC) AS rp, count(*) OVER (PARTITION BY x.session) AS n FROM sess x JOIN sessions t ON t.session = x.session), d AS (SELECT session, item, CASE WHEN nt IS NULL THEN 0 ELSE least(nt - ts, 600) END AS dt, rp, n FROM s), g AS (SELECT session, item, CAST(sum(dt) AS DOUBLE) AS dw, CAST(sum(CASE WHEN rp <= 10 THEN 1 ELSE 0 END) AS DOUBLE) AS l10, count(*) * 1.0 / max(n) AS sh FROM d GROUP BY session, item) SELECT c.session, c.item, g.dw AS ag_p_dwell, g.l10 AS ag_p_last10, g.sh AS ag_p_share FROM cand c LEFT JOIN g ON g.session = c.session AND g.item = c.item;",
+      "columns": [
+        "ag_p_dwell",
+        "ag_p_last10",
+        "ag_p_share"
+      ],
+      "depends": [],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r7p2",
+      "round": 7,
+      "index": 2,
+      "name": "last_aff",
+      "idea": "Affinity of every candidate, including history items, to the prefix: 7-day co-visitation and 14-day next-item count from the last prefix item, and the strongest co-buy count from any of the last 20 prefix items.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH lp AS (SELECT s.session, s.item, s.seq, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS r FROM sess s JOIN sessions t ON t.session = s.session), li AS (SELECT session, item FROM lp WHERE r = 1), pi AS (SELECT session, item, max(seq) AS ls FROM lp GROUP BY session, item), pr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), pt AS (SELECT session, item FROM pr WHERE rp <= 20), cv AS (SELECT li.session, c.item2 AS item, c.tv_ns AS v FROM li JOIN tb_covis_any7 c ON c.item = li.item), nx AS (SELECT li.session, n.item2 AS item, n.tv_ns AS v FROM li JOIN tb_next_any14 n ON n.item = li.item), bb AS (SELECT pt.session, b.item2 AS item, max(b.tv_ns) AS v FROM pt JOIN tb_buy2buy b ON b.item = pt.item GROUP BY pt.session, b.item2) SELECT c.session, c.item, CAST(cv.v AS DOUBLE) AS ag_last_covis, CAST(nx.v AS DOUBLE) AS ag_last_next, CAST(bb.v AS DOUBLE) AS ag_buy_max FROM cand c LEFT JOIN cv ON cv.session = c.session AND cv.item = c.item LEFT JOIN nx ON nx.session = c.session AND nx.item = c.item LEFT JOIN bb ON bb.session = c.session AND bb.item = c.item;",
+      "columns": [
+        "ag_last_covis",
+        "ag_last_next",
+        "ag_buy_max"
+      ],
+      "depends": [
+        "covis_any7",
+        "next_any14",
+        "buy2buy"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r7p3",
+      "round": 7,
+      "index": 3,
+      "name": "order_aff",
+      "idea": "Order intent toward every candidate: strongest any-to-order count from any of the last 20 prefix items and summed view-to-order sessions from the last 5 distinct prefix items.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), pr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), ao AS (SELECT pr.session, o.item2 AS item, max(o.tv_ns) AS v FROM pr JOIN tb_any2order o ON o.item = pr.item WHERE pr.rp <= 20 GROUP BY pr.session, o.item2), vc AS (SELECT pr.session, v.item2 AS item, sum(v.tv_no) AS v FROM pr JOIN tb_view2cart v ON v.item = pr.item WHERE pr.rp <= 5 GROUP BY pr.session, v.item2) SELECT c.session, c.item, CAST(ao.v AS DOUBLE) AS ag_a2o_max, CAST(vc.v AS DOUBLE) AS ag_v2o_last5 FROM cand c LEFT JOIN ao ON ao.session = c.session AND ao.item = c.item LEFT JOIN vc ON vc.session = c.session AND vc.item = c.item;",
+      "columns": [
+        "ag_a2o_max",
+        "ag_v2o_last5"
+      ],
+      "depends": [
+        "any2order",
+        "view2cart"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r8p1",
+      "round": 8,
+      "index": 1,
+      "name": "i_conv7",
+      "idea": "Item conversion over the last 7 days of history: smoothed share of the item's sessions with a cart, with an order, and the share of carting sessions that also ordered.",
+      "kind": "feature",
+      "level": "item",
+      "sql": "WITH h AS (SELECT session, item, max(CASE WHEN event = 'cart' THEN 1 ELSE 0 END) AS c, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM hist WHERE ts >= {S} - 7*86400 GROUP BY session, item), a AS (SELECT item, count(*) AS n, sum(c) AS nc, sum(o) AS nor, sum(c * o) AS nco FROM h GROUP BY item) SELECT item, (nc + 0.1) / (n + 10.0) AS ag_i_cart_rate, (nor + 0.03) / (n + 10.0) AS ag_i_order_rate, (nco + 1.0) / (nc + 3.0) AS ag_i_c2o FROM a;",
+      "columns": [
+        "ag_i_cart_rate",
+        "ag_i_order_rate",
+        "ag_i_c2o"
+      ],
+      "depends": [],
+      "probe_seconds": "2^1–2^2"
+    },
+    {
+      "id": "r8p2",
+      "round": 8,
+      "index": 2,
+      "name": "i_trend",
+      "idea": "Item momentum: last-day share of its 7-day history sessions, target-week prefix sessions relative to 7-day history sessions, and the share of its target-week prefixes with a cart or order.",
+      "kind": "feature",
+      "level": "item",
+      "sql": "WITH hh AS (SELECT item, count(DISTINCT CASE WHEN ts >= {S} - 86400 THEN session END) AS d1, count(DISTINCT session) AS d7 FROM hist WHERE ts >= {S} - 7*86400 GROUP BY item), w AS (SELECT item, count(DISTINCT session) AS wk, count(DISTINCT CASE WHEN event <> 'view' THEN session END) AS wb FROM sess GROUP BY item), k AS (SELECT item FROM hh UNION SELECT item FROM w) SELECT k.item, (coalesce(hh.d1, 0) + 1.0) / (coalesce(hh.d7, 0) + 7.0) AS ag_i_trend1, (coalesce(w.wk, 0) + 1.0) / (coalesce(hh.d7, 0) + 5.0) AS ag_i_wk_ratio, (coalesce(w.wb, 0) + 0.1) / (coalesce(w.wk, 0) + 5.0) AS ag_i_wk_buy_share FROM k LEFT JOIN hh ON hh.item = k.item LEFT JOIN w ON w.item = k.item;",
+      "columns": [
+        "ag_i_trend1",
+        "ag_i_wk_ratio",
+        "ag_i_wk_buy_share"
+      ],
+      "depends": [],
+      "probe_seconds": "2^1–2^2"
+    },
+    {
+      "id": "r8p3",
+      "round": 8,
+      "index": 3,
+      "name": "i_age",
+      "idea": "Item freshness in the last 7 days of history: age of its first and last event before the week start and age of its last order.",
+      "kind": "feature",
+      "level": "item",
+      "sql": "SELECT item, CAST(max({S} - ts) AS DOUBLE) AS ag_i_first_age, CAST(min({S} - ts) AS DOUBLE) AS ag_i_last_age, CAST(min(CASE WHEN event = 'order' THEN {S} - ts END) AS DOUBLE) AS ag_i_last_order_age FROM hist WHERE ts >= {S} - 7*86400 GROUP BY item;",
+      "columns": [
+        "ag_i_first_age",
+        "ag_i_last_age",
+        "ag_i_last_order_age"
+      ],
+      "depends": [],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r8p4",
+      "round": 8,
+      "index": 4,
+      "name": "p_state",
+      "idea": "Prefix state of each history candidate: type of its last event, whether it sits in an open cart (carted after its last order or never ordered), and the number of separate visits (runs) to it.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH s AS (SELECT x.session, x.item, x.seq, x.event, row_number() OVER (PARTITION BY x.session ORDER BY x.seq, x.item) AS rn, lag(x.item) OVER (PARTITION BY x.session ORDER BY x.seq, x.item) AS pv FROM sess x JOIN sessions t ON t.session = x.session), g AS (SELECT session, item, max(CASE WHEN event = 'cart' THEN seq END) AS lc, max(CASE WHEN event = 'order' THEN seq END) AS lo, arg_max(CASE WHEN event = 'order' THEN 2 WHEN event = 'cart' THEN 1 ELSE 0 END, rn) AS lt, sum(CASE WHEN pv IS NULL OR pv <> item THEN 1 ELSE 0 END) AS runs FROM s GROUP BY session, item) SELECT c.session, c.item, CAST(g.lt AS DOUBLE) AS ag_p_last_type, CASE WHEN g.item IS NULL THEN NULL WHEN g.lc IS NOT NULL AND (g.lo IS NULL OR g.lo < g.lc) THEN 1.0 ELSE 0.0 END AS ag_p_open_cart, CAST(g.runs AS DOUBLE) AS ag_p_runs FROM cand c LEFT JOIN g ON g.session = c.session AND g.item = c.item;",
+      "columns": [
+        "ag_p_last_type",
+        "ag_p_open_cart",
+        "ag_p_runs"
+      ],
+      "depends": [],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r8p5",
+      "round": 8,
+      "index": 5,
+      "name": "link_support",
+      "idea": "Breadth of support for a candidate: summed conditional co-visitation probability from the last 10 distinct prefix items (integer-exact), and the number of distinct prefix items linking to it through any accepted table and through buy tables only.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), pr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), pt AS (SELECT session, item FROM pr WHERE rp <= 10), ki AS (SELECT DISTINCT item FROM pt), dg AS (SELECT c.item, sum(c.tv_ns) AS tot FROM tb_covis_any7 c JOIN ki ON ki.item = c.item GROUP BY c.item), cv AS (SELECT pt.session, c.item2 AS item, sum(CAST(round(1000000.0 * c.tv_ns / dg.tot) AS BIGINT)) AS v FROM pt JOIN tb_covis_any7 c ON c.item = pt.item JOIN dg ON dg.item = pt.item GROUP BY pt.session, c.item2), lk AS (SELECT pt.session, c.item2 AS item, pt.item AS src, 0 AS b FROM pt JOIN tb_covis_any7 c ON c.item = pt.item UNION ALL SELECT pt.session, n.item2, pt.item, 0 FROM pt JOIN tb_next_any14 n ON n.item = pt.item UNION ALL SELECT pt.session, b.item2, pt.item, 1 FROM pt JOIN tb_buy2buy b ON b.item = pt.item UNION ALL SELECT pt.session, v.item2, pt.item, 1 FROM pt JOIN tb_view2cart v ON v.item = pt.item UNION ALL SELECT pt.session, o.item2, pt.item, 1 FROM pt JOIN tb_any2order o ON o.item = pt.item), ln AS (SELECT session, item, count(DISTINCT src) AS n, count(DISTINCT CASE WHEN b = 1 THEN src END) AS nb FROM lk GROUP BY session, item) SELECT c.session, c.item, CAST(cv.v AS DOUBLE) / 1000000.0 AS ag_cov_cond, CAST(ln.n AS DOUBLE) AS ag_link_cnt, CAST(ln.nb AS DOUBLE) AS ag_link_buy_cnt FROM cand c LEFT JOIN cv ON cv.session = c.session AND cv.item = c.item LEFT JOIN ln ON ln.session = c.session AND ln.item = c.item;",
+      "columns": [
+        "ag_cov_cond",
+        "ag_link_cnt",
+        "ag_link_buy_cnt"
+      ],
+      "depends": [
+        "covis_any7",
+        "next_any14",
+        "buy2buy",
+        "view2cart",
+        "any2order"
+      ],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r9p1",
+      "round": 9,
+      "index": 1,
+      "name": "i_repeat",
+      "idea": "Item revisit behaviour over the last 7 days of history: smoothed share of the item's events directly followed by the same item, runs (separate visits) per session holding it, and share of its sessions that end on it.",
+      "kind": "feature",
+      "level": "item",
+      "sql": "WITH h AS (SELECT session, item, lead(item) OVER (PARTITION BY session ORDER BY seq, item) AS nx, lag(item) OVER (PARTITION BY session ORDER BY seq, item) AS pv FROM hist WHERE ts >= {S} - 7*86400), g AS (SELECT item, count(*) AS n, sum(CASE WHEN nx = item THEN 1 ELSE 0 END) AS ns, sum(CASE WHEN nx IS NULL THEN 1 ELSE 0 END) AS ne, count(DISTINCT session) AS nsess, sum(CASE WHEN pv IS NULL OR pv <> item THEN 1 ELSE 0 END) AS runs FROM h GROUP BY item) SELECT item, (ns + 0.5) / (n + 5.0) AS ag_i_self_rep, (runs + 1.0) / (nsess + 2.0) AS ag_i_runs_per_sess, (ne + 0.2) / (nsess + 5.0) AS ag_i_exit_rate FROM g;",
+      "columns": [
+        "ag_i_self_rep",
+        "ag_i_runs_per_sess",
+        "ag_i_exit_rate"
+      ],
+      "depends": [],
+      "probe_seconds": "2^2–2^3"
+    },
+    {
+      "id": "r9p2",
+      "round": 9,
+      "index": 2,
+      "name": "cand_pop_rank",
+      "idea": "Within-session rank of each candidate by its current-week prefix popularity and by its 7-day history order sessions, so the model compares candidates relative to their session's candidate set.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH ci AS (SELECT DISTINCT item FROM cand), w AS (SELECT s.item, count(DISTINCT s.session) AS v FROM sess s JOIN ci ON ci.item = s.item GROUP BY s.item), o AS (SELECT x.item, count(DISTINCT x.session) AS v FROM hist x JOIN ci ON ci.item = x.item WHERE x.ts >= {S} - 7*86400 AND x.event = 'order' GROUP BY x.item), j AS (SELECT c.session, c.item, coalesce(w.v, 0) AS wv, coalesce(o.v, 0) AS ov FROM cand c LEFT JOIN w ON w.item = c.item LEFT JOIN o ON o.item = c.item) SELECT session, item, CAST(row_number() OVER (PARTITION BY session ORDER BY wv DESC, item) AS DOUBLE) AS ag_rk_wk_pop, CAST(row_number() OVER (PARTITION BY session ORDER BY ov DESC, item) AS DOUBLE) AS ag_rk_h7_order FROM j;",
+      "columns": [
+        "ag_rk_wk_pop",
+        "ag_rk_h7_order"
+      ],
+      "depends": [],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r9p3",
+      "round": 9,
+      "index": 3,
+      "name": "last_trans_prob",
+      "idea": "Normalized transition strength: conditional probability of the candidate following the last distinct prefix item (tb_next_any14) and conditional co-visitation probability from the second-to-last distinct prefix item (tb_covis_any7).",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH lp AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), pr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM lp), l1 AS (SELECT session, item FROM pr WHERE rp = 1), l2 AS (SELECT session, item FROM pr WHERE rp = 2), ki AS (SELECT item FROM l1 UNION SELECT item FROM l2), dn AS (SELECT n.item, sum(n.tv_ns) AS tot FROM tb_next_any14 n JOIN ki ON ki.item = n.item GROUP BY n.item), dc AS (SELECT c.item, sum(c.tv_ns) AS tot FROM tb_covis_any7 c JOIN ki ON ki.item = c.item GROUP BY c.item), a AS (SELECT l1.session, n.item2 AS item, n.tv_ns / dn.tot AS v FROM l1 JOIN tb_next_any14 n ON n.item = l1.item JOIN dn ON dn.item = l1.item), b AS (SELECT l2.session, c.item2 AS item, c.tv_ns / dc.tot AS v FROM l2 JOIN tb_covis_any7 c ON c.item = l2.item JOIN dc ON dc.item = l2.item) SELECT c.session, c.item, a.v AS ag_last_next_p, b.v AS ag_prev_cov_p FROM cand c LEFT JOIN a ON a.session = c.session AND a.item = c.item LEFT JOIN b ON b.session = c.session AND b.item = c.item;",
+      "columns": [
+        "ag_last_next_p",
+        "ag_prev_cov_p"
+      ],
+      "depends": [
+        "next_any14",
+        "covis_any7"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r9p4",
+      "round": 9,
+      "index": 4,
+      "name": "p_cart_recency",
+      "idea": "Cart recency of prefix items: seconds and events from the item's last cart to the prefix end, and its rank among the session's carted items by last cart, a direct order-intent signal.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH s AS (SELECT x.session, x.item, x.ts, x.seq, x.event FROM sess x JOIN sessions t ON t.session = x.session), e AS (SELECT session, max(ts) AS lt, max(seq) AS lq FROM s GROUP BY session), cg AS (SELECT session, item, max(ts) AS ct, max(seq) AS cq FROM s WHERE event = 'cart' GROUP BY session, item), cr AS (SELECT cg.session, cg.item, e.lt - cg.ct AS age, e.lq - cg.cq AS ev, row_number() OVER (PARTITION BY cg.session ORDER BY cg.cq DESC, cg.item) AS rk FROM cg JOIN e ON e.session = cg.session) SELECT c.session, c.item, CAST(cr.age AS DOUBLE) AS ag_p_cart_age, CAST(cr.ev AS DOUBLE) AS ag_p_cart_evts, CAST(cr.rk AS DOUBLE) AS ag_p_cart_rank FROM cand c LEFT JOIN cr ON cr.session = c.session AND cr.item = c.item;",
+      "columns": [
+        "ag_p_cart_age",
+        "ag_p_cart_evts",
+        "ag_p_cart_rank"
+      ],
+      "depends": [],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r9p5",
+      "round": 9,
+      "index": 5,
+      "name": "p_rel_time",
+      "idea": "Session-relative timing of prefix items: time of the item's last occurrence as a fraction of the prefix duration, and the fraction of the prefix duration spanned between its first and last occurrence.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH s AS (SELECT x.session, x.item, x.ts FROM sess x JOIN sessions t ON t.session = x.session), e AS (SELECT session, min(ts) AS ft, max(ts) AS lt FROM s GROUP BY session), g AS (SELECT session, item, max(ts) AS it, min(ts) AS ift FROM s GROUP BY session, item), gg AS (SELECT g.session, g.item, CASE WHEN e.lt > e.ft THEN (g.it - e.ft) * 1.0 / (e.lt - e.ft) END AS rt, CASE WHEN e.lt > e.ft THEN (g.it - g.ift) * 1.0 / (e.lt - e.ft) END AS sp FROM g JOIN e ON e.session = g.session) SELECT c.session, c.item, gg.rt AS ag_p_rel_time, gg.sp AS ag_p_span_share FROM cand c LEFT JOIN gg ON gg.session = c.session AND gg.item = c.item;",
+      "columns": [
+        "ag_p_rel_time",
+        "ag_p_span_share"
+      ],
+      "depends": [],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r10p1",
+      "round": 10,
+      "index": 1,
+      "name": "time_pop",
+      "idea": "Time-local item popularity around the moment of the session: distinct sessions holding the item on the same day of the week as the session's last prefix event, and its smoothed share of all active sessions in the 3 hourly buckets up to that event (prefixes plus the last history day).",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH ci AS (SELECT DISTINCT item FROM cand), sl AS (SELECT s.session, max(s.ts) AS lt FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session), sb AS (SELECT session, CAST(floor((lt - {S}) / 86400.0) AS BIGINT) AS d, CAST(floor((lt - {S}) / 3600.0) AS BIGINT) AS hb FROM sl), ae AS (SELECT session, item, ts FROM sess UNION ALL SELECT session, item, ts FROM hist WHERE ts >= {S} - 86400), ie AS (SELECT a.session, a.item, CAST(floor((a.ts - {S}) / 3600.0) AS BIGINT) AS h FROM ae a JOIN ci ON ci.item = a.item), ih AS (SELECT item, h, count(DISTINCT session) AS n FROM ie GROUP BY item, h), idy AS (SELECT item, CAST(floor(h / 24.0) AS BIGINT) AS d, count(DISTINCT session) AS n FROM ie GROUP BY item, CAST(floor(h / 24.0) AS BIGINT)), th AS (SELECT CAST(floor((ts - {S}) / 3600.0) AS BIGINT) AS h, count(DISTINCT session) AS n FROM ae GROUP BY CAST(floor((ts - {S}) / 3600.0) AS BIGINT)), sh AS (SELECT sb.session, sb.hb - v.k AS h FROM sb CROSS JOIN (VALUES (0), (1), (2)) v(k)), hc AS (SELECT c.session, c.item, sum(ih.n) AS n FROM cand c JOIN sh ON sh.session = c.session JOIN ih ON ih.item = c.item AND ih.h = sh.h GROUP BY c.session, c.item), tt AS (SELECT sh.session, sum(th.n) AS n FROM sh JOIN th ON th.h = sh.h GROUP BY sh.session) SELECT c.session, c.item, CAST(coalesce(idy.n, 0) AS DOUBLE) AS ag_i_day_sess, (coalesce(hc.n, 0) + 0.1) * 100000.0 / (coalesce(tt.n, 0) + 100.0) AS ag_i_hr3_share FROM cand c JOIN sb ON sb.session = c.session LEFT JOIN idy ON idy.item = c.item AND idy.d = sb.d LEFT JOIN hc ON hc.session = c.session AND hc.item = c.item LEFT JOIN tt ON tt.session = c.session;",
+      "columns": [
+        "ag_i_day_sess",
+        "ag_i_hr3_share"
+      ],
+      "depends": [],
+      "probe_seconds": "2^3–2^4"
+    },
+    {
+      "id": "r10p2",
+      "round": 10,
+      "index": 2,
+      "name": "s_state",
+      "idea": "Session purchase state: number of open carts (items carted after their last order or never ordered), the gap in seconds between the last two prefix events, and the position of the prefix end inside the week.",
+      "kind": "feature",
+      "level": "session",
+      "sql": "WITH s AS (SELECT x.session, x.item, x.ts, x.seq, x.event FROM sess x JOIN sessions t ON t.session = x.session), g AS (SELECT session, item, max(CASE WHEN event = 'cart' THEN seq END) AS lc, max(CASE WHEN event = 'order' THEN seq END) AS lo FROM s GROUP BY session, item), oc AS (SELECT session, sum(CASE WHEN lc IS NOT NULL AND (lo IS NULL OR lo < lc) THEN 1 ELSE 0 END) AS n FROM g GROUP BY session), o AS (SELECT session, ts, row_number() OVER (PARTITION BY session ORDER BY seq DESC, item DESC, event DESC) AS r FROM s), lg AS (SELECT session, max(CASE WHEN r = 1 THEN ts END) - max(CASE WHEN r = 2 THEN ts END) AS gap, max(CASE WHEN r = 1 THEN ts END) AS lt FROM o GROUP BY session) SELECT t.session, CAST(oc.n AS DOUBLE) AS ag_s_open_carts, CAST(lg.gap AS DOUBLE) AS ag_s_last_gap, (lg.lt - {S}) / 86400.0 AS ag_s_week_pos FROM sessions t LEFT JOIN oc ON oc.session = t.session LEFT JOIN lg ON lg.session = t.session;",
+      "columns": [
+        "ag_s_open_carts",
+        "ag_s_last_gap",
+        "ag_s_week_pos"
+      ],
+      "depends": [],
+      "probe_seconds": "2^-4–2^-3"
+    },
+    {
+      "id": "r10p3",
+      "round": 10,
+      "index": 3,
+      "name": "i_wk_conv",
+      "idea": "Current-week item conversion from all target-week prefixes: smoothed share of prefixes that carted the item and also ordered it, and smoothed share of the item's prefixes with an order.",
+      "kind": "feature",
+      "level": "item",
+      "sql": "WITH g AS (SELECT session, item, max(CASE WHEN event = 'cart' THEN 1 ELSE 0 END) AS c, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM sess GROUP BY session, item), a AS (SELECT item, count(*) AS n, sum(c) AS nc, sum(o) AS nor, sum(c * o) AS nco FROM g GROUP BY item) SELECT item, (nco + 0.5) / (nc + 2.0) AS ag_i_wk_c2o, (nor + 0.02) / (n + 5.0) AS ag_i_wk_order_rate FROM a;",
+      "columns": [
+        "ag_i_wk_c2o",
+        "ag_i_wk_order_rate"
+      ],
+      "depends": [],
+      "probe_seconds": "2^-2–2^-1"
+    },
+    {
+      "id": "r10p4",
+      "round": 10,
+      "index": 4,
+      "name": "wk_last_trans",
+      "idea": "Current-week normalized transitions from the last prefix item to every candidate, prefix items included: share of target-week prefixes holding the last item where the candidate follows within 3 events and within 20 events.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH lp AS (SELECT s.session, s.item, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS r FROM sess s JOIN sessions t ON t.session = s.session), li AS (SELECT session, item FROM lp WHERE r = 1), ki AS (SELECT DISTINCT item FROM li), a AS (SELECT x.session, x.item, x.seq FROM sess x JOIN ki ON ki.item = x.item), dn AS (SELECT item, count(DISTINCT session) AS tot FROM a GROUP BY item), pr AS (SELECT a.item AS src, y.item AS dst, count(DISTINCT CASE WHEN y.seq <= a.seq + 3 THEN y.session END) AS c3, count(DISTINCT y.session) AS c20 FROM a JOIN sess y ON y.session = a.session AND y.item <> a.item AND y.seq BETWEEN a.seq + 1 AND a.seq + 20 GROUP BY a.item, y.item), sc AS (SELECT li.session, pr.dst AS item, pr.c3, pr.c20, dn.tot FROM li JOIN pr ON pr.src = li.item JOIN dn ON dn.item = li.item) SELECT c.session, c.item, sc.c3 * 1.0 / (sc.tot + 1.0) AS ag_wk_last_next3_p, sc.c20 * 1.0 / (sc.tot + 1.0) AS ag_wk_last_next20_p FROM cand c LEFT JOIN sc ON sc.session = c.session AND sc.item = c.item;",
+      "columns": [
+        "ag_wk_last_next3_p",
+        "ag_wk_last_next20_p"
+      ],
+      "depends": [],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r10p5",
+      "round": 10,
+      "index": 5,
+      "name": "cart_order_aff",
+      "idea": "Order affinity anchored on prefix carts: co-buy count from the most recently carted prefix item (tb_buy2buy) and summed any-to-order sessions from the last 10 carted prefix items (tb_any2order), for every candidate.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH s AS (SELECT x.session, x.item, x.seq, x.event FROM sess x JOIN sessions t ON t.session = x.session), cg AS (SELECT session, item, max(seq) AS cq FROM s WHERE event = 'cart' GROUP BY session, item), cr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY cq DESC, item) AS rk FROM cg), lc AS (SELECT session, item FROM cr WHERE rk = 1), bl AS (SELECT lc.session, b.item2 AS item, b.tv_ns AS v FROM lc JOIN tb_buy2buy b ON b.item = lc.item), ao AS (SELECT cr.session, o.item2 AS item, sum(o.tv_ns) AS v FROM cr JOIN tb_any2order o ON o.item = cr.item WHERE cr.rk <= 10 GROUP BY cr.session, o.item2) SELECT c.session, c.item, CAST(bl.v AS DOUBLE) AS ag_lastcart_b2b, CAST(ao.v AS DOUBLE) AS ag_cart_a2o_sum FROM cand c LEFT JOIN bl ON bl.session = c.session AND bl.item = c.item LEFT JOIN ao ON ao.session = c.session AND ao.item = c.item;",
+      "columns": [
+        "ag_lastcart_b2b",
+        "ag_cart_a2o_sum"
+      ],
+      "depends": [
+        "buy2buy",
+        "any2order"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r11p1",
+      "round": 11,
+      "index": 1,
+      "name": "cos_aff",
+      "idea": "Specific-neighbor affinity for every candidate, history items included: the strongest 14-day and 3-day co-visitation cosine from the last 5 distinct prefix items, and the strongest buy cosine from the last 20, so rare but specific links are not drowned by popular hubs.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), pr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), p5 AS (SELECT session, item FROM pr WHERE rp <= 5), p20 AS (SELECT session, item FROM pr WHERE rp <= 20), a AS (SELECT p5.session, c.item2 AS item, max(c.tv_cos) AS v FROM p5 JOIN tb_covis14_cos c ON c.item = p5.item GROUP BY p5.session, c.item2), b AS (SELECT p5.session, c.item2 AS item, max(c.tv_cos) AS v FROM p5 JOIN tb_covis3_cos c ON c.item = p5.item GROUP BY p5.session, c.item2), d AS (SELECT p20.session, c.item2 AS item, max(c.tv_cos) AS v FROM p20 JOIN tb_buy_cos14 c ON c.item = p20.item GROUP BY p20.session, c.item2) SELECT c.session, c.item, a.v AS ag_cos14_max, b.v AS ag_cos3_max, d.v AS ag_bcos_max FROM cand c LEFT JOIN a ON a.session = c.session AND a.item = c.item LEFT JOIN b ON b.session = c.session AND b.item = c.item LEFT JOIN d ON d.session = c.session AND d.item = c.item;",
+      "columns": [
+        "ag_cos14_max",
+        "ag_cos3_max",
+        "ag_bcos_max"
+      ],
+      "depends": [
+        "covis14_cos",
+        "covis3_cos",
+        "buy_cos14"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r11p2",
+      "round": 11,
+      "index": 2,
+      "name": "sub_prev",
+      "idea": "Substitute and lead-in signals: the strongest rate at which the candidate was ordered instead of one of the last 10 distinct prefix items that were not ordered (tb_v2o_rate), and how often the candidate typically comes right before the last distinct prefix item (tb_prev_any14).",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH s AS (SELECT x.session, x.item, x.seq, x.event FROM sess x JOIN sessions t ON t.session = x.session), pi AS (SELECT session, item, max(seq) AS ls, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM s GROUP BY session, item), pr AS (SELECT session, item, o, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), su AS (SELECT pr.session, v.item2 AS item, max(v.tv_rate) AS v FROM pr JOIN tb_v2o_rate v ON v.item = pr.item WHERE pr.rp <= 10 AND pr.o = 0 GROUP BY pr.session, v.item2), l1 AS (SELECT session, item FROM pr WHERE rp = 1), pv AS (SELECT l1.session, p.item2 AS item, p.tv_ns AS v FROM l1 JOIN tb_prev_any14 p ON p.item = l1.item) SELECT c.session, c.item, su.v AS ag_sub_max, CAST(pv.v AS DOUBLE) AS ag_prev_last FROM cand c LEFT JOIN su ON su.session = c.session AND su.item = c.item LEFT JOIN pv ON pv.session = c.session AND pv.item = c.item;",
+      "columns": [
+        "ag_sub_max",
+        "ag_prev_last"
+      ],
+      "depends": [
+        "v2o_rate",
+        "prev_any14"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r11p3",
+      "round": 11,
+      "index": 3,
+      "name": "p_cart_dyn",
+      "idea": "Behaviour after carting a prefix item: views of the item after its first cart (reconsideration), other items carted after its last cart, and distinct other items touched after its last cart, to tell items about to be ordered from abandoned carts.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH s AS (SELECT x.session, x.item, x.seq, x.event FROM sess x JOIN sessions t ON t.session = x.session), g AS (SELECT session, item, min(CASE WHEN event = 'cart' THEN seq END) AS fcq, max(CASE WHEN event = 'cart' THEN seq END) AS lcq FROM s GROUP BY session, item HAVING max(CASE WHEN event = 'cart' THEN 1 ELSE 0 END) = 1), va AS (SELECT g.session, g.item, sum(CASE WHEN s.event = 'view' AND s.seq > g.fcq THEN 1 ELSE 0 END) AS nv FROM g JOIN s ON s.session = g.session AND s.item = g.item GROUP BY g.session, g.item), af AS (SELECT g.session, g.item, count(DISTINCT CASE WHEN s.event = 'cart' THEN s.item END) AS nc, count(DISTINCT s.item) AS ni FROM g JOIN s ON s.session = g.session AND s.item <> g.item AND s.seq > g.lcq GROUP BY g.session, g.item) SELECT c.session, c.item, CAST(va.nv AS DOUBLE) AS ag_p_view_after_cart, CASE WHEN g.item IS NULL THEN NULL ELSE CAST(coalesce(af.nc, 0) AS DOUBLE) END AS ag_p_carts_after, CASE WHEN g.item IS NULL THEN NULL ELSE CAST(coalesce(af.ni, 0) AS DOUBLE) END AS ag_p_items_after_cart FROM cand c LEFT JOIN g ON g.session = c.session AND g.item = c.item LEFT JOIN va ON va.session = c.session AND va.item = c.item LEFT JOIN af ON af.session = c.session AND af.item = c.item;",
+      "columns": [
+        "ag_p_view_after_cart",
+        "ag_p_carts_after",
+        "ag_p_items_after_cart"
+      ],
+      "depends": [],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r11p4",
+      "round": 11,
+      "index": 4,
+      "name": "p_wscore",
+      "idea": "Single recency-weighted interaction score of each prefix item, type weights view 1, cart 6, order 3, decayed once by event position from the prefix end and once by time from the prefix end (10-minute scale), with integer-exact sums.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH s AS (SELECT x.session, x.item, x.event, x.ts, row_number() OVER (PARTITION BY x.session ORDER BY x.seq DESC, x.item DESC, x.event DESC) AS rp, max(x.ts) OVER (PARTITION BY x.session) AS lt FROM sess x JOIN sessions t ON t.session = x.session), w AS (SELECT session, item, CASE WHEN event = 'cart' THEN 6 WHEN event = 'order' THEN 3 ELSE 1 END AS tw, rp, lt - ts AS age FROM s), g AS (SELECT session, item, sum(CAST(round(tw * 1000000.0 / rp) AS BIGINT)) AS ws, sum(CAST(round(tw * 1000000.0 / (1.0 + age / 600.0)) AS BIGINT)) AS td FROM w GROUP BY session, item) SELECT c.session, c.item, CAST(g.ws AS DOUBLE) / 1000000.0 AS ag_p_wsum, CAST(g.td AS DOUBLE) / 1000000.0 AS ag_p_tdec FROM cand c LEFT JOIN g ON g.session = c.session AND g.item = c.item;",
+      "columns": [
+        "ag_p_wsum",
+        "ag_p_tdec"
+      ],
+      "depends": [],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r11p5",
+      "round": 11,
+      "index": 5,
+      "name": "i_cart_dyn",
+      "idea": "Item purchase dynamics over the last 7 days of history: smoothed share of carting sessions with repeated carts, average views before the first cart, and average capped seconds from first cart to first order.",
+      "kind": "feature",
+      "level": "item",
+      "sql": "WITH h AS (SELECT session, item, seq, ts, event FROM hist WHERE ts >= {S} - 7*86400), g AS (SELECT session, item, min(CASE WHEN event = 'cart' THEN seq END) AS fcq, min(CASE WHEN event = 'cart' THEN ts END) AS fct, min(CASE WHEN event = 'order' THEN ts END) AS fot, sum(CASE WHEN event = 'cart' THEN 1 ELSE 0 END) AS nc FROM h GROUP BY session, item), vb AS (SELECT g.session, g.item, count(*) AS nv FROM g JOIN h ON h.session = g.session AND h.item = g.item AND h.event = 'view' AND h.seq < g.fcq GROUP BY g.session, g.item), a AS (SELECT g.item, sum(CASE WHEN g.fcq IS NOT NULL THEN 1 ELSE 0 END) AS ncs, sum(CASE WHEN g.nc >= 2 THEN 1 ELSE 0 END) AS nrc, sum(coalesce(vb.nv, 0)) AS nvb, sum(CASE WHEN g.fot >= g.fct THEN least(g.fot - g.fct, 86400) ELSE 0 END) AS dt, sum(CASE WHEN g.fot >= g.fct THEN 1 ELSE 0 END) AS nco FROM g LEFT JOIN vb ON vb.session = g.session AND vb.item = g.item GROUP BY g.item) SELECT item, (nrc + 0.2) / (ncs + 2.0) AS ag_i_recart, (nvb + 2.0) / (ncs + 1.0) AS ag_i_view_pre_cart, (dt + 3600.0) / (nco + 1.0) AS ag_i_c2o_sec FROM a;",
+      "columns": [
+        "ag_i_recart",
+        "ag_i_view_pre_cart",
+        "ag_i_c2o_sec"
+      ],
+      "depends": [],
+      "probe_seconds": "2^2–2^3"
+    },
+    {
+      "id": "r12p1",
+      "round": 12,
+      "index": 1,
+      "name": "wk_cos_aff",
+      "idea": "Current-week co-visitation cosine (within 5 events in target-week prefixes, pair prefixes divided by the square root of both items' prefix counts) from the last 5 distinct prefix items to every candidate: the maximum and an integer-exact recency-weighted sum, so specific fresh links are not drowned by popular hubs.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), pr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, rp FROM pr WHERE rp <= 5), ki AS (SELECT DISTINCT item FROM lt), a AS (SELECT x.session, x.item, x.seq FROM sess x JOIN ki ON ki.item = x.item), pc AS (SELECT a.item AS src, y.item AS dst, count(DISTINCT y.session) AS c FROM a JOIN sess y ON y.session = a.session AND y.item <> a.item AND y.seq BETWEEN a.seq - 5 AND a.seq + 5 GROUP BY a.item, y.item), ns AS (SELECT item, count(DISTINCT session) AS n FROM a GROUP BY item), ci AS (SELECT DISTINCT item FROM cand), nd AS (SELECT s.item, count(DISTINCT s.session) AS n FROM sess s JOIN ci ON ci.item = s.item GROUP BY s.item), q AS (SELECT lt.session, pc.dst AS item, lt.rp, pc.c / sqrt(CAST(ns.n AS DOUBLE) * CAST(nd.n AS DOUBLE)) AS cs FROM lt JOIN pc ON pc.src = lt.item JOIN ns ON ns.item = lt.item JOIN nd ON nd.item = pc.dst), g AS (SELECT session, item, max(cs) AS mx, sum(CAST(round(1000000.0 * cs) AS BIGINT) * (6 - rp)) AS sm FROM q GROUP BY session, item) SELECT c.session, c.item, g.mx AS ag_wk_cos_max, CAST(g.sm AS DOUBLE) / 1000000.0 AS ag_wk_cos_wsum FROM cand c LEFT JOIN g ON g.session = c.session AND g.item = c.item;",
+      "columns": [
+        "ag_wk_cos_max",
+        "ag_wk_cos_wsum"
+      ],
+      "depends": [],
+      "probe_seconds": "2^0–2^1"
+    },
+    {
+      "id": "r12p2",
+      "round": 12,
+      "index": 2,
+      "name": "cos14_wsum_rank",
+      "idea": "Recency- and type-weighted sum of 14-day co-visitation cosine from the last 10 distinct prefix items to every candidate (integer-exact), its share of the session's total over candidates and the candidate's within-session rank by it, giving a session-normalized affinity signal.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(CASE WHEN s.event <> 'view' THEN 3 ELSE 1 END) AS w, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), li AS (SELECT session, item, w, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), lt AS (SELECT session, item, w * (11 - rp) AS w FROM li WHERE rp <= 10), sc AS (SELECT lt.session, c.item2 AS item, sum(CAST(round(c.tv_cos * 1000000) AS BIGINT) * lt.w) AS v FROM lt JOIN tb_covis14_cos c ON c.item = lt.item GROUP BY lt.session, c.item2), j AS (SELECT c.session, c.item, sc.v FROM cand c LEFT JOIN sc ON sc.session = c.session AND sc.item = c.item) SELECT session, item, CAST(v AS DOUBLE) / 1000000.0 AS ag_cos14_wsum, CASE WHEN v IS NULL THEN NULL ELSE CAST(v AS DOUBLE) / CAST(sum(v) OVER (PARTITION BY session) AS DOUBLE) END AS ag_cos14_share, CAST(row_number() OVER (PARTITION BY session ORDER BY coalesce(v, -1) DESC, item) AS DOUBLE) AS ag_cos14_rk FROM j;",
+      "columns": [
+        "ag_cos14_wsum",
+        "ag_cos14_share",
+        "ag_cos14_rk"
+      ],
+      "depends": [
+        "covis14_cos"
+      ],
+      "probe_seconds": "2^-1–2^0"
+    },
+    {
+      "id": "r12p4",
+      "round": 12,
+      "index": 4,
+      "name": "ctx2_next",
+      "idea": "Second-order transitions: in 7-day history sessions where the second-to-last distinct prefix item is followed within 2 events by the last distinct prefix item, the items seen within 3 events afterwards (returning to the earlier item allowed), as count and conditional probability.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH pi AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), pr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), kp AS (SELECT a.session, a.item AS ia, b.item AS ib FROM pr a JOIN pr b ON b.session = a.session AND a.rp = 2 AND b.rp = 1), pk AS (SELECT DISTINCT ia, ib FROM kp), h AS (SELECT session, item, seq FROM hist WHERE ts >= {S} - 7*86400), x AS (SELECT DISTINCT xx.session, xx.seq, pk.ia, pk.ib FROM h xx JOIN pk ON pk.ib = xx.item JOIN h y ON y.session = xx.session AND y.item = pk.ia AND y.seq BETWEEN xx.seq - 2 AND xx.seq - 1), tt AS (SELECT ia, ib, count(DISTINCT session) AS n FROM x GROUP BY ia, ib), f AS (SELECT x.ia, x.ib, z.item AS dst, count(DISTINCT z.session) AS c FROM x JOIN h z ON z.session = x.session AND z.seq BETWEEN x.seq + 1 AND x.seq + 3 AND z.item <> x.ib GROUP BY x.ia, x.ib, z.item), sc AS (SELECT kp.session, f.dst AS item, f.c, tt.n FROM kp JOIN f ON f.ia = kp.ia AND f.ib = kp.ib JOIN tt ON tt.ia = kp.ia AND tt.ib = kp.ib) SELECT c.session, c.item, sc.c * 1.0 / (sc.n + 1.0) AS ag_ctx2_next_p, CAST(sc.c AS DOUBLE) AS ag_ctx2_next_n FROM cand c LEFT JOIN sc ON sc.session = c.session AND sc.item = c.item;",
+      "columns": [
+        "ag_ctx2_next_p",
+        "ag_ctx2_next_n"
+      ],
+      "depends": [],
+      "probe_seconds": "2^1–2^2"
+    },
+    {
+      "id": "r12p5",
+      "round": 12,
+      "index": 5,
+      "name": "p_cond_rates",
+      "idea": "History-conditioned intent of prefix items: among 7-day history sessions that reached as many views of the item (capped at 5) without carting, the smoothed share that then carted it, and among sessions with that many views the share that viewed it once more.",
+      "kind": "feature",
+      "level": "pair",
+      "sql": "WITH s AS (SELECT x.session, x.item, x.event FROM sess x JOIN sessions t ON t.session = x.session), pv AS (SELECT session, item, least(sum(CASE WHEN event = 'view' THEN 1 ELSE 0 END), 5) AS k FROM s GROUP BY session, item), ki AS (SELECT DISTINCT item FROM pv), h AS (SELECT x.session, x.item, x.seq, x.event FROM hist x JOIN ki ON ki.item = x.item WHERE x.ts >= {S} - 7*86400), fc AS (SELECT session, item, min(CASE WHEN event = 'cart' THEN seq END) AS fcq FROM h GROUP BY session, item), g AS (SELECT h.session, h.item, sum(CASE WHEN h.event = 'view' AND (fc.fcq IS NULL OR h.seq < fc.fcq) THEN 1 ELSE 0 END) AS nvb, sum(CASE WHEN h.event = 'view' THEN 1 ELSE 0 END) AS nv, max(CASE WHEN fc.fcq IS NOT NULL THEN 1 ELSE 0 END) AS cc FROM h JOIN fc ON fc.session = h.session AND fc.item = h.item GROUP BY h.session, h.item), kk AS (SELECT k FROM (VALUES (0), (1), (2), (3), (4), (5)) v(k)), r AS (SELECT g.item, kk.k, sum(CASE WHEN g.nvb >= kk.k THEN 1 ELSE 0 END) AS nb, sum(CASE WHEN g.cc = 1 AND g.nvb >= kk.k THEN 1 ELSE 0 END) AS nc, sum(CASE WHEN g.nv >= kk.k THEN 1 ELSE 0 END) AS na, sum(CASE WHEN g.nv >= kk.k + 1 THEN 1 ELSE 0 END) AS nr FROM g CROSS JOIN kk GROUP BY g.item, kk.k) SELECT c.session, c.item, CASE WHEN pv.item IS NULL THEN NULL ELSE (coalesce(r.nc, 0) + 0.1) / (coalesce(r.nb, 0) + 5.0) END AS ag_p_cond_cart, CASE WHEN pv.item IS NULL THEN NULL ELSE (coalesce(r.nr, 0) + 0.5) / (coalesce(r.na, 0) + 5.0) END AS ag_p_cond_revisit FROM cand c LEFT JOIN pv ON pv.session = c.session AND pv.item = c.item LEFT JOIN r ON r.item = pv.item AND r.k = pv.k;",
+      "columns": [
+        "ag_p_cond_cart",
+        "ag_p_cond_revisit"
+      ],
+      "depends": [],
+      "probe_seconds": "2^1–2^2"
+    }
+  ],
+  "attempts": [
+    {
+      "id": "r1p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r2p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r3p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r4p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r5p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p2",
+      "status": "invalid",
+      "error": "table column tv_p does not match ^tv_[a-z][a-z0-9_]{1,38}$"
+    },
+    {
+      "id": "r6p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r6p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r7p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r7p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r7p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r8p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r8p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r8p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r8p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r8p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r9p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r9p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r9p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r9p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r9p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r10p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r10p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r10p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r10p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r10p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r11p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r11p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r11p3",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r11p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r11p5",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r12p1",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r12p2",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r12p3",
+      "status": "invalid",
+      "error": "ag_p_items_since: |Spearman| with h_rank reaches 0.999"
+    },
+    {
+      "id": "r12p4",
+      "status": "valid",
+      "error": null
+    },
+    {
+      "id": "r12p5",
+      "status": "valid",
+      "error": null
+    }
+  ],
+  "columns": [
+    "ag_src_wk_covis_int_rank",
+    "ag_src_wk_covis_int_score",
+    "ag_src_hist_next_int_rank",
+    "ag_src_hist_next_int_score",
+    "ag_src_b2b_src_rank",
+    "ag_src_b2b_src_score",
+    "ag_src_v2c_src_rank",
+    "ag_src_v2c_src_score",
+    "ag_src_covis7_src_rank",
+    "ag_src_covis7_src_score",
+    "ag_src_wk_buy_src_rank",
+    "ag_src_wk_buy_src_score",
+    "ag_src_a2o_src_rank",
+    "ag_src_a2o_src_score",
+    "ag_src_next14_src_rank",
+    "ag_src_next14_src_score",
+    "ag_src_wk_next_src_rank",
+    "ag_src_wk_next_src_score",
+    "ag_src_wk_v2c_src_rank",
+    "ag_src_wk_v2c_src_score",
+    "ag_src_wk_covis_wide_rank",
+    "ag_src_wk_covis_wide_score",
+    "ag_src_covis_2hop_rank",
+    "ag_src_covis_2hop_score",
+    "ag_src_trend_buy_rank",
+    "ag_src_trend_buy_score",
+    "ag_src_cos_mix_src_rank",
+    "ag_src_cos_mix_src_score",
+    "ag_p_dwell",
+    "ag_p_last10",
+    "ag_p_share",
+    "ag_last_covis",
+    "ag_last_next",
+    "ag_buy_max",
+    "ag_a2o_max",
+    "ag_v2o_last5",
+    "ag_i_cart_rate",
+    "ag_i_order_rate",
+    "ag_i_c2o",
+    "ag_i_trend1",
+    "ag_i_wk_ratio",
+    "ag_i_wk_buy_share",
+    "ag_i_first_age",
+    "ag_i_last_age",
+    "ag_i_last_order_age",
+    "ag_p_last_type",
+    "ag_p_open_cart",
+    "ag_p_runs",
+    "ag_cov_cond",
+    "ag_link_cnt",
+    "ag_link_buy_cnt",
+    "ag_i_self_rep",
+    "ag_i_runs_per_sess",
+    "ag_i_exit_rate",
+    "ag_rk_wk_pop",
+    "ag_rk_h7_order",
+    "ag_last_next_p",
+    "ag_prev_cov_p",
+    "ag_p_cart_age",
+    "ag_p_cart_evts",
+    "ag_p_cart_rank",
+    "ag_p_rel_time",
+    "ag_p_span_share",
+    "ag_i_day_sess",
+    "ag_i_hr3_share",
+    "ag_s_open_carts",
+    "ag_s_last_gap",
+    "ag_s_week_pos",
+    "ag_i_wk_c2o",
+    "ag_i_wk_order_rate",
+    "ag_wk_last_next3_p",
+    "ag_wk_last_next20_p",
+    "ag_lastcart_b2b",
+    "ag_cart_a2o_sum",
+    "ag_cos14_max",
+    "ag_cos3_max",
+    "ag_bcos_max",
+    "ag_sub_max",
+    "ag_prev_last",
+    "ag_p_view_after_cart",
+    "ag_p_carts_after",
+    "ag_p_items_after_cart",
+    "ag_p_wsum",
+    "ag_p_tdec",
+    "ag_i_recart",
+    "ag_i_view_pre_cart",
+    "ag_i_c2o_sec",
+    "ag_wk_cos_max",
+    "ag_wk_cos_wsum",
+    "ag_cos14_wsum",
+    "ag_cos14_share",
+    "ag_cos14_rk",
+    "ag_ctx2_next_p",
+    "ag_ctx2_next_n",
+    "ag_p_cond_cart",
+    "ag_p_cond_revisit"
+  ],
+  "tables": [
+    "buy2buy",
+    "view2cart",
+    "covis_any7",
+    "any2order",
+    "next_any14",
+    "covis14_cos",
+    "buy_cos14",
+    "covis3_cos",
+    "v2o_rate",
+    "prev_any14"
+  ],
+  "budget": {
+    "table_seconds": 430,
+    "pair_session_seconds": 40,
+    "item_seconds": 10
+  },
+  "digest": "885d50c0384e4d569c2f2d0408a986491bc5c79512d02a52422b3c17070687ad",
+  "audit": {
+    "path": "docs/otto3-run/i2/audit-run-i2.json",
+    "sha256": "5537892fc690440ca0f9a0a835bd65ec52befb838dec1a8e7a19296ccce1db47",
+    "set_digest": "885d50c0384e4d569c2f2d0408a986491bc5c79512d02a52422b3c17070687ad",
+    "verdict": "clean",
+    "recognizability": {
+      "r1p1": "common",
+      "r2p1": "common",
+      "r2p2": "common",
+      "r2p3": "common",
+      "r2p4": "common",
+      "r2p5": "common",
+      "r3p1": "common",
+      "r3p2": "common",
+      "r3p3": "common",
+      "r3p4": "common",
+      "r3p5": "common",
+      "r4p1": "common",
+      "r4p2": "common",
+      "r4p3": "common",
+      "r4p4": "common",
+      "r5p1": "common",
+      "r5p2": "common",
+      "r5p3": "common",
+      "r5p4": "common",
+      "r5p5": "common",
+      "r6p1": "common",
+      "r6p3": "common",
+      "r6p4": "common",
+      "r6p5": "common",
+      "r7p1": "common",
+      "r7p2": "common",
+      "r7p3": "common",
+      "r8p1": "common",
+      "r8p2": "common",
+      "r8p3": "common",
+      "r8p4": "schema-specific",
+      "r8p5": "common",
+      "r9p1": "common",
+      "r9p2": "common",
+      "r9p3": "common",
+      "r9p4": "schema-specific",
+      "r9p5": "common",
+      "r10p1": "common",
+      "r10p2": "schema-specific",
+      "r10p3": "common",
+      "r10p4": "common",
+      "r10p5": "common",
+      "r11p1": "common",
+      "r11p2": "common",
+      "r11p3": "schema-specific",
+      "r11p4": "common",
+      "r11p5": "common",
+      "r12p1": "common",
+      "r12p2": "common",
+      "r12p4": "common",
+      "r12p5": "schema-specific"
+    },
+    "points": [
+      "addressed_oracle",
+      "hidden_encoding",
+      "recognizability"
+    ]
+  }
+}
