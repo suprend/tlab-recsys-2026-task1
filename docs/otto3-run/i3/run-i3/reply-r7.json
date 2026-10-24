@@ -1,0 +1,23 @@
+{
+  "round": 7,
+  "llm_command": null,
+  "attempts": [
+    {
+      "round": 7,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 0.0,
+      "cost_usd": 0.0,
+      "init": null,
+      "proposals": 3,
+      "kept": 3,
+      "text": "[{\"name\": \"p_dwell\", \"idea\": \"Prefix engagement per item: total dwell time on its events (gap to the next prefix event, capped at 600 s), its events among the last 10 prefix events, and its share of prefix events.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH s AS (SELECT x.session, x.item, x.ts, lead(x.ts) OVER (PARTITION BY x.session ORDER BY x.seq, x.item) AS nt, row_number() OVER (PARTITION BY x.session ORDER BY x.seq DESC, x.item DESC) AS rp, count(*) OVER (PARTITION BY x.session) AS n FROM sess x JOIN sessions t ON t.session = x.session), d AS (SELECT session, item, CASE WHEN nt IS NULL THEN 0 ELSE least(nt - ts, 600) END AS dt, rp, n FROM s), g AS (SELECT session, item, CAST(sum(dt) AS DOUBLE) AS dw, CAST(sum(CASE WHEN rp <= 10 THEN 1 ELSE 0 END) AS DOUBLE) AS l10, count(*) * 1.0 / max(n) AS sh FROM d GROUP BY session, item) SELECT c.session, c.item, g.dw AS ag_p_dwell, g.l10 AS ag_p_last10, g.sh AS ag_p_share FROM cand c LEFT JOIN g ON g.session = c.session AND g.item = c.item;\"}, {\"name\": \"last_aff\", \"idea\": \"Affinity of every candidate, including history items, to the prefix: 7-day co-visitation and 14-day next-item count from the last prefix item, and the strongest co-buy count from any of the last 20 prefix items.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH lp AS (SELECT s.session, s.item, s.seq, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item) AS r FROM sess s JOIN sessions t ON t.session = s.session), li AS (SELECT session, item FROM lp WHERE r = 1), pi AS (SELECT session, item, max(seq) AS ls FROM lp GROUP BY session, item), pr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), pt AS (SELECT session, item FROM pr WHERE rp <= 20), cv AS (SELECT li.session, c.item2 AS item, c.tv_ns AS v FROM li JOIN tb_covis_any7 c ON c.item = li.item), nx AS (SELECT li.session, n.item2 AS item, n.tv_ns AS v FROM li JOIN tb_next_any14 n ON n.item = li.item), bb AS (SELECT pt.session, b.item2 AS item, max(b.tv_ns) AS v FROM pt JOIN tb_buy2buy b ON b.item = pt.item GROUP BY pt.session, b.item2) SELECT c.session, c.item, CAST(cv.v AS DOUBLE) AS ag_last_covis, CAST(nx.v AS DOUBLE) AS ag_last_next, CAST(bb.v AS DOUBLE) AS ag_buy_max FROM cand c LEFT JOIN cv ON cv.session = c.session AND cv.item = c.item LEFT JOIN nx ON nx.session = c.session AND nx.item = c.item LEFT JOIN bb ON bb.session = c.session AND bb.item = c.item;\"}, {\"name\": \"order_aff\", \"idea\": \"Order intent toward every candidate: strongest any-to-order count from any of the last 20 prefix items and summed view-to-order sessions from the last 5 distinct prefix items.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH pi AS (SELECT s.session, s.item, max(s.seq) AS ls FROM sess s JOIN sessions t ON t.session = s.session GROUP BY s.session, s.item), pr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY ls DESC, item) AS rp FROM pi), ao AS (SELECT pr.session, o.item2 AS item, max(o.tv_ns) AS v FROM pr JOIN tb_any2order o ON o.item = pr.item WHERE pr.rp <= 20 GROUP BY pr.session, o.item2), vc AS (SELECT pr.session, v.item2 AS item, sum(v.tv_no) AS v FROM pr JOIN tb_view2cart v ON v.item = pr.item WHERE pr.rp <= 5 GROUP BY pr.session, v.item2) SELECT c.session, c.item, CAST(ao.v AS DOUBLE) AS ag_a2o_max, CAST(vc.v AS DOUBLE) AS ag_v2o_last5 FROM cand c LEFT JOIN ao ON ao.session = c.session AND ao.item = c.item LEFT JOIN vc ON vc.session = c.session AND vc.item = c.item;\"}]",
+      "meta": {
+        "cost_usd": 0.0,
+        "seconds": 0.0,
+        "replay": true
+      }
+    }
+  ],
+  "kept": 3
+}

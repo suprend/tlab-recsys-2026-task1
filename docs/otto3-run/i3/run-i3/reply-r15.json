@@ -1,0 +1,113 @@
+{
+  "round": 15,
+  "llm_command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--safe-mode",
+    "--setting-sources",
+    "project",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--output-format",
+    "stream-json",
+    "--verbose"
+  ],
+  "attempts": [
+    {
+      "round": 15,
+      "attempt": 1,
+      "status": "ok",
+      "seconds": 123.5,
+      "cost_usd": 0.736046,
+      "init": {
+        "cwd": "/private/var/folders/gb/j1q8qm811b3gjd3gk93fh22h0000gn/T/tlab-hm-agent-llm-j0vys3ms",
+        "tools": [],
+        "mcp_servers": [],
+        "model": "claude-opus-5-5",
+        "slash_commands": [],
+        "skills": [],
+        "plugins": [
+          {
+            "name": "agents-md",
+            "path": "builtin",
+            "source": "agents-md@builtin"
+          }
+        ],
+        "agents": [
+          "claude",
+          "Explore",
+          "general-purpose",
+          "Plan"
+        ],
+        "apiKeySource": "none",
+        "permissionMode": "default",
+        "claude_code_version": "2.1.284",
+        "output_style": "default"
+      },
+      "proposals": 5,
+      "kept": 5,
+      "text": "[{\"name\": \"p_rev_surv\", \"idea\": \"History revisit survival for prefix items: among 7-day history occurrences of the item followed by at least as many other events as the prefix has after its last occurrence (bucketed 0/1/2/4/8/16), the smoothed share where the item came back, and the share where it came back with a cart or order.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH s AS (SELECT x.session, x.item, x.seq FROM sess x JOIN sessions t ON t.session = x.session), e AS (SELECT session, max(seq) AS lq FROM s GROUP BY session), pg AS (SELECT s.session, s.item, e.lq - max(s.seq) AS g FROM s JOIN e ON e.session = s.session GROUP BY s.session, s.item, e.lq), pk AS (SELECT session, item, CASE WHEN g >= 16 THEN 16 WHEN g >= 8 THEN 8 WHEN g >= 4 THEN 4 WHEN g >= 2 THEN 2 WHEN g >= 1 THEN 1 ELSE 0 END AS k FROM pg), ki AS (SELECT DISTINCT item FROM pk), h AS (SELECT x.session, x.item, x.seq, lead(x.seq) OVER (PARTITION BY x.session, x.item ORDER BY x.seq, x.event) AS nx, lead(x.event) OVER (PARTITION BY x.session, x.item ORDER BY x.seq, x.event) AS ne FROM hist x JOIN ki ON ki.item = x.item WHERE x.ts >= {S} - 7*86400), hs AS (SELECT DISTINCT session FROM h), hl AS (SELECT y.session, max(y.seq) AS ml FROM hist y JOIN hs ON hs.session = y.session WHERE y.ts >= {S} - 7*86400 GROUP BY y.session), o AS (SELECT h.item, CASE WHEN h.nx IS NOT NULL THEN least(h.nx - h.seq - 1, 16) ELSE least(hl.ml - h.seq, 16) END AS sv, CASE WHEN h.nx IS NOT NULL THEN 1 ELSE 0 END AS rt, CASE WHEN h.nx IS NOT NULL AND h.ne <> 'view' THEN 1 ELSE 0 END AS rb FROM h JOIN hl ON hl.session = h.session), oa AS (SELECT item, sv, count(*) AS n, sum(rt) AS nr, sum(rb) AS nrb FROM o GROUP BY item, sv), kk AS (SELECT k FROM (VALUES (0), (1), (2), (4), (8), (16)) v(k)), r AS (SELECT oa.item, kk.k, sum(oa.n) AS nb, sum(oa.nr) AS nr, sum(oa.nrb) AS nrb FROM oa CROSS JOIN kk WHERE oa.sv >= kk.k GROUP BY oa.item, kk.k) SELECT c.session, c.item, CASE WHEN pk.item IS NULL THEN NULL ELSE (coalesce(r.nr, 0) + 0.3) / (coalesce(r.nb, 0) + 2.0) END AS ag_p_rev_surv, CASE WHEN pk.item IS NULL THEN NULL ELSE (coalesce(r.nrb, 0) + 0.05) / (coalesce(r.nb, 0) + 2.0) END AS ag_p_rev_buy_surv FROM cand c LEFT JOIN pk ON pk.session = c.session AND pk.item = c.item LEFT JOIN r ON r.item = pk.item AND r.k = pk.k;\"},\n{\"name\": \"typed_next\", \"idea\": \"Event-type-aware transitions: in 14-day history, after an event of the same type (view, cart or order) on the last prefix item, the share of such sessions where the candidate follows within 5 events, and the share where it follows with a cart or order.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH lp AS (SELECT s.session, s.item, s.event, row_number() OVER (PARTITION BY s.session ORDER BY s.seq DESC, s.item, s.event) AS r FROM sess s JOIN sessions t ON t.session = s.session), li AS (SELECT session, item, event FROM lp WHERE r = 1), ke AS (SELECT DISTINCT item, event FROM li), a AS (SELECT x.session, x.item, x.event, x.seq FROM hist x JOIN ke ON ke.item = x.item AND ke.event = x.event WHERE x.ts >= {S} - 14*86400), dn AS (SELECT item, event, count(DISTINCT session) AS tot FROM a GROUP BY item, event), pr AS (SELECT a.item AS src, a.event AS se, y.item AS dst, count(DISTINCT y.session) AS c, count(DISTINCT CASE WHEN y.event <> 'view' THEN y.session END) AS cb FROM a JOIN hist y ON y.session = a.session AND y.seq BETWEEN a.seq + 1 AND a.seq + 5 AND y.item <> a.item WHERE y.ts >= {S} - 14*86400 GROUP BY a.item, a.event, y.item), sc AS (SELECT li.session, pr.dst AS item, pr.c, pr.cb, dn.tot FROM li JOIN pr ON pr.src = li.item AND pr.se = li.event JOIN dn ON dn.item = li.item AND dn.event = li.event) SELECT c.session, c.item, sc.c * 1.0 / (sc.tot + 2.0) AS ag_typed_next_p, (sc.cb + 0.1) * 1.0 / (sc.tot + 2.0) AS ag_typed_next_buy_p FROM cand c LEFT JOIN sc ON sc.session = c.session AND sc.item = c.item;\"},\n{\"name\": \"entry_aff\", \"idea\": \"Affinity to the session's anchor intents rather than its recent tail: 14-day co-visitation cosine from the entry (first) prefix item and from the most interacted prefix item, and buy cosine from the entry item, for every candidate.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH s AS (SELECT x.session, x.item, x.seq FROM sess x JOIN sessions t ON t.session = x.session), pi AS (SELECT session, item, min(seq) AS fs, max(seq) AS ls, count(*) AS n FROM s GROUP BY session, item), fr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY fs, item) AS r FROM pi), f1 AS (SELECT session, item FROM fr WHERE r = 1), mr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY n DESC, ls DESC, item) AS r FROM pi), m1 AS (SELECT session, item FROM mr WHERE r = 1), a AS (SELECT f1.session, c.item2 AS item, c.tv_cos AS v FROM f1 JOIN tb_covis14_cos c ON c.item = f1.item), b AS (SELECT m1.session, c.item2 AS item, c.tv_cos AS v FROM m1 JOIN tb_covis14_cos c ON c.item = m1.item), d AS (SELECT f1.session, bc.item2 AS item, bc.tv_cos AS v FROM f1 JOIN tb_buy_cos14 bc ON bc.item = f1.item) SELECT c.session, c.item, a.v AS ag_entry_cos14, b.v AS ag_main_cos14, d.v AS ag_entry_bcos FROM cand c LEFT JOIN a ON a.session = c.session AND a.item = c.item LEFT JOIN b ON b.session = c.session AND b.item = c.item LEFT JOIN d ON d.session = c.session AND d.item = c.item;\"},\n{\"name\": \"p_last_dwell\", \"idea\": \"Engagement at the most recent visit of each prefix item: capped seconds spent on its last occurrence before the next prefix event (-1 if it is the final event) and the longest single dwell on it, separating a quick bounce from a deep look.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH s AS (SELECT x.session, x.item, x.ts, row_number() OVER (PARTITION BY x.session ORDER BY x.seq, x.item, x.event) AS rn, lead(x.ts) OVER (PARTITION BY x.session ORDER BY x.seq, x.item, x.event) AS nt FROM sess x JOIN sessions t ON t.session = x.session), d AS (SELECT session, item, rn, CASE WHEN nt IS NULL THEN -1 ELSE least(nt - ts, 600) END AS dt FROM s), g AS (SELECT session, item, arg_max(dt, rn) AS ld, max(dt) AS md FROM d GROUP BY session, item) SELECT c.session, c.item, CAST(g.ld AS DOUBLE) AS ag_p_last_dwell, CAST(g.md AS DOUBLE) AS ag_p_max_dwell FROM cand c LEFT JOIN g ON g.session = c.session AND g.item = c.item;\"},\n{\"name\": \"wk_cocart\", \"idea\": \"Current-week basket affinity anchored on the session's carted or ordered prefix items: recency-weighted count of target-week prefixes that carted or ordered both an anchor and the candidate, and the same count where the candidate was ordered.\", \"kind\": \"feature\", \"level\": \"pair\", \"sql\": \"WITH s AS (SELECT x.session, x.item, x.seq, x.event FROM sess x JOIN sessions t ON t.session = x.session), cg AS (SELECT session, item, max(seq) AS cq FROM s WHERE event <> 'view' GROUP BY session, item), cr AS (SELECT session, item, row_number() OVER (PARTITION BY session ORDER BY cq DESC, item) AS rk FROM cg), ct AS (SELECT session, item, 11 - rk AS w FROM cr WHERE rk <= 10), ki AS (SELECT DISTINCT item FROM ct), bb AS (SELECT session, item, max(CASE WHEN event = 'order' THEN 1 ELSE 0 END) AS o FROM sess WHERE event <> 'view' GROUP BY session, item), a AS (SELECT bb.session, bb.item FROM bb JOIN ki ON ki.item = bb.item), pr AS (SELECT a.item AS src, y.item AS dst, count(*) AS c, sum(y.o) AS co FROM a JOIN bb y ON y.session = a.session AND y.item <> a.item GROUP BY a.item, y.item), sc AS (SELECT ct.session, pr.dst AS item, sum(pr.c * ct.w) AS v, sum(pr.co * ct.w) AS vo FROM ct JOIN pr ON pr.src = ct.item GROUP BY ct.session, pr.dst) SELECT c.session, c.item, CAST(sc.v AS DOUBLE) AS ag_wk_cocart, CAST(sc.vo AS DOUBLE) AS ag_wk_coorder FROM cand c LEFT JOIN sc ON sc.session = c.session AND sc.item = c.item;\"}]",
+      "meta": {
+        "model": "claude-opus-5-5",
+        "seconds": 123.5,
+        "returncode": 0,
+        "result": {
+          "subtype": "success",
+          "is_error": false,
+          "total_cost_usd": 0.736046,
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 58253,
+            "cache_read_input_tokens": 1170,
+            "output_tokens": 13489,
+            "output_tokens_details": {
+              "thinking_tokens": 9502
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 58253,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard"
+          },
+          "modelUsage": {
+            "claude-opus-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 13489,
+              "cacheReadInputTokens": 1170,
+              "cacheCreationInputTokens": 58253,
+              "webSearchRequests": 0,
+              "costUSD": 0.736046,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 9502,
+              "canonicalModel": "claude-opus-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "duration_ms": 122809,
+          "num_turns": 1,
+          "stop_reason": "end_turn"
+        },
+        "cost_usd": 0.736046,
+        "models": [
+          "claude-opus-5-5"
+        ]
+      }
+    }
+  ],
+  "kept": 5
+}
