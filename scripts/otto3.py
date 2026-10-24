@@ -214,6 +214,59 @@ def run(iteration, probe, name, smoke=None, retry_of=None, reason=None):
                 sources=result['sources'], columns=len(result['columns']), replayed=sum(map(len, plan.values())))
 
 
+def part_sessions(population, parts):
+    """The F3 population in sha256 order cut into ``parts`` consecutive parts that cover it once."""
+    ordered = oc.first_in_order(population, None)
+    size = -(-len(ordered)//int(parts))
+    return [ordered[i:i+size] for i in range(0, len(ordered), size)]
+
+
+def leakcheck_parts(parts, name='lc-F3', only=None, threads=oa.SIDECAR_THREADS):
+    """The F3 leakcheck of OTTO-1 on consecutive parts of the population, one report per part.
+
+    The checks compare blocks built in batches of sessions, so a part checks its sessions as the
+    whole run would; only the batch check (first 2000 sessions) and the prefix check repeat per part.
+    Needed when the two agent blocks of the whole population do not fit in memory."""
+    require(int(parts) >= 1, 'At least one part')
+    population = oc.read_population(Path(oc.collection_dir('val')).resolve())
+    require(population, 'No sessions to check')
+    chunks = part_sessions(population, parts)
+    require(only is None or 1 <= int(only) <= len(chunks), f'--only is a part 1..{len(chunks)}')
+    for index, sessions in enumerate(chunks, 1):
+        if only is not None and index != int(only):
+            continue
+        result = oa.leakcheck(3, f'{name}-p{index}of{len(chunks)}', sessions=sessions, threads=threads)
+        yield dict(part=index, parts=len(chunks), sessions=len(sessions), passed=result['ok'], path=result['path'])
+
+
+def leakcheck_summary(parts, name='lc-F3'):
+    """docs/otto3-run/<ID>/<name>-parts.json: the part reports together cover the F3 population once,
+    all passed, on the committed set of the iteration, one collection and one code identity."""
+    population = oc.read_population(Path(oc.collection_dir('val')).resolve())
+    chunks = part_sessions(population, parts)
+    record = oa.read_set(base=oc.read_base())
+    reports, meta = [], None
+    for index, sessions in enumerate(chunks, 1):
+        path = oc.leakcheck_path(f'{name}-p{index}of{len(chunks)}')
+        report = oc.read_json(path)
+        require(report.get('format') == oc.LEAKCHECK_FORMAT and report.get('fold') == 3, f'{path}: not an F3 leakcheck')
+        require(report['sessions_digest'] == oc.sessions_digest(sessions), f'{path}: another part of the population')
+        require(report['set_digest'] == record['digest'], f'{path}: made on another set')
+        reports.append(dict(part=index, path=str(Path(path).relative_to(ROOT).as_posix()), ok=bool(report['ok']),
+                            sessions=report['sessions'], sha256=oc.sha256_file(path)))
+        if meta is None:
+            meta = dict(collection=report['collection'], code=report['code'])
+        require(dict(collection=report['collection'], code=report['code']) == meta,
+                f'{path}: another collection or code identity than part 1')
+    value = dict(format='otto3-leakcheck-parts-v1', fold=3, collection=meta['collection'],
+                 set_digest=record['digest'], population=dict(n=len(population), digest=oc.sessions_digest(
+                     oc.first_in_order(population, None))),
+                 parts=reports, ok=all(r['ok'] for r in reports), created_utc=oc.utc_now())
+    out = oa.journal_dir()/f'{name}-parts.json'
+    oc.atomic_json(out, value, exist_ok=True)
+    return dict(value, path=str(out))
+
+
 # ------------------------------------------------------------------------------- CLI
 
 def main(argv=None):
@@ -245,6 +298,27 @@ def main(argv=None):
         # run goes through the wrapper (rounds and replay); export, calibration and probe belong to OTTO-1
         require(rest and rest[0] in AGENT_COMMANDS, f'agent commands here: {", ".join(AGENT_COMMANDS)}')
         return oa.main(rest)
+    if command == 'leakcheck-parts':
+        import argparse
+        parser = argparse.ArgumentParser(prog='otto3.py leakcheck-parts')
+        parser.add_argument('--parts', type=int, required=True)
+        parser.add_argument('--name', default='lc-F3')
+        parser.add_argument('--only', type=int, help='run part I (1-based) only')
+        parser.add_argument('--threads', type=int, default=oa.SIDECAR_THREADS)
+        args = parser.parse_args(rest)
+        oc.isolated()
+        for result in leakcheck_parts(args.parts, args.name, args.only, args.threads):
+            print(json.dumps(result, ensure_ascii=False), flush=True)
+        return 0
+    if command == 'leakcheck-summary':
+        import argparse
+        parser = argparse.ArgumentParser(prog='otto3.py leakcheck-summary')
+        parser.add_argument('--parts', type=int, required=True)
+        parser.add_argument('--name', default='lc-F3')
+        args = parser.parse_args(rest)
+        result = leakcheck_summary(args.parts, args.name)
+        print(json.dumps(dict(ok=result['ok'], parts=len(result['parts']), path=result['path'])))
+        return 0 if result['ok'] else 1
     if command == 'pool':
         from scripts import otto2_pool as op
         return op.main(rest)

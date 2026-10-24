@@ -57,6 +57,15 @@ class MainTest(unittest.TestCase):
                     otto3.main(['--iteration', 'i1', 'agent', command])
 
 
+class PartsTest(unittest.TestCase):
+    def test_parts_cover_population_once_in_order(self):
+        population = list(range(1, 1001))
+        parts = otto3.part_sessions(population, 4)
+        self.assertEqual(len(parts), 4)
+        self.assertEqual([s for part in parts for s in part], oc.first_in_order(population, None))
+        self.assertEqual(len(otto3.part_sessions(population[:3], 4)), 3)
+
+
 class ReplayTest(unittest.TestCase):
     def tearDown(self):
         otto3.ITERATIONS.pop('t1', None)
