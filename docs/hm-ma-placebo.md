@@ -48,7 +48,7 @@ MApl2026 и MApl2027 — port fits, во всём равные port MA2026 и MA
 ## Команды
 
 ```zsh
-cd ~/tlab-recsys-2026
+cd tlab-recsys-2026-task1
 .venv/bin/python -m unittest tests.test_hm_ma_placebo
 C=artifacts/hm-kaggle/collections; A=artifacts/hm-agent; P=configs/datasets/hm-agent-prereg.json
 PORT_TRAIN=("$C/2020-08-12-c0q120" "$C/2020-08-19-c0q120" "$C/2020-08-26-c0q120" "$C/2020-09-02-c0q120" "$C/2020-09-09-c0q120")

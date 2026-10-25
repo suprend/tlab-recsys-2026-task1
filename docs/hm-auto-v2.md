@@ -4,7 +4,7 @@
 
 Старт 2026-10-18T13:27:46.654222+00:00. Пользователь явно поручил диагностировать отрицательный результат v1 и попробовать улучшить автоматизацию для T-Lab. Предыдущее предпочтение «нет пределп» сохраняет отсутствие общей time/round границы. Этот проход имеет конечный протокол: максимум30 development fits и4 новых customer-test fits; неиспользованный бюджет не превращается в дополнительные попытки до положительного результата. Минимальный полезный результат — различить хотя бы один механизм и проверить автоматическую процедуру, которая может отказаться от неподтверждённых дополнений. Улучшение не обещается.
 
-Исторический [итог v1](hm-report.md), его код, config и decision lock сохраняются побайтно. Новые модули, конфигурации и outputs имеют отдельные имена. [Протокол v2](../configs/datasets/hm-auto-v2.json) закреплён до первых новых fits; SHA84f3e2db341358a72ae7938c90af0696f5926b91faba746f61b801a7f7cd8b8b. Единственная исполнимая очередь — [backlog](backlog.md), журнал — [brainstorm log](research-lab/brainstorm-log.md). Исполнитель — текущий активный чат/root, без расписаний, paid APIs, публикаций, push или submission.
+Исторический [итог v1](hm-report.md), его код, config и decision lock сохраняются побайтно. Новые модули, конфигурации и outputs имеют отдельные имена. [Протокол v2](../configs/datasets/hm-auto-v2.json) закреплён до первых новых fits; SHA84f3e2db341358a72ae7938c90af0696f5926b91faba746f61b801a7f7cd8b8b. Единственная исполнимая очередь — [backlog](https://github.com/suprend/tlab-recsys-2026-task1/blob/archive-2026-10-25/docs/backlog.md), журнал — [brainstorm log](https://github.com/suprend/tlab-recsys-2026-task1/blob/archive-2026-10-25/docs/research-lab/brainstorm-log.md). Исполнитель — текущий активный чат/root, без расписаний, paid APIs, публикаций, push или submission.
 
 ## Исходный симптом и гипотезы
 
@@ -121,7 +121,7 @@ Index12−M CI Sep02[−.0018487478,+.0026802940], Sep09[−.0010562279,+.002899
 
 ArtifactSHAs: auditSep02 `05f2de303ac303480e2b7a4bb89a25161ec10aee91d4a3837d6edb79e462aee2`, auditSep09 `64307a6c5322677194623f2dcb04372ef113988034da856bb1be1c44861e0fdb`; contrasts `fcd613322a6f457691d1d37ee807d86133fa1db79afb4075e4e5e8e2e012aa9f` / `e564d8c45bbd69a921da7dd721a733763824b78ac5c82898ad47054a0574556c`; decision `55095814df83d0076bf4eb38fea3b10ad20bd8b65a895a66775aa225271869df`.
 
-W008 принят14:13:02UTC: условный recipeprobe отдельноописан в [волне](research-lab/hm-wave008.md) иконфигеb6b18a. Его условиеwidth0 НЕвыполнено; HM013superseded, никакого изего4fits не запускается. Первоначальный84f остаётся неизменным.
+W008 принят14:13:02UTC: условный recipeprobe отдельноописан в [волне](https://github.com/suprend/tlab-recsys-2026-task1/blob/archive-2026-10-25/docs/research-lab/hm-wave008.md) иконфигеb6b18a. Его условиеwidth0 НЕвыполнено; HM013superseded, никакого изего4fits не запускается. Первоначальный84f остаётся неизменным.
 
 Текущий checkpoint14:19UTC: root47871 запускает reviewedprivate stage2driver22ea70ab3fa11114351cf0e481c00d0326b9cc06eb83a124c39e1d2823c1cf3d: index_code+каждая из4remaininggroups, по2folds, ровно8fits028–035, затемaudits036/037,18fixeddescriptivecontrasts038/039, automaticgroup2decision040. Если ни одно добавление не даст positive marginalΔобоих folds, сохраняется index12. Ни новых widths, ни третьей группы по outcomes не добавляется.
 
@@ -156,7 +156,7 @@ SHAs: decision`9f118eba7d34dfb3c0ae0226f86d634dd54b2649b9469978ff2ccbbcba7a9522`
 
 Root47871 EXIT0/no pending; root74723 исполняет reviewed original L2-stage. Prospective plan`artifacts/hm-auto-v2/l2-plan.json` SHA`f42cd4222e320ff8c658fa9e422385f831999acb37b34f402c5006ed75aff778` создан и проверен ДО firstfit041. Зафиксированы M23/E46, exactL210 references и четыре новых L250 fits041–044, exact4arm audits045/046,6fixedcontrasts/week047/048 и decision049. Третья группа, новые widths/params/seeds не добавляются. До equallytunedpositiveBOTH B остаётся закрытым.
 
-[W009](research-lab/hm-wave009.md) принята14:42:01UTC: NEW0/REFINE1/MERGE2, новыхadmissions0. Уточнение existingfinalinterpretation:2modelseeds не rerunfeaturesearch, sameL2grid не equalallsearchbudget, mixedseedpoints не новыйvetо, CIcross0 не equivalence, knownweekcustomerholdout не temporal/coldstart. Bootstrap условен на закреплённые модели/неделю, не покрывает всю trainingvariability. Counter0,nextdue15:27:01UTC or2acceptedrounds; finitecompletion отменяет future_due без расписания.
+[W009](https://github.com/suprend/tlab-recsys-2026-task1/blob/archive-2026-10-25/docs/research-lab/hm-wave009.md) принята14:42:01UTC: NEW0/REFINE1/MERGE2, новыхadmissions0. Уточнение existingfinalinterpretation:2modelseeds не rerunfeaturesearch, sameL2grid не equalallsearchbudget, mixedseedpoints не новыйvetо, CIcross0 не equivalence, knownweekcustomerholdout не temporal/coldstart. Bootstrap условен на закреплённые модели/неделю, не покрывает всю trainingvariability. Counter0,nextdue15:27:01UTC or2acceptedrounds; finitecompletion отменяет future_due без расписания.
 
 ## HM-R012: симметричная регуляризация принята
 

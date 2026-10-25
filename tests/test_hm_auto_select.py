@@ -78,9 +78,9 @@ class MetricsCompatibilityTests(unittest.TestCase):
 
 class PrefixMetadataTests(unittest.TestCase):
     def setUp(self):
-        temp = tempfile.TemporaryDirectory(prefix='hm-prefix-metadata-', dir='D:/')
+        temp = tempfile.TemporaryDirectory(prefix='hm-prefix-metadata-', dir='D:/' if Path('D:/').is_dir() else None)
         self.addCleanup(temp.cleanup)
-        self.root = Path(temp.name)
+        self.root = Path(temp.name).resolve()
         root_patch = patch.object(selector, 'ROOT', self.root)
         root_patch.start(); self.addCleanup(root_patch.stop)
         self.manual = dict(numeric=[f'x{i}' for i in range(18)], categorical=[f'c{i}' for i in range(5)])

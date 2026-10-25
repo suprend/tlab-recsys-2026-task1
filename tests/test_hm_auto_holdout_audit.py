@@ -329,7 +329,7 @@ class LockedSavedAuditTests(unittest.TestCase):
 
     def test_full_tiny_saved_audit_source_oracles_and_four_exports(self):
         with tempfile.TemporaryDirectory() as temp:
-            root=Path(temp)
+            root=Path(temp).resolve()
             plan,gate,collection,fits,output,models=saved_fixture(root)
             report=self.invoke(root,gate,collection,fits,output,models)
             self.assertEqual(report["status"],"PASS")
@@ -343,7 +343,7 @@ class LockedSavedAuditTests(unittest.TestCase):
         import duckdb
         import scripts
         with tempfile.TemporaryDirectory() as temp:
-            root=Path(temp)
+            root=Path(temp).resolve()
             plan,gate,collection,fits,output,models=saved_fixture(root)
             def denied(*args):
                 raise ValueError("No approved lock")
@@ -356,7 +356,7 @@ class LockedSavedAuditTests(unittest.TestCase):
 
     def test_model_metadata_tampering_rejected(self):
         with tempfile.TemporaryDirectory() as temp:
-            root=Path(temp)
+            root=Path(temp).resolve()
             plan,gate,collection,fits,output,models=saved_fixture(root)
             models[str(fits[0]/"model.cbm")]["trees"]=499
             with self.assertRaisesRegex(ValueError,"Saved model capacity"):
@@ -389,7 +389,7 @@ class LockedSavedAuditTests(unittest.TestCase):
 
     def test_fullY_corruption_rejected_after_all_cache_identity_updates(self):
         with tempfile.TemporaryDirectory() as temp:
-            root=Path(temp)
+            root=Path(temp).resolve()
             plan,gate,collection,fits,output,models=saved_fixture(root)
             self.mutate_cache(root,collection,fits,"targets.parquet","SELECT * FROM baseline UNION ALL (SELECT customer_id,'not-purchased' article_id FROM baseline LIMIT 1)")
             with self.assertRaisesRegex(ValueError,"fullY differs"):
@@ -397,7 +397,7 @@ class LockedSavedAuditTests(unittest.TestCase):
 
     def test_wrong_label_rejected_after_all_cache_identity_updates(self):
         with tempfile.TemporaryDirectory() as temp:
-            root=Path(temp)
+            root=Path(temp).resolve()
             plan,gate,collection,fits,output,models=saved_fixture(root)
             self.mutate_cache(root,collection,fits,"frame.parquet","SELECT * REPLACE(false AS label) FROM baseline")
             with self.assertRaisesRegex(ValueError,"labels differ"):
@@ -405,7 +405,7 @@ class LockedSavedAuditTests(unittest.TestCase):
 
     def test_wrong_C_rejected_after_all_cache_identity_updates(self):
         with tempfile.TemporaryDirectory() as temp:
-            root=Path(temp)
+            root=Path(temp).resolve()
             plan,gate,collection,fits,output,models=saved_fixture(root)
             self.mutate_cache(root,collection,fits,"frame.parquet","SELECT * REPLACE(CASE WHEN article_id='a119' THEN 'not-in-source' ELSE article_id END AS article_id) FROM baseline")
             with self.assertRaisesRegex(ValueError,"source C0"):
@@ -414,7 +414,7 @@ class LockedSavedAuditTests(unittest.TestCase):
     def test_wrong_saved_AP_rejected_even_with_matching_file_hash(self):
         import duckdb
         with tempfile.TemporaryDirectory() as temp:
-            root=Path(temp)
+            root=Path(temp).resolve()
             plan,gate,collection,fits,output,models=saved_fixture(root)
             path=fits[0]/"query-metrics.parquet"
             con=duckdb.connect(":memory:")

@@ -1,7 +1,0 @@
-# Exact single-ablation execution gate
-
-15 октября 2026. Independently accepted [single-ablation code](tlab-metadata-ablation-independent-rereview.md)35733… and [loader](tlab-model-data-independent-review.md)89766… are published byte-exact in4d8e65f. Readonlyproposal ce0e67c612e423efaa28988c59be6ab859385c04475da864790499ceae4fcd2a had already passed physical data/control/environment verification. All192pins were rehashed unchanged, identity digest/limits/environment checked and project-wide claim absence verified before exclusive ignored approval.
-
-`artifacts/acceptance/tlab009-single-ablation-fit.json`, scope metadata_price_single_ablation, SHA b1e35d5568c8f7192dddffbb71d465e5e24004f8611901dcdc9ed276626ddc60, grants **one attempt**. Any preparation/Pool/fit failure consumes it; no refill. Approval preparation .850010wall/.844982actualCPU seconds,RSS113934336bytes; no matrices, Pool, predictions or fitting occurred while issuing it. Root execution subsequently started with separate fresh-parent resource receipt. Actual output acceptance and quality/retention decision remain pending.
-
-Source metadata176pin seal and old008control114pin seal are distinct substantive approvals, not derived from fresh hashes alone. The strict frozen retention predicate remains NDCG20 > .41444755081727774 +1e−12 and Recall20 ≥ .5792133072407045, with all source/parameters/representation/resource gates. Ties choose base41; screening does not establish confirmatory superiority.

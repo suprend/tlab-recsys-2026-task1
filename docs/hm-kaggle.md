@@ -11,7 +11,7 @@
 Команды записаны для zsh/bash на macOS. На Windows используются те же аргументы с `.venv\Scripts\python.exe -I scripts\hm_kaggle.py`.
 
 ```zsh
-cd ~/tlab-recsys-2026
+cd tlab-recsys-2026-task1
 hm() { .venv/bin/python -I scripts/hm_kaggle.py "$@"; }
 .venv/bin/python -m unittest tests.test_hm_kaggle
 ```

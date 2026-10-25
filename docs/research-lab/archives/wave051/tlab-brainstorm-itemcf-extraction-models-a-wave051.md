@@ -1,9 +1,0 @@
-# Wave051 blind FIRST B — one source extraction function
-
-**Mechanism:** optional existing TLAB-012/HYP-001 refinement,0newIDs. Add `extract_itemcf_snapshot(con,Q,C,*,b,source_contract,limits,check)` returning each preserved query's exact C tuple, ordered latest21 and exact-key postings map for `project_itemcf`. Require daily anchors=t=b. Both graph and history use views on `[b−7d,b)`; history aggregates latest time per non-NULL product **before** cap21, with declared timestamp/hash/ID ties. Postings use all eligible global non-NULL users, never capped histories/cohort users; known-empty required items receive empty tuples. Invalid Q/C fails. Caller authenticates source completeness separately; arithmetic/observed extrema cannot certify it. No CLI.
-
-**Nearest UNRUN SQL unit:**36 invented events,2Q,3C. For u=1, views of h=1…21 occur at b−h minutes; old view of x=9000 at b−6d. Add newest NULL-product view, u-cart999, v5-cartx; v2/v3/v4 view x and h2 exactly b−7d, plus duplicate v2→x. Add v5→x,h2 at b−7d−1µs, NULL-user→x, v5→x exactly b. Q includes empty-C u99; C(u1)=(x,1,8888).
-
-**Prediction/falsifier:** H21=(1…21), P[x]=P[2]=(1,2,3,4), P[8888]=(). Kernel x gives mean3/260,max3/13,external common3,history_n20; candidate1 excludes diagonal and refills through21. Wrong action/window/NULL-before-cap/own-posting logic changes these literal expectations. Reject adapter on mismatch/incomplete output; pass proves only this extraction fixture, not dataset completeness or gain.
-
-**Cost/goal:** one in-memory SQL regression plus existing kernel,41 input rows,0fits; imports/materialization/dedup/sort/projection/readback/cleanup are paid, CPU/RSS unknown and ungranted. Source limits must abort, never truncate postings. This connects accepted arithmetic to event semantics cheaply; actual012 pilot remains deferred, no mandatory gate/current-run change. Peer051 unread; actual execution0.

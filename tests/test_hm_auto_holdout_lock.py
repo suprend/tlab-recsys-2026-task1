@@ -19,9 +19,9 @@ def write(path, value):
 
 class HoldoutLockTests(unittest.TestCase):
     def setUp(self):
-        temporary = tempfile.TemporaryDirectory(prefix='hm-customer-lock-', dir='D:/')
+        temporary = tempfile.TemporaryDirectory(prefix='hm-customer-lock-', dir='D:/' if Path('D:/').is_dir() else None)
         self.addCleanup(temporary.cleanup)
-        self.root = Path(temporary.name)
+        self.root = Path(temporary.name).resolve()
         for module in (gate, selection, regularization):
             change = patch.object(module, 'ROOT', self.root)
             change.start(); self.addCleanup(change.stop)

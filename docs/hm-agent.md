@@ -14,7 +14,7 @@ Runbook ветки MA по [контракту](hm-agent-design.md). MA — эт
 ## 0. Окружение
 
 ```zsh
-cd ~/tlab-recsys-2026 && git switch task1-v2
+cd tlab-recsys-2026-task1 && git switch main
 hm()   { .venv/bin/python -I scripts/hm_kaggle.py "$@"; }
 sbx()  { .venv/bin/python -I scripts/hm_agent_sandbox.py "$@"; }
 llm()  { .venv/bin/python -I scripts/hm_agent_loop.py "$@"; }

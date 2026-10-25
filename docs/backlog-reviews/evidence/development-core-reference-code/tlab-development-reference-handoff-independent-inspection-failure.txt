@@ -1,7 +1,0 @@
-Read-only metadata display failure preserved. Tool chunk e09c73, exit 1. The inspection assumed report['candidates'] was a dict, but the frozen metadata stores a list. No runtime, native, data or project mutation occurred.
-
-Traceback (most recent call last):
-  File "<stdin>", line 14, in <module>
-AttributeError: 'list' object has no attribute 'items'
-
-Subsequent display used the actual list schema; the separate bounded semantic verification then passed 100 checks. This diagnostic failure is retained and is not evidence of a candidate/runtime failure.

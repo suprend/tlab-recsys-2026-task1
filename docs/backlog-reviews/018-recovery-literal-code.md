@@ -1,7 +1,0 @@
-# 018: обновлён один контрольный хеш кода
-
-Root принял source-only transport после независимого review. В scripts/reproduce_development_slice.py изменён ровно один literal: pin уже установленного heldout_predictions.py e1b06… →437a054…. Новый owner byte-exact738d03ee…, parity и все алгоритмы/модели/параметры/схемы unchanged. Издатель проверил старый и новый SHA, точное равенство единственной замене и in-memory compile; тесты и native-пайплайн не запускались.
-
-[Root приёмка](evidence/018-recovery-literal-code/originals/tlab-root-018-recovery-literal-code-acceptance-v1.json), [установка](evidence/018-recovery-literal-code/installation.json), [bounded original code/diff/reviews](evidence/018-recovery-literal-code/publication.json). Author/reviewer freeze содержит только исторические metadata-ссылки; rawrequest, private handoff и модельные/исходные payload не копировались.
-
-CODE accepted/installed не разрешает staging, claims, gates,439 или recovery. Исходная018 episode остаётся FAILED/consumed с unknown full-tree CPU; source-prefix отдельно принят, complete018 partial. Закрытый7200CPU/10800wall source-only import не является общим переносимым балансом задачи018; prospective600/900 engineering operation потребует отдельного конечного Root решения и сохранения всех прежних расходов. Более раннее авторское описание task budget в оригинале — исторический документ, уточнённый этой Root приёмкой. Real015 done и его научные результаты не меняются.

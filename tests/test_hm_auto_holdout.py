@@ -122,9 +122,9 @@ class LockedFlowTests(unittest.TestCase):
     """Gate stubs authorize only invented fixtures; no real GPU/native models."""
     def setUp(self):
         CustomCandidateTests.setUp(self)
-        temp=tempfile.TemporaryDirectory(prefix='hm-customer-fixture-',dir='D:/')
+        temp=tempfile.TemporaryDirectory(prefix='hm-customer-fixture-',dir='D:/' if Path('D:/').is_dir() else None)
         self.addCleanup(temp.cleanup)
-        self.root=Path(temp.name)
+        self.root=Path(temp.name).resolve()
         rootpatch=patch.object(holdout,'ROOT',self.root);rootpatch.start();self.addCleanup(rootpatch.stop)
         source=self.root/'scripts/hm_auto_holdout.py';source.parent.mkdir()
         source.write_bytes(Path(holdout.__file__).read_bytes())

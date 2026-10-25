@@ -28,9 +28,9 @@ def write(path, value):
 
 class CachedFitTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory(prefix='hm-v2-unit-', dir='D:/')
+        self.temp = tempfile.TemporaryDirectory(prefix='hm-v2-unit-', dir='D:/' if Path('D:/').is_dir() else None)
         self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
+        self.root = Path(self.temp.name).resolve()
         self.output = self.root/'artifacts'/'fit'
         root_patch = patch.object(runner, 'ROOT', self.root)
         root_patch.start(); self.addCleanup(root_patch.stop)
@@ -278,7 +278,7 @@ class ParameterTests(unittest.TestCase):
                     runner.fit(['missing'], 'missing-validation', 'missing-output', ['x'], **arguments)
 
     def test_cli_requires_names_and_l2_and_passes_all_explicit_recipe_arguments(self):
-        with tempfile.TemporaryDirectory(prefix='hm-v2-cli-', dir='D:/') as temp:
+        with tempfile.TemporaryDirectory(prefix='hm-v2-cli-', dir='D:/' if Path('D:/').is_dir() else None) as temp:
             names = Path(temp)/'names.json'
             write(names, ['x'])
             arguments = ['fit', '--train', 'train', '--validation', 'validation', '--output', 'out',
@@ -293,7 +293,7 @@ class ParameterTests(unittest.TestCase):
                     runner.main(reduced)
 
     def test_strict_json_rejects_duplicate_keys_and_nonfinite_values(self):
-        with tempfile.TemporaryDirectory(prefix='hm-v2-json-', dir='D:/') as temp:
+        with tempfile.TemporaryDirectory(prefix='hm-v2-json-', dir='D:/' if Path('D:/').is_dir() else None) as temp:
             path = Path(temp)/'input.json'
             for value in ('{"anchor":"2020-09-02","anchor":"2020-09-16"}', '{"x":NaN}'):
                 path.write_text(value, encoding='utf-8')

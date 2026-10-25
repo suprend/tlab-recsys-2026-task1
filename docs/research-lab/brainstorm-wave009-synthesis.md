@@ -1,7 +1,0 @@
-# Wave009: auxiliary-to-search routing and matched feedback allocation
-
-Both independent drafts and a separate skeptic are preserved unchanged in the [eight-file archive and four-field register](archives/wave009/publication.json). [Root full007–009 readback](archives/wave009/original/tlab-root-waves007-009-readback.json) checked21pins and12original author files. Acceptance is limited to research refinements: zero new HYP, mandatory tasks, admissions or real jobs.
-
-MB9-R01 keeps proxy training purchase-only while detached auxiliary readouts influence AST-selection credit. R009-E1 asks whether spending feedback on denser logged-action labels earns its cost against a purchase-only control with the same opportunities. Both remain deferred inside existing supervised search/HYP065 work. A positive-aligned gradient can reverse feature credit and reduce purchase BCE while worsening NDCG; label inclusion does not guarantee ranking agreement.
-
-Before any separate pilot, freeze finite encoding and complete physical closure, retrieved-positive support, checkpoint cohort/work, training detachment versus recomputed attribution invariance, and a compatibleW comparison. Core values are not physical value/missing columns; matrix rows are not total learner work. Passing invented arithmetic establishes neither throughput nor recommendation improvement. Main015 failure/cost/request work retains priority; current016/BW/reserved targets are unchanged.

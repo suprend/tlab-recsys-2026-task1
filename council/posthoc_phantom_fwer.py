@@ -23,7 +23,7 @@ RUNS = {'rees46': 'council/runs/rees46-2020', 'tinkoff': 'council/runs/xfer-tink
 TOL = 1e-9
 
 
-def _read(path: Path):
+def _load_json(path: Path):
     return json.loads(path.read_text(encoding='utf-8'))
 
 
@@ -31,10 +31,10 @@ def load_run(run_dir) -> dict:
     """The saved plan of one dataset: beta/se/t per column, se_empty, the empty columns, the families present,
     wy_harm and the recorded nomination (plan-result D, else selection nominated, else None)."""
     run_dir = Path(run_dir)
-    plan = _read(run_dir / 'plan-result.json')
-    pre = _read(run_dir / 'prereg-2.json')
+    plan = _load_json(run_dir / 'plan-result.json')
+    pre = _load_json(run_dir / 'prereg-2.json')
     sel_path = run_dir / 'selection.json'
-    sel = _read(sel_path) if sel_path.exists() else {}
+    sel = _load_json(sel_path) if sel_path.exists() else {}
     cols = plan['beta']
     if 'D' in plan:
         d_saved, d_from = list(plan['D']), 'plan-result.D'

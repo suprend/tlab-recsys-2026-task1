@@ -1,5 +1,0 @@
-# Outer owner v2 prediction-evidence repair
-
-15 October2026. Root preserves exact v1 three-path snapshots and original coordinator P1 evidence. V2 requires the complete fixed global6/daily8 prediction observer schema before any boundary or inventory write. Failed/missing global verdict, changed scope, labels/fits, native total, private daily payload and Boolean counters now reject. Five new public methods exercise these cases;37 total author methods PASS0.439s. The coordinator's unchanged five-method attack body also passes0.009s against v2 when rerun by Root; this is a root replay, not independent rereview.
-
-The first root replay invocation incorrectly used runpy's module CLI with a filesystem path and failed before importing the owner. Its original error log is retained separately; the corrected invocation uses run_path and preserves the exact attack file. No actual owner/request/source/model/target/process or historical439 stream was executed. V2 freeze is code-only and still needs independent rereview plus complete tiny fresh-process integration before actual authorization.

@@ -1039,11 +1039,11 @@ class CodeIdentity(unittest.TestCase):
         self.assertEqual(before['files']['scripts/otto_common.py'], oc.sha256_file(oc.__file__))
         self.assertIn('scripts/xfer_common.py', before['files'])                # imported by otto_common
         self.assertTrue(all(k.startswith('scripts/') and k.endswith('.py') for k in before['files']))
-        importlib.import_module('scripts.ranking_metrics')
-        self.assertIn('scripts.ranking_metrics', sys.modules)
+        importlib.import_module('scripts.hm_download')
+        self.assertIn('scripts.hm_download', sys.modules)
         after = oc.code_identity()
         self.assertEqual(after, before)
-        self.assertNotIn('scripts/ranking_metrics.py', after['files'])
+        self.assertNotIn('scripts/hm_download.py', after['files'])
         expected_missing = [m for m in oc.CODE_MODULES if not (REPO/(m.replace('.', '/')+'.py')).is_file()]
         self.assertEqual(after['missing'], sorted(expected_missing))
         self.assertEqual(oc.CODE_MODULES,

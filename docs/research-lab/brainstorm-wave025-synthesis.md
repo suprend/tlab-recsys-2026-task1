@@ -1,9 +1,0 @@
-# Wave025: latest occurrence и физическое состояние DISTINCT
-
-Два независимых FIRST и отдельный skeptic приняты Root как уточнение HYP046/A005-02/TLAB-005. Новых HYP, задач, допусков или выполненных experiments нет. [Девять неизменённых originals](archives/wave025/publication.json), [Root приёмка](archives/wave025/originals/tlab-root-wave025-research-readback-v1.json), [четыре поля и условия](brainstorm-wave025-synthesis.json).
-
-Latest timestamp в обработанном строгом прошлом достаточен для трёх фиксированных item-DISTINCT окон view24/cart168/purchase24. Это условная специализация для immutable monotone replay, с запросом до всех global peers, включённой нижней границей и expiry при пустом потоке. Late/backward/retraction отвергают этот план, а не разрешают менять события. Один removable узел на активный ключ ограничивает логическое состояние; lazy heap может скрывать stale tokens за ещё действующим sentinel. Логические узлы не являются оценкой RSS или доказательством минимальности.
-
-A retained as accept-needs-pilot existing refinement. B требует явных NULL и разных action/user expected keys; purchase24 уже истёк раньше описанного view24 boundary. Нулевые group counters удаляются либо оплачивается исторический G. Все coldbuild/sort/expiry/backfill/NULL/support/projection/common B41+3 sink и failures остаются в стоимости. Сравнение только с refcounts не доказывает ускорение текущего batched005.
-
-Ближайшая проверка — один объединённый UNRUN/ungranted canary15CPU/30wall/128MiB: два≤24-event bags,4anchors,≤8Crows, direct sets/refcounts/latest keyed order, sentinel/NULL/action-specific expectations. Никакой новый015/018 prerequisite или framework не добавлен. Root runtime слова в FIRST/review исторические: текущий015 полностью принят,018 partial; открытый final не переиспользуется для адаптации.

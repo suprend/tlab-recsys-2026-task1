@@ -55,8 +55,8 @@ TYPST = shutil.which("typst") or (DEFAULT_TYPST if Path(DEFAULT_TYPST).exists() 
 GIT = shutil.which("git")
 # Тесты не зависят от HEAD рабочего репозитория: ref всегда передаётся явно.
 REF = "deadbeef" * 5
-BLOB = f"https://github.com/suprend/tlab-recsys-2026/blob/{REF}"
-TREE = f"https://github.com/suprend/tlab-recsys-2026/tree/{REF}"
+BLOB = f"https://github.com/suprend/tlab-recsys-2026-task1/blob/{REF}"
+TREE = f"https://github.com/suprend/tlab-recsys-2026-task1/tree/{REF}"
 
 
 def _flatten(node) -> str:
@@ -360,7 +360,7 @@ class GitRefTests(unittest.TestCase):
 
     def test_links_point_to_the_commit_and_are_checked_in_it(self):
         ctx = Context(self.docs, self.root, ref=self.sha)
-        base = "https://github.com/suprend/tlab-recsys-2026"
+        base = "https://github.com/suprend/tlab-recsys-2026-task1"
         self.assertEqual(resolve_link("report.md#x", ctx), ("url", f"{base}/blob/{self.sha}/docs/report.md#x"))
         self.assertEqual(resolve_link("run", ctx), ("url", f"{base}/tree/{self.sha}/docs/run"))
         self.assertEqual(ctx.warnings, [])
@@ -379,7 +379,7 @@ class GitRefTests(unittest.TestCase):
         ctx = Context(self.docs, self.root, ref=branch)
         self.assertEqual(
             resolve_link("report.md", ctx),
-            ("url", f"https://github.com/suprend/tlab-recsys-2026/blob/{branch}/docs/report.md"),
+            ("url", f"https://github.com/suprend/tlab-recsys-2026-task1/blob/{branch}/docs/report.md"),
         )
         resolve_link("draft.md", ctx)
         self.assertEqual(len(ctx.warnings), 1, ctx.warnings)

@@ -1,5 +1,0 @@
-# Focused TEST-selector source recheck: PASS
-
-Exact V2 test source12e60d223e157f2fe34a73c1b0b28f1c1c986c881ba02bc2f901e901fad7d0bc differs by one comprehension traversal only: verify.body becomes ast.walk(verify). Forward/inverse bytes and frozen diff are exact; len(node)==1 remains. Static AST inspection of both actual verifierV2/V3 finds zero direct load definitions and exactly one recursive namedload, so the repaired selector reaches the load inside try.
-
-No other test, comparator, verifier, wrapper, tolerance or policy change occurred. Six source inputs/copies are terminal-fresh; verifierV3ddbad1f8 and original test0542484 remain unchanged. This is a source repair PASS, not a test PASS: no candidate/test/helper/native/data/model/Y/output execution/read, job, poll or project/Git write occurred. Root reports original a2dc82 EXIT1 and sysctl profiling denial preserved; they were not reopened here. Existing shared10CPU reservation, recovery565 remainder and original deadline are not changed or granted by this review.
