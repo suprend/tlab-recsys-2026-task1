@@ -33,7 +33,7 @@ from pathlib import Path
 from urllib.parse import quote, unquote, urlsplit
 
 GITHUB_REPO = "suprend/tlab-recsys-2026-task1"
-GITHUB_BRANCH = "task1-v2"  # ref ссылок, если sha HEAD взять неоткуда
+GITHUB_BRANCH = "main"  # ref ссылок, если sha HEAD взять неоткуда
 GIT = "git"
 DROPPED_SECTIONS = ("чего не хватило",)
 DEFAULT_TYPST = "/opt/homebrew/bin/typst"

@@ -9,6 +9,10 @@ import unittest
 from scripts import hm_contrasts as contrasts
 
 
+def setUpModule():
+    (contrasts.ROOT/'artifacts').mkdir(exist_ok=True)   # outputs must lie under artifacts/, which is gitignored
+
+
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def write(path,value):path.write_text(json.dumps(value,indent=2)+"\n",encoding="utf-8",newline="\n")
 

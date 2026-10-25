@@ -17,6 +17,10 @@ from scripts import hm_experiment as experiment
 from scripts.hm_baseline import Collection, cohort_key, rank_collection
 
 
+def setUpModule():
+    (experiment.ROOT/'artifacts').mkdir(exist_ok=True)   # outputs must lie under artifacts/, which is gitignored
+
+
 def sample_frame():
     rows=[]
     for user,negatives,positives in [('p',24,1),('empty',30,0),('allpositive',0,3)]:

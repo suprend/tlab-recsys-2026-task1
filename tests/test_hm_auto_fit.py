@@ -2,7 +2,7 @@
 
 Only the test's runner-local load_part binding caps the 20k request to two
 fixture users. The production runner and frozen legacy globals are unchanged.
-All temporary files are on D:.
+Temporary files are on D: where it exists (the author's Windows run), else in the system temp dir.
 """
 from contextlib import redirect_stderr, redirect_stdout
 from copy import deepcopy

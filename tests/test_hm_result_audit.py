@@ -9,6 +9,10 @@ import unittest
 from scripts import hm_result_audit as audit
 
 
+def setUpModule():
+    (audit.ROOT/'artifacts').mkdir(exist_ok=True)   # outputs must lie under artifacts/, which is gitignored
+
+
 def hash_file(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 

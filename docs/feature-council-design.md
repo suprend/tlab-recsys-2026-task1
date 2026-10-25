@@ -245,7 +245,7 @@
 
 ## 11. Структура скилла
 
-Скилл `~/personal-agent-system/.agents/skills/feature-council/SKILL.md` опирается на research-campaign. Код — в `tlab-recsys-2026/council/`.
+Скилл `feature-council` для Claude Code лежит в личном репозитории навыков автора, вне этого репозитория, и опирается на research-campaign. Код совета — в `council/`.
 
 Шаги:
 1. Набор и адаптер, требования §12.

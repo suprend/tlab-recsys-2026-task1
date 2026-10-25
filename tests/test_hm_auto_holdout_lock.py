@@ -1,4 +1,4 @@
-"""Synthetic byte/JSON contracts on D:; no customer data, SQL or model calls."""
+"""Synthetic byte/JSON contracts on D: where it exists; no customer data, SQL or model calls."""
 from copy import deepcopy
 import json
 from pathlib import Path

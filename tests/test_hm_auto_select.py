@@ -1,4 +1,4 @@
-"""Metadata-only synthetic selection witnesses, on D:; no ML/data imports."""
+"""Metadata-only synthetic selection witnesses, on D: where it exists; no ML/data imports."""
 from copy import deepcopy
 import hashlib
 import json
