@@ -288,11 +288,11 @@ def fig_rees46_verdict() -> Path:
     F = FACTS
     L = RowLayout()
 
-    L.header("вся автоматика без отбора")
+    L.header("все автоматические признаки без отбора")
     L.sub("колонки агента и DFS поверх ручной базы")
     L.row("подтверждающая половина 2019 (описательно)", ci=F["hplus_b2019"], evid="descriptive")
-    L.row("тест 2020, первое зерно", ci=F["hplus_t2020_s1"], evid="protocol")
-    L.row("тест 2020, второе зерно", ci=F["hplus_t2020_s2"], evid="protocol")
+    L.row("тест 2020, первый сид", ci=F["hplus_t2020_s1"], evid="protocol")
+    L.row("тест 2020, второй сид", ci=F["hplus_t2020_s2"], evid="protocol")
     L.separator()
     L.header("лучший признак агента", gap=0.3)
     L.row("тест 2019", ci=F["p5_t2019"], evid="protocol")
@@ -302,7 +302,7 @@ def fig_rees46_verdict() -> Path:
     L.row("тест 2019", ci=F["dfs_t2019"], evid="protocol")
     L.row("тест 2020", ci=F["dfs_t2020"], evid="protocol")
     L.separator()
-    L.header("автоматика вместо ручных признаков", gap=0.3)
+    L.header("автоматические признаки вместо ручных", gap=0.3)
     L.row("подтверждающая половина 2019 (описательно)", ci=F["f1_b2019"], evid="descriptive")
     L.row("тест 2020", ci=F["f1_t2020"], evid="protocol")
     L.separator()
