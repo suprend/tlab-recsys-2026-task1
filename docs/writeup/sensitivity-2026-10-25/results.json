@@ -1,0 +1,548 @@
+{
+  "format": "rees-sensitivity-v1",
+  "status": "post-hoc sensitivity; plan fixed before this computation, after original outcomes were known; not a new preregistered test",
+  "plan_sha256": "19b9be373943c40421757f3de491180bbce3b0b86f32fabf0692b8d694989cdc",
+  "code_sha256": "680281912658c0dac5f7b990e3a287d36e9a3c459f74002f958eabe5c2014b4e",
+  "inputs_sha256": {
+    "artifacts/task1/v2020/replication/test_base_s0.parquet": "6c3996fb24deb9f5597f2a24c641ec7ff3d2d013abaec608a44b0643fc627c69",
+    "artifacts/task1/v2020/replication/test_base_s1.parquet": "cdc4a5a6f7779b2cd3a7354a6b007c99ff55b0f29d2b9c7e196b32cc4ab51127",
+    "artifacts/task1/v2020/replication/test_Hp_s0.parquet": "7c3194a891774305ffc683f4cf15d0db8b03bda0a5b52606913a553c1e922738",
+    "artifacts/task1/v2020/replication/test_Hp_s1.parquet": "206a9fc78d95f54c32b56673c7a9ed536f34ae32a524860e0e34612058f2e2f0",
+    "artifacts/task1/v2020/exp/pl20_Hp_s0.parquet": "9865c11f774cb650b61fa7b072fc5a2d3a086bc52a9aa93dbd1f14c992dcd360",
+    "artifacts/task1/v2020/exp/pl20_Hag_s0.parquet": "7a6da8b3d39d92a534971fd8279694a85db58c1dd0d14b207215492af8315e04",
+    "artifacts/task1/v2/exp/grid_Hp_s0.parquet": "d0d4b42bef42a3fa14e2be437555f9391b09aa17158df82e2643b6a2f9b0d7c7",
+    "artifacts/task1/v2/exp/pl19_Hag_s0.parquet": "fc0c3198f543a0c335e1e222a1b7ac2cabdbfb1fb0862e4cdde4b8d6d841c313",
+    "artifacts/task1/v2020/exp/pl20_Hp_s1.parquet": "71f2a5562e4c4c97c2b4b9c6dfaa30c1889c0650a589a732fea089482a882951",
+    "artifacts/task1/v2020/exp/pl20_Hag_s1.parquet": "18aab897d55da4540a217ee4fa4c18590a69648d59bc3d7859a73808dd5421af",
+    "artifacts/task1/v2/exp/grid_Hp_s1.parquet": "f1484ee787539a2f5c51e611c286883a95368b597326d043540e9216fe29b0ef",
+    "artifacts/task1/v2/exp/pl19_Hag_s1.parquet": "c029d69cf6a9754817a5bb1b89b53e0c88ff60944be0d9e0e2bf3ad4f049ecbf",
+    "artifacts/task1/v2/exp/runs.jsonl": "8811eebb7c542021dfd4ded349aa66b8bf83743d9f2d50af7b042074aabf6cfe",
+    "artifacts/task1/v2020/exp/runs.jsonl": "897492a902e7223747f5e43ac4b8b1a509089d780b5ec52a6bbb6ff68601b0b9",
+    "task1/runs/placebo-2026-10-21/queue-2019.json": "2a2e0172ae6c16c3a05de782b72ac8add70e6e5f5ef1bed92e28a11e1888aee9",
+    "task1/runs/placebo-2026-10-21/queue-2020.json": "c5e8de431ecfb06e0c4790107e4091915a37496d474d2fd3208ebee8228e612d",
+    "task1/runs/placebo-2026-10-21/result.json": "b770352718c66c1c41957d3fe044f8ed8ee06aeb8c55f7f6408f546d11060313",
+    "task1/runs/grid-2026-10-20/grid.json": "43051c7e36f2b5b0e676685a144e95c24081be1119edb479357b4e831ad40af5",
+    "task1/runs/replication-2020/test.json": "f6812b5975c1cbb8ee95213ae34e92d417a5116f9813f657ed3a745f98ecaafb"
+  },
+  "summaries_sha256": {
+    "task1/runs/replication-2020/test.json": "f6812b5975c1cbb8ee95213ae34e92d417a5116f9813f657ed3a745f98ecaafb",
+    "task1/runs/placebo-2026-10-21/result.json": "b770352718c66c1c41957d3fe044f8ed8ee06aeb8c55f7f6408f546d11060313"
+  },
+  "created_utc": "2026-10-25T15:53:22.377043+00:00",
+  "seconds": 24.953923875000328,
+  "libraries": {
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "duckdb": "1.5.6"
+  },
+  "python": "3.12.14 (main, Sep  1 2026, 14:09:38) [Clang 22.1.3 ]",
+  "estimand": "mean paired difference per query; each model seed analysed separately; cluster resamples use sum differences / sum query counts, not equal-weight user means",
+  "test_2020": [
+    {
+      "queries": 97656,
+      "users": 79302,
+      "days": 14,
+      "reference_mean": 0.14626271059397594,
+      "new_mean": 0.14933537966321686,
+      "mean_delta": 0.00307266906924095,
+      "query_bootstrap": {
+        "mean_delta": 0.00307266906924095,
+        "ci95": [
+          0.0025178868443820734,
+          0.003640874310156969
+        ],
+        "clusters": 97656,
+        "draws": 2000,
+        "rng_seed": 20261025
+      },
+      "user_cluster_bootstrap": {
+        "mean_delta": 0.00307266906924095,
+        "ci95": [
+          0.002492528443929313,
+          0.0036672581036134902
+        ],
+        "clusters": 79302,
+        "draws": 2000,
+        "rng_seed": 20261025
+      },
+      "day_cluster_bootstrap": {
+        "mean_delta": 0.0030726690692409464,
+        "ci95": [
+          0.0026146357084010532,
+          0.0036404375169737865
+        ],
+        "clusters": 14,
+        "draws": 2000,
+        "rng_seed": 20261025
+      },
+      "day_cluster_caveat": "Only 14 observed day clusters; a sensitivity analysis, not a precise new confirmatory test or a joint user/day correction.",
+      "daily_and_leave_one_day_out": [
+        {
+          "anchor": "2020-02-14",
+          "queries": 9614,
+          "mean_delta": 0.0035272429245130146,
+          "leave_this_day_out_delta": 0.0030230305666559825
+        },
+        {
+          "anchor": "2020-02-15",
+          "queries": 8437,
+          "mean_delta": 0.0027603582507939733,
+          "leave_this_day_out_delta": 0.0031022027602175027
+        },
+        {
+          "anchor": "2020-02-16",
+          "queries": 9314,
+          "mean_delta": 0.003554342535950099,
+          "leave_this_day_out_delta": 0.0030218856743786074
+        },
+        {
+          "anchor": "2020-02-17",
+          "queries": 7010,
+          "mean_delta": 0.002198556886147814,
+          "leave_this_day_out_delta": 0.0031402674895075126
+        },
+        {
+          "anchor": "2020-02-18",
+          "queries": 7158,
+          "mean_delta": 0.002231750620822501,
+          "leave_this_day_out_delta": 0.003139182077857485
+        },
+        {
+          "anchor": "2020-02-19",
+          "queries": 7149,
+          "mean_delta": 0.002633021040546499,
+          "leave_this_day_out_delta": 0.003107396148440753
+        },
+        {
+          "anchor": "2020-02-20",
+          "queries": 7131,
+          "mean_delta": 0.0030715488309669505,
+          "leave_this_day_out_delta": 0.0030727573146884153
+        },
+        {
+          "anchor": "2020-02-21",
+          "queries": 6828,
+          "mean_delta": 0.003493534554220309,
+          "leave_this_day_out_delta": 0.0030410304827759933
+        },
+        {
+          "anchor": "2020-02-22",
+          "queries": 6765,
+          "mean_delta": 0.001866294715475503,
+          "leave_this_day_out_delta": 0.0031624592850293468
+        },
+        {
+          "anchor": "2020-02-23",
+          "queries": 6528,
+          "mean_delta": 0.0035769910604991177,
+          "leave_this_day_out_delta": 0.003036541710372837
+        },
+        {
+          "anchor": "2020-02-24",
+          "queries": 5898,
+          "mean_delta": 0.001699673815680103,
+          "leave_this_day_out_delta": 0.0031609221480515363
+        },
+        {
+          "anchor": "2020-02-25",
+          "queries": 6123,
+          "mean_delta": 0.0030392570458005804,
+          "leave_this_day_out_delta": 0.003074904130033509
+        },
+        {
+          "anchor": "2020-02-26",
+          "queries": 6123,
+          "mean_delta": 0.0031208388312666457,
+          "leave_this_day_out_delta": 0.003069446805654228
+        },
+        {
+          "anchor": "2020-02-29",
+          "queries": 3578,
+          "mean_delta": 0.008404989605922874,
+          "leave_this_day_out_delta": 0.002869868809028701
+        }
+      ],
+      "seed_index": 0,
+      "all_days_restored": {
+        "queries": 105164,
+        "mean_delta": 0.0033228390393067486,
+        "reference_mean": 0.1461056694000046,
+        "new_mean": 0.14942850843931135
+      }
+    },
+    {
+      "queries": 97656,
+      "users": 79302,
+      "days": 14,
+      "reference_mean": 0.14620291770030014,
+      "new_mean": 0.14910563509396352,
+      "mean_delta": 0.0029027173936634057,
+      "query_bootstrap": {
+        "mean_delta": 0.0029027173936634057,
+        "ci95": [
+          0.0023067315394662796,
+          0.0034810033656253654
+        ],
+        "clusters": 97656,
+        "draws": 2000,
+        "rng_seed": 20261025
+      },
+      "user_cluster_bootstrap": {
+        "mean_delta": 0.0029027173936634057,
+        "ci95": [
+          0.0023175388222874444,
+          0.003491807988719674
+        ],
+        "clusters": 79302,
+        "draws": 2000,
+        "rng_seed": 20261025
+      },
+      "day_cluster_bootstrap": {
+        "mean_delta": 0.002902717393663406,
+        "ci95": [
+          0.0023538121599696233,
+          0.003541754467936746
+        ],
+        "clusters": 14,
+        "draws": 2000,
+        "rng_seed": 20261025
+      },
+      "day_cluster_caveat": "Only 14 observed day clusters; a sensitivity analysis, not a precise new confirmatory test or a joint user/day correction.",
+      "daily_and_leave_one_day_out": [
+        {
+          "anchor": "2020-02-14",
+          "queries": 9614,
+          "mean_delta": 0.0034092382773537157,
+          "leave_this_day_out_delta": 0.002847406385555927
+        },
+        {
+          "anchor": "2020-02-15",
+          "queries": 8437,
+          "mean_delta": 0.003719893032540682,
+          "leave_this_day_out_delta": 0.0028254411311497305
+        },
+        {
+          "anchor": "2020-02-16",
+          "queries": 9314,
+          "mean_delta": 0.0030690381853329227,
+          "leave_this_day_out_delta": 0.0028851819987933563
+        },
+        {
+          "anchor": "2020-02-17",
+          "queries": 7010,
+          "mean_delta": 0.0012470123109689338,
+          "leave_this_day_out_delta": 0.0030307593660580862
+        },
+        {
+          "anchor": "2020-02-18",
+          "queries": 7158,
+          "mean_delta": 0.0018633714521877067,
+          "leave_this_day_out_delta": 0.002984925157913257
+        },
+        {
+          "anchor": "2020-02-19",
+          "queries": 7149,
+          "mean_delta": 0.0027542819911090706,
+          "leave_this_day_out_delta": 0.0029144420634995612
+        },
+        {
+          "anchor": "2020-02-20",
+          "queries": 7131,
+          "mean_delta": 0.001833810416571063,
+          "leave_this_day_out_delta": 0.0029869192788182855
+        },
+        {
+          "anchor": "2020-02-21",
+          "queries": 6828,
+          "mean_delta": 0.0028525735086508356,
+          "leave_this_day_out_delta": 0.0029064869630348092
+        },
+        {
+          "anchor": "2020-02-22",
+          "queries": 6765,
+          "mean_delta": 0.0020964968175129074,
+          "leave_this_day_out_delta": 0.0029627242391999068
+        },
+        {
+          "anchor": "2020-02-23",
+          "queries": 6528,
+          "mean_delta": 0.0031538360116494272,
+          "leave_this_day_out_delta": 0.0028847283854747836
+        },
+        {
+          "anchor": "2020-02-24",
+          "queries": 5898,
+          "mean_delta": 0.0019246304501242823,
+          "leave_this_day_out_delta": 0.0029655866453144196
+        },
+        {
+          "anchor": "2020-02-25",
+          "queries": 6123,
+          "mean_delta": 0.0031287574599740487,
+          "leave_this_day_out_delta": 0.0028875966904632474
+        },
+        {
+          "anchor": "2020-02-26",
+          "queries": 6123,
+          "mean_delta": 0.003215520943388243,
+          "leave_this_day_out_delta": 0.002881792742062724
+        },
+        {
+          "anchor": "2020-02-29",
+          "queries": 3578,
+          "mean_delta": 0.008783918167554215,
+          "leave_this_day_out_delta": 0.002679041971471381
+        }
+      ],
+      "seed_index": 1,
+      "all_days_restored": {
+        "queries": 105164,
+        "mean_delta": 0.003007805897148127,
+        "reference_mean": 0.1461286243054339,
+        "new_mean": 0.14913643020258205
+      }
+    }
+  ],
+  "dfs_validation": {
+    "2019": {
+      "selection": "validation half B",
+      "seeds": [
+        {
+          "seed_index": 0,
+          "training_comparability": {
+            "reference": "pl19_Hag_s0",
+            "new": "grid_Hp_s0",
+            "common_config": {
+              "loss": "Logloss",
+              "iterations": 500,
+              "depth": 8,
+              "lr": 0.08,
+              "l2": 10,
+              "seed": 2026,
+              "neg": 50,
+              "neg_mode": "random",
+              "neg_seed": 0,
+              "half_life": null,
+              "train_frac": 1.0,
+              "drop": [],
+              "days": "artifacts/task1/v2/days6",
+              "threads": 10,
+              "cap": null
+            },
+            "train_rows": 5174606,
+            "recorded_fit_queries": {
+              "reference": 101959,
+              "new": null
+            },
+            "limit": "Matching recipes and recorded training counts; row-level training IDs are not compared."
+          },
+          "queries": 19361,
+          "users": 17270,
+          "days": 6,
+          "reference_mean": 0.1532156696470841,
+          "new_mean": 0.15286298470269327,
+          "mean_delta": -0.0003526849443908527,
+          "query_bootstrap": {
+            "mean_delta": -0.0003526849443908527,
+            "ci95": [
+              -0.0013841541231240935,
+              0.000648575782579417
+            ],
+            "clusters": 19361,
+            "draws": 2000,
+            "rng_seed": 20261025
+          },
+          "user_cluster_bootstrap": {
+            "mean_delta": -0.00035268494439085266,
+            "ci95": [
+              -0.0013401945905970993,
+              0.0006248027553688399
+            ],
+            "clusters": 17270,
+            "draws": 2000,
+            "rng_seed": 20261025
+          }
+        },
+        {
+          "seed_index": 1,
+          "training_comparability": {
+            "reference": "pl19_Hag_s1",
+            "new": "grid_Hp_s1",
+            "common_config": {
+              "loss": "Logloss",
+              "iterations": 500,
+              "depth": 8,
+              "lr": 0.08,
+              "l2": 10,
+              "seed": 7,
+              "neg": 50,
+              "neg_mode": "random",
+              "neg_seed": 1,
+              "half_life": null,
+              "train_frac": 1.0,
+              "drop": [],
+              "days": "artifacts/task1/v2/days6",
+              "threads": 10,
+              "cap": null
+            },
+            "train_rows": 5174606,
+            "recorded_fit_queries": {
+              "reference": 101959,
+              "new": null
+            },
+            "limit": "Matching recipes and recorded training counts; row-level training IDs are not compared."
+          },
+          "queries": 19361,
+          "users": 17270,
+          "days": 6,
+          "reference_mean": 0.15298473197292445,
+          "new_mean": 0.15224889361655172,
+          "mean_delta": -0.0007358383563727466,
+          "query_bootstrap": {
+            "mean_delta": -0.0007358383563727466,
+            "ci95": [
+              -0.00178218302777257,
+              0.00025783060015033017
+            ],
+            "clusters": 19361,
+            "draws": 2000,
+            "rng_seed": 20261025
+          },
+          "user_cluster_bootstrap": {
+            "mean_delta": -0.0007358383563727465,
+            "ci95": [
+              -0.0017673803202044851,
+              0.00025555104727565065
+            ],
+            "clusters": 17270,
+            "draws": 2000,
+            "rng_seed": 20261025
+          }
+        }
+      ]
+    },
+    "2020": {
+      "selection": "all validation",
+      "seeds": [
+        {
+          "seed_index": 0,
+          "training_comparability": {
+            "reference": "pl20_Hag_s0",
+            "new": "pl20_Hp_s0",
+            "common_config": {
+              "loss": "Logloss",
+              "iterations": 500,
+              "depth": 8,
+              "lr": 0.08,
+              "l2": 10,
+              "seed": 2026,
+              "neg": 50,
+              "neg_mode": "random",
+              "neg_seed": 0,
+              "half_life": null,
+              "train_frac": 1.0,
+              "drop": [],
+              "days": "artifacts/task1/v2020/days6",
+              "threads": 10,
+              "cap": 101959
+            },
+            "train_rows": 5172670,
+            "recorded_fit_queries": {
+              "reference": 101959,
+              "new": 101959
+            },
+            "limit": "Matching recipes and recorded training counts; row-level training IDs are not compared."
+          },
+          "queries": 44334,
+          "users": 38449,
+          "days": 6,
+          "reference_mean": 0.15457158851119382,
+          "new_mean": 0.15505288487962543,
+          "mean_delta": 0.00048129636843158557,
+          "query_bootstrap": {
+            "mean_delta": 0.00048129636843158557,
+            "ci95": [
+              -0.0002359916010561259,
+              0.0012233199272759642
+            ],
+            "clusters": 44334,
+            "draws": 2000,
+            "rng_seed": 20261025
+          },
+          "user_cluster_bootstrap": {
+            "mean_delta": 0.00048129636843158573,
+            "ci95": [
+              -0.00027704048942264867,
+              0.001206146065732971
+            ],
+            "clusters": 38449,
+            "draws": 2000,
+            "rng_seed": 20261025
+          }
+        },
+        {
+          "seed_index": 1,
+          "training_comparability": {
+            "reference": "pl20_Hag_s1",
+            "new": "pl20_Hp_s1",
+            "common_config": {
+              "loss": "Logloss",
+              "iterations": 500,
+              "depth": 8,
+              "lr": 0.08,
+              "l2": 10,
+              "seed": 7,
+              "neg": 50,
+              "neg_mode": "random",
+              "neg_seed": 1,
+              "half_life": null,
+              "train_frac": 1.0,
+              "drop": [],
+              "days": "artifacts/task1/v2020/days6",
+              "threads": 10,
+              "cap": 101959
+            },
+            "train_rows": 5172670,
+            "recorded_fit_queries": {
+              "reference": 101959,
+              "new": 101959
+            },
+            "limit": "Matching recipes and recorded training counts; row-level training IDs are not compared."
+          },
+          "queries": 44334,
+          "users": 38449,
+          "days": 6,
+          "reference_mean": 0.15484250507122058,
+          "new_mean": 0.15452553307874917,
+          "mean_delta": -0.0003169719924714104,
+          "query_bootstrap": {
+            "mean_delta": -0.0003169719924714104,
+            "ci95": [
+              -0.0010316160292829348,
+              0.000389080686489073
+            ],
+            "clusters": 44334,
+            "draws": 2000,
+            "rng_seed": 20261025
+          },
+          "user_cluster_bootstrap": {
+            "mean_delta": -0.0003169719924714105,
+            "ci95": [
+              -0.0010091176576934265,
+              0.0003909604620672107
+            ],
+            "clusters": 38449,
+            "draws": 2000,
+            "rng_seed": 20261025
+          }
+        }
+      ]
+    }
+  },
+  "interpretation_limits": [
+    "Retain original primary-test rule and published result. Describe whether cluster intervals include zero; do not require CI lower bound >0.0015 (the original rule applied that threshold to point gain). Do not select favourable seeds/days/bootstrap versions.",
+    "Post-hoc validation contrasts, not isolated LLM attribution on new test; CI spanning zero is not equivalence. Report both periods/seeds, any disagreement.",
+    "Separate marginal user and day sensitivities do not model all dependence jointly.",
+    "Model seed repetitions are not independent runs of the feature-generating agent."
+  ]
+}

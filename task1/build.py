@@ -90,8 +90,11 @@ CREATE OR REPLACE TEMP TABLE ccode AS  -- the first category_code of a category 
     nullif(split_part(arg_min(category_code, (event_time, category_code)), '.', 1), '') l1
   FROM hist WHERE category_code IS NOT NULL GROUP BY 1;
 CREATE OR REPLACE TEMP TABLE iattr AS
+  -- A product may first acquire a non-NULL category after t; the full item_static map would reveal it.
+  WITH known AS (SELECT product_id, arg_min(category_id, (event_time, category_id)) category_id
+                FROM hist GROUP BY 1)
   SELECT s.product_id, s.category_id cat, c.l1, b.brand
-  FROM fs.item_static s LEFT JOIN ccode c USING(category_id) LEFT JOIN ibrand b USING(product_id);
+  FROM known s LEFT JOIN ccode c USING(category_id) LEFT JOIN ibrand b USING(product_id);
 
 -- item counters over the 14-day window (all products, all users)
 CREATE OR REPLACE TEMP TABLE it AS SELECT product_id,

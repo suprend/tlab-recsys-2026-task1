@@ -1,0 +1,118 @@
+{
+  "format": "rees-secondary-plan-v1",
+  "status": "post-hoc descriptive and secondary-metric diagnostics; fixed before these calculations, after original metric means and primary outcomes were known; not preregistration or a new independent test",
+  "created_utc": "2026-10-25T16:02:24.151147+00:00",
+  "input_sha256": {
+    "artifacts/task1/v2020/replication/test_base_s0.parquet": "6c3996fb24deb9f5597f2a24c641ec7ff3d2d013abaec608a44b0643fc627c69",
+    "artifacts/task1/v2020/replication/test_base_s1.parquet": "cdc4a5a6f7779b2cd3a7354a6b007c99ff55b0f29d2b9c7e196b32cc4ab51127",
+    "artifacts/task1/v2020/replication/test_Hp_s0.parquet": "7c3194a891774305ffc683f4cf15d0db8b03bda0a5b52606913a553c1e922738",
+    "artifacts/task1/v2020/replication/test_Hp_s1.parquet": "206a9fc78d95f54c32b56673c7a9ed536f34ae32a524860e0e34612058f2e2f0",
+    "task1/runs/replication-2020/test.json": "f6812b5975c1cbb8ee95213ae34e92d417a5116f9813f657ed3a745f98ecaafb",
+    "docs/writeup/sensitivity-2026-10-25/results.json": "f0135dbc6b1a37b4e422745fd622016b81ef78e9ae85f6bf901e8af69143eccd"
+  },
+  "contrast": "Hp minus base",
+  "seed_indices": [
+    0,
+    1
+  ],
+  "expected_date_range": [
+    "2020-02-14",
+    "2020-02-29"
+  ],
+  "exclude_anchors": [
+    "2020-02-27",
+    "2020-02-28"
+  ],
+  "expected_queries": 97656,
+  "expected_days": 14,
+  "secondary_metrics": [
+    "recall",
+    "purchase_ndcg",
+    "purchase_recall"
+  ],
+  "purchase_population": "Only queries with at least one purchased target, identified by nonmissing saved purchase metrics; missing metrics are inapplicable, never zero. Require identical purchase masks for both metrics, arms and model seeds before and after the fixed exclusions. Report query/user counts and share of main population.",
+  "estimand": "Mean paired metric difference per eligible query, separately for each model seed. Bootstrap whole users with replacement, retaining all eligible queries of each sampled user; resample statistic is total sampled delta divided by total sampled query count, not an equal-weight mean of user means.",
+  "bootstrap": {
+    "unit": "user_id parsed from qid; whole eligible user cluster",
+    "draws": 2000,
+    "rng_seed": 20261025,
+    "rng": "numpy.default_rng, freshly initialized per metric and seed",
+    "cluster_order": "lexicographic string user_id order",
+    "ci_percentiles": [
+      2.5,
+      97.5
+    ],
+    "quantile_method": "linear",
+    "interpretation": "Marginal 95% percentile intervals for six planned metric/seed contrasts; not simultaneous confidence coverage, no multiplicity-adjusted confirmatory claims, and no noninferiority/equivalence test. No averaged-seed interval or selection of a preferred seed."
+  },
+  "main_ndcg_distribution": {
+    "population": "Same primary-test queries as the earlier sensitivity analysis, separately per model seed",
+    "delta": "saved Hp ndcg minus saved base ndcg",
+    "categories": {
+      "improved": "delta > 0",
+      "worsened": "delta < 0",
+      "unchanged": "delta == 0, exact floating equality; does not imply identical ranking"
+    },
+    "outputs": [
+      "query count and fraction for each category",
+      "sum of positive deltas",
+      "sum of negative deltas",
+      "positive contribution to overall mean: sum positive / all query count",
+      "negative contribution to overall mean: sum negative / all query count",
+      "overall mean delta; must equal positive plus negative contributions",
+      "unconditional quantiles of all query deltas"
+    ],
+    "quantile_probabilities": [
+      0,
+      0.01,
+      0.1,
+      0.25,
+      0.5,
+      0.75,
+      0.9,
+      0.99,
+      1
+    ],
+    "quantile_method": "linear",
+    "interpretation": "Descriptive per-query distribution, not a fraction of satisfied users or a requirement that most queries improve. Do not select thresholds, trim extremes or change the primary estimand after inspecting results. No inferential claims from these quantiles."
+  },
+  "checks": [
+    "All required input hashes match before and after computation; source code and plan hashes recorded and stable",
+    "Each source has unique nonnull qid with parseable date:user_id, and anchor equals qid date",
+    "Exact full key sets match across arms and seeds before filtering; never silently intersect keys",
+    "Exact date sets match the fixed full and filtered ranges",
+    "Primary filtered query count is 97656 and dates count is 14 for each arm/seed",
+    "ndcg and recall are nonmissing finite values in [0,1]; purchase metrics may be missing only on the identical inapplicable mask, with all observed values finite in [0,1]",
+    "Purchase eligible population is nonempty, identical across arms/seeds and between purchase metrics",
+    "Metric means averaged across model seeds reproduce original primary summary within its published rounding tolerance 0.00000501",
+    "Main ndcg point deltas and population reproduce previous sensitivity results within 1e-12",
+    "Category counts sum to population; fractions sum to one; signed contributions sum to the main mean delta",
+    "Result path must be new; exclusive creation refuses overwriting; JSON contains no NaN or Infinity"
+  ],
+  "interpretation_limits": [
+    "All analyses are post-hoc and use already exposed test outcomes; the original test verdict and criterion remain unchanged",
+    "Purchase metrics are conditional on queries with purchased targets and do not measure conversion, revenue, causal business benefit or online effects",
+    "User resampling does not jointly account for user and day dependence",
+    "Different model seeds do not represent independent runs of the feature-generating agent",
+    "Report all six secondary intervals and both distributions in machine-readable results; concise report text may summarize them without hiding disagreements"
+  ],
+  "prohibited": [
+    "Training or new predictions",
+    "New paid LLM research calls or Kaggle submissions",
+    "Changing historical metrics, frozen configurations, logs or previous sensitivity results",
+    "Selecting new dates, metrics, thresholds, favorable seed or subpopulation after outcomes",
+    "Filling missing purchase metrics with zero",
+    "Treating secondary results as a new confirmatory test"
+  ],
+  "dependency_sha256": {
+    "task1/model.py": "33b7b2cf483bce77c2472acd5571d2937a76890096f682b2d56dd2b6899e3a74",
+    "scripts/rees_sensitivity.py": "680281912658c0dac5f7b990e3a287d36e9a3c459f74002f958eabe5c2014b4e"
+  },
+  "amendments_before_computation": [
+    {
+      "utc": "2026-10-25T16:02:49.266569+00:00",
+      "previous_sha256": "b2ded8034a7cb56c02fc29775a707b8534bcd7f4a9e85453c124ec4bb9f4f3d8",
+      "reason": "Coordinator and implementation owner aligned fixed descriptive quantile grid and added purchase-metric semantics / shared-bootstrap dependency hashes before any new effect or interval was computed."
+    }
+  ]
+}

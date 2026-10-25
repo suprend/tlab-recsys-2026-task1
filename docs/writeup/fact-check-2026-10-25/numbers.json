@@ -1,0 +1,403 @@
+{
+  "scope": "Frozen main.tex numerical audit",
+  "snapshot": "/tmp/tlab-fact-audit",
+  "report_sha256": "24cf170f45270829eb8499775c10d6beb063f2a058dfe0635fceb0cfaec01b57",
+  "read_only": true,
+  "checks": [
+    "10per-query table parquet means/counts/hashes independently verified",
+    "sensitivity and secondary input/dependency hashes verified",
+    "scripts/check_report.py passed against current same table",
+    "frozen embedded graph text extracted via pdftotext and checked",
+    "log timing sums recomputed",
+    "original testCI/spec thresholds checked"
+  ],
+  "claims": [
+    {
+      "tex_line": 47,
+      "claim": "REES46 approximately 2% relative NDCG gain",
+      "evidence": [
+        {
+          "path": "docs/writeup/latex-report/table-values.json",
+          "line": 61,
+          "needle": "\"Hp\""
+        },
+        {
+          "path": "docs/writeup/latex-report/table-values.json",
+          "line": 10,
+          "needle": "\"base\""
+        }
+      ],
+      "calculation": "100*(.14922050737859444/.14623281414714218-1)=2.043107252552767%",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 77,
+      "claim": "Six rounds, 30 proposals, one accepted proposal with two columns",
+      "evidence": [
+        {
+          "path": "task1/runs/agent_night20/summary.json",
+          "line": 21,
+          "needle": "\"rounds\": 6"
+        },
+        {
+          "path": "task1/runs/agent_night20/summary.json",
+          "line": 27,
+          "needle": "\"accepted\""
+        },
+        {
+          "path": "task1/runs/agent_night20/log.jsonl",
+          "line": 2,
+          "needle": "\"proposals\": 5"
+        }
+      ],
+      "calculation": "Six proposal records each with proposals=5; 30 SQL records; accepted length=1; two output columns.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 83,
+      "claim": "80 baseline and 274 joint features; two seeds",
+      "evidence": [
+        {
+          "path": "task1/runs/replication-2020/test.json",
+          "line": 206,
+          "needle": "\"features\": {"
+        },
+        {
+          "path": "task1/runs/replication-2020/test.json",
+          "line": 4,
+          "needle": "\"seeds\""
+        }
+      ],
+      "calculation": "Saved specification and fitted-arm records agree: base80, Hp274, seed pairs(2026,0),(7,1).",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 90,
+      "claim": "Table base value and delta",
+      "evidence": [
+        {
+          "path": "docs/writeup/latex-report/table-values.json",
+          "line": 10,
+          "needle": "\"base\""
+        },
+        {
+          "path": "task1/runs/replication-2020/test.json",
+          "line": 426,
+          "needle": "\"primary\""
+        }
+      ],
+      "calculation": "Exact mean=0.14623281414714218; delta=0.0; rounded=0.1462, +0.0000. Recomputed from both local source parquet; hashes and97656count verified.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 91,
+      "claim": "Table agent value and delta",
+      "evidence": [
+        {
+          "path": "docs/writeup/latex-report/table-values.json",
+          "line": 27,
+          "needle": "\"agent\""
+        },
+        {
+          "path": "task1/runs/replication-2020/test.json",
+          "line": 426,
+          "needle": "\"primary\""
+        }
+      ],
+      "calculation": "Exact mean=0.14704548669677228; delta=0.0008126725496301057; rounded=0.1470, +0.0008. Recomputed from both local source parquet; hashes and97656count verified.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 92,
+      "claim": "Table dfs value and delta",
+      "evidence": [
+        {
+          "path": "docs/writeup/latex-report/table-values.json",
+          "line": 44,
+          "needle": "\"dfs\""
+        },
+        {
+          "path": "task1/runs/replication-2020/test.json",
+          "line": 426,
+          "needle": "\"primary\""
+        }
+      ],
+      "calculation": "Exact mean=0.14590018860360643; delta=-0.00033262554353574725; rounded=0.1459, -0.0003. Recomputed from both local source parquet; hashes and97656count verified.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 93,
+      "claim": "Table Hp value and delta",
+      "evidence": [
+        {
+          "path": "docs/writeup/latex-report/table-values.json",
+          "line": 61,
+          "needle": "\"Hp\""
+        },
+        {
+          "path": "task1/runs/replication-2020/test.json",
+          "line": 426,
+          "needle": "\"primary\""
+        }
+      ],
+      "calculation": "Exact mean=0.14922050737859444; delta=0.0029876932314522597; rounded=0.1492, +0.0030. Recomputed from both local source parquet; hashes and97656count verified.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 94,
+      "claim": "Table F1 value and delta",
+      "evidence": [
+        {
+          "path": "docs/writeup/latex-report/table-values.json",
+          "line": 78,
+          "needle": "\"F1\""
+        },
+        {
+          "path": "task1/runs/replication-2020/test.json",
+          "line": 426,
+          "needle": "\"primary\""
+        }
+      ],
+      "calculation": "Exact mean=0.1451102391502966; delta=-0.0011225749968455656; rounded=0.1451, -0.0011. Recomputed from both local source parquet; hashes and97656count verified.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 100,
+      "claim": "Joint threshold >=.0015 with lower95% CI>0 on each seed",
+      "evidence": [
+        {
+          "path": "task1/posthoc.py",
+          "line": 117,
+          "needle": "joint = all"
+        },
+        {
+          "path": "task1/runs/grid-2026-10-20/spec.md",
+          "line": 48,
+          "needle": "На каждом из двух"
+        },
+        {
+          "path": "task1/runs/replication-2020/spec.md",
+          "line": 68,
+          "needle": "Сетка."
+        }
+      ],
+      "calculation": "Original deltas .00307/.00290 and lowerCI .00249/.00233 satisfy both conditions.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 102,
+      "claim": "Per-seed reported deltas and CI rounded to four places",
+      "evidence": [
+        {
+          "path": "task1/runs/replication-2020/test.json",
+          "line": 551,
+          "needle": "\"Hp-H_by_seed\""
+        }
+      ],
+      "calculation": "[.00307,.00249,.00364] -> [.0031,.0025,.0036]; [.00290,.00233,.00347] -> [.0029,.0023,.0035].",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 102,
+      "claim": "Test datesFeb14–29 excluding27–28, about98k queries; refitJan15–Feb13",
+      "evidence": [
+        {
+          "path": "task1/runs/replication-2020/test.json",
+          "line": 15,
+          "needle": "\"excluded\""
+        },
+        {
+          "path": "task1/runs/replication-2020/test.json",
+          "line": 28,
+          "needle": "\"refit\""
+        },
+        {
+          "path": "task1/runs/replication-2020/test.json",
+          "line": 428,
+          "needle": "\"queries\": 97656"
+        },
+        {
+          "path": "task1/runs/replication-2020/spec.md",
+          "line": 29,
+          "needle": "Основной тест"
+        }
+      ],
+      "calculation": "97656rounds to98k;16calendar days minus2=14. Exclusions are anchor days under original log-quality rule.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 104,
+      "claim": "User and day intervals positive, leave-one-day-out remains positive",
+      "evidence": [
+        {
+          "path": "docs/writeup/sensitivity-2026-10-25/results.json",
+          "line": 40,
+          "needle": "\"test_2020\""
+        }
+      ],
+      "calculation": "Both user/day lower bounds positive; all14 daily gains positive; minLODO .0028698688/.002679042. No new resampling performed during this audit; existing result sources/dependency hashes checked.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 104,
+      "claim": "Recall and purchase NDCG/Recall intervals positive on both seeds",
+      "evidence": [
+        {
+          "path": "docs/writeup/secondary-2026-10-25/results.json",
+          "line": 29,
+          "needle": "\"seeds\""
+        }
+      ],
+      "calculation": "All6 lower bounds>0; recall97656queries and purchase metrics54129queries in bothseeds; source/dependency hashes match.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 106,
+      "claim": "Selected-agent test gain below practical .001",
+      "evidence": [
+        {
+          "path": "docs/writeup/latex-report/table-values.json",
+          "line": 27,
+          "needle": "\"agent\""
+        },
+        {
+          "path": "docs/task1-v2-report.md",
+          "line": 106,
+          "needle": "**Пороги.**"
+        }
+      ],
+      "calculation": ".00081267255 mean gain<.001; seedgains .00069639429/.00092895081<.001. Practical .001 differs from actual procedural admission min_gain .0005.",
+      "status": "qualified",
+      "correction": "Keep distinction between practical diagnostic threshold .001 and admission threshold .0005; do not call .001 the predeclared 2020 test verdict threshold."
+    },
+    {
+      "tex_line": 108,
+      "claim": "All DFS-on-agent validation intervals cross zero;2020sign varies",
+      "evidence": [
+        {
+          "path": "docs/writeup/sensitivity-2026-10-25/results.json",
+          "line": 306,
+          "needle": "\"dfs_validation\""
+        }
+      ],
+      "calculation": "All8query/userintervals cross0 across4contrasts;2019deltas negative,2020+.0004813/-.0003170.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 131,
+      "claim": "Rendered OTTO graph labels agree with sourceCSV",
+      "evidence": [
+        {
+          "path": "docs/writeup/latex-report/generate_figure.py",
+          "line": 7,
+          "needle": "def scores"
+        },
+        {
+          "path": "docs/otto-run/otto2-kaggle-scores.csv",
+          "line": 3,
+          "needle": "57572042"
+        },
+        {
+          "path": "docs/otto3-run/otto3-kaggle-scores.csv",
+          "line": 3,
+          "needle": "57579911"
+        }
+      ],
+      "calculation": "pdftotext of frozen embeddedPDF: .5805,.5930,.5955,.5963. UnderlyingCSV .58049,.59299,.59548,.59628; correct four-decimal rounding. No figure regenerated.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 135,
+      "claim": "Three improvements and2.7%relative private gain",
+      "evidence": [
+        {
+          "path": "docs/otto3-run/otto3-kaggle-scores.csv",
+          "line": 3,
+          "needle": "57579911"
+        },
+        {
+          "path": "docs/otto-run/otto2-kaggle-scores.csv",
+          "line": 3,
+          "needle": "57572042"
+        },
+        {
+          "path": "docs/otto3-run/ladder-ci-F3.json",
+          "line": 13,
+          "needle": "\"arms\""
+        }
+      ],
+      "calculation": "100*(.59628/.58049-1)=2.7201157643%; localF3 .56525568<.57773203<.58015246<.58104930 and private .58049<.59299<.59548<.59628.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 156,
+      "claim": "Nine Kaggle submissions",
+      "evidence": [
+        {
+          "path": "docs/otto-run/kaggle-scores.csv",
+          "line": 3,
+          "needle": "ref,fileName"
+        },
+        {
+          "path": "docs/otto-run/otto2-kaggle-scores.csv",
+          "line": 2,
+          "needle": "ref,fileName"
+        },
+        {
+          "path": "docs/otto3-run/otto3-kaggle-scores.csv",
+          "line": 2,
+          "needle": "ref,fileName"
+        }
+      ],
+      "calculation": "4+2+3distinctref rows=9; initialCSV contains warning preamble which must not count as row.",
+      "status": "verified",
+      "correction": null
+    },
+    {
+      "tex_line": 161,
+      "claim": "About five hours, about6%LLM",
+      "evidence": [
+        {
+          "path": "task1/runs/agent_night20/log.jsonl",
+          "line": 2,
+          "needle": "\"llm\""
+        },
+        {
+          "path": "task1/runs/exp-runs.jsonl",
+          "line": 63,
+          "needle": "\"name\": \"agent_night20_r5_base2\""
+        },
+        {
+          "path": "task1/runs/exp-runs.jsonl",
+          "line": 64,
+          "needle": "\"name\": \"agent_night20_r5p5_cf_considered_seed_coview_s2\""
+        }
+      ],
+      "calculation": "LoggedLLM1013.7+fit14670.1+compute866.1+secondseed781=17330.9sec=4.81414h;LLM5.8491%. This is sum of computational stage durations, not independently confirmed wall duration.",
+      "status": "qualified",
+      "correction": "Replace «Цикл ... занял около пяти часов» with «Суммарное время вычислительных этапов ... составило около пяти часов»."
+    }
+  ],
+  "limitations": [
+    "No new model training/prediction/bootstrap",
+    "No rendered-page layout audit; only graph numeric labels extracted",
+    "Timing total is component time, not wall-clock elapsed",
+    "External links and nonnumeric method claims assigned to other reviewers"
+  ]
+}

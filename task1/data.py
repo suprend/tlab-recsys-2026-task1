@@ -5,7 +5,7 @@ Tables:
   events          all events of both months, exact duplicate rows removed, ordered by event_time
   pair_first      (user_id, product_id, first_ts, first_cp_ts) over the whole data; consumers must read it
                   only as of t: rows with first_ts < t, and first_cp_ts treated as NULL unless < t
-  item_static     product_id -> category_id of its first event (as-of safe: fixed once the product appears)
+  item_static     product_id -> first non-NULL category_id in the full journal (reference only; builders use as-of history)
                   and l1, the top-level part of the first category_code seen for that category over all data.
                   l1 is not as-of safe: in 2020 19 categories get a code only on 02-01..05. The builds take l1
                   as of t from the events (task1.build, ccode)

@@ -1,0 +1,288 @@
+{
+  "format": "rees-secondary-v1",
+  "status": "post-hoc descriptive and secondary-metric diagnostics; fixed before these calculations, after original metric means and primary outcomes were known; not preregistration or a new independent test",
+  "plan_sha256": "0304f1722875740a5653f35bcc8d0de78867d4785541d4b8a96206d331399a55",
+  "code_sha256": {
+    "scripts/rees_secondary.py": "06688363c77f666708cddb7dfd43535de69efc22a80ac99970625c49e08d6bb5",
+    "scripts/rees_sensitivity.py": "680281912658c0dac5f7b990e3a287d36e9a3c459f74002f958eabe5c2014b4e"
+  },
+  "inputs_sha256": {
+    "artifacts/task1/v2020/replication/test_base_s0.parquet": "6c3996fb24deb9f5597f2a24c641ec7ff3d2d013abaec608a44b0643fc627c69",
+    "artifacts/task1/v2020/replication/test_base_s1.parquet": "cdc4a5a6f7779b2cd3a7354a6b007c99ff55b0f29d2b9c7e196b32cc4ab51127",
+    "artifacts/task1/v2020/replication/test_Hp_s0.parquet": "7c3194a891774305ffc683f4cf15d0db8b03bda0a5b52606913a553c1e922738",
+    "artifacts/task1/v2020/replication/test_Hp_s1.parquet": "206a9fc78d95f54c32b56673c7a9ed536f34ae32a524860e0e34612058f2e2f0",
+    "task1/runs/replication-2020/test.json": "f6812b5975c1cbb8ee95213ae34e92d417a5116f9813f657ed3a745f98ecaafb",
+    "docs/writeup/sensitivity-2026-10-25/results.json": "f0135dbc6b1a37b4e422745fd622016b81ef78e9ae85f6bf901e8af69143eccd"
+  },
+  "dependency_sha256": {
+    "task1/model.py": "33b7b2cf483bce77c2472acd5571d2937a76890096f682b2d56dd2b6899e3a74",
+    "scripts/rees_sensitivity.py": "680281912658c0dac5f7b990e3a287d36e9a3c459f74002f958eabe5c2014b4e"
+  },
+  "created_utc": "2026-10-25T16:04:54.116748+00:00",
+  "seconds": 12.428404374979436,
+  "python": "3.12.14 (main, Sep  1 2026, 14:09:38) [Clang 22.1.3 ]",
+  "libraries": {
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "duckdb": "1.5.6"
+  },
+  "seeds": [
+    {
+      "seed_index": 0,
+      "metrics": {
+        "recall": {
+          "queries": 97656,
+          "share_of_main_queries": 1.0,
+          "excluded_no_purchase_queries": 0,
+          "users": 79302,
+          "reference_mean": 0.2830433996142709,
+          "new_mean": 0.28796271749291663,
+          "mean_delta": 0.004919317878645736,
+          "user_cluster_bootstrap": {
+            "mean_delta": 0.004919317878645736,
+            "ci95": [
+              0.0038080947917465574,
+              0.006004247345886646
+            ],
+            "clusters": 79302,
+            "draws": 2000,
+            "rng_seed": 20261025
+          }
+        },
+        "purchase_ndcg": {
+          "queries": 54129,
+          "share_of_main_queries": 0.5542823789628901,
+          "excluded_no_purchase_queries": 43527,
+          "users": 43428,
+          "reference_mean": 0.16178801550176672,
+          "new_mean": 0.16514412626406885,
+          "mean_delta": 0.0033561107623021045,
+          "user_cluster_bootstrap": {
+            "mean_delta": 0.003356110762302104,
+            "ci95": [
+              0.002573355827765007,
+              0.004192208058496455
+            ],
+            "clusters": 43428,
+            "draws": 2000,
+            "rng_seed": 20261025
+          }
+        },
+        "purchase_recall": {
+          "queries": 54129,
+          "share_of_main_queries": 0.5542823789628901,
+          "excluded_no_purchase_queries": 43527,
+          "users": 43428,
+          "reference_mean": 0.31558735147763306,
+          "new_mean": 0.32113448746385903,
+          "mean_delta": 0.005547135986225938,
+          "user_cluster_bootstrap": {
+            "mean_delta": 0.005547135986225938,
+            "ci95": [
+              0.003967680055629123,
+              0.0070273393460963535
+            ],
+            "clusters": 43428,
+            "draws": 2000,
+            "rng_seed": 20261025
+          }
+        }
+      },
+      "ndcg_distribution": {
+        "queries": 97656,
+        "mean_delta": 0.00307266906924095,
+        "groups": {
+          "improved": {
+            "queries": 13107,
+            "fraction": 0.1342160235930204,
+            "sum_delta": 1697.9941365506359,
+            "contribution_to_overall_mean": 0.017387504470289954
+          },
+          "worsened": {
+            "queries": 11495,
+            "fraction": 0.11770910133529942,
+            "sum_delta": -1397.9295659248419,
+            "contribution_to_overall_mean": -0.014314835401049008
+          },
+          "unchanged": {
+            "queries": 73054,
+            "fraction": 0.7480748750716801,
+            "sum_delta": 0.0,
+            "contribution_to_overall_mean": 0.0
+          }
+        },
+        "quantiles": [
+          {
+            "probability": 0,
+            "delta": -1.0
+          },
+          {
+            "probability": 0.01,
+            "delta": -0.36907024642854247
+          },
+          {
+            "probability": 0.1,
+            "delta": -0.014434881121747567
+          },
+          {
+            "probability": 0.25,
+            "delta": 0.0
+          },
+          {
+            "probability": 0.5,
+            "delta": 0.0
+          },
+          {
+            "probability": 0.75,
+            "delta": 0.0
+          },
+          {
+            "probability": 0.9,
+            "delta": 0.027143110804438375
+          },
+          {
+            "probability": 0.99,
+            "delta": 0.36907024642854247
+          },
+          {
+            "probability": 1,
+            "delta": 1.0
+          }
+        ],
+        "interpretation": "Exact numerical ties; query-level changes, not users or satisfaction. Descriptive only."
+      }
+    },
+    {
+      "seed_index": 1,
+      "metrics": {
+        "recall": {
+          "queries": 97656,
+          "share_of_main_queries": 1.0,
+          "excluded_no_purchase_queries": 0,
+          "users": 79302,
+          "reference_mean": 0.2833866191591015,
+          "new_mean": 0.28716749777039907,
+          "mean_delta": 0.0037808786112975955,
+          "user_cluster_bootstrap": {
+            "mean_delta": 0.0037808786112975955,
+            "ci95": [
+              0.0027081370990163374,
+              0.0049356076885138265
+            ],
+            "clusters": 79302,
+            "draws": 2000,
+            "rng_seed": 20261025
+          }
+        },
+        "purchase_ndcg": {
+          "queries": 54129,
+          "share_of_main_queries": 0.5542823789628901,
+          "excluded_no_purchase_queries": 43527,
+          "users": 43428,
+          "reference_mean": 0.16156361669645405,
+          "new_mean": 0.1651193662266592,
+          "mean_delta": 0.0035557495302051788,
+          "user_cluster_bootstrap": {
+            "mean_delta": 0.0035557495302051788,
+            "ci95": [
+              0.0027494428249507023,
+              0.00439700219146002
+            ],
+            "clusters": 43428,
+            "draws": 2000,
+            "rng_seed": 20261025
+          }
+        },
+        "purchase_recall": {
+          "queries": 54129,
+          "share_of_main_queries": 0.5542823789628901,
+          "excluded_no_purchase_queries": 43527,
+          "users": 43428,
+          "reference_mean": 0.3158469681134066,
+          "new_mean": 0.3201841975820127,
+          "mean_delta": 0.00433722946860609,
+          "user_cluster_bootstrap": {
+            "mean_delta": 0.00433722946860609,
+            "ci95": [
+              0.00271634911123499,
+              0.0059940648871854695
+            ],
+            "clusters": 43428,
+            "draws": 2000,
+            "rng_seed": 20261025
+          }
+        }
+      },
+      "ndcg_distribution": {
+        "queries": 97656,
+        "mean_delta": 0.0029027173936634057,
+        "groups": {
+          "improved": {
+            "queries": 12997,
+            "fraction": 0.133089620709429,
+            "sum_delta": 1694.5410756816127,
+            "contribution_to_overall_mean": 0.017352145036471006
+          },
+          "worsened": {
+            "queries": 11685,
+            "fraction": 0.11965470631604817,
+            "sum_delta": -1411.0733058860192,
+            "contribution_to_overall_mean": -0.014449427642807601
+          },
+          "unchanged": {
+            "queries": 72974,
+            "fraction": 0.7472556729745228,
+            "sum_delta": 0.0,
+            "contribution_to_overall_mean": 0.0
+          }
+        },
+        "quantiles": [
+          {
+            "probability": 0,
+            "delta": -1.0
+          },
+          {
+            "probability": 0.01,
+            "delta": -0.3490790701928675
+          },
+          {
+            "probability": 0.1,
+            "delta": -0.01786845654760455
+          },
+          {
+            "probability": 0.25,
+            "delta": 0.0
+          },
+          {
+            "probability": 0.5,
+            "delta": 0.0
+          },
+          {
+            "probability": 0.75,
+            "delta": 0.0
+          },
+          {
+            "probability": 0.9,
+            "delta": 0.02714311080443832
+          },
+          {
+            "probability": 0.99,
+            "delta": 0.36907024642854247
+          },
+          {
+            "probability": 1,
+            "delta": 1.0
+          }
+        ],
+        "interpretation": "Exact numerical ties; query-level changes, not users or satisfaction. Descriptive only."
+      }
+    }
+  ],
+  "interpretation_limits": [
+    "All analyses are post-hoc and use already exposed test outcomes; the original test verdict and criterion remain unchanged",
+    "Purchase metrics are conditional on queries with purchased targets and do not measure conversion, revenue, causal business benefit or online effects",
+    "User resampling does not jointly account for user and day dependence",
+    "Different model seeds do not represent independent runs of the feature-generating agent",
+    "Report all six secondary intervals and both distributions in machine-readable results; concise report text may summarize them without hiding disagreements"
+  ]
+}

@@ -1,0 +1,501 @@
+{
+  "scope": "Frozen report REES claims plus relevant linked data doc. Numeric tables and external reachability delegated elsewhere.",
+  "snapshot": "/tmp/tlab-fact-audit",
+  "claims": [
+    {
+      "texline": 64,
+      "claim": "REES46 contains event types, product/category/brand/price/session; no product names or profile table",
+      "evidence": [
+        "task1/data.py:30",
+        "task1/agent.py:56"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": "Schema establishes available fields; one-store provenance relies on dataset card, external reviewer should verify."
+    },
+    {
+      "texline": 66,
+      "claim": "New products are those never previously touched by the user",
+      "evidence": [
+        "task1/build.py:68",
+        "task1/data.py:47",
+        "task1/runs/replication-2020/spec.md:15"
+      ],
+      "status": "qualified",
+      "correction": "В доступной истории пользователь раньше не взаимодействовал с товаром.",
+      "note": "Only observed history starts 2019-10-01 or 2020-01-01; lifetime novelty cannot be established."
+    },
+    {
+      "texline": 66,
+      "claim": "Target first cart or purchase in following 24h",
+      "evidence": [
+        "task1/build.py:74",
+        "task1/data.py:47"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 66,
+      "claim": "Purchases included because preceding cart event not always logged",
+      "evidence": [
+        "docs/task1-v2-report.md:48",
+        "task1/build.py:74"
+      ],
+      "status": "qualified",
+      "correction": null,
+      "note": "Target implementation confirmed; causal rationale stated by authors. Cart-absence percentages not independently recomputed on raw data."
+    },
+    {
+      "texline": 68,
+      "claim": "Population active past48h and at least one future target",
+      "evidence": [
+        "task1/build.py:79",
+        "task1/build.py:81"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 68,
+      "claim": "NDCG20 uses all target denominator including targets outside candidates",
+      "evidence": [
+        "task1/model.py:82",
+        "task1/build.py:81"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 71,
+      "claim": "CatBoost Logloss with described feature families",
+      "evidence": [
+        "task1/runs/agent_night20/summary.json:3",
+        "task1/build.py:260",
+        "task1/agent.py:65"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 71,
+      "claim": "Direct user-item history absent for new pairs; indirect links matter",
+      "evidence": [
+        "task1/build.py:85",
+        "task1/agent.py:45"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 71,
+      "claim": "Six candidate sources include popularity,category,brand,coview,view-to-acquisition",
+      "evidence": [
+        "task1/build.py:7"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 71,
+      "claim": "Validation checked ranker settings/negatives and froze recipe",
+      "evidence": [
+        "task1/runs/night-2026-10-20/q2.json:1",
+        "task1/runs/night-2026-10-20/q3.json:1",
+        "task1/runs/night-2026-10-20/base.json:1"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 73,
+      "claim": "Baseline prepared with ClaudeCode and early agent ideas",
+      "evidence": [
+        "docs/task1-v2-report.md:777",
+        "task1/runs/agent-v1/log.jsonl:1",
+        "task1/build.py:350"
+      ],
+      "status": "qualified",
+      "correction": null,
+      "note": "AI authorship is project-recorded attribution, cannot independently prove authorship from code alone. Baseline is not human-only control."
+    },
+    {
+      "texline": 77,
+      "claim": "Six rounds thirty SQL proposals",
+      "evidence": [
+        "task1/runs/agent_night20/summary.json:21",
+        "task1/runs/agent_night20/log.jsonl:1"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 77,
+      "claim": "Agent prompt sees schema/current features/previous scores/errors but no rows/targets",
+      "evidence": [
+        "task1/agent.py:56",
+        "task1/agent.py:84",
+        "task1/agent.py:98",
+        "task1/runs/agent_night20/prompt-r6.txt:1"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 77,
+      "claim": "SQL features use only past events",
+      "evidence": [
+        "task1/extra.py:77"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": "Verified explicit past-day files, timestamp predicate, disabled external access; not a universal sandbox security proof."
+    },
+    {
+      "texline": 77,
+      "claim": "Proposal evaluated by refitting on accepted features and best admissible proposal accepted in both seeds",
+      "evidence": [
+        "task1/agent.py:195",
+        "task1/agent.py:226",
+        "task1/agent.py:233"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 77,
+      "claim": "One proposal accepted, producing two repeated-session coview features",
+      "evidence": [
+        "task1/runs/agent_night20/summary.json:26",
+        "task1/runs/agent_night20/p5-feature.sql:1"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 77,
+      "claim": "Rounds controlled by human",
+      "evidence": [
+        "task1/runs/agent_night20/log.jsonl:1",
+        "docs/task1-night-2026-10-20.md:83"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 79,
+      "claim": "DFS enumerates entity/window/event stats, selection importance withintrain",
+      "evidence": [
+        "task1/dfs.py:24",
+        "task1/dfs.py:75"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 81,
+      "claim": "2019 val split used for selection then checking improvement",
+      "evidence": [
+        "task1/exp.py:165",
+        "task1/runs/placebo-2026-10-21/spec.md:10"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": "Not sealed confirmation; limitation later disclosed."
+    },
+    {
+      "texline": 81,
+      "claim": "Full-set hypothesis after2019test, first fresh test2020",
+      "evidence": [
+        "task1/runs/grid-2026-10-20/spec.md:5",
+        "task1/runs/replication-2020/spec.md:68"
+      ],
+      "status": "qualified",
+      "correction": "После теста 2019 полный набор проверили на валидации; затем — на новом тесте 2020.",
+      "note": "Current wording can sound as if hypothesis had never been evaluated before2020; first FRESH TEST is correct."
+    },
+    {
+      "texline": 81,
+      "claim": "Refit on2020 preceding history with2019 recipe/features",
+      "evidence": [
+        "task1/runs/replication-2020/spec.md:15",
+        "task1/runs/replication-2020/spec.md:45"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 83,
+      "claim": "All displayed arms same splits/candidates/history/hyperparameters",
+      "evidence": [
+        "task1/runs/replication-2020/spec.json:1",
+        "task1/runs/replication-2020/spec.md:45"
+      ],
+      "status": "qualified",
+      "correction": "Для всех вариантов в таблице ...",
+      "note": "True for five displayed arms; full run also has different-source/depth ablations, so scope to table."
+    },
+    {
+      "texline": 83,
+      "claim": "80 to274 features, table mean2modelseeds",
+      "evidence": [
+        "task1/runs/replication-2020/spec.json:1",
+        "task1/runs/replication-2020/test.json:1"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 98,
+      "claim": "Replacement keeps candidate-source ranks",
+      "evidence": [
+        "task1/runs/replication-2020/spec.md:41",
+        "task1/runs/grid-2026-10-20/spec.md:19"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 100,
+      "claim": "Full-set rule point>=.0015 and CI lower>0 bothseeds beforetest",
+      "evidence": [
+        "task1/posthoc.py:117",
+        "task1/runs/replication-2020/spec.md:68"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 100,
+      "claim": "Original CIs query-resampling, not independent agent-run uncertainty",
+      "evidence": [
+        "task1/model.py:100",
+        "task1/runs/replication-2020/spec.md:53"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 102,
+      "claim": "Testdates/refitdates and97656queries",
+      "evidence": [
+        "task1/runs/replication-2020/spec.md:15",
+        "task1/runs/replication-2020/test.json:427"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 102,
+      "claim": "Feb27/28 excluded because damaged log",
+      "evidence": [
+        "task1/runs/replication-2020/spec.md:24"
+      ],
+      "status": "qualified",
+      "correction": "27–28 февраля исключены по правилу аномального падения числа событий.",
+      "note": "Low event volume established; physical log corruption not independently demonstrated."
+    },
+    {
+      "texline": 104,
+      "claim": "User/day cluster and leave-one-day-out effects positive; secondary metrics positive",
+      "evidence": [
+        "docs/writeup/sensitivity-2026-10-25/results.json:1",
+        "docs/writeup/secondary-2026-10-25/results.json:1"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": "Numerical specialist separately verifies exact values; text matches results and posthoc status."
+    },
+    {
+      "texline": 106,
+      "claim": "Selected proposal attenuates on B, newtestbelow.001; replacementlower and notseparatelytuned",
+      "evidence": [
+        "docs/task1-night-2026-10-20.md:103",
+        "task1/runs/replication-2020/test.json:1",
+        "task1/runs/grid-2026-10-20/spec.md:19"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 108,
+      "claim": "Placebo permutes added features jointly within day preserving distributions",
+      "evidence": [
+        "task1/placebo.py:115",
+        "task1/runs/placebo-2026-10-21/spec.md:33"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 108,
+      "claim": "Shuffling removes gain; agent-only helpsval; DFS incremental CIs crosszero",
+      "evidence": [
+        "task1/runs/placebo-2026-10-21/result.json:1",
+        "docs/writeup/sensitivity-2026-10-25/results.json:1"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": "Supports information-content explanation, not proof of causal feature mechanisms or LLM-only fresh-test effect."
+    },
+    {
+      "texline": 143,
+      "claim": "Fullreplacementlower and no independent agent-search repeat demonstrated",
+      "evidence": [
+        "task1/runs/replication-2020/test.json:1",
+        "task1/runs/agent_night20/summary.json:1"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": "Current claim scopedtoREES; broader exploratory council runs exist but not independent replication of this frozen search."
+    },
+    {
+      "texline": 145,
+      "claim": "One store and one newtestperiod; no established generalization",
+      "evidence": [
+        "task1/runs/replication-2020/spec.md:105"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 148,
+      "claim": "B exposedearly, admissionrules differ, acceptedfeature senttestwithout Bconfirmation",
+      "evidence": [
+        "docs/task1-night-2026-10-20.md:36",
+        "docs/task1-night-2026-10-20.md:46",
+        "docs/task1-night-2026-10-20.md:103"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 148,
+      "claim": "Latest2020plan clarification afterval without changingarms/thresholds",
+      "evidence": [
+        "task1/runs/replication-2020/spec.md:159",
+        "task1/runs/replication-2020/spec.md:82"
+      ],
+      "status": "verified",
+      "correction": null,
+      "note": null
+    },
+    {
+      "texline": 149,
+      "claim": "Hyperparameters only one at a time, combinations not checked",
+      "evidence": [
+        "task1/runs/night-2026-10-20/q2.json:27",
+        "task1/runs/night-2026-10-20/q3.json:10"
+      ],
+      "status": "unsupported",
+      "correction": "Настройки проверяли ограниченным набором вариантов; полного совместного поиска и сравнения при равных вычислительных бюджетах не проводили.",
+      "note": "q2_it1000 changes iterations+lr; q3 adds both ondepth8. Literal no-combinations claim false."
+    },
+    {
+      "texline": 149,
+      "claim": "Practical threshold based on seed variability, not universal",
+      "evidence": [
+        "docs/task1-v2-report.md:105",
+        "task1/runs/exp-runs.jsonl:1"
+      ],
+      "status": "qualified",
+      "correction": null,
+      "note": "Project-defined threshold, not universal statistical significance. Historical agent acceptance .0005 differs from practical .001; short report distinguishes contexts but should not conflate."
+    },
+    {
+      "texline": 150,
+      "claim": "Leakcheck compares fullvsasofhistory; categorycodefix before2020training,sandboxfix beforeagent",
+      "evidence": [
+        "task1/leakcheck.py:29",
+        "task1/runs/replication-2020/spec.md:142",
+        "docs/task1-night-2026-10-20.md:36"
+      ],
+      "status": "qualified",
+      "correction": "Ошибку доступности кода категории исправили до обучения моделей 2020.",
+      "note": "Historical category_code leak fixed beforetraining; separate generic nullable-category_id fix occurred2026-10-25 afterhistoricalruns, though actual originaldata had noNULLcategories. Specify codecategory avoids mixing them."
+    },
+    {
+      "texline": 161,
+      "claim": "Agentcycle about5hours,6percentLLM,mosttime refits",
+      "evidence": [
+        "task1/runs/agent_night20/log.jsonl:1",
+        "task1/runs/exp-runs.jsonl:63",
+        "docs/task1-v2-report.md:736"
+      ],
+      "status": "qualified",
+      "correction": "Суммарные вычисления цикла агента заняли около пяти часов.",
+      "note": "Log sums LLM1013.7s compute866.1s fit14670.1s plus second-seed fits781s =>17330.9s=4.81h,LLM5.85%; not wallclock span including pauses."
+    },
+    {
+      "texline": 167,
+      "claim": "AI authorship/review limitations",
+      "evidence": [
+        "docs/task1-v2-report.md:773"
+      ],
+      "status": "qualified",
+      "correction": null,
+      "note": "Attribution per project record; limitation correctly excludes guarantee from LLMreview."
+    }
+  ],
+  "linked_doc_findings": [
+    {
+      "path": "docs/data.md",
+      "line": 9,
+      "status": "unsupported",
+      "claim": "Othermonthsnotused",
+      "evidence": [
+        "task1/data.py:1",
+        "task1/runs/replication-2020/spec.md:15"
+      ],
+      "correction": "Основной эксперимент — октябрь–ноябрь2019, повтор — январь–февраль2020."
+    },
+    {
+      "path": "docs/data.md",
+      "line": 55,
+      "status": "qualified",
+      "claim": "item_static firsteventcategory and readasof",
+      "evidence": [
+        "task1/data.py:54",
+        "task1/build.py:92"
+      ],
+      "correction": "item_static хранит первую ненулевуюкатегорию полного журнала как справочнуютаблицу; сборкапризнаков определяетатрибуты поистории доякоря."
+    }
+  ],
+  "limitations": [
+    "No raw-data EDA rerun",
+    "Historical timeline substantiated by saved logs/specs, not independent timestamp attestation",
+    "AI authorship based on recorded attribution"
+  ],
+  "recheck": {
+    "status": "REES findings resolved; current changed assertions checked against original code/spec evidence",
+    "files_sha256": {
+      "docs/writeup/latex-report/main.tex": "6aac27fddcf71035dd5bf90c465c7e0b21f702d8827be2b56d4fd2755ae5f218",
+      "docs/data.md": "16d481d93a1b508d371a4c0873e35b2fe2ddb3661d75c265c1a050dc71b5d856"
+    },
+    "scope": "REES text and linked data.md changes only; OTTO and HTTP links reviewed separately",
+    "note": "Original claim statuses above refer to frozen snapshot, not corrected revision."
+  }
+}

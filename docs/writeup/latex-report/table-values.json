@@ -1,0 +1,96 @@
+{
+  "source_revision": "3f8915dd5979d58709aa9442cdd79b79662dc6d1",
+  "summary": "task1/runs/replication-2020/test.json",
+  "method": "Mean NDCG@20 over queries excluding anchors 2020-02-27 and 2020-02-28, then equal mean of two seeds. Extracted from existing per-query metrics, without retraining. Query-level parquet files are local artifacts outside Git. Full precision here prevents double rounding of the published five-decimal summary.",
+  "excluded_anchors": [
+    "2020-02-27",
+    "2020-02-28"
+  ],
+  "arms": {
+    "base": {
+      "mean": 0.14623281414714218,
+      "seeds": [
+        {
+          "mean": 0.1462627105939803,
+          "queries": 97656,
+          "path": "artifacts/task1/v2020/replication/test_base_s0.parquet",
+          "sha256": "6c3996fb24deb9f5597f2a24c641ec7ff3d2d013abaec608a44b0643fc627c69"
+        },
+        {
+          "mean": 0.14620291770030405,
+          "queries": 97656,
+          "path": "artifacts/task1/v2020/replication/test_base_s1.parquet",
+          "sha256": "cdc4a5a6f7779b2cd3a7354a6b007c99ff55b0f29d2b9c7e196b32cc4ab51127"
+        }
+      ]
+    },
+    "agent": {
+      "mean": 0.14704548669677228,
+      "seeds": [
+        {
+          "mean": 0.1469591048850575,
+          "queries": 97656,
+          "path": "artifacts/task1/v2020/replication/test_agent_s0.parquet",
+          "sha256": "6701708ff9eb66c63f11891065ec61c4fcc48e066a61313698199e5a509a1bf6"
+        },
+        {
+          "mean": 0.14713186850848706,
+          "queries": 97656,
+          "path": "artifacts/task1/v2020/replication/test_agent_s1.parquet",
+          "sha256": "b217ce61de5cac301f121e17f5a5acddbe842e23e64edcf2e4cced49fac5fdc7"
+        }
+      ]
+    },
+    "dfs": {
+      "mean": 0.14590018860360643,
+      "seeds": [
+        {
+          "mean": 0.14607736465429602,
+          "queries": 97656,
+          "path": "artifacts/task1/v2020/replication/test_dfs_s0.parquet",
+          "sha256": "68ee4cbf607b151592d1c58b38aebb0b5a1e2b3bc4b597c451b68ec4ee819d72"
+        },
+        {
+          "mean": 0.14572301255291686,
+          "queries": 97656,
+          "path": "artifacts/task1/v2020/replication/test_dfs_s1.parquet",
+          "sha256": "ea9d8d6a37b9feeb6103accd3de0d3bfb1d509cb7d0470d54fc13b77be09e9da"
+        }
+      ]
+    },
+    "Hp": {
+      "mean": 0.14922050737859444,
+      "seeds": [
+        {
+          "mean": 0.14933537966322133,
+          "queries": 97656,
+          "path": "artifacts/task1/v2020/replication/test_Hp_s0.parquet",
+          "sha256": "7c3194a891774305ffc683f4cf15d0db8b03bda0a5b52606913a553c1e922738"
+        },
+        {
+          "mean": 0.14910563509396751,
+          "queries": 97656,
+          "path": "artifacts/task1/v2020/replication/test_Hp_s1.parquet",
+          "sha256": "206a9fc78d95f54c32b56673c7a9ed536f34ae32a524860e0e34612058f2e2f0"
+        }
+      ]
+    },
+    "F1": {
+      "mean": 0.1451102391502966,
+      "seeds": [
+        {
+          "mean": 0.14500960705222732,
+          "queries": 97656,
+          "path": "artifacts/task1/v2020/replication/test_F1_s0.parquet",
+          "sha256": "39d4fc61225602d371a49df9167c5ca38a34ff947236a0adad6b73af63953130"
+        },
+        {
+          "mean": 0.1452108712483659,
+          "queries": 97656,
+          "path": "artifacts/task1/v2020/replication/test_F1_s1.parquet",
+          "sha256": "4a447c076f2f35543dc088b229f3bb613404ed44d3529ec18d6e16c488d0bef2"
+        }
+      ]
+    }
+  }
+}

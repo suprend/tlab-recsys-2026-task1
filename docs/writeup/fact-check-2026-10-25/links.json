@@ -1,0 +1,1038 @@
+{
+  "scope": [
+    "docs/writeup/latex-report/main.tex",
+    "README.md",
+    "docs/task1-reproduce.md",
+    "docs/otto-reproduce.md",
+    "docs/writeup/latex-report/README.md",
+    "docs/data.md",
+    "docs/task1-requirements.md"
+  ],
+  "snapshot": "Current saved files after authorized fact corrections; exact source hashes below",
+  "links": [
+    {
+      "source": "docs/writeup/latex-report/main.tex",
+      "line": 65,
+      "label": "REES46",
+      "target": "https://www.kaggle.com/datasets/mkechinov/ecommerce-behavior-data-from-multi-category-store",
+      "status": "verified_page_identity_content_limited",
+      "evidence": "Web open returns correct title and HTML source identity, but zero extracted body lines. Official REES46 catalog/server corroborate dataset identity and monthly archives; full card not independently inspected by this link reviewer."
+    },
+    {
+      "source": "docs/writeup/latex-report/main.tex",
+      "line": 112,
+      "label": "задаче Kaggle OTTO",
+      "target": "https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md",
+      "status": "verified_public_primary_content",
+      "evidence": "Official OTTO repository KAGGLE.md opened; lines208-218 confirm weighted Recall@20, next click vs all carts/orders; lines301,312-314 describe published final test and permitted provided data."
+    },
+    {
+      "source": "docs/writeup/latex-report/main.tex",
+      "line": 165,
+      "label": "Репозиторий проекта",
+      "target": "https://github.com/suprend/tlab-recsys-2026-task1",
+      "status": "verified_authenticated_private",
+      "evidence": "GitHub connector repository visibility private; target fetched successfully with account access. Anonymous repository HEAD returns 404, consistent with private visibility."
+    },
+    {
+      "source": "docs/writeup/latex-report/main.tex",
+      "line": 165,
+      "label": "REES46",
+      "target": "https://github.com/suprend/tlab-recsys-2026-task1/blob/main/docs/task1-reproduce.md",
+      "status": "verified_authenticated_private",
+      "evidence": "GitHub connector repository visibility private; target fetched successfully with account access. Anonymous repository HEAD returns 404, consistent with private visibility.",
+      "remote_blob_sha": "2bbc023f4135e5761fdbc77aeea5633906d1c426",
+      "qualification": "Remote main serves historical 3f8915d document, not the newer local working copy; refreshed reproduction instructions and post-hoc analyses are not yet published."
+    },
+    {
+      "source": "docs/writeup/latex-report/main.tex",
+      "line": 165,
+      "label": "OTTO",
+      "target": "https://github.com/suprend/tlab-recsys-2026-task1/blob/main/docs/otto-reproduce.md",
+      "status": "verified_authenticated_private",
+      "evidence": "GitHub connector repository visibility private; target fetched successfully with account access. Anonymous repository HEAD returns 404, consistent with private visibility.",
+      "remote_blob_sha": "388961146f717fc7fde7b3b5b82b1da8856bf4e8",
+      "qualification": "Remote main serves historical 3f8915d document, not the newer local working copy; refreshed reproduction instructions and post-hoc analyses are not yet published."
+    },
+    {
+      "source": "docs/writeup/latex-report/main.tex",
+      "line": 165,
+      "label": "числа теста 2020",
+      "target": "https://github.com/suprend/tlab-recsys-2026-task1/blob/3f8915dd5979d58709aa9442cdd79b79662dc6d1/task1/runs/replication-2020/test.json",
+      "status": "verified_authenticated_private",
+      "evidence": "GitHub connector repository visibility private; target fetched successfully with account access. Anonymous repository HEAD returns 404, consistent with private visibility.",
+      "remote_blob_sha": "4f69697b3466c3702d7bf7d6f1412e578ad4bf7d"
+    },
+    {
+      "source": "docs/writeup/latex-report/main.tex",
+      "line": 165,
+      "label": "оценки посылок OTTO",
+      "target": "https://github.com/suprend/tlab-recsys-2026-task1/blob/3f8915dd5979d58709aa9442cdd79b79662dc6d1/docs/otto3-run/otto3-kaggle-scores.csv",
+      "status": "verified_authenticated_private",
+      "evidence": "GitHub connector repository visibility private; target fetched successfully with account access. Anonymous repository HEAD returns 404, consistent with private visibility.",
+      "remote_blob_sha": "552f8185151775df9e7658a10120785fd041db59"
+    },
+    {
+      "source": "README.md",
+      "line": 3,
+      "label": "LaTeX-проект",
+      "target": "docs/writeup/latex-report/",
+      "resolved_path": "docs/writeup/latex-report",
+      "status": "verified_target"
+    },
+    {
+      "source": "README.md",
+      "line": 3,
+      "label": "исходник main.tex",
+      "target": "docs/writeup/latex-report/main.tex",
+      "resolved_path": "docs/writeup/latex-report/main.tex",
+      "status": "verified_target",
+      "target_sha256": "6aac27fddcf71035dd5bf90c465c7e0b21f702d8827be2b56d4fd2755ae5f218"
+    },
+    {
+      "source": "README.md",
+      "line": 3,
+      "label": "инструкции",
+      "target": "docs/writeup/latex-report/README.md",
+      "resolved_path": "docs/writeup/latex-report/README.md",
+      "status": "verified_target",
+      "target_sha256": "b347a6f3f19108ff81dbfce4d49acc8099339b1b3d77ac7207afa46249e199b2"
+    },
+    {
+      "source": "README.md",
+      "line": 11,
+      "label": "условию задачи",
+      "target": "docs/task1-requirements.md",
+      "resolved_path": "docs/task1-requirements.md",
+      "status": "verified_target",
+      "target_sha256": "73496bee31d06c3dde5c1915092aa5236cd873bf96d6d6a58cdd488462526b90"
+    },
+    {
+      "source": "README.md",
+      "line": 17,
+      "label": "план",
+      "target": "task1/runs/replication-2020/spec.md",
+      "resolved_path": "task1/runs/replication-2020/spec.md",
+      "status": "verified_target",
+      "target_sha256": "88f38ff431e5813f72fa69a8ee7c73e7531268d5737817f13f7b4eb13f784313"
+    },
+    {
+      "source": "README.md",
+      "line": 17,
+      "label": "конфигурация",
+      "target": "task1/runs/replication-2020/spec.json",
+      "resolved_path": "task1/runs/replication-2020/spec.json",
+      "status": "verified_target",
+      "target_sha256": "8862505e9cc8000d2484a5228458550dd984881019c9f237d3335e89ba22d8a8"
+    },
+    {
+      "source": "README.md",
+      "line": 17,
+      "label": "результат",
+      "target": "task1/runs/replication-2020/test.json",
+      "resolved_path": "task1/runs/replication-2020/test.json",
+      "status": "verified_target",
+      "target_sha256": "f6812b5975c1cbb8ee95213ae34e92d417a5116f9813f657ed3a745f98ecaafb"
+    },
+    {
+      "source": "README.md",
+      "line": 18,
+      "label": "итог",
+      "target": "task1/runs/agent_night20/summary.json",
+      "resolved_path": "task1/runs/agent_night20/summary.json",
+      "status": "verified_target",
+      "target_sha256": "3bc04cd9f2b0110e24dfc17845d2917f495bbf05e7344bf5d298920e414b8d18"
+    },
+    {
+      "source": "README.md",
+      "line": 18,
+      "label": "SQL выбранного предложения",
+      "target": "task1/runs/agent_night20/p5-feature.sql",
+      "resolved_path": "task1/runs/agent_night20/p5-feature.sql",
+      "status": "verified_target",
+      "target_sha256": "b712f1b863999cb7eb50069a0c98ef1210fc8ffbf8c2fce41a35924494cb16fd"
+    },
+    {
+      "source": "README.md",
+      "line": 19,
+      "label": "последующая диагностика на валидации",
+      "target": "task1/runs/placebo-2026-10-21/result.json",
+      "resolved_path": "task1/runs/placebo-2026-10-21/result.json",
+      "status": "verified_target",
+      "target_sha256": "b770352718c66c1c41957d3fe044f8ed8ee06aeb8c55f7f6408f546d11060313"
+    },
+    {
+      "source": "README.md",
+      "line": 20,
+      "label": "исходная оценка OTTO-2",
+      "target": "docs/otto-run/otto2-kaggle-scores.csv",
+      "resolved_path": "docs/otto-run/otto2-kaggle-scores.csv",
+      "status": "verified_target",
+      "target_sha256": "df97eeb21e677789a7e7ca25c59048248950095fb62dedfdfdd598ae715628a7"
+    },
+    {
+      "source": "README.md",
+      "line": 20,
+      "label": "оценки продолжений",
+      "target": "docs/otto3-run/otto3-kaggle-scores.csv",
+      "resolved_path": "docs/otto3-run/otto3-kaggle-scores.csv",
+      "status": "verified_target",
+      "target_sha256": "050fd70e22c5edc0bf069dc12f3a6b0fffdb2cbeb7ceb2626524f9f4c437a8f8"
+    },
+    {
+      "source": "README.md",
+      "line": 20,
+      "label": "журнал и условия",
+      "target": "docs/otto3.md",
+      "resolved_path": "docs/otto3.md",
+      "status": "verified_target",
+      "target_sha256": "dd150e77ee3707fbd88fe04f2073faa4bc849ed3a8434678f854c4d43cebdb37"
+    },
+    {
+      "source": "README.md",
+      "line": 22,
+      "label": "Сводка чисел",
+      "target": "docs/writeup/facts.md",
+      "resolved_path": "docs/writeup/facts.md",
+      "status": "verified_target",
+      "target_sha256": "ea1157a94936b6ef5b4ac0ea19c48d98936dd699f11fa6cec29f2708a24f5547"
+    },
+    {
+      "source": "README.md",
+      "line": 35,
+      "label": "REES46: данные, признаки, обучение и тест 2020",
+      "target": "docs/task1-reproduce.md",
+      "resolved_path": "docs/task1-reproduce.md",
+      "status": "verified_target",
+      "target_sha256": "eb2d414b03406a9e384b66d146ed0a2c7d6762c90c7a427e785d0804858f2cd4"
+    },
+    {
+      "source": "README.md",
+      "line": 36,
+      "label": "OTTO: замороженные наборы, историческая сборка F4 и финальные модели",
+      "target": "docs/otto-reproduce.md",
+      "resolved_path": "docs/otto-reproduce.md",
+      "status": "verified_target",
+      "target_sha256": "ba46271fe38631439a04bda15c5679e52b72554189c22e768cf293257f01f593"
+    },
+    {
+      "source": "README.md",
+      "line": 37,
+      "label": "Ручные признаки REES46 и их назначение",
+      "target": "docs/task1-baseline-features.md",
+      "resolved_path": "docs/task1-baseline-features.md",
+      "status": "verified_target",
+      "target_sha256": "99b939b0a774d8c177eab8e16598a15717b60ff2f4a05ca9fc382fedf94fe899"
+    },
+    {
+      "source": "README.md",
+      "line": 53,
+      "label": "Журнал проверки и исправлений",
+      "target": "docs/writeup/review-audit.json",
+      "resolved_path": "docs/writeup/review-audit.json",
+      "status": "verified_target",
+      "target_sha256": "d7214378d7756e245c080d331e0e248629533639da50e0841cfd22cb0f7e3ae1"
+    },
+    {
+      "source": "README.md",
+      "line": 57,
+      "label": "PDF",
+      "target": "docs/writeup/REPORT.pdf",
+      "resolved_path": "docs/writeup/REPORT.pdf",
+      "status": "verified_target",
+      "target_sha256": "9b4d45308c84c1a61ed44348c280518f8ed5f40a8827317904e8c1eddc2f0b97"
+    },
+    {
+      "source": "README.md",
+      "line": 57,
+      "label": "Markdown-отчёт",
+      "target": "docs/writeup/REPORT.md",
+      "resolved_path": "docs/writeup/REPORT.md",
+      "status": "verified_target",
+      "target_sha256": "82bd8ab48b06bf40c23949e5165a135d75894122663168cfc5d4761a596c6ac9"
+    },
+    {
+      "source": "README.md",
+      "line": 57,
+      "label": "полный журнал REES46",
+      "target": "docs/task1-v2-report.md",
+      "resolved_path": "docs/task1-v2-report.md",
+      "status": "verified_target",
+      "target_sha256": "0fb76998513e7e9153a85f0238197ca53db3f45f54ec3af09be69fca9741a8ea"
+    },
+    {
+      "source": "README.md",
+      "line": 57,
+      "label": "совет агентов",
+      "target": "docs/task1-v2-council.md",
+      "resolved_path": "docs/task1-v2-council.md",
+      "status": "verified_target",
+      "target_sha256": "67052dbed895be0dbe5fa2ba6a9101e14f1f6f34d007ff3b7b9d354b8cf23a05"
+    },
+    {
+      "source": "README.md",
+      "line": 59,
+      "label": "archive-2026-10-25",
+      "target": "https://github.com/suprend/tlab-recsys-2026-task1/tree/archive-2026-10-25",
+      "status": "verified_authenticated_private",
+      "evidence": "GitHub connector repository visibility private; target fetched successfully with account access. Anonymous repository HEAD returns 404, consistent with private visibility. README fetched at archive-2026-10-25; local tag resolves 5969abf7ae2885fab0ed904129fddb54116d6ac1."
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 3,
+      "label": "актуального LaTeX-отчёта",
+      "target": "writeup/latex-report/main.tex",
+      "resolved_path": "docs/writeup/latex-report/main.tex",
+      "status": "verified_target",
+      "target_sha256": "6aac27fddcf71035dd5bf90c465c7e0b21f702d8827be2b56d4fd2755ae5f218"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 3,
+      "label": "журнале исследования",
+      "target": "task1-v2-report.md",
+      "resolved_path": "docs/task1-v2-report.md",
+      "status": "verified_target",
+      "target_sha256": "0fb76998513e7e9153a85f0238197ca53db3f45f54ec3af09be69fca9741a8ea"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 3,
+      "label": "task1-requirements.md",
+      "target": "task1-requirements.md",
+      "resolved_path": "docs/task1-requirements.md",
+      "status": "verified_target",
+      "target_sha256": "73496bee31d06c3dde5c1915092aa5236cd873bf96d6d6a58cdd488462526b90"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 5,
+      "label": "PDF",
+      "target": "writeup/REPORT.pdf",
+      "resolved_path": "docs/writeup/REPORT.pdf",
+      "status": "verified_target",
+      "target_sha256": "9b4d45308c84c1a61ed44348c280518f8ed5f40a8827317904e8c1eddc2f0b97"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 9,
+      "label": "План от 25 октября",
+      "target": "writeup/sensitivity-2026-10-25/plan.json",
+      "resolved_path": "docs/writeup/sensitivity-2026-10-25/plan.json",
+      "status": "verified_target",
+      "target_sha256": "19b9be373943c40421757f3de491180bbce3b0b86f32fabf0692b8d694989cdc"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 9,
+      "label": "Результаты",
+      "target": "writeup/sensitivity-2026-10-25/results.json",
+      "resolved_path": "docs/writeup/sensitivity-2026-10-25/results.json",
+      "status": "verified_target",
+      "target_sha256": "f0135dbc6b1a37b4e422745fd622016b81ef78e9ae85f6bf901e8af69143eccd"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 24,
+      "label": "Отдельный план",
+      "target": "writeup/secondary-2026-10-25/plan.json",
+      "resolved_path": "docs/writeup/secondary-2026-10-25/plan.json",
+      "status": "verified_target",
+      "target_sha256": "0304f1722875740a5653f35bcc8d0de78867d4785541d4b8a96206d331399a55"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 24,
+      "label": "результат",
+      "target": "writeup/secondary-2026-10-25/results.json",
+      "resolved_path": "docs/writeup/secondary-2026-10-25/results.json",
+      "status": "verified_target",
+      "target_sha256": "f5e5713023517d020554b649e723b4e3557d7d64508f49927875389206302efc"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 48,
+      "label": "«Повтор на январе–феврале 2020»",
+      "target": "#повтор-на-январефеврале-2020",
+      "resolved_path": "docs/task1-reproduce.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "повтор-на-январефеврале-2020",
+      "target_sha256": "eb2d414b03406a9e384b66d146ed0a2c7d6762c90c7a427e785d0804858f2cd4"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 54,
+      "label": "журнале ревью",
+      "target": "writeup/review-audit.json",
+      "resolved_path": "docs/writeup/review-audit.json",
+      "status": "verified_target",
+      "target_sha256": "d7214378d7756e245c080d331e0e248629533639da50e0841cfd22cb0f7e3ae1"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 77,
+      "label": "спецификация признаков",
+      "target": "task1-baseline-features.md",
+      "resolved_path": "docs/task1-baseline-features.md",
+      "status": "verified_target",
+      "target_sha256": "99b939b0a774d8c177eab8e16598a15717b60ff2f4a05ca9fc382fedf94fe899"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 93,
+      "label": "журнал экспериментов",
+      "target": "task1-night-2026-10-20.md",
+      "resolved_path": "docs/task1-night-2026-10-20.md",
+      "status": "verified_target",
+      "target_sha256": "4bdd9402b461f85c0f4abdd59578bedaf050b72dd648883cebe4638b966fe5c0"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 99,
+      "label": "паспорте данных",
+      "target": "data.md",
+      "resolved_path": "docs/data.md",
+      "status": "verified_target",
+      "target_sha256": "16d481d93a1b508d371a4c0873e35b2fe2ddb3661d75c265c1a050dc71b5d856"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 461,
+      "label": "предрегистрация",
+      "target": "../task1/runs/grid-2026-10-20/spec.md",
+      "resolved_path": "task1/runs/grid-2026-10-20/spec.md",
+      "status": "verified_target",
+      "target_sha256": "34420b0cfa11a6e75bc9402e2d899748ab23f5d9abb12eeaf155852be344b314"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 498,
+      "label": "спецификация",
+      "target": "../task1/runs/replication-2020/spec.md",
+      "resolved_path": "task1/runs/replication-2020/spec.md",
+      "status": "verified_target",
+      "target_sha256": "88f38ff431e5813f72fa69a8ee7c73e7531268d5737817f13f7b4eb13f784313"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 523,
+      "label": "«Как воспроизвести»",
+      "target": "../task1/runs/replication-2020/spec.md#как-воспроизвести",
+      "resolved_path": "task1/runs/replication-2020/spec.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "как-воспроизвести",
+      "target_sha256": "88f38ff431e5813f72fa69a8ee7c73e7531268d5737817f13f7b4eb13f784313"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 547,
+      "label": "`test.started`",
+      "target": "../task1/runs/replication-2020/test.started",
+      "resolved_path": "task1/runs/replication-2020/test.started",
+      "status": "verified_target",
+      "target_sha256": "b079f77239c9f5aae9db4f7e2722442be28de98b80cdda384d1092d579f7ef83"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 551,
+      "label": "«Порядок и команды»",
+      "target": "../task1/runs/placebo-2026-10-21/spec.md#порядок-и-команды",
+      "resolved_path": "task1/runs/placebo-2026-10-21/spec.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "порядок-и-команды",
+      "target_sha256": "97f32ec15f92ea8a37ec94deae87c2a0c3a6fd9c4fdb121454416b74982d4de5"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 569,
+      "label": "Перенос на другие наборы",
+      "target": "task1-v2-report.md#перенос-на-другие-наборы",
+      "resolved_path": "docs/task1-v2-report.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "перенос-на-другие-наборы",
+      "target_sha256": "0fb76998513e7e9153a85f0238197ca53db3f45f54ec3af09be69fca9741a8ea"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 570,
+      "label": "hm-kaggle.md",
+      "target": "hm-kaggle.md",
+      "resolved_path": "docs/hm-kaggle.md",
+      "status": "verified_target",
+      "target_sha256": "0627c8f0b7377b733a83d19a9bff5402c85f7ba2c684cdbe422a95994f3f33b2"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 571,
+      "label": "hm-agent.md",
+      "target": "hm-agent.md",
+      "resolved_path": "docs/hm-agent.md",
+      "status": "verified_target",
+      "target_sha256": "9392e16b83ae69fb085b837e388fd511b1141157187a7212ded2b23269859ce0"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 572,
+      "label": "«Команды»",
+      "target": "hm-ma-placebo.md#команды",
+      "resolved_path": "docs/hm-ma-placebo.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "команды",
+      "target_sha256": "9f9a7c07df97280352f7b247696ae81ff61df0a51d68722ae095a202391e0405"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 574,
+      "label": "hm-kaggle.md",
+      "target": "hm-kaggle.md",
+      "resolved_path": "docs/hm-kaggle.md",
+      "status": "verified_target",
+      "target_sha256": "0627c8f0b7377b733a83d19a9bff5402c85f7ba2c684cdbe422a95994f3f33b2"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 574,
+      "label": "hm-agent.md",
+      "target": "hm-agent.md",
+      "resolved_path": "docs/hm-agent.md",
+      "status": "verified_target",
+      "target_sha256": "9392e16b83ae69fb085b837e388fd511b1141157187a7212ded2b23269859ce0"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 578,
+      "label": "Перенос на другие наборы",
+      "target": "task1-v2-report.md#перенос-на-другие-наборы",
+      "resolved_path": "docs/task1-v2-report.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "перенос-на-другие-наборы",
+      "target_sha256": "0fb76998513e7e9153a85f0238197ca53db3f45f54ec3af09be69fca9741a8ea"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 578,
+      "label": "контракт, §8",
+      "target": "xfer-design.md#8-порядок-и-ресурсы",
+      "resolved_path": "docs/xfer-design.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "8-порядок-и-ресурсы",
+      "target_sha256": "7a7ee935c02513f5629b9a61203345281c5742b599faa020a1a0a50aecf7d512"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 578,
+      "label": "Tinkoff",
+      "target": "xfer-tinkoff-design.md",
+      "resolved_path": "docs/xfer-tinkoff-design.md",
+      "status": "verified_target",
+      "target_sha256": "dd476f1fb3c017cf41634167259c8c155fd7a24a6c6ab480e122eec277ea681d"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 578,
+      "label": "СберМаркета",
+      "target": "xfer-sber-design.md",
+      "resolved_path": "docs/xfer-sber-design.md",
+      "status": "verified_target",
+      "target_sha256": "3a2577f90f6e9aad78ba42755891f9ae96e0ed17c0943a61e6729fac09b9296e"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 608,
+      "label": "xfer-tinkoff.md",
+      "target": "xfer-tinkoff.md",
+      "resolved_path": "docs/xfer-tinkoff.md",
+      "status": "verified_target",
+      "target_sha256": "c830a19d136a75eaa6c89ba038b0a61378f04bc31309db01a8d264850c7800fc"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 608,
+      "label": "xfer-sber.md",
+      "target": "xfer-sber.md",
+      "resolved_path": "docs/xfer-sber.md",
+      "status": "verified_target",
+      "target_sha256": "b415de7120b020922ed12b9595626deba13e4c387ac611f3851b7e433d50ca01"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 626,
+      "label": "«Совет агентов»",
+      "target": "task1-v2-report.md#совет-агентов",
+      "resolved_path": "docs/task1-v2-report.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "совет-агентов",
+      "target_sha256": "0fb76998513e7e9153a85f0238197ca53db3f45f54ec3af09be69fca9741a8ea"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 626,
+      "label": "«Совет агентов над H+ (REES46 2020): первая проверка»",
+      "target": "task1-v2-council.md#совет-агентов-над-h-rees46-2020-первая-проверка",
+      "resolved_path": "docs/task1-v2-council.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "совет-агентов-над-h-rees46-2020-первая-проверка",
+      "target_sha256": "67052dbed895be0dbe5fa2ba6a9101e14f1f6f34d007ff3b7b9d354b8cf23a05"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 626,
+      "label": "«Совет агентов на Tinkoff и СберМаркете: повторный тест»",
+      "target": "task1-v2-council.md#совет-агентов-на-tinkoff-и-сбермаркете-повторный-тест",
+      "resolved_path": "docs/task1-v2-council.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "совет-агентов-на-tinkoff-и-сбермаркете-повторный-тест",
+      "target_sha256": "67052dbed895be0dbe5fa2ba6a9101e14f1f6f34d007ff3b7b9d354b8cf23a05"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 933,
+      "label": "отчёта",
+      "target": "task1-v2-report.md",
+      "resolved_path": "docs/task1-v2-report.md",
+      "status": "verified_target",
+      "target_sha256": "0fb76998513e7e9153a85f0238197ca53db3f45f54ec3af09be69fca9741a8ea"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 933,
+      "label": "журнал экспериментов",
+      "target": "task1-night-2026-10-20.md",
+      "resolved_path": "docs/task1-night-2026-10-20.md",
+      "status": "verified_target",
+      "target_sha256": "4bdd9402b461f85c0f4abdd59578bedaf050b72dd648883cebe4638b966fe5c0"
+    },
+    {
+      "source": "docs/task1-reproduce.md",
+      "line": 933,
+      "label": "спецификации признаков",
+      "target": "task1-baseline-features.md",
+      "resolved_path": "docs/task1-baseline-features.md",
+      "status": "verified_target",
+      "target_sha256": "99b939b0a774d8c177eab8e16598a15717b60ff2f4a05ca9fc382fedf94fe899"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 3,
+      "label": "актуальном LaTeX-отчёте",
+      "target": "writeup/latex-report/main.tex",
+      "resolved_path": "docs/writeup/latex-report/main.tex",
+      "status": "verified_target",
+      "target_sha256": "6aac27fddcf71035dd5bf90c465c7e0b21f702d8827be2b56d4fd2755ae5f218"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 3,
+      "label": "otto.md",
+      "target": "otto.md",
+      "resolved_path": "docs/otto.md",
+      "status": "verified_target",
+      "target_sha256": "f27c9c605da886c8fe5d9d5bc1a5408ee29c8f7aa1ac77bd88da12ebe9b7c17c"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 3,
+      "label": "otto2.md",
+      "target": "otto2.md",
+      "resolved_path": "docs/otto2.md",
+      "status": "verified_target",
+      "target_sha256": "6e8e8f37fadbba82fde3b9d76628d1328dbf98c239c3f2c9874e3c84e1ff9510"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 3,
+      "label": "otto3.md",
+      "target": "otto3.md",
+      "resolved_path": "docs/otto3.md",
+      "status": "verified_target",
+      "target_sha256": "dd150e77ee3707fbd88fe04f2073faa4bc849ed3a8434678f854c4d43cebdb37"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 3,
+      "label": "otto-design.md",
+      "target": "otto-design.md",
+      "resolved_path": "docs/otto-design.md",
+      "status": "verified_target",
+      "target_sha256": "e44e7984fc286f476e5f212e8cf7a36c26bd05ab40fc92fef302196589e8cc6d"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 3,
+      "label": "otto-base-log.md",
+      "target": "otto-base-log.md",
+      "resolved_path": "docs/otto-base-log.md",
+      "status": "verified_target",
+      "target_sha256": "ae7f44d0689b725513f0d5e7d9e25b4549d9ddb48a3f278a8894425c43b1f647"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 3,
+      "label": "сводкой чисел",
+      "target": "writeup/facts.md",
+      "resolved_path": "docs/writeup/facts.md",
+      "status": "verified_target",
+      "target_sha256": "ea1157a94936b6ef5b4ac0ea19c48d98936dd699f11fa6cec29f2708a24f5547"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 13,
+      "label": "«Изолированное воспроизведение»",
+      "target": "#изолированное-воспроизведение",
+      "resolved_path": "docs/otto-reproduce.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "изолированное-воспроизведение",
+      "target_sha256": "ba46271fe38631439a04bda15c5679e52b72554189c22e768cf293257f01f593"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 13,
+      "label": "PDF",
+      "target": "writeup/REPORT.pdf",
+      "resolved_path": "docs/writeup/REPORT.pdf",
+      "status": "verified_target",
+      "target_sha256": "9b4d45308c84c1a61ed44348c280518f8ed5f40a8827317904e8c1eddc2f0b97"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 47,
+      "label": "otto-design.md",
+      "target": "otto-design.md",
+      "resolved_path": "docs/otto-design.md",
+      "status": "verified_target",
+      "target_sha256": "e44e7984fc286f476e5f212e8cf7a36c26bd05ab40fc92fef302196589e8cc6d"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 64,
+      "label": "otto-design.md",
+      "target": "otto-design.md",
+      "resolved_path": "docs/otto-design.md",
+      "status": "verified_target",
+      "target_sha256": "e44e7984fc286f476e5f212e8cf7a36c26bd05ab40fc92fef302196589e8cc6d"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 133,
+      "label": "«Данные»",
+      "target": "#данные",
+      "resolved_path": "docs/otto-reproduce.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "данные",
+      "target_sha256": "ba46271fe38631439a04bda15c5679e52b72554189c22e768cf293257f01f593"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 169,
+      "label": "«OTTO-2»",
+      "target": "#otto-2",
+      "resolved_path": "docs/otto-reproduce.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "otto-2",
+      "target_sha256": "ba46271fe38631439a04bda15c5679e52b72554189c22e768cf293257f01f593"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 169,
+      "label": "финальной модели OTTO-3",
+      "target": "#финальная-модель",
+      "resolved_path": "docs/otto-reproduce.md",
+      "status": "verified_target_and_anchor",
+      "fragment": "финальная-модель",
+      "target_sha256": "ba46271fe38631439a04bda15c5679e52b72554189c22e768cf293257f01f593"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 271,
+      "label": "otto.md",
+      "target": "otto.md",
+      "resolved_path": "docs/otto.md",
+      "status": "verified_target",
+      "target_sha256": "f27c9c605da886c8fe5d9d5bc1a5408ee29c8f7aa1ac77bd88da12ebe9b7c17c"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 324,
+      "label": "otto2.md",
+      "target": "otto2.md",
+      "resolved_path": "docs/otto2.md",
+      "status": "verified_target",
+      "target_sha256": "6e8e8f37fadbba82fde3b9d76628d1328dbf98c239c3f2c9874e3c84e1ff9510"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 406,
+      "label": "otto3.md",
+      "target": "otto3.md",
+      "resolved_path": "docs/otto3.md",
+      "status": "verified_target",
+      "target_sha256": "dd150e77ee3707fbd88fe04f2073faa4bc849ed3a8434678f854c4d43cebdb37"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 408,
+      "label": "otto3.md",
+      "target": "otto3.md",
+      "resolved_path": "docs/otto3.md",
+      "status": "verified_target",
+      "target_sha256": "dd150e77ee3707fbd88fe04f2073faa4bc849ed3a8434678f854c4d43cebdb37"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 423,
+      "label": "otto2.md",
+      "target": "otto2.md",
+      "resolved_path": "docs/otto2.md",
+      "status": "verified_target",
+      "target_sha256": "6e8e8f37fadbba82fde3b9d76628d1328dbf98c239c3f2c9874e3c84e1ff9510"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 423,
+      "label": "otto3.md",
+      "target": "otto3.md",
+      "resolved_path": "docs/otto3.md",
+      "status": "verified_target",
+      "target_sha256": "dd150e77ee3707fbd88fe04f2073faa4bc849ed3a8434678f854c4d43cebdb37"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 531,
+      "label": "otto.md",
+      "target": "otto.md",
+      "resolved_path": "docs/otto.md",
+      "status": "verified_target",
+      "target_sha256": "f27c9c605da886c8fe5d9d5bc1a5408ee29c8f7aa1ac77bd88da12ebe9b7c17c"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 531,
+      "label": "otto2.md",
+      "target": "otto2.md",
+      "resolved_path": "docs/otto2.md",
+      "status": "verified_target",
+      "target_sha256": "6e8e8f37fadbba82fde3b9d76628d1328dbf98c239c3f2c9874e3c84e1ff9510"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 531,
+      "label": "otto3.md",
+      "target": "otto3.md",
+      "resolved_path": "docs/otto3.md",
+      "status": "verified_target",
+      "target_sha256": "dd150e77ee3707fbd88fe04f2073faa4bc849ed3a8434678f854c4d43cebdb37"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 559,
+      "label": "otto-design.md",
+      "target": "otto-design.md",
+      "resolved_path": "docs/otto-design.md",
+      "status": "verified_target",
+      "target_sha256": "e44e7984fc286f476e5f212e8cf7a36c26bd05ab40fc92fef302196589e8cc6d"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 560,
+      "label": "otto-base-log.md",
+      "target": "otto-base-log.md",
+      "resolved_path": "docs/otto-base-log.md",
+      "status": "verified_target",
+      "target_sha256": "ae7f44d0689b725513f0d5e7d9e25b4549d9ddb48a3f278a8894425c43b1f647"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 561,
+      "label": "otto.md",
+      "target": "otto.md",
+      "resolved_path": "docs/otto.md",
+      "status": "verified_target",
+      "target_sha256": "f27c9c605da886c8fe5d9d5bc1a5408ee29c8f7aa1ac77bd88da12ebe9b7c17c"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 562,
+      "label": "otto2.md",
+      "target": "otto2.md",
+      "resolved_path": "docs/otto2.md",
+      "status": "verified_target",
+      "target_sha256": "6e8e8f37fadbba82fde3b9d76628d1328dbf98c239c3f2c9874e3c84e1ff9510"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 563,
+      "label": "otto3.md",
+      "target": "otto3.md",
+      "resolved_path": "docs/otto3.md",
+      "status": "verified_target",
+      "target_sha256": "dd150e77ee3707fbd88fe04f2073faa4bc849ed3a8434678f854c4d43cebdb37"
+    },
+    {
+      "source": "docs/otto-reproduce.md",
+      "line": 565,
+      "label": "task1-reproduce.md",
+      "target": "task1-reproduce.md",
+      "resolved_path": "docs/task1-reproduce.md",
+      "status": "verified_target",
+      "target_sha256": "eb2d414b03406a9e384b66d146ed0a2c7d6762c90c7a427e785d0804858f2cd4"
+    },
+    {
+      "source": "docs/writeup/latex-report/README.md",
+      "line": 28,
+      "label": "инструкции воспроизведения",
+      "target": "../../task1-reproduce.md",
+      "resolved_path": "docs/task1-reproduce.md",
+      "status": "verified_target",
+      "target_sha256": "eb2d414b03406a9e384b66d146ed0a2c7d6762c90c7a427e785d0804858f2cd4"
+    },
+    {
+      "source": "docs/data.md",
+      "line": 5,
+      "label": "карточка на Kaggle",
+      "target": "https://www.kaggle.com/datasets/mkechinov/ecommerce-behavior-data-from-multi-category-store",
+      "status": "verified_page_identity_content_limited",
+      "evidence": "Web open returns correct title and HTML source identity, but zero extracted body lines. Official REES46 catalog/server corroborate dataset identity and monthly archives; full card not independently inspected by this link reviewer."
+    },
+    {
+      "source": "docs/data.md",
+      "line": 6,
+      "label": "Каталог REES46",
+      "target": "https://rees46.com/en/datasets",
+      "status": "verified_public_primary_content",
+      "evidence": "Web open returned readable official catalog/server. Catalog Multi-category Oct2019-Apr2020; server marketplace section links seven monthly archives."
+    },
+    {
+      "source": "docs/data.md",
+      "line": 6,
+      "label": "сервер данных",
+      "target": "https://data.rees46.com/",
+      "status": "verified_public_primary_content",
+      "evidence": "Web open returned readable official catalog/server. Catalog Multi-category Oct2019-Apr2020; server marketplace section links seven monthly archives."
+    },
+    {
+      "source": "docs/data.md",
+      "line": 7,
+      "label": "2019-Oct.csv.gz",
+      "target": "https://data.rees46.com/datasets/marketplace/2019-Oct.csv.gz",
+      "status": "verified_http_head_200",
+      "evidence": "Anonymous HEAD200 without file download; monthly link also present on official server index."
+    },
+    {
+      "source": "docs/data.md",
+      "line": 7,
+      "label": "2019-Nov.csv.gz",
+      "target": "https://data.rees46.com/datasets/marketplace/2019-Nov.csv.gz",
+      "status": "verified_http_head_200",
+      "evidence": "Anonymous HEAD200 without file download; monthly link also present on official server index."
+    },
+    {
+      "source": "docs/data.md",
+      "line": 9,
+      "label": "код",
+      "target": "https://github.com/suprend/tlab-recsys-2026-task1/blob/archive-2026-10-25/scripts/eda.py",
+      "status": "verified_authenticated_private",
+      "evidence": "GitHub authenticated fetch_file succeeded at tag, blob06742c924a6ffa60c5c5310d70c23fc11af6c3f4."
+    },
+    {
+      "source": "docs/data.md",
+      "line": 9,
+      "label": "ноутбук",
+      "target": "https://github.com/suprend/tlab-recsys-2026-task1/tree/archive-2026-10-25/notebooks",
+      "status": "verified_pinned_local_tree_private",
+      "evidence": "Archive tag exists remotely via successful README/EDA fetch; local exact tag contains notebooks treeb5516f3d16b716ff1c773ef7fb18f83da3ee6c87. Directory content not separately fetched remotely."
+    },
+    {
+      "source": "docs/data.md",
+      "line": 9,
+      "label": "повтор во времени",
+      "target": "../task1/runs/replication-2020/spec.md",
+      "resolved_path": "task1/runs/replication-2020/spec.md",
+      "status": "verified_target",
+      "target_sha256": "88f38ff431e5813f72fa69a8ee7c73e7531268d5737817f13f7b4eb13f784313"
+    },
+    {
+      "source": "docs/task1-requirements.md",
+      "line": 3,
+      "label": "страницы первой задачи",
+      "target": "https://edu.tbank-online.com/selection/01a10b8d-f3da-73a2-950e-5395aeccdb3d/practice/89603/task/1",
+      "status": "authenticated_ui_verification_by_coordinator",
+      "evidence": "Coordinator inspected the authorized user browser task/overview; this link reviewer did not replay UI or claim anonymous access."
+    },
+    {
+      "source": "docs/task1-requirements.md",
+      "line": 19,
+      "label": "странице общих указаний",
+      "target": "https://edu.tbank-online.com/selection/01a10b8d-f3da-73a2-950e-5395aeccdb3d/practice/89603/overview",
+      "status": "authenticated_ui_verification_by_coordinator",
+      "evidence": "Coordinator inspected the authorized user browser task/overview; this link reviewer did not replay UI or claim anonymous access."
+    }
+  ],
+  "limitations": [
+    "Local Markdown anchors checked by GitHub-style generated-heading approximation; suspicious anchors manually reviewed.",
+    "External GitHub links verified using authenticated connector, not anonymous access. Repository is private."
+  ],
+  "initial_snapshot": "/tmp/tlab-fact-audit",
+  "source_sha256": {
+    "docs/writeup/latex-report/main.tex": "6aac27fddcf71035dd5bf90c465c7e0b21f702d8827be2b56d4fd2755ae5f218",
+    "README.md": "71e982c1ba0abd99fb970cf3b4a24097d77fc973c55a0b98df1f04ac7f7bd068",
+    "docs/task1-reproduce.md": "eb2d414b03406a9e384b66d146ed0a2c7d6762c90c7a427e785d0804858f2cd4",
+    "docs/otto-reproduce.md": "ba46271fe38631439a04bda15c5679e52b72554189c22e768cf293257f01f593",
+    "docs/writeup/latex-report/README.md": "b347a6f3f19108ff81dbfce4d49acc8099339b1b3d77ac7207afa46249e199b2",
+    "docs/data.md": "16d481d93a1b508d371a4c0873e35b2fe2ddb3661d75c265c1a050dc71b5d856",
+    "docs/task1-requirements.md": "73496bee31d06c3dde5c1915092aa5236cd873bf96d6d6a58cdd488462526b90"
+  },
+  "expanded_command_urls": [
+    {
+      "url": "https://data.rees46.com/datasets/marketplace/2019-Oct.csv.gz",
+      "status": "verified_http_head_200",
+      "content_length": 1741928540,
+      "evidence": "Uncredentialed HEAD request; no archive content downloaded; content integrity not inferred from availability."
+    },
+    {
+      "url": "https://data.rees46.com/datasets/marketplace/2019-Nov.csv.gz",
+      "status": "verified_http_head_200",
+      "content_length": 2890421023,
+      "evidence": "Uncredentialed HEAD request; no archive content downloaded; content integrity not inferred from availability."
+    },
+    {
+      "url": "https://data.rees46.com/datasets/marketplace/2020-Jan.csv.gz",
+      "status": "verified_http_head_200",
+      "content_length": 2390063923,
+      "evidence": "Uncredentialed HEAD request; no archive content downloaded; content integrity not inferred from availability."
+    },
+    {
+      "url": "https://data.rees46.com/datasets/marketplace/2020-Feb.csv.gz",
+      "status": "verified_http_head_200",
+      "content_length": 2347087112,
+      "evidence": "Uncredentialed HEAD request; no archive content downloaded; content integrity not inferred from availability."
+    }
+  ],
+  "findings": [
+    {
+      "priority": "P1",
+      "source": "docs/writeup/latex-report/main.tex",
+      "line": 165,
+      "title": "Ensure reviewers have access to private repository",
+      "detail": "All five report links point to private GitHub resources. Authenticated tools confirm existence, anonymous repo request returns404. Do not describe links as publicly accessible. Resolve access or provide required artifacts before submission; changing visibility requires owner decision.",
+      "resolution": "Deferred by explicit user instruction: user will make repository public later. No visibility change performed."
+    },
+    {
+      "priority": "P1",
+      "source": "docs/writeup/latex-report/main.tex",
+      "line": 165,
+      "title": "Publish reviewed version before relying on main links",
+      "detail": "Both linked reproduction documents on remote main still match historical 3f8915d blobs and lack the current isolated replay fixes and post-hoc documentation. Existing links are valid but do not yet deliver the reviewed local work."
+    }
+  ],
+  "summary": {
+    "explicit_links": 106,
+    "local_paths_without_fragment": 75,
+    "local_paths_with_fragment": 14,
+    "local_failures": 0,
+    "external_links": 17,
+    "expanded_archive_urls_http200": 4,
+    "anonymous_repository_http_status": 404,
+    "repository_visibility": "private",
+    "scope_note": "Private access is deferred to user; remote main still serves older documents. No push or visibility mutation performed."
+  }
+}

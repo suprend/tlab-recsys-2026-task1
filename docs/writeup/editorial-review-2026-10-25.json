@@ -1,0 +1,140 @@
+{
+  "date": "2026-10-25",
+  "scope": "Careful Russian prose, order and coherence review of existing main.tex; no new experiments",
+  "base_package": {
+    "path": "docs/writeup/review-package-2026-10-25.json",
+    "sha256": "179a5b7669faf5d4573abc55e1737720f36b83561e6ed7cc4f555c0b4a193893"
+  },
+  "changed_files_sha256": {
+    "docs/writeup/fact-check-2026-10-25/README.md": {
+      "before": "16d3436f3d6a24030188b975b2a9da62c7dab14621b059867074e5cee2939b36",
+      "after": "d0cee9d26b1a10e66c89a85aa3f811ddf3fb67b84330dc5becf07183f3d89e8e"
+    },
+    "docs/writeup/human-review.md": {
+      "before": "6256df798de005be4566b117d6adceb463d6f9af1096ba3c284e4d8e5b005520",
+      "after": "cfb8558a2d608cc78398f2eb7dbab8953cf7a271923b49c174f9773650e940f5"
+    },
+    "docs/writeup/latex-report/main.tex": {
+      "before": "e72749f0ae69f7172cbb38c21271bf642d69777e05b67124e9e99b2eb97ebaaf",
+      "after": "3a4d7d214e6e68b4cacc078b5da9fb09c19b07431eaeacd3b15f963b9fc1c18e"
+    }
+  },
+  "version_rule": "Resolve base_package files_sha256 and apply after hashes from changed_files_sha256. All other base-package files matched unchanged at verification. Audit log and this record are outside that content manifest.",
+  "passes": [
+    "Independent review of explanatory order and premature references",
+    "Independent Russian-language review of repetition, jargon and overloaded sentences",
+    "Coordinator edits and full read-through",
+    "Independent cold-reader reconstruction and comparison with prior source; ambiguity about both-dataset repeatability corrected"
+  ],
+  "changes": [
+    "Validation setup precedes feature selection",
+    "Test period and success criterion precede table of results",
+    "Candidate generation precedes ranker in baseline description",
+    "One query explicitly defined",
+    "Secondary metric and DFS-limit sentences separated for clarity",
+    "Repeated OTTO explanations removed; human initiation explained before iterations",
+    "Repeatability limit explicitly applies to REES46 and OTTO",
+    "Unnatural expressions replaced with concrete descriptions"
+  ],
+  "verification": {
+    "words_before": 1671,
+    "words_after": 1647,
+    "numeric_values": "All values preserved. Relative to the original editorial source, validation year 2019 and the existing metric name NDCG@20 are explicitly repeated once for clarity.",
+    "URLs": "Identical multiset",
+    "figures": "Same embedded figure",
+    "historical_evidence_files_unchanged": 207,
+    "portable_saved_evidence_checker": "passed",
+    "builtin_latex_compiler": "success",
+    "visual_inspection": "not performed; current live PDF pixels unavailable",
+    "preceding_editorial_words": 1644,
+    "five_pass_words_after": 1652,
+    "five_pass_independent_review": "Final reader approved main.tex SHA256 4ba630ba8c6c836eacfef593df71fe19f490d10597b6f435179b108d32ac0b8b",
+    "section_review": {
+      "words_before": 1652,
+      "words_after": 1647,
+      "numeric_tokens_URLs_figures": "identical",
+      "one_iteration_one_section": "confirmed by successive snapshots",
+      "historical_files_unchanged": 207,
+      "saved_evidence_check": "passed",
+      "builtin_latex_compile": "success",
+      "independent_final_review": "passed; section transitions and preservation of facts/limits checked",
+      "visual_inspection": "not performed"
+    }
+  },
+  "human_verification": "not attested; author review remains required",
+  "prior_editorial_record_sha256": "f2966f2a97c052e5a0e91b675709ff44760c229bf96d83d8fcc1e3c3a2202e1b",
+  "additional_five_passes": [
+    {
+      "round": 1,
+      "focus": "Argument order",
+      "outcome": "Moved original-test negative results before post-hoc diagnostics; clarified first test chronology.",
+      "report_sha256": "216f11a93cf609d6f736faa8b46563ea50f431e80e07cd349e63ecd32d4f6334"
+    },
+    {
+      "round": 2,
+      "focus": "References and terms",
+      "outcome": "Named confirmation split and absolute NDCG threshold; explicitly tied robustness intervals to the full set.",
+      "report_sha256": "7409ee0a664e9d1c8360ad345c575bf15386a4bdc3029c7d8084efe626213062"
+    },
+    {
+      "round": 3,
+      "focus": "Redundancy",
+      "outcome": "Removed repeated zero-interval explanation and redundant instructions sentence.",
+      "report_sha256": "40b985ef05330e668165bcadea246db27ce0160ba264ae08ef3e7448f9f910cb"
+    },
+    {
+      "round": 4,
+      "focus": "Language",
+      "outcome": "Distinguished training variability from agent reruns; explained data-access restrictions and forecast-relative events.",
+      "report_sha256": "4ba630ba8c6c836eacfef593df71fe19f490d10597b6f435179b108d32ac0b8b"
+    },
+    {
+      "round": 5,
+      "focus": "Independent cold read",
+      "outcome": "No blockers; chronology and limits reconstructed correctly, compared with source before five rounds.",
+      "report_sha256": "4ba630ba8c6c836eacfef593df71fe19f490d10597b6f435179b108d32ac0b8b"
+    }
+  ],
+  "section_iterations": [
+    {
+      "iteration": 1,
+      "section": "Что мы поручили агенту",
+      "scope": "Only this numbered section, including its unnumbered continuation where present",
+      "outcome": "Clarified that the agent adds to a feature set, not a database or frozen model weights. Kept the generic diagram: not every candidate proposal necessarily requires ranker training.",
+      "words_before": 87,
+      "words_after": 86,
+      "report_before_sha256": "4ba630ba8c6c836eacfef593df71fe19f490d10597b6f435179b108d32ac0b8b",
+      "report_after_sha256": "7027ab44d7361680b45d553b6b56aea34e8b5b9282e918cb7d82e8a1fd890873"
+    },
+    {
+      "iteration": 2,
+      "section": "REES46",
+      "scope": "Only this numbered section, including its unnumbered continuation where present",
+      "outcome": "Defined query before evaluation-population filter; removed redundant selection description; distinguished full agent feature set from selected proposal. Kept conditional purchase metrics and all protocol limits.",
+      "words_before": 783,
+      "words_after": 783,
+      "report_before_sha256": "7027ab44d7361680b45d553b6b56aea34e8b5b9282e918cb7d82e8a1fd890873",
+      "report_after_sha256": "d6991f496ec90e40da0011ae7a3f76a6b06aae86bbcc9d998d0d83284cfc2b35"
+    },
+    {
+      "iteration": 3,
+      "section": "OTTO",
+      "scope": "Only this numbered section, including its unnumbered continuation where present",
+      "outcome": "Removed heading/body duplication and clarified which candidate sources and features were retained in OTTO-2. Preserved sequential iterations and human initiation.",
+      "words_before": 252,
+      "words_after": 249,
+      "report_before_sha256": "d6991f496ec90e40da0011ae7a3f76a6b06aae86bbcc9d998d0d83284cfc2b35",
+      "report_after_sha256": "7ccacfce5855f6bc9b22f39352f5d1311116e42acdda7d9b191708de715d5ae0"
+    },
+    {
+      "iteration": 4,
+      "section": "Границы результатов и выводы",
+      "scope": "Only this numbered section, including its unnumbered continuation where present",
+      "outcome": "Simplified history-comparison wording and separated permitted information from the limitation of the experiment. Kept every substantive limitation.",
+      "words_before": 401,
+      "words_after": 400,
+      "report_before_sha256": "7ccacfce5855f6bc9b22f39352f5d1311116e42acdda7d9b191708de715d5ae0",
+      "report_after_sha256": "3a4d7d214e6e68b4cacc078b5da9fb09c19b07431eaeacd3b15f963b9fc1c18e"
+    }
+  ]
+}

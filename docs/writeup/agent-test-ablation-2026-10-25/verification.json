@@ -1,0 +1,86 @@
+{
+  "result_sha256": "433efb3d09f6f5a0b25557b7ae30aaeaee92c27250c107fed28e9163259646ea",
+  "plan_sha256": "acf915b0450493b8e47ca598ceceb716f470464994d2c7c440cd27ab69c7b159",
+  "tolerance": 1e-14,
+  "seeds": [
+    {
+      "seed": 0,
+      "means": {
+        "base": {
+          "ndcg": 0.14626271059397594,
+          "recall": 0.2830433996142709,
+          "purchase_ndcg": 0.16178801550176672,
+          "purchase_recall": 0.31558735147763306
+        },
+        "Hp": {
+          "ndcg": 0.14933537966321686,
+          "recall": 0.28796271749291663,
+          "purchase_ndcg": 0.16514412626406885,
+          "purchase_recall": 0.32113448746385903
+        },
+        "Hag": {
+          "ndcg": 0.14920308120596845,
+          "recall": 0.28733064181170315,
+          "purchase_ndcg": 0.1655551822540581,
+          "purchase_recall": 0.3208493370827599
+        }
+      },
+      "contrasts": {
+        "Hag-base": {
+          "delta": 0.0029403706119925338,
+          "ci95": [
+            0.0023603683332986303,
+            0.0034951736466092833
+          ]
+        },
+        "Hp-Hag": {
+          "delta": 0.00013229845724841533,
+          "ci95": [
+            -0.00032015644438576575,
+            0.0005679984205934477
+          ]
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "means": {
+        "base": {
+          "ndcg": 0.14620291770030014,
+          "recall": 0.2833866191591015,
+          "purchase_ndcg": 0.16156361669645403,
+          "purchase_recall": 0.3158469681134067
+        },
+        "Hp": {
+          "ndcg": 0.14910563509396352,
+          "recall": 0.28716749777039907,
+          "purchase_ndcg": 0.16511936622665924,
+          "purchase_recall": 0.32018419758201266
+        },
+        "Hag": {
+          "ndcg": 0.14907403237725977,
+          "recall": 0.2877571846581946,
+          "purchase_ndcg": 0.1651775562415804,
+          "purchase_recall": 0.3211935320134981
+        }
+      },
+      "contrasts": {
+        "Hag-base": {
+          "delta": 0.0028711146769596265,
+          "ci95": [
+            0.0023078996050786733,
+            0.0034550704141016724
+          ]
+        },
+        "Hp-Hag": {
+          "delta": 3.1602716703778715e-05,
+          "ci95": [
+            -0.00041315943876249527,
+            0.00046360420480791916
+          ]
+        }
+      }
+    }
+  ],
+  "verification": "Independent DuckDB user aggregation and NumPy multiplicity bootstrap; all planned source and dependency hashes verified before and after."
+}

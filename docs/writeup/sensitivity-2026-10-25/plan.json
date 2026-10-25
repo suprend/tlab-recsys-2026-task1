@@ -1,0 +1,106 @@
+{
+  "status": "post-hoc sensitivity; plan fixed before this computation, after original outcomes were known; not a new preregistered test",
+  "created_utc": "2026-10-25T15:39:57.038686+00:00",
+  "draws": 2000,
+  "rng_seed": 20261025,
+  "ci": "percentile 2.5%,97.5%; no multiplicity-adjusted hypothesis claims",
+  "estimand": "mean paired difference per query; each model seed analysed separately; cluster resamples use sum differences / sum query counts, not equal-weight user means",
+  "input_sha256": {
+    "artifacts/task1/v2020/replication/test_base_s0.parquet": "6c3996fb24deb9f5597f2a24c641ec7ff3d2d013abaec608a44b0643fc627c69",
+    "artifacts/task1/v2020/replication/test_base_s1.parquet": "cdc4a5a6f7779b2cd3a7354a6b007c99ff55b0f29d2b9c7e196b32cc4ab51127",
+    "artifacts/task1/v2020/replication/test_Hp_s0.parquet": "7c3194a891774305ffc683f4cf15d0db8b03bda0a5b52606913a553c1e922738",
+    "artifacts/task1/v2020/replication/test_Hp_s1.parquet": "206a9fc78d95f54c32b56673c7a9ed536f34ae32a524860e0e34612058f2e2f0",
+    "artifacts/task1/v2020/exp/pl20_Hp_s0.parquet": "9865c11f774cb650b61fa7b072fc5a2d3a086bc52a9aa93dbd1f14c992dcd360",
+    "artifacts/task1/v2020/exp/pl20_Hag_s0.parquet": "7a6da8b3d39d92a534971fd8279694a85db58c1dd0d14b207215492af8315e04",
+    "artifacts/task1/v2/exp/grid_Hp_s0.parquet": "d0d4b42bef42a3fa14e2be437555f9391b09aa17158df82e2643b6a2f9b0d7c7",
+    "artifacts/task1/v2/exp/pl19_Hag_s0.parquet": "fc0c3198f543a0c335e1e222a1b7ac2cabdbfb1fb0862e4cdde4b8d6d841c313",
+    "artifacts/task1/v2020/exp/pl20_Hp_s1.parquet": "71f2a5562e4c4c97c2b4b9c6dfaa30c1889c0650a589a732fea089482a882951",
+    "artifacts/task1/v2020/exp/pl20_Hag_s1.parquet": "18aab897d55da4540a217ee4fa4c18590a69648d59bc3d7859a73808dd5421af",
+    "artifacts/task1/v2/exp/grid_Hp_s1.parquet": "f1484ee787539a2f5c51e611c286883a95368b597326d043540e9216fe29b0ef",
+    "artifacts/task1/v2/exp/pl19_Hag_s1.parquet": "c029d69cf6a9754817a5bb1b89b53e0c88ff60944be0d9e0e2bf3ad4f049ecbf",
+    "artifacts/task1/v2/exp/runs.jsonl": "8811eebb7c542021dfd4ded349aa66b8bf83743d9f2d50af7b042074aabf6cfe",
+    "artifacts/task1/v2020/exp/runs.jsonl": "897492a902e7223747f5e43ac4b8b1a509089d780b5ec52a6bbb6ff68601b0b9",
+    "task1/runs/placebo-2026-10-21/queue-2019.json": "2a2e0172ae6c16c3a05de782b72ac8add70e6e5f5ef1bed92e28a11e1888aee9",
+    "task1/runs/placebo-2026-10-21/queue-2020.json": "c5e8de431ecfb06e0c4790107e4091915a37496d474d2fd3208ebee8228e612d",
+    "task1/runs/placebo-2026-10-21/result.json": "b770352718c66c1c41957d3fe044f8ed8ee06aeb8c55f7f6408f546d11060313",
+    "task1/runs/grid-2026-10-20/grid.json": "43051c7e36f2b5b0e676685a144e95c24081be1119edb479357b4e831ad40af5",
+    "task1/runs/replication-2020/test.json": "f6812b5975c1cbb8ee95213ae34e92d417a5116f9813f657ed3a745f98ecaafb"
+  },
+  "test_2020": {
+    "contrast": "Hp minus base",
+    "seed_indices": [
+      0,
+      1
+    ],
+    "exclude_anchors": [
+      "2020-02-27",
+      "2020-02-28"
+    ],
+    "expected_queries": 97656,
+    "resampling": [
+      "query reference",
+      "user cluster, all days of sampled user together",
+      "day cluster, sensitivity only: 14 clusters, no joint user-day independence claim"
+    ],
+    "diagnostics": [
+      "all daily query counts and paired means",
+      "all leave-one-day-out means",
+      "same point contrast with excluded days restored; no new resampling of restored set"
+    ],
+    "interpretation": "Retain original primary-test rule and published result. Describe whether cluster intervals include zero; do not require CI lower bound >0.0015 (the original rule applied that threshold to point gain). Do not select favourable seeds/days/bootstrap versions."
+  },
+  "dfs_validation": {
+    "contrast": "Hp minus Hag, added contribution of DFS conditional on agent set",
+    "periods": {
+      "2019": "validation half B only, grid_Hp_s0/s1 vs pl19_Hag_s0/s1",
+      "2020": "all validation queries, pl20_Hp_s0/s1 vs pl20_Hag_s0/s1"
+    },
+    "seed_indices": [
+      0,
+      1
+    ],
+    "resampling": [
+      "paired query reference",
+      "paired user cluster"
+    ],
+    "interpretation": "Post-hoc validation contrasts, not isolated LLM attribution on new test; CI spanning zero is not equivalence. Report both periods/seeds, any disagreement."
+  },
+  "checks": [
+    "unique nonnull qid",
+    "identical key sets before joining, never inner-join away missing rows",
+    "anchor matches qid date where anchor present",
+    "consistent half and per-seed populations",
+    "finite NDCG in [0,1]",
+    "input hashes checked before and after",
+    "existing published means/population cross-check",
+    "all dates exactly match expected date sets before/after planned exclusions",
+    "Hp/Hag saved configurations and training populations match except automatic feature membership; verify seed/neg_seed, train_rows, cap and frozen declarations"
+  ],
+  "prohibited": [
+    "training",
+    "new predictions",
+    "editing historical test/config/receipts",
+    "selecting a new primary threshold or period",
+    "new Kaggle/LLM calls"
+  ],
+  "amendments_before_computation": [
+    {
+      "previous_sha256": "6854236d273e3ca065b7e90aff54afb2218f81f6616dfb63d16da14ae860cbf0",
+      "reason": "Independent plan review added exact date ranges and training/configuration comparability checks before outcomes were computed."
+    }
+  ],
+  "expected_date_ranges": {
+    "test_2020": [
+      "2020-02-14",
+      "2020-02-29"
+    ],
+    "val_2019": [
+      "2019-11-08",
+      "2019-11-13"
+    ],
+    "val_2020": [
+      "2020-02-08",
+      "2020-02-13"
+    ]
+  }
+}

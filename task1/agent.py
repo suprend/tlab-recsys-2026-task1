@@ -10,8 +10,10 @@ fit itself: a seed-only change can exclude zero); the second fit runs only for p
 with task1.extra (summary.json has the command).
 
 Run: .venv/bin/python -m task1.agent --proxy '{"train_frac": 0.3, "iterations": 300, "lr": 0.12}'
-Resume: the same with --run <run-id>; config and proxy come from the log, an unfinished round is closed
-with the proposals it had evaluated.
+Resume: the same with --run <run-id>; config, proxy, model, proposals per round and acceptance
+threshold come from the log. Conflicting search settings are rejected before further work. An unfinished
+round is closed with the proposals it had evaluated. --rounds adds rounds; --max-llm-calls can explicitly
+change the total call budget (otherwise the recorded budget is retained).
 """
 import argparse
 import hashlib
@@ -148,10 +150,10 @@ def main():
     ap.add_argument('--config', default='{"days": "artifacts/task1/v2/days6"}', help='JSON over exp.DEFAULT')
     ap.add_argument('--proxy', default='{}', help='JSON over --config for the search fits')
     ap.add_argument('--rounds', type=int, default=6)
-    ap.add_argument('--per-round', type=int, default=5)
-    ap.add_argument('--max-llm-calls', type=int, default=15)
-    ap.add_argument('--model', default='opus')
-    ap.add_argument('--min-gain', type=float, default=0.001)
+    ap.add_argument('--per-round', type=int, help='proposals per round (new run: 5; resume: recorded value)')
+    ap.add_argument('--max-llm-calls', type=int, help='total call budget (new run: 15; resume: recorded value)')
+    ap.add_argument('--model', help='model (new run: opus; resume: recorded value)')
+    ap.add_argument('--min-gain', type=float, help='acceptance threshold (new run: 0.001; resume: recorded value)')
     ap.add_argument('--threads', type=int, default=8, help='sandbox threads')
     ap.add_argument('--run', help='resume this run id')
     args = ap.parse_args()
@@ -161,6 +163,14 @@ def main():
     run.mkdir(parents=True, exist_ok=True)
     log = run / 'log.jsonl'
     records = [json.loads(l) for l in log.read_text().splitlines()] if log.exists() else []
+    defaults = dict(per_round=5, model='opus', min_gain=0.001, max_llm_calls=15)
+    recorded = records[0].get('args', {}) if records else {}
+    for key, default in defaults.items():
+        requested = getattr(args, key)
+        saved = recorded.get(key, default)
+        if records and key != 'max_llm_calls' and requested is not None and requested != saved:
+            ap.error(f'--{key.replace("_", "-")} differs from the recorded run; start a new run to change it')
+        setattr(args, key, saved if requested is None else requested)
 
     def write(rec):
         records.append(rec)

@@ -1,0 +1,309 @@
+{
+  "scope": "OTTO assertions in frozen main.tex /tmp/tlab-fact-audit/files",
+  "claims": [
+    {
+      "tex_line": 112,
+      "claim": "Predict future clicks/carts/orders from a session prefix",
+      "status": "qualified",
+      "evidence": [
+        "https://www.kaggle.com/competitions/otto-recommender-system/data",
+        "https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md"
+      ],
+      "correction": "Для кликов предсказывается один следующий товар; для корзин и заказов — все последующие товары.",
+      "detail": "Official KAGGLE.md lines217–218 and competition evaluation."
+    },
+    {
+      "tex_line": 112,
+      "claim": "Weighted recall of first20recommendations",
+      "status": "verified",
+      "evidence": [
+        "https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md",
+        "scripts/otto_common.py:1199"
+      ],
+      "correction": null,
+      "detail": "Official weights .1 clicks,.3 carts,.6 orders; report intentionally omits weights, valid."
+    },
+    {
+      "tex_line": 112,
+      "claim": "Private correct answers are unavailable to us",
+      "status": "unsupported",
+      "evidence": [
+        "https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md",
+        "scripts/otto_data.py:672"
+      ],
+      "correction": "Replace with «метки этой части не использовались в нашем эксперименте» or «оценку получали от Kaggle без чтения тестовых ответов».",
+      "detail": "Official organizer page says final test dataset was published after competition (line301). Local pipeline F5 has no labels; availability and non-use differ."
+    },
+    {
+      "tex_line": 112,
+      "claim": "Kaggle displayed private after every submission",
+      "status": "verified",
+      "evidence": [
+        "docs/otto3-run/kaggle-all-submissions.csv:3",
+        "docs/otto-run/kaggle-competition-snapshot.txt:4"
+      ],
+      "correction": null,
+      "detail": "All9 saved COMPLETE entries have privateScore. Late-submission competition ended2023; avoid implying during-live-competition private visibility."
+    },
+    {
+      "tex_line": 112,
+      "claim": "Other-session prefixes can contain later timestamps",
+      "status": "verified",
+      "evidence": [
+        "docs/otto-design.md:111",
+        "docs/otto3-run/i1/audit-run-i1.json:49",
+        "scripts/otto_data.py:597"
+      ],
+      "correction": null,
+      "detail": null
+    },
+    {
+      "tex_line": 114,
+      "claim": "Agent table→sources/features, later rounds reuse prior tables",
+      "status": "verified",
+      "evidence": [
+        "docs/otto-design.md:244",
+        "configs/datasets/otto3-i1-set.json:74",
+        "scripts/otto_agent.py"
+      ],
+      "correction": null,
+      "detail": null
+    },
+    {
+      "tex_line": 116,
+      "claim": "First agent strengthened history/popularity base",
+      "status": "verified",
+      "evidence": [
+        "docs/otto-run/kaggle-scores.csv",
+        "docs/otto-run/contrast-dev-2026.json",
+        "scripts/otto_data.py:125"
+      ],
+      "correction": null,
+      "detail": "Saved private base≈.49056 vs BA≈.578775; not a strong-handmade baseline claim."
+    },
+    {
+      "tex_line": 116,
+      "claim": "OTTO2 changed ranker training with same agent set",
+      "status": "verified",
+      "evidence": [
+        "artifacts/otto/otto2-pool/f4all-lr10-it2000/report.json",
+        "configs/datasets/otto-prereg.json:81",
+        "docs/otto2.md"
+      ],
+      "correction": null,
+      "detail": "Report set_digest matches original agent set; recipe and sourcefold change documented."
+    },
+    {
+      "tex_line": 116,
+      "claim": "Same ranker learning recipe in3iterations",
+      "status": "verified",
+      "evidence": [
+        "artifacts/otto/otto2-pool/f4all-lr10-it2000/report.json",
+        "artifacts/otto3/i1/otto2-pool/f4all-lr10-it2000/report.json",
+        "artifacts/otto3/i2/otto2-pool/f4all-lr10-it2000/report.json",
+        "artifacts/otto3/i3/otto2-pool/f4all-lr10-it2000/report.json"
+      ],
+      "correction": null,
+      "detail": "Direct JSON equality recipe/sources,negative30. Training rows differ as candidate coverage expands; wording says recipe, not identical rows."
+    },
+    {
+      "tex_line": 123,
+      "claim": "i1 expanded search limits and added sources/features",
+      "status": "verified",
+      "evidence": [
+        "configs/datasets/otto3-i1-set.json",
+        "docs/otto3-run/i1/run-i1/run.json"
+      ],
+      "correction": null,
+      "detail": "10sources5tables18features vs original3sources;8rounds vs6;cap300vs200."
+    },
+    {
+      "tex_line": 124,
+      "claim": "i2 extends previous set with sources/features",
+      "status": "verified",
+      "evidence": [
+        "configs/datasets/otto3-i2-set.json",
+        "docs/otto3-run/i2/run-i2/run.json"
+      ],
+      "correction": null,
+      "detail": "14sources10tables27features; original proposals replayed."
+    },
+    {
+      "tex_line": 125,
+      "claim": "i3 only adds features; candidate sources unchanged",
+      "status": "verified",
+      "evidence": [
+        "configs/datasets/otto3-i2-set.json",
+        "configs/datasets/otto3-i3-set.json",
+        "artifacts/otto3/i2/otto2-pool/f4all-lr10-it2000/report.json",
+        "artifacts/otto3/i3/otto2-pool/f4all-lr10-it2000/report.json"
+      ],
+      "correction": null,
+      "detail": "Exact SQL/name equality for24tables+sources;47vs27features. Trainingrowcounts/droppedcounts identical i2/i3."
+    },
+    {
+      "tex_line": 135,
+      "claim": "Total private improvement≈2.7% vsOTTO2; eachstep local/privatepositive",
+      "status": "verified",
+      "evidence": [
+        "docs/otto-run/otto2-kaggle-scores.csv",
+        "docs/otto3-run/otto3-kaggle-scores.csv",
+        "docs/otto3-run/ladder-ci-F3.json"
+      ],
+      "correction": null,
+      "detail": "(.59628/.58049-1)*100=2.7201157642681384; private .58049→.59299→.59548→.59628."
+    },
+    {
+      "tex_line": 137,
+      "claim": "First2steps conflate candidate/feature changes",
+      "status": "verified",
+      "evidence": [
+        "configs/datasets/otto3-i1-set.json",
+        "configs/datasets/otto3-i2-set.json"
+      ],
+      "correction": null,
+      "detail": "Correct limitation; changesnotisolated."
+    },
+    {
+      "tex_line": 137,
+      "claim": "Ideas: event-aware transitions, similarhistoricalsessions,dwell",
+      "status": "qualified",
+      "evidence": [
+        "configs/datasets/otto3-i3-set.json:1109",
+        "configs/datasets/otto3-i3-set.json:1231",
+        "configs/datasets/otto3-i3-set.json:1330"
+      ],
+      "correction": "Prefer «оценка длительности просмотра по промежуткам между событиями».",
+      "detail": "SQL uses lead(ts)-ts capped600sec; no direct viewingduration sensor."
+    },
+    {
+      "tex_line": 137,
+      "claim": "Benefit of each individualfeature not measured",
+      "status": "verified",
+      "evidence": [
+        "docs/otto3-run/i3/run-i3/log.jsonl",
+        "docs/otto3-run/ladder-ci-F3.json",
+        "scripts/otto_agent.py"
+      ],
+      "correction": null,
+      "detail": "Feature validity/probe diagnostics exist, but no isolated final-model feature ablations."
+    },
+    {
+      "tex_line": 139,
+      "claim": "Human initiated iterations; repeatability not measured",
+      "status": "verified",
+      "evidence": [
+        "docs/otto3.md:101",
+        "docs/otto3.md:122"
+      ],
+      "correction": null,
+      "detail": "One adaptive chain, i2/i3 replay earlier search; modelseeds do not substitute independentagentchains."
+    },
+    {
+      "tex_line": 156,
+      "claim": "Repeated local selection;9submissions;2continued afterthreshold",
+      "status": "verified",
+      "evidence": [
+        "docs/otto3-run/kaggle-all-submissions.csv:3",
+        "docs/otto3.md:93",
+        "docs/otto3.md:101"
+      ],
+      "correction": null,
+      "detail": "Exactly9CSVdata rows,thresholdhit i1 .59299 then i2/i3."
+    },
+    {
+      "tex_line": 156,
+      "claim": "Simplebase acceptance criterion changed afterscores",
+      "status": "verified",
+      "evidence": [
+        "configs/datasets/otto-deviations.json:71",
+        "docs/otto-run/gate1-s1-d3.json"
+      ],
+      "correction": null,
+      "detail": "Per-type floor replaced by weightedScore floor posthoc, explicitdeviation."
+    },
+    {
+      "tex_line": 157,
+      "claim": "Otherprefixlater events allowed Kaggle but notstrictpastassignment",
+      "status": "verified",
+      "evidence": [
+        "https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md",
+        "docs/otto-design.md:111"
+      ],
+      "correction": null,
+      "detail": "Organizer FAQ312–314 explicitly allows allprovideddata/truncatedtests; strictpast distinctioncorrect."
+    },
+    {
+      "tex_line": 158,
+      "claim": "No strongmanualsamecandidate comparison; noveltyunestablished",
+      "status": "verified",
+      "evidence": [
+        "docs/otto3-run/i1/audit-run-i1.json:5",
+        "configs/datasets/otto-prereg.json"
+      ],
+      "correction": null,
+      "detail": "Audit is descriptive recognition, not proof of memorization. Report uses could,correct."
+    },
+    {
+      "tex_line": 161,
+      "claim": "Leakcheck partitioned because allpopulationexceededmemory",
+      "status": "qualified",
+      "evidence": [
+        "docs/otto3.md:118",
+        "docs/otto3-run/i2/lc-F3-parts.json",
+        "docs/otto3-run/i3/lc-F3-parts.json"
+      ],
+      "correction": null,
+      "detail": "Split execution and completecoverage independently evidenced in JSON. Original unsuccessful process has no report; memorycause recorded contemporaneously in journal, not independently measured here. Broad statement reasonable; do not add precise150GB as establishedmeasurement."
+    }
+  ],
+  "local_evidence_sha256": {
+    "docs/otto3-run/otto3-kaggle-scores.csv": "050fd70e22c5edc0bf069dc12f3a6b0fffdb2cbeb7ceb2626524f9f4c437a8f8",
+    "docs/otto-design.md": "e44e7984fc286f476e5f212e8cf7a36c26bd05ab40fc92fef302196589e8cc6d",
+    "configs/datasets/otto-deviations.json": "685e187aea2cf59986ccb3d261ab5178d7b2e36dad6424d4c41d6a9564c45748",
+    "artifacts/otto3/i1/otto2-pool/f4all-lr10-it2000/report.json": "cc487e118cf95820296a013a97fc5f62d364a62028c86b0a710e84befdb46e92",
+    "docs/otto-run/otto2-kaggle-scores.csv": "df97eeb21e677789a7e7ca25c59048248950095fb62dedfdfdd598ae715628a7",
+    "configs/datasets/otto-prereg.json": "b1d374a397618373dc76851a070f1e6c1134bbcd02bafd5fbbb51118e1b24154",
+    "configs/datasets/otto3-i1-set.json": "7f2f871d09dd4a0bd749303fed552f4192de146cfaf7062cfc6fae939c3026c7",
+    "artifacts/otto3/i3/otto2-pool/f4all-lr10-it2000/report.json": "44ccfd1e34f83983c8ac9a2341a2522b17e3bda94ed0db11c5ee25e9c2081f8f",
+    "docs/otto-run/kaggle-scores.csv": "38687213dbc24c603af25a26832a8098b08a025ffe5adeb3160d736da2c0963a",
+    "docs/otto3-run/kaggle-all-submissions.csv": "c796b305b25173aef2f84a6473305462711b243efc048e603cffd4d80fae41ce",
+    "docs/otto3-run/i1/run-i1/run.json": "be39abeb8d267416195101a4b0b8a17866f8df1878d2e5da863757fc14a96f33",
+    "configs/datasets/otto3-i3-set.json": "37932f6c339e848dd9f13b180bf01d2255cb153eaae3bc6d3f818f3b9c618123",
+    "configs/datasets/otto3-i2-set.json": "6800f7e9374cdf10359a843b09bbe0c1577a8713c66dbff00adda4a44160d2f3",
+    "docs/otto-run/kaggle-competition-snapshot.txt": "b40375d2302f0ff522fadf4928c856a881056c7cc5c8347e549158f52dd359e7",
+    "scripts/otto_common.py": "166f399345d9cd30d3a25febe6d79b409ea14bec7a6b37db90d49563ebb1a570",
+    "docs/otto3-run/i3/lc-F3-parts.json": "41949c8445c66b72b65d4a350722ec81e99ae93e175a485ba78262323e27bca2",
+    "docs/otto-run/gate1-s1-d3.json": "5ed32094fd383ad808f5e7f91018c19a67e3aacf01e29e21934786537c6d1bdb",
+    "docs/otto3-run/i2/lc-F3-parts.json": "94a118c4080ec9a316a875aa7951d5dfeaa1a401743d45a8a0ce1feebde8a1b0",
+    "scripts/otto_agent.py": "05a6aa899047a447fd12b18453d3987fa68777ed30ca706198c294464b718a79",
+    "docs/otto3-run/ladder-ci-F3.json": "80c93092d7f1f17e46eed38ab9630d51bae67ec9088a47918cfc9ba18726d0d1",
+    "docs/otto3.md": "dd150e77ee3707fbd88fe04f2073faa4bc849ed3a8434678f854c4d43cebdb37",
+    "docs/otto3-run/i3/run-i3/log.jsonl": "c296346698b98f55e4ee073c4c3381b0c6195d07ade18547d303995c7bb1195b",
+    "docs/otto2.md": "6e8e8f37fadbba82fde3b9d76628d1328dbf98c239c3f2c9874e3c84e1ff9510",
+    "artifacts/otto/otto2-pool/f4all-lr10-it2000/report.json": "967a95cb377b48f23e14b1895e50425f73e90f42dce7de88fe6f2c6383f170b2",
+    "artifacts/otto3/i2/otto2-pool/f4all-lr10-it2000/report.json": "d4e9aaf1ae84ed9ab8ad810b0f7cacbed6b1f9e0ac16fc8dc8c80ac267e79a80",
+    "docs/otto-run/contrast-dev-2026.json": "0c1a3bd72f55eb6bc2a99ca8a85df3aa010b5bd31c3abd1223091cf69b4e3b38",
+    "docs/otto3-run/i1/audit-run-i1.json": "43be429cfc4c868e8462f02a0b3633d138e6d9ece42b51f9f7d148f39a3d035a",
+    "scripts/otto_data.py": "c799b32289305cca9aa2251012da1f2123e0f70a725d8df5dfac986f2ff53bbd",
+    "docs/otto3-run/i2/run-i2/run.json": "867d884ad5d3008b038d020178f57a80e7a8eeef5615f6c2172ffcca13d75832"
+  },
+  "external_sources": [
+    {
+      "url": "https://github.com/otto-de/recsys-dataset/blob/main/KAGGLE.md",
+      "checked": "2026-10-25",
+      "supports": "task/metric, published finaltest, allprovideddataallowed"
+    },
+    {
+      "url": "https://www.kaggle.com/competitions/otto-recommender-system/data",
+      "checked": "2026-10-25",
+      "supports": "task, late-submission state"
+    }
+  ],
+  "limitations": [
+    "No fresh training or prediction",
+    "Memoryfailurecause documentedjournal rather than recoveredfailurelog",
+    "External sources checkedread-only withweb; no Kaggle submission/accountmutation",
+    "Absence of data use supported by pipeline and savedreport input lineage, not globalproof of allhuman/LLMknowledge"
+  ]
+}

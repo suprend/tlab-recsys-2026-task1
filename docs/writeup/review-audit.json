@@ -1,0 +1,743 @@
+{
+  "date": "2026-10-25",
+  "purpose": "Multi-iteration review against the original assignment, with independent reviewers and scoped fixes.",
+  "assignment_url": "https://edu.tbank-online.com/selection/01a10b8d-f3da-73a2-950e-5395aeccdb3d/practice/89603/task/1",
+  "baseline_revision": "3f8915dd5979d58709aa9442cdd79b79662dc6d1",
+  "scope": {
+    "report": "docs/writeup/latex-report/main.tex",
+    "core": "REES46 data/build/agent/model/replicate and OTTO preparation/agent/model/replay paths",
+    "entry_points": [
+      "README.md",
+      "docs/task1-requirements.md",
+      "docs/task1-reproduce.md",
+      "docs/otto-reproduce.md"
+    ],
+    "legacy": "Preserved; covered by baseline tests, not a comprehensive static review of every historical module."
+  },
+  "criteria": [
+    {
+      "id": "C1",
+      "criterion": "Unambiguous task, population, target, metric and candidates",
+      "basis": "assignment",
+      "result": "checked against report and critical code"
+    },
+    {
+      "id": "C2",
+      "criterion": "Substantive baseline features and bounded tuning claims",
+      "basis": "assignment",
+      "result": "feature families and tuning restored in report; limited search disclosed"
+    },
+    {
+      "id": "C3",
+      "criterion": "Implemented agent inputs, search, acceptance and human controls",
+      "basis": "assignment",
+      "result": "greedy selection and distinct DFS selection explained"
+    },
+    {
+      "id": "C4",
+      "criterion": "Temporal safety and controlled comparisons",
+      "basis": "assignment",
+      "result": "nullable-category regression fixed; OTTO differences disclosed; no universal no-leak guarantee"
+    },
+    {
+      "id": "C5",
+      "criterion": "Traceable results, correct rounding and limited attribution",
+      "basis": "assignment and review operationalization",
+      "result": "primary sources and table-values checked; joint LLM+DFS claim preserved"
+    },
+    {
+      "id": "C6",
+      "criterion": "Analysis, negative results and computational constraints",
+      "basis": "assignment",
+      "result": "post-hoc component evidence and OTTO memory limitation restored"
+    },
+    {
+      "id": "C7",
+      "criterion": "Reproducible isolated path, frozen evidence, meaningful tests",
+      "basis": "assignment and safe verification practice",
+      "result": "historical OTTO F4 route and gate ordering repaired; full data replay remains unexecuted"
+    },
+    {
+      "id": "C8",
+      "criterion": "One current entry point, clear language and no empty repetition",
+      "basis": "user request and reader-oriented assumption",
+      "result": "README/report/docs aligned; stale exports labelled; independent cold reader correctly reconstructed conclusions"
+    }
+  ],
+  "iterations": [
+    {
+      "round": 1,
+      "activity": "Three independent criteria proposals; frozen requirements/evidence/code review; confirmed deficiencies before edits"
+    },
+    {
+      "round": 2,
+      "activity": "Scoped code/document fixes, failing-then-passing regression tests, independent code and replay-path re-review"
+    },
+    {
+      "round": 3,
+      "activity": "Cold reader, final corrections to event description, thresholds and CSV date; current-file tests, links and compile checks"
+    }
+  ],
+  "fixed_findings": [
+    "README selected an obsolete report and research scope",
+    "LaTeX README incorrectly promised the saved PDF matched the edited source",
+    "Assignment paraphrase incorrectly implied beating boosting was mandatory",
+    "Report omitted substantive baseline features and the actual feature-selection mechanism",
+    "Report omitted available post-hoc component analysis and an observed scaling constraint",
+    "OTTO clean-clone F4 reconstruction lacked a route; power gate followed the sidecar that depended on it",
+    "REES instructions did not distinguish isolated computation replay from a new independent test",
+    "Global first non-NULL category could reveal a future attribute to past queries on nullable input",
+    "Agent resume used new defaults for previously recorded search settings",
+    "Rounded public summaries could not unambiguously regenerate the report table; exact means and provenance added",
+    "Graph recipe duplicated scores instead of reading source CSVs",
+    "Candidate transitions omitted carts in the prose; CSV extraction date was obsolete"
+  ],
+  "verification": {
+    "baseline_unit_tests": {
+      "count": 931,
+      "skipped": 2,
+      "result": "passed in isolated clone before fixes"
+    },
+    "final_affected_unit_tests": {
+      "count": 68,
+      "skipped": 1,
+      "result": "passed after fixes in isolated copy; includes five new regression tests"
+    },
+    "independent_regressions": "Five new tests and positive/default resume boundary cases passed independently",
+    "numerical_check": "python3 scripts/check_report.py passed; does not render or inspect PDF pixels",
+    "historical_otto_preflight": "Independently checked target/historical/target transitions, code and set identities, windows and saved contrast; no raw-data rebuild",
+    "latex": "Current main.tex passed the built-in desktop compiler",
+    "links": "Current local documentation links checked; historical result targets exist at pinned revision; external HTTP availability not tested",
+    "category_metadata": {
+      "rees46.duckdb": {
+        "rows": 109820004,
+        "segments": 894,
+        "every_segment_confirms_no_null": true
+      },
+      "rees46-2020.duckdb": {
+        "rows": 110444094,
+        "segments": 899,
+        "every_segment_confirms_no_null": true
+      }
+    }
+  },
+  "not_performed": [
+    "Full raw-data replay or retraining",
+    "New LLM calls or Kaggle submissions",
+    "Fresh visual inspection or export of the edited PDF",
+    "Commit, push or submission"
+  ],
+  "historical_evidence": "Original task1/runs, configs/datasets and docs/*-run files preserved byte-for-byte; changes do not redefine earlier experiments.",
+  "current_artifact": "main.tex and the live editor preview; stored REPORT.pdf files are earlier exports.",
+  "post_hoc_sensitivity_2026_10_25": {
+    "scope": "Saved per-query metrics only; no training, prediction, LLM calls or Kaggle submissions.",
+    "plan": "Fixed before new calculations; exact-date and training-comparability amendments recorded before execution. Original test criterion unchanged.",
+    "files_sha256": {
+      "docs/writeup/sensitivity-2026-10-25/plan.json": "19b9be373943c40421757f3de491180bbce3b0b86f32fabf0692b8d694989cdc",
+      "docs/writeup/sensitivity-2026-10-25/results.json": "f0135dbc6b1a37b4e422745fd622016b81ef78e9ae85f6bf901e8af69143eccd",
+      "scripts/rees_sensitivity.py": "680281912658c0dac5f7b990e3a287d36e9a3c459f74002f958eabe5c2014b4e",
+      "tests/test_rees_sensitivity.py": "118c2fe4d044107b7752422fecb34e0d7b77859f440b05451431f871cf8537d1"
+    },
+    "results": "Both test seeds retain positive user/day marginal cluster intervals; all 14 daily effects and leave-one-day-out effects positive. All four DFS-on-agent validation query/user intervals include zero; equivalence not established.",
+    "independent_review": "Plan and source approved; separate DuckDB/NumPy implementation matched test user/day intervals and all DFS contrasts/intervals within 1e-14. Coordinator independently checked daily and leave-one-day-out values.",
+    "verification": {
+      "unit_tests": 11,
+      "unit_tests_result": "passed",
+      "report_numerical_check": "passed",
+      "latex_builtin_compiler": "success",
+      "git_diff_check": "passed",
+      "protected_historical_files_unchanged": 203,
+      "all_planned_input_hashes_unchanged": true
+    },
+    "limitations": [
+      "Post-hoc diagnostics, not an independent test",
+      "Only 14 test days; separate marginal user/day resampling does not jointly account for all dependence",
+      "Validation DFS comparison is not an isolated LLM test effect",
+      "Saved training recipes and counts match; row-level training identity unavailable",
+      "Local input parquet/log files required for recalculation and excluded from Git"
+    ],
+    "report": "Existing main.tex edited in place; current editor retained; no separate PDF export or fresh visual inspection."
+  },
+  "post_hoc_secondary_2026_10_25": {
+    "scope": "Saved test2020 Hp-base secondary metrics and descriptive main NDCG distribution; both seeds and original date exclusions. No training, predictions, research LLM calls or Kaggle submissions.",
+    "files_sha256": {
+      "docs/writeup/secondary-2026-10-25/plan.json": "0304f1722875740a5653f35bcc8d0de78867d4785541d4b8a96206d331399a55",
+      "docs/writeup/secondary-2026-10-25/results.json": "f5e5713023517d020554b649e723b4e3557d7d64508f49927875389206302efc",
+      "scripts/rees_secondary.py": "06688363c77f666708cddb7dfd43535de69efc22a80ac99970625c49e08d6bb5",
+      "tests/test_rees_secondary.py": "dbba162c924c0e60f1ba979d7f6baf37e3baedf8b95d04cd8d3b24fc0edfdf3c"
+    },
+    "plan": "Final plan approved before calculation, with pre-computation amendment recorded; original means already known.",
+    "results": "All six marginal user-cluster intervals are positive. Purchase population 54129 queries. About 75% of queries have identical NDCG, not necessarily identical recommendations. Query wins/losses do not measure user satisfaction.",
+    "review": "Independent source review and separate DuckDB/NumPy calculation confirmed all six intervals, populations, means and both distributions within 1e-14. Independent reader approved concise report phrasing.",
+    "verification": {
+      "new_tests": 12,
+      "combined_analysis_tests": 23,
+      "tests": "passed",
+      "numerical_report_check": "passed",
+      "git_diff_check": "passed",
+      "builtin_latex_compile": "success",
+      "protected_historical_and_prior_sensitivity_files_unchanged": 205,
+      "all_input_dependency_code_hashes_unchanged": true
+    },
+    "visual_review": "Unavailable: built-in compiler returns diagnostics but no rendered pages; native UI is disabled and screen-context tool is voice-only. No separate PDF or replacement document created. Current editor retained.",
+    "limitations": [
+      "Post-hoc secondary diagnostics, not a new confirmatory test",
+      "Six marginal intervals are not simultaneous 95% coverage",
+      "Purchase metrics conditional on purchase targets, not conversion or revenue",
+      "User resampling does not jointly account for day dependence",
+      "Local parquet inputs excluded from Git are required for recalculation"
+    ]
+  },
+  "fact_check_2026_10_25": {
+    "directory": "docs/writeup/fact-check-2026-10-25",
+    "verification": {
+      "date": "2026-10-25",
+      "scope": "Current short report fact audit and explicit links in connected documentation; not a comprehensive fact audit of all historical documents",
+      "human_verification": "not attested; remains author responsibility",
+      "files_sha256": {
+        "docs/writeup/latex-report/main.tex": "6aac27fddcf71035dd5bf90c465c7e0b21f702d8827be2b56d4fd2755ae5f218",
+        "docs/data.md": "16d481d93a1b508d371a4c0873e35b2fe2ddb3661d75c265c1a050dc71b5d856",
+        "docs/task1-requirements.md": "73496bee31d06c3dde5c1915092aa5236cd873bf96d6d6a58cdd488462526b90"
+      },
+      "claim_records": 82,
+      "explicit_links": 106,
+      "local_links_passed": 89,
+      "external_links_with_qualified_status": 17,
+      "extra_archive_urls_http_200": 4,
+      "historical_evidence_files_unchanged": 207,
+      "numerical_check": "scripts/check_report.py passed",
+      "latex": "built-in compiler success",
+      "visual_review": "not performed",
+      "publication": "private repository made public later by user; current local updates not published",
+      "rechecks": [
+        "Independent REES46 and OTTO reviewers approved corrected current text; coordinator checked source excerpts and numerical checker."
+      ]
+    }
+  },
+  "human_review_package_2026_10_25": {
+    "manifest": "docs/writeup/review-package-2026-10-25.json",
+    "manifest_sha256": "179a5b7669faf5d4573abc55e1737720f36b83561e6ed7cc4f555c0b4a193893",
+    "report_sha256": "e72749f0ae69f7172cbb38c21271bf642d69777e05b67124e9e99b2eb97ebaaf",
+    "verification": {
+      "isolated_copy_files_hashed": 696,
+      "excluded_directories_absent": [
+        "data",
+        "artifacts",
+        ".venv",
+        ".git"
+      ],
+      "python": "3.14.4 system interpreter, isolated mode (-I), sys.prefix == sys.base_prefix",
+      "commands": [
+        {
+          "command": "python3 -I scripts/check_report.py",
+          "result": "passed; 14 local artifact inputs intentionally not read"
+        },
+        {
+          "command": "python3 -I -m unittest discover -s tests -p test_check_report.py",
+          "result": "15 tests passed"
+        }
+      ],
+      "independent_review": "Read-only reviewer confirmed code, repeated tests independently, found missing secondary-code hash detection; fixed and retested with regression.",
+      "latex": "Current source compiled successfully with built-in desktop compiler",
+      "text": "Two REES46 diagnostic paragraphs shortened by 42 whitespace-delimited words; main test criterion, negative results and caveats retained; independent reader review passed",
+      "historical_evidence_files_unchanged": 207,
+      "git_diff_check": "passed"
+    },
+    "not_performed": [
+      "New training, predictions, bootstrap calculations or research LLM calls",
+      "Kaggle submissions",
+      "Raw-data replay",
+      "Visual inspection of current PDF or separate PDF export",
+      "Commit, push, repository visibility change",
+      "Personal verification by author"
+    ]
+  },
+  "editorial_review_2026_10_25": {
+    "record": "docs/writeup/editorial-review-2026-10-25.json",
+    "record_sha256": "992c56e6034ac3b8b7e6b2aaea31fa87d4836b43a5279a2b6bb4ae41a530d4b7",
+    "report_sha256": "3a4d7d214e6e68b4cacc078b5da9fb09c19b07431eaeacd3b15f963b9fc1c18e",
+    "verification": {
+      "words_before": 1671,
+      "words_after": 1647,
+      "numeric_values": "All values preserved. Relative to the original editorial source, validation year 2019 and the existing metric name NDCG@20 are explicitly repeated once for clarity.",
+      "URLs": "Identical multiset",
+      "figures": "Same embedded figure",
+      "historical_evidence_files_unchanged": 207,
+      "portable_saved_evidence_checker": "passed",
+      "builtin_latex_compiler": "success",
+      "visual_inspection": "not performed; current live PDF pixels unavailable",
+      "preceding_editorial_words": 1644,
+      "five_pass_words_after": 1652,
+      "five_pass_independent_review": "Final reader approved main.tex SHA256 4ba630ba8c6c836eacfef593df71fe19f490d10597b6f435179b108d32ac0b8b",
+      "section_review": {
+        "words_before": 1652,
+        "words_after": 1647,
+        "numeric_tokens_URLs_figures": "identical",
+        "one_iteration_one_section": "confirmed by successive snapshots",
+        "historical_files_unchanged": 207,
+        "saved_evidence_check": "passed",
+        "builtin_latex_compile": "success",
+        "independent_final_review": "passed; section transitions and preservation of facts/limits checked",
+        "visual_inspection": "not performed"
+      }
+    },
+    "additional_passes": 5,
+    "section_iterations": 4
+  },
+  "repository_cleanup_2026_10_25": {
+    "scope": "Repository navigation, lightweight CI and local LaTeX build ignores; research code and report unchanged",
+    "changed_files_sha256": {
+      ".github/workflows/checks.yml": {
+        "before": null,
+        "after": "006e70dd0a5223ca61f29928245a748798c463103876648d3678d538f82b96f8"
+      },
+      ".gitignore": {
+        "before": "0d23e7856d6bbaa8eacfd79d4e51e67add920cca451b50dca439ff9c3df56ab3",
+        "after": "2f46f352affbc596edfc8055df28621fa2f1cde004a5da9060c0136d0bbd0a30"
+      },
+      "README.md": {
+        "before": "69b56dd1cd6eed1601f26047d84a80f3c88b3fdf3a2f65efaff2abae5b33bb0b",
+        "after": "0d9a0a2b780f4605c70c8bcf26ce75750c381ce93cd58d4c6b3bb7b20d28554d"
+      },
+      "docs/otto-reproduce.md": {
+        "before": "ba46271fe38631439a04bda15c5679e52b72554189c22e768cf293257f01f593",
+        "after": "a00abdbd9b4e82f50f12cba4d7df3d83578a55a5cc9d80851ea92092f5d810ff"
+      },
+      "docs/task1-reproduce.md": {
+        "before": "eb2d414b03406a9e384b66d146ed0a2c7d6762c90c7a427e785d0804858f2cd4",
+        "after": "bd9157e0e20ebf78b61af05515e6dc8b6150d6780700bb78193c00d6deb3a0d8"
+      },
+      "docs/writeup/README.md": {
+        "before": null,
+        "after": "94dab2d1c4ace5e7e69808706da518c623e8aa59a9f2d64d4ad04d8158d88850"
+      },
+      "docs/writeup/facts.md": {
+        "before": "ea1157a94936b6ef5b4ac0ea19c48d98936dd699f11fa6cec29f2708a24f5547",
+        "after": "d283a782818bbb06471b081250eb0335c4e62b1a1551e118d4a810fc004d59e3"
+      }
+    },
+    "prior_editorial_record_sha256": "992c56e6034ac3b8b7e6b2aaea31fa87d4836b43a5279a2b6bb4ae41a530d4b7",
+    "version_rule": "Earlier package/editorial manifests describe their checked revisions. Apply these after hashes to those revisions for the cleanup changes; review-audit.json is outside the content manifest. No previous verification record was replaced.",
+    "verification": {
+      "independent_review": "No findings in frozen seven-file scope; checker and its 15 tests repeated independently in a copy without data/artifacts/venv",
+      "new_local_links": "44 new links and heading anchors independently checked",
+      "targeted_tests": "28 passed",
+      "deleted_files": 0,
+      "research_report_and_results": "All files outside the seven cleanup paths and this audit record unchanged from pre-cleanup snapshot",
+      "full_suite": {
+        "result": "OK: 974 tests, 2 skipped, 243.915 seconds",
+        "python": "3.12.14, existing locked project environment",
+        "execution": "Writable isolated copy of 701 packaged files; no original data/artifacts/.venv/.git copied; existing environment interpreter used",
+        "log_sha256": "32629bee23bf8dc5f7c7b0d292aa29dc5342afb7b6626abcf7caa02946bfa399",
+        "limits": "Regression tests and small synthetic computations, not full research replay"
+      },
+      "initial_full_suite": {
+        "result": "974 tests, 22 errors, 1 skipped",
+        "cause": "All 22 errors were write-permission failures in artifacts/ or catboost_info/ in the read-only checkout. Resolved by rerunning unchanged files in a writable isolated copy."
+      }
+    },
+    "not_performed": [
+      "GitHub-hosted CI run",
+      "New experiments or raw-data replay",
+      "Commit, push or repository visibility change",
+      "Current PDF export or visual inspection"
+    ]
+  },
+  "repository_text_cleanup_2026_10_25": {
+    "scope": "Second cleanup: language and punctuation in 11 current documentation/report files; no research code changes",
+    "changed_files_sha256": {
+      "README.md": {
+        "before": "0d9a0a2b780f4605c70c8bcf26ce75750c381ce93cd58d4c6b3bb7b20d28554d",
+        "after": "c8442839c6381ca8c14357af687bada1ee245c398eec77d010e4b71ef656f42f"
+      },
+      "docs/data.md": {
+        "before": "16d481d93a1b508d371a4c0873e35b2fe2ddb3661d75c265c1a050dc71b5d856",
+        "after": "97a2c97d39d9d8907a8b60e7ad0fe250cde7a8b4dc7d6162ee4ced145add025e"
+      },
+      "docs/hm-reproduce.md": {
+        "before": "27fe275a5353cab93bce73ec2c04f5ca33238dc95c68310939cd370d7b52516a",
+        "after": "134ba27a106d321ed1cb61ca2f0011820f5decd6b684ad7faaa64ebd9438ec04"
+      },
+      "docs/otto-reproduce.md": {
+        "before": "a00abdbd9b4e82f50f12cba4d7df3d83578a55a5cc9d80851ea92092f5d810ff",
+        "after": "9e89e6d38015d0bb7385220c69907c05b7c91d845ca14b59c0c2f6563c32348d"
+      },
+      "docs/task1-reproduce.md": {
+        "before": "bd9157e0e20ebf78b61af05515e6dc8b6150d6780700bb78193c00d6deb3a0d8",
+        "after": "0db49f53baee2c8681b4d13ce883669f4424ce5d0e661664429ec444fe275f5c"
+      },
+      "docs/task1-requirements.md": {
+        "before": "73496bee31d06c3dde5c1915092aa5236cd873bf96d6d6a58cdd488462526b90",
+        "after": "de0e016ebce4c72734a3163fcb2e788dc5ce4226ede3e38e9c70428874ac9d86"
+      },
+      "docs/writeup/README.md": {
+        "before": "94dab2d1c4ace5e7e69808706da518c623e8aa59a9f2d64d4ad04d8158d88850",
+        "after": "87b5d58e783029fd6f2d5db15ee7d784046933786cb02b79e04671fd97603283"
+      },
+      "docs/writeup/fact-check-2026-10-25/README.md": {
+        "before": "d0cee9d26b1a10e66c89a85aa3f811ddf3fb67b84330dc5becf07183f3d89e8e",
+        "after": "ed836b40101890bcc040c811d38ca68bd24e52795a327850459ed8770cc9494a"
+      },
+      "docs/writeup/human-review.md": {
+        "before": "cfb8558a2d608cc78398f2eb7dbab8953cf7a271923b49c174f9773650e940f5",
+        "after": "ef2626941fb0f620e80294941f5e31484c6721877e37ea705370f9a9e07f7e04"
+      },
+      "docs/writeup/latex-report/README.md": {
+        "before": "32aff5d5c6f82e4b581317d13d298c1f958ae98cc85ca968318be0d91e6bce48",
+        "after": "8caaa81f6d7571039e4774b08dfaee1edc8346e9de4a08bbb60879268af49d7b"
+      },
+      "docs/writeup/latex-report/main.tex": {
+        "before": "3a4d7d214e6e68b4cacc078b5da9fb09c19b07431eaeacd3b15f963b9fc1c18e",
+        "after": "fe7b0ca388d03181ed93fd9497241cc550340c722c6704e77a8174e0096a2f3e"
+      }
+    },
+    "version_rule": "These after hashes supersede earlier snapshots for these paths only. Previous records remain historical; this audit file is outside the content manifest.",
+    "verification": {
+      "numeric_tokens_URLs_inline_code_fenced_commands": "Identical ordered sequences in all 11 files. Added whitespace in percentile95, 2000 separates two existing values.",
+      "long_dashes": {
+        "before": 347,
+        "after": 1,
+        "remaining": "Verbatim historical authorization quote in docs/task1-reproduce.md; source quote deliberately preserved"
+      },
+      "saved_evidence_checker": "passed",
+      "checker_tests": "15 passed",
+      "builtin_latex_compile": "success",
+      "independent_review": "Report, front matter, H&M and REES46/OTTO instructions independently reviewed. Ambiguous referent, two technical translations and punctuation defects corrected and rechecked.",
+      "git_diff_check": "passed",
+      "research_code_and_primary_evidence": "Unchanged from pre-cleanup snapshot",
+      "full_suite": "Not repeated for prose-only changes; previous cleanup passed 974 tests with 2 skips"
+    },
+    "preserved_verbatim": [
+      "Frozen experiment plans and specifications",
+      "Historical run journals, reports, prompts and result files",
+      "Direct quotation containing an em dash"
+    ],
+    "not_performed": [
+      "Current PDF visual inspection or export",
+      "Full research replay or new experiments",
+      "Commit, push or repository visibility change"
+    ]
+  },
+  "criteria_and_terms_review_2026_10_25": {
+    "scope": "Re-read original assignment and overview in authenticated browser, review terminology, audit all criteria and assess additional experiments",
+    "assignment_urls": [
+      "https://edu.tbank-online.com/selection/01a10b8d-f3da-73a2-950e-5395aeccdb3d/practice/89603/task/1",
+      "https://edu.tbank-online.com/selection/01a10b8d-f3da-73a2-950e-5395aeccdb3d/practice/89603/overview"
+    ],
+    "changed_files_sha256": {
+      "README.md": {
+        "before": "c8442839c6381ca8c14357af687bada1ee245c398eec77d010e4b71ef656f42f",
+        "after": "a7de026fcb51aeca58da0b494ea4f8ebcb7ee44345ef011f0124ff95bd3720dd"
+      },
+      "docs/task1-requirements.md": {
+        "before": "de0e016ebce4c72734a3163fcb2e788dc5ce4226ede3e38e9c70428874ac9d86",
+        "after": "63942cfee64237e573f09b3615306f0698b752279c9bf488c167b66dba88ea2e"
+      },
+      "docs/task1-reproduce.md": {
+        "before": "0db49f53baee2c8681b4d13ce883669f4424ce5d0e661664429ec444fe275f5c",
+        "after": "4108b3dce33e418e1995a8e9f606c7ddd3f70b82261acac63854bd6accaf1ea4"
+      },
+      "docs/writeup/human-review.md": {
+        "before": "ef2626941fb0f620e80294941f5e31484c6721877e37ea705370f9a9e07f7e04",
+        "after": "083797275a8696c9e6ed20d2c452272e19ae0526286a6f0b9c62981db295226c"
+      },
+      "docs/writeup/latex-report/main.tex": {
+        "before": "fe7b0ca388d03181ed93fd9497241cc550340c722c6704e77a8174e0096a2f3e",
+        "after": "2efef134b835b74891b36669005f7cccad1ad3bc8e512eaaad40739884c7de34"
+      }
+    },
+    "criteria": {
+      "baseline": {
+        "evidence": [
+          "task1/build.py",
+          "docs/task1-baseline-features.md",
+          "task1/runs/replication-2020/spec.json"
+        ],
+        "assessment": "Substantive 80-feature CatBoost baseline with tuning and ablations; no claim of optimality or equal search budget"
+      },
+      "idea": {
+        "evidence": [
+          "task1/agent.py",
+          "task1/extra.py",
+          "task1/dfs.py",
+          "task1/runs/agent_night20/"
+        ],
+        "assessment": "Implemented SQL feature search and deterministic aggregate control"
+      },
+      "comparison": {
+        "evidence": [
+          "task1/runs/replication-2020/spec.json",
+          "task1/runs/replication-2020/test.json",
+          "task1/replicate.py"
+        ],
+        "assessment": "REES46 main table fixes split/candidates/history/model settings; validation reuse and hypothesis chronology disclosed. OTTO supplementary and not strict past/equal candidates"
+      },
+      "analysis": {
+        "evidence": [
+          "task1/runs/placebo-2026-10-21/result.json",
+          "docs/writeup/sensitivity-2026-10-25/results.json",
+          "docs/writeup/secondary-2026-10-25/results.json"
+        ],
+        "assessment": "Positive/negative outcomes, permutation and robustness covered; isolated LLM test effect and independent agent-search repeatability not established"
+      },
+      "sampling": {
+        "evidence": [
+          "task1/build.py",
+          "task1/exp.py",
+          "scripts/otto_data.py"
+        ],
+        "assessment": "Added omitted requirement to preserve user history. REES query/candidate caps do not randomly thin source events; time windows and query cap distinguished"
+      },
+      "reproduction": {
+        "evidence": [
+          "README.md",
+          "docs/task1-reproduce.md",
+          "docs/otto-reproduce.md"
+        ],
+        "assessment": "Instructions, frozen SQL and checks available; full raw-data clean-clone replay remains unverified"
+      },
+      "human_fact_verification": {
+        "assessment": "Required by original overview; not attested by agent audit"
+      },
+      "scalability": {
+        "assessment": "Costs and memory limitations described; no controlled scaling benchmark claimed"
+      }
+    },
+    "cost_addition": {
+      "source": "task1/runs/replication-2020/test.json",
+      "code": "task1/replicate.py:run_arm",
+      "base_seconds": 1250,
+      "Hp_seconds": 1980,
+      "rounded_minutes": [
+        21,
+        33
+      ],
+      "fits_per_arm": 2,
+      "fit_queries_per_model": 140680,
+      "train_rows_per_model": 7136760,
+      "includes": "Reading ready features, training, predictions and metrics",
+      "excludes": "Feature generation and subsequent output file writing",
+      "limitation": "One timing measurement; process cumulative RSS not treated as independent arm memory comparison"
+    },
+    "experiment_decision": "No new experiment: cheap diagnostics already done; isolated LLM contribution on genuinely new period and independent equal-budget searches require a new study. Late scoring on the opened test would be post-hoc, not confirmatory.",
+    "verification": {
+      "independent_review": "Three reviewers; terminology, requirement wording and timing scope corrected and rechecked",
+      "saved_evidence_checker": "passed",
+      "checker_tests": "15 passed",
+      "builtin_latex_compile": "success",
+      "git_diff_check": "passed",
+      "new_experiments": false,
+      "human_review": false,
+      "visual_PDF_review": false,
+      "publication": false
+    }
+  },
+  "agent_test_ablation_2026_10_25": {
+    "status": "completed post-hoc test ablation, not confirmatory",
+    "request": "Train the full agent feature set without DFS on already opened 2020 test, using both frozen seed pairs and no tuning",
+    "files_sha256": {
+      "docs/writeup/agent-test-ablation-2026-10-25/plan.json": "acf915b0450493b8e47ca598ceceb716f470464994d2c7c440cd27ab69c7b159",
+      "docs/writeup/agent-test-ablation-2026-10-25/results.json": "433efb3d09f6f5a0b25557b7ae30aaeaee92c27250c107fed28e9163259646ea",
+      "docs/writeup/agent-test-ablation-2026-10-25/verification.json": "ffdab4173bd1cff97fe89631f55378d9253d6b003ff720d0543610cf3f36d346",
+      "docs/writeup/agent-test-ablation-2026-10-25/README.md": "d1223586b14dbb7f52fef1696681a9aea490103c96c8da80c1e20ca7b826bbf9",
+      "scripts/rees_agent_test_ablation.py": "a42786f900ac72bd43850968a1b6405459762a6fd8da60fb013405c8e276c174",
+      "tests/test_rees_agent_test_ablation.py": "14bf006c8b3c119b12e33532f70c4c7f501813cf8a22c793b0753e0eb1c0f5ee",
+      "scripts/check_report.py": "b1a8b46fe4ab39b817058f847e3dcdf45c34762911dbf68a3253a50eb2f3ab70",
+      "tests/test_check_report.py": "720dea2a947607933213ddb7300ca75ab6b7c3f02e73406b0d8341dfc018c433",
+      "docs/writeup/latex-report/main.tex": "48fedc5a4b4aae487f4b9ad0d67eb2d09cef4b853ec584cb7a42e2d609a47f71",
+      "README.md": "e36ae448984ce775a1835834d65aa4c6450a29d15c340b8bf0d1a018544d6c7a",
+      "docs/task1-reproduce.md": "439c606b3ded84a59aa167e8b32542f6b46449d01eda2026328e701a9b3072fd",
+      "docs/writeup/human-review.md": "8b067fcf4d211c2aa6fbbfaf4ddcf1193bd92d7ef84373fe002997643bdbe794",
+      "docs/writeup/README.md": "2c2ca4ce5acadcc6097da9bcf3ae30ced13abc2676443babc3921ed049b876ed"
+    },
+    "result": {
+      "base_mean_ndcg": 0.14623281414713804,
+      "Hag_mean_ndcg": 0.1491385567916141,
+      "Hp_mean_ndcg": 0.1492205073785902,
+      "Hag_minus_base": "Both 95% user-cluster intervals strictly positive",
+      "Hp_minus_Hag": "Both 95% user-cluster intervals include zero; not equivalence",
+      "training_and_scoring_seconds": 1593,
+      "runner_elapsed_seconds": 1605.7833130420186,
+      "features": 146,
+      "seed_pairs": [
+        [
+          2026,
+          0
+        ],
+        [
+          7,
+          1
+        ]
+      ]
+    },
+    "verification": {
+      "independent_plan_and_runner_review": "passed",
+      "runner_tests": 9,
+      "portable_checker_tests": 28,
+      "portable_checker_in_isolated_copy_without_data_artifacts_venv": "passed",
+      "independent_recalculation": "docs/writeup/agent-test-ablation-2026-10-25/verification.json",
+      "independent_recalculation_tolerance": 1e-14,
+      "input_hashes_before_after": 1433,
+      "dependency_hashes_before_after": 11,
+      "protected_existing_files_unchanged": 541,
+      "report_numbers_and_relative_gain_checked_automatically": true,
+      "report_interpretation_and_links_independent_review": "passed after three wording fixes",
+      "builtin_latex_compile": "success",
+      "git_diff_check": "passed"
+    },
+    "limitations": [
+      "Test had already been opened; this is not a newly independent confirmatory test",
+      "Two model seeds are not independent agent-search repetitions",
+      "Marginal user-cluster intervals, not multiplicity-adjusted simultaneous coverage or joint user/day intervals",
+      "No new LLM generation or parameter tuning",
+      "Clean-clone replay with recreated tables is not verified; original input metadata fingerprint is required",
+      "Current PDF visually uninspected; no separate PDF export",
+      "No commit, push, publication or human fact-check attestation"
+    ]
+  },
+  "post_ablation_five_pass_review_2026_10_25": {
+    "status": "completed",
+    "scope": "Existing LaTeX report, five sequential full-text reviews with independent agents",
+    "passes": [
+      {
+        "iteration": 1,
+        "focus": "Consistency of conclusions after the additional test analysis",
+        "reviewer": "posthag_pass1",
+        "before": "48fedc5a4b4aae487f4b9ad0d67eb2d09cef4b853ec584cb7a42e2d609a47f71",
+        "after": "379928fd646779fad76ff1f17c9f166464121aa682d6478741d5d1d1096ee473",
+        "changes": [
+          "Specify joint agent+DFS set in cost comparison",
+          "Remove ambiguous claim that comparison with round-based selection was not directly tested"
+        ]
+      },
+      {
+        "iteration": 2,
+        "focus": "Chronology and separation of validation from opened test",
+        "reviewer": "posthag_pass2",
+        "before": "379928fd646779fad76ff1f17c9f166464121aa682d6478741d5d1d1096ee473",
+        "after": "edc75d9ba8e1f206e3ec26a115e63d70d2eef48b95d23650e5ec523a0b6398f8",
+        "changes": [
+          "Explicitly identify validation of both periods in DFS interval statement"
+        ]
+      },
+      {
+        "iteration": 3,
+        "focus": "Terms and scope of claims",
+        "reviewer": "posthag_pass3",
+        "before": "edc75d9ba8e1f206e3ec26a115e63d70d2eef48b95d23650e5ec523a0b6398f8",
+        "after": "b4863c29426cc88c852d3c7aa16f9cc5d126bbead575b8c83f06aa3ad38b124c",
+        "changes": [
+          "Distinguish independent search repeats from successive OTTO development"
+        ]
+      },
+      {
+        "iteration": 4,
+        "focus": "Redundancy and economical phrasing",
+        "reviewer": "posthag_pass4",
+        "before": "b4863c29426cc88c852d3c7aa16f9cc5d126bbead575b8c83f06aa3ad38b124c",
+        "after": "a3b433bfd7e57ea00bf246146abeeeef0cabc340147b68fc08f08e5623ec4cb2",
+        "changes": [
+          "Remove duplicate opened-test phrase while retaining explicit post-hoc limitation at paragraph end"
+        ]
+      },
+      {
+        "iteration": 5,
+        "focus": "Independent cold reading and final comparison with experiment evidence",
+        "reviewer": "posthag_pass5",
+        "before": "a3b433bfd7e57ea00bf246146abeeeef0cabc340147b68fc08f08e5623ec4cb2",
+        "after": "a3b433bfd7e57ea00bf246146abeeeef0cabc340147b68fc08f08e5623ec4cb2",
+        "changes": [],
+        "result": "Clean; no further edits needed"
+      }
+    ],
+    "verification": {
+      "sha256": "a3b433bfd7e57ea00bf246146abeeeef0cabc340147b68fc08f08e5623ec4cb2",
+      "numbers_preserved_except_two_year_labels_replaced_by_both_periods": true,
+      "urls_repo_refs_figures_headings_preserved": true,
+      "no_long_dashes": true,
+      "words_before": 1729,
+      "words_after": 1724
+    },
+    "checks": {
+      "packaged_report_evidence": "passed",
+      "builtin_latex_compile": "success",
+      "independent_final_review": "clean",
+      "git_diff_check": "passed"
+    },
+    "limitations": [
+      "Editorial consistency review; no new training or raw-data replay",
+      "PDF compiled in current editor; rendered pages not visually inspected",
+      "No commit, push or publication"
+    ]
+  },
+  "repository_post_ablation_consistency_2026_10_25": {
+    "status": "completed",
+    "scope": "Repository-wide search across a frozen 707-file snapshot; focused reading of README, reproduction instructions, current report, historical report entry points and experiment evidence",
+    "reviewers": [
+      "repo_hag_front",
+      "repo_hag_reproduce",
+      "repo_hag_sweep"
+    ],
+    "changes": [
+      "Replace outdated no-new-training claim in LaTeX README with late agent-only test analysis",
+      "Separate main-table clone replay from analyses requiring preserved local artifacts",
+      "Label historical reports at their direct entry points",
+      "Add agent-only ablation runner to code navigation"
+    ],
+    "files_sha256": {
+      "README.md": "a31d453b3f24d25740907a51e330f49f2c14c7e43864d375c90cbec1a2c41ba4",
+      "docs/task1-reproduce.md": "3c3305c39e1f896437ce9a61819a3edad593b32e5cc50c49beecaf1d1a7e5135",
+      "docs/task1-v2-report.md": "9276e7aa9e442cff163de03e8e81d72003f5cab6088791bc1e5f98a8af16da70",
+      "docs/writeup/REPORT.md": "c229526fccc71b36180677ddec96bfb09f381c624a3708b7bd80427444087a81",
+      "docs/writeup/latex-report/README.md": "f68b5d11c4ae8818daee8447977da0704ff3d8ee338712aa32ac126cb43dccf3"
+    },
+    "checks": {
+      "markdown_files": 78,
+      "relative_link_paths_checked": 415,
+      "missing": [],
+      "changed_files": [
+        "README.md",
+        "docs/task1-reproduce.md",
+        "docs/task1-v2-report.md",
+        "docs/writeup/REPORT.md",
+        "docs/writeup/latex-report/README.md"
+      ],
+      "latex_unchanged": true,
+      "portable_evidence_checker": "passed in snapshot without data/artifacts",
+      "checker_tests": 28,
+      "independent_rereview": "clean from two reviewers",
+      "git_diff_check": "passed",
+      "final_snapshot_freshness": "all 707 files matched before audit append"
+    },
+    "limitations": [
+      "No new training, bootstrap or clean-clone raw-data replay",
+      "Relative file targets checked; external URL availability not rechecked",
+      "Current LaTeX unchanged; no PDF export or visual inspection",
+      "No commit, push or publication"
+    ]
+  },
+  "publication_checks_2026_10_25": {
+    "status": "pre-publication checks passed",
+    "full_unittest_suite": {
+      "run": 996,
+      "skipped": 2,
+      "failures": 0,
+      "seconds": 232.775,
+      "mode": "isolated snapshot without raw data"
+    },
+    "evidence_checker": "passed",
+    "independent_package_review": "clean",
+    "pdf": {
+      "path": "docs/writeup/latex-report/main.pdf",
+      "sha256": "fdb5f188e4658ab2fa99a63e7862144b336b70a62818f6e1c0c243e5f3db3cbb",
+      "source_sha256": "8e86a1b50228ca7405e3331948b093c4ab31a931289892e734e9b3deb517d4c0",
+      "pages": 5,
+      "all_pages_visually_inspected": true
+    },
+    "layout_changes": "Only paragraph and line spacing changed; prose preserved",
+    "limitations": [
+      "No complete raw-data replay",
+      "Historical REPORT.pdf exports retained and labelled as previous versions"
+    ]
+  }
+}
