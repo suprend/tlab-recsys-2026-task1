@@ -26,6 +26,8 @@ import scripts.writeup_pdf as writeup_pdf  # noqa: E402
 from scripts.writeup_pdf import (  # noqa: E402
     DEFAULT_TYPST,
     GITHUB_BRANCH,
+    LABEL_FILL,
+    PREAMBLE_END,
     CodeBlock,
     ConversionError,
     Context,
@@ -45,6 +47,7 @@ from scripts.writeup_pdf import (  # noqa: E402
     TEXT_WIDTH_PT,
     plain_text,
     render_inline,
+    render_text,
     resolve_link,
     soft_breaks,
     strip_html_comments,
@@ -53,6 +56,9 @@ from scripts.writeup_pdf import (  # noqa: E402
 
 TYPST = shutil.which("typst") or (DEFAULT_TYPST if Path(DEFAULT_TYPST).exists() else None)
 GIT = shutil.which("git")
+PDFTOTEXT = shutil.which("pdftotext") or (
+    "/opt/homebrew/bin/pdftotext" if Path("/opt/homebrew/bin/pdftotext").exists() else None
+)
 # Тесты не зависят от HEAD рабочего репозитория: ref всегда передаётся явно.
 REF = "deadbeef" * 5
 BLOB = f"https://github.com/suprend/tlab-recsys-2026-task1/blob/{REF}"
@@ -77,7 +83,7 @@ def _flatten(node) -> str:
     if func == "item":  # нумерованный пункт: значит, Typst принял текст за список
         return f"<item>{_flatten(node.get('body'))}"
     parts = []
-    for key in ("children", "body"):
+    for key in ("children", "body", "child"):  # child — у styled, например #text(fill: …)[…]
         if key in node:
             parts.append(_flatten(node[key]))
     return "".join(parts)
@@ -123,7 +129,7 @@ def typst_heights(width_pt: float, *markups: str) -> list[float]:
 
 def body_of(typ: str) -> str:
     """Тело документа без преамбулы."""
-    return typ.split('#show figure: set block(above: 1em, below: 1em)\n', 1)[1].strip()
+    return typ.split(PREAMBLE_END + "\n", 1)[1].strip()
 
 
 def tiny_png() -> bytes:
@@ -647,9 +653,243 @@ class BlockTests(unittest.TestCase):
         with FakeRepo() as repo:
             typ = repo.to_typst("![Рис. 1](fig.png)\n")
             path = (repo.writeup / "fig.png").as_posix()
-            self.assertIn(f'#figure(image("{path}", width: 100%), caption: [Рис. 1], numbering: none)', typ)
+            self.assertIn(f'#figure(image("{path}", width: 100%), caption: [#strong[Рис. 1]], numbering: none)', typ)
             with self.assertRaises(ConversionError):
                 repo.to_typst("![x](nope.png)\n")
+
+
+def pdf_text(pdf: Path, *args: str) -> str:
+    result = subprocess.run(
+        [PDFTOTEXT, *args, str(pdf), "-"], capture_output=True, text=True, encoding="utf-8", check=True
+    )
+    return result.stdout
+
+
+def build_md(repo: "FakeRepo", md: str, name: str = "doc") -> tuple[Path, str]:
+    """Собрать ``md`` в PDF во временном репозитории; вернуть PDF и .typ."""
+    src = repo.writeup / f"{name}.md"
+    src.write_text(md, encoding="utf-8")
+    out = repo.root / "out" / f"{name}.pdf"
+    typ = repo.root / "out" / f"{name}.typ"
+    build_pdf(src, out, typst=TYPST, typ_out=typ, ref=REF)
+    return out, typ.read_text(encoding="utf-8")
+
+
+PROTECTED = ("[по протоколу]", "[holdout с отклонением]", "[исследовательский]", "СберМаркете")
+
+
+def label_paragraph() -> str:
+    """Абзац, где метки и «СберМаркете» попадают на конец строки в разных
+    местах: без защиты Typst перенёс бы хотя бы одну из них."""
+    return " ".join(f"{'а' * (k % 7 + 1)} {PROTECTED[k % len(PROTECTED)]}" for k in range(60))
+
+
+class NoBreakTests(unittest.TestCase):
+    def test_labels_and_dataset_names_are_boxed_with_their_word(self):
+        out, after = render_text("на СберМаркете, OTTO-1: +2.0% [по протоколу]. Дальше")
+        self.assertIn("#box[СберМаркете,]", out)
+        self.assertIn("#box[OTTO\\-1:]", out)
+        self.assertIn(f"#box[#text(fill: {LABEL_FILL})[\\[по протоколу\\]]\\.]", out)
+        self.assertFalse(after)
+        out, after = render_text("итог [описательно]")
+        self.assertTrue(after)  # дальше может идти «.» или «(»: их надо экранировать
+
+    def test_long_label_keeps_only_its_head_together(self):
+        text = "≈48% [описательно: только ночной журнал, файла с результатом нет], дальше"
+        out, _ = render_text(text)
+        self.assertIn("#box[#text(fill: luma(90))[\\[описательно:]]", out)
+        self.assertIn(f"#text(fill: {LABEL_FILL})[ только ночной журнал, файла с результатом нет\\]]", out)
+
+    @unittest.skipUnless(TYPST, "typst не найден")
+    def test_protected_text_is_shown_unchanged(self):
+        text = "СберМаркета, H&M и Tinkoff; OTTO-2/3 [holdout с отклонением] (2019, описательно)."
+        self.assertEqual(typst_plain(render_text(text)[0]), text)
+
+    def test_table_column_is_not_narrower_than_a_label(self):
+        long = "длинное пояснение в несколько слов " * 6
+        md = (
+            "| Шаг | Пояснение | Метка |\n|---|---|---|\n"
+            f"| OTTO-3 | {long} | исследовательский |\n"
+            f"| OTTO-2 | {long} {long} | [holdout с отклонением] |\n"
+        )
+        table = parse_blocks(md.split("\n"))[0]
+        _, inner = table_columns(table)
+        self.assertIsNotNone(inner[2])
+        self.assertGreaterEqual(inner[2], len("[holdout с отклонением]") * writeup_pdf.TABLE_TEXT_PT)
+
+    @unittest.skipUnless(TYPST and PDFTOTEXT, "нужны typst и pdftotext")
+    def test_label_does_not_break_in_prose(self):
+        md = "# Т\n\n" + label_paragraph() + "\n\n- " + label_paragraph() + "\n"
+        with FakeRepo() as repo:
+            pdf, _ = build_md(repo, md)
+            text = pdf_text(pdf, "-layout")  # без -layout pdftotext склеивает перенесённые слова
+            # без защиты тот же абзац рвёт метки: тест проверяет то, что заявляет
+            with mock.patch.object(writeup_pdf, "nobreak_spans", lambda _t: ([], [])):
+                bare, _ = build_md(repo, md, "bare")
+                bare_text = pdf_text(bare, "-layout")
+        for term in PROTECTED:
+            self.assertEqual(text.count(term), md.count(term), term)
+        self.assertLess(sum(bare_text.count(t) for t in PROTECTED), sum(md.count(t) for t in PROTECTED))
+
+    @unittest.skipUnless(TYPST and PDFTOTEXT, "нужны typst и pdftotext")
+    def test_ragged_prose_is_hyphenated_explicitly(self):
+        words = " ".join(["непереносимость", "достопримечательность", "высокопроизводительный"] * 30)
+        with FakeRepo() as repo:
+            pdf, typ = build_md(repo, f"# Т\n\n{words}\n")
+            text = pdf_text(pdf, "-layout")
+        self.assertIn("#set par(justify: false", typ)
+        self.assertIn('lang: "ru", hyphenate: true)', typ)
+        self.assertIn("\u00ad", text)  # при рваном крае Typst сам переносов не ставит
+
+    @unittest.skipUnless(TYPST and PDFTOTEXT, "нужны typst и pdftotext")
+    def test_label_does_not_break_in_a_narrow_table_cell(self):
+        long = "длинное пояснение в несколько слов " * 8
+        rows = "".join(
+            f"| OTTO-{k} | {long} | {long} | исследовательский | +2.0% [описательно] |\n" for k in range(3)
+        )
+        md = "| Шаг | А | Б | Метка | Число |\n|---|---|---|---|---|\n" + rows
+        with FakeRepo() as repo:
+            pdf, typ = build_md(repo, md)
+            text = pdf_text(pdf, "-layout")
+        self.assertIn(f"#text(fill: {LABEL_FILL})[#box[исследовательский]]", typ)  # столбец меток серый
+        self.assertEqual(text.count("исследовательский"), 3)
+        self.assertEqual(text.count("[описательно]"), 3)
+
+
+class CaptionTests(unittest.TestCase):
+    TABLE = "| a | b |\n|---|---|\n| 1 | 2 |\n"
+    CAPTION = "[#strong[Табл. 1\\.] Пункты условия и что по ним сделано.]"
+
+    def test_table_with_caption_becomes_a_figure_in_both_markups(self):
+        variants = (
+            "**Табл. 1. Пункты условия и что по ним сделано.**",  # нынешний REPORT.md
+            "**Табл. 1.** Пункты условия и что по ним сделано.",  # правка редактора
+            "Табл. 1. Пункты условия и что по ним сделано.",
+        )
+        bodies = []
+        with FakeRepo() as repo:
+            for caption in variants:
+                body = body_of(repo.to_typst(f"{caption}\n\n{self.TABLE}"))
+                bodies.append(body)
+                self.assertTrue(body.startswith("#figure(\ntable("), body)
+                self.assertIn(f"kind: table, caption: {self.CAPTION}, numbering: none)", body)
+                self.assertEqual(body.count("Пункты условия"), 1)  # абзац подписи не повторяется
+        self.assertEqual(len(set(bodies)), 1)
+
+    def test_caption_with_more_text_and_appendix_number(self):
+        md = "**Табл. П1. Карта доказательности.** «—» — не проверялось.\n\n" + self.TABLE
+        with FakeRepo() as repo:
+            body = body_of(repo.to_typst(md))
+        self.assertIn("caption: [#strong[Табл. П1\\.] Карта доказательности. «—» — не проверялось.]", body)
+
+    def test_paragraph_that_is_not_a_caption_stays_a_paragraph(self):
+        with FakeRepo() as repo:
+            for lead in ("**Ответ.** Текст.", "Табл. 1 показывает другое.", "Рис. 1. Не та подпись.", "См. табл. 1."):
+                body = body_of(repo.to_typst(f"{lead}\n\n{self.TABLE}"))
+                self.assertNotIn("#figure", body, lead)
+                self.assertIn("\n\n#table(", body, lead)
+
+    def test_figure_caption_from_alt_or_from_the_next_paragraph(self):
+        with FakeRepo() as repo:
+            path = (repo.writeup / "fig.png").as_posix()
+            alt = body_of(repo.to_typst("![Рис. 1. Вывод [описательно].](fig.png)\n"))
+            after = body_of(repo.to_typst("![](fig.png)\n\n**Рис. 1.** Вывод [описательно].\n"))
+        expected = (
+            f'#figure(image("{path}", width: 100%), caption: [#strong[Рис. 1\\.] Вывод '
+            f"#box[#text(fill: {LABEL_FILL})[\\[описательно\\]]\\.]], numbering: none)"
+        )
+        self.assertEqual(alt, expected)
+        self.assertEqual(after, expected)
+        with FakeRepo() as repo:
+            text = body_of(repo.to_typst("![](fig.png)\n\nРис. 1 показывает другое.\n"))
+        self.assertTrue(text.endswith("numbering: none)\n\nРис. 1 показывает другое."), text)
+
+    def test_preamble_sets_caption_style_and_unbreakable_figures(self):
+        with FakeRepo() as repo:
+            typ = repo.to_typst("текст\n")
+        for line in (
+            "#show figure: set block(above: 1em, below: 1em, breakable: false)",
+            "#show figure.where(kind: table): set figure.caption(position: top)",
+            "#show figure.caption: set text(size: 9pt)",
+            "#show figure.caption: set par(justify: false)",
+            "#show figure.caption: set align(left)",
+        ):
+            self.assertIn(line, typ)
+
+    @unittest.skipUnless(TYPST and PDFTOTEXT, "нужны typst и pdftotext")
+    def test_caption_is_left_aligned_9pt_above_table_and_below_figure(self):
+        cap = "Подпись " + "достаточно длинная, чтобы занять несколько строк, " * 4 + "конец."
+        md = f"# Т\n\n**Табл. 2.** {cap}\n\n{self.TABLE}\n![Рис. 3. {cap}](fig.png)\n"
+        with FakeRepo() as repo:
+            pdf, _ = build_md(repo, md)
+            bbox = pdf_text(pdf, "-bbox-layout")
+        lines = re.findall(r'<line xMin="([\d.]+)" yMin="([\d.]+)" xMax="[\d.]+" yMax="([\d.]+)">(.*?)</line>', bbox, re.S)
+        words = [(float(x), float(y0), float(y1), re.findall(r">([^<]+)</word>", body)) for x, y0, y1, body in lines]
+        margin = 2 / 2.54 * 72
+        caption_lines = [w for w in words if any(t in ("достаточно", "Подпись", "конец.") for t in w[3])]
+        self.assertGreaterEqual(len(caption_lines), 4, words)
+        for x, y0, y1, _ in caption_lines:
+            self.assertAlmostEqual(x, margin, delta=0.5)  # каждая строка, и последняя, от левого края
+            self.assertAlmostEqual(y1 - y0, 9.0, delta=0.3)  # кегль 9 pt
+        table_y = next(y0 for _, y0, _, w in words if w[:1] == ["a"])
+        caption_y = [y0 for _, y0, _, w in caption_lines]
+        self.assertLess(min(caption_y), table_y)  # у таблицы подпись сверху
+        self.assertGreater(max(caption_y), table_y)  # у рисунка снизу (он ниже таблицы)
+
+    @unittest.skipUnless(TYPST and PDFTOTEXT, "нужны typst и pdftotext")
+    def test_captioned_table_does_not_break_across_pages(self):
+        filler = "\n\n".join("Абзац для заполнения страницы, " * 9 for _ in range(10))
+        rows = "".join(f"| R{k:02d} | строка {k} |\n" for k in range(1, 21))
+        md = f"# Т\n\n{filler}\n\n**Табл. 1.** Таблица у конца страницы.\n\n| ID | B |\n|---|---|\n{rows}"
+        with FakeRepo() as repo:
+            pdf, _ = build_md(repo, md)
+            pages = pdf_text(pdf).split("\f")
+            unboxed, _ = build_md(repo, md.replace("**Табл. 1.** Таблица у конца страницы.", "Текст."), "plain")
+            plain_pages = pdf_text(unboxed).split("\f")
+        holding = [i for i, page in enumerate(pages) if "R01" in page or "R20" in page]
+        self.assertEqual(len(set(holding)), 1, "таблица с подписью разорвана")
+        self.assertIn("Таблица у конца страницы", pages[holding[0]])
+        # без подписи та же таблица на том же месте рвётся: тест проверяет то, что заявляет
+        split = {i for i, page in enumerate(plain_pages) if "R01" in page or "R20" in page}
+        self.assertEqual(len(split), 2)
+
+
+    @unittest.skipUnless(TYPST and PDFTOTEXT, "нужны typst и pdftotext")
+    def test_captioned_table_longer_than_a_page_keeps_every_row(self):
+        rows = "".join(f"| R{k:03d} | строка {k} |\n" for k in range(1, 121))
+        md = f"# Т\n\n**Табл. 1.** Длинная таблица.\n\n| ID | B |\n|---|---|\n{rows}"
+        with FakeRepo() as repo:
+            pdf, typ = build_md(repo, md)
+            text = pdf_text(pdf)
+        self.assertIn("breakable: true", typ)
+        missing = [k for k in range(1, 121) if f"R{k:03d}" not in text]
+        self.assertEqual(missing, [], "строки длинной таблицы с подписью пропали")
+
+
+class HeaderWidthTests(unittest.TestCase):
+    def test_header_word_is_not_squeezed_as_if_hyphenated(self):
+        # шапка не переносится: колонка не уже самого длинного слова шапки
+        long = "длинное пояснение в несколько слов " * 6
+        md = "| Шаг | Пояснение | Воспроизводимость | Ещё |\n|---|---|---|---|\n" + "".join(
+            f"| OTTO-{k} | {long} | да, но не всегда | {long} |\n" for k in range(3)
+        )
+        table = parse_blocks(md.split("\n"))[0]
+        _, inner = table_columns(table)
+        word = len("Воспроизводимость") * writeup_pdf.TABLE_TEXT_PT * writeup_pdf.TABLE_BOLD_FACTOR
+        self.assertIsNotNone(inner[2])
+        self.assertGreaterEqual(inner[2], word)
+
+@unittest.skipUnless(TYPST, "typst не найден")
+class MetadataTests(unittest.TestCase):
+    def test_pdf_has_title_and_date_but_no_author(self):
+        with FakeRepo() as repo:
+            pdf, typ = build_md(repo, "# Вывод: +2.0% на REES46\n\nТекст.\n")
+            data = pdf.read_bytes()
+        self.assertIn('#set document(title: "Вывод: +2.0% на REES46", author: ())', typ)
+        self.assertIn("<dc:title><rdf:Alt><rdf:li xml:lang=\"x-default\">Вывод: +2.0% на REES46<".encode(), data)
+        self.assertIn(b"<xmp:CreateDate>", data)
+        self.assertNotIn(b"/Author", data)
+        self.assertNotIn(b"dc:creator", data)
 
 
 def pdf_page_count(path: Path) -> int:

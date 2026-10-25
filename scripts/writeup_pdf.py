@@ -9,6 +9,14 @@
 встречается в отчётах: заголовки, абзацы, жирный/курсив/код/зачёркнутый,
 ссылки, списки (с вложенностью), таблицы GFM, картинки, блоки кода, ``---``.
 
+Подпись «Табл. N. …» абзацем прямо перед таблицей и подпись картинки (alt
+или абзац «Рис. N. …» сразу под ней) выводятся как ``figure``: номер жирным,
+остальное обычным, 9 pt, по левому краю; у таблицы подпись сверху, и такая
+таблица не разрывается между страницами. Метки доказательности
+(``[по протоколу]`` и т. п.), названия наборов и слово, в котором они стоят,
+не рвутся переносом; метка в скобках серая. Проза набирается с рваным краем
+и явными переносами.
+
 Относительные ссылки на файлы репозитория превращаются в ссылки на GitHub
 ``/blob/<ref>/...`` (``GITHUB_REPO``; ref по умолчанию — полный sha HEAD, чтобы
 ссылка не уезжала вместе с веткой). Цель ссылки проверяется в этом коммите
@@ -939,6 +947,88 @@ def escape_text(s: str, *, after_call: bool = False) -> str:
     return "".join(out)
 
 
+# Метки доказательности и названия наборов не рвутся переносом. Метка в
+# квадратных скобках ещё и серая (того же кегля): так она видна и при
+# чёрно-белой печати. Названия наборов — с падежными окончаниями.
+LABELS = ("по протоколу", "holdout с отклонением", "описательно", "исследовательский")
+_LABEL_ALT = "|".join(re.escape(x) for x in LABELS)
+BRACKET_LABEL_RE = re.compile(r"\[(?:" + _LABEL_ALT + r")[^\[\]\n]*\]")
+LABEL_HEAD_RE = re.compile(r"\[(?:" + _LABEL_ALT + r")\S*")
+NOBREAK_TERM_RE = re.compile(
+    r"(?<!\w)(?:" + _LABEL_ALT + r"|СберМаркет\w*|Tinkoff\w*|REES46|H&M|OTTO)(?!\w)"
+)
+LABEL_BOX_MAX = 32  # метку длиннее (с подвидом) держим одной строкой только до первого пробела
+LABEL_FILL = "luma(90)"
+
+
+def nobreak_spans(text: str) -> tuple[list[tuple[int, int]], list[tuple[int, int]]]:
+    """Куски ``text``, которые не рвутся, и куски, которые красятся серым.
+
+    Неразрывный кусок — метка или название набора вместе со всем словом, в
+    котором оно стоит (до пробелов): «СберМаркета,», «[описательно].», «OTTO-1:».
+    Строка не рвётся ни внутри него, ни на его краях там, где раньше не рвалась
+    (Typst разрешает разрыв по обе стороны ``box``)."""
+    boxes: list[tuple[int, int]] = []
+    grays: list[tuple[int, int]] = []
+    for m in BRACKET_LABEL_RE.finditer(text):
+        grays.append(m.span())
+        if m.end() - m.start() <= LABEL_BOX_MAX:
+            boxes.append(m.span())
+        else:
+            head = LABEL_HEAD_RE.match(text, m.start())
+            boxes.append((m.start(), head.end()))
+    boxes.extend(m.span() for m in NOBREAK_TERM_RE.finditer(text))
+    merged: list[tuple[int, int]] = []
+    for start, end in sorted(boxes):
+        while start > 0 and not text[start - 1].isspace():
+            start -= 1
+        while end < len(text) and not text[end].isspace():
+            end += 1
+        if merged and start <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(end, merged[-1][1]))
+        else:
+            merged.append((start, end))
+    return merged, grays
+
+
+def _gray_runs(text: str, start: int, end: int, grays: list[tuple[int, int]], after_call: bool) -> tuple[str, bool]:
+    out: list[str] = []
+    pos = start
+    for gs, ge in grays:
+        gs, ge = max(gs, start), min(ge, end)
+        if gs >= ge:
+            continue
+        if gs > pos:
+            out.append(escape_text(text[pos:gs], after_call=after_call))
+        out.append(f"#text(fill: {LABEL_FILL})[{escape_text(text[gs:ge])}]")
+        after_call = True
+        pos = ge
+    if pos < end:
+        out.append(escape_text(text[pos:end], after_call=after_call))
+        after_call = False
+    return "".join(out), after_call
+
+
+def render_text(text: str, *, after_call: bool = False) -> tuple[str, bool]:
+    """Текст в разметке Typst с неразрывными метками и названиями наборов;
+    второй элемент — кончается ли разметка вызовом функции."""
+    boxes, grays = nobreak_spans(text)
+    out: list[str] = []
+    pos = 0
+    for start, end in boxes:
+        if start > pos:
+            chunk, after_call = _gray_runs(text, pos, start, grays, after_call)
+            out.append(chunk)
+        inner, _ = _gray_runs(text, start, end, grays, False)
+        out.append(f"#box[{inner}]")
+        after_call = True
+        pos = end
+    if pos < len(text):
+        chunk, after_call = _gray_runs(text, pos, len(text), grays, after_call)
+        out.append(chunk)
+    return "".join(out), after_call
+
+
 def typst_string(s: str) -> str:
     s = s.replace("\\", "\\\\").replace('"', '\\"')
     s = s.replace("\r", "").replace("\n", "\\n").replace("\t", "\\t")
@@ -1056,8 +1146,8 @@ def render_inline(nodes: list, ctx: Context, soft: dict[int, set[int]] | None = 
     after_call = False
     for node in nodes:
         if isinstance(node, Text):
-            out.append(escape_text(node.text, after_call=after_call))
-            after_call = False
+            chunk, after_call = render_text(node.text, after_call=after_call)
+            out.append(chunk)
             continue
         if isinstance(node, Code):
             out.append(_raw_with_breaks(node.text, (soft or {}).get(id(node), set())))
@@ -1102,6 +1192,112 @@ def _image_call(node: Image, ctx: Context, *, width: str | None = None, height: 
     return f"image({', '.join(args)})"
 
 
+CAPTION_PREFIX_RE = re.compile(r"^\s*((Табл|Рис)\.\s*П?\d+([.:]?))(?=\s|$)")
+
+
+def _merge_texts(nodes: list) -> list:
+    out: list = []
+    for node in nodes:
+        if isinstance(node, Text) and out and isinstance(out[-1], Text):
+            out[-1] = Text(out[-1].text + node.text)
+        else:
+            out.append(node)
+    return out
+
+
+def caption_nodes(nodes: list, kind: str, *, alt: bool = False) -> list | None:
+    """Подпись вида «Табл. N. …» (``kind`` — «Табл» или «Рис»): номер жирным,
+    остальное обычным. Жирный или курсив в начале подписи снимается: в отчёте
+    встречаются и «**Табл. 1. Подпись.**», и «**Табл. 1.** Подпись». None —
+    абзац не подпись. У абзаца после номера нужна точка («Рис. 2 показывает…» —
+    обычный текст), в alt картинки (``alt``) — нет."""
+    nodes = list(nodes)
+    while nodes and isinstance(nodes[0], (Strong, Emph)):
+        nodes = list(nodes[0].children) + nodes[1:]
+    nodes = _merge_texts(nodes)
+    if not nodes or not isinstance(nodes[0], Text):
+        return None
+    m = CAPTION_PREFIX_RE.match(nodes[0].text)
+    if not m or m.group(2) != kind or not (alt or m.group(3)):
+        return None
+    rest = nodes[0].text[m.end() :]
+    return [Strong([Text(m.group(1))]), *([Text(rest)] if rest else []), *nodes[1:]]
+
+
+def _sole_image(block: object) -> Image | None:
+    if not isinstance(block, Paragraph):
+        return None
+    nodes = [x for x in parse_inline(block.text) if not (isinstance(x, Text) and not x.text.strip())]
+    return nodes[0] if len(nodes) == 1 and isinstance(nodes[0], Image) else None
+
+
+def _image_figure(image: Image, ctx: Context, caption: list | None) -> str:
+    call = _image_call(image, ctx, width="100%")
+    if caption is None and image.alt.strip():
+        alt = parse_inline(image.alt)
+        caption = caption_nodes(alt, "Рис", alt=True) or alt
+    if caption:
+        return f"#figure({call}, caption: [{render_inline(caption, ctx)}], numbering: none)"
+    return f"#figure({call}, numbering: none)"
+
+
+def _table_call(block: Table, ctx: Context) -> str:
+    """Вызов ``table(...)`` без ``#``: для figure и для отдельной таблицы."""
+    columns, inner = table_columns(block)
+
+    def row_cells(row: list[str], bold: bool = False) -> str:
+        cells = []
+        for c, cell in enumerate(row):
+            nodes = parse_inline(cell)
+            soft = soft_breaks(nodes, inner[c], bold) if inner[c] is not None else None
+            body = render_inline(nodes, ctx, soft)
+            if not bold and plain_text(nodes).strip() in LABELS:
+                body = f"#text(fill: {LABEL_FILL})[{body}]"  # столбец меток: метка без скобок
+            cells.append(f"[{body}]")
+        return ", ".join(cells)
+
+    lines = [
+        "table(",
+        f"  columns: {columns},",
+        f"  align: ({', '.join(block.aligns)},),",
+        f"  table.header({row_cells(block.header, bold=True)}),",
+    ]
+    lines.extend(f"  {row_cells(row)}," for row in block.rows)
+    lines.append(")")
+    return "\n".join(lines)
+
+
+def _render_blocks(blocks: list[object], ctx: Context) -> list[str]:
+    """Блоки по порядку; подпись и её таблица или картинка — один figure."""
+    out: list[str] = []
+    i = 0
+    while i < len(blocks):
+        block = blocks[i]
+        nxt = blocks[i + 1] if i + 1 < len(blocks) else None
+        if isinstance(block, Paragraph) and isinstance(nxt, Table):
+            caption = caption_nodes(parse_inline(block.text), "Табл")
+            if caption is not None:
+                figure = (
+                    f"#figure(\n{_table_call(nxt, ctx)},\n"
+                    f"kind: table, caption: [{render_inline(caption, ctx)}], numbering: none)"
+                )
+                if len(nxt.rows) > UNBREAKABLE_TABLE_MAX_ROWS:
+                    # длиннее страницы: неразрывный figure молча обрежет строки
+                    figure = f"#[\n#show figure: set block(breakable: true)\n{figure}\n]"
+                out.append(figure)
+                i += 2
+                continue
+        image = _sole_image(block)
+        if image is not None:
+            caption = caption_nodes(parse_inline(nxt.text), "Рис") if isinstance(nxt, Paragraph) else None
+            out.append(_image_figure(image, ctx, caption))
+            i += 2 if caption is not None else 1
+            continue
+        out.append(_render_block(block, ctx))
+        i += 1
+    return out
+
+
 def _render_block(block: object, ctx: Context) -> str:
     if isinstance(block, Heading):
         nodes = parse_inline(block.text)
@@ -1110,46 +1306,22 @@ def _render_block(block: object, ctx: Context) -> str:
             out += f" #label({typst_string(block.slug)})"
         return out
     if isinstance(block, Paragraph):
-        nodes = parse_inline(block.text)
-        images = [x for x in nodes if not (isinstance(x, Text) and not x.text.strip())]
-        if len(images) == 1 and isinstance(images[0], Image):
-            image = images[0]
-            call = _image_call(image, ctx, width="100%")
-            if image.alt.strip():
-                caption = render_inline(parse_inline(image.alt), ctx)
-                return f"#figure({call}, caption: [{caption}], numbering: none)"
-            return f"#figure({call}, numbering: none)"
-        return render_inline(nodes, ctx)
+        image = _sole_image(block)
+        if image is not None:
+            return _image_figure(image, ctx, None)
+        return render_inline(parse_inline(block.text), ctx)
     if isinstance(block, CodeBlock):
         lang = f", lang: {typst_string(block.lang)}" if block.lang else ""
         return f"#raw({typst_string(block.code)}, block: true{lang})"
     if isinstance(block, Rule):
         return "#line(length: 100%, stroke: 0.5pt + luma(150))"
     if isinstance(block, Table):
-        columns, inner = table_columns(block)
-
-        def row_cells(row: list[str], bold: bool = False) -> str:
-            cells = []
-            for c, cell in enumerate(row):
-                nodes = parse_inline(cell)
-                soft = soft_breaks(nodes, inner[c], bold) if inner[c] is not None else None
-                cells.append(f"[{render_inline(nodes, ctx, soft)}]")
-            return ", ".join(cells)
-
-        lines = [
-            "#table(",
-            f"  columns: {columns},",
-            f"  align: ({', '.join(block.aligns)},),",
-            f"  table.header({row_cells(block.header, bold=True)}),",
-        ]
-        lines.extend(f"  {row_cells(row)}," for row in block.rows)
-        lines.append(")")
-        return "\n".join(lines)
+        return "#" + _table_call(block, ctx)
     if isinstance(block, ListBlock):
         sep = "\n" if block.tight else "\n\n"
         items = []
         for item in block.items:
-            items.append("[" + sep.join(_render_block(b, ctx) for b in item) + "]")
+            items.append("[" + sep.join(_render_blocks(item, ctx)) + "]")
         tight = "true" if block.tight else "false"
         if block.ordered:
             head = f"#enum(start: {block.start}, tight: {tight},"
@@ -1168,29 +1340,33 @@ TABLE_CODE_PT = 4.5
 TABLE_CELL_PAD_PT = 9.0  # inset 4 pt с каждой стороны и линия
 NARROW_COLUMN_CHARS = 14  # колонка не шире стольких знаков остаётся auto
 HYPHEN_PIECE_CHARS = 9  # русское слово переносится по слогам
+UNBREAKABLE_TABLE_MAX_ROWS = 25  # таблица с подписью длиннее этого рвётся между страницами
 NO_BREAK_BEFORE = set(":;,.)]}!?/»…%")  # UAX 14: перед ними не рвут даже после пробела
 CODE_SOFT_BREAK_AFTER = "._:,=;"
 SOFT_BREAK = "#box()"  # место разрыва без знака в тексте (см. _raw_with_breaks)
 
 
-Char = tuple[str, bool]  # знак и признак «это код»
+Char = tuple[str, bool, bool]  # знак, «это код», «не рвётся» (см. nobreak_spans)
 
 
 def _flat_chars(nodes: list, out: list[Char], refs: list | None = None) -> list[Char]:
     """Знаки строки ячейки; в ``refs`` — (узел Code, номер знака) или None."""
     for node in nodes:
         if isinstance(node, Text):
-            out.extend((ch, False) for ch in node.text)
+            kept = [False] * len(node.text)
+            for start, end in nobreak_spans(node.text)[0]:
+                kept[start:end] = [True] * (end - start)
+            out.extend((ch, False, k) for ch, k in zip(node.text, kept))
             if refs is not None:
                 refs.extend([None] * len(node.text))
         elif isinstance(node, Code):
-            out.extend((ch, True) for ch in node.text)
+            out.extend((ch, True, False) for ch in node.text)
             if refs is not None:
                 refs.extend((node, k) for k in range(len(node.text)))
         elif isinstance(node, (Strong, Emph, Strike, Link)):
             _flat_chars(node.children, out, refs)
         elif isinstance(node, Image):
-            out.extend(("x", False) for _ in range(4))
+            out.extend(("x", False, False) for _ in range(4))
             if refs is not None:
                 refs.extend([None] * 4)
     return out
@@ -1198,12 +1374,13 @@ def _flat_chars(nodes: list, out: list[Char], refs: list | None = None) -> list[
 
 def _unbreakable_spans(chars: list[Char]) -> list[tuple[int, int]]:
     """Неразрывные куски [начало, конец) по приближению UAX 14: пробел (кроме
-    пробела перед «:», «,» и т. п.), после «/», после дефиса перед не-цифрой."""
+    пробела перед «:», «,» и т. п.), после «/», после дефиса перед не-цифрой.
+    Внутри неразрывных меток и названий наборов разрывов нет."""
     spans: list[tuple[int, int]] = []
     start = None
-    for i, (ch, _) in enumerate(chars):
-        if ch.isspace():
-            rest = next((c for c, _ in chars[i + 1 :] if not c.isspace()), "")
+    for i, (ch, _, kept) in enumerate(chars):
+        if ch.isspace() and not kept:
+            rest = next((c for c, _, _ in chars[i + 1 :] if not c.isspace()), "")
             if start is not None and not (rest and rest in NO_BREAK_BEFORE):
                 spans.append((start, i))
                 start = None
@@ -1211,7 +1388,7 @@ def _unbreakable_spans(chars: list[Char]) -> list[tuple[int, int]]:
         if start is None:
             start = i
         nxt = chars[i + 1][0] if i + 1 < len(chars) else ""
-        if ch == "/" or (ch in "-–—" and not nxt.isdigit()):
+        if not kept and (ch == "/" or (ch in "-–—" and not nxt.isdigit())):
             spans.append((start, i + 1))
             start = None
     if start is not None:
@@ -1232,17 +1409,19 @@ def _soft_points(chars: list[Char], start: int, end: int) -> list[int]:
 
 def _span_pt(chars: list[Char], bold: bool) -> float:
     text = TABLE_TEXT_PT * (TABLE_BOLD_FACTOR if bold else 1.0)
-    return sum(TABLE_CODE_PT if code else text for _, code in chars)
+    return sum(TABLE_CODE_PT if code else text for _, code, _ in chars)
 
 
 def _span_min_pt(chars: list[Char], start: int, end: int, bold: bool, soft: bool) -> float:
-    """Минимальная ширина куска: русское слово переносится по слогам, код при
-    ``soft`` рвётся в точках ``_soft_points``."""
+    """Минимальная ширина куска: русское слово переносится по слогам (кроме
+    шапки, ``bold``: её слова не переносятся), код при ``soft`` рвётся в
+    точках ``_soft_points``."""
     piece = chars[start:end]
-    letters = [ch for ch, code in piece if not code and ch.isalpha()]
+    letters = [ch for ch, code, _ in piece if not code and ch.isalpha()]
     cyrillic = [ch for ch in letters if "а" <= ch.lower() <= "я" or ch in "ёЁ"]
+    kept = any(k for _, _, k in piece)  # метка или название набора: без переносов
     width = _span_pt(piece, bold)
-    if letters and len(cyrillic) >= 0.7 * len(piece):
+    if letters and not kept and not bold and len(cyrillic) >= 0.7 * len(piece):
         return min(width, HYPHEN_PIECE_CHARS * TABLE_TEXT_PT * (TABLE_BOLD_FACTOR if bold else 1.0))
     if not soft:
         return width
@@ -1384,12 +1563,17 @@ def _collect_headings(blocks: list[object], ctx: Context, counts: dict[str, int]
     return title
 
 
+PREAMBLE_END = "// конец преамбулы"
+# Рваный правый край: при justify: false Typst по умолчанию (hyphenate: auto)
+# не переносит слова, строки длиннее и отчёт может вырасти на страницу. Поэтому
+# переносы в прозе включены явно, в заголовках выключены. Автора в метаданных
+# нет; дату (CreationDate) Typst ставит сам.
 PREAMBLE = """\
-#set document(title: {title})
+#set document(title: {title}, author: ())
 #set page(paper: "a4", margin: (x: 2cm, y: 2cm), numbering: "1 / 1", number-align: center)
-#set text(font: ("PT Serif", "Libertinus Serif", "New Computer Modern"), size: 10.5pt, lang: "ru")
-#set par(justify: true, leading: 0.6em, spacing: 1.0em)
-#show heading: set text(font: ("PT Sans", "Helvetica Neue"), weight: "bold")
+#set text(font: ("PT Serif", "Libertinus Serif", "New Computer Modern"), size: 10.5pt, lang: "ru", hyphenate: true)
+#set par(justify: false, leading: 0.6em, spacing: 1.0em)
+#show heading: set text(font: ("PT Sans", "Helvetica Neue"), weight: "bold", hyphenate: false)
 #show heading: set block(above: 1.25em, below: 0.65em)
 #show heading.where(level: 1): set text(size: 16pt)
 #show heading.where(level: 1): set block(above: 1.6em, below: 0.9em)
@@ -1407,10 +1591,15 @@ PREAMBLE = """\
 #set table.cell(breakable: false)
 #show table: set text(font: ("PT Sans", "Helvetica Neue"), size: 8.5pt, hyphenate: true)
 #show table: set par(justify: false, leading: 0.5em)
-#show table.cell.where(y: 0): set text(weight: "bold")
+#show table.cell.where(y: 0): set text(weight: "bold", hyphenate: false)
 #set table(fill: (_, y) => if y == 0 {{ luma(235) }})
-#show figure: set block(above: 1em, below: 1em)
-"""
+#show figure: set block(above: 1em, below: 1em, breakable: false)
+#show figure: set align(left)
+#show figure.where(kind: table): set figure.caption(position: top)
+#show figure.caption: set text(size: 9pt)
+#show figure.caption: set par(justify: false)
+#show figure.caption: set align(left)
+""" + PREAMBLE_END + "\n"
 
 
 def _warning_line(warning: str) -> int:
@@ -1447,7 +1636,7 @@ def markdown_to_typst(
             )
     ctx = Context(Path(base_dir), Path(repo_root), github_repo, ref)
     title = _collect_headings(blocks, ctx, {})
-    body = "\n\n".join(_render_block(b, ctx) for b in blocks)
+    body = "\n\n".join(_render_blocks(blocks, ctx))
     if warnings is not None:
         warnings.extend(found + ctx.warnings)
     return PREAMBLE.format(title=typst_string(title or "Отчёт")) + "\n" + body + "\n"
