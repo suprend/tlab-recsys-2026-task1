@@ -20,7 +20,7 @@
 |---|---|
 | `task1/` | конвейер REES46: импорт (`data.py`), таблицы дней (`build.py`), ручная база (`baseline.py`), CatBoost и NDCG@20 (`model.py`), очередь прогонов на валидации (`exp.py`), LLM-агент (`agent.py`, песочница `extra.py`), DFS (`dfs.py`), проверка утечек (`leakcheck.py`), единственный тест (`final.py`), разборы после теста (`posthoc.py`), повтор на 2020 (`replicate.py`, период — `period.py`), плацебо (`placebo.py`) |
 | `task1/runs/` | предрегистрации и квитанции прогонов: ночь, сетка, тест 2019, повтор 2020, плацебо |
-| `council/` | совет LLM-агентов, отбирающий колонки из H+ на REES46, в `council/xfer/` — его перенос на Tinkoff и СберМаркет; контракты и итоги — `council/runs/` |
+| `council/` | совет LLM-агентов на REES46: строит свои семейства признаков поверх H+ и отбирает среди них; в `council/xfer/` — его перенос на Tinkoff и СберМаркет; контракты и итоги — `council/runs/` |
 | `scripts/hm_*`, `scripts/xfer_*` | ручные базы и перенос агента на H&M, Tinkoff и СберМаркет |
 | `scripts/otto*` | OTTO-1 (контракт — `docs/otto-design.md`), OTTO-2 и OTTO-3 (разведка) |
 | `scripts/writeup_*` | рисунки отчёта из facts.md и сборка PDF |
