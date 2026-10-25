@@ -739,5 +739,344 @@
       "No complete raw-data replay",
       "Historical REPORT.pdf exports retained and labelled as previous versions"
     ]
+  },
+  "kion_style_rewrite_2026_10_25": {
+    "status": "completed",
+    "changes": [
+      "Research question and dataset context precede results",
+      "Transitions state the question addressed by each comparison",
+      "CMU Serif 11pt, 24mm margins, 6mm paragraph indent, numbered headings, plain page numbers",
+      "Requested AI participation section remains removed"
+    ],
+    "review": {
+      "draft": "rewrite_narrative",
+      "layout_measurement_and_independent_semantic_review": "style_layout: clean",
+      "tables_urls_figure_preserved": true,
+      "packaged_evidence_checker": "passed",
+      "builtin_compile": "success",
+      "pdf_pages_visually_inspected": 5,
+      "git_diff_check": "passed"
+    },
+    "sha256": {
+      "docs/writeup/latex-report/main.tex": "681b7a6e0b624730b6a1f9aa3efc739f238df289d84d4aa01ac34cfadd2ec2a8",
+      "docs/writeup/latex-report/main.pdf": "134e7d1ff3349aab6b018f30219b7ea12cf44e51782d3177792ed5dbe224526a"
+    },
+    "font_source": "https://mirrors.ctan.org/fonts/cm-unicode.zip",
+    "limitations": [
+      "No new experiments",
+      "Changes remain local; no commit or push in this turn"
+    ]
+  },
+  "paragraph_by_paragraph_2026_10_25": {
+    "status": "completed",
+    "paragraphs": 42,
+    "distinct_paragraph_reviewers": 42,
+    "edited": 12,
+    "unchanged": 30,
+    "iterations": [
+      {
+        "paragraph": 1,
+        "reviewer": "/root/paragraph_batch_a/p01",
+        "verdict": "clean",
+        "reason": "Вводный вопрос краток и понятен без предварительного знакомства с проектом; задаёт тему и не содержит необъяснённых специальных терминов или лишних утверждений."
+      },
+      {
+        "paragraph": 2,
+        "reviewer": "/root/paragraph_batch_a/p02",
+        "verdict": "edit",
+        "reason": "Уточнено, что фиксирован набор товаров для возможной рекомендации: «рассматриваемые товары» не объясняет роль этого ограничения. При первом упоминании пояснено, что агент основан на языковой модели. Последняя фраза привязана к оценкам качества, чтобы не распространять экспериментальный результат на качество рекомендаций вообще."
+      },
+      {
+        "paragraph": 3,
+        "reviewer": "/root/paragraph_batch_a/p03",
+        "verdict": "clean",
+        "reason": "Абзац последовательно объясняет подбор кандидатов, ранжирование и признаки на понятных примерах. Термины введены до дальнейшего использования; содержательных правок не требуется."
+      },
+      {
+        "paragraph": 4,
+        "reviewer": "/root/paragraph_batch_a/p04",
+        "verdict": "edit",
+        "reason": "После упоминания языковой модели слово «модель» в описании переобучения неоднозначно. Уточнено, что переобучается и задаётся модель ранжирования; остальной абзац понятен и сохранён."
+      },
+      {
+        "paragraph": 5,
+        "reviewer": "/root/paragraph_batch_a/p05",
+        "verdict": "edit",
+        "reason": "«Журнал корзин» неясно называет события: заменено на «добавлений в корзину». Остальной текст понятен и оставлен без изменений."
+      },
+      {
+        "paragraph": 6,
+        "reviewer": "/root/paragraph_batch_a/p06",
+        "verdict": "clean",
+        "reason": "Задача и понятие нового товара определены ясно. Ограничение данных логично объясняет, почему оцениваются последующие действия, а не влияние рекомендаций на покупки; лишних повторов нет."
+      },
+      {
+        "paragraph": 7,
+        "reviewer": "/root/paragraph_batch_a/p07",
+        "verdict": "clean",
+        "reason": "Временная граница входных событий и окно целевых действий заданы ясно; включение покупок объяснено. Определение нового товара дано в предыдущем абзаце, лишних повторов и необоснованных выводов нет."
+      },
+      {
+        "paragraph": 8,
+        "reviewer": "/root/paragraph_batch_a/p08",
+        "verdict": "clean",
+        "reason": "Единица оценки, условия отбора запросов и смысл метрики изложены последовательно. Уточнение о целевых товарах вне кандидатов предотвращает неверное понимание оценки; содержательных правок не требуется."
+      },
+      {
+        "paragraph": 9,
+        "reviewer": "/root/paragraph_batch_a/p09",
+        "verdict": "clean",
+        "reason": "Базовая система, источники кандидатов и используемые признаки описаны последовательно. Ранкер определён ранее, назначение валидации пояснено непосредственно в абзаце; необходимой содержательной правки не найдено."
+      },
+      {
+        "paragraph": 10,
+        "reviewer": "/root/paragraph_batch_a/p10",
+        "verdict": "edit",
+        "reason": "Уточнено, что речь о поиске признаков, проведённом ранее: сочетание «ранний автоматический поиск» само по себе не называет предмет поиска и может восприниматься как название метода."
+      },
+      {
+        "paragraph": 11,
+        "reviewer": "/root/paragraph_batch_a/p11",
+        "verdict": "clean",
+        "reason": "Абзац ясно разделяет выбор вариантов и подтверждающую проверку; год и назначение обеих частей валидации указаны без лишних подробностей."
+      },
+      {
+        "paragraph": 12,
+        "reviewer": "/root/paragraph_batch_b/paragraph12",
+        "verdict": "edit",
+        "reason": "Уточнено, что агент видел схему данных, а доверительный интервал относится к приросту метрики. Исправлена конструкция «два признака: близость», в которой после двоеточия названа только одна общая характеристика. Факты и критерии отбора сохранены."
+      },
+      {
+        "paragraph": 13,
+        "reviewer": "/root/paragraph_batch_b/paragraph13",
+        "verdict": "edit",
+        "reason": "Пример уточнён: dfs.py рассчитывает логарифм числа событий плюс один, а не сырое число просмотров. Остальной абзац понятен и явно ограничивает реализацию фиксированной сеткой агрегатов."
+      },
+      {
+        "paragraph": 14,
+        "reviewer": "/root/paragraph_batch_b/paragraph14",
+        "verdict": "clean",
+        "reason": "Абзац понятно связывает результат пошагового отбора с отдельной гипотезой о совместной пользе признаков и явно описывает последовательность её формулирования, валидации и проверки на новом тесте. Существенных языковых или смысловых правок не требуется."
+      },
+      {
+        "paragraph": 15,
+        "reviewer": "/root/paragraph_batch_b/paragraph15",
+        "verdict": "clean",
+        "reason": "Абзац ясно задаёт одинаковые условия сравнения, размер полного набора и способ усреднения; seed пояснён при употреблении. Существенных повторов или неясностей нет."
+      },
+      {
+        "paragraph": 16,
+        "reviewer": "/root/paragraph_batch_b/paragraph16",
+        "verdict": "edit",
+        "reason": "Уточнено, что доверительный интервал относится к приросту метрики: без этого положительную нижнюю границу можно ошибочно отнести к самому NDCG@20."
+      },
+      {
+        "paragraph": 17,
+        "reviewer": "/root/paragraph_batch_b/paragraph17",
+        "verdict": "clean",
+        "reason": "Даты, объём теста и причина исключения двух дней изложены кратко и понятно; оснований для содержательной правки нет."
+      },
+      {
+        "paragraph": 18,
+        "reviewer": "/root/paragraph_batch_b/paragraph18",
+        "verdict": "edit",
+        "reason": "Обрывочную фразу «Изменение относительно базы» связал со столбцом таблицы; объединение с пояснением об округлении делает примечание понятнее без изменения фактов."
+      },
+      {
+        "paragraph": 19,
+        "reviewer": "/root/paragraph_batch_b/paragraph19",
+        "verdict": "edit",
+        "reason": "Процентный прирост относится к значению метрики, а не непосредственно к порядку товаров; уточнён объект сравнения."
+      },
+      {
+        "paragraph": 20,
+        "reviewer": "/root/paragraph_batch_b/paragraph20",
+        "verdict": "clean",
+        "reason": "Абзац кратко уточняет величину прироста и интервалы для двух запусков обучения; метрика и смысл запусков понятны из предыдущего абзаца. Необходимости в правке нет."
+      },
+      {
+        "paragraph": 21,
+        "reviewer": "/root/paragraph_batch_b/paragraph21",
+        "verdict": "clean",
+        "reason": "Абзац ясно сопоставляет отбор отдельных предложений с полным набором, сообщает ограничения результата и настройки. Значение предложений и подтверждающей части объяснено ранее; содержательной правки не требуется."
+      },
+      {
+        "paragraph": 22,
+        "reviewer": "/root/paragraph_batch_b/paragraph22",
+        "verdict": "edit",
+        "reason": "Фраза «Recall@20 только купленных товаров» допускает неоднозначное прочтение; уточнено, что обе метрики рассчитаны по купленным товарам. Для первого знакомства с проектом кратко раскрыт смысл Recall@20."
+      },
+      {
+        "paragraph": 23,
+        "reviewer": "/root/paragraph_batch_c/p23",
+        "verdict": "clean",
+        "reason": "Абзац ясно отделяет результат совместного набора от проверки вклада DFS. Термины и два периода введены ранее; наличие нуля в интервалах не объявлено доказательством равенства. Существенной правки не требуется."
+      },
+      {
+        "paragraph": 24,
+        "reviewer": "/root/paragraph_batch_c/p24",
+        "verdict": "clean",
+        "reason": "Абзац кратко и понятно описывает контрольную проверку: что перемешивали, какие свойства сохранили и что произошло с выигрышем. Валидация и автоматическая генерация уже объяснены ранее; повторов и необоснованных выводов нет."
+      },
+      {
+        "paragraph": 25,
+        "reviewer": "/root/paragraph_batch_c/p25",
+        "verdict": "clean",
+        "reason": "Термины NDCG@20, DFS, seed и совместный набор объяснены выше. Абзац ясно отделяет дополнительный разбор уже просмотренного теста от независимой итоговой проверки, сохраняет ограничения интервалов и не трактует включение нуля как равенство. Существенных стилистических проблем нет."
+      },
+      {
+        "paragraph": 26,
+        "reviewer": "/root/paragraph_batch_c/p26",
+        "verdict": "edit",
+        "reason": "Термины «полнота» и «метки» здесь не объяснены читателю без подготовки. Замена кратко раскрывает их смысл, сохраняя утверждения об оценке и использовании теста. Внешние источники не проверялись."
+      },
+      {
+        "paragraph": 27,
+        "reviewer": "/root/paragraph_batch_c/p27",
+        "verdict": "clean",
+        "reason": "Термины «кандидаты» и «признаки» объяснены ранее. Абзац кратко описывает действие агента и сразу поясняет его конкретными примерами; повторов и лишних утверждений нет."
+      },
+      {
+        "paragraph": 28,
+        "reviewer": "/root/paragraph_batch_c/p28",
+        "verdict": "clean",
+        "reason": "Последовательность запусков и вклад человека и агента понятны; ранкер и кандидаты объяснены ранее. Абзац не требует содержательной или языковой правки."
+      },
+      {
+        "paragraph": 29,
+        "reviewer": "/root/paragraph_batch_c/p29",
+        "verdict": "clean",
+        "reason": "Краткое примечание непосредственно под графиком предупреждает, что шкала не начинается с нуля. В этом контексте оно понятно, полезно для чтения графика и не требует стилистической правки."
+      },
+      {
+        "paragraph": 30,
+        "reviewer": "/root/paragraph_batch_c/p30",
+        "verdict": "clean",
+        "reason": "Private score и OTTO-2 объяснены ранее; абзац кратко сообщает относительный прирост метрики и согласованное направление изменений на двух проверках, не приписывая рост покупок. Существенной правки не требуется."
+      },
+      {
+        "paragraph": 31,
+        "reviewer": "/root/paragraph_batch_c/p31",
+        "verdict": "clean",
+        "reason": "Термины «кандидаты» и «признаки» объяснены ранее; примеры понятны в контексте действий покупателей. Абзац ясно разделяет ограничение оценки совместных изменений и отсутствие оценки отдельных признаков, поэтому существенного повтора нет."
+      },
+      {
+        "paragraph": 32,
+        "reviewer": "/root/paragraph_batch_c/p32",
+        "verdict": "clean",
+        "reason": "Вывод понятен и соразмерен описанным экспериментам. Термины введены ранее; независимые повторы поиска корректно отделены от повторов обучения. Правки ради косметики не нужны."
+      },
+      {
+        "paragraph": 33,
+        "reviewer": "/root/paragraph_batch_d/paragraph33",
+        "verdict": "clean",
+        "reason": "Абзац кратко и понятно ограничивает применимость результата REES46 одним магазином и новым тестовым периодом. Не переносит вывод на другие данные; необходимые термины объяснены ранее. Правка не требуется."
+      },
+      {
+        "paragraph": 34,
+        "reviewer": "/root/paragraph_batch_d/paragraph34",
+        "verdict": "clean",
+        "reason": "Абзац ясно описывает ограничения выбора по валидации и различает раннюю видимость подтверждающих оценок, правила отбора и уточнение плана. Подтверждающая часть объяснена ранее в отчёте; существенных повторов или неясных новых терминов нет. Косметическая замена не нужна."
+      },
+      {
+        "paragraph": 35,
+        "reviewer": "/root/paragraph_batch_d/paragraph35",
+        "verdict": "clean",
+        "reason": "Ограничения настройки базы и применимости порога изложены кратко и понятно. База, запуски обучения и порог для отдельного предложения объяснены ранее; абзац не преувеличивает выводы и не требует содержательной правки."
+      },
+      {
+        "paragraph": 36,
+        "reviewer": "/root/paragraph_batch_d/paragraph36",
+        "verdict": "clean",
+        "reason": "Порядок проверки доступной истории и сроки исправлений понятны из предшествующего описания эксперимента. Абзац сохраняет необходимую оговорку: выполненные проверки не доказывают полного отсутствия утечек. Содержательная правка не требуется."
+      },
+      {
+        "paragraph": 37,
+        "reviewer": "/root/paragraph_batch_d/paragraph37",
+        "verdict": "clean",
+        "reason": "Кратко и понятно вводит ограничение адаптивного поиска; следующий пункт раскрывает, как оценки использовались повторно. Формулировка не обесценивает private-оценку и не требует дополнительных терминов."
+      },
+      {
+        "paragraph": 38,
+        "reviewer": "/root/paragraph_batch_d/paragraph38",
+        "verdict": "clean",
+        "reason": "Абзац ясно перечисляет случаи повторного использования оценок и изменения критерия после просмотра результатов. Private score и простая исходная система объяснены ранее; факты и ограничение интерпретации изложены без лишних повторов."
+      },
+      {
+        "paragraph": 39,
+        "reviewer": "/root/paragraph_batch_d/paragraph39",
+        "verdict": "clean",
+        "reason": "Абзац ясно объясняет, какая информация доступна в эксперименте Kaggle и почему результат не проверяет строгую постановку с использованием только прошлого. Дополнительные термины или повторы не мешают пониманию."
+      },
+      {
+        "paragraph": 40,
+        "reviewer": "/root/paragraph_batch_d/paragraph40",
+        "verdict": "clean",
+        "reason": "Ограничения сравнения и новизны изложены ясно и без усиления выводов. Термины LLM и кандидаты введены ранее; дополнительное пояснение не требуется."
+      },
+      {
+        "paragraph": 41,
+        "reviewer": "/root/paragraph_batch_d/paragraph41",
+        "verdict": "edit",
+        "reason": "Формулировка «в повторе 2020» не объясняет, что именно повторяли, и может быть понята как новый запуск поиска агента. Уточнение связывает замер с экспериментом на данных 2020 года; остальные формулировки и числа сохранены."
+      },
+      {
+        "paragraph": 42,
+        "reviewer": "/root/paragraph_batch_d/paragraph42",
+        "verdict": "clean",
+        "reason": "Абзац ясно перечисляет материалы для воспроизведения и обозначает, какие материалы не входят в Git. REES46, OTTO и тест 2020 уже представлены в тексте; содержательная правка не требуется. Ссылки и фактическую доступность материалов не проверял."
+      }
+    ],
+    "checks": {
+      "numeric_tokens_urls_tables_figure": "unchanged",
+      "integration_review": "paragraph_integration: clean",
+      "builtin_compile": "success",
+      "packaged_evidence_check": "passed",
+      "pdf_visual_review": "all 5 pages inspected",
+      "git_diff_check": "passed"
+    },
+    "sha256": {
+      "docs/writeup/latex-report/main.tex": "ef8ad4aa50693b9835324bd07895c4c1c6a6d374482b594e06098ded051a6220",
+      "docs/writeup/latex-report/main.pdf": "1a083953d685b0f536be4b007a4ed6364bc3fc3044f5a96bc10dff2405c56c82"
+    },
+    "limitations": [
+      "Editorial review; no new experiment or complete source re-audit",
+      "Changes remain local"
+    ]
+  },
+  "section4_shortening_2026_10_25": {
+    "status": "completed",
+    "words_before": 415,
+    "words_after": 234,
+    "changes": [
+      "Main narrative reduced to question, comparable conditions, table and result",
+      "Threshold and excluded days retained in footnotes",
+      "Detailed secondary analyses linked rather than repeated",
+      "Seed terminology replaced by training runs where definition removed"
+    ],
+    "reviewer": "s4_method: clean",
+    "checks": [
+      "Table and numerical evidence check passed",
+      "Built-in compilation succeeded",
+      "All five PDF pages visually inspected"
+    ],
+    "source_sha256": "8e08323b8f1a4d297a1d1d9c445e59dfa0054f6bca09058bf9aada12ac6321f8",
+    "pdf_sha256": "0bb082a882ebbe9c5bec77e6c0b0fae147815f99b4dd56c54b94d638dd951f39"
+  },
+  "final_editorial_publication_2026_10_25": {
+    "changes": [
+      "Сокращён раздел 7; оговорка о подтверждающей валидации перенесена в раздел 3",
+      "Убрано сравнение замены ручных признаков из статьи; исходные результаты и их проверки сохранены",
+      "Упрощены формулировки и раздел OTTO; обновлены оформление и PDF"
+    ],
+    "verification": {
+      "report_checker": "passed",
+      "report_tests": 29,
+      "pdf_pages": 4,
+      "visual_review": "all four pages checked",
+      "repository_visibility": "public"
+    },
+    "reviewer": "s7_method",
+    "link_audit": "79 Markdown/LaTeX documents, 58 external URLs, 149 local anchors checked before final edit; added research journal link points to tracked docs/task1-v2-report.md"
   }
 }

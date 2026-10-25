@@ -36,7 +36,7 @@ def main():
     ax.set_xlim(-.35, 3.35)
     ax.set_yticks([.580, .590, .600])
     ax.yaxis.set_major_formatter(FormatStrFormatter('%.3f'))
-    ax.set_ylabel('Оценка Kaggle', color='#53616C')
+    ax.set_ylabel('Private score', color='#53616C')
     ax.grid(axis='y', color='#DFE5E9', lw=.6)
     ax.set_axisbelow(True)
     for k in ['top', 'right']: ax.spines[k].set_visible(False)

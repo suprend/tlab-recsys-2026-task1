@@ -75,6 +75,12 @@ class PortableReportTests(unittest.TestCase):
             expected.update(result['output_sha256'])
         self.assertEqual(omitted, expected)
 
+    def test_archived_replacement_population_is_checked(self):
+        self.edit('docs/writeup/latex-report/table-values.json',
+                  lambda x: x['arms']['F1']['seeds'][0].__setitem__('queries', -1))
+        with self.assertRaisesRegex(ValueError, 'F1: population differs'):
+            R.check(self.root)
+
     def test_duplicate_model_seed_is_rejected(self):
         self.edit(SEC+'results.json', lambda x: x['seeds'][1].__setitem__('seed_index', 0))
         with self.assertRaisesRegex(ValueError, 'unique seeds'):

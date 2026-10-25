@@ -18,10 +18,12 @@ def check(root=ROOT):
     summary = json.loads((root / values['summary']).read_text(encoding='utf-8'))['primary']
     arms = values['arms']
     rows = [line for line in text.splitlines() if '&' in line and re.search(r'0\.\d{4}', line)]
-    order = ('base', 'agent', 'dfs', 'Hp', 'F1')
+    order = ('base', 'agent', 'dfs', 'Hp')
     if len(rows) != len(order):
-        raise ValueError('The REES46 table must contain the five checked rows')
-    for arm, row in zip(order, rows):
+        raise ValueError('The REES46 table must contain the four checked rows')
+    displayed = dict(zip(order, rows))
+    # Preserve checks of the archived replacement experiment, omitted from the article.
+    for arm in (*order, 'F1'):
         record = arms[arm]
         mean = sum(seed['mean'] for seed in record['seeds']) / len(record['seeds'])
         if abs(mean - record['mean']) > 1e-12:
@@ -30,7 +32,9 @@ def check(root=ROOT):
             raise ValueError(f'{arm}: exact mean differs from published summary')
         if any(seed['queries'] != summary['queries'] for seed in record['seeds']):
             raise ValueError(f'{arm}: population differs from published summary')
-        numbers = re.findall(r'[-+]?0\.\d{4}', row)
+        if arm not in displayed:
+            continue
+        numbers = re.findall(r'[-+]?0\.\d{4}', displayed[arm])
         expected = [f'{mean:.4f}']
         if arm != 'base':
             expected.append(f"{mean - arms['base']['mean']:+.4f}")
