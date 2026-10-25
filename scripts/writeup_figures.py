@@ -519,7 +519,7 @@ def fig_otto_dev_vs_private() -> Path:
            private=(F["otto_d_otto2_i1_private"],), evid="exploratory")
     LB.row("i1 → i2: 18 новых предложений агента", dev=F["otto_d_i1_i2_dev"],
            private=(F["otto_d_i1_i2_private"],), evid="exploratory")
-    LB.row("i2 → i3: 20 новых признаков агента", dev=F["otto_d_i2_i3_dev"],
+    LB.row("i2 → i3: 20 новых предложений агента", dev=F["otto_d_i2_i3_dev"],
            private=(F["otto_d_i2_i3_private"],), evid="exploratory")
     LB.row("OTTO-2 → i3: итог OTTO-3", dev=F["otto_d_otto2_i3_dev"],
            private=(F["otto_d_otto2_i3_private"],), evid="exploratory")
