@@ -67,18 +67,19 @@ FACTS = {
     "otto_private_otto2": "0.58049",  # O18, исследовательский
     "otto_private_i1": "0.59299",  # O25, исследовательский
     "otto_private_i2": "0.59548",  # O32, G1, исследовательский
-    "otto_private_i3": None,  # O33 пуст: «i3: результат допишет координатор»
+    "otto_private_i3": "0.59628",  # O33, G1, исследовательский
     "otto_dev_B": "0.4778",  # O1, описательно
     "otto_dev_otto1": "0.5633",  # O8, описательно
     "otto_dev_otto2": "0.5653",  # O16, исследовательский
     "otto_dev_i1": "0.5777",  # O24, исследовательский
     "otto_dev_i2": "0.5802",  # O31, исследовательский
-    "otto_dev_i3": None,  # O33 пуст
+    "otto_dev_i3": "0.5810",  # O33, исследовательский
     "otto_calls_otto1": "6",  # таблица 2.1, O6
     "otto_calls_i1": "8",  # таблица 2.1, O20
     "otto_new_proposals_i2": "18",  # таблица 2.1 («18 новых предложений сделал агент»)
     "otto_calls_i2": "4",  # таблица 2.1 («(4 вызова)»), O26: модель вызывалась в 4 раундах из 12
-    "otto_who_i3": None,  # подпись шага i3 появится вместе с числом (O33)
+    "otto_calls_i3": "4",  # таблица 2.1 («(4 вызова)»), docs/otto3.md:127: 16 раундов, 12 — повтор i2
+    "otto_new_proposals_i3": "20",  # docs/otto3.md:127: 4 раунда F, 20 действительных предложений
     # пороги §10 по private (записаны до чисел; ориентиры по чужим отчётам, не проверены)
     "otto_thr_notebook": "0.575",  # O45, O46
     "otto_thr_works": "0.580",  # O45, O46
@@ -96,6 +97,10 @@ FACTS = {
     "otto_d_i1_i2_private": "+0.0025",  # таблица 2.3
     "otto_d_otto2_i2_dev": ("+0.0149", "+0.0139", "+0.0159"),  # G5, O36
     "otto_d_otto2_i2_private": "+0.0150",  # таблица 2.3 (вычислено)
+    "otto_d_i2_i3_dev": ("+0.0009", "+0.0004", "+0.0014"),  # G12
+    "otto_d_i2_i3_private": "+0.0008",  # таблица 2.3 (вычислено)
+    "otto_d_otto2_i3_dev": ("+0.0158", "+0.0148", "+0.0168"),  # G13
+    "otto_d_otto2_i3_private": "+0.0158",  # таблица 2.3 (вычислено)
 }
 
 # --------------------------------------------------------------------------
@@ -374,20 +379,22 @@ def fig_otto_ladder() -> Path:
     F = FACTS
     steps = [
         dict(name="база B", private=F["otto_private_B"], dev=F["otto_dev_B"], evid="descriptive",
-             who="оркестратор:\nручная база\nпо формулам контракта"),
+             who="оркестратор:\nручная база\nпо формулам\nконтракта"),
         dict(name="OTTO-1", private=F["otto_private_otto1"], dev=F["otto_dev_otto1"], evid="descriptive",
-             who=f"агент ({F['otto_calls_otto1']} вызовов):\nкандидаты и признаки\nбез отбора"),
+             who=f"агент ({F['otto_calls_otto1']} вызовов):\nкандидаты\nи признаки\nбез отбора"),
         dict(name="OTTO-2", private=F["otto_private_otto2"], dev=F["otto_dev_otto2"], evid="exploratory",
              who="оркестратор:\nобъём обучения\nранкера"),
         dict(name="OTTO-3 i1", private=F["otto_private_i1"], dev=F["otto_dev_i1"], evid="exploratory",
-             who=f"агент ({F['otto_calls_i1']} вызовов):\nновый набор кандидатов\nи признаков; лимиты\nзадал оркестратор"),
+             who=f"агент ({F['otto_calls_i1']} вызовов):\nновые кандидаты\nи признаки\nв лимитах\nоркестратора"),
         dict(name="OTTO-3 i2", private=F["otto_private_i2"], dev=F["otto_dev_i2"], evid="exploratory",
-             who=f"агент ({F['otto_calls_i2']} вызова):\n{F['otto_new_proposals_i2']} новых предложений —\n"
-                 "кандидаты и признаки"),
+             who=f"агент ({F['otto_calls_i2']} вызова):\n{F['otto_new_proposals_i2']} новых\nпредложений:\n"
+                 "кандидаты\nи признаки"),
     ]
     if F["otto_private_i3"] is not None:
         steps.append(dict(name="OTTO-3 i3", private=F["otto_private_i3"], dev=F["otto_dev_i3"],
-                          evid="exploratory", who=F["otto_who_i3"]))
+                          evid="exploratory",
+                          who=f"агент ({F['otto_calls_i3']} вызова):\n{F['otto_new_proposals_i3']} новых\nпредложений:\n"
+                              "только признаки"))
     n = len(steps)
     xs = list(range(n))
     ys = [num(s["private"]) for s in steps]
@@ -399,7 +406,7 @@ def fig_otto_ladder() -> Path:
     h_top = (top_lim[1] - top_lim[0]) * 1000 * unit_in
     h_bot = (bot_lim[1] - bot_lim[0]) * 1000 * unit_in
     gap = 0.10
-    top_m, bot_m = 0.40, 1.08
+    top_m, bot_m = 0.40, 1.20
     H = top_m + h_top + gap + h_bot + bot_m
     fig = plt.figure(figsize=(WIDTH_IN, H))
     x0, x1 = 0.10, 0.985
@@ -465,7 +472,7 @@ def fig_otto_ladder() -> Path:
         ax_b.annotate(s["who"], (x, 0), xycoords=("data", "axes fraction"), xytext=(0, -17),
                       textcoords="offset points", ha="center", va="top", fontsize=6.8, color=INK2,
                       linespacing=1.15)
-        ax_b.annotate(f"dev F3: {s['dev']}", (x, 0), xycoords=("data", "axes fraction"), xytext=(0, -55),
+        ax_b.annotate(f"dev F3: {s['dev']}", (x, 0), xycoords=("data", "axes fraction"), xytext=(0, -64),
                       textcoords="offset points", ha="center", va="top", fontsize=6.8, color=INK2)
     fig.text(0.012, 0.012, "dev F3 — Score той же модели на dev-неделе; уровни недель не сравниваются, "
              "сравниваются приросты.", fontsize=6.8, color=MUTED, va="bottom", ha="left")
@@ -512,8 +519,10 @@ def fig_otto_dev_vs_private() -> Path:
            private=(F["otto_d_otto2_i1_private"],), evid="exploratory")
     LB.row("i1 → i2: 18 новых предложений агента", dev=F["otto_d_i1_i2_dev"],
            private=(F["otto_d_i1_i2_private"],), evid="exploratory")
-    LB.row("OTTO-2 → i2: итог OTTO-3", dev=F["otto_d_otto2_i2_dev"],
-           private=(F["otto_d_otto2_i2_private"],), evid="exploratory")
+    LB.row("i2 → i3: 20 новых признаков агента", dev=F["otto_d_i2_i3_dev"],
+           private=(F["otto_d_i2_i3_private"],), evid="exploratory")
+    LB.row("OTTO-2 → i3: итог OTTO-3", dev=F["otto_d_otto2_i3_dev"],
+           private=(F["otto_d_otto2_i3_private"],), evid="exploratory")
     for it in LB.items:
         if it["kind"] == "row":
             it["value"] = f"{txt(it['dev'][0])} / {txt(it['private'][0])}"
@@ -531,7 +540,7 @@ def fig_otto_dev_vs_private() -> Path:
     axB.set_ylim(LB.y + 0.5, 0.7)
     axA.set_xlim(0.0830, 0.0905)
     axA.set_xticks([0.084, 0.086, 0.088, 0.090])
-    axB.set_xlim(-0.0006, 0.0166)
+    axB.set_xlim(-0.0006, 0.0176)
     axB.set_xticks([0, 0.004, 0.008, 0.012, 0.016])
     for ax, layout in ((axA, LA), (axB, LB)):
         clean_axes(ax)
