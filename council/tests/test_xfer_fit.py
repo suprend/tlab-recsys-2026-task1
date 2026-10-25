@@ -665,6 +665,7 @@ SMOKE = textwrap.dedent('''
 ''')
 
 
+@unittest.skipUnless((ROOT / 'artifacts/xfer/tinkoff/collections').is_dir(), 'no Tinkoff collections here')
 class SmokeTest(unittest.TestCase):
     """The real Tinkoff dataset in its own process: Context, specs, data stamp, check_rows; nothing is trained,
     no label is read, nothing is written."""
