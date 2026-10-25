@@ -1,6 +1,6 @@
 # Как воспроизвести OTTO
 
-Инструкция ведёт от файлов соревнования Kaggle OTTO до чисел OTTO-1 ([otto.md](otto.md)), OTTO-2 ([otto2.md](otto2.md)) и OTTO-3 ([otto3.md](otto3.md)). Контракт эксперимента — [otto-design.md](otto-design.md), журнал базы B — [otto-base-log.md](otto-base-log.md).
+Инструкция ведёт от файлов соревнования Kaggle OTTO до чисел OTTO в [отчёте](writeup/REPORT.pdf) и в журналах OTTO-1 ([otto.md](otto.md)), OTTO-2 ([otto2.md](otto2.md)) и OTTO-3 ([otto3.md](otto3.md)). Предрегистрация эксперимента лежит в [otto-design.md](otto-design.md), журнал простой базы в [otto-base-log.md](otto-base-log.md). Числа отчёта сверяются со [сводкой чисел](writeup/facts.md).
 
 Все команды выполняются из корня репозитория на ветке `main`. Скрипты запускаются только как `.venv/bin/python -I scripts/<скрипт>.py`: без `-I` они отказываются работать. Каждая команда печатает одну строку JSON. Каталоги `data/` и `artifacts/` исключены из Git, их содержимое создают команды ниже.
 
