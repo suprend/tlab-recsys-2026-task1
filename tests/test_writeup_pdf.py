@@ -111,7 +111,7 @@ def typst_heights(width_pt: float, *markups: str) -> list[float]:
     with tempfile.TemporaryDirectory() as tmp:
         path = Path(tmp) / "measure.typ"
         path.write_text(
-            '#set text(font: ("PT Sans", "Helvetica Neue"), size: 8.5pt)\n'
+            '#set text(font: ("New Computer Modern", "New Computer Modern Math"), size: 8.5pt)\n'
             '#show raw: set text(font: ("PT Mono", "Menlo", "DejaVu Sans Mono"))\n'
             f"#context [#metadata(({items}).map(m => measure(block(width: {width_pt}pt, m)).height.pt())) <probe>]\n",
             encoding="utf-8",
@@ -697,7 +697,7 @@ class NoBreakTests(unittest.TestCase):
     def test_long_label_keeps_only_its_head_together(self):
         text = "≈48% [описательно: только ночной журнал, файла с результатом нет], дальше"
         out, _ = render_text(text)
-        self.assertIn("#box[#text(fill: luma(90))[\\[описательно:]]", out)
+        self.assertIn("#box[#text(fill: luma(70))[\\[описательно:]]", out)
         self.assertIn(f"#text(fill: {LABEL_FILL})[ только ночной журнал, файла с результатом нет\\]]", out)
 
     @unittest.skipUnless(TYPST, "typst не найден")
@@ -732,14 +732,14 @@ class NoBreakTests(unittest.TestCase):
         self.assertLess(sum(bare_text.count(t) for t in PROTECTED), sum(md.count(t) for t in PROTECTED))
 
     @unittest.skipUnless(TYPST and PDFTOTEXT, "нужны typst и pdftotext")
-    def test_ragged_prose_is_hyphenated_explicitly(self):
+    def test_justified_prose_is_hyphenated_explicitly(self):
         words = " ".join(["непереносимость", "достопримечательность", "высокопроизводительный"] * 30)
         with FakeRepo() as repo:
             pdf, typ = build_md(repo, f"# Т\n\n{words}\n")
             text = pdf_text(pdf, "-layout")
-        self.assertIn("#set par(justify: false", typ)
+        self.assertIn("#set par(justify: true", typ)
         self.assertIn('lang: "ru", hyphenate: true)', typ)
-        self.assertIn("\u00ad", text)  # при рваном крае Typst сам переносов не ставит
+        self.assertIn("\u00ad", text)  # переносы включены явно, не по умолчанию языка
 
     @unittest.skipUnless(TYPST and PDFTOTEXT, "нужны typst и pdftotext")
     def test_label_does_not_break_in_a_narrow_table_cell(self):
@@ -811,7 +811,7 @@ class CaptionTests(unittest.TestCase):
             "#show figure: set block(above: 1em, below: 1em, breakable: false)",
             "#show figure.where(kind: table): set figure.caption(position: top)",
             "#show figure.caption: set text(size: 9pt)",
-            "#show figure.caption: set par(justify: false)",
+            "#show figure.caption: set par(justify: true)",
             "#show figure.caption: set align(left)",
         ):
             self.assertIn(line, typ)
@@ -878,6 +878,18 @@ class HeaderWidthTests(unittest.TestCase):
         word = len("Воспроизводимость") * writeup_pdf.TABLE_TEXT_PT * writeup_pdf.TABLE_BOLD_FACTOR
         self.assertIsNotNone(inner[2])
         self.assertGreaterEqual(inner[2], word)
+
+@unittest.skipUnless(TYPST and shutil.which("pdffonts"), "нужны typst и pdffonts")
+class FontTests(unittest.TestCase):
+    def test_text_symbols_come_from_computer_modern(self):
+        # ≈ и ≥ нет в текстовом New Computer Modern: без Math их подставлял Libertinus
+        md = "# Т\n\nПорог ≈0.001, правило «стоп при private ≥ 0.590», −0.77%, 2 × 3 и §5.3.\n"
+        with FakeRepo() as repo:
+            pdf, _ = build_md(repo, md)
+            out = subprocess.run(["pdffonts", str(pdf)], capture_output=True, text=True).stdout
+        fonts = [line.split()[0].split("+")[-1] for line in out.splitlines()[2:]]
+        self.assertTrue(fonts)
+        self.assertEqual([f for f in fonts if not f.startswith("NewCM")], [], fonts)
 
 @unittest.skipUnless(TYPST, "typst не найден")
 class MetadataTests(unittest.TestCase):

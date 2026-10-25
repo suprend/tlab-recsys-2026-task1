@@ -958,7 +958,7 @@ NOBREAK_TERM_RE = re.compile(
     r"(?<!\w)(?:" + _LABEL_ALT + r"|СберМаркет\w*|Tinkoff\w*|REES46|H&M|OTTO)(?!\w)"
 )
 LABEL_BOX_MAX = 32  # метку длиннее (с подвидом) держим одной строкой только до первого пробела
-LABEL_FILL = "luma(90)"
+LABEL_FILL = "luma(70)"  # тоньше штрих Computer Modern: светлее не делать
 
 
 def nobreak_spans(text: str) -> tuple[list[tuple[int, int]], list[tuple[int, int]]]:
@@ -1332,10 +1332,11 @@ def _render_block(block: object, ctx: Context) -> str:
 
 
 # Ширины колонок таблиц. Знаки замерены typst на шрифтах преамбулы:
-# PT Sans 8.5 pt ≈ 4.1 pt на знак, жирный ≈ 4.4, PT Mono (7.5 pt) ≈ 4.5.
+# New Computer Modern 8.5 pt ≈ 4.2 pt на знак (берём 4.3 с запасом), жирный
+# ≈ 4.8, PT Mono (7.5 pt) ≈ 4.5.
 TEXT_WIDTH_PT = 481.9  # A4 минус поля по 2 см
-TABLE_TEXT_PT = 4.1
-TABLE_BOLD_FACTOR = 1.08
+TABLE_TEXT_PT = 4.3
+TABLE_BOLD_FACTOR = 1.15
 TABLE_CODE_PT = 4.5
 TABLE_CELL_PAD_PT = 9.0  # inset 4 pt с каждой стороны и линия
 NARROW_COLUMN_CHARS = 14  # колонка не шире стольких знаков остаётся auto
@@ -1564,16 +1565,16 @@ def _collect_headings(blocks: list[object], ctx: Context, counts: dict[str, int]
 
 
 PREAMBLE_END = "// конец преамбулы"
-# Рваный правый край: при justify: false Typst по умолчанию (hyphenate: auto)
-# не переносит слова, строки длиннее и отчёт может вырасти на страницу. Поэтому
-# переносы в прозе включены явно, в заголовках выключены. Автора в метаданных
-# нет; дату (CreationDate) Typst ставит сам.
+# Вид статьи LaTeX: New Computer Modern, текст по ширине. Знаков ≈ и ≥ в
+# текстовом начертании нет, их берёт New Computer Modern Math, как $\approx$ в
+# LaTeX. Переносы в прозе включены явно, в заголовках выключены. Автора в
+# метаданных нет; дату (CreationDate) Typst ставит сам.
 PREAMBLE = """\
 #set document(title: {title}, author: ())
 #set page(paper: "a4", margin: (x: 2cm, y: 2cm), numbering: "1 / 1", number-align: center)
-#set text(font: ("PT Serif", "Libertinus Serif", "New Computer Modern"), size: 10.5pt, lang: "ru", hyphenate: true)
-#set par(justify: false, leading: 0.6em, spacing: 1.0em)
-#show heading: set text(font: ("PT Sans", "Helvetica Neue"), weight: "bold", hyphenate: false)
+#set text(font: ("New Computer Modern", "New Computer Modern Math"), size: 10.5pt, lang: "ru", hyphenate: true)
+#set par(justify: true, leading: 0.6em, spacing: 1.0em)
+#show heading: set text(font: ("New Computer Modern", "New Computer Modern Math"), weight: "bold", hyphenate: false)
 #show heading: set block(above: 1.25em, below: 0.65em)
 #show heading.where(level: 1): set text(size: 16pt)
 #show heading.where(level: 1): set block(above: 1.6em, below: 0.9em)
@@ -1589,7 +1590,7 @@ PREAMBLE = """\
 #set enum(indent: 0.4em, body-indent: 0.5em)
 #set table(stroke: 0.4pt + luma(165), inset: (x: 4pt, y: 3pt))
 #set table.cell(breakable: false)
-#show table: set text(font: ("PT Sans", "Helvetica Neue"), size: 8.5pt, hyphenate: true)
+#show table: set text(font: ("New Computer Modern", "New Computer Modern Math"), size: 8.5pt, hyphenate: true)
 #show table: set par(justify: false, leading: 0.5em)
 #show table.cell.where(y: 0): set text(weight: "bold", hyphenate: false)
 #set table(fill: (_, y) => if y == 0 {{ luma(235) }})
@@ -1597,7 +1598,7 @@ PREAMBLE = """\
 #show figure: set align(left)
 #show figure.where(kind: table): set figure.caption(position: top)
 #show figure.caption: set text(size: 9pt)
-#show figure.caption: set par(justify: false)
+#show figure.caption: set par(justify: true)
 #show figure.caption: set align(left)
 """ + PREAMBLE_END + "\n"
 
